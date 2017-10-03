@@ -9,6 +9,7 @@
 // Author: InternerowyGołąb
 // Author: Jacenty359
 // Author: Krottyianock
+// Author: Macofe
 // Author: Mazab IZW
 // Author: Nemo bis
 // Author: Pawel Niemczuk
@@ -17,6 +18,7 @@
 // Author: Py64
 // Author: The Polish
 // Author: Ty221
+// Author: Vesihiisi
 // Author: WTM
 // Author: Wiochman
 // Author: Woytecr
@@ -63,8 +65,7 @@
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "alert-no-internet" = "Nie ma połączenia internetowego";
-// Fuzzy
-"announcements-dismiss" = "Nie, dziękuję";
+"announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
 "article-languages-filter-placeholder" = "Znajdź język";
@@ -82,6 +83,7 @@
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
 "button-report-a-bug" = "Zgłoś błąd";
+"cancel" = "Anuluj";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zamknij";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
@@ -107,6 +109,7 @@
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";
 "explore-random-article-heading" = "Losowy artykuł";
+"explore-randomizer" = "Losowy artykuł";
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
 "field-alert-password-invalid" = "Nieprawidłowe hasło";
@@ -134,13 +137,11 @@
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
 "history-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje ostatnie elementy?";
 "history-clear-delete-all" = "Tak, usuń wszystko";
-"history-section-today" = "Dzisiaj";
-"history-section-yesterday" = "Wczoraj";
 "history-title" = "Historia";
 "hockeyapp-alert-always-send" = "Zawsze wysyłaj";
 "hockeyapp-alert-do-not-send" = "Nie wysyłaj";
@@ -259,22 +260,22 @@
 "settings-support" = "Wspomóż Wikimedię";
 "settings-title" = "Ustawienia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedia: \"$2\"";
-"share-as-image" = "Udostępnij jako obraz";
-"share-as-text" = "Udostępnij jako tekst";
-"share-cancel" = "Anuluj";
 "share-custom-menu-item" = "Udostępnij...";
+"share-default-format" = "„$1” z „$1”: $3";
+"share-email-format" = "„$1”\n\nz „$2”\n\n$3";
+"share-menu-item" = "Udostępnij...";
+"share-message-format" = "„$1” $2";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
 "table-of-contents-heading" = "Zawartości";
 "table-title-other" = "Więcej informacji";
+"theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "two-factor-login-continue" = "Kontynuuj logowanie";
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
-"welcome-explore-tell-me-more" = "Powiedz mi więcej";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-languages-continue-button" = "Kontynuuj";

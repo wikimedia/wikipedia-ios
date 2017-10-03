@@ -55,7 +55,10 @@
 "action-unsave" = "Nun guardar";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
+"appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
+"appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
+"appearance-settings-text-sizing-example-text" = "Arrastra el control d'arriba pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
 "appearance-settings-title" = "Lleyendo temes";
 "article-about-title" = "Tocante a esti artículu";
@@ -66,6 +69,7 @@
 "article-languages-yours" = "Les tos llingües";
 "article-read-more-title" = "Lleer más";
 "article-share" = "Compartir";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controles de llectura de les temes";
 "article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Intenta recargar l'artículu para ver si eso igua'l problema.";
 "back" = "Anterior";
@@ -79,6 +83,7 @@
 "button-save-for-later" = "Guardar pa después";
 "button-saved-for-later" = "Guardao pa después";
 "button-saved-remove" = "Quitar de los guardaos";
+"cancel" = "Encaboxar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zarrar";
 "compass-direction" = "a les $1 en puntu";
@@ -124,8 +129,7 @@
 "explore-random-article-heading" = "Artículu al debalu";
 "explore-randomizer" = "Al debalu";
 "feed-news-notification-button-text" = "Activar los avisos";
-// Fuzzy
-"feed-news-notification-text" = "Agora puedes recibir avisos sobre artículos de Wikipedia que son enclín nes noticies.";
+"feed-news-notification-text" = "Activa los avisos pa recibir avisos de Wikipedia cuando los artículos seyan tendencia nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
 "field-alert-password-invalid" = "Contraseña inválida";
@@ -155,13 +159,11 @@
 "forgot-password-instructions" = "Rellena unu de los campos d'abaxo pa recibir per corréu instrucciones pa reaniciar la contraseña";
 "forgot-password-title" = "Reaniciar la contraseña";
 "forgot-password-username-or-email-title" = "O";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Llimpiar";
 "history-clear-cancel" = "Encaboxar";
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
-"history-section-today" = "Güei";
-"history-section-yesterday" = "Ayeri";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Unviar siempre";
 "hockeyapp-alert-do-not-send" = "Nun unviar";
@@ -182,8 +184,7 @@
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más nes noticies";
 "home-themes-action-title" = "Alministrar les preferencies";
-// Fuzzy
-"home-themes-prompt" = "Llei na escuridá o llenda la esposición a la lluz azul poles tardes colos nuevos temes de llectura Escuru y Sepia. Axusta les preferencies de Llectura (incluyendo'l tamañu del testu y tema) dende la barra de ferramientes del artículu o na configuración d'usuariu.";
+"home-themes-prompt" = "Axusta les preferencies de Llectura, incluyendo'l tamañu del testu y tema, dende la barra de ferramientes del artículu o na configuración d'usuariu pa una esperiencia de llectura más cómoda.";
 "home-title" = "Esplorar";
 "home-title-accessibility-label" = "Wikipedia, subir al entamu d'Esplorar";
 "icon-shortcut-continue-reading-title" = "Siguir lleyendo";
@@ -253,6 +254,7 @@
 "page-protected-sysop" = "Esta páxina ta protexida dafechu.";
 "page-read-in-other-languages" = "Disponible'n $1 idiomes más";
 "page-similar-titles" = "Páxines asemeyaes";
+"page-talk-page" = "Ver la páxina d'alderique";
 "pictured" = "con semeya";
 "places-accessibility-clear-saved-searches" = "Llimpiar les guetes guardaes";
 "places-accessibility-close-search" = "Zarrar la gueta";
@@ -293,6 +295,11 @@
 "preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "rank-accessibility-label" = "Númberu $1";
 "readers-accessibility-label" = "$1 llectores";
+"reading-themes-controls-accessibility-brightness-slider" = "Control de rellumu";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema escura";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema clara";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
+"reading-themes-controls-accessibility-text-size-slider" = "Control de tamañu del testu";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Güei|Ayeri|Hai $1 díes}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
@@ -333,16 +340,20 @@
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
 "settings-support" = "Sofita Wikimedia";
 "settings-title" = "Configuración";
-"share-a-fact-share-menu-item" = "Comparte-un-fechu";
+"share-a-fact-made-with" = "Fecho cola app de Wikipedia";
+"share-a-fact-share-menu-item" = "Comparte-un fechu…";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
-"share-as-image" = "Compartir como imaxe";
-"share-as-text" = "Compartir como testu";
-"share-cancel" = "Encaboxar";
+"share-building" = "Construyendo una tarxeta Comparte-un fechu…";
 "share-custom-menu-item" = "Compartir...";
+"share-default-format" = "«$1» de «$2»: $3";
+"share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Recibir indicaciones";
+"share-menu-item" = "Compartir…";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir en Mapes";
+"share-social-format" = "«$1» vía Wikipedia: $2";
+"share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "status-saved-for-later" = "Guardao pa dempués";
 "status-saving-for-later" = "Guardando para dempués…";
 "table-of-contents-button-label" = "Tabla de conteníu";
@@ -362,9 +373,10 @@
 "two-factor-login-with-backup-code" = "Usar unu de los códigos de respaldu";
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
 "welcome-explore-continue-button" = "Primeros pasos";
-"welcome-explore-new-ways-sub-title" = "Nuevos avisos y «widgets» p'ayudate a atopar artículos interesantes";
+"welcome-explore-features-news-notifications" = "Recibir avisos sobre les temes que son tendencia nes noticies.";
+"welcome-explore-features-on-this-day" = "Viaxa al pasáu con $1 pa saber qué asocedió na hestoria tal día como güei";
+"welcome-explore-features-places" = "Usa la llingüeta $1 p'alcontrar sitios interesantes cercanos o buscar pel mundu";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
-"welcome-explore-tell-me-more" = "Cúntame más";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
 "welcome-languages-add-button" = "Amestar otra llingua";
 "welcome-languages-continue-button" = "Siguir";
@@ -390,7 +402,7 @@
 "wikitext-upload-save" = "Espublizando...";
 "wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
 "wikitext-upload-save-sign-in" = "Aniciar sesión";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambeos, aceptes los $1 y lliberar la to contribución baxo les llicencies $2 y $3.";
 "wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";

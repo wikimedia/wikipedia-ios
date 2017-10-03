@@ -3,7 +3,7 @@ import Foundation
 @objc class ArticleLocationController: NSObject {
     let migrationKey = "WMFDidCompleteQuadKeyMigration"
     
-    func needsMigration(managedObjectContext: NSManagedObjectContext) -> Bool {
+    @objc func needsMigration(managedObjectContext: NSManagedObjectContext) -> Bool {
         do {
             let keyValueRequest = WMFKeyValue.fetchRequest()
             keyValueRequest.predicate = NSPredicate(format: "key == %@", migrationKey)
@@ -15,7 +15,7 @@ import Foundation
         }
     }
     
-    func migrate(managedObjectContext: NSManagedObjectContext, completion: @escaping (Error?) -> Void) {
+    @objc func migrate(managedObjectContext: NSManagedObjectContext, completion: @escaping (Error?) -> Void) {
 
         do {
             let request = WMFArticle.fetchRequest()

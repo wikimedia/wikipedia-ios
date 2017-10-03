@@ -25,6 +25,12 @@ module.exports = function (grunt) {
           'js/utilities.js'
         ],
         dest: `${distFolder}preview.js`
+      },
+      distAbout: {
+        src: [
+          'about-main.js'
+        ],
+        dest: `${distFolder}about.js`
       }
     },
 
@@ -37,10 +43,7 @@ module.exports = function (grunt) {
         },
         files: [
           {
-            src: [
-              'less/**/*.less',
-              'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css'
-            ],
+            src: 'less/**/*.less',
             dest: `${distFolder}styleoverrides.css`
           }
         ]
@@ -67,9 +70,14 @@ module.exports = function (grunt) {
               'ios.json',
               'languages.json',
               'mainpages.json',
-              '*.png'
+              '*.png',
+              '*.pdf'
             ],
             dest: distFolder
+          },
+          {
+            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
+            dest: `${distFolder}wikimedia-page-library-transform.css`
           }
         ]
       }

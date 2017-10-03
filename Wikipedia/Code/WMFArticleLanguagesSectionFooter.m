@@ -28,7 +28,6 @@
     self.backgroundView.backgroundColor = theme.colors.baseBackground;
     self.titleLabel.textColor = theme.colors.secondaryText;
     [self.addButton setTitleColor:theme.colors.link forState:UIControlStateNormal];
-    self.addButton.backgroundColor = theme.colors.paperBackground;
 }
 
 @end

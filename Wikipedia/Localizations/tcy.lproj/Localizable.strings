@@ -87,8 +87,6 @@
 "history-clear-all" = "ಮಾಜಲೇ";
 "history-clear-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "history-clear-delete-all" = "ಅಂದ್, ಮಾನ್ತೆನ್ಲ ವಜಾ ಮಾನ್ಪಿ";
-"history-section-today" = "ಇನಿ";
-"history-section-yesterday" = "ಕೋಡೆ";
 "history-title" = "ಇತಿಹಾಸೊ";
 "home-hide-suggestion-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
@@ -158,9 +156,6 @@
 "settings-support" = "ವಿಕಿಪೀಡಿಯತಾ ಬೆಂಬಲಾ";
 "settings-title" = "ಸಂಯೋಜನೆಲು";
 "share-article-name-on-wikipedia" = "\"$1\" on @ವಿಕಿಪೀಡಿಯಾ:";
-"share-as-image" = "ಪಟ ಅತ್ ಪಟ್ಟುಕಾ";
-"share-as-text" = "ಪದೋ ಅತ್ ಪಟ್ಟುಕಾ";
-"share-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "share-custom-menu-item" = "ಪಟ್ಟುಕಾ...";
 "share-on-twitter-sign-off" = "ವಿಕಿಪೀಡಿಯ ಒಟ್ಟುಗೂ @";
 "share-open-in-maps" = "ನಕಾಶೆಡ್ ತೊಜಾಲೆ";
@@ -176,7 +171,6 @@
 "two-factor-login-continue" = "ಲಾಗಿನ್ ಅದ್ ಮುಂದುವರಿಲೆ";
 "two-factor-login-title" = "ಇರೇನಾ ಖಾತೆಗ್ ಲಾಗಿನ್ ಅಲೇ";
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
-"welcome-explore-tell-me-more" = "ಜಾಸ್ತಿ ತೆರಿಪಾಲೆ";
 "welcome-explore-tell-me-more-done-button" = "ಗೊತ್ತಂಡಾ";
 "welcome-languages-add-button" = "ನನೊಂಜಿ ಬಾಸೆನ್ ಸೇರ್ಸಲೇ";
 "welcome-languages-continue-button" = "ಮುಂದುವರೆಸಾಲೆ";

@@ -87,8 +87,6 @@
 "history-clear-cancel" = "Ophühre!";
 "history-clear-confirmation-heading" = "Wells De veraftesch all Ding neujere Saache fott schmiiße?";
 "history-clear-delete-all" = "Joh, donn alle fottschmieße";
-"history-section-today" = "Hügg";
-"history-section-yesterday" = "Jäßtere";
 "history-title" = "Väsjohne";
 "hockeyapp-alert-always-send" = "Emmer Scheke";
 "hockeyapp-alert-do-not-send" = "Nit scheke";
@@ -185,10 +183,6 @@
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-title" = "Enschtällonge";
 "share-article-name-on-wikipedia" = "„$1“ op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ op @Wikipedia: „$2“";
-"share-as-image" = "Wigger jävve als Beld";
-"share-as-text" = "Wigger jävve als Täx";
-"share-cancel" = "Ophühre";
 // Fuzzy
 "share-custom-menu-item" = "Wigger jävve";
 "share-on-twitter-sign-off" = "vun de @Wikipedia";
@@ -200,7 +194,6 @@
 "table-of-contents-heading" = "Enhalld";
 "table-title-other" = "Mih Aanjahbe";
 "welcome-explore-continue-button" = "Wigger";
-"welcome-explore-tell-me-more" = "Lohß mesch mih weße";
 "welcome-explore-tell-me-more-done-button" = "Wiggermaache";
 "welcome-languages-add-button" = "Donn nor_ren Schprohch dobei";
 "welcome-languages-continue-button" = "Wiggermaache";

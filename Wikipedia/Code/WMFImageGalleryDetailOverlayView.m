@@ -5,14 +5,13 @@
 #import "MWKLicense+ToGlyph.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
-@import Masonry;
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
 @property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
-@property (nonatomic, strong) IBOutlet UIStackView *ownerStackView;
+@property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
 @property (nonatomic, strong) IBOutlet UIStackView *ownerLabel;
 
 @property (nonatomic, strong) WMFGradientView *gradientView;
@@ -32,19 +31,16 @@
 
     WMFGradientView *gradientView = [WMFGradientView new];
     [gradientView.gradientLayer setLocations:@[@0, @1]];
-    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:0.85].CGColor,
                                             (id)[UIColor clearColor].CGColor]];
     // default start/end points, to be adjusted w/ image size
     [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
     [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
     gradientView.userInteractionEnabled = NO;
-    [self addSubview:gradientView];
-    [self sendSubviewToBack:gradientView];
+    [self insertSubview:gradientView atIndex:0];
     self.gradientView = gradientView;
-
-    [self.gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
+    gradientView.frame = self.bounds;
+    gradientView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self wmf_configureSubviewsForDynamicType];
 }
 
@@ -87,45 +83,13 @@
     self.imageDescriptionLabel.text = imageDescription;
 }
 
-- (BOOL)addImageViewForLicenseWithCode:(nonnull NSString *)code toStackView:(UIStackView *)stackView {
-    NSString *imageName = [@[@"license", code] componentsJoinedByString:@"-"];
-
-    UIImage *image = [UIImage imageNamed:imageName];
-
-    if (!image) {
-        return NO;
-    }
-
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    imageView.contentMode = UIViewContentModeCenter;
-    [imageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [stackView addArrangedSubview:imageView];
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.and.bottom.equalTo(self.ownerStackView);
-    }];
-
-    UILabel *space = [[UILabel alloc] init];
-    space.text = @" ";
-    [space setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    [stackView addArrangedSubview:space];
-
-    return YES;
-}
-
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
-    NSArray *subviews = [self.ownerStackView.arrangedSubviews copy];
-    for (UIView *view in subviews) {
-        [self.ownerStackView removeArrangedSubview:view];
-    }
-
     NSString *code = [license.code lowercaseString];
     if (code) {
-        NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
-        for (NSString *code in components) {
-            [self addImageViewForLicenseWithCode:code toStackView:self.ownerStackView];
-        }
+        NSArray<NSString *> *codes = [code componentsSeparatedByString:@"-"];
+        self.ownerStackView.licenseCodes = codes;
     } else {
-        [self addImageViewForLicenseWithCode:@"generic" toStackView:self.ownerStackView];
+        self.ownerStackView.licenseCodes = @[@"generic"];
         if (license.shortDescription) {
             UILabel *licenseDescriptionLabel = [self newLicenseLabel];
             NSString *format = owner ? @"%@ \u2022 " : @"%@";

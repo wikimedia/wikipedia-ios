@@ -9,10 +9,10 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedDayResponse
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, featuredArticle): @"tfa",
-              WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, topRead): @"mostread",
-              WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, pictureOfTheDay): @"image",
-              WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, newsStories): @"news" };
+    return @{WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, featuredArticle): @"tfa",
+             WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, topRead): @"mostread",
+             WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, pictureOfTheDay): @"image",
+             WMF_SAFE_KEYPATH(WMFFeedDayResponse.new, newsStories): @"news"};
 }
 
 + (NSValueTransformer *)featuredArticleJSONTransformer {
@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)newsStoriesJSONTransformer {
     return [MTLJSONAdapter arrayTransformerWithModelClass:[WMFFeedNewsStory class]];
+}
+
++ (NSString *)WMFFeedDayResponseMaxAgeKey {
+    return @"WMFFeedDayResponseMaxAge";
 }
 
 @end

@@ -44,6 +44,14 @@
     return self.info.contentSize;
 }
 
+- (UIEdgeInsets)readableMargins {
+    WMFCVLMetrics *metrics = self.metrics;
+    if (metrics == nil) {
+        return UIEdgeInsetsZero;
+    }
+    return metrics.readableMargins;
+}
+
 #pragma mark - Layout
 
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -76,9 +84,13 @@
 }
 
 - (void)prepareLayout {
+    CGFloat readableWidth = self.collectionView.readableContentGuide.layoutFrame.size.width;
+    if (self.metrics && self.metrics.readableWidth != readableWidth) {
+        self.layoutValid = NO;
+    }
     if (!self.isLayoutValid) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size];
+        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size readableWidth:readableWidth];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
@@ -123,6 +135,7 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
+    
     if (context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange) {
         self.layoutValid = NO;
     }

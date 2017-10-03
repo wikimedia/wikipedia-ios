@@ -1,30 +1,34 @@
 import Foundation
 
-extension ArticleCollectionViewCell: Themeable {
-    public func apply(theme: Theme) {
-        backgroundView?.backgroundColor = theme.colors.paperBackground
-        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
-        imageView.backgroundColor = theme.colors.midBackground
-        titleLabel.textColor = theme.colors.primaryText
-        descriptionLabel.textColor = theme.colors.secondaryText
-        extractLabel?.textColor = theme.colors.primaryText
-        saveButton.setTitleColor(theme.colors.link, for: .normal)
-        imageView.alpha = theme.imageOpacity
-        updateSelectedOrHighlighted()
-    }
-}
-
 public extension ArticleCollectionViewCell {
     fileprivate func adjustMargins(for index: Int, count: Int) {
-        var newMargins = margins ?? UIEdgeInsets.zero
+        var newMargins = layoutMargins
         let maxIndex = count - 1
         if index < maxIndex {
-            newMargins.bottom = round(0.5*margins.bottom)
+            newMargins.bottom = round(0.5*layoutMargins.bottom)
         }
         if index > 0 {
-            newMargins.top = round(0.5*margins.top)
+            newMargins.top = round(0.5*layoutMargins.top)
         }
-        margins = newMargins
+        layoutMargins = newMargins
+    }
+    
+    @objc(setTitleText:highlightingText:locale:)
+    func set(titleTextToAttribute: String?, highlightingText: String?, locale: Locale?) {
+        guard let titleTextToAttribute = titleTextToAttribute, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline) else {
+            titleLabel.text = nil
+            return
+        }
+        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
+        if let highlightingText = highlightingText {
+            let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
+            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
+                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
+            }
+        }
+        titleTextStyle = nil
+        titleFontFamily = nil
+        titleLabel.attributedText = attributedTitle
     }
     
     @objc(configureWithArticle:displayType:index:count:shouldAdjustMargins:theme:layoutOnly:)
@@ -61,8 +65,7 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
-            backgroundView?.backgroundColor = theme.colors.midBackground
-            selectedBackgroundView?.backgroundColor = theme.colors.baseBackground
+            setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
             updateSelectedOrHighlighted()
             imageViewDimension = 150
             extractLabel?.text = nil
@@ -85,6 +88,9 @@ public extension ArticleCollectionViewCell {
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             extractLabel?.text = nil
+        case .compactList:
+            configureForCompactList(at: index)
+            fallthrough
         case .page:
             fallthrough
         default:
@@ -95,7 +101,6 @@ public extension ArticleCollectionViewCell {
             if (shouldAdjustMargins) {
                 adjustMargins(for: index, count: count)
             }
-
         }
         
         titleLabel.accessibilityLanguage = articleLanguage
@@ -107,9 +112,9 @@ public extension ArticleCollectionViewCell {
 }
 
 public extension ArticleRightAlignedImageCollectionViewCell {
-    public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    @objc public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         if shouldShowSeparators {
-            self.bottomSeparator.backgroundColor = theme.colors.border
+            self.topSeparator.isHidden = index != 0
             self.bottomSeparator.isHidden = false
         } else {
             self.bottomSeparator.isHidden = true

@@ -68,6 +68,8 @@
 "action-unsave" = "Opslaan ongedaan maken";
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
+"appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
+"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeelding in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-theme-options" = "Thema-opties";
 "appearance-settings-title" = "Leesthema's";
@@ -92,6 +94,7 @@
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-saved-remove" = "Uit opgeslagen verwijderen";
+"cancel" = "Annuleren";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
@@ -168,13 +171,11 @@
 "forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Wissen";
 "history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
 "history-clear-delete-all" = "Ja, alles verwijderen";
-"history-section-today" = "Vandaag";
-"history-section-yesterday" = "Gisteren";
 "history-title" = "Geschiedenis";
 "hockeyapp-alert-always-send" = "Altijd verzenden";
 "hockeyapp-alert-do-not-send" = "Niet verzenden";
@@ -264,6 +265,7 @@
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
 "page-read-in-other-languages" = "Beschikbaar in $1 andere talen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+"page-talk-page" = "Overlegpagina bekijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
 "places-accessibility-close-search" = "Zoeken sluiten";
@@ -305,7 +307,6 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
-"reading-themes-controls-accessibility-dim-images-switch" = "Afbeeldingen dimmen";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
 "reference-title" = "Referentie $1";
@@ -348,16 +349,20 @@
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
-"share-a-fact-share-menu-item" = "Deel-een-feit";
+"share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
+"share-a-fact-share-menu-item" = "Deel-een-feit…";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
-"share-as-image" = "Als bestand delen";
-"share-as-text" = "Als tekst delen";
-"share-cancel" = "Annuleren";
+"share-building" = "Deel-een-feit-kaart aan het maken…";
 "share-custom-menu-item" = "Delen...";
+"share-default-format" = "“$1” uit “$2”: $3";
+"share-email-format" = "“$1”\n\nuit “$2”\n\n$3";
 "share-get-directions-in-maps" = "Routebeschrijving";
+"share-menu-item" = "Delen…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Openen in Kaarten";
+"share-social-format" = "“$1” via Wikipedia: $2";
+"share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "status-saved-for-later" = "Opgeslagen voor later";
 "status-saving-for-later" = "Aan het opslaan voor later...";
 "table-of-contents-button-label" = "Inhoudsopgave";
@@ -376,10 +381,9 @@
 "two-factor-login-title" = "Aanmelden bij uw account";
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
+"view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-explore-continue-button" = "Aan de slag";
-"welcome-explore-new-ways-sub-title" = "Nieuwe meldingen en widgets om u te helpen interessante pagina's te ontdekken";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
-"welcome-explore-tell-me-more" = "Vertel me meer";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
 "welcome-languages-continue-button" = "Doorgaan";
@@ -405,7 +409,8 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
 "zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";

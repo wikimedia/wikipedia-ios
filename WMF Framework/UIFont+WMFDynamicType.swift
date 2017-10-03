@@ -117,16 +117,16 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 12
             ],
             UIFontTextStyle.footnote: [
-                .accessibilityExtraExtraExtraLarge: 19,
-                .accessibilityExtraExtraLarge: 19,
-                .accessibilityExtraLarge: 19,
-                .accessibilityLarge: 19,
-                .accessibilityMedium: 19,
-                .extraExtraExtraLarge: 19,
-                .extraExtraLarge: 17,
-                .extraLarge: 15,
-                .large: 13,
-                .medium: 12,
+                .accessibilityExtraExtraExtraLarge: 20,
+                .accessibilityExtraExtraLarge: 20,
+                .accessibilityExtraLarge: 20,
+                .accessibilityLarge: 20,
+                .accessibilityMedium: 20,
+                .extraExtraExtraLarge: 20,
+                .extraExtraLarge: 18,
+                .extraLarge: 16,
+                .large: 14,
+                .medium: 13,
                 .small: 12,
                 .extraSmall: 12
             ],
@@ -159,6 +159,20 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .medium: 14,
                 .small: 13,
                 .extraSmall: 12
+            ],
+            UIFontTextStyle.headline: [ // Welcome screens headline
+                .accessibilityExtraExtraExtraLarge: 39,
+                .accessibilityExtraExtraLarge: 39,
+                .accessibilityExtraLarge: 39,
+                .accessibilityLarge: 39,
+                .accessibilityMedium: 39,
+                .extraExtraExtraLarge: 39,
+                .extraExtraLarge: 38,
+                .extraLarge: 37,
+                .large: 36,
+                .medium: 35,
+                .small: 34,
+                .extraSmall: 33
             ]
         ]
     ]
@@ -172,13 +186,16 @@ public extension UITraitCollection {
         }
     }
 }
+
+fileprivate var fontCache: [String: UIFont] = [:]
+
 public extension UIFont {
 
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
+    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
         return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.main.traitCollection)
     }
     
-    public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
+    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
         guard fontFamily != .system else {
             if #available(iOSApplicationExtension 10.0, *) {
@@ -195,20 +212,28 @@ public extension UIFont {
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? 21
 
+        let cacheKey = "\(fontFamily.rawValue)-\(size)"
+        if let font = fontCache[cacheKey] {
+            return font
+        }
+        
+        let font: UIFont
         switch fontFamily {
         case .georgia:
-            return UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
+            font = UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
         case .systemBlack:
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightBlack)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
         case .systemMedium:
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
         case .systemBold:
-            return UIFont.boldSystemFont(ofSize: size)
+            font = UIFont.boldSystemFont(ofSize: size)
         case .systemHeavy:
-            return UIFont.systemFont(ofSize: size, weight: UIFontWeightHeavy)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
-            return nil
+            font = UIFont.systemFont(ofSize: 17)
         }
+        fontCache[cacheKey] = font
+        return font
     }
 }

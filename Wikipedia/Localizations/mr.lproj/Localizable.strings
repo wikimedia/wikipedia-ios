@@ -92,8 +92,6 @@
 "history-clear-cancel" = "रद्द करा";
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-delete-all" = "होय, सर्व वगळा";
-"history-section-today" = "आज";
-"history-section-yesterday" = "काल";
 "history-title" = "इतिहास";
 "hockeyapp-alert-always-send" = "नेहमीच पाठवा";
 "hockeyapp-alert-do-not-send" = "पाठवू नका";
@@ -192,9 +190,6 @@
 "settings-primary-language-details" = "या अॲपसाठी, यादीतील प्रथम भाषा ही प्राथमिक भाषा म्हणून वापरल्या जाते. ही भाषा बदलण्याने, शोधा वर दाखविलेले, रोजचे आशय  बदलतील(जसे अविशिष्ट लेख).";
 "settings-support" = "विकिपीडियास साहाय्य करा";
 "settings-title" = "मांडण्या";
-"share-as-image" = "चित्र म्हणून सहभागा";
-"share-as-text" = "मजकूर म्हणून सहभागा";
-"share-cancel" = "रद्द करा";
 // Fuzzy
 "share-custom-menu-item" = "सहभाग करा";
 "table-of-contents-button-label" = "अनुक्रमणिका";
@@ -205,7 +200,6 @@
 "top-read-header-generic" = "विकिपीडिया";
 "top-read-header-with-language" = "$1 विकिपीडिया";
 "welcome-explore-continue-button" = "सुरुवात करा";
-"welcome-explore-tell-me-more" = "मला अधिक सांगा";
 "welcome-explore-tell-me-more-done-button" = "समजले";
 "welcome-languages-add-button" = "इतर भाषा जोडा";
 "welcome-languages-continue-button" = "चालू ठेवा";

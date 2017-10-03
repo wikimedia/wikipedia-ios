@@ -12,6 +12,7 @@
 // Author: Eduardo Addad de Oliveira
 // Author: Fasouzafreitas
 // Author: Felipe L. Ewald
+// Author: Fitoschido
 // Author: Fúlvio
 // Author: HenriqueCrang
 // Author: Luckas
@@ -76,7 +77,10 @@
 "action-unsave" = "Não salvo";
 "alert-no-internet" = "Não há conexão com a internet";
 "announcements-dismiss" = "Ignorar";
+"appearance-settings-adjust-text-sizing" = "Ajustar o tamanho do texto do artigo";
+"appearance-settings-image-dimming-footer" = "Diminua a opacidade das imagens no tema escuro";
 "appearance-settings-reading-themes" = "Temas de leitura";
+"appearance-settings-text-sizing-example-text" = "Arraste o controle deslizante acima para alterar o tamanho do texto do artigo. Utilize o tamanho do texto do seu sistema para redimensionar outras áreas de texto no aplicativo.";
 "appearance-settings-theme-options" = "Opções de temas";
 "appearance-settings-title" = "Temas de leitura";
 "article-about-title" = "Sobre este artigo";
@@ -101,6 +105,7 @@
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
 "button-saved-remove" = "Remover do salvo";
+"cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
@@ -176,13 +181,11 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
 "history-clear-delete-all" = "Sim, apagar tudo";
-"history-section-today" = "Hoje";
-"history-section-yesterday" = "Ontem";
 "history-title" = "Histórico";
 "hockeyapp-alert-always-send" = "Sempre enviar";
 "hockeyapp-alert-do-not-send" = "Não enviar";
@@ -193,7 +196,7 @@
 "hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, voltar para História";
-"home-button-popover-description" = "Toque no 'W' Para retornar ao feed de Explorar";
+"home-button-popover-description" = "Toque no 'W' para retornar ao feed de Explorar";
 "home-button-popover-title" = "Toque para ir para casa";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
 "home-hide-suggestion-cancel" = "Cancelar";
@@ -273,6 +276,7 @@
 "page-protected-sysop" = "Esta página foi totalmente protegida.";
 "page-read-in-other-languages" = "Disponível em $1 outros idiomas";
 "page-similar-titles" = "Páginas similares";
+"page-talk-page" = "Ver página de discussão";
 "pictured" = "Retratado";
 "places-accessibility-clear-saved-searches" = "Limpar pesquisas salvas";
 "places-accessibility-close-search" = "Fechar pesquisa";
@@ -315,7 +319,6 @@
 "readers-accessibility-label" = "$1 leitores";
 "reading-themes-controls-accessibility-brightness-slider" = "Controle deslizante de brilho";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
-"reading-themes-controls-accessibility-dim-images-switch" = "Imagens fracas";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema Sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlador de tamanho de texto";
@@ -359,16 +362,20 @@
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como o idioma principal para o aplicativo. Alterar esse idioma alterará o conteúdo diário (como o artigo em destaque) exibido no Explorar.";
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
-"share-a-fact-share-menu-item" = "Compartilhe um fato";
+"share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
+"share-a-fact-share-menu-item" = "Compartilhe um fato...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
-"share-as-image" = "Compartilhar como imagem";
-"share-as-text" = "Compartilhar como texto";
-"share-cancel" = "Cancelar";
+"share-building" = "Construindo um cartão de compartilhamento...";
 "share-custom-menu-item" = "Compartilhar...";
+"share-default-format" = "“$1” de “$2”: $3";
+"share-email-format" = "“$1”\n\nde “$2”\n\n$3";
 "share-get-directions-in-maps" = "Obter direções";
+"share-menu-item" = "Compartilhar...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir no Maps";
+"share-social-format" = "“$1” via Wikipedia: $2";
+"share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "status-saved-for-later" = "Salvo para mais tarde";
 "status-saving-for-later" = "Salvar para mais tarde ...";
 "table-of-contents-button-label" = "Tabela de conteúdos";
@@ -387,10 +394,12 @@
 "two-factor-login-title" = "Faça login na sua conta";
 "two-factor-login-with-backup-code" = "Use um dos seus códigos de backup";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
+"view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-explore-continue-button" = "Começar";
-"welcome-explore-new-ways-sub-title" = "Novas notificações e widgets para ajudá-lo a descobrir artigos interessantes";
+"welcome-explore-features-news-notifications" = "Receba notificações de notícias sobre temas de tendencia nas notícias";
+"welcome-explore-features-on-this-day" = "Volte no tempo com $1 para aprender o que aconteceu hoje na história";
+"welcome-explore-features-places" = "Use guia $1 para descobrir pontos de referência perto de você ou procure por todo o mundo";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
-"welcome-explore-tell-me-more" = "Conte-me mais";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-continue-button" = "Continuar";
@@ -416,7 +425,7 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ao publicar mudanças, você concorda com o $1 e concorda em divulgar sua contribuição sob a licença $2 e $3.";
 "wikitext-upload-save-terms-name" = "Termo de uso";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";

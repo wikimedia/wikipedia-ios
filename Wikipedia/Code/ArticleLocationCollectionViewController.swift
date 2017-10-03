@@ -4,11 +4,15 @@ import UIKit
 class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
     
-    let articleURLs: [URL]
+    var articleURLs: [URL] {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()
@@ -107,7 +111,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -119,7 +123,7 @@ extension ArticleLocationCollectionViewController {
                 return nil
         }
         let url = articleURL(at: indexPath)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore)
+        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
@@ -132,8 +136,8 @@ extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         return WMFLayoutEstimate(precalculated: false, height: WMFNearbyArticleCollectionViewCell.estimatedRowHeight())
     }
-    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing: true)
  
     }
 }

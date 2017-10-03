@@ -41,6 +41,7 @@
 "button-save-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
 "button-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "button-saved-remove" = "सङ्ग्रह गरिएकोबाट हटाउनुहोस् \\";
+"cancel" = "रद्द गर्ने";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
@@ -71,8 +72,6 @@
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्ने";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
-"history-section-today" = "आज";
-"history-section-yesterday" = "हिजो";
 "history-title" = "ईतिहास";
 "hockeyapp-alert-always-send" = "सधैँ पठाउनुहोस्";
 "hockeyapp-alert-title" = "माफ गर्नुहोस्, अनुप्रयोग पछिल्लो पटक क्र्यास भयो";
@@ -142,10 +141,6 @@
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "सेटिङ्हरू";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia पर \"$1\" : \"$2\"";
-"share-as-image" = "चित्रको रूपमा बाड्नुहोस्";
-"share-as-text" = "अक्षरको रूपमा बाड्नुहोस्";
-"share-cancel" = "रद्द गर्नुहोस्";
 "share-custom-menu-item" = "साझेदारी गर्नुहोस्...";
 "status-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "status-saving-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्...";

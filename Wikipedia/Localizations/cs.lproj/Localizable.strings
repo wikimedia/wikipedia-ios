@@ -111,8 +111,6 @@
 "history-clear-cancel" = "Zrušit";
 "history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
-"history-section-today" = "Dnes";
-"history-section-yesterday" = "Včera";
 "history-title" = "Historie";
 "hockeyapp-alert-always-send" = "Vždy posílat";
 "hockeyapp-alert-do-not-send" = "Neposílat";
@@ -197,9 +195,6 @@
 "settings-primary-language-details" = "První jazyk v seznamu bude použit jako primární jazyk pro aplikaci. Změna tohoto jazyku změní denní obsah (jako Doporučený Článek), znázorněných na \"Prozkoumat\".";
 "settings-support" = "Podpořte Wikipedii";
 "settings-title" = "Nastavení";
-"share-as-image" = "Sdílet jako obrázek";
-"share-as-text" = "Sdílet jako text";
-"share-cancel" = "Zrušit";
 "share-custom-menu-item" = "Sdílet...";
 "share-on-twitter-sign-off" = "via @Wikipedie";
 "status-saved-for-later" = "Uloženo na později";
@@ -212,7 +207,6 @@
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-see-more" = "Zobrazit další nejvíce čtené";
 "welcome-explore-continue-button" = "Začněte";
-"welcome-explore-tell-me-more" = "Dozvědět se více";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
 "welcome-languages-add-button" = "Přidat další jazyk";
 "welcome-languages-continue-button" = "Pokračovat";

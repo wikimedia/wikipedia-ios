@@ -122,8 +122,6 @@
 "history-clear-cancel" = "Atšaukti";
 "history-clear-confirmation-heading" = "Ar tikrai norite ištrinti visus naujus elementus?";
 "history-clear-delete-all" = "Taip, ištrinti viską";
-"history-section-today" = "Šiandien";
-"history-section-yesterday" = "Vakar";
 "history-title" = "Istorija";
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
@@ -228,10 +226,8 @@
 "settings-primary-language" = "Pagrindinis";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Dalintis faktu";
-"share-as-image" = "Dalintis kaip vaizdu";
-"share-as-text" = "Dalintis kaip tekstu";
-"share-cancel" = "Atšaukti";
 "share-custom-menu-item" = "Dalintis...";
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";
@@ -249,7 +245,6 @@
 "two-factor-login-continue" = "Tęsti prisijungimą";
 "two-factor-login-with-regular-code" = "Naudoti patvirtinimo kodą";
 "welcome-explore-continue-button" = "Pradėti";
-"welcome-explore-tell-me-more" = "Pasakykite man daugiau";
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-languages-add-button" = "Pridėti kitą kalbą";
 "welcome-languages-continue-button" = "Tęsti";

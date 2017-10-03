@@ -99,8 +99,6 @@
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "history-clear-confirmation-heading" = "ਕੀ ਤੁਸੀੰ ਪੱਕਾ ਆਪਣੀਆੰ ਸਾਰੀਆਂ ਹਾਲੀਆ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?";
 "history-clear-delete-all" = "ਹਾੰਜੀ, ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
-"history-section-today" = "ਅੱਜ";
-"history-section-yesterday" = "ਬੀਤੇ ਕੱਲ੍ਹ";
 "history-title" = "ਅਤੀਤ";
 "hockeyapp-alert-always-send" = "ਹਮੇਸ਼ਾ ਭੇਜੋ";
 "hockeyapp-alert-do-not-send" = "ਨਾ ਭੇਜੋ";
@@ -203,12 +201,9 @@
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
+// Fuzzy
 "share-a-fact-share-menu-item" = "ਤੱਥ ਸਾੰਝਾ ਕਰੋ";
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia ਉੱਤੇ: \"$2\"";
-"share-as-image" = "ਤਸਵੀਰ ਦੇ ਤੌਰ ਉੱਤੇ ਸਾਂਝਾ ਕਰੋ";
-"share-as-text" = "ਲਿਖਤ ਦੇ ਤੌਰ ਉੱਤੇ ਸਾਂਝਾ ਕਰੋ";
-"share-cancel" = "ਰੱਦ";
 "share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ...";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
 "status-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
@@ -221,7 +216,6 @@
 "top-read-header-generic" = "ਵਿਕੀਪੀਡੀਆ";
 "top-read-header-with-language" = "$1 ਵਿਕੀਪੀਡੀਆ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
-"welcome-explore-tell-me-more" = "ਮੈਨੂੰ ਹੋਰ ਦੱਸੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";
 "welcome-languages-continue-button" = "ਜਾਰੀ ਰੱਖੋ";

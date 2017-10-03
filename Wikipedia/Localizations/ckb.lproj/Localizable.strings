@@ -151,13 +151,12 @@
 "forgot-password-instructions" = "یەکێک لەم بۆشاییانەی خوارەوە پڕ بکەرەوە بۆ ئەوەی فێرکاری گۆڕینی تێپەڕوشەکەت پێ بگات بە ئیمەیڵ.";
 "forgot-password-title" = "ڕێکخستنەوەی تێپەڕوشە";
 "forgot-password-username-or-email-title" = "یان";
-"gdfl" = "GDFL";
+// Fuzzy
+"gfdl" = "GDFL";
 "history-clear-all" = "سڕینەوە";
 "history-clear-cancel" = "ھەڵوەشاندنەوە";
 "history-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕەکانت بسڕیتەوە؟";
 "history-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
-"history-section-today" = "ئەمڕۆ";
-"history-section-yesterday" = "دوێنێ";
 "history-title" = "مێژوو";
 "hockeyapp-alert-always-send" = "ڕەوانە کرا";
 "hockeyapp-alert-do-not-send" = "ڕەوانە نەکرا";
@@ -325,12 +324,9 @@
 "settings-primary-language-details" = "یەکەم زمانی ئەم لیستە وەک زمانی سەرەکی ئەپەکە بەکاردێت. گۆڕینی ئەم زمانە ناوەڕۆکی ڕۆژانەی پەڕەی سەرەکی دەگۆڕێت (وەک وتاری ھەڵبژێردراو، ھەواڵەکان، ھتد...)";
 "settings-support" = "پشتگیریی ویکیپیدیا بکە";
 "settings-title" = "ڕێکخستنەکان";
+// Fuzzy
 "share-a-fact-share-menu-item" = "ڕاستییەک-ھاوبەش-بکە";
 "share-article-name-on-wikipedia" = "«$1» لەسەر @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» لەسەر @Wikipedia: «$2»";
-"share-as-image" = "ھاوبەشکردن وەک وێنە";
-"share-as-text" = "ھاوبەشکردن وەک نووسین";
-"share-cancel" = "ھەڵوەشاندنەوە";
 "share-custom-menu-item" = "ھاوبەشکردن";
 "share-get-directions-in-maps" = "وەرگرتنی ئاڕاستەکان";
 "share-on-twitter-sign-off" = "لەڕێی @Wikipedia";
@@ -351,9 +347,7 @@
 "two-factor-login-with-backup-code" = "یەکێک لە کۆدی باک-ئەپەکانت بەکاربھێنە";
 "two-factor-login-with-regular-code" = "کۆدی دووپاتکردنەوە بەکاربھێنە";
 "welcome-explore-continue-button" = "دەست پێ بکە";
-"welcome-explore-new-ways-sub-title" = "ھۆشداری نوێ بۆ یارمەتیدانت لە دۆزینەوەی وتاری سەرنج ڕاکێش";
 "welcome-explore-new-ways-title" = "ڕێگەی نوێ بۆ گەڕان";
-"welcome-explore-tell-me-more" = "زۆرترم پێ بڵێ";
 "welcome-explore-tell-me-more-done-button" = "زانیم";
 "welcome-languages-add-button" = "زیادکردنی زمانێکی تر";
 "welcome-languages-continue-button" = "درێژە بدە";
@@ -380,7 +374,7 @@
 "wikitext-upload-save-anonymously-warning" = "دەستکارییەکان دەدرێنە پاڵ ناونیشانی ئای پییەکەی مۆبایلەکەت. ئەگەر $1 ئای پییەکەت دەشاردرێتەوە.";
 "wikitext-upload-save-sign-in" = "بچۆ ژوورەوە";
 // Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "بە پاشەکەوتکردنی گۆڕانکارییەکان، تۆ $1 پەسەند دەکەیت و ڕازی دەبیت بە بڵاوکردنەوەی بەشدارییەکانت لەژێر مۆڵەتنامەکانی $2 و $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "بە پاشەکەوتکردنی گۆڕانکارییەکان، تۆ $1 پەسەند دەکەیت و ڕازی دەبیت بە بڵاوکردنەوەی بەشدارییەکانت لەژێر مۆڵەتنامەکانی $2 و $3.";
 "wikitext-upload-save-terms-name" = "مەرجەکانی بەکارھێنان";
 "zero-charged-verbiage" = "ویکیپیدیا زیرۆ کوژاوەتەوە";
 "zero-charged-verbiage-extended" = "کردنەوەی وتاری تر لەوانەیە داتا ببات. وتارە خەزێنە کراوەکان بۆ ئۆفڵاین خۆڕایین و داتا نابەن.";

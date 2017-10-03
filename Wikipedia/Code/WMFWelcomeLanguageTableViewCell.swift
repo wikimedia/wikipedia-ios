@@ -1,5 +1,5 @@
 
-class WMFWelcomeLanguageTableViewCell: WMFCustomDeleteButtonTableViewCell {
+class WMFWelcomeLanguageTableViewCell: UITableViewCell {
     @IBOutlet var languageNameLabel:UILabel!
     var languageName: String? {
         set (newLanguageName){

@@ -13,9 +13,9 @@
 		<key>feedback</key>
 		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>
-		<string>http://translatewiki.net</string>
+		<string>https://translatewiki.net</string>
 		<key>wmf</key>
-		<string>http://wikimediafoundation.org</string>
+		<string>https://wikimediafoundation.org</string>
 	</dict>
 	<key>repositories</key>
 	<dict>
@@ -166,11 +166,13 @@ THE SOFTWARE.</string>
 		<string>Dmitry Brant</string>
 		<string>Elena Tonkovidova</string>
 		<string>Gabicoware</string>
+		<string>Gianmarco Salerno</string>
 		<string>Hua Zhenyu</string>
 		<string>Hynek Hanke</string>
 		<string>Ian MacFarlane</string>
 		<string>Jan Berkel</string>
 		<string>Joe Walsh</string>
+		<string>Jon Harald Søby</string>
 		<string>Jonatan Svensson Glad</string>
 		<string>Joshua Minor</string>
 		<string>Julien Bodet</string>
@@ -211,6 +213,7 @@ THE SOFTWARE.</string>
 		<string>Timo Tijhof</string>
 		<string>Tomasz Finc</string>
 		<string>Vibha Bamba</string>
+		<string>Victor Peschenkov</string>
 		<string>waffleboot</string>
 		<string>Yuvi Panda</string>
 	</array>

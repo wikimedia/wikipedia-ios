@@ -16,16 +16,15 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     
     open override func reset() {
         super.reset()
-        margins = UIEdgeInsetsMake(15, 13, 15, 13)
         spacing = 6
         saveButtonTopSpacing = 10
         imageViewDimension = 150
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let widthMinusMargins = size.width - margins.left - margins.right
+        let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         
-        var origin = CGPoint(x: margins.left, y: 0)
+        var origin = CGPoint(x: layoutMargins.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
@@ -34,7 +33,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             origin.y += imageViewDimension
         }
         
-        origin.y += margins.top
+        origin.y += layoutMargins.top
         
         let titleFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += titleFrame.layoutHeight(with: spacing)
@@ -64,7 +63,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             origin.y += saveButtonFrame.layoutHeight(with: spacing)
         }
         
-        origin.y += margins.bottom
+        origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
     

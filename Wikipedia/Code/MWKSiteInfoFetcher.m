@@ -22,6 +22,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }

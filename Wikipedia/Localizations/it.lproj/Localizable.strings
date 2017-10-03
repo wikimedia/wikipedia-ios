@@ -11,6 +11,7 @@
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
+// Author: Greis
 // Author: JackLantern
 // Author: Macofe
 // Author: Martinligabue
@@ -71,6 +72,8 @@
 "action-unsave" = "Annulla salvataggio";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
+"appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
+"appearance-settings-theme-options" = "Opzioni tema";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
 "article-languages-filter-placeholder" = "Trova lingua";
@@ -92,11 +95,13 @@
 "button-save-for-later" = "Salva per dopo";
 "button-saved-for-later" = "Salvato per dopo";
 "button-saved-remove" = "Rimuovi dai salvati";
+"cancel" = "Annulla";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Chiudi";
-"compass-direction" = "a ore $1";
+"compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"dark-theme-display-name" = "Scuro";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
@@ -161,12 +166,11 @@
 "forgot-password-email-sent" = "Una email è stata inviata con le istruzioni per la reimpostazione della password";
 "forgot-password-title" = "Reimposta password";
 "forgot-password-username-or-email-title" = "O";
+"gfdl" = "GFDL";
 "history-clear-all" = "Pulisci";
 "history-clear-cancel" = "Annulla";
 "history-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutti i tuoi elementi recenti?";
 "history-clear-delete-all" = "Sì, cancella tutto";
-"history-section-today" = "Oggi";
-"history-section-yesterday" = "Ieri";
 "history-title" = "Cronologia";
 "hockeyapp-alert-always-send" = "Invia sempre";
 "hockeyapp-alert-do-not-send" = "Non inviare";
@@ -175,6 +179,7 @@
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che la Wikimedia Foundation sia in grado di esaminarlo? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
 "hockeyapp-alert-title" = "Spiacenti, l'ultima volta l'applicazione è andata in errore";
+"home-button-explore-accessibility-label" = "Wikipedia, ritorna a Explore";
 "home-button-history-accessibility-label" = "Wikipedia, ritorna alla cronologia";
 "home-button-saved-accessibility-label" = "Wikipedia, ritorna alle pagine salvate";
 "home-hide-suggestion-cancel" = "Annulla";
@@ -238,7 +243,7 @@
 "on-this-day-title" = "In questo giorno";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annulla";
-"page-edit-history" = "Cronologia completa";
+"page-edit-history" = "Cronologia delle modifiche completa";
 "page-history-title" = "Cronologia dell'articolo";
 "page-issues" = "Problemi alla pagina";
 "page-last-edited" = "Modificata $1 giorni fa";
@@ -250,16 +255,24 @@
 "page-protected-sysop" = "Questa pagina è stata protetta.";
 "page-read-in-other-languages" = "Disponibile in altre $1 lingue";
 "page-similar-titles" = "Pagine simili";
+"places-accessibility-clear-saved-searches" = "Cancella le ricerche salvate";
 "places-accessibility-close-search" = "Chiudi la ricerca";
 "places-accessibility-group" = "$1 voci";
 "places-accessibility-show-as-list" = "Mostra come elenco";
 "places-accessibility-show-as-map" = "Mostra come mappa";
 "places-accessibility-show-more" = "Mostra più voci";
+"places-dismiss-filter-list-accessibility-label" = "Rimuovi i filtri di ricerca";
+"places-empty-search-description" = "Esplora città, paesi, continenti, luoghi naturali, eventi storici, edifici e altro ancora.";
+"places-enable-location-action-button-title" = "Permetti localizzazione";
+"places-enable-location-description" = "L'accesso alla tua localizzazione è disponibile solo quando l'applicazione o una delle sue funzioni è visibile sul tuo schermo.";
+"places-enable-location-title" = "Esplora gli articoli vicino alla tua ubicazione abilitando l'accesso alla localizzazione";
 "places-filter-list-title" = "Filtri di ricerca";
 "places-filter-no-saved-places" = "Non hai luoghi salvati";
 "places-filter-saved-articles" = "Voci salvate";
-"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|luogo trovato|luoghi trovati}}";
-"places-filter-top-articles-count" = "$1 {{PLURAL:$1|voce|voci}}";
+"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|$1 luogo trovato|$1 luoghi trovati}}";
+"places-filter-top-articles" = "Più letti";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|$1 voce|$1 voci}}";
+"places-no-saved-articles-have-location" = "Nessuno dei tuoi articoli salvati ha informazione di localizzazione";
 "places-search-default-text" = "Cerca luoghi";
 "places-search-did-you-mean" = "Forse cercavi $1?";
 "places-search-recently-searched-header" = "Cercato recentemente";
@@ -268,6 +281,7 @@
 "places-search-top-articles-that-match-scope" = "Nelle vicinanze";
 "places-search-your-current-location" = "La tua posizione attuale";
 "places-show-filter-list-accessibility-label" = "Mostra i filtri di ricerca";
+"places-title" = "Luoghi";
 "places-unknown-distance" = "distanza sconosciuta";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
@@ -275,6 +289,9 @@
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
+"reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";
 "reference-title" = "Riferimento $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Oggi|Ieri|$1 giorni fa}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
@@ -296,6 +313,7 @@
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "search-title" = "Ricerca";
+"settings-appearance" = "Aspetto";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-help-and-feedback" = "Aiuto e feedback";
@@ -308,16 +326,18 @@
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
-"share-a-fact-share-menu-item" = "Condividi-un-fatto";
+"share-a-fact-share-menu-item" = "Condividi-un-fatto…";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" su @Wikipedia: \"$2\"";
-"share-as-image" = "Condividi come immagine";
-"share-as-text" = "Condividi come testo";
-"share-cancel" = "Annulla";
 "share-custom-menu-item" = "Condividi...";
+"share-default-format" = "“$1” da “$2”: $3";
+"share-email-format" = "“$1”\n\nda “$2”\n\n$3";
 "share-get-directions-in-maps" = "Ottieni indicazioni";
+"share-menu-item" = "Condividi…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "tramite @Wikipedia";
 "share-open-in-maps" = "Apri in Maps";
+"share-social-format" = "“$1” tramite Wikipedia: $2";
+"share-social-mention-format" = "“$1” tramite @Wikipedia: $2";
 "status-saved-for-later" = "Salvato per dopo";
 "status-saving-for-later" = "Salvataggio per dopo...";
 "table-of-contents-button-label" = "Indice";
@@ -325,22 +345,27 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "table-title-other" = "Ulteriori informazioni";
+"theme-dark-display-name" = "Scuro";
+"theme-default-display-name" = "Predefinito";
+"theme-sepia-display-name" = "Seppia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in $1";
-"top-read-see-more" = "Vedi i più lettu";
+"top-read-see-more" = "Vedi altri tra i più letti";
 "two-factor-login-continue" = "Continua l'accesso";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
+"view-in-browser-footer-link" = "Vedi la voce nel browser";
 "welcome-explore-continue-button" = "Inizia";
+"welcome-explore-features-on-this-day" = "Viaggia indietro nel tempo con $1 per sapere cosa è successo oggi nella storia";
 "welcome-explore-new-ways-title" = "Nuovi modi per esplorare";
-"welcome-explore-tell-me-more" = "Dimmi di più";
 "welcome-explore-tell-me-more-done-button" = "Capito";
 "welcome-languages-add-button" = "Aggiungi un'altra lingua";
 "welcome-languages-continue-button" = "Continua";
 "welcome-languages-sub-title" = "Scegli la tua lingua preferita per la ricerca su Wikipedia";
 "welcome-languages-title" = "Lingue";
 "welcome-send-data-sub-title" = "Aiuto la Wikimedia Foundation a rendere migliore l'applicazione, facendoci sapere come la utilizzi. I dati raccolti sono anonimi";
+"welcome-send-data-title" = "Invia dati anonimi";
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
 "welcome-volunteer-thanks" = "$1 Grazie!";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
@@ -348,13 +373,16 @@
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
+"wikitext-preview-link-preview-description" = "Questo collegamento porta a '$1'";
+"wikitext-preview-link-preview-title" = "Anteprima collegamento";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";

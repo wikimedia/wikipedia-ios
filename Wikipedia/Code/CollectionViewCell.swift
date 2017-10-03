@@ -15,6 +15,16 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        preservesSuperviewLayoutMargins = false
+        contentView.preservesSuperviewLayoutMargins = false
+        if #available(iOSApplicationExtension 11.0, *) {
+            insetsLayoutMarginsFromSafeArea = false
+            contentView.insetsLayoutMarginsFromSafeArea = false
+        }
+        autoresizesSubviews = false
+        contentView.autoresizesSubviews = false
         backgroundView = UIView()
         selectedBackgroundView = UIView()
         reset()
@@ -26,13 +36,53 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     var labelBackgroundColor: UIColor? {
-        return isSelected || isHighlighted ? selectedBackgroundView?.backgroundColor : backgroundView?.backgroundColor
+        didSet {
+            updateBackgroundColorOfLabels()
+        }
     }
-    
-    open func updateSelectedOrHighlighted() {
+
+    func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
+        backgroundView?.backgroundColor = deselected
+        selectedBackgroundView?.backgroundColor = selected
+        let newColor = isSelectedOrHighlighted ? selected : deselected
+        if newColor != labelBackgroundColor {
+            labelBackgroundColor = newColor
+        }
+    }
+
+    // Subclassers should call super
+    open func updateBackgroundColorOfLabels() {
         
     }
+
+    fileprivate var isSelectedOrHighlighted: Bool = false
     
+    public final func updateSelectedOrHighlighted() {
+        let newIsSelectedOrHighlighted = isSelected || isHighlighted
+        guard newIsSelectedOrHighlighted != isSelectedOrHighlighted else {
+            return
+        }
+
+        isSelectedOrHighlighted = newIsSelectedOrHighlighted
+
+        // It appears that background color changes aren't properly animated when set within the animation block around isHighlighted/isSelected state changes
+        // https://phabricator.wikimedia.org/T174341
+
+        // To work around this, first set the background to clear without animation so that it stays clear throughought the animation
+        UIView.performWithoutAnimation {
+            self.labelBackgroundColor = .clear
+        }
+
+        //Then update the completion block to set the actual opaque color we want after the animation completes
+        let existingCompletionBlock = CATransaction.completionBlock()
+        CATransaction.setCompletionBlock {
+            if let block = existingCompletionBlock {
+                block()
+            }
+            self.labelBackgroundColor =  self.isSelected || self.isHighlighted ? self.selectedBackgroundView?.backgroundColor : self.backgroundView?.backgroundColor
+        }
+    }
+
     open override var isHighlighted: Bool {
         didSet {
             updateSelectedOrHighlighted()
@@ -82,6 +132,9 @@ open class CollectionViewCell: UICollectionViewCell {
     
     final override public func layoutSubviews() {
         super.layoutSubviews()
+        contentView.frame = bounds
+        backgroundView?.frame = bounds
+        selectedBackgroundView?.frame = bounds
         let size = bounds.size
         let _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
@@ -101,8 +154,11 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attributesToFit = layoutAttributes as? WMFCVLAttributes, attributesToFit.precalculated {
-            return attributesToFit
+        if let attributesToFit = layoutAttributes as? WMFCVLAttributes {
+            layoutMargins = attributesToFit.readableMargins
+            if attributesToFit.precalculated {
+                return attributesToFit
+            }
         }
         
         var sizeToFit = layoutAttributes.size
@@ -148,4 +204,5 @@ open class CollectionViewCell: UICollectionViewCell {
     open func updateFonts(with traitCollection: UITraitCollection) {
         
     }
+
 }

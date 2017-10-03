@@ -1,7 +1,7 @@
 
 import XCTest
 
-class WMFArticleListTableViewCell: XCTestCase {
+class WMFArticleCollectionViewCell: XCTestCase {
     
     override func setUp() {
         super.setUp()

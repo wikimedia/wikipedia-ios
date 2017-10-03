@@ -7,7 +7,7 @@ fi
 
 if [ -z "$CACHEROOT" ]
 then
-	export CACHEROOT="$SRCROOT/Carthage Cache/"
+	export CACHEROOT="$SRCROOT/Carthage Cache"
 fi
 
 export CARTHAGE="$SRCROOT/Carthage"
@@ -34,7 +34,7 @@ then
 		mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
-			mkdir -p "$CACHEROOT"
+			mkdir -p "$CACHEROOT/"
 			cp -R "$CARTHAGE" "$CARTHAGE_CACHE"
 		fi
 	fi

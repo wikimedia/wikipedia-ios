@@ -7,6 +7,7 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "Wikipedia-Swift.h"
+#import "WMFQuoteMacros.h"
 
 #if WMF_UX_STUDY_ENABLED
 #import <Appsee/Appsee.h>

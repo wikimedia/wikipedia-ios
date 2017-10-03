@@ -22,14 +22,14 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 // Metadata
-@property (readwrite, strong, nonatomic) NSURL *redirectedURL;            // optional
-@property (readwrite, strong, nonatomic) NSDate *lastmodified;            // optional
-@property (readwrite, strong, nonatomic) MWKUser *lastmodifiedby;         // required
-@property (readwrite, assign, nonatomic) int articleId;                   // required; -> 'id'
-@property (readwrite, assign, nonatomic) int languagecount;               // required; int
-@property (readwrite, copy, nonatomic) NSString *displaytitle;            // optional
+@property (readwrite, strong, nonatomic) NSURL *redirectedURL; // optional
+@property (readwrite, strong, nonatomic) NSDate *lastmodified; // optional
+@property (readwrite, strong, nonatomic) MWKUser *lastmodifiedby; // required
+@property (readwrite, assign, nonatomic) int articleId; // required; -> 'id'
+@property (readwrite, assign, nonatomic) int languagecount; // required; int
+@property (readwrite, copy, nonatomic) NSString *displaytitle; // optional
 @property (readwrite, strong, nonatomic) MWKProtectionStatus *protection; // required
-@property (readwrite, assign, nonatomic) BOOL editable;                   // required
+@property (readwrite, assign, nonatomic) BOOL editable; // required
 @property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
 @property (readwrite, strong, nonatomic) NSNumber *revisionId;
 
@@ -357,7 +357,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if (obj == nil) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required protection status field"
-                                     userInfo:@{ @"key": key }];
+                                     userInfo:@{@"key": key}];
     } else {
         return [[MWKProtectionStatus alloc] initWithData:obj];
     }
@@ -489,6 +489,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
 
     return htmlStr;
+}
+
+#pragma mark Read More
+
+- (BOOL)hasReadMore {
+    // ns of articles with Read More pages equals 0.
+    return !self.isMain && self.ns == 0;
 }
 
 @end

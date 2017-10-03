@@ -1,3 +1,5 @@
+import WMF
+
 @objc(WMFNewsViewController)
 class NewsViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
@@ -6,7 +8,7 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     
-    required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
@@ -21,7 +23,7 @@ class NewsViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
-        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier)
+        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView?.allowsSelection = false
     }
 }
@@ -41,6 +43,9 @@ extension NewsViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsViewController.cellReuseIdentifier, for: indexPath)
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
+        }
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            cell.layoutMargins = layout.readableMargins
         }
         let story = stories[indexPath.section]
         newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
@@ -110,7 +115,7 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -136,7 +141,7 @@ extension NewsViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

@@ -1,7 +1,7 @@
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
-    init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
+    @objc init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
         let article = userDataStore.fetchArticle(with: articleURL)
         var items = [Any]()
         
@@ -14,12 +14,7 @@ class ShareActivityController: UIActivityViewController {
             tracker?.wmf_logActionShare(inContext: context, contentType: article)
         }
         
-        var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
-        components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
-
-        if let url = components?.url {
-            items.append(url)
-        }
+        items.append(articleURL.wmf_URLForTextSharing)
         
         if let mapItem = article?.mapItem {
             items.append(mapItem)
@@ -28,7 +23,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    init(article: WMFArticle, context: AnalyticsContextProviding) {
+    @objc init(article: WMFArticle, context: AnalyticsContextProviding) {
         let tracker = PiwikTracker.sharedInstance()
         tracker?.wmf_logActionShare(inContext: context, contentType: article)
         
@@ -39,14 +34,8 @@ class ShareActivityController: UIActivityViewController {
             items.append(text)
         }
         
-        if let articleURL = article.url {
-            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
-            components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
-            
-            if let url = components?.url {
-                items.append(url)
-            }
-            
+        if let shareURL = article.url?.wmf_URLForTextSharing {
+            items.append(shareURL)
         }
 
         if let mapItem = article.mapItem {
@@ -56,18 +45,12 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
         
-        if let articleURL = article.url {
-            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
-            components?.queryItems = [URLQueryItem(name: "wprov", value: "sfti1")]
-            
-            if let url = components?.url {
-                items.append(url)
-            }
-            
+        if let shareURL = article.url?.wmf_URLForTextSharing {
+            items.append(shareURL)
         }
         
         if let mapItem = article.mapItem {
@@ -77,33 +60,27 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
-    init(article: MWKArticle, image: UIImage?, title: String) {
-        var queryItem: URLQueryItem
+    @objc init(article: MWKArticle, image: UIImage?, title: String) {
         var items = [Any]()
         
         items.append(title)
         
+        let shareURL: URL?
         if let image = image {
-            queryItem = URLQueryItem(name: "wprov", value: "sfii1")
             items.append(image)
+            shareURL = article.url?.wmf_URLForImageSharing
         } else {
-            queryItem = URLQueryItem(name: "wprov", value: "sfti1")
+            shareURL = article.url?.wmf_URLForTextSharing
         }
         
-        if let articleURL = article.url {
-            var components = URLComponents(url: articleURL, resolvingAgainstBaseURL: false)
-            components?.queryItems = [queryItem]
-            
-            if let url = components?.url {
-                items.append(url)
-            }
-            
+        if let shareURL = shareURL {
+            items.append(shareURL)
         }
         
         super.init(activityItems: items, applicationActivities: [])
     }
     
-    init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
+    @objc init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
         var items = [Any]()
         
         items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo),WMFImageURLActivitySource(info: imageInfo), imageDownload.image.staticImage])

@@ -57,8 +57,12 @@
 "action-share" = "Rannañ";
 "action-unsave" = "Hep enrollañ";
 "alert-no-internet" = "N'eus kevreadur ebet ouzh ar Genrouedad";
-// Fuzzy
-"announcements-dismiss" = "Ne'm bo ket, trugarez";
+"announcements-dismiss" = "Disteurel";
+"appearance-settings-adjust-text-sizing" = "Azasait ment ar pennad ouzh ar pennad";
+"appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
+"appearance-settings-reading-themes" = "Temoù lenn";
+"appearance-settings-theme-options" = "Dibaboù an temoù";
+"appearance-settings-title" = "Temoù lenn";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
 "article-delete" = "Diverkañ";
 "article-languages-filter-placeholder" = "Kavout ar yezh";
@@ -153,13 +157,11 @@
 "forgot-password-instructions" = "Leuniañ unan eus ar maeziennoù amañ dindan evit degemer ar c'hemennadurioù evit adderaouekaat ar ger-tremen dre bostel.";
 "forgot-password-title" = "Adderaouekaat ar ger-tremen";
 "forgot-password-username-or-email-title" = "Pe";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Diverkañ";
 "history-clear-cancel" = "Nullañ";
 "history-clear-confirmation-heading" = "Ha sur eo ho peus c'hoant da lemel ho holl elfennoù nevez ?";
 "history-clear-delete-all" = "Ya, lemel pep tra";
-"history-section-today" = "Hiziv";
-"history-section-yesterday" = "Dec'h";
 "history-title" = "Istor";
 "hockeyapp-alert-always-send" = "Kas atav";
 "hockeyapp-alert-do-not-send" = "Chom hep kas";
@@ -313,12 +315,9 @@
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload. Ma cheñchit an dibarzh-mañ e cheñcho an danvez diskouezet war Ergerzhiñ (evel pennad an talbenn).";
 "settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Rannañ-ur-fed";
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" war @Wikipedia: \"$2\"";
-"share-as-image" = "Rannañ evel skeudenn";
-"share-as-text" = "Rannañ evel testenn";
-"share-cancel" = "Nullañ";
 "share-custom-menu-item" = "Rannañ...";
 "share-get-directions-in-maps" = "Kaout an tuioù";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -339,9 +338,7 @@
 "two-factor-login-with-backup-code" = "Ober gant unan eus ho kodoù saveteiñ";
 "two-factor-login-with-regular-code" = "Ober gant ur c'hod gwiriekaat";
 "welcome-explore-continue-button" = "Kregiñ";
-"welcome-explore-new-ways-sub-title" = "Kemennadennoù nevez ha bitrakoù evit o skoazellañ da zizoleiñ pennadoù dedennus";
 "welcome-explore-new-ways-title" = "Hentoù nevez da vezañ ergerzhet";
-"welcome-explore-tell-me-more" = "Lavaret muioc'h din";
 "welcome-explore-tell-me-more-done-button" = "Dibat evit";
 "welcome-languages-add-button" = "Ouzhpennañ ur yezh all";
 "welcome-languages-continue-button" = "Kenderc'hel";

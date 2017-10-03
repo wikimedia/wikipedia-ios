@@ -1,12 +1,11 @@
 #import "WebViewController_Private.h"
+#import "WMFWebView.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
 @import Masonry;
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFShareCardViewController.h"
-#import "WKWebView+WMFSuppressSelection.h"
 #import "PageHistoryViewController.h"
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -121,6 +120,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageFooterLegalLicenseLinkClicked:
             [self handleFooterLegalLicenseLinkClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFooterBrowserLinkClicked:
+            [self handleFooterBrowserLinkClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -158,6 +160,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         item = WMFArticleFooterMenuItemDisambiguation;
     } else if ([messageString isEqualToString:@"coordinate"]) {
         item = WMFArticleFooterMenuItemCoordinate;
+    } else if ([messageString isEqualToString:@"talkPage"]) {
+        item = WMFArticleFooterMenuItemTalkPage;
     } else {
         NSAssert(false, @"Unhandled footer item type encountered");
         return;
@@ -167,6 +171,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleFooterLegalLicenseLinkClickedScriptMessage:(NSString *)messageString {
     [self showLicenseButtonPressed];
+}
+
+- (void)handleFooterBrowserLinkClickedScriptMessage:(NSString *)messageString {
+    [self wmf_openExternalUrl:self.articleURL];
 }
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
@@ -303,7 +311,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.webView wmf_setPageProtected:!self.article.editable];
     } else if ([messageString isEqualToString:@"addFooterContainer"]) {
         [self.webView wmf_addFooterContainer];
-    } else if ([messageString isEqualToString:@"addFooterReadMore"]) {
+    } else if ([messageString isEqualToString:@"addFooterReadMore"] && self.article.hasReadMore) {
         [self.webView wmf_addFooterReadMoreForArticle:self.article];
     } else if ([messageString isEqualToString:@"addFooterMenu"]) {
         [self.webView wmf_addFooterMenuForArticle:self.article];
@@ -421,8 +429,25 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)viewLayoutMarginsDidChange {
+    [super viewLayoutMarginsDidChange];
+    [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+        UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+        self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, safeInsets.left, 0, safeInsets.right);
+    }
+}
+
 - (CGFloat)marginWidthForSize:(CGSize)size {
-    return floor(0.5 * size.width * (1 - self.contentWidthPercentage));
+    UIEdgeInsets layoutMargins = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) {
+        layoutMargins = self.view.layoutMargins;
+    }
+    return MAX(MAX(layoutMargins.left, layoutMargins.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
 }
 
 - (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
@@ -601,7 +626,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"footerReadMoreSaveClicked",
         @"footerReadMoreTitlesShown",
         @"footerMenuItemClicked",
-        @"footerLegalLicenseLinkClicked"
+        @"footerLegalLicenseLinkClicked",
+        @"footerBrowserLinkClicked"
     ];
     for (NSString *handlerName in handlerNames) {
         [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];
@@ -642,10 +668,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.contentWidthPercentage = 1;
 
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
+    self.webView = [[WMFWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     self.webView.allowsLinkPreview = NO;
     self.webView.scrollView.delegate = self;
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (@available(iOS 11.0, *)) {
+        self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
 
     [self addHeaderView];
 
@@ -886,7 +915,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
-    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact", @"Button label for creating a Share-a-fact card from the current text selection")
+    NSString *shareMenuItemTitle = nil;
+    if (@available(iOS 11, *)) {
+        shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
+    } else {
+        shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-a-fact-share-menu-item", nil, nil, @"Share-a-fact…", @"Button label for creating a Share-a-fact card from the current text selection");
+    }
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle
                                                           action:@selector(shareMenuItemTapped:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 }
@@ -935,7 +970,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)showReferencePageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
     WMFReferencePageViewController *vc = [WMFReferencePageViewController wmf_viewControllerFromReferencePanelsStoryboard];
-    vc.delegate = self;
+    vc.pageViewController.delegate = self;
     vc.appearanceDelegate = self;
     [vc applyTheme:self.theme];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -1015,12 +1050,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)referencePageViewControllerWillAppear:(WMFReferencePageViewController *)referencePageViewController {
-    WMFReferencePanelViewController *firstRefVC = referencePageViewController.viewControllers.firstObject;
+    WMFReferencePanelViewController *firstRefVC = referencePageViewController.pageViewController.viewControllers.firstObject;
     [self.webView wmf_highlightLinkID:firstRefVC.reference.refId];
 }
 
 - (void)referencePageViewControllerWillDisappear:(WMFReferencePageViewController *)referencePageViewController {
-    for (WMFReferencePanelViewController *panel in referencePageViewController.viewControllers) {
+    for (WMFReferencePanelViewController *panel in referencePageViewController.pageViewController.viewControllers) {
         [self.webView wmf_unHighlightLinkID:panel.reference.refId];
     }
 }
@@ -1050,7 +1085,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)shareSnippet:(NSString *)snippet {
-    [self.webView wmf_suppressSelection];
     [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 
@@ -1105,26 +1139,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.opaque = NO;
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.scrollView.backgroundColor = [UIColor clearColor];
+    self.webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle;
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
-}
-
-@end
-
-@interface WMFWebView : WKWebView
-
-@end
-
-@implementation WMFWebView
-
-//Disable OS share menu when selecting text
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == NSSelectorFromString(@"_share:")) {
-        return NO;
-    }
-    return [super canPerformAction:action withSender:sender];
 }
 
 @end

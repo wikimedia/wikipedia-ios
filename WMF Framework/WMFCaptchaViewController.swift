@@ -31,9 +31,9 @@ extension UIStackView {
 }
 
 public class WMFCaptcha: NSObject {
-    let captchaID: String
-    let captchaURL: URL
-    init(captchaID:String, captchaURL:URL) {
+    @objc let captchaID: String
+    @objc let captchaURL: URL
+    @objc init(captchaID:String, captchaURL:URL) {
         self.captchaID = captchaID
         self.captchaURL = captchaURL
     }
@@ -64,12 +64,12 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
 
-    public var captchaDelegate: WMFCaptchaViewControllerDelegate?
+    @objc public var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
     
     fileprivate var theme = Theme.standard
 
-    var captcha: WMFCaptcha? {
+    @objc var captcha: WMFCaptcha? {
         didSet {
             guard let captcha = captcha else {
                 captchaTextField.text = nil
@@ -85,11 +85,11 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         }
     }
     
-    var solution:String? {
+    @objc var solution:String? {
         get{
             guard
                 let captchaSolution = captchaTextField.text,
-                captchaSolution.characters.count > 0
+                captchaSolution.count > 0
                 else {
                     return nil
             }
@@ -165,7 +165,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
                 guard
                     type(of: constraint) == NSLayoutConstraint.self,
                     constraint.firstAttribute == .height,
-                    constraint.priority == UILayoutPriorityRequired,
+                    constraint.priority == UILayoutPriority.required,
                     constraint.constant != 0
                     else{
                         return false
@@ -203,7 +203,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         apply(theme: theme)
     }
     
-    func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func requestAnAccountTapped(_ recognizer: UITapGestureRecognizer) {
         wmf_openExternalUrl(URL.init(string: "https://en.wikipedia.org/wiki/Wikipedia:Request_an_account"))
     }
     
@@ -247,7 +247,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         captchaTextFieldTitleLabel.textColor = theme.colors.secondaryText
         subTitleLabel.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        captchaTextField.apply(theme: theme, withBorder: true)
+        captchaTextField.apply(theme: theme)
         view.tintColor = theme.colors.link
     }
 }

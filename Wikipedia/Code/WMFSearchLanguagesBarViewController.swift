@@ -5,7 +5,7 @@ import Foundation
 }
 
 class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
-    weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
+    @objc weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
@@ -25,7 +25,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
     }
 
-    fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
+    @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
             if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
@@ -49,7 +49,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: UIControlState())
+        otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
@@ -102,7 +102,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                 break
             }
             let button = languageButtons[index]
-            button.setTitle(language.localizedName, for: UIControlState())
+            button.setTitle(language.localizedName, for: .normal)
             if let selectedLanguage = currentlySelectedSearchLanguage {
                 button.isSelected = language.isEqual(to: selectedLanguage)
             }else{

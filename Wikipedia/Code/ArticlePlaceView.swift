@@ -66,6 +66,10 @@ class ArticlePlaceView: MapAnnotationView {
         imageView = UIView()
         selectedImageImageView = UIImageView()
         imageImageView = UIImageView()
+        if #available(iOS 11.0, *) {
+            selectedImageImageView.accessibilityIgnoresInvertColors = true
+            imageImageView.accessibilityIgnoresInvertColors = true
+        }
         countLabel = UILabel()
         dotView = UIView()
         groupView = UIView()
@@ -287,7 +291,7 @@ class ArticlePlaceView: MapAnnotationView {
     
 
     
-    func selectedImageViewWasTapped(_ sender: UIButton) {
+    @objc func selectedImageViewWasTapped(_ sender: UIButton) {
         delegate?.articlePlaceViewWasTapped(self)
     }
     

@@ -81,6 +81,7 @@
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-remove" = "সংরক্ষণ থেকে সরান";
+"cancel" = "বাতিল";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
@@ -151,13 +152,11 @@
 "forgot-password-instructions" = "ইমেলের মাধ্যমে পাসওয়ার্ড পুনঃস্থাপন করার নির্দেশাবলী পেতে নিচের ক্ষেত্রগুলির একটি পূরণ করুন";
 "forgot-password-title" = "পাসওয়ার্ড পুনঃস্থাপন";
 "forgot-password-username-or-email-title" = "অথবা";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "পরিষ্কার করুন";
 "history-clear-cancel" = "বাতিল";
 "history-clear-confirmation-heading" = "সাম্প্রতিক সব আইটেম মুছে ফেলবেন?";
 "history-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
-"history-section-today" = "আজ";
-"history-section-yesterday" = "গতকাল";
 "history-title" = "ইতিহাস";
 "hockeyapp-alert-always-send" = "সর্বদা পাঠান";
 "hockeyapp-alert-do-not-send" = "পাঠাবেন না";
@@ -240,6 +239,7 @@
 "page-protected-sysop" = "এই পাতটি সম্পূর্ণ সুরক্ষিত।";
 "page-read-in-other-languages" = "আরো $1টি ভাষায় উপলব্ধ";
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
+"page-talk-page" = "আলাপ পাতা দেখুন";
 "places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
@@ -302,14 +302,14 @@
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
+// Fuzzy
 "share-a-fact-share-menu-item" = "একটি তথ্য শেয়ার করুন";
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia -এ \"$1\": \"$2\"";
-"share-as-image" = "ছবি হিসাবে ভাগ করুন";
-"share-as-text" = "লেখা হিসাবে ভাগ করুন";
-"share-cancel" = "বাতিল";
 "share-custom-menu-item" = "বণ্টন...";
+"share-default-format" = "“$2” থেকে “$1”: $3";
+"share-email-format" = "“$2” থেকে\n\n“$1”\n\n$3";
 "share-get-directions-in-maps" = "দিক নির্দেশনা পান";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@উইকিপিডিয়া হয়ে";
 "share-open-in-maps" = "মানচিত্রে খুলুন";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
@@ -328,9 +328,9 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
+"view-in-browser-footer-link" = "ব্রাউজারে নিবন্ধ দেখুন";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
-"welcome-explore-tell-me-more" = "আমাকে আরও বলুন";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-languages-continue-button" = "অব্যাহত";
@@ -352,7 +352,7 @@
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনা আপনার ডিভাইসের আইপি ঠিকানায় আরোপিত করা হবে। আপনি যদি $1 করেন আপনি আরো গোপনীয়তা পাবেন।";
 "wikitext-upload-save-sign-in" = "প্রবেশ";
 // Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 ও $3 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "পরিবর্তন সংরক্ষণের দ্বারা, আপনি $1-এ সম্মত ও আপনার অবদান $2 ও $3 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-terms-name" = "ব্যবহারের শর্তাবলী";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
 "zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";

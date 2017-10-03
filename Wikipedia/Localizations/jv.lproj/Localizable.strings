@@ -1,6 +1,7 @@
 // Messages for Javanese (Basa Jawa)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
+// Author: Macofe
 // Author: Nemo bis
 // Author: NoiX180
 
@@ -78,6 +79,7 @@
 "button-save-for-later" = "Simpen kanggo mengko";
 "button-saved-for-later" = "Kasimpen kanggo mengko";
 "button-saved-remove" = "Busak saka panyimpenan";
+"cancel" = "Wurung";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "nalika pukul $1 thèng";
@@ -153,13 +155,11 @@
 "forgot-password-instructions" = "Isinen ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung wadi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung wadi";
 "forgot-password-username-or-email-title" = "Utawa";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Busak";
 "history-clear-cancel" = "Wurung";
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
-"history-section-today" = "Dina iki";
-"history-section-yesterday" = "Wingi";
 "history-title" = "Sajarah";
 "hockeyapp-alert-always-send" = "Tansah ngirim";
 "hockeyapp-alert-do-not-send" = "Aja ngirim";
@@ -250,6 +250,7 @@
 "page-protected-sysop" = "Kaca iki wis kareksa wutuh.";
 "page-read-in-other-languages" = "Ana ing $1 basa liyané";
 "page-similar-titles" = "Kaca sairib";
+"page-talk-page" = "Deleng kaca parembugan";
 "pictured" = "digambar";
 "places-accessibility-clear-saved-searches" = "Busak golèkan simpenan";
 "places-accessibility-close-search" = "Tutup gegolèkan";
@@ -292,7 +293,6 @@
 "readers-accessibility-label" = "$1 sing maca";
 "reading-themes-controls-accessibility-brightness-slider" = "Panggeser padhang";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ules peteng";
-"reading-themes-controls-accessibility-dim-images-switch" = "Bleretaké gambar";
 "reading-themes-controls-accessibility-light-theme-button" = "Ules padhang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Ules sèpia";
 "reading-themes-controls-accessibility-text-size-slider" = "Panggeser ukuran tèks";
@@ -336,16 +336,19 @@
 "settings-primary-language-details" = "Basa pisanan ing pratélan iki dianggo minangka basa pokok mungguh ing aplikasiné. Ngganti basa iki bakal ngganti isi padinané (kayata Artikel Pinilih) sing katon ing Dlajah.";
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";
-"share-a-fact-share-menu-item" = "Dum-kasunyatan";
+"share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
+"share-a-fact-share-menu-item" = "Dum-kasunyatan...";
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ing @Wikipedia: \"$2\"";
-"share-as-image" = "Tuduhaké minangka gambar";
-"share-as-text" = "Tuduhaké minangka tèks";
-"share-cancel" = "Wurung";
 "share-custom-menu-item" = "Ngedum...";
+"share-default-format" = "“$1” saka “$2”: $3";
+"share-email-format" = "“$1”\n\nsaka “$2”\n\n$3";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
+"share-menu-item" = "Dum...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "lumantar @Wikipedia";
 "share-open-in-maps" = "Bukak ing Maps";
+"share-social-format" = "“$1” lumantar Wikipédia: $2";
+"share-social-mention-format" = "“$1” lumantar @Wikipedia: $2";
 "status-saved-for-later" = "Kasimpen kanggo mengko";
 "status-saving-for-later" = "Nyimpen kanggo mengko...";
 "table-of-contents-button-label" = "Pratélan isi";
@@ -364,10 +367,9 @@
 "two-factor-login-title" = "Mlebu log nyang akuné panjenengan";
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
+"view-in-browser-footer-link" = "Deleng artikel ing pangluron";
 "welcome-explore-continue-button" = "Miwiti";
-"welcome-explore-new-ways-sub-title" = "Wara-wara lan widgèt anyar kanggo mbiyantu panjenengan golèk artikel sing narik kawigatèn";
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
-"welcome-explore-tell-me-more" = "Kandhani aku candhaké";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";
 "welcome-languages-add-button" = "Tambah basa liyané";
 "welcome-languages-continue-button" = "Banjuraké";
@@ -393,7 +395,7 @@
 "wikitext-upload-save" = "Mbabar...";
 "wikitext-upload-save-anonymously-warning" = "Besutan bakal diatribusèkaké marang alamat IP pirantiné panjenengan. Yèn panjenengan $1, panjenengan bakal duwé privasi luwih.";
 "wikitext-upload-save-sign-in" = "Mlebu log";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Kanthi mbabar owahan, panjenengan minangkani $1 lan sarujuk nguculaké sumbangané panjenengan kanthi pangayoman lisènsi $2 lan $3.";
 "wikitext-upload-save-terms-name" = "Pranatan Pangguna";
 "zero-charged-verbiage" = "Wikipedia Zero mati";
 "zero-charged-verbiage-extended" = "Ngamot artikel liyané bokmanawa kena béya dhata. Artikel kasimpen sing ana ing njaban jaringan ora nganggo dhata lan gratis.";

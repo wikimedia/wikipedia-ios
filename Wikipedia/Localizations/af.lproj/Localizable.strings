@@ -99,8 +99,6 @@
 // Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-delete-all" = "Ja, skrap alles";
-"history-section-today" = "Vandag";
-"history-section-yesterday" = "Gister";
 "history-title" = "Geskiedenis";
 "hockeyapp-alert-always-send" = "Stuur altyd";
 "hockeyapp-alert-do-not-send" = "Moenie stuur";
@@ -197,12 +195,9 @@
 "settings-my-languages" = "My tale";
 "settings-notifications" = "Kennisgewings";
 "settings-title" = "Voorkeure";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Deel-’n-feit";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
-"share-as-image" = "Deel as beeld";
-"share-as-text" = "Deel as teks";
-"share-cancel" = "Kanselleer";
 "share-custom-menu-item" = "Deel…";
 "share-get-directions-in-maps" = "Kry Aanwysings";
 "share-on-twitter-sign-off" = "via @Wikipedia";

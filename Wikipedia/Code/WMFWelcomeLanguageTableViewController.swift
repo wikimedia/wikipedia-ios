@@ -1,43 +1,28 @@
 
-class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewControllerDelegate, UITableViewDataSource {
+class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     fileprivate var theme = Theme.standard
     
     @IBOutlet fileprivate var languageTableView:UITableView!
-    @IBOutlet fileprivate var moreLanguagesButton:UIButton!;
+    @IBOutlet fileprivate var moreLanguagesButton:UIButton!
+    @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        languageTableView.isEditing = true
+        
+        languagesDescriptionLabel.text = WMFLocalizedString("welcome-languages-description", value:"We've found the following languages on your device:", comment:"Title label describing detected languages")
+        
         languageTableView.alwaysBounceVertical = false
-        moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-button", value:"Add another language", comment:"Title for button for adding another language"), for: UIControlState())
-        moreLanguagesButton.setTitleColor(theme.colors.link, for: UIControlState())
-        
+        moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add or edit preferred languages", comment:"Title for button for managing languages"), for: .normal)
+        moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
         languageTableView.rowHeight = UITableViewAutomaticDimension
-        languageTableView.estimatedRowHeight = 38
-        
-        self.view.wmf_configureSubviewsForDynamicType()
-
+        languageTableView.estimatedRowHeight = 30
+        view.wmf_configureSubviewsForDynamicType()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateDeleteButtonsVisibility()
-    }
-    
-    fileprivate func updateDeleteButtonsVisibility(){
-        for cell in languageTableView.visibleCells as! [WMFWelcomeLanguageTableViewCell] {
-            cell.deleteButton.isHidden = (MWKLanguageLinkController.sharedInstance().preferredLanguages.count == 1)
-        }
-    }
-        
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UserDefaults.wmf_userDefaults().wmf_setShowSearchLanguageBar(MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,58 +34,31 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFLanguagesViewC
         let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
         return cell
-        
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return (MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == .delete) {
-            let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
-            MWKLanguageLinkController.sharedInstance().removePreferredLanguage(langLink)
-            tableView.deleteRows(at: [indexPath], with:.automatic)
-            self.updateDeleteButtonsVisibility()
-            self.useFirstPreferredLanguageAsSearchLanguage()
-        }
-    }
-        
-    func tableView(_ tableView: UITableView, editingStyleForRowAtIndexPath indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if (MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1) {
-            return .delete
-        } else {
-            return .none
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[sourceIndexPath.row]
-        MWKLanguageLinkController.sharedInstance().reorderPreferredLanguage(langLink, to:destinationIndexPath.row)
-        tableView.moveRow(at: sourceIndexPath, to:destinationIndexPath)
-        useFirstPreferredLanguageAsSearchLanguage()
     }
 
-    fileprivate func useFirstPreferredLanguageAsSearchLanguage() {
-        guard let firstPreferredLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
-            return
-        }
-        UserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(firstPreferredLanguage.siteURL())
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // https://stackoverflow.com/a/3991688/135557
+        cell.backgroundColor = .clear
     }
-
+    
     @IBAction func addLanguages(withSender sender: AnyObject) {
-        let languagesVC = WMFLanguagesViewController.nonPreferred()
-        languagesVC?.delegate = self
-        let navC = ThemeableNavigationController(rootViewController: languagesVC!, theme: Theme.standard)
+        let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        langsVC?.delegate = self
+        let navC = ThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
         // Intentionally not using apply(theme:) for now to limit any unintended consequences elsewhere in the app
         navC.navigationBar.isTranslucent = false
         navC.view.tintColor = theme.colors.link
         present(navC, animated: true, completion: nil)
     }
     
-    func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language:MWKLanguageLink){
-        MWKLanguageLinkController.sharedInstance().appendPreferredLanguage(language)
-        self.languageTableView.reloadData()
-        controller.dismiss(animated: true, completion: nil)
+    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages:[MWKLanguageLink]){
+        languageTableView.reloadData()
+        languageTableView.layoutIfNeeded() // Needed for the content offset reset below to work
+        languageTableView.contentOffset = .zero
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        moreLanguagesButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
     }
 }

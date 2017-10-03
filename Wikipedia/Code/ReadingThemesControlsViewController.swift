@@ -8,8 +8,8 @@ import UIKit
 @objc(WMFReadingThemesControlsViewController)
 open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     
-    static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
-    static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
+    @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme = Theme.standard
     
@@ -37,7 +37,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     var visible = false
     
-    open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
+    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +79,10 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func applyBorder(to button: UIButton) {
         button.borderWidth = 2
         button.isEnabled = false
@@ -106,7 +110,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         }
     }
     
-    open func setValuesWithSteps(_ steps: Int, current: Int) {
+    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
@@ -136,13 +140,22 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         return "Article"
     }
     
-    func screenBrightnessChangedInApp(notification: Notification){
+    @objc func screenBrightnessChangedInApp(notification: Notification){
         brightnessSlider.value = Float(UIScreen.main.brightness)
+    }
+
+    @objc fileprivate func _logBrightnessChange() {
+        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
+    }
+
+    fileprivate func logBrightnessChange() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
+        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [.defaultRunLoopMode])
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
         UIScreen.main.brightness = CGFloat(sender.value)
-        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
+        logBrightnessChange()
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
@@ -199,7 +212,7 @@ extension ReadingThemesControlsViewController: Themeable {
         default:
             break
         }
-
+        
         minBrightnessImageView.tintColor = theme.colors.secondaryText
         maxBrightnessImageView.tintColor = theme.colors.secondaryText
         tSmallImageView.tintColor = theme.colors.secondaryText

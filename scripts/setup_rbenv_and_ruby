@@ -2,7 +2,7 @@
 
 scripts/setup_homebrew
 
-brew update && brew install rbenv ruby-build
+brew update && brew install rbenv ruby-build && brew upgrade rbenv ruby-build
 rbenv install -s
 
 gem install bundler

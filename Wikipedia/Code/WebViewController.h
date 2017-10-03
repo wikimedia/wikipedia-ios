@@ -11,7 +11,6 @@ extern const CGFloat WebViewControllerHeaderImageHeight;
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;

@@ -156,8 +156,6 @@
 "history-clear-cancel" = "Скасувати";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете видалити усі Ваші недавні елементи?";
 "history-clear-delete-all" = "Так, видалити усі";
-"history-section-today" = "Сьогодні";
-"history-section-yesterday" = "Вчора";
 "history-title" = "Історія";
 "hockeyapp-alert-always-send" = "Завжди надсилати";
 "hockeyapp-alert-do-not-send" = "Не надсилати";
@@ -306,12 +304,9 @@
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Поділіться фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» у @Wikipedia: «$2»";
-"share-as-image" = "Поширити як зображення";
-"share-as-text" = "Поширити як текст";
-"share-cancel" = "Скасувати";
 "share-custom-menu-item" = "Поділитися...";
 "share-get-directions-in-maps" = "Отримати напрямки";
 "share-on-twitter-sign-off" = "через @Wikipedia";
@@ -334,9 +329,7 @@
 "two-factor-login-with-backup-code" = "Використати один з Ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
 "welcome-explore-continue-button" = "Розпочати";
-"welcome-explore-new-ways-sub-title" = "Нові сповіщення і віджети, що допоможуть Вам відкрити для себе цікаві статті";
 "welcome-explore-new-ways-title" = "Нові способи дослідження";
-"welcome-explore-tell-me-more" = "Розкажіть мені більше";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
 "welcome-languages-add-button" = "Додати ще одну мову";
 "welcome-languages-continue-button" = "Продовжити";

@@ -189,6 +189,87 @@ var elementUtilities = {
   copyDataAttributesToAttributes: copyDataAttributesToAttributes
 };
 
+// Elements marked with these classes indicate certain ancestry constraints that are
+// difficult to describe as CSS selectors.
+var CONSTRAINT = {
+  IMAGE_PRESUMES_WHITE_BACKGROUND: 'pagelib_theme_image_presumes_white_background',
+  DIV_DO_NOT_APPLY_BASELINE: 'pagelib_theme_div_do_not_apply_baseline'
+};
+
+// Theme to CSS classes.
+var THEME = {
+  DEFAULT: 'pagelib_theme_default', DARK: 'pagelib_theme_dark', SEPIA: 'pagelib_theme_sepia'
+};
+
+/**
+ * @param {!Document} document
+ * @param {!string} theme
+ * @return {void}
+ */
+var setTheme = function setTheme(document, theme) {
+  var html = document.querySelector('html');
+
+  // Set the new theme.
+  html.classList.add(theme);
+
+  // Clear any previous theme.
+  for (var key in THEME) {
+    if (Object.prototype.hasOwnProperty.call(THEME, key) && THEME[key] !== theme) {
+      html.classList.remove(THEME[key]);
+    }
+  }
+};
+
+/**
+ * Football template image filename regex.
+ * https://en.wikipedia.org/wiki/Template:Football_kit/pattern_list
+ * @type {RegExp}
+ */
+var footballTemplateImageFilenameRegex = new RegExp('Kit_(body|socks|shorts|right_arm|left_arm)(.*).png$');
+
+/* en > Away colours > 793128975 */
+/* en > Manchester United F.C. > 793244653 */
+/**
+ * Determines whether white background should be added to image.
+ * @param  {!HTMLImageElement} image
+ * @return {!boolean}
+ */
+var imagePresumesWhiteBackground = function imagePresumesWhiteBackground(image) {
+  if (footballTemplateImageFilenameRegex.test(image.src)) {
+    return false;
+  }
+  if (image.classList.contains('mwe-math-fallback-image-inline')) {
+    return false;
+  }
+  return !elementUtilities.closestInlineStyle(image, 'background');
+};
+
+/**
+ * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
+ * theme-dependent so classification only need only occur once after the content is loaded, not
+ * every time the theme changes.
+ * @param {!Element} element
+ * @return {void}
+ */
+var classifyElements = function classifyElements(element) {
+  Polyfill.querySelectorAll(element, 'img').filter(imagePresumesWhiteBackground).forEach(function (image) {
+    image.classList.add(CONSTRAINT.IMAGE_PRESUMES_WHITE_BACKGROUND);
+  });
+  /* en > Away colours > 793128975 */
+  /* en > Manchester United F.C. > 793244653 */
+  /* en > Pantone > 792312384 */
+  Polyfill.querySelectorAll(element, 'div.color_swatch div, div[style*="position: absolute"]').forEach(function (div) {
+    div.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
+  });
+};
+
+var ThemeTransform = {
+  CONSTRAINT: CONSTRAINT,
+  THEME: THEME,
+  setTheme: setTheme,
+  classifyElements: classifyElements
+};
+
 var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
 
 /**
@@ -266,9 +347,9 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
   var collapsed = table.style.display !== 'none';
   if (collapsed) {
     table.style.display = 'none';
-    header.classList.remove('app_table_collapse_close'); // todo: use app_table_collapsed_collapsed
-    header.classList.remove('app_table_collapse_icon'); // todo: use app_table_collapsed_icon
-    header.classList.add('app_table_collapsed_open'); // todo: use app_table_collapsed_expanded
+    header.classList.remove('pagelib_collapse_table_collapsed');
+    header.classList.remove('pagelib_collapse_table_icon');
+    header.classList.add('pagelib_collapse_table_expanded');
     if (caption) {
       caption.style.visibility = 'visible';
     }
@@ -279,9 +360,9 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     }
   } else {
     table.style.display = 'block';
-    header.classList.remove('app_table_collapsed_open'); // todo: use app_table_collapsed_expanded
-    header.classList.add('app_table_collapse_close'); // todo: use app_table_collapsed_collapsed
-    header.classList.add('app_table_collapse_icon'); // todo: use app_table_collapsed_icon
+    header.classList.remove('pagelib_collapse_table_expanded');
+    header.classList.add('pagelib_collapse_table_collapsed');
+    header.classList.add('pagelib_collapse_table_icon');
     if (caption) {
       caption.style.visibility = 'hidden';
     }
@@ -317,8 +398,8 @@ var isInfobox = function isInfobox(element) {
  */
 var newCollapsedHeaderDiv = function newCollapsedHeaderDiv(document, content) {
   var div = document.createElement('div');
-  div.classList.add('app_table_collapsed_container');
-  div.classList.add('app_table_collapsed_open');
+  div.classList.add('pagelib_collapse_table_collapsed_container');
+  div.classList.add('pagelib_collapse_table_expanded');
   div.innerHTML = content || '';
   return div;
 };
@@ -330,8 +411,8 @@ var newCollapsedHeaderDiv = function newCollapsedHeaderDiv(document, content) {
  */
 var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
   var div = document.createElement('div');
-  div.classList.add('app_table_collapsed_bottom');
-  div.classList.add('app_table_collapse_icon'); // todo: use collapsed everywhere
+  div.classList.add('pagelib_collapse_table_collapsed_bottom');
+  div.classList.add('pagelib_collapse_table_icon');
   div.innerHTML = content || '';
   return div;
 };
@@ -344,7 +425,7 @@ var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
 var newCaption = function newCaption(title, headerText) {
   var caption = '<strong>' + title + '</strong>';
 
-  caption += '<span class=app_span_collapse_text>';
+  caption += '<span class=pagelib_collapse_table_collapse_text>';
   if (headerText.length > 0) {
     caption += ': ' + headerText[0];
   }
@@ -380,7 +461,7 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
   var _loop = function _loop(i) {
     var table = tables[i];
 
-    if (elementUtilities.findClosestAncestor(table, '.app_table_container') || !shouldTableBeCollapsed(table)) {
+    if (elementUtilities.findClosestAncestor(table, '.pagelib_collapse_table_container') || !shouldTableBeCollapsed(table)) {
       return 'continue';
     }
 
@@ -394,7 +475,7 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
     // create the container div that will contain both the original table
     // and the collapsed version.
     var containerDiv = window.document.createElement('div');
-    containerDiv.className = 'app_table_container';
+    containerDiv.className = 'pagelib_collapse_table_container';
     table.parentNode.insertBefore(containerDiv, table);
     table.parentNode.removeChild(table);
 
@@ -456,11 +537,11 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
 */
 var expandCollapsedTableIfItContainsElement = function expandCollapsedTableIfItContainsElement(element) {
   if (element) {
-    var containerSelector = '[class*="app_table_container"]';
+    var containerSelector = '[class*="pagelib_collapse_table_container"]';
     var container = elementUtilities.findClosestAncestor(element, containerSelector);
     if (container) {
       var collapsedDiv = container.firstElementChild;
-      if (collapsedDiv && collapsedDiv.classList.contains('app_table_collapsed_open')) {
+      if (collapsedDiv && collapsedDiv.classList.contains('pagelib_collapse_table_expanded')) {
         collapsedDiv.click();
       }
     }
@@ -483,15 +564,16 @@ var CollapseTable = {
 };
 
 var COMPATIBILITY = {
-  FILTER: 'pagelib-compatibility-filter'
+  FILTER: 'pagelib_compatibility_filter'
+};
 
-  /**
-   * @param {!Document} document
-   * @param {!Array.<string>} properties
-   * @param {!string} value
-   * @return {void}
-   */
-};var isStyleSupported = function isStyleSupported(document, properties, value) {
+/**
+ * @param {!Document} document
+ * @param {!Array.<string>} properties
+ * @param {!string} value
+ * @return {void}
+ */
+var isStyleSupported = function isStyleSupported(document, properties, value) {
   var element = document.createElement('span');
   return properties.some(function (property) {
     element.style[property] = value;
@@ -794,7 +876,8 @@ var updateBottomPaddingToAllowReadMoreToScrollToTop = function updateBottomPaddi
  * @return {void}
  */
 var updateLeftAndRightMargin = function updateLeftAndRightMargin(margin, document) {
-  var elements = Polyfill.querySelectorAll(document, '\n    #pagelib_footer_container_menu_heading,\n    #pagelib_footer_container_readmore,\n    #pagelib_footer_container_legal\n  ');
+  var selectors = ['#pagelib_footer_container_menu_heading', '#pagelib_footer_container_readmore', '#pagelib_footer_container_legal'];
+  var elements = Polyfill.querySelectorAll(document, selectors.join());
   elements.forEach(function (element) {
     element.style.marginLeft = margin + 'px';
     element.style.marginRight = margin + 'px';
@@ -831,7 +914,7 @@ var isContainerAttached = function isContainerAttached(document) {
 
 var FooterContainer = {
   containerFragment: containerFragment,
-  isContainerAttached: isContainerAttached,
+  isContainerAttached: isContainerAttached, // todo: rename isAttached()?
   updateBottomPaddingToAllowReadMoreToScrollToTop: updateBottomPaddingToAllowReadMoreToScrollToTop,
   updateLeftAndRightMargin: updateLeftAndRightMargin
 };
@@ -842,22 +925,34 @@ var FooterContainer = {
  */
 
 /**
+  * @typedef {function} FooterBrowserClickCallback
+  * @return {void}
+  */
+
+/**
  * Adds legal footer html to 'containerID' element.
  * @param {!Element} content
  * @param {?string} licenseString
  * @param {?string} licenseSubstitutionString
  * @param {!string} containerID
  * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+ * @param {!string} viewInBrowserString
+ * @param {!FooterBrowserClickCallback} browserLinkClickHandler
  * @return {void}
  */
-var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler) {
+var add = function add(content, licenseString, licenseSubstitutionString, containerID, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler) {
+  // todo: don't manipulate the selector. The client can make this an ID if they want it to be.
   var container = content.querySelector('#' + containerID);
   var licenseStringHalves = licenseString.split('$1');
 
-  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n    </span>\n  </div>';
+  container.innerHTML = '<div class=\'pagelib_footer_legal_contents\'>\n    <hr class=\'pagelib_footer_legal_divider\'>\n    <span class=\'pagelib_footer_legal_license\'>\n      ' + licenseStringHalves[0] + '\n      <a class=\'pagelib_footer_legal_license_link\'>\n        ' + licenseSubstitutionString + '\n      </a>\n      ' + licenseStringHalves[1] + '\n      <br>\n      <div class="pagelib_footer_browser">\n        <a class=\'pagelib_footer_browser_link\'>\n          ' + viewInBrowserString + '\n        </a>\n      </div>\n    </span>\n  </div>';
 
   container.querySelector('.pagelib_footer_legal_license_link').addEventListener('click', function () {
     licenseLinkClickHandler();
+  });
+
+  container.querySelector('.pagelib_footer_browser_link').addEventListener('click', function () {
+    browserLinkClickHandler();
   });
 };
 
@@ -924,11 +1019,12 @@ var MenuItemType = {
   pageIssues: 3,
   disambiguation: 4,
   coordinate: 5
-
-  /**
-   * Menu item model.
-   */
 };
+
+/**
+ * Menu item model.
+ */
+
 var MenuItem = function () {
   /**
    * MenuItem constructor.
@@ -962,6 +1058,8 @@ var MenuItem = function () {
           return 'pagelib_footer_menu_icon_languages';
         case MenuItemType.lastEdited:
           return 'pagelib_footer_menu_icon_last_edited';
+        case MenuItemType.talkPage:
+          return 'pagelib_footer_menu_icon_talk_page';
         case MenuItemType.pageIssues:
           return 'pagelib_footer_menu_icon_page_issues';
         case MenuItemType.disambiguation:
@@ -1086,7 +1184,7 @@ var setHeading = function setHeading(headingString, headingID, document) {
 };
 
 var FooterMenu = {
-  MenuItemType: MenuItemType,
+  MenuItemType: MenuItemType, // todo: rename to just ItemType?
   setHeading: setHeading,
   maybeAddItem: maybeAddItem
 };
@@ -1114,7 +1212,7 @@ var FooterMenu = {
  * @return {void}
  */
 
-var SAVE_BUTTON_ID_PREFIX = 'readmore:save:';
+var SAVE_BUTTON_ID_PREFIX = 'pagelib_footer_read_more_save_';
 
 /**
  * Removes parenthetical enclosures from string.
@@ -1320,7 +1418,24 @@ var readMoreQueryURL = function readMoreQueryURL(title, count, baseURL) {
  * @param {!string} statusText
  * @return {void}
  */
-var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
+var fetchErrorHandler = function fetchErrorHandler(statusText) {
+  // TODO: figure out if we want to hide the 'Read more' header in cases when fetch fails.
+  console.log('statusText = ' + statusText); // eslint-disable-line no-console
+};
+
+/**
+ * Fetches 'Read more' pages.
+ * @param {!string} title
+ * @param {!number} count
+ * @param {!string} containerID
+ * @param {?string} baseURL
+ * @param {!ShowReadMorePagesHandler} showReadMorePagesHandler
+ * @param {!SaveButtonClickHandler} saveButtonClickHandler
+ * @param {!TitlesShownHandler} titlesShownHandler
+ * @param {!Document} document
+ * @return {void}
+ */
+var fetchReadMore = function fetchReadMore(title, count, containerID, baseURL, showReadMorePagesHandler, saveButtonClickHandler, titlesShownHandler, document) {
   var xhr = new XMLHttpRequest(); // eslint-disable-line no-undef
   xhr.open('GET', readMoreQueryURL(title, count, baseURL), true);
   xhr.onload = function () {
@@ -1336,7 +1451,11 @@ var fetchErrorHandler = function fetchErrorHandler(statusText) {};var fetchReadM
   xhr.onerror = function () {
     return fetchErrorHandler(xhr.statusText);
   };
-  xhr.send();
+  try {
+    xhr.send();
+  } catch (error) {
+    fetchErrorHandler(error.toString());
+  }
 };
 
 /**
@@ -1589,6 +1708,8 @@ var _class = function () {
    * @param {!string} license
    * @param {!string} licenseSubstitutionString
    * @param {!FooterLegalClickCallback} licenseLinkClickHandler
+   * @param {!string} viewInBrowserString
+   * @param {!FooterBrowserClickCallback} browserLinkClickHandler
    * @param {!TitlesShownHandler} titlesShownHandler
    * @param {!SaveButtonClickHandler} saveButtonClickHandler
    * @return {void}
@@ -1597,11 +1718,11 @@ var _class = function () {
 
   createClass(_class, [{
     key: 'add',
-    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
+    value: function add(window, container, baseURL, title, readMoreHeader, readMoreLimit, license, licenseSubstitutionString, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler, titlesShownHandler, saveButtonClickHandler) {
       this.remove(window);
       container.appendChild(FooterContainer.containerFragment(window.document));
 
-      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler);
+      FooterLegal.add(window.document, license, licenseSubstitutionString, ID_LEGAL_CONTAINER, licenseLinkClickHandler, viewInBrowserString, browserLinkClickHandler);
 
       FooterReadMore.setHeading(readMoreHeader, ID_READ_MORE_HEADER, window.document);
       FooterReadMore.add(title, readMoreLimit, ID_READ_MORE_CONTAINER, baseURL, saveButtonClickHandler, function (titles) {
@@ -1642,12 +1763,12 @@ var _class = function () {
 // CSS classes used to identify and present lazily loaded images. Placeholders are members of
 // PLACEHOLDER_CLASS and one state class: pending, loading, or error. Images are members of either
 // loading or loaded state classes. Class names should match those in LazyLoadTransform.css.
-var PLACEHOLDER_CLASS = 'pagelib-lazy-load-placeholder';
-var PLACEHOLDER_PENDING_CLASS = 'pagelib-lazy-load-placeholder-pending'; // Download pending.
-var PLACEHOLDER_LOADING_CLASS = 'pagelib-lazy-load-placeholder-loading'; // Download started.
-var PLACEHOLDER_ERROR_CLASS = 'pagelib-lazy-load-placeholder-error'; // Download failure.
-var IMAGE_LOADING_CLASS = 'pagelib-lazy-load-image-loading'; // Download started.
-var IMAGE_LOADED_CLASS = 'pagelib-lazy-load-image-loaded'; // Download completed.
+var PLACEHOLDER_CLASS = 'pagelib_lazy_load_placeholder';
+var PLACEHOLDER_PENDING_CLASS = 'pagelib_lazy_load_placeholder_pending'; // Download pending.
+var PLACEHOLDER_LOADING_CLASS = 'pagelib_lazy_load_placeholder_loading'; // Download started.
+var PLACEHOLDER_ERROR_CLASS = 'pagelib_lazy_load_placeholder_error'; // Download failure.
+var IMAGE_LOADING_CLASS = 'pagelib_lazy_load_image_loading'; // Download started.
+var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed.
 
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
@@ -1661,15 +1782,15 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
   px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
   ex: 10, // ''
   em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
+};
 
-
-  /**
-   * Replace an image with a placeholder.
-   * @param {!Document} document
-   * @param {!HTMLImageElement} image The image to be replaced.
-   * @return {!HTMLSpanElement} The placeholder replacing image.
-   */
-};var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+/**
+ * Replace an image with a placeholder.
+ * @param {!Document} document
+ * @param {!HTMLImageElement} image The image to be replaced.
+ * @return {!HTMLSpanElement} The placeholder replacing image.
+ */
+var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
   // There are a number of possible implementations for placeholders including:
   //
   // - [MobileFrontend] Replace the original image with a span and replace the span with a new
@@ -1962,14 +2083,14 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib-platform-android', IOS: 'pagelib-platform-ios'
+var CLASS$2 = { ANDROID: 'pagelib_platform_android', IOS: 'pagelib_platform_ios' };
 
-  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
-  /**
-   * @param {!Window} window
-   * @return {!boolean} true if the user agent is Android, false otherwise.
-   */
-};var isAndroid = function isAndroid(window) {
+// Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+/**
+ * @param {!Window} window
+ * @return {!boolean} true if the user agent is Android, false otherwise.
+ */
+var isAndroid = function isAndroid(window) {
   return (/android/i.test(window.navigator.userAgent)
   );
 };
@@ -2071,65 +2192,11 @@ var RedLinks = {
   }
 };
 
-// Elements marked with either of these classes indicate certain ancestry constraints that are
-// difficult to describe as CSS selectors.
-var CONSTRAINT = {
-  IMAGE_NO_BACKGROUND: 'pagelib-theme-image-no-background',
-  IMAGE_NONTABULAR: 'pagelib-theme-image-nontabular'
-
-  // Theme to CSS classes.
-};var THEME = {
-  DEFAULT: 'pagelib-theme-default', DARK: 'pagelib-theme-dark', SEPIA: 'pagelib-theme-sepia'
-
-  /**
-   * @param {!Document} document
-   * @param {!string} theme
-   * @return {void}
-   */
-};var setTheme = function setTheme(document, theme) {
-  var html = document.querySelector('html');
-
-  // Set the new theme.
-  html.classList.add(theme);
-
-  // Clear any previous theme.
-  for (var key in THEME) {
-    if (Object.prototype.hasOwnProperty.call(THEME, key) && THEME[key] !== theme) {
-      html.classList.remove(THEME[key]);
-    }
-  }
-};
-
 /**
- * Annotate elements with CSS classes that can be used by CSS rules. The classes themselves are not
- * theme-dependent so classification only need only occur once after the content is loaded, not
- * every time the theme changes.
- * @param {!Element} element
- * @return {void}
- */
-var classifyElements = function classifyElements(element) {
-  Polyfill.querySelectorAll(element, 'img').forEach(function (image) {
-    if (!elementUtilities.closestInlineStyle(image, 'background')) {
-      image.classList.add(CONSTRAINT.IMAGE_NO_BACKGROUND);
-    }
-    if (!elementUtilities.isNestedInTable(image)) {
-      image.classList.add(CONSTRAINT.IMAGE_NONTABULAR);
-    }
-  });
-};
-
-var ThemeTransform = {
-  CONSTRAINT: CONSTRAINT,
-  THEME: THEME,
-  setTheme: setTheme,
-  classifyElements: classifyElements
-};
-
-/**
- * To widen an image element a css class called 'wideImageOverride' is applied to the image element,
- * however, ancestors of the image element can prevent the widening from taking effect. This method
- * makes minimal adjustments to ancestors of the image element being widened so the image widening
- * can take effect.
+ * To widen an image element a css class called 'pagelib_widen_image_override' is applied to the
+ * image element, however, ancestors of the image element can prevent the widening from taking
+ * effect. This method makes minimal adjustments to ancestors of the image element being widened so
+ * the image widening can take effect.
  * @param  {!HTMLElement} el Element whose ancestors will be widened
  * @return {void}
  */
@@ -2192,7 +2259,7 @@ var shouldWidenImage = function shouldWidenImage(image) {
  */
 var widenImage = function widenImage(image) {
   widenAncestors(image);
-  image.classList.add('wideImageOverride');
+  image.classList.add('pagelib_widen_image_override');
 };
 
 /**
@@ -2216,6 +2283,14 @@ var WidenImage = {
   }
 };
 
+/* eslint-disable sort-imports */
+
+// We want the theme transform to be first. This is because the theme transform CSS has to use
+// some '!important' CSS modifiers to reliably set themes on elements which may contain inline
+// styles. Moving it to the top of the file is necessary so other transforms can override
+// these '!important' themes transform CSS bits if needed. Note - if other transforms have trouble
+// overriding things changed by theme transform remember to match or exceed the selector specificity
+// used by the theme transform for whatever it is you are trying to override.
 var pagelib$1 = {
   // todo: rename CollapseTableTransform.
   CollapseTable: CollapseTable,
@@ -2260,6 +2335,8 @@ var wmf = {}
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.utilities = require('./js/utilities')
+wmf.platform = require('wikimedia-page-library').PlatformTransform
+wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 
 window.wmf = wmf
 },{"./js/utilities":1,"wikimedia-page-library":2}]},{},[3,1]);

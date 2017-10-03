@@ -1,11 +1,11 @@
 import UIKit
 
 @objc(WMFOnThisDayExploreCollectionViewCell)
-class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
+public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     fileprivate var topGradientView: WMFGradientView = WMFGradientView()
     fileprivate var bottomGradientView: WMFGradientView = WMFGradientView()
     
-    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         if (apply) {
             let topGradientHeight: CGFloat = 17
             let bottomGradientHeight: CGFloat = 53
@@ -26,14 +26,12 @@ class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
         bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.8)
     }
-    
-    override func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        let opaque = labelBackgroundColor
-        let clear = opaque?.withAlphaComponent(0)
-        topGradientView.startColor = opaque
-        topGradientView.endColor = clear
-        bottomGradientView.startColor = clear
-        bottomGradientView.endColor = opaque
+
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        let opaque = theme.colors.paperBackground
+        let clear = opaque.withAlphaComponent(0)
+        topGradientView.setStart(opaque, end: clear)
+        bottomGradientView.setStart(clear, end: opaque)
     }
 }

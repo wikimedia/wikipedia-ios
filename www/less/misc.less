@@ -91,11 +91,6 @@ a {
     font-weight: 700 !important;
 }
 
-/* TODO: migrate this override to the pagelib EditTransform's CSS using a platform specifier */
-h3.section_heading span.pagelib_edit_section_link_container {
-    display: none !important;
-}
-
 .quotebox {
     float: none !important;
 }
@@ -104,8 +99,46 @@ h3.section_heading span.pagelib_edit_section_link_container {
    Override to collapsed table container border styling  
    which is currently used by the collapse table  
    transform we are using from the wikimedia-page-library.
+   
+   TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
 */
-.app_table_container {
+.pagelib_collapse_table_container {
     padding: 1px !important;
     box-shadow: inset 0 0 1px gray !important;
+}
+
+/*
+    iOS 'Smart invert' exclusions.
+    Makes article images not go photo-negative when 'Smart invert' is enabled.
+
+    TODO: migrate this to wikimedia-page-library with '.pagelib-platform-ios' specifier
+*/
+@media(inverted-colors) {
+    /* Images, video. */
+    img, video {
+      filter: invert(100%);
+    }
+    /* 
+    Image backgrounds.
+        Footer 'Read more' item images.
+        Other places...
+    */
+    div[style*='background-image'] {
+      filter: invert(100%);
+    }
+    /* 
+    Math formulas.
+        'en > Quadratic equation'
+    */
+    img.mwe-math-fallback-image-inline {
+      filter: invert(0%);
+    }    
+    /* 
+    Images needing white backgrounds.
+        'en > Quadratic equation'
+        'en > Barack Obama > 2004 U.S. Senate campaign'
+    */
+    img.pagelib_theme_image_presumes_white_background {
+      background: #fff;
+    }  
 }

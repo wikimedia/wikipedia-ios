@@ -114,8 +114,6 @@
 "history-clear-cancel" = "გაუქმება";
 "history-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ წაშალოთ ყველა თქვენი ბოლო ელემენტი?";
 "history-clear-delete-all" = "დიახ, ყველას წაშლა";
-"history-section-today" = "დღეს";
-"history-section-yesterday" = "გუშინ";
 "history-title" = "ისტორია";
 "hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";
 "hockeyapp-alert-do-not-send" = "არ გააგზავნო";
@@ -223,10 +221,6 @@
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
-"share-as-image" = "სურათად გაზიარება";
-"share-as-text" = "ტექსტად გაზიარება";
-"share-cancel" = "გაუქმება";
 "share-custom-menu-item" = "გაზიარება...";
 "status-saved-for-later" = "შემდგომისთვის შენახვა";
 "table-of-contents-button-label" = "სარჩევი";
@@ -241,7 +235,6 @@
 "two-factor-login-title" = "თქვენ ანგარიშში შესვლა";
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
-"welcome-explore-tell-me-more" = "მითხარით მეტი";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
 "welcome-languages-continue-button" = "გაგრძელება";
 "welcome-languages-title" = "ენები";

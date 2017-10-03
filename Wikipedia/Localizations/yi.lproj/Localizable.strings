@@ -47,8 +47,6 @@
 "history-clear-cancel" = "אַנולירן";
 "history-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע לעצטיקע אביעקטן?";
 "history-clear-delete-all" = "יא, אויסמעקן אלץ";
-"history-section-today" = "הײַנט";
-"history-section-yesterday" = "נעכטן";
 "history-title" = "היסטאריע";
 "hockeyapp-alert-always-send" = "אלעמאל שיקן";
 "hockeyapp-alert-do-not-send" = "נישט שיקן";
@@ -128,10 +126,6 @@
 "settings-support" = "שטיצן וויקיפעדיע";
 "settings-title" = "איינשטעלונגען";
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" אויף @Wikipedia: \"$2\"";
-"share-as-image" = "טיילן אלס בילד";
-"share-as-text" = "טיילן אלס טעקסט";
-"share-cancel" = "אַנולירן";
 "share-custom-menu-item" = "טיילן…";
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";

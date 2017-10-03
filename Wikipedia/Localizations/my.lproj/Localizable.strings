@@ -98,8 +98,6 @@
 "history-clear-cancel" = "မလုပ်တော့ပါ";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
-"history-section-today" = "ယနေ့";
-"history-section-yesterday" = "မနေ့";
 "history-title" = "ရာဇဝင်";
 "hockeyapp-alert-always-send" = "အမြဲတမ်းပို့ရန်";
 "hockeyapp-alert-do-not-send" = "မပို့ပါနှင့်";
@@ -190,10 +188,6 @@
 "settings-support" = "ဝီကီပီးဒီးယားကို ကူညီထောက်ပံ့";
 "settings-title" = "အပြင်အဆင်များ";
 "share-article-name-on-wikipedia" = "@Wikipedia မှ \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia မှ \"$1\": \"$2\"";
-"share-as-image" = "ပုံအဖြစ် မျှဝေရန်";
-"share-as-text" = "စာသားအဖြစ် မျှဝေရန်";
-"share-cancel" = "မလုပ်တော့ပါ";
 "share-custom-menu-item" = "မျှဝေ...";
 "share-on-twitter-sign-off" = "@Wikipedia မှတဆင့်";
 "table-of-contents-button-label" = "မာတိကာ";

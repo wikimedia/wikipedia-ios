@@ -13,7 +13,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
     
-    public var funnel: LoginFunnel?
+    @objc public var funnel: LoginFunnel?
     
     fileprivate var theme: Theme = Theme.standard
     
@@ -21,7 +21,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
 
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -83,7 +83,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         guard let text = captchaViewController?.solution else {
             return false
         }
-        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
+        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0)
     }
     
     fileprivate func requiredInputFields() -> [UITextField] {
@@ -210,7 +210,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         })
     }
 
-    func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    @objc func forgotPasswordButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -226,7 +226,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         })
     }
     
-    func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    @objc func createAccountButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -307,8 +307,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             label?.textColor = theme.colors.secondaryText
         }
         
-        usernameField.apply(theme: theme, withBorder: true)
-        passwordField.apply(theme: theme, withBorder: true)
+        usernameField.apply(theme: theme)
+        passwordField.apply(theme: theme)
         
         titleLabel.textColor = theme.colors.primaryText
         forgotPasswordButton.textColor = theme.colors.link

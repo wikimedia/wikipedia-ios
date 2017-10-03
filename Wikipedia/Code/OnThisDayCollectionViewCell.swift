@@ -1,11 +1,11 @@
 import UIKit
 
 @objc(WMFOnThisDayCollectionViewCell)
-class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
+public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
-    let timelineView = OnThisDayTimelineView()
+    public let timelineView = OnThisDayTimelineView()
         
-    override func updateFonts(with traitCollection: UITraitCollection) {
+    override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
@@ -16,16 +16,16 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         descriptionLabel.font = subTitleFont
     }
     
-    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let timelineViewWidth:CGFloat = 66.0
         let x: CGFloat
         
         if semanticContentAttributeOverride == .forceRightToLeft {
-            margins.right = timelineViewWidth
-            x = size.width - timelineViewWidth
+            layoutMargins.right = timelineViewWidth
+            x = size.width - timelineViewWidth - layoutMargins.right
         } else {
-            margins.left = timelineViewWidth
-            x = 0
+            x = layoutMargins.left
+            layoutMargins.left = layoutMargins.left + timelineViewWidth
         }
         
         if apply {
@@ -41,25 +41,25 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         insertSubview(timelineView, belowSubview: collectionView)
     }
     
-    var pauseDotsAnimation: Bool = true {
+    public var pauseDotsAnimation: Bool = true {
         didSet {
             timelineView.pauseDotsAnimation = pauseDotsAnimation
         }
     }
     
-    override var isHidden: Bool {
+    override public var isHidden: Bool {
         didSet {
             pauseDotsAnimation = isHidden
         }
     }
     
-    override func layoutSublayers(of layer: CALayer) {
+    override public func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         timelineView.topDotsY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
         timelineView.bottomDotY = bottomTitleLabel.convert(bottomTitleLabel.bounds, to: timelineView).midY
     }
     
-    override func apply(theme: Theme) {
+    override public func apply(theme: Theme) {
         super.apply(theme: theme)
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.link
@@ -69,9 +69,8 @@ class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         collectionView.backgroundColor = .clear
     }
     
-    override func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-        let backgroundColor = labelBackgroundColor
-        timelineView.backgroundColor = backgroundColor
+    override public func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        timelineView.backgroundColor = labelBackgroundColor
     }
 }

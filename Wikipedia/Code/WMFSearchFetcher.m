@@ -34,6 +34,10 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     return self;
 }
 
+- (void)dealloc {
+    [self.operationManager invalidateSessionCancelingTasks:YES];
+}
+
 - (void)fetchArticlesForSearchTerm:(NSString *)searchTerm
                            siteURL:(NSURL *)siteURL
                        resultLimit:(NSUInteger)resultLimit
@@ -63,12 +67,12 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     if (!siteURL) {
         siteURL = [NSURL wmf_URLWithDefaultSiteAndCurrentLocale];
     }
-    
+
     if (!siteURL) {
         failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
         return;
     }
-    
+
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
     WMFSearchRequestParameters *params = [WMFSearchRequestParameters new];

@@ -81,6 +81,10 @@ open class SWStepSlider: UIControl {
         self.thumbLayer.shadowRadius = 2
         self.thumbLayer.contentsScale = UIScreen.main.scale
         
+        // Tap Gesture Recognizer
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.addGestureRecognizer(tap)
+        
         self.layer.addSublayer(self.thumbLayer)
     }
     
@@ -138,8 +142,6 @@ open class SWStepSlider: UIControl {
         let location = touch.location(in: self)
         self.originalValue = self.value
         
-        print("touch \(location)")
-        
         if self.thumbLayer.frame.contains(location) {
             self.dragging = true
         } else {
@@ -171,7 +173,7 @@ open class SWStepSlider: UIControl {
         self.setNeedsLayout()
         CATransaction.commit()
         
-
+        
         return true
     }
     
@@ -192,5 +194,19 @@ open class SWStepSlider: UIControl {
     
     func clipValue(_ value: Int) -> Int {
         return min(max(value, self.minimumValue), self.maximumValue)
+    }
+    
+    // MARK: - Tap Gesture Recognizer
+    
+    @objc func handleTap(_ sender: UIGestureRecognizer) {
+        if !self.dragging {
+            let pointTapped: CGPoint = sender.location(in: self)
+            
+            let widthOfSlider: CGFloat = self.bounds.size.width
+            let newValue = pointTapped.x * (CGFloat(self.numberOfSteps) / widthOfSlider)
+            
+            self.value = Int(newValue)
+            self.setNeedsLayout()
+        }
     }
 }

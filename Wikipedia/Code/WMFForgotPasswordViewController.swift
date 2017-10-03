@@ -69,7 +69,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
                 enableProgressiveButton(false)
                 return
         }
-        enableProgressiveButton((username.characters.count > 0 || email.characters.count > 0))
+        enableProgressiveButton((username.count > 0 || email.count > 0))
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
@@ -85,7 +85,7 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
         sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -128,8 +128,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
             label?.textColor = theme.colors.secondaryText
         }
         
-        usernameField.apply(theme: theme, withBorder: true)
-        emailField.apply(theme: theme, withBorder: true)
+        usernameField.apply(theme: theme)
+        emailField.apply(theme: theme)
         
         resetPasswordButton.apply(theme: theme)
     }

@@ -89,8 +89,6 @@
 "history-clear-cancel" = "Hætta við";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Eyða öllu";
-"history-section-today" = "Í dag";
-"history-section-yesterday" = "Í gær";
 "history-title" = "Ferill";
 "hockeyapp-alert-always-send" = "Alltaf senda";
 "hockeyapp-alert-do-not-send" = "Ekki senda";
@@ -184,12 +182,9 @@
 "settings-language-bar" = "Sýna tungumál við leit";
 "settings-support" = "Styðja Wikipedia";
 "settings-title" = "Stillingar";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Deila-staðreynd";
 "share-article-name-on-wikipedia" = "„$1“ á @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1“ á @Wikipedia: „$2“";
-"share-as-image" = "Deila sem mynd";
-"share-as-text" = "Deila sem texta";
-"share-cancel" = "Hætta við";
 // Fuzzy
 "share-custom-menu-item" = "Deila";
 "share-on-twitter-sign-off" = "með @Wikipedia";
@@ -201,7 +196,6 @@
 "table-of-contents-heading" = "Efni";
 "table-title-other" = "Nánari upplýsingar";
 "welcome-explore-continue-button" = "Komast í gang";
-"welcome-explore-tell-me-more" = "Segðu mér fleira";
 "welcome-explore-tell-me-more-done-button" = "Náði því";
 // Fuzzy
 "welcome-languages-add-button" = "Bæta við öðru";

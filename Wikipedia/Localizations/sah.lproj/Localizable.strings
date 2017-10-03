@@ -1,6 +1,7 @@
 // Messages for Sakha (саха тыла)
 // Exported from translatewiki.net
 // Author: HalanTul
+// Author: Macofe
 // Author: Nemo bis
 // Author: Ай-Куо
 // Author: Алгыс
@@ -148,13 +149,11 @@
 "forgot-password-button-title" = "Саҥаттан";
 "forgot-password-title" = "Аһарыгы саҥардыы";
 "forgot-password-username-or-email-title" = "Эбэтэр";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Сот";
 "history-clear-cancel" = "Салҕаама";
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
-"history-section-today" = "Бүгүн";
-"history-section-yesterday" = "Бэҕэһээ";
 "history-title" = "Устуоруйата";
 "hockeyapp-alert-always-send" = "Куруук ыытар буол";
 "hockeyapp-alert-do-not-send" = "Ыытыма";
@@ -305,12 +304,9 @@
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Чахчыны-үллэһин";
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» @Wikipedia: «$2»";
-"share-as-image" = "Ойуу быһыытынан тарҕат";
-"share-as-text" = "Тиэкис быһыытынан тарҕат";
-"share-cancel" = "Бигэргэтимэ";
 "share-custom-menu-item" = "Тарҕат...";
 "share-get-directions-in-maps" = "Суолу салҕаа";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
@@ -329,9 +325,7 @@
 "two-factor-login-title" = "Бэлиэ-ааккынан киир";
 "two-factor-login-with-regular-code" = "Куоду бигэргэт";
 "welcome-explore-continue-button" = "Саҕалыырга";
-"welcome-explore-new-ways-sub-title" = "Саҥа биллэрии уонна ҕааддьыт сэргэх ыстатыйалары буларга көмөлөһүө";
 "welcome-explore-new-ways-title" = "Чинчийии саҥа ньымалара";
-"welcome-explore-tell-me-more" = "Бу туһунан сиһилии кэпсээ";
 "welcome-explore-tell-me-more-done-button" = "Бу өйдөнөр";
 "welcome-languages-add-button" = "Атын тылла эп";
 "welcome-languages-continue-button" = "Салгыы";

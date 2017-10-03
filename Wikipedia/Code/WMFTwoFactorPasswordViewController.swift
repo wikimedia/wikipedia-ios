@@ -32,7 +32,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     public var captchaID:String?
     public var captchaWord:String?
     
-    func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func displayModeToggleTapped(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended else {
             return
         }
@@ -178,8 +178,8 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Support numeric code pasting when showing individual digit UITextFields - i.e. when displayMode == .shortNumeric.
         // If displayMode == .shortNumeric 'string' has been verified to be comprised of decimal digits by this point.
         // Backup code (when displayMode == .longAlphaNumeric) pasting already works as-is because it uses a single UITextField.
-        if displayMode == .shortNumeric && string.characters.count == oathTokenFields.count{
-            for (field, char) in zip(oathTokenFields, string.characters) {
+        if displayMode == .shortNumeric && string.count == oathTokenFields.count{
+            for (field, char) in zip(oathTokenFields, string) {
                 field.text = String(char)
             }
             enableProgressiveButton(areRequiredFieldsPopulated())
@@ -187,7 +187,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         
         // Enforce max count.
-        let countIfAllowed = textField.text.wmf_safeCharacterCount + string.characters.count
+        let countIfAllowed = textField.text.wmf_safeCharacterCount + string.count
         return (countIfAllowed <= maxTextFieldCharacterCount())
     }
     
@@ -235,7 +235,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         apply(theme: theme)
     }
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -331,7 +331,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         fields.append(backupOathTokenField)
         
         for textField in fields {
-            textField.apply(theme: theme, withBorder: false)
+            textField.apply(theme: theme)
         }
         
         titleLabel.textColor = theme.colors.primaryText

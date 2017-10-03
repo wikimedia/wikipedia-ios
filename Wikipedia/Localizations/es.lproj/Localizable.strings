@@ -8,6 +8,7 @@
 // Author: Javiersanp
 // Author: Josecurioso
 // Author: Koavf
+// Author: Luisangelrg
 // Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
@@ -70,7 +71,10 @@
 "action-unsave" = "No guardar";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
+"appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
+"appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
+"appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "appearance-settings-title" = "Temas de lecturas";
 "article-about-title" = "Acerca de este artículo";
@@ -95,6 +99,7 @@
 "button-save-for-later" = "Guardar para después";
 "button-saved-for-later" = "Guardado para después";
 "button-saved-remove" = "Quitar de los guardados";
+"cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Cerrar";
 "compass-direction" = "a las $1 en punto";
@@ -170,13 +175,11 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
-"history-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todos los elementos recientes?";
+"history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
 "history-clear-delete-all" = "Sí, borrar todos";
-"history-section-today" = "Hoy";
-"history-section-yesterday" = "Ayer";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Enviar siempre";
 "hockeyapp-alert-do-not-send" = "No enviar";
@@ -187,7 +190,7 @@
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
-"home-button-popover-description" = "Pulsa en \"W\" para volver al feed de Explorar";
+"home-button-popover-description" = "Toca la «W» para volver al suministro Explorar";
 "home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-hide-suggestion-cancel" = "Cancelar";
@@ -222,7 +225,7 @@
 "main-menu-about" = "Acerca de la aplicación";
 "main-menu-account-login" = "Acceder";
 "main-menu-account-logout" = "Salir";
-"main-menu-account-logout-are-you-sure" = "¿Estás seguro de que quieres cerrar sesión?";
+"main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
 "main-menu-debug-crash" = "Fallar";
@@ -267,6 +270,7 @@
 "page-protected-sysop" = "Esta página está totalmente protegida.";
 "page-read-in-other-languages" = "Disponible en $1 idiomas más";
 "page-similar-titles" = "Páginas similares";
+"page-talk-page" = "Ver página de discusión";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";
 "places-accessibility-close-search" = "Cerrar búsqueda";
@@ -309,7 +313,6 @@
 "readers-accessibility-label" = "$1 lectores";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de brillo";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema oscuro";
-"reading-themes-controls-accessibility-dim-images-switch" = "Atenuación de imágenes";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema ligero";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamaño de texto";
@@ -321,7 +324,7 @@
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "saved-clear-all" = "Vaciar";
 "saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-confirmation-heading" = "¿Estás seguro de que quieres borrar todas las páginas guardadas?";
+"saved-pages-clear-confirmation-heading" = "¿Confirmas que quieres borrar todas las páginas guardadas?";
 "saved-pages-clear-delete-all" = "Sí, borrar todas";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-title" = "Guardados";
@@ -353,16 +356,20 @@
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
 "settings-support" = "Apoya a Wikipedia";
 "settings-title" = "Configuración";
-"share-a-fact-share-menu-item" = "Comparte-un-hecho";
+"share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
+"share-a-fact-share-menu-item" = "Comparte un dato…";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
-"share-as-image" = "Compartir como imagen";
-"share-as-text" = "Compartir como texto";
-"share-cancel" = "Cancelar";
+"share-building" = "Construyendo una tarjeta comparte-un-hecho…";
 "share-custom-menu-item" = "Compartir...";
+"share-default-format" = "«$1» de «$2»: $3";
+"share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Obtener indicaciones";
+"share-menu-item" = "Compartir…";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-open-in-maps" = "Abrir en Mapas";
+"share-social-format" = "«$1» vía Wikipedia: $2";
+"share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "status-saved-for-later" = "Guardado para después";
 "status-saving-for-later" = "Guardando para después…";
 "table-of-contents-button-label" = "Sumario";
@@ -381,10 +388,12 @@
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
+"view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-explore-continue-button" = "Empezar";
-"welcome-explore-new-ways-sub-title" = "Notificaciones y \"widgets\" nuevos para ayudarte a descubrir artículos interesantes";
+"welcome-explore-features-news-notifications" = "Obtenga notificaciones sobre los temas que marcan tendencia en las noticias.";
+"welcome-explore-features-on-this-day" = "Realice un viaje en el tiempo con $1 para aprender qué ocurrió en la historia un día como hoy";
+"welcome-explore-features-places" = "Utilice la pestaña $1 para descubrir monumentos cerca de usted o realizar una búsqueda alrededor del mundo";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
-"welcome-explore-tell-me-more" = "Más información";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-languages-add-button" = "Añadir otro idioma";
 "welcome-languages-continue-button" = "Continuar";
@@ -410,7 +419,7 @@
 "wikitext-upload-save" = "Publicando…";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-sign-in" = "Acceder";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Al publicar cambios, aceptas los $1 y a liberar tu contribución bajo los términos de la licencia $2 y $3.";
 "wikitext-upload-save-terms-name" = "Términos de uso";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";

@@ -13,7 +13,7 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         return String()
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
         
         var text: String?
 
@@ -22,7 +22,7 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         }else if activityType == UIActivityType.postToFacebook ||
         activityType == UIActivityType.mail ||
         activityType == UIActivityType.postToFlickr {
-            text = info.filePageURL.absoluteString
+            text = info.filePageURL?.absoluteString
         }else {
             text = nil
         }

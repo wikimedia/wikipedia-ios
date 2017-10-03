@@ -10,23 +10,23 @@ protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
 
 @objc(WMFAnnouncementCollectionViewCell)
 open class AnnouncementCollectionViewCell: CollectionViewCell {
-    var delegate: AnnouncementCollectionViewCellDelegate?
+    @objc var delegate: AnnouncementCollectionViewCellDelegate?
     
-    let imageView = UIImageView()
-    let messageLabel = UILabel()
-    let actionButton = UIButton()
-    let dismissButton = UIButton()
-    let captionTextView = UITextView()
-    let captionSeparatorView = UIView()
-    let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-    let messageSpacing: CGFloat = 20
-    let buttonMargin: CGFloat = 40
-    let actionButtonHeight: CGFloat = 40
-    let dismissButtonSpacing: CGFloat = 8
-    let dismissButtonHeight: CGFloat = 32
-    var imageViewDimension: CGFloat = 150
-    let captionSpacing: CGFloat = 8
-    
+    @objc public let imageView = UIImageView()
+    @objc public let messageLabel = UILabel()
+    @objc public let actionButton = UIButton()
+    @objc public let dismissButton = UIButton()
+    @objc public let captionTextView = UITextView()
+    @objc public let captionSeparatorView = UIView()
+    public let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+    public let messageSpacing: CGFloat = 20
+    public let buttonMargin: CGFloat = 40
+    public let actionButtonHeight: CGFloat = 40
+    public let dismissButtonSpacing: CGFloat = 8
+    public let dismissButtonHeight: CGFloat = 32
+    @objc public var imageViewDimension: CGFloat = 150
+    public let captionSpacing: CGFloat = 8
+
     open override func setup() {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -56,11 +56,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    func actionButtonPressed() {
+    @objc func actionButtonPressed() {
         delegate?.announcementCellDidTapActionButton(self)
     }
     
-    func dismissButtonPressed() {
+    @objc func dismissButtonPressed() {
         delegate?.announcementCellDidTapDismiss(self)
     }
     
@@ -79,18 +79,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote)
     }
     
-    override open func updateSelectedOrHighlighted() {
-        super.updateSelectedOrHighlighted()
-    }
-    
-    var isImageViewHidden = false {
+    @objc var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    var isCaptionHidden = false {
+    @objc var isCaptionHidden = false {
         didSet {
             captionSeparatorView.isHidden = isCaptionHidden
             captionTextView.isHidden = isCaptionHidden
@@ -98,7 +94,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         }
     }
     
-    var caption: NSAttributedString? {
+    @objc var caption: NSAttributedString? {
         set {
             guard let text = newValue else {
                 isCaptionHidden = true
@@ -115,7 +111,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             pStyle.lineBreakMode = .byWordWrapping
             pStyle.baseWritingDirection = .natural
             pStyle.alignment = .center
-            let attributes = [NSParagraphStyleAttributeName: pStyle]
+            let attributes = [NSAttributedStringKey.paragraphStyle: pStyle]
             mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
             captionTextView.attributedText = mutableText
 
@@ -185,17 +181,16 @@ extension AnnouncementCollectionViewCell: UITextViewDelegate {
 extension AnnouncementCollectionViewCell: Themeable {
     @objc(applyTheme:)
     public func apply(theme: Theme) {
-        backgroundView?.backgroundColor = theme.colors.paperBackground
-        selectedBackgroundView?.backgroundColor = theme.colors.midBackground
+        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
         messageLabel.textColor = theme.colors.primaryText
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         captionTextView.textColor = theme.colors.secondaryText
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
-        actionButton.borderColor = theme.colors.link
-        actionButton.borderWidth = 1
-        actionButton.cornerRadius = 5
+        actionButton.layer.borderColor = theme.colors.link.cgColor
+        actionButton.layer.borderWidth = 1
+        actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.backgroundColor = theme.colors.paperBackground
     }

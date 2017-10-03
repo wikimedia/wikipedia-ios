@@ -91,8 +91,6 @@
 "history-clear-cancel" = "Revocare";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
-"history-section-today" = "Astăzi";
-"history-section-yesterday" = "Ieri";
 "history-title" = "Istoric";
 "hockeyapp-alert-always-send" = "Trimite întotdeauna";
 "hockeyapp-alert-do-not-send" = "Nu trimite";
@@ -190,12 +188,9 @@
 "settings-primary-language-details" = "Prima poziție din această listă reprezintă limba principală a aplicației. Modificarea acestei limbi va conduce la modificarea conținutului zilnic (precum Articole de calitate) afișat în secțiunea Explorare.";
 "settings-support" = "Susțineți Wikipedia";
 "settings-title" = "Setări";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Distribuie-o-informație";
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "„$1” la @Wikipedia: „$2”";
-"share-as-image" = "Distribuie ca imagine";
-"share-as-text" = "Distribuie ca text";
-"share-cancel" = "Revocare";
 // Fuzzy
 "share-custom-menu-item" = "Distribuie";
 "share-on-twitter-sign-off" = "via @Wikipedia";
@@ -205,7 +200,6 @@
 "table-of-contents-heading" = "Cuprins";
 "table-title-other" = "Mai multe informații";
 "welcome-explore-continue-button" = "Să începem";
-"welcome-explore-tell-me-more" = "Spune-mi mai multe";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";
 "welcome-languages-add-button" = "Adaugă încă o limbă";
 "welcome-languages-continue-button" = "Continuă";

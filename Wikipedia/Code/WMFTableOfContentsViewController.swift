@@ -34,13 +34,13 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
 
     let semanticContentAttributeOverride: UISemanticContentAttribute
     
-    var displaySide = WMFTableOfContentsDisplaySide.left {
+    @objc var displaySide = WMFTableOfContentsDisplaySide.left {
         didSet {
             animator?.displaySide = displaySide
         }
     }
     
-    var displayMode = WMFTableOfContentsDisplayMode.modal {
+    @objc var displayMode = WMFTableOfContentsDisplayMode.modal {
         didSet {
             animator?.displayMode = displayMode
         }
@@ -64,8 +64,11 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         
         tv.sectionHeaderHeight = UITableViewAutomaticDimension
         tv.estimatedSectionHeaderHeight = 32
-        
-        tv.contentInset = UIEdgeInsetsMake(UIApplication.shared.statusBarFrame.size.height, 0, 0, 0)
+        if #available(iOS 11.0, *) {
+            tv.contentInset = UIEdgeInsetsMake(max(20, view.safeAreaInsets.top, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
+        } else {
+            tv.contentInset = UIEdgeInsetsMake(max(20, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
+        }
         tv.separatorStyle = .none
 
         //add to the view now to ensure view did load is kicked off
@@ -131,7 +134,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
     }
 
-    open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+    @objc open func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
         guard index < items.count else {
             assertionFailure("Trying to select/scroll to an item put of range")
             return

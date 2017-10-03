@@ -8,8 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedTopReadResponse
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedTopReadResponse.new, date): @"date",
-              WMF_SAFE_KEYPATH(WMFFeedTopReadResponse.new, articlePreviews): @"articles" };
+    return @{WMF_SAFE_KEYPATH(WMFFeedTopReadResponse.new, date): @"date",
+             WMF_SAFE_KEYPATH(WMFFeedTopReadResponse.new, articlePreviews): @"articles"};
 }
 
 + (NSValueTransformer *)articlePreviewsJSONTransformer {

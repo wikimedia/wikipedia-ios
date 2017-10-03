@@ -12,6 +12,7 @@
 // Author: Hidayatsrf
 // Author: Iwan Novirion
 // Author: Kenrick95
+// Author: Macofe
 // Author: Nemo bis
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
@@ -67,7 +68,10 @@
 "action-unsave" = "Jangan simpan";
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tutup";
+"appearance-settings-adjust-text-sizing" = "Sesuaikan ukuran teks artikel";
+"appearance-settings-image-dimming-footer" = "Turunkan kegelapan gambar pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-text-sizing-example-text" = "Seret penggeser di atas untuk mengubah ukuran teks artikel. Manfaatkan ukuran teks sistem Anda untuk mengubah ukuran area teks lain di aplikasi.";
 "appearance-settings-theme-options" = "Opsi tema";
 "appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai artikel ini";
@@ -92,6 +96,7 @@
 "button-save-for-later" = "Simpan untuk nanti";
 "button-saved-for-later" = "Disimpan untuk nanti";
 "button-saved-remove" = "Hapus dari tersimpan";
+"cancel" = "Batal";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
@@ -167,13 +172,11 @@
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
 "history-clear-delete-all" = "Ya, hapus semua";
-"history-section-today" = "Hari ini";
-"history-section-yesterday" = "Kemarin";
 "history-title" = "Riwayat";
 "hockeyapp-alert-always-send" = "Selalu kirim";
 "hockeyapp-alert-do-not-send" = "Jangan kirim";
@@ -264,6 +267,7 @@
 "page-protected-sysop" = "Halaman ini telah sepenuhnya dilindungi.";
 "page-read-in-other-languages" = "Tersedia dalam $1 bahasa lain";
 "page-similar-titles" = "Halaman serupa";
+"page-talk-page" = "Lihat halaman pembicaraan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
 "places-accessibility-close-search" = "Tutup pencarian";
@@ -306,7 +310,6 @@
 "readers-accessibility-label" = "$1 pembaca";
 "reading-themes-controls-accessibility-brightness-slider" = "Penggeser kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
-"reading-themes-controls-accessibility-dim-images-switch" = "Redupkan gambar";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Penggeser ukuran teks";
@@ -350,16 +353,20 @@
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
 "settings-support" = "Dukung Wikipedia";
 "settings-title" = "Pengaturan";
-"share-a-fact-share-menu-item" = "Bagikan-fakta";
+"share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
+"share-a-fact-share-menu-item" = "Bagikan-fakta...";
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" pada @Wikipedia: \"$2\"";
-"share-as-image" = "Bagikan sebagai gambar";
-"share-as-text" = "Bagikan sebagai teks";
-"share-cancel" = "Batal";
+"share-building" = "Membangun kartu Bagikan-fakta...";
 "share-custom-menu-item" = "Bagikan...";
+"share-default-format" = "“$1” dari “$2”: $3";
+"share-email-format" = "“$1”\n\ndari “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
+"share-menu-item" = "Bagikan...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-open-in-maps" = "Buka di Peta";
+"share-social-format" = "“$1” melalui Wikipedia: $2";
+"share-social-mention-format" = "“$1” melalui @Wikipedia: $2";
 "status-saved-for-later" = "Disimpan untuk nanti";
 "status-saving-for-later" = "Menyimpan untuk nanti...";
 "table-of-contents-button-label" = "Daftar isi";
@@ -378,10 +385,12 @@
 "two-factor-login-title" = "Masuk ke akun Anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kode cadangan Anda";
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
+"view-in-browser-footer-link" = "Lihat artikel di peramban";
 "welcome-explore-continue-button" = "Memulai";
-"welcome-explore-new-ways-sub-title" = "Pemberitahuan baru dan widget untuk membantu Anda menemukan artikel menarik";
+"welcome-explore-features-news-notifications" = "Dapatkan notifikasi berita untuk topik peristiwa terkini yang sedang tren";
+"welcome-explore-features-on-this-day" = "Bepergian kembali dengan $1 untuk mempelajari apa yang terjadi pada hari ini dalam sejarah";
+"welcome-explore-features-places" = "Gunakan tab $1 untuk menemukan tengara di dekat Anda atau mencari di seluruh dunia";
 "welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
-"welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
 "welcome-languages-continue-button" = "Lanjutkan";
@@ -407,7 +416,7 @@
 "wikitext-upload-save" = "Menerbitkan...";
 "wikitext-upload-save-anonymously-warning" = "Suntingan akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-sign-in" = "Masuk log";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Dengan menerbitkan perubahan, Anda setuju terhadap $1 dan setuju untuk memberikan kontribusi Anda di bawah lisensi $2 dan $3.";
 "wikitext-upload-save-terms-name" = "Ketentuan Penggunaan";
 "zero-charged-verbiage" = "Wikipedia Zero dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";

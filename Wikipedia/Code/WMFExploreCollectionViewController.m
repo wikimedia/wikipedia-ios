@@ -22,6 +22,7 @@
 #import "UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "WMFFeedOnThisDayEvent.h"
+#import "WMFContentGroup+DetailViewControllers.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -322,7 +323,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
-
     [self setupRefreshControl];
 }
 
@@ -371,8 +371,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
+
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:animated];
+    }
+
     for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
-        cell.selected = NO;
+        if ([cell conformsToProtocol:@protocol(WMFSubCellProtocol)]) {
+            [(id<WMFSubCellProtocol>)cell deselectSelectedSubItemsAnimated:animated];
+        }
     }
 
     if (!self.reachabilityManager) {
@@ -622,8 +629,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFColumnarCollectionViewLayoutDelgate
 
-- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize {
-    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize];
+- (WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth {
+    return [WMFCVLMetrics metricsWithBoundsSize:boundsSize readableWidth:readableWidth layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
 - (WMFLayoutEstimate)collectionView:(UICollectionView *)collectionView estimatedHeightForItemAtIndexPath:(NSIndexPath *)indexPath forColumnWidth:(CGFloat)columnWidth {
@@ -1117,16 +1124,22 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.collectionView registerNib:[WMFPicOfTheDayCollectionViewCell wmf_classNib] forCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName]];
 }
 
+- (UIEdgeInsets)readableMargins {
+    return [(WMFColumnarCollectionViewLayout *)self.collectionViewLayout readableMargins];
+}
+
 - (void)configureArticleCell:(WMFArticleCollectionViewCell *)cell withSection:(WMFContentGroup *)section displayType:(WMFFeedDisplayType)displayType withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath layoutOnly:(BOOL)layoutOnly {
     if (!article || !section) {
         return;
     }
+    cell.layoutMargins = self.readableMargins;
     [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] shouldAdjustMargins:YES theme:self.theme layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
+    cell.layoutMargins = self.readableMargins;
     cell.titleText = article.displayTitle;
     cell.descriptionText = article.capitalizedWikidataDescription;
     [cell setImageURL:[article imageURLForWidth:self.traitCollection.wmf_nearbyThumbnailWidth]];
@@ -1135,6 +1148,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configurePhotoCell:(WMFPicOfTheDayCollectionViewCell *)cell withImageInfo:(WMFFeedImage *)imageInfo atIndexPath:(NSIndexPath *)indexPath {
+    cell.layoutMargins = self.readableMargins;
     [cell setImageURL:imageInfo.imageThumbURL];
     if (imageInfo.imageDescription.length) {
         [cell setDisplayTitle:[imageInfo.imageDescription wmf_stringByRemovingHTML]];
@@ -1146,6 +1160,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureNewsCell:(WMFNewsCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
+    cell.layoutMargins = self.readableMargins;
     NSArray *stories = contentGroup.content;
     WMFFeedNewsStory *story = [stories firstObject];
     if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
@@ -1154,14 +1169,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureOnThisDayCell:(WMFOnThisDayExploreCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
+    cell.layoutMargins = self.readableMargins;
     NSArray *events = contentGroup.content;
-    NSInteger featuredIndex = [contentGroup.articleURLString integerValue];
-    WMFFeedOnThisDayEvent *event = [events firstObject];
-    if (featuredIndex >= 0 && featuredIndex < events.count) {
-        event = events[featuredIndex];
-    } else {
-        featuredIndex = 0;
-    }
+    NSInteger featuredIndex = contentGroup.featuredContentIndex;
+    WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)contentGroup.featuredContentObject;
+
     if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
         WMFFeedOnThisDayEvent *previousEvent = event;
         NSInteger attempts = 0;
@@ -1177,6 +1189,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup atIndexPath:(NSIndexPath *)indexPath {
+    cell.layoutMargins = self.readableMargins;
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
         case WMFFeedDisplayTypeAnnouncement: {
@@ -1279,7 +1292,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group headerActionType]) {
         case WMFFeedHeaderActionTypeOpenHeaderContent: {
             NSURL *url = [group headerContentURL];
-            [self wmf_pushArticleWithURL:url dataStore:self.userStore animated:YES];
+            [self wmf_pushArticleWithURL:url dataStore:self.userStore theme:self.theme animated:YES];
         } break;
         case WMFFeedHeaderActionTypeOpenFirstItem: {
             [self selectItem:0 inSection:section];
@@ -1320,11 +1333,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
+            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore];
+            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
         } break;
         case WMFFeedDetailTypeGallery: {
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
@@ -1341,7 +1354,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
                     NSURL *articleURL = preview.articleURL;
                     if (articleURL) {
-                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                        break;
                     }
                 }
             }
@@ -1349,17 +1363,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
-            if (indexPath.item >= events.count) {
-                return nil;
-            }
             if (indexPath.length > 2) {
-                WMFFeedOnThisDayEvent *event = events[indexPath.item];
-                NSInteger articleIndex = [indexPath indexAtPosition:2];
-                if (articleIndex < event.articlePreviews.count) {
-                    WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                    NSURL *articleURL = preview.articleURL;
-                    if (articleURL) {
-                        return [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore];
+                WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)group.featuredContentObject;
+
+                if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
+                    NSInteger articleIndex = [indexPath indexAtPosition:2];
+                    if (articleIndex < event.articlePreviews.count) {
+                        WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
+                        NSURL *articleURL = preview.articleURL;
+                        if (articleURL) {
+                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                            break;
+                        }
                     }
                 }
             }
@@ -1563,6 +1578,9 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
+        if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
+            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
+        }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
@@ -1880,6 +1898,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     self.theme = theme;
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
+    self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
     [self.collectionView reloadData];
 }
 
@@ -1889,7 +1908,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if (articleURL == nil) {
         return;
     }
-    [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore animated:YES];
+    [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
 }
 
 #if DEBUG && DEBUG_CHAOS

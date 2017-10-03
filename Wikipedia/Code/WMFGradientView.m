@@ -1,5 +1,11 @@
 #import "WMFGradientView.h"
 
+@interface WMFGradientView ()
+// These were IBInspectable but causing instability in Interface Builder, so make them private for now
+@property (nonatomic, strong) UIColor *startColor;
+@property (nonatomic, strong) UIColor *endColor;
+@end
+
 @implementation WMFGradientView
 
 - (instancetype)initWithFrame:(CGRect)frame {

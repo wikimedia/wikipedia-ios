@@ -61,8 +61,6 @@
 "history-clear-cancel" = "ناگارل";
 "history-clear-confirmation-heading" = "آيا ډاډمن يې چې خپل ټول وروستني توکي ړنگول غواړې؟";
 "history-clear-delete-all" = "هو، ټول ړنگول";
-"history-section-today" = "نن";
-"history-section-yesterday" = "پرون";
 "history-title" = "پېښليک";
 "hockeyapp-alert-always-send" = "تل ورلېږل";
 "hockeyapp-alert-do-not-send" = "مه ورلېږه";
@@ -130,10 +128,6 @@
 "settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
 "settings-title" = "امستنې";
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" په @Wikipedia کې: \"$2\"";
-"share-as-image" = "د انځور په توگه شريکول";
-"share-as-text" = "د متن په توگه شريکول";
-"share-cancel" = "ناگارل";
 // Fuzzy
 "share-custom-menu-item" = "شريکول";
 "share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
@@ -144,7 +138,6 @@
 "top-read-header-generic" = "ويکيپېډيا";
 "top-read-header-with-language" = "$1 ويکيپېډيا";
 "welcome-explore-continue-button" = "پيلول";
-"welcome-explore-tell-me-more" = "نور راته ووايه";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
 "welcome-languages-continue-button" = "پرله پورې";

@@ -29,7 +29,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
                 enableProgressiveButton(false)
                 return
         }
-        enableProgressiveButton((password.characters.count > 0 && retype.characters.count > 0))
+        enableProgressiveButton((password.count > 0 && retype.count > 0))
     }
     
     fileprivate func passwordFieldsMatch() -> Bool {
@@ -82,7 +82,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         apply(theme: theme)
     }
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -146,7 +146,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         
         let fields = [passwordField, retypeField]
         for field in fields {
-            field?.apply(theme: theme, withBorder: true)
+            field?.apply(theme: theme)
         }
         
         saveButton.apply(theme: theme)

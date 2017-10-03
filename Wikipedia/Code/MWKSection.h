@@ -13,14 +13,14 @@ extern NSString *const MWKSectionShareSnippetXPath;
 @property (readonly, weak, nonatomic) MWKArticle *article;
 
 @property (readonly, copy, nonatomic, nullable) NSNumber *toclevel; // optional
-@property (readonly, copy, nonatomic, nullable) NSNumber *level;    // optional; string in JSON, but seems to be number-safe?
-@property (readonly, copy, nonatomic, nullable) NSString *line;     // optional; HTML
-@property (readonly, copy, nonatomic, nullable) NSString *number;   // optional; can be "1.2.3"
-@property (readonly, copy, nonatomic, nullable) NSString *index;    // optional; can be "T-3" for transcluded sections
-@property (readonly, strong, nonatomic, nullable) NSURL *fromURL;   // optional
-@property (readonly, copy, nonatomic, nullable) NSString *anchor;   // optional
-@property (readonly, assign, nonatomic) int sectionId;              // required; -> id
-@property (readonly, assign, nonatomic) BOOL references;            // optional; marked by presence of key with empty string in JSON
+@property (readonly, copy, nonatomic, nullable) NSNumber *level; // optional; string in JSON, but seems to be number-safe?
+@property (readonly, copy, nonatomic, nullable) NSString *line; // optional; HTML
+@property (readonly, copy, nonatomic, nullable) NSString *number; // optional; can be "1.2.3"
+@property (readonly, copy, nonatomic, nullable) NSString *index; // optional; can be "T-3" for transcluded sections
+@property (readonly, strong, nonatomic, nullable) NSURL *fromURL; // optional
+@property (readonly, copy, nonatomic, nullable) NSString *anchor; // optional
+@property (readonly, assign, nonatomic) int sectionId; // required; -> id
+@property (readonly, assign, nonatomic) BOOL references; // optional; marked by presence of key with empty string in JSON
 
 /**
  * Lazily-initialized HTML content of this section.

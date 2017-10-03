@@ -1,6 +1,7 @@
 // Messages for Bosnian (bosanski)
 // Exported from translatewiki.net
 // Author: Edinwiki
+// Author: Macofe
 // Author: Nemo bis
 // Author: Semso98
 // Author: Srdjan m
@@ -150,13 +151,11 @@
 "forgot-password-instructions" = "Popunite jedno od polja ispod da biste e-poštom primili uputstva za ponovno postavljanje lozinke";
 "forgot-password-title" = "Ponovno postavljanje lozinke";
 "forgot-password-username-or-email-title" = "Ili";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Očisti";
 "history-clear-cancel" = "Odustani";
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, obriši sve";
-"history-section-today" = "Danas";
-"history-section-yesterday" = "Jučer";
 "history-title" = "Historija";
 "hockeyapp-alert-always-send" = "Uvijek pošalji";
 "hockeyapp-alert-do-not-send" = "Ne šalji";
@@ -285,7 +284,6 @@
 "preference-title-eventlogging-opt-in" = "Šalji izvještaje o korištenju";
 "rank-accessibility-label" = "Broj $1";
 "readers-accessibility-label" = "$1 čitalaca";
-"reading-themes-controls-accessibility-dim-images-switch" = "Zatamni slike";
 "reference-title" = "Referenca $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Danas|Jučer|Prije $1 dana}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedavno|Prije $1 sat|Prije $1 sata|Prije $1 sati}}";
@@ -326,12 +324,9 @@
 "settings-primary-language-details" = "Prvi jezik na ovom spisku koristit će se kao glavni jezik aplikacije. Ako ga promijenite, promijenit ćete i jezik sadržaja (naprimjer, jezik Odabranih članaka) koji se prikazuje pod \"Istraži\".";
 "settings-support" = "Podržite Wikipediju";
 "settings-title" = "Postavke";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Podijeli činjenicu";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedia: \"$2\"";
-"share-as-image" = "Podijeli kao sliku";
-"share-as-text" = "Podijeli kao tekst";
-"share-cancel" = "Otkaži";
 "share-custom-menu-item" = "Podijeli...";
 "share-get-directions-in-maps" = "Dobij uputstva";
 "share-on-twitter-sign-off" = "preko @Wikipedia";
@@ -352,9 +347,7 @@
 "two-factor-login-with-backup-code" = "Koristi jedan od rezervnih kodova";
 "two-factor-login-with-regular-code" = "Koristi potvrdni kod";
 "welcome-explore-continue-button" = "Započni";
-"welcome-explore-new-ways-sub-title" = "Nova obavještenja i dodaci pomoći će Vam da otkrijete zanimljive članke";
 "welcome-explore-new-ways-title" = "Novi načini za istraživanje";
-"welcome-explore-tell-me-more" = "Detaljnije";
 "welcome-explore-tell-me-more-done-button" = "Razumijem";
 "welcome-languages-add-button" = "Dodaj drugi jezik";
 "welcome-languages-continue-button" = "Nastavi";
@@ -380,7 +373,8 @@
 "wikitext-upload-save" = "Objavljujem...";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Objavljivanjem izmjena, prihvatate $1 i slažete se da svoj doprinos objavite pod licencama $2 i $3.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";
 "zero-charged-verbiage" = "Wikipedia Zero je isključena";
 "zero-charged-verbiage-extended" = "Učitavanje drugih članaka moglo bi sa sobom povući troškove za podatkovni promet. Sačuvani članci na uređaju ne koriste podatkovni promet i besplatni su.";

@@ -50,8 +50,7 @@
 "action-share" = "Deelen";
 "action-unsave" = "Läschen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
-// Fuzzy
-"announcements-dismiss" = "Nee, merci";
+"announcements-dismiss" = "Verwerfen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-languages-filter-placeholder" = "Sprooch fannen";
@@ -73,6 +72,7 @@
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
 "button-saved-remove" = "Vu gespäichert ewechhuelen";
+"cancel" = "Ofbriechen";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zoumaachen";
 "compass-direction" = "ëm $1 Auer";
@@ -118,8 +118,7 @@
 "explore-random-article-heading" = "Zoufällegen Artikel";
 "explore-randomizer" = "Zoufallsgenerator";
 "feed-news-notification-button-text" = "Notifikatiounen aschalten";
-// Fuzzy
-"feed-news-notification-text" = "Et ass elo méiglech Notifikatioune vu Wikipedia-Artikelen ze kréien déi Sujeten aus der Aktualitéit concernéieren.";
+"feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "field-alert-password-invalid" = "Net valabelt Passwuert";
@@ -148,13 +147,11 @@
 "forgot-password-email-sent" = "Eng E-Mail mat Instruktioune wéi d'Passwuert zréckgesat gi kann, gouf gschéckt";
 "forgot-password-title" = "Passwuert zrécksetzen";
 "forgot-password-username-or-email-title" = "Oder";
-"gdfl" = "GDFL";
+"gfdl" = "GDFL";
 "history-clear-all" = "Eidel maachen";
 "history-clear-cancel" = "Ofbriechen";
 "history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
-"history-section-today" = "Haut";
-"history-section-yesterday" = "Gëschter";
 "history-title" = "Versiounen";
 "hockeyapp-alert-always-send" = "Ëmmer schécken";
 "hockeyapp-alert-do-not-send" = "Net schécken";
@@ -241,6 +238,7 @@
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
 "page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
+"page-talk-page" = "Diskussiounssäit weisen";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
 "places-accessibility-close-search" = "Sichen zoumaachen";
@@ -317,16 +315,19 @@
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
-"share-a-fact-share-menu-item" = "E-Fait-deelen";
+"share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
+"share-a-fact-share-menu-item" = "E-Fait-deelen...";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
-"share-as-image" = "Als Bild deelen";
-"share-as-text" = "Als Text deelen";
-"share-cancel" = "Ofbriechen";
 "share-custom-menu-item" = "Deelen...";
+"share-default-format" = "\"$1\" vu(n) \"$2\": $3";
+"share-email-format" = "\"$1\"\n\nvu(n) \"$2\"\n\n$3";
 "share-get-directions-in-maps" = "Richtunge kréien";
+"share-menu-item" = "Deelen...";
+"share-message-format" = "\"$1\" $2";
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-open-in-maps" = "Op der Kaart opmaachen";
+"share-social-format" = "\"$1\" iwwer Wikipedia: $2";
+"share-social-mention-format" = "\"$1\" via @Wikipedia: $2";
 "status-saved-for-later" = "Fir spéider gespäichert";
 "status-saving-for-later" = "Fir spéider späicheren...";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
@@ -344,10 +345,9 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
+"view-in-browser-footer-link" = "Artikel am Browser kucken";
 "welcome-explore-continue-button" = "Fir unzefänken";
-"welcome-explore-new-ways-sub-title" = "Nei Notifikatiounen a Widgets déi Iech hëllefe fir interessant Artikelen ze fannen";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
-"welcome-explore-tell-me-more" = "Ech wëll méi wëssen";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
 "welcome-languages-continue-button" = "Virufueren";
@@ -372,8 +372,7 @@
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Duerch d'Publizéiere vun Ännerunge sidd Dir mat de(n) $1 a mat der Publikatioun vun Ärem Beitrag ënner der $2 an der $3-Lizenz d'Accord.";
 "wikitext-upload-save-terms-name" = "Benotzungs-Bedingungen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";

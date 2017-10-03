@@ -24,7 +24,7 @@
     self.deviceAgnostic = YES;
 
     [[LSNocilla sharedInstance] start];
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, 160)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.wmf_imageController = [WMFImageController temporaryController];
 }

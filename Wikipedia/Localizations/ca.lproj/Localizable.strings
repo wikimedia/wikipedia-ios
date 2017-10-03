@@ -61,10 +61,12 @@
 "action-read" = "Llegeix";
 "action-save" = "Desa";
 "action-saved" = "Desat";
+"action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
+"appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
 "appearance-settings-reading-themes" = "Temes de lectura";
 "appearance-settings-theme-options" = "Opcions del tema";
 "appearance-settings-title" = "Temes de lectura";
@@ -162,13 +164,11 @@
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "Neteja";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
-"history-section-today" = "Avui";
-"history-section-yesterday" = "Ahir";
 "history-title" = "Historial";
 "hockeyapp-alert-always-send" = "Envia sempre";
 "hockeyapp-alert-do-not-send" = "No enviïs";
@@ -298,6 +298,7 @@
 "readers-accessibility-label" = "$1 lectors";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
@@ -337,12 +338,9 @@
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
+// Fuzzy
 "share-a-fact-share-menu-item" = "Compateix-un-fet";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» a @Viquipedia: «$2»";
-"share-as-image" = "Comparteix com a imatge";
-"share-as-text" = "Comparteix com a text";
-"share-cancel" = "Cancel·la";
 "share-custom-menu-item" = "Comparteix...";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
 "share-on-twitter-sign-off" = "via @Viquipedia";
@@ -366,9 +364,7 @@
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "welcome-explore-continue-button" = "Primers passos";
-"welcome-explore-new-ways-sub-title" = "Les notificacions i ginys nous us ajuden a descobrir articles interessants";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
-"welcome-explore-tell-me-more" = "Més informació";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-languages-continue-button" = "Continua";
@@ -394,6 +390,8 @@
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
 "zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";

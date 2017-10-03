@@ -14,11 +14,12 @@ import WebKit
     case footerReadMoreTitlesShown
     case footerMenuItemClicked
     case footerLegalLicenseLinkClicked
+    case footerBrowserLinkClicked
 }
 
 extension WKScriptMessage {
 
-    public class func wmf_typeForMessageName(_ name: String) -> WMFWKScriptMessage {
+    @objc public class func wmf_typeForMessageName(_ name: String) -> WMFWKScriptMessage {
         switch name {
         case "linkClicked":
             return .linkClicked
@@ -44,12 +45,14 @@ extension WKScriptMessage {
             return .footerMenuItemClicked
         case "footerLegalLicenseLinkClicked":
             return .footerLegalLicenseLinkClicked
+        case "footerBrowserLinkClicked":
+            return .footerBrowserLinkClicked
         default:
             return .unknown
         }
     }
 
-    public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
+    @objc public func wmf_safeMessageBodyForType(_ type: WMFWKScriptMessage) -> Any? {
         switch type {
         case .linkClicked,
              .imageClicked,
@@ -62,7 +65,8 @@ extension WKScriptMessage {
             }
         case .lateJavascriptTransform,
              .articleState,
-             .footerLegalLicenseLinkClicked:
+             .footerLegalLicenseLinkClicked,
+             .footerBrowserLinkClicked:
             if body is String {
                 return body
             }

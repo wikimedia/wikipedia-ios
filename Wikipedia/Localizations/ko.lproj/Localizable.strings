@@ -8,6 +8,7 @@
 // Author: Hwangjy9
 // Author: Idh0854
 // Author: Jerrykim306
+// Author: Macofe
 // Author: Namoroka
 // Author: Nemo bis
 // Author: Priviet
@@ -68,7 +69,10 @@
 "action-unsave" = "저장하지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
+"appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
+"appearance-settings-image-dimming-footer" = "어두운 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
+"appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 위의 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
 "appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
@@ -93,6 +97,7 @@
 "button-save-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-for-later" = "나중에 쓰기 위해 저장";
 "button-saved-remove" = "저장된 항목에서 제거";
+"cancel" = "취소";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
@@ -137,8 +142,7 @@
 "explore-random-article-heading" = "임의 문서";
 "explore-randomizer" = "임의 문서 보기";
 "feed-news-notification-button-text" = "알림 켜기";
-// Fuzzy
-"feed-news-notification-text" = "지금 위키백과 문서의 소식 동향에 대한 알림을 받을 수 있습니다.";
+"feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
 "field-alert-captcha-invalid" = "유효하지 않은 CAPTCHA";
 "field-alert-password-confirm-mismatch" = "비밀번호가 일치하지 않습니다";
 "field-alert-password-invalid" = "유효하지 않은 비밀번호";
@@ -168,13 +172,11 @@
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "지우기";
 "history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
 "history-clear-delete-all" = "예, 모두 삭제합니다";
-"history-section-today" = "오늘";
-"history-section-yesterday" = "어제";
 "history-title" = "역사";
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";
@@ -261,6 +263,7 @@
 "page-protected-sysop" = "이 문서는 완전히 보호되어 있습니다.";
 "page-read-in-other-languages" = "$1개의 다른 언어로 읽어보기";
 "page-similar-titles" = "비슷한 문서";
+"page-talk-page" = "토론 문서 보기";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
 "places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";
@@ -314,7 +317,7 @@
 "saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하겠습니까?";
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
-"saved-title" = "저장되었습니다";
+"saved-title" = "저장된 문서";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-recent-clear-cancel" = "취소";
@@ -341,14 +344,16 @@
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
-"share-a-fact-share-menu-item" = "사실을 공유";
+"share-a-fact-made-with" = "위키백과 앱으로 작성함";
+"share-a-fact-share-menu-item" = "사실을 공유…";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
-"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia의 \"$1\": \"$2\"";
-"share-as-image" = "그림으로 공유하기";
-"share-as-text" = "텍스트로 공유하기";
-"share-cancel" = "취소";
+"share-building" = "사실을 공유 카드를 만드는 중...";
 "share-custom-menu-item" = "공유...";
+"share-default-format" = "\"$2\" 중의 \"$1\": $3";
+"share-email-format" = "\"$2\" 중의\n\n\"$1\"\n\n$3";
 "share-get-directions-in-maps" = "위치 찾기";
+"share-menu-item" = "공유...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@Wikipedia에서";
 "share-open-in-maps" = "지도에서 열기";
 "status-saved-for-later" = "나중을 위해 저장됨";
@@ -369,10 +374,9 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
+"view-in-browser-footer-link" = "브라우저에서 문서 보기";
 "welcome-explore-continue-button" = "시작하기";
-"welcome-explore-new-ways-sub-title" = "흥미로운 문서의 발견을 도와주는 새로운 알림과 위젯";
 "welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
-"welcome-explore-tell-me-more" = "더 보기";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
 "welcome-languages-add-button" = "다른 언어 추가";
 "welcome-languages-continue-button" = "계속";
@@ -398,7 +402,8 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
+// Fuzzy
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";

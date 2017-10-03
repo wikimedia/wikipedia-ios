@@ -70,7 +70,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     }
 
     NSDictionary *options = @{ GCDWebServerOption_BindToLocalhost: @(YES), //only accept requests from localhost
-                               GCDWebServerOption_Port: @(0) };            // allow the OS to pick a random port
+                               GCDWebServerOption_Port: @(0) }; // allow the OS to pick a random port
 
     NSError *serverStartError = nil;
     NSUInteger attempts = 0;

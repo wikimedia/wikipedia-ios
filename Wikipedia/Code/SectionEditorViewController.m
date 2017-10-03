@@ -42,7 +42,7 @@
     buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-next", nil, nil, @"Next", @"Button text for next button used in various places.\n{{Identical|Next}}")
+    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:[WMFCommonStrings nextTitle]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(rightButtonPressed)];
@@ -67,6 +67,19 @@
     self.viewKeyboardRect = CGRectNull;
 
     [self applyTheme:self.theme];
+
+    // "loginWithSavedCredentials..." should help ensure the user will only appear to be logged in when
+    // they reach the 'publish' screen if they actually still are logged in. (It uses the "currentlyLoggedInUserFetcher"
+    // to try to ensure this.)
+    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
+        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+    }
+        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+        }
+        failure:^(NSError *_Nonnull error) {
+            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+        }];
 }
 
 - (void)xButtonPressed {

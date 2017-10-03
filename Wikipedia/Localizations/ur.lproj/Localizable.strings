@@ -92,8 +92,6 @@
 "history-clear-cancel" = "منسوخ";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
 "history-clear-delete-all" = "ہاں، تمام حذف کریں";
-"history-section-today" = "آج";
-"history-section-yesterday" = "کل";
 "history-title" = "تاریخچہ";
 "hockeyapp-alert-always-send" = "ہمیشہ بھیجیں";
 "hockeyapp-alert-do-not-send" = "مت بھیجیں";
@@ -188,12 +186,9 @@
 "settings-primary-language-details" = "اس فہرست کی پہلی زبان ایپ کی ابتدائی زبان کے طور پر استعمال کی گئی ہے۔ اس زبان کو بدلنے سے روزانہ کا مواد بدل سکتا ہے (جیسے کہ منتخب مضمون) جو کہ ایکسپلور (Explore) پر دکھایا جاتا ہے۔";
 "settings-support" = "وکی میڈیا کی حمایت";
 "settings-title" = "ترجیحات";
+// Fuzzy
 "share-a-fact-share-menu-item" = "حقیقت دوسروں کو بھیجیں";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia پر:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia پر : \"$2\"";
-"share-as-image" = "تصویر کے طور پر دوسروں کو بھیجیں";
-"share-as-text" = "متن کے طور پر دوسروں کو بھیجیں";
-"share-cancel" = "منسوخ";
 // Fuzzy
 "share-custom-menu-item" = "دوسروں کو بھیجیں";
 "share-on-twitter-sign-off" = "@Wikipedia کے ذریعہ سے";
@@ -205,7 +200,6 @@
 "table-of-contents-heading" = "مندرجات";
 "table-title-other" = "دیگر معلومات";
 "welcome-explore-continue-button" = "شروع کریں";
-"welcome-explore-tell-me-more" = "مجھے اور بتاؤ";
 "welcome-explore-tell-me-more-done-button" = "سمجھ ميں آیا";
 "welcome-languages-add-button" = "دوسری زبان شامل کریں";
 "welcome-languages-continue-button" = "جاری رکھیں";

@@ -31,8 +31,8 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
     NSDictionary *titleAttribs =
         @{
-           NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize],
-           NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kTitleColor]
+            NSFontAttributeName: [UIFont systemFontOfSize:titleSizeMultiplier * kTitleFontSize],
+            NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kTitleColor]
         };
 
     static NSDictionary *descripAttribs = nil;

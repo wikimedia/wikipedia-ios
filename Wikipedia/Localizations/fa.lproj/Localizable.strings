@@ -11,12 +11,14 @@
 // Author: Freshman404
 // Author: Hosseinblue
 // Author: Huji
+// Author: Ladsgroup
 // Author: Leyth
 // Author: Macofe
 // Author: Mahdiz
 // Author: Maspadana
 // Author: Namo
 // Author: Nemo bis
+// Author: Obzord
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
@@ -70,8 +72,13 @@
 "action-share" = "به اشتراک گذاشتن";
 "action-unsave" = "ذخیره‌نشده";
 "alert-no-internet" = "به اینترنت متصل نیستید";
-// Fuzzy
-"announcements-dismiss" = "نه ممنون";
+"announcements-dismiss" = "پنهان‌سازی";
+"appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
+"appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تاریک";
+"appearance-settings-reading-themes" = "پوستهٔ خواندن";
+"appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
+"appearance-settings-theme-options" = "تنظیمات پوسته";
+"appearance-settings-title" = "پوستهٔ خواندن";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
 "article-languages-filter-placeholder" = "یافتن زبان";
@@ -80,6 +87,7 @@
 "article-languages-yours" = "زبان‌های شما";
 "article-read-more-title" = "بیشتر بخوانید";
 "article-share" = "به اشتراک گذاشتن";
+"article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوستهٔ خواندن";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "back" = "بازگشت";
@@ -93,11 +101,14 @@
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "ذخیره برای بعد";
 "button-saved-remove" = "حذف از ذخیره‌شده";
+"cancel" = "لغو";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "بستن";
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
 "continue-reading-empty-title" = "مقالاتی که اخیراً خوانده نشده‌اند";
+"dark-theme-display-name" = "تیره";
+"dim-images" = "تغییر نور تصاویر";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";
 "edit-summary-choice-fixed-typos" = "اشتباهات اصلاح شد";
 "edit-summary-choice-linked-words" = "پیوندهای اضافه شده";
@@ -136,8 +147,7 @@
 "explore-random-article-heading" = "مقاله تصادفی";
 "explore-randomizer" = "تصادفی";
 "feed-news-notification-button-text" = "روشن کردن آگاه‌سازی‌ها";
-// Fuzzy
-"feed-news-notification-text" = "اکنون شما می توانید نوتیفیکیشن های مربوط به مقالات ویکی پدیا که در اخبار پربازدید هستند را دریافت کنید.";
+"feed-news-notification-text" = "فعال‌کردن آگاه‌سازی برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
 "field-alert-password-confirm-mismatch" = "گذرواژه‌ها مطابقت ندارند";
 "field-alert-password-invalid" = "گذرواژه نامعتبر";
@@ -167,13 +177,11 @@
 "forgot-password-instructions" = "برای دریافت گذرواژهٔ جدید به وسیلهٔ ایمیل یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
-"gdfl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
 "history-clear-delete-all" = "بله، حذف همه";
-"history-section-today" = "امروز";
-"history-section-yesterday" = "دیروز";
 "history-title" = "تاریخچه";
 "hockeyapp-alert-always-send" = "همیشه ارسال کن";
 "hockeyapp-alert-do-not-send" = "ارسال نکن";
@@ -193,6 +201,8 @@
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
 "home-nearby-location-footer" = "موارد نزدیک بیشتر به $1";
 "home-news-footer" = "موارد بیشتر در اخبار";
+"home-themes-action-title" = "مدیریت ترجیحات";
+"home-themes-prompt" = "با تنظیم ترجیحات مطالعه شامل اندازه متن و پوسته از بخش ابزار مقاله یا در تنظیمات کاربری می‌توانید تجریهٔ یک مطالعهٔ مطبوع داشته باشید.";
 "home-title" = "مرور";
 "home-title-accessibility-label" = "ویکی‌پدیا، برای کاوش به بالا اسکرول کنید";
 "icon-shortcut-continue-reading-title" = "ادامه دادن به خواندن";
@@ -262,6 +272,7 @@
 "page-protected-sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page-read-in-other-languages" = "به $1 زبان در دسترس است";
 "page-similar-titles" = "صفحات مشابه";
+"page-talk-page" = "نمایش صفحه بحث";
 "pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
 "places-accessibility-close-search" = "بستن جستجو";
@@ -302,6 +313,11 @@
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
+"reading-themes-controls-accessibility-brightness-slider" = "لغزندهٔ درخشندگی";
+"reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
+"reading-themes-controls-accessibility-light-theme-button" = "پوسته روشن";
+"reading-themes-controls-accessibility-sepia-theme-button" = "پوسته قهوه‌ای";
+"reading-themes-controls-accessibility-text-size-slider" = "لغزنده اندازهٔ متن";
 "reference-title" = "منبع $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=امروز|دیروز|$1 روز پیش}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
@@ -323,6 +339,7 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
+"settings-appearance" = "ظاهر";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما را حذف نمی‌کند.";
 "settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";
@@ -341,16 +358,20 @@
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-title" = "تنظیمات";
+"share-a-fact-made-with" = "ساخته شده توسط اپلیکیشن ویکی‌پدیا";
 "share-a-fact-share-menu-item" = "اشتراک-مطلب";
 "share-article-name-on-wikipedia" = "\"$1\" در @ویکی‌پدیا:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" در @ویکی‌پدیا: \"$2\"";
-"share-as-image" = "اشتراک گذاشتن به عنوان پرونده";
-"share-as-text" = "اشتراک گذاشتن به عنوان متن";
-"share-cancel" = "لغو";
+"share-building" = "ساخت کارت اشتراک-مطلب...";
 "share-custom-menu-item" = "به اشتراک گذاشتن...";
+"share-default-format" = "«$1» از «$2»: $3";
+"share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-get-directions-in-maps" = "دریافت مسیر";
+"share-menu-item" = "اشتراک‌گذاری...";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "با @Wikipedia";
 "share-open-in-maps" = "بازشدن در نقشه";
+"share-social-format" = "«$1» توسط ویکی‌پدیا: $2";
+"share-social-mention-format" = "«$1» توسط @ویکی‌پدیا: $2";
 "status-saved-for-later" = "ذخیره برای بعد";
 "status-saving-for-later" = "ذخیره برای بعد...";
 "table-of-contents-button-label" = "فهرست مندرجات";
@@ -358,6 +379,9 @@
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
 "table-title-other" = "اطلاعات بیشتر";
+"theme-dark-display-name" = "تیره";
+"theme-default-display-name" = "پیش‌فرض";
+"theme-sepia-display-name" = "قهوه‌ای";
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
 "top-read-see-more" = "دیدن بیشتر خوانده‌شده‌ها";
@@ -366,10 +390,12 @@
 "two-factor-login-title" = "ورود به حساب کاربری";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
+"view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
 "welcome-explore-continue-button" = "شروع شد";
-"welcome-explore-new-ways-sub-title" = "آگاه‌سازی و ویجت جدید برای کمک به شما برای یافتن مقالات مطلوب";
+"welcome-explore-features-news-notifications" = "دریافت عنوان مقالاتی که در اخبار پربازدیدها فهرست شده‌اند";
+"welcome-explore-features-on-this-day" = "سفر به زمان با $1 برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";
+"welcome-explore-features-places" = "از زبانهٔ $1 برای پیدا کردن مکان‌ها و ساختمان‌‌های شاخص در اطرافتان یا جستجو در جهان، استفاده کنید";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
-"welcome-explore-tell-me-more" = "به من بیشتر بگو";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
 "welcome-languages-add-button" = "افزدون زبان دیگر";
 "welcome-languages-continue-button" = "ادامه";
@@ -395,7 +421,7 @@
 "wikitext-upload-save" = "در حال منتشرکردن...";
 "wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-sign-in" = "ورود";
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "با ذخیرهٔ تغییرات، شما با $1 موافقت کردید و همچنین موافقید که تغییرات شما تحت مجوزهای $2 و $3 منتشر شود.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";

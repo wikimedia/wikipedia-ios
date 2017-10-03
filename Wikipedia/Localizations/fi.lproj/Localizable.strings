@@ -8,6 +8,7 @@
 // Author: McSalama
 // Author: Nemo bis
 // Author: Nike
+// Author: Pahkiqaz
 // Author: Pyscowicz
 // Author: SMAUG
 // Author: Silvonen
@@ -62,14 +63,17 @@
 "action-share" = "Jaa";
 "action-unsave" = "Kumoa tallennus";
 "alert-no-internet" = "Ei Internet-yhteyttä";
-// Fuzzy
-"announcements-dismiss" = "Ei kiitos";
+"announcements-dismiss" = "Sulje";
+"appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
+"appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
+"article-delete" = "Poista";
 "article-languages-filter-placeholder" = "Löydä kieli";
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Lue lisää";
+"article-share" = "Jaa";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back" = "Takaisin";
@@ -83,11 +87,13 @@
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-saved-remove" = "Poista tallennetuista";
+"cancel" = "Peruuta";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
+"dark-theme-display-name" = "Tumma";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
@@ -125,8 +131,7 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-randomizer" = "Satunnaistaminen";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
-// Fuzzy
-"feed-news-notification-text" = "Voit nyt saada ilmoituksia Wikipedian artikkeleista jotka ovat nousussa uutisissa.";
+"feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "field-alert-captcha-invalid" = "CAPTCHA ei kelpaa";
 "field-alert-password-confirm-mismatch" = "Salasanat eivät täsmää";
 "field-alert-password-invalid" = "Salasana ei kelpaa";
@@ -156,12 +161,11 @@
 "forgot-password-instructions" = "Täytä yksi alla olevista kentistä saadaksesi sähköpostitse ohjeet salasanan palauttamiseen";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "Tai";
+"gfdl" = "GFDL";
 "history-clear-all" = "Tyhjennä";
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
 "history-clear-delete-all" = "Kyllä, poista kaikki";
-"history-section-today" = "Tänään";
-"history-section-yesterday" = "Eilen";
 "history-title" = "Historia";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
@@ -178,6 +182,7 @@
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää paikallisia artikkeleita";
 "home-nearby-location-footer" = "Lähistöllä: $1";
+"home-themes-action-title" = "Hallinnoi asetuksia";
 "home-title" = "Tutki";
 "home-title-accessibility-label" = "Wikipedia, selaa alkuun Tutki";
 "icon-shortcut-continue-reading-title" = "Jatka lukemista";
@@ -229,6 +234,9 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
+"on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
+"on-this-day-title" = "Tänä päivänä";
 "onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Peruuta";
 "page-edit-history" = "Täysi muokkaushistoria";
@@ -243,6 +251,7 @@
 "page-protected-sysop" = "Tämä sivu on täysin suojattu.";
 "page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-similar-titles" = "Samankaltaiset sivut";
+"page-talk-page" = "Tarkastele keskustelusivua";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
 "places-accessibility-close-search" = "Sulje haku";
 "places-accessibility-group" = "$1 artikkelia";
@@ -263,14 +272,14 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-search-articles-that-match" = "$1 vastaa “$2”";
-// Fuzzy
-"places-search-default-text" = "Haku";
+"places-search-default-text" = "Hae paikkoja";
 "places-search-did-you-mean" = "Tarkoititko $1?";
 "places-search-recently-searched-header" = "Äskettäin haetut";
 "places-search-saved-articles" = "Kaikki tallennetut artikkelit";
 "places-search-suggested-searches-header" = "Ehdotetut haut";
 "places-search-this-area" = "Hae tällä alueelta";
 "places-search-top-articles" = "Kaikki huippuartikkelit";
+"places-search-top-articles-that-match-scope" = "Lähistöllä";
 "places-search-your-current-location" = "Nykyinen sijaintisi";
 "places-show-filter-list-accessibility-label" = "Näytä hakusuodattimet";
 "places-title" = "Paikat";
@@ -281,10 +290,16 @@
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
+"reading-themes-controls-accessibility-brightness-slider" = "Kirkkauden liukusäädin";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tumma teema";
+"reading-themes-controls-accessibility-light-theme-button" = "Vaalea teema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Seepiateema";
+"reading-themes-controls-accessibility-text-size-slider" = "Tekstin koon liukusäädin";
 "reference-title" = "Lähde $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|Eilen|$1 päivää sitten}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
+"relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|Viime vuonna|$1 vuotta sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "saved-clear-all" = "Tyhjennä";
 "saved-pages-clear-cancel" = "Peruuta";
@@ -301,6 +316,7 @@
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
+"settings-appearance" = "Ulkoasu";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennä välimuisti?";
@@ -319,14 +335,12 @@
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
-"share-a-fact-share-menu-item" = "Jaa fakta";
+"share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
+"share-a-fact-share-menu-item" = "Jaa fakta…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
-"share-as-image" = "Jaa kuvana";
-"share-as-text" = "Jaa tekstinä";
-"share-cancel" = "Peruuta";
 "share-custom-menu-item" = "Jaa...";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
+"share-menu-item" = "Jaa…";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Mapsissa";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
@@ -336,6 +350,9 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"theme-dark-display-name" = "Tumma";
+"theme-default-display-name" = "Oletus";
+"theme-sepia-display-name" = "Seepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
@@ -345,9 +362,7 @@
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "welcome-explore-continue-button" = "Aloitetaan";
-"welcome-explore-new-ways-sub-title" = "Uudet ilmoitukset ja widgetit auttavat sinua löytämään mielenkiintoisia artikkeleita.";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
-"welcome-explore-tell-me-more" = "Kerro lisää";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-add-button" = "Lisää toinen kieli";
 "welcome-languages-continue-button" = "Jatka";
@@ -365,6 +380,7 @@
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
+"wikitext-preview-link-preview-description" = "Tämä linkki vie osoitteeseen '$1'";
 "wikitext-preview-link-preview-title" = "Linkin esikatselu";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
@@ -372,8 +388,7 @@
 "wikitext-upload-save" = "Julkaistaan...";
 "wikitext-upload-save-anonymously-warning" = "Muokkaukset yhdistetään laitteesi IP-osoitteeseen. Jos $1 tietoturvasi paranee.";
 "wikitext-upload-save-sign-in" = "Kirjaudu sisään";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gdfl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Julkaisemalla muutokset hyväksyt $1 ja julkaiset muutoksesi $2- ja $3 -lisenssin ehtojen mukaisesti.";
 "wikitext-upload-save-terms-name" = "käyttöehdot";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";

@@ -1,4 +1,4 @@
-@import UIKit.UICollectionViewLayout;
+@import UIKit;
 
 /*!
  @class        WMFCVLMetrics
@@ -13,14 +13,24 @@
 @property (nonatomic, readonly) CGSize boundsSize;
 
 /*!
+ The readable width
+ */
+@property (nonatomic, readonly) CGFloat readableWidth;
+
+/*!
+ The readable margins for cells
+ */
+@property (nonatomic, readonly) UIEdgeInsets readableMargins;
+
+/*!
  The total number of columns
  */
 @property (nonatomic, readonly) NSInteger numberOfColumns;
 
 /*!
- The inset of the entire content
+ The margins from the edge of the view to the cells
  */
-@property (nonatomic, readonly) UIEdgeInsets contentInsets;
+@property (nonatomic, readonly) UIEdgeInsets margins;
 
 /*!
  The inset of each section's items (headers & footers not included)
@@ -50,8 +60,8 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize;
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing; // ratios should add up to 2
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize collapseSectionSpacing:(BOOL)collapseSectionSpacing;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth collapseSectionSpacing:(BOOL)collapseSectionSpacing;
 
 @end

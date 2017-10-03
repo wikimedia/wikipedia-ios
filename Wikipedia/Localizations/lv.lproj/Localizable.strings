@@ -80,8 +80,6 @@
 "history-clear-all" = "Notīrīt";
 "history-clear-cancel" = "Atcelt";
 "history-clear-delete-all" = "Jā, dzēst visu";
-"history-section-today" = "Šodien";
-"history-section-yesterday" = "Vakar";
 "history-title" = "Vēsture";
 "hockeyapp-alert-always-send" = "Vienmēr sūtīt";
 "hockeyapp-alert-do-not-send" = "Nesūtīt";
@@ -158,9 +156,6 @@
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
 "settings-support" = "Atbalsti Vikipēdiju";
 "settings-title" = "Iestatījumi";
-"share-as-image" = "Kopīgot kā attēlu";
-"share-as-text" = "Kopīgot kā tekstu";
-"share-cancel" = "Atcelt";
 "share-custom-menu-item" = "Dalīties...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
@@ -171,7 +166,6 @@
 "table-title-other" = "Vairāk informācijas";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
-"welcome-explore-tell-me-more" = "Pastāsti man vairāk";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-languages-continue-button" = "Turpināt";

@@ -19,9 +19,9 @@ public enum WMFAuthTokenError: LocalizedError {
 public typealias WMFAuthTokenBlock = (WMFAuthToken) -> Void
 
 public class WMFAuthToken: NSObject {
-    var token: String
-    var type: WMFAuthTokenType
-    init(token:String, type:WMFAuthTokenType) {
+    @objc var token: String
+    @objc var type: WMFAuthTokenType
+    @objc init(token:String, type:WMFAuthTokenType) {
         self.token = token
         self.type = type
     }
@@ -33,7 +33,7 @@ public class WMFAuthTokenFetcher: NSObject {
         return manager.operationQueue.operationCount > 0
     }
     
-    public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
+    @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
             switch type {
             case .csrf:
@@ -63,7 +63,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 failure(WMFAuthTokenError.cannotExtractToken)
                 return
             }
-            guard token.characters.count > 0 else {
+            guard token.count > 0 else {
                 failure(WMFAuthTokenError.zeroLengthToken)
                 return
             }

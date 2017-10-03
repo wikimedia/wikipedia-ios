@@ -11,7 +11,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     let midnightUTCDate: Date
     
     @objc(initWithEvents:dataStore:midnightUTCDate:)
-    required init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
@@ -40,19 +40,19 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         }
     }
     
-    override func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing:true)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing:true)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
-        register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier)
-        register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier)
+        register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
+        register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
     }
 }
 
@@ -77,7 +77,9 @@ extension OnThisDayViewController {
             return cell
         }
         let event = events[indexPath.section]
-        
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            onThisDayCell.layoutMargins = layout.readableMargins
+        }
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
 
@@ -150,6 +152,9 @@ extension OnThisDayViewController {
             return estimate
         }
         let event = events[indexPath.section]
+        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
+            placeholderCell.layoutMargins = layout.readableMargins
+        }
         placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -160,7 +165,7 @@ extension OnThisDayViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, animated: true)
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
@@ -186,7 +191,11 @@ extension OnThisDayViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore)
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
+        if let themeable = vc as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        return vc
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

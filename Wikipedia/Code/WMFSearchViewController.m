@@ -6,11 +6,8 @@
 #import <WMF/MWKLanguageLink.h>
 @import Masonry;
 
-#import "RecentSearchesViewController.h"
-#import "WMFSearchResultsTableViewController.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
-#import "WMFSearchDataSource.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
@@ -22,17 +19,23 @@
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController () <UISearchBarDelegate,
-WMFRecentSearchesViewControllerDelegate,
-UITextFieldDelegate,
-WMFArticleListTableViewControllerDelegate,
-WMFSearchLanguagesBarViewControllerDelegate>
+                                       WMFRecentSearchesViewControllerDelegate,
+                                       UITextFieldDelegate,
+                                       WMFSearchLanguagesBarViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong, readwrite) WMFTheme *theme;
 
-@property (nonatomic, strong) RecentSearchesViewController *recentSearchesViewController;
-@property (nonatomic, strong) WMFSearchResultsTableViewController *resultsListController;
+@property (weak, nonatomic) IBOutlet UIView *recentSearchesHeader;
+@property (weak, nonatomic) IBOutlet UILabel *recentSearchesHeaderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *clearRecentSearchesButton;
+
+@property (nonatomic, strong) WMFRecentSearchesViewController *recentSearchesViewController;
+@property (nonatomic, strong) WMFSearchResultsViewController *resultsListController;
 @property (nonatomic, strong) WMFSearchLanguagesBarViewController *searchLanguagesBarViewController;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) WMFFakeProgressController *fakeProgressController;
 
 @property (strong, nonatomic) IBOutlet UIView *searchFieldContainer;
 @property (strong, nonatomic) IBOutlet WMFThemeableTextField *searchField;
@@ -87,15 +90,15 @@ WMFSearchLanguagesBarViewControllerDelegate>
 #pragma mark - Accessors
 
 - (NSString *)currentResultsSearchTerm {
-    return [[self.resultsListController.dataSource searchResults] searchTerm];
+    return [[self.resultsListController searchResults] searchTerm];
 }
 
 - (NSURL *)currentResultsSearchSiteURL {
-    return [self.resultsListController.dataSource searchSiteURL];
+    return [self.resultsListController searchSiteURL];
 }
 
 - (NSString *)searchSuggestion {
-    return [[self.resultsListController.dataSource searchResults] searchSuggestion];
+    return [[self.resultsListController searchResults] searchSuggestion];
 }
 
 - (WMFSearchFetcher *)fetcher {
@@ -111,8 +114,8 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-    [self.searchField.text wmf_trim].length > 0 || [self.dataStore.recentSearchList countOfEntries] == 0;
-    
+        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.recentSearchList countOfEntries] == 0;
+
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
 
@@ -124,13 +127,18 @@ WMFSearchLanguagesBarViewControllerDelegate>
     if (self.isRecentSearchesHidden == hidingRecentSearches) {
         return;
     }
-    
+
+    if (!hidingRecentSearches) {
+        [self.recentSearchesViewController deselectAllAnimated:animated];
+    }
+
     _recentSearchesHidden = hidingRecentSearches;
-    
+
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         self.recentSearchesHeader.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
                          self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
                          self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
                      }
@@ -146,13 +154,12 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)configureArticleList {
     [self.resultsListController applyTheme:self.theme];
-    self.resultsListController.userDataStore = self.dataStore;
-    self.resultsListController.delegate = self;
+    self.resultsListController.dataStore = self.dataStore;
 }
 
 - (void)configureRecentSearchList {
     self.recentSearchesViewController.recentSearches = self.dataStore.recentSearchList;
-    self.recentSearchesViewController.delegate = self;
+    self.recentSearchesViewController.recentSearchesViewControllerDelegate = self;
 }
 
 - (void)configureSearchField {
@@ -164,23 +171,27 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.fakeProgressController = [[WMFFakeProgressController alloc] initWithProgressView:self.progressView];
+    self.recentSearchesHeaderLabel.text = [WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms") uppercaseStringWithLocale:[NSLocale currentLocale]];
     
     [self configureSearchField];
-    
+
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-    
+
     self.title = WMFLocalizedStringWithDefaultValue(@"search-title", nil, nil, @"Search", @"Title for search interface.\n{{Identical|Search}}");
-    self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
-    
+    self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
+
     self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
-    
+    self.clearRecentSearchesButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}");
+
     [self applyTheme:self.theme];
-    
+
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
-    
+
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
     }
@@ -196,10 +207,10 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
-    
+
     [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         [self.view layoutIfNeeded];
         [self.searchField becomeFirstResponder];
@@ -215,16 +226,16 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     if (!self.presentedViewController) {
         /*
          Only perform animations & search site sync if search is being modally dismissed (as opposed to having another
          view presented on top of it.
          */
         [self saveLastSearch];
-        
+
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-        
+
         [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
             [self.searchField resignFirstResponder];
             [self.view layoutIfNeeded];
@@ -242,18 +253,18 @@ WMFSearchLanguagesBarViewControllerDelegate>
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListDataSourceTableViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFSearchResultsViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
-    if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFRecentSearchesViewController class]]) {
         self.recentSearchesViewController = segue.destinationViewController;
         [self configureRecentSearchList];
     }
     if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
         self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
         self.searchLanguagesBarViewController.delegate = self;
-        
+
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
         self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -300,10 +311,10 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
-    
+
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         DDLogDebug(@"Search field text changed to: %@", query);
-        
+
         /**
          *  This check must performed before checking isEmpty and calling didCancelSearch
          *  This is to work around a "feature" of Siri which sets the textfield.text to nil
@@ -324,9 +335,9 @@ WMFSearchLanguagesBarViewControllerDelegate>
             DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
             return;
         }
-        
+
         BOOL isFieldEmpty = [query wmf_trim].length == 0;
-        
+
         /**
          * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
          * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
@@ -339,16 +350,16 @@ WMFSearchLanguagesBarViewControllerDelegate>
         if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
             return;
         }
-        
+
         [self setSeparatorViewHidden:isFieldEmpty animated:YES];
-        
+
         if (isFieldEmpty) {
             [self didCancelSearch];
             return;
         }
-        
+
         [self setRecentSearchesHidden:YES animated:YES];
-        
+
         DDLogDebug(@"Searching for %@ after delay.", query);
         [self searchForSearchTerm:query];
     });
@@ -386,7 +397,6 @@ WMFSearchLanguagesBarViewControllerDelegate>
 - (void)didCancelSearch {
     [self setSearchFieldText:nil];
     [self updateSearchSuggestion:nil];
-    self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
     [self.resultsListController wmf_hideEmptyView];
 }
@@ -397,9 +407,14 @@ WMFSearchLanguagesBarViewControllerDelegate>
         return;
     }
     @weakify(self);
+
+    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
+    [self.fakeProgressController start];
     
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+            [self.fakeProgressController stop];
             @strongify(self);
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
@@ -408,9 +423,11 @@ WMFSearchLanguagesBarViewControllerDelegate>
             }
         });
     };
-    
+
     WMFSuccessIdHandler success = ^(WMFSearchResults *results) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+            [self.fakeProgressController finish];
             @strongify(self);
             if ([searchTerm isEqualToString:results.searchTerm]) {
                 if (results.results.count == 0) {
@@ -420,7 +437,7 @@ WMFSearchLanguagesBarViewControllerDelegate>
                     });
                 }
             }
-            
+
             // change recent search visibility if no prefix results returned, and update suggestion if needed
             [UIView animateWithDuration:0.25
                              animations:^{
@@ -428,14 +445,15 @@ WMFSearchLanguagesBarViewControllerDelegate>
                              }];
         });
     };
-    
+
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
-    
+
     if ([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]) {
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
         return;
     }
+    
     
     [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                      siteURL:url
@@ -448,20 +466,14 @@ WMFSearchLanguagesBarViewControllerDelegate>
                                                  failure([NSError wmf_cancelledError]);
                                                  return;
                                              }
-                                             
-                                             /*
-                                              HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
-                                              collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
-                                              */
-                                             WMFSearchDataSource *dataSource =
-                                             [[WMFSearchDataSource alloc] initWithSearchSiteURL:url
-                                                                                  searchResults:results];
-                                             
-                                             self.resultsListController.dataSource = dataSource;
-                                             
+
+                                             self.resultsListController.searchResults = results;
+                                             self.resultsListController.searchSiteURL = url;
+                                             [self.resultsListController.collectionView reloadData];
+                             
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
-                                             
+
                                              if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
                                                  [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                                                                   siteURL:url
@@ -485,7 +497,7 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)updateSearchSuggestion:(NSString *)searchSuggestion {
     NSAttributedString *title =
-    [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
+        [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
     [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
     [self.viewIfLoaded setNeedsUpdateConstraints];
     [self.viewIfLoaded layoutIfNeeded];
@@ -497,20 +509,20 @@ WMFSearchLanguagesBarViewControllerDelegate>
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    
+
     self.searchFieldHeight.constant = [self searchFieldHeightForCurrentTraitCollection];
-    
+
     self.contentViewTop.constant = self.searchFieldHeight.constant;
-    
+
     self.suggestionButtonHeightConstraint.constant =
-    [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0 ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
+        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0 ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
 }
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
     return [WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
-            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
-            substitutionStrings:@[suggestion]
-            substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
+        attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
+                   substitutionStrings:@[suggestion]
+                substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
 
 #pragma mark - RecentSearches
@@ -521,13 +533,34 @@ WMFSearchLanguagesBarViewControllerDelegate>
                                                                      searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.recentSearchList addEntry:entry];
         [self.dataStore.recentSearchList save];
-        [self.recentSearchesViewController reloadRecentSearches];
+        [self updateRecentSearches];
     }
+}
+
+- (void)updateRecentSearches {
+    [self.recentSearchesViewController reloadRecentSearches];
+    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.entries.count == 0;
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
-- (void)recentSearchController:(RecentSearchesViewController *)controller
+- (IBAction)clearRecentSearches:(id)sender {
+    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
+
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+
+    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
+        style:UIAlertActionStyleDestructive
+        handler:^(UIAlertAction *_Nonnull action) {
+            [self.dataStore.recentSearchList removeAllEntries];
+            [self.dataStore.recentSearchList save];
+            [self updateRecentSearches];
+        }]];
+
+    [self presentViewController:dialog animated:YES completion:NULL];
+}
+
+- (void)recentSearchController:(WMFRecentSearchesViewController *)controller
            didSelectSearchTerm:(MWKRecentSearchEntry *)searchTerm {
     [self setSearchFieldText:searchTerm.searchTerm];
     [self searchForSearchTerm:searchTerm.searchTerm];
@@ -543,31 +576,6 @@ WMFSearchLanguagesBarViewControllerDelegate>
                          [self updateSearchSuggestion:nil];
                      }];
     [self searchForSearchTerm:self.searchField.text];
-}
-
-#pragma mark - WMFArticleListTableViewControllerDelegate
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didSelectArticleURL:(nonnull NSURL *)url {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleWithURL:url dataStore:self.dataStore animated:YES];
-                             }];
-}
-
-- (UIViewController *)listViewController:(WMFArticleListTableViewController *)listController viewControllerForPreviewingArticleURL:(nonnull NSURL *)url {
-    WMFArticleViewController *vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore];
-    return vc;
-}
-
-- (void)listViewController:(WMFArticleListTableViewController *)listController didCommitToPreviewedViewController:(UIViewController *)viewController {
-    //log tap through done in table
-    UIViewController *presenter = [self presentingViewController];
-    [self dismissViewControllerAnimated:YES
-                             completion:^{
-                                 [presenter wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:YES];
-                             }];
 }
 
 - (NSString *)analyticsContext {
@@ -589,18 +597,26 @@ WMFSearchLanguagesBarViewControllerDelegate>
         return;
     }
     self.view.backgroundColor = theme.colors.midBackground;
+    self.searchContentContainer.tintColor = theme.colors.link;
+    self.progressView.tintColor = theme.colors.link;
     self.searchContentContainer.backgroundColor = theme.colors.midBackground;
     self.resultsListContainerView.backgroundColor = theme.colors.midBackground;
+    self.searchField.isUnderlined = false;
     [self.searchField applyTheme:theme];
     self.searchField.backgroundColor = theme.colors.chromeBackground;
-    
+
     self.separatorView.backgroundColor = theme.colors.tertiaryText;
     self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
-    
+
     self.closeButton.tintColor = theme.colors.chromeText;
     self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
+    self.view.tintColor = theme.colors.link;
+    
+    self.recentSearchesHeader.backgroundColor = theme.colors.midBackground;
+    self.recentSearchesHeaderLabel.textColor = theme.colors.secondaryText;
+    self.clearRecentSearchesButton.tintColor = theme.colors.secondaryText;
 }
 
 @end

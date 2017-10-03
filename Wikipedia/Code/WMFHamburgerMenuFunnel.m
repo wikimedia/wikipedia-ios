@@ -33,16 +33,16 @@ static NSString *const kMenuTypeKey = @"menuItem";
 }
 
 - (void)logMenuOpen {
-    [self log:@{ kActionKey: @"open" }];
+    [self log:@{kActionKey: @"open"}];
 }
 
 - (void)logMenuClose {
-    [self log:@{ kActionKey: @"cancel" }];
+    [self log:@{kActionKey: @"cancel"}];
 }
 
 - (void)logMenuSelectionWithType:(WMFHamburgerMenuItemType)type {
-    [self log:@{ kActionKey: @"select",
-                 kMenuTypeKey: [self stringForMenuItemType:type] }];
+    [self log:@{kActionKey: @"select",
+                kMenuTypeKey: [self stringForMenuItemType:type]}];
 }
 
 - (NSString *)stringForMenuItemType:(WMFHamburgerMenuItemType)type {

@@ -2,12 +2,12 @@ import UIKit
 
 extension NewsCollectionViewCell {
     @objc(configureWithStory:dataStore:theme: layoutOnly:)
-    func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool) {
+    public func configure(with story: WMFFeedNewsStory, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool) {
         let previews = story.articlePreviews ?? []
         descriptionHTML = story.storyHTML
         
         articles = previews.map { (articlePreview) -> CellArticle in
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet(), imageURL: articlePreview.thumbnailURL)
+            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
         }
         
         let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_language

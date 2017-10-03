@@ -31,7 +31,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     public var funnel: CreateAccountFunnel?
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     
-    func closeButtonPushed(_ : UIBarButtonItem) {
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 
@@ -39,7 +39,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         save()
     }
 
-    func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
+    @objc func loginButtonPushed(_ recognizer: UITapGestureRecognizer) {
         guard
             recognizer.state == .ended,
             let presenter = presentingViewController,
@@ -123,7 +123,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         guard let text = captchaViewController?.solution else {
             return false
         }
-        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).characters.count > 0)
+        return (text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count > 0)
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

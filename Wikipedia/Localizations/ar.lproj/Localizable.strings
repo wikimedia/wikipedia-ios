@@ -91,6 +91,7 @@
 "button-save-for-later" = "احفظها لوقت لاحق";
 "button-saved-for-later" = "احفظها لوقت لاحق";
 "button-saved-remove" = "حذف من المحفوظات";
+"cancel" = "ألغ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
@@ -167,8 +168,6 @@
 "history-clear-cancel" = "إلغاء";
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
-"history-section-today" = "اليوم";
-"history-section-yesterday" = "الأمس";
 "history-title" = "التاريخ";
 "hockeyapp-alert-always-send" = "أرسل دائما";
 "hockeyapp-alert-do-not-send" = "لا ترسل";
@@ -251,6 +250,7 @@
 "page-protected-sysop" = "تمت حماية هذه الصفحة بالكامل.";
 "page-read-in-other-languages" = "متاحة في $1 لغة أخرى";
 "page-similar-titles" = "صفحات مشابهة";
+"page-talk-page" = "اعرض صفحة النقاش";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
 "places-accessibility-close-search" = "أغلق البحث";
@@ -323,14 +323,13 @@
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
+"share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
+// Fuzzy
 "share-a-fact-share-menu-item" = "شارك حقيقة";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "«$1» على @Wikipedia: «$2»";
-"share-as-image" = "شارك كصورة";
-"share-as-text" = "شارك كنص";
-"share-cancel" = "ألغ";
 "share-custom-menu-item" = "شارك...";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
+"share-menu-item" = "شارك...";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
@@ -348,9 +347,9 @@
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
 "two-factor-login-with-backup-code" = "استخدم رمزًا من الرموز الاحتياطية";
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
+"view-in-browser-footer-link" = "اعرض المقالة في المتصفح";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
-"welcome-explore-tell-me-more" = "أطلعني على المزيد";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-languages-continue-button" = "استمر";

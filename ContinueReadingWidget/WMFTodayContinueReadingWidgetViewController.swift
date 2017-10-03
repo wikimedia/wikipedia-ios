@@ -18,18 +18,27 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     @IBOutlet var titleLabelTrailingConstraint: NSLayoutConstraint!
     
     var articleURL: URL?
-    
+
+    var theme: Theme = {
+        if #available(iOSApplicationExtension 10.0, *) {
+            return Theme.widget
+        } else {
+            return Theme.widgetiOS9
+        }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOSApplicationExtension 10.0, *) {
-            
-        } else {
-            titleLabel.textColor = UIColor(white: 1, alpha: 1)
-            textLabel.textColor = UIColor(white: 1, alpha: 1)
-            emptyTitleLabel.textColor = UIColor(white: 1, alpha: 1)
-            emptyDescriptionLabel.textColor = UIColor(white: 1, alpha: 0.7)
-            daysAgoLabel.textColor = UIColor(white: 1, alpha: 0.7)
-            daysAgoView.backgroundColor = UIColor(white: 0.3, alpha: 0.3)
+
+        titleLabel.textColor = theme.colors.primaryText
+        textLabel.textColor = theme.colors.secondaryText
+        emptyTitleLabel.textColor = theme.colors.primaryText
+        emptyDescriptionLabel.textColor = theme.colors.secondaryText
+        daysAgoLabel.textColor = theme.colors.secondaryText
+        daysAgoView.backgroundColor = theme.colors.overlayBackground
+
+        if #available(iOSApplicationExtension 11.0, *) {
+            imageView.accessibilityIgnoresInvertColors = true
         }
         
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
@@ -39,7 +48,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
     
-    func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
             continueReading(self)
@@ -155,7 +164,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         var fitSize = UILayoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
-        fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         preferredContentSize = fitSize
         
         return true
@@ -166,9 +175,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         let URL = articleURL as NSURL?
         let URLToOpen = URL?.wmf_wikipediaScheme ?? NSUserActivity.wmf_baseURLForActivity(of: .explore)
         
-        self.extensionContext?.open(URLToOpen, completionHandler: { (success) in
-            
-        })
+        self.extensionContext?.open(URLToOpen)
     }
 
 

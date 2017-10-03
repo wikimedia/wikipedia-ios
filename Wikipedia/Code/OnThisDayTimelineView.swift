@@ -1,6 +1,6 @@
 import UIKit
 
-class OnThisDayTimelineView: UIView {
+public class OnThisDayTimelineView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -43,7 +43,7 @@ class OnThisDayTimelineView: UIView {
         }
     }
     
-    override func tintColorDidChange() {
+    override public func tintColorDidChange() {
         super.tintColorDidChange()
         bottomDotShapeLayer.strokeColor = tintColor.cgColor
         topOuterDotShapeLayer.strokeColor = tintColor.cgColor
@@ -52,7 +52,7 @@ class OnThisDayTimelineView: UIView {
         setNeedsDisplay()
     }
     
-    override var backgroundColor: UIColor? {
+    override public var backgroundColor: UIColor? {
         didSet {
             bottomDotShapeLayer.fillColor = backgroundColor?.cgColor
             topOuterDotShapeLayer.fillColor = backgroundColor?.cgColor
@@ -95,13 +95,13 @@ class OnThisDayTimelineView: UIView {
         return link
     }()
     
-    override func removeFromSuperview() {
+    override public func removeFromSuperview() {
         displayLink?.invalidate()
         displayLink = nil
         super.removeFromSuperview()
     }
 
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         super.draw(rect)
         guard let context = UIGraphicsGetCurrentContext() else {
             return

@@ -12,6 +12,7 @@ NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 NSString *const WMFAPIPath = @"/w/api.php";
+NSString *const WMFEditPencil = @"WMFEditPencil";
 
 @interface NSString (WMFLinkParsing)
 
@@ -224,11 +225,16 @@ NSString *const WMFAPIPath = @"/w/api.php";
     return [self.fragment wmf_isCitationFragment];
 }
 
+- (BOOL)wmf_isEditPencil {
+    return [[self wmf_pathWithoutWikiPrefix] isEqualToString:WMFEditPencil];
+}
+
 - (BOOL)wmf_isPeekable {
     if ([self.absoluteString isEqualToString:@""] ||
         [self.fragment wmf_isReferenceFragment] ||
         [self.fragment wmf_isCitationFragment] ||
-        [self.fragment wmf_isEndNoteFragment]) {
+        [self.fragment wmf_isEndNoteFragment] ||
+        [self wmf_isEditPencil]) {
         return NO;
     }
     if (![self wmf_isWikiResource]) {

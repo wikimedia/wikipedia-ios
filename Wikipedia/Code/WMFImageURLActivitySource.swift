@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
 
@@ -13,15 +14,14 @@ open class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
         return URL(string: "") as Any
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
         
         var url: URL?
         
         if activityType == UIActivityType.postToTwitter
         || activityType == UIActivityType.postToWeibo
         || activityType == UIActivityType.postToTencentWeibo{
-            let string = "\(info.filePageURL.absoluteString)?wprov=sfii1"
-            url = URL(string: string)
+            url = info.filePageURL?.wmf_URLForImageSharing
         }else {
             url = nil
         }
