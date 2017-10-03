@@ -18,7 +18,7 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     let timelineViewWidth:CGFloat = 66.0
 
-    func updateSuperMargins() {
+    func privateLayoutMarginsOrSemanticContentAttributeOverrideDidChange() {
         var margins = privateLayoutMargins
         if semanticContentAttributeOverride == .forceRightToLeft {
             margins.right = margins.right + timelineViewWidth
@@ -30,13 +30,13 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
     fileprivate var privateLayoutMargins: UIEdgeInsets = ArticleCollectionViewCell.defaultMargins {
         didSet {
-            updateSuperMargins()
+            privateLayoutMarginsOrSemanticContentAttributeOverrideDidChange()
         }
     }
 
     override var semanticContentAttributeOverride: UISemanticContentAttribute {
         didSet {
-            updateSuperMargins()
+            privateLayoutMarginsOrSemanticContentAttributeOverrideDidChange()
         }
     }
 
