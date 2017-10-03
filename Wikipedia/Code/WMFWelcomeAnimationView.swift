@@ -6,10 +6,10 @@ open class WMFWelcomeAnimationView : UIView {
     // so they can scale proportionally to the view size.
     
     fileprivate var wmf_proportionalHorizontalOffset: CGFloat{
-        return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
+        return CGFloat(0.35).wmf_denormalizeUsingReference(frame.width)
     }
     fileprivate var wmf_proportionalVerticalOffset: CGFloat{
-        return CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.height)
+        return CGFloat(0.35).wmf_denormalizeUsingReference(frame.height)
     }
     
     
@@ -23,26 +23,19 @@ open class WMFWelcomeAnimationView : UIView {
         return CATransform3DMakeTranslation(0.0, wmf_proportionalVerticalOffset, 0)
     }
     
-    
     let wmf_scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
 
     var wmf_scaleZeroAndLeftTransform: CATransform3D{
-        return CATransform3DConcat(self.wmf_scaleZeroTransform, wmf_leftTransform)
+        return CATransform3DConcat(wmf_scaleZeroTransform, wmf_leftTransform)
     }
     var wmf_scaleZeroAndRightTransform: CATransform3D{
-        return CATransform3DConcat(self.wmf_scaleZeroTransform, wmf_rightTransform)
+        return CATransform3DConcat(wmf_scaleZeroTransform, wmf_rightTransform)
     }
     var wmf_scaleZeroAndLowerLeftTransform: CATransform3D{
         return CATransform3DConcat(wmf_scaleZeroAndLeftTransform, wmf_lowerTransform)
     }
     var wmf_scaleZeroAndLowerRightTransform: CATransform3D {
           return CATransform3DConcat(wmf_scaleZeroAndRightTransform, wmf_lowerTransform)
-    }
-    
-    override open func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        // Fix for: http://stackoverflow.com/a/39614714
-        self.layoutIfNeeded()
     }
     
     open func beginAnimations() {
@@ -52,12 +45,41 @@ open class WMFWelcomeAnimationView : UIView {
     open func addAnimationElementsScaledToCurrentFrameSize(){
     
     }
+
+    public var hasCircleBackground: Bool = false {
+        didSet {
+            if hasCircleBackground {
+                backgroundColor = UIColor(0xdee6f6)
+                layer.masksToBounds = true
+            } else {
+                // backgroundColor = UIColor(0xdddddd)
+                backgroundColor = .clear
+                layer.masksToBounds = false
+            }
+            setNeedsLayout()
+        }
+    }
+
+    var sizeAtLastAnimationElementAddition = CGSize.zero
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard bounds.size != sizeAtLastAnimationElementAddition else {
+            return
+        }
+        sizeAtLastAnimationElementAddition = bounds.size
+        addAnimationElementsScaledToCurrentFrameSize()
+        if hasCircleBackground {
+            layer.cornerRadius = bounds.size.width / 2.0
+        } else {
+            layer.cornerRadius = 0
+        }
+    }
     
     open func removeExistingSubviewsAndSublayers() {
-        for subview in self.subviews {
+        for subview in subviews {
             subview.removeFromSuperview()
         }
-        if let sublayers = self.layer.sublayers {
+        if let sublayers = layer.sublayers {
             for sublayer in sublayers {
                 sublayer.removeFromSuperlayer()
             }

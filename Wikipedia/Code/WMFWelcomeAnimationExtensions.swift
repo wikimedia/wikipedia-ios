@@ -4,6 +4,9 @@ extension CGFloat {
     func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGFloat {
         return self * reference
     }
+    func wmf_normalizeUsingReference (_ reference: CGFloat) -> CGFloat {
+        return self / (reference == 0 ? 0.0000001 : reference)
+    }
     func wmf_radiansFromDegrees() -> CGFloat{
         return ((self) / 180.0 * CGFloat(Double.pi))
     }
@@ -16,6 +19,12 @@ extension CGPoint {
             y: self.y.wmf_denormalizeUsingReference(size.height)
         )
     }
+    func wmf_normalizeUsingSize (_ size: CGSize) -> CGPoint {
+        return CGPoint(
+            x: self.x.wmf_normalizeUsingReference(size.width),
+            y: self.y.wmf_normalizeUsingReference(size.height)
+        )
+    }
 }
 
 extension CGSize {
@@ -23,6 +32,13 @@ extension CGSize {
         return CGSize(
             width: self.width.wmf_denormalizeUsingReference(size.width),
             height: self.height.wmf_denormalizeUsingReference(size.height)
+        )
+    }
+    // For denormalization which preserved aspect ratio
+    func wmf_denormalizeUsingReference (_ reference: CGFloat) -> CGSize {
+        return CGSize(
+            width: self.width.wmf_denormalizeUsingReference(reference),
+            height: self.height.wmf_denormalizeUsingReference(reference)
         )
     }
 }
@@ -42,8 +58,8 @@ extension CGRect {
 
 extension CALayer {
     public func wmf_animateToOpacity(_ opacity: Double, transform: CATransform3D, delay: Double, duration: Double){
-        self.add(CABasicAnimation.wmf_animationToTransform(transform, delay: delay, duration: duration), forKey: nil)
-        self.add(CABasicAnimation.wmf_animationToOpacity(opacity, delay: delay, duration: duration), forKey: nil)
+        add(CABasicAnimation.wmf_animationToTransform(transform, delay: delay, duration: duration), forKey: nil)
+        add(CABasicAnimation.wmf_animationToOpacity(opacity, delay: delay, duration: duration), forKey: nil)
     }
 }
 
@@ -78,5 +94,21 @@ extension CATransform3D {
             0.0,
             1.0
         )
+    }
+}
+
+extension UIView {
+    func wmf_addHorizontalAndVerticalParallax(amount: Float) {
+        let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontal.minimumRelativeValue = -amount
+        horizontal.maximumRelativeValue = amount
+        
+        let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        vertical.minimumRelativeValue = -amount
+        vertical.maximumRelativeValue = amount
+        
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontal, vertical]
+        addMotionEffect(group)
     }
 }

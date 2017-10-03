@@ -49,7 +49,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     lazy var closeButton:UIButton = {
         let button = UIButton(frame: CGRect.zero)
         
-        button.setImage(UIImage(named: "close"), for: UIControlState())
+        button.setImage(UIImage(named: "close"), for: .normal)
         button.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)), for: .touchUpInside)
         
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
@@ -226,7 +226,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             self.presentedView?.clipsToBounds = true
             self.presentedView?.layer.borderColor = theme.colors.border.cgColor
             self.presentedView?.layer.borderWidth = 1.0
-            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: UIControlState())
+            self.closeButton.setImage(UIImage(named: "toc-close-blue"), for: .normal)
             self.closeButton.tintColor = theme.colors.link
             self.statusBarBackground.isHidden = true
             break
@@ -236,7 +236,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
             self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
             self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)
             self.presentedView?.clipsToBounds = false
-            self.closeButton.setImage(UIImage(named: "close"), for: UIControlState())
+            self.closeButton.setImage(UIImage(named: "close"), for: .normal)
             self.statusBarBackground.isHidden = false
         }
         
