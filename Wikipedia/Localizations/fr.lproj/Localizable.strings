@@ -269,6 +269,7 @@
 "page-protected-sysop" = "Cette page a été complètement protégée.";
 "page-read-in-other-languages" = "Disponible en $1 autres langues";
 "page-similar-titles" = "Pages similaires";
+"page-talk-page" = "Afficher la page de discussion";
 "pictured" = "en image";
 "places-accessibility-clear-saved-searches" = "Effacer les recherches enregistrées";
 "places-accessibility-close-search" = "Fermer la recherche";
@@ -386,6 +387,7 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
 "welcome-explore-continue-button" = "Commencer";
 "welcome-explore-features-news-notifications" = "Obtenir de nouvelles notifications sur des sujets tendance dans les nouvelles";
 "welcome-explore-features-on-this-day" = "Remonter le temps avec $1 pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";

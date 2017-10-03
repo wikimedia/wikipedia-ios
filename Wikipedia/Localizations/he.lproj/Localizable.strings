@@ -90,6 +90,7 @@
 "button-save-for-later" = "לשמור לאחר־כך";
 "button-saved-for-later" = "נשמרו לאחר־כך";
 "button-saved-remove" = "להסיר משמורים";
+"cancel" = "ביטול";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
@@ -165,8 +166,7 @@
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הססמה בדוא\"ל";
 "forgot-password-title" = "אתחול ססמה";
 "forgot-password-username-or-email-title" = "או";
-// Fuzzy
-"gfdl" = "GDFL";
+"gfdl" = "GFDL";
 "history-clear-all" = "ניקוי";
 "history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
@@ -261,6 +261,7 @@
 "page-protected-sysop" = "הדף הזה הוגן באופן מלא.";
 "page-read-in-other-languages" = "זמין בעוד $1 שפות";
 "page-similar-titles" = "דפים דומים";
+"page-talk-page" = "הצגת דף השיחה";
 "pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
 "places-accessibility-close-search" = "סגירת חיפוש";
@@ -346,13 +347,20 @@
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לגלות\".";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-title" = "הגדרות";
-// Fuzzy
-"share-a-fact-share-menu-item" = "שיתוף עובדה";
+"share-a-fact-made-with" = "נוצר עם יישום ויקיפדיה";
+"share-a-fact-share-menu-item" = "שיתוף עובדה...";
 "share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia:";
+"share-building" = "בניית כרטיס שיתוף עובדה...";
 "share-custom-menu-item" = "שיתוף...";
+"share-default-format" = "\"$1\" מהערך \"$2\": $3";
+"share-email-format" = "$1\n\nמהערך \"$2\"\n\n$3";
 "share-get-directions-in-maps" = "קבלת כיוונים";
+"share-menu-item" = "שיתוף...";
+"share-message-format" = "\"$1\" $2";
 "share-on-twitter-sign-off" = "דרך @Wikipedia";
 "share-open-in-maps" = "פתיחה במפות";
+"share-social-format" = "\"$1\" דרך ויקיפדיה: $2";
+"share-social-mention-format" = "\"$1\" דרך @Wikipedia: $2";
 "status-saved-for-later" = "נשמר לאחר־כך";
 "status-saving-for-later" = "שמירה לאחר־כך...";
 "table-of-contents-button-label" = "תוכן עניינים";
@@ -371,6 +379,7 @@
 "two-factor-login-title" = "כניסה לחשבון שלך";
 "two-factor-login-with-backup-code" = "להשתמש באחד מקודי הגיבוי שלך";
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
+"view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-features-news-notifications" = "קבלת עדכוני חדשות על נושאים חמים בחדשות";
 "welcome-explore-features-on-this-day" = "חזרו אחורה בזמן עם \"$1\" כדי לכלות מה קרה היום בהיסטוריה";
@@ -401,7 +410,6 @@
 "wikitext-upload-save" = "מפרסם...";
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "פרסום השינויים מהווה את הסכמתך ל$1 ולפרסום התרומה שלך לפי תנאי רישיונות $2 ו־$3.";
 "wikitext-upload-save-terms-name" = "תנאי השימוש";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";

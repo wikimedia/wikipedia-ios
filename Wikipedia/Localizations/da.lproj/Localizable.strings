@@ -259,6 +259,7 @@
 "page-protected-sysop" = "Denne side er beskyttet.";
 "page-read-in-other-languages" = "Tilgængelig på $1 andre sprog";
 "page-similar-titles" = "Lignende sider";
+"page-talk-page" = "Vis diskussionsside";
 "pictured" = "billedet";
 "places-accessibility-clear-saved-searches" = "Ryd gemte søgninger";
 "places-accessibility-close-search" = "Luk søgning";
@@ -376,6 +377,7 @@
 "two-factor-login-title" = "Log ind på din konto";
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
+"view-in-browser-footer-link" = "Vis artikel i browser";
 "welcome-explore-continue-button" = "Kom i gang";
 "welcome-explore-features-news-notifications" = "Få nyhedspåmindelser for populære emner i nyhederne";
 "welcome-explore-features-on-this-day" = "Rejs tilbage i tiden med $1 for at lære hvad der skete i dag historisk";

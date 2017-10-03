@@ -254,6 +254,7 @@
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-similar-titles" = "Слични страници";
+"page-talk-page" = "Страница за разговор";
 "pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-close-search" = "Затвори пребарување";
@@ -371,6 +372,7 @@
 "two-factor-login-title" = "Најавете се со вашата сметка";
 "two-factor-login-with-backup-code" = "Користи еден од резервните кодови";
 "two-factor-login-with-regular-code" = "Користи потврден код";
+"view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-explore-continue-button" = "Започни";
 "welcome-explore-features-news-notifications" = "Добивајте новости за темите кои се најтековни во вестите";
 "welcome-explore-features-on-this-day" = "Вратете се во времето со $1 за да дознаете што се случило на денешен ден во минатото";

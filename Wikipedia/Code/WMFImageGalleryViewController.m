@@ -7,7 +7,6 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "WMFGradientView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -199,20 +198,49 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
-
-        UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
-        share.tintColor = [UIColor whiteColor];
-        self.rightBarButtonItem = share;
-
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
-        close.tintColor = [UIColor whiteColor];
-        self.leftBarButtonItem = close;
+        
+        [self setOverlayViewTopBarHidden:NO];
     }
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+- (instancetype)initForPeek:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme {
+    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
+    if (self) {
+        /**
+         *  We are performing the following asserts to ensure that the
+         *  implmentation of of NYTPhotosViewController does not change.
+         *  We exposed these properties and methods via a category
+         *  in lieu of subclassing. (and then maintaining a separate fork)
+         */
+        NSParameterAssert(self.dataSource);
+        NSParameterAssert(self.photos);
+        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
+        NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
+
+        [self setOverlayViewTopBarHidden:YES];
+        
+        self.theme = theme;
+    }
+    return self;
+}
+
+- (void)setOverlayViewTopBarHidden:(BOOL)hidden {
+    if (hidden) {
+        self.overlayView.rightBarButtonItem = nil;
+        self.overlayView.leftBarButtonItem = nil;
+        self.overlayView.topCoverBackgroundColor = [UIColor clearColor];
+    } else {
+        UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
+        share.tintColor = [UIColor whiteColor];
+        self.overlayView.rightBarButtonItem = share;
+        
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
+        close.tintColor = [UIColor whiteColor];
+        self.overlayView.leftBarButtonItem = close;
+    }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -285,25 +313,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (@available(iOS 11.0, *)) {
         self.view.accessibilityIgnoresInvertColors = YES;
     }
-    [self addGradientToGalleryNavigationBar];
-}
-
-- (void)addGradientToGalleryNavigationBar {
-    WMFGradientView *gradientView = [WMFGradientView new];
-    [gradientView.gradientLayer setLocations:@[@0, @.745, @1]];
-    [gradientView.gradientLayer setColors:@[
-        (id)[UIColor blackColor].CGColor,
-        (id)[UIColor blackColor].CGColor,
-        (id)[UIColor clearColor].CGColor
-    ]];
-    [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 0.0)];
-    [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 1.0)];
-    [self.overlayView.navigationBar addSubview:gradientView];
-    [self.overlayView.navigationBar sendSubviewToBack:gradientView];
-    [gradientView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.trailing.equalTo(self.overlayView.navigationBar);
-        make.height.equalTo(self.overlayView.navigationBar).multipliedBy(1.34);
-    }];
 }
 
 #pragma mark - Actions
@@ -442,6 +451,31 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (nullable instancetype)initForPeek:(MWKArticle *)article theme:(WMFTheme *)theme {
+    NSParameterAssert(article);
+    NSParameterAssert(article.dataStore);
+
+    NSArray *items = [article imagesForGallery];
+
+    if ([items count] == 0) {
+        return nil;
+    }
+
+    NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
+
+    self = [self initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    if (self) {
+        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
+        [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
+        [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+            obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
+        }];
+        self.infoController.delegate = self;
+    }
+
+    return self;
+}
+
 - (MWKImage *)imageForPhoto:(id<NYTPhoto>)photo {
     return [(WMFArticlePhoto *)photo bestImageObject];
 }
@@ -560,6 +594,35 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)accessibilityPerformEscape {
     [self dismissViewControllerAnimated:YES completion:NULL];
     return YES;
+}
+
+#pragma mark - Peek & Pop
+
+- (NSArray *)previewActionItems {
+    UIPreviewAction *share = [UIPreviewAction actionWithTitle:[WMFCommonStrings shareActionTitle]
+                                                        style:UIPreviewActionStyleDefault
+                                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
+
+                                                          id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
+                                                          MWKImageInfo *info = [photo bestImageInfo];
+                                                          NSURL *url = [photo bestImageURL];
+
+                                                          @weakify(self);
+                                                          [[WMFImageController sharedInstance] fetchImageWithURL:url
+                                                              failure:^(NSError *_Nonnull error) {
+                                                                  [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+                                                              }
+                                                              success:^(WMFImageDownload *_Nonnull download) {
+                                                                  @strongify(self);
+
+                                                                  UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
+                                                                  vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
+
+                                                                  [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
+                                                              }];
+
+                                                      }];
+    return @[share];
 }
 
 @end

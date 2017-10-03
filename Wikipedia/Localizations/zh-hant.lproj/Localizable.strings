@@ -123,7 +123,7 @@
 "explore-because-you-read" = "因為您讀了";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-enable-location-title" = "瀏覽接近您目前位置的條目";
-"explore-featured-article-heading" = "特色條目";
+"explore-featured-article-heading" = "典範條目";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
 "explore-most-read-footer-for-date" = "所有在 $1 上閱讀最多的條目";
@@ -266,6 +266,7 @@
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
 "page-similar-titles" = "相似頁面";
+"page-talk-page" = "檢視對話頁";
 "pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";
 "places-accessibility-close-search" = "關閉搜尋";
@@ -348,7 +349,7 @@
 "settings-notifications-system-turn-on" = "開啟通知";
 "settings-notifications-trending" = "目前事件趨勢";
 "settings-primary-language" = "首選";
-"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此App應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如特色條目）";
+"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
@@ -383,6 +384,7 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
+"view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-explore-continue-button" = "入門";
 "welcome-explore-features-news-notifications" = "獲得在新聞熱門主題裡的新聞通知";
 "welcome-explore-features-on-this-day" = "返回時間至$1來了解在歷史上的今天發生了什麼事";

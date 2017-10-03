@@ -11,6 +11,7 @@
 - (nullable UICollectionViewLayoutAttributes *)layoutAttributesAtPoint:(CGPoint)point; //returns the first matched layout attributes that contain the given point
 
 @property (nonatomic) BOOL slideInNewContentFromTheTop;
+@property (nonatomic, readonly) UIEdgeInsets readableMargins;
 
 @end
 
@@ -27,6 +28,6 @@ typedef struct WMFLayoutEstimate WMFLayoutEstimate;
 - (WMFLayoutEstimate)collectionView:(nonnull UICollectionView *)collectionView estimatedHeightForFooterInSection:(NSInteger)section forColumnWidth:(CGFloat)columnWidth;
 - (BOOL)collectionView:(nonnull UICollectionView *)collectionView prefersWiderColumnForSectionAtIndex:(NSUInteger)index;
 
-- (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)size;
+- (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)size readableWidth:(CGFloat)readableWidth;
 
 @end

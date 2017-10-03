@@ -6,7 +6,6 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFImageGalleryViewController.h"
 #import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
@@ -1630,13 +1629,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self commitViewController:previewingViewController];
 }
 
+#pragma mark - WMFImagePreviewingActionsDelegate
+
+- (void)shareImagePreviewActionSelectedWithImageController:(nonnull WMFImageGalleryViewController *)imageController shareActivityController:(nonnull UIActivityViewController *)shareActivityController {
+    [self presentViewController:shareActivityController animated:YES completion:nil];
+}
+
 #pragma mark - Article lead image peeking via UIViewControllerPreviewingDelegate
 
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article theme:self.theme];
+        fullscreenGallery.imagePreviewingActionsDelegate = self;
         return fullscreenGallery;
     }
     return nil;
@@ -1727,6 +1733,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
     } else {
+        if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
+            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
+        }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }

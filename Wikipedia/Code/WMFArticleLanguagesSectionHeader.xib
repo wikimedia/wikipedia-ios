@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,15 +17,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1q-e8-8VS">
-                    <rect key="frame" x="18" y="42" width="305" height="16"/>
+                    <rect key="frame" x="16" y="42" width="309" height="16"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="M1q-e8-8VS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="UfA-FP-uBf"/>
-                <constraint firstAttribute="trailing" secondItem="M1q-e8-8VS" secondAttribute="trailing" constant="18" id="gWU-tJ-6Sh"/>
+                <constraint firstItem="M1q-e8-8VS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="UfA-FP-uBf"/>
+                <constraint firstAttribute="trailingMargin" secondItem="M1q-e8-8VS" secondAttribute="trailing" id="gWU-tJ-6Sh"/>
                 <constraint firstAttribute="bottom" secondItem="M1q-e8-8VS" secondAttribute="bottom" constant="10" id="hDc-Rm-Qsa"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

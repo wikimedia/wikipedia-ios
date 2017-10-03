@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [MTLJSONAdapter arrayTransformerWithModelClass:[WMFFeedNewsStory class]];
 }
 
++ (NSString *)WMFFeedDayResponseMaxAgeKey {
+    return @"WMFFeedDayResponseMaxAge";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

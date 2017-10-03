@@ -65,6 +65,7 @@
 "appearance-settings-adjust-text-sizing" = "Tilpass tekststørrelsen i artikler";
 "appearance-settings-image-dimming-footer" = "Senk gjennomsiktigheten til bilder i den mørke drakten";
 "appearance-settings-reading-themes" = "Lesedrakter";
+"appearance-settings-text-sizing-example-text" = "Dra glidebryteren ovenfor for å endre tekststørrelsen i artikler. Bruker systemets tekststørrelse for å endre størrelsen på andre tekstfelter i appen.";
 "appearance-settings-theme-options" = "Draktvalg";
 "appearance-settings-title" = "Lesedrakter";
 "article-about-title" = "Om artikkelen";
@@ -135,8 +136,7 @@
 "explore-random-article-heading" = "Tilfeldig artikkel";
 "explore-randomizer" = "Tilfeldighetsgenerator";
 "feed-news-notification-button-text" = "Slå på notifikasjoner";
-// Fuzzy
-"feed-news-notification-text" = "Du kan nå motta notifikasjoner om Wikipedia artikler som er populære i nyhetene.";
+"feed-news-notification-text" = "Slå på varsler for å ble varslet av Wikipedia når artikler er populære i nyhetene.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Passordene er ikke like";
 "field-alert-password-invalid" = "Ugyldig passord";
@@ -181,6 +181,8 @@
 "hockeyapp-alert-title" = "Beklager, app-en krasjet forrige gang";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbake til Utforsk";
 "home-button-history-accessibility-label" = "Wikipedia, vend tilbake til Historikk";
+"home-button-popover-description" = "Trykk på «W» for å gå tilbake til utforskings-nyhetskilden";
+"home-button-popover-title" = "Trykk for å gå hjem";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
 "home-hide-suggestion-cancel" = "Avbryt";
 "home-hide-suggestion-prompt" = "Skjul dette forslaget";
@@ -189,6 +191,7 @@
 "home-nearby-location-footer" = "Mer i nærheten av $1";
 "home-news-footer" = "Mer fra nyhetene";
 "home-themes-action-title" = "Håndter innstillingene";
+"home-themes-prompt" = "Tilpass lesepreferansene dine inkludert tekststørrelsen og drakten fra artikkelverktøylinjen eller i brukerinnstillingene dine for en behageligere leseopplevelse.";
 "home-title" = "Utforsk";
 "home-title-accessibility-label" = "Wikipedia, rull til begynnelsen av Utforsk";
 "icon-shortcut-continue-reading-title" = "Fortsett å lese";
@@ -258,6 +261,8 @@
 "page-protected-sysop" = "Denne siden er beskyttet.";
 "page-read-in-other-languages" = "Tilgjengelig på $1 annet språk";
 "page-similar-titles" = "Lignende sider";
+"page-talk-page" = "Vis diskusjonsside";
+"pictured" = "bildet";
 "places-accessibility-clear-saved-searches" = "Tøm lagrede søk";
 "places-accessibility-close-search" = "Lukk søk";
 "places-accessibility-group" = "$1 artikler";
@@ -297,9 +302,11 @@
 "preference-title-eventlogging-opt-in" = "Send bruksrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lesere";
+"reading-themes-controls-accessibility-brightness-slider" = "Glidebryter for lysstyrke";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk drakt";
 "reading-themes-controls-accessibility-light-theme-button" = "Lys drakt";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-drakt";
+"reading-themes-controls-accessibility-text-size-slider" = "Glidebryter for tekststørrelse";
 "reference-title" = "Referanse $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|I går|For $1 dager siden}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nylig|For $1 time siden|For $1 timer siden}}";
@@ -372,8 +379,11 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
+"view-in-browser-footer-link" = "Vis artikkelen i nettleseren";
 "welcome-explore-continue-button" = "Kom igang";
+"welcome-explore-features-news-notifications" = "Få varsler om populære emner i nyhetene";
 "welcome-explore-features-on-this-day" = "Reis tilbake i tid med $1 for å finne ut hva som skjedde på dagens dato i historien";
+"welcome-explore-features-places" = "Bruk $1-fanen for å oppdage landemerker i nærheten av deg eller andre steder i verden";
 "welcome-explore-new-ways-title" = "Nye måter å utforske";
 "welcome-explore-tell-me-more-done-button" = "Skjønner";
 "welcome-languages-add-button" = "Legg til et annet språk";
@@ -400,7 +410,6 @@
 "wikitext-upload-save" = "Publiserer...";
 "wikitext-upload-save-anonymously-warning" = "Redigeringer vil bli tilskrevet IP-adressen til enheten din. Hvis du $1 vil du få bedre personvern.";
 "wikitext-upload-save-sign-in" = "Logg inn";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Ved å publisere endringer samtykker du til $1 og til å ugjenkallelig slippe bidraget ditt under lisensene $2 og $3.";
 "wikitext-upload-save-terms-name" = "bruksvilkårene";
 "zero-charged-verbiage" = "Wikipedia Zero er skrudd av";

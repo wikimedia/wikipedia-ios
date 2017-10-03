@@ -42,7 +42,7 @@
     buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
     self.navigationItem.leftBarButtonItem = buttonX;
 
-    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:WMFLocalizedStringWithDefaultValue(@"button-next", nil, nil, @"Next", @"Button text for next button used in various places.\n{{Identical|Next}}")
+    self.rightButton = [[UIBarButtonItem alloc] initWithTitle:[WMFCommonStrings nextTitle]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(rightButtonPressed)];

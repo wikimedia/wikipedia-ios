@@ -7,6 +7,7 @@
 // Author: Dicto23456
 // Author: Dyaydyasasha2015
 // Author: Facenapalm
+// Author: Helpau
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
@@ -77,6 +78,8 @@
 "action-unsave" = "Не сохранено";
 "alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
+"appearance-settings-adjust-text-sizing" = "Регулирует размер текста статьи";
+"appearance-settings-image-dimming-footer" = "Уменьшает непрозрачность изображений в тёмной теме";
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
@@ -106,6 +109,7 @@
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
 "dark-theme-display-name" = "Тёмная";
+"dim-images" = "Делать изображения менее яркими";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-linked-words" = "Добавленные ссылки";
@@ -144,8 +148,7 @@
 "explore-random-article-heading" = "Случайная статья";
 "explore-randomizer" = "Рандомизатор";
 "feed-news-notification-button-text" = "Включить уведомления";
-// Fuzzy
-"feed-news-notification-text" = "Теперь вы можете получать уведомления о статьях Википедии трендов в новостях.";
+"feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "field-alert-password-invalid" = "Неверный пароль";
@@ -269,6 +272,7 @@
 "page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-read-in-other-languages" = "Доступно на $1 языках";
 "page-similar-titles" = "Похожие страницы";
+"page-talk-page" = "Страница обсуждения";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
 "places-accessibility-close-search" = "Закрыть поиск";
@@ -312,6 +316,8 @@
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Сепия";
+"reading-themes-controls-accessibility-text-size-slider" = "Ползунок размера текста";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
@@ -352,8 +358,8 @@
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Поделитесь-фактом";
+"share-a-fact-made-with" = "Создано с помощью Википедии";
+"share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-custom-menu-item" = "Поделиться...";
 "share-default-format" = "«$1» из «$2»: $3";
@@ -383,7 +389,9 @@
 "two-factor-login-title" = "Войдите в свою учётную запись";
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
+"view-in-browser-footer-link" = "Просмотреть статью в браузере";
 "welcome-explore-continue-button" = "Начать";
+"welcome-explore-features-on-this-day" = "Перенеситесь назад во времени с $1, чтобы узнать, что произошло сегодня в истории";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-languages-add-button" = "Добавить ещё один язык";

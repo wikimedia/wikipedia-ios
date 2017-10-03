@@ -38,7 +38,6 @@ static NSString *const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.o
 static NSString *const WMFSettingsURLTerms = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
-static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafoundation.org/wiki/Privacy_policy";
 
 #if WMF_TWEAKS_ENABLED
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, FBTweakViewControllerDelegate>
@@ -202,7 +201,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
             [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLPrivacyPolicy]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:[WMFCommonStrings privacyPolicyURLString]]];
             break;
         case WMFSettingsMenuItemType_Terms:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
@@ -511,6 +510,7 @@ static NSString *const WMFSettingsURLPrivacyPolicy = @"https://m.wikimediafounda
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
+    self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
     [self.tableView wmf_applyThemeToHeadersAndFooters:theme];

@@ -64,8 +64,11 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         
         tv.sectionHeaderHeight = UITableViewAutomaticDimension
         tv.estimatedSectionHeaderHeight = 32
-        
-        tv.contentInset = UIEdgeInsetsMake(UIApplication.shared.statusBarFrame.size.height, 0, 0, 0)
+        if #available(iOS 11.0, *) {
+            tv.contentInset = UIEdgeInsetsMake(max(20, view.safeAreaInsets.top, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
+        } else {
+            tv.contentInset = UIEdgeInsetsMake(max(20, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
+        }
         tv.separatorStyle = .none
 
         //add to the view now to ensure view did load is kicked off

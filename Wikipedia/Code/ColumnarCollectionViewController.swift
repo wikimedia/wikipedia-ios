@@ -2,13 +2,15 @@ import UIKit
 
 @objc(WMFColumnarCollectionViewController)
 class ColumnarCollectionViewController: UICollectionViewController, Themeable {
-    let layout: WMFColumnarCollectionViewLayout = WMFColumnarCollectionViewLayout()
+    var layout: WMFColumnarCollectionViewLayout {
+        return collectionViewLayout as? WMFColumnarCollectionViewLayout ?? WMFColumnarCollectionViewLayout()
+    }
     var theme: Theme = Theme.standard
     
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
     init() {
-        super.init(collectionViewLayout: layout)
+        super.init(collectionViewLayout:  WMFColumnarCollectionViewLayout())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -140,9 +142,10 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
-        self.view.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.backgroundColor = theme.colors.baseBackground
-        self.collectionView?.reloadData()
+        view.backgroundColor = theme.colors.baseBackground
+        collectionView?.backgroundColor = theme.colors.baseBackground
+        collectionView?.indicatorStyle = theme.scrollIndicatorStyle
+        collectionView?.reloadData()
     }
 }
 
@@ -173,7 +176,7 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
         return WMFLayoutEstimate(precalculated: false, height: 0)
     }
     
-    func metrics(withBoundsSize size: CGSize) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, collapseSectionSpacing: false)
+    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing: false)
     }
 }

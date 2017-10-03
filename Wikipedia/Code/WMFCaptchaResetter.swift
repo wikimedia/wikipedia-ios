@@ -43,7 +43,7 @@ public class WMFCaptchaResetter {
                     failure(WMFCaptchaResetterError.cannotExtractCaptchaIndex)
                     return
             }
-            guard index.characters.count > 0 else {
+            guard index.count > 0 else {
                 failure(WMFCaptchaResetterError.zeroLengthIndex)
                 return
             }

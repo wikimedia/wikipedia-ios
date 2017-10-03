@@ -18,14 +18,14 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let headerIconDimension: CGFloat = 40
         let rankViewLeftMargin = ArticleCollectionViewCell.defaultMargins.left
-        margins = UIEdgeInsets(top: margins.top, left: 2 * ArticleCollectionViewCell.defaultMargins.left + headerIconDimension, bottom: margins.bottom, right: margins.right)
+        layoutMargins = UIEdgeInsets(top: layoutMargins.top, left: 2 * ArticleCollectionViewCell.defaultMargins.left + headerIconDimension, bottom: layoutMargins.bottom, right: layoutMargins.right)
         let superSize = super.sizeThatFits(size, apply: apply)
         
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         let rankViewWidthPlusPadding =  (2 * rankViewLeftMargin) + headerIconDimension
         let x = isRTL ? size.width - rankViewWidthPlusPadding : 0
-        let rankViewFrame = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: margins.top), maximumViewSize: CGSize(width: rankViewWidthPlusPadding, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: rankViewWidthPlusPadding, height: superSize.height - margins.top - margins.bottom), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
-        return CGSize(width: superSize.width, height: max(superSize.height, rankViewFrame.size.height + margins.top + margins.bottom))
+        let rankViewFrame = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumViewSize: CGSize(width: rankViewWidthPlusPadding, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: rankViewWidthPlusPadding, height: superSize.height - layoutMargins.top - layoutMargins.bottom), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
+        return CGSize(width: superSize.width, height: max(superSize.height, rankViewFrame.size.height + layoutMargins.top + layoutMargins.bottom))
     }
 
 }
