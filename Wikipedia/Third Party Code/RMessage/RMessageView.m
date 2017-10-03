@@ -25,6 +25,7 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewCenterYConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
 
 @property (nonatomic, strong) UIImageView *iconImageView;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -618,7 +619,11 @@ static NSMutableDictionary *globalDesignDictionary;
 
   UIColor *titleTextColor = [self colorForString:[_messageViewDesignDictionary valueForKey:@"titleTextColor"]];
   _titleLabel.text = _title ? _title : @"";
-  if (titleTextColor) _titleLabel.textColor = titleTextColor;
+    if (titleTextColor) {
+        _titleLabel.textColor = titleTextColor;
+        _closeImageView.tintColor = titleTextColor;
+    }
+
 
   UIColor *titleShadowColor = [self colorForString:[_messageViewDesignDictionary valueForKey:@"titleShadowColor"]];
   if (titleShadowColor) _titleLabel.shadowColor = titleShadowColor;

@@ -1,38 +1,38 @@
 {
   "success": {
-    "backgroundColor": "#00AF89",
+    "backgroundColor": "#FFFFFF",
     "backgroundColorAlpha": 1.0,
-    "titleTextColor": "#FFFFFF",
+    "titleTextColor": "#00AF89",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
-    "subTitleTextColor": "#FFFFFF",
+    "subTitleTextColor": "#000000",
     "blurBackground": 0
   },
   "normal": {
-    "backgroundColor": "#E8E8E8",
+    "backgroundColor": "#FFFFFF",
     "backgroundColorAlpha": 1.0,
-    "titleTextColor": "#727C83",
+    "titleTextColor": "#000000",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
-    "subTitleTextColor": "#727C83",
+    "subTitleTextColor": "#000000",
     "blurBackground": 0
   },
   "warning": {
-    "backgroundColor": "#FFCC33",
+    "backgroundColor": "#FFFFFF",
     "backgroundColorAlpha": 1.0,
-    "titleTextColor": "#484638",
+    "titleTextColor": "#FFCC33",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
-    "subTitleTextColor": "#484638",
+    "subTitleTextColor": "#000000",
     "blurBackground": 0
   },
   "error": {
-    "backgroundColor": "#CC3333",
+    "backgroundColor": "#FFFFFF",
     "backgroundColorAlpha": 1.0,
-    "titleTextColor": "#FFFFFF",
+    "titleTextColor": "#B32424",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
-    "subTitleTextColor": "#FFFFFF",
+    "subTitleTextColor": "#000000",
     "blurBackground": 0
   }
 }

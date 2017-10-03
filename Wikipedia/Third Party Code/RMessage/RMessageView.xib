@@ -17,34 +17,34 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
-                    <rect key="frame" x="16" y="10" width="288" height="46"/>
+                    <rect key="frame" x="21" y="10" width="278" height="46"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
-                            <rect key="frame" x="0.0" y="0.0" width="256" height="21"/>
+                            <rect key="frame" x="0.0" y="0.0" width="253" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
-                            <rect key="frame" x="0.0" y="26" width="256" height="20.5"/>
+                            <rect key="frame" x="0.0" y="26" width="253" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-rc-Dhl">
-                            <rect key="frame" x="256" y="0.0" width="32" height="46"/>
+                            <rect key="frame" x="258" y="0.0" width="20" height="46"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="qEH-8l-Ked"/>
+                                <constraint firstAttribute="width" constant="20" id="qEH-8l-Ked"/>
                             </constraints>
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="bJU-tq-cfR" secondAttribute="trailing" id="2PL-eT-CoG"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="bJU-tq-cfR" secondAttribute="trailing" constant="5" id="2PL-eT-CoG"/>
                         <constraint firstAttribute="trailing" secondItem="SYg-rc-Dhl" secondAttribute="trailing" id="8a9-zF-t2X"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="EsI-7x-7GI"/>
                         <constraint firstAttribute="bottom" secondItem="86Q-SR-N4H" secondAttribute="bottom" id="G2M-fo-892"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="86Q-SR-N4H" secondAttribute="trailing" id="J4q-Ie-sxz"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="86Q-SR-N4H" secondAttribute="trailing" constant="5" id="J4q-Ie-sxz"/>
                         <constraint firstAttribute="bottom" secondItem="SYg-rc-Dhl" secondAttribute="bottom" id="NmH-Cd-pMf"/>
                         <constraint firstItem="SYg-rc-Dhl" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="SNa-yh-tAK"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="VRO-Hp-HEg"/>
@@ -55,15 +55,16 @@
             </subviews>
             <constraints>
                 <constraint firstItem="49I-AE-5sP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="10" id="Azz-KF-Xf8"/>
-                <constraint firstAttribute="trailingMargin" secondItem="49I-AE-5sP" secondAttribute="trailing" id="N4l-Ol-H0N"/>
+                <constraint firstAttribute="trailingMargin" secondItem="49I-AE-5sP" secondAttribute="trailing" constant="5" id="N4l-Ol-H0N"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="49I-AE-5sP" secondAttribute="bottom" constant="10" id="Urt-nc-SD2"/>
                 <constraint firstItem="49I-AE-5sP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XoR-Zr-h6e"/>
-                <constraint firstItem="49I-AE-5sP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="uCe-Eo-QlD"/>
+                <constraint firstItem="49I-AE-5sP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="5" id="uCe-Eo-QlD"/>
                 <constraint firstItem="49I-AE-5sP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" priority="749" constant="10" id="uoF-wG-j5j"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="closeImageView" destination="SYg-rc-Dhl" id="MJ5-uy-cj7"/>
                 <outlet property="subtitleLabel" destination="86Q-SR-N4H" id="b36-f7-jMs"/>
                 <outlet property="titleLabel" destination="bJU-tq-cfR" id="cQG-kC-CBc"/>
                 <outlet property="titleSubtitleContainerView" destination="49I-AE-5sP" id="gnK-Tn-Kb9"/>
