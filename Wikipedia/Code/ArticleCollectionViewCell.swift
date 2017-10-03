@@ -73,14 +73,29 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     deinit {
         saveButton.removeObserver(self, forKeyPath: "titleLabel.text", context: &kvoButtonTitleContext)
     }
+
+    open override func safeAreaInsetsDidChange() {
+        if #available(iOSApplicationExtension 11.0, *) {
+            super.safeAreaInsetsDidChange()
+        }
+        setNeedsLayout()
+    }
+
+    var actionsViewInsets: UIEdgeInsets {
+        if #available(iOSApplicationExtension 11.0, *) {
+            return safeAreaInsets
+        } else {
+            return UIEdgeInsets.zero
+        }
+    }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
-            let actionsViewWidth = abs(swipeTranslation)
             let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
-            let x = isRTL ? 0 : size.width - actionsViewWidth
+            let actionsViewWidth = isRTL ? abs(swipeTranslation - actionsViewInsets.left) : abs(swipeTranslation + actionsViewInsets.right)
+            let x = isRTL ? actionsViewInsets.left : size.width - actionsViewWidth - actionsViewInsets.right
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -185,6 +200,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             setNeedsLayout()
         }
+    }
+
+    public var swipeTranslationWhenOpen: CGFloat {
+        let maxWidth = actionsView.maximumWidth
+        let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
+        return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
     }
     
     func showActionsView(with swipeType: CollectionViewCellSwipeType) {

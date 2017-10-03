@@ -188,6 +188,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let velocityX = sender.velocity(in: collectionView).x
         var swipeTranslation = deltaX + initialSwipeTranslation
         let normalizedSwipeTranslation = isRTL ? swipeTranslation : -swipeTranslation
+        let normalizedMaxSwipeTranslation = abs(cell.swipeTranslationWhenOpen)
         switch (sender.state) {
         case .began:
             cell.isSwiping = true
@@ -197,8 +198,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
                 let normalizedSqrt = maxExtension * log(abs(normalizedSwipeTranslation))
                 swipeTranslation = isRTL ? 0 - normalizedSqrt : normalizedSqrt
             }
-            if normalizedSwipeTranslation > cell.actionsView.maximumWidth {
-                let maxWidth = cell.actionsView.maximumWidth
+            if normalizedSwipeTranslation > normalizedMaxSwipeTranslation {
+                let maxWidth = normalizedMaxSwipeTranslation
                 let delta = normalizedSwipeTranslation - maxWidth
                 swipeTranslation = isRTL ? maxWidth + (maxExtension * log(delta)) : 0 - maxWidth - (maxExtension * log(delta))
             }
@@ -212,9 +213,9 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             let isOpen: Bool
             let velocityAdjustment = 0.3 * velocityX
             if isRTL {
-                isOpen = swipeTranslation + velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
+                isOpen = swipeTranslation + velocityAdjustment > 0.5 * cell.swipeTranslationWhenOpen
             } else {
-                isOpen = -swipeTranslation - velocityAdjustment > 0.5 * cell.actionsView.maximumWidth
+                isOpen = swipeTranslation + velocityAdjustment < 0.5 * cell.swipeTranslationWhenOpen
             }
             if isOpen {
                 openActionPane()
@@ -248,7 +249,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             completion(false)
             return
         }
-        let targetTranslation =  isRTL ? cell.actionsView.maximumWidth : 0 - cell.actionsView.maximumWidth
+        let targetTranslation =  cell.swipeTranslationWhenOpen
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
         cell.isSwiping = true
