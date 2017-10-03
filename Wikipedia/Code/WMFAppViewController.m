@@ -578,6 +578,14 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [self.savedArticlesFetcher start];
 
+
+//    [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+//
+    //[[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned about a thing that has a long explanation of why you were warned, OK? You have been warned about a thing that has a long explanation of why you were warned, OK?" sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+
+   // [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+
+    //[[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
