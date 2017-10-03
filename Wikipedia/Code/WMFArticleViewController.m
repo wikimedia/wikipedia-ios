@@ -73,6 +73,25 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return vc;
 }
 
+- (nullable UIActivityViewController *)sharingActivityViewControllerWithCustomActivity:(WMFCustomShareActivity *)activity
+                                                                            fromButton:(UIBarButtonItem *)button
+                                                                           shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
+    NSParameterAssert(button);
+    if (!button) {
+        //If we get no button, we will crash below on iPad
+        //The assert above should help, but lets make sure we bail in prod
+        NSAssert(false, @"Should have a button by now...");
+        return nil;
+    }
+    //    [shareFunnel logShareButtonTappedResultingInSelection:text];
+
+    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self customShareActivity:activity];
+
+    UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+    presenter.barButtonItem = button;
+    return vc;
+}
+
 @end
 
 @interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
@@ -1226,8 +1245,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length > 0) {
-            [self.shareFunnel logHighlight];
-            [self shareAFactWithTextSnippet:text];
+            WMFCustomShareActivity *shareAFactActivity = [[WMFCustomShareActivity alloc] initWithTitle:@"Share-a-fact"
+                                                                                             imageName:@"share-a-fact"
+                                                                                                action:^{
+                                                                                                    [self.shareFunnel logHighlight];
+                                                                                                    [self shareAFactWithTextSnippet:text];
+                                                                                                }];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithCustomActivity:shareAFactActivity fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+            if (vc) {
+                [self presentViewController:vc animated:YES completion:NULL];
+            }
             return;
         } else {
             UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
