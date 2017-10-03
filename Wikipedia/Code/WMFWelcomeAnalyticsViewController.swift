@@ -12,8 +12,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: figure out how to make this color public - naming and such (it's in the theme colors)
-        toggle.onTintColor = UIColor(0x00AF89)
+        toggle.onTintColor = .wmf_green
         
         descriptionLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.", comment:"Sub-title explaining how sending usage reports can help improve the app")
         
