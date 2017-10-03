@@ -15,7 +15,7 @@ struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
 }
 
 struct AppearanceSettingsSection {
-    let headerTitle: String
+    let headerTitle: String?
     let footerText: String?
     let items: [AppearanceSettingsItem]
 }
@@ -66,12 +66,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let imageDimmingExampleSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil))])
+        
+        let spacerSection = AppearanceSettingsSection(headerTitle: nil, footerText: nil, items: [])
+        
+        let imageDimmingSwitchSection = AppearanceSettingsSection(headerTitle: nil, footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
         
         
-        return [readingThemesSection, themeOptionsSection, textSizingSection]
+        return [readingThemesSection, imageDimmingExampleSection, spacerSection, imageDimmingSwitchSection, textSizingSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -101,10 +105,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             if let themeable = vc as? Themeable {
                 themeable.apply(theme: self.theme)
                 cell.backgroundColor = vc.view.backgroundColor
-            }
-            
-            if let vc = vc as? ImageDimmingExampleViewController {
-                vc.bottomView.backgroundColor = tableView.backgroundColor
             }
             
             cell.selectionStyle = .none
@@ -244,6 +244,15 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footerText
     }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sections[section].items.isEmpty ? CGFloat.leastNormalMagnitude : UITableViewAutomaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return sections[section].items.isEmpty ? CGFloat.leastNormalMagnitude : UITableViewAutomaticDimension
+    }
+    
     
 }
 
