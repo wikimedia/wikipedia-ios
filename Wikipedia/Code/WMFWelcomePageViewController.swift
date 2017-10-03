@@ -94,7 +94,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
         nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
         nextButton.setTitleColor(.wmf_blue, for: .normal)
-        // TODO: figure out what to do about 0xA2A9B1 - not sure what to name this gray based on the other gray names - we already have  'light(er|est)Gray'
         nextButton.setTitleColor(.wmf_lighterGray, for: .disabled)
         nextButton.setTitleColor(.wmf_blue, for: .highlighted)
         view.addSubview(nextButton)
