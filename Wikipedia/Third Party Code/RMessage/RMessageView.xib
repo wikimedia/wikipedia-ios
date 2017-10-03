@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,39 +17,49 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
-                    <rect key="frame" x="15" y="10" width="290" height="46"/>
+                    <rect key="frame" x="16" y="10" width="288" height="46"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="21"/>
+                            <rect key="frame" x="0.0" y="0.0" width="256" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
-                            <rect key="frame" x="0.0" y="26" width="290" height="20.5"/>
+                            <rect key="frame" x="0.0" y="26" width="256" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-rc-Dhl">
+                            <rect key="frame" x="256" y="0.0" width="32" height="46"/>
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="qEH-8l-Ked"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="bJU-tq-cfR" secondAttribute="trailing" id="2PL-eT-CoG"/>
+                        <constraint firstAttribute="trailing" secondItem="SYg-rc-Dhl" secondAttribute="trailing" id="8a9-zF-t2X"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="EsI-7x-7GI"/>
                         <constraint firstAttribute="bottom" secondItem="86Q-SR-N4H" secondAttribute="bottom" id="G2M-fo-892"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="86Q-SR-N4H" secondAttribute="trailing" id="J4q-Ie-sxz"/>
+                        <constraint firstAttribute="bottom" secondItem="SYg-rc-Dhl" secondAttribute="bottom" id="NmH-Cd-pMf"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="SNa-yh-tAK"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="VRO-Hp-HEg"/>
                         <constraint firstItem="86Q-SR-N4H" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="aEg-41-Ls4"/>
-                        <constraint firstAttribute="trailing" secondItem="86Q-SR-N4H" secondAttribute="trailing" id="c6c-9D-OGo"/>
                         <constraint firstItem="86Q-SR-N4H" firstAttribute="top" secondItem="bJU-tq-cfR" secondAttribute="bottom" constant="5" id="sUB-xD-36O"/>
-                        <constraint firstAttribute="trailing" secondItem="bJU-tq-cfR" secondAttribute="trailing" id="y3p-Mv-3g9"/>
                     </constraints>
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="49I-AE-5sP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="Azz-KF-Xf8"/>
-                <constraint firstAttribute="trailing" secondItem="49I-AE-5sP" secondAttribute="trailing" priority="749" constant="15" id="N4l-Ol-H0N"/>
+                <constraint firstItem="49I-AE-5sP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="10" id="Azz-KF-Xf8"/>
+                <constraint firstAttribute="trailingMargin" secondItem="49I-AE-5sP" secondAttribute="trailing" id="N4l-Ol-H0N"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="49I-AE-5sP" secondAttribute="bottom" constant="10" id="Urt-nc-SD2"/>
                 <constraint firstItem="49I-AE-5sP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XoR-Zr-h6e"/>
-                <constraint firstItem="49I-AE-5sP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="749" constant="15" id="uCe-Eo-QlD"/>
-                <constraint firstItem="49I-AE-5sP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="749" constant="10" id="uoF-wG-j5j"/>
+                <constraint firstItem="49I-AE-5sP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="uCe-Eo-QlD"/>
+                <constraint firstItem="49I-AE-5sP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" priority="749" constant="10" id="uoF-wG-j5j"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -60,4 +72,7 @@
             <point key="canvasLocation" x="337" y="450"/>
         </view>
     </objects>
+    <resources>
+        <image name="close" width="18" height="18"/>
+    </resources>
 </document>
