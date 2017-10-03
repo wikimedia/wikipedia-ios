@@ -258,6 +258,7 @@ static NSMutableDictionary *globalDesignDictionary;
 {
   _titleTextColor = aTextColor;
   [self.titleLabel setTextColor:_titleTextColor];
+  [self.closeImageView setTintColor:_titleTextColor];
 }
 
 - (void)setSubtitleFont:(UIFont *)subtitleFont

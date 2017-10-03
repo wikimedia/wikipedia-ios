@@ -22,9 +22,14 @@ extension NSError {
 }
 
 
-open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControllerDelegate {
+open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControllerDelegate, Themeable {
     
     @objc open static let sharedInstance = WMFAlertManager()
+
+    var theme = Theme.standard
+    public func apply(theme: Theme) {
+        self.theme = theme
+    }
 
     override init() {
         super.init()
@@ -109,7 +114,18 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
     }
 
     @objc open func customize(_ messageView: RMessageView!) {
-
+        messageView.backgroundColor = theme.colors.popoverBackground
+        messageView.subtitleTextColor = theme.colors.secondaryText
+        switch messageView.messageType {
+        case .error:
+            messageView.titleTextColor = theme.colors.error
+        case .warning:
+            messageView.titleTextColor = theme.colors.warning
+        case .success:
+            messageView.titleTextColor = theme.colors.accent
+        default:
+            messageView.titleTextColor = theme.colors.primaryText
+        }
     }
     
     @objc open func showEmailFeedbackAlertViewWithError(_ error: NSError) {
