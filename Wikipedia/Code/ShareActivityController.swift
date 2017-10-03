@@ -1,23 +1,17 @@
 @objc(WMFCustomShareActivity)
 class CustomShareActivity: UIActivity {
-    let type: UIActivityType?
     let title: String
     let imageName: String
     let action: () -> Void
     
-    init(type: UIActivityType?, title: String, imageName: String, action: @escaping () -> Void) {
-        self.type = type
+    @objc required public init(title: String, imageName: String, action: @escaping () -> Void) {
         self.title = title
         self.imageName = imageName
         self.action = action
     }
     
-    override var activityType: UIActivityType? {
-        return self.activityType
-    }
-    
     override var activityTitle: String? {
-        return self.activityTitle
+        return title
     }
     
     override var activityImage: UIImage? {
@@ -26,6 +20,10 @@ class CustomShareActivity: UIActivity {
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         return true
+    }
+    
+    override func perform() {
+        action()
     }
     
 }
@@ -90,6 +88,20 @@ class ShareActivityController: UIActivityViewController {
         }
         
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+    }
+    
+    @objc init(article: MWKArticle, customShareActivity: CustomShareActivity) {
+        var items = [Any]()
+        
+        if let shareURL = article.url?.wmf_URLForTextSharing {
+            items.append(shareURL)
+        }
+        
+        if let mapItem = article.mapItem {
+            items.append(mapItem)
+        }
+        
+        super.init(activityItems: items, applicationActivities: [customShareActivity, TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
     @objc init(article: MWKArticle, image: UIImage?, title: String) {
