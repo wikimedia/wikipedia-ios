@@ -50,7 +50,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
              return
          }
          self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            RMessage.showNotification(in: nil, title: nil, subtitle: message, iconImage: nil, type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
@@ -109,10 +109,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
     }
 
     @objc open func customize(_ messageView: RMessageView!) {
-        if messageView.messageType == .normal {
-            messageView.subtitleFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
-            messageView.titleFont = UIFont.systemFont(ofSize: 12)
-        }
+
     }
     
     @objc open func showEmailFeedbackAlertViewWithError(_ error: NSError) {

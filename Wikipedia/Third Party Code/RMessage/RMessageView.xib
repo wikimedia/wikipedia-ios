@@ -20,21 +20,22 @@
                     <rect key="frame" x="21" y="10" width="278" height="46"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
-                            <rect key="frame" x="0.0" y="0.0" width="253" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="253" height="20.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
-                            <rect key="frame" x="0.0" y="26" width="253" height="20.5"/>
+                            <rect key="frame" x="0.0" y="25.5" width="253" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-rc-Dhl">
-                            <rect key="frame" x="258" y="0.0" width="20" height="46"/>
+                            <rect key="frame" x="258" y="0.5" width="20" height="20"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
+                                <constraint firstAttribute="height" constant="20" id="hGq-XR-tNx"/>
                                 <constraint firstAttribute="width" constant="20" id="qEH-8l-Ked"/>
                             </constraints>
                         </imageView>
@@ -45,10 +46,9 @@
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="EsI-7x-7GI"/>
                         <constraint firstAttribute="bottom" secondItem="86Q-SR-N4H" secondAttribute="bottom" id="G2M-fo-892"/>
                         <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="86Q-SR-N4H" secondAttribute="trailing" constant="5" id="J4q-Ie-sxz"/>
-                        <constraint firstAttribute="bottom" secondItem="SYg-rc-Dhl" secondAttribute="bottom" id="NmH-Cd-pMf"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="SNa-yh-tAK"/>
                         <constraint firstItem="bJU-tq-cfR" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="VRO-Hp-HEg"/>
                         <constraint firstItem="86Q-SR-N4H" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="aEg-41-Ls4"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="centerY" secondItem="bJU-tq-cfR" secondAttribute="centerY" id="qJf-L1-xj1"/>
                         <constraint firstItem="86Q-SR-N4H" firstAttribute="top" secondItem="bJU-tq-cfR" secondAttribute="bottom" constant="5" id="sUB-xD-36O"/>
                     </constraints>
                 </view>

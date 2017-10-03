@@ -543,7 +543,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
   _subtitleLabel.numberOfLines = 0;
   _subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-  _subtitleLabel.font = [UIFont boldSystemFontOfSize:12.f];
+  _subtitleLabel.font = [UIFont systemFontOfSize:12.f];
   _subtitleLabel.textAlignment = NSTextAlignmentLeft;
   _subtitleLabel.textColor = [UIColor darkGrayColor];
   _subtitleLabel.shadowColor = nil;
