@@ -1,12 +1,11 @@
 {
   "success": {
-    "backgroundColor": "#00C060",
+    "backgroundColor": "#00AF89",
     "backgroundColorAlpha": 1.0,
     "titleTextColor": "#FFFFFF",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
     "subTitleTextColor": "#FFFFFF",
-    "iconImage": "NotificationBackgroundSuccessIcon.png",
     "blurBackground": 0
   },
   "normal": {
@@ -19,23 +18,21 @@
     "blurBackground": 0
   },
   "warning": {
-    "backgroundColor": "#FFCC00",
+    "backgroundColor": "#FFCC33",
     "backgroundColorAlpha": 1.0,
     "titleTextColor": "#484638",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
     "subTitleTextColor": "#484638",
-    "iconImage": "NotificationBackgroundWarningIcon.png",
     "blurBackground": 0
   },
   "error": {
-    "backgroundColor": "#FF2D55",
+    "backgroundColor": "#CC3333",
     "backgroundColorAlpha": 1.0,
     "titleTextColor": "#FFFFFF",
     "titleFontSize": 14,
     "subTitleFontSize": 12,
     "subTitleTextColor": "#FFFFFF",
-    "iconImage": "NotificationBackgroundErrorIcon.png",
     "blurBackground": 0
   }
 }
