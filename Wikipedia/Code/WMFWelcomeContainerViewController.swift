@@ -69,11 +69,12 @@ class WMFWelcomeContainerViewController: UIViewController {
     }
     
     fileprivate func isiPhone5() -> Bool {
-        return view.frame.size.height > 480 && view.frame.size.height <= 568
+        let height = UIScreen.main.bounds.size.height
+        return height > 480 && height <= 568
     }
 
     fileprivate func isiPhone4s() -> Bool {
-        return view.frame.size.height <= 480
+        return UIScreen.main.bounds.size.height <= 480
     }
     
     fileprivate func reduceTopAnimationsSizes(reduction: CGFloat) {
