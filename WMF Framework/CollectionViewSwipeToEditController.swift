@@ -286,7 +286,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
         let unitSpeed = animationTranslation / swipeVelocity
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: .beginFromCurrentState, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             if let action = expandedAction {
                 cell.actionsView.expand(action)
             }
