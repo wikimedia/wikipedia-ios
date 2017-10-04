@@ -247,7 +247,7 @@ static NSLock *mLock, *nLock;
 
   RMessageView *currentMessage = [RMessage sharedMessage].messages[0];
 
-  if (currentMessage && currentMessage.messageIsFullyDisplayed) {
+  if (currentMessage) {
     [currentMessage dismissWithCompletion:completionBlock];
   }
 
@@ -275,7 +275,7 @@ static NSLock *mLock, *nLock;
     }
 
     RMessageView *currentMessage = messages[0];
-    if (currentMessage && currentMessage.messageIsFullyDisplayed) {
+    if (currentMessage) {
         [currentMessage dismissWithCompletion:completionBlock];
     }
     
