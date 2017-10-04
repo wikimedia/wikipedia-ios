@@ -678,12 +678,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     [self addHeaderView];
 
-    [self.containerView insertSubview:self.webView atIndex:0];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_topLayoutGuide);
-        make.bottom.equalTo(self.mas_bottomLayoutGuide);
-        make.leading.and.trailing.equalTo(self.containerView);
-    }];
+    [self.containerView wmf_addSubviewWithConstraintsToEdges:self.webView];
+    [self.containerView sendSubviewToBack:self.webView];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
