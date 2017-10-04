@@ -104,13 +104,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
     }
 
     @objc open func dismissAllAlerts(_ completion: @escaping () -> Void = {}) {
-        guard RMessage.isNotificationActive() else {
-            completion()
-            return
-        }
-        RMessage.dismissActiveNotification {
-            self.dismissAllAlerts(completion)
-        }
+        RMessage.dismissAllNotifications(completion: completion)
     }
 
     @objc open func customize(_ messageView: RMessageView!) {

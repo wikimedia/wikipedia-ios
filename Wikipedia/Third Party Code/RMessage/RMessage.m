@@ -252,6 +252,27 @@ static NSLock *mLock, *nLock;
   return YES;
 }
 
++ (BOOL)dismissAllNotificationsWithCompletion:(void (^)(void))completionBlock {
+    [mLock lock];
+    NSInteger countOfMessages = [RMessage sharedMessage].messages.count;
+    if (countOfMessages == 0 || ![RMessage sharedMessage].messages) {
+        [mLock unlock];
+        return NO;
+    }
+    
+    if (countOfMessages > 1) {
+        [[RMessage sharedMessage].messages removeObjectsInRange:NSMakeRange(1, countOfMessages - 1)];
+    }
+
+    RMessageView *currentMessage = [RMessage sharedMessage].messages[0];
+    if (currentMessage && currentMessage.messageIsFullyDisplayed) {
+        [currentMessage dismissWithCompletion:completionBlock];
+    }
+    
+    [mLock unlock];
+    return YES;
+}
+
 #pragma mark Customizing RMessage
 
 + (void)setDefaultViewController:(UIViewController *)defaultViewController
