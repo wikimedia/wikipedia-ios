@@ -268,17 +268,15 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         activeIndexPath = nil
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = nil
+        let completion = { (finished: Bool) in
+            cell.isSwiping = self.activeIndexPath == indexPath
+            completion(finished)
+        }
         if let expandedAction = expandedAction {
             let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
-            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { finished in
-                cell.isSwiping = false
-                completion(finished)
-            })
+            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: completion)
         } else {
-            animateActionPane(of: cell, to: 0, with: velocity, completion: { finished in
-                cell.isSwiping = false
-                completion(finished)
-            })
+            animateActionPane(of: cell, to: 0, with: velocity, completion: completion)
         }
     }
 
