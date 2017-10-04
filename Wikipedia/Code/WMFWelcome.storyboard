@@ -341,6 +341,7 @@
                     <size key="freeformSize" width="360" height="640"/>
                     <connections>
                         <outlet property="bottomContainerView" destination="FJI-Er-O9h" id="FRh-C6-TYZ"/>
+                        <outlet property="bottomContainerViewTopConstraint" destination="T9i-AF-TB4" id="fc3-uP-lEL"/>
                         <outlet property="overallContainerView" destination="M5K-6p-DM6" id="tAu-1I-sdL"/>
                         <outlet property="overallContainerViewCenterYConstraint" destination="H6y-qj-T8b" id="QMX-7N-w8d"/>
                         <outlet property="topBackgroundContainerView" destination="zQc-qA-ACw" id="HJo-7C-umR"/>
