@@ -281,43 +281,14 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
-        let animationDistance = abs(animationTranslation)
-        let swipeSpeed = abs(swipeVelocity)
-        var animationSpeed = swipeSpeed
-        var overshootTranslation: CGFloat = 0
-        var overshootDistance: CGFloat = 0
-        var secondKeyframeDuration: TimeInterval = 0
-        let minSwipeSpeed: CGFloat = 300
-        if swipeSpeed < minSwipeSpeed {
-            animationSpeed = minSwipeSpeed
-        } else {
-            secondKeyframeDuration = 0.1
-            overshootDistance = 0.25 * maxExtension * log(swipeSpeed * CGFloat(secondKeyframeDuration))
-            overshootTranslation = swipeVelocity < 0 ? -overshootDistance :  overshootDistance
-        }
-        let firstKeyframeDuration = TimeInterval(animationDistance / animationSpeed)
-        let shouldOvershoot = overshootDistance > 0
-        let thirdKeyframeDuration = 1.5 * secondKeyframeDuration
-        let curve = shouldOvershoot ? UIViewAnimationOptions.curveEaseOut : UIViewAnimationOptions.curveEaseInOut
-        // hacky but OK for now - built in spring animation left gaps between buttons on bounces
-        UIView.animate(withDuration: firstKeyframeDuration + secondKeyframeDuration, delay: 0, options: [.beginFromCurrentState, curve], animations: {
+        let unitSpeed = animationTranslation / swipeVelocity
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: .beginFromCurrentState, animations: {
             if let action = expandedAction {
                 cell.actionsView.expand(action)
             }
-            cell.swipeTranslation = targetTranslation + overshootTranslation
+            cell.swipeTranslation = targetTranslation
             cell.layoutIfNeeded()
-        }) { (done) in
-            guard shouldOvershoot else {
-                completion(done)
-                return
-            }
-            UIView.animate(withDuration: thirdKeyframeDuration, delay: 0, options: [.beginFromCurrentState, .curveEaseInOut], animations: {
-                cell.swipeTranslation = targetTranslation
-                cell.layoutIfNeeded()
-            }) { (done) in
-                completion(done)
-            }
-        }
+        }, completion: completion)
     }
     
 }
