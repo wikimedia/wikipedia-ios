@@ -1,3 +1,33 @@
+@objc(WMFCustomShareActivity)
+class CustomShareActivity: UIActivity {
+    let title: String
+    let imageName: String
+    let action: () -> Void
+    
+    @objc required public init(title: String, imageName: String, action: @escaping () -> Void) {
+        self.title = title
+        self.imageName = imageName
+        self.action = action
+    }
+    
+    override var activityTitle: String? {
+        return title
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(named: imageName)
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func perform() {
+        action()
+    }
+    
+}
+
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
@@ -58,6 +88,20 @@ class ShareActivityController: UIActivityViewController {
         }
         
         super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+    }
+    
+    @objc init(article: MWKArticle, customShareActivity: CustomShareActivity) {
+        var items = [Any]()
+        
+        if let shareURL = article.url?.wmf_URLForTextSharing {
+            items.append(shareURL)
+        }
+        
+        if let mapItem = article.mapItem {
+            items.append(mapItem)
+        }
+        
+        super.init(activityItems: items, applicationActivities: [customShareActivity, TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
     }
     
     @objc init(article: MWKArticle, image: UIImage?, title: String) {
