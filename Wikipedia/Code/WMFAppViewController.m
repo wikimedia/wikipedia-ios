@@ -1431,15 +1431,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [navigationBars addObject:[UINavigationBar appearance]];
     UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
-    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     for (UINavigationBar *navigationBar in navigationBars) {
         navigationBar.barTintColor = theme.colors.chromeBackground;
         navigationBar.translucent = NO;
         navigationBar.tintColor = theme.colors.chromeText;
         [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
         [navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
-        [navigationBar setBackIndicatorImage:backChevron];
-        [navigationBar setBackIndicatorTransitionMaskImage:backChevron];
     }
 
     // Tool bars
