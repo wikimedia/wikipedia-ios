@@ -150,6 +150,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     open var articleSemanticContentAttribute: UISemanticContentAttribute {
         set {
             _articleSemanticContentAttribute = newValue
+            updateEffectiveArticleSemanticContentAttribute()
+            setNeedsLayout()
         }
         get {
             return _effectiveArticleSemanticContentAttribute
