@@ -239,12 +239,15 @@ static NSLock *mLock, *nLock;
   [mLock lock];
   if ([RMessage sharedMessage].messages.count == 0 || ![RMessage sharedMessage].messages) {
     [mLock unlock];
+    if (completionBlock) {
+        completionBlock();
+    }
     return NO;
   }
 
   RMessageView *currentMessage = [RMessage sharedMessage].messages[0];
 
-  if (currentMessage && currentMessage.messageIsFullyDisplayed) {
+  if (currentMessage) {
     [currentMessage dismissWithCompletion:completionBlock];
   }
 
@@ -258,6 +261,9 @@ static NSLock *mLock, *nLock;
     NSInteger countOfMessages = messages.count;
     if (countOfMessages == 0 || !messages) {
         [mLock unlock];
+        if (completionBlock) {
+            completionBlock();
+        }
         return NO;
     }
     
@@ -269,7 +275,7 @@ static NSLock *mLock, *nLock;
     }
 
     RMessageView *currentMessage = messages[0];
-    if (currentMessage && currentMessage.messageIsFullyDisplayed) {
+    if (currentMessage) {
         [currentMessage dismissWithCompletion:completionBlock];
     }
     
