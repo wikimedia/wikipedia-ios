@@ -271,6 +271,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         if let expandedAction = expandedAction {
             let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
             animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { finished in
+                cell.isSwiping = false
                 completion(finished)
             })
         } else {
