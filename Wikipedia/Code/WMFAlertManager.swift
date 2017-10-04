@@ -11,7 +11,7 @@ extension NSError {
         }
     }
     
-    public func alertType() -> TSMessageNotificationType {
+    public func alertType() -> RMessageType {
         if(self.wmf_isNetworkConnectionError()){
             return .warning
         }else{
@@ -22,14 +22,18 @@ extension NSError {
 }
 
 
-open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewControllerDelegate {
+open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControllerDelegate, Themeable {
     
     @objc open static let sharedInstance = WMFAlertManager()
 
+    var theme = Theme.standard
+    public func apply(theme: Theme) {
+        self.theme = theme
+    }
+
     override init() {
         super.init()
-        TSMessage.addCustomDesignFromFile(withName: "AlertDesign.json")
-        TSMessage.shared().delegate = self
+        RMessage.shared().delegate = self
     }
     
     
@@ -39,17 +43,8 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
             return
         }
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section"),
-                subtitle: message,
-                image: UIImage(named:"trending-notification-icon"),
-                type: .message,
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            let title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
+            RMessage.showNotification(in: nil, title: title, subtitle: message, iconImage: UIImage(named:"trending-notification-icon"), type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
     
@@ -60,34 +55,14 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
              return
          }
          self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: message,
-                subtitle: nil,
-                image: nil,
-                type: .message,
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
     @objc open func showSuccessAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: message,
-                subtitle: nil,
-                image: nil,
-                type: .success,
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .success, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
 
         })
     }
@@ -95,80 +70,56 @@ open class WMFAlertManager: NSObject, TSMessageViewProtocol, MFMailComposeViewCo
     @objc open func showWarningAlert(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: message,
-                subtitle: nil,
-                image: nil,
-                type: .warning,
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .warning, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
     @objc open func showErrorAlert(_ error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: error.alertMessage(),
-                subtitle: nil,
-                image: nil,
-                type: error.alertType(),
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: error.alertMessage(), subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
     
     @objc open func showErrorAlertWithMessage(_ message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
         
         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            TSMessage.showNotification(in: nil,
-                title: message,
-                subtitle: nil,
-                image: nil,
-                type: .error,
-                duration: sticky ? -1 : 2,
-                callback: tapCallBack,
-                buttonTitle: nil,
-                buttonCallback: {},
-                at: .top,
-                canBeDismissedByUser: true)
+            RMessage.showNotification(in: nil, title: message, subtitle: nil, iconImage: nil, type: .error, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping ()->()){
         
         if(dismissPreviousAlerts){
-            TSMessage.dismissAllNotifications(completion: { () -> Void in
+            dismissAllAlerts {
                 alertBlock()
-            })
+            }
         }else{
             alertBlock()
         }
     }
     
     @objc open func dismissAlert() {
-        
-        TSMessage.dismissActiveNotification()
+        RMessage.dismissActiveNotification()
     }
 
-    @objc open func dismissAllAlerts() {
-        
-        TSMessage.dismissAllNotifications()
+    @objc open func dismissAllAlerts(_ completion: @escaping () -> Void = {}) {
+        RMessage.dismissAllNotifications(completion: completion)
     }
 
-    @objc open func customize(_ messageView: TSMessageView!) {
-        
-        if(messageView.notificationType == .message){
-         messageView.contentFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
-            messageView.titleFont = UIFont.systemFont(ofSize: 12)
+    @objc open func customize(_ messageView: RMessageView!) {
+        messageView.backgroundColor = theme.colors.popoverBackground
+        messageView.closeIconColor = theme.colors.primaryText
+        messageView.subtitleTextColor = theme.colors.secondaryText
+        switch messageView.messageType {
+        case .error:
+            messageView.titleTextColor = theme.colors.error
+        case .warning:
+            messageView.titleTextColor = theme.colors.warning
+        case .success:
+            messageView.titleTextColor = theme.colors.accent
+        default:
+            messageView.titleTextColor = theme.colors.link
         }
     }
     

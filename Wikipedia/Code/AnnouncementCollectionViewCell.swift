@@ -18,7 +18,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     @objc public let dismissButton = UIButton()
     @objc public let captionTextView = UITextView()
     @objc public let captionSeparatorView = UIView()
-    public let margins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
     public let actionButtonHeight: CGFloat = 40
@@ -28,6 +27,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public let captionSpacing: CGFloat = 8
 
     open override func setup() {
+        layoutMargins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         addSubview(imageView)
@@ -124,9 +125,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let widthMinusMargins = size.width - margins.left - margins.right
+        let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let displayScale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 2.0
-        var origin = CGPoint(x: margins.left, y: 0)
+        var origin = CGPoint(x: layoutMargins.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
@@ -161,11 +162,13 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             }
             origin.y += separatorFrame.height
             origin.y += captionSpacing
-            let captionFrame = captionTextView.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+            let captionFrame = captionTextView.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: true)
+            let insets: UIEdgeInsets = captionTextView.textContainerInset;
+            origin.y += insets.top + insets.bottom;
             origin.y += captionFrame.layoutHeight(with: 0)
         }
     
-        origin.y += margins.bottom
+        origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
 }
