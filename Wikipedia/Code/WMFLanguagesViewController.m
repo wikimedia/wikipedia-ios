@@ -1,6 +1,5 @@
 #import "WMFLanguagesViewController.h"
 @import WMF;
-@import Masonry;
 #import "MWKTitleLanguageController.h"
 #import "WMFLanguageCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
