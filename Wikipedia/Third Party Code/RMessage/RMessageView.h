@@ -75,6 +75,7 @@
 @property (nonatomic, strong) UIImage *errorIcon UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIImage *successIcon UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIImage *warningIcon UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *closeIconColor UI_APPEARANCE_SELECTOR;
 
 /**
  Inits the message view. Do not call this from outside this library.

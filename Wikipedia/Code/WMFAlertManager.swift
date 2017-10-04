@@ -109,6 +109,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
 
     @objc open func customize(_ messageView: RMessageView!) {
         messageView.backgroundColor = theme.colors.popoverBackground
+        messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
         switch messageView.messageType {
         case .error:

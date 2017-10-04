@@ -258,8 +258,14 @@ static NSMutableDictionary *globalDesignDictionary;
 {
   _titleTextColor = aTextColor;
   [self.titleLabel setTextColor:_titleTextColor];
-  [self.closeImageView setTintColor:_titleTextColor];
 }
+
+- (void)setCloseIconColor:(UIColor *)closeIconColor
+{
+    _closeIconColor = closeIconColor;
+    [self.closeImageView setTintColor:closeIconColor];
+}
+
 
 - (void)setSubtitleFont:(UIFont *)subtitleFont
 {
@@ -622,7 +628,6 @@ static NSMutableDictionary *globalDesignDictionary;
   _titleLabel.text = _title ? _title : @"";
     if (titleTextColor) {
         _titleLabel.textColor = titleTextColor;
-        _closeImageView.tintColor = titleTextColor;
     }
 
 
