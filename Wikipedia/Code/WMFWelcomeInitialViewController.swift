@@ -11,4 +11,20 @@ class WMFWelcomeInitialViewController: UIViewController {
         }
         vc.completionBlock = completionBlock
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
+        return .portrait
+    }
+    
+    override var shouldAutorotate : Bool {
+        return false
+    }
 }

@@ -170,22 +170,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return index == 0 ? nil : pageControllers[index - 1]
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return .portrait
-    }
-
-    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-        return .portrait
-    }
-
-    override var shouldAutorotate : Bool {
-        return false
-    }
-    
     // MARK: - iOS 9 RTL swiping hack
     // When *swiping* side-to-side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. 
     // This hack sets the correct dot, but first fades the dots out so you don't see it flicker to the wrong dot then the right one.
