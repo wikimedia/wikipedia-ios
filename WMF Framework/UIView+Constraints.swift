@@ -24,13 +24,12 @@ import UIKit
     }
     
     @objc public func wmf_addSubview(_ subview: UIView, withConstraintsToEdgesWithInsets insets: UIEdgeInsets, priority: UILayoutPriority = .required) {
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
         addSubview(subview)
         wmf_addConstraintsToEdgesOfView(subview, withInsets: insets)
     }
     
     @objc public func wmf_addConstraintsToEdgesOfView(_ subview: UIView, withInsets insets: UIEdgeInsets = .zero, priority: UILayoutPriority = .required) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
         subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
         let topConstraint = subview.topAnchor.constraint(equalTo: topAnchor, constant: insets.top)
         topConstraint.priority = priority

@@ -1,5 +1,4 @@
 import UIKit
-import Masonry
 import WMF
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
@@ -219,12 +218,8 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         
         view.semanticContentAttribute = semanticContentAttributeOverride
         tableView.semanticContentAttribute = semanticContentAttributeOverride
-        
-        tableView.mas_makeConstraints { make in
-            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
-        }
-        
 
+        view.wmf_addConstraintsToEdgesOfView(tableView)
 
         automaticallyAdjustsScrollViewInsets = false
         
