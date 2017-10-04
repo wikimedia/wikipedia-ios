@@ -1,7 +1,6 @@
 #import "WMFTabBarController.h"
-#import "TSBlurView.h"
-#import "TSMessage.h"
-#import "TSMessageView.h"
+#import "RMessage.h"
+#import "RMessageView.h"
 
 #import "NSString+FormattedAttributedString.h"
 #import "UIFont+WMFStyle.h"
