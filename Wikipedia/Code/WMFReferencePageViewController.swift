@@ -75,11 +75,8 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     }
     
     fileprivate func addBackgroundView() {
-        view.addSubview(backgroundView)
+        view.wmf_addSubviewWithConstraintsToEdges(backgroundView)
         view.sendSubview(toBack: backgroundView)
-        backgroundView.mas_makeConstraints { make in
-            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.view)
-        }
     }
     
     @objc internal func firstPanelView() -> UIView? {

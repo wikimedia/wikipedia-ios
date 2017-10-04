@@ -55,13 +55,12 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
     }()
 
     fileprivate func embedContainerControllerView() {
-        containerController.willMove(toParentViewController: self)
-        containerController.view.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(containerController.view!)
-        containerView.bringSubview(toFront: containerController.view!)
-        containerController.view.mas_makeConstraints { make in
-            _ = make?.top.bottom().leading().and().trailing().equalTo()(self.containerView)
+        guard let view = containerController.view else {
+            return
         }
+        containerController.willMove(toParentViewController: self)
+        containerView.wmf_addSubviewWithConstraintsToEdges(view)
+        containerView.bringSubview(toFront: view)
         self.addChildViewController(containerController)
         containerController.didMove(toParentViewController: self)
     }

@@ -4,8 +4,6 @@
 #import <WMF/NSUserActivity+WMFExtensions.h>
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageLink.h>
-@import Masonry;
-
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 #import "Wikipedia-Swift.h"
