@@ -92,17 +92,19 @@
                     <constraint firstItem="oox-XU-ZXT" firstAttribute="top" secondItem="NeE-xr-BEw" secondAttribute="topMargin" id="iCo-53-qZq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="oox-XU-ZXT" secondAttribute="bottom" id="j4K-Gz-Cf5"/>
                     <constraint firstItem="Hpq-jr-QHw" firstAttribute="centerY" secondItem="NeE-xr-BEw" secondAttribute="centerY" id="q7z-xK-mlI"/>
-                    <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leadingMargin" constant="10" id="t53-Zz-hsw"/>
+                    <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leading" constant="18" id="t53-Zz-hsw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="articleTitleLabel" destination="pS1-QO-ucg" id="zIe-s7-xSw"/>
                 <outlet property="languageNameLabel" destination="jmB-2b-adX" id="Yit-qb-0Re"/>
+                <outlet property="leadingConstraint" destination="t53-Zz-hsw" id="Nx2-Yq-5k7"/>
                 <outlet property="localizedLanguageLabel" destination="msA-8i-v6O" id="HMP-XB-mF4"/>
                 <outlet property="primaryLabel" destination="6hN-2v-bOc" id="bbQ-jS-LSJ"/>
                 <outlet property="primaryLabelContainerView" destination="Hpq-jr-QHw" id="Opd-zX-bBR"/>
+                <outlet property="trailingConstraint" destination="KvS-n1-a3M" id="pAT-Ge-qLJ"/>
             </connections>
-            <point key="canvasLocation" x="237.5" y="339"/>
+            <point key="canvasLocation" x="210" y="324"/>
         </tableViewCell>
     </objects>
 </document>

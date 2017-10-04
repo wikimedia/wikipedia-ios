@@ -32,11 +32,9 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WMFLanguageCell.wmf_nibName(), for: indexPath) as! WMFLanguageCell
+        cell.collapseSideSpacing()
         let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
-        
-//        cell.localizedLanguageName = langLink.localizedName
-        
         cell.isPrimary = indexPath.row == 0
         return cell
     }
