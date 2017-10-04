@@ -40,7 +40,7 @@ extension UIView {
         
         let widthToFit: CGFloat
         if minimumLayoutAreaSize.width == UIViewNoIntrinsicMetric { // width can be 0
-            widthToFit = viewWidth
+            widthToFit = maximumViewSize.width
         } else {
             widthToFit = max(minimumLayoutAreaSize.width, viewWidth)
         }

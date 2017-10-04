@@ -33,6 +33,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
@@ -62,7 +63,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
                 origin.y += saveButtonFrame.height
             }
         } else {
-            let horizontalAlignment: HorizontalAlignment = articleSemanticContentAttribute == .forceRightToLeft ? .right : .left
+            let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             descriptionLabel.isHidden = true
