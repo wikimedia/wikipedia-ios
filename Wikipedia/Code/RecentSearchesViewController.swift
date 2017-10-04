@@ -64,6 +64,7 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         guard let entry = recentSearches?.entries[indexPath.item] else {
             return
         }
+        cell.articleSemanticContentAttribute = .unspecified
         cell.configureForCompactList(at: indexPath.item)
         cell.titleLabel.text = entry.searchTerm
         cell.isImageViewHidden = true
