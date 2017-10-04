@@ -40,17 +40,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1N-oE-0Gh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1601" y="322"/>
+            <point key="canvasLocation" x="1532" y="231"/>
         </scene>
         <!--Welcome Page View Controller-->
         <scene sceneID="ALg-cQ-BjN">
             <objects>
-                <pageViewController storyboardIdentifier="WMFWelcomePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Moa-oS-JJe" customClass="WMFWelcomePageViewController" customModule="Wikipedia" sceneMemberID="viewController">
-                    <size key="freeformSize" width="300" height="300"/>
-                </pageViewController>
+                <pageViewController storyboardIdentifier="WMFWelcomePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Moa-oS-JJe" customClass="WMFWelcomePageViewController" customModule="Wikipedia" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86g-3V-GKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2436" y="265"/>
+            <point key="canvasLocation" x="2319" y="231"/>
         </scene>
         <!--Welcome Introduction View Controller-->
         <scene sceneID="TCd-7L-ga4">
