@@ -2,7 +2,6 @@
 #import "WMFWebView.h"
 #import "Wikipedia-Swift.h"
 @import WebKit;
-@import Masonry;
 @import WMF;
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -29,7 +28,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
-@property (nonatomic, strong) MASConstraint *headerHeight;
+@property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) NSNumber *fontSizeMultiplier;
@@ -678,12 +677,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     [self addHeaderView];
 
-    [self.containerView insertSubview:self.webView atIndex:0];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_topLayoutGuide);
-        make.bottom.equalTo(self.mas_bottomLayoutGuide);
-        make.leading.and.trailing.equalTo(self.containerView);
-    }];
+    [self.containerView wmf_addSubviewWithConstraintsToEdges:self.webView];
+    [self.containerView sendSubviewToBack:self.webView];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
@@ -784,12 +779,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
     self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView.scrollView addSubview:self.headerView];
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        // lead/trail must be constained to webview, the scrollview doesn't define a width
-        make.leading.and.trailing.equalTo(self.webView);
-        make.top.equalTo(self.webView.scrollView);
-        self.headerHeight = make.height.equalTo(@(0));
-    }];
+
+    NSLayoutConstraint *leadingConstraint = [self.webView.leadingAnchor constraintEqualToAnchor:self.headerView.leadingAnchor];
+    NSLayoutConstraint *trailingConstraint = [self.webView.trailingAnchor constraintEqualToAnchor:self.headerView.trailingAnchor];
+    [self.webView addConstraints:@[leadingConstraint, trailingConstraint]];
+
+    NSLayoutConstraint *topConstraint = [self.webView.scrollView.topAnchor constraintEqualToAnchor:self.headerView.topAnchor];
+    [self.webView.scrollView addConstraint:topConstraint];
+
+    self.headerHeightConstraint = [self.headerView.heightAnchor constraintEqualToConstant:0];
+    [self.headerView addConstraint:self.headerHeightConstraint];
 }
 
 - (void)showLicenseButtonPressed {
@@ -911,7 +910,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     self.headerView.alpha = 0.f;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
-    [self.headerHeight setOffset:headerHeight];
+    self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
     [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
