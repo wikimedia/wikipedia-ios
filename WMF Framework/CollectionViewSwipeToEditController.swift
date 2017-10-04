@@ -24,7 +24,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         return collectionView.cellForItem(at: indexPath) as? SwipeableCell
     }
-    
+
+    public var isActive: Bool {
+        return activeIndexPath != nil
+    }
     var activeIndexPath: IndexPath?
     var isRTL: Bool = false
     var initialSwipeTranslation: CGFloat = 0
