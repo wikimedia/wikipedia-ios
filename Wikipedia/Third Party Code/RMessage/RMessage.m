@@ -239,6 +239,9 @@ static NSLock *mLock, *nLock;
   [mLock lock];
   if ([RMessage sharedMessage].messages.count == 0 || ![RMessage sharedMessage].messages) {
     [mLock unlock];
+    if (completionBlock) {
+        completionBlock();
+    }
     return NO;
   }
 
@@ -258,6 +261,9 @@ static NSLock *mLock, *nLock;
     NSInteger countOfMessages = messages.count;
     if (countOfMessages == 0 || !messages) {
         [mLock unlock];
+        if (completionBlock) {
+            completionBlock();
+        }
         return NO;
     }
     
