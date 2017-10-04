@@ -254,17 +254,21 @@ static NSLock *mLock, *nLock;
 
 + (BOOL)dismissAllNotificationsWithCompletion:(void (^)(void))completionBlock {
     [mLock lock];
-    NSInteger countOfMessages = [RMessage sharedMessage].messages.count;
-    if (countOfMessages == 0 || ![RMessage sharedMessage].messages) {
+    NSMutableArray *messages = [RMessage sharedMessage].messages;
+    NSInteger countOfMessages = messages.count;
+    if (countOfMessages == 0 || !messages) {
         [mLock unlock];
         return NO;
     }
     
     if (countOfMessages > 1) {
-        [[RMessage sharedMessage].messages removeObjectsInRange:NSMakeRange(1, countOfMessages - 1)];
+        NSRange rangeOfMessagesToRemove = NSMakeRange(1, countOfMessages - 1);
+        NSArray *messagesToRemove = [messages subarrayWithRange:rangeOfMessagesToRemove];
+        [messagesToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [messages removeObjectsInRange:rangeOfMessagesToRemove];
     }
 
-    RMessageView *currentMessage = [RMessage sharedMessage].messages[0];
+    RMessageView *currentMessage = messages[0];
     if (currentMessage && currentMessage.messageIsFullyDisplayed) {
         [currentMessage dismissWithCompletion:completionBlock];
     }
