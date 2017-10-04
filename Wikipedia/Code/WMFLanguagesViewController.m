@@ -388,7 +388,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFPreferredLanguagesViewController *languagesVC = [[WMFPreferredLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
+    languagesVC.title = [WMFCommonStrings myLanguages];
 
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;

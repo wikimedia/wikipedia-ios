@@ -49,7 +49,7 @@
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages")
+                                                    title:[WMFCommonStrings myLanguages]
                                                  iconName:@"settings-language"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
