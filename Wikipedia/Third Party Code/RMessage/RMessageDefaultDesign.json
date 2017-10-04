@@ -1,0 +1,38 @@
+{
+  "success": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#00AF89",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
+  "normal": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#222222",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
+  "warning": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#FF5B00",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  },
+  "error": {
+    "backgroundColor": "#F8F9FA",
+    "backgroundColorAlpha": 1.0,
+    "titleTextColor": "#CC3333",
+    "titleFontSize": 14,
+    "subTitleFontSize": 12,
+    "subTitleTextColor": "#222222",
+    "blurBackground": 0
+  }
+}

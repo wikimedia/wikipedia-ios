@@ -578,6 +578,24 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [self.savedArticlesFetcher start];
 
+#if DEBUG && WMF_SHOW_ALL_ALERTS
+    [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}]
+                                              sticky:YES
+                               dismissPreviousAlerts:NO
+                                         tapCallBack:^{
+                                             [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned about a thing that has a long explanation of why you were warned. You have been warned about a thing that has a long explanation of why you were warned."
+                                                                                         sticky:YES
+                                                                          dismissPreviousAlerts:NO
+                                                                                    tapCallBack:^{
+                                                                                        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful"
+                                                                                                                                    sticky:YES
+                                                                                                                     dismissPreviousAlerts:NO
+                                                                                                                               tapCallBack:^{
+                                                                                                                                   [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+                                                                                                                               }];
+                                                                                    }];
+                                         }];
+#endif
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
@@ -1442,6 +1460,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self.searchViewController applyTheme:theme];
     [self.settingsViewController applyTheme:theme];
+
+    [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     // Navigation controllers
     NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
