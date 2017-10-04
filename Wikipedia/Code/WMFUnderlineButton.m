@@ -1,6 +1,5 @@
 #import "WMFUnderlineButton.h"
 #import "UIFont+WMFStyle.h"
-@import Masonry;
 
 @interface WMFUnderlineButton ()
 
@@ -42,18 +41,11 @@
     self.underlineHeight = 1.0;
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
+    v.frame = CGRectMake(0, self.bounds.size.height - self.underlineHeight, self.bounds.size.width, self.underlineHeight);
+    v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:v];
     self.underline = v;
-    [self updateUnderlineConstraints];
     [self setSelected:self.selected];
-}
-
-- (void)updateUnderlineConstraints {
-    [self.underline mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.leading.and.trailing.equalTo(self);
-        make.height.equalTo(@(self.underlineHeight));
-        make.bottom.equalTo(self.mas_bottom);
-    }];
 }
 
 - (void)setSelected:(BOOL)selected {
