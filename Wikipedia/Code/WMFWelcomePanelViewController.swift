@@ -11,6 +11,11 @@ class WMFWelcomePanelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // For iPhone 4s and iPhone 5 a smaller size is used.
+        if view.bounds.size.height <= 568 {
+            titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .medium)
+        }
+            
         embedContainerControllerView()
         updateUIStrings()
         view.wmf_configureSubviewsForDynamicType()
