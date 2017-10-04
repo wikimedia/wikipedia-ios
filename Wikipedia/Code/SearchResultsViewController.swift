@@ -67,6 +67,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         let locale = NSLocale.wmf_locale(for: language)
         cell.configureForCompactList(at: indexPath.item)
         cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: searchResults?.searchTerm, locale: locale)
+        cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = language
