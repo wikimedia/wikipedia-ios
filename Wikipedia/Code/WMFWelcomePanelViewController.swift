@@ -10,6 +10,7 @@ class WMFWelcomePanelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         embedContainerControllerView()
         updateUIStrings()
         view.wmf_configureSubviewsForDynamicType()
@@ -48,10 +49,5 @@ class WMFWelcomePanelViewController: UIViewController {
         case .analytics:
             titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .headline, compatibleWithTraitCollection: traitCollection)
     }
 }

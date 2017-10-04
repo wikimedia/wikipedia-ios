@@ -373,13 +373,13 @@
                                 <rect key="frame" x="24" y="10" width="272" height="382"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="rei-4o-C2s">
-                                        <rect key="frame" x="0.0" y="0.0" width="272" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="272" height="43"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="36"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yn9-On-Dfp">
-                                        <rect key="frame" x="0.0" y="20.5" width="272" height="361.5"/>
+                                        <rect key="frame" x="0.0" y="43" width="272" height="339"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </containerView>
                                 </subviews>
