@@ -193,7 +193,7 @@ open class CollectionViewCell: UICollectionViewCell {
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        maybeUpdateFonts(with: traitCollection)
+        setNeedsLayout()
     }
     
     var contentSizeCategory: UIContentSizeCategory?

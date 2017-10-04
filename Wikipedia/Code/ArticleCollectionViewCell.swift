@@ -145,12 +145,39 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     
     // MARK - Semantic content
     
-    open var articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified {
-        didSet {
-            titleLabel.semanticContentAttribute = articleSemanticContentAttribute
-            descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
-            extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
+    fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
+    fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
+    open var articleSemanticContentAttribute: UISemanticContentAttribute {
+        set {
+            _articleSemanticContentAttribute = newValue
+            updateEffectiveArticleSemanticContentAttribute()
+            setNeedsLayout()
         }
+        get {
+            return _effectiveArticleSemanticContentAttribute
+        }
+    }
+    
+    fileprivate func updateEffectiveArticleSemanticContentAttribute() {
+        if _articleSemanticContentAttribute == .unspecified {
+            var isRTL = false
+            if #available(iOSApplicationExtension 10.0, *) {
+                isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+            } else {
+                isRTL = semanticContentAttribute == .forceRightToLeft
+            }
+            _effectiveArticleSemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+        } else {
+            _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
+        }
+        titleLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        descriptionLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateEffectiveArticleSemanticContentAttribute()
+        super.traitCollectionDidChange(previousTraitCollection)
     }
     
     // MARK - Accessibility
