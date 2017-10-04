@@ -1,5 +1,4 @@
 import UIKit
-import Masonry
 
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
@@ -23,8 +22,6 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
 
     open var minimumVisibleBackgroundWidth: CGFloat = 60.0
     open var maximumTableOfContentsWidth: CGFloat = 300.0
-    open var closeButtonLeadingPadding: CGFloat = 10.0
-    open var closeButtonTopPadding: CGFloat = 0.0
     open var statusBarEstimatedHeight: CGFloat {
         if #available(iOS 11.0, *) {
             return max(UIApplication.shared.statusBarFrame.size.height, presentedView?.safeAreaInsets.top ?? 0)
@@ -55,8 +52,15 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         button.accessibilityHint = WMFLocalizedString("table-of-contents-close-accessibility-hint", value:"Close", comment:"Accessibility hint for closing table of contents\n{{Identical|Close}}")
         button.accessibilityLabel = WMFLocalizedString("table-of-contents-close-accessibility-label", value:"Close Table of contents", comment:"Accessibility label for closing table of contents")
 
+        button.translatesAutoresizingMaskIntoConstraints = false
+
         return button
     }()
+
+    var closeButtonTrailingConstraint: NSLayoutConstraint?
+    var closeButtonLeadingConstraint: NSLayoutConstraint?
+    var closeButtonTopConstraint: NSLayoutConstraint?
+    var closeButtonBottomConstraint: NSLayoutConstraint?
 
     lazy var backgroundView :UIVisualEffectView = {
         let view = UIVisualEffectView(frame: CGRect.zero)
@@ -67,7 +71,26 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
         tap.addTarget(self, action: #selector(WMFTableOfContentsPresentationController.didTap(_:)))
         view.addGestureRecognizer(tap)
         view.contentView.addSubview(self.statusBarBackground)
+
+        let closeButtonDimension: CGFloat = 44
+        let widthConstraint = self.closeButton.widthAnchor.constraint(equalToConstant: closeButtonDimension)
+        let heightConstraint = self.closeButton.heightAnchor.constraint(equalToConstant: closeButtonDimension)
+
+        let leadingConstraint = view.contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: self.closeButton.leadingAnchor, constant: 0)
+        let trailingConstraint = view.contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: self.closeButton.trailingAnchor, constant: 0)
+        let topConstraint = view.contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: self.closeButton.topAnchor, constant: 0)
+        let bottomConstraint = view.contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 0)
+        trailingConstraint.isActive = false
+        bottomConstraint.isActive = false
+        closeButtonLeadingConstraint = leadingConstraint
+        closeButtonTrailingConstraint = trailingConstraint
+        closeButtonTopConstraint = topConstraint
+        closeButtonBottomConstraint = bottomConstraint
+        self.closeButton.frame = CGRect(x: 0, y: 0, width: closeButtonDimension, height: closeButtonDimension)
+        self.closeButton.addConstraints([widthConstraint, heightConstraint])
         view.contentView.addSubview(self.closeButton)
+        view.contentView.addConstraints([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+
         return view
     }()
 
@@ -76,27 +99,24 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     }
 
     func updateButtonConstraints() {
-        guard let closeButtonSuperview = self.closeButton.superview else {
-            return
+        switch self.displaySide {
+        case .right:
+            fallthrough
+        case .left:
+            closeButtonLeadingConstraint?.isActive = false
+            closeButtonBottomConstraint?.isActive = false
+            closeButtonTrailingConstraint?.isActive = true
+            closeButtonTopConstraint?.isActive = true
+            break
+        case .center:
+            fallthrough
+        default:
+            closeButtonTrailingConstraint?.isActive = false
+            closeButtonTopConstraint?.isActive = false
+            closeButtonLeadingConstraint?.isActive = true
+            closeButtonBottomConstraint?.isActive = true
         }
-        self.closeButton.mas_remakeConstraints({ make in
-            _ = make?.width.equalTo()(44)
-            _ = make?.height.equalTo()(44)
-            switch self.displaySide {
-            case .right:
-                fallthrough
-            case .left:
-                _ = make?.trailing.equalTo()(closeButtonSuperview.mas_trailing)?.offset()(0 - self.closeButtonLeadingPadding)
-                _ = make?.top.equalTo()(self.closeButtonTopPadding + self.statusBarEstimatedHeight)
-                break
-            case .center:
-                fallthrough
-            default:
-                _ = make?.leading.equalTo()(closeButtonSuperview.mas_leading)?.offset()(self.closeButtonLeadingPadding)
-                _ = make?.bottom.equalTo()(closeButtonSuperview.mas_bottom)?.offset()(self.closeButtonTopPadding)
-            }
-            return ()
-        })
+        return ()
     }
 
     
