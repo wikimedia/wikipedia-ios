@@ -578,7 +578,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [self.savedArticlesFetcher start];
 
-#if WMF_SHOW_ALL_ALERTS
+#if 1
     [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:YES dismissPreviousAlerts:NO tapCallBack:^{
         [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned about a thing that has a long explanation of why you were warned. You have been warned about a thing that has a long explanation of why you were warned." sticky:YES dismissPreviousAlerts:NO tapCallBack:^{
             [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:YES dismissPreviousAlerts:NO tapCallBack:^{

@@ -124,7 +124,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
         case .success:
             messageView.titleTextColor = theme.colors.accent
         default:
-            messageView.titleTextColor = theme.colors.primaryText
+            messageView.titleTextColor = theme.colors.link
         }
     }
     
