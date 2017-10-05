@@ -350,16 +350,12 @@
 "welcome-explore-new-ways-title" = "ڕێگەی نوێ بۆ گەڕان";
 "welcome-explore-tell-me-more-done-button" = "زانیم";
 "welcome-languages-add-button" = "زیادکردنی زمانێکی تر";
-"welcome-languages-continue-button" = "درێژە بدە";
-"welcome-languages-sub-title" = "ئەو زمانانەی کە دەیانزانی ھەڵیان بژێرە بۆ گەڕان بە نێو ویکیپیدیا";
-"welcome-languages-title" = "زمانەکان";
 "welcome-notifications-tell-me-more-creation" = "ھۆشدارەکان لەناو خودی ئاپەکەوە دروست دەکرێن و بۆت دەنێردرێن، نەوەک لە لایەنێکی سێیەمەوە.";
 "welcome-notifications-tell-me-more-storage" = "ھۆشدارەکان لەسەر دیڤایسەکە پاشەکەوت دەکرێن و لەسەر زانیاری و چالاکی تایبەتی بنیات نانرێن.";
 "welcome-notifications-tell-me-more-title" = "زیاتر لەسەر ئاگادارکردنەوەکان";
+// Fuzzy
 "welcome-send-data-sub-title" = "یارمەتی ویکیپیدیا بدە بۆ باشترکردنی ئەپەکە بە ناردنی داتای بەکارھێنان تا چۆنییەتی بەکارھێنانی ئەپەکە لەلایەن بەکارھێنەرانەوە بزانین. ئەو زانیارییانەی کۆدەکرێنەوە کەسایەتیت دەرناخات.";
-"welcome-send-data-title" = "ڕاپۆرتی نەناسراو بنێرە";
 "welcome-volunteer-send-usage-reports" = "ڕاپۆرتی بەکارھێنان بنێرە";
-"welcome-volunteer-thanks" = "$1 سوپاس بۆ تۆ!";
 "wikitext-download-failed" = "نەتواندرا دوایین پێداچوونەوە بەدەست بھێندرێت.";
 "wikitext-download-success" = "ناوەڕۆک دابەزێندرا.";
 "wikitext-downloading" = "ھێنانی ناوەڕۆک...";

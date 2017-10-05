@@ -204,10 +204,6 @@
 "welcome-explore-continue-button" = "စတင်ပါ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
-"welcome-languages-continue-button" = "ဆက်လက်";
-"welcome-languages-sub-title" = "ဝီကီပီးဒီးယားတွင် ရှာဖွေရန် အလိုရှိသော ဘာသာစကား ရွေးချယ်ပါ";
-"welcome-languages-title" = "ဘာသာစကားများ";
-"welcome-volunteer-thanks" = "$1 ကျေးဇူးတင်ပါသည်";
 "wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
 "wikitext-download-success" = "အကြောင်းအရာ ရယူပြီး။";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";

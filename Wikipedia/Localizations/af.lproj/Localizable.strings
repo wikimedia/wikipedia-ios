@@ -212,10 +212,6 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "welcome-explore-tell-me-more-done-button" = "Het dit";
 "welcome-languages-add-button" = "Voeg ’n ander taal toe";
-"welcome-languages-continue-button" = "Gaan voort";
-"welcome-languages-sub-title" = "Kies die voorkeurtale waarin u binne Wikipedia wil soek";
-"welcome-languages-title" = "Tale";
-"welcome-volunteer-thanks" = "$1 Dankie!";
 "wikitext-download-failed" = "Kon nie nuutste weergawe bekom nie.";
 "wikitext-download-success" = "Inhoud gelaai.";
 "wikitext-downloading" = "Laai inhoud...";

@@ -2,29 +2,30 @@
 // Exported from translatewiki.net
 // Author: Hindustanilanguage
 // Author: Mhurd
+// Author: Muhammad Shuaib
 // Author: Nemo bis
 // Author: Obaid Raza
 // Author: Sohaib
 // Author: امین اکبر
 
-"about-content-license" = "مواد کا اجازہ";
+"about-content-license" = "مواد کا اجازت نامہ";
 "about-content-license-details" = "جب تک الگ سے بتایا نہ گیا ہو تب تک مواد $1 کے تحت دستیاب ہے۔";
 "about-content-license-details-share-alike-license" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ";
 "about-contributors" = "ترمیم کنندگان";
 "about-libraries" = "مستعملہ لائبریریاں";
 "about-libraries-complete-list" = "مکمل فہرست";
-"about-libraries-license" = "اجازہ";
+"about-libraries-license" = "اجازت نامہ";
 "about-libraries-licenses-title" = "ہم کھلے ذرائع کے سافٹ ویئر $1 کو پسند کرتے ہیں";
-"about-product-of" = "آپ جیسے رضاکاروں کی مدد سے یہ $1 کی جانب سے بنایا گیا ہے";
+"about-product-of" = "اس اطلاقیے کو آپ جیسے رضاکاروں کی مدد سے $1 نے تیار کیا ہے";
 "about-repositories" = "ذخائر";
 "about-repositories-app-source-license" = "ماخذ کا کوڈ $1 کے تحت دستیاب ہے۔";
-"about-repositories-app-source-license-mit" = "ایم آئی ٹی اجازہ";
+"about-repositories-app-source-license-mit" = "ایم آئی ٹی اجازت نامہ";
 "about-send-feedback" = "ایپ پر ردعمل بھیجیں";
 "about-testers" = "پرکھنے والے";
 "about-testers-details" = "کیو اے کی پرکھ $1 نے کی";
 "about-title" = "کے بارے میں";
 "about-translators" = "مترجمین";
-"about-translators-details" = "رضاکاروں کی جانب سے $1 پر ترجمہ کیا گیا تھا";
+"about-translators-details" = "$1 پر رضاکاروں نے ترجمہ کیا ہے";
 "about-wikimedia-foundation" = "ویکیمیڈیا فاؤنڈیشن";
 "about-wikipedia" = "ویکیپیڈیا";
 // Fuzzy
@@ -35,7 +36,7 @@
 "abuse-filter-warning-caps" = "پوری ٹائپنگ کیاپس میں کی گئی";
 // Fuzzy
 "abuse-filter-warning-heading" = "یہ ایک غیرتعمیری ترمیم ہوسکتی ہے۔ کیاآپ اسے یقینی طور پر محفوظ کرنا چاہتے ہیں؟";
-"abuse-filter-warning-irrelevant" = "غیرمتعلقہ خارجی روابط یا تصاویر";
+"abuse-filter-warning-irrelevant" = "غیر متعلقہ خارجی روابط یا تصاویر";
 "abuse-filter-warning-repeat" = "مکرر حروف یا رموز";
 "abuse-filter-warning-subheading" = "آپ کی ترمیم مندرجہ میں سے ایک یا اس سے زیادہ کی متحمل ہو سکتی ہے:";
 "account-creation-captcha-obtaining" = "نئی کیپچا حاصل کی جارہی ہے۔";
@@ -88,6 +89,8 @@
 "explore-nearby-heading" = "قریبی مقامات";
 "explore-potd-heading" = "آج کی تصویر";
 "explore-random-article-heading" = "تصادفی مضمون";
+"explore-randomizer" = "جستہ جستہ صفحات";
+"feed-news-notification-button-text" = "اطلاع ناموں کو فعال کریں";
 "history-clear-all" = "واضح";
 "history-clear-cancel" = "منسوخ";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
@@ -96,12 +99,10 @@
 "hockeyapp-alert-always-send" = "ہمیشہ بھیجیں";
 "hockeyapp-alert-do-not-send" = "مت بھیجیں";
 "hockeyapp-alert-privacy" = "$1 رازداری";
-// Fuzzy
-"hockeyapp-alert-question" = "کیا آپ $1 کو کریش رپورٹ بھیجنا چاہیں گے تاکہ ویکیمیڈیا آپ کے کریش کا جائزہ لے سکے؟";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "کیا آپ $1 کو کریش رپورٹ بھیجنا چاہیں گے تاکہ ویکیمیڈیا آپ کے کریش کا جائزہ لے سکے؟\n\nبراہ کرم بتائیں کہ کیا ہؤا تھا جب کریس پیش آیا:";
+"hockeyapp-alert-question" = "کیا آپ $1 کو خامی کی اطلاع بھیجنا چاہیں گے تاکہ ویکیمیڈیا اس خامی کا جائزہ لے سکے؟";
+"hockeyapp-alert-question-with-response-field" = "کیا آپ $1 کو خامی کی اطلاع بھیجنا چاہیں گے تاکہ ویکیمیڈیا اس خامی کا جائزہ لے سکے؟\n\nجب اطلاقیہ تعطل کا شکار ہوا اس وقت کیا ہوا تھا؟ اسے ذیل میں درج کریں:";
 "hockeyapp-alert-send-report" = "رپورٹ بھیجیں";
-"hockeyapp-alert-title" = "معاف کریں، ایپ پچھلی بار کریش کرگیا";
+"hockeyapp-alert-title" = "معذرت، اطلاقیہ پچھلی مرتبہ تعطل کا شکار ہوگیا تھا۔";
 "home-hide-suggestion-cancel" = "منسوخ";
 "home-hide-suggestion-prompt" = "اس سجھاؤ کو چھپائیں";
 "home-more-like-footer" = "$1 سے کافی مشابہ";
@@ -126,7 +127,7 @@
 "main-menu-account-logout-are-you-sure" = "کیا آپ یقینی طور پر خارج ہوجانا چاہتے ہیں؟";
 "main-menu-account-logout-cancel" = "منسوخ";
 "main-menu-account-title-logged-in" = "داخل شدہ بطور $1";
-"main-menu-debug-crash" = "کریش";
+"main-menu-debug-crash" = "تعطل";
 "main-menu-debug-tweaks" = "ڈیولپر کی ترجیحات";
 "main-menu-heading-debug" = "ڈی بگ";
 "main-menu-heading-legal" = "رازداری اور شرائط";
@@ -202,11 +203,7 @@
 "welcome-explore-continue-button" = "شروع کریں";
 "welcome-explore-tell-me-more-done-button" = "سمجھ ميں آیا";
 "welcome-languages-add-button" = "دوسری زبان شامل کریں";
-"welcome-languages-continue-button" = "جاری رکھیں";
-"welcome-languages-sub-title" = "ویکیپیڈیا کو تلاش کرنے کے لیے اپنی پسندیدہ زبانیں چنیں";
-"welcome-languages-title" = "زبانیں";
 "welcome-volunteer-send-usage-reports" = "استعمال کی رپورٹ بھیجیے";
-"welcome-volunteer-thanks" = "$1 شکریہ!";
 "wikitext-download-failed" = "تازہ ترین نظرثانی حاصل نہیں کی جاسکی ہے۔";
 "wikitext-download-success" = "مواد کو لوڈ کیا جا چکا ہے۔";
 "wikitext-downloading" = "مواد کو لوڈ کیا جارہا ہے...";
