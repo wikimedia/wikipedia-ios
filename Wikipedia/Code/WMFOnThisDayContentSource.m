@@ -99,7 +99,6 @@ NS_ASSUME_NONNULL_BEGIN
         NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
         NSInteger month = [components month];
         NSInteger day = [components day];
-        NSInteger year = [components year];
         @weakify(self)
             [self.fetcher fetchOnThisDayEventsForURL:self.siteURL
                 month:month
@@ -120,14 +119,10 @@ NS_ASSUME_NONNULL_BEGIN
 
                     [moc performBlock:^{
                         [onThisDayEvents enumerateObjectsUsingBlock:^(WMFFeedOnThisDayEvent *_Nonnull event, NSUInteger idx, BOOL *_Nonnull stop) {
-                            __block NSInteger countOfImages = 0;
                             [event.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull articlePreview, NSUInteger idx, BOOL *_Nonnull stop) {
-                                if (articlePreview.imageURLString) {
-                                    countOfImages += 1;
-                                }
                                 [moc fetchOrCreateArticleWithURL:[articlePreview articleURL] updatedWithFeedPreview:articlePreview pageViews:nil];
                             }];
-                            event.score = @(countOfImages);
+                            event.score = [event calculateScore];
                             event.index = @(idx);
                         }];
 
@@ -135,9 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 
                         NSArray *eventsSortedByScore = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
                         if (eventsSortedByScore.count > 0) {
-                            NSInteger index = ((year % 10) % eventsSortedByScore.count);
-                            WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByScore[index];
-                            featuredEventIndex = featuredEvent.index.integerValue;
+                            featuredEventIndex = ((WMFFeedOnThisDayEvent*)eventsSortedByScore.firstObject).index.integerValue;
                         }
 
                         WMFContentGroup *group = [self onThisDayForDate:date inManagedObjectContext:moc];
