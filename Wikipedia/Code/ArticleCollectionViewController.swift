@@ -175,6 +175,11 @@ extension ArticleCollectionViewController {
 extension ArticleCollectionViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
+        defer {
+            if let cell = collectionView?.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+                cell.actions = availableActions(at: indexPath)
+            }
+        }
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -230,5 +235,17 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
 
         return actions
+    }
+    
+    func updateVisibleCellActions() {
+        guard let collectionView = collectionView else {
+            return
+        }
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+                continue
+            }
+            cell.actions = availableActions(at: indexPath)
+        }
     }
 }

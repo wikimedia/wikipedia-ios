@@ -26,6 +26,11 @@ class ArticleURLListViewController: ArticleCollectionViewController {
         super.viewDidLoad()
         collectionView?.reloadData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateVisibleCellActions()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
