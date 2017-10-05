@@ -450,7 +450,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (nullable instancetype)initForPeek:(MWKArticle *)article theme:(WMFTheme *)theme {
+- (nullable instancetype)initForPeek:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme {
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
@@ -461,8 +461,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
+    
+    id<NYTPhoto> selected = nil;
+    if (image) {
+        selected = [[self class] photoWithImage:image inPhotos:photos];
+    }
 
-    self = [self initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    self = [self initForPeek:photos initialPhoto:selected delegate:nil theme:theme];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
@@ -616,7 +621,9 @@ NS_ASSUME_NONNULL_BEGIN
 
                                                                   UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
                                                                   vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-
+                                                                  UIPopoverPresentationController *presenter = [vc popoverPresentationController];
+                                                                  presenter.barButtonItem = self.rightBarButtonItem;
+                                                                  
                                                                   [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
                                                               }];
 
