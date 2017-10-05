@@ -186,7 +186,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             let changePasswordVC = WMFChangePasswordViewController.wmf_initialViewControllerFromClassStoryboard()
             changePasswordVC?.userName = self.usernameField!.text
             changePasswordVC?.apply(theme: self.theme)
-            let navigationController = ThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: changePasswordVC!, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -205,7 +205,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             twoFactorViewController.captchaID = self.captchaViewController?.captcha?.captchaID
             twoFactorViewController.captchaWord = self.captchaViewController?.solution
             twoFactorViewController.apply(theme: self.theme)
-            let navigationController = ThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: twoFactorViewController, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }
@@ -220,7 +220,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             return
         }
         dismiss(animated: true, completion: {
-            let navigationController = ThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: forgotPasswordVC, theme: self.theme)
             forgotPasswordVC.apply(theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
@@ -240,7 +240,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
-            let navigationController = ThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: createAcctVC, theme: self.theme)
             presenter.present(navigationController, animated: true, completion: nil)
         })
     }

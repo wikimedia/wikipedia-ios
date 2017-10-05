@@ -370,7 +370,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.backgroundColor = backgroundColor;
     self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
     self.languageFilterField.barTintColor = backgroundColor;
-    self.editButtonItem.tintColor = theme.colors.link;
     [self.tableView reloadData];
 }
 

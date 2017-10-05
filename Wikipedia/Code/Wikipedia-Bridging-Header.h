@@ -29,6 +29,7 @@
 #import "MWKImageInfoFetcher.h"
 
 // View Controllers
+#import "WMFThemeableNavigationController.h"
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
 #import "WMFExploreCollectionViewController.h"
