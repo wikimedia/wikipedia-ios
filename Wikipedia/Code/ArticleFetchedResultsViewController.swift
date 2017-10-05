@@ -103,6 +103,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
+            cell.actions = availableActions(at: indexPath)
         }
         updateEmptyState()
         updateDeleteButton()
