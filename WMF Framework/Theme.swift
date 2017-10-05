@@ -200,6 +200,14 @@ public class Theme: NSObject {
         return isDark ? .dark : .light
     }
 
+    @objc public lazy var navigationBarBackgroundImage: UIImage = {
+        return UIImage.wmf_image(from: colors.chromeBackground)
+    }()
+
+    @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
+        return [NSAttributedStringKey.foregroundColor: colors.chromeText]
+    }()
+
     @objc public let imageOpacity: CGFloat
     
     @objc public let searchBarBackgroundImage: UIImage?
