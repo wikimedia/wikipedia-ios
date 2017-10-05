@@ -283,8 +283,10 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
-        let unitSpeed = animationTranslation / swipeVelocity
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+        let animationDuration: TimeInterval = 0.3
+        let distanceInOneSecond = animationTranslation / CGFloat(animationDuration)
+        let unitSpeed = distanceInOneSecond == 0 ? 0 : swipeVelocity / distanceInOneSecond
+        UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             if let action = expandedAction {
                 cell.actionsView.expand(action)
             }
