@@ -114,11 +114,11 @@
                                     <segue destination="jWX-gY-OwH" kind="embed" identifier="languageBar" id="RO6-QL-HnF"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Wikipedia" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-Ia-7Gd" customClass="WMFThemeableTextField">
-                                        <rect key="frame" x="42" y="20" width="279" height="44"/>
+                                        <rect key="frame" x="34" y="20" width="295" height="44"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" searchField="YES"/>
                                         </accessibility>
@@ -133,7 +133,7 @@
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3z-uC-8hv" userLabel="Separator View">
-                                        <rect key="frame" x="329" y="26" width="1" height="32"/>
+                                        <rect key="frame" x="337" y="26" width="1" height="32"/>
                                         <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="Ueg-eb-KMn"/>
@@ -141,7 +141,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjf-LF-NvO" userLabel="Close Button">
-                                        <rect key="frame" x="330" y="20" width="29" height="44"/>
+                                        <rect key="frame" x="338" y="20" width="29" height="44"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -149,7 +149,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="Khe-vM-8ul" userLabel="magnifying glass">
-                                        <rect key="frame" x="16" y="32" width="16" height="21"/>
+                                        <rect key="frame" x="8" y="32" width="16" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="6Bx-qT-nsc"/>
                                             <constraint firstAttribute="height" constant="21" id="gKW-bJ-laF"/>
@@ -257,11 +257,11 @@
                         <viewControllerLayoutGuide type="top" id="KmN-DY-Ftt"/>
                         <viewControllerLayoutGuide type="bottom" id="1Y5-MX-atE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tzw-k8-eL6">
+                    <view key="view" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" id="tzw-k8-eL6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIa-dg-uH0">
+                            <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIa-dg-uH0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -304,7 +304,6 @@
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">
                                 <rect key="frame" x="310" y="6" width="49" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>

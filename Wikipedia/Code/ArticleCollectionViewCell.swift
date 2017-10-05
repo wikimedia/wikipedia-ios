@@ -88,6 +88,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         if #available(iOSApplicationExtension 11.0, *) {
             super.safeAreaInsetsDidChange()
         }
+        if swipeState == .open {
+            swipeTranslation = swipeTranslationWhenOpen
+        }
         setNeedsLayout()
     }
 
@@ -214,13 +217,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     }
     
     // MARK: - Swipeable
-    var isSwiping: Bool = false {
+    var swipeState: SwipeState = .closed {
         didSet {
-            if isSwiping && actionsView.superview == nil {
+            if swipeState != .closed && actionsView.superview == nil {
                 insertSubview(actionsView, belowSubview: contentView)
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
-            } else if !isSwiping && actionsView.superview != nil {
+            } else if swipeState == .closed && actionsView.superview != nil {
                 actionsView.removeFromSuperview()
                 contentView.backgroundColor = .clear
                 clipsToBounds = false
@@ -249,11 +252,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         layoutSubviews()
         actionsView.layoutIfNeeded()
     }
-    
+
     // MARK: Prepare for reuse
     
     func resetSwipeable() {
         swipeTranslation = 0
-        isSwiping = false
+        swipeState = .closed
     }
 }
