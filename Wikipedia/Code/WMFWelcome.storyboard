@@ -74,7 +74,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="QwX-oV-6OI">
-                                                <rect key="frame" x="0.0" y="26" width="300" height="30"/>
+                                                <rect key="frame" x="0.0" y="26" width="46" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <state key="normal" title="Button"/>
@@ -86,7 +86,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="fva-en-jL2" secondAttribute="trailing" id="AYW-I4-f9w"/>
-                                            <constraint firstAttribute="trailing" secondItem="QwX-oV-6OI" secondAttribute="trailing" id="H1n-NS-6CG"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QwX-oV-6OI" secondAttribute="trailing" id="H1n-NS-6CG"/>
                                             <constraint firstItem="QwX-oV-6OI" firstAttribute="leading" secondItem="KR1-fT-lNt" secondAttribute="leading" id="Khj-X2-20w"/>
                                             <constraint firstAttribute="bottom" secondItem="QwX-oV-6OI" secondAttribute="bottom" constant="16" id="Y2S-da-QKW"/>
                                             <constraint firstItem="fva-en-jL2" firstAttribute="top" secondItem="KR1-fT-lNt" secondAttribute="top" id="d2c-18-7bP"/>
@@ -519,8 +519,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="q3G-bh-yvQ">
-                                                <rect key="frame" x="0.0" y="26" width="300" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="q3G-bh-yvQ">
+                                                <rect key="frame" x="0.0" y="26" width="46" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <state key="normal" title="Button"/>
@@ -554,7 +554,7 @@
                                             <constraint firstItem="8Zl-4G-G2G" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" constant="7" id="Gdv-MP-XCP"/>
                                             <constraint firstItem="q3G-bh-yvQ" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="HlO-CT-CKE"/>
                                             <constraint firstItem="q3G-bh-yvQ" firstAttribute="top" secondItem="l9B-Hv-WJ5" secondAttribute="bottom" constant="8" id="O6Y-EW-Frv"/>
-                                            <constraint firstAttribute="trailing" secondItem="q3G-bh-yvQ" secondAttribute="trailing" id="PoO-Pb-elh"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q3G-bh-yvQ" secondAttribute="trailing" id="PoO-Pb-elh"/>
                                             <constraint firstItem="8Zl-4G-G2G" firstAttribute="top" secondItem="q3G-bh-yvQ" secondAttribute="bottom" constant="10" id="QhH-f8-9ac"/>
                                             <constraint firstItem="Sp2-Be-DyJ" firstAttribute="centerY" secondItem="8Zl-4G-G2G" secondAttribute="centerY" id="RQh-LH-r68"/>
                                             <constraint firstAttribute="bottom" secondItem="TmK-SO-CMY" secondAttribute="bottom" constant="17" id="SCK-fc-TqY"/>
