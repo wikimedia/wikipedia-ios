@@ -99,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSDateComponents *components = [[NSCalendar wmf_gregorianCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
         NSInteger month = [components month];
         NSInteger day = [components day];
+        NSInteger year = [components year];
         @weakify(self)
             [self.fetcher fetchOnThisDayEventsForURL:self.siteURL
                 month:month
@@ -130,7 +131,12 @@ NS_ASSUME_NONNULL_BEGIN
 
                         NSArray *eventsSortedByScore = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
                         if (eventsSortedByScore.count > 0) {
-                            featuredEventIndex = ((WMFFeedOnThisDayEvent*)eventsSortedByScore.firstObject).index.integerValue;
+                            // Rotate through the 10 highest scoring events based on current year. Ensures unlikely to see a repeat for at least 10 years
+                            // (unless the day has fewer than 10 events or a new event re-ranks the top 10) and everyone will see the same featured event
+                            // for a given day on a given year.
+                            NSInteger index = ((year % 10) % eventsSortedByScore.count);
+                            WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByScore[index];
+                            featuredEventIndex = featuredEvent.index.integerValue;
                         }
 
                         WMFContentGroup *group = [self onThisDayForDate:date inManagedObjectContext:moc];
