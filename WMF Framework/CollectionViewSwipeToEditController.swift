@@ -185,7 +185,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let normalizedMaxSwipeTranslation = abs(cell.swipeTranslationWhenOpen)
         switch (sender.state) {
         case .began:
-            cell.isSwiping = true
+            cell.swipeState = .swiping
             fallthrough
         case .changed:
             if normalizedSwipeTranslation < 0 {
@@ -246,7 +246,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let targetTranslation =  cell.swipeTranslationWhenOpen
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
-        cell.isSwiping = true
+        cell.swipeState = .open
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
     
@@ -267,7 +267,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
             })
         } else {
             animateActionPane(of: cell, to: 0, with: velocity, completion: { (finished: Bool) in
-                cell.isSwiping = self.activeIndexPath == indexPath
+                cell.swipeState = self.activeIndexPath == indexPath ? .swiping : .closed
                 completion(finished)
             })
         }
