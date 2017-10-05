@@ -120,7 +120,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
     [super viewDidLoad];
 
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero];
-    wv.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;

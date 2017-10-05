@@ -907,16 +907,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         wmf_updateNavigationBar(removeUnderline: true)
 
         let searchBarHeight: CGFloat = 32
-        let searchBarLeftPadding: CGFloat = 7.5
-        let searchBarRightPadding: CGFloat = 2.5
+        let searchBarLeadingPadding: CGFloat = 7.5
+        let searchBarTrailingPadding: CGFloat = 2.5
         
         searchBar = titleViewSearchBar
         
-        filterSelectorView.frame = CGRect(x: searchBarLeftPadding, y: 0, width: view.bounds.size.width - searchBarLeftPadding - searchBarRightPadding, height: searchBarHeight)
+        filterSelectorView.frame = CGRect(x: searchBarLeadingPadding, y: 0, width: view.bounds.size.width - searchBarLeadingPadding - searchBarTrailingPadding, height: searchBarHeight)
 
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
         titleView.addSubview(filterSelectorView)
-        titleView.wmf_addConstraintsToEdgesOfView(filterSelectorView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeftPadding, bottom: 0, right: searchBarRightPadding), priority: .defaultHigh)
+        titleView.wmf_addConstraintsToEdgesOfView(filterSelectorView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
         
         if let panGR = overlaySliderPanGestureRecognizer {

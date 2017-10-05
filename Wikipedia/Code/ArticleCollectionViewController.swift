@@ -126,6 +126,9 @@ extension ArticleCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard !swipeToEditController.isActive else {
+            return nil // don't allow 3d touch when swipe actions are active
+        }
         guard let collectionView = collectionView,
             let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,

@@ -1,7 +1,6 @@
 #import "WMFTabBarController.h"
-#import "TSBlurView.h"
-#import "TSMessage.h"
-#import "TSMessageView.h"
+#import "RMessage.h"
+#import "RMessageView.h"
 
 #import "NSString+FormattedAttributedString.h"
 #import "UIFont+WMFStyle.h"
@@ -49,7 +48,6 @@
 #import "WMFCVLAttributes.h"
 #import "WMFCVLMetrics.h"
 #import "WMFSearchButton.h"
-#import "WMFCustomDeleteButtonTableViewCell.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"

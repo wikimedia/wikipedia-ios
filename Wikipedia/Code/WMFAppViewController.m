@@ -578,6 +578,24 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [self.savedArticlesFetcher start];
 
+#if DEBUG && WMF_SHOW_ALL_ALERTS
+    [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}]
+                                              sticky:YES
+                               dismissPreviousAlerts:NO
+                                         tapCallBack:^{
+                                             [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned about a thing that has a long explanation of why you were warned. You have been warned about a thing that has a long explanation of why you were warned."
+                                                                                         sticky:YES
+                                                                          dismissPreviousAlerts:NO
+                                                                                    tapCallBack:^{
+                                                                                        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful"
+                                                                                                                                    sticky:YES
+                                                                                                                     dismissPreviousAlerts:NO
+                                                                                                                               tapCallBack:^{
+                                                                                                                                   [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+                                                                                                                               }];
+                                                                                    }];
+                                         }];
+#endif
 #if WMF_TWEAKS_ENABLED
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
@@ -1030,6 +1048,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return YES;
     }
 #endif
+
     NSNumber *didShow = [[NSUserDefaults wmf_userDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1412,15 +1431,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [navigationBars addObject:[UINavigationBar appearance]];
     UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
     NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
-    UIImage *backChevron = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     for (UINavigationBar *navigationBar in navigationBars) {
         navigationBar.barTintColor = theme.colors.chromeBackground;
         navigationBar.translucent = NO;
         navigationBar.tintColor = theme.colors.chromeText;
         [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
         [navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
-        [navigationBar setBackIndicatorImage:backChevron];
-        [navigationBar setBackIndicatorTransitionMaskImage:backChevron];
     }
 
     // Tool bars
@@ -1444,6 +1460,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self.searchViewController applyTheme:theme];
     [self.settingsViewController applyTheme:theme];
+
+    [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     // Navigation controllers
     NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];

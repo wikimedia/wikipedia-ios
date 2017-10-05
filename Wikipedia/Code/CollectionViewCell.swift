@@ -129,7 +129,12 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     // MARK - Layout
-    
+
+    open override func layoutMarginsDidChange() {
+        super.layoutMarginsDidChange()
+        setNeedsLayout()
+    }
+
     final override public func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = bounds
@@ -188,7 +193,7 @@ open class CollectionViewCell: UICollectionViewCell {
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        maybeUpdateFonts(with: traitCollection)
+        setNeedsLayout()
     }
     
     var contentSizeCategory: UIContentSizeCategory?
