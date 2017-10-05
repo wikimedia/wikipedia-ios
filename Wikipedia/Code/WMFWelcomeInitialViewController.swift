@@ -12,6 +12,13 @@ class WMFWelcomeInitialViewController: UIViewController {
         vc.completionBlock = completionBlock
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Master background color for all Welcome screens.
+        view.backgroundColor = UIColor(0xffffff)
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }

@@ -42,6 +42,8 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // https://stackoverflow.com/a/3991688/135557
         cell.backgroundColor = .clear
+        cell.backgroundView?.backgroundColor = .clear
+        cell.contentView.backgroundColor = .clear
     }
     
     @IBAction func addLanguages(withSender sender: AnyObject) {

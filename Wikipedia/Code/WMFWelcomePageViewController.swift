@@ -76,8 +76,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
-
-        view.backgroundColor = UIColor(0xffffff)
         
         configureAndAddNextButton()
         configureAndAddSkipButton()

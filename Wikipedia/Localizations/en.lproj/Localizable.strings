@@ -193,6 +193,7 @@
 "info-box-close-text" = "Close";
 "info-box-title" = "Quick Facts";
 "languages-title" = "Change language";
+"languages-wikipedia" = "Wikipedia languages";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
 "login-forgot-password" = "Forgot your password?";
