@@ -119,6 +119,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
+
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -139,15 +141,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                                              selector:@selector(articleFontSizeWasUpdated:)
                                                  name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
                                                object:nil];
-
-    @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      @strongify(self);
-                                                      [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
-                                                  }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -156,10 +149,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
-}
-
-- (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    [self applyTheme:self.theme];
 }
 
 - (BOOL)isPresentingOnboarding {
@@ -188,8 +177,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
 
-    WMFTheme *theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
-    [self applyTheme:theme];
+    [self applyTheme:self.theme];
 
     [self configureTabController];
     [self configureExploreViewController];
@@ -1453,6 +1441,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
+    if (theme == nil) {
+        return;
+    }
     self.theme = theme;
 
     self.view.backgroundColor = theme.colors.baseBackground;
