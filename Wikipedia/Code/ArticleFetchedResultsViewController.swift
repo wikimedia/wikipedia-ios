@@ -145,6 +145,13 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         }
         return translation == 0
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        if wmf_isShowingEmptyView() {
+            updateEmptyState()
+        }
+    }
 }
 
 // MARK: UICollectionViewDataSource

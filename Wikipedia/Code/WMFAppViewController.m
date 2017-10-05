@@ -119,6 +119,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
+    
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -139,15 +141,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                                              selector:@selector(articleFontSizeWasUpdated:)
                                                  name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
                                                object:nil];
-
-    @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      @strongify(self);
-                                                      [self updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize];
-                                                  }];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -158,12 +151,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     return NO;
 }
 
-- (void)updateTabBarItemsTitleTextAttributesForNewDynamicTypeContentSize {
-    [self applyTheme:self.theme];
-}
-
 - (BOOL)isPresentingOnboarding {
-    return [self.presentedViewController isKindOfClass:[WMFWelcomePageViewController class]];
+    return [self.presentedViewController isKindOfClass:[WMFWelcomeInitialViewController class]];
 }
 
 - (BOOL)uiIsLoaded {
@@ -188,8 +177,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [tabBar didMoveToParentViewController:self];
     self.rootTabBarController = tabBar;
 
-    WMFTheme *theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
-    [self applyTheme:theme];
+    [self applyTheme:self.theme];
 
     [self configureTabController];
     [self configureExploreViewController];
@@ -1060,7 +1048,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
-        WMFWelcomePageViewController *vc = [WMFWelcomePageViewController wmf_viewControllerFromWelcomeStoryboard];
+        WMFWelcomeInitialViewController *vc = [WMFWelcomeInitialViewController wmf_viewControllerFromWelcomeStoryboard];
 
         vc.completionBlock = ^{
             [self setDidShowOnboarding];
@@ -1391,10 +1379,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Themeable
 
 - (void)applyTheme:(WMFTheme *)theme toNavigationControllers:(NSArray<UINavigationController *> *)navigationControllers {
-    NSMutableSet<UINavigationBar *> *navigationBars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
-    NSMutableSet<UIToolbar *> *toolbars = [NSMutableSet setWithCapacity:navigationControllers.count + 1];
     NSMutableSet<UINavigationController *> *foundNavigationControllers = [NSMutableSet setWithCapacity:1];
-
     for (UINavigationController *nc in navigationControllers) {
         for (UIViewController *vc in nc.viewControllers) {
             if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
@@ -1409,40 +1394,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [foundNavigationControllers addObject:(UINavigationController *)nc.presentedViewController];
         }
 
-        UIToolbar *toolbar = nc.toolbar;
-        if (toolbar) {
-            [toolbars addObject:toolbar];
-        }
-
-        UINavigationBar *navbar = nc.navigationBar;
-        if (navbar) {
-            [navigationBars addObject:navbar];
-        }
-
         if ([nc conformsToProtocol:@protocol(WMFThemeable)]) {
             [(id<WMFThemeable>)nc applyTheme:theme];
         }
-
-        nc.view.tintColor = theme.colors.link;
-    }
-
-    // Navigation bars
-
-    [navigationBars addObject:[UINavigationBar appearance]];
-    UIImage *chromeBackgroundImage = [UIImage wmf_imageFromColor:theme.colors.chromeBackground];
-    NSDictionary *navBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.chromeText};
-    for (UINavigationBar *navigationBar in navigationBars) {
-        navigationBar.barTintColor = theme.colors.chromeBackground;
-        navigationBar.translucent = NO;
-        navigationBar.tintColor = theme.colors.chromeText;
-        [navigationBar setBackgroundImage:chromeBackgroundImage forBarMetrics:UIBarMetricsDefault];
-        [navigationBar setTitleTextAttributes:navBarTitleTextAttributes];
-    }
-
-    // Tool bars
-    for (UIToolbar *toolbar in toolbars) {
-        toolbar.barTintColor = theme.colors.chromeBackground;
-        [toolbar setTranslucent:NO];
     }
 
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
@@ -1453,6 +1407,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
+    if (theme == nil) {
+        return;
+    }
     self.theme = theme;
 
     self.view.backgroundColor = theme.colors.baseBackground;

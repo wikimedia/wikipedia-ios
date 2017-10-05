@@ -29,6 +29,7 @@
 #import "MWKImageInfoFetcher.h"
 
 // View Controllers
+#import "WMFThemeableNavigationController.h"
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
 #import "WMFExploreCollectionViewController.h"
@@ -51,6 +52,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
+#import "WMFLanguageCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

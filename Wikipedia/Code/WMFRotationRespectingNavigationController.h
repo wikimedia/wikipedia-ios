@@ -1,5 +1,5 @@
-@import UIKit;
+#import "WMFThemeableNavigationController.h"
 
-@interface WMFRotationRespectingNavigationController : UINavigationController
+@interface WMFRotationRespectingNavigationController : WMFThemeableNavigationController
 
 @end

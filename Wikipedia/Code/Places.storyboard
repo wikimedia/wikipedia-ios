@@ -658,7 +658,7 @@
         <!--Places-->
         <scene sceneID="CuH-Gb-zyn">
             <objects>
-                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Places" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="fC7-UI-Knm" userLabel="Places" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Places" image="tabbar-nearby" selectedImage="tabbar-nearby" id="qMU-9n-S42"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="HFz-Jz-Pn5">

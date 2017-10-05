@@ -50,7 +50,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
+    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-wikipedia", nil, nil, @"Wikipedia languages", @"Title for list of Wikipedia languages");
     languagesVC.editing = NO;
     languagesVC.showPreferredLanguages = NO;
 
@@ -370,7 +370,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.backgroundColor = backgroundColor;
     self.languageFilterField.searchBarStyle = UISearchBarStyleMinimal;
     self.languageFilterField.barTintColor = backgroundColor;
-    self.editButtonItem.tintColor = theme.colors.link;
     [self.tableView reloadData];
 }
 
@@ -388,7 +387,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFPreferredLanguagesViewController *languagesVC = [[WMFPreferredLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"settings-my-languages", nil, nil, @"My languages", @"Title for list of user's preferred languages");
+    languagesVC.title = [WMFCommonStrings myLanguages];
 
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;

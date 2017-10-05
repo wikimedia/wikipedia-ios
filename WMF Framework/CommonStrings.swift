@@ -41,4 +41,6 @@ public class CommonStrings: NSObject {
     @objc public static let skipTitle = WMFLocalizedStringWithDefaultValue("button-skip", nil, nil, "Skip", "Button text for skip button used in various places.")
     
     @objc public static let privacyPolicyURLString = "https://m.wikimediafoundation.org/wiki/Privacy_policy"
+
+    @objc public static let myLanguages = WMFLocalizedString("settings-my-languages", value: "My languages", comment: "Title for list of user's preferred languages")
 }
