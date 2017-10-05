@@ -24,11 +24,15 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         collectionView?.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func articleWasUpdated(_ notification: Notification) {
         updateVisibleCellActions()
     }
 }
