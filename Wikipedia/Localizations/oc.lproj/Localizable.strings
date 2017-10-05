@@ -221,12 +221,8 @@
 "welcome-explore-continue-button" = "Començar";
 "welcome-explore-tell-me-more-done-button" = "L’obténer";
 "welcome-languages-add-button" = "Apondre una autra lenga";
-"welcome-languages-continue-button" = "Contunhar";
-"welcome-languages-title" = "Lengas";
 "welcome-notifications-tell-me-more-title" = "Ne saber mai sus las notificacions";
-"welcome-send-data-title" = "Mandar de donadas anonimas";
 "welcome-volunteer-send-usage-reports" = "Mandar los rapòrts d’utilizacion";
-"welcome-volunteer-thanks" = "$1 Mercé !";
 "wikitext-download-success" = "Contengut cargat.";
 "wikitext-downloading" = "Cargament del contengut...";
 "wikitext-upload-save" = "Publicacion en cors…";

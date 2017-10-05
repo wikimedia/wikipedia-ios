@@ -386,16 +386,12 @@
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
-"welcome-languages-continue-button" = "Doorgaan";
-"welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
-"welcome-languages-title" = "Talen";
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
+// Fuzzy
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
-"welcome-send-data-title" = "Anoniem gegevens zenden";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
-"welcome-volunteer-thanks" = "$1 Bedankt!";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Inhoud geladen.";
 "wikitext-downloading" = "Inhoud laden...";

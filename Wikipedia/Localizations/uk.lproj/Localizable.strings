@@ -332,16 +332,12 @@
 "welcome-explore-new-ways-title" = "Нові способи дослідження";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
 "welcome-languages-add-button" = "Додати ще одну мову";
-"welcome-languages-continue-button" = "Продовжити";
-"welcome-languages-sub-title" = "Оберіть мови для пошуку у Вікіпедії";
-"welcome-languages-title" = "Мови";
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до Вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
 "welcome-notifications-tell-me-more-title" = "Більше про сповіщення";
+// Fuzzy
 "welcome-send-data-sub-title" = "Допоможіть Фондові Вікімедіа зробити цей додаток кращим, повідомивши нас, яким чином Ви ним користуєтесь. Зібрані дані є анонімними";
-"welcome-send-data-title" = "Надіслати анонімні дані";
 "welcome-volunteer-send-usage-reports" = "Надсилати звіти про використання";
-"welcome-volunteer-thanks" = "$1 Дякуємо!";
 "wikitext-download-failed" = "Не вдається отримати останню версію програми.";
 "wikitext-download-success" = "Зміст завантажено.";
 "wikitext-downloading" = "Завантаження змісту...";

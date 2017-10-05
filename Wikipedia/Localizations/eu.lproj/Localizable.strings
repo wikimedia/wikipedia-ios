@@ -216,11 +216,9 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "welcome-explore-continue-button" = "Hasi";
 "welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
-"welcome-languages-continue-button" = "Jarraitu";
-"welcome-languages-title" = "Hizkuntzak";
+// Fuzzy
 "welcome-send-data-sub-title" = "Lagun iezaiozu Wikimedia Fundazioari aplikazioa hobetzen hau bera nola erabiltzen duzun jakinaraziz. Bildutako datuak anonimoak dira.";
 "welcome-volunteer-send-usage-reports" = "Bidali erabilpen iruzkina";
-"welcome-volunteer-thanks" = "$1 Eskerrik asko!";
 "wikitext-download-success" = "Edukia kargatu da.";
 "wikitext-downloading" = "Edukia kargatzen...";
 "wikitext-preview-changes-none" = "Ez da aurrebistan erakusteko aldaketarik egin.";

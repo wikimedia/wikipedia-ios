@@ -373,22 +373,15 @@
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
 "view-in-browser-footer-link" = "Sken amagrad deg iminig";
 "welcome-explore-continue-button" = "Bdu";
-"welcome-explore-features-news-notifications" = "Awi isallen n ilɣa imaynuten ɣef isental imaynuten deg isallen.";
-"welcome-explore-features-on-this-day" = "Uɣal ar deffir s $1 akken ad tissineḍ ayen yeḍran am ass-a deg umuzruy.";
-"welcome-explore-features-places" = "Seqdec iccer  $1 akken ad twaliḍ timnaḍin n ugama iqerben ɣur-k, neɣ nadi deg umaḍal meṛṛa.";
 "welcome-explore-new-ways-title" = "Tarrayin-nniden n usnirem";
 "welcome-explore-tell-me-more-done-button" = "Awi-t";
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
-"welcome-languages-continue-button" = "Kemmel";
-"welcome-languages-sub-title" = "Fren tutlayin-ik tḥemleḍ  i unadi di Wikipedia";
-"welcome-languages-title" = "Tutlayin";
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";
 "welcome-notifications-tell-me-more-title" = "Ugar ɣef ilɣa";
+// Fuzzy
 "welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
-"welcome-send-data-title" = "Azen isefka udrigen";
 "welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
-"welcome-volunteer-thanks" = "$1 Tanemmirt!";
 "wikitext-download-failed" = "Ur izmir ara ad d-yawi lqem aneggaru.";
 "wikitext-download-success" = "Agbur yuli-d.";
 "wikitext-downloading" = "Asali n ugbur...";

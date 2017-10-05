@@ -381,22 +381,15 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "view-in-browser-footer-link" = "הצגת הערך בדפדפן";
 "welcome-explore-continue-button" = "להתחיל";
-"welcome-explore-features-news-notifications" = "קבלת עדכוני חדשות על נושאים חמים בחדשות";
-"welcome-explore-features-on-this-day" = "חזרו אחורה בזמן עם \"$1\" כדי לכלות מה קרה היום בהיסטוריה";
-"welcome-explore-features-places" = "השתמשו בלשונית $1 כדי לגלות מקומות מעניינים לידכם או חפשו סביב העולם";
 "welcome-explore-new-ways-title" = "דרכים חדשות לגלות";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
 "welcome-languages-add-button" = "הוספת שפה אחרת";
-"welcome-languages-continue-button" = "להמשיך";
-"welcome-languages-sub-title" = "נא לבחור את השפות שבהן ברצונך לחפש בוויקיפדיה";
-"welcome-languages-title" = "שפות";
 "welcome-notifications-tell-me-more-creation" = "העדכונים מיוצרים ונמסרים במכשיר שלך על־ידי האפליקציה ולא משרתים שלנו (או של צד שלישי).";
 "welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";
 "welcome-notifications-tell-me-more-title" = "מידע נוסף על עדכונים";
+// Fuzzy
 "welcome-send-data-sub-title" = "עזרו לקרן ויקימדיה לשפר את האפליקציה על־ידי זה שתספרו לנו איך אתם משתמשים בה. המידע שנאסף אינו מכיל פרטים מזהים.";
-"welcome-send-data-title" = "שליחת נתונים ללא פרטים מזהים";
 "welcome-volunteer-send-usage-reports" = "לשלוח דיווחי שימוש";
-"welcome-volunteer-thanks" = "$1 תודה!";
 "wikitext-download-failed" = "לא ניתן לאחזר את הגרסה החדשה ביותר.";
 "wikitext-download-success" = "התוכן נטען.";
 "wikitext-downloading" = "טעינת תוכן...";

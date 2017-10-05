@@ -350,16 +350,12 @@
 "welcome-explore-new-ways-title" = "Novi načini za istraživanje";
 "welcome-explore-tell-me-more-done-button" = "Razumijem";
 "welcome-languages-add-button" = "Dodaj drugi jezik";
-"welcome-languages-continue-button" = "Nastavi";
-"welcome-languages-sub-title" = "Izaberite željene jezike za pretragu Wikipedije";
-"welcome-languages-title" = "Jezici";
 "welcome-notifications-tell-me-more-creation" = "Obavještenja se stvaraju i dostavljaju Vama na uređaj pomoću aplikacije, a ne naših ili servera trećih lica.";
 "welcome-notifications-tell-me-more-storage" = "Postavke o obavještenjima čuvaju se na uređaj i ne zasnivaju se na ličnim podacima ili aktivnosti.";
 "welcome-notifications-tell-me-more-title" = "Više o obavještenjima";
+// Fuzzy
 "welcome-send-data-sub-title" = "Pomozite Zadužbini Wikimedia da poboljša aplikaciju tako što ćete nam poslati podatke o tom kako je koristite. Prikupljeni podaci su anonimni.";
-"welcome-send-data-title" = "Šalji anonimne podatke";
 "welcome-volunteer-send-usage-reports" = "Šalji izvještaje o korištenju";
-"welcome-volunteer-thanks" = "$1 Hvala!";
 "wikitext-download-failed" = "Ne mogu dobiti najnoviju izmjenu.";
 "wikitext-download-success" = "Sadržaj je učitan.";
 "wikitext-downloading" = "Učitavam sadržaj...";
