@@ -528,14 +528,14 @@
                                                     <action selector="showPrivacyAlertWithSender:" destination="Sz5-Ln-qWW" eventType="touchUpInside" id="bUv-ck-jqV"/>
                                                 </connections>
                                             </button>
-                                            <switch clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Zl-4G-G2G">
-                                                <rect key="frame" x="0.0" y="66" width="51" height="31"/>
+                                            <switch contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Zl-4G-G2G">
+                                                <rect key="frame" x="7" y="66" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="toggleAnalyticsWithSender:" destination="Sz5-Ln-qWW" eventType="valueChanged" id="HVm-oP-11q"/>
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="😀🎉" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="Sp2-Be-DyJ">
-                                                <rect key="frame" x="59" y="71" width="46" height="21"/>
+                                                <rect key="frame" x="66" y="71" width="46" height="21"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -551,7 +551,7 @@
                                         <constraints>
                                             <constraint firstItem="TmK-SO-CMY" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="4E8-7R-8Se"/>
                                             <constraint firstItem="l9B-Hv-WJ5" firstAttribute="top" secondItem="jGW-Hc-ska" secondAttribute="top" id="6lk-2M-ehu"/>
-                                            <constraint firstItem="8Zl-4G-G2G" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="Gdv-MP-XCP"/>
+                                            <constraint firstItem="8Zl-4G-G2G" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" constant="7" id="Gdv-MP-XCP"/>
                                             <constraint firstItem="q3G-bh-yvQ" firstAttribute="leading" secondItem="jGW-Hc-ska" secondAttribute="leading" id="HlO-CT-CKE"/>
                                             <constraint firstItem="q3G-bh-yvQ" firstAttribute="top" secondItem="l9B-Hv-WJ5" secondAttribute="bottom" constant="8" id="O6Y-EW-Frv"/>
                                             <constraint firstAttribute="trailing" secondItem="q3G-bh-yvQ" secondAttribute="trailing" id="PoO-Pb-elh"/>
