@@ -373,22 +373,15 @@
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
 "view-in-browser-footer-link" = "Tempo artikel di panyungsi";
 "welcome-explore-continue-button" = "Mitembeyan";
-"welcome-explore-features-news-notifications" = "Beunangkeun iber warta pikeun jejer kajadian kiwari nu keur ngetren";
-"welcome-explore-features-on-this-day" = "Liar deui jeung $1 pikeun nyangkem naon nu kajadian poé ayeuna dina sejarah";
-"welcome-explore-features-places" = "Gunakeun tab $1 pikeun mangguhan tangara di deukeut anjeun atawa néangan di sakuliah dunya";
 "welcome-explore-new-ways-title" = "Cara anyar pikeun ngalanglang";
 "welcome-explore-tell-me-more-done-button" = "Ngarti";
 "welcome-languages-add-button" = "Tambahkeun basa lianna";
-"welcome-languages-continue-button" = "Teruskeun";
-"welcome-languages-sub-title" = "Pilih basa pilihan anjeun maluruh Wikipédia";
-"welcome-languages-title" = "Basa";
 "welcome-notifications-tell-me-more-creation" = "Iber dijieun sarta ditepikeun kana parangkat anjeun ku aplikasi, lain tina sérver kami (atawa pihak katiga).";
 "welcome-notifications-tell-me-more-storage" = "Préférénsi iber disimpen di parangkat sarta teu dumasar kana informasi atawa aktivitas pribadi.";
 "welcome-notifications-tell-me-more-title" = "Leuwih jero ngeunaan iber";
+// Fuzzy
 "welcome-send-data-sub-title" = "Bantu Wikimedia Foundation nyieun aplikasi nu leuwih hadé ku ngabéjaan kami kumaha anjeun dina maké aplikasi. Data nu dikumpulkeun watekna anonim";
-"welcome-send-data-title" = "Kirim data anonim";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan pamakéan";
-"welcome-volunteer-thanks" = "$1 Hatur nuhun!";
 "wikitext-download-failed" = "Teu bisa nampa révisi panganyarna.";
 "wikitext-download-success" = "Kontén dimuat.";
 "wikitext-downloading" = "Muatkeun kontén...";

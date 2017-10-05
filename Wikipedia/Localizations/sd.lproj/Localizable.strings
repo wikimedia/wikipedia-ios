@@ -362,15 +362,10 @@
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
-"welcome-languages-continue-button" = "جاري رکو";
-"welcome-languages-sub-title" = "وڪيپيڊيا ڳولڻ لاءِ پنھنجيون ترجيحي ٻوليون چونڊيو";
-"welcome-languages-title" = "ٻوليون";
 "welcome-notifications-tell-me-more-creation" = "اطلاع ايپ پاران توھان جي ڊوائيس تي تخليق ۽ فراھم ڪيا ويا آھن، اسان (يا ٽين ڌر) جي سرورن پاران نہ.";
 "welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
 "welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
-"welcome-send-data-title" = "اڻڄاتل ڊيٽا موڪليو";
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
-"welcome-volunteer-thanks" = "$1 توھان جي مھرباني!";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-download-success" = "مواد لوڊ  ٿي ويو.";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";

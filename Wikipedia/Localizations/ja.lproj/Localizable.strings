@@ -88,6 +88,7 @@
 "button-save-for-later" = "保存してあとで読む";
 "button-saved-for-later" = "保存しました";
 "button-saved-remove" = "保存したページから除去";
+"button-skip" = "スキップ";
 "cc-by-sa-3.0" = "CC 表示-継承 3.0 非移植";
 "close-button-accessibility-label" = "閉じる";
 "compass-direction" = "$1時の位置";
@@ -307,15 +308,16 @@
 "welcome-explore-continue-button" = "次へ";
 "welcome-explore-new-ways-title" = "New ways to explore";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
+"welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、およそ300の言語で4,000万以上の記事から成ります。";
+"welcome-intro-free-encyclopedia-more" = "ウィキペディアについての詳細";
+"welcome-intro-free-encyclopedia-more-about" = "ウィキペディアについて";
+"welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは、世界のすべての言語でフリー百科事典を構成する世界的なプロジェクトです。インターネットにアクセスできる方なら誰でも、引用付きで寄稿することで自由に参加することができます。";
+"welcome-intro-free-encyclopedia-title" = "フリー百科事典";
 "welcome-languages-add-button" = "言語を追加";
-"welcome-languages-continue-button" = "次へ";
-"welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
-"welcome-languages-title" = "言語";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";
+// Fuzzy
 "welcome-send-data-sub-title" = "このアプリの使用状況をウィキメディア財団に送信して、このアプリの改善にご協力ください。データは匿名で収集されます。";
-"welcome-send-data-title" = "匿名データを送信";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
-"welcome-volunteer-thanks" = "$1 ありがとうございます!";
 "wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-download-success" = "ウィキテキストを読み込みました。";
 "wikitext-downloading" = "本文を読み込み中...";

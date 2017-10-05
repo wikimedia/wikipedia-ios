@@ -370,22 +370,15 @@
 "two-factor-login-with-backup-code" = "Sử dụng một mã sao lưu của bạn";
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
 "welcome-explore-continue-button" = "Bắt đầu";
-"welcome-explore-features-news-notifications" = "Nhận thông báo về tin tức thịnh hành";
-"welcome-explore-features-on-this-day" = "Quay về quá khứ với $1";
-"welcome-explore-features-places" = "Chuyển qua thẻ $1 để khám phá các nơi nổi tiếng lân cận hoặc khắp thế giới";
 "welcome-explore-new-ways-title" = "Phương cách thám hiểm mới";
 "welcome-explore-tell-me-more-done-button" = "Được rồi";
 "welcome-languages-add-button" = "Thêm một ngôn ngữ nữa";
-"welcome-languages-continue-button" = "Tiếp";
-"welcome-languages-sub-title" = "Chọn các ngôn ngữ ưa thích của bạn đã tìm kiếm Wikipedia";
-"welcome-languages-title" = "Ngôn ngữ";
 "welcome-notifications-tell-me-more-creation" = "Các thông báo được ứng dụng này tạo và gửi trên thiết bị của bạn, chứ không phải được máy chủ nào gửi.";
 "welcome-notifications-tell-me-more-storage" = "Tùy chọn thông báo được lưu vào thiết bị và không tùy theo thông tin cá nhân hoặc hoạt động của bạn.";
 "welcome-notifications-tell-me-more-title" = "Đọc thêm về thông báo";
+// Fuzzy
 "welcome-send-data-sub-title" = "Giúp Quỹ Wikimedia cải thiện ứng dụng này bằng cách cho biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
-"welcome-send-data-title" = "Gửi Dữ liệu Vô danh";
 "welcome-volunteer-send-usage-reports" = "Gửi báo cáo sử dụng";
-"welcome-volunteer-thanks" = "$1 Cảm ơn bạn!";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
 "wikitext-download-success" = "Đã tải xong nội dung.";
 "wikitext-downloading" = "Đang tải nội dung…";

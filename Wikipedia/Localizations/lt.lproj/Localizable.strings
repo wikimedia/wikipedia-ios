@@ -247,14 +247,10 @@
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-languages-add-button" = "Pridėti kitą kalbą";
-"welcome-languages-continue-button" = "Tęsti";
-"welcome-languages-title" = "Kalbos";
 "welcome-notifications-tell-me-more-creation" = "Pranešimus sukuria ir pristato programėlė jūsų įrenginyje, o ne mūsų (ar trečiųjų šalių) serveriai.";
 "welcome-notifications-tell-me-more-storage" = "Pranešimų nustatymai laikomi įrenginyje ir nėra paremti asmenine informacija ar veikla.";
 "welcome-notifications-tell-me-more-title" = "Daugiau apie pranešimus";
-"welcome-send-data-title" = "Siųsti Anoniminius duomenis";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
-"welcome-volunteer-thanks" = "$1 Ačiū!";
 "wikitext-download-failed" = "Nepavyko gauti naujausios redakcijos.";
 "wikitext-download-success" = "Turinys įkeltas.";
 "wikitext-downloading" = "Įkeliamas turinys...";

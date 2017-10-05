@@ -209,12 +209,7 @@
 "welcome-explore-continue-button" = "Začněte";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
 "welcome-languages-add-button" = "Přidat další jazyk";
-"welcome-languages-continue-button" = "Pokračovat";
-"welcome-languages-sub-title" = "Vyberte si své preferované jazyky pro vyhledávání Wikipedie";
-"welcome-languages-title" = "Jazyky";
-"welcome-send-data-title" = "Posílat Anonymní data";
 "welcome-volunteer-send-usage-reports" = "Odesílat zprávy o využití";
-"welcome-volunteer-thanks" = "$1 Děkujeme!";
 "wikitext-download-failed" = "Poslední revizi se nepodařilo získat.";
 "wikitext-download-success" = "Obsah byl načten.";
 "wikitext-downloading" = "Načítání obsahu...";

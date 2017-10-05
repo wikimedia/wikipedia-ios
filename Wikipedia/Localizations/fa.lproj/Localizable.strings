@@ -392,22 +392,15 @@
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
 "view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
 "welcome-explore-continue-button" = "شروع شد";
-"welcome-explore-features-news-notifications" = "دریافت عنوان مقالاتی که در اخبار پربازدیدها فهرست شده‌اند";
-"welcome-explore-features-on-this-day" = "سفر به زمان با $1 برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";
-"welcome-explore-features-places" = "از زبانهٔ $1 برای پیدا کردن مکان‌ها و ساختمان‌‌های شاخص در اطرافتان یا جستجو در جهان، استفاده کنید";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
 "welcome-languages-add-button" = "افزدون زبان دیگر";
-"welcome-languages-continue-button" = "ادامه";
-"welcome-languages-sub-title" = "زبان مورد علاقه‌تان برای جستجو در ویکی‌پدیا را انتخاب کنید";
-"welcome-languages-title" = "زبان‌ها";
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها به کمک اپلیکیشن موجود روی دستگاه شما تولید می‌شود و از طریق سرور یا سرویس شخص ثالث تولید نمی‌شوند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی برپایهٔ دستگاه است و بر پایهٔ اطلاعات شخصی یا فعالیت شما نیست.";
 "welcome-notifications-tell-me-more-title" = "بیشتر دربارهٔ آگاه‌سازی";
+// Fuzzy
 "welcome-send-data-sub-title" = "به بنیاد ویکی‌مدیا کمک کنید که اپلیکیشنش را بهبود و ارتقاء دهد. اطلاعات به صورت ناشناس جمع‌آوری می‌شوند.";
-"welcome-send-data-title" = "ارسال اطلاعات به صورت ناشناس";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
-"welcome-volunteer-thanks" = "$1 متشکریم!";
 "wikitext-download-failed" = "ناتوانی در اخذ آخرین تجدید نظر.";
 "wikitext-download-success" = "متن بارگیری شد.";
 "wikitext-downloading" = "بارگیری متن...";

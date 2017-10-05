@@ -328,16 +328,12 @@
 "welcome-explore-new-ways-title" = "Чинчийии саҥа ньымалара";
 "welcome-explore-tell-me-more-done-button" = "Бу өйдөнөр";
 "welcome-languages-add-button" = "Атын тылла эп";
-"welcome-languages-continue-button" = "Салгыы";
-"welcome-languages-sub-title" = "Бикипиэдьийэҕэ көрдүүргэ тыллары тал";
-"welcome-languages-title" = "Омугун тыла";
 "welcome-notifications-tell-me-more-creation" = "Биллэриилэр бэйэҥ тэрилгэр оҥоһуллаллар, биһиги (биитэр атын) сиэрбэрбитигэр буолбатах.";
 "welcome-notifications-tell-me-more-storage" = "Биллэриилэр тэрилгэр харалла сылдьыахтара уонна тус бэйэҕиттэн биитэр тугу гынаргыттан тутулуга суох буолуохтара.";
 "welcome-notifications-tell-me-more-title" = "Биллэрии туһунан сиһилии";
+// Fuzzy
 "welcome-send-data-sub-title" = "Бикимиэдьийэ тэрилин хайдах туһанаргын биллэҕинэ тупсарар кыахтаныа. Хомуллубут көрдөрүүлэрин аатыҥ киирбэт.";
-"welcome-send-data-title" = "Ааты эппэккэ ыытыы";
 "welcome-volunteer-send-usage-reports" = "Туһаныы отчуотун ыытар буол";
-"welcome-volunteer-thanks" = "$1 Махтал!";
 "wikitext-download-failed" = "Тиһэх барылын ылар табыллыбата.";
 "wikitext-download-success" = "Хачайданна.";
 "wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
