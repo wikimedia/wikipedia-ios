@@ -268,28 +268,35 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         activeIndexPath = nil
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
         swipeInfoByIndexPath[indexPath] = nil
-        let completion = { (finished: Bool) in
-            cell.isSwiping = self.activeIndexPath == indexPath
-            completion(finished)
-        }
         if let expandedAction = expandedAction {
             let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
-            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: completion)
+            animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { (finished) in
+                //don't set isSwiping to false so that the expanded action stays visible through the fade
+                completion(finished)
+            })
         } else {
-            animateActionPane(of: cell, to: 0, with: velocity, completion: completion)
+            animateActionPane(of: cell, to: 0, with: velocity, completion: { (finished: Bool) in
+                cell.isSwiping = self.activeIndexPath == indexPath
+                completion(finished)
+            })
         }
     }
 
     func animateActionPane(of cell: SwipeableCell, to targetTranslation: CGFloat, with swipeVelocity: CGFloat, expandedAction: CollectionViewCellAction? = nil, completion: @escaping (Bool) -> Void = {_ in }) {
+         if let action = expandedAction {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                cell.actionsView.expand(action)
+                cell.swipeTranslation = targetTranslation
+                cell.layoutIfNeeded()
+            }, completion: completion)
+            return
+        }
         let initialSwipeTranslation = cell.swipeTranslation
         let animationTranslation = targetTranslation - initialSwipeTranslation
         let animationDuration: TimeInterval = 0.3
         let distanceInOneSecond = animationTranslation / CGFloat(animationDuration)
         let unitSpeed = distanceInOneSecond == 0 ? 0 : swipeVelocity / distanceInOneSecond
         UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: unitSpeed, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-            if let action = expandedAction {
-                cell.actionsView.expand(action)
-            }
             cell.swipeTranslation = targetTranslation
             cell.layoutIfNeeded()
         }, completion: completion)

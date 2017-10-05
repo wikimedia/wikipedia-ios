@@ -1,7 +1,7 @@
 import Foundation
 
 public struct CollectionViewCellAction: Equatable {
-    let title: String
+    let title: String?
     let icon: UIImage?
     public let type: CollectionViewCellActionType
     
@@ -12,17 +12,17 @@ public struct CollectionViewCellAction: Equatable {
 
 public enum CollectionViewCellActionType {
     case delete, save, unsave, share
-    
+
     public var action: CollectionViewCellAction {
         switch self {
         case .delete:
-            return CollectionViewCellAction(title: CommonStrings.deleteActionTitle, icon: nil, type: .delete)
+            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), type: .delete)
         case .save:
-            return CollectionViewCellAction(title: CommonStrings.shortSaveTitle, icon: nil, type: .save)
+            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .save)
         case .unsave:
-            return CollectionViewCellAction(title: CommonStrings.shortUnsaveTitle, icon: nil, type: .unsave)
+            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .unsave)
         case .share:
-            return CollectionViewCellAction(title: CommonStrings.shareActionTitle, icon: nil, type: .share)
+            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), type: .share)
         }
     }
 }
@@ -39,6 +39,7 @@ public protocol ActionsViewDelegate: NSObjectProtocol {
 }
 
 public class CollectionViewCellActionsView: SizeThatFitsView {
+    fileprivate let minButtonWidth: CGFloat = 60
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     var buttons: [UIButton] = []
@@ -77,11 +78,10 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
+            let isRTL = semanticContentAttribute == .forceRightToLeft
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
                 let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
-                let buttonWidth = max(self.buttonWidth, buttonDelta)
-                let isRTL = semanticContentAttribute == .forceRightToLeft
                 let buttons = isRTL ? self.buttons.reversed() : self.buttons
                 var x: CGFloat = isRTL ? max(0, size.width - maximumWidth) : 0
                 for button in buttons {
@@ -89,15 +89,14 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
                     x += buttonDelta
                 }
             } else {
+                var x: CGFloat = isRTL ? size.width : 0 - (buttonWidth * CGFloat(buttons.count - 1))
                 for (index, button) in buttons.enumerated() {
                     button.clipsToBounds = true
                     if index == activatedIndex {
-                        button.imageView?.alpha = 0
-                        button.titleLabel?.alpha = 0
-                        button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
+                        button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height))
                     } else {
-                        button.alpha = 0
-                        button.frame = CGRect(origin: button.frame.origin, size: CGSize(width: button.frame.width, height: 0))
+                        button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
+                        x += buttonWidth
                     }
                 }
             }
@@ -118,6 +117,7 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         for (index, action) in actions.enumerated() {
             let button = UIButton(type: .custom)
             button.setTitle(action.title, for: .normal)
+            button.setImage(action.icon, for: .normal)
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
             button.tag = index
@@ -138,8 +138,8 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         }
 
         backgroundColor = buttons.last?.backgroundColor
-        buttonWidth = maxButtonWidth
-        maximumWidth = maxButtonWidth * CGFloat(subviews.count)
+        buttonWidth = max(minButtonWidth, maxButtonWidth)
+        maximumWidth = buttonWidth * CGFloat(subviews.count)
         setNeedsLayout()
     }
 
