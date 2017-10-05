@@ -36,7 +36,7 @@ public enum ActionType {
     }
 }
 
-public class ActionsView: SizeThatFitsView {
+public class ActionsView: SizeThatFitsView, Themeable {
     fileprivate let minButtonWidth: CGFloat = 60
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
@@ -153,4 +153,8 @@ public class ActionsView: SizeThatFitsView {
         let _ = delegate?.didPerformAction(action)
     }
     
+    public func apply(theme: Theme) {
+        self.theme = theme
+        backgroundColor = theme.colors.baseBackground
+    }
 }
