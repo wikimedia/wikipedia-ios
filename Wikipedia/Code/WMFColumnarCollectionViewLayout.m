@@ -6,6 +6,8 @@
 #import "WMFCVLInvalidationContext.h"
 #import "WMFCVLMetrics.h"
 
+static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 600;
+
 @interface WMFColumnarCollectionViewLayout ()
 
 @property (nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
@@ -88,7 +90,7 @@
     if (@available(iOS 11.0, *)) {
         readableWidth = self.collectionView.readableContentGuide.layoutFrame.size.width;
     } else {
-        readableWidth = self.collectionView.bounds.size.width - self.collectionView.layoutMargins.left - self.collectionView.layoutMargins.right;
+        readableWidth = MIN(WMFColumnarCollectionViewLayoutMaxReadableWidth, self.collectionView.bounds.size.width - self.collectionView.layoutMargins.left - self.collectionView.layoutMargins.right);
     }
 
     if (self.metrics && self.metrics.readableWidth != readableWidth) {
