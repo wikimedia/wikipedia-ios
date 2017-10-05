@@ -197,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
-        
+
         [self setOverlayViewTopBarHidden:NO];
     }
     return self;
@@ -220,7 +220,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         [self setOverlayViewTopBarHidden:YES];
-        
+
         self.theme = theme;
     }
     return self;
@@ -235,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
-        
+
         UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = [UIColor whiteColor];
         self.overlayView.leftBarButtonItem = close;
@@ -461,7 +461,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
-    
+
     id<NYTPhoto> selected = nil;
     if (image) {
         selected = [[self class] photoWithImage:image inPhotos:photos];
@@ -621,9 +621,7 @@ NS_ASSUME_NONNULL_BEGIN
 
                                                                   UIActivityViewController *vc = [[WMFShareActivityController alloc] initWithImageInfo:info imageDownload:download];
                                                                   vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-                                                                  UIPopoverPresentationController *presenter = [vc popoverPresentationController];
-                                                                  presenter.barButtonItem = self.rightBarButtonItem;
-                                                                  
+
                                                                   [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
                                                               }];
 
