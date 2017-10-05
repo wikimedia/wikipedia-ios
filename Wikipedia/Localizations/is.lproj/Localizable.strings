@@ -199,11 +199,7 @@
 "welcome-explore-tell-me-more-done-button" = "Náði því";
 // Fuzzy
 "welcome-languages-add-button" = "Bæta við öðru";
-"welcome-languages-continue-button" = "Halda áfram";
-"welcome-languages-sub-title" = "Veldu þau tungumál sem þú vilt fyrst og fremst nota við leit á Wikipedia";
-"welcome-languages-title" = "Tungumál sem á að leita í";
 "welcome-volunteer-send-usage-reports" = "Senda notkunarskýrslur";
-"welcome-volunteer-thanks" = "Þakka þér $1 !";
 "wikitext-download-failed" = "Tókst ekki að ná í seinustu útgáfu.";
 "wikitext-download-success" = "Efnið hlaðið.";
 "wikitext-downloading" = "Hleður efni...";

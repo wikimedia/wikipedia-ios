@@ -343,16 +343,12 @@
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";
 "welcome-explore-tell-me-more-done-button" = "Разумем";
 "welcome-languages-add-button" = "Додај други језик";
-"welcome-languages-continue-button" = "Настави";
-"welcome-languages-sub-title" = "Изаберите жељене језике за претрагу Википедије";
-"welcome-languages-title" = "Језици";
 "welcome-notifications-tell-me-more-creation" = "Обавештења се креирају и вама достављају на ваш уређај помоћу апликације, не са наших или сервера треће стране.";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се спремају на уређају и нису заснована на личним информацијама или активности.";
 "welcome-notifications-tell-me-more-title" = "Још о обавештењима";
+// Fuzzy
 "welcome-send-data-sub-title" = "Помозите Фондацији Викимедија да направи апликацију бољом тако што ћете рећи како користите апликацију. Прикупљени подаци су анонимни.";
-"welcome-send-data-title" = "Пошаљи податке анонимно";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
-"welcome-volunteer-thanks" = "$1 Хвала!";
 "wikitext-download-failed" = "Не могу да преузмем најновију измену.";
 "wikitext-download-success" = "Садржај је учитан.";
 "wikitext-downloading" = "Учитавам садржај…";

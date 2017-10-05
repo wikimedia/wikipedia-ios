@@ -202,11 +202,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";
 "welcome-languages-add-button" = "Adaugă încă o limbă";
-"welcome-languages-continue-button" = "Continuă";
-"welcome-languages-sub-title" = "Alegeți limbile preferate în care doriți să căutați pe Wikipedia";
-"welcome-languages-title" = "Limbi";
 "welcome-volunteer-send-usage-reports" = "Trimite rapoarte de utilizare";
-"welcome-volunteer-thanks" = "$1 Mulțumim!";
 "wikitext-download-failed" = "Imposibil de obținut ultima versiune.";
 "wikitext-download-success" = "Conținut încărcat.";
 "wikitext-downloading" = "Se încarcă conținutul...";

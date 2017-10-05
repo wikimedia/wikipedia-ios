@@ -317,17 +317,12 @@
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-languages-add-button" = "Adicionar outro idioma";
-"welcome-languages-continue-button" = "Continuar";
-"welcome-languages-sub-title" = "Escolha os seus idiomas pré-definidos para pesquisar na Wikipédia";
-"welcome-languages-title" = "Línguas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
 // Fuzzy
 "welcome-send-data-sub-title" = "Ajude a Wikimedia a tornar melhor a aplicação ao nos informar como a utiliza. Os dados coletados são anónimos";
-"welcome-send-data-title" = "Enviar dados anónimos";
 "welcome-volunteer-send-usage-reports" = "Enviar relatórios de uso";
-"welcome-volunteer-thanks" = "$1 Obrigado(a)!";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Conteúdo carregado.";
 "wikitext-downloading" = "A carregar conteúdo...";

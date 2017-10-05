@@ -367,16 +367,12 @@
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
-"welcome-languages-continue-button" = "Continua";
-"welcome-languages-sub-title" = "Trieu les vostres llengües preferides per cercar a la Viquipèdia";
-"welcome-languages-title" = "Llengües";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
+// Fuzzy
 "welcome-send-data-sub-title" = "Ajudeu la Fundació Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
-"welcome-send-data-title" = "Enviament de dades anònimes";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
-"welcome-volunteer-thanks" = "$1 Gràcies!";
 "wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-download-success" = "S'ha carregat el contingut.";
 "wikitext-downloading" = "S'està carregant el contingut...";

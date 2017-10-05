@@ -372,16 +372,12 @@
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";
 "welcome-languages-add-button" = "Tambah basa liyané";
-"welcome-languages-continue-button" = "Banjuraké";
-"welcome-languages-sub-title" = "Pilih basa sing disenengi kanggo nelusuri Wikipedia";
-"welcome-languages-title" = "Basa";
 "welcome-notifications-tell-me-more-creation" = "Kabar sing digawe lan dikirim ing piranti kanthi app, ora saka server kita (utawa pihak katelu).";
 "welcome-notifications-tell-me-more-storage" = "Pilalan wara-wara disimpen ing piranti lan ora adhedhasar katerangan utawa kagiyatan priangga.";
 "welcome-notifications-tell-me-more-title" = "Candhaké ngenani wara-wara";
+// Fuzzy
 "welcome-send-data-sub-title" = "Éwangi Yeyasan Wikimedia ngapiki aplikasiné kanthi ngolèhaké awak dhéwé ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
-"welcome-send-data-title" = "Kirimi Dhata anonim";
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
-"welcome-volunteer-thanks" = "Matur nuwun! $1";
 "wikitext-download-failed" = "Iso diwenehi vèrsi.";
 "wikitext-download-success" = "Isi dimot.";
 "wikitext-downloading" = "Mbukak isi...";
