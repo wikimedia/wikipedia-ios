@@ -84,7 +84,13 @@
 }
 
 - (void)prepareLayout {
-    CGFloat readableWidth = self.collectionView.readableContentGuide.layoutFrame.size.width;
+    CGFloat readableWidth = 0;
+    if (@available(iOS 11.0, *)) {
+        readableWidth = self.collectionView.readableContentGuide.layoutFrame.size.width;
+    } else {
+        readableWidth = self.collectionView.bounds.size.width - self.collectionView.layoutMargins.left - self.collectionView.layoutMargins.right;
+    }
+
     if (self.metrics && self.metrics.readableWidth != readableWidth) {
         self.layoutValid = NO;
     }
@@ -135,7 +141,7 @@
 
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-    
+
     if (context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange) {
         self.layoutValid = NO;
     }
