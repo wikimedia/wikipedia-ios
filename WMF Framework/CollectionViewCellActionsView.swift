@@ -1,60 +1,59 @@
 import Foundation
 
-public struct CollectionViewCellAction: Equatable {
+public class Action: UIAccessibilityCustomAction {
     let title: String?
     let icon: UIImage?
-    public let type: CollectionViewCellActionType
-    
-    public static func ==(lhs: CollectionViewCellAction, rhs: CollectionViewCellAction) -> Bool {
-        return lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.type == rhs.type
+    public let type: ActionType
+    public let indexPath: IndexPath
+
+    public init(title: String?, accessibilityTitle: String, icon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
+        self.title = title
+        self.icon = icon
+        self.type = type
+        self.indexPath = indexPath
+        super.init(name: accessibilityTitle, target: target, selector: selector)
     }
 }
 
-public enum CollectionViewCellActionType {
+@objc public protocol ActionDelegate: NSObjectProtocol {
+    @objc func didPerformAction(_ action: Action) -> Bool
+}
+
+public enum ActionType {
     case delete, save, unsave, share
 
-    public var action: CollectionViewCellAction {
+    public func action(with target: Any?, indexPath: IndexPath) -> Action {
         switch self {
         case .delete:
-            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), type: .delete)
+            return Action(title: nil, accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .save:
-            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .save)
+            return Action(title: nil, accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .unsave:
-            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .unsave)
+            return Action(title: nil, accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .share:
-            return CollectionViewCellAction(title: nil, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), type: .share)
+            return Action(title: nil, accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         }
     }
 }
 
-public protocol CollectionViewSwipeToEditDelegate: NSObjectProtocol {
-    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath)
-    
-    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
-    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
-}
-
-public protocol ActionsViewDelegate: NSObjectProtocol {
-    func didPerformAction(_ action: CollectionViewCellAction)
-}
-
-public class CollectionViewCellActionsView: SizeThatFitsView {
+public class ActionsView: SizeThatFitsView {
     fileprivate let minButtonWidth: CGFloat = 60
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     var buttons: [UIButton] = []
+    var needsSubviews = true
     
     public var theme = Theme.standard
     
-    var actions: [CollectionViewCellAction] = [] {
+    internal var actions: [Action] = [] {
         didSet {
             activatedIndex = NSNotFound
-            createSubviews(for: actions)
+            needsSubviews = true
         }
     }
     
     fileprivate var activatedIndex = NSNotFound
-    func expand(_ action: CollectionViewCellAction) {
+    func expand(_ action: Action) {
         guard let index = actions.index(of: action) else {
             return
         }
@@ -78,11 +77,15 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            let isRTL = semanticContentAttribute == .forceRightToLeft
+            if (size.width > 0 && needsSubviews) {
+                createSubviews(for: actions)
+                needsSubviews = false
+            }
+            let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let buttons = isRTL ? self.buttons.reversed() : self.buttons
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
                 let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
-                let buttons = isRTL ? self.buttons.reversed() : self.buttons
                 var x: CGFloat = isRTL ? max(0, size.width - maximumWidth) : 0
                 for button in buttons {
                     button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
@@ -90,9 +93,9 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
                 }
             } else {
                 var x: CGFloat = isRTL ? size.width : 0 - (buttonWidth * CGFloat(buttons.count - 1))
-                for (index, button) in buttons.enumerated() {
+                for button in buttons {
                     button.clipsToBounds = true
-                    if index == activatedIndex {
+                    if button.tag == activatedIndex {
                         button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height))
                     } else {
                         button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
@@ -106,7 +109,7 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         return CGSize(width: width, height: height)
     }
     
-    func createSubviews(for actions: [CollectionViewCellAction]) {
+    func createSubviews(for actions: [Action]) {
         for view in subviews {
             view.removeFromSuperview()
         }
@@ -143,11 +146,11 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         setNeedsLayout()
     }
 
-    public weak var delegate: ActionsViewDelegate?
+    public weak var delegate: ActionDelegate?
     
     @objc func didPerformAction(_ sender: UIButton) {
         let action = actions[sender.tag]
-        delegate?.didPerformAction(action)
+        let _ = delegate?.didPerformAction(action)
     }
     
 }

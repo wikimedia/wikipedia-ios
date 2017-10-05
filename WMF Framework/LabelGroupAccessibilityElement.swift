@@ -4,12 +4,13 @@ public class LabelGroupAccessibilityElement: UIAccessibilityElement {
     let labels: [UILabel]
     weak var view: UIView?
     
-    public init(view: UIView, labels: [UILabel]) {
+    public init(view: UIView, labels: [UILabel], actions: [UIAccessibilityCustomAction]) {
         self.labels = labels
         self.view = view
         super.init(accessibilityContainer: view)
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitLink
+        accessibilityCustomActions = actions
         update()
     }
     

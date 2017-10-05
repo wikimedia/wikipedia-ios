@@ -34,6 +34,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.readableMargins
     }
     
@@ -171,19 +172,22 @@ extension ArticleCollectionViewController {
 }
 
 
-extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
-    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath) {
-        
+extension ArticleCollectionViewController: ActionDelegate {
+    func didPerformAction(_ action: Action) -> Bool {
+        let indexPath = action.indexPath
         switch action.type {
         case .delete:
             delete(at: indexPath)
+            return true
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
+                return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
+                return true
             }
         case .share:
             let shareActivityController: ShareActivityController?
@@ -202,31 +206,29 @@ extension ArticleCollectionViewController: CollectionViewSwipeToEditDelegate {
                     viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
                 }
                 present(viewController, animated: true, completion: nil)
+                return true
             }
         }
+        return false
     }
     
-    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
-        var actions: [CollectionViewCellAction] = []
+    func availableActions(at indexPath: IndexPath) -> [Action] {
+        var actions: [Action] = []
         
         if canSave(at: indexPath) {
-            actions.append(CollectionViewCellActionType.save.action)
+            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
         } else if canUnsave(at: indexPath) {
-            actions.append(CollectionViewCellActionType.unsave.action)
+            actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
         }
         
         if canShare(at: indexPath) {
-            actions.append(CollectionViewCellActionType.share.action)
+            actions.append(ActionType.share.action(with: self, indexPath: indexPath))
         }
         
         if canDelete(at: indexPath) {
-            actions.append(CollectionViewCellActionType.delete.action)
+            actions.append(ActionType.delete.action(with: self, indexPath: indexPath))
         }
 
         return actions
-    }
-    
-    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction] {
-        return []
     }
 }

@@ -77,6 +77,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.imageURL = result.thumbnailURL
         } 
         cell.apply(theme: theme)
+        cell.actions = availableActions(at: indexPath)
     }
 }
 

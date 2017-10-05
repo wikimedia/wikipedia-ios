@@ -69,6 +69,7 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         cell.titleLabel.text = entry.searchTerm
         cell.isImageViewHidden = true
         cell.apply(theme: theme)
+        cell.actions = availableActions(at: indexPath)
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
