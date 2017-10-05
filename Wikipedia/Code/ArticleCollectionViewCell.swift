@@ -249,7 +249,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         layoutSubviews()
         actionsView.layoutIfNeeded()
     }
-    
+
     // MARK: Prepare for reuse
     
     func resetSwipeable() {

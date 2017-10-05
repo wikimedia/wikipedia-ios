@@ -7,7 +7,7 @@ extension ArticleCollectionViewCell: Themeable {
         extractLabel?.textColor = theme.colors.primaryText
         saveButton.setTitleColor(theme.colors.link, for: .normal)
         imageView.alpha = theme.imageOpacity
-        actionsView.backgroundColor = theme.colors.baseBackground
+        actionsView.apply(theme: theme)
         updateSelectedOrHighlighted()
     }
 }
