@@ -341,16 +341,12 @@
 "welcome-explore-new-ways-title" = "Hentoù nevez da vezañ ergerzhet";
 "welcome-explore-tell-me-more-done-button" = "Dibat evit";
 "welcome-languages-add-button" = "Ouzhpennañ ur yezh all";
-"welcome-languages-continue-button" = "Kenderc'hel";
-"welcome-languages-sub-title" = "Dibab ar yezhoù a blij deoc'h ar muiañ evit ober enklaskoù e Wikipedia";
-"welcome-languages-title" = "Yezhoù";
 "welcome-notifications-tell-me-more-creation" = "Krouet ha pourchaset eo ar c'hemennadennoù war ho penveg gant an arload. Ne zeuont ket servijerioù diavaez.";
 "welcome-notifications-tell-me-more-storage" = "Enrollañ a reomp ar penndibaboù war ar benveg, n'int ket diazezet war titouroù personel pe hoc'h obererezh.";
 "welcome-notifications-tell-me-more-title" = "Gouzout hiroc'h diwar-benn ar c'hemennadennoù";
+// Fuzzy
 "welcome-send-data-sub-title" = "Skoazellit Diazezadur Wikipedia da wellaat an arload en ur lezel ac'hanomp da c'houzout penaos ec'h embregit anezhañ. Dizanv e chom an roadennoù dastumet.";
-"welcome-send-data-title" = "Kas roadennoù dizanv.";
 "welcome-volunteer-send-usage-reports" = "Kas danevelloù implij";
-"welcome-volunteer-thanks" = "$1 Trugarez !";
 "wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-download-success" = "Endalc'had karget";
 "wikitext-downloading" = "O kargañ un endalc'had...";

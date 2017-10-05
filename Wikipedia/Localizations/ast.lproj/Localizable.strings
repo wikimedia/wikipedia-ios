@@ -373,22 +373,15 @@
 "two-factor-login-with-backup-code" = "Usar unu de los códigos de respaldu";
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
 "welcome-explore-continue-button" = "Primeros pasos";
-"welcome-explore-features-news-notifications" = "Recibir avisos sobre les temes que son tendencia nes noticies.";
-"welcome-explore-features-on-this-day" = "Viaxa al pasáu con $1 pa saber qué asocedió na hestoria tal día como güei";
-"welcome-explore-features-places" = "Usa la llingüeta $1 p'alcontrar sitios interesantes cercanos o buscar pel mundu";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
 "welcome-languages-add-button" = "Amestar otra llingua";
-"welcome-languages-continue-button" = "Siguir";
-"welcome-languages-sub-title" = "Esbilla les llingües que prefieres pa guetar en Wikipedia";
-"welcome-languages-title" = "Llingües";
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
 "welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";
+// Fuzzy
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a ameyorar esta aplicación contándonos cómo la uses. Los datos collechaos son anónimos.";
-"welcome-send-data-title" = "Unviar datos anónimos";
 "welcome-volunteer-send-usage-reports" = "Unviar informes d'usu";
-"welcome-volunteer-thanks" = "$1 ¡Gracies!";
 "wikitext-download-failed" = "Nun pue algamase la cabera revisión.";
 "wikitext-download-success" = "Cargáu el conteníu.";
 "wikitext-downloading" = "Cargando'l conteníu...";

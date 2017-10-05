@@ -376,22 +376,15 @@
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "welcome-explore-continue-button" = "Kullanmaya başla";
-"welcome-explore-features-news-notifications" = "Bu popüler konular için daha fazla bilgi al.";
-"welcome-explore-features-on-this-day" = "Tarihte bugün ne olduğunu öğrenmek için, $1 ile geçmişe yolculuk yap.";
-"welcome-explore-features-places" = "Çevrendeki veya tüm dünyadaki önemli yerleri keşfetmek için bir dolarlık banknot kullan.";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
 "welcome-languages-add-button" = "Başka bir dil ekle";
-"welcome-languages-continue-button" = "Devam";
-"welcome-languages-sub-title" = "Vikipedi'de arama yapmak için tercih ettiğiniz dilleri seçin";
-"welcome-languages-title" = "Diller";
 "welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihanız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
 "welcome-notifications-tell-me-more-storage" = "Bildirim tercihleri cihazda saklanır ve kişisel bilgi veya faaliyete dayalı değildir.";
 "welcome-notifications-tell-me-more-title" = "Bildirimler hakkında daha fazla bilgi";
+// Fuzzy
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bize bildirerek Wikimedia Vakfı'nın uygulamayı daha iyi hâle getirmesini sağlayın. Veriler anonim olarak toplanır";
-"welcome-send-data-title" = "Anonim veri gönder";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
-"welcome-volunteer-thanks" = "$1 Teşekkürler!";
 "wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-download-success" = "İçerik yüklendi.";
 "wikitext-downloading" = "İçerik yükleniyor...";

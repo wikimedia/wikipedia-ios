@@ -155,14 +155,10 @@
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-tell-me-more-done-button" = "मैले बुझेँ";
 "welcome-languages-add-button" = "अर्को भाषा थप्नुहोस्";
-"welcome-languages-continue-button" = "जारी राख्नुहोस्";
-"welcome-languages-title" = "भाषाहरू";
 "welcome-notifications-tell-me-more-title" = "जानकारीको बारेमा थप";
 // Fuzzy
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
-"welcome-send-data-title" = "अज्ञात रूपमा डाटा पठाउनुहोस्";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
-"welcome-volunteer-thanks" = "$1 तपाईँलाई धन्यवाद!";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "प्रवेश (लग ईन)";

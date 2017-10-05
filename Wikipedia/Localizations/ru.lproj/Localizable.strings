@@ -391,20 +391,15 @@
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
 "welcome-explore-continue-button" = "Начать";
-"welcome-explore-features-on-this-day" = "Перенеситесь назад во времени с $1, чтобы узнать, что произошло сегодня в истории";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
 "welcome-languages-add-button" = "Добавить ещё один язык";
-"welcome-languages-continue-button" = "Продолжить";
-"welcome-languages-sub-title" = "Выберите языки, на которых вы хотели бы осуществлять поиск в Википедии";
-"welcome-languages-title" = "Языки";
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
+// Fuzzy
 "welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете приложение. Собранные данные являются анонимными.";
-"welcome-send-data-title" = "Отправить анонимные данные";
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
-"welcome-volunteer-thanks" = "$1 Спасибо!";
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Содержимое загружено.";
 "wikitext-downloading" = "Загрузка содержимого…";

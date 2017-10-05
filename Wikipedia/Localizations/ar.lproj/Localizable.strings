@@ -352,13 +352,10 @@
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
-"welcome-languages-continue-button" = "استمر";
-"welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
-"welcome-languages-title" = "اللغات";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
+// Fuzzy
 "welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
-"welcome-volunteer-thanks" = "شكرا لك!$1";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";

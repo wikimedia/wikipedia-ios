@@ -362,16 +362,12 @@
 "welcome-explore-new-ways-title" = "Új módok a felfedezésre";
 "welcome-explore-tell-me-more-done-button" = "Értem";
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
-"welcome-languages-continue-button" = "Tovább";
-"welcome-languages-sub-title" = "Válaszd ki a Wikipédia kereséséhez preferált nyelveket";
-"welcome-languages-title" = "Nyelvek";
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
 "welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
+// Fuzzy
 "welcome-send-data-sub-title" = "Segíts a Wikimédia Alapítványnak az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
-"welcome-send-data-title" = "Névtelen adatok küldése";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
-"welcome-volunteer-thanks" = "$1 Köszönjük!";
 "wikitext-download-failed" = "A legfrissebb változat lekérése sikertelen.";
 "wikitext-download-success" = "A tartalom betöltve.";
 "wikitext-downloading" = "Tartalom betöltése…";

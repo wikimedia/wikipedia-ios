@@ -361,20 +361,17 @@
 "two-factor-login-title" = "Kirjaudu sisään tilillesi";
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
+"view-in-browser-footer-link" = "Lue artikkeli selaimessa";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
 "welcome-languages-add-button" = "Lisää toinen kieli";
-"welcome-languages-continue-button" = "Jatka";
-"welcome-languages-sub-title" = "Valitse ensisijaiset kielesi hakeaksesi Wikipediasta";
-"welcome-languages-title" = "Kielet";
 "welcome-notifications-tell-me-more-creation" = "Sovellus luo ja toimittaa ilmoitukset, eikä niitä haeta meidän (tai kolmannen osapuolen) palvelimilta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset ovat tallennettuna laitteeseen eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintoihin.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
+// Fuzzy
 "welcome-send-data-sub-title" = "Auta Wikimedia Foundationia tekemään sovelluksesta parempi lähettämällä dataa siitä, miten käytät sovellusta. Kerätyt tiedot ovat anonyymejä.";
-"welcome-send-data-title" = "Lähetä anonyymiä dataa";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
-"welcome-volunteer-thanks" = "$1 Kiitos!";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-download-success" = "Sisältö ladattu.";
 "wikitext-downloading" = "Ladataan sisältöä...";

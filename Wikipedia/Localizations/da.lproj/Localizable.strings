@@ -379,22 +379,15 @@
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
 "view-in-browser-footer-link" = "Vis artikel i browser";
 "welcome-explore-continue-button" = "Kom i gang";
-"welcome-explore-features-news-notifications" = "Få nyhedspåmindelser for populære emner i nyhederne";
-"welcome-explore-features-on-this-day" = "Rejs tilbage i tiden med $1 for at lære hvad der skete i dag historisk";
-"welcome-explore-features-places" = "Brug $1-fanebladet for at finde landmærker nær dig eller søge rundt omkring i verden";
 "welcome-explore-new-ways-title" = "Nye måder at udforske";
 "welcome-explore-tell-me-more-done-button" = "Forstået";
 "welcome-languages-add-button" = "Tilføj et andet sprog";
-"welcome-languages-continue-button" = "Fortsæt";
-"welcome-languages-sub-title" = "Vælg dine foretrukne sprog at søge på i Wikipedia";
-"welcome-languages-title" = "Sprog";
 "welcome-notifications-tell-me-more-creation" = "Notifikationer skabes og leveres på din enhed af appen, ikke fra vores (eller tredjeparters) servere.";
 "welcome-notifications-tell-me-more-storage" = "Indstillinger for notifikationer gemmes på enheden og er ikke baseret på personlige informationer eller aktivitet.";
 "welcome-notifications-tell-me-more-title" = "Mere om notifikationer";
+// Fuzzy
 "welcome-send-data-sub-title" = "Hjælp Wikipedia Foundation med at gøre appen bedre ved at oplyse os om hvordan du bruger den. Data indsamles anonymt.";
-"welcome-send-data-title" = "Send anonyme data";
 "welcome-volunteer-send-usage-reports" = "Send anvendelsesrapporter";
-"welcome-volunteer-thanks" = "$1 Tak!";
 "wikitext-download-failed" = "Ude af stand til at hente seneste version.";
 "wikitext-download-success" = "Indhold hentet.";
 "wikitext-downloading" = "Henter indhold...";
