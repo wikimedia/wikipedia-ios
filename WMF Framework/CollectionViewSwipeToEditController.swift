@@ -93,19 +93,22 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         guard let delegate = delegate else {
+            closeActionPane()
             return false
         }
         
         let position = gestureRecognizer.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: position) else {
-                return false
+            closeActionPane()
+            return false
         }
 
         let velocity = gestureRecognizer.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
         if fabs(velocity.y) >= fabs(velocity.x) {
+            closeActionPane()
             return false
         }
         
@@ -133,6 +136,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         activeIndexPath = indexPath
         guard let cell = activeCell, cell.actions.count > 0 else {
             activeIndexPath = nil
+            closeActionPane()
             return false
         }
         
@@ -234,7 +238,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     // MARK: - States
     
     func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
-        collectionView.isScrollEnabled = false
+        collectionView.allowsSelection = false
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
             return
@@ -247,7 +251,7 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     public func closeActionPane(with expandedAction: Action? = nil, _ completion: @escaping (Bool) -> Void = {_ in }) {
-        collectionView.isScrollEnabled = true
+        collectionView.allowsSelection = true
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
             return
