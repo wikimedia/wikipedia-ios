@@ -1,14 +1,14 @@
 import Foundation
 
 public class Action: UIAccessibilityCustomAction {
-    let title: String?
     let icon: UIImage?
+    let confirmationIcon: UIImage?
     public let type: ActionType
     public let indexPath: IndexPath
 
-    public init(title: String?, accessibilityTitle: String, icon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
-        self.title = title
+    public init(accessibilityTitle: String, icon: UIImage?, confirmationIcon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
         self.icon = icon
+        self.confirmationIcon = confirmationIcon;
         self.type = type
         self.indexPath = indexPath
         super.init(name: accessibilityTitle, target: target, selector: selector)
@@ -25,13 +25,13 @@ public enum ActionType {
     public func action(with target: Any?, indexPath: IndexPath) -> Action {
         switch self {
         case .delete:
-            return Action(title: nil, accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .save:
-            return Action(title: nil, accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .unsave:
-            return Action(title: nil, accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .share:
-            return Action(title: nil, accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         }
     }
 }
@@ -119,7 +119,6 @@ public class ActionsView: SizeThatFitsView, Themeable {
         
         for (index, action) in actions.enumerated() {
             let button = UIButton(type: .custom)
-            button.setTitle(action.title, for: .normal)
             button.setImage(action.icon, for: .normal)
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
@@ -150,7 +149,14 @@ public class ActionsView: SizeThatFitsView, Themeable {
     
     @objc func didPerformAction(_ sender: UIButton) {
         let action = actions[sender.tag]
-        let _ = delegate?.didPerformAction(action)
+        if let image = action.confirmationIcon {
+            sender.setImage(image, for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                let _ = self.delegate?.didPerformAction(action)
+            }
+        } else {
+            let _ = delegate?.didPerformAction(action)
+        }
     }
     
     public func apply(theme: Theme) {
