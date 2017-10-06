@@ -18,6 +18,7 @@ class WMFWelcomeContainerViewController: UIViewController {
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
     fileprivate var hasAlreadyFadedInAndUp = false
+    fileprivate var needsDeviceAdjustments = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,18 +56,21 @@ class WMFWelcomeContainerViewController: UIViewController {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        let height = view.bounds.size.height
-        if height <= 480 {
-            // Just hide animations on iPhone 4s
-            hideAndCollapseTopContainerView()
-        } else if height <= 568 {
-            // On iPhone 5 reduce size of animations.
-            reduceTopAnimationsSizes(reduction: 50)
-        } else {
-            // On everything else add vertical separation between bottom container and animations.
-            bottomContainerViewTopConstraint.constant = 20
+        if needsDeviceAdjustments {
+            let height = view.bounds.size.height
+            if height <= 480 {
+                // Just hide animations on iPhone 4s
+                hideAndCollapseTopContainerView()
+            } else if height <= 568 {
+                // On iPhone 5 reduce size of animations.
+                reduceTopAnimationsSizes(reduction: 30)
+            } else {
+                // On everything else add vertical separation between bottom container and animations.
+                bottomContainerViewTopConstraint.constant = 20
+            }
+            useBottomAlignmentIfPhone()
+            needsDeviceAdjustments = false
         }
-        useBottomAlignmentIfPhone()
     }
     
     fileprivate func reduceTopAnimationsSizes(reduction: CGFloat) {

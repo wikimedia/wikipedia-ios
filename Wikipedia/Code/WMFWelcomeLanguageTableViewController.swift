@@ -1,5 +1,5 @@
 
-class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class WMFWelcomeLanguageTableViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     fileprivate var theme = Theme.standard
     
