@@ -126,6 +126,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
 @property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) UIView *statusBarUnderlay;
+
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
 
 // Table of Contents
@@ -607,6 +609,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
 }
 
+- (void)addStatusBarUnderlay {
+    UIView *statusBarUnderlay = [[UIView alloc] init];
+    statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *topConstraint = [self.view.topAnchor constraintEqualToAnchor:statusBarUnderlay.topAnchor];
+    NSLayoutConstraint *bottomConstraint = [self.topLayoutGuide.bottomAnchor constraintEqualToAnchor:statusBarUnderlay.bottomAnchor];
+    NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:statusBarUnderlay.leadingAnchor];
+    NSLayoutConstraint *trailingConstraint = [self.view.trailingAnchor constraintEqualToAnchor:statusBarUnderlay.trailingAnchor];
+    [self.view addSubview:statusBarUnderlay];
+    [self.view addConstraints:@[topConstraint, bottomConstraint, leadingConstraint, trailingConstraint]];
+    self.statusBarUnderlay = statusBarUnderlay;
+}
+
 - (void)removeProgressView {
     [self.progressView removeFromSuperview];
 }
@@ -739,11 +753,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
     [self addProgressView];
+    [self addStatusBarUnderlay];
     [self hideProgressViewAnimated:NO];
 
     if (self.theme) {
         [self applyTheme:self.theme];
     }
+    self.view.preservesSuperviewLayoutMargins = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1144,6 +1160,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     //only show a blank view if we have nothing to show
     if (!self.article) {
         [self.view bringSubviewToFront:self.progressView];
+        [self.view bringSubviewToFront:self.statusBarUnderlay];
     }
 
     [self showProgressViewAnimated:YES];
@@ -1175,6 +1192,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [self.view bringSubviewToFront:self.progressView];
+                [self.view bringSubviewToFront:self.statusBarUnderlay];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
                                            dismissPreviousAlerts:NO
@@ -1887,6 +1905,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [[self wmf_emptyView] applyTheme:self.theme];
     self.progressView.trackTintColor = [UIColor clearColor];
+    self.statusBarUnderlay.backgroundColor = theme.colors.chromeBackground;
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {

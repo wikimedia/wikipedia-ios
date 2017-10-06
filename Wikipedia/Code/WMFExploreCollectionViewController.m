@@ -417,6 +417,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
     [self startMonitoringReachabilityIfNeeded];
     [self showOfflineEmptyViewIfNeeded];
+    self.navigationController.hidesBarsOnSwipe = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
