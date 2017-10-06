@@ -121,6 +121,7 @@
                     <connections>
                         <outlet property="descriptionLabel" destination="fva-en-jL2" id="2tg-Mz-Pyx"/>
                         <outlet property="learnMoreButton" destination="QwX-oV-6OI" id="5Ze-Fs-kXk"/>
+                        <outlet property="scrollViewToFlash" destination="L8j-ZF-CKM" id="TJa-9k-jSe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5e-he-aXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -236,6 +237,7 @@
                         <outlet property="onThisDayTitleLabel" destination="V1k-cJ-GdI" id="hkO-Ir-L4Z"/>
                         <outlet property="placesDescriptionLabel" destination="Bb0-xm-43E" id="3zC-jr-2ai"/>
                         <outlet property="placesTitleLabel" destination="s57-w2-xWu" id="vxy-vD-wcz"/>
+                        <outlet property="scrollViewToFlash" destination="kvj-SU-qpy" id="M78-f5-bzj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yni-ie-AUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,7 +439,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="47" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rhz-sY-VPc">
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="47" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rhz-sY-VPc">
                                 <rect key="frame" x="0.0" y="52" width="300" height="248"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="NE9-uY-hF6">
@@ -489,6 +491,7 @@
                         <outlet property="languageTableView" destination="Rhz-sY-VPc" id="heN-fo-MHV"/>
                         <outlet property="languagesDescriptionLabel" destination="EuG-Uv-ToC" id="dTT-f1-JwW"/>
                         <outlet property="moreLanguagesButton" destination="nDc-Vr-4Av" id="b9n-vT-Xni"/>
+                        <outlet property="scrollViewToFlash" destination="Rhz-sY-VPc" id="Ezs-8X-JSV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NpF-q7-jhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -615,6 +618,7 @@
                         <outlet property="descriptionLabel" destination="l9B-Hv-WJ5" id="rL7-ih-MkZ"/>
                         <outlet property="getStartedButton" destination="Fi0-7O-Fk0" id="PfV-G8-vOv"/>
                         <outlet property="learnMoreButton" destination="q3G-bh-yvQ" id="h7k-Bi-6kw"/>
+                        <outlet property="scrollViewToFlash" destination="8in-kU-G80" id="cUC-TE-gAA"/>
                         <outlet property="toggle" destination="8Zl-4G-G2G" id="OHF-Ik-TmF"/>
                         <outlet property="toggleLabel" destination="Sp2-Be-DyJ" id="Fe2-ET-znr"/>
                         <outlet property="toggleSubtitleLabel" destination="TmK-SO-CMY" id="0cq-BS-hzK"/>
