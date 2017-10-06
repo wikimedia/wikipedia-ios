@@ -283,7 +283,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-6p-DM6">
-                                <rect key="frame" x="20" y="42" width="320" height="556"/>
+                                <rect key="frame" x="20" y="37" width="320" height="566"/>
                                 <subviews>
                                     <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
@@ -306,9 +306,9 @@
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJI-Er-O9h">
-                                        <rect key="frame" x="0.0" y="164" width="320" height="392"/>
+                                        <rect key="frame" x="0.0" y="164" width="320" height="402"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="392" id="2mK-dI-Fex"/>
+                                            <constraint firstAttribute="height" priority="999" constant="402" id="2mK-dI-Fex"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="qLZ-5x-Kxd" kind="embed" id="t9p-A3-Sh4"/>
