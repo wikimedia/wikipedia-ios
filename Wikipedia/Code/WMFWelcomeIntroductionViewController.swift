@@ -1,5 +1,5 @@
 
-class WMFWelcomeIntroductionViewController: UIViewController {
+class WMFWelcomeIntroductionViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController {
 
     @IBOutlet fileprivate var descriptionLabel:UILabel!
     @IBOutlet fileprivate var learnMoreButton:UIButton!

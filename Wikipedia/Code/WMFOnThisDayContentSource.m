@@ -120,14 +120,10 @@ NS_ASSUME_NONNULL_BEGIN
 
                     [moc performBlock:^{
                         [onThisDayEvents enumerateObjectsUsingBlock:^(WMFFeedOnThisDayEvent *_Nonnull event, NSUInteger idx, BOOL *_Nonnull stop) {
-                            __block NSInteger countOfImages = 0;
                             [event.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull articlePreview, NSUInteger idx, BOOL *_Nonnull stop) {
-                                if (articlePreview.imageURLString) {
-                                    countOfImages += 1;
-                                }
                                 [moc fetchOrCreateArticleWithURL:[articlePreview articleURL] updatedWithFeedPreview:articlePreview pageViews:nil];
                             }];
-                            event.score = @(countOfImages);
+                            event.score = [event calculateScore];
                             event.index = @(idx);
                         }];
 
@@ -135,6 +131,9 @@ NS_ASSUME_NONNULL_BEGIN
 
                         NSArray *eventsSortedByScore = [onThisDayEvents sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
                         if (eventsSortedByScore.count > 0) {
+                            // Rotate through the 10 highest scoring events based on current year. Ensures unlikely to see a repeat for at least 10 years
+                            // (unless the day has fewer than 10 events or a new event re-ranks the top 10) and everyone will see the same featured event
+                            // for a given day on a given year.
                             NSInteger index = ((year % 10) % eventsSortedByScore.count);
                             WMFFeedOnThisDayEvent *featuredEvent = eventsSortedByScore[index];
                             featuredEventIndex = featuredEvent.index.integerValue;

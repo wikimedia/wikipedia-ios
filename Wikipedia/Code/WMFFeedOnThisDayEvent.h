@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, copy) NSNumber *index;
 
+- (NSNumber *)calculateScore;
+
 @end
 
 NS_ASSUME_NONNULL_END
