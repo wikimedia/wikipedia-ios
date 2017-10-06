@@ -175,7 +175,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = YES;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
