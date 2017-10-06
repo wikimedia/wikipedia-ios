@@ -40,18 +40,18 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     }
     
     func articleURL(at indexPath: IndexPath) -> URL {
-        return articleURLs[indexPath.section]
+        return articleURLs[indexPath.item]
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ArticleLocationCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return articleURLs.count
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return articleURLs.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -111,7 +111,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        wmf_pushArticle(with: articleURLs[indexPath.section], dataStore: dataStore, theme: self.theme, animated: true)
+        wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
 
