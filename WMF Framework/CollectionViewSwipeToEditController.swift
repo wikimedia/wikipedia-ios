@@ -92,24 +92,27 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+        var shouldBegin = false
+        defer {
+            if !shouldBegin {
+                closeActionPane()
+            }
+        }
         guard let delegate = delegate else {
-            closeActionPane()
-            return false
+            return shouldBegin
         }
         
         let position = gestureRecognizer.location(in: collectionView)
         
         guard let indexPath = collectionView.indexPathForItem(at: position) else {
-            closeActionPane()
-            return false
+            return shouldBegin
         }
 
         let velocity = gestureRecognizer.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
         if fabs(velocity.y) >= fabs(velocity.x) {
-            closeActionPane()
-            return false
+            return shouldBegin
         }
         
         defer {
@@ -122,7 +125,8 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         let isOpenSwipe = isRTL ? velocity.x > 0 : velocity.x < 0
 
         if !isOpenSwipe { // only allow closing swipes on active cells
-            return indexPath == activeIndexPath
+            shouldBegin = indexPath == activeIndexPath
+            return shouldBegin
         }
         
         if activeIndexPath != nil && activeIndexPath != indexPath {
@@ -130,17 +134,18 @@ public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerD
         }
         
         guard activeIndexPath == nil else {
-            return true
+            shouldBegin = true
+            return shouldBegin
         }
 
         activeIndexPath = indexPath
         guard let cell = activeCell, cell.actions.count > 0 else {
             activeIndexPath = nil
-            closeActionPane()
-            return false
+            return shouldBegin
         }
         
-        return true
+        shouldBegin = true
+        return shouldBegin
     }
     
     func longPressGestureRecognizerShouldBegin(_ gestureRecognizer: UILongPressGestureRecognizer) -> Bool {
