@@ -776,6 +776,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [super viewDidAppear:animated];
     [self.reachabilityManager startMonitoring];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
+    self.navigationController.hidesBarsOnSwipe = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
