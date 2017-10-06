@@ -72,6 +72,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             }
         }
         apply(theme: theme)
+        view.wmf_configureSubviewsForDynamicType()
     }
 
     deinit {
