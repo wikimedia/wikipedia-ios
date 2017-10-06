@@ -61,7 +61,7 @@ class WMFWelcomeContainerViewController: UIViewController {
             hideAndCollapseTopContainerView()
         } else if height <= 568 {
             // On iPhone 5 reduce size of animations.
-            reduceTopAnimationsSizes(reduction: 50)
+            reduceTopAnimationsSizes(reduction: 30)
         } else {
             // On everything else add vertical separation between bottom container and animations.
             bottomContainerViewTopConstraint.constant = 20
