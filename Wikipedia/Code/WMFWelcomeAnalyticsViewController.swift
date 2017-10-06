@@ -1,10 +1,9 @@
 
-class WMFWelcomeAnalyticsViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController {
+class WMFWelcomeAnalyticsViewController: UIViewController {
 
     @IBOutlet fileprivate var toggleLabel:UILabel!
     @IBOutlet fileprivate var toggleSubtitleLabel:UILabel!
     @IBOutlet fileprivate var toggle:UISwitch!
-    @IBOutlet fileprivate var getStartedButton:UIButton!
 
     @IBOutlet fileprivate var descriptionLabel:UILabel!
     @IBOutlet fileprivate var learnMoreButton:UIButton!
@@ -21,9 +20,6 @@ class WMFWelcomeAnalyticsViewController: WMFWelcomeScrollViewVerticalScrollIndic
         learnMoreButton.setTitleColor(.wmf_blue, for: .normal)
         
         toggleSubtitleLabel.text = WMFLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
-
-        getStartedButton.setTitle(WMFLocalizedString("welcome-explore-continue-button", value:"Get started", comment:"Text for button for dismissing welcome screens\n{{Identical|Get started}}"), for: .normal)
-        getStartedButton.backgroundColor = .wmf_blue
         
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
