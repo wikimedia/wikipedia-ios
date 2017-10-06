@@ -1,5 +1,5 @@
 
-class WMFWelcomeExplorationViewController: UIViewController {
+class WMFWelcomeExplorationViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController {
 
     @IBOutlet fileprivate var exploreTitleLabel:UILabel!
     @IBOutlet fileprivate var exploreDescriptionLabel:UILabel!
