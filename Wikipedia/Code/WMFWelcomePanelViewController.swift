@@ -5,7 +5,7 @@ class WMFWelcomePanelViewController: UIViewController {
     @IBOutlet fileprivate var containerView:UIView!
     @IBOutlet fileprivate var titleLabel:UILabel!
     @IBOutlet fileprivate var nextButton:UIButton!
-    @IBOutlet fileprivate var scrollView:UIScrollView!
+    @IBOutlet fileprivate var scrollView:WMFWelcomePanelGradientScrollView!
     @IBOutlet fileprivate var nextButtonContainerView:UIView!
 
     fileprivate var viewControllerForContainerView:UIViewController? = nil
@@ -83,5 +83,40 @@ fileprivate extension UIScrollView {
         dispatchOnMainQueueAfterDelayInSeconds(delay) {
             self.flashScrollIndicators()
         }
+    }
+}
+
+class WMFWelcomePanelGradientScrollView : UIScrollView {
+    fileprivate let fadeHeight: CGFloat = 8
+    fileprivate let fadeColor = UIColor.white
+    fileprivate let clear = UIColor.white.withAlphaComponent(0)
+    fileprivate lazy var topGradientView: WMFGradientView = {
+        let gradient = WMFGradientView()
+        gradient.translatesAutoresizingMaskIntoConstraints = false
+        gradient.startPoint = .zero
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        gradient.setStart(fadeColor, end: clear)
+        addSubview(gradient)
+        return gradient
+    }()
+    fileprivate lazy var bottomGradientView: WMFGradientView = {
+        let gradient = WMFGradientView()
+        gradient.translatesAutoresizingMaskIntoConstraints = false
+        gradient.startPoint = CGPoint(x: 0, y: 1)
+        gradient.endPoint = .zero
+        gradient.setStart(fadeColor, end: clear)
+        addSubview(gradient)
+        return gradient
+    }()
+    override func didMoveToSuperview() {
+        updateGradientFrames()
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateGradientFrames()
+    }
+    fileprivate func updateGradientFrames() {
+        topGradientView.frame = CGRect(x: 0, y: contentOffset.y, width: bounds.size.width, height: fadeHeight)
+        bottomGradientView.frame = topGradientView.frame.offsetBy(dx: 0, dy: bounds.size.height - fadeHeight)
     }
 }
