@@ -113,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5e-he-aXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2445" y="735"/>
+            <point key="canvasLocation" x="4366" y="297"/>
         </scene>
         <!--Welcome Exploration View Controller-->
         <scene sceneID="JKo-q6-HeK">
@@ -216,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yni-ie-AUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3008" y="742"/>
+            <point key="canvasLocation" x="4923" y="328"/>
         </scene>
         <!--Welcome Animation Forground View Controller-->
         <scene sceneID="3Zz-F5-tnE">
@@ -244,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L3C-xf-WCr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3761" y="54"/>
+            <point key="canvasLocation" x="3761" y="36"/>
         </scene>
         <!--Welcome Container View Controller-->
         <scene sceneID="SGM-7y-cTS">
@@ -450,7 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YP5-jr-Q3X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3793.5999999999999" y="374.21289355322341"/>
+            <point key="canvasLocation" x="3795" y="335"/>
         </scene>
         <!--Welcome Language Table View Controller-->
         <scene sceneID="5Vt-or-T7N">
@@ -461,7 +461,7 @@
                         <viewControllerLayoutGuide type="bottom" id="QZ0-90-atL"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ahe-qt-nPa">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="EuG-Uv-ToC">
@@ -471,7 +471,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="47" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rhz-sY-VPc" customClass="WMFWelcomeLanguageIntrinsicTableView" customModule="Wikipedia">
-                                <rect key="frame" x="0.0" y="28" width="300" height="172"/>
+                                <rect key="frame" x="0.0" y="28" width="300" height="122"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="NE9-uY-hF6">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="56"/>
@@ -517,7 +517,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="200"/>
+                    <size key="freeformSize" width="300" height="150"/>
                     <connections>
                         <outlet property="languageTableView" destination="Rhz-sY-VPc" id="heN-fo-MHV"/>
                         <outlet property="languagesDescriptionLabel" destination="EuG-Uv-ToC" id="dTT-f1-JwW"/>
@@ -526,7 +526,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NpF-q7-jhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2444.8000000000002" y="1079.4602698650676"/>
+            <point key="canvasLocation" x="5486" y="323"/>
         </scene>
         <!--Welcome Analytics View Controller-->
         <scene sceneID="SMZ-9p-jrb">
@@ -537,11 +537,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Qe4-O6-Yp7"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="g5O-Z4-Myl">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="151"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jGW-Hc-ska">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="151"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="l9B-Hv-WJ5">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="18"/>
@@ -550,7 +550,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="q3G-bh-yvQ">
-                                        <rect key="frame" x="0.0" y="26" width="46" height="39"/>
+                                        <rect key="frame" x="0.0" y="26" width="46" height="38"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <state key="normal" title="Button"/>
@@ -559,19 +559,19 @@
                                         </connections>
                                     </button>
                                     <switch contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Zl-4G-G2G">
-                                        <rect key="frame" x="0.0" y="75" width="51" height="31"/>
+                                        <rect key="frame" x="0.0" y="74" width="51" height="31"/>
                                         <connections>
                                             <action selector="toggleAnalyticsWithSender:" destination="Sz5-Ln-qWW" eventType="valueChanged" id="HVm-oP-11q"/>
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="😀🎉" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="Sp2-Be-DyJ">
-                                        <rect key="frame" x="59" y="80" width="46" height="21"/>
+                                        <rect key="frame" x="59" y="79" width="46" height="21"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Switch description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-SO-CMY">
-                                        <rect key="frame" x="0.0" y="116" width="300" height="18"/>
+                                        <rect key="frame" x="0.0" y="115" width="300" height="18"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -608,7 +608,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="151"/>
+                    <size key="freeformSize" width="300" height="150"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="l9B-Hv-WJ5" id="rL7-ih-MkZ"/>
                         <outlet property="learnMoreButton" destination="q3G-bh-yvQ" id="h7k-Bi-6kw"/>
@@ -619,7 +619,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xjc-Za-IDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3008" y="1078.56071964018"/>
+            <point key="canvasLocation" x="6034" y="323"/>
         </scene>
         <!--Welcome Animation Background View Controller-->
         <scene sceneID="Qob-Lw-eVi">
