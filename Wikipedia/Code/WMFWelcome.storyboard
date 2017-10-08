@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -258,29 +259,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="360" height="640"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-6p-DM6">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NFg-Vn-ndK">
                                 <rect key="frame" x="20" y="37" width="320" height="566"/>
                                 <subviews>
-                                    <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y48-XV-eDQ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <subviews>
+                                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQc-qA-ACw" userLabel="Top Background Container View">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="zQc-qA-ACw" secondAttribute="height" multiplier="80:41" id="jjb-By-1Ve"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="aoo-cp-EUY" kind="embed" id="OPW-Uj-N8a"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf" userLabel="Top Foreground Container View">
+                                                <rect key="frame" x="85" y="7" width="150" height="150"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="7gU-a9-VNf" secondAttribute="height" multiplier="1:1" id="r9o-Z0-sm1"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="phf-K5-0TN" kind="embed" id="Bsr-va-MqZ"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="164" id="8iq-Ul-mmM"/>
+                                            <constraint firstItem="zQc-qA-ACw" firstAttribute="centerX" secondItem="y48-XV-eDQ" secondAttribute="centerX" id="5Iq-FS-ydC"/>
+                                            <constraint firstAttribute="bottom" secondItem="7gU-a9-VNf" secondAttribute="bottom" constant="7" id="8fu-aH-vEA"/>
+                                            <constraint firstAttribute="height" constant="164" id="CFH-9F-mJz"/>
+                                            <constraint firstItem="7gU-a9-VNf" firstAttribute="top" secondItem="y48-XV-eDQ" secondAttribute="top" constant="7" id="KkT-97-qhv"/>
+                                            <constraint firstAttribute="bottom" secondItem="zQc-qA-ACw" secondAttribute="bottom" id="Oi1-nO-GB7"/>
+                                            <constraint firstItem="zQc-qA-ACw" firstAttribute="top" secondItem="y48-XV-eDQ" secondAttribute="top" id="PLa-VX-BtJ"/>
+                                            <constraint firstItem="7gU-a9-VNf" firstAttribute="centerX" secondItem="zQc-qA-ACw" secondAttribute="centerX" id="jZn-DO-x19"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="aoo-cp-EUY" kind="embed" id="OPW-Uj-N8a"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gU-a9-VNf">
-                                        <rect key="frame" x="85" y="7" width="150" height="150"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="2oC-tB-tAw"/>
-                                            <constraint firstAttribute="width" constant="150" id="PRe-Gb-kqo"/>
-                                        </constraints>
-                                        <connections>
-                                            <segue destination="phf-K5-0TN" kind="embed" id="Bsr-va-MqZ"/>
-                                        </connections>
-                                    </containerView>
+                                    </view>
                                     <containerView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJI-Er-O9h">
                                         <rect key="frame" x="0.0" y="164" width="320" height="402"/>
                                         <constraints>
@@ -291,44 +307,28 @@
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="FJI-Er-O9h" firstAttribute="leading" secondItem="M5K-6p-DM6" secondAttribute="leading" id="2W0-7d-8aZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="FJI-Er-O9h" secondAttribute="bottom" id="DE0-V7-KoH"/>
-                                    <constraint firstItem="zQc-qA-ACw" firstAttribute="top" secondItem="M5K-6p-DM6" secondAttribute="top" id="EId-M1-skO"/>
-                                    <constraint firstItem="7gU-a9-VNf" firstAttribute="centerY" secondItem="zQc-qA-ACw" secondAttribute="centerY" id="IPR-qY-nEd"/>
-                                    <constraint firstAttribute="trailing" secondItem="FJI-Er-O9h" secondAttribute="trailing" id="Inr-F0-Xa9"/>
-                                    <constraint firstItem="FJI-Er-O9h" firstAttribute="top" secondItem="zQc-qA-ACw" secondAttribute="bottom" id="T9i-AF-TB4"/>
-                                    <constraint firstItem="zQc-qA-ACw" firstAttribute="leading" secondItem="M5K-6p-DM6" secondAttribute="leading" id="YwC-rF-oq7"/>
-                                    <constraint firstItem="7gU-a9-VNf" firstAttribute="centerX" secondItem="zQc-qA-ACw" secondAttribute="centerX" id="Zcm-3f-74B"/>
-                                    <constraint firstAttribute="trailing" secondItem="zQc-qA-ACw" secondAttribute="trailing" id="eoQ-Gp-ati"/>
-                                    <constraint firstAttribute="width" constant="320" id="rsb-GC-Lmi"/>
+                                    <constraint firstAttribute="width" constant="320" id="pC4-f0-DG0"/>
                                 </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="M5K-6p-DM6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IiS-Tf-ADU" secondAttribute="bottom" constant="10" id="8lu-dU-ALz"/>
-                            <constraint firstItem="M5K-6p-DM6" firstAttribute="centerX" secondItem="lzy-Eu-ayy" secondAttribute="centerX" id="Cfl-2P-7BT"/>
-                            <constraint firstItem="M5K-6p-DM6" firstAttribute="centerY" secondItem="lzy-Eu-ayy" secondAttribute="centerY" priority="999" id="H6y-qj-T8b"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="M5K-6p-DM6" secondAttribute="trailing" id="ScE-H5-RBe"/>
-                            <constraint firstItem="M5K-6p-DM6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lzy-Eu-ayy" secondAttribute="leading" id="Ufe-nK-vc4"/>
-                            <constraint firstItem="7pS-zT-pQN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="M5K-6p-DM6" secondAttribute="bottom" priority="999" constant="10" id="uR9-f3-UBk"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="IiS-Tf-ADU" secondAttribute="bottom" constant="10" id="KdH-qP-Jze"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="centerX" secondItem="lzy-Eu-ayy" secondAttribute="centerX" id="LKd-7B-kb3"/>
+                            <constraint firstItem="7pS-zT-pQN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="bottom" priority="999" constant="10" id="PHo-ci-C8O"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lzy-Eu-ayy" secondAttribute="leading" id="fYc-y0-Hni"/>
+                            <constraint firstItem="NFg-Vn-ndK" firstAttribute="centerY" secondItem="lzy-Eu-ayy" secondAttribute="centerY" priority="999" id="xJf-C6-csU"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NFg-Vn-ndK" secondAttribute="trailing" id="zyd-sJ-lq9"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="360" height="640"/>
                     <connections>
                         <outlet property="bottomContainerView" destination="FJI-Er-O9h" id="FRh-C6-TYZ"/>
-                        <outlet property="bottomContainerViewTopConstraint" destination="T9i-AF-TB4" id="fc3-uP-lEL"/>
-                        <outlet property="overallContainerView" destination="M5K-6p-DM6" id="tAu-1I-sdL"/>
-                        <outlet property="overallContainerViewCenterYConstraint" destination="H6y-qj-T8b" id="QMX-7N-w8d"/>
-                        <outlet property="topBackgroundContainerView" destination="zQc-qA-ACw" id="HJo-7C-umR"/>
-                        <outlet property="topBackgroundContainerViewHeightConstraint" destination="8iq-Ul-mmM" id="2eG-qt-LHe"/>
-                        <outlet property="topBackgroundContainerViewLeadingConstraint" destination="YwC-rF-oq7" id="mvh-yz-bDg"/>
-                        <outlet property="topBackgroundContainerViewTrailingConstraint" destination="eoQ-Gp-ati" id="gXB-TO-gXA"/>
-                        <outlet property="topForegroundContainerView" destination="7gU-a9-VNf" id="jWY-jG-HTH"/>
-                        <outlet property="topForegroundContainerViewHeightConstraint" destination="2oC-tB-tAw" id="50r-Vw-zzp"/>
-                        <outlet property="topForegroundContainerViewWidthConstraint" destination="PRe-Gb-kqo" id="2hx-Dt-iBv"/>
+                        <outlet property="overallContainerStackView" destination="NFg-Vn-ndK" id="hRs-pK-t3M"/>
+                        <outlet property="overallContainerStackViewCenterYConstraint" destination="xJf-C6-csU" id="cbI-zN-Qpc"/>
+                        <outlet property="topContainerView" destination="y48-XV-eDQ" id="ELD-Ac-Pat"/>
+                        <outlet property="topContainerViewHeightConstraint" destination="CFH-9F-mJz" id="Nfm-pW-qX7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xR7-rm-ylC" userLabel="First Responder" sceneMemberID="firstResponder"/>
