@@ -186,6 +186,7 @@
 "info-box-close-text" = "Zoumaachen";
 "info-box-title" = "Séier Fakten";
 "languages-title" = "Sprooch änneren";
+"languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
@@ -351,11 +352,17 @@
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
+"welcome-intro-free-encyclopedia-more" = "Méi iwwer Wikipedia gewuer ginn";
 "welcome-intro-free-encyclopedia-more-about" = "Iwwer Wikipedia";
+"welcome-intro-free-encyclopedia-title" = "Déi fräi Enzyklopedie";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
+"welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
+"welcome-languages-search-title" = "A bal 300 Sprooche sichen";
 "welcome-notifications-tell-me-more-creation" = "Notifikatioune ginn duerch d'App op Ärem Apparat ugeluecht an ausgeliwwert, net vun eise Serveren (oder enger drëtter Säit).";
 "welcome-notifications-tell-me-more-storage" = "D'Astellunge fir d'Notifikatioune sinn um Apparat gespäichert a baséieren net op perséinlechen Informatiounen oder der Aktivitéit.";
 "welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
+"welcome-send-data-helps-title" = "Hëlleft d'App besser ze maachen";
+"welcome-send-data-learn-more" = "Méi iwwer déi gesammelt Donnéeë gewuer ginn";
 // Fuzzy
 "welcome-send-data-sub-title" = "Hëlleft der Wikimedia Foundation d'App besser ze maachen andeem Dir eis wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";

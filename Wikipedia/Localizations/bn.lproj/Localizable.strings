@@ -81,6 +81,7 @@
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-remove" = "সংরক্ষণ থেকে সরান";
+"button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "close-button-accessibility-label" = "বন্ধ";
@@ -187,6 +188,7 @@
 "info-box-close-text" = "বন্ধ";
 "info-box-title" = "দ্রুত তথ্য";
 "languages-title" = "ভাষা পরিবর্তন করুন";
+"languages-wikipedia" = "উইকিপিডিয়ার ভাষা";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "license-footer-text" = "বিষয়বস্তু $1-এর আওতায় প্রকাশিত যদি না অন্য কিছু নির্ধারিত থাকে।";
 "login-forgot-password" = "পাসওয়ার্ড ভুলে গেছেন?";

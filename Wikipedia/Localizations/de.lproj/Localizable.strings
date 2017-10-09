@@ -202,6 +202,7 @@
 "info-box-close-text" = "Schließen";
 "info-box-title" = "Schnelle Fakten";
 "languages-title" = "Sprache ändern";
+"languages-wikipedia" = "Wikipedia-Sprachen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
 "login-forgot-password" = "Passwort vergessen?";

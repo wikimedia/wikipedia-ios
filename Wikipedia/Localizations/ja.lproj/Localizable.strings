@@ -4,6 +4,7 @@
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
+// Author: Hinaloe
 // Author: Hzy980512
 // Author: Iwai.masaharu
 // Author: Kanon und wikipedia
@@ -142,6 +143,7 @@
 "field-password-placeholder" = "パスワードを入力";
 "field-password-title" = "パスワード";
 "find-in-page-button-label" = "ページ内検索";
+"gfdl" = "GFDL";
 "history-clear-all" = "消去";
 "history-clear-cancel" = "キャンセル";
 "history-clear-confirmation-heading" = "最近の項目をすべて削除しても構いませんか?";

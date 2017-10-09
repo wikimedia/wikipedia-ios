@@ -210,6 +210,7 @@
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
 "languages-title" = "更改语言";
+"languages-wikipedia" = "维基百科语言";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "除非另有说明，内容基于$1授权。";
 "login-forgot-password" = "忘记了您的密码？";

@@ -202,6 +202,7 @@
 "info-box-close-text" = "Chiudi";
 "info-box-title" = "Fatti in breve";
 "languages-title" = "Cambia lingua";
+"languages-wikipedia" = "Lingue di Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Il contenuto è disponibile in base alla licenza $1, se non diversamente specificato.";
 "login-forgot-password" = "Hai dimenticato la password?";
@@ -368,6 +369,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "Informazioni su Wikipedia";
 "welcome-languages-add-button" = "Aggiungi un'altra lingua";
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
+"welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";
 "welcome-languages-search-title" = "Cerca in quasi 300 lingue";
 "welcome-send-data-helps-title" = "Aiuta a rendere l'applicazione migliore";
 "welcome-send-data-learn-more" = "Ulteriori informazioni sui dati raccolti";
