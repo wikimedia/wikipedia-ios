@@ -67,6 +67,9 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
 
     let nextButton = UIButton()
     let skipButton = UIButton()
+    let buttonHeight: CGFloat = 40.0
+    let buttonSidePadding: CGFloat = 10.0
+    let buttonCenterXOffset: CGFloat = 88.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +98,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
         nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         view.addSubview(nextButton)
-        nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        nextButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
         
-        let leading = NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 88)
+        let leading = NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: buttonCenterXOffset)
         leading.priority = .defaultHigh
-        let trailing = NSLayoutConstraint(item: nextButton, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: view, attribute: .trailing, multiplier: 1, constant: 10)
+        let trailing = NSLayoutConstraint(item: nextButton, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: view, attribute: .trailing, multiplier: 1, constant: buttonSidePadding)
         trailing.priority = .required
         view.addConstraints([leading, trailing])
     }
@@ -113,12 +116,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
         skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
         view.addSubview(skipButton)
-        skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        skipButton.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
         view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
 
-        let leading = NSLayoutConstraint(item: skipButton, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
+        let leading = NSLayoutConstraint(item: skipButton, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .leading, multiplier: 1, constant: buttonSidePadding)
         leading.priority = .required
-        let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -88)
+        let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -buttonCenterXOffset)
         trailing.priority = .defaultHigh
         view.addConstraints([leading, trailing])
     }
