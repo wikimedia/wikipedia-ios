@@ -1,5 +1,5 @@
 
-class WMFWelcomeAnalyticsViewController: UIViewController {
+class WMFWelcomeAnalyticsViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController {
 
     @IBOutlet fileprivate var toggleLabel:UILabel!
     @IBOutlet fileprivate var toggleSubtitleLabel:UILabel!
@@ -7,7 +7,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     @IBOutlet fileprivate var getStartedButton:UIButton!
 
     @IBOutlet fileprivate var descriptionLabel:UILabel!
-    @IBOutlet fileprivate var linkLabel:UILabel!
+    @IBOutlet fileprivate var learnMoreButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,9 +16,9 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         
         descriptionLabel.text = WMFLocalizedString("welcome-send-data-sub-title", value:"Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.", comment:"Sub-title explaining how sending usage reports can help improve the app")
         
-        linkLabel.text = WMFLocalizedString("welcome-send-data-learn-more", value:"Learn more about data collected", comment:"Text for link for learning more about opting-in to anonymous data collection")
+        learnMoreButton.setTitle(WMFLocalizedString("welcome-send-data-learn-more", value:"Learn more about data collected", comment:"Text for link for learning more about opting-in to anonymous data collection"), for: .normal)
         
-        linkLabel.textColor = .wmf_blue
+        learnMoreButton.setTitleColor(.wmf_blue, for: .normal)
         
         toggleSubtitleLabel.text = WMFLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
 
@@ -36,8 +36,6 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
             BITHockeyManager.shared().crashManager.crashManagerStatus = .alwaysAsk
         }
         view.wmf_configureSubviewsForDynamicType()
-        
-        linkLabel.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(showPrivacyAlert(_:))))
     }
     
     fileprivate func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
@@ -61,10 +59,10 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        linkLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        learnMoreButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
     }
-    
-    @objc func showPrivacyAlert(_ tap: UITapGestureRecognizer) {
+
+    @IBAction func showPrivacyAlert(withSender sender: AnyObject) {
         guard let url = URL.init(string: CommonStrings.privacyPolicyURLString) else {
             assertionFailure("Expected URL")
             return

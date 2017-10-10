@@ -139,7 +139,10 @@ public extension QuadKeyPart {
     }
     
     public static func max(atPrecision precision: QuadKeyPrecision) -> QuadKeyPart {
-        return QuadKeyPart(QuadKey(1) << QuadKey(precision) - 1)
+        let one: QuadKey = QuadKey(1)
+        let precisionAsQuadKey: QuadKey = QuadKey(precision)
+        let oneShiftedByPrecision: QuadKey = one << precisionAsQuadKey
+        return QuadKeyPart(oneShiftedByPrecision - one)
     }
     
     public var latitude: QuadKeyDegrees {

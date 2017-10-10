@@ -76,8 +76,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
-
-        view.backgroundColor = UIColor(0xffffff)
         
         configureAndAddNextButton()
         configureAndAddSkipButton()
@@ -168,22 +166,6 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
             return nil
         }
         return index == 0 ? nil : pageControllers[index - 1]
-    }
-    
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return .portrait
-    }
-
-    override var preferredInterfaceOrientationForPresentation : UIInterfaceOrientation {
-        return .portrait
-    }
-
-    override var shouldAutorotate : Bool {
-        return false
     }
     
     // MARK: - iOS 9 RTL swiping hack

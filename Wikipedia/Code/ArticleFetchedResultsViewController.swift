@@ -103,6 +103,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
+            cell.actions = availableActions(at: indexPath)
         }
         updateEmptyState()
         updateDeleteButton()
@@ -143,6 +144,13 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             return true
         }
         return translation == 0
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        if wmf_isShowingEmptyView() {
+            updateEmptyState()
+        }
     }
 }
 

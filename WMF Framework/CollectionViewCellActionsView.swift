@@ -1,59 +1,59 @@
 import Foundation
 
-public struct CollectionViewCellAction: Equatable {
-    let title: String
+public class Action: UIAccessibilityCustomAction {
     let icon: UIImage?
-    public let type: CollectionViewCellActionType
-    
-    public static func ==(lhs: CollectionViewCellAction, rhs: CollectionViewCellAction) -> Bool {
-        return lhs.title == rhs.title && lhs.icon == rhs.icon && lhs.type == rhs.type
+    let confirmationIcon: UIImage?
+    public let type: ActionType
+    public let indexPath: IndexPath
+
+    public init(accessibilityTitle: String, icon: UIImage?, confirmationIcon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
+        self.icon = icon
+        self.confirmationIcon = confirmationIcon;
+        self.type = type
+        self.indexPath = indexPath
+        super.init(name: accessibilityTitle, target: target, selector: selector)
     }
 }
 
-public enum CollectionViewCellActionType {
+@objc public protocol ActionDelegate: NSObjectProtocol {
+    @objc func didPerformAction(_ action: Action) -> Bool
+}
+
+public enum ActionType {
     case delete, save, unsave, share
-    
-    public var action: CollectionViewCellAction {
+
+    public func action(with target: Any?, indexPath: IndexPath) -> Action {
         switch self {
         case .delete:
-            return CollectionViewCellAction(title: CommonStrings.deleteActionTitle, icon: nil, type: .delete)
+            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .save:
-            return CollectionViewCellAction(title: CommonStrings.shortSaveTitle, icon: nil, type: .save)
+            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .unsave:
-            return CollectionViewCellAction(title: CommonStrings.shortUnsaveTitle, icon: nil, type: .unsave)
+            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         case .share:
-            return CollectionViewCellAction(title: CommonStrings.shareActionTitle, icon: nil, type: .share)
+            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
         }
     }
 }
 
-public protocol CollectionViewSwipeToEditDelegate: NSObjectProtocol {
-    func didPerformAction(_ action: CollectionViewCellAction, at indexPath: IndexPath)
-    
-    func primaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
-    func secondaryActions(for indexPath: IndexPath) -> [CollectionViewCellAction]
-}
-
-public protocol ActionsViewDelegate: NSObjectProtocol {
-    func didPerformAction(_ action: CollectionViewCellAction)
-}
-
-public class CollectionViewCellActionsView: SizeThatFitsView {
+public class ActionsView: SizeThatFitsView, Themeable {
+    fileprivate let minButtonWidth: CGFloat = 60
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     var buttons: [UIButton] = []
+    var needsSubviews = true
     
     public var theme = Theme.standard
     
-    var actions: [CollectionViewCellAction] = [] {
+    internal var actions: [Action] = [] {
         didSet {
             activatedIndex = NSNotFound
-            createSubviews(for: actions)
+            needsSubviews = true
         }
     }
     
     fileprivate var activatedIndex = NSNotFound
-    func expand(_ action: CollectionViewCellAction) {
+    func expand(_ action: Action) {
         guard let index = actions.index(of: action) else {
             return
         }
@@ -77,27 +77,29 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
+            if (size.width > 0 && needsSubviews) {
+                createSubviews(for: actions)
+                needsSubviews = false
+            }
+            let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let buttons = isRTL ? self.buttons.reversed() : self.buttons
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
                 let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
-                let buttonWidth = max(self.buttonWidth, buttonDelta)
-                let isRTL = semanticContentAttribute == .forceRightToLeft
-                let buttons = isRTL ? self.buttons.reversed() : self.buttons
                 var x: CGFloat = isRTL ? max(0, size.width - maximumWidth) : 0
                 for button in buttons {
                     button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
                     x += buttonDelta
                 }
             } else {
-                for (index, button) in buttons.enumerated() {
+                var x: CGFloat = isRTL ? size.width : 0 - (buttonWidth * CGFloat(buttons.count - 1))
+                for button in buttons {
                     button.clipsToBounds = true
-                    if index == activatedIndex {
-                        button.imageView?.alpha = 0
-                        button.titleLabel?.alpha = 0
-                        button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: 0))
+                    if button.tag == activatedIndex {
+                        button.frame = CGRect(origin: .zero, size: CGSize(width: size.width, height: size.height))
                     } else {
-                        button.alpha = 0
-                        button.frame = CGRect(origin: button.frame.origin, size: CGSize(width: button.frame.width, height: 0))
+                        button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
+                        x += buttonWidth
                     }
                 }
             }
@@ -107,7 +109,7 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         return CGSize(width: width, height: height)
     }
     
-    func createSubviews(for actions: [CollectionViewCellAction]) {
+    func createSubviews(for actions: [Action]) {
         for view in subviews {
             view.removeFromSuperview()
         }
@@ -117,7 +119,7 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         
         for (index, action) in actions.enumerated() {
             let button = UIButton(type: .custom)
-            button.setTitle(action.title, for: .normal)
+            button.setImage(action.icon, for: .normal)
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
             button.tag = index
@@ -138,16 +140,27 @@ public class CollectionViewCellActionsView: SizeThatFitsView {
         }
 
         backgroundColor = buttons.last?.backgroundColor
-        buttonWidth = maxButtonWidth
-        maximumWidth = maxButtonWidth * CGFloat(subviews.count)
+        buttonWidth = max(minButtonWidth, maxButtonWidth)
+        maximumWidth = buttonWidth * CGFloat(subviews.count)
         setNeedsLayout()
     }
 
-    public weak var delegate: ActionsViewDelegate?
+    public weak var delegate: ActionDelegate?
     
     @objc func didPerformAction(_ sender: UIButton) {
         let action = actions[sender.tag]
-        delegate?.didPerformAction(action)
+        if let image = action.confirmationIcon {
+            sender.setImage(image, for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                let _ = self.delegate?.didPerformAction(action)
+            }
+        } else {
+            let _ = delegate?.didPerformAction(action)
+        }
     }
     
+    public func apply(theme: Theme) {
+        self.theme = theme
+        backgroundColor = theme.colors.baseBackground
+    }
 }

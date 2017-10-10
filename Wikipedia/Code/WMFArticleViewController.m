@@ -1642,7 +1642,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article theme:self.theme];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article selectedImage:nil theme:self.theme];
         fullscreenGallery.imagePreviewingActionsDelegate = self;
         return fullscreenGallery;
     }
@@ -1713,9 +1713,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
-        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                        selectedImage:selectedImage
-                                                                theme:self.theme];
+        [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article
+                                                    selectedImage:selectedImage
+                                                            theme:self.theme];
+    gallery.imagePreviewingActionsDelegate = self;
     return gallery;
 }
 

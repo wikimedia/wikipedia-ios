@@ -12,4 +12,6 @@
 @property (nonatomic) BOOL isPreferred;
 @property (nonatomic) BOOL isPrimary;
 
+- (void)collapseSideSpacing;
+
 @end

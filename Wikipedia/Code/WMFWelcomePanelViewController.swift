@@ -10,6 +10,12 @@ class WMFWelcomePanelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // For iPhone 4s and iPhone 5 a smaller size is used.
+        if view.bounds.size.height <= 568 {
+            titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .medium)
+        }
+            
         embedContainerControllerView()
         updateUIStrings()
         view.wmf_configureSubviewsForDynamicType()
@@ -48,10 +54,5 @@ class WMFWelcomePanelViewController: UIViewController {
         case .analytics:
             titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
         }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        titleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemMedium, withTextStyle: .headline, compatibleWithTraitCollection: traitCollection)
     }
 }

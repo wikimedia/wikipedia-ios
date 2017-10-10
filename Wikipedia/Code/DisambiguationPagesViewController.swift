@@ -64,6 +64,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
             cell.imageURL = searchResult.thumbnailURL
         }
         cell.apply(theme: theme)
+        cell.actions = availableActions(at: indexPath)
     }
     
     
