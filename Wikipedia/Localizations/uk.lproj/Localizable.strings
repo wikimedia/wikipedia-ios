@@ -83,6 +83,7 @@
 "button-save-for-later" = "Зберегти наперед";
 "button-saved-for-later" = "Збережено наперед";
 "button-saved-remove" = "Вилучити зі збережених";
+"button-skip" = "Пропустити";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
@@ -189,6 +190,7 @@
 // Fuzzy
 "info-box-title" = "Швидкі факти";
 "languages-title" = "Змінити мову";
+"languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
 "login-forgot-password" = "Забули свій пароль?";
@@ -328,9 +330,11 @@
 "two-factor-login-title" = "Вхід у Ваш обліковий запис";
 "two-factor-login-with-backup-code" = "Використати один з Ваших резервних кодів";
 "two-factor-login-with-regular-code" = "Використати код верифікації";
+"welcome-exploration-on-this-day-title" = "Цього дня";
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-explore-new-ways-title" = "Нові способи дослідження";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
+"welcome-intro-free-encyclopedia-more" = "Дізнайтеся більше про Вікіпедію";
 "welcome-languages-add-button" = "Додати ще одну мову";
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до Вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
