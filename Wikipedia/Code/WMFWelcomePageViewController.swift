@@ -91,9 +91,9 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.isUserInteractionEnabled = true
         nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
         nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
-        nextButton.setTitleColor(.wmf_blue, for: .normal)
-        nextButton.setTitleColor(.wmf_lighterGray, for: .disabled)
-        nextButton.setTitleColor(.wmf_blue, for: .highlighted)
+        nextButton.setTitleColor(theme.colors.link, for: .normal)
+        nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
+        nextButton.setTitleColor(theme.colors.link, for: .highlighted)
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
@@ -123,8 +123,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         super.viewDidAppear(animated)
         if let pageControl = pageControl {
             pageControl.isUserInteractionEnabled = false
-            pageControl.pageIndicatorTintColor = .wmf_lightBlue
-            pageControl.currentPageIndicatorTintColor = .wmf_blue
+            pageControl.pageIndicatorTintColor = theme.colors.disabledLink
+            pageControl.currentPageIndicatorTintColor = theme.colors.link
         }
     }
 
