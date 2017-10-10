@@ -101,6 +101,7 @@
 "button-save-for-later" = "ذخیره برای بعد";
 "button-saved-for-later" = "ذخیره برای بعد";
 "button-saved-remove" = "حذف از ذخیره‌شده";
+"button-skip" = "رها کردن";
 "cancel" = "لغو";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "بستن";
@@ -218,6 +219,7 @@
 "info-box-close-text" = "بستن";
 "info-box-title" = "اطلاعات اجمالی";
 "languages-title" = "تغییر زبان";
+"languages-wikipedia" = "زبان ویکی‌پدیا";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "محتوا تحت $1 در دسترس است، مگر اینکه خلافش ذکر شده‌باشد.";
 "login-forgot-password" = "گذرواژه‌تان را فراموش کردید؟";
@@ -391,14 +393,29 @@
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای تائید";
 "view-in-browser-footer-link" = "مقاله را در مرورگر ببینید";
+"welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اعضا";
+"welcome-exploration-explore-feed-title" = "مرور خوراک";
+"welcome-exploration-on-this-day-description" = "سفر به زمان برای دانستن رویدادهایی که در چنین روزی رخ داده‌است";
+"welcome-exploration-on-this-day-title" = "در این روز";
+"welcome-exploration-places-description" = "کشف بناها و فضاهای مهم در اطرافتان یا جستجو در سرتاسر جهان";
+"welcome-exploration-places-title" = "مکان‌های تب";
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
+"welcome-intro-free-encyclopedia-description" = "ویکی‌پدیا توسط کاربران داوطلب با بیش از ۴۰ میلیون مقاله در حدود ۳۰۰ زبان نوشته‌شده‌است.";
+"welcome-intro-free-encyclopedia-more" = "اطلاعات بیشتر در مورد ویکی‌پدیا";
+"welcome-intro-free-encyclopedia-more-about" = "دربارهٔ ویکی‌پدیا";
+"welcome-intro-free-encyclopedia-more-description" = "ویکی‌پدیا یک پروژهٔ جهانی دانشنامهٔ آزاد است به همهٔ زبان‌های دنیا. هر فردی که در وب فعالیت می‌کند می‌تواند توسعه دهندهٔ محتوا و اضافه‌کننده منبع به مقالات باشد.";
+"welcome-intro-free-encyclopedia-title" = "دانشنامهٔ آزاد";
 "welcome-languages-add-button" = "افزدون زبان دیگر";
+"welcome-languages-add-or-edit-button" = "افزودن یا ویرایش زبان مورد علاقه";
+"welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
+"welcome-languages-search-title" = "جستجو در حدود ۳۰۰ زبان";
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها به کمک اپلیکیشن موجود روی دستگاه شما تولید می‌شود و از طریق سرور یا سرویس شخص ثالث تولید نمی‌شوند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی برپایهٔ دستگاه است و بر پایهٔ اطلاعات شخصی یا فعالیت شما نیست.";
 "welcome-notifications-tell-me-more-title" = "بیشتر دربارهٔ آگاه‌سازی";
-// Fuzzy
+"welcome-send-data-helps-title" = "به بهبود اپلیکیشن کمک کنید";
+"welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد جمع‌آوری داده";
 "welcome-send-data-sub-title" = "به بنیاد ویکی‌مدیا کمک کنید که اپلیکیشنش را بهبود و ارتقاء دهد. اطلاعات به صورت ناشناس جمع‌آوری می‌شوند.";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
 "wikitext-download-failed" = "ناتوانی در اخذ آخرین تجدید نظر.";
