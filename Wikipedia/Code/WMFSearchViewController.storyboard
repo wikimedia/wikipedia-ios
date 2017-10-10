@@ -365,6 +365,7 @@
                             <constraint firstAttribute="trailing" secondItem="Rly-Nt-Gci" secondAttribute="trailing" id="m6O-Fp-TB9"/>
                             <constraint firstAttribute="bottom" secondItem="iIa-dg-uH0" secondAttribute="bottom" id="noD-1I-WPD"/>
                             <constraint firstAttribute="bottom" secondItem="Rly-Nt-Gci" secondAttribute="bottom" id="sHZ-xt-xU3"/>
+                            <constraint firstItem="iIa-dg-uH0" firstAttribute="width" secondItem="tzw-k8-eL6" secondAttribute="width" id="tWI-Lv-oV9"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="top" secondItem="tzw-k8-eL6" secondAttribute="top" id="taD-Tb-F1s"/>
                             <constraint firstItem="fBp-uc-mYL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="vw0-Am-hvH"/>
                             <constraint firstItem="Rly-Nt-Gci" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="zxY-rQ-mNX"/>
