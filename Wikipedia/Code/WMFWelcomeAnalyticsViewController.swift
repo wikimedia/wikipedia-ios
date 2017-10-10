@@ -1,5 +1,5 @@
 
-class WMFWelcomeAnalyticsViewController: UIViewController {
+class WMFWelcomeAnalyticsViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController {
 
     @IBOutlet fileprivate var toggleLabel:UILabel!
     @IBOutlet fileprivate var toggleSubtitleLabel:UILabel!
