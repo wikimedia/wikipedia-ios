@@ -62,14 +62,12 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         _ = updateView()
     }
     
-    func widgetPerformUpdate(_ completionHandler: (NCUpdateResult) -> Void) {
-        
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         let didUpdate = updateView()
         
-        if(didUpdate){
+        if didUpdate {
             completionHandler(.newData)
-            
-        }else{
+        } else {
             completionHandler(.noData)
         }
     }
