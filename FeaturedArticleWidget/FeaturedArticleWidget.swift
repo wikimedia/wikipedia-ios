@@ -12,7 +12,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.translatesAutoresizingMaskIntoConstraints = false
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
@@ -25,9 +25,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)
-        
-        updateView()
-        updateViewAlpha()
+
+        updateViewAlpha(isExpanded: isExpanded)
     }
     
     var isEmptyViewHidden = true {
@@ -50,6 +49,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        defer {
+            updateView()
+        }
         guard let article = self.article,
             let articleKey = article.key else {
                 isEmptyViewHidden = false
@@ -84,11 +86,10 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.tintColor = theme.colors.link
         expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         
-        updateView()
         completionHandler(.newData)
     }
     
-    func updateViewAlpha() {
+    func updateViewAlpha(isExpanded: Bool) {
         expandedArticleView.alpha = isExpanded ? 1 : 0
         collapsedArticleView.alpha =  isExpanded ? 0 : 1
     }
@@ -96,7 +97,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         let viewUpdates = {
-            self.updateViewAlpha()
+            self.updateViewAlpha(isExpanded: self.isExpanded)
         }
         
         guard coordinator.isAnimated else {
@@ -125,6 +126,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     func updateView(maximumSize: CGSize, isExpanded: Bool) {
+        updateViewAlpha(isExpanded: isExpanded)
         let sizeThatFits: CGSize
         if isExpanded {
             sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
