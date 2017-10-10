@@ -48,14 +48,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
                                                                          fromButton:(UIBarButtonItem *)button
-                                                                        shareFunnel:(nullable WMFShareFunnel *)shareFunnel;
+                                                                        shareFunnel:(nullable WMFShareFunnel *)shareFunnel
+                                                                     customActivity:(nullable WMFCustomShareActivity *)customActivity;
 @end
 
 @implementation MWKArticle (WMFSharingActivityViewController)
 
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
                                                                          fromButton:(UIBarButtonItem *)button
-                                                                        shareFunnel:(nullable WMFShareFunnel *)shareFunnel {
+                                                                        shareFunnel:(nullable WMFShareFunnel *)shareFunnel
+                                                                     customActivity:(nullable WMFCustomShareActivity *)customActivity {
     NSParameterAssert(button);
     if (!button) {
         //If we get no button, we will crash below on iPad
@@ -65,7 +67,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
 
-    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    WMFShareActivityController *vc = nil;
+    if (customActivity) {
+        vc = [[WMFShareActivityController alloc] initWithArticle:self customShareActivity:customActivity];
+    } else {
+        vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    }
 
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
@@ -1225,11 +1232,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self.webViewController.webView wmf_getSelectedText:^(NSString *_Nonnull text) {
         if (text.length > 0) {
-            [self.shareFunnel logHighlight];
-            [self shareAFactWithTextSnippet:text];
+            WMFCustomShareActivity *shareAFactActivity = [[WMFCustomShareActivity alloc] initWithTitle:@"Share-a-fact"
+                                                                                             imageName:@"share-a-fact"
+                                                                                                action:^{
+                                                                                                    [self.shareFunnel logHighlight];
+                                                                                                    [self shareAFactWithTextSnippet:text];
+                                                                                                }];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:shareAFactActivity];
+            if (vc) {
+                [self presentViewController:vc animated:YES completion:NULL];
+            }
             return;
         } else {
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
             }
@@ -1627,7 +1642,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article theme:self.theme];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article selectedImage:nil theme:self.theme];
         fullscreenGallery.imagePreviewingActionsDelegate = self;
         return fullscreenGallery;
     }
@@ -1698,9 +1713,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
-        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
-                                                        selectedImage:selectedImage
-                                                                theme:self.theme];
+        [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article
+                                                    selectedImage:selectedImage
+                                                            theme:self.theme];
+    gallery.imagePreviewingActionsDelegate = self;
     return gallery;
 }
 
@@ -1756,7 +1772,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
-                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
                                      if (shareActivityController) {
                                          NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                          [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
@@ -1771,7 +1787,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel];
+                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
                                          if (shareActivityController) {
                                              NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                              [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];

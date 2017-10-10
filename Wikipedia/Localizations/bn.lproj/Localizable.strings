@@ -81,6 +81,7 @@
 "button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "button-saved-remove" = "সংরক্ষণ থেকে সরান";
+"button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-by-sa-3.0" = "সিসি বাই-এস ৩.০";
 "close-button-accessibility-label" = "বন্ধ";
@@ -187,6 +188,7 @@
 "info-box-close-text" = "বন্ধ";
 "info-box-title" = "দ্রুত তথ্য";
 "languages-title" = "ভাষা পরিবর্তন করুন";
+"languages-wikipedia" = "উইকিপিডিয়ার ভাষা";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "license-footer-text" = "বিষয়বস্তু $1-এর আওতায় প্রকাশিত যদি না অন্য কিছু নির্ধারিত থাকে।";
 "login-forgot-password" = "পাসওয়ার্ড ভুলে গেছেন?";
@@ -329,17 +331,15 @@
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
 "view-in-browser-footer-link" = "ব্রাউজারে নিবন্ধ দেখুন";
+"welcome-exploration-on-this-day-title" = "আজকের এই দিনে";
 "welcome-explore-continue-button" = "শুরু করুন";
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
+"welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
+"welcome-intro-free-encyclopedia-title" = "একটু মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
-"welcome-languages-continue-button" = "অব্যাহত";
-"welcome-languages-sub-title" = "উইকিপিডিয়া অনুসন্ধান করার জন্য আপনার পছন্দের ভাষা চয়ন করুন";
-"welcome-languages-title" = "ভাষাসমূহ";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
-"welcome-send-data-title" = "বেনামী উপাত্ত পাঠান";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
-"welcome-volunteer-thanks" = "$1 আপনাকে ধন্যবাদ!";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
 "wikitext-download-success" = "বিষয়বস্তু লোড হয়েছে।";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";

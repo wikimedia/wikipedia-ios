@@ -2,7 +2,6 @@
 @import WMF;
 @import FLAnimatedImage;
 @import NYTPhotoViewer;
-@import Masonry;
 #import "Wikipedia-Swift.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
@@ -198,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         self.theme = theme;
-        
+
         [self setOverlayViewTopBarHidden:NO];
     }
     return self;
@@ -221,7 +220,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
 
         [self setOverlayViewTopBarHidden:YES];
-        
+
         self.theme = theme;
     }
     return self;
@@ -236,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
-        
+
         UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = [UIColor whiteColor];
         self.overlayView.leftBarButtonItem = close;
@@ -451,7 +450,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (nullable instancetype)initForPeek:(MWKArticle *)article theme:(WMFTheme *)theme {
+- (nullable instancetype)initForPeek:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme {
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
@@ -463,7 +462,12 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
 
-    self = [self initForPeek:photos initialPhoto:nil delegate:nil theme:theme];
+    id<NYTPhoto> selected = nil;
+    if (image) {
+        selected = [[self class] photoWithImage:image inPhotos:photos];
+    }
+
+    self = [self initForPeek:photos initialPhoto:selected delegate:nil theme:theme];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];

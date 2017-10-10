@@ -83,6 +83,7 @@
 "button-ok" = "OK";
 "button-publish" = "Opublikuj";
 "button-report-a-bug" = "Zgłoś błąd";
+"button-skip" = "Pomiń";
 "cancel" = "Anuluj";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zamknij";
@@ -163,6 +164,7 @@
 // Fuzzy
 "info-box-title" = "Szybkie fakty";
 "languages-title" = "Zmień język";
+"languages-wikipedia" = "Języki Wikipedii";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Treść udostępniana na licencji $1, jeśli nie podano inaczej.";
 "login-forgot-password" = "Nie pamiętasz hasła?";
@@ -276,12 +278,13 @@
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
+"welcome-exploration-on-this-day-title" = "W tym dniu";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
+"welcome-intro-free-encyclopedia-more" = "Dowiedz się więcej o Wikipedii";
+"welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
+"welcome-intro-free-encyclopedia-title" = "Wolna encyklopedia";
 "welcome-languages-add-button" = "Dodaj kolejny język";
-"welcome-languages-continue-button" = "Kontynuuj";
-"welcome-languages-title" = "Języki";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
-"welcome-volunteer-thanks" = "Dziękujemy $1!";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
 "wikitext-download-success" = "Zawartość załadowana.";
 "wikitext-downloading" = "Wczytywanie treści...";

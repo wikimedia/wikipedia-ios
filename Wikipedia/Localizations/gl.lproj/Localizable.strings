@@ -86,6 +86,7 @@
 "button-save-for-later" = "Gardar para máis tarde";
 "button-saved-for-later" = "Gardado para máis tarde";
 "button-saved-remove" = "Quitar dos gardados";
+"button-skip" = "Omitir";
 "cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Pechar";
@@ -377,22 +378,17 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-explore-continue-button" = "Comezar";
-"welcome-explore-features-news-notifications" = "Obter novas notificacións dos temas de tendencia nas novas";
-"welcome-explore-features-on-this-day" = "Viaxar atrás no tempo con $1 para aprender que pasou hoxe na historia";
-"welcome-explore-features-places" = "Use a pestana $1 para descubrir paisaxes preto de vostede ou procurar por todo o mundo";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
+"welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
+"welcome-intro-free-encyclopedia-title" = "A enciclopedia libre";
 "welcome-languages-add-button" = "Engadir outra lingua";
-"welcome-languages-continue-button" = "Continuar";
-"welcome-languages-sub-title" = "Seleccione as súas linguas preferidas para buscar en Wikipedia";
-"welcome-languages-title" = "Linguas";
 "welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
 "welcome-notifications-tell-me-more-title" = "Máis sobre notificacións";
+// Fuzzy
 "welcome-send-data-sub-title" = "Axude á Fundación Wikimedia a mellorar esta aplicación contándonos como o utiliza. Os datos recollidos son anónimos";
-"welcome-send-data-title" = "Enviar datos anónimos";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
-"welcome-volunteer-thanks" = "$1 Grazas!";
 "wikitext-download-failed" = "Non se pode obter a versión máis recente.";
 "wikitext-download-success" = "Contido cargado.";
 "wikitext-downloading" = "Cargando o contido...";

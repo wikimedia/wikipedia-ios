@@ -11,8 +11,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     @objc public let imageView = UIImageView()
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
-    @objc public let actionsView = CollectionViewCellActionsView()
-    
+    public let actionsView = ActionsView()
+
+    public var actions: [Action] {
+        set {
+            actionsView.actions = newValue
+            updateAccessibilityElements()
+        }
+        get {
+            return actionsView.actions
+        }
+    }
+
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
@@ -78,6 +88,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         if #available(iOSApplicationExtension 11.0, *) {
             super.safeAreaInsetsDidChange()
         }
+        if swipeState == .open {
+            swipeTranslation = swipeTranslationWhenOpen
+        }
         setNeedsLayout()
     }
 
@@ -93,9 +106,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
-            let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
+            let isActionsViewLeftAligned = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
             let actionsViewWidth = abs(swipeTranslation)
-            let x = isRTL ? 0 : size.width - actionsViewWidth
+            let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -145,12 +158,34 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     
     // MARK - Semantic content
     
-    open var articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified {
-        didSet {
-            titleLabel.semanticContentAttribute = articleSemanticContentAttribute
-            descriptionLabel.semanticContentAttribute = articleSemanticContentAttribute
-            extractLabel?.semanticContentAttribute = articleSemanticContentAttribute
+    fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
+    fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
+    open var articleSemanticContentAttribute: UISemanticContentAttribute {
+        set {
+            _articleSemanticContentAttribute = newValue
+            updateEffectiveArticleSemanticContentAttribute()
+            setNeedsLayout()
         }
+        get {
+            return _effectiveArticleSemanticContentAttribute
+        }
+    }
+    
+    fileprivate func updateEffectiveArticleSemanticContentAttribute() {
+        if _articleSemanticContentAttribute == .unspecified {
+            let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            _effectiveArticleSemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
+        } else {
+            _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
+        }
+        titleLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        descriptionLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateEffectiveArticleSemanticContentAttribute()
+        super.traitCollectionDidChange(previousTraitCollection)
     }
     
     // MARK - Accessibility
@@ -161,7 +196,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         if let extract = extractLabel {
             groupedLabels.append(extract)
         }
-        updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels))
+
+        updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: actions))
         
         if !isSaveButtonHidden {
             updatedAccessibilityElements.append(saveButton)
@@ -181,13 +217,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     }
     
     // MARK: - Swipeable
-    var isSwiping: Bool = false {
+    var swipeState: SwipeState = .closed {
         didSet {
-            if isSwiping && actionsView.superview == nil {
+            if swipeState != .closed && actionsView.superview == nil {
                 insertSubview(actionsView, belowSubview: contentView)
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
-            } else if !isSwiping && actionsView.superview != nil {
+            } else if swipeState == .closed && actionsView.superview != nil {
                 actionsView.removeFromSuperview()
                 contentView.backgroundColor = .clear
                 clipsToBounds = false
@@ -204,7 +240,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
 
     public var swipeTranslationWhenOpen: CGFloat {
         let maxWidth = actionsView.maximumWidth
-        let isRTL = actionsView.semanticContentAttribute == .forceRightToLeft
+        let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
         return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
     }
     
@@ -216,11 +252,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         layoutSubviews()
         actionsView.layoutIfNeeded()
     }
-    
+
     // MARK: Prepare for reuse
     
     func resetSwipeable() {
         swipeTranslation = 0
-        isSwiping = false
+        swipeState = .closed
     }
 }

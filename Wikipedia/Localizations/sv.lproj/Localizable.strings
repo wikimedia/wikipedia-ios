@@ -3,6 +3,7 @@
 // Author: Aaoo
 // Author: Abbedabb
 // Author: Ainali
+// Author: Bengtsson96
 // Author: Freked
 // Author: Jenniesarina
 // Author: Johan
@@ -94,6 +95,7 @@
 "button-save-for-later" = "Spara till senare";
 "button-saved-for-later" = "Sparades till senare";
 "button-saved-remove" = "Ta bort från sparade";
+"button-skip" = "Hoppa över";
 "cancel" = "Avbryt";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Stäng";
@@ -211,6 +213,7 @@
 "info-box-close-text" = "Stäng";
 "info-box-title" = "Snabbfakta";
 "languages-title" = "Ändra språk";
+"languages-wikipedia" = "Wikipediaspråk";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
 "login-forgot-password" = "Glömt ditt lösenord?";
@@ -384,23 +387,31 @@
 "two-factor-login-with-backup-code" = "Använd en av dina reservkoder";
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
+"welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
+"welcome-exploration-explore-feed-title" = "Utforska flödet";
+"welcome-exploration-on-this-day-description" = "Res bakåt i tiden för att ta reda på vad som hände idag i historien";
+"welcome-exploration-on-this-day-title" = "På denna dag";
+"welcome-exploration-places-description" = "Upptäck landmärken nära dig eller sök efter platser runtom i världen";
+"welcome-exploration-places-title" = "Platsflik";
 "welcome-explore-continue-button" = "Kom igång";
-"welcome-explore-features-news-notifications" = "Få nyhetsnotiser för ämnen som är populära på nyheterna";
-"welcome-explore-features-on-this-day" = "Res tillbaka i tiden med $1 för att ta reda på vad som hände idag i historien";
-"welcome-explore-features-places" = "Använd fliken $1 för att utforska landmärken nära dig eller söka runt i världen";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia är ett samarbete som skrivs av frivilliga och består av fler än 40 miljoner artiklar på nästan 300 språk.";
+"welcome-intro-free-encyclopedia-more" = "Läs mer om Wikipedia";
+"welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia är ett globalt projekt för att bygga fria uppslagsverk på alla världens språk. I princip alla med Internetåtkomst kan bidra med neutral källbelagd information.";
+"welcome-intro-free-encyclopedia-title" = "Den fria encyklopedin";
 "welcome-languages-add-button" = "Lägg till ett annat språk";
-"welcome-languages-continue-button" = "Fortsätt";
-"welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
-"welcome-languages-title" = "Språk";
+"welcome-languages-add-or-edit-button" = "Lägg till eller redigera föredragna språk";
+"welcome-languages-description" = "Vi har hittat följande språk på din enhet:";
+"welcome-languages-search-title" = "Sök på nästan 300 språk";
 "welcome-notifications-tell-me-more-creation" = "Notiser skapas och levereras på din enhet genom appen, inte från vår (eller tredje partens) servrar.";
 "welcome-notifications-tell-me-more-storage" = "Notisinställningarna lagras på enheten och bygger inte på personliga uppgifter eller aktiviteter.";
 "welcome-notifications-tell-me-more-title" = "Mer om notiser";
-"welcome-send-data-sub-title" = "Hjälp Wikimedia Foundation göra appen bättre genom att låta oss veta hur du använder appen. All data som samlas in är anonym.";
-"welcome-send-data-title" = "Skicka anonym data";
+"welcome-send-data-helps-title" = "Hjälp till att göra appen bättre";
+"welcome-send-data-learn-more" = "Läs mer om data som samlas in";
+"welcome-send-data-sub-title" = "Hjälp till att göra appen bättre genom att låta Wikimedia Foundation veta hur du använder den. All data som samlas in är anonym.";
 "welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
-"welcome-volunteer-thanks" = "$1 Tack!";
 "wikitext-download-failed" = "Det gick inte att hämta den senaste versionen.";
 "wikitext-download-success" = "Innehåll laddat.";
 "wikitext-downloading" = "Laddar innehåll...";

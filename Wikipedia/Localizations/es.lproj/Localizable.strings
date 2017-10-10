@@ -390,22 +390,15 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-explore-continue-button" = "Empezar";
-"welcome-explore-features-news-notifications" = "Obtenga notificaciones sobre los temas que marcan tendencia en las noticias.";
-"welcome-explore-features-on-this-day" = "Realice un viaje en el tiempo con $1 para aprender qué ocurrió en la historia un día como hoy";
-"welcome-explore-features-places" = "Utilice la pestaña $1 para descubrir monumentos cerca de usted o realizar una búsqueda alrededor del mundo";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-languages-add-button" = "Añadir otro idioma";
-"welcome-languages-continue-button" = "Continuar";
-"welcome-languages-sub-title" = "Selecciona tus idiomas preferidos para buscar en Wikipedia";
-"welcome-languages-title" = "Idiomas";
 "welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
+// Fuzzy
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación diciéndonos cómo la usas. Los datos recolectados son anónimos.";
-"welcome-send-data-title" = "Enviar datos anónimos";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
-"welcome-volunteer-thanks" = "$1 ¡Gracias!";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el contenido.";
 "wikitext-downloading" = "Cargando el contenido…";

@@ -1,5 +1,4 @@
 #import "PreviewWebViewContainer.h"
-@import Masonry;
 #import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -58,14 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
     [super awakeFromNib];
     WKWebView *webview = [[WKWebView alloc] initWithFrame:CGRectZero configuration:[self configuration]];
     webview.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:webview];
+    [self wmf_addSubviewWithConstraintsToEdges:webview];
     self.webView = webview;
     self.backgroundColor = [UIColor whiteColor];
     self.webView.navigationDelegate = self;
     self.userInteractionEnabled = YES;
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.leading.and.trailing.equalTo(self.webView.superview);
-    }];
 }
 
 - (void)layoutSubviews {

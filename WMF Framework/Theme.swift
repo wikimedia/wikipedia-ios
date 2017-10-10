@@ -27,16 +27,17 @@ public extension UIColor {
     fileprivate static let base100 = UIColor(0xFFFFFF)
     fileprivate static let red30 = UIColor(0xB32424)
     fileprivate static let red50 = UIColor(0xCC3333)
+    fileprivate static let red75 = UIColor(0xFF6E6E)
     fileprivate static let yellow50 = UIColor(0xFFCC33)
     fileprivate static let green50 = UIColor(0x00AF89)
     fileprivate static let blue10 = UIColor(0x2A4B8D)
     fileprivate static let blue50 = UIColor(0x3366CC)
+    fileprivate static let lightBlue = UIColor(0xEAF3FF)
     fileprivate static let mesophere = UIColor(0x43464A)
     fileprivate static let thermosphere = UIColor(0x2E3136)
     fileprivate static let stratosphere = UIColor(0x6699FF)
     fileprivate static let exosphere = UIColor(0x27292D)
     fileprivate static let accent = UIColor(0x00AF89)
-    fileprivate static let sunsetRed = UIColor(0xFF6E6E)
     fileprivate static let accent10 = UIColor(0x2A4B8D)
     fileprivate static let amate = UIColor(0xE1DAD1)
     fileprivate static let parchment = UIColor(0xF8F1E3)
@@ -57,7 +58,7 @@ public extension UIColor {
 
     @objc public static let wmf_darkBlue = UIColor.blue10
     @objc public static let wmf_blue = UIColor.blue50
-    @objc public static let wmf_lightBlue = UIColor(0xEAF3FF)
+    @objc public static let wmf_lightBlue = UIColor.lightBlue
 
     @objc public static let wmf_green = UIColor.green50
     @objc public static let wmf_lightGreen = UIColor(0xD5FDF4)
@@ -95,15 +96,15 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base30, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .base70 , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base30, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70)
     
-    fileprivate static let widgetiOS9 = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear, popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 0.3, alpha: 0.3), keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .sunsetRed, error: .sunsetRed, warning: .yellow50, unselected: .base70)
+    fileprivate static let widgetiOS9 = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear, popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 0.3, alpha: 0.3), keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70)
 
-    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base20, tertiaryText: .base20, disabledText: .base30, chromeText: .base20, link: .blue50, accent: .green50, border: UIColor(white: 0, alpha: 0.10) , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50)
+    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base20, tertiaryText: .base20, disabledText: .base30, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: UIColor(white: 0, alpha: 0.10) , shadow: .base80, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50)
     
     @objc public let baseBackground: UIColor
     @objc public let midBackground: UIColor
@@ -117,6 +118,7 @@ public class Colors: NSObject {
     @objc public let secondaryText: UIColor
     @objc public let tertiaryText: UIColor
     @objc public let disabledText: UIColor
+    @objc public let disabledLink: UIColor
     
     @objc public let chromeText: UIColor
     
@@ -137,9 +139,9 @@ public class Colors: NSObject {
     @objc public let keyboardBarSearchFieldBackground: UIColor
     
     @objc public let linkToAccent: Gradient
-    
+
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -153,7 +155,8 @@ public class Colors: NSObject {
         self.secondaryText = secondaryText
         self.tertiaryText = tertiaryText
         self.disabledText = disabledText
-        
+        self.disabledLink = disabledLink
+
         self.chromeText = chromeText
 
         self.link = link
@@ -199,6 +202,14 @@ public class Theme: NSObject {
     @objc public var keyboardAppearance: UIKeyboardAppearance {
         return isDark ? .dark : .light
     }
+
+    @objc public lazy var navigationBarBackgroundImage: UIImage = {
+        return UIImage.wmf_image(from: colors.chromeBackground)
+    }()
+
+    @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
+        return [NSAttributedStringKey.foregroundColor: colors.chromeText]
+    }()
 
     @objc public let imageOpacity: CGFloat
     

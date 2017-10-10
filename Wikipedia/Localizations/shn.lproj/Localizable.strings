@@ -330,16 +330,12 @@
 "welcome-explore-new-ways-title" = "သၢႆတၢင်းမႂ်ႇ တႃႇပိုတ်ႇႁႃ";
 "welcome-explore-tell-me-more-done-button" = "လႆႈယဝ်ႉ";
 "welcome-languages-add-button" = "ထႅမ်သႂ်ႇ ၽႃႇသႃႇၵႂၢမ်းတၢင်ႇၸိူဝ်း";
-"welcome-languages-continue-button" = "သိုပ်ႇၼႃႈ";
-"welcome-languages-sub-title" = "လိူၵ်ႈပၼ် ၽႃႇသႃႇၵႂၢမ်း ဢၼ်ၸဝ်ႈၵဝ်ႇလႆႈၸႂ်လိူဝ် တွၼ်ႈတႃႇ ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး";
-"welcome-languages-title" = "ၽႃႇသႃႇၵႂၢမ်း";
 "welcome-notifications-tell-me-more-creation" = "ၶေႃႈၽၢင်ႉပၼ်ၸိူဝ်းၼႆႉ ထုၵ်ႇဢႅပ်ႉ ၵေႃႇသၢင်ႈလႄႈ ထုၵ်ႇသူင်ႇပၼ်တီႈၼိူဝ် ၶိူင်ႈၸဝ်ႈၵဝ်ႇ၊ ဢမ်ႇၸႂ်ႈဝႃႈ လုၵ်ႉတီႈ (ၸုမ်းသၢမ်) သႃႇပိူဝ်ႇႁဝ်းၶႃႈမႃး။";
 "welcome-notifications-tell-me-more-storage" = "ငဝ်ႈၵုမ်းပိူင် ၶေႃႈၾၢင်ႉပၼ်ၼႆႉ ထုၵ်ႇသီမ်းဝႆႉတီႈၼႂ်းၶိူင်ႈသေ မၼ်းဢမ်ႇဢဝ် လွၼ်ႉၶၢဝ်ႇ သုၼ်ႇတူဝ် ဢမ်ႇၼၼ် လွင်ႈတူင်ႉၼိုင် ပဵၼ်ပိုၼ်ႉမၼ်း။";
 "welcome-notifications-tell-me-more-title" = "လွင်ႈၶေႃႈၾၢင်ႉပၼ် ၼမ်လိူဝ်";
+// Fuzzy
 "welcome-send-data-sub-title" = "ပၼ်ႁႂ်ႈႁဝ်းၶႃႈ ၸူႉၸွမ်းဝႃႈ ၸဝ်ႈၵဝ်ႇႁဵတ်းႁိုဝ်ၸႂ်ႉ ဢႅပ်ႉၼႆသေၵေႃႈ ၸွႆႈထႅမ်ၾွင်ႇတေးသျိၼ်း ဝီႇၶီႇမီႇတီႇယႃႇ တႃႇႁဵတ်းႁႂ်ႈ ဢႅပ်ႉလီသေလီ။ လွင်ႈၸူႉတွမ်ၶေႃႈမုၼ်းတႄႉ တေပဵၼ် ဢၼ်လပ်ႉၸိုဝ်ႈဝႆႉၵူၺ်း။";
-"welcome-send-data-title" = "သူင်ႇၶေႃႈမုၼ်းလပ်ႉၸိုဝ်ႈ";
 "welcome-volunteer-send-usage-reports" = "တၢင်ႇ ၶေႃႈလၢတ်ႈ လွင်ႈၸႂ်ႉတိုဝ်း";
-"welcome-volunteer-thanks" = "ငိၼ်းၶွပ်ႈၸႂ်ယူႇ $1!";
 "wikitext-download-failed" = "ဢမ်ႇဢဝ်လႆႈ ​မၢႆဢွၵ်ႇၵမ်းလိုၼ်းသုတ်း။";
 "wikitext-download-success" = "ၶေႃႈၼႂ်း ထုတ်ႇပိုတ်ႇယဝ်ႉ။";
 "wikitext-downloading" = "တိုၵ်ႉထုတ်ႇပိုတ်ႇ ၶေႃႈၼႂ်း...";

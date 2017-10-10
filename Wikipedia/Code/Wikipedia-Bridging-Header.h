@@ -1,7 +1,6 @@
 #import "WMFTabBarController.h"
-#import "TSBlurView.h"
-#import "TSMessage.h"
-#import "TSMessageView.h"
+#import "RMessage.h"
+#import "RMessageView.h"
 
 #import "NSString+FormattedAttributedString.h"
 #import "UIFont+WMFStyle.h"
@@ -30,6 +29,7 @@
 #import "MWKImageInfoFetcher.h"
 
 // View Controllers
+#import "WMFThemeableNavigationController.h"
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
 #import "WMFExploreCollectionViewController.h"
@@ -52,6 +52,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
+#import "WMFLanguageCell.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

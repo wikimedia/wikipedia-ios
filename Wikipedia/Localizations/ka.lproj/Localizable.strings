@@ -236,9 +236,6 @@
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
-"welcome-languages-continue-button" = "გაგრძელება";
-"welcome-languages-title" = "ენები";
-"welcome-volunteer-thanks" = "$1 მადლობა!";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
 "wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";

@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WMFLanguageCell" rowHeight="128" id="dWG-ZV-62a" customClass="WMFLanguageCell">
-            <rect key="frame" x="0.0" y="0.0" width="357" height="128"/>
+        <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="gray" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WMFLanguageCell" rowHeight="86" id="dWG-ZV-62a" customClass="WMFLanguageCell">
+            <rect key="frame" x="0.0" y="0.0" width="369" height="86"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="dWG-ZV-62a" id="NeE-xr-BEw">
-                <rect key="frame" x="0.0" y="0.0" width="357" height="127.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="369" height="85.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oox-XU-ZXT" userLabel="Container View">
-                        <rect key="frame" x="18" y="10" width="154" height="106"/>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oox-XU-ZXT" userLabel="Container View">
+                        <rect key="frame" x="18" y="8" width="154" height="69.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmB-2b-adX" userLabel="Language name">
                                 <rect key="frame" x="0.0" y="0.0" width="154" height="18"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msA-8i-v6O" userLabel="Localized language name">
-                                <rect key="frame" x="0.0" y="18" width="154" height="72"/>
+                                <rect key="frame" x="0.0" y="18" width="154" height="35.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS1-QO-ucg" userLabel="Article title">
-                                <rect key="frame" x="0.0" y="90" width="154" height="16"/>
+                                <rect key="frame" x="0.0" y="53.5" width="154" height="16"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="msA-8i-v6O" firstAttribute="top" secondItem="jmB-2b-adX" secondAttribute="bottom" id="Cp7-aM-Ca6"/>
                             <constraint firstItem="jmB-2b-adX" firstAttribute="leading" secondItem="oox-XU-ZXT" secondAttribute="leading" id="Dxe-KA-870"/>
@@ -54,7 +58,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hpq-jr-QHw" userLabel="Primary Label Container">
-                        <rect key="frame" x="273" y="54" width="69" height="20"/>
+                        <rect key="frame" x="285" y="33" width="69" height="20"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIMARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hN-2v-bOc">
                                 <rect key="frame" x="8" y="0.0" width="53" height="20"/>
@@ -86,23 +90,27 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Hpq-jr-QHw" secondAttribute="trailing" constant="15" id="KvS-n1-a3M"/>
                     <constraint firstItem="Hpq-jr-QHw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oox-XU-ZXT" secondAttribute="trailing" constant="15" id="edU-yk-wuz"/>
-                    <constraint firstItem="oox-XU-ZXT" firstAttribute="top" secondItem="NeE-xr-BEw" secondAttribute="topMargin" constant="2" id="iCo-53-qZq"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="oox-XU-ZXT" secondAttribute="bottom" constant="3" id="j4K-Gz-Cf5"/>
+                    <constraint firstItem="oox-XU-ZXT" firstAttribute="top" secondItem="NeE-xr-BEw" secondAttribute="topMargin" id="iCo-53-qZq"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oox-XU-ZXT" secondAttribute="bottom" id="j4K-Gz-Cf5"/>
                     <constraint firstItem="Hpq-jr-QHw" firstAttribute="centerY" secondItem="NeE-xr-BEw" secondAttribute="centerY" id="q7z-xK-mlI"/>
-                    <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leadingMargin" constant="10" id="t53-Zz-hsw"/>
+                    <constraint firstItem="oox-XU-ZXT" firstAttribute="leading" secondItem="NeE-xr-BEw" secondAttribute="leading" constant="18" id="t53-Zz-hsw"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="articleTitleLabel" destination="pS1-QO-ucg" id="zIe-s7-xSw"/>
                 <outlet property="languageNameLabel" destination="jmB-2b-adX" id="Yit-qb-0Re"/>
+                <outlet property="leadingConstraint" destination="t53-Zz-hsw" id="Nx2-Yq-5k7"/>
                 <outlet property="localizedLanguageLabel" destination="msA-8i-v6O" id="HMP-XB-mF4"/>
                 <outlet property="primaryLabel" destination="6hN-2v-bOc" id="bbQ-jS-LSJ"/>
                 <outlet property="primaryLabelContainerView" destination="Hpq-jr-QHw" id="Opd-zX-bBR"/>
+                <outlet property="trailingConstraint" destination="KvS-n1-a3M" id="pAT-Ge-qLJ"/>
             </connections>
-            <point key="canvasLocation" x="231.5" y="360"/>
+            <point key="canvasLocation" x="210" y="324"/>
         </tableViewCell>
     </objects>
 </document>

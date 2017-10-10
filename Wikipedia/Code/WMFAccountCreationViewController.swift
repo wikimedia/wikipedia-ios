@@ -50,7 +50,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         }
         dismiss(animated: true, completion: {
             loginVC.apply(theme: self.theme)
-            presenter.present(ThemeableNavigationController(rootViewController: loginVC, theme: self.theme), animated: true, completion: nil)
+            presenter.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: self.theme), animated: true, completion: nil)
         })
     }
     

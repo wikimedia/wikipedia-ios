@@ -1,31 +1,18 @@
 
 class WMFWelcomeContainerViewController: UIViewController {
     
-    @IBOutlet fileprivate var topForegroundContainerView:UIView!
-    @IBOutlet fileprivate var topBackgroundContainerView:UIView!
+    @IBOutlet fileprivate var topContainerView:UIView!
     @IBOutlet fileprivate var bottomContainerView:UIView!
-
-    @IBOutlet fileprivate var overallContainerView:UIView!
-    @IBOutlet fileprivate var overallContainerViewCenterYConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topForegroundContainerViewHeightConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topForegroundContainerViewWidthConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topBackgroundContainerViewHeightConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topBackgroundContainerViewLeadingConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topBackgroundContainerViewTrailingConstraint:NSLayoutConstraint!
-
+    @IBOutlet fileprivate var overallContainerStackView:UIStackView!
+    @IBOutlet fileprivate var overallContainerStackViewCenterYConstraint:NSLayoutConstraint!
+    @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
+    
     var welcomePageType:WMFWelcomePageType = .intro
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
     fileprivate var hasAlreadyFadedInAndUp = false
-    
     fileprivate var needsDeviceAdjustments = true
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        topForegroundContainerView.backgroundColor = .clear
-        topForegroundContainerView.isUserInteractionEnabled = false
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if (shouldFadeInAndUp() && !hasAlreadyFadedInAndUp) {
@@ -57,45 +44,34 @@ class WMFWelcomeContainerViewController: UIViewController {
     override func updateViewConstraints() {
         super.updateViewConstraints()
         if needsDeviceAdjustments {
-            if isiPhone5() {
-                reduceTopAnimationsSizes(reduction: 50)
+            let height = view.bounds.size.height
+            if height <= 480 {
+                // Just hide animations on iPhone 4s
+                hideAndCollapseTopContainerView()
+            } else if height <= 568 {
+                // On iPhone 5 reduce size of animations.
+                reduceTopAnimationsSizes(reduction: 30)
+            } else {
+                // On everything else add vertical separation between bottom container and animations.
+                overallContainerStackView.spacing = 20
             }
             useBottomAlignmentIfPhone()
-            if isiPhone4s() {
-                hideAndCollapseTopContainerView()
-            }
             needsDeviceAdjustments = false
         }
     }
     
-    fileprivate func isiPhone5() -> Bool {
-        let height = UIScreen.main.bounds.size.height
-        return height > 480 && height <= 568
-    }
-
-    fileprivate func isiPhone4s() -> Bool {
-        return UIScreen.main.bounds.size.height <= 480
-    }
-    
     fileprivate func reduceTopAnimationsSizes(reduction: CGFloat) {
-        topBackgroundContainerViewHeightConstraint.constant = topBackgroundContainerViewHeightConstraint.constant - reduction
-        topBackgroundContainerViewLeadingConstraint.constant = reduction
-        topBackgroundContainerViewTrailingConstraint.constant = reduction
-        topForegroundContainerViewHeightConstraint.constant = topForegroundContainerViewHeightConstraint.constant - reduction
-        topForegroundContainerViewWidthConstraint.constant = topForegroundContainerViewWidthConstraint.constant - reduction
+        topContainerViewHeightConstraint.constant = topContainerViewHeightConstraint.constant - reduction
     }
     
     fileprivate func hideAndCollapseTopContainerView() {
-        topForegroundContainerView.alpha = 0
-        topForegroundContainerViewHeightConstraint.constant = 0
-        topBackgroundContainerView.alpha = 0
-        topBackgroundContainerViewHeightConstraint.constant = 0
+        topContainerView.isHidden = true
     }
     
     fileprivate func useBottomAlignmentIfPhone() {
-        assert(Int(overallContainerViewCenterYConstraint.priority.rawValue) == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
+        assert(Int(overallContainerStackViewCenterYConstraint.priority.rawValue) == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
         if (UI_USER_INTERFACE_IDIOM() == .phone) {
-            overallContainerView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0).isActive = true
+            overallContainerStackView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: 0).isActive = true
         }
     }
     

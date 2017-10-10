@@ -72,6 +72,7 @@
 "button-save-for-later" = "Fir spéider späicheren";
 "button-saved-for-later" = "Fir spéider gespäichert";
 "button-saved-remove" = "Vu gespäichert ewechhuelen";
+"button-skip" = "Iwwersprangen";
 "cancel" = "Ofbriechen";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zoumaachen";
@@ -185,6 +186,7 @@
 "info-box-close-text" = "Zoumaachen";
 "info-box-title" = "Séier Fakten";
 "languages-title" = "Sprooch änneren";
+"languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
@@ -346,20 +348,24 @@
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
 "view-in-browser-footer-link" = "Artikel am Browser kucken";
+"welcome-exploration-on-this-day-title" = "Op dësem Dag";
 "welcome-explore-continue-button" = "Fir unzefänken";
 "welcome-explore-new-ways-title" = "Nei Manéiere fir z'entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstan";
+"welcome-intro-free-encyclopedia-more" = "Méi iwwer Wikipedia gewuer ginn";
+"welcome-intro-free-encyclopedia-more-about" = "Iwwer Wikipedia";
+"welcome-intro-free-encyclopedia-title" = "Déi fräi Enzyklopedie";
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
-"welcome-languages-continue-button" = "Virufueren";
-"welcome-languages-sub-title" = "Sicht Är léifst Sprooch eraus fir op Wikipedia ze sichen";
-"welcome-languages-title" = "Sproochen";
+"welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
+"welcome-languages-search-title" = "A bal 300 Sprooche sichen";
 "welcome-notifications-tell-me-more-creation" = "Notifikatioune ginn duerch d'App op Ärem Apparat ugeluecht an ausgeliwwert, net vun eise Serveren (oder enger drëtter Säit).";
 "welcome-notifications-tell-me-more-storage" = "D'Astellunge fir d'Notifikatioune sinn um Apparat gespäichert a baséieren net op perséinlechen Informatiounen oder der Aktivitéit.";
 "welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
+"welcome-send-data-helps-title" = "Hëlleft d'App besser ze maachen";
+"welcome-send-data-learn-more" = "Méi iwwer déi gesammelt Donnéeë gewuer ginn";
+// Fuzzy
 "welcome-send-data-sub-title" = "Hëlleft der Wikimedia Foundation d'App besser ze maachen andeem Dir eis wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
-"welcome-send-data-title" = "Anonym Donnéeë schécken";
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
-"welcome-volunteer-thanks" = "$1 Merci!";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Inhalt gelueden.";
 "wikitext-downloading" = "Inhalt gëtt gelueden...";

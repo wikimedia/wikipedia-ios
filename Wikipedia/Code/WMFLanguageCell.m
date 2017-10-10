@@ -10,6 +10,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *primaryLabel;
 @property (strong, nonatomic) IBOutlet UIView *primaryLabelContainerView;
 @property (strong, nonatomic) WMFTheme *theme;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *leadingConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 
 @end
 
@@ -59,6 +61,11 @@
     self.localizedLanguageLabel.text = nil;
     self.isPrimary = NO;
     self.isPreferred = NO;
+}
+
+- (void)collapseSideSpacing {
+    self.leadingConstraint.constant = 0;
+    self.trailingConstraint.constant = 0;
 }
 
 - (void)setIsPrimary:(BOOL)isPrimary {

@@ -8,6 +8,21 @@ class SearchResultsViewController: ArticleCollectionViewController {
             collectionView?.reloadData()
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        collectionView?.reloadData()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func articleWasUpdated(_ notification: Notification) {
+        updateVisibleCellActions()
+    }
+    
     @objc var searchSiteURL: URL? = nil
     
     @objc(isDisplayingResultsForSearchTerm:fromSiteURL:)
@@ -67,6 +82,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         let locale = NSLocale.wmf_locale(for: language)
         cell.configureForCompactList(at: indexPath.item)
         cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: searchResults?.searchTerm, locale: locale)
+        cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = language
@@ -76,6 +92,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.imageURL = result.thumbnailURL
         } 
         cell.apply(theme: theme)
+        cell.actions = availableActions(at: indexPath)
     }
 }
 

@@ -69,7 +69,7 @@
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
-"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeelding in het donkere thema";
+"appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-theme-options" = "Thema-opties";
 "appearance-settings-title" = "Leesthema's";
@@ -94,6 +94,7 @@
 "button-save-for-later" = "Opslaan voor later";
 "button-saved-for-later" = "Opgeslagen voor later";
 "button-saved-remove" = "Uit opgeslagen verwijderen";
+"button-skip" = "Overslaan";
 "cancel" = "Annuleren";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sluiten";
@@ -211,6 +212,7 @@
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
 "languages-title" = "Taal wijzigen";
+"languages-wikipedia" = "Wikipedia-talen";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "login-forgot-password" = "Wachtwoord vergeten?";
@@ -382,20 +384,23 @@
 "two-factor-login-with-backup-code" = "Gebruik een van uw back-upcodes";
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
+"welcome-exploration-on-this-day-title" = "Op deze dag";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
+"welcome-intro-free-encyclopedia-more" = "Lees meer over Wikipedia";
+"welcome-intro-free-encyclopedia-more-about" = "Over Wikipedia";
+"welcome-intro-free-encyclopedia-title" = "De vrije encyclopedie";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
-"welcome-languages-continue-button" = "Doorgaan";
-"welcome-languages-sub-title" = "Kies de voorkeurstalen waarin u binnen Wikipedia wilt zoeken";
-"welcome-languages-title" = "Talen";
+"welcome-languages-add-or-edit-button" = "Voorkeurstalen toevoegen of bewerken";
+"welcome-languages-description" = "We hebben de volgende talen op uw apparaat gevonden:";
+"welcome-languages-search-title" = "Zoek in bijna 300 talen";
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
+// Fuzzy
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
-"welcome-send-data-title" = "Anoniem gegevens zenden";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
-"welcome-volunteer-thanks" = "$1 Bedankt!";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Inhoud geladen.";
 "wikitext-downloading" = "Inhoud laden...";

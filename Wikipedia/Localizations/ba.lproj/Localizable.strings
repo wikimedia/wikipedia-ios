@@ -4,6 +4,7 @@
 // Author: Nemo bis
 // Author: Азат Хәлилов
 // Author: Айсар
+// Author: Ансар
 // Author: Аҡҡашҡа
 // Author: Ләйсән
 // Author: Мухамадеева
@@ -62,6 +63,7 @@
 "button-next" = "Артабан";
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
 "button-saved-for-later" = "Киләсәккә һаҡланды";
+"button-skip" = "Үткәреп ебәрергә";
 "cc-by-sa-3.0" = "CC-BY-SA 3.0";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
@@ -119,6 +121,7 @@
 // Fuzzy
 "info-box-title" = "Ҡыҫҡа факттар";
 "languages-title" = "Телде үҙгәртергә";
+"languages-wikipedia" = "Википедия телдәре";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "$1 лицензияһына ярашлы, эстәлеге менән һәр кем файҙалана ала (башҡаһы күрһәтелмәһә)";
 "main-menu-about" = "Ҡушымта тураһында";
@@ -196,15 +199,21 @@
 "table-of-contents-close-accessibility-label" = "Йөкмәткене ябырға";
 "table-of-contents-heading" = "Йөкмәткеһе";
 "table-title-other" = "Тулыраҡ";
+"welcome-exploration-on-this-day-description" = "Тарихта бөгөнгө көндә нимә булғанын белеү өсөн ваҡыт буйынса сәйәхәт итегеҙ";
+"welcome-exploration-on-this-day-title" = "Был көндә";
 "welcome-explore-continue-button" = "Башларға";
 "welcome-explore-tell-me-more-done-button" = "Аңлашыла";
+"welcome-intro-free-encyclopedia-description" = "Википедия ирекмәндәр тарафынан берлектә яҙыла, һәм унда 300-гә яҡын телдә 40 миллиондан күберәк мәҡәлә бар.";
+"welcome-intro-free-encyclopedia-more" = "Википедия тураһында күберәк белегеҙ";
+"welcome-intro-free-encyclopedia-more-about" = "Википедия тураһында";
+"welcome-intro-free-encyclopedia-title" = "Ирекле энциклопедия";
 // Fuzzy
 "welcome-languages-add-button" = "Тағы өҫтәргә";
-"welcome-languages-continue-button" = "Дауам итергә";
-"welcome-languages-sub-title" = "Википедияла эҙләү башҡарырға теләгән  телдәрҙе һайлағыҙ";
-"welcome-languages-title" = "Телдәр";
+"welcome-languages-add-or-edit-button" = "Ҡулайлы телдәрҙе өҫтәү йәки үҙгәртеү";
+"welcome-languages-search-title" = "300-гә яҡын телдән эҙләү";
+"welcome-send-data-helps-title" = "Ҡушымтаны яҡшыртырға ярҙам итегеҙ";
+"welcome-send-data-learn-more" = "Йыйылған мәғлүмәттәр хаҡында тулыраҡ...";
 "welcome-volunteer-send-usage-reports" = "Файҙаланыу тураһында отчет ебәрергә";
-"welcome-volunteer-thanks" = "$1 Рәхмәт!";
 "wikitext-download-failed" = "Һуңғы версияны алып булмай";
 "wikitext-download-success" = "Булған нәмә күсерелгән";
 "wikitext-downloading" = "Булғанды күсереү";

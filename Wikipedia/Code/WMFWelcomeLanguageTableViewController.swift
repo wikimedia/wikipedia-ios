@@ -1,9 +1,22 @@
 
+// https://stackoverflow.com/a/34902501/135557
+class WMFWelcomeLanguageIntrinsicTableView: UITableView {
+    override var contentSize: CGSize {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    override var intrinsicContentSize: CGSize {
+        layoutIfNeeded()
+        return CGSize(width: UIViewNoIntrinsicMetric, height: contentSize.height)
+    }
+}
+
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     fileprivate var theme = Theme.standard
     
-    @IBOutlet fileprivate var languageTableView:UITableView!
+    @IBOutlet fileprivate var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
     @IBOutlet fileprivate var moreLanguagesButton:UIButton!
     @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
 
@@ -17,6 +30,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
         languageTableView.rowHeight = UITableViewAutomaticDimension
         languageTableView.estimatedRowHeight = 30
+        languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -30,24 +44,25 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WMFWelcomeLanguageTableViewCell.wmf_nibName(), for: indexPath) as! WMFWelcomeLanguageTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: WMFLanguageCell.wmf_nibName(), for: indexPath) as! WMFLanguageCell
+        cell.collapseSideSpacing()
         let langLink = MWKLanguageLinkController.sharedInstance().preferredLanguages[indexPath.row]
         cell.languageName = langLink.name
+        cell.isPrimary = indexPath.row == 0
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // https://stackoverflow.com/a/3991688/135557
         cell.backgroundColor = .clear
+        cell.backgroundView?.backgroundColor = .clear
+        cell.contentView.backgroundColor = .clear
     }
     
     @IBAction func addLanguages(withSender sender: AnyObject) {
         let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         langsVC?.delegate = self
-        let navC = ThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
-        // Intentionally not using apply(theme:) for now to limit any unintended consequences elsewhere in the app
-        navC.navigationBar.isTranslucent = false
-        navC.view.tintColor = theme.colors.link
+        let navC = WMFThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
         present(navC, animated: true, completion: nil)
     }
     
