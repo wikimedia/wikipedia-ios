@@ -97,7 +97,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addSubview(nextButton)
         nextButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 88))
+        
+        let leading = NSLayoutConstraint(item: nextButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 88)
+        leading.priority = .defaultHigh
+        let trailing = NSLayoutConstraint(item: nextButton, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: view, attribute: .trailing, multiplier: 1, constant: 10)
+        trailing.priority = .required
+        view.addConstraints([leading, trailing])
     }
 
     fileprivate func configureAndAddSkipButton(){
@@ -110,7 +115,12 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addSubview(skipButton)
         skipButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -88))
+
+        let leading = NSLayoutConstraint(item: skipButton, attribute: .leading, relatedBy: .greaterThanOrEqual, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
+        leading.priority = .required
+        let trailing = NSLayoutConstraint(item: skipButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: -88)
+        trailing.priority = .defaultHigh
+        view.addConstraints([leading, trailing])
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
