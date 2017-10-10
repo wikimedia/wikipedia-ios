@@ -87,6 +87,7 @@
 "button-save-for-later" = "Tallenna myöhemmäksi";
 "button-saved-for-later" = "Tallennettu myöhemmäksi";
 "button-saved-remove" = "Poista tallennetuista";
+"button-skip" = "Ohita";
 "cancel" = "Peruuta";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Sulje";
@@ -362,15 +363,24 @@
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
+"welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
+"welcome-exploration-on-this-day-title" = "Tänä päivänä";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
+"welcome-intro-free-encyclopedia-more" = "Lue lisää Wikipediasta";
+"welcome-intro-free-encyclopedia-more-about" = "Tietoja Wikipediasta";
+"welcome-intro-free-encyclopedia-title" = "Vapaa tietosanakirja";
 "welcome-languages-add-button" = "Lisää toinen kieli";
+"welcome-languages-add-or-edit-button" = "Lisää tai muokkaa ensisijaisia kieliä";
+"welcome-languages-description" = "Olemme löytäneet seuraavat kielet laitteestasi:";
+"welcome-languages-search-title" = "Hae miltei 300 kielellä";
 "welcome-notifications-tell-me-more-creation" = "Sovellus luo ja toimittaa ilmoitukset, eikä niitä haeta meidän (tai kolmannen osapuolen) palvelimilta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset ovat tallennettuna laitteeseen eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintoihin.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
-// Fuzzy
-"welcome-send-data-sub-title" = "Auta Wikimedia Foundationia tekemään sovelluksesta parempi lähettämällä dataa siitä, miten käytät sovellusta. Kerätyt tiedot ovat anonyymejä.";
+"welcome-send-data-helps-title" = "Auta tekemään sovelluksesta parempi";
+"welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
+"welcome-send-data-sub-title" = "Auta tekemään sovelluksesta parempi kertomalla Wikimedia Foundationille kuinka käytät sitä. Kerätyt tiedot ovat anonyymejä.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-download-success" = "Sisältö ladattu.";
