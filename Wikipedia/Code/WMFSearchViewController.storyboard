@@ -269,7 +269,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-uc-mYL">
-                                <rect key="frame" x="0.0" y="7" width="163" height="32"/>
+                                <rect key="frame" x="0.0" y="7" width="302" height="32"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="979-eE-gLA">
                                         <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
@@ -314,7 +314,6 @@
                                     <constraint firstAttribute="height" secondItem="979-eE-gLA" secondAttribute="height" id="3eT-H9-FYq"/>
                                     <constraint firstAttribute="trailing" secondItem="979-eE-gLA" secondAttribute="trailing" id="E0R-IG-fwT"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="top" secondItem="fBp-uc-mYL" secondAttribute="top" id="TkD-fL-SJc"/>
-                                    <constraint firstItem="979-eE-gLA" firstAttribute="width" secondItem="fBp-uc-mYL" secondAttribute="width" id="X8Z-H1-6my"/>
                                     <constraint firstAttribute="bottom" secondItem="979-eE-gLA" secondAttribute="bottom" id="cRp-g7-6qr"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leading" id="zF7-Ns-UDN"/>
                                 </constraints>
@@ -355,7 +354,7 @@
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
-                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fBp-uc-mYL" secondAttribute="trailing" constant="8" id="KTa-Ex-muV"/>
+                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="trailing" constant="8" id="KTa-Ex-muV"/>
                             <constraint firstItem="fBp-uc-mYL" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="RXC-bL-zjR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
                             <constraint firstAttribute="trailing" secondItem="iIa-dg-uH0" secondAttribute="trailing" id="ZzG-BV-MLc"/>
