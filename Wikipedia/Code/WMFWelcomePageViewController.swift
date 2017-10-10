@@ -92,7 +92,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
-        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        nextButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        nextButton.titleLabel?.numberOfLines = 1
         nextButton.setTitle(CommonStrings.nextTitle, for: .normal)
         nextButton.setTitleColor(theme.colors.link, for: .normal)
         nextButton.setTitleColor(theme.colors.disabledText, for: .disabled)
@@ -112,7 +113,8 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         skipButton.isUserInteractionEnabled = true
-        skipButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        skipButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        skipButton.titleLabel?.numberOfLines = 1
         skipButton.setTitle(CommonStrings.skipTitle, for: .normal)
         skipButton.setTitleColor(UIColor(0xA2A9B1), for: .normal)
         view.addSubview(skipButton)
