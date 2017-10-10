@@ -1,5 +1,6 @@
 
 class WMFWelcomeIntroductionViewController: UIViewController {
+    fileprivate var theme = Theme.standard
 
     @IBOutlet fileprivate var descriptionLabel:UILabel!
     @IBOutlet fileprivate var learnMoreButton:UIButton!
@@ -12,7 +13,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
         
-        learnMoreButton.setTitleColor(.wmf_blue, for: .normal)
+        learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
         
         view.wmf_configureSubviewsForDynamicType()
     }

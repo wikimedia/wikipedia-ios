@@ -19,7 +19,7 @@ class WMFWelcomePanelViewController: UIViewController {
             titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .medium)
         }
         
-        nextButton.backgroundColor = .wmf_blue
+        nextButton.backgroundColor = theme.colors.link
         embedContainerControllerView()
         updateUIStrings()
 
