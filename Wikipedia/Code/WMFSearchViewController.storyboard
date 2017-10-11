@@ -315,7 +315,7 @@
                                     <constraint firstAttribute="trailing" secondItem="979-eE-gLA" secondAttribute="trailing" id="E0R-IG-fwT"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="top" secondItem="fBp-uc-mYL" secondAttribute="top" id="TkD-fL-SJc"/>
                                     <constraint firstAttribute="bottom" secondItem="979-eE-gLA" secondAttribute="bottom" id="cRp-g7-6qr"/>
-                                    <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leading" id="zF7-Ns-UDN"/>
+                                    <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leadingMargin" constant="-8" id="zF7-Ns-UDN"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">
