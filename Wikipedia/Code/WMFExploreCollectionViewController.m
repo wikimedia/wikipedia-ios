@@ -429,6 +429,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)contentSizeCategoryDidChange:(NSNotification *)note {
+    [self resetLayoutCache];
     [self.collectionView reloadData];
 }
 
