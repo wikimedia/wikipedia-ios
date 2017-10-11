@@ -317,6 +317,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerCellsAndViews];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     if ([self.collectionView respondsToSelector:@selector(setPrefetchDataSource:)]) {
@@ -397,15 +400,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [self updateSectionCounts];
         [self.collectionView reloadData];
     }
-
-    @weakify(self);
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note) {
-                                                      @strongify(self);
-                                                      [self.collectionView reloadData];
-                                                  }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -422,7 +416,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self stopMonitoringReachability];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
 - (void)resetLayoutCache {
@@ -433,6 +426,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
+}
+
+- (void)contentSizeCategoryDidChange:(NSNotification *)note {
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

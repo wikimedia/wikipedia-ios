@@ -17,10 +17,19 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         super.init(coder: aDecoder)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
+        NotificationCenter.default.addObserver(self, selector: #selector(contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
+    }
+
+    @objc func contentSizeCategoryDidChange(_ notification: Notification) {
+        collectionView?.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,15 +48,11 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
                 cellWithSubItems.deselectSelectedSubItems(animated: animated)
             }
         }
-        NotificationCenter.default.addObserver(forName: .UIContentSizeCategoryDidChange, object: nil, queue: nil) {_ in
-            self.collectionView?.reloadData()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         unregisterForPreviewing()
-        NotificationCenter.default.removeObserver(self, name: .UIContentSizeCategoryDidChange, object: nil)
     }
     
     // MARK - Cell & View Registration
