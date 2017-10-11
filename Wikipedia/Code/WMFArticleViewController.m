@@ -1475,6 +1475,27 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView velocity:(CGPoint)velocity {
+
+    if (velocity.y > 0) {
+        [UIView animateWithDuration:2.5
+                              delay:0
+                            options:UIViewAnimationOptionTransitionNone
+                         animations:^{
+                             [self.navigationController setNavigationBarHidden:YES animated:YES];
+                         }
+                         completion:nil];
+    } else {
+        [UIView animateWithDuration:2.5
+                              delay:0
+                            options:UIViewAnimationOptionTransitionNone
+                         animations:^{
+                             [self.navigationController setNavigationBarHidden:NO animated:YES];
+                         }
+                         completion:nil];
+    }
+}
+
 #pragma mark - Footer menu
 
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
