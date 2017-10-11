@@ -1170,22 +1170,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)configureOnThisDayCell:(WMFOnThisDayExploreCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
     cell.layoutMargins = self.readableMargins;
-    NSArray *events = contentGroup.content;
-    NSInteger featuredIndex = contentGroup.featuredContentIndex;
-    WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)contentGroup.featuredContentObject;
-
-    if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-        WMFFeedOnThisDayEvent *previousEvent = event;
-        NSInteger attempts = 0;
-        while (events.count > featuredIndex + 1 && previousEvent.year == event.year && attempts < 4) {
-            WMFFeedOnThisDayEvent *potentialEvent = events[featuredIndex + 1];
-            if ([potentialEvent isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-                previousEvent = potentialEvent;
-            }
-            attempts++;
+    NSArray *previewEvents = (NSArray *)contentGroup.contentPreview;
+    if ([previewEvents isKindOfClass:[NSArray class]]) {
+        WMFFeedOnThisDayEvent *event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
+        WMFFeedOnThisDayEvent *previousEvent = previewEvents.firstObject;
+        if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]] && [previousEvent isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+            [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
         }
-        [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
+  
 }
 
 - (void)configureAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup atIndexPath:(NSIndexPath *)indexPath {
@@ -1364,8 +1357,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
             if (indexPath.length > 2) {
-                WMFFeedOnThisDayEvent *event = (WMFFeedOnThisDayEvent *)group.featuredContentObject;
-
+                NSArray *previewEvents = (NSArray *)group.contentPreview;
+                WMFFeedOnThisDayEvent *event = nil;
+                if ([previewEvents isKindOfClass:[NSArray class]]) {
+                    event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
+                }
                 if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
                     NSInteger articleIndex = [indexPath indexAtPosition:2];
                     if (articleIndex < event.articlePreviews.count) {

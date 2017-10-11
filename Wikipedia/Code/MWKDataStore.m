@@ -503,6 +503,72 @@ static uint64_t bundleHash() {
     }];
 }
 
+- (void)migrateContentGroupsToPreviewContentInManagedObjectContedt:(NSManagedObjectContext *)moc {
+    NSFetchRequest *request = [WMFContentGroup fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.fetchLimit = 500;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        return;
+    }
+    
+    
+    while (contentGroups.count > 0) {
+        @autoreleasepool {
+            NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
+            for (WMFContentGroup *contentGroup in contentGroups) {
+                WMFContent *fullContent = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContent" inManagedObjectContext:moc];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                NSArray *content = contentGroup.content;
+                fullContent.content = content;
+#pragma clang diagnostic pop
+                contentGroup.fullContent = fullContent;
+                
+                switch (contentGroup.contentType) {
+                    case WMFContentTypeOnThisDayEvent:
+                    {
+                        NSArray *onThisDayEvents = content;
+                        NSInteger featuredEventIndex = contentGroup.articleURLString.integerValue;
+                        if (featuredEventIndex >= 0 && featuredEventIndex < onThisDayEvents.count) {
+                            NSInteger startIndex = featuredEventIndex > 0 ? featuredEventIndex - 1 : featuredEventIndex;
+                            NSInteger endIndex = featuredEventIndex < onThisDayEvents.count - 1 ? featuredEventIndex + 2 : featuredEventIndex + 1;
+                            NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
+                            contentGroup.contentPreview = [content subarrayWithRange:range];
+                        } else {
+                            [toDelete addObject:contentGroup];
+                        }
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+            
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    return;
+                }
+                [moc reset];
+            }
+        }
+        
+        contentGroups = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching content groups: %@", fetchError);
+            return;
+        }
+    }
+    
+}
+
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
@@ -659,7 +725,10 @@ static uint64_t bundleHash() {
                     newContentGroup.placemark = oldContentGroup.placemark;
                     newContentGroup.contentMidnightUTCDate = oldContentGroup.mostReadDate.wmf_midnightUTCDateFromUTCDate;
                     newContentGroup.wasDismissed = oldContentGroup.wasDismissed;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                     newContentGroup.content = metadata;
+#pragma clang diagnostic pop
                     [newContentGroup updateKey];
                     [newContentGroup updateContentType];
                     [newContentGroup updateDailySortPriority];
