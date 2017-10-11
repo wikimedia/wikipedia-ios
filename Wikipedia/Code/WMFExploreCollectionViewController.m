@@ -1892,6 +1892,12 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     }
 }
 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willEndDragging:velocity:)]) {
+            [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
+        }
+}
+
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
