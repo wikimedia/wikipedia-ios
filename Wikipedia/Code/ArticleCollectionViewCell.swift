@@ -6,6 +6,7 @@ import UIKit
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -13,33 +14,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
-
-    func updateMargins() {
-        let margins = privateLayoutMargins
-        let multipliers = layoutMarginsMultipliers
-        super.layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top), left: round(margins.left * multipliers.left), bottom: round(margins.bottom * multipliers.bottom), right: round(margins.right * multipliers.right))
-    }
-
-    fileprivate var privateLayoutMargins: UIEdgeInsets = ArticleCollectionViewCell.defaultMargins {
-        didSet {
-            updateMargins()
-        }
-    }
-
-    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers {
-        didSet {
-            updateMargins()
-        }
-    }
-
-    open override var layoutMargins: UIEdgeInsets {
-        set {
-            privateLayoutMargins = newValue
-        }
-        get {
-            return super.layoutMargins
-        }
-    }
 
     public var actions: [Action] {
         set {
