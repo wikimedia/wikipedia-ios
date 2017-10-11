@@ -274,7 +274,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                 group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
             }];
     } else {
-        group.content = topRead.articlePreviews;
+        group.fullContentObject = topRead.articlePreviews;
+        [group updateContentPreviewWithContent:topRead.articlePreviews];
     }
 }
 
@@ -286,10 +287,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
 
     if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
-    } else if (group.content == nil) {
-        group.content = @[image];
+        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
     }
+    group.contentPreview = image;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -368,7 +368,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (newsGroup == nil) {
         newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
     } else {
-        newsGroup.content = news;
+        newsGroup.fullContentObject = news;
+        [newsGroup updateContentPreviewWithContent:news];
     }
     newsGroup.isVisible = isVisible;
     [self addNewsNotificationGroupForNewsGroup:newsGroup inManagedObjectContext:moc];
@@ -378,7 +379,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
     if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         NSURL *URL = [WMFContentGroup notificationContentGroupURL];
-        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }

@@ -47,7 +47,7 @@
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="object" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="contentGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFContentGroup" inverseName="fullContent" inverseEntity="WMFContentGroup" syncable="YES"/>
     </entity>
     <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
@@ -60,6 +60,7 @@
         <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="featuredContentIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
@@ -96,8 +97,8 @@
     </entity>
     <elements>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
-        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="300"/>
-        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>
 </model>

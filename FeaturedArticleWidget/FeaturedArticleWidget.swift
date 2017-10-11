@@ -42,7 +42,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     var article: WMFArticle? {
         guard let featuredContentGroup = dataStore?.viewContext.newestGroup(of: .featuredArticle),
-            let articleURL = featuredContentGroup.content?.first as? URL else {
+            let articleURL = featuredContentGroup.contentPreview as? URL else {
                 return nil
         }
         return dataStore?.fetchArticle(with: articleURL)

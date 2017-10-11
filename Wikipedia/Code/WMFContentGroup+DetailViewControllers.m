@@ -5,7 +5,7 @@
 @implementation WMFContentGroup (DetailViewControllers)
 
 - (nullable NSArray<NSURL *> *)contentURLs {
-    NSArray<NSCoding> *content = (NSArray<NSCoding> *)[[self fullContent] content];
+    NSArray<NSCoding> *content = (NSArray<NSCoding> *)self.fullContent.object;
     if ([self contentType] == WMFContentTypeTopReadPreview) {
         content = [content wmf_map:^id(WMFFeedTopReadArticlePreview *obj) {
             return [obj articleURL];
@@ -39,7 +39,7 @@
             }
         } break;
         case WMFFeedMoreTypeNews: {
-            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)[[self fullContent] content];
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)self.fullContent.object;
             if (![[stories firstObject] isKindOfClass:[WMFFeedNewsStory class]]) {
                 NSAssert(false, @"Invalid Content");
                 return nil;
@@ -47,7 +47,7 @@
             vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:dataStore];
         } break;
         case WMFFeedMoreTypeOnThisDay: {
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)[[self fullContent] content];
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)self.fullContent.object;
             if (![[events firstObject] isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
                 NSAssert(false, @"Invalid Content");
                 return nil;

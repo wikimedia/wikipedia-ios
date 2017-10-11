@@ -6,7 +6,7 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"WMFContent"];
 }
 
-@dynamic content;
+@dynamic object;
 @dynamic contentGroup;
 
 @end

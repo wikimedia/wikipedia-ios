@@ -519,65 +519,20 @@ static uint64_t bundleHash() {
         @autoreleasepool {
             NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
             for (WMFContentGroup *contentGroup in contentGroups) {
-                WMFContent *fullContent = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContent" inManagedObjectContext:moc];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 NSArray *content = contentGroup.content;
-                fullContent.content = content;
+                contentGroup.fullContentObject = content;
+                contentGroup.featuredContentIdentifier = contentGroup.articleURLString;
+                [contentGroup updateContentPreviewWithContent:content];
+                contentGroup.content = nil;
 #pragma clang diagnostic pop
-                contentGroup.fullContent = fullContent;
-                NSInteger contentLimit = 3;
-                switch (contentGroup.contentGroupKind) {
-                    case WMFContentGroupKindOnThisDay:
-                    {
-                        NSArray *onThisDayEvents = content;
-                        NSInteger featuredEventIndex = contentGroup.articleURLString.integerValue;
-                        if (featuredEventIndex >= 0 && featuredEventIndex < onThisDayEvents.count) {
-                            NSInteger startIndex = featuredEventIndex > 0 ? featuredEventIndex - 1 : featuredEventIndex;
-                            NSInteger endIndex = featuredEventIndex < onThisDayEvents.count - 1 ? featuredEventIndex + 2 : featuredEventIndex + 1;
-                            NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
-                            contentGroup.contentPreview = [content subarrayWithRange:range];
-                        } else {
-                            [toDelete addObject:contentGroup];
-                        }
-                    }
-                        break;
-                    case WMFContentGroupKindTopRead:
-                        contentLimit = 5;
-                    case WMFContentGroupKindRelatedPages:
-                    case WMFContentGroupKindLocation:
-                    {
-                        if (content.count > contentLimit) {
-                            contentGroup.contentPreview = [content subarrayWithRange:NSMakeRange(0, contentLimit)];
-                        } else if (content.count > 0) {
-                            contentGroup.contentPreview = content;
-                        } else {
-                            [toDelete addObject:contentGroup];
-                        }
-                    }
-                        break;
-                    case WMFContentGroupKindMainPage:
-                    case WMFContentGroupKindNotification:
-                    case WMFContentGroupKindLocationPlaceholder:
-                    case WMFContentGroupKindPictureOfTheDay:
-                    case WMFContentGroupKindRandom:
-                    case WMFContentGroupKindFeaturedArticle:
-                    case WMFContentGroupKindTheme:
-                    case WMFContentGroupKindAnnouncement:
-                    case WMFContentGroupKindContinueReading:
-                    case WMFContentGroupKindNews:
-                    case WMFContentGroupKindUnknown:
-                    default:
-                    {
-                        id <NSCoding> firstObject = content.firstObject;
-                        if (firstObject) {
-                            contentGroup.contentPreview = firstObject;
-                        } else {
-                            [toDelete addObject:contentGroup];
-                        }
-                    }
-                        break;
+                if (contentGroup.contentPreview == nil) {
+                    [toDelete addObject:contentGroup];
                 }
+            }
+            for (WMFContentGroup *group in toDelete) {
+                [moc deleteObject:group];
             }
             
             if ([moc hasChanges]) {

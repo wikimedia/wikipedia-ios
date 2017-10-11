@@ -38,8 +38,16 @@ import Foundation
             if let articleURLDatabaseKey = group.articleURL?.wmf_articleDatabaseKey {
                 referencedArticleKeys.insert(articleURLDatabaseKey)
             }
-            
-            guard let content = group.fullContent?.content as? [Any] else {
+
+            if let previewURL = group.contentPreview as? NSURL, let key = previewURL.wmf_articleDatabaseKey {
+                referencedArticleKeys.insert(key)
+            }
+
+            guard let fullContent = group.fullContent else {
+                continue
+            }
+
+            guard let content = fullContent.object as? [Any] else {
                 assertionFailure("Unknown Content Type")
                 continue
             }

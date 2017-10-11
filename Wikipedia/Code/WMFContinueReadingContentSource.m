@@ -54,7 +54,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             return;
         }
 
-        NSURL *savedURL = (NSURL *)[group.content firstObject];
+        NSURL *savedURL = (NSURL *)group.contentPreview;
 
         if ([savedURL isEqual:lastRead]) {
             if (completion) {
@@ -72,7 +72,9 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
             return;
         }
 
-        [moc fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:@[lastRead] customizationBlock:NULL];
+        [moc fetchOrCreateGroupForURL:continueReadingURL ofKind:WMFContentGroupKindContinueReading forDate:userData.viewedDate withSiteURL:nil associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
+            group.contentPreview = lastRead;
+        }];
 
         if (completion) {
             completion();

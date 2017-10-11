@@ -209,6 +209,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return [(WMFFeedTopReadArticlePreview *)preview articleURL];
 
     } else if ([section contentType] == WMFContentTypeURL) {
+        if ([contentPreview isKindOfClass:[NSURL class]]) {
+            return contentPreview;
+        }
         if (![contentPreview isKindOfClass:[NSArray class]]) {
             return nil;
         }
@@ -1343,7 +1346,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
         } break;
         case WMFFeedDetailTypeStory: {
-            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.content;
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
@@ -1362,7 +1365,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeEvent: {
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.content;
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
             if (indexPath.length > 2) {
                 NSArray *previewEvents = (NSArray *)group.contentPreview;
                 WMFFeedOnThisDayEvent *event = nil;

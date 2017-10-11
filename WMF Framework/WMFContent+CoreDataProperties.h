@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<WMFContent *> *)fetchRequest;
 
-@property (nullable, nonatomic, retain) id <NSCoding> content;
+@property (nullable, nonatomic, retain) id <NSCoding> object;
 @property (nullable, nonatomic, retain) WMFContentGroup *contentGroup;
 
 @end

@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *date;
 @property (nullable, nonatomic, copy) NSDate *midnightUTCDate;
 @property (nullable, nonatomic, copy) NSDate *contentMidnightUTCDate;
+@property (nullable, nonatomic, copy) NSDate *contentDate;
+
 @property (nullable, nonatomic, copy) NSString *siteURLString;
 
 @property (nonatomic) int32_t contentGroupKindInteger;
@@ -25,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t dailySortPriority;
 
 @property (nullable, nonatomic, copy) NSString *articleURLString;
+@property (nullable, nonatomic, copy) NSString *featuredContentIdentifier;
+
 @property (nullable, nonatomic, retain) CLLocation *location;
 @property (nullable, nonatomic, retain) CLPlacemark *placemark;
 

@@ -22,5 +22,7 @@
 @dynamic wasDismissed;
 @dynamic fullContent;
 @dynamic contentPreview;
+@dynamic featuredContentIdentifier;
+@dynamic contentDate;
 
 @end
