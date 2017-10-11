@@ -263,13 +263,19 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
     }];
 
-    [moc createGroupOfKind:WMFContentGroupKindTopRead
-                   forDate:date
-               withSiteURL:self.siteURL
-         associatedContent:topRead.articlePreviews
-        customizationBlock:^(WMFContentGroup *_Nonnull group) {
-            group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
-        }];
+    WMFContentGroup *group = [self topReadForDate:date inManagedObjectContext:moc];
+
+    if (group == nil) {
+        [moc createGroupOfKind:WMFContentGroupKindTopRead
+                       forDate:date
+                   withSiteURL:self.siteURL
+             associatedContent:topRead.articlePreviews
+            customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
+            }];
+    } else {
+        group.content = topRead.articlePreviews;
+    }
 }
 
 - (void)saveGroupForPictureOfTheDay:(WMFFeedImage *)image date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -388,6 +394,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
+- (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id)[moc groupOfKind:WMFContentGroupKindTopRead forDate:date siteURL:self.siteURL];
+}
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];
