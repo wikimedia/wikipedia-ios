@@ -247,8 +247,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     if (featured == nil) {
         [moc createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
-    } else if (featured.content == nil) {
-        featured.content = @[featuredURL];
+    } else if (featured.contentPreview == nil) {
+        featured.contentPreview = featuredURL;
     }
 }
 
@@ -263,19 +263,13 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [moc fetchOrCreateArticleWithURL:url updatedWithFeedPreview:obj pageViews:pageViews[url]];
     }];
 
-    WMFContentGroup *group = [self topReadForDate:date inManagedObjectContext:moc];
-
-    if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindTopRead
-                       forDate:date
-                   withSiteURL:self.siteURL
-             associatedContent:topRead.articlePreviews
-            customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
-            }];
-    } else if (group.content == nil) {
-        group.content = topRead.articlePreviews;
-    }
+    [moc createGroupOfKind:WMFContentGroupKindTopRead
+                   forDate:date
+               withSiteURL:self.siteURL
+         associatedContent:topRead.articlePreviews
+        customizationBlock:^(WMFContentGroup *_Nonnull group) {
+            group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
+        }];
 }
 
 - (void)saveGroupForPictureOfTheDay:(WMFFeedImage *)image date:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -394,9 +388,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     return (id)[moc groupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date];
 }
 
-- (nullable WMFContentGroup *)topReadForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    return (id)[moc groupOfKind:WMFContentGroupKindTopRead forDate:date siteURL:self.siteURL];
-}
 
 - (nullable WMFContentGroup *)newsForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindNews forDate:date siteURL:self.siteURL];

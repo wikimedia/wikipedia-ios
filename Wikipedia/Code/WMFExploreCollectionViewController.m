@@ -153,9 +153,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (BOOL)canScrollToTop {
     WMFContentGroup *group = [self sectionAtIndex:0];
-    NSParameterAssert(group);
-    NSArray *content = group.content;
-    return [content count] > 0;
+    return group != nil;
 }
 
 - (BOOL)isScrolledToTop {
@@ -178,45 +176,50 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Content Access
 
-- (nullable NSArray<id> *)contentForGroup:(WMFContentGroup *)group {
-    return group.content;
-}
-
-- (nullable NSArray<id> *)contentForSectionAtIndex:(NSUInteger)sectionIndex {
-    WMFContentGroup *section = [self sectionAtIndex:sectionIndex];
-    return [self contentForGroup:section];
-}
-
 - (nullable NSURL *)contentURLForIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     WMFFeedDisplayType displayType = [section displayTypeForItemAtIndex:indexPath.item];
+    id contentPreview = section.contentPreview;
     if (displayType == WMFFeedDisplayTypeRelatedPagesSourceArticle) {
         return section.articleURL;
     } else if (displayType == WMFFeedDisplayTypeRelatedPages) {
-        NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
+        if (![contentPreview isKindOfClass:[NSArray class]]) {
+            return nil;
+        }
         NSInteger index = indexPath.item - 1;
-        if (index >= [content count]) {
+        if (index >= [contentPreview count]) {
             return nil;
         }
-        return content[index];
+        id preview = contentPreview[index];
+        if (![preview isKindOfClass:[NSURL class]]) {
+            return nil;
+        }
+        return preview;
     } else if ([section contentType] == WMFContentTypeTopReadPreview) {
-
-        NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
-
-        if (indexPath.row >= [content count]) {
+        if (![contentPreview isKindOfClass:[NSArray class]]) {
             return nil;
         }
-
-        return [content[indexPath.row] articleURL];
+        if (indexPath.item >= [contentPreview count]) {
+            return nil;
+        }
+        id preview = contentPreview[indexPath.item];
+        if (![preview isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
+            return nil;
+        }
+        return [(WMFFeedTopReadArticlePreview *)preview articleURL];
 
     } else if ([section contentType] == WMFContentTypeURL) {
-
-        NSArray<NSURL *> *content = [self contentForSectionAtIndex:indexPath.section];
-        if (indexPath.row >= [content count]) {
+        if (![contentPreview isKindOfClass:[NSArray class]]) {
             return nil;
         }
-        return content[indexPath.row];
-
+        if (indexPath.item >= [contentPreview count]) {
+            return nil;
+        }
+        id preview = contentPreview[indexPath.item];
+        if (![preview isKindOfClass:[NSURL class]]) {
+            return nil;
+        }
+        return preview;
     } else {
         return nil;
     }
@@ -226,11 +229,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     NSURL *articleURL = nil;
     NSInteger width = 0;
-    NSArray<NSCoding> *content = [self contentForSectionAtIndex:indexPath.section];
-    if (indexPath.row >= [content count]) {
+    id contentPreview = section.contentPreview;
+    if (![contentPreview isKindOfClass:[NSArray class]]) {
         return nil;
     }
-    NSObject *object = content[indexPath.row];
+    if (indexPath.item >= [contentPreview count]) {
+        return nil;
+    }
+    id object = contentPreview[indexPath.item];
     if ([section contentType] == WMFContentTypeTopReadPreview && [object isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
         articleURL = [(WMFFeedTopReadArticlePreview *)object articleURL];
         width = self.traitCollection.wmf_listThumbnailWidth;
@@ -271,22 +277,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
-    NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
-    if (indexPath.row >= content.count) {
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+    id contentPreview = group.contentPreview;
+    if (![contentPreview isKindOfClass:[NSArray class]]) {
         return nil;
     }
-    return [content objectAtIndex:indexPath.row];
-}
-
-- (nullable WMFFeedImage *)imageInfoForIndexPath:(NSIndexPath *)indexPath {
-    WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    if ([section contentType] != WMFContentTypeImage) {
+    if (indexPath.item >= [contentPreview count]) {
         return nil;
     }
-    if (indexPath.row >= section.content.count) {
+    id preview = [contentPreview objectAtIndex:indexPath.item];
+    if (![preview isKindOfClass:[WMFFeedTopReadArticlePreview class]]) {
         return nil;
     }
-    return (WMFFeedImage *)section.content[indexPath.row];
+    return preview;
 }
 
 #pragma mark - Refresh Control
@@ -497,8 +500,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (NSInteger)numberOfItemsInContentGroup:(WMFContentGroup *)contentGroup {
     NSParameterAssert(contentGroup);
-    NSArray *feedContent = contentGroup.content;
-    NSInteger countOfFeedContent = feedContent.count;
+    id contentPreview = contentGroup.contentPreview;
+    if (![contentPreview isKindOfClass:[NSArray class]]) {
+        return 1;
+    }
+    NSInteger countOfFeedContent = [contentPreview count];
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindNews:
             return 1;
@@ -564,9 +570,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
         } break;
         case WMFFeedDisplayTypePhoto: {
-            WMFFeedImage *imageInfo = [self imageInfoForIndexPath:indexPath];
             WMFPicOfTheDayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[WMFPicOfTheDayCollectionViewCell wmf_nibName] forIndexPath:indexPath];
-            [self configurePhotoCell:cell withImageInfo:imageInfo atIndexPath:indexPath];
+            id preview = contentGroup.contentPreview;
+            if ([preview isKindOfClass:[WMFFeedImage class]]) {
+                [self configurePhotoCell:cell withImageInfo:preview atIndexPath:indexPath];
+
+            }
             return cell;
         } break;
         case WMFFeedDisplayTypeStory: {
@@ -1161,8 +1170,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)configureNewsCell:(WMFNewsCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup layoutOnly:(BOOL)layoutOnly {
     cell.layoutMargins = self.readableMargins;
-    NSArray *stories = contentGroup.content;
-    WMFFeedNewsStory *story = [stories firstObject];
+    WMFFeedNewsStory *story = (WMFFeedNewsStory *)contentGroup.contentPreview;
     if ([story isKindOfClass:[WMFFeedNewsStory class]]) {
         [cell configureWithStory:story dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
     }
@@ -1186,11 +1194,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
         case WMFFeedDisplayTypeAnnouncement: {
-            NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:contentGroup];
-            if (indexPath.item >= announcements.count) {
+            WMFAnnouncement *announcement = (WMFAnnouncement *)contentGroup.contentPreview;
+            if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
                 return;
             }
-            WMFAnnouncement *announcement = announcements[indexPath.item];
             if (announcement.imageURL) {
                 cell.isImageViewHidden = NO;
                 [cell.imageView wmf_setImageWithURL:announcement.imageURL detectFaces:NO failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
@@ -1336,7 +1343,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
         } break;
         case WMFFeedDetailTypeStory: {
-            NSArray<WMFFeedNewsStory *> *stories = [self contentForGroup:group];
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.content;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
@@ -1355,7 +1362,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeEvent: {
-            NSArray<WMFFeedOnThisDayEvent *> *events = [self contentForGroup:group];
+            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.content;
             if (indexPath.length > 2) {
                 NSArray *previewEvents = (NSArray *)group.contentPreview;
                 WMFFeedOnThisDayEvent *event = nil;
@@ -1752,11 +1759,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
             [self dismissNotificationCard];
         } break;
         default: {
-            NSArray<WMFAnnouncement *> *announcements = [self contentForGroup:group];
-            if (indexPath.item >= announcements.count) {
-                return;
-            }
-            WMFAnnouncement *announcement = announcements[indexPath.item];
+            WMFAnnouncement *announcement = (WMFAnnouncement *)group.contentPreview;
             NSURL *url = announcement.actionURL;
             [self wmf_openExternalUrl:url];
             [self dismissAnnouncementCell:cell];

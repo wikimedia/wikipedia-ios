@@ -526,9 +526,9 @@ static uint64_t bundleHash() {
                 fullContent.content = content;
 #pragma clang diagnostic pop
                 contentGroup.fullContent = fullContent;
-                
-                switch (contentGroup.contentType) {
-                    case WMFContentTypeOnThisDayEvent:
+                NSInteger contentLimit = 3;
+                switch (contentGroup.contentGroupKind) {
+                    case WMFContentGroupKindOnThisDay:
                     {
                         NSArray *onThisDayEvents = content;
                         NSInteger featuredEventIndex = contentGroup.articleURLString.integerValue;
@@ -540,11 +540,42 @@ static uint64_t bundleHash() {
                         } else {
                             [toDelete addObject:contentGroup];
                         }
-                        
                     }
                         break;
-                        
+                    case WMFContentGroupKindTopRead:
+                        contentLimit = 5;
+                    case WMFContentGroupKindRelatedPages:
+                    case WMFContentGroupKindLocation:
+                    {
+                        if (content.count > contentLimit) {
+                            contentGroup.contentPreview = [content subarrayWithRange:NSMakeRange(0, contentLimit)];
+                        } else if (content.count > 0) {
+                            contentGroup.contentPreview = content;
+                        } else {
+                            [toDelete addObject:contentGroup];
+                        }
+                    }
+                        break;
+                    case WMFContentGroupKindMainPage:
+                    case WMFContentGroupKindNotification:
+                    case WMFContentGroupKindLocationPlaceholder:
+                    case WMFContentGroupKindPictureOfTheDay:
+                    case WMFContentGroupKindRandom:
+                    case WMFContentGroupKindFeaturedArticle:
+                    case WMFContentGroupKindTheme:
+                    case WMFContentGroupKindAnnouncement:
+                    case WMFContentGroupKindContinueReading:
+                    case WMFContentGroupKindNews:
+                    case WMFContentGroupKindUnknown:
                     default:
+                    {
+                        id <NSCoding> firstObject = content.firstObject;
+                        if (firstObject) {
+                            contentGroup.contentPreview = firstObject;
+                        } else {
+                            [toDelete addObject:contentGroup];
+                        }
+                    }
                         break;
                 }
             }

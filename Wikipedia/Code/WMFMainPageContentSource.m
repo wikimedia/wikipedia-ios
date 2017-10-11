@@ -75,7 +75,7 @@
     [moc performBlock:^{
         NSURL *groupURL = [WMFContentGroup mainPageURLForSiteURL:siteURL];
         WMFContentGroup *section = [moc contentGroupForURL:groupURL];
-        if (section.isForToday && section.content != nil) {
+        if (section.isForToday && section.contentPreview != nil) {
             if (completion) {
                 completion();
             }
@@ -102,7 +102,7 @@
                         [moc performBlock:^{
                             WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
                             [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
-                            section.content = @[data.mainPageURL];
+                            section.contentPreview = data.mainPageURL;
                             [section updateDailySortPriority];
                             [self cleanupOldSectionsInManagedObjectContext:moc];
 
