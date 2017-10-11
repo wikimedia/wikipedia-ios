@@ -35,7 +35,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
-        cell.layoutMargins = layout.readableMargins
+        cell.insets = layout.readableMargins
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
