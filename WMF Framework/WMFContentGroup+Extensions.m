@@ -223,6 +223,21 @@
     fullContent.object = fullContentObject;
 }
 
+- (NSInteger)featuredContentIndex {
+    if (self.featuredContentIdentifier == nil) {
+        return NSNotFound;
+    }
+    return self.featuredContentIdentifier.integerValue;
+}
+
+- (void)setFeaturedContentIndex:(NSInteger)index {
+    if (index == NSNotFound) {
+        self.featuredContentIdentifier = nil;
+    } else {
+        self.featuredContentIdentifier = [NSString stringWithFormat:@"%lli", (long long)index];
+    }
+}
+
 - (void)updateContentPreviewWithContent:(id)content {
     if (!content) {
         return;
@@ -235,7 +250,7 @@
     switch (self.contentGroupKind) {
         case WMFContentGroupKindOnThisDay:
         {
-            NSInteger featuredEventIndex = self.featuredContentIdentifier.integerValue;
+            NSInteger featuredEventIndex = self.featuredContentIndex;
             if (featuredEventIndex >= 0 && featuredEventIndex < contentArray.count) {
                 NSInteger startIndex = featuredEventIndex > 0 ? featuredEventIndex - 1 : featuredEventIndex;
                 NSInteger endIndex = featuredEventIndex < contentArray.count - 1 ? featuredEventIndex + 2 : featuredEventIndex + 1;

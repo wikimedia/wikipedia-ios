@@ -65,6 +65,8 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 - (BOOL)isForLocalDate:(NSDate *)date; //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
 
+// Utilizes featuredContentIdentifier for storage so can't be set along with featuredContentIdentifier
+@property (nonatomic) NSInteger featuredContentIndex;
 
 - (void)setFullContentObject:(id<NSCoding>)fullContentObject; // will automatically create or update fullContent relationship
 - (void)updateContentPreviewWithContent:(id)content;
