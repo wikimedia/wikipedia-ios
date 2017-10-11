@@ -19,13 +19,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isVisible;
 @property (nonatomic) BOOL wasDismissed;
 
-@property (nullable, nonatomic, copy) NSArray<id<NSCoding>> *content;
+@property (nullable, nonatomic, copy) NSArray<id<NSCoding>> *content DEPRECATED_ATTRIBUTE; // use contentPreview for feed card content and fullContent for detail view content
+@property (nullable, nonatomic, copy) id<NSCoding> contentPreview;
 
 @property (nonatomic) int32_t dailySortPriority;
 
 @property (nullable, nonatomic, copy) NSString *articleURLString;
 @property (nullable, nonatomic, retain) CLLocation *location;
 @property (nullable, nonatomic, retain) CLPlacemark *placemark;
+
+@property (nullable, nonatomic, retain) WMFContent *fullContent;
+
 
 @end
 

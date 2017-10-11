@@ -163,6 +163,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>
+#import <WMF/WMFContent+CoreDataProperties.h>
 #import <WMF/WMFKeyValue+CoreDataProperties.h>
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>

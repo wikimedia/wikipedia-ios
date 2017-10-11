@@ -20,5 +20,6 @@
 @dynamic content;
 @dynamic isVisible;
 @dynamic wasDismissed;
+@dynamic fullContent;
 
 @end

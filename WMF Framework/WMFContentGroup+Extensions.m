@@ -195,30 +195,6 @@
     self.articleURLString = articleURL.absoluteString;
 }
 
-// Utilizes articleURLString for storage so can't be set along with articleURL
-- (NSInteger)featuredContentIndex {
-    if (self.articleURLString == nil) {
-        return NSNotFound;
-    }
-    return self.articleURLString.integerValue;
-}
-
-- (void)setFeaturedContentIndex:(NSInteger)index {
-    if (index == NSNotFound) {
-        self.articleURLString = nil;
-    } else {
-        self.articleURLString = [NSString stringWithFormat:@"%lli", (long long)index];
-    }
-}
-
-- (id<NSCoding>)featuredContentObject {
-    NSInteger index = self.featuredContentIndex;
-    if (index < 0 || index > self.content.count) {
-        return self.content.firstObject;
-    }
-    return self.content[index];
-}
-
 - (nullable NSURL *)siteURL {
     return [NSURL URLWithString:self.siteURLString];
 }
