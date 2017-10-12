@@ -211,11 +211,15 @@
         return;
     }
     WMFContent *fullContent = self.fullContent;
-    if (!fullContentObject && fullContent) {
-        [moc deleteObject:fullContent];
-        self.fullContent = nil;
+    if (!fullContentObject) {
+        if (fullContent) {
+            [moc deleteObject:fullContent];
+            self.fullContent = nil;
+            return;
+        }
         return;
     }
+
     if (!fullContent) {
         fullContent = (WMFContent *)[NSEntityDescription insertNewObjectForEntityForName:@"WMFContent" inManagedObjectContext:moc];
         self.fullContent = fullContent;
@@ -647,7 +651,6 @@
         group.fullContentObject = associatedContent;
         group.siteURLString = siteURL.absoluteString;
         [group updateContentPreviewWithContent:associatedContent];
-
         if (customizationBlock) {
             customizationBlock(group);
         }
