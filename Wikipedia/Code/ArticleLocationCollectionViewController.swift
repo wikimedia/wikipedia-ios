@@ -30,7 +30,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.delegate = self
-        locationManager.startMonitoringLocation()
+        if WMFLocationManager.isAuthorized() {
+            locationManager.startMonitoringLocation()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -105,6 +107,12 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
     
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
         updateLocationOnVisibleCells()
+    }
+
+    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
+        if enabled {
+            locationManager.startMonitoringLocation()
+        }
     }
 }
 
