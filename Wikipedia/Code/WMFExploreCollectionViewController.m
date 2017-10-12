@@ -1192,9 +1192,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     cell.layoutMargins = self.readableMargins;
     NSArray *previewEvents = (NSArray *)contentGroup.contentPreview;
     if ([previewEvents isKindOfClass:[NSArray class]]) {
-        WMFFeedOnThisDayEvent *event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
-        WMFFeedOnThisDayEvent *previousEvent = previewEvents.firstObject;
-        if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]] && [previousEvent isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+        WMFFeedOnThisDayEvent *event = previewEvents.firstObject;
+        WMFFeedOnThisDayEvent *previousEvent = previewEvents.count > 1 ? previewEvents.lastObject : nil;
+        if ([event isKindOfClass:[WMFFeedOnThisDayEvent class]] && (previousEvent == nil || [previousEvent isKindOfClass:[WMFFeedOnThisDayEvent class]])) {
             [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
         }
     }

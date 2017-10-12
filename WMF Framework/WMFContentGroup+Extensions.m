@@ -256,9 +256,9 @@
         {
             NSInteger featuredEventIndex = self.featuredContentIndex;
             if (featuredEventIndex >= 0 && featuredEventIndex < contentArray.count) {
-                NSInteger startIndex = featuredEventIndex > 0 ? featuredEventIndex - 1 : featuredEventIndex;
-                NSInteger endIndex = featuredEventIndex < contentArray.count - 1 ? featuredEventIndex + 2 : featuredEventIndex + 1;
-                NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
+                NSInteger startIndex = featuredEventIndex;
+                NSInteger length = startIndex + 1 < contentArray.count ? 2 : 1;
+                NSRange range = NSMakeRange(startIndex, length);
                 self.contentPreview = [contentArray subarrayWithRange:range];
             }
         }
