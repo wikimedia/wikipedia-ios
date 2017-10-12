@@ -6,7 +6,8 @@ class WMFWelcomeContainerViewController: UIViewController {
     @IBOutlet fileprivate var overallContainerStackView:UIStackView!
     @IBOutlet fileprivate var overallContainerStackViewCenterYConstraint:NSLayoutConstraint!
     @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
-    
+    @IBOutlet fileprivate var bottomContainerViewHeightConstraint:NSLayoutConstraint!
+
     var welcomePageType:WMFWelcomePageType = .intro
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
@@ -51,6 +52,8 @@ class WMFWelcomeContainerViewController: UIViewController {
             } else if height <= 568 {
                 // On iPhone 5 reduce size of animations.
                 reduceTopAnimationsSizes(reduction: 30)
+                bottomContainerViewHeightConstraint.constant = 367
+                overallContainerStackView.spacing = 10
             } else {
                 // On everything else add vertical separation between bottom container and animations.
                 overallContainerStackView.spacing = 20
