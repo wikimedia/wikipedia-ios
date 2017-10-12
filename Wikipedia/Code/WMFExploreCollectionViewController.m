@@ -318,7 +318,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [super viewDidLoad];
     [self registerCellsAndViews];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    if (@available(iOS 10.0, *)) {
+        // use traitCollectionDidChange on iOS 10 and newer
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    }
 
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -426,9 +430,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self resetLayoutCache];
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
+    if (@available(iOS 10.0, *)) {
+        UIContentSizeCategory previousContentSizeCategory = previousTraitCollection.preferredContentSizeCategory;
+        UIContentSizeCategory contentSizeCategory = self.traitCollection.preferredContentSizeCategory;
+        if (contentSizeCategory && ![previousContentSizeCategory isEqualToString:contentSizeCategory]) {
+            [self contentSizeCategoryDidChange:nil];
+        }
+    }
 }
 
-- (void)contentSizeCategoryDidChange:(NSNotification *)note {
+- (void)contentSizeCategoryDidChange:(nullable NSNotification *)note {
     [self resetLayoutCache];
     [self.collectionView reloadData];
 }
