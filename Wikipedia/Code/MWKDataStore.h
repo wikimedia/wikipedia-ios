@@ -57,6 +57,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 - (void)teardownFeedImportContext;
 
+- (void)prefetchArticles; // fill the article cache to speed up initial feed load
+
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;

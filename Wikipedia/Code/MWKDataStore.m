@@ -854,7 +854,7 @@ static uint64_t bundleHash() {
     self.articleCache.countLimit = 50;
 
     self.articlePreviewCache = [[NSCache alloc] init];
-    self.articlePreviewCache.countLimit = 100;
+    self.articlePreviewCache.countLimit = 1000;
 
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
 }
@@ -1448,6 +1448,20 @@ static uint64_t bundleHash() {
 }
 
 #pragma mark - Cache
+
+- (void)prefetchArticles {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.fetchLimit = 1000;
+    NSManagedObjectContext *moc = self.viewContext;
+    NSArray<WMFArticle *> *prefetchedArticles = [moc executeFetchRequest:request error:nil];
+    for (WMFArticle *article in prefetchedArticles) {
+        NSString *key = article.key;
+        if (!key) {
+            continue;
+        }
+        [self.articlePreviewCache setObject:article forKey:key];
+    }
+}
 
 - (void)clearMemoryCache {
     @synchronized(self.articleCache) {
