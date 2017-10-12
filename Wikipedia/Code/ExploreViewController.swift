@@ -232,11 +232,9 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willEndDragging scrollView: UIScrollView, velocity: CGPoint) {
         
-        self.view.layoutIfNeeded()
         if( velocity.y > 0) {
             UIView.animate(withDuration: 2.5, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.view.layoutIfNeeded()
             }, completion: nil)
             
         } else {
