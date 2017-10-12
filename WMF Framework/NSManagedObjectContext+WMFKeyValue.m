@@ -4,15 +4,21 @@
 
 @implementation NSManagedObjectContext (WMFKeyValue)
 
-- (nullable WMFKeyValue *)wmf_keyValueForKey:(NSString *)key {
+- (nullable NSArray<WMFKeyValue *> *)wmf_keyValuesForKey:(NSString *)key fetchLimit:(NSInteger)fetchLimit {
     NSFetchRequest *request = [WMFKeyValue fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-    request.fetchLimit = 1;
+    if (fetchLimit > 0) {
+        request.fetchLimit = fetchLimit;
+    }
     NSError *keyValueFetchError = nil;
     NSArray<WMFKeyValue *> *results = [self executeFetchRequest:request error:&keyValueFetchError];
     if (keyValueFetchError) {
         DDLogError(@"Error fetching key value: %@", keyValueFetchError);
     }
+    return results;
+}
+- (nullable WMFKeyValue *)wmf_keyValueForKey:(NSString *)key {
+    NSArray<WMFKeyValue *> *results = [self wmf_keyValuesForKey:key fetchLimit:1];
     return results.firstObject;
 }
 
@@ -31,7 +37,15 @@
 }
 
 - (WMFKeyValue *)wmf_setValue:(id<NSCoding>)value forKey:(NSString *)key {
-    WMFKeyValue *keyValue = [self wmf_keyValueForKey:key];
+    NSArray<WMFKeyValue *> *results = [self wmf_keyValuesForKey:key fetchLimit:0];
+    if (results.count > 1) {
+        // failsafe to delete extra key value objects
+        NSArray<WMFKeyValue *> *subarray = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
+        for (WMFKeyValue *value in subarray) {
+            [self deleteObject:value];
+        }
+    }
+    WMFKeyValue *keyValue = results.firstObject;
     if (!keyValue) {
         keyValue = [NSEntityDescription insertNewObjectForEntityForName:@"WMFKeyValue" inManagedObjectContext:self];
         keyValue.key = key;
