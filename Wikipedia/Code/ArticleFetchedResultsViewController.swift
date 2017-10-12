@@ -19,6 +19,11 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
+        guard let sections = fetchedResultsController.sections,
+            indexPath.section < sections.count,
+            indexPath.item < sections[indexPath.section].numberOfObjects else {
+                return nil
+        }
         return fetchedResultsController.object(at: indexPath)
     }
     

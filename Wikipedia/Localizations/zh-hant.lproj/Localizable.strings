@@ -213,6 +213,7 @@
 "info-box-close-text" = "關閉";
 "info-box-title" = "快速預覽";
 "languages-title" = "變更語言";
+"languages-wikipedia" = "維基百科語言";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "除非另有註明，否則頁面內容均以 $1 條款授權";
 "login-forgot-password" = "忘記您的密碼？";

@@ -6,7 +6,7 @@
 #import "WMFCVLInvalidationContext.h"
 #import "WMFCVLMetrics.h"
 
-static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 600;
+static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
 
 @interface WMFColumnarCollectionViewLayout ()
 

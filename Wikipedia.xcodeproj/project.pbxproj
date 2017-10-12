@@ -251,11 +251,6 @@
 		B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */; };
 		B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
-		B043C97E1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */; };
-		B043C97F1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */; };
-		B043C9801F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */; };
-		B043C9811F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */; };
-		B043C9821F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */; };
 		B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */; };
 		B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
 		B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
@@ -3132,7 +3127,6 @@
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageTagParserTests.m; sourceTree = "<group>"; };
-		B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift; sourceTree = "<group>"; };
 		B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array<UITextField>+WMFAllFieldsFilled.swift"; path = "Wikipedia/Code/Array<UITextField>+WMFAllFieldsFilled.swift"; sourceTree = SOURCE_ROOT; };
 		B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WKWebView+WMFWebViewControllerJavascript.swift"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.swift"; sourceTree = SOURCE_ROOT; };
 		B04DA3C81D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFSearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
@@ -5705,7 +5699,6 @@
 		B043C9831F871AA8005400D3 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				B043C97D1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				B03103251F677AF600E2FCF6 /* Exploration */,
 				0E26B08A1C0FD8040004D687 /* Language */,
@@ -9588,7 +9581,6 @@
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
 				B066F0D51E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift in Sources */,
-				B043C97F1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */,
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
@@ -9907,7 +9899,6 @@
 				D80ED3231EE57F4800CE8C50 /* WMFArticleViewController.m in Sources */,
 				D80ED3251EE57F4800CE8C50 /* NSAttributedString+WMFTrim.m in Sources */,
 				D80ED3261EE57F4800CE8C50 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
-				B043C9821F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */,
 				D80ED3271EE57F4800CE8C50 /* WKWebView+LoadAssetsHtml.m in Sources */,
 				D80ED3281EE57F4800CE8C50 /* UIViewController+WMFChildViewController.swift in Sources */,
 				D80ED3291EE57F4800CE8C50 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
@@ -10476,7 +10467,6 @@
 				D8E27BA41F82B38200F9D2B3 /* RMessageView.m in Sources */,
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */,
-				B043C9811F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */,
 				D8A42AEE1E815A9C00D8E281 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				832289DE1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D8A42AEF1E815A9C00D8E281 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
@@ -10795,7 +10785,6 @@
 				D8CE25861E698E2400DAE2E0 /* WMFArticleViewController.m in Sources */,
 				D8CE25881E698E2400DAE2E0 /* NSAttributedString+WMFTrim.m in Sources */,
 				BA2C9BE81F54BD52006190E6 /* UITableViewCell+Extensions.swift in Sources */,
-				B043C97E1F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */,
 				BA4524251F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				D8CE25891E698E2400DAE2E0 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8CE258A1E698E2400DAE2E0 /* WKWebView+LoadAssetsHtml.m in Sources */,
@@ -11097,7 +11086,6 @@
 				D8EC3E801E9BDA35006712EB /* WMFRandomArticleViewController.m in Sources */,
 				D8703DC11EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8EC3E821E9BDA35006712EB /* WMFArticleViewController.m in Sources */,
-				B043C9801F871A6C005400D3 /* WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController.swift in Sources */,
 				D8EC3E841E9BDA35006712EB /* NSAttributedString+WMFTrim.m in Sources */,
 				D8EC3E851E9BDA35006712EB /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D8EC3E861E9BDA35006712EB /* WKWebView+LoadAssetsHtml.m in Sources */,
@@ -14197,7 +14185,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfbeta.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -14217,7 +14205,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfbeta.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -14237,7 +14225,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfalpha.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -14317,7 +14305,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfbeta.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -14337,7 +14325,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfbeta.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -14377,7 +14365,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Wikipedia Stickers/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.Wikipedia-Stickers";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia.tfalpha.Wikipedia-Stickers";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

@@ -1,9 +1,22 @@
 
-class WMFWelcomeLanguageTableViewController: WMFWelcomeScrollViewVerticalScrollIndicatorFlashingViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+// https://stackoverflow.com/a/34902501/135557
+class WMFWelcomeLanguageIntrinsicTableView: UITableView {
+    override var contentSize: CGSize {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    override var intrinsicContentSize: CGSize {
+        layoutIfNeeded()
+        return CGSize(width: UIViewNoIntrinsicMetric, height: contentSize.height)
+    }
+}
+
+class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
     fileprivate var theme = Theme.standard
     
-    @IBOutlet fileprivate var languageTableView:UITableView!
+    @IBOutlet fileprivate var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
     @IBOutlet fileprivate var moreLanguagesButton:UIButton!
     @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
 

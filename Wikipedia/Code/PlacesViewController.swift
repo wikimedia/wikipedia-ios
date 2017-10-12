@@ -303,13 +303,19 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
 
     }
 
-    public func logListViewImpression(forIndexPath indexPath: IndexPath) {
+    fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let sections = articleFetchedResultsController.sections,
-                indexPath.section < sections.count,
-                indexPath.item < sections[indexPath.item].numberOfObjects else {
+            indexPath.section < sections.count,
+            indexPath.item < sections[indexPath.section].numberOfObjects else {
+                return nil
+        }
+        return articleFetchedResultsController.object(at: indexPath)
+    }
+
+    public func logListViewImpression(forIndexPath indexPath: IndexPath) {
+        guard let article = article(at: indexPath) else {
             return
         }
-        let article = articleFetchedResultsController.object(at: indexPath)
         tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
     }
 
@@ -2302,7 +2308,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let article = articleFetchedResultsController.object(at: indexPath)
+        guard let article = article(at: indexPath) else {
+            return
+        }
         perform(action: .read, onArticle: article)
     }
     

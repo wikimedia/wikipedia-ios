@@ -58,7 +58,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     var headerVisible = true
     
-    var isExpanded: Bool = true
+    var isExpanded: Bool?
     
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
@@ -87,32 +87,10 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             headerLabelLeadingConstraint.constant = 0
             footerLabelLeadingConstraint.constant = 0
         }
-        
-        headerLabel.text = nil
-        footerLabel.text = nil
-        
+
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
-        
         view.addGestureRecognizer(tapGR)
-        
-        if let context = self.extensionContext {
-            if #available(iOSApplicationExtension 10.0, *) {
-                context.widgetLargestAvailableDisplayMode = .expanded
-                isExpanded = context.widgetActiveDisplayMode == .expanded
-                maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
-            } else {
-                isExpanded = true
-                maximumSize = UIScreen.main.bounds.size
-                headerViewHeightConstraint.constant = 40
-                footerViewHeightConstraint.constant = 40
-            }
-            updateViewPropertiesForIsExpanded(isExpanded)
-            layoutForSize(view.bounds.size)
-        }
-        
-        widgetPerformUpdate { (result) in
-            
-        }
+
     }
     
     func layoutForSize(_ size: CGSize) {
@@ -141,6 +119,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         if #available(iOSApplicationExtension 10.0, *) {
             coordinator.animate(alongsideTransition: { (context) in
+
                 self.layoutForSize(size)
             }) { (context) in
                 if (!context.isAnimated) {
@@ -152,24 +131,44 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    func updateViewPropertiesForIsExpanded(_ isExpanded: Bool){
+    func updateViewPropertiesForIsExpanded(_ isExpanded: Bool) {
         self.isExpanded = isExpanded
         headerVisible = isExpanded
         footerVisible = headerVisible
         rowCount = isExpanded ? maximumRowCount : 1
     }
+
+
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        maximumSize = maxSize
-        let activeIsExpanded = activeDisplayMode == .expanded
-        if (activeIsExpanded != isExpanded) {
-            updateViewPropertiesForIsExpanded(activeIsExpanded)
-            updateView()
-        }
+        debounceViewUpdate()
+    }
+
+    func debounceViewUpdate() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateView), object: nil)
+        perform(#selector(updateView), with: nil, afterDelay: 0.1)
     }
     
-    func updateView() {
+    @objc func updateView() {
+        if let context = self.extensionContext {
+            var updatedIsExpanded: Bool?
+            if #available(iOSApplicationExtension 10.0, *) {
+                context.widgetLargestAvailableDisplayMode = .expanded
+                updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
+                maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
+            } else {
+                updatedIsExpanded = true
+                maximumSize = UIScreen.main.bounds.size
+                headerViewHeightConstraint.constant = 40
+                footerViewHeightConstraint.constant = 40
+            }
+            if isExpanded != updatedIsExpanded {
+                isExpanded = updatedIsExpanded
+                updateViewPropertiesForIsExpanded(isExpanded ?? false)
+                layoutForSize(view.bounds.size)
+            }
+        }
 
         let count = min(results.count, maximumRowCount)
         guard count > 0 else {
@@ -332,7 +331,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         preferredContentSize = rowCount == 1 ? articlePreviewViewControllers[0].view.frame.size : size
-        
         activityIndicatorHidden = true
     }
     
@@ -350,8 +348,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             stackView.isHidden = !activityIndicatorHidden
         }
     }
-    
-    func widgetPerformUpdate(_ completionHandler: @escaping ((NCUpdateResult) -> Void)) {
+
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         fetch(siteURL: siteURL, date:Date(), attempt: 1, completionHandler: completionHandler)
     }
     

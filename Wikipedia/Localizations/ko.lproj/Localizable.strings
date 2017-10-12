@@ -211,6 +211,7 @@
 "info-box-close-text" = "닫기";
 "info-box-title" = "빠른 사실";
 "languages-title" = "언어 변경";
+"languages-wikipedia" = "위키백과 언어";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "특별한 언급이 없으면 내용은 $1에 따라 이용할 수 있습니다.";
 "login-forgot-password" = "비밀번호를 잊으셨나요?";

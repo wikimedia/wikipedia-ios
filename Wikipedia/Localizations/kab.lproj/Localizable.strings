@@ -82,6 +82,7 @@
 "button-save-for-later" = "Sekles i ticki";
 "button-saved-for-later" = "Yettwasekles i ticki";
 "button-saved-remove" = "Kkes seg usekles";
+"button-skip" = "Zgel";
 "cancel" = "Sefsex";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Mdel";
@@ -199,6 +200,7 @@
 "info-box-close-text" = "Mdel";
 "info-box-title" = "Axeddim s tewzel";
 "languages-title" = "Fren tutlayt";
+"languages-wikipedia" = "Tutlayin n wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Agbur yella ddaw $1 ḥaca ma abdar anemgal.";
 "login-forgot-password" = "Tettuḍ awal uffir?";
@@ -372,14 +374,29 @@
 "two-factor-login-with-backup-code" = "Seqdec yiwet si tengalin n uḥraz";
 "two-factor-login-with-regular-code" = "Seqdec tangalt n usenqed";
 "view-in-browser-footer-link" = "Sken amagrad deg iminig";
+"welcome-exploration-explore-feed-description" = "Taɣuri d imagraden n yal ass yelhan si tmezdagnut";
+"welcome-exploration-explore-feed-title" = "Snirem asuddem";
+"welcome-exploration-on-this-day-description" = "Uɣal ar deffir akken ad tissineḍ ayen yeḍran am ass-a deg umezruy.";
+"welcome-exploration-on-this-day-title" = "Ass-a";
+"welcome-exploration-places-description" = "Wali ticraḍ yersen iqerben ɛur-k neɣ nadi imeḍqan deg umaḍal";
+"welcome-exploration-places-title" = "Icerren n timnaḍin";
 "welcome-explore-continue-button" = "Bdu";
 "welcome-explore-new-ways-title" = "Tarrayin-nniden n usnirem";
 "welcome-explore-tell-me-more-done-button" = "Awi-t";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia uran-tt iwiziwen s uɛiwen , llant deg-s ugar n 40 n imeyaln n imagraden s 300 n tutlayin gar-asent taqbaylit.";
+"welcome-intro-free-encyclopedia-more" = "Issin ugar ɣef Wikipedia";
+"welcome-intro-free-encyclopedia-more-about" = "Ɣef Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia d asenfaṛ amaḍalan i bennu n tsanayt tilellit di tutlayin n umaḍal meṛṛa. S wudem uhlis, yal yiwen s unekcum ar Internet yezmer ad ittekki s war tasnakta, s umuddu n timsisɣal.";
+"welcome-intro-free-encyclopedia-title" = "Tasanayt tilellit";
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
+"welcome-languages-add-or-edit-button" = "Rnu neɣ ẓreg tutlayin tebɣiḍ";
+"welcome-languages-description" = "Nufa-d tutlayin-agi deg ibenk-ik:";
+"welcome-languages-search-title" = "Nadi di 300 n tutlayin";
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";
 "welcome-notifications-tell-me-more-title" = "Ugar ɣef ilɣa";
-// Fuzzy
+"welcome-send-data-helps-title" = "Mudd-aɣ-d afus ad nesnerni asnas ugar";
+"welcome-send-data-learn-more" = "Issin ugar ɣef isefka yettwaleqḍen";
 "welcome-send-data-sub-title" = "Mudd afus i tesbeddit Wikimedia akken ad tesnerni asnas ma temliḍ-aɣ-d amek i t-teseqdaceḍ. Isefka yettwaleqḍen d udrigen.";
 "welcome-volunteer-send-usage-reports" = "Azen ineqqisen n useqdec";
 "wikitext-download-failed" = "Ur izmir ara ad d-yawi lqem aneggaru.";
