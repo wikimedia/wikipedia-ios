@@ -325,6 +325,7 @@
                     <size key="freeformSize" width="360" height="640"/>
                     <connections>
                         <outlet property="bottomContainerView" destination="FJI-Er-O9h" id="FRh-C6-TYZ"/>
+                        <outlet property="bottomContainerViewHeightConstraint" destination="2mK-dI-Fex" id="D9z-9q-dp1"/>
                         <outlet property="overallContainerStackView" destination="NFg-Vn-ndK" id="hRs-pK-t3M"/>
                         <outlet property="overallContainerStackViewCenterYConstraint" destination="xJf-C6-csU" id="cbI-zN-Qpc"/>
                         <outlet property="topContainerView" destination="y48-XV-eDQ" id="ELD-Ac-Pat"/>

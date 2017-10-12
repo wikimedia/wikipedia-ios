@@ -4,7 +4,9 @@ import UIKit
 
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
-    static let defaultMargins = UIEdgeInsetsMake(15, 13, 15, 13)
+    static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+    static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -54,6 +56,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
         titleFontFamily = .georgia
         titleTextStyle = .title1
         descriptionFontFamily = .system
