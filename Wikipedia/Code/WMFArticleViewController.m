@@ -174,6 +174,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
         self.automaticallyAdjustsScrollViewInsets = NO;
+        self.webViewController.automaticallyAdjustsScrollViewInsets = NO;
+
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
@@ -1477,23 +1479,40 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView velocity:(CGPoint)velocity {
 
-    if (velocity.y > 0) {
-        [UIView animateWithDuration:2.5
-                              delay:0
-                            options:UIViewAnimationOptionTransitionNone
-                         animations:^{
-                             [self.navigationController setNavigationBarHidden:YES animated:YES];
-                         }
-                         completion:nil];
-    } else {
-        [UIView animateWithDuration:2.5
-                              delay:0
-                            options:UIViewAnimationOptionTransitionNone
-                         animations:^{
-                             [self.navigationController setNavigationBarHidden:NO animated:YES];
-                         }
-                         completion:nil];
-    }
+//    if (velocity.y > 0) {
+//        [self.navigationController setNavigationBarHidden:velocity.y > 0 animated:YES];
+////        [UIView animateWithDuration:2.5
+////                              delay:0
+////                            options:UIViewAnimationOptionTransitionNone
+////                         animations:^{
+////                             [self.navigationController setNavigationBarHidden:YES animated:YES];
+////                         }
+////                         completion:nil];
+////    } else {
+////        [UIView animateWithDuration:2.5
+////                              delay:0
+////                            options:UIViewAnimationOptionTransitionNone
+////                         animations:^{
+////                             [self.navigationController setNavigationBarHidden:NO animated:YES];
+////                         }
+////                         completion:nil];
+////    }
+//    }
+    
+//    if (fabs(velocity.y) > 0) {
+//    [UIView animateWithDuration:0.3
+//                          delay:0
+//                        options:UIViewAnimationOptionCurveLinear
+//                     animations:^{
+//                         [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:NO];
+//                     }
+//                     completion:nil];
+//    }
+    
+
+    if (fabs(velocity.y) > 0)
+        [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:YES];
+    
 }
 
 #pragma mark - Footer menu
