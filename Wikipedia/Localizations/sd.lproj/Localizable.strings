@@ -78,6 +78,7 @@
 "button-save-for-later" = "بعد لاءِ سانڍيو";
 "button-saved-for-later" = "بعد لاءِ سانڍل";
 "button-saved-remove" = "سانڍيلن مان ھٽايو";
+"button-skip" = "ڇڏيو";
 "cancel" = "رد";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "بند ڪريو";
@@ -193,6 +194,7 @@
 "info-box-close-text" = "بند ڪريو";
 "info-box-title" = "ترت ڄاڻ";
 "languages-title" = "ٻولي تبديل ڪريو";
+"languages-wikipedia" = "وڪيپيڊيا ٻوليون";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "مواد $1 جي تحت ميسر آهي نہ تہ ٻي صورت ۾ نوٽ ٿيل آھي.";
 "login-forgot-password" = "ڳجھولفظ وساري ويٺا آھيو؟";
@@ -246,6 +248,7 @@
 "page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
 "page-read-in-other-languages" = "$1 ٻين ٻولين ۾ موجود";
 "page-similar-titles" = "ان جهڙا صفحا";
+"page-talk-page" = "بحث صفحو ڏسو";
 "pictured" = "تصوير لڳل";
 "places-accessibility-clear-saved-searches" = "سانڍيل ڳولائون ختم ڪريو";
 "places-accessibility-close-search" = "ڳولا بند ڪريو";
@@ -358,13 +361,21 @@
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
+"welcome-exploration-on-this-day-title" = "ھن ڏينھن";
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
+"welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻو";
+"welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
+"welcome-intro-free-encyclopedia-title" = "مفت انسائيڪلوپيڊيا";
 "welcome-languages-add-button" = "ٻي ٻولي شامل ڪريو";
+"welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون وجھو يا سنواريو";
+"welcome-languages-search-title" = "لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
 "welcome-notifications-tell-me-more-creation" = "اطلاع ايپ پاران توھان جي ڊوائيس تي تخليق ۽ فراھم ڪيا ويا آھن، اسان (يا ٽين ڌر) جي سرورن پاران نہ.";
 "welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
 "welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";
+"welcome-send-data-helps-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪري";
+"welcome-send-data-learn-more" = "ميڙيل ڊيٽا بابت وڌيڪ ڄاڻو";
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
 "wikitext-download-failed" = "تازو ترين ورزن حاصل ڪرڻ ۾ نالائق.";
 "wikitext-download-success" = "مواد لوڊ  ٿي ويو.";
