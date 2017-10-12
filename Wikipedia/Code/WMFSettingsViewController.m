@@ -109,6 +109,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
+    self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)configureBackButton {
