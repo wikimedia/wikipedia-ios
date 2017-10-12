@@ -82,6 +82,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
+
+    if (@available(iOS 11.0, *)) {
+    } else {
+        // Before iOS 11
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 - (void)dealloc {
@@ -109,7 +115,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
-    self.tableView.contentOffset = CGPointZero;
 }
 
 - (void)configureBackButton {
