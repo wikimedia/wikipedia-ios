@@ -102,6 +102,7 @@
 "button-save-for-later" = "Сохранить на потом";
 "button-saved-for-later" = "Сохранено на потом";
 "button-saved-remove" = "Удалить из сохранённых";
+"button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Закрыть";
@@ -390,15 +391,22 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
+"welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
+"welcome-exploration-on-this-day-title" = "В этот день…";
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
+"welcome-intro-free-encyclopedia-more" = "Узнать подробнее о Википедии";
+"welcome-intro-free-encyclopedia-more-about" = "О Википедии";
+"welcome-intro-free-encyclopedia-title" = "Свободная энциклопедия";
 "welcome-languages-add-button" = "Добавить ещё один язык";
+"welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
-// Fuzzy
-"welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете приложение. Собранные данные являются анонимными.";
+"welcome-send-data-helps-title" = "Помогите сделать это приложение лучше";
+"welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
+"welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Содержимое загружено.";

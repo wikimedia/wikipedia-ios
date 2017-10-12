@@ -11,6 +11,7 @@
 // Author: Nemo bis
 // Author: Od1n
 // Author: Orikrin1998
+// Author: Oupsa
 // Author: Selhom
 // Author: Solucer
 // Author: The RedBurn
@@ -98,7 +99,7 @@
 "button-save-for-later" = "Enregistrer pour plus tard";
 "button-saved-for-later" = "Enregistré pour plus tard";
 "button-saved-remove" = "Supprimer des enregistrements";
-"button-skip" = "Sauter";
+"button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Fermer";
@@ -216,6 +217,7 @@
 "info-box-close-text" = "Fermer";
 "info-box-title" = "Faits en bref";
 "languages-title" = "Changer de langue";
+"languages-wikipedia" = "Langues de Wikipédia";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "login-forgot-password" = "Mot de passe oublié ?";
@@ -389,13 +391,19 @@
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
 "view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
+"welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
+"welcome-exploration-explore-feed-title" = "Explorer le fil";
+"welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";
 "welcome-exploration-on-this-day-title" = "Ce jour";
+"welcome-exploration-places-description" = "Découvrir des monuments proches de vous ou rechercher des lieux dans le monde";
 "welcome-exploration-places-title" = "Onglet des endroits";
 "welcome-explore-continue-button" = "Commencer";
 "welcome-explore-new-ways-title" = "Nouvelles voies à explorer";
 "welcome-explore-tell-me-more-done-button" = "Opter pour";
+"welcome-intro-free-encyclopedia-description" = "Wikipédia est écrit de façon collaborative par des bénévoles et consiste en plus de quarante millions d’articles dans près de trois cents langues.";
 "welcome-intro-free-encyclopedia-more" = "En apprendre plus concernant Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "A propos de Wikipédia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipédia est un projet global pour construire des encyclopédies libres dans toutes les langues du monde. Virtuellement, n’importe qui avec un accès à Internet est libre de participer en fournissant des informations neutres et citées.";
 "welcome-intro-free-encyclopedia-title" = "L'encyclopédie libre";
 "welcome-languages-add-button" = "Ajouter une autre langue";
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
