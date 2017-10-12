@@ -503,15 +503,40 @@ static uint64_t bundleHash() {
     }];
 }
 
-- (void)migrateContentGroupsToPreviewContentInManagedObjectContedt:(NSManagedObjectContext *)moc {
+- (void)performLibraryUpdates:(dispatch_block_t)completion {
+    static NSString *key = @"WMFLibraryVersion";
+    static const NSInteger libraryVersion = 1;
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
+    NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
+    if (currentLibraryVersion >= libraryVersion) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        if (currentLibraryVersion < 1) {
+            if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
+                [moc wmf_setValue:@(1) forKey:key];
+                [moc save:nil];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), completion);
+    }];
+}
+
+- (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
     NSFetchRequest *request = [WMFContentGroup fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
+    request.predicate = [NSPredicate predicateWithFormat:@"content != NULL"];
     request.fetchLimit = 500;
     NSError *fetchError = nil;
     NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
     if (fetchError) {
         DDLogError(@"Error fetching content groups: %@", fetchError);
-        return;
+        if (error) {
+            *error = fetchError;
+        }
+        return false;
     }
     
     
@@ -522,6 +547,9 @@ static uint64_t bundleHash() {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
                 NSArray *content = contentGroup.content;
+                if (!content) {
+                    continue;
+                }
                 contentGroup.fullContentObject = content;
                 contentGroup.featuredContentIdentifier = contentGroup.articleURLString;
                 [contentGroup updateContentPreviewWithContent:content];
@@ -540,7 +568,10 @@ static uint64_t bundleHash() {
                 [moc save:&saveError];
                 if (saveError) {
                     DDLogError(@"Error saving downloaded articles: %@", fetchError);
-                    return;
+                    if (error) {
+                        *error = saveError;
+                    }
+                    return false;
                 }
                 [moc reset];
             }
@@ -549,10 +580,13 @@ static uint64_t bundleHash() {
         contentGroups = [moc executeFetchRequest:request error:&fetchError];
         if (fetchError) {
             DDLogError(@"Error fetching content groups: %@", fetchError);
-            return;
+            if (error) {
+                *error = fetchError;
+            }
+            return false;
         }
     }
-    
+    return true;
 }
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {

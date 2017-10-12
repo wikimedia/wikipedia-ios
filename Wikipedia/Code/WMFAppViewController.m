@@ -401,19 +401,25 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                         return;
                     }
                     [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self endMigrationBackgroundTask];
-                            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                                [self loadMainUI];
-                                self.migrationComplete = YES;
-                                self.migrationActive = NO;
-                                if (!self.isWaitingToResumeApp) {
-                                    [self resumeApp:^{
-                                        [self hideSplashViewAnimated:!didShowOnboarding];
-                                    }];
-                                }
-                            }];
-                        });
+                        if (!migrationsAllowed) {
+                            bail();
+                            return;
+                        }
+                        [self.dataStore performLibraryUpdates:^{
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self endMigrationBackgroundTask];
+                                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                                    [self loadMainUI];
+                                    self.migrationComplete = YES;
+                                    self.migrationActive = NO;
+                                    if (!self.isWaitingToResumeApp) {
+                                        [self resumeApp:^{
+                                            [self hideSplashViewAnimated:!didShowOnboarding];
+                                        }];
+                                    }
+                                }];
+                            });
+                        }];
                     }];
                 }];
             }];
@@ -603,14 +609,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
     NSTimeInterval timeInterval = 2 * 60 * 60;
     NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
-    NSFetchRequest *request = [WMFKeyValue fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-    request.fetchLimit = 1;
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
-    NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
-    WMFKeyValue *keyValue = results.firstObject;
-    if ([keyValue.value isKindOfClass:[NSNumber class]]) {
-        NSNumber *value = (NSNumber *)keyValue.value;
+    NSNumber *value = [self.dataStore.viewContext wmf_numberValueForKey:key];
+    if (value) {
         timeInterval = [value doubleValue];
     }
     return timeInterval;
