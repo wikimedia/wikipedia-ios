@@ -9,6 +9,7 @@
 // Author: Liuxinyu970226
 // Author: Macofe
 // Author: Nemo bis
+// Author: NeverBehave
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
@@ -396,18 +397,18 @@
 "welcome-intro-free-encyclopedia-description" = "维基百科由志愿者合作撰写，并由将近300种语言的4000万个条目构成。";
 "welcome-intro-free-encyclopedia-more" = "了解更多关于维基百科";
 "welcome-intro-free-encyclopedia-more-about" = "关于维基百科";
-"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个建立全世界所有语言的自由百科全书的全球项目。几乎所有拥有互联网访问的人都可以通过贡献中立，有来源的信息自由参与。";
+"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个建立全世界所有语言的自由百科全书的全球项目。几乎所有拥有互联网访问的人都可以自由地通过贡献中立，有来源的信息来参与其中。";
 "welcome-intro-free-encyclopedia-title" = "自由的百科全书";
 "welcome-languages-add-button" = "添加另一个语言";
 "welcome-languages-add-or-edit-button" = "添加或编辑推荐语言";
 "welcome-languages-description" = "我们在您的设备上找到以下语言：";
-"welcome-languages-search-title" = "搜索近300中语言";
+"welcome-languages-search-title" = "在近300种语言中搜索";
 "welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
 "welcome-notifications-tell-me-more-storage" = "通知参数设置存储在设备上，且不基于个人信息或活动。";
 "welcome-notifications-tell-me-more-title" = "更多有关通知";
 "welcome-send-data-helps-title" = "帮助让应用变得更好";
 "welcome-send-data-learn-more" = "了解更多关于数据收集";
-"welcome-send-data-sub-title" = "通过向维基媒体基金会发送信息，让我们知道您如何使用它，来帮助改进引用。数据收集是匿名的。";
+"welcome-send-data-sub-title" = "通过让维基媒体基金会知道您是如何使用来协助改善应用程序。收集的数据都是匿名的。";
 "welcome-volunteer-send-usage-reports" = "发送使用情况报告";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";

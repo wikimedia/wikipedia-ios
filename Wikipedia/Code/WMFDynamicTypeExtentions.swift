@@ -17,12 +17,6 @@ extension UIButton {
                 return
             }
             titleLabel.adjustsFontForContentSizeCategory = true
-            titleLabel.textAlignment = .center
-            titleLabel.numberOfLines = 1
-            titleLabel.clipsToBounds = false
-            titleLabel.lineBreakMode = .byTruncatingTail
-            titleLabel.minimumScaleFactor = 0.25
-            titleLabel.adjustsFontSizeToFitWidth = true
         }
         super.wmf_configureSubviewsForDynamicType()
     }
