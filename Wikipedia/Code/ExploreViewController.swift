@@ -240,7 +240,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         } else {
             UIView.animate(withDuration: 2.5, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.view.layoutIfNeeded()
             }, completion: nil)
         }
     }
