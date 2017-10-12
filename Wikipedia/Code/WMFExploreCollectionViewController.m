@@ -400,6 +400,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     if (!self.fetchedResultsController) {
+        [self.userStore prefetchArticles];
         NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];

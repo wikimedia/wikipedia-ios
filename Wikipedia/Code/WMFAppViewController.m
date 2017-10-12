@@ -120,7 +120,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
-    
+
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -409,7 +409,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self endMigrationBackgroundTask];
                                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                                    [self.dataStore prefetchArticles];
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
