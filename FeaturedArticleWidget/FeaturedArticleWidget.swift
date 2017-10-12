@@ -126,7 +126,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
     
     func updateViewWithMaximumSize(_ maximumSize: CGSize, isExpanded: Bool) {
-        updateViewAlpha(isExpanded: isExpanded)
         let sizeThatFits: CGSize
         if isExpanded {
             sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
