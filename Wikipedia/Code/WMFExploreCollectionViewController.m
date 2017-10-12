@@ -400,7 +400,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     if (!self.fetchedResultsController) {
-        [self.userStore prefetchArticles];
+        [self.userStore prefetchArticles]; // articles aren't linked to content groups by a core data relationship, they're fetched on demand. it helps to warm up the article cache with one big fetch instead of a lot of individual fetches.
         NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isVisible == %@", @(YES)];
         fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
@@ -587,7 +587,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             id preview = contentGroup.contentPreview;
             if ([preview isKindOfClass:[WMFFeedImage class]]) {
                 [self configurePhotoCell:cell withImageInfo:preview atIndexPath:indexPath];
-
             }
             return cell;
         } break;
@@ -1199,7 +1198,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [cell configureWithOnThisDayEvent:event previousEvent:previousEvent dataStore:self.userStore theme:self.theme layoutOnly:layoutOnly];
         }
     }
-  
 }
 
 - (void)configureAnnouncementCell:(WMFAnnouncementCollectionViewCell *)cell withContentGroup:(WMFContentGroup *)contentGroup atIndexPath:(NSIndexPath *)indexPath {
