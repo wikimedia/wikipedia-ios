@@ -503,6 +503,92 @@ static uint64_t bundleHash() {
     }];
 }
 
+- (void)performLibraryUpdates:(dispatch_block_t)completion {
+    static NSString *key = @"WMFLibraryVersion";
+    static const NSInteger libraryVersion = 1;
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
+    NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
+    if (currentLibraryVersion >= libraryVersion) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+    [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+        if (currentLibraryVersion < 1) {
+            if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
+                [moc wmf_setValue:@(1) forKey:key];
+                [moc save:nil];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), completion);
+    }];
+}
+
+- (BOOL)migrateContentGroupsToPreviewContentInManagedObjectContext:(NSManagedObjectContext *)moc error:(NSError **)error {
+    NSFetchRequest *request = [WMFContentGroup fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"content != NULL"];
+    request.fetchLimit = 500;
+    NSError *fetchError = nil;
+    NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
+    if (fetchError) {
+        DDLogError(@"Error fetching content groups: %@", fetchError);
+        if (error) {
+            *error = fetchError;
+        }
+        return false;
+    }
+    
+    
+    while (contentGroups.count > 0) {
+        @autoreleasepool {
+            NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
+            for (WMFContentGroup *contentGroup in contentGroups) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+                NSArray *content = contentGroup.content;
+                if (!content) {
+                    continue;
+                }
+                contentGroup.fullContentObject = content;
+                contentGroup.featuredContentIdentifier = contentGroup.articleURLString;
+                [contentGroup updateContentPreviewWithContent:content];
+                contentGroup.content = nil;
+#pragma clang diagnostic pop
+                if (contentGroup.contentPreview == nil) {
+                    [toDelete addObject:contentGroup];
+                }
+            }
+            for (WMFContentGroup *group in toDelete) {
+                [moc deleteObject:group];
+            }
+            
+            if ([moc hasChanges]) {
+                NSError *saveError = nil;
+                [moc save:&saveError];
+                if (saveError) {
+                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    if (error) {
+                        *error = saveError;
+                    }
+                    return false;
+                }
+                [moc reset];
+            }
+        }
+        
+        contentGroups = [moc executeFetchRequest:request error:&fetchError];
+        if (fetchError) {
+            DDLogError(@"Error fetching content groups: %@", fetchError);
+            if (error) {
+                *error = fetchError;
+            }
+            return false;
+        }
+    }
+    return true;
+}
+
 - (void)markAllDownloadedArticlesInManagedObjectContextAsUndownloaded:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"isDownloaded == YES"];
@@ -659,7 +745,10 @@ static uint64_t bundleHash() {
                     newContentGroup.placemark = oldContentGroup.placemark;
                     newContentGroup.contentMidnightUTCDate = oldContentGroup.mostReadDate.wmf_midnightUTCDateFromUTCDate;
                     newContentGroup.wasDismissed = oldContentGroup.wasDismissed;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
                     newContentGroup.content = metadata;
+#pragma clang diagnostic pop
                     [newContentGroup updateKey];
                     [newContentGroup updateContentType];
                     [newContentGroup updateDailySortPriority];
@@ -765,7 +854,7 @@ static uint64_t bundleHash() {
     self.articleCache.countLimit = 50;
 
     self.articlePreviewCache = [[NSCache alloc] init];
-    self.articlePreviewCache.countLimit = 100;
+    self.articlePreviewCache.countLimit = 1000;
 
     self.cacheRemovalQueue = dispatch_queue_create("org.wikimedia.cache_removal", DISPATCH_QUEUE_SERIAL);
 }
@@ -1359,6 +1448,20 @@ static uint64_t bundleHash() {
 }
 
 #pragma mark - Cache
+
+- (void)prefetchArticles {
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.fetchLimit = 1000;
+    NSManagedObjectContext *moc = self.viewContext;
+    NSArray<WMFArticle *> *prefetchedArticles = [moc executeFetchRequest:request error:nil];
+    for (WMFArticle *article in prefetchedArticles) {
+        NSString *key = article.key;
+        if (!key) {
+            continue;
+        }
+        [self.articlePreviewCache setObject:article forKey:key];
+    }
+}
 
 - (void)clearMemoryCache {
     @synchronized(self.articleCache) {
