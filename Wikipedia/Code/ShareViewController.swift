@@ -110,7 +110,7 @@ class ShareViewController: UIViewController, Themeable {
         activityVC.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
-        DispatchQueue.main.asyncAfter(deadline:  .now() + .milliseconds(500), execute: {
+        DispatchQueue.main.asyncAfter(deadline:  .now() + .milliseconds(750), execute: {
             UIView.animate(withDuration: 0.3, animations: {
                 self.imageViewTopConstraint.isActive = true
                 self.imageViewVerticallyCenteredConstraint.isActive = false
