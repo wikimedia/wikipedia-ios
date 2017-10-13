@@ -24,7 +24,7 @@ enum PlaceSearchOrigin: UInt {
 }
 
 enum PlaceSearchError: Error {
-    case deserialization(object: NSObject?)
+    case deserialization(object: NSCoding?)
 }
 
 extension MKCoordinateRegion {
@@ -142,8 +142,8 @@ struct PlaceSearch {
         }
     }
     
-    init?(object: NSObject?) {
-        guard let object = object,
+    init?(object: NSCoding?) {
+        guard let object = object as? NSObject,
             let filterNumber = object.value(forKey: "filter") as? NSNumber,
             let filter = PlaceFilterType(rawValue: filterNumber.uintValue),
             let typeNumber = object.value(forKey: "type") as? NSNumber,
