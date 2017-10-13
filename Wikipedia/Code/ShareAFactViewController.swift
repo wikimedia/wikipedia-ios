@@ -57,9 +57,9 @@ class ShareAFactViewController: UIViewController {
         imageView.image = image
         isImageViewHidden = image == nil
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 3
+        paragraphStyle.lineSpacing = 7
         textLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle])
-        textLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        textLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         let width = isImageViewHidden ? view.bounds.size.width : round(0.5 * view.bounds.size.width)
         let size = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
         if size.height > 0.6 * view.bounds.size.height {

@@ -17,6 +17,8 @@
                 <outlet property="busyView" destination="a3r-Et-NLq" id="nsN-Kw-UaU"/>
                 <outlet property="cancelButton" destination="wRv-BJ-5qn" id="LUj-Mc-lax"/>
                 <outlet property="imageView" destination="VCO-jP-6OH" id="i2g-mS-QDg"/>
+                <outlet property="imageViewTopConstraint" destination="fOe-1X-u3N" id="mHi-jP-yuN"/>
+                <outlet property="imageViewVerticallyCenteredConstraint" destination="zjX-56-tnT" id="UVI-pU-yaI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -63,7 +65,7 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VCO-jP-6OH">
-                    <rect key="frame" x="40" y="60" width="688" height="387.5"/>
+                    <rect key="frame" x="40" y="318.5" width="688" height="387.5"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="VCO-jP-6OH" secondAttribute="height" multiplier="640:360" priority="999" id="DEC-yr-Hkh"/>
                     </constraints>
@@ -84,8 +86,14 @@
                 <constraint firstAttribute="trailing" secondItem="VCO-jP-6OH" secondAttribute="trailing" constant="20" id="y1x-Ia-icC">
                     <variation key="heightClass=regular-widthClass=regular" constant="40"/>
                 </constraint>
+                <constraint firstItem="VCO-jP-6OH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="zjX-56-tnT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="fOe-1X-u3N"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="33" y="54"/>
         </view>
     </objects>
