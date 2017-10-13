@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController restorationIdentifier="WebViewController" storyboardIdentifier="WebViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="vXZ-lx-hvc" customClass="WebViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
-                        <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
-                    </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -38,14 +35,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="3Zs-jL-a48"/>
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="CEq-wS-qK0"/>
-                            <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Odo-tm-VoC"/>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" id="WBK-jv-ayM"/>
-                            <constraint firstItem="Xeb-oh-gct" firstAttribute="top" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="aLf-fD-fGd"/>
-                            <constraint firstItem="Xeb-oh-gct" firstAttribute="top" secondItem="aCV-ih-PXn" secondAttribute="bottom" id="pGp-mc-GIK"/>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="sgn-CU-OVa"/>
+                            <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="Odo-tm-VoC"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="dho-2s-f1C" secondAttribute="trailing" id="WBK-jv-ayM"/>
+                            <constraint firstItem="dho-2s-f1C" firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="aLf-fD-fGd"/>
+                            <constraint firstItem="dho-2s-f1C" firstAttribute="bottom" secondItem="aCV-ih-PXn" secondAttribute="bottom" id="pGp-mc-GIK"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="dho-2s-f1C" secondAttribute="top" id="sgn-CU-OVa"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="dho-2s-f1C"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="vCu-en-Ec0">
