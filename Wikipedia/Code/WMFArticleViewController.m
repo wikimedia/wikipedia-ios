@@ -744,9 +744,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.theme) {
         [self applyTheme:self.theme];
     }
-
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
