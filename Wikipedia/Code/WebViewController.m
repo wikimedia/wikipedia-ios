@@ -1173,8 +1173,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.statusBarUnderlayView.backgroundColor = theme.colors.chromeBackground;
+    [self wmf_addBottomShadowWithView:self.statusBarUnderlayView theme:theme];
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
+
 }
 
 @end

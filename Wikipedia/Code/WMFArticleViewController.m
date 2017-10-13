@@ -755,6 +755,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [self wmf_updateNavigationBarWithRemoveUnderline:YES];
+
     NSUInteger index = self.indexOfCurrentFontSize;
     NSNumber *multiplier = self.fontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
