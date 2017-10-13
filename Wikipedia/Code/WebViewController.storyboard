@@ -22,6 +22,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yt1-Ki-8rh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
                                 <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -36,7 +40,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstAttribute="trailing" secondItem="Yt1-Ki-8rh" secondAttribute="trailing" id="9Iy-hc-NNF"/>
+                            <constraint firstItem="Yt1-Ki-8rh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="BbB-bc-pFn"/>
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="CEq-wS-qK0"/>
+                            <constraint firstItem="dho-2s-f1C" firstAttribute="top" secondItem="Yt1-Ki-8rh" secondAttribute="bottom" id="DD9-97-hWV"/>
+                            <constraint firstItem="Yt1-Ki-8rh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Jvg-eA-HXN"/>
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="Odo-tm-VoC"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="dho-2s-f1C" secondAttribute="trailing" id="WBK-jv-ayM"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="aLf-fD-fGd"/>

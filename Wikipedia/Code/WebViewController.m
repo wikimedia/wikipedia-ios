@@ -433,14 +433,33 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
+- (void)updateScrollViewInsets {
+    UIScrollView *scrollView = self.webView.scrollView;
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
+    CGFloat top = statusBarFrame.size.height + navigationBarHeight;
+    CGFloat bottom = self.navigationController.toolbar.frame.size.height;
+
+    UIEdgeInsets safeInsets = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) {
+        safeInsets = self.view.safeAreaInsets;
+    }
+
+    UIEdgeInsets newIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
+    if (!UIEdgeInsetsEqualToEdgeInsets(newIndicatorInsets, scrollView.scrollIndicatorInsets)) {
+        scrollView.scrollIndicatorInsets = newIndicatorInsets;
+    }
+
+    UIEdgeInsets newScrollViewInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
+    if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, scrollView.contentInset)) {
+        scrollView.contentInset = newScrollViewInsets;
+    }
+}
+
 - (void)viewSafeAreaInsetsDidChange {
     if (@available(iOS 11.0, *)) {
         [super viewSafeAreaInsetsDidChange];
-        UIEdgeInsets safeInsets = self.view.safeAreaInsets;
-        UIEdgeInsets newInsets = self.webView.scrollView.scrollIndicatorInsets;
-        newInsets.left = safeInsets.left;
-        newInsets.right = safeInsets.right;
-        self.webView.scrollView.scrollIndicatorInsets = newInsets;
+        [self updateScrollViewInsets];
     }
 }
 
@@ -485,6 +504,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [coordinator animateAlongsideTransition:nil
                                  completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
                                      self.disableMinimizeFindInPage = NO;
+                                     [self updateScrollViewInsets];
                                  }];
 }
 
@@ -697,6 +717,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self updateScrollViewInsets];
     self.webView.scrollView.delegate = self;
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
