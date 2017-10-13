@@ -18,6 +18,9 @@ class ShareViewController: UIViewController, Themeable {
     @IBOutlet weak var busyView: UIView!
     @IBOutlet weak var busyLabel: UILabel!
     
+    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewVerticallyCenteredConstraint: NSLayoutConstraint!
+
     @objc required public init?(text: String, article: WMFArticle, theme: Theme) {
         guard let articleURL = article.url else {
             return nil
@@ -107,8 +110,14 @@ class ShareViewController: UIViewController, Themeable {
         activityVC.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
-        
-        present(activityVC, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline:  .now() + .milliseconds(500), execute: {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageViewTopConstraint.isActive = true
+                self.imageViewVerticallyCenteredConstraint.isActive = false
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            self.present(activityVC, animated: true, completion: nil)
+        })
     }
 
     @IBAction func cancel(_ sender: Any) {
