@@ -46,10 +46,6 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 @property (nonatomic, strong, nullable) NSURL *articleURL;
 @property (nonatomic, strong, nullable) NSURL *siteURL;
 
-// Utilizes articleURLString for storage so can't be set along with articleURL
-@property (nonatomic) NSInteger featuredContentIndex;
-@property (nonatomic, readonly, nullable) id<NSCoding> featuredContentObject;
-
 - (void)updateKey; //Sets key property based on content group kind
 - (void)updateContentType;
 - (void)updateDailySortPriority;
@@ -69,6 +65,12 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 - (BOOL)isForLocalDate:(NSDate *)date; //date is a date in the user's time zone
 @property (nonatomic, readonly) BOOL isForToday; //is for today in the user's time zone
 
+// Utilizes featuredContentIdentifier for storage so can't be set along with featuredContentIdentifier
+@property (nonatomic) NSInteger featuredContentIndex;
+
+- (void)setFullContentObject:(id<NSCoding>)fullContentObject; // will automatically create or update fullContent relationship
+- (void)updateContentPreviewWithContent:(id)content;
+
 - (void)updateVisibility;
 - (void)markDismissed;
 
@@ -76,11 +78,11 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 
 @interface NSManagedObjectContext (WMFContentGroup)
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent;
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id <NSCoding>)associatedContent;
 
-- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
+- (nullable WMFContentGroup *)fetchOrCreateGroupForURL:(NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id <NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
 
-- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable NSArray<NSCoding> *)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
+- (nullable WMFContentGroup *)createGroupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id <NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock;
 
 - (NSArray<WMFContentGroup *> *)contentGroupsOfKind:(WMFContentGroupKind)kind;
 

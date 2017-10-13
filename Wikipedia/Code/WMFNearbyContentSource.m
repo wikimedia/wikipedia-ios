@@ -98,7 +98,8 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
                 inManagedObjectContext:moc
                 force:force
                 completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-                    if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+                    id content = group.fullContent.object;
+                    if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
                         NSDate *now = [NSDate date];
                         NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
                         if (force) {
@@ -162,7 +163,9 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
             }
             [moc performBlock:^{
                 [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
-                [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:@[articleURL] customizationBlock:nil];
+                [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                    group.contentPreview = articleURL;
+                }];
                 completion();
             }];
         }
@@ -183,7 +186,8 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         inManagedObjectContext:moc
         force:NO
         completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-            if (group && [group.content isKindOfClass:[NSArray class]] && group.content.count > 0) {
+            id content = group.fullContent.object;
+            if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
                 if (self.completion) {
                     self.completion();
                 }

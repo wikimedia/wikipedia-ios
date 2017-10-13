@@ -141,10 +141,10 @@ NS_ASSUME_NONNULL_BEGIN
 
                         WMFContentGroup *group = [self onThisDayForDate:date inManagedObjectContext:moc];
                         if (group == nil) {
-                            group = [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:onThisDayEvents];
-                            if (featuredEventIndex >= 0 && featuredEventIndex < onThisDayEvents.count) {
-                                group.featuredContentIndex = featuredEventIndex;
-                            }
+                            group = [moc createGroupOfKind:WMFContentGroupKindOnThisDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
+                            group.featuredContentIndex = featuredEventIndex;
+                            [group setFullContentObject:onThisDayEvents];
+                            [group updateContentPreviewWithContent:onThisDayEvents];
                         }
 
                         if (completion) {

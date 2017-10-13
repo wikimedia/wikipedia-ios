@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nullable, nonatomic, copy) NSString *group;
 @property (nullable, nonatomic, copy) NSDate *date;
-@property (nullable, nonatomic, retain) NSObject *value;
+@property (nullable, nonatomic, retain) id<NSCoding> value;
 
 @end
 
