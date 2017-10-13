@@ -236,10 +236,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     func addStatusBarUnderlay() {
         let statusBarUnderlay = UIView()
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = self.view.topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
-        let bottomConstraint = self.topLayoutGuide.bottomAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
-        let leadingConstraint = self.view.leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
-        let trailingConstraint = self.view.trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
+        let topConstraint = statusBarUnderlay.topAnchor.constraint(equalTo: self.view.topAnchor)
+        let bottomConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor)
+        let leadingConstraint = statusBarUnderlay.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        let trailingConstraint = statusBarUnderlay.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         self.view.addSubview(statusBarUnderlay)
         self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
         self.statusBarUnderlay = statusBarUnderlay
