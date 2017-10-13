@@ -213,6 +213,11 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
 
         oathTokenFields.sort { $0.tag < $1.tag }
 
+        oathTokenFields.forEach {
+            $0.rightViewMode = .never
+            $0.textAlignment = .center
+        }
+        
         // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
         if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
             fields.forEach {$0.deleteBackwardDelegate = self}
