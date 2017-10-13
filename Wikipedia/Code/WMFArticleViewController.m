@@ -1483,10 +1483,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView velocity:(CGPoint)velocity {
-    [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:YES];
-}
-
 #pragma mark - Footer menu
 
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload {
