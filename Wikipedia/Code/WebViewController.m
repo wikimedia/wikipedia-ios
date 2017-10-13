@@ -1137,6 +1137,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self minimizeFindInPage];
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    return YES;
+}
+
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScrollToTop:)]) {
         [self.delegate webViewController:self scrollViewDidScrollToTop:scrollView];

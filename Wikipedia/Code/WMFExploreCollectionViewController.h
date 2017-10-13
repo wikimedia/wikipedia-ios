@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScroll:(UIScrollView *)scrollView;
 
 @optional
-- (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScrollToTop:(UIScrollView *)scrollView;
+- (BOOL)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC shouldScrollToTop:(UIScrollView *)scrollView;
 
 @end
 

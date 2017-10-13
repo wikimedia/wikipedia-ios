@@ -223,8 +223,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         showSearchBar(animated: false)
+        return true
     }
     
     var statusBarUnderlay: UIView?
