@@ -1,4 +1,5 @@
 #import <CoreData/CoreData.h>
+@class WMFContent;
 
 NS_ASSUME_NONNULL_BEGIN
 

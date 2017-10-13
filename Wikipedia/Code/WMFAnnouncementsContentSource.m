@@ -82,8 +82,10 @@
                                                             ofKind:WMFContentGroupKindAnnouncement
                                                            forDate:[NSDate date]
                                                        withSiteURL:self.siteURL
-                                                 associatedContent:@[obj]
-                                                customizationBlock:NULL];
+                                                 associatedContent:nil
+                                                customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                                                    group.contentPreview = obj;
+                                                }];
             [group updateVisibility];
         }];
 
@@ -101,7 +103,7 @@
 
     if (!userDefaults.wmf_didShowThemeCardInFeed) {
         NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
-        [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowThemeCardInFeed = YES;
     }
 }

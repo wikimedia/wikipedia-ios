@@ -42,7 +42,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     var article: WMFArticle? {
         guard let featuredContentGroup = dataStore?.viewContext.newestGroup(of: .featuredArticle),
-            let articleURL = featuredContentGroup.content?.first as? URL else {
+            let articleURL = featuredContentGroup.contentPreview as? URL else {
                 return nil
         }
         return dataStore?.fetchArticle(with: articleURL)
@@ -110,7 +110,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }) { (context) in }
     }
     
-    func updateView() {
+    @objc func updateView() {
         var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
         if let context = extensionContext {
             if #available(iOSApplicationExtension 10.0, *) {
@@ -122,11 +122,10 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
                 maximumSize = UIScreen.main.bounds.size
             }
         }
-        updateView(maximumSize: maximumSize, isExpanded: isExpanded)
+        updateViewWithMaximumSize(maximumSize, isExpanded: isExpanded)
     }
     
-    func updateView(maximumSize: CGSize, isExpanded: Bool) {
-        updateViewAlpha(isExpanded: isExpanded)
+    func updateViewWithMaximumSize(_ maximumSize: CGSize, isExpanded: Bool) {
         let sizeThatFits: CGSize
         if isExpanded {
             sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
@@ -141,8 +140,12 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
-        isExpanded = activeDisplayMode == .expanded
-        updateView(maximumSize: maxSize, isExpanded: isExpanded)
+        debounceViewUpdate()
+    }
+
+    func debounceViewUpdate() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(updateView), object: nil)
+        perform(#selector(updateView), with: nil, afterDelay: 0.1)
     }
     
     @objc func saveButtonPressed() {
