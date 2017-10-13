@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
+@property (weak, nonatomic) IBOutlet UIView *statusBarUnderlayView;
 
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
 
@@ -1171,6 +1172,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.webView.scrollView.indicatorStyle = theme.scrollIndicatorStyle;
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
+    self.statusBarUnderlayView.backgroundColor = theme.colors.chromeBackground;
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
 }
