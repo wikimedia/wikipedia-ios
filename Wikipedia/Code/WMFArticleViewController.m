@@ -148,6 +148,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (strong, nonatomic, nullable) WMFTheme *theme;
 
+@property (nonatomic) CGFloat previousScrollViewYOffset;
+@property (nonatomic) CGFloat scrollDiff;
+
+
+
 @end
 
 @implementation WMFArticleViewController
@@ -175,6 +180,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.extendedLayoutIncludesOpaqueBars = YES;
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.webViewController.automaticallyAdjustsScrollViewInsets = NO;
+        if (@available(iOS 11.0, *)) {
+            self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
 
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
@@ -746,6 +754,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.theme) {
         [self applyTheme:self.theme];
     }
+    
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1466,9 +1478,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.scrollDiff = scrollView.contentOffset.y - self.previousScrollViewYOffset;
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    self.previousScrollViewYOffset = scrollView.contentOffset.y;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
@@ -1478,41 +1492,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView velocity:(CGPoint)velocity {
-
-//    if (velocity.y > 0) {
-//        [self.navigationController setNavigationBarHidden:velocity.y > 0 animated:YES];
-////        [UIView animateWithDuration:2.5
-////                              delay:0
-////                            options:UIViewAnimationOptionTransitionNone
-////                         animations:^{
-////                             [self.navigationController setNavigationBarHidden:YES animated:YES];
-////                         }
-////                         completion:nil];
-////    } else {
-////        [UIView animateWithDuration:2.5
-////                              delay:0
-////                            options:UIViewAnimationOptionTransitionNone
-////                         animations:^{
-////                             [self.navigationController setNavigationBarHidden:NO animated:YES];
-////                         }
-////                         completion:nil];
-////    }
-//    }
     
-//    if (fabs(velocity.y) > 0) {
-//    [UIView animateWithDuration:0.3
-//                          delay:0
-//                        options:UIViewAnimationOptionCurveLinear
-//                     animations:^{
-//                         [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:NO];
-//                     }
-//                     completion:nil];
-//    }
+    NSLog(@"scrollView.contentInset.top: %f", scrollView.contentInset.top);
+    NSLog(@"scrollView.contentInset.bottom: %f", scrollView.contentInset.bottom);
+    NSLog(@"scrollView.contentOffset.y: %f", scrollView.contentOffset.y);
+    NSLog(@"scrollView.diff: %f", self.scrollDiff);
+
+
+    [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:YES];
     
 
-    if (fabs(velocity.y) > 0)
-        [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:YES];
-    
 }
 
 #pragma mark - Footer menu
