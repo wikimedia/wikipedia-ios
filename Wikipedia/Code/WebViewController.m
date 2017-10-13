@@ -437,7 +437,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (@available(iOS 11.0, *)) {
         [super viewSafeAreaInsetsDidChange];
         UIEdgeInsets safeInsets = self.view.safeAreaInsets;
-        self.webView.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0, safeInsets.left, 0, safeInsets.right);
+        UIEdgeInsets newInsets = self.webView.scrollView.scrollIndicatorInsets;
+        newInsets.left = safeInsets.left;
+        newInsets.right = safeInsets.right;
+        self.webView.scrollView.scrollIndicatorInsets = newInsets;
     }
 }
 
@@ -674,7 +677,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (@available(iOS 11.0, *)) {
         self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-
     [self addHeaderView];
 
     [self.containerView wmf_addSubviewWithConstraintsToEdges:self.webView];
