@@ -17,12 +17,25 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         super.init(coder: aDecoder)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
+        if #available(iOS 10.0, *) {
+            // use traitCollectionDidChange on iOS 10 and newer
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
+        }
     }
-    
+
+    @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
+        collectionView?.reloadData()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForPreviewingIfAvailable()
@@ -138,6 +151,11 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
+        if #available(iOS 10.0, *) {
+            if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+                contentSizeCategoryDidChange(nil)
+            }
+        }
     }
     
     func apply(theme: Theme) {

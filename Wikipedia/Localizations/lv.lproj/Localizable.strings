@@ -43,6 +43,7 @@
 "button-publish" = "Publicēt";
 "button-read-now" = "Lasīt tagad";
 "button-report-a-bug" = "Ziņot par kļūdu";
+"button-skip" = "Izlaist";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Aizvērt";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
@@ -167,8 +168,10 @@
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
+"welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
+"welcome-send-data-helps-title" = "Palīdzi uzlabot lietotni";
 "welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";

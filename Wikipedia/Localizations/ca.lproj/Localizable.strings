@@ -7,6 +7,7 @@
 // Author: Jaumeortola
 // Author: Joan manel
 // Author: Kippelboy
+// Author: Leptictidium
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
@@ -91,6 +92,8 @@
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
 "button-saved-remove" = "Suprimeix dels desats";
+"button-skip" = "Omet";
+"cancel" = "Cancel·la";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
@@ -203,8 +206,9 @@
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
 "languages-title" = "Canvia la llengua";
+"languages-wikipedia" = "Llengües de la Viquipèdia";
 "license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
+"license-footer-text" = "Contingut disponible sota $1 a menys que s'indiqui el contrari.";
 "login-forgot-password" = "Heu perdut la contrasenya?";
 "login-join-wikipedia" = "Uniu-vos a Viquipèdia";
 "login-no-account" = "No teniu un compte? $1";
@@ -257,6 +261,7 @@
 "page-protected-sysop" = "La pàgina està protegida.";
 "page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-similar-titles" = "Pàgines similars";
+"page-talk-page" = "Mostra la pàgina de discussió";
 "pictured" = "retratat";
 "places-accessibility-clear-saved-searches" = "Neteja les cerques desades";
 "places-accessibility-close-search" = "Tanca la cerca";
@@ -343,6 +348,7 @@
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-custom-menu-item" = "Comparteix...";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
+"share-menu-item" = "Comparteix…";
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-open-in-maps" = "Obre a Mapes";
 "status-saved-for-later" = "Desat per a més endavant";
@@ -363,9 +369,11 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"welcome-exploration-explore-feed-title" = "Canal Exploreu!";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
+"welcome-intro-free-encyclopedia-title" = "L’enciclopèdia lliure";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";

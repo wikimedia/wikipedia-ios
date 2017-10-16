@@ -409,7 +409,6 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "바뀜을 저장하면, $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";

@@ -44,6 +44,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 + (BOOL)migrateToSharedContainer:(NSError **)error;
 - (BOOL)migrateToCoreData:(NSError **)error;
 - (void)performCoreDataMigrations:(dispatch_block_t)completion;
+- (void)performLibraryUpdates:(dispatch_block_t)completion;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
@@ -55,6 +56,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
 - (void)teardownFeedImportContext;
+
+- (void)prefetchArticles; // fill the article cache to speed up initial feed load
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
