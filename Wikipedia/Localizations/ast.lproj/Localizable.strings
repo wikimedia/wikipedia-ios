@@ -1,6 +1,7 @@
 // Messages for Asturian (asturianu)
 // Exported from translatewiki.net
 // Author: Enolp
+// Author: Fitoschido
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
@@ -376,7 +377,7 @@
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
 "view-in-browser-footer-link" = "Ver artículu nel navegador";
 "welcome-exploration-explore-feed-description" = "Llectures recomendaes y artículos diarios de la nuesa comunidá";
-"welcome-exploration-explore-feed-title" = "Esplorar canal";
+"welcome-exploration-explore-feed-title" = "Canal Esplorar";
 "welcome-exploration-on-this-day-description" = "Viaxa al pasáu pa saber qué asocedió na hestoria tal día como güei";
 "welcome-exploration-on-this-day-title" = "Tal día como güei";
 "welcome-exploration-places-description" = "Descubrir llugares destacaos cercanos o buscar llugares del mundu";

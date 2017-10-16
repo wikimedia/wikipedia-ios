@@ -14,6 +14,7 @@
 // Author: Nemo bis
 // Author: Omotecho
 // Author: Otokoume
+// Author: Phantomize
 // Author: Ridmevo
 // Author: Shirayuki
 // Author: SkyDaisy9
@@ -392,7 +393,7 @@
 "top-read-header-with-language" = "$1ウィキペディア";
 "top-read-see-more" = "詳細を読む";
 "two-factor-login-continue" = "ログインを続行";
-"two-factor-login-instructions" = "2つの認証コードを入力してください";
+"two-factor-login-instructions" = "２段階認証コードを入力してください";
 "two-factor-login-title" = "あなたのアカウントにログイン";
 "two-factor-login-with-backup-code" = "バックアップコードの1つを使用する";
 "two-factor-login-with-regular-code" = "確認コードを使用する";
