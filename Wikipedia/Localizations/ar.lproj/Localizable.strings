@@ -200,6 +200,7 @@
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
 "languages-title" = "تغيير اللغة";
+"languages-wikipedia" = "لغات ويكيبيديا";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "المحتوى متاح بموجب رخصة $1 إلا في حالة ذكر خلاف ذلك.";
 "login-forgot-password" = "هل نسيت كلمة السر؟";
@@ -355,6 +356,7 @@
 "welcome-intro-free-encyclopedia-title" = "الموسوعة الحرة";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
+"welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
 // Fuzzy
 "welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
