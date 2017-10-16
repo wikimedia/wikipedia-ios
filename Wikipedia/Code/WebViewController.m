@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
 
 @property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic) CGFloat previousScrollViewTopInset;
 
 @end
 
@@ -437,11 +438,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.webView.scrollView;
 
-    CGFloat top = 0;
+    CGFloat top = self.view.layoutMarginsGuide.layoutFrame.origin.y * self.view.layoutMarginsGuide.layoutFrame.origin.x;
     if (@available(iOS 11.0, *)) {
-        top = self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
-    } else {
-        top = self.view.layoutMarginsGuide.layoutFrame.origin.y * self.view.layoutMarginsGuide.layoutFrame.origin.x;
+        top = MAX(self.view.safeAreaLayoutGuide.layoutFrame.origin.y, self.previousScrollViewTopInset);
     }
 
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
@@ -460,6 +459,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, scrollView.contentInset)) {
         scrollView.contentInset = newScrollViewInsets;
     }
+
+    self.previousScrollViewTopInset = top;
 }
 
 - (void)viewSafeAreaInsetsDidChange {
