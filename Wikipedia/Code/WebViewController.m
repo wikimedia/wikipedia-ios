@@ -436,9 +436,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.webView.scrollView;
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-    CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
-    CGFloat top = statusBarFrame.size.height + navigationBarHeight;
+
+    CGFloat top = 0;
+    if (@available(iOS 11.0, *)) {
+        top = self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
+    } else {
+        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+        CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
+        top = statusBarFrame.size.height + navigationBarHeight;
+    }
+
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
 
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
@@ -1179,7 +1186,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self wmf_addBottomShadowWithView:self.statusBarUnderlayView theme:theme];
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
-
 }
 
 @end
