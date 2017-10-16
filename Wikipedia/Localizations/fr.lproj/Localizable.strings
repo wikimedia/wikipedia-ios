@@ -4,6 +4,7 @@
 // Author: Caliburn
 // Author: Derugon
 // Author: Eric.LEWIN
+// Author: Fitoschido
 // Author: Gomoko
 // Author: Hydros
 // Author: John Trololo
@@ -404,7 +405,7 @@
 "welcome-intro-free-encyclopedia-more" = "En apprendre plus concernant Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "A propos de Wikipédia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipédia est un projet global pour construire des encyclopédies libres dans toutes les langues du monde. Virtuellement, n’importe qui avec un accès à Internet est libre de participer en fournissant des informations neutres et citées.";
-"welcome-intro-free-encyclopedia-title" = "L'encyclopédie libre";
+"welcome-intro-free-encyclopedia-title" = "L’encyclopédie libre";
 "welcome-languages-add-button" = "Ajouter une autre langue";
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
 "welcome-languages-description" = "Nous avons trouvé les langues suivantes sur votre appareil :";

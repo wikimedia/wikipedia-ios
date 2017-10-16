@@ -411,7 +411,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleImageGalleryViewController ()
 
 @property (nonatomic, strong) WMFImageInfoController *infoController;
-
+@property (nonatomic, getter=areDownloadErrorAlertsDisabled) BOOL downloadErrorAlertsDisabled;
 @end
 
 @implementation WMFArticleImageGalleryViewController
@@ -589,6 +589,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)imageInfoController:(WMFImageInfoController *)controller
          failedToFetchBatch:(NSRange)range
                       error:(NSError *)error {
+    if (self.areDownloadErrorAlertsDisabled) {
+        return;
+    }
+    self.downloadErrorAlertsDisabled = YES; //only show one alert per gallery session
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     //display error image?
 }
