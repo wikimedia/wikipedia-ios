@@ -1261,7 +1261,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 keyValue.key = search.key
                 keyValue.group = currentSearchHistoryGroup()
                 keyValue.date = Date()
-                keyValue.value = search.dictionaryValue as NSObject
+                keyValue.value = search.dictionaryValue as NSCoding
             }
             try moc.save()
         } catch let error {
