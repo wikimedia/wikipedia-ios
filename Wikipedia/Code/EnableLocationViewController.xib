@@ -40,7 +40,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="268" height="95"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="95" id="jWo-IS-JDh"/>
-                                <constraint firstAttribute="width" constant="95" id="rz1-ZG-dlE"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Explore articles near your location by enabling Location Access " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">

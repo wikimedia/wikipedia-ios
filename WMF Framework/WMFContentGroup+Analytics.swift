@@ -42,7 +42,7 @@ extension WMFContentGroup: AnalyticsValueProviding {
         switch contentGroupKind {
         case .announcement:
             let nonNumericCharacterSet = CharacterSet.decimalDigits.inverted
-            guard let announcement = content?.first as? WMFAnnouncement else {
+            guard let announcement = contentPreview as? WMFAnnouncement else {
                 fallthrough
             }
             let numberString = announcement.identifier.trimmingCharacters(in: nonNumericCharacterSet)

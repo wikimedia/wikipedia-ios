@@ -206,7 +206,6 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let viewController = shareActivityController {
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     let cell = collectionView?.cellForItem(at: indexPath)
-                    viewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
                     viewController.popoverPresentationController?.sourceView = cell ?? view
                     viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
                 }

@@ -118,7 +118,9 @@ NS_ASSUME_NONNULL_BEGIN
                         return;
                     }
                     [moc performBlock:^{
-                        [moc fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:@[articleURL] customizationBlock:NULL];
+                        [moc fetchOrCreateGroupForURL:contentGroupURL ofKind:WMFContentGroupKindRandom forDate:date withSiteURL:siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                            group.contentPreview = articleURL;
+                        }];
                         [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
                         if (completion) {
                             completion();
