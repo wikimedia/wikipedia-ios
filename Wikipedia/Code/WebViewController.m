@@ -441,9 +441,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (@available(iOS 11.0, *)) {
         top = self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
     } else {
-        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-        CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
-        top = statusBarFrame.size.height + navigationBarHeight;
+        top = self.view.layoutMarginsGuide.layoutFrame.origin.y * self.view.layoutMarginsGuide.layoutFrame.origin.x;
     }
 
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
