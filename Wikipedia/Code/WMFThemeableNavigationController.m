@@ -16,8 +16,8 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     if (self.theme == nil) {
         self.theme = [WMFTheme standard];
     }
