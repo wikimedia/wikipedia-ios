@@ -12,16 +12,9 @@
     self = [super initWithRootViewController:rootViewController];
     if (self) {
         self.theme = theme;
+        [self applyTheme:theme];
     }
     return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (self.theme == nil) {
-        self.theme = [WMFTheme standard];
-    }
-    [self applyTheme:self.theme];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
