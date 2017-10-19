@@ -15,6 +15,7 @@
 // Author: Mcervera
 // Author: Mgpena
 // Author: Nemo bis
+// Author: RicardoSGZ
 // Author: Rodm23
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -391,9 +392,11 @@
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artículo en el navegador";
+"welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Suministro Explorar";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";
 "welcome-exploration-on-this-day-title" = "Un día como hoy";
+"welcome-exploration-places-description" = "Descubre puntos de referencia cerca de ti o busca en lugares por todo el mundo";
 "welcome-exploration-places-title" = "Pestaña Lugares";
 "welcome-explore-continue-button" = "Empezar";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
@@ -412,8 +415,7 @@
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
 "welcome-send-data-helps-title" = "Ayuda a mejorar la aplicación";
 "welcome-send-data-learn-more" = "Más información sobre los datos recopilados";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación diciéndonos cómo la usas. Los datos recolectados son anónimos.";
+"welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación permitiéndonos conocer cómo la usas. Los datos recolectados son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el contenido.";
