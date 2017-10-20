@@ -167,7 +167,9 @@
 "table-title-other" = "Vairāk informācijas";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
+"welcome-exploration-on-this-day-title" = "Šajā dienā";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
+"welcome-intro-free-encyclopedia-more" = "Uzzini vairāk par Vikipēdiju";
 "welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
