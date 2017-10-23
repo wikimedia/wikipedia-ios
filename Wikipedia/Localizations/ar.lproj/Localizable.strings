@@ -352,11 +352,13 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
+"welcome-intro-free-encyclopedia-more" = "معرفة المزيد عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-title" = "الموسوعة الحرة";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
 "welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
+"welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
 // Fuzzy
 "welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
