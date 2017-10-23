@@ -79,6 +79,7 @@
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
 "article-share" = "Comparteix";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back" = "Enrere";
@@ -343,8 +344,8 @@
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Compateix-un-fet";
+"share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
+"share-a-fact-share-menu-item" = "Compateix-un-fet…";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-custom-menu-item" = "Comparteix...";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
@@ -370,14 +371,21 @@
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
+"welcome-exploration-places-title" = "Pestanya de llocs";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
+"welcome-intro-free-encyclopedia-more" = "Més informació de la Viquipèdia";
+"welcome-intro-free-encyclopedia-more-about" = "Quant a la Viquipèdia";
 "welcome-intro-free-encyclopedia-title" = "L’enciclopèdia lliure";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
+"welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
+"welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
+"welcome-languages-search-title" = "Cerca en vora 300 llengües";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
+"welcome-send-data-helps-title" = "Ajudeu a millorar l'aplicació";
 // Fuzzy
 "welcome-send-data-sub-title" = "Ajudeu la Fundació Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
