@@ -6,6 +6,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     @objc var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
     @objc var results: [MWKSearchResult] = [] {
         didSet {
+            assert(Thread.isMainThread)
             collectionView?.reloadData()
         }
     }
