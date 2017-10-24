@@ -114,6 +114,7 @@
 		7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D21F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D31F6C4B9C00E8F42B /* WMFChange.h in Headers */ = {isa = PBXBuildFile; fileRef = D8FEECCB1DE3729400B883F0 /* WMFChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A4FE53C1FA0024C009FA199 /* WMFArticleFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E803971C0CDB280065EBC0 /* WMFArticleFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A77B7821F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A77B7831F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
 		8304D7C01F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
@@ -7862,6 +7863,7 @@
 				B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */,
 				D844D9F21D6CC01C0042D692 /* MWKImage+CanonicalFilenames.h in Headers */,
 				D84C35FC1F323DFE00895FA1 /* WMFCVLSection.h in Headers */,
+				7A4FE53C1FA0024C009FA199 /* WMFArticleFetcher.h in Headers */,
 				D84448581DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h in Headers */,
 				D8FA18BB1E1BD891009675C3 /* NSFileManager+WMFGroup.h in Headers */,
 				D8FA18B31E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.h in Headers */,
