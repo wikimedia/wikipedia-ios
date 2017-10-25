@@ -1344,9 +1344,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            //            WMFArticlePeekPreviewViewController *temp = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-            //            vc = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
             vc = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+            vc.preferredContentSize = CGSizeMake(0.0, 389.0);
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
