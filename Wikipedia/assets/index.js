@@ -664,15 +664,8 @@ const performLateNonSectionTransforms = (article) => {
 
 
 
-//TODO rather than having all these parameters, just have 'url' and Language and Article params. 
-//TODO then native code will just call constuctor on Language and Article. the js docs will 
-//TODO document these parameters' types. Will make it easier to, for example, add table collapsing 
-//TODO strings params (add these to Language) and footer params (add new Footer obj and param)
-//TODO CAN also use new """ swift 4 string delimiter when making these constructors!
-exports.transformAndAppendSectionsToDocument = (url, isMain, articleTitle, articleEntityDescription, editable, langCode, langDir, isRTL) =>{
-  
-  const language = new Language(langCode, langDir, isRTL)
-  const article = new Article(isMain, articleTitle, articleEntityDescription, editable, language)
+//TODO add JSDocs explaining the article parameter  
+exports.transformAndAppendSectionsToDocument = (url, article) =>{
   
   performEarlyNonSectionTransforms(article)
 
@@ -687,6 +680,11 @@ exports.transformAndAppendSectionsToDocument = (url, isMain, articleTitle, artic
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
+
+
+
+exports.Language = Language
+exports.Article = Article
 
 
 

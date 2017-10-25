@@ -247,9 +247,22 @@ extension WKWebView {
         
         let langInfo = MWLanguageInfo(forCode: lang)
         
-        //TODO: I'm refactoring this now to be easier to extend.
+        
+        
+
+        
         let proxiedAPIURL = "\(proxyURL)\(apiURL)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(article.isMain ? "true": "false"), '\(nonNilTitle)', '\(nonNilDescription)', \(article.editable ? "true": "false"), '\(langInfo.code)', '\(langInfo.dir)', '\(UIApplication.shared.wmf_isRTL ? "true": "false")')") { (result, error) in
+        
+        let isMain = article.isMain ? "true": "false"
+        let articleTitle = nonNilTitle
+        let articleEntityDescription = nonNilDescription
+        let editable = article.editable ? "true": "false"
+        let langCode = langInfo.code
+        let langDir = langInfo.dir
+        let isRTL = UIApplication.shared.wmf_isRTL ? "true": "false"
+        let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(isRTL)))"
+        
+        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(newJSArticle))") { (result, error) in
             guard let error = error else {
                 return
             }
