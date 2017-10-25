@@ -122,6 +122,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageFooterBrowserLinkClicked:
             [self handleFooterBrowserLinkClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageFooterContainerAdded:
+            [self handleFooterContainerAddedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -452,6 +455,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return MAX(MAX(layoutMargins.left, layoutMargins.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
 }
 
+- (void)handleFooterContainerAddedScriptMessage:(id)message {
+    //TODO: only need to do the "window.wmf.footerContainer.updateLeftAndRightMargin" part here... may be ok though as it's not changing the other values so shouldn't cause extra reflow...
+    [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
+}
+
 - (void)updateWebContentMarginForSize:(CGSize)size force:(BOOL)force {
     CGFloat newMarginWidth = [self marginWidthForSize:self.view.bounds.size];
     if (force || ABS(self.marginWidth - newMarginWidth) >= 0.5) {
@@ -604,7 +612,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         //        @"collapseTables",
         //        @"setPageProtected",
         //        @"setLanguage",
-        @"addFooterContainer",
+        //        @"addFooterContainer",
         //        @"addFooterReadMore",
         //        @"addFooterMenu",
         //        @"addFooterLegal",
@@ -627,6 +635,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"findInPageMatchesFound",
         @"footerReadMoreSaveClicked",
         @"footerReadMoreTitlesShown",
+        @"footerContainerAdded",
         @"footerMenuItemClicked",
         @"footerLegalLicenseLinkClicked",
         @"footerBrowserLinkClicked"

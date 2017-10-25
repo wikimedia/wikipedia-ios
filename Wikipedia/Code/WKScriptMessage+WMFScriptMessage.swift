@@ -15,6 +15,7 @@ import WebKit
     case footerMenuItemClicked
     case footerLegalLicenseLinkClicked
     case footerBrowserLinkClicked
+    case footerContainerAdded
 }
 
 extension WKScriptMessage {
@@ -47,6 +48,8 @@ extension WKScriptMessage {
             return .footerLegalLicenseLinkClicked
         case "footerBrowserLinkClicked":
             return .footerBrowserLinkClicked
+        case "footerContainerAdded":
+            return .footerContainerAdded
         default:
             return .unknown
         }
@@ -66,7 +69,8 @@ extension WKScriptMessage {
         case .lateJavascriptTransform,
              .articleState,
              .footerLegalLicenseLinkClicked,
-             .footerBrowserLinkClicked:
+             .footerBrowserLinkClicked,
+             .footerContainerAdded:
             if body is String {
                 return body
             }
