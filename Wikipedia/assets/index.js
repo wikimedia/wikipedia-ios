@@ -493,10 +493,10 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
 class LocalizedStrings {
-  constructor(infoboxTitle, tableTitle, closeBoxText) {
-    this.infoboxTitle = infoboxTitle
-    this.tableTitle = tableTitle
-    this.closeBoxText = closeBoxText
+  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle) {
+    this.tableInfoboxTitle = tableInfoboxTitle
+    this.tableOtherTitle = tableOtherTitle
+    this.tableFooterTitle = tableFooterTitle
   }
 }
 
@@ -626,7 +626,7 @@ var applyTransformationsToFragment = (fragment, article, isLead, localizedString
     }
   }
   
-  wmf.tables.hideTables(fragment, article.ismain, article.title, localizedStrings.infoboxTitle, localizedStrings.tableTitle, localizedStrings.closeBoxText)
+  wmf.tables.hideTables(fragment, article.ismain, article.title, localizedStrings.tableInfoboxTitle, localizedStrings.tableOtherTitle, localizedStrings.tableFooterTitle)
 
   //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
   //dont get widened even though i'm forcing "data-image-gallery" to true here - the css *is* being changed though)
