@@ -249,20 +249,31 @@ extension WKWebView {
         
         
         
+        
 
         
+        
+        
         let proxiedAPIURL = "\(proxyURL)\(apiURL)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        
+        
+        let langCode = langInfo.code
+        let langDir = langInfo.dir
+        let isRTL = UIApplication.shared.wmf_isRTL ? "true": "false"
+        let newJSLanguage = "new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(isRTL))"
+        
+        let infoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let tableTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let closeBoxText = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let newJSLocalizedStrings = "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)')"
         
         let isMain = article.isMain ? "true": "false"
         let articleTitle = nonNilTitle
         let articleEntityDescription = nonNilDescription
         let editable = article.editable ? "true": "false"
-        let langCode = langInfo.code
-        let langDir = langInfo.dir
-        let isRTL = UIApplication.shared.wmf_isRTL ? "true": "false"
-        let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(isRTL)))"
-        
-        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(newJSArticle))") { (result, error) in
+        let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), \(newJSLanguage))"
+
+        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(newJSArticle), \(newJSLocalizedStrings))") { (result, error) in
             guard let error = error else {
                 return
             }
