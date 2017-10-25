@@ -616,7 +616,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         //        @"addFooterReadMore",
         //        @"addFooterMenu",
         //        @"addFooterLegal",
-        @"classifyThemeElements"
+        //        @"classifyThemeElements"
     ];
     for (NSString *transformName in lateTransformNames) {
         NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];

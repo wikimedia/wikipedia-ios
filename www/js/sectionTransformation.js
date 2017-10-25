@@ -233,6 +233,9 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) =>
 
 
 
+  // 'themes.classifyElements()' needs to happen once after body elements are present. it
+  // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
+  window.wmf.themes.classifyElements(document)
 
 
 
