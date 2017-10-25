@@ -3,8 +3,10 @@ import WMF
 
 @objc(WMFSearchResultsViewController)
 class SearchResultsViewController: ArticleCollectionViewController {
-    @objc var searchResults: WMFSearchResults? = nil {
+    @objc var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
+    @objc var results: [MWKSearchResult] = [] {
         didSet {
+            assert(Thread.isMainThread)
             collectionView?.reloadData()
         }
     }
@@ -27,7 +29,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     @objc(isDisplayingResultsForSearchTerm:fromSiteURL:)
     func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
-        guard let searchResults = searchResults, let results = searchResults.results, let searchSiteURL = searchSiteURL else {
+        guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
         }
         return results.count > 0 && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
@@ -38,7 +40,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func articleURL(at indexPath: IndexPath) -> URL? {
-        return searchResults?.results?[indexPath.item].articleURL(forSiteURL: searchSiteURL)
+        return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
@@ -49,10 +51,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchResults?.results?.count ?? 0
+        return results.count
     }
+
     func redirectMappingForSearchResult(_ result: MWKSearchResult) -> MWKSearchRedirectMapping? {
-        return searchResults?.redirectMappings?.filter({ (mapping) -> Bool in
+        return resultsInfo?.redirectMappings?.filter({ (mapping) -> Bool in
             return result.displayTitle == mapping.redirectToTitle
         }).first
     }
@@ -74,14 +77,17 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let result = searchResults?.results?[indexPath.item],
-            let articleURL = articleURL(at: indexPath),
+        guard indexPath.item < results.count else {
+            return
+        }
+        let result = results[indexPath.item]
+        guard let articleURL = articleURL(at: indexPath),
             let language = searchSiteURL?.wmf_language else {
             return
         }
         let locale = NSLocale.wmf_locale(for: language)
         cell.configureForCompactList(at: indexPath.item)
-        cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: searchResults?.searchTerm, locale: locale)
+        cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: resultsInfo?.searchTerm, locale: locale)
         cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)
@@ -94,5 +100,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
         cell.apply(theme: theme)
         cell.actions = availableActions(at: indexPath)
     }
+
 }
 
