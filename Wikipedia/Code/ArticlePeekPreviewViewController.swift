@@ -26,38 +26,27 @@ class ArticlePeekPreviewViewController: UIViewController {
     }
     
     func fetchArticle() {
-       let articleFetcher = WMFArticleFetcher(dataStore: dataStore)
-        
-        articleFetcher.fetchLatestVersionOfArticle(with: articleURL, forceDownload: false, saveToDisk: false, progress: nil, failure: { (error) in
-            
-            if let cashedFallback = (error as NSError).userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? MWKArticle {
-                self.updateView(with: cashedFallback)
-            }
-
-        }) { (article) in
-            self.updateView(with: article)
+        if let article = dataStore.fetchArticle(with: articleURL) {
+            updateView(with: article)
         }
-        
     }
     
-    func updateView(with article: MWKArticle) {
-        guard let title = article.displaytitle, let description = article.entityDescription, let summary = article.summary else {
-            return
-        }
+    func updateView(with article: WMFArticle) {
         
-        if let imageURL = article.imageURL, let url = URL(string: imageURL) {
-            self.leadImageView.wmf_setImage(with: url, detectFaces: true, onGPU: true, failure: { (error) in
+        if let imageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
+            self.leadImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 self.leadImageView.isHidden = true
             }, success: {
                 //handle success
             })
         } else {
             leadImageView.isHidden = true
+
         }
         
-        self.titleLabel.text = title
-        self.descriptionLabel.text = description
-        self.textLabel.text = summary
+        self.titleLabel.text = article.displayTitle
+        self.descriptionLabel.text = article.capitalizedWikidataDescription
+        self.textLabel.text = article.snippet
     }
     
     override func viewDidLoad() {
