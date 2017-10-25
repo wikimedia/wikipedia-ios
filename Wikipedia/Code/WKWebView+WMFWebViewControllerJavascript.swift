@@ -96,11 +96,13 @@ import WMF
 extension WKWebView {
     
     @objc public func wmf_addFooterContainer() {
+        /*
         let footerContainerJS =
         "if (window.wmf.footerContainer.isContainerAttached(document) === false) {" +
             "document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))" +
         "}"
         evaluateJavaScript(footerContainerJS, completionHandler: nil)
+         */
     }
     
     @objc public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
@@ -275,8 +277,11 @@ extension WKWebView {
         let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: lang, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
 
         let menuHeading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        let menuLanguagesTitle = WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuLastEditedTitle = WMFLocalizedString("page-last-edited",  language: lang, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        
+        let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), "\(article.languagecount)").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let lastModified = article.lastmodified ?? Date()
+        let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
+        let menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: lang, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days"), "\(days)").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: lang, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: lang, value: "View talk page", comment: "Label for button linking out to an article's talk page").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
