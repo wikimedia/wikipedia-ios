@@ -7,6 +7,11 @@ class ArticlePeekPreviewViewController: UIViewController {
     fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate let theme: Theme
+
+    @IBOutlet weak var leadImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
     
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.articleURL = articleURL
@@ -21,12 +26,32 @@ class ArticlePeekPreviewViewController: UIViewController {
     
     func fetchArticle() {
        let articleFetcher = WMFArticleFetcher(dataStore: dataStore)
+        
         articleFetcher.fetchLatestVersionOfArticle(with: articleURL, forceDownload: false, saveToDisk: false, progress: nil, failure: { (error) in
-            print("Error fetching article \(error)")
-        }) { (article) in
-            print("Success! Title: \(article.displaytitle)")
             
+            if let cashedFallback = (error as NSError).userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] as? MWKArticle {
+                self.updateView(with: cashedFallback)
+            }
+
+        }) { (article) in
+            self.updateView(with: article)
         }
+        
+    }
+    
+    func updateView(with article: MWKArticle) {
+        guard let imageURL = article.imageURL, let url = URL(string: imageURL), let title = article.displaytitle, let description = article.entityDescription, let summary = article.summary else {
+            return
+        }
+        
+        self.leadImageView.wmf_setImage(with: url, detectFaces: true, onGPU: true, failure: { (error) in
+            //handle error
+        }, success: {
+            //handle success
+        })
+        self.titleLabel.text = title
+        self.descriptionLabel.text = description
+        self.textLabel.text = summary
     }
     
     override func viewDidLoad() {
