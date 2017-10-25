@@ -1339,7 +1339,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    
+
     UIViewController *vc = nil;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
