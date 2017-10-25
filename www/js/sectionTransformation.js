@@ -195,16 +195,25 @@ const performEarlyNonSectionTransforms = article => {
 const performLateNonSectionTransforms = article => {
   //TODO add footer transforms here - 
 
+
+
+  //TODO consider switching footer XF to also act on headless fragment
+  if (window.wmf.footerContainer.isContainerAttached(document) === false) {
+      document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
+  }
+
+
+
+
 }
 
 
-
 //TODO add JSDocs explaining the article and localizedStrings parameters
-const transformAndAppendSectionsToDocument = (url, article, localizedStrings) =>{
+const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localizedStrings) =>{
   
   performEarlyNonSectionTransforms(article)
 
-  fetch(url)
+  fetch(`${proxyURL}${apiURL}`)
   .then(processStatus)
   .then(extractJSON)
   .then(json => extractSections(json, article))

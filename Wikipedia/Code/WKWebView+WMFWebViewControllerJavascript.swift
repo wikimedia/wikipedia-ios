@@ -233,7 +233,7 @@ extension WKWebView {
 
         
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
-        let apiURL = "/w/api.php?action=mobileview&format=json&noheadings=true&pilicense=any&prop=sections%7Ctext%7Clastmodified%7Clastmodifiedby%7Clanguagecount%7Cid%7Cprotection%7Ceditable%7Cdisplaytitle%7Cthumb%7Cdescription%7Cimage%7Crevision%7Cnamespace&sectionprop=toclevel%7Cline%7Canchor%7Clevel%7Cnumber%7Cfromtitle%7Cindex&sections=all&thumbwidth=640&page=\(encodedTitle)"
+        let apiURLString = "/w/api.php?action=mobileview&format=json&noheadings=true&pilicense=any&prop=sections%7Ctext%7Clastmodified%7Clastmodifiedby%7Clanguagecount%7Cid%7Cprotection%7Ceditable%7Cdisplaytitle%7Cthumb%7Cdescription%7Cimage%7Crevision%7Cnamespace&sectionprop=toclevel%7Cline%7Canchor%7Clevel%7Cnumber%7Cfromtitle%7Cindex&sections=all&thumbwidth=640&page=\(encodedTitle)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         
         var nonNilTitle = ""
         if let title = article.displaytitle ?? (url as NSURL).wmf_title {
@@ -254,8 +254,8 @@ extension WKWebView {
         
         
         
-        let proxiedAPIURL = "\(proxyURL)\(apiURL)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        
+        let proxyURLString = proxyURL.absoluteString.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+
         
         let langCode = langInfo.code
         let langDir = langInfo.dir
@@ -273,7 +273,7 @@ extension WKWebView {
         let editable = article.editable ? "true": "false"
         let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), \(newJSLanguage))"
 
-        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(newJSArticle), \(newJSLocalizedStrings))") { (result, error) in
+        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle), \(newJSLocalizedStrings))") { (result, error) in
             guard let error = error else {
                 return
             }

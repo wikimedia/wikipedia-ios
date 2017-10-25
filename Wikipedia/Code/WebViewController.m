@@ -612,10 +612,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 //        @"collapseTables",
 //        @"setPageProtected",
 //        @"setLanguage",
-        @"addFooterContainer",
-        @"addFooterReadMore",
-        @"addFooterMenu",
-        @"addFooterLegal",
+//        @"addFooterContainer",
+//        @"addFooterReadMore",
+//        @"addFooterMenu",
+//        @"addFooterLegal",
         @"classifyThemeElements"
     ];
     for (NSString *transformName in lateTransformNames) {
