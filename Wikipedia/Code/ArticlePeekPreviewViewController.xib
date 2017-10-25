@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="g86-JA-9zQ">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g86-JA-9zQ">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-E4-kIC">
@@ -36,19 +36,19 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-YE-PwK">
-                            <rect key="frame" x="0.0" y="165" width="375" height="61"/>
+                            <rect key="frame" x="0.0" y="150" width="375" height="91"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ms5-En-RWQ">
-                                    <rect key="frame" x="23" y="8" width="329" height="45"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Ms5-En-RWQ">
+                                    <rect key="frame" x="23" y="23" width="329" height="60"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ul-gT-AMZ" userLabel="Title Label">
-                                            <rect key="frame" x="0.0" y="0.0" width="329" height="24.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="329" height="33.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCB-wn-buP" userLabel="Description Label">
-                                            <rect key="frame" x="0.0" y="24.5" width="329" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="39.5" width="329" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -57,7 +57,7 @@
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="Ms5-En-RWQ" firstAttribute="top" secondItem="A2X-YE-PwK" secondAttribute="topMargin" id="CPN-x8-Bme"/>
+                                <constraint firstItem="Ms5-En-RWQ" firstAttribute="top" secondItem="A2X-YE-PwK" secondAttribute="topMargin" constant="15" id="IIR-Nr-bRd"/>
                                 <constraint firstItem="Ms5-En-RWQ" firstAttribute="leading" secondItem="A2X-YE-PwK" secondAttribute="leadingMargin" constant="15" id="Lqi-ub-7EL"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="Ms5-En-RWQ" secondAttribute="bottom" id="hDX-n1-fNB"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="Ms5-En-RWQ" secondAttribute="trailing" constant="15" id="iMc-d4-gIo"/>
@@ -67,7 +67,7 @@
                             <rect key="frame" x="0.0" y="241" width="375" height="406"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ezb-Jj-MfF" userLabel="Text Label">
-                                    <rect key="frame" x="23" y="8" width="329" height="375"/>
+                                    <rect key="frame" x="23" y="23" width="329" height="360"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="bottomMargin" secondItem="Ezb-Jj-MfF" secondAttribute="bottom" constant="15" id="Gld-Gj-rxZ"/>
-                                <constraint firstItem="Ezb-Jj-MfF" firstAttribute="top" secondItem="MeE-uX-nNB" secondAttribute="topMargin" id="f4V-Q6-wfs"/>
+                                <constraint firstItem="Ezb-Jj-MfF" firstAttribute="top" secondItem="MeE-uX-nNB" secondAttribute="topMargin" constant="15" id="f4V-Q6-wfs"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="Ezb-Jj-MfF" secondAttribute="trailing" constant="15" id="uBf-xI-DWm"/>
                                 <constraint firstItem="Ezb-Jj-MfF" firstAttribute="leading" secondItem="MeE-uX-nNB" secondAttribute="leadingMargin" constant="15" id="uKr-vh-e0M"/>
                             </constraints>
