@@ -673,10 +673,12 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) =>
 
   //TODO consider switching footer XF to also act on headless fragment
   
+  /*
   // add footer container
   if (window.wmf.footerContainer.isContainerAttached(document) === false) {
       document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
   }
+  */
 
   // add dynamic bottom padding
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
