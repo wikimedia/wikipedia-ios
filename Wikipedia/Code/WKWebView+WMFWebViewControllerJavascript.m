@@ -18,6 +18,9 @@ static int const kMinimumTextSelectionLength = 2;
 }
 
 - (void)wmf_addEditPencilsForArticle:(MWKArticle *)article {
+    
+//do we still need the "anchor.href" line below??? was ios 9?
+    
     if (!article.isMain) {
         [self evaluateJavaScript:[NSString stringWithFormat:@""
                                                              "window.wmf.editButtons.add(document);"

@@ -17,5 +17,6 @@ wmf.redLinks = require('wikimedia-page-library').RedLinks
 wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
 wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
+wmf.sectionTransformation = require('./js/sectionTransformation')
 
 window.wmf = wmf

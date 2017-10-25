@@ -23,3 +23,5 @@ function add(content) {
 }
 
 exports.add = add
+exports.addEditButtonAfterElement = addEditButtonAfterElement
+exports.addEditButtonsToElements = addEditButtonsToElements

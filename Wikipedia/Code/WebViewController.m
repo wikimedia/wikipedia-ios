@@ -323,6 +323,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"articleLoaded"]) {
+        
+        
+
+        
+        
+[self.webView wmf_loadArticle2:self.article];
+        
+        
+        
+        
+        
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
         [self.delegate webViewController:self didLoadArticle:self.article];
@@ -597,10 +608,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     NSArray *lateTransformNames = @[
-        @"addEditPencils",
-        @"collapseTables",
-        @"setPageProtected",
-        @"setLanguage",
+//        @"addEditPencils",
+//        @"collapseTables",
+//        @"setPageProtected",
+//        @"setLanguage",
         @"addFooterContainer",
         @"addFooterReadMore",
         @"addFooterMenu",
@@ -633,10 +644,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     NSString *earlyJavascriptTransforms = @""
-                                           "window.wmf.redLinks.hideRedLinks( document );"
-                                           "window.wmf.filePages.disableFilePageEdit( document );"
-                                           "window.wmf.images.widenImages( document );"
-                                           "window.wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', document );"
+//                                           "window.wmf.redLinks.hideRedLinks( document );"
+//                                           "window.wmf.filePages.disableFilePageEdit( document );"
+//                                           "window.wmf.images.widenImages( document );"
+//                                           "window.wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', document );"
+//TODO figure out where we should be calling the next line...
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 

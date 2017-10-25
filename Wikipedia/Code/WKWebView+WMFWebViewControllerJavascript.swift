@@ -202,4 +202,84 @@ extension WKWebView {
         let themeJS = WKWebView.wmf_themeApplicationJavascript(with: theme)
         evaluateJavaScript(themeJS, completionHandler: nil)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // TODO: update this TEMPORARY method naming
+    @objc public func wmf_loadArticle2(_ article: MWKArticle){
+        guard
+            let url = article.url,
+            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: url.host),
+            let encodedTitle = url.wmf_titleWithUnderscores,
+            let lang = (url as NSURL).wmf_language
+            else {
+                assertionFailure("Expected proxyURL")
+                return
+        }
+
+        
+        // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
+        let apiURL = "/w/api.php?action=mobileview&format=json&noheadings=true&pilicense=any&prop=sections%7Ctext%7Clastmodified%7Clastmodifiedby%7Clanguagecount%7Cid%7Cprotection%7Ceditable%7Cdisplaytitle%7Cthumb%7Cdescription%7Cimage%7Crevision%7Cnamespace&sectionprop=toclevel%7Cline%7Canchor%7Clevel%7Cnumber%7Cfromtitle%7Cindex&sections=all&thumbwidth=640&page=\(encodedTitle)"
+        
+        var nonNilTitle = ""
+        if let title = article.displaytitle ?? (url as NSURL).wmf_title {
+            nonNilTitle = title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        }
+        
+        var nonNilDescription = ""
+        if let description = article.entityDescription {
+            nonNilDescription = description.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        }
+        
+        let langInfo = MWLanguageInfo(forCode: lang)
+        
+        //TODO: I'm refactoring this now to be easier to extend.
+        let proxiedAPIURL = "\(proxyURL)\(apiURL)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxiedAPIURL)', \(article.isMain ? "true": "false"), '\(nonNilTitle)', '\(nonNilDescription)', \(article.editable ? "true": "false"), '\(langInfo.code)', '\(langInfo.dir)', '\(UIApplication.shared.wmf_isRTL ? "true": "false")')") { (result, error) in
+            guard let error = error else {
+                return
+            }
+            print(error)
+        }
+
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

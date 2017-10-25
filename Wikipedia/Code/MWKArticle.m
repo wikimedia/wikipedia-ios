@@ -480,8 +480,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     for (MWKSection *section in self.sections) {
         // Structural html added around section html just before display.
-        NSString *sectionHTMLWithID = [section displayHTML];
-        [sectionTextArray addObject:sectionHTMLWithID];
+        //        NSString *sectionHTMLWithID = [section displayHTML];
+        //        [sectionTextArray addObject:sectionHTMLWithID];
     }
 
     // Join article sections text
