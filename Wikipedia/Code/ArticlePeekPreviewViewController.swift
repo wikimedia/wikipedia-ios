@@ -6,9 +6,10 @@ class ArticlePeekPreviewViewController: UIViewController {
     
     fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore
-    fileprivate let theme: Theme
+    fileprivate var theme: Theme
 
     @IBOutlet weak var leadImageView: UIImageView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
@@ -57,6 +58,7 @@ class ArticlePeekPreviewViewController: UIViewController {
     override func viewDidLoad() {
         fetchArticle()
         updateFonts()
+        apply(theme: theme)
     }
     
     func updateFonts() {
@@ -68,5 +70,16 @@ class ArticlePeekPreviewViewController: UIViewController {
         if #available(iOS 11.0, *) {
             leadImageView.accessibilityIgnoresInvertColors = true
         }
+    }
+}
+
+extension ArticlePeekPreviewViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        view.backgroundColor = theme.colors.paperBackground
+        titleLabel.textColor = theme.colors.primaryText
+        descriptionLabel.textColor = theme.colors.secondaryText
+        headerView.backgroundColor = theme.colors.midBackground
+        textLabel.textColor = theme.colors.primaryText
     }
 }

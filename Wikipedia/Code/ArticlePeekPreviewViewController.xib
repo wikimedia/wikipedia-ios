@@ -14,6 +14,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticlePeekPreviewViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="descriptionLabel" destination="cCB-wn-buP" id="o3i-U7-ys9"/>
+                <outlet property="headerView" destination="A2X-YE-PwK" id="Kf8-I9-h5J"/>
                 <outlet property="leadImageView" destination="tMT-E4-kIC" id="9Vv-ey-fbN"/>
                 <outlet property="textLabel" destination="Ezb-Jj-MfF" id="XzA-dh-4bu"/>
                 <outlet property="titleLabel" destination="5ul-gT-AMZ" id="WDb-m6-zp4"/>
@@ -55,7 +56,6 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="Ms5-En-RWQ" firstAttribute="top" secondItem="A2X-YE-PwK" secondAttribute="topMargin" id="CPN-x8-Bme"/>
                                 <constraint firstItem="Ms5-En-RWQ" firstAttribute="leading" secondItem="A2X-YE-PwK" secondAttribute="leadingMargin" constant="15" id="Lqi-ub-7EL"/>
@@ -73,7 +73,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="bottomMargin" secondItem="Ezb-Jj-MfF" secondAttribute="bottom" constant="15" id="Gld-Gj-rxZ"/>
                                 <constraint firstItem="Ezb-Jj-MfF" firstAttribute="top" secondItem="MeE-uX-nNB" secondAttribute="topMargin" id="f4V-Q6-wfs"/>
@@ -84,7 +83,6 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="g86-JA-9zQ" secondAttribute="trailing" id="4sN-Lp-t85"/>
                 <constraint firstItem="g86-JA-9zQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Xcm-A7-AY2"/>
