@@ -21,7 +21,7 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
 class LocalizedStrings {
-  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString) {
+  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString, menuHeading, menuLanguagesTitle, menuLastEditedTitle, menuTalkPageTitle, menuPageIssuesTitle, menuDisambiguationTitle, menuCoordinateTitle) {
     this.tableInfoboxTitle = tableInfoboxTitle
     this.tableOtherTitle = tableOtherTitle
     this.tableFooterTitle = tableFooterTitle
@@ -29,6 +29,13 @@ class LocalizedStrings {
     this.licenseString = licenseString
     this.licenseSubstitutionString = licenseSubstitutionString
     this.viewInBrowserString = viewInBrowserString
+    this.menuHeading = menuHeading
+    this.menuLanguagesTitle = menuLanguagesTitle
+    this.menuLastEditedTitle = menuLastEditedTitle
+    this.menuTalkPageTitle = menuTalkPageTitle
+    this.menuPageIssuesTitle = menuPageIssuesTitle
+    this.menuDisambiguationTitle = menuDisambiguationTitle
+    this.menuCoordinateTitle = menuCoordinateTitle
   }
 }
 
@@ -215,6 +222,12 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) =>
   // add dynamic bottom padding
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
   window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+
+
+  // add menu footer
+  window.wmf.footerMenu.setHeading(localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+
+
 
   // add read more footer
   const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
