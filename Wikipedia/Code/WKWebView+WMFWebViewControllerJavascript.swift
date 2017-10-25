@@ -122,6 +122,7 @@ extension WKWebView {
     }
 
     @objc public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
+        /*
         let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: article.url.wmf_language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
         let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: article.url.wmf_language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let licenseLinkClickHandler =
@@ -136,7 +137,8 @@ extension WKWebView {
         "}"
         
         evaluateJavaScript("window.wmf.footerLegal.add(document, '\(licenseString)', '\(licenseSubstitutionString)', 'pagelib_footer_container_legal', \(licenseLinkClickHandler), '\(viewInBrowserString)', \(viewInBrowserLinkClickHandler));", completionHandler: nil)
-    }
+         */
+     }
 
     @objc public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
         /*
@@ -268,7 +270,10 @@ extension WKWebView {
         let tableTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let closeBoxText = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let readMoreHeading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let newJSLocalizedStrings = "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)', '\(readMoreHeading)')"
+        let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: article.url.wmf_language, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
+        let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: article.url.wmf_language, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: article.url.wmf_language, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let newJSLocalizedStrings = "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)', '\(readMoreHeading)', '\(licenseString)', '\(licenseSubstitutionString)', '\(viewInBrowserString)')"
         
         let isMain = article.isMain ? "true": "false"
         let articleTitle = nonNilTitle

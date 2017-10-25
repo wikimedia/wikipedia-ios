@@ -9,6 +9,7 @@
     remove-version-10-checks
  - figure out earliest point at which it's safe to kick off this js
  - paragraph relocation not happening on "enwiki > color"
+ - test viewing, say, hebrew article when device lang is EN - ensure footer localized strings are hebrew
 */
 
 
@@ -20,11 +21,14 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
 class LocalizedStrings {
-  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading) {
+  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString) {
     this.tableInfoboxTitle = tableInfoboxTitle
     this.tableOtherTitle = tableOtherTitle
     this.tableFooterTitle = tableFooterTitle
     this.readMoreHeading = readMoreHeading
+    this.licenseString = licenseString
+    this.licenseSubstitutionString = licenseSubstitutionString
+    this.viewInBrowserString = viewInBrowserString
   }
 }
 
@@ -211,16 +215,22 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) =>
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
   window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
 
-  // add read more
-  const saveButtonTapHandler = (title) => {
-    window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
-  }
-  const titlesShownHandler = (titles) => {
+  // add read more footer
+  const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
+  const titlesShownHandler = titles => {
     window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
     window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
   }
   const readMoreItemCount = 3
   window.wmf.footerReadMore.add(article.title, readMoreItemCount, 'pagelib_footer_container_readmore_pages', proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+
+
+  // add legal footer
+  const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
+  const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
+  window.wmf.footerLegal.add(document, localizedStrings.licenseString, localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+
+
 
 
 
