@@ -41,15 +41,20 @@ class ArticlePeekPreviewViewController: UIViewController {
     }
     
     func updateView(with article: MWKArticle) {
-        guard let imageURL = article.imageURL, let url = URL(string: imageURL), let title = article.displaytitle, let description = article.entityDescription, let summary = article.summary else {
+        guard let title = article.displaytitle, let description = article.entityDescription, let summary = article.summary else {
             return
         }
         
-        self.leadImageView.wmf_setImage(with: url, detectFaces: true, onGPU: true, failure: { (error) in
-            //handle error
-        }, success: {
-            //handle success
-        })
+        if let imageURL = article.imageURL, let url = URL(string: imageURL) {
+            self.leadImageView.wmf_setImage(with: url, detectFaces: true, onGPU: true, failure: { (error) in
+                self.leadImageView.isHidden = true
+            }, success: {
+                //handle success
+            })
+        } else {
+            leadImageView.isHidden = true
+        }
+        
         self.titleLabel.text = title
         self.descriptionLabel.text = description
         self.textLabel.text = summary
@@ -64,7 +69,7 @@ class ArticlePeekPreviewViewController: UIViewController {
     func updateFonts() {
         titleLabel.setFont(with: .georgia, style: .title1, traitCollection: traitCollection)
         descriptionLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
-        textLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        textLabel.setFont(with: .system, style: .body, traitCollection: traitCollection)
         textLabel.lineBreakMode = .byTruncatingTail
         
         if #available(iOS 11.0, *) {
