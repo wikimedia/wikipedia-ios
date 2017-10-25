@@ -31,7 +31,17 @@ class ArticlePeekPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         fetchArticle()
+        updateFonts()
     }
     
-    
+    func updateFonts() {
+        titleLabel.setFont(with: .georgia, style: .title1, traitCollection: traitCollection)
+        descriptionLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        textLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        textLabel.lineBreakMode = .byTruncatingTail
+        
+        if #available(iOS 11.0, *) {
+            leadImageView.accessibilityIgnoresInvertColors = true
+        }
+    }
 }
