@@ -1346,6 +1346,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSURL *url = [self contentURLForIndexPath:indexPath];
             vc = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
             vc.preferredContentSize = CGSizeMake(0.0, 389.0);
+            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = (WMFArticlePeekPreviewViewController *)vc;
+            articlePeekPreviewViewController.delegate = self;
         } break;
         case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
@@ -1658,7 +1660,12 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
-    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticlePeekPreviewViewController class]]) {
+        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = (WMFArticlePeekPreviewViewController *)viewControllerToCommit;
+        NSURL *articleURL = articlePeekPreviewViewController.articleURL;
+        WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+        [self wmf_pushArticleViewController:(WMFArticleViewController *)articleViewController animated:YES];
+    } else if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
