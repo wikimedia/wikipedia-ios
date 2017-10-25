@@ -14,8 +14,6 @@ class ArticlePeekPreviewViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
     
-    @objc weak var delegate: WMFArticlePreviewingActionsDelegate?
-    
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -67,29 +65,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             leadImageView.accessibilityIgnoresInvertColors = true
         }
     }
-    
-    override var previewActionItems: [UIPreviewActionItem] {
-        //TODO: localize
-        let readNow = UIPreviewAction(title: "Read now", style: .default) { (_, _) in
-            let articleViewController = WMFArticleViewController(articleURL: self.articleURL, dataStore: self.dataStore, theme: self.theme)
-            self.delegate?.readMoreArticlePreviewActionSelected(withArticleController: articleViewController)
-        }
-        
-        let savedPages = dataStore.savedPageList
-        let isSaved = savedPages.isSaved(articleURL)
-        let saveTitle = isSaved ? "Remove from saved" : CommonStrings.saveTitle
-        let save = UIPreviewAction(title: saveTitle, style: .default) { (_, _) in
-            if isSaved {
-                savedPages.removeEntry(with: self.articleURL)
-            } else {
-                savedPages.addSavedPage(with: self.articleURL)
-            }
-        }
-        
-        //add share
-        
-        return [readNow, save]
-    }
+
 }
 
 extension ArticlePeekPreviewViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {

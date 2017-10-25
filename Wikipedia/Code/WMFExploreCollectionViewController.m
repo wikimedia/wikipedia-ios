@@ -1344,63 +1344,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+
+            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+            WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+            // Adds a peek preview view controller view on top of the article view controller view. Since the article view controller is loading in the background, it saves us loading time after the user peeks through.
+            [articleViewController addChildViewController:articlePeekPreviewViewController];
+            articlePeekPreviewViewController.view.frame = articleViewController.view.frame;
+            [articleViewController.view addSubview:articlePeekPreviewViewController.view];
+            [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
+            vc = articleViewController;
             vc.preferredContentSize = CGSizeMake(0.0, 389.0);
-            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = (WMFArticlePeekPreviewViewController *)vc;
-            articlePeekPreviewViewController.delegate = self;
         } break;
-        case WMFFeedDetailTypePageWithRandomButton: {
-            NSURL *url = [self contentURLForIndexPath:indexPath];
-            vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-        } break;
-        case WMFFeedDetailTypeGallery: {
-            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
-        } break;
-        case WMFFeedDetailTypeStory: {
-            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
-            if (indexPath.item >= stories.count) {
-                return nil;
-            }
-            if (indexPath.length > 2) {
-                WMFFeedNewsStory *story = stories[indexPath.item];
-                NSInteger articleIndex = [indexPath indexAtPosition:2];
-                if (articleIndex < story.articlePreviews.count) {
-                    WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
-                    NSURL *articleURL = preview.articleURL;
-                    if (articleURL) {
-                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                        break;
-                    }
-                }
-            }
-            vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
-        } break;
-        case WMFFeedDetailTypeEvent: {
-            NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
-            if (indexPath.length > 2) {
-                NSArray *previewEvents = (NSArray *)group.contentPreview;
-                WMFFeedOnThisDayEvent *event = nil;
-                if ([previewEvents isKindOfClass:[NSArray class]]) {
-                    event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
-                }
-                if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
-                    NSInteger articleIndex = [indexPath indexAtPosition:2];
-                    if (articleIndex < event.articlePreviews.count) {
-                        WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                        NSURL *articleURL = preview.articleURL;
-                        if (articleURL) {
-                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                            break;
-                        }
-                    }
-                }
-            }
-            vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
-        } break;
-        case WMFFeedDetailTypeNone:
-            break;
         default:
-            NSAssert(false, @"Unknown Detail Type");
+            vc = [self detailViewControllerForItemAtIndexPath:indexPath];
             break;
     }
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
@@ -1659,13 +1615,12 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
      commitViewController:(UIViewController *)viewControllerToCommit {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
-
-    if ([viewControllerToCommit isKindOfClass:[WMFArticlePeekPreviewViewController class]]) {
-        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = (WMFArticlePeekPreviewViewController *)viewControllerToCommit;
-        NSURL *articleURL = articlePeekPreviewViewController.articleURL;
-        WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-        [self wmf_pushArticleViewController:(WMFArticleViewController *)articleViewController animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+    
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+        WMFArticleViewController *articleViewController = (WMFArticleViewController *)viewControllerToCommit;
+        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleViewController.childViewControllers firstObject];
+        [articlePeekPreviewViewController.view removeFromSuperview];
+        [articlePeekPreviewViewController removeFromParentViewController];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
