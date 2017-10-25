@@ -563,7 +563,7 @@ class Section {
   }
     
   containerDiv() {
-    var container = document.createElement('div')
+    const container = document.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
     //TODO clamp section.level to between 1 and 6
     container.innerHTML = `
@@ -588,26 +588,26 @@ class Section {
 
 
 
-var processStatus = response => {
+const processStatus = response => {
     if (response.status === 200) { // can use status 0 if loading local files
         return Promise.resolve(response)
     } 
     return Promise.reject(new Error(response.statusText))
 }
 
-var extractJSON = response => response.json()
+const extractJSON = response => response.json()
 
 //TODO probably don't extract all of these at once - do one at a time transforming/appending as we go for faster first paint
-var extractSections = (json, article) => json['mobileview']['sections'].map(section => new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article))  
+const extractSections = (json, article) => json['mobileview']['sections'].map(section => new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article))  
 
-var fragmentForSection = section => {
-  var fragment = document.createDocumentFragment()
-  var container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
+const fragmentForSection = section => {
+  const fragment = document.createDocumentFragment()
+  const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
 }
 
-var applyTransformationsToFragment = (fragment, article, isLead, localizedStrings) => {
+const applyTransformationsToFragment = (fragment, article, isLead, localizedStrings) => {
   
   //TODO if/when all transform calls happen happen here, will no longer need 'wmf' object or index-main.js/preview-main.js files
   const wmf = window.wmf
@@ -630,7 +630,7 @@ var applyTransformationsToFragment = (fragment, article, isLead, localizedString
 
   //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
   //dont get widened even though i'm forcing "data-image-gallery" to true here - the css *is* being changed though)
-  var images = fragment.querySelectorAll('img').forEach(function(image){
+  const images = fragment.querySelectorAll('img').forEach(function(image){
     // maybeWidenImage(image)
     const isGallery = parseInt(image.width) > 70 ? 'true' : 'false'
     image.setAttribute('data-image-gallery', isGallery)
@@ -640,15 +640,15 @@ var applyTransformationsToFragment = (fragment, article, isLead, localizedString
 
 }
 
-var transformAndAppendSections = (sections, localizedStrings) => {
+const transformAndAppendSections = (sections, localizedStrings) => {
   const mainContentDiv = document.querySelector('div.content')
   sections.forEach(function(section){
     transformAndAppendSection(section, mainContentDiv, localizedStrings)
   })
 }
 
-var transformAndAppendSection = (section, mainContentDiv, localizedStrings) => {
-  var fragment = fragmentForSection(section)
+const transformAndAppendSection = (section, mainContentDiv, localizedStrings) => {
+  const fragment = fragmentForSection(section)
   // Transform the fragments *before* attaching them to the main DOM.
   applyTransformationsToFragment(fragment, section.article, section.isLeadSection(), localizedStrings)
   mainContentDiv.appendChild(fragment)
