@@ -1141,11 +1141,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     //only show a blank view if we have nothing to show
-    if (!self.article) {
+    if (!self.article && [[self.view.superview.subviews lastObject] isEqual:self.view]) {
         [self.view bringSubviewToFront:self.progressView];
     }
-
-    [self showProgressViewAnimated:YES];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
