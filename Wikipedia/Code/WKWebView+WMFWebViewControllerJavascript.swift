@@ -139,6 +139,7 @@ extension WKWebView {
     }
 
     @objc public func wmf_addFooterReadMoreForArticle(_ article: MWKArticle){
+        /*
         guard
             let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: article.url.host),
             let title = (article.url as NSURL).wmf_title?.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
@@ -165,6 +166,7 @@ extension WKWebView {
         
         let readMoreItemCount = 3
         evaluateJavaScript("window.wmf.footerReadMore.add('\(title)', \(readMoreItemCount), 'pagelib_footer_container_readmore_pages', '\(proxyURL)', \(saveButtonTapHandler), \(titlesShownHandler), document);", completionHandler: nil)
+     */
     }
 
     @objc static public func wmf_themeClassificationJavascript() -> String{
@@ -265,7 +267,8 @@ extension WKWebView {
         let infoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let tableTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let closeBoxText = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let newJSLocalizedStrings = "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)')"
+        let readMoreHeading = WMFLocalizedString("article-read-more-title", language: article.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let newJSLocalizedStrings = "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)', '\(readMoreHeading)')"
         
         let isMain = article.isMain ? "true": "false"
         let articleTitle = nonNilTitle

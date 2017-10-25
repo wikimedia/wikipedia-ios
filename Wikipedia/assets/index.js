@@ -493,10 +493,11 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
 class LocalizedStrings {
-  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle) {
+  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading) {
     this.tableInfoboxTitle = tableInfoboxTitle
     this.tableOtherTitle = tableOtherTitle
     this.tableFooterTitle = tableFooterTitle
+    this.readMoreHeading = readMoreHeading
   }
 }
 
@@ -665,15 +666,34 @@ const performEarlyNonSectionTransforms = article => {
 }
 
 //late so they won't delay section fragment processing
-const performLateNonSectionTransforms = article => {
+const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) => {
   //TODO add footer transforms here - 
 
 
 
-//TODO consider switching footer XF to also act on headless fragment
+  //TODO consider switching footer XF to also act on headless fragment
+  
+  // add footer container
   if (window.wmf.footerContainer.isContainerAttached(document) === false) {
       document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
   }
+
+  // add dynamic bottom padding
+  window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
+  window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+
+  // add read more
+  const saveButtonTapHandler = (title) => {
+    window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
+  }
+  const titlesShownHandler = (titles) => {
+    window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
+    window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+  }
+  const readMoreItemCount = 3
+  window.wmf.footerReadMore.add(article.title, readMoreItemCount, 'pagelib_footer_container_readmore_pages', proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+
+
 
 
 
@@ -692,7 +712,7 @@ const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localiz
   .then(json => extractSections(json, article))
   .then((sections) => transformAndAppendSections(sections, localizedStrings))
   .then(() => {
-    performLateNonSectionTransforms(article)
+    performLateNonSectionTransforms(article, localizedStrings, proxyURL)
   })
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
