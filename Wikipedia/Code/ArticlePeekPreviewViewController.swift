@@ -13,6 +13,7 @@ class ArticlePeekPreviewViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet weak var textView: UIView!
     
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.articleURL = articleURL
@@ -86,7 +87,8 @@ extension ArticlePeekPreviewViewController: Themeable {
             return
         }
         
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.midBackground
+        textView.backgroundColor = theme.colors.paperBackground
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         headerView.backgroundColor = theme.colors.midBackground
