@@ -26,9 +26,10 @@ class ArticlePeekPreviewViewController: UIViewController {
     }
     
     func fetchArticle() {
-        if let article = dataStore.fetchArticle(with: articleURL) {
-            updateView(with: article)
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
+            return
         }
+        updateView(with: article)
     }
     
     func updateView(with article: WMFArticle) {

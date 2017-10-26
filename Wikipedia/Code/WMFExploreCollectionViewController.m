@@ -1344,16 +1344,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:
         case WMFFeedDetailTypePageWithRandomButton: {
-            NSURL *url = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-            vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:url];
+            NSURL *articleURL = [self contentURLForIndexPath:indexPath];
+            WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+            vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
         } break;
         case WMFFeedDetailTypeEvent: {
             NSURL *articleURL = [self onThisDayArticleURLAt:indexPath group:group];
             if (articleURL) {
                 WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
                 vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
-            }
+            } else {
+                NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
+                vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];            }
         } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
@@ -1434,23 +1436,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
-            if (indexPath.length > 2) {
-                NSArray *previewEvents = (NSArray *)group.contentPreview;
-                WMFFeedOnThisDayEvent *event = nil;
-                if ([previewEvents isKindOfClass:[NSArray class]]) {
-                    event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
-                }
-                if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
-                    NSInteger articleIndex = [indexPath indexAtPosition:2];
-                    if (articleIndex < event.articlePreviews.count) {
-                        WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                        NSURL *articleURL = preview.articleURL;
-                        if (articleURL) {
-                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                            break;
-                        }
-                    }
-                }
+            NSURL *articleURL = [self onThisDayArticleURLAt:indexPath group:group];
+            if (articleURL) {
+                vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                break;
             }
             vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
         } break;
