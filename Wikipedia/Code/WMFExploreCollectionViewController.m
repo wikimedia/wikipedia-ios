@@ -1383,7 +1383,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSArray *previewEvents = (NSArray *)group.contentPreview;
         WMFFeedOnThisDayEvent *event = nil;
         if ([previewEvents isKindOfClass:[NSArray class]]) {
-            event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
+            event = previewEvents.firstObject;
         }
         if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
             NSInteger articleIndex = [indexPath indexAtPosition:2];

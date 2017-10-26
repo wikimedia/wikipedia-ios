@@ -190,12 +190,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)setArticle:(nullable MWKArticle *)article {
+    if (_article && [article isEqual:_article]) {
+        return;
+    }
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
     NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
 
     _shareFunnel = nil;
-    [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
+    NSURL *articleURLToCancel = self.articleURL;
+    if (articleURLToCancel && ![article.url isEqual:articleURLToCancel]) {
+        [self.articleFetcher cancelFetchForArticleURL:articleURLToCancel];
+    }
 
     _article = article;
 
