@@ -26,9 +26,13 @@ class ArticlePeekPreviewViewController: UIViewController {
     }
     
     func fetchArticle() {
-        let articleFetcherPromise = dataStore.fetchArticle(with: articleURL)
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            // provide cashed fallback if this fails
+            dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (articles) in
+                guard let first = articles.first else {
+                    return
+                }
+                self.updateView(with: first)
+            })
             return
         }
         updateView(with: article)
@@ -44,12 +48,14 @@ class ArticlePeekPreviewViewController: UIViewController {
             })
         } else {
             leadImageView.isHidden = true
-
         }
 
         self.titleLabel.text = article.displayTitle
         self.descriptionLabel.text = article.capitalizedWikidataDescription
         self.textLabel.text = article.snippet
+        
+        self.preferredContentSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
+        self.parent?.preferredContentSize = self.preferredContentSize
     }
     
     override func viewDidLoad() {
@@ -68,33 +74,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             leadImageView.accessibilityIgnoresInvertColors = true
         }
     }
-    
-    // Adds a peekable view controller on top of another view controller. Since the view controller is the one we want to show when the user peeks through, we're saving time by loading it behind the peekable view controller.
-    @objc static func setupPeekable(_ peekableViewController: UIViewController, on viewController: UIViewController, with articleURL: URL) -> UIViewController {
-        viewController.addChildViewController(peekableViewController)
-        peekableViewController.view.frame = viewController.view.frame
-        viewController.view.addSubview(peekableViewController.view)
-        peekableViewController.didMove(toParentViewController: viewController)
-        viewController.preferredContentSize = peekableViewController.view.systemLayoutSizeFitting(CGSize(width: peekableViewController.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
-        return viewController
-    }
-    
-    @objc static func removePeekable(_ peekableViewController: UIViewController, from viewController: UIViewController) {
-        peekableViewController.view.removeFromSuperview()
-        peekableViewController.removeFromParentViewController()
-    }
 
-}
-
-extension ArticlePeekPreviewViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    //change
-    var analyticsName: String {
-        return "Explore"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
-    }
 }
 
 extension ArticlePeekPreviewViewController: Themeable {
