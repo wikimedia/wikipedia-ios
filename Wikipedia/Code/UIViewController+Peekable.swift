@@ -9,8 +9,8 @@ extension UIViewController {
     @objc func wmf_addPeekableChildViewController(for articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         let articlePeekPreviewViewController = ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         
-        self.addChildViewController(articlePeekPreviewViewController)
-        self.view.wmf_addSubviewWithConstraintsToEdges(articlePeekPreviewViewController.view)
+        addChildViewController(articlePeekPreviewViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(articlePeekPreviewViewController.view)
         articlePeekPreviewViewController.didMove(toParentViewController: self)
     }
     

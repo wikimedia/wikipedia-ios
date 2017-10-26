@@ -51,9 +51,9 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
             leadImageView.isHidden = true
         }
 
-        self.titleLabel.text = article.displayTitle
-        self.descriptionLabel.text = article.capitalizedWikidataDescription
-        self.textLabel.text = article.snippet
+        titleLabel.text = article.displayTitle
+        descriptionLabel.text = article.capitalizedWikidataDescription
+        textLabel.text = article.snippet
         
         self.preferredContentSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.parent?.preferredContentSize = self.preferredContentSize
