@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 @objc (WMFArticlePeekPreviewViewController)
-class ArticlePeekPreviewViewController: UIViewController {
+class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore

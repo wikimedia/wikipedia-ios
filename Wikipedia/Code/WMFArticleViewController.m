@@ -1731,7 +1731,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([url wmf_isWikiResource]) {
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
             WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-            return [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController];
+            [articleViewController wmf_addPeekableChildViewController:articlePeekPreviewViewController];
+            return articleViewController;
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
@@ -1742,8 +1743,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
-        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewControllerToCommit.childViewControllers firstObject];
-        [self wmf_removePeekable:articlePeekPreviewViewController];
+        [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {

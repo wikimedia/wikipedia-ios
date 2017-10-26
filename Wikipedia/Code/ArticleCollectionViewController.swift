@@ -143,11 +143,13 @@ extension ArticleCollectionViewController {
         articleViewController.articlePreviewingActionsDelegate = self
         let articlePeekPreviewViewController = ArticlePeekPreviewViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
         
-        return self.wmf_setupPeekable(articlePeekPreviewViewController, on: articleViewController)
+        articleViewController.wmf_addPeekableChildViewController(articlePeekPreviewViewController)
+        
+        return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        removePeekable(from: viewControllerToCommit)
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
@@ -256,24 +258,19 @@ extension ArticleCollectionViewController: ActionDelegate {
 }
 
 extension ArticleCollectionViewController: WMFArticlePreviewingActionsDelegate {
-    func removePeekable(from viewController: UIViewController) {
-        if let articlePeekPreviewViewController = viewController.childViewControllers.first {
-            self.wmf_removePeekable(articlePeekPreviewViewController)
-        }
-    }
     
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        removePeekable(from: articleController)
+        articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        removePeekable(from: articleController)
+        articleController.wmf_removePeekableChildViewControllers()
         present(shareActivityController, animated: true, completion: nil)
     }
     
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        removePeekable(from: articleController)
+        articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.openURL(placesURL)
     }

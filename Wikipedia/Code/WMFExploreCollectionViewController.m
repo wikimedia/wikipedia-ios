@@ -1369,7 +1369,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (articleURL) {
         WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
         WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-        vc = [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController];
+        [articleViewController wmf_addPeekableChildViewController:articlePeekPreviewViewController];
+        vc = articleViewController;
     }
 
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
@@ -1531,25 +1532,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
-
-- (void)removePeekableFrom:(UIViewController *)viewController {
-    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController];
-}
-
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    [self removePeekableFrom:articleController];
+    [articleController wmf_removePeekableChildViewControllers];
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
-    [self removePeekableFrom:articleController];
+    [articleController wmf_removePeekableChildViewControllers];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    [self removePeekableFrom:articleController];
+    [articleController wmf_removePeekableChildViewControllers];
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
 }
@@ -1649,7 +1644,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
-        [self removePeekableFrom:viewControllerToCommit];
+        [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
