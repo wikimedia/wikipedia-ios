@@ -1342,18 +1342,18 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     UIViewController *vc = nil;
     switch ([group detailType]) {
-        case WMFFeedDetailTypePage: {
+        case WMFFeedDetailTypePage:
+        case WMFFeedDetailTypePageWithRandomButton: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-            // Adds a peek preview view controller view on top of the article view controller view. Since the article view controller is loading in the background, it saves us loading time after the user peeks through.
-            [articleViewController addChildViewController:articlePeekPreviewViewController];
-            articlePeekPreviewViewController.view.frame = articleViewController.view.frame;
-            [articleViewController.view addSubview:articlePeekPreviewViewController.view];
-            [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
-            vc = articleViewController;
-            vc.preferredContentSize = [articlePeekPreviewViewController.view systemLayoutSizeFittingSize:CGSizeMake(articlePeekPreviewViewController.view.bounds.size.width, UILayoutFittingCompressedSize.height) withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
+            vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:url];
+        } break;
+        case WMFFeedDetailTypeEvent: {
+            NSURL *articleURL = [self onThisDayArticleURLAt:indexPath group:group];
+            if (articleURL) {
+                WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
+            }
         } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
@@ -1363,6 +1363,36 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [(id<WMFThemeable>)vc applyTheme:self.theme];
     }
     return vc;
+}
+
+- (WMFArticleViewController *)setupArticlePeekPreviewControllerOnTopOf:(WMFArticleViewController *)articleViewController indexPath:(NSIndexPath *)indexPath url:(NSURL *)url {
+    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+    // Adds a peek preview view controller view on top of the article view controller view. Since the article view controller is loading in the background, it saves us loading time after the user peeks through.
+    [articleViewController addChildViewController:articlePeekPreviewViewController];
+    articlePeekPreviewViewController.view.frame = articleViewController.view.frame;
+    [articleViewController.view addSubview:articlePeekPreviewViewController.view];
+    [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
+    articleViewController.preferredContentSize = [articlePeekPreviewViewController.view systemLayoutSizeFittingSize:CGSizeMake(articlePeekPreviewViewController.view.bounds.size.width, UILayoutFittingCompressedSize.height) withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    return articleViewController;
+}
+
+- (nullable NSURL *)onThisDayArticleURLAt:(NSIndexPath *)indexPath group:(WMFContentGroup *)group {
+    if (indexPath.length > 2) {
+        NSArray *previewEvents = (NSArray *)group.contentPreview;
+        WMFFeedOnThisDayEvent *event = nil;
+        if ([previewEvents isKindOfClass:[NSArray class]]) {
+            event = previewEvents.count > 1 ? previewEvents[1] : previewEvents.firstObject;
+        }
+        if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
+            NSInteger articleIndex = [indexPath indexAtPosition:2];
+            if (articleIndex < event.articlePreviews.count) {
+                WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
+                NSURL *articleURL = preview.articleURL;
+                return articleURL;
+            }
+        }
+    }
+    return nil;
 }
 
 #pragma mark - Detail View Controller
@@ -1615,7 +1645,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
      commitViewController:(UIViewController *)viewControllerToCommit {
     [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
-    
+
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *articleViewController = (WMFArticleViewController *)viewControllerToCommit;
         WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleViewController.childViewControllers firstObject];
