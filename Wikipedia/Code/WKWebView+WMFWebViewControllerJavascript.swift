@@ -18,45 +18,9 @@ import WMF
         }
     }
     
-    private var menuItemTypeJSPath: String {
+    public var menuItemTypeJSPath: String {
         return "window.wmf.footerMenu.MenuItemType.\(menuItemTypeString)"
     }
-    
-//    private func localizedTitle(with article: MWKArticle) -> String {
-//        var title = ""
-//        let language = article.url.wmf_language
-//        switch self {
-//        case .languages: title = WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
-//        case .lastEdited: title = WMFLocalizedString("page-last-edited",  language: language, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
-//        case .talkPage: title = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
-//        case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
-//        case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
-//        case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
-//        }
-//        return title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-//    }
-    
-//    private func titleSubstitutionStringForArticle(article: MWKArticle) -> String? {
-//        switch self {
-//        case .languages:
-//            return "\(article.languagecount)"
-//        case .lastEdited:
-//            let lastModified = article.lastmodified ?? Date()
-//            let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-//            return "\(days)"
-//        default:
-//            return nil
-//        }
-//    }
-    
-//    private func localizedSubtitle(with article: MWKArticle) -> String {
-//        switch self {
-//        case .lastEdited: return WMFLocalizedString("page-edit-history", language: article.url.wmf_language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-//        default:
-//            return ""
-//        }
-//    }
-    
     
     public func shouldAddItem(with article: MWKArticle) -> Bool {
         switch self {
@@ -74,26 +38,6 @@ import WMF
             break
         }
         return true
-    }
-    
-    public func itemAdditionJavascriptString(with article: MWKArticle) -> String {
-        
-        return self.menuItemTypeJSPath
-/*
-        var title = self.localizedTitle(with: article)
-        if let substitutionString = titleSubstitutionStringForArticle(article: article) {
-            title = String.localizedStringWithFormat(title, substitutionString)
-        }
-        
-        let subtitle = self.localizedSubtitle(with: article)
-        
-        let itemSelectionHandler =
-        "function(payload){" +
-            "window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': '\(menuItemTypeString)', 'payload': payload});" +
-        "}"
-        
-        return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'pagelib_footer_container_menu_items', \(itemSelectionHandler), document);"
- */
     }
 }
 
@@ -201,12 +145,10 @@ extension WKWebView {
             WMFArticleFooterMenuItem.disambiguation,
             WMFArticleFooterMenuItem.talkPage
             ].filter{$0.shouldAddItem(with: article)}
-            .map{$0.itemAdditionJavascriptString(with: article)}
+            .map{$0.menuItemTypeJSPath}
             .joined(separator: ", ")
         
         let menuItemsJSArray = "[\(menuItemsJS)]"
-
-        
         
         evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle), \(newJSLocalizedStrings), \(menuItemsJSArray))") { (result, error) in
             guard let error = error else {
