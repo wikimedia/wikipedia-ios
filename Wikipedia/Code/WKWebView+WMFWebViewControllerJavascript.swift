@@ -137,22 +137,20 @@ extension WKWebView {
         let hasReadMore = article.hasReadMore ? "true": "false"
         let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), \(newJSLanguage), \(hasReadMore))"
 
-        let menuItemsJS = [
+        let menuItemTypeJSPaths = [
             WMFArticleFooterMenuItem.languages,
             WMFArticleFooterMenuItem.coordinate,
             WMFArticleFooterMenuItem.lastEdited,
             WMFArticleFooterMenuItem.pageIssues,
             WMFArticleFooterMenuItem.disambiguation,
             WMFArticleFooterMenuItem.talkPage
-            ].filter{$0.shouldAddItem(with: article)}
+            ]
+            .filter{$0.shouldAddItem(with: article)}
             .map{$0.menuItemTypeJSPath}
-            .joined(separator: ", ")
-        
-        let menuItemsJSArray = "[\(menuItemsJS)]"
         
         evaluateJavaScript("""
             window.wmf.sectionTransformation.localizedStrings = \(newJSLocalizedStrings)
-            window.wmf.sectionTransformation.menuItems = \(menuItemsJSArray)
+            window.wmf.sectionTransformation.menuItems = [\(menuItemTypeJSPaths.joined(separator: ", "))]
             window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle))
             """) { (result, error) in
             guard let error = error else {
