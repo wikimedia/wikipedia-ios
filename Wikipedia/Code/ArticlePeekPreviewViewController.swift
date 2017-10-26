@@ -27,7 +27,6 @@ class ArticlePeekPreviewViewController: UIViewController {
     
     func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            //handle fail
             return
         }
         updateView(with: article)
@@ -66,6 +65,20 @@ class ArticlePeekPreviewViewController: UIViewController {
         if #available(iOS 11.0, *) {
             leadImageView.accessibilityIgnoresInvertColors = true
         }
+    }
+    
+    @objc static func setupPeekable(_ peekableViewController: UIViewController, on viewController: UIViewController, with articleURL: URL) -> UIViewController {
+        viewController.addChildViewController(peekableViewController)
+        peekableViewController.view.frame = viewController.view.frame
+        viewController.view.addSubview(peekableViewController.view)
+        peekableViewController.didMove(toParentViewController: viewController)
+        viewController.preferredContentSize = peekableViewController.view.systemLayoutSizeFitting(CGSize(width: peekableViewController.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
+        return viewController
+    }
+    
+    @objc static func removePeekable(_ peekableViewController: UIViewController, from viewController: UIViewController) {
+        peekableViewController.view.removeFromSuperview()
+        peekableViewController.removeFromParentViewController()
     }
 
 }
