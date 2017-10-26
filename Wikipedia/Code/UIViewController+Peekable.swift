@@ -11,6 +11,8 @@ extension UIViewController {
     
     @objc func wmf_removePeekable(_ peekableViewController: UIViewController) {
         peekableViewController.view.removeFromSuperview()
+        peekableViewController.willMove(toParentViewController: peekableViewController.parent)
         peekableViewController.removeFromParentViewController()
+        
     }
 }
