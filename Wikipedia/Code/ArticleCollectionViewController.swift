@@ -141,10 +141,7 @@ extension ArticleCollectionViewController {
         
         let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        let articlePeekPreviewViewController = ArticlePeekPreviewViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
-        
-        articleViewController.wmf_addPeekableChildViewController(articlePeekPreviewViewController)
-        
+        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
