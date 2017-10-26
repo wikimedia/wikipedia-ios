@@ -58,7 +58,8 @@ class ArticlePeekPreviewViewController: UIViewController {
         self.parent?.preferredContentSize = self.preferredContentSize
     }
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchArticle()
         updateFonts()
         apply(theme: theme)
