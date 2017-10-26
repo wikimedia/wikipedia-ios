@@ -4,7 +4,7 @@ import WMF
 @objc (WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController {
     
-    @objc let articleURL: URL
+    fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
 
@@ -43,7 +43,7 @@ class ArticlePeekPreviewViewController: UIViewController {
             leadImageView.isHidden = true
 
         }
-        
+
         self.titleLabel.text = article.displayTitle
         self.descriptionLabel.text = article.capitalizedWikidataDescription
         self.textLabel.text = article.snippet
@@ -71,7 +71,7 @@ class ArticlePeekPreviewViewController: UIViewController {
 extension ArticlePeekPreviewViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
     //change
     var analyticsName: String {
-        return "ArticleList"
+        return "Explore"
     }
     
     var analyticsContext: String {

@@ -1353,7 +1353,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [articleViewController.view addSubview:articlePeekPreviewViewController.view];
             [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
             vc = articleViewController;
-            vc.preferredContentSize = CGSizeMake(0.0, 389.0);
+            vc.preferredContentSize = CGSizeMake(0.0, 399.0);
         } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
