@@ -190,12 +190,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)setArticle:(nullable MWKArticle *)article {
+    if (_article && [article isEqual:_article]) {
+        return;
+    }
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
     NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
 
     _shareFunnel = nil;
-    [self.articleFetcher cancelFetchForArticleURL:self.articleURL];
+    NSURL *articleURLToCancel = self.articleURL;
+    if (articleURLToCancel && ![article.url isEqual:articleURLToCancel]) {
+        [self.articleFetcher cancelFetchForArticleURL:articleURLToCancel];
+    }
 
     _article = article;
 
@@ -1725,7 +1731,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([url wmf_isWikiResource]) {
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
             WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-            return [WMFArticlePeekPreviewViewController setupPeekable:articlePeekPreviewViewController on:articleViewController with:url];
+            return [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController with:url];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
@@ -1736,9 +1742,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
-        WMFArticleViewController *articleViewController = (WMFArticleViewController *)viewControllerToCommit;
-        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleViewController.childViewControllers firstObject];
-        [WMFArticlePeekPreviewViewController removePeekable:articlePeekPreviewViewController from:articleViewController];
+        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewControllerToCommit.childViewControllers firstObject];
+        [self wmf_removePeekable:articlePeekPreviewViewController from:viewControllerToCommit];
         [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
@@ -1757,6 +1762,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
                                      NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                     
                                      [self.articlePreviewingActionsDelegate readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
                                  }];
 

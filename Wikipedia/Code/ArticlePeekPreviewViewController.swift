@@ -74,20 +74,6 @@ class ArticlePeekPreviewViewController: UIViewController {
             leadImageView.accessibilityIgnoresInvertColors = true
         }
     }
-    
-    // Adds a peekable view controller on top of another view controller. Since the view controller is the one we want to show when the user peeks through, we're saving time by loading it behind the peekable view controller.
-    @objc static func setupPeekable(_ peekableViewController: UIViewController, on viewController: UIViewController, with articleURL: URL) -> UIViewController {
-        viewController.addChildViewController(peekableViewController)
-        peekableViewController.view.frame = viewController.view.frame
-        viewController.view.wmf_addSubviewWithConstraintsToEdges(peekableViewController.view)
-        peekableViewController.didMove(toParentViewController: viewController)
-        return viewController
-    }
-    
-    @objc static func removePeekable(_ peekableViewController: UIViewController, from viewController: UIViewController) {
-        peekableViewController.view.removeFromSuperview()
-        peekableViewController.removeFromParentViewController()
-    }
 
 }
 
