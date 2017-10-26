@@ -1357,6 +1357,20 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
                 vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];            }
         } break;
+        case WMFFeedDetailTypeStory: {
+            //refactor this
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
+            if (indexPath.item >= stories.count) {
+                return nil;
+            }
+            NSURL *articleURL = [self inTheNewsArticleURLAt:indexPath stories:stories];
+            if (articleURL) {
+                WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
+            } else {
+                vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
+            }
+        } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
             break;
@@ -1397,6 +1411,21 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return nil;
 }
 
+- (nullable NSURL *)inTheNewsArticleURLAt:(NSIndexPath *)indexPath stories:(NSArray<WMFFeedNewsStory *>*)stories {
+    if (indexPath.length > 2) {
+        WMFFeedNewsStory *story = stories[indexPath.item];
+        NSInteger articleIndex = [indexPath indexAtPosition:2];
+        if (articleIndex < story.articlePreviews.count) {
+            WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
+            NSURL *articleURL = preview.articleURL;
+            if (articleURL) {
+                return articleURL;
+            }
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Detail View Controller
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1420,17 +1449,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
-            if (indexPath.length > 2) {
-                WMFFeedNewsStory *story = stories[indexPath.item];
-                NSInteger articleIndex = [indexPath indexAtPosition:2];
-                if (articleIndex < story.articlePreviews.count) {
-                    WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
-                    NSURL *articleURL = preview.articleURL;
-                    if (articleURL) {
-                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                        break;
-                    }
-                }
+            NSURL *articleURL = [self inTheNewsArticleURLAt:indexPath stories:stories];
+            if (articleURL) {
+                vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                break;
             }
             vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;

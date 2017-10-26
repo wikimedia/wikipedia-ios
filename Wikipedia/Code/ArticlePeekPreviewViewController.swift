@@ -27,6 +27,7 @@ class ArticlePeekPreviewViewController: UIViewController {
     
     func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
+            //handle fail
             return
         }
         updateView(with: article)
