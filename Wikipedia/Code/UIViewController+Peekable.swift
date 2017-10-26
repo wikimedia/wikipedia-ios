@@ -13,6 +13,5 @@ extension UIViewController {
         peekableViewController.view.removeFromSuperview()
         peekableViewController.willMove(toParentViewController: peekableViewController.parent)
         peekableViewController.removeFromParentViewController()
-        
     }
 }
