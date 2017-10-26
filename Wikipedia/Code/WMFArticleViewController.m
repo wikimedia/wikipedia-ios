@@ -1741,7 +1741,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)commitViewController:(UIViewController *)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        self.articlePreviewingActionsDelegate = self;
         // Show unobscured article view controller when peeking through.
         WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewControllerToCommit.childViewControllers firstObject];
         [self wmf_removePeekable:articlePeekPreviewViewController];
