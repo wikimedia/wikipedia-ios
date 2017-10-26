@@ -168,10 +168,11 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
             NSAssert(components.count == 6, @"Expected 6 components when using WMFProxyAPIBasePath");
             if (components.count == 6) {
 
-                // APIURL is APIProxyURL without components 3, 4 and 5.
+                // APIURL is APIProxyURL with components[3] as the host, components[4..5] as the path.
                 NSURLComponents *APIProxyURLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
-                APIProxyURLComponents.path = [NSString pathWithComponents:@[components[3], components[4], components[5]]];
-                APIProxyURLComponents.scheme = request.URL.scheme;
+                APIProxyURLComponents.path = [NSString pathWithComponents:@[@"/", components[4], components[5]]];
+                APIProxyURLComponents.host = components[3];
+                APIProxyURLComponents.scheme = @"https";
                 NSURL *APIURL = APIProxyURLComponents.URL;
                 [self handleAPIRequestForURL:APIURL completionBlock:completionBlock];
 
