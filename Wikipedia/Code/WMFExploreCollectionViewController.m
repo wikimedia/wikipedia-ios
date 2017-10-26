@@ -1389,8 +1389,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             NSInteger articleIndex = [indexPath indexAtPosition:2];
             if (articleIndex < event.articlePreviews.count) {
                 WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                NSURL *articleURL = preview.articleURL;
-                return articleURL;
+                return preview.articleURL;
             }
         }
     }
@@ -1403,10 +1402,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSInteger articleIndex = [indexPath indexAtPosition:2];
         if (articleIndex < story.articlePreviews.count) {
             WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
-            NSURL *articleURL = preview.articleURL;
-            if (articleURL) {
-                return articleURL;
-            }
+            return preview.articleURL;
         }
     }
     return nil;
