@@ -1534,7 +1534,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController from:articleController];
+    [self wmf_removePeekable:articlePeekPreviewViewController];
     
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
@@ -1542,14 +1542,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController from:articleController];
+    [self wmf_removePeekable:articlePeekPreviewViewController];
     
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController from:articleController];
+    [self wmf_removePeekable:articlePeekPreviewViewController];
     
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
@@ -1651,7 +1651,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewControllerToCommit.childViewControllers firstObject];
-        [self wmf_removePeekable:articlePeekPreviewViewController from:viewControllerToCommit];
+        [self wmf_removePeekable:articlePeekPreviewViewController];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
