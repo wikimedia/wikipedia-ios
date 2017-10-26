@@ -150,7 +150,11 @@ extension WKWebView {
         
         let menuItemsJSArray = "[\(menuItemsJS)]"
         
-        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle), \(newJSLocalizedStrings), \(menuItemsJSArray))") { (result, error) in
+        evaluateJavaScript("""
+            window.wmf.sectionTransformation.localizedStrings = \(newJSLocalizedStrings)
+            window.wmf.sectionTransformation.menuItems = \(menuItemsJSArray)
+            window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle))
+            """) { (result, error) in
             guard let error = error else {
                 return
             }

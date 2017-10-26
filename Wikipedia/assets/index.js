@@ -481,7 +481,7 @@ exports.sendNearbyReferences = sendNearbyReferences
     remove-css-cruft
     remove-version-10-checks
  - figure out earliest point at which it's safe to kick off this js
- - paragraph relocation not happening on "enwiki > color"
+ - paragraph relocation not happening on "enwiki > color" and "enwiki > United States"
  - test viewing, say, hebrew article when device lang is EN - ensure footer localized strings are hebrew
  - make window.wmf.sectionTransformation.localizedStrings and just set this instead of passing it as param to transformAndAppendSectionsToDocument?
  - need to be array which gets passed to transformAndAppendSectionsToDocument as "menuItemsJSArray" - or make it a prop of window.wmf.sectionTransformation?
@@ -493,8 +493,7 @@ PAGELIB:
 */
 
 
-
-// backfill fragments with "createElement" so transforms will work as well with fragments as 
+// backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
 DocumentFragment.prototype.createElement = name => document.createElement(name)
 
@@ -628,7 +627,7 @@ const fragmentForSection = section => {
   return fragment
 }
 
-const applyTransformationsToFragment = (fragment, article, isLead, localizedStrings) => {
+const applyTransformationsToFragment = (fragment, article, isLead) => {
   
   //TODO if/when all transform calls happen happen here, will no longer need 'wmf' object or index-main.js/preview-main.js files
   const wmf = window.wmf
@@ -647,7 +646,7 @@ const applyTransformationsToFragment = (fragment, article, isLead, localizedStri
     }
   }
   
-  wmf.tables.hideTables(fragment, article.ismain, article.title, localizedStrings.tableInfoboxTitle, localizedStrings.tableOtherTitle, localizedStrings.tableFooterTitle)
+  wmf.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
 
   //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
   //dont get widened even though i'm forcing "data-image-gallery" to true here - the css *is* being changed though)
@@ -661,17 +660,17 @@ const applyTransformationsToFragment = (fragment, article, isLead, localizedStri
 
 }
 
-const transformAndAppendSections = (sections, localizedStrings) => {
+const transformAndAppendSections = (sections) => {
   const mainContentDiv = document.querySelector('div.content')
   sections.forEach(function(section){
-    transformAndAppendSection(section, mainContentDiv, localizedStrings)
+    transformAndAppendSection(section, mainContentDiv)
   })
 }
 
-const transformAndAppendSection = (section, mainContentDiv, localizedStrings) => {
+const transformAndAppendSection = (section, mainContentDiv) => {
   const fragment = fragmentForSection(section)
   // Transform the fragments *before* attaching them to the main DOM.
-  applyTransformationsToFragment(fragment, section.article, section.isLeadSection(), localizedStrings)
+  applyTransformationsToFragment(fragment, section.article, section.isLeadSection())
   mainContentDiv.appendChild(fragment)
 }
 
@@ -686,7 +685,7 @@ const performEarlyNonSectionTransforms = article => {
 }
 
 //late so they won't delay section fragment processing
-const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, menuItems) => {
+const performLateNonSectionTransforms = (article, proxyURL) => {
   //TODO add footer transforms here - 
 
 
@@ -706,36 +705,37 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
 
 
   // add menu footer
-  window.wmf.footerMenu.setHeading(localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
-  menuItems.forEach(item => {
+  // TODO simplify this and the native side which sets up menuItems 
+  window.wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+  this.menuItems.forEach(item => {
     let title = ''
     let subtitle = ''
     let menuItemTypeString = ''
     switch(item) {
       case window.wmf.footerMenu.MenuItemType.languages:
         menuItemTypeString = 'languages'
-        title = localizedStrings.menuLanguagesTitle
+        title = this.localizedStrings.menuLanguagesTitle
         break
       case window.wmf.footerMenu.MenuItemType.lastEdited:
         menuItemTypeString = 'lastEdited'
-        title = localizedStrings.menuLastEditedTitle
-        subtitle = localizedStrings.menuLastEditedSubtitle
+        title = this.localizedStrings.menuLastEditedTitle
+        subtitle = this.localizedStrings.menuLastEditedSubtitle
         break
       case window.wmf.footerMenu.MenuItemType.pageIssues:
         menuItemTypeString = 'pageIssues'
-        title = localizedStrings.menuPageIssuesTitle
+        title = this.localizedStrings.menuPageIssuesTitle
         break
       case window.wmf.footerMenu.MenuItemType.disambiguation:
         menuItemTypeString = 'disambiguation'
-        title = localizedStrings.menuDisambiguationTitle
+        title = this.localizedStrings.menuDisambiguationTitle
         break
       case window.wmf.footerMenu.MenuItemType.coordinate:
         menuItemTypeString = 'coordinate'
-        title = localizedStrings.menuCoordinateTitle
+        title = this.localizedStrings.menuCoordinateTitle
         break
       case window.wmf.footerMenu.MenuItemType.talkPage:
         menuItemTypeString = 'talkPage'
-        title = localizedStrings.menuTalkPageTitle
+        title = this.localizedStrings.menuTalkPageTitle
         break
       default:
     }
@@ -748,7 +748,7 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
 
   // add read more footer
   if (article.hasReadMore){
-    window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+    window.wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
 
     const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
     const titlesShownHandler = titles => {
@@ -762,7 +762,7 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
   // add legal footer
   const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
   const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
-  window.wmf.footerLegal.add(document, localizedStrings.licenseString, localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+  window.wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
 
 
 
@@ -771,15 +771,10 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
   window.wmf.themes.classifyElements(document)
 
 
-
-
-
-
 }
 
 
-//TODO add JSDocs explaining the article and localizedStrings parameters
-const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localizedStrings, menuItems) =>{
+const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article) =>{
   
   performEarlyNonSectionTransforms(article)
 
@@ -787,19 +782,22 @@ const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localiz
   .then(processStatus)
   .then(extractJSON)
   .then(json => extractSections(json, article))
-  .then((sections) => transformAndAppendSections(sections, localizedStrings))
+  .then(transformAndAppendSections)
   .then(() => {
-    performLateNonSectionTransforms(article, localizedStrings, proxyURL, menuItems)
+    performLateNonSectionTransforms(article, proxyURL)
   })
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
+
+
+//TODO add JSDocs explaining all types
 
 exports.transformAndAppendSectionsToDocument = transformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
 exports.LocalizedStrings = LocalizedStrings
-
-
+exports.localizedStrings = undefined
+exports.menuItems = undefined
 
 
 
@@ -2068,7 +2066,8 @@ var MenuItemType = {
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
-  coordinate: 5
+  coordinate: 5,
+  talkPage: 6
 };
 
 /**
@@ -3254,6 +3253,9 @@ var widenAncestors = function widenAncestors(el) {
   for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
     if (parentElement.style.width) {
       parentElement.style.width = '100%';
+    }
+    if (parentElement.style.height) {
+      parentElement.style.height = 'auto';
     }
     if (parentElement.style.maxWidth) {
       parentElement.style.maxWidth = '100%';
