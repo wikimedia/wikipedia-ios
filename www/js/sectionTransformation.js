@@ -43,6 +43,14 @@ class LocalizedStrings {
     this.menuPageIssuesTitle = menuPageIssuesTitle
     this.menuDisambiguationTitle = menuDisambiguationTitle
     this.menuCoordinateTitle = menuCoordinateTitle
+    // Ensure everything is a string
+    for (const property in this) {
+      if (this.hasOwnProperty(property)) {
+        if(this[property] === undefined){
+          this[property] = ''
+        }
+      }
+    }
   }
 }
 
