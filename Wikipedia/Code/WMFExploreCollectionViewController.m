@@ -1532,25 +1532,24 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
 
-- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
+- (void)removePeekableFrom:(UIViewController *)viewController {
+    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [viewController.childViewControllers firstObject];
     [self wmf_removePeekable:articlePeekPreviewViewController];
-    
+}
+
+- (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [self removePeekableFrom:articleController];
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
-    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController];
-    
+    [self removePeekableFrom:articleController];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
-    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [articleController.childViewControllers firstObject];
-    [self wmf_removePeekable:articlePeekPreviewViewController];
-    
+    [self removePeekableFrom:articleController];
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
 }
