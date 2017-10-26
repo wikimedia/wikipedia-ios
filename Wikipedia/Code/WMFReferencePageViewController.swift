@@ -50,10 +50,9 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageViewController.willMove(toParentViewController: self)
+        addChildViewController(pageViewController)
         pageViewController.view.frame = containerView.bounds
         pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addChildViewController(pageViewController)
         containerView.addSubview(pageViewController.view)
         pageViewController.didMove(toParentViewController: self)
         
