@@ -1369,7 +1369,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (articleURL) {
         WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
         WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-        vc = [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController with:articleURL];
+        vc = [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController];
     }
     
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {

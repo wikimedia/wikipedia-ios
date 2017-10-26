@@ -1731,7 +1731,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([url wmf_isWikiResource]) {
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
             WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-            return [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController with:url];
+            return [self wmf_setupPeekable:articlePeekPreviewViewController on:articleViewController];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
