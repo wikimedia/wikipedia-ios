@@ -1344,16 +1344,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage: {
             NSURL *url = [self contentURLForIndexPath:indexPath];
-
-            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
+            WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
             // Adds a peek preview view controller view on top of the article view controller view. Since the article view controller is loading in the background, it saves us loading time after the user peeks through.
             [articleViewController addChildViewController:articlePeekPreviewViewController];
             articlePeekPreviewViewController.view.frame = articleViewController.view.frame;
             [articleViewController.view addSubview:articlePeekPreviewViewController.view];
             [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
             vc = articleViewController;
-            vc.preferredContentSize = CGSizeMake(0.0, 399.0);
+            vc.preferredContentSize = [articlePeekPreviewViewController.view systemLayoutSizeFittingSize:CGSizeMake(articlePeekPreviewViewController.view.bounds.size.width, UILayoutFittingCompressedSize.height) withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+
         } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
