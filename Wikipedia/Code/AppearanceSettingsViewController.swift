@@ -95,11 +95,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             let vc = customViewItem.viewController
 
             if let view = vc.view {
+                addChildViewController(vc)
                 view.frame = cell.contentView.bounds
                 view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                vc.willMove(toParentViewController: self)
                 cell.contentView.addSubview(view)
-                addChildViewController(vc)
+                vc.didMove(toParentViewController: self)
             }
             
             if let themeable = vc as? Themeable {

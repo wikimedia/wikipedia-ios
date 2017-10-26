@@ -119,11 +119,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     override func viewDidLoad() {
         super.viewDidLoad()
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
-        listViewController.willMove(toParentViewController: self)
+        addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
-        addChildViewController(listViewController)
         listViewController.didMove(toParentViewController: self)
 
         let mapViewFrame = mapContainerView.bounds
