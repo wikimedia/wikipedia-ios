@@ -1140,11 +1140,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    //FIXME!!!
     //only show a blank view if we have nothing to show
-    if (!self.article && [[self.view.superview.subviews lastObject] isEqual:self.view]) {
+    if (!self.article) {
         [self.view bringSubviewToFront:self.progressView];
     }
+
+    [self showProgressViewAnimated:YES];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
@@ -1724,7 +1725,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if ([url wmf_isWikiResource]) {
             WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
             WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.dataStore theme:self.theme];
-           return [WMFArticlePeekPreviewViewController setupPeekable:articlePeekPreviewViewController on:articleViewController with:url];
+            return [WMFArticlePeekPreviewViewController setupPeekable:articlePeekPreviewViewController on:articleViewController with:url];
         } else {
             return [[SFSafariViewController alloc] initWithURL:url];
         }
