@@ -22,40 +22,40 @@ import WMF
         return "window.wmf.footerMenu.MenuItemType.\(menuItemTypeString)"
     }
     
-    private func localizedTitle(with article: MWKArticle) -> String {
-        var title = ""
-        let language = article.url.wmf_language
-        switch self {
-        case .languages: title = WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
-        case .lastEdited: title = WMFLocalizedString("page-last-edited",  language: language, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
-        case .talkPage: title = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
-        case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
-        case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
-        case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
-        }
-        return title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-    }
+//    private func localizedTitle(with article: MWKArticle) -> String {
+//        var title = ""
+//        let language = article.url.wmf_language
+//        switch self {
+//        case .languages: title = WMFLocalizedString("page-read-in-other-languages", language: language, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages")
+//        case .lastEdited: title = WMFLocalizedString("page-last-edited",  language: language, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days")
+//        case .talkPage: title = WMFLocalizedString("page-talk-page",  language: language, value: "View talk page", comment: "Label for button linking out to an article's talk page")
+//        case .pageIssues: title = WMFLocalizedString("page-issues", language: language, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
+//        case .disambiguation: title = WMFLocalizedString("page-similar-titles", language: language, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
+//        case .coordinate: title = WMFLocalizedString("page-location", language: language, value: "View on a map", comment: "Label for button used to show an article on the map")
+//        }
+//        return title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+//    }
     
-    private func titleSubstitutionStringForArticle(article: MWKArticle) -> String? {
-        switch self {
-        case .languages:
-            return "\(article.languagecount)"
-        case .lastEdited:
-            let lastModified = article.lastmodified ?? Date()
-            let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-            return "\(days)"
-        default:
-            return nil
-        }
-    }
+//    private func titleSubstitutionStringForArticle(article: MWKArticle) -> String? {
+//        switch self {
+//        case .languages:
+//            return "\(article.languagecount)"
+//        case .lastEdited:
+//            let lastModified = article.lastmodified ?? Date()
+//            let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
+//            return "\(days)"
+//        default:
+//            return nil
+//        }
+//    }
     
-    private func localizedSubtitle(with article: MWKArticle) -> String {
-        switch self {
-        case .lastEdited: return WMFLocalizedString("page-edit-history", language: article.url.wmf_language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        default:
-            return ""
-        }
-    }
+//    private func localizedSubtitle(with article: MWKArticle) -> String {
+//        switch self {
+//        case .lastEdited: return WMFLocalizedString("page-edit-history", language: article.url.wmf_language, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+//        default:
+//            return ""
+//        }
+//    }
     
     
     public func shouldAddItem(with article: MWKArticle) -> Bool {
@@ -77,6 +77,9 @@ import WMF
     }
     
     public func itemAdditionJavascriptString(with article: MWKArticle) -> String {
+        
+        return self.menuItemTypeJSPath
+/*
         var title = self.localizedTitle(with: article)
         if let substitutionString = titleSubstitutionStringForArticle(article: article) {
             title = String.localizedStringWithFormat(title, substitutionString)
@@ -90,6 +93,7 @@ import WMF
         "}"
         
         return "window.wmf.footerMenu.maybeAddItem('\(title)', '\(subtitle)', \(self.menuItemTypeJSPath), 'pagelib_footer_container_menu_items', \(itemSelectionHandler), document);"
+ */
     }
 }
 
@@ -106,21 +110,21 @@ extension WKWebView {
     }
     
     @objc public func wmf_addFooterMenuForArticle(_ article: MWKArticle){
-        let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'pagelib_footer_container_menu_heading', document);", completionHandler: nil)
+//        let heading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
+//        evaluateJavaScript("window.wmf.footerMenu.setHeading('\(heading)', 'pagelib_footer_container_menu_heading', document);", completionHandler: nil)
 
-        let itemsJS = [
-            WMFArticleFooterMenuItem.languages,
-            WMFArticleFooterMenuItem.coordinate,
-            WMFArticleFooterMenuItem.lastEdited,
-            WMFArticleFooterMenuItem.pageIssues,
-            WMFArticleFooterMenuItem.disambiguation,
-            WMFArticleFooterMenuItem.talkPage
-            ].filter{$0.shouldAddItem(with: article)}
-             .map{$0.itemAdditionJavascriptString(with: article)}
-             .joined(separator: "")
-        
-        evaluateJavaScript(itemsJS, completionHandler: nil)
+//        let itemsJS = [
+//            WMFArticleFooterMenuItem.languages,
+//            WMFArticleFooterMenuItem.coordinate,
+//            WMFArticleFooterMenuItem.lastEdited,
+//            WMFArticleFooterMenuItem.pageIssues,
+//            WMFArticleFooterMenuItem.disambiguation,
+//            WMFArticleFooterMenuItem.talkPage
+//            ].filter{$0.shouldAddItem(with: article)}
+//             .map{$0.itemAdditionJavascriptString(with: article)}
+//             .joined(separator: "")
+//
+//        evaluateJavaScript(itemsJS, completionHandler: nil)
     }
 
     @objc public func wmf_addFooterLegalForArticle(_ article: MWKArticle){
@@ -209,23 +213,7 @@ extension WKWebView {
         evaluateJavaScript(themeJS, completionHandler: nil)
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // TODO: update this TEMPORARY method naming
+// TODO: update this TEMPORARY method naming
     @objc public func wmf_loadArticle2(_ article: MWKArticle){
         guard
             let url = article.url,
@@ -237,7 +225,6 @@ extension WKWebView {
                 return
         }
 
-        
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
         let apiURLString = "/w/api.php?action=mobileview&format=json&noheadings=true&pilicense=any&prop=sections%7Ctext%7Clastmodified%7Clastmodifiedby%7Clanguagecount%7Cid%7Cprotection%7Ceditable%7Cdisplaytitle%7Cthumb%7Cdescription%7Cimage%7Crevision%7Cnamespace&sectionprop=toclevel%7Cline%7Canchor%7Clevel%7Cnumber%7Cfromtitle%7Cindex&sections=all&thumbwidth=640&page=\(encodedTitle)".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         
@@ -262,7 +249,6 @@ extension WKWebView {
         
         let proxyURLString = proxyURL.absoluteString.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
 
-        
         let langCode = langInfo.code
         let langDir = langInfo.dir
         let isRTL = UIApplication.shared.wmf_isRTL ? "true": "false"
@@ -275,9 +261,7 @@ extension WKWebView {
         let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
         let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: lang, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-
         let menuHeading = WMFLocalizedString("article-about-title", language: article.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        
         let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), "\(article.languagecount)").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
         let lastModified = article.lastmodified ?? Date()
         let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
@@ -296,37 +280,24 @@ extension WKWebView {
         let editable = article.editable ? "true": "false"
         let newJSArticle = "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), \(newJSLanguage))"
 
-        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle), \(newJSLocalizedStrings))") { (result, error) in
+        let menuItemsJS = [
+            WMFArticleFooterMenuItem.languages,
+            WMFArticleFooterMenuItem.coordinate,
+            WMFArticleFooterMenuItem.lastEdited,
+            WMFArticleFooterMenuItem.pageIssues,
+            WMFArticleFooterMenuItem.disambiguation,
+            WMFArticleFooterMenuItem.talkPage
+            ].filter{$0.shouldAddItem(with: article)}
+            .map{$0.itemAdditionJavascriptString(with: article)}
+            .joined(separator: ", ")
+        
+        let menuItemsJSArray = "[\(menuItemsJS)]"
+
+        evaluateJavaScript("window.wmf.sectionTransformation.transformAndAppendSectionsToDocument('\(proxyURLString)', '\(apiURLString)', \(newJSArticle), \(newJSLocalizedStrings), \(menuItemsJSArray))") { (result, error) in
             guard let error = error else {
                 return
             }
             print(error)
         }
-
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

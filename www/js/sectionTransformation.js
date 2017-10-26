@@ -10,6 +10,13 @@
  - figure out earliest point at which it's safe to kick off this js
  - paragraph relocation not happening on "enwiki > color"
  - test viewing, say, hebrew article when device lang is EN - ensure footer localized strings are hebrew
+ - make window.wmf.sectionTransformation.localizedStrings and just set this instead of passing it as param to transformAndAppendSectionsToDocument?
+ - need to be array which gets passed to transformAndAppendSectionsToDocument as "menuItemsJSArray" - or make it a prop of window.wmf.sectionTransformation?
+ 
+PAGELIB:
+ - add 'talkPage' to pagelib footer menu types: const MenuItemType = {
+ - REVIEW michael's patch! https://github.com/wikimedia/wikimedia-page-library/pull/93
+ 
 */
 
 
@@ -205,7 +212,7 @@ const performEarlyNonSectionTransforms = article => {
 }
 
 //late so they won't delay section fragment processing
-const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) => {
+const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, menuItems) => {
   //TODO add footer transforms here - 
 
 
@@ -255,11 +262,68 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL) =>
 
 
 
+
+
+
+
+
+
+  // add menu footer
+
+  menuItems.forEach(item => {
+    let title = ''
+    let subtitle = ''
+    let menuItemTypeString = ''
+    switch(item) {
+      case window.wmf.footerMenu.MenuItemType.languages:
+        menuItemTypeString = 'languages'
+        title = localizedStrings.menuLanguagesTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.lastEdited:
+        menuItemTypeString = 'lastEdited'
+        title = localizedStrings.menuLastEditedTitle
+        subtitle = localizedStrings.menuLastEditedSubtitle
+        break
+      case window.wmf.footerMenu.MenuItemType.pageIssues:
+        menuItemTypeString = 'pageIssues'
+        title = localizedStrings.menuPageIssuesTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.disambiguation:
+        menuItemTypeString = 'disambiguation'
+        title = localizedStrings.menuDisambiguationTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.coordinate:
+        menuItemTypeString = 'coordinate'
+        title = localizedStrings.menuCoordinateTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.talkPage:
+        menuItemTypeString = 'talkPage'
+        title = localizedStrings.menuTalkPageTitle
+        break
+      default:
+    }
+
+    const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
+    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
+    
+  })
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
 //TODO add JSDocs explaining the article and localizedStrings parameters
-const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localizedStrings) =>{
+const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localizedStrings, menuItems) =>{
   
   performEarlyNonSectionTransforms(article)
 
@@ -269,7 +333,7 @@ const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article, localiz
   .then(json => extractSections(json, article))
   .then((sections) => transformAndAppendSections(sections, localizedStrings))
   .then(() => {
-    performLateNonSectionTransforms(article, localizedStrings, proxyURL)
+    performLateNonSectionTransforms(article, localizedStrings, proxyURL, menuItems)
   })
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
@@ -278,6 +342,19 @@ exports.transformAndAppendSectionsToDocument = transformAndAppendSectionsToDocum
 exports.Language = Language
 exports.Article = Article
 exports.LocalizedStrings = LocalizedStrings
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
