@@ -7,7 +7,6 @@ import WebKit
     case imageClicked
     case referenceClicked
     case editClicked
-    case lateJavascriptTransform
     case articleState
     case findInPageMatchesFound
     case footerReadMoreSaveClicked
@@ -30,8 +29,6 @@ extension WKScriptMessage {
             return .referenceClicked
         case "editClicked":
             return .editClicked
-        case "lateJavascriptTransform":
-            return .lateJavascriptTransform
         case "articleState":
             return .articleState
         case "javascriptConsoleLog":
@@ -66,8 +63,7 @@ extension WKScriptMessage {
             if body is Dictionary<String, Any>{
                 return (body as! NSDictionary).wmf_dictionaryByRemovingNullObjects()
             }
-        case .lateJavascriptTransform,
-             .articleState,
+        case .articleState,
              .footerLegalLicenseLinkClicked,
              .footerBrowserLinkClicked,
              .footerContainerAdded:

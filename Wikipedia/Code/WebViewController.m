@@ -98,9 +98,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageEditClicked:
             [self handleEditClickedScriptMessage:safeMessageBody];
             break;
-        case WMFWKScriptMessageLateJavascriptTransform:
-            [self handleLateJavascriptTransformScriptMessage:safeMessageBody];
-            break;
         case WMFWKScriptMessageArticleState:
             [self handleArticleStateScriptMessage:safeMessageBody];
             break;
@@ -300,28 +297,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            }
                                        }];
                                    }];
-}
-
-- (void)handleLateJavascriptTransformScriptMessage:(NSString *)messageString {
-    if ([messageString isEqualToString:@"addEditPencils"]) {
-        [self.webView wmf_addEditPencilsForArticle:self.article];
-    } else if ([messageString isEqualToString:@"collapseTables"]) {
-        [self.webView wmf_collapseTablesForArticle:self.article];
-    } else if ([messageString isEqualToString:@"setLanguage"]) {
-        [self.webView wmf_setLanguage:[MWLanguageInfo languageInfoForCode:self.article.url.wmf_language]];
-    } else if ([messageString isEqualToString:@"setPageProtected"]) {
-        [self.webView wmf_setPageProtected:!self.article.editable];
-    } else if ([messageString isEqualToString:@"addFooterContainer"]) {
-        [self.webView wmf_addFooterContainer];
-    } else if ([messageString isEqualToString:@"addFooterReadMore"] && self.article.hasReadMore) {
-        [self.webView wmf_addFooterReadMoreForArticle:self.article];
-    } else if ([messageString isEqualToString:@"addFooterMenu"]) {
-        [self.webView wmf_addFooterMenuForArticle:self.article];
-    } else if ([messageString isEqualToString:@"addFooterLegal"]) {
-        [self.webView wmf_addFooterLegalForArticle:self.article];
-    } else if ([messageString isEqualToString:@"classifyThemeElements"]) {
-        [self.webView wmf_classifyThemeElements];
-    }
 }
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
@@ -607,22 +582,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (WKWebViewConfiguration *)configuration {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
-    NSArray *lateTransformNames = @[
-        //        @"addEditPencils",
-        //        @"collapseTables",
-        //        @"setPageProtected",
-        //        @"setLanguage",
-        //        @"addFooterContainer",
-        //        @"addFooterReadMore",
-        //        @"addFooterMenu",
-        //        @"addFooterLegal",
-        //        @"classifyThemeElements"
-    ];
-    for (NSString *transformName in lateTransformNames) {
-        NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
-        [userContentController addUserScript:[[WKUserScript alloc] initWithSource:transformJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-    }
-
     NSArray *handlerNames = @[
         @"lateJavascriptTransform",
         @"peek",
@@ -645,11 +604,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     NSString *earlyJavascriptTransforms = @""
-                                           //                                           "window.wmf.redLinks.hideRedLinks( document );"
-                                           //                                           "window.wmf.filePages.disableFilePageEdit( document );"
-                                           //                                           "window.wmf.images.widenImages( document );"
-                                           //                                           "window.wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', document );"
-                                           //TODO figure out where we should be calling the next line...
+//TODO figure out where we should be calling the next line...
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 

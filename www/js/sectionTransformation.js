@@ -56,12 +56,13 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, description, editable, language) {
+  constructor(ismain, title, description, editable, language, hasReadMore) {
     this.ismain = ismain
     this.title = title
     this.description = description
     this.editable = editable
     this.language = language
+    this.hasReadMore = hasReadMore
   }
   
   descriptionParagraph() {
@@ -229,47 +230,11 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
 
   // add dynamic bottom padding
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
-  window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
 
 
   // add menu footer
+  // TODO simplify this and the native side which sets up menuItems 
   window.wmf.footerMenu.setHeading(localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
-
-
-
-  // add read more footer
-  const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
-  const titlesShownHandler = titles => {
-    window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
-    window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
-  }
-  const readMoreItemCount = 3
-  window.wmf.footerReadMore.add(article.title, readMoreItemCount, 'pagelib_footer_container_readmore_pages', proxyURL, saveButtonTapHandler, titlesShownHandler, document)
-
-
-  // add legal footer
-  const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
-  const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
-  window.wmf.footerLegal.add(document, localizedStrings.licenseString, localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
-
-
-
-  // 'themes.classifyElements()' needs to happen once after body elements are present. it
-  // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
-  window.wmf.themes.classifyElements(document)
-
-
-
-
-
-
-
-
-
-
-
-  // add menu footer
-
   menuItems.forEach(item => {
     let title = ''
     let subtitle = ''
@@ -302,17 +267,36 @@ const performLateNonSectionTransforms = (article, localizedStrings, proxyURL, me
         break
       default:
     }
-
     const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
-    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
-    
+    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)  
   })
 
 
 
 
+  // add read more footer
+  if (article.hasReadMore){
+    window.wmf.footerReadMore.setHeading(localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+
+    const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
+    const titlesShownHandler = titles => {
+      window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
+      window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+    }
+    const readMoreItemCount = 3
+    window.wmf.footerReadMore.add(article.title, readMoreItemCount, 'pagelib_footer_container_readmore_pages', proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+  }
+
+  // add legal footer
+  const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
+  const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
+  window.wmf.footerLegal.add(document, localizedStrings.licenseString, localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
 
 
+
+  // 'themes.classifyElements()' needs to happen once after body elements are present. it
+  // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
+  window.wmf.themes.classifyElements(document)
 
 
 
