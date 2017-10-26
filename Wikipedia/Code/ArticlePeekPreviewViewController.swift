@@ -67,6 +67,7 @@ class ArticlePeekPreviewViewController: UIViewController {
         }
     }
     
+    // Adds a peekable view controller on top of another view controller. Since the view controller is the one we want to show when the user peeks through, we're saving time by loading it behind the peekable view controller.
     @objc static func setupPeekable(_ peekableViewController: UIViewController, on viewController: UIViewController, with articleURL: URL) -> UIViewController {
         viewController.addChildViewController(peekableViewController)
         peekableViewController.view.frame = viewController.view.frame

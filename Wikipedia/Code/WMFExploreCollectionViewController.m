@@ -1341,20 +1341,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
     
     UIViewController *vc = nil;
+    NSURL *articleURL = nil;
+    
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:
         case WMFFeedDetailTypePageWithRandomButton: {
-            NSURL *articleURL = [self contentURLForIndexPath:indexPath];
-            WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-            vc = [WMFArticlePeekPreviewViewController setupPeekable:articlePeekPreviewViewController on:articleViewController with:articleURL];
+            articleURL = [self contentURLForIndexPath:indexPath];
         } break;
         case WMFFeedDetailTypeEvent: {
-            NSURL *articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
-            if (articleURL) {
-                WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
-            } else {
+            articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
+            if (!articleURL) {
                 NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
                 vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
             }
@@ -1364,33 +1360,22 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
-            NSURL *articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
-            if (articleURL) {
-                WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                vc = [self setupArticlePeekPreviewControllerOnTopOf:articleViewController indexPath:indexPath url:articleURL];
-            } else {
-                vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
-            }
+            articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
         } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
-            break;
     }
+    
+    if (articleURL) {
+        WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+        WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+        vc = [WMFArticlePeekPreviewViewController setupPeekable:articlePeekPreviewViewController on:articleViewController with:articleURL];
+    }
+    
     if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
         [(id<WMFThemeable>)vc applyTheme:self.theme];
     }
     return vc;
-}
-
-- (WMFArticleViewController *)setupArticlePeekPreviewControllerOnTopOf:(WMFArticleViewController *)articleViewController indexPath:(NSIndexPath *)indexPath url:(NSURL *)url {
-    WMFArticlePeekPreviewViewController *articlePeekPreviewViewController = [[WMFArticlePeekPreviewViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
-    // Adds a peek preview view controller view on top of the article view controller view. Since the article view controller is loading in the background, it saves us loading time after the user peeks through.
-    [articleViewController addChildViewController:articlePeekPreviewViewController];
-    articlePeekPreviewViewController.view.frame = articleViewController.view.frame;
-    [articleViewController.view addSubview:articlePeekPreviewViewController.view];
-    [articlePeekPreviewViewController didMoveToParentViewController:articleViewController];
-    articleViewController.preferredContentSize = [articlePeekPreviewViewController.view systemLayoutSizeFittingSize:CGSizeMake(articlePeekPreviewViewController.view.bounds.size.width, UILayoutFittingCompressedSize.height) withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-    return articleViewController;
 }
 
 - (nullable NSURL *)onThisDayArticleURLAtIndexPath:(NSIndexPath *)indexPath group:(WMFContentGroup *)group {
