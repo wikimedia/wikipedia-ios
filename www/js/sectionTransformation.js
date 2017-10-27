@@ -1,24 +1,17 @@
 /*
+TODO
  - maybe modify image urls to proxy not by parsing on native side but by using JS transforms once we have doc frag? (they're already parsed anyway)
  - could we prototype any missing fragment objects if a transforms calls something on frag which only exits in document?
  - ensure TOC logic keeps working
- - keep doing getHTMLWrappedInTablesIfNeeded?
  - make sure this works - (void)loadHTMLFromAssetsFile:(NSString *)fileName scrolledToFragment:(NSString *)fragment {
  - use updates from these branches (dropping iOS 9)
     remove-css-cruft
     remove-version-10-checks
  - figure out earliest point at which it's safe to kick off this js
  - paragraph relocation not happening on "enwiki > color" and "enwiki > United States"
- - test viewing, say, hebrew article when device lang is EN - ensure footer localized strings are hebrew
- - make window.wmf.sectionTransformation.localizedStrings and just set this instead of passing it as param to transformAndAppendSectionsToDocument?
- - need to be array which gets passed to transformAndAppendSectionsToDocument as "menuItemsJSArray" - or make it a prop of window.wmf.sectionTransformation?
- 
-PAGELIB:
- - add 'talkPage' to pagelib footer menu types: const MenuItemType = {
- - REVIEW michael's patch! https://github.com/wikimedia/wikimedia-page-library/pull/93
- 
+ - add JSDocs explaining all types
+ - consider switching footer XF to also act on headless fragment
 */
-
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
@@ -146,19 +139,7 @@ class Section {
         </div>`
     return container
   }
-  
-  
 }
-
-
-
-
-
-
-
-
-
-
 
 const processStatus = response => {
     if (response.status === 200) { // can use status 0 if loading local files
@@ -180,7 +161,6 @@ const fragmentForSection = section => {
 }
 
 const applyTransformationsToFragment = (fragment, article, isLead) => {
-  
   //TODO if/when all transform calls happen happen here, will no longer need 'wmf' object or index-main.js/preview-main.js files
   const wmf = window.wmf
   
@@ -226,10 +206,6 @@ const transformAndAppendSection = (section, mainContentDiv) => {
   mainContentDiv.appendChild(fragment)
 }
 
-
-
-
-
 //early page-wide transforms which happen before any sections have been appended
 const performEarlyNonSectionTransforms = article => {
   window.wmf.utilities.setPageProtected(!article.editable)
@@ -237,24 +213,15 @@ const performEarlyNonSectionTransforms = article => {
 }
 
 //late so they won't delay section fragment processing
-const performLateNonSectionTransforms = (article, proxyURL) => {
-  //TODO add footer transforms here - 
-
-
-
-  //TODO consider switching footer XF to also act on headless fragment
-  
-  
+const performLateNonSectionTransforms = (article, proxyURL) => {  
   // add footer container
   if (window.wmf.footerContainer.isContainerAttached(document) === false) {
       document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
       window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
   }
   
-
   // add dynamic bottom padding
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
-
 
   // add menu footer
   // TODO simplify this and the native side which sets up menuItems 
@@ -295,9 +262,6 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
     window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)  
   })
 
-
-
-
   // add read more footer
   if (article.hasReadMore){
     window.wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
@@ -316,13 +280,9 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
   const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
   window.wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
 
-
-
   // 'themes.classifyElements()' needs to happen once after body elements are present. it
   // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
   window.wmf.themes.classifyElements(document)
-
-
 }
 
 
@@ -340,41 +300,9 @@ const transformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
-
-//TODO add JSDocs explaining all types
-
 exports.transformAndAppendSectionsToDocument = transformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
 exports.LocalizedStrings = LocalizedStrings
 exports.localizedStrings = undefined
 exports.menuItems = undefined
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
