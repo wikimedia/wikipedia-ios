@@ -110,7 +110,8 @@ extension WKWebView {
         '\(menuTalkPageTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(menuPageIssuesTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(menuDisambiguationTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        '\(menuCoordinateTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())')
+        '\(menuCoordinateTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+        )
         """
     }
 
@@ -127,20 +128,21 @@ extension WKWebView {
     }
 
     private func articleJS(for article: MWKArticle) -> String {
-        var nonNilTitle = ""
-        if let title = article.displaytitle ?? (article.url as NSURL).wmf_title {
-            nonNilTitle = title.wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        }
-        var nonNilDescription = ""
-        if let description = article.entityDescription {
-            nonNilDescription = description.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        }
         let isMain = article.isMain ? "true": "false"
-        let articleTitle = nonNilTitle
-        let articleEntityDescription = nonNilDescription
+        let articleTitle = (article.displaytitle ?? (article.url as NSURL).wmf_title) ?? ""
+        let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
         let editable = article.editable ? "true": "false"
         let hasReadMore = article.hasReadMore ? "true": "false"
-        return "new window.wmf.sectionTransformation.Article(\(isMain), '\(articleTitle)', '\(articleEntityDescription)', \(editable), \(languageJS(for: article)), \(hasReadMore))"
+        return """
+        new window.wmf.sectionTransformation.Article(
+        \(isMain),
+        '\(articleTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        \(editable),
+        \(languageJS(for: article)),
+        \(hasReadMore)
+        )
+        """
     }
 
     private func menuItemsJS(for article: MWKArticle) -> String {
