@@ -2,6 +2,12 @@
 import WebKit
 import WMF
 
+fileprivate extension Bool{
+    func toString() -> String {
+        return self ? "true" : "false"
+    }
+}
+
 @objc enum WMFArticleFooterMenuItem: Int {
 
     case languages, lastEdited, pageIssues, disambiguation, coordinate, talkPage
@@ -61,7 +67,7 @@ extension WKWebView {
             break
         }
         return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));" +
-            "window.wmf.imageDimming.dim(window, \(isDim ? "true" : "false"));"
+            "window.wmf.imageDimming.dim(window, \(isDim.toString()));"
     }
     
     @objc public func wmf_applyTheme(_ theme: Theme){
@@ -123,24 +129,22 @@ extension WKWebView {
         let langInfo = MWLanguageInfo(forCode: lang)
         let langCode = langInfo.code
         let langDir = langInfo.dir
-        let isRTL = UIApplication.shared.wmf_isRTL ? "true": "false"
-        return "new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(isRTL))"
+        
+        return "new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(UIApplication.shared.wmf_isRTL.toString()))"
     }
 
     private func articleJS(for article: MWKArticle) -> String {
-        let isMain = article.isMain ? "true": "false"
         let articleTitle = (article.displaytitle ?? (article.url as NSURL).wmf_title) ?? ""
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
-        let editable = article.editable ? "true": "false"
-        let hasReadMore = article.hasReadMore ? "true": "false"
+        
         return """
         new window.wmf.sectionTransformation.Article(
-        \(isMain),
+        \(article.isMain.toString()),
         '\(articleTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        \(editable),
+        \(article.editable.toString()),
         \(languageJS(for: article)),
-        \(hasReadMore)
+        \(article.hasReadMore.toString())
         )
         """
     }
