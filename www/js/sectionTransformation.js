@@ -11,24 +11,23 @@ TODO
  - paragraph relocation not happening on "enwiki > color" and "enwiki > United States"
  - add JSDocs explaining all types
  - consider switching footer XF to also act on headless fragment
- - directly 'require' window.wmf. bits used only by this file and remove those refs from the index-main.js and preview-main.js
  - figure out why on pull to refresh progress bar is not going away (on develop?)
 */
 
-var wmf = {}
-
-wmf.editButtons = require('./transforms/addEditButtons')
-wmf.utilities = require('./utilities')
-wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
-wmf.footerMenu = require('wikimedia-page-library').FooterMenu
-wmf.footerLegal = require('wikimedia-page-library').FooterLegal
-wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./transforms/disableFilePageEdit')
-wmf.tables = require('./transforms/collapseTables')
-wmf.themes = require('wikimedia-page-library').ThemeTransform
-wmf.redLinks = require('wikimedia-page-library').RedLinks
-wmf.paragraphs = require('./transforms/relocateFirstParagraph')
-wmf.images = require('./transforms/widenImages')
+const requirements = {
+  editButtons: require('./transforms/addEditButtons'),
+  utilities: require('./utilities'),
+  footerReadMore: require('wikimedia-page-library').FooterReadMore,
+  footerMenu: require('wikimedia-page-library').FooterMenu,
+  footerLegal: require('wikimedia-page-library').FooterLegal,
+  footerContainer: require('wikimedia-page-library').FooterContainer,
+  filePages: require('./transforms/disableFilePageEdit'),
+  tables: require('./transforms/collapseTables'),
+  themes: require('wikimedia-page-library').ThemeTransform,
+  redLinks: require('wikimedia-page-library').RedLinks,
+  paragraphs: require('./transforms/relocateFirstParagraph'),
+  images: require('./transforms/widenImages')
+}
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
@@ -166,67 +165,67 @@ class Footer {
     this.proxyURL = proxyURL
   }
   addContainer() {
-    if (wmf.footerContainer.isContainerAttached(document) === false) {
-      document.querySelector('body').appendChild(wmf.footerContainer.containerFragment(document))
+    if (requirements.footerContainer.isContainerAttached(document) === false) {
+      document.querySelector('body').appendChild(requirements.footerContainer.containerFragment(document))
       window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
     }
   }
   addDynamicBottomPadding() {
-    window.addEventListener('resize', function(){wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
+    window.addEventListener('resize', function(){requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
   }
   addMenu() {
-    wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+    requirements.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
     this.menuItems.forEach(item => {
       let title = ''
       let subtitle = ''
       let menuItemTypeString = ''
       switch(item) {
-      case wmf.footerMenu.MenuItemType.languages:
+      case requirements.footerMenu.MenuItemType.languages:
         menuItemTypeString = 'languages'
         title = this.localizedStrings.menuLanguagesTitle
         break
-      case wmf.footerMenu.MenuItemType.lastEdited:
+      case requirements.footerMenu.MenuItemType.lastEdited:
         menuItemTypeString = 'lastEdited'
         title = this.localizedStrings.menuLastEditedTitle
         subtitle = this.localizedStrings.menuLastEditedSubtitle
         break
-      case wmf.footerMenu.MenuItemType.pageIssues:
+      case requirements.footerMenu.MenuItemType.pageIssues:
         menuItemTypeString = 'pageIssues'
         title = this.localizedStrings.menuPageIssuesTitle
         break
-      case wmf.footerMenu.MenuItemType.disambiguation:
+      case requirements.footerMenu.MenuItemType.disambiguation:
         menuItemTypeString = 'disambiguation'
         title = this.localizedStrings.menuDisambiguationTitle
         break
-      case wmf.footerMenu.MenuItemType.coordinate:
+      case requirements.footerMenu.MenuItemType.coordinate:
         menuItemTypeString = 'coordinate'
         title = this.localizedStrings.menuCoordinateTitle
         break
-      case wmf.footerMenu.MenuItemType.talkPage:
+      case requirements.footerMenu.MenuItemType.talkPage:
         menuItemTypeString = 'talkPage'
         title = this.localizedStrings.menuTalkPageTitle
         break
       default:
       }
       const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
-      wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
+      requirements.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
     })
   }
   addReadMore() {
     if (this.article.hasReadMore){
-      wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+      requirements.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
       const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
       const titlesShownHandler = titles => {
         window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
-        wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+        requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
       }
-      wmf.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+      requirements.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
     }
   }
   addLegal() {
     const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
     const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
-    wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+    requirements.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
   }
   add() {
     this.addContainer()
@@ -254,21 +253,21 @@ const fragmentForSection = section => {
 }
 
 const applyTransformationsToFragment = (fragment, article, isLead) => {
-  wmf.redLinks.hideRedLinks(document, fragment)
+  requirements.redLinks.hideRedLinks(document, fragment)
 
-  wmf.filePages.disableFilePageEdit(fragment)
+  requirements.filePages.disableFilePageEdit(fragment)
 
   if(!article.ismain){
     if (isLead){
       //TODO fix height heuristic in paragraph relocation xf
-      wmf.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
-      wmf.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
+      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
     }else{
-      wmf.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', fragment)
+      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', fragment)
     }
   }
 
-  wmf.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
+  requirements.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
 
   //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
   //dont get widened even though i'm forcing "data-image-gallery" to true here - the css *is* being changed though)
@@ -277,7 +276,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     const isGallery = parseInt(image.width) > 70 ? 'true' : 'false'
     image.setAttribute('data-image-gallery', isGallery)
   })
-  wmf.images.widenImages(fragment)
+  requirements.images.widenImages(fragment)
   //TODO handle other transforms here
 
 }
@@ -291,8 +290,8 @@ const transformAndAppendSection = (section, mainContentDiv) => {
 
 //early page-wide transforms which happen before any sections have been appended
 const performEarlyNonSectionTransforms = article => {
-  wmf.utilities.setPageProtected(!article.editable)
-  wmf.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
+  requirements.utilities.setPageProtected(!article.editable)
+  requirements.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
 }
 
 //late so they won't delay section fragment processing
@@ -301,7 +300,7 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
   footer.add()
   // 'themes.classifyElements()' needs to happen once after body elements are present. it
   // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
-  wmf.themes.classifyElements(document)
+  requirements.themes.classifyElements(document)
 }
 
 const extractJSONSections = json => json['mobileview']['sections']
