@@ -568,15 +568,20 @@ class Section {
     this.article = article
   }
   
+  headingTagSize() {
+    return Math.max(1, Math.min(parseInt(this.level), 6))
+  }
+  
   headerTag() {
     if(this.isLeadSection()){
       return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
                 ${this.article.title}
               </h1>${this.article.descriptionParagraph()}`
     }
-    return `<h${this.level} class="section_heading" data-id="${this.id}" id="${this.anchor}">
+    const hSize = this.headingTagSize()
+    return `<h${hSize} class="section_heading" data-id="${this.id}" id="${this.anchor}">
               ${this.line}
-            </h${this.level}>`
+            </h${hSize}>`
   }
   
   isLeadSection() {
