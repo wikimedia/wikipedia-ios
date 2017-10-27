@@ -1006,7 +1006,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (self.rootTabBarController) {
         return [self.rootTabBarController shouldAutorotate];
     } else {
-        return NO;
+        return YES;
     }
 }
 
@@ -1014,7 +1014,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (self.rootTabBarController) {
         return [self.rootTabBarController supportedInterfaceOrientations];
     } else {
-        return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+        return UIInterfaceOrientationMaskAll;
     }
 }
 
