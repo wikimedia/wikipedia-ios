@@ -879,7 +879,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
-    [self.webView loadHTML:[self.article articleHTML] baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     NSString *shareMenuItemTitle = nil;
     if (@available(iOS 11, *)) {
