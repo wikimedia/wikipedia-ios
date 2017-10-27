@@ -310,10 +310,9 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
 
 
 const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article) =>{
-  
   performEarlyNonSectionTransforms(article)
 
-  fetch(`${proxyURL}${apiURL}`)
+  fetch(apiURL)
   .then(processStatus)
   .then(extractJSON)
   .then(json => extractSections(json, article))
