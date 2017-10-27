@@ -370,7 +370,9 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
+"welcome-exploration-on-this-day-title" = "Tal dia com avui";
 "welcome-exploration-places-title" = "Pestanya de llocs";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
@@ -386,8 +388,8 @@
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
 "welcome-send-data-helps-title" = "Ajudeu a millorar l'aplicació";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ajudeu la Fundació Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
+"welcome-send-data-learn-more" = "Més informació de les dades recopilades";
+"welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
 "wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-download-success" = "S'ha carregat el contingut.";

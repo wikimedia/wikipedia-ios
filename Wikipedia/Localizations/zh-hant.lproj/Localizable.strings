@@ -120,7 +120,7 @@
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
 "error-unknown" = "發生不明錯誤";
-"explore-another-random" = "其他隨機條目";
+"explore-another-random" = "另一個隨機條目";
 "explore-because-you-read" = "因為您讀了";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-enable-location-title" = "瀏覽接近您目前位置的條目";
@@ -380,7 +380,7 @@
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
-"top-read-see-more" = "查看更多熱門條目";
+"top-read-see-more" = "查看更多熱門閱讀";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙因素驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";
