@@ -65,7 +65,7 @@ class Article {
     this.language = language
     this.hasReadMore = hasReadMore
   }
-  
+
   descriptionParagraph() {
     if(this.description !== undefined && this.description.length > 0){
       return `<p id='entity_description'>${this.description}</p>`
@@ -87,11 +87,11 @@ class Section {
     this.text = text
     this.article = article
   }
-  
+
   headingTagSize() {
     return Math.max(1, Math.min(parseInt(this.level), 6))
   }
-  
+
   headingTag() {
     if(this.isLeadSection()){
       return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
@@ -103,30 +103,30 @@ class Section {
               ${this.line}
             </h${hSize}>`
   }
-  
+
   isLeadSection() {
     return this.id === 0
   }
-  
+
   isNonMainPageLeadSection() {
     return this.isLeadSection() && !this.article.ismain
   }
-  
+
   anchorAsElementId() {
     return this.anchor === undefined || this.anchor.length === 0 ? '' : `id='${this.anchor}'`
   }
-    
+
   shouldWrapInTable() {
     return ['References', 'External links', 'Notes', 'Further reading', 'Bibliography'].indexOf(this.line) != -1
   }
-    
+
   html() {
-     if(this.shouldWrapInTable()){
-       return `<table><th>${this.line}</th><tr><td>${this.text}</td></tr></table>`
-     }
-     return this.text
+    if(this.shouldWrapInTable()){
+      return `<table><th>${this.line}</th><tr><td>${this.text}</td></tr></table>`
+    }
+    return this.text
   }
-    
+
   containerDiv() {
     const container = document.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
@@ -142,16 +142,16 @@ class Section {
 }
 
 const processStatus = response => {
-    if (response.status === 200) { // can use status 0 if loading local files
-        return Promise.resolve(response)
-    } 
-    return Promise.reject(new Error(response.statusText))
+  if (response.status === 200) { // can use status 0 if loading local files
+    return Promise.resolve(response)
+  }
+  return Promise.reject(new Error(response.statusText))
 }
 
 const extractJSON = response => response.json()
 
 //TODO probably don't extract all of these at once - do one at a time transforming/appending as we go for faster first paint
-const extractSections = (json, article) => json['mobileview']['sections'].map(section => new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article))  
+const extractSections = (json, article) => json['mobileview']['sections'].map(section => new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article))
 
 const fragmentForSection = section => {
   const fragment = document.createDocumentFragment()
@@ -163,11 +163,11 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   //TODO if/when all transform calls happen happen here, will no longer need 'wmf' object or index-main.js/preview-main.js files
   const wmf = window.wmf
-  
-  wmf.redLinks.hideRedLinks(document, fragment)  
+
+  wmf.redLinks.hideRedLinks(document, fragment)
 
   wmf.filePages.disableFilePageEdit(fragment)
-  
+
   if(!article.ismain){
     if (isLead){
       //TODO fix height heuristic in paragraph relocation xf
@@ -177,7 +177,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
       wmf.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', fragment)
     }
   }
-  
+
   wmf.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
 
   //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
@@ -192,7 +192,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
 }
 
-const transformAndAppendSections = (sections) => {
+const transformAndAppendSections = sections => {
   const mainContentDiv = document.querySelector('div.content')
   sections.forEach(function(section){
     transformAndAppendSection(section, mainContentDiv)
@@ -213,53 +213,53 @@ const performEarlyNonSectionTransforms = article => {
 }
 
 //late so they won't delay section fragment processing
-const performLateNonSectionTransforms = (article, proxyURL) => {  
+const performLateNonSectionTransforms = (article, proxyURL) => {
   // add footer container
   if (window.wmf.footerContainer.isContainerAttached(document) === false) {
-      document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
-      window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
+    document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
+    window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
   }
-  
+
   // add dynamic bottom padding
   window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
 
   // add menu footer
-  // TODO simplify this and the native side which sets up menuItems 
+  // TODO simplify this and the native side which sets up menuItems
   window.wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
   this.menuItems.forEach(item => {
     let title = ''
     let subtitle = ''
     let menuItemTypeString = ''
     switch(item) {
-      case window.wmf.footerMenu.MenuItemType.languages:
-        menuItemTypeString = 'languages'
-        title = this.localizedStrings.menuLanguagesTitle
-        break
-      case window.wmf.footerMenu.MenuItemType.lastEdited:
-        menuItemTypeString = 'lastEdited'
-        title = this.localizedStrings.menuLastEditedTitle
-        subtitle = this.localizedStrings.menuLastEditedSubtitle
-        break
-      case window.wmf.footerMenu.MenuItemType.pageIssues:
-        menuItemTypeString = 'pageIssues'
-        title = this.localizedStrings.menuPageIssuesTitle
-        break
-      case window.wmf.footerMenu.MenuItemType.disambiguation:
-        menuItemTypeString = 'disambiguation'
-        title = this.localizedStrings.menuDisambiguationTitle
-        break
-      case window.wmf.footerMenu.MenuItemType.coordinate:
-        menuItemTypeString = 'coordinate'
-        title = this.localizedStrings.menuCoordinateTitle
-        break
-      case window.wmf.footerMenu.MenuItemType.talkPage:
-        menuItemTypeString = 'talkPage'
-        title = this.localizedStrings.menuTalkPageTitle
-        break
-      default:
+    case window.wmf.footerMenu.MenuItemType.languages:
+      menuItemTypeString = 'languages'
+      title = this.localizedStrings.menuLanguagesTitle
+      break
+    case window.wmf.footerMenu.MenuItemType.lastEdited:
+      menuItemTypeString = 'lastEdited'
+      title = this.localizedStrings.menuLastEditedTitle
+      subtitle = this.localizedStrings.menuLastEditedSubtitle
+      break
+    case window.wmf.footerMenu.MenuItemType.pageIssues:
+      menuItemTypeString = 'pageIssues'
+      title = this.localizedStrings.menuPageIssuesTitle
+      break
+    case window.wmf.footerMenu.MenuItemType.disambiguation:
+      menuItemTypeString = 'disambiguation'
+      title = this.localizedStrings.menuDisambiguationTitle
+      break
+    case window.wmf.footerMenu.MenuItemType.coordinate:
+      menuItemTypeString = 'coordinate'
+      title = this.localizedStrings.menuCoordinateTitle
+      break
+    case window.wmf.footerMenu.MenuItemType.talkPage:
+      menuItemTypeString = 'talkPage'
+      title = this.localizedStrings.menuTalkPageTitle
+      break
+    default:
     }
     const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
-    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)  
+    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
   })
 
   // add read more footer

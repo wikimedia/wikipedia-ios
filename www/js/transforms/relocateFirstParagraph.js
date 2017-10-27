@@ -31,6 +31,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
                 //      http://stackoverflow.com/a/1343350/135557
       var minHeight = 40
       var pIsTooSmall = p.offsetHeight < minHeight
+//TODO fix this!
 pIsTooSmall = false
       return !pIsTooSmall
     }
