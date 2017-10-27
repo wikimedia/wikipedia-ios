@@ -583,7 +583,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     NSArray *handlerNames = @[
-        @"lateJavascriptTransform",
         @"peek",
         @"linkClicked",
         @"imageClicked",
@@ -604,7 +603,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     NSString *earlyJavascriptTransforms = @""
-//TODO figure out where we should be calling the next line...
+                                           //TODO figure out where we should be calling the next line...
                                            "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
