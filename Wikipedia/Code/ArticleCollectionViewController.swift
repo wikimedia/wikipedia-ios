@@ -138,10 +138,15 @@ extension ArticleCollectionViewController {
                 return nil
         }
         previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        
+        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        articleViewController.articlePreviewingActionsDelegate = self
+        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
@@ -247,4 +252,25 @@ extension ArticleCollectionViewController: ActionDelegate {
             cell.actions = availableActions(at: indexPath)
         }
     }
+}
+
+extension ArticleCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    
+    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
+    }
+    
+    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
+    }
+    
+    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.openURL(placesURL)
+    }
+    
+    
 }
