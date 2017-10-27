@@ -310,7 +310,7 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
 }
 
 
-const transformAndAppendSectionsToDocument = (proxyURL, apiURL, article) =>{
+const transformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
   performEarlyNonSectionTransforms(article)
 
   fetch(apiURL)
