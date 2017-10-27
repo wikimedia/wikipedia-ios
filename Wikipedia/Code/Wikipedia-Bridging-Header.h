@@ -24,6 +24,8 @@
 
 #import "WMFChange.h"
 
+#import "WMFArticleFetcher.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"

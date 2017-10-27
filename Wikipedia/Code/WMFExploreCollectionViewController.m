@@ -1335,6 +1335,79 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self presentMoreViewControllerForGroup:group animated:animated];
 }
 
+#pragma mark - Peek View Controller
+
+- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+
+    UIViewController *vc = nil;
+    NSURL *articleURL = nil;
+
+    switch ([group detailType]) {
+        case WMFFeedDetailTypePage:
+        case WMFFeedDetailTypePageWithRandomButton: {
+            articleURL = [self contentURLForIndexPath:indexPath];
+        } break;
+        case WMFFeedDetailTypeEvent: {
+            articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
+            if (!articleURL) {
+                NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
+                vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
+            }
+        } break;
+        case WMFFeedDetailTypeStory: {
+            NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
+            if (indexPath.item >= stories.count) {
+                return nil;
+            }
+            articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
+        } break;
+        default:
+            vc = [self detailViewControllerForItemAtIndexPath:indexPath];
+    }
+
+    if (articleURL) {
+        WMFArticleViewController *articleViewController = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+        [articleViewController wmf_addPeekableChildViewControllerFor:articleURL dataStore:self.userStore theme:self.theme];
+        vc = articleViewController;
+    }
+
+    if ([vc conformsToProtocol:@protocol(WMFThemeable)]) {
+        [(id<WMFThemeable>)vc applyTheme:self.theme];
+    }
+    return vc;
+}
+
+- (nullable NSURL *)onThisDayArticleURLAtIndexPath:(NSIndexPath *)indexPath group:(WMFContentGroup *)group {
+    if (indexPath.length > 2) {
+        NSArray *previewEvents = (NSArray *)group.contentPreview;
+        WMFFeedOnThisDayEvent *event = nil;
+        if ([previewEvents isKindOfClass:[NSArray class]]) {
+            event = previewEvents.firstObject;
+        }
+        if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
+            NSInteger articleIndex = [indexPath indexAtPosition:2];
+            if (articleIndex < event.articlePreviews.count) {
+                WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
+                return preview.articleURL;
+            }
+        }
+    }
+    return nil;
+}
+
+- (nullable NSURL *)inTheNewsArticleURLAtIndexPath:(NSIndexPath *)indexPath stories:(NSArray<WMFFeedNewsStory *> *)stories {
+    if (indexPath.length > 2) {
+        WMFFeedNewsStory *story = stories[indexPath.item];
+        NSInteger articleIndex = [indexPath indexAtPosition:2];
+        if (articleIndex < story.articlePreviews.count) {
+            WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
+            return preview.articleURL;
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Detail View Controller
 
 - (nullable UIViewController *)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1358,39 +1431,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             if (indexPath.item >= stories.count) {
                 return nil;
             }
-            if (indexPath.length > 2) {
-                WMFFeedNewsStory *story = stories[indexPath.item];
-                NSInteger articleIndex = [indexPath indexAtPosition:2];
-                if (articleIndex < story.articlePreviews.count) {
-                    WMFFeedArticlePreview *preview = story.articlePreviews[articleIndex];
-                    NSURL *articleURL = preview.articleURL;
-                    if (articleURL) {
-                        vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                        break;
-                    }
-                }
+            NSURL *articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
+            if (articleURL) {
+                vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                break;
             }
             vc = [[WMFNewsViewController alloc] initWithStories:stories dataStore:self.userStore];
         } break;
         case WMFFeedDetailTypeEvent: {
             NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
-            if (indexPath.length > 2) {
-                NSArray *previewEvents = (NSArray *)group.contentPreview;
-                WMFFeedOnThisDayEvent *event = nil;
-                if ([previewEvents isKindOfClass:[NSArray class]]) {
-                    event = previewEvents.firstObject;
-                }
-                if ([event isKindOfClass:WMFFeedOnThisDayEvent.class]) {
-                    NSInteger articleIndex = [indexPath indexAtPosition:2];
-                    if (articleIndex < event.articlePreviews.count) {
-                        WMFFeedArticlePreview *preview = event.articlePreviews[articleIndex];
-                        NSURL *articleURL = preview.articleURL;
-                        if (articleURL) {
-                            vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
-                            break;
-                        }
-                    }
-                }
+            NSURL *articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
+            if (articleURL) {
+                vc = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.userStore theme:self.theme];
+                break;
             }
             vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
         } break;
@@ -1478,17 +1531,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 #pragma mark - WMFArticlePreviewingActionsDelegate
-
 - (void)readMoreArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [articleController wmf_removePeekableChildViewControllers];
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
+    [articleController wmf_removePeekableChildViewControllers];
     [self presentViewController:shareActivityController animated:YES completion:NULL];
 }
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
+    [articleController wmf_removePeekableChildViewControllers];
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
     [[UIApplication sharedApplication] openURL:placesURL];
 }
@@ -1542,7 +1597,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    UIViewController *vc = [self detailViewControllerForItemAtIndexPath:previewIndexPath];
+    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
@@ -1587,6 +1642,8 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+        // Show unobscured article view controller when peeking through.
+        [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
