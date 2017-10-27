@@ -611,7 +611,6 @@ class Section {
   containerDiv() {
     const container = document.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
-    //TODO clamp section.level to between 1 and 6
     container.innerHTML = `
         ${this.article.ismain ? '' : this.headingTag()}
         <div id="content_block_${this.id}" class="content_block">
