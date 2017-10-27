@@ -99,7 +99,7 @@ class Section {
     return Math.max(1, Math.min(parseInt(this.level), 6))
   }
   
-  headerTag() {
+  headingTag() {
     if(this.isLeadSection()){
       return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
                 ${this.article.title}
@@ -128,7 +128,7 @@ class Section {
     container.id = `section_heading_and_content_block_${this.id}`
     //TODO clamp section.level to between 1 and 6
     container.innerHTML = `
-        ${this.article.ismain ? '' : this.headerTag()}
+        ${this.article.ismain ? '' : this.headingTag()}
         <div id="content_block_${this.id}" class="content_block">
             ${this.isNonMainPageLeadSection() ? '<hr id="content_block_0_hr">' : ''}
             ${this.text}
