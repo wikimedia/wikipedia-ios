@@ -66,8 +66,10 @@ extension WKWebView {
         default:
             break
         }
-        return "window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant));" +
-            "window.wmf.imageDimming.dim(window, \(isDim.toString()));"
+        return """
+        window.wmf.themes.setTheme(document, window.wmf.themes.THEME.\(jsThemeConstant))
+        window.wmf.imageDimming.dim(window, \(isDim.toString()))
+        """
     }
     
     @objc public func wmf_applyTheme(_ theme: Theme){
@@ -130,7 +132,13 @@ extension WKWebView {
         let langCode = langInfo.code
         let langDir = langInfo.dir
         
-        return "new window.wmf.sectionTransformation.Language('\(langCode)', '\(langDir)', \(UIApplication.shared.wmf_isRTL.toString()))"
+        return """
+        new window.wmf.sectionTransformation.Language(
+        '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        \(UIApplication.shared.wmf_isRTL.toString())
+        )
+        """
     }
 
     private func articleJS(for article: MWKArticle) -> String {
