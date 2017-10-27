@@ -1,27 +1,20 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var wmf = {}
 
-wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
 wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
 wmf.footerMenu = require('wikimedia-page-library').FooterMenu
-wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
-wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
-wmf.redLinks = require('wikimedia-page-library').RedLinks
-wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
-wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
 wmf.sectionTransformation = require('./js/sectionTransformation')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/sectionTransformation":6,"./js/transforms/addEditButtons":7,"./js/transforms/collapseTables":8,"./js/transforms/disableFilePageEdit":9,"./js/transforms/relocateFirstParagraph":10,"./js/transforms/widenImages":11,"./js/utilities":12,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/sectionTransformation":6,"./js/utilities":12,"wikimedia-page-library":14}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -484,7 +477,24 @@ TODO
  - paragraph relocation not happening on "enwiki > color" and "enwiki > United States"
  - add JSDocs explaining all types
  - consider switching footer XF to also act on headless fragment
+ - directly 'require' window.wmf. bits used only by this file and remove those refs from the index-main.js and preview-main.js
+ - figure out why on pull to refresh progress bar is not going away (on develop?)
 */
+
+var wmf = {}
+
+wmf.editButtons = require('./transforms/addEditButtons')
+wmf.utilities = require('./utilities')
+wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
+wmf.footerMenu = require('wikimedia-page-library').FooterMenu
+wmf.footerLegal = require('wikimedia-page-library').FooterLegal
+wmf.footerContainer = require('wikimedia-page-library').FooterContainer
+wmf.filePages = require('./transforms/disableFilePageEdit')
+wmf.tables = require('./transforms/collapseTables')
+wmf.themes = require('wikimedia-page-library').ThemeTransform
+wmf.redLinks = require('wikimedia-page-library').RedLinks
+wmf.paragraphs = require('./transforms/relocateFirstParagraph')
+wmf.images = require('./transforms/widenImages')
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
@@ -622,67 +632,67 @@ class Footer {
     this.proxyURL = proxyURL
   }
   addContainer() {
-    if (window.wmf.footerContainer.isContainerAttached(document) === false) {
-      document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
+    if (wmf.footerContainer.isContainerAttached(document) === false) {
+      document.querySelector('body').appendChild(wmf.footerContainer.containerFragment(document))
       window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
     }
   }
   addDynamicBottomPadding() {
-    window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
+    window.addEventListener('resize', function(){wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
   }
   addMenu() {
-    window.wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+    wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
     this.menuItems.forEach(item => {
       let title = ''
       let subtitle = ''
       let menuItemTypeString = ''
       switch(item) {
-      case window.wmf.footerMenu.MenuItemType.languages:
+      case wmf.footerMenu.MenuItemType.languages:
         menuItemTypeString = 'languages'
         title = this.localizedStrings.menuLanguagesTitle
         break
-      case window.wmf.footerMenu.MenuItemType.lastEdited:
+      case wmf.footerMenu.MenuItemType.lastEdited:
         menuItemTypeString = 'lastEdited'
         title = this.localizedStrings.menuLastEditedTitle
         subtitle = this.localizedStrings.menuLastEditedSubtitle
         break
-      case window.wmf.footerMenu.MenuItemType.pageIssues:
+      case wmf.footerMenu.MenuItemType.pageIssues:
         menuItemTypeString = 'pageIssues'
         title = this.localizedStrings.menuPageIssuesTitle
         break
-      case window.wmf.footerMenu.MenuItemType.disambiguation:
+      case wmf.footerMenu.MenuItemType.disambiguation:
         menuItemTypeString = 'disambiguation'
         title = this.localizedStrings.menuDisambiguationTitle
         break
-      case window.wmf.footerMenu.MenuItemType.coordinate:
+      case wmf.footerMenu.MenuItemType.coordinate:
         menuItemTypeString = 'coordinate'
         title = this.localizedStrings.menuCoordinateTitle
         break
-      case window.wmf.footerMenu.MenuItemType.talkPage:
+      case wmf.footerMenu.MenuItemType.talkPage:
         menuItemTypeString = 'talkPage'
         title = this.localizedStrings.menuTalkPageTitle
         break
       default:
       }
       const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
-      window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
+      wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
     })
   }
   addReadMore() {
     if (this.article.hasReadMore){
-      window.wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+      wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
       const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
       const titlesShownHandler = titles => {
         window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
-        window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+        wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
       }
-      window.wmf.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+      wmf.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
     }
   }
   addLegal() {
     const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
     const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
-    window.wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+    wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
   }
   add() {
     this.addContainer()
@@ -710,9 +720,6 @@ const fragmentForSection = section => {
 }
 
 const applyTransformationsToFragment = (fragment, article, isLead) => {
-  //TODO if/when all transform calls happen happen here, will no longer need 'wmf' object or index-main.js/preview-main.js files
-  const wmf = window.wmf
-
   wmf.redLinks.hideRedLinks(document, fragment)
 
   wmf.filePages.disableFilePageEdit(fragment)
@@ -750,8 +757,8 @@ const transformAndAppendSection = (section, mainContentDiv) => {
 
 //early page-wide transforms which happen before any sections have been appended
 const performEarlyNonSectionTransforms = article => {
-  window.wmf.utilities.setPageProtected(!article.editable)
-  window.wmf.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
+  wmf.utilities.setPageProtected(!article.editable)
+  wmf.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
 }
 
 //late so they won't delay section fragment processing
@@ -760,7 +767,7 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
   footer.add()
   // 'themes.classifyElements()' needs to happen once after body elements are present. it
   // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
-  window.wmf.themes.classifyElements(document)
+  wmf.themes.classifyElements(document)
 }
 
 const extractJSONSections = json => json['mobileview']['sections']
@@ -790,7 +797,7 @@ exports.Article = Article
 exports.LocalizedStrings = LocalizedStrings
 exports.localizedStrings = undefined
 exports.menuItems = undefined
-},{"wikimedia-page-library":14}],7:[function(require,module,exports){
+},{"./transforms/addEditButtons":7,"./transforms/collapseTables":8,"./transforms/disableFilePageEdit":9,"./transforms/relocateFirstParagraph":10,"./transforms/widenImages":11,"./utilities":12,"wikimedia-page-library":14}],7:[function(require,module,exports){
 const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
 
 function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
