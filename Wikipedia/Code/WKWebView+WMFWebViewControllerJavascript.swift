@@ -76,25 +76,42 @@ extension WKWebView {
             return ""
         }
         
-        let infoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let tableTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let closeBoxText = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current).wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1").wmf_stringByReplacingApostrophesWithBackslashApostrophes() // Replace with $1 for JavaScript
-        let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: lang, value: "View article in browser", comment: "Link to view article in browser").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuHeading = WMFLocalizedString("article-about-title", language: lang, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").wmf_stringByReplacingApostrophesWithBackslashApostrophes().uppercased(with: Locale.current)
-        let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), "\(article.languagecount)").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let infoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
+        let tableTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}")
+        let closeBoxText = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}")
+        let readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").uppercased(with: Locale.current)
+        let licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
+        let licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}")
+        let viewInBrowserString = WMFLocalizedString("view-in-browser-footer-link", language: lang, value: "View article in browser", comment: "Link to view article in browser")
+        let menuHeading = WMFLocalizedString("article-about-title", language: lang, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article").uppercased(with: Locale.current)
+        let menuLanguagesTitle = String.localizedStringWithFormat(WMFLocalizedString("page-read-in-other-languages", language: lang, value: "Available in %1$@ other languages", comment: "Label for button showing number of languages an article is available in. %1$@ will be replaced with the number of languages"), "\(article.languagecount)")
         let lastModified = article.lastmodified ?? Date()
         let days = NSCalendar.wmf_gregorian().wmf_days(from: lastModified, to: Date())
-        let menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: lang, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days"), "\(days)").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: lang, value: "Full edit history", comment: "Label for button used to show an article's complete edit history").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: lang, value: "View talk page", comment: "Label for button linking out to an article's talk page").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: lang, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
-        let menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map").wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let menuLastEditedTitle = String.localizedStringWithFormat(WMFLocalizedString("page-last-edited",  language: lang, value: "Edited %1$@ days ago", comment: "Label for button showing number of days since an article was last edited. %1$@ will be replaced with the number of days"), "\(days)")
+        let menuLastEditedSubtitle = WMFLocalizedString("page-edit-history", language: lang, value: "Full edit history", comment: "Label for button used to show an article's complete edit history")
+        let menuTalkPageTitle = WMFLocalizedString("page-talk-page",  language: lang, value: "View talk page", comment: "Label for button linking out to an article's talk page")
+        let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
+        let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: lang, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
+        let menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
         
-        return "new window.wmf.sectionTransformation.LocalizedStrings('\(infoboxTitle)', '\(tableTitle)', '\(closeBoxText)', '\(readMoreHeading)', '\(licenseString)', '\(licenseSubstitutionString)', '\(viewInBrowserString)', '\(menuHeading)', '\(menuLanguagesTitle)', '\(menuLastEditedTitle)', '\(menuLastEditedSubtitle)', '\(menuTalkPageTitle)', '\(menuPageIssuesTitle)', '\(menuDisambiguationTitle)', '\(menuCoordinateTitle)')"
+        return """
+        new window.wmf.sectionTransformation.LocalizedStrings(
+        '\(infoboxTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(tableTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(closeBoxText.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(readMoreHeading.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(licenseString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(licenseSubstitutionString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(viewInBrowserString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuHeading.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuLanguagesTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuLastEditedTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuLastEditedSubtitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuTalkPageTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuPageIssuesTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuDisambiguationTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(menuCoordinateTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())')
+        """
     }
 
     private func languageJS(for article: MWKArticle) -> String {
