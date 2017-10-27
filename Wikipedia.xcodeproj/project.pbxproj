@@ -446,7 +446,6 @@
 		B0E804BA1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046A1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m */; };
 		B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804741C0CE0B40065EBC0 /* DDLog+WMFLogger.m */; };
 		B0E804C11C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804781C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m */; };
-		B0E804C21C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */; };
 		B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */; };
 		B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804881C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m */; };
@@ -925,7 +924,6 @@
 		D80ED34E1EE57F4800CE8C50 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D80ED3501EE57F4800CE8C50 /* WMFSearchResults+ResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033F1C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m */; };
-		D80ED3521EE57F4800CE8C50 /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */; };
 		D80ED3531EE57F4800CE8C50 /* WMFExploreSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8032F1C0CD6F20065EBC0 /* WMFExploreSectionFooter.m */; };
 		D80ED3561EE57F4800CE8C50 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D80ED3571EE57F4800CE8C50 /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D41C0CEB850065EBC0 /* AbuseFilterAlert.m */; };
@@ -1655,7 +1653,6 @@
 		D8A42B2D1E815A9C00D8E281 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8A42B301E815A9C00D8E281 /* WMFSearchResults+ResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033F1C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m */; };
-		D8A42B321E815A9C00D8E281 /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */; };
 		D8A42B341E815A9C00D8E281 /* WMFExploreSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8032F1C0CD6F20065EBC0 /* WMFExploreSectionFooter.m */; };
 		D8A42B371E815A9C00D8E281 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D8A42B381E815A9C00D8E281 /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D41C0CEB850065EBC0 /* AbuseFilterAlert.m */; };
@@ -1998,7 +1995,6 @@
 		D8CE25B21E698E2400DAE2E0 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8CE25B51E698E2400DAE2E0 /* WMFSearchResults+ResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033F1C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m */; };
-		D8CE25B71E698E2400DAE2E0 /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */; };
 		D8CE25B91E698E2400DAE2E0 /* WMFExploreSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8032F1C0CD6F20065EBC0 /* WMFExploreSectionFooter.m */; };
 		D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D8CE25BD1E698E2400DAE2E0 /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D41C0CEB850065EBC0 /* AbuseFilterAlert.m */; };
@@ -2396,7 +2392,6 @@
 		D8EC3EAF1E9BDA35006712EB /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8042E1C0CDF850065EBC0 /* PaddedLabel.m */; };
 		D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */; };
 		D8EC3EB21E9BDA35006712EB /* WMFSearchResults+ResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033F1C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m */; };
-		D8EC3EB41E9BDA35006712EB /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */; };
 		D8EC3EB61E9BDA35006712EB /* WMFExploreSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8032F1C0CD6F20065EBC0 /* WMFExploreSectionFooter.m */; };
 		D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		D8EC3EBA1E9BDA35006712EB /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D41C0CEB850065EBC0 /* AbuseFilterAlert.m */; };
@@ -3365,8 +3360,6 @@
 		B0E804761C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKArticle+WMFSharing.m"; path = "Wikipedia/Code/MWKArticle+WMFSharing.m"; sourceTree = SOURCE_ROOT; };
 		B0E804771C0CE0B40065EBC0 /* MWKLicense+ToGlyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKLicense+ToGlyph.h"; path = "Wikipedia/Code/MWKLicense+ToGlyph.h"; sourceTree = SOURCE_ROOT; };
 		B0E804781C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKLicense+ToGlyph.m"; path = "Wikipedia/Code/MWKLicense+ToGlyph.m"; sourceTree = SOURCE_ROOT; };
-		B0E804791C0CE0B40065EBC0 /* MWKSection+DisplayHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKSection+DisplayHtml.h"; path = "Wikipedia/Code/MWKSection+DisplayHtml.h"; sourceTree = SOURCE_ROOT; };
-		B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+DisplayHtml.m"; path = "Wikipedia/Code/MWKSection+DisplayHtml.m"; sourceTree = SOURCE_ROOT; };
 		B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSArray+WMFExtensions.swift"; path = "Wikipedia/Code/NSArray+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		B0E804831C0CE0B40065EBC0 /* NSAttributedString+WMFModify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+WMFModify.h"; path = "Wikipedia/Code/NSAttributedString+WMFModify.h"; sourceTree = SOURCE_ROOT; };
 		B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModify.m"; path = "Wikipedia/Code/NSAttributedString+WMFModify.m"; sourceTree = SOURCE_ROOT; };
@@ -6753,8 +6746,6 @@
 			children = (
 				B0E804771C0CE0B40065EBC0 /* MWKLicense+ToGlyph.h */,
 				B0E804781C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m */,
-				B0E804791C0CE0B40065EBC0 /* MWKSection+DisplayHtml.h */,
-				B0E8047A1C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m */,
 				BCD3200B1C737E0000317D08 /* NSNumber+MWKTitleNamespace.h */,
 				BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */,
 			);
@@ -9693,7 +9684,6 @@
 				B0E804431C0CDF850065EBC0 /* PaddedLabel.m in Sources */,
 				B01490A31DB96E5F007F5391 /* WMFReferencePageViewController.swift in Sources */,
 				B0E803401C0CD7850065EBC0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
-				B0E804C21C0CE0B40065EBC0 /* MWKSection+DisplayHtml.m in Sources */,
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				B0E806D81C0CEB850065EBC0 /* AbuseFilterAlert.m in Sources */,
@@ -9989,7 +9979,6 @@
 				D80ED34E1EE57F4800CE8C50 /* PaddedLabel.m in Sources */,
 				D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */,
 				D80ED3501EE57F4800CE8C50 /* WMFSearchResults+ResponseSerializer.m in Sources */,
-				D80ED3521EE57F4800CE8C50 /* MWKSection+DisplayHtml.m in Sources */,
 				D850A53E1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D80ED3531EE57F4800CE8C50 /* WMFExploreSectionFooter.m in Sources */,
 				D80ED3561EE57F4800CE8C50 /* WikiTextSectionUploader.m in Sources */,
@@ -10583,7 +10572,6 @@
 				D8A42B301E815A9C00D8E281 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				BA4524271F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				83927D7E1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
-				D8A42B321E815A9C00D8E281 /* MWKSection+DisplayHtml.m in Sources */,
 				D8A42B341E815A9C00D8E281 /* WMFExploreSectionFooter.m in Sources */,
 				D8A42B371E815A9C00D8E281 /* WikiTextSectionUploader.m in Sources */,
 				D8A42B381E815A9C00D8E281 /* AbuseFilterAlert.m in Sources */,
@@ -10884,7 +10872,6 @@
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
 				D8CE25B51E698E2400DAE2E0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				D850A53B1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
-				D8CE25B71E698E2400DAE2E0 /* MWKSection+DisplayHtml.m in Sources */,
 				D8CE25B91E698E2400DAE2E0 /* WMFExploreSectionFooter.m in Sources */,
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
@@ -11187,7 +11174,6 @@
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
 				D8EC3EB21E9BDA35006712EB /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
-				D8EC3EB41E9BDA35006712EB /* MWKSection+DisplayHtml.m in Sources */,
 				D8EC3EB61E9BDA35006712EB /* WMFExploreSectionFooter.m in Sources */,
 				B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				D8EC3EB91E9BDA35006712EB /* WikiTextSectionUploader.m in Sources */,
