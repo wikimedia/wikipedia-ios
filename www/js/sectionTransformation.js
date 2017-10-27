@@ -20,7 +20,7 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
 class LocalizedStrings {
-  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString, menuHeading, menuLanguagesTitle, menuLastEditedTitle, menuLastEditedSubtitle, menuTalkPageTitle, menuPageIssuesTitle, menuDisambiguationTitle, menuCoordinateTitle, errorMessage) {
+  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString, menuHeading, menuLanguagesTitle, menuLastEditedTitle, menuLastEditedSubtitle, menuTalkPageTitle, menuPageIssuesTitle, menuDisambiguationTitle, menuCoordinateTitle, sectionErrorMessage) {
     this.tableInfoboxTitle = tableInfoboxTitle
     this.tableOtherTitle = tableOtherTitle
     this.tableFooterTitle = tableFooterTitle
@@ -36,7 +36,7 @@ class LocalizedStrings {
     this.menuPageIssuesTitle = menuPageIssuesTitle
     this.menuDisambiguationTitle = menuDisambiguationTitle
     this.menuCoordinateTitle = menuCoordinateTitle
-    this.errorMessage = errorMessage
+    this.sectionErrorMessage = sectionErrorMessage
     // Ensure everything is a string
     for (const property in this) {
       if (this.hasOwnProperty(property)) {
