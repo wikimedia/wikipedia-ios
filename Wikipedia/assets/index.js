@@ -596,6 +596,17 @@ class Section {
     return this.anchor === undefined || this.anchor.length === 0 ? '' : `id='${this.anchor}'`
   }
     
+  shouldWrapInTable() {
+    return ['References', 'External links', 'Notes', 'Further reading', 'Bibliography'].indexOf(this.line) != -1
+  }
+    
+  html() {
+     if(this.shouldWrapInTable()){
+       return `<table><th>${this.line}</th><tr><td>${this.text}</td></tr></table>`
+     }
+     return this.text
+  }
+    
   containerDiv() {
     const container = document.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
@@ -604,7 +615,7 @@ class Section {
         ${this.article.ismain ? '' : this.headingTag()}
         <div id="content_block_${this.id}" class="content_block">
             ${this.isNonMainPageLeadSection() ? '<hr id="content_block_0_hr">' : ''}
-            ${this.text}
+            ${this.html()}
         </div>`
     return container
   }
