@@ -538,7 +538,6 @@ class Article {
     this.language = language
     this.hasReadMore = hasReadMore
   }
-
   descriptionParagraph() {
     if(this.description !== undefined && this.description.length > 0){
       return `<p id='entity_description'>${this.description}</p>`
@@ -611,6 +610,86 @@ class Section {
             ${this.html()}
         </div>`
     return container
+  }
+}
+
+class Footer {
+  constructor(article, menuItems, readMoreItemCount, localizedStrings, proxyURL) {
+    this.article = article
+    this.menuItems = menuItems
+    this.readMoreItemCount = readMoreItemCount
+    this.localizedStrings = localizedStrings
+    this.proxyURL = proxyURL
+  }
+  addContainer() {
+    if (window.wmf.footerContainer.isContainerAttached(document) === false) {
+      document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
+      window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
+    }
+  }
+  addDynamicBottomPadding() {
+    window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
+  }
+  addMenu() {
+    window.wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+    this.menuItems.forEach(item => {
+      let title = ''
+      let subtitle = ''
+      let menuItemTypeString = ''
+      switch(item) {
+      case window.wmf.footerMenu.MenuItemType.languages:
+        menuItemTypeString = 'languages'
+        title = this.localizedStrings.menuLanguagesTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.lastEdited:
+        menuItemTypeString = 'lastEdited'
+        title = this.localizedStrings.menuLastEditedTitle
+        subtitle = this.localizedStrings.menuLastEditedSubtitle
+        break
+      case window.wmf.footerMenu.MenuItemType.pageIssues:
+        menuItemTypeString = 'pageIssues'
+        title = this.localizedStrings.menuPageIssuesTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.disambiguation:
+        menuItemTypeString = 'disambiguation'
+        title = this.localizedStrings.menuDisambiguationTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.coordinate:
+        menuItemTypeString = 'coordinate'
+        title = this.localizedStrings.menuCoordinateTitle
+        break
+      case window.wmf.footerMenu.MenuItemType.talkPage:
+        menuItemTypeString = 'talkPage'
+        title = this.localizedStrings.menuTalkPageTitle
+        break
+      default:
+      }
+      const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
+      window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
+    })
+  }
+  addReadMore() {
+    if (this.article.hasReadMore){
+      window.wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+      const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
+      const titlesShownHandler = titles => {
+        window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
+        window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+      }
+      window.wmf.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+    }
+  }
+  addLegal() {
+    const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
+    const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
+    window.wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+  }
+  add() {
+    this.addContainer()
+    this.addDynamicBottomPadding()
+    this.addMenu()
+    this.addReadMore()
+    this.addLegal()
   }
 }
 
@@ -687,77 +766,12 @@ const performEarlyNonSectionTransforms = article => {
 
 //late so they won't delay section fragment processing
 const performLateNonSectionTransforms = (article, proxyURL) => {
-  // add footer container
-  if (window.wmf.footerContainer.isContainerAttached(document) === false) {
-    document.querySelector('body').appendChild(window.wmf.footerContainer.containerFragment(document))
-    window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
-  }
-
-  // add dynamic bottom padding
-  window.addEventListener('resize', function(){window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
-
-  // add menu footer
-  // TODO simplify this and the native side which sets up menuItems
-  window.wmf.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
-  this.menuItems.forEach(item => {
-    let title = ''
-    let subtitle = ''
-    let menuItemTypeString = ''
-    switch(item) {
-    case window.wmf.footerMenu.MenuItemType.languages:
-      menuItemTypeString = 'languages'
-      title = this.localizedStrings.menuLanguagesTitle
-      break
-    case window.wmf.footerMenu.MenuItemType.lastEdited:
-      menuItemTypeString = 'lastEdited'
-      title = this.localizedStrings.menuLastEditedTitle
-      subtitle = this.localizedStrings.menuLastEditedSubtitle
-      break
-    case window.wmf.footerMenu.MenuItemType.pageIssues:
-      menuItemTypeString = 'pageIssues'
-      title = this.localizedStrings.menuPageIssuesTitle
-      break
-    case window.wmf.footerMenu.MenuItemType.disambiguation:
-      menuItemTypeString = 'disambiguation'
-      title = this.localizedStrings.menuDisambiguationTitle
-      break
-    case window.wmf.footerMenu.MenuItemType.coordinate:
-      menuItemTypeString = 'coordinate'
-      title = this.localizedStrings.menuCoordinateTitle
-      break
-    case window.wmf.footerMenu.MenuItemType.talkPage:
-      menuItemTypeString = 'talkPage'
-      title = this.localizedStrings.menuTalkPageTitle
-      break
-    default:
-    }
-    const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
-    window.wmf.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
-  })
-
-  // add read more footer
-  if (article.hasReadMore){
-    window.wmf.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
-
-    const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
-    const titlesShownHandler = titles => {
-      window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
-      window.wmf.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
-    }
-    const readMoreItemCount = 3
-    window.wmf.footerReadMore.add(article.title, readMoreItemCount, 'pagelib_footer_container_readmore_pages', proxyURL, saveButtonTapHandler, titlesShownHandler, document)
-  }
-
-  // add legal footer
-  const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
-  const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
-  window.wmf.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
-
+  const footer = new Footer(article, this.menuItems, 3, this.localizedStrings, proxyURL)
+  footer.add()
   // 'themes.classifyElements()' needs to happen once after body elements are present. it
   // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
   window.wmf.themes.classifyElements(document)
 }
-
 
 const transformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
   performEarlyNonSectionTransforms(article)
@@ -887,7 +901,8 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
                 //      http://stackoverflow.com/a/1343350/135557
       var minHeight = 40
       var pIsTooSmall = p.offsetHeight < minHeight
-      pIsTooSmall = false
+//TODO fix this!
+pIsTooSmall = false
       return !pIsTooSmall
     }
     return false
@@ -931,6 +946,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
+
 },{}],11:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
