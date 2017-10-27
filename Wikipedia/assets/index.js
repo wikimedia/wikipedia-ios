@@ -765,8 +765,7 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
 
 const extractJSONSections = json => json['mobileview']['sections']
 
-const transformAndAppendSectionsToDocument = (sections, article) => {
-  const mainContentDiv = document.querySelector('div.content')
+const transformAndAppendSectionsToMainContentDiv = (sections, article, mainContentDiv) => {
   sections.forEach(section => {
     const sectionModel = new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article)
     transformAndAppendSection(sectionModel, mainContentDiv)
@@ -775,12 +774,12 @@ const transformAndAppendSectionsToDocument = (sections, article) => {
 
 const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
   performEarlyNonSectionTransforms(article)
-
+  const mainContentDiv = document.querySelector('div.content')
   fetch(apiURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
   .then(extractJSONSections)
-  .then(sections => transformAndAppendSectionsToDocument(sections, article))
+  .then(sections => transformAndAppendSectionsToMainContentDiv(sections, article, mainContentDiv))
   .then(() => performLateNonSectionTransforms(article, proxyURL))
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
