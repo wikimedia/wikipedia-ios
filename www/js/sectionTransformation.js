@@ -229,9 +229,6 @@ const processStatus = response => {
 
 const extractJSON = response => response.json()
 
-//TODO probably don't extract all of these at once - do one at a time transforming/appending as we go for faster first paint
-const extractSections = (json, article) => json['mobileview']['sections'].map(section => new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article))
-
 const fragmentForSection = section => {
   const fragment = document.createDocumentFragment()
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
@@ -271,13 +268,6 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
 }
 
-const transformAndAppendSections = sections => {
-  const mainContentDiv = document.querySelector('div.content')
-  sections.forEach(function(section){
-    transformAndAppendSection(section, mainContentDiv)
-  })
-}
-
 const transformAndAppendSection = (section, mainContentDiv) => {
   const fragment = fragmentForSection(section)
   // Transform the fragments *before* attaching them to the main DOM.
@@ -300,21 +290,27 @@ const performLateNonSectionTransforms = (article, proxyURL) => {
   window.wmf.themes.classifyElements(document)
 }
 
-const transformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
+const transformAndAppendSectionsToDocument = (json, article) => {
+  const mainContentDiv = document.querySelector('div.content')
+  const sections = json['mobileview']['sections']
+  sections.forEach(section => {
+    const sectionModel = new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article)
+    transformAndAppendSection(sectionModel, mainContentDiv)
+  })
+}
+
+const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
   performEarlyNonSectionTransforms(article)
 
   fetch(apiURL)
   .then(processStatus)
   .then(extractJSON)
-  .then(json => extractSections(json, article))
-  .then(transformAndAppendSections)
-  .then(() => {
-    performLateNonSectionTransforms(article, proxyURL)
-  })
+  .then(json => transformAndAppendSectionsToDocument(json, article))
+  .then(() => performLateNonSectionTransforms(article, proxyURL))
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
-exports.transformAndAppendSectionsToDocument = transformAndAppendSectionsToDocument
+exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
 exports.LocalizedStrings = LocalizedStrings
