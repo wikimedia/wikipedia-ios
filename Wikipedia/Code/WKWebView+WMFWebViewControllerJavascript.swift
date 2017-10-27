@@ -101,6 +101,7 @@ extension WKWebView {
         let menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         let menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: lang, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         let menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
+        let errorMessage = WMFLocalizedString("article-unable-to-load-section", language: lang, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
         
         return """
         new window.wmf.sectionTransformation.LocalizedStrings(
@@ -118,7 +119,8 @@ extension WKWebView {
         '\(menuTalkPageTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(menuPageIssuesTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(menuDisambiguationTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        '\(menuCoordinateTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+        '\(menuCoordinateTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(errorMessage.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
         )
         """
     }
