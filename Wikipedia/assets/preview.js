@@ -1018,7 +1018,8 @@ var MenuItemType = {
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
-  coordinate: 5
+  coordinate: 5,
+  talkPage: 6
 };
 
 /**
@@ -2204,6 +2205,9 @@ var widenAncestors = function widenAncestors(el) {
   for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
     if (parentElement.style.width) {
       parentElement.style.width = '100%';
+    }
+    if (parentElement.style.height) {
+      parentElement.style.height = 'auto';
     }
     if (parentElement.style.maxWidth) {
       parentElement.style.maxWidth = '100%';
