@@ -85,7 +85,7 @@ extension WKWebView {
         return """
             <style type='text/css'>
                 body {
-                    -webkit-text-size-adjust: \(fontSize);
+                    -webkit-text-size-adjust: \(fontSize)%;
                 }
             </style>
             <base href="\(baseURL.absoluteString)">
