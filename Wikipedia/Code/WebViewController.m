@@ -9,7 +9,6 @@
 #import "WKWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "WKWebView+LoadAssetsHtml.h"
 #import "WKWebView+WMFWebViewControllerJavascript.h"
 #import "WMFFindInPageKeyboardBar.h"
 #import "WebViewController+WMFReferencePopover.h"
