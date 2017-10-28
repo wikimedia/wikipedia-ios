@@ -51,10 +51,10 @@ extension WKWebView {
         let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
         
         // index.html and preview.html have 5 "%@" subsitition markers. Replace these with actual content.
-        let templateAndContent = NSString.init(format: (fileContents as NSString), headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, proxiedString!)
+        let templateAndContent = String(format: fileContents, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, proxiedString!)
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
-        proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8.rawValue), withContentType: "text/html; charset=utf-8", forPath: requestPath)
+        proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath)
         
         loadHTMLFromAssetsFile(requestPath, scrolledToFragment: fragment)
     }
