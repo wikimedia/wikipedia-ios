@@ -33,6 +33,9 @@ extension WKWebView {
             proxyServer.start()
         }
         let targetWidth = UInt(window.screen.wmf_articleImageWidthForScale())
+//TODO: the proxy will have to perform 'stringByReplacingImageURLsWithProxyURLs' on the HTML it delivers when serving up article section html array JSON.
+// Edit preview still sends HTML to the 'string' parameter, but i don't think editing preview needs to proxy image urls because edit preview doesn't
+// need to serve saved images...
         let proxiedString = proxyServer.stringByReplacingImageURLsWithProxyURLs(inHTMLString: string ?? "", withBaseURL: baseURL, targetImageWidth: targetWidth)
         let localFilePath = (WikipediaAppUtils.assetsPath() as NSString).appendingPathComponent(fileName)
         guard let fileContents = try? String(contentsOfFile: localFilePath, encoding: String.Encoding.utf8) else {
