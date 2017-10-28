@@ -174,8 +174,7 @@ extension WKWebView {
         return "[\(menuItemTypeJSPaths.joined(separator: ", "))]"
     }
     
-// TODO: update this TEMPORARY method naming
-    @objc public func wmf_loadArticle2(_ article: MWKArticle){
+    @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle){
         guard
             let url = article.url,
             let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: url.host),

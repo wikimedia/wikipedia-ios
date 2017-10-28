@@ -300,9 +300,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
-    if ([messageString isEqualToString:@"articleLoaded"]) {
+    if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
 
-        [self.webView wmf_loadArticle2:self.article];
+        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
@@ -603,8 +603,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     NSString *earlyJavascriptTransforms = @""
-                                           //TODO figure out where we should be calling the next line...
-                                           "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
+                                           "window.webkit.messageHandlers.articleState.postMessage('indexHTMLDocumentLoaded');"
                                            "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
 
     [userContentController addUserScript:
