@@ -20,7 +20,6 @@ extension WKWebView {
     // Loads html passed to it injected into html from fileName.
     @objc func loadHTML(_ string: String?, baseURL: URL?, withAssetsFile fileName: String?, scrolledToFragment fragment: String?, padding: UIEdgeInsets, theme: Theme) {
         guard
-            let window = window,
             let proxyServer = WMFProxyServer.shared(),
             let fileName = fileName,
             let baseURL = baseURL,
@@ -32,11 +31,7 @@ extension WKWebView {
         if proxyServer.isRunning == false {
             proxyServer.start()
         }
-        let targetWidth = UInt(window.screen.wmf_articleImageWidthForScale())
-//TODO: the proxy will have to perform 'stringByReplacingImageURLsWithProxyURLs' on the HTML it delivers when serving up article section html array JSON.
-// Edit preview still sends HTML to the 'string' parameter, but i don't think editing preview needs to proxy image urls because edit preview doesn't
-// need to serve saved images...
-        let proxiedString = proxyServer.stringByReplacingImageURLsWithProxyURLs(inHTMLString: string ?? "", withBaseURL: baseURL, targetImageWidth: targetWidth)
+
         let localFilePath = (WikipediaAppUtils.assetsPath() as NSString).appendingPathComponent(fileName)
         guard let fileContents = try? String(contentsOfFile: localFilePath, encoding: String.Encoding.utf8) else {
             DDLogError("\(localFilePath) contents not found");
@@ -51,7 +46,7 @@ extension WKWebView {
         let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
         
         // index.html and preview.html have 5 "%@" subsitition markers. Replace these with actual content.
-        let templateAndContent = String(format: fileContents, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, proxiedString!)
+        let templateAndContent = String(format: fileContents, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
         proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath)
