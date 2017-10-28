@@ -55,28 +55,30 @@ extension WKWebView {
     }
     
     fileprivate func stringToInjectIntoHeadTag(fontSize: NSNumber, baseURL: URL, theme: Theme) -> String {
-        // The 'theme' and 'compatibility' calls are deliberately injected specifically into the head tag via an inline script because:
-        //      "... inline scripts are fetched and executed immediately, before the browser continues to parse the page"
-        //      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
-        //
-        //  This ensures all theme settings are in place before any page rendering occurs.
-        //
-        // 'compatibility.enableSupport()'
-        //      Needs to happen only once but *before* body elements are present and before
-        //      calling 'themes.setTheme()'.
-        //
-        // 'themes.setTheme()'
-        //      Needs to happen before body elements are present so these will appear with
-        //      correct theme colors already set. (This method is also used to changes themes,
-        //      but changing themes doesn't require 'compatibility.enableSupport()' or
-        //      'themes.classifyElements()' be called again.)
-        //
-        // Reminder:
-        //      We don't want to use 'addUserScript:' with WKUserScriptInjectionTimeAtDocumentEnd for this because
-        //      it happens too late - at 'DocumentEnd'. We want the colors to be set before this so there is never
-        //      a flickering color change visible to the user. We can't use WKUserScriptInjectionTimeAtDocumentBegin
-        //      because this fires before any of the head tag contents are resolved, including references to our JS
-        //      libraries - we'd have to make a larger set of changes to make this work.
+        /*
+        The 'theme' and 'compatibility' calls are deliberately injected specifically into the head tag via an inline script because:
+             "... inline scripts are fetched and executed immediately, before the browser continues to parse the page"
+             https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+        
+         This ensures all theme settings are in place before any page rendering occurs.
+        
+        'compatibility.enableSupport()'
+             Needs to happen only once but *before* body elements are present and before
+             calling 'themes.setTheme()'.
+        
+        'themes.setTheme()'
+             Needs to happen before body elements are present so these will appear with
+             correct theme colors already set. (This method is also used to changes themes,
+             but changing themes doesn't require 'compatibility.enableSupport()' or
+             'themes.classifyElements()' be called again.)
+        
+        Reminder:
+             We don't want to use 'addUserScript:' with WKUserScriptInjectionTimeAtDocumentEnd for this because
+             it happens too late - at 'DocumentEnd'. We want the colors to be set before this so there is never
+             a flickering color change visible to the user. We can't use WKUserScriptInjectionTimeAtDocumentBegin
+             because this fires before any of the head tag contents are resolved, including references to our JS
+             libraries - we'd have to make a larger set of changes to make this work.
+        */
         return """
             <style type='text/css'>
                 body {
