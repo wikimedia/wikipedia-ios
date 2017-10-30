@@ -8,6 +8,10 @@
 #import <WMF/WMFFIFOCache.h>
 #import "MWKArticle.h"
 
+NSString *const WMFProxyServerArticleSectionDataBasePath = @"articleSectionData";
+NSString *const WMFProxyServerArticleKeyQueryItem = @"articleKey";
+NSString *const WMFProxyServerImageWidthQueryItem = @"imageWidth";
+
 static const NSInteger WMFCachedResponseCountLimit = 6;
 
 @interface WMFProxyServerResponse : NSObject
@@ -165,6 +169,56 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             }
 
             [self handleImageRequestForURL:imgURL completionBlock:completionBlock];
+        } else if ([baseComponent isEqualToString:WMFProxyServerArticleSectionDataBasePath]) {
+            NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFProxyServerArticleKeyQueryItem];
+            if (!articleKey) {
+                notFound();
+                return;
+            }
+            MWKArticle *article = [self articleForKey:articleKey];
+            if (!article) {
+                notFound();
+                return;
+            }
+            NSString *imageWidthString = [request.URL wmf_valueForQueryKey:WMFProxyServerImageWidthQueryItem];
+            if (!imageWidthString) {
+                notFound();
+                return;
+            }
+            NSInteger imageWidth = [imageWidthString integerValue];
+            if (imageWidth <= 0) {
+                notFound();
+                return;
+            }
+            MWKSectionList *sections = article.sections;
+            NSInteger count = sections.count;
+            NSMutableArray *sectionJSONs = [NSMutableArray arrayWithCapacity:count];
+            NSInteger index = 0;
+            NSURL *baseURL = article.url;
+            for (MWKSection *section in sections) {
+                NSString *sectionHTML = [self stringByReplacingImageURLsWithProxyURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
+                if (!sectionHTML) {
+                    continue;
+                }
+                NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:2];
+                sectionJSON[@"id"] = @(index);
+                sectionJSON[@"text"] = sectionHTML;
+                [sectionJSONs addObject:sectionJSON];
+                index++;
+            }
+            NSMutableDictionary *responseJSON = [NSMutableDictionary dictionaryWithCapacity:1];
+            NSMutableDictionary *mobileviewJSON = [NSMutableDictionary dictionaryWithCapacity:1];
+            mobileviewJSON[@"sections"] = sectionJSONs;
+            responseJSON[@"mobileview"] = mobileviewJSON;
+            NSError *JSONError = nil;
+            NSData *JSONData = [NSJSONSerialization dataWithJSONObject:responseJSON options:0 error:&JSONError];
+            if (!JSONData) {
+                DDLogError(@"Error serializing mobileview JSON: %@", JSONError);
+                notFound();
+                return;
+            }
+            GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithData:JSONData contentType:@"application/json; charset=utf-8"];
+            completionBlock(response);
         } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
             NSAssert(components.count == 6, @"Expected 6 components when using WMFProxyAPIBasePath");
             if (components.count == 6) {
@@ -291,6 +345,30 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 - (NSString *)localFilePathForRelativeFilePath:(NSString *)relativeFilePath {
     return [self.hostedFolderPath stringByAppendingPathComponent:relativeFilePath];
+}
+
+#pragma - Article Section Data URLs
+
+- (nullable NSURL *)articleSectionDataURLForArticleWithURL:(NSURL *)articleURL targetImageWidth:(NSInteger)targetImageWidth {
+    NSString *secret = self.secret;
+    NSURL *serverURL = self.webServer.serverURL;
+    NSString *key = articleURL.wmf_articleDatabaseKey;
+    if (secret == nil || serverURL == nil || key == nil) {
+        return nil;
+    }
+    
+    NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyServerArticleSectionDataBasePath]];
+    NSURLQueryItem *articleKeyQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerArticleKeyQueryItem value:key];
+    NSString *imageWidthString = [NSString stringWithFormat:@"%lli", (long long)targetImageWidth];
+    NSURLQueryItem *imageWidthQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerImageWidthQueryItem value:imageWidthString];
+    if (!articleKeyQueryItem || !imageWidthString) {
+        return nil;
+    }
+    
+    components.queryItems = @[articleKeyQueryItem, imageWidthQueryItem];
+    
+    return components.URL;
 }
 
 #pragma - Image Proxy URLs

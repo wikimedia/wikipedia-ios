@@ -177,8 +177,9 @@ extension WKWebView {
     @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle){
         guard
             let url = article.url,
-            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: url.host),
-            let encodedTitle = url.wmf_titleWithUnderscores
+            let host = url.host,
+            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: host),
+            let apiURL = WMFProxyServer.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, proxyURL and encodedTitle")
                 return
@@ -186,9 +187,7 @@ extension WKWebView {
 
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
         let proxyURLString = proxyURL.absoluteString
-
-// TODO: update this once the proxy server can deliver section json html array
-        let apiURLString = "\(proxyURLString)\("/w/api.php?action=mobileview&format=json&noheadings=true&pilicense=any&prop=sections%7Ctext%7Clastmodified%7Clastmodifiedby%7Clanguagecount%7Cid%7Cprotection%7Ceditable%7Cdisplaytitle%7Cthumb%7Cdescription%7Cimage%7Crevision%7Cnamespace&sectionprop=toclevel%7Cline%7Canchor%7Clevel%7Cnumber%7Cfromtitle%7Cindex&sections=all&thumbwidth=640&page=\(encodedTitle)")".wmf_stringByReplacingApostrophesWithBackslashApostrophes()
+        let apiURLString = apiURL.absoluteString
 
         evaluateJavaScript("""
             window.wmf.sectionTransformation.localizedStrings = \(localizedStringsJS(for: article))

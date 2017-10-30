@@ -20,7 +20,6 @@ extension WKWebView {
     // Loads html passed to it injected into html from fileName.
     @objc func loadHTML(_ string: String?, baseURL: URL?, withAssetsFile fileName: String?, scrolledToFragment fragment: String?, padding: UIEdgeInsets, theme: Theme) {
         guard
-            let proxyServer = WMFProxyServer.shared(),
             let fileName = fileName,
             let baseURL = baseURL,
             let articleDatabaseKey = baseURL.wmf_articleDatabaseKey
@@ -28,6 +27,8 @@ extension WKWebView {
             DDLogError("window, proxyServer, baseURL or fileName not found");
             return
         }
+        
+        let proxyServer = WMFProxyServer.shared()
         if proxyServer.isRunning == false {
             proxyServer.start()
         }
