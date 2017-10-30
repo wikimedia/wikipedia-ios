@@ -199,7 +199,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
                 if (!sectionHTML) {
                     continue;
                 }
-                NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:2];
+                NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:5];
                 sectionJSON[@"id"] = @(section.sectionId);
                 sectionJSON[@"line"] = section.line;
                 sectionJSON[@"level"] = section.level;
