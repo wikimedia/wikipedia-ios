@@ -1,18 +1,3 @@
-/*
-TODO
- - maybe modify image urls to proxy not by parsing on native side but by using JS transforms once we have doc frag? (they're already parsed anyway)
- - could we prototype any missing fragment objects if a transforms calls something on frag which only exits in document?
- - ensure TOC logic keeps working
- - make sure this works - (void)loadHTMLFromAssetsFile:(NSString *)fileName scrolledToFragment:(NSString *)fragment {
- - use updates from these branches (dropping iOS 9)
-    remove-css-cruft
-    remove-version-10-checks
- - figure out earliest point at which it's safe to kick off this js
- - paragraph relocation not happening on "enwiki > color" and "enwiki > United States"
- - add JSDocs explaining all types
- - consider switching footer XF to also act on headless fragment
- - figure out why on pull to refresh progress bar is not going away (on develop?)
-*/
 
 const requirements = {
   editButtons: require('./transforms/addEditButtons'),
@@ -272,8 +257,6 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     image.setAttribute('data-image-gallery', isGallery)
   })
   requirements.images.widenImages(fragment)
-  //TODO handle other transforms here
-
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
