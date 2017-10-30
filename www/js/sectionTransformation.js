@@ -240,8 +240,10 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   if(!article.ismain){
     if (isLead){
       requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
+      // Add lead section edit button after the lead section horizontal rule element.
       requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
     }else{
+      // Add non-lead section edit buttons inside respective header elements.
       requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', fragment)
     }
   }
