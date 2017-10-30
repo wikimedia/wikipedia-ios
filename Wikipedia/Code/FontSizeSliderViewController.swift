@@ -30,9 +30,6 @@ class FontSizeSliderViewController: UIViewController {
         }
         apply(theme: self.theme)
         
-        slider.isAccessibilityElement = true
-        slider.accessibilityTraits = UIAccessibilityTraitAdjustable
-        slider.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
     }
     
     override func viewWillAppear(_ animated: Bool) {

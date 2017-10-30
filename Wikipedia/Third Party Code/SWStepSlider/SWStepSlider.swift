@@ -86,6 +86,14 @@ open class SWStepSlider: UIControl {
         self.addGestureRecognizer(tap)
         
         self.layer.addSublayer(self.thumbLayer)
+        
+        self.isAccessibilityElement = true
+        self.accessibilityTraits = UIAccessibilityTraitAdjustable
+        self.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
+    }
+    
+    func sliderValueChanged() {
+        
     }
     
     open override func layoutSubviews() {

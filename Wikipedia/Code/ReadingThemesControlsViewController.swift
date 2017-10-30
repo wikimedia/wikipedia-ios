@@ -63,12 +63,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         sepiaThemeButton.setTitleColor(Theme.sepia.colors.primaryText, for: .normal)
         darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
         
-        for slideView in textSizeSliderViews {
-            slideView.isAccessibilityElement = true
-            slideView.accessibilityTraits = UIAccessibilityTraitAdjustable
-            slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
         preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
