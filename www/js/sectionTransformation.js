@@ -239,7 +239,6 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
   if(!article.ismain){
     if (isLead){
-      //TODO fix height heuristic in paragraph relocation xf
       requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
     }else{
