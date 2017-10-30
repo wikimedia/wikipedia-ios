@@ -54,7 +54,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 - (void)setup {
     self.responseCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
     self.articleCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
-    
+
     NSString *secret = [[NSUUID UUID] UUIDString];
     self.secret = secret;
 
@@ -193,7 +193,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             MWKSectionList *sections = article.sections;
             NSInteger count = sections.count;
             NSMutableArray *sectionJSONs = [NSMutableArray arrayWithCapacity:count];
-            NSInteger index = 0;
             NSURL *baseURL = article.url;
             for (MWKSection *section in sections) {
                 NSString *sectionHTML = [self stringByReplacingImageURLsWithProxyURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
@@ -201,10 +200,12 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
                     continue;
                 }
                 NSMutableDictionary *sectionJSON = [NSMutableDictionary dictionaryWithCapacity:2];
-                sectionJSON[@"id"] = @(index);
+                sectionJSON[@"id"] = @(section.sectionId);
+                sectionJSON[@"line"] = section.line;
+                sectionJSON[@"level"] = section.level;
+                sectionJSON[@"anchor"] = section.anchor;
                 sectionJSON[@"text"] = sectionHTML;
                 [sectionJSONs addObject:sectionJSON];
-                index++;
             }
             NSMutableDictionary *responseJSON = [NSMutableDictionary dictionaryWithCapacity:1];
             NSMutableDictionary *mobileviewJSON = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -356,7 +357,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     if (secret == nil || serverURL == nil || key == nil) {
         return nil;
     }
-    
+
     NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
     components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyServerArticleSectionDataBasePath]];
     NSURLQueryItem *articleKeyQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerArticleKeyQueryItem value:key];
@@ -365,9 +366,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     if (!articleKeyQueryItem || !imageWidthString) {
         return nil;
     }
-    
+
     components.queryItems = @[articleKeyQueryItem, imageWidthQueryItem];
-    
+
     return components.URL;
 }
 
@@ -467,7 +468,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }
     return [self.responseCache objectForKey:path];
 }
-
 
 - (void)cacheSectionDataForArticle:(MWKArticle *)article {
     NSString *articleKey = article.url.wmf_articleDatabaseKey;
