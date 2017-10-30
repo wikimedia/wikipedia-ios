@@ -43,8 +43,10 @@
 "action-save" = "Save";
 "action-saved" = "Saved";
 "action-saved-accessibility" = "Saved. Activate to unsave.";
+"action-saved-accessibility-notification" = "Article saved for later";
 "action-share" = "Share";
 "action-unsave" = "Unsave";
+"action-unsaved-accessibility-notification" = "Article unsaved";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -61,12 +63,10 @@
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
-"article-saved-for-later-accessibility-notification" = "Article saved for later";
 "article-share" = "Share";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
-"article-unsaved-accessibility-notification" = "Article unsaved";
 "back" = "Back";
 "back-button-accessibility-label" = "Back";
 "button-done" = "Done";
