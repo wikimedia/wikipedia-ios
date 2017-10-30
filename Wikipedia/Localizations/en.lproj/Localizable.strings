@@ -306,6 +306,7 @@
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-title" = "Saved";
+"search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
 "search-recent-clear-cancel" = "Cancel";
