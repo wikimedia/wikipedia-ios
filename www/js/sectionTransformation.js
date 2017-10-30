@@ -90,13 +90,9 @@ class Article {
 }
 
 class Section {
-  constructor(toclevel, level, line, number, index, fromtitle, anchor, id, text, article) {
-    this.toclevel = toclevel
+  constructor(level, line, anchor, id, text, article) {
     this.level = level
     this.line = line
-    this.number = number
-    this.index = index
-    this.fromtitle = fromtitle
     this.anchor = anchor
     this.id = id
     this.text = text
@@ -306,7 +302,7 @@ const extractJSONSections = json => json['mobileview']['sections']
 
 const transformAndAppendSectionsToMainContentDiv = (sections, article, mainContentDiv) => {
   sections.forEach(section => {
-    const sectionModel = new Section(section.toclevel, section.level, section.line, section.number, section.index, section.fromtitle, section.anchor, section.id, section.text, article)
+    const sectionModel = new Section(section.level, section.line, section.anchor, section.id, section.text, article)
     transformAndAppendSection(sectionModel, mainContentDiv)
   })
 }
