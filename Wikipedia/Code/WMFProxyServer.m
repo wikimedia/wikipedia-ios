@@ -5,8 +5,10 @@
 #import <WMF/WMFImageTag.h>
 #import <WMF/WMFImageTag+TargetImageWidthURL.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/WMFFIFOCache.h>
+#import "MWKArticle.h"
 
-static const NSInteger WMFCachedResponseCountLimit = 4;
+static const NSInteger WMFCachedResponseCountLimit = 6;
 
 @interface WMFProxyServerResponse : NSObject
 @property (nonatomic, copy) NSData *data;
@@ -16,9 +18,8 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 @end
 
 @interface WMFProxyServer () <GCDWebServerDelegate>
-@property (nonatomic, strong) NSMutableDictionary<NSString *, WMFProxyServerResponse *> *responsesByPath;
-@property (nonatomic, strong) NSMutableOrderedSet<NSString *> *responsePaths;
-
+@property (nonatomic, strong) WMFFIFOCache<NSString *, WMFProxyServerResponse *> *responseCache;
+@property (nonatomic, strong) WMFFIFOCache<NSString *, MWKArticle *> *articleCache;
 @property (nonatomic, strong) GCDWebServer *webServer;
 @property (nonatomic, copy, nonnull) NSString *secret;
 @property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
@@ -47,9 +48,9 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 }
 
 - (void)setup {
-    self.responsesByPath = [NSMutableDictionary dictionaryWithCapacity:4];
-    self.responsePaths = [NSMutableOrderedSet orderedSetWithCapacity:4];
-
+    self.responseCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
+    self.articleCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
+    
     NSString *secret = [[NSUUID UUID] UUIDString];
     self.secret = secret;
 
@@ -217,7 +218,7 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
             NSData *data = [NSData dataWithContentsOfURL:localFileURL];
             NSString *contentType = GCDWebServerGetMimeTypeForExtension([localFileURL pathExtension], nil);
             response = [WMFProxyServerResponse responseWithData:data contentType:contentType];
-            self.responsesByPath[relativePath] = response;
+            [self setResponseData:data withContentType:contentType forPath:relativePath];
             completionBlock(response.GCDWebServerResponse);
         } else {
             completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);
@@ -379,23 +380,30 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     if (path == nil) {
         return;
     }
-    self.responsesByPath[path] = [WMFProxyServerResponse responseWithData:data contentType:contentType];
-    if ([self.responsePaths containsObject:path]) { // NSOrderedSet will no-op when adding an object that is already in the set. This ensures the most recently requested path goes to the end of the ordered set.
-        [self.responsePaths removeObject:path];
-    }
-    [self.responsePaths addObject:path];
-    if (self.responsePaths.count > WMFCachedResponseCountLimit) {
-        NSString *pathToRemove = self.responsePaths[0];
-        [self.responsesByPath removeObjectForKey:pathToRemove];
-        [self.responsePaths removeObjectAtIndex:0];
-    }
+    [self.responseCache setObject:[WMFProxyServerResponse responseWithData:data contentType:contentType] forKey:path];
 }
 
 - (WMFProxyServerResponse *)responseForPath:(NSString *)path {
     if (path == nil) {
         return nil;
     }
-    return self.responsesByPath[path];
+    return [self.responseCache objectForKey:path];
+}
+
+
+- (void)cacheSectionDataForArticle:(MWKArticle *)article {
+    NSString *articleKey = article.url.wmf_articleDatabaseKey;
+    if (articleKey == nil) {
+        return;
+    }
+    [self.articleCache setObject:article forKey:articleKey];
+}
+
+- (MWKArticle *)articleForKey:(NSString *)path {
+    if (path == nil) {
+        return nil;
+    }
+    return [self.articleCache objectForKey:path];
 }
 
 #pragma mark - BaseURL (for testing only)

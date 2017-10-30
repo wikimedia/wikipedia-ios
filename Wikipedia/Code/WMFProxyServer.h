@@ -1,5 +1,7 @@
 @import Foundation;
 
+@class MWKArticle;
+
 @interface WMFProxyServer : NSObject
 
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
@@ -18,5 +20,7 @@
 - (NSString *)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString *)HTMLString withBaseURL:(NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth; //replaces image URLs in an HTML string with URLs that will be routed through this proxy
 
 - (void)setResponseData:(NSData *)data withContentType:(NSString *)contentType forPath:(NSString *)path;
+
+- (void)cacheSectionDataForArticle:(MWKArticle *)article;
 
 @end
