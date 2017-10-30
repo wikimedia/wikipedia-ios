@@ -24,15 +24,10 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     if  (p.parentNode == block_0){
                 // Ensure the P being pulled up has at least a couple lines of text.
                 // Otherwise silly things like a empty P or P which only contains a
-                // BR tag will get pulled up (see articles on "Chemical Reaction" and
-                // "Hawaii").
-                // Trick for quickly determining element height:
-                //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-                //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
-//TODO fix this!
-pIsTooSmall = false
+                // BR tag will get pulled up (see articles on "Chemical Reaction",
+                // "Hawaii", "United States" and "Color").
+      var minLength = 100
+      var pIsTooSmall = p.textContent.length < minLength
       return !pIsTooSmall
     }
     return false
