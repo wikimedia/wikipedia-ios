@@ -714,14 +714,6 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   }
 
   requirements.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
-
-  //TODO when proxy delivers section html ensure it sets both data-image-gallery and image variant widths! (at moment variant width isnt' set so images
-  //dont get widened even though i'm forcing "data-image-gallery" to true here - the css *is* being changed though)
-  const images = fragment.querySelectorAll('img').forEach(function(image){
-    // maybeWidenImage(image)
-    const isGallery = parseInt(image.width) > 70 ? 'true' : 'false'
-    image.setAttribute('data-image-gallery', isGallery)
-  })
   requirements.images.widenImages(fragment)
 }
 
