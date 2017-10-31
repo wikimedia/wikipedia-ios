@@ -749,7 +749,16 @@ const transformAndAppendSectionsToMainContentDiv = (sections, article, mainConte
   })
 }
 
-const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>{
+const scrollToSection = hash => {
+  if (hash !== '') {
+    setTimeout(() => {
+      location.hash = ''
+      location.hash = hash
+    }, 50)
+  }
+}
+
+const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL, hash) => {
   performEarlyNonSectionTransforms(article)
   const mainContentDiv = document.querySelector('div.content')
   fetch(apiURL)
@@ -758,6 +767,7 @@ const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL) =>
   .then(extractJSONSections)
   .then(sections => transformAndAppendSectionsToMainContentDiv(sections, article, mainContentDiv))
   .then(() => performLateNonSectionTransforms(article, proxyURL))
+  .then(() => scrollToSection(hash))
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 

@@ -301,7 +301,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
 
-        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article];
+        // TODO: figure out why these fragments are double-encoded - mobile front-end no longer encodes section id's so we don't need to either... let alone double-encode
+        NSString* decodedFragment = [[[self.articleURL fragment] stringByRemovingPercentEncoding] stringByRemovingPercentEncoding];
+        
+        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
