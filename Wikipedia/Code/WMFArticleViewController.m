@@ -1294,12 +1294,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (NSInteger)increment {
     NSInteger newValue = self.readingThemesViewController.slider.value + 1;
-    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : -1;
+    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : NSNotFound;
 }
 
 - (NSInteger)decrement {
     NSInteger newValue = self.readingThemesViewController.slider.value - 1;
-    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : -1;
+    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : NSNotFound;
 }
 
 #pragma mark - Reading Themes Controls

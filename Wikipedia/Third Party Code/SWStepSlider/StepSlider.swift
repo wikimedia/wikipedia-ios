@@ -93,7 +93,7 @@ class StepSlider: SWStepSlider {
     override open func accessibilityIncrement() {
         if let delegate = delegate {
             let newValue = delegate.increment()
-            if newValue != -1 {
+            if newValue != NSNotFound {
                 self.value = newValue
                 self.setNeedsLayout()
             }
@@ -104,7 +104,7 @@ class StepSlider: SWStepSlider {
     override open func accessibilityDecrement() {
         if let delegate = delegate {
              let newValue = delegate.decrement()
-            if newValue != -1 {
+            if newValue != NSNotFound {
                 self.value = newValue
                 self.setNeedsLayout()
             }
