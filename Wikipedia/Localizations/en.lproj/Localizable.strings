@@ -43,8 +43,10 @@
 "action-save" = "Save";
 "action-saved" = "Saved";
 "action-saved-accessibility" = "Saved. Activate to unsave.";
+"action-saved-accessibility-notification" = "Article saved for later";
 "action-share" = "Share";
 "action-unsave" = "Unsave";
+"action-unsaved-accessibility-notification" = "Article unsaved";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -55,6 +57,7 @@
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
+"article-deleted-accessibility-notification" = "Article deleted";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
@@ -306,6 +309,7 @@
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-title" = "Saved";
+"search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
 "search-recent-clear-cancel" = "Cancel";
