@@ -6,14 +6,18 @@ class StepSlider: SWStepSlider {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.isAccessibilityElement = true
-        self.accessibilityTraits = UIAccessibilityTraitAdjustable
-        self.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
+        setup()
     }
     
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setup()
+    }
+    
+    func setup() {
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraitAdjustable
+        accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
     }
     
     // MARK: - Accessibility
