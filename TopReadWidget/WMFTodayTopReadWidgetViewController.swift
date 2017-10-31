@@ -189,11 +189,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             headerText = WMFLocalizedString("top-read-header-generic", value:"Wikipedia", comment: "Wikipedia\n{{Identical|Wikipedia}}")
         }
 
-        headerLabel.textColor = theme.colors.secondaryText
+        headerLabel.textColor = theme.colors.primaryText
         headerLabel.text = headerText.uppercased()
         headerLabel.isAccessibilityElement = false
         footerLabel.text = WMFLocalizedString("top-read-see-more", value:"See more top read", comment: "Text for footer button allowing the user to see more top read articles").uppercased()
-        footerLabel.textColor = theme.colors.secondaryText
+        footerLabel.textColor = theme.colors.primaryText
         
         var dataValueMin = CGFloat.greatestFiniteMagnitude
         var dataValueMax = CGFloat.leastNormalMagnitude
@@ -237,7 +237,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             
             vc.titleLabel.textColor = theme.colors.primaryText
             vc.subtitleLabel.textColor = theme.colors.secondaryText
-
+            vc.rankLabel.textColor = theme.colors.secondaryText
+            
             vc.titleLabel.text = result.displayTitle
             if let wikidataDescription = result.wikidataDescription {
                 vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
