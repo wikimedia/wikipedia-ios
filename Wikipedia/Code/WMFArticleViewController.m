@@ -190,9 +190,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)setArticle:(nullable MWKArticle *)article {
-    if (_article && [article isEqual:_article]) {
-        return;
-    }
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
     NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
              @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
