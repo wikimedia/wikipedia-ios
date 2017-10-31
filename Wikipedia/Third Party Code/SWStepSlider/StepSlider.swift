@@ -1,8 +1,8 @@
 import UIKit
 
 protocol AccessibleSlider: NSObjectProtocol {
-    func accessibilityIncrement() -> Int?
-    func accessibilityDecrement() -> Int?
+    func increment() -> Int?
+    func decrement() -> Int?
 }
 
 class StepSlider: SWStepSlider {
@@ -92,7 +92,7 @@ class StepSlider: SWStepSlider {
     
     override open func accessibilityIncrement() {
         if let delegate = delegate {
-            if let newValue = delegate.accessibilityIncrement() {
+            if let newValue = delegate.increment() {
                 self.value = newValue
                 self.setNeedsLayout()
             }
@@ -101,7 +101,7 @@ class StepSlider: SWStepSlider {
     
     override open func accessibilityDecrement() {
         if let delegate = delegate {
-            if let newValue = delegate.accessibilityDecrement() {
+            if let newValue = delegate.decrement() {
                 self.value = newValue
                 self.setNeedsLayout()
             }
