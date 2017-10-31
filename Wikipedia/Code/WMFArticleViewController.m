@@ -1387,7 +1387,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller
     didTapImageWithSourceURL:(nonnull NSURL *)imageSourceURL {
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:imageSourceURL];
-    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme];
+    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:selectedImage theme:self.theme overlayViewTopBarHidden:NO];
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
@@ -1558,7 +1558,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Header Tap Gesture
 
 - (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
-    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme];
+    WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme overlayViewTopBarHidden:NO];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
@@ -1648,7 +1648,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
-        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article selectedImage:nil theme:self.theme];
+        WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:nil theme:self.theme overlayViewTopBarHidden:YES];
         fullscreenGallery.imagePreviewingActionsDelegate = self;
         return fullscreenGallery;
     }
@@ -1693,7 +1693,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
     if ([self.peekableImageExtensions containsObject:[[linkURL pathExtension] lowercaseString]]) {
-        return [self viewControllerForImageFilePageURL:linkURL];
+        return [self viewControllerForImageFilePageURL:linkURL withTopBarHidden:YES];
     } else {
         return [self viewControllerForPreviewURL:linkURL];
     }
@@ -1711,7 +1711,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL {
+- (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL withTopBarHidden:(BOOL)topBarHidden {
     NSURL *galleryURL = [self galleryURLFromImageFilePageURL:imageFilePageURL];
 
     if (!galleryURL) {
@@ -1719,9 +1719,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     MWKImage *selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:galleryURL];
     WMFArticleImageGalleryViewController *gallery =
-        [[WMFArticleImageGalleryViewController alloc] initForPeek:self.article
-                                                    selectedImage:selectedImage
-                                                            theme:self.theme];
+        [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
+                                                        selectedImage:selectedImage
+                                                                theme:self.theme
+                                              overlayViewTopBarHidden:topBarHidden];
     gallery.imagePreviewingActionsDelegate = self;
     return gallery;
 }
