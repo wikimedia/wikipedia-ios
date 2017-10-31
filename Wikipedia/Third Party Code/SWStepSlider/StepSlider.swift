@@ -15,17 +15,7 @@ class StepSlider: SWStepSlider {
     fileprivate var maxValue: Int?
     fileprivate var currentValue: Int?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    func setup() {
+    override open func setup() {
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitAdjustable
         accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
