@@ -34,7 +34,7 @@ class FontSizeSliderViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        setValuesWithSteps(fontSizeMultipliers.count, current: slider.indexOfCurrentFontSize())
     }
     
     func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -65,16 +65,10 @@ class FontSizeSliderViewController: UIViewController {
         
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        setValuesWithSteps(fontSizeMultipliers.count, current: slider.indexOfCurrentFontSize())
         return true
     }
-    
-    func indexOfCurrentFontSize() -> Int {
-        if let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
-            return fontSizeMultipliers.index(of: multiplier)!
-        }
-        return fontSizeMultipliers.count / 2
-    }
+
 }
 
 extension FontSizeSliderViewController: Themeable {
