@@ -60,7 +60,7 @@ class StepSlider: SWStepSlider {
     }
     
     func setValue(_ newValue: Int) -> Bool {
-        if newValue > fontSizeMultipliers.count {
+        if newValue >= fontSizeMultipliers.count || newValue < 0 {
             return false
         }
         

@@ -61,6 +61,5 @@ extension FontSizeSliderViewController: AccessibleSlider {
         let newValue = slider.value - 1
         return slider.setValue(newValue) ? newValue : nil
     }
-    
-    
+
 }
