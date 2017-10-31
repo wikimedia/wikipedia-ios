@@ -1,13 +1,14 @@
 import UIKit
 
+@objc(WMFAccessibleSlider)
 protocol AccessibleSlider: NSObjectProtocol {
-    func increment() -> Int?
-    func decrement() -> Int?
+    func increment() -> Int
+    func decrement() -> Int
 }
 
 class StepSlider: SWStepSlider {
     
-    weak var delegate: AccessibleSlider?
+    @objc weak var delegate: AccessibleSlider?
     
     let fontSizeMultipliers = [WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
     
@@ -44,7 +45,7 @@ class StepSlider: SWStepSlider {
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
     }
     
-    @objc public func setValuesWithSteps(_ steps: Int, current: Int) {
+    func setValuesWithSteps(_ steps: Int, current: Int) {
         setValues(0, maximum: steps - 1, current: current)
 //        if self.superview != nil {
 //            setValues(0, maximum: steps - 1, current: current)
@@ -60,7 +61,7 @@ class StepSlider: SWStepSlider {
         value = current
     }
     
-    func setValue(_ newValue: Int) -> Bool {
+    @objc func setNewValue(_ newValue: Int) -> Bool {
         guard let multiplier = fontSizeMultiplier(newValue) else {
             return false
         }
@@ -92,16 +93,19 @@ class StepSlider: SWStepSlider {
     
     override open func accessibilityIncrement() {
         if let delegate = delegate {
-            if let newValue = delegate.increment() {
+            let newValue = delegate.increment()
+            if newValue != -1 {
                 self.value = newValue
                 self.setNeedsLayout()
             }
+            
         }
     }
     
     override open func accessibilityDecrement() {
         if let delegate = delegate {
-            if let newValue = delegate.decrement() {
+             let newValue = delegate.decrement()
+            if newValue != -1 {
                 self.value = newValue
                 self.setNeedsLayout()
             }

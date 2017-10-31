@@ -26,7 +26,7 @@ class FontSizeSliderViewController: UIViewController {
     }
     
     @IBAction func sliderValueChanged(_ sender: StepSlider) {
-        let _ = slider.setValue(slider.value)
+        let _ = slider.setNewValue(slider.value)
     }
 
 }
@@ -52,13 +52,13 @@ extension FontSizeSliderViewController: Themeable {
 }
 
 extension FontSizeSliderViewController: AccessibleSlider {
-    func increment() -> Int? {
+    func increment() -> Int {
         let newValue = slider.value + 1
-        return slider.setValue(newValue) ? newValue : nil
+        return slider.setNewValue(newValue) ? newValue : -1
     }
     
-    func decrement() -> Int? {
+    func decrement() -> Int {
         let newValue = slider.value - 1
-        return slider.setValue(newValue) ? newValue : nil
+        return slider.setNewValue(newValue) ? newValue : -1
     }
 }

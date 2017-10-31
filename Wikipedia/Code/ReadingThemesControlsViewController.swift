@@ -198,15 +198,3 @@ extension ReadingThemesControlsViewController: Themeable {
     }
     
 }
-
-extension ReadingThemesControlsViewController: AccessibleSlider {
-    func increment() -> Int? {
-        let newValue = slider.value + 1
-        return slider.setValue(newValue) ? newValue : nil
-    }
-    
-    func decrement() -> Int? {
-        let newValue = slider.value - 1
-        return slider.setValue(newValue) ? newValue : nil
-    }
-}
