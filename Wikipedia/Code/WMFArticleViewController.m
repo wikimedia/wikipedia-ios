@@ -1310,23 +1310,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showReadingThemesControlsPopup {
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
-
     self.readingThemesViewController.delegate = self;
-    self.readingThemesViewController.slider.delegate = self;
-    
-    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
-
     [self.readingThemesViewController applyTheme:self.theme];
 
+    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
     self.readingThemesPopoverPresenter.delegate = self;
     self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
-
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
-
     self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
+
+    self.readingThemesViewController.slider.delegate = self;
 }
 
 - (void)dismissReadingThemesPopoverIfActive {
@@ -1345,7 +1341,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container multiplier:(NSInteger)multiplier {
-    
+
     [self.webViewController setFontSizeMultiplier:@(multiplier)];
     [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:@(multiplier)];
 }

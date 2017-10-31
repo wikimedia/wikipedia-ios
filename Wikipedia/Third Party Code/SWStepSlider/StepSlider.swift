@@ -46,13 +46,12 @@ class StepSlider: SWStepSlider {
     }
     
     func setValuesWithSteps(_ steps: Int, current: Int) {
-        setValues(0, maximum: steps - 1, current: current)
-//        if self.superview != nil {
-//            setValues(0, maximum: steps - 1, current: current)
-//        } else {
-//            maxValue = steps - 1
-//            currentValue = current
-//        }
+        if self.superview != nil {
+            setValues(0, maximum: steps - 1, current: current)
+        } else {
+            maxValue = steps - 1
+            currentValue = current
+        }
     }
     
     func setValues(_ minimum: Int, maximum: Int, current: Int){
