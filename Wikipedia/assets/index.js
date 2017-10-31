@@ -666,7 +666,6 @@ class Footer {
         window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
         requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
       }
-//FIX! on 'enwiki > Ninety-five theses' the readmore doesn't load because title has italics tags      
       requirements.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
     }
   }
