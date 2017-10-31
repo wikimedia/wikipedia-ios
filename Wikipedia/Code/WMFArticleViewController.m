@@ -1335,16 +1335,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return UIModalPresentationNone;
 }
 
-- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
-    NSArray *fontSizes = self.fontSizeMultipliers;
-
-    if (value > fontSizes.count) {
-        return;
-    }
-
-    NSNumber *multiplier = self.fontSizeMultipliers[value];
-    [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container multiplier:(NSInteger)multiplier {
+    
+    [self.webViewController setFontSizeMultiplier:@(multiplier)];
+    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:@(multiplier)];
 }
 
 - (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {

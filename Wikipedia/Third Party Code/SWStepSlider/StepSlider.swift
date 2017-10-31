@@ -60,17 +60,24 @@ class StepSlider: SWStepSlider {
     }
     
     func setValue(_ newValue: Int) -> Bool {
-        if newValue >= fontSizeMultipliers.count || newValue < 0 {
+        guard let multiplier = fontSizeMultiplier(newValue) else {
             return false
         }
         
-        let multiplier = fontSizeMultipliers[newValue].rawValue
         let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
         
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
         return true
+    }
+    
+    func fontSizeMultiplier(_ newValue: Int) -> Int? {
+        if newValue >= fontSizeMultipliers.count || newValue < 0 {
+            return nil
+        }
+        
+        return fontSizeMultipliers[newValue].rawValue
     }
     
     func indexOfCurrentFontSize() -> Int {

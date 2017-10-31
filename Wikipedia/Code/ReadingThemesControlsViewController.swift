@@ -2,7 +2,7 @@ import UIKit
 
 @objc public protocol WMFReadingThemesControlsViewControllerDelegate {
     
-    func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
+    func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, multiplier: Int)
 }
 
 @objc(WMFReadingThemesControlsViewController)
@@ -134,8 +134,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     }
     
     @IBAction func fontSliderValueChanged(_ sender: StepSlider) {
-        if let delegate = self.delegate, visible {
-            delegate.fontSizeSliderValueChangedInController(self, value: self.slider.value)
+        if let delegate = self.delegate, visible, let multiplier = slider.fontSizeMultiplier(sender.value)  {
+            delegate.fontSizeSliderValueChangedInController(self, multiplier: multiplier)
         }
     }
     
