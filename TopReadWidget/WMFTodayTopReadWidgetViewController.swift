@@ -238,7 +238,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             vc.titleLabel.textColor = theme.colors.primaryText
             vc.subtitleLabel.textColor = theme.colors.secondaryText
             vc.rankLabel.textColor = theme.colors.secondaryText
-            
+            vc.viewCountLabel.textColor =  theme.colors.overlayText
+
             vc.titleLabel.text = result.displayTitle
             if let wikidataDescription = result.wikidataDescription {
                 vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
