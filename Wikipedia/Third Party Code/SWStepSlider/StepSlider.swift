@@ -44,7 +44,7 @@ class StepSlider: SWStepSlider {
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
     }
     
-    func setValuesWithSteps(_ steps: Int, current: Int) {
+    @objc public func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.superview != nil {
             setValues(0, maximum: steps - 1, current: current)
         } else {

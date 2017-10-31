@@ -42,13 +42,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        if let max = self.maximumValue {
-            if let current = self.currentValue {
-                self.setValues(0, maximum: max, current: current)
-                self.maximumValue = nil
-                self.currentValue = nil
-            }
-        }
+        slider.didLoad()
+        
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
         brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
@@ -103,21 +98,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         get {
             return textSizeSliderViews.first?.isHidden ?? false
         }
-    }
-    
-    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
-        if self.isViewLoaded {
-            self.setValues(0, maximum: steps-1, current: current)
-        }else{
-            maximumValue = steps-1
-            currentValue = current
-        }
-    }
-    
-    func setValues(_ minimum: Int, maximum: Int, current: Int){
-        self.slider.minimumValue = minimum
-        self.slider.maximumValue = maximum
-        self.slider.value = current
     }
     
     override open func viewWillAppear(_ animated: Bool) {

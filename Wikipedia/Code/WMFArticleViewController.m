@@ -1303,7 +1303,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.readingThemesViewController.delegate = self;
 
-    [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
+    [self.readingThemesViewController.slider setValuesWithSteps:fontSizes.count current:index];
 
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
 
