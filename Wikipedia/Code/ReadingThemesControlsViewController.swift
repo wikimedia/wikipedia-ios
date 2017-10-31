@@ -105,6 +105,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         apply(theme: currentTheme)
+        slider.willAppear()
     }
     
     public var analyticsContext: String {

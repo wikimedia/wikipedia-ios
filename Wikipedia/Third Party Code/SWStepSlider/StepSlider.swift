@@ -45,12 +45,13 @@ class StepSlider: SWStepSlider {
     }
     
     @objc public func setValuesWithSteps(_ steps: Int, current: Int) {
-        if self.superview != nil {
-            setValues(0, maximum: steps - 1, current: current)
-        } else {
-            maxValue = steps - 1
-            currentValue = current
-        }
+        setValues(0, maximum: steps - 1, current: current)
+//        if self.superview != nil {
+//            setValues(0, maximum: steps - 1, current: current)
+//        } else {
+//            maxValue = steps - 1
+//            currentValue = current
+//        }
     }
     
     func setValues(_ minimum: Int, maximum: Int, current: Int){
@@ -80,7 +81,7 @@ class StepSlider: SWStepSlider {
         return fontSizeMultipliers[newValue].rawValue
     }
     
-    func indexOfCurrentFontSize() -> Int {
+    @objc func indexOfCurrentFontSize() -> Int {
         if let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
             return fontSizeMultipliers.index(of: multiplier)!
         }

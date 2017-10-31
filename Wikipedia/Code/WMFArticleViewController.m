@@ -1296,14 +1296,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showReadingThemesControlsPopup {
-    NSArray *fontSizes = self.fontSizeMultipliers;
-    NSUInteger index = self.indexOfCurrentFontSize;
-
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
 
     self.readingThemesViewController.delegate = self;
-
-    [self.readingThemesViewController.slider setValuesWithSteps:fontSizes.count current:index];
 
     self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
 
