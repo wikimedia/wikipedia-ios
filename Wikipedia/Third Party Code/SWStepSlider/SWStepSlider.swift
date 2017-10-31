@@ -209,9 +209,15 @@ open class SWStepSlider: UIControl {
             let newValue = pointTapped.x * (CGFloat(self.numberOfSteps) / widthOfSlider)
             
             self.value = Int(newValue)
+            if self.continuous == false {
+                self.sendActions(for: .valueChanged)
+            }
+            
             self.setNeedsLayout()
         }
     }
+    
+    // MARK: - Accessibility
     
     open override func accessibilityIncrement() {
         guard self.value < self.maximumValue else {
