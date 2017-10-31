@@ -11,6 +11,9 @@ class StepSlider: SWStepSlider {
     
     let fontSizeMultipliers = [WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
     
+    fileprivate var maxValue: Int?
+    fileprivate var currentValue: Int?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -25,6 +28,49 @@ class StepSlider: SWStepSlider {
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitAdjustable
         accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
+    }
+    
+    func didLoad() {
+        if let max = maxValue {
+            if let current = currentValue {
+                setValues(0, maximum: max, current: current)
+                maxValue = nil
+                currentValue = nil
+            }
+        }
+    }
+    
+    func willAppear() {
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+    }
+    
+    func setValuesWithSteps(_ steps: Int, current: Int) {
+        if self.superview != nil {
+            setValues(0, maximum: steps - 1, current: current)
+        } else {
+            maxValue = steps - 1
+            currentValue = current
+        }
+    }
+    
+    func setValues(_ minimum: Int, maximum: Int, current: Int){
+        minimumValue = minimum
+        maximumValue = maximum
+        value = current
+    }
+    
+    func setValue(_ newValue: Int) -> Bool {
+        if newValue > fontSizeMultipliers.count {
+            return false
+        }
+        
+        let multiplier = fontSizeMultipliers[newValue].rawValue
+        let userInfo = [FontSizeSliderViewController.WMFArticleFontSizeMultiplierKey: multiplier]
+        
+        NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
+        
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        return true
     }
     
     func indexOfCurrentFontSize() -> Int {
