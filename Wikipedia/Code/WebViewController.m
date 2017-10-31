@@ -302,8 +302,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
 
         // TODO: figure out why these fragments are double-encoded - mobile front-end no longer encodes section id's so we don't need to either... let alone double-encode
-        NSString* decodedFragment = [[[self.articleURL fragment] stringByRemovingPercentEncoding] stringByRemovingPercentEncoding];
-        
+        NSString *decodedFragment = [[[self.articleURL fragment] stringByRemovingPercentEncoding] stringByRemovingPercentEncoding];
+
         [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
@@ -311,7 +311,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.delegate webViewController:self didLoadArticle:self.article];
 
         [UIView animateWithDuration:0.3
-                              delay:0.5f
+                              delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              self.headerView.alpha = 1.f;
@@ -880,10 +880,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
-    
+
     WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
     [proxy cacheSectionDataForArticle:self.article];
-    
+
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     NSString *shareMenuItemTitle = nil;
