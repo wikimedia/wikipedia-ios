@@ -1,9 +1,14 @@
 import UIKit
 
+protocol AccessibleSlider: NSObjectProtocol {
+    func accessibilityIncrement() -> Int?
+    func accessibilityDecrement() -> Int?
+}
+
 @objc(WMFFontSizeSliderViewController)
 class FontSizeSliderViewController: UIViewController {
     
-    @IBOutlet fileprivate var slider: SWStepSlider!
+    @IBOutlet weak var slider: StepSlider!
     
     @IBOutlet weak var tSmallImageView: UIImageView!
     @IBOutlet weak var tLargeImageView: UIImageView!
@@ -29,7 +34,7 @@ class FontSizeSliderViewController: UIViewController {
             }
         }
         apply(theme: self.theme)
-        
+        slider.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +58,12 @@ class FontSizeSliderViewController: UIViewController {
     }
     
     @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+        let _ = setValue(slider.value)
+    }
+    
+    func setValue(_ newValue: Int) -> Bool {
         if slider.value > fontSizeMultipliers.count {
-            return
+            return false
         }
         
         let multiplier = fontSizeMultipliers[slider.value].rawValue
@@ -63,6 +72,7 @@ class FontSizeSliderViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
         setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        return true
     }
     
     func indexOfCurrentFontSize() -> Int {
@@ -91,4 +101,18 @@ extension FontSizeSliderViewController: Themeable {
             slider.backgroundColor = theme.colors.paperBackground
         }
     }
+}
+
+extension FontSizeSliderViewController: AccessibleSlider {
+    func accessibilityIncrement() -> Int? {
+        let newValue = slider.value + 1
+        return setValue(newValue) ? newValue : nil
+    }
+    
+    func accessibilityDecrement() -> Int? {
+        let newValue = slider.value - 1
+        return setValue(newValue) ? newValue : nil
+    }
+    
+    
 }
