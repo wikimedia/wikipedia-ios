@@ -1693,7 +1693,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (nullable UIViewController *)peekViewControllerForURL:(NSURL *)linkURL {
     if ([self.peekableImageExtensions containsObject:[[linkURL pathExtension] lowercaseString]]) {
-        return [self viewControllerForImageFilePageURL:linkURL];
+        return [self viewControllerForImageFilePageURL:linkURL withTopBarHidden:YES];
     } else {
         return [self viewControllerForPreviewURL:linkURL];
     }
@@ -1711,7 +1711,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL {
+- (nullable UIViewController *)viewControllerForImageFilePageURL:(nullable NSURL *)imageFilePageURL withTopBarHidden:(BOOL)topBarHidden {
     NSURL *galleryURL = [self galleryURLFromImageFilePageURL:imageFilePageURL];
 
     if (!galleryURL) {
@@ -1722,7 +1722,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article
                                                         selectedImage:selectedImage
                                                                 theme:self.theme
-                                              overlayViewTopBarHidden:NO];
+                                              overlayViewTopBarHidden:topBarHidden];
     gallery.imagePreviewingActionsDelegate = self;
     return gallery;
 }
