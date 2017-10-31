@@ -6375,6 +6375,7 @@
 				D8FEECCB1DE3729400B883F0 /* WMFChange.h */,
 				D8FEECCC1DE3729400B883F0 /* WMFChange.m */,
 				D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */,
+				7AE0980E1FA7FF120090AB1E /* StepSlider.swift */,
 				BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */,
 			);
 			name = Utilities;
@@ -7505,7 +7506,6 @@
 			isa = PBXGroup;
 			children = (
 				D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */,
-				7AE0980E1FA7FF120090AB1E /* StepSlider.swift */,
 			);
 			name = SWStepSlider;
 			path = "Wikipedia/Third Party Code/SWStepSlider";

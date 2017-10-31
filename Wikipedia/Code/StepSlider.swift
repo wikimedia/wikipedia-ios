@@ -14,17 +14,15 @@ class StepSlider: SWStepSlider {
     }
     
     func didLoad() {
-        if let max = maxValue {
-            if let current = currentValue {
-                setValues(0, maximum: max, current: current)
-                maxValue = nil
-                currentValue = nil
-            }
+        if let max = maxValue, let current = currentValue {
+            setValues(0, maximum: max, current: current)
+            maxValue = nil
+            currentValue = nil
         }
     }
     
     func willAppear() {
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize)
     }
     
     func setValuesWithSteps(_ steps: Int, current: Int) {
@@ -51,7 +49,7 @@ class StepSlider: SWStepSlider {
         
         NotificationCenter.default.post(name: Notification.Name(FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil, userInfo: userInfo)
         
-        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize())
+        setValuesWithSteps(fontSizeMultipliers.count, current: indexOfCurrentFontSize)
         return true
     }
     
@@ -63,12 +61,18 @@ class StepSlider: SWStepSlider {
         return fontSizeMultipliers[newValue].rawValue
     }
     
-    @objc func indexOfCurrentFontSize() -> Int {
-        if let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
-            return fontSizeMultipliers.index(of: multiplier)!
+    var indexOfCurrentFontSize: Int {
+        var index = fontSizeMultipliers.count / 2
+        
+        guard let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) else {
+            return index
         }
-        return fontSizeMultipliers.count / 2
+        
+        index = fontSizeMultipliers.index(of: multiplier) ?? index
+        
+        return index
     }
+    
     
     // MARK: - Accessibility
     
