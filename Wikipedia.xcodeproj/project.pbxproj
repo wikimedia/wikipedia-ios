@@ -124,6 +124,11 @@
 		7A4FE5461FA011AF009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
 		7A4FE5471FA011B0009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
 		7A4FE5481FA011B1009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
+		7AE0980F1FA7FF120090AB1E /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE0980E1FA7FF120090AB1E /* StepSlider.swift */; };
+		7AE098101FA7FF120090AB1E /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE0980E1FA7FF120090AB1E /* StepSlider.swift */; };
+		7AE098111FA7FF120090AB1E /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE0980E1FA7FF120090AB1E /* StepSlider.swift */; };
+		7AE098121FA7FF120090AB1E /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE0980E1FA7FF120090AB1E /* StepSlider.swift */; };
+		7AE098131FA7FF120090AB1E /* StepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE0980E1FA7FF120090AB1E /* StepSlider.swift */; };
 		7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
@@ -3074,6 +3079,7 @@
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
 		7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticlePeekPreviewViewController.xib; sourceTree = "<group>"; };
+		7AE0980E1FA7FF120090AB1E /* StepSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepSlider.swift; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
@@ -7499,6 +7505,7 @@
 			isa = PBXGroup;
 			children = (
 				D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */,
+				7AE0980E1FA7FF120090AB1E /* StepSlider.swift */,
 			);
 			name = SWStepSlider;
 			path = "Wikipedia/Third Party Code/SWStepSlider";
@@ -9513,6 +9520,7 @@
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				7AE0980F1FA7FF120090AB1E /* StepSlider.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
@@ -9897,6 +9905,7 @@
 				D80ED2EB1EE57F4800CE8C50 /* WMFAuthLinkLabel.swift in Sources */,
 				D80ED2EF1EE57F4800CE8C50 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D80ED2F01EE57F4800CE8C50 /* WMFPasswordResetter.swift in Sources */,
+				7AE098131FA7FF120090AB1E /* StepSlider.swift in Sources */,
 				D80ED2F21EE57F4800CE8C50 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D80ED2F41EE57F4800CE8C50 /* UIViewController+WMFEmptyView.m in Sources */,
@@ -10406,6 +10415,7 @@
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */,
+				7AE098121FA7FF120090AB1E /* StepSlider.swift in Sources */,
 				D8A42A691E815A9C00D8E281 /* UIButton+WMFButton.m in Sources */,
 				D8A42A6A1E815A9C00D8E281 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -10790,6 +10800,7 @@
 				B3B018CC1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
 				D8CE25561E698E2400DAE2E0 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
+				7AE098101FA7FF120090AB1E /* StepSlider.swift in Sources */,
 				D8CE25591E698E2400DAE2E0 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */,
@@ -11093,6 +11104,7 @@
 				D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */,
 				D8EC3E4C1E9BDA35006712EB /* String?+WMFExtras.swift in Sources */,
 				B3B018CD1EBCDD9000BE7F21 /* UIViewController+WMFNavigationBarUtilities.swift in Sources */,
+				7AE098111FA7FF120090AB1E /* StepSlider.swift in Sources */,
 				D8EC3E4E1E9BDA35006712EB /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */,
 				BA4524261F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
