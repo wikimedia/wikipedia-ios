@@ -88,7 +88,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Accessors
 
 - (NSString *)currentResultsSearchTerm {
-    return [[self.resultsListController searchResults] searchTerm];
+    return [[self.resultsListController resultsInfo] searchTerm];
 }
 
 - (NSURL *)currentResultsSearchSiteURL {
@@ -96,7 +96,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (NSString *)searchSuggestion {
-    return [[self.resultsListController searchResults] searchSuggestion];
+    return [[self.resultsListController resultsInfo] searchSuggestion];
 }
 
 - (WMFSearchFetcher *)fetcher {
@@ -434,13 +434,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                         [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
                     });
                 }
+                self.resultsListController.results = results.results;
             }
-
-            // change recent search visibility if no prefix results returned, and update suggestion if needed
-            [UIView animateWithDuration:0.25
-                             animations:^{
-                                 [self updateUIWithResults:results];
-                             }];
+            [self updateUIWithResults:results];
         });
     };
 
@@ -449,6 +445,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     if ([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]) {
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
+        [self.fakeProgressController finish];
         return;
     }
     
@@ -465,10 +462,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  return;
                                              }
 
-                                             self.resultsListController.searchResults = results;
+                                             self.resultsListController.resultsInfo = results;
                                              self.resultsListController.searchSiteURL = url;
-                                             [self.resultsListController.collectionView reloadData];
-                             
+                                             self.resultsListController.results = results.results;
+
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 

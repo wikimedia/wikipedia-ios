@@ -32,9 +32,8 @@ class WMFWelcomePanelViewController: UIViewController {
     
     fileprivate func embedContainerControllerView() {
         if let containerController = containerController {
-            containerController.willMove(toParentViewController: self)
-            containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
             addChildViewController(containerController)
+            containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
             containerController.didMove(toParentViewController: self)
         }
     }
