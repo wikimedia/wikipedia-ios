@@ -62,8 +62,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
         preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-        
-        slider.delegate = self
     }
     
     deinit {
@@ -199,16 +197,4 @@ extension ReadingThemesControlsViewController: Themeable {
         view.tintColor = theme.colors.link
     }
     
-}
-
-extension ReadingThemesControlsViewController: AccessibleSlider {
-    func increment() -> Int? {
-        let newValue = slider.value + 1
-        return slider.setNewValue(newValue) ? newValue : nil
-    }
-    
-    func decrement() -> Int? {
-        let newValue = slider.value - 1
-        return slider.setNewValue(newValue) ? newValue : nil
-    }
 }

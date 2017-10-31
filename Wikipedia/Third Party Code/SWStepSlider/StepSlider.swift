@@ -1,14 +1,7 @@
 import UIKit
 
-protocol AccessibleSlider: NSObjectProtocol {
-    func increment() -> Int?
-    func decrement() -> Int?
-}
-
 class StepSlider: SWStepSlider {
-    
-    weak var delegate: AccessibleSlider?
-    
+        
     let fontSizeMultipliers = [WMFFontSizeMultiplier.extraSmall, WMFFontSizeMultiplier.small, WMFFontSizeMultiplier.medium, WMFFontSizeMultiplier.large, WMFFontSizeMultiplier.extraLarge, WMFFontSizeMultiplier.extraExtraLarge, WMFFontSizeMultiplier.extraExtraExtraLarge]
     
     fileprivate var maxValue: Int?
@@ -80,16 +73,18 @@ class StepSlider: SWStepSlider {
     // MARK: - Accessibility
     
     override open func accessibilityIncrement() {
-        if let delegate = delegate, let newValue = delegate.increment() {
-            self.value = newValue
-            self.setNeedsLayout()
+        let newValue = value + 1
+        if setNewValue(newValue) {
+            value = newValue
+            setNeedsLayout()
         }
     }
     
     override open func accessibilityDecrement() {
-        if let delegate = delegate, let newValue = delegate.decrement() {
-                self.value = newValue
-                self.setNeedsLayout()
+        let newValue = value - 1
+        if setNewValue(newValue) {
+            value = newValue
+            setNeedsLayout()
         }
     }
 }

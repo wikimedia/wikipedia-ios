@@ -17,7 +17,6 @@ class FontSizeSliderViewController: UIViewController {
         super.viewDidLoad()
         slider.didLoad()
         apply(theme: self.theme)
-        slider.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,17 +47,5 @@ extension FontSizeSliderViewController: Themeable {
             view.backgroundColor = theme.colors.paperBackground
             slider.backgroundColor = theme.colors.paperBackground
         }
-    }
-}
-
-extension FontSizeSliderViewController: AccessibleSlider {
-    func increment() -> Int? {
-        let newValue = slider.value + 1
-        return slider.setNewValue(newValue) ? newValue : nil
-    }
-    
-    func decrement() -> Int? {
-        let newValue = slider.value - 1
-        return slider.setNewValue(newValue) ? newValue : nil
     }
 }
