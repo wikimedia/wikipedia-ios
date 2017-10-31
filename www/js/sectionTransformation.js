@@ -58,9 +58,10 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, description, editable, language, hasReadMore) {
+  constructor(ismain, title, displayTitle, description, editable, language, hasReadMore) {
     this.ismain = ismain
     this.title = title
+    this.displayTitle = displayTitle
     this.description = description
     this.editable = editable
     this.language = language
@@ -91,7 +92,7 @@ class Section {
   headingTag() {
     if(this.isLeadSection()){
       return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
-                ${this.article.title}
+                ${this.article.displayTitle}
               </h1>${this.article.descriptionParagraph()}`
     }
     const hSize = this.headingTagSize()
@@ -199,6 +200,7 @@ class Footer {
         window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
         requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
       }
+//FIX! on 'enwiki > Ninety-five theses' the readmore doesn't load because title has italics tags      
       requirements.footerReadMore.add(this.article.title, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
     }
   }
@@ -248,7 +250,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.title, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
+  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
   requirements.images.widenImages(fragment)
 }
 

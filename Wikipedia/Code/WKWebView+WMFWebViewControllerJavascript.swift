@@ -144,13 +144,15 @@ extension WKWebView {
     }
 
     private func articleJS(for article: MWKArticle) -> String {
-        let articleTitle = (article.displaytitle ?? (article.url as NSURL).wmf_title) ?? ""
+        let articleTitle = (article.url as NSURL).wmf_title ?? ""
+        let articleDisplayTitle = article.displaytitle ?? ""
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
         
         return """
         new window.wmf.sectionTransformation.Article(
         \(article.isMain.toString()),
         '\(articleTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         \(article.editable.toString()),
         \(languageJS(for: article)),
