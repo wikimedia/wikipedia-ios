@@ -1,10 +1,5 @@
 import UIKit
 
-protocol AccessibleSlider: NSObjectProtocol {
-    func accessibilityIncrement() -> Int?
-    func accessibilityDecrement() -> Int?
-}
-
 @objc(WMFFontSizeSliderViewController)
 class FontSizeSliderViewController: UIViewController {
     

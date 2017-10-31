@@ -1,5 +1,10 @@
 import UIKit
 
+protocol AccessibleSlider: NSObjectProtocol {
+    func accessibilityIncrement() -> Int?
+    func accessibilityDecrement() -> Int?
+}
+
 class StepSlider: SWStepSlider {
     
     weak var delegate: AccessibleSlider?
