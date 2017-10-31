@@ -2,7 +2,7 @@ import UIKit
 
 @objc public protocol WMFReadingThemesControlsViewControllerDelegate {
     
-    func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
+    func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, multiplier: Int)
 }
 
 @objc(WMFReadingThemesControlsViewController)
@@ -13,7 +13,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     var theme = Theme.standard
     
-    @IBOutlet fileprivate var slider: SWStepSlider!
+
+    @IBOutlet weak var slider: StepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
     
@@ -41,13 +42,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        if let max = self.maximumValue {
-            if let current = self.currentValue {
-                self.setValues(0, maximum: max, current: current)
-                self.maximumValue = nil
-                self.currentValue = nil
-            }
-        }
+        slider.didLoad()
+        
         brightnessSlider.value = Float(UIScreen.main.brightness)
         
         brightnessSlider.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-brightness-slider", value: "Brightness slider", comment: "Accessibility label for the brightness slider in the Reading Themes Controls popover")
@@ -62,12 +58,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         lightThemeButton.setTitleColor(Theme.light.colors.primaryText, for: .normal)
         sepiaThemeButton.setTitleColor(Theme.sepia.colors.primaryText, for: .normal)
         darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
-        
-        for slideView in textSizeSliderViews {
-            slideView.isAccessibilityElement = true
-            slideView.accessibilityTraits = UIAccessibilityTraitAdjustable
-            slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
-        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
         
@@ -110,26 +100,12 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         }
     }
     
-    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
-        if self.isViewLoaded {
-            self.setValues(0, maximum: steps-1, current: current)
-        }else{
-            maximumValue = steps-1
-            currentValue = current
-        }
-    }
-    
-    func setValues(_ minimum: Int, maximum: Int, current: Int){
-        self.slider.minimumValue = minimum
-        self.slider.maximumValue = maximum
-        self.slider.value = current
-    }
-    
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         apply(theme: currentTheme)
+        slider.willAppear()
     }
     
     public var analyticsContext: String {
@@ -158,9 +134,9 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         logBrightnessChange()
     }
     
-    @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
-        if let delegate = self.delegate, visible {
-            delegate.fontSizeSliderValueChangedInController(self, value: self.slider.value)
+    @IBAction func fontSliderValueChanged(_ sender: StepSlider) {
+        if let delegate = self.delegate, visible, let multiplier = slider.fontSizeMultiplier(sender.value)  {
+            delegate.fontSizeSliderValueChangedInController(self, multiplier: multiplier)
         }
     }
     

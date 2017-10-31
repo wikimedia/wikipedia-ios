@@ -1296,27 +1296,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showReadingThemesControlsPopup {
-    NSArray *fontSizes = self.fontSizeMultipliers;
-    NSUInteger index = self.indexOfCurrentFontSize;
-
     self.readingThemesViewController.modalPresentationStyle = UIModalPresentationPopover;
-
     self.readingThemesViewController.delegate = self;
-
-    [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
-
-    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
-
     [self.readingThemesViewController applyTheme:self.theme];
 
+    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
     self.readingThemesPopoverPresenter.delegate = self;
     self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
     self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
-
     self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
-
     self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
 }
 
@@ -1335,16 +1325,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return UIModalPresentationNone;
 }
 
-- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container value:(NSInteger)value {
-    NSArray *fontSizes = self.fontSizeMultipliers;
+- (void)fontSizeSliderValueChangedInController:(WMFReadingThemesControlsViewController *)container multiplier:(NSInteger)multiplier {
 
-    if (value > fontSizes.count) {
-        return;
-    }
-
-    NSNumber *multiplier = self.fontSizeMultipliers[value];
-    [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+    [self.webViewController setFontSizeMultiplier:@(multiplier)];
+    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:@(multiplier)];
 }
 
 - (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
