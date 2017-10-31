@@ -49,7 +49,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="fontSliderValueChanged:" destination="-1" eventType="valueChanged" id="CzV-Zw-3xI"/>
+                        <action selector="sliderValueChanged:" destination="-1" eventType="valueChanged" id="596-D5-sGe"/>
                     </connections>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T-large" translatesAutoresizingMaskIntoConstraints="NO" id="gOm-kn-fOm">

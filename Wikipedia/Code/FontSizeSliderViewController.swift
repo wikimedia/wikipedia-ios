@@ -51,8 +51,7 @@ class FontSizeSliderViewController: UIViewController {
         slider.maximumValue = maximum
         slider.value = current
     }
-    
-    @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+    @IBAction func sliderValueChanged(_ sender: StepSlider) {
         let _ = setValue(slider.value)
     }
     
