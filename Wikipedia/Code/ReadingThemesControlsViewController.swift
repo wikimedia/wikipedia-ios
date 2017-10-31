@@ -13,7 +13,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     
     var theme = Theme.standard
     
-    @IBOutlet fileprivate var slider: SWStepSlider!
+
+    @IBOutlet weak var slider: StepSlider!
     fileprivate var maximumValue: Int?
     fileprivate var currentValue: Int?
     
@@ -152,7 +153,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         logBrightnessChange()
     }
     
-    @IBAction func fontSliderValueChanged(_ slider: SWStepSlider) {
+    @IBAction func fontSliderValueChanged(_ sender: StepSlider) {
         if let delegate = self.delegate, visible {
             delegate.fontSizeSliderValueChangedInController(self, value: self.slider.value)
         }
