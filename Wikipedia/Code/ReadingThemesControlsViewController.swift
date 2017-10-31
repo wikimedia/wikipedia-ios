@@ -64,8 +64,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
         
         for slideView in textSizeSliderViews {
-            slideView.isAccessibilityElement = true
-            slideView.accessibilityTraits = UIAccessibilityTraitAdjustable
             slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
         
