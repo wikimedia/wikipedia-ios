@@ -87,8 +87,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate,
-                                        WMFAccessibleSlider>
+                                        WMFArticlePreviewingActionsDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1290,18 +1289,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-#pragma mark - WMFAccessibleSlider
-
-- (NSInteger)increment {
-    NSInteger newValue = self.readingThemesViewController.slider.value + 1;
-    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : NSNotFound;
-}
-
-- (NSInteger)decrement {
-    NSInteger newValue = self.readingThemesViewController.slider.value - 1;
-    return [self.readingThemesViewController.slider setNewValue:newValue] ? newValue : NSNotFound;
-}
-
 #pragma mark - Reading Themes Controls
 
 - (void)setupReadingThemesControls {
@@ -1321,8 +1308,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
     self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
-
-    self.readingThemesViewController.slider.delegate = self;
 }
 
 - (void)dismissReadingThemesPopoverIfActive {

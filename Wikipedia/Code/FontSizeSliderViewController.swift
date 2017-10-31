@@ -52,13 +52,13 @@ extension FontSizeSliderViewController: Themeable {
 }
 
 extension FontSizeSliderViewController: AccessibleSlider {
-    func increment() -> Int {
+    func increment() -> Int? {
         let newValue = slider.value + 1
-        return slider.setNewValue(newValue) ? newValue : NSNotFound
+        return slider.setNewValue(newValue) ? newValue : nil
     }
     
-    func decrement() -> Int {
+    func decrement() -> Int? {
         let newValue = slider.value - 1
-        return slider.setNewValue(newValue) ? newValue : NSNotFound
+        return slider.setNewValue(newValue) ? newValue : nil
     }
 }
