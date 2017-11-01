@@ -1154,8 +1154,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    self.navBarHidden = (velocity.y >= 0);
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocityPoint targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGFloat velocity = velocityPoint.y;
+    if (velocity == 0) { // don't hide or show on 0 velocity tap
+        return;
+    }
+    self.navBarHidden = velocity > 0;
 }
 
 #pragma mark -
