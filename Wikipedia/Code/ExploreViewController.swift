@@ -231,7 +231,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     var statusBarUnderlay: UIView?
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willEndDragging scrollView: UIScrollView, velocity: CGPoint) {
-        self.navigationController?.setNavigationBarHidden(velocity.y > 0, animated: true)
+        self.navigationController?.setNavigationBarHidden(velocity.y >= 0, animated: true)
     }
     
     func addStatusBarUnderlay() {
