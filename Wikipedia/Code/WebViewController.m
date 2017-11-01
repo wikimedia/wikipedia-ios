@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) NSArray<WMFReference *> *lastClickedReferencesGroup;
 
 @property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic) CGFloat previousScrollViewTopInset;
 
 @end
 
@@ -437,17 +438,19 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.webView.scrollView;
 
-    // Unfortunately there's no combination of safe area insets or layout margins that stay static at the proper height
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-    CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
-    CGFloat statusBarHeight = statusBarFrame.size.height; // won't work with in call status bar
-    CGFloat top = statusBarHeight + navigationBarHeight;
+    CGFloat top = self.navigationController.topLayoutGuide.length + self.navigationController.navigationBar.frame.size.height;
+    if (@available(iOS 11.0, *)) {
+        top = MAX(self.view.safeAreaLayoutGuide.layoutFrame.origin.y, self.previousScrollViewTopInset);
+    }
+    
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
 
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
     }
+    
+    NSLog(@"top %f", top);
 
     UIEdgeInsets newIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
     if (!UIEdgeInsetsEqualToEdgeInsets(newIndicatorInsets, scrollView.scrollIndicatorInsets)) {
@@ -458,6 +461,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, scrollView.contentInset)) {
         scrollView.contentInset = newScrollViewInsets;
     }
+
+    self.previousScrollViewTopInset = top;
 }
 
 - (void)viewSafeAreaInsetsDidChange {
@@ -713,6 +718,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.zeroStatusLabel.text = @"";
 
     [self displayArticle];
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -1141,8 +1147,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navBarHidden = NO;
     return YES;
+}
+
+- (void)setNavBarHidden:(BOOL)navBarHidden {
+    _navBarHidden = navBarHidden;
+    [self.navigationController setNavigationBarHidden:navBarHidden animated:YES];
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
@@ -1152,7 +1163,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    [self.navigationController setNavigationBarHidden:(velocity.y > 0) animated:YES];
+    self.navBarHidden = (velocity.y > 0);
 }
 
 #pragma mark -
