@@ -214,7 +214,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                            }
 
                                            if ([url wmf_isWikiResource]) {
-                                               NSURL *url = [NSURL URLWithString:href];
                                                if (!url.wmf_domain) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
@@ -229,7 +228,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                        // Expand protocol-relative link to https -- secure by default!
                                                        href = [@"https:" stringByAppendingString:href];
                                                    }
-                                                   NSURL *url = [NSURL URLWithString:href];
                                                    NSCAssert(url, @"Failed to from URL from link %@", href);
                                                    if (url) {
                                                        [self wmf_openExternalUrl:url];
@@ -301,9 +299,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
-
-        // TODO: figure out why these fragments are double-encoded - mobile front-end no longer encodes section id's so we don't need to either... let alone double-encode
-        NSString *decodedFragment = [[[self.articleURL fragment] stringByRemovingPercentEncoding] stringByRemovingPercentEncoding];
+        
+        NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
 
         [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
 
