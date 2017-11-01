@@ -752,6 +752,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [self wmf_updateNavigationBarWithRemoveUnderline:YES];
+
     NSUInteger index = self.indexOfCurrentFontSize;
     NSNumber *multiplier = self.fontSizeMultipliers[index];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -934,6 +936,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Web View Setup
 
 - (void)setupWebView {
+    self.webViewController.edgesForExtendedLayout = UIRectEdgeAll;
+    self.webViewController.extendedLayoutIncludesOpaqueBars = YES;
+    self.webViewController.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11.0, *)) {
+        self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
@@ -1125,11 +1133,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)endRefreshing {
     if (self.pullToRefresh.isRefreshing) {
+        self.webViewController.navBarHidden = NO;
         @try { // TODO: REMOVE AFTER DROPPING iOS 9
             [self.pullToRefresh endRefreshing];
         } @catch (NSException *exception) {
             DDLogError(@"Caught exception while ending refreshing: %@", exception);
         }
+        self.webViewController.navBarHidden = NO;
     }
 }
 

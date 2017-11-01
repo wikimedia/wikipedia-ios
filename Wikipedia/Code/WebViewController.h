@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) WMFTheme *theme;
 
+@property (nonatomic) BOOL navBarHidden;
+
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
 /**
