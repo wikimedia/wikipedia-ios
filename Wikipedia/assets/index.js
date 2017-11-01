@@ -486,35 +486,6 @@ DocumentFragment.prototype.createElement = name => document.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
-class LocalizedStrings {
-  constructor(tableInfoboxTitle, tableOtherTitle, tableFooterTitle, readMoreHeading, licenseString, licenseSubstitutionString, viewInBrowserString, menuHeading, menuLanguagesTitle, menuLastEditedTitle, menuLastEditedSubtitle, menuTalkPageTitle, menuPageIssuesTitle, menuDisambiguationTitle, menuCoordinateTitle, sectionErrorMessage) {
-    this.tableInfoboxTitle = tableInfoboxTitle
-    this.tableOtherTitle = tableOtherTitle
-    this.tableFooterTitle = tableFooterTitle
-    this.readMoreHeading = readMoreHeading
-    this.licenseString = licenseString
-    this.licenseSubstitutionString = licenseSubstitutionString
-    this.viewInBrowserString = viewInBrowserString
-    this.menuHeading = menuHeading
-    this.menuLanguagesTitle = menuLanguagesTitle
-    this.menuLastEditedTitle = menuLastEditedTitle
-    this.menuLastEditedSubtitle = menuLastEditedSubtitle
-    this.menuTalkPageTitle = menuTalkPageTitle
-    this.menuPageIssuesTitle = menuPageIssuesTitle
-    this.menuDisambiguationTitle = menuDisambiguationTitle
-    this.menuCoordinateTitle = menuCoordinateTitle
-    this.sectionErrorMessage = sectionErrorMessage
-    // Ensure everything is a string
-    for (const property in this) {
-      if (this.hasOwnProperty(property)) {
-        if(this[property] === undefined){
-          this[property] = ''
-        }
-      }
-    }
-  }
-}
-
 class Language {
   constructor(code, dir, isRTL) {
     this.code = code
@@ -772,11 +743,12 @@ const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL, ha
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
+// Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle', 'readMoreHeading', 'licenseString', 'licenseSubstitutionString', 'viewInBrowserString', 'menuHeading', 'menuLanguagesTitle', 'menuLastEditedTitle', 'menuLastEditedSubtitle', 'menuTalkPageTitle', 'menuPageIssuesTitle', 'menuDisambiguationTitle', 'menuCoordinateTitle', 'sectionErrorMessage'
+exports.localizedStrings = undefined
+
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-exports.LocalizedStrings = LocalizedStrings
-exports.localizedStrings = undefined
 exports.menuItems = undefined
 },{"./transforms/addEditButtons":7,"./transforms/collapseTables":8,"./transforms/disableFilePageEdit":9,"./transforms/relocateFirstParagraph":10,"./transforms/widenImages":11,"./utilities":12,"wikimedia-page-library":14}],7:[function(require,module,exports){
 const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
