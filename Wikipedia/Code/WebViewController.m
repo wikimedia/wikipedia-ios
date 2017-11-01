@@ -747,6 +747,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification *)notification {
