@@ -31,7 +31,7 @@
     if (!key) {
         return nil;
     }
-    dispatch_semaphore_wait(_semaphore, 0);
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     id object = self.objectsByKey[key];
     dispatch_semaphore_signal(_semaphore);
     return object;
@@ -45,7 +45,7 @@
         [self removeObjectForKey:key];
         return;
     }
-    dispatch_semaphore_wait(_semaphore, 0);
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     self.objectsByKey[key] = obj;
     if ([self.keys containsObject:key]) { // NSOrderedSet will no-op when adding an object that is already in the set. This ensures the most recently requested path goes to the end of the ordered set.
         [self.keys removeObject:key];
@@ -63,19 +63,19 @@
     if (!key) {
         return;
     }
-    dispatch_semaphore_wait(_semaphore, 0);
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     [self.objectsByKey removeObjectForKey:key];
     dispatch_semaphore_signal(_semaphore);
 }
 
 - (void)removeAllObjects {
-    dispatch_semaphore_wait(_semaphore, 0);
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     [self.objectsByKey removeAllObjects];
     dispatch_semaphore_signal(_semaphore);
 }
 
 - (void)setCountLimit:(NSUInteger)countLimit {
-    dispatch_semaphore_wait(_semaphore, 0);
+    dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
     _countLimit = countLimit;
     dispatch_semaphore_signal(_semaphore);
 }
