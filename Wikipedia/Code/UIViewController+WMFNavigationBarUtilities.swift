@@ -20,19 +20,23 @@ extension UIViewController {
     }
     
     @objc public func wmf_updateNavigationBar(removeUnderline: Bool) {
+        guard let navigationController = navigationController else {
+            return
+        }
+        
         if (removeUnderline) {
-            navigationController!.navigationBar.isTranslucent = false
-            navigationController!.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.navigationBar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
         } else {
-            navigationController!.navigationBar.isTranslucent = false
-            navigationController!.navigationBar.shadowImage = nil
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.navigationBar.shadowImage = nil
         }
         
         // this little dance is to force the navigation bar to redraw. Without it,
         // the underline would not be removed until the view fully animated, instead of
         // before
         // http://stackoverflow.com/a/40948889
-        navigationController!.isNavigationBarHidden = true;
-        navigationController!.isNavigationBarHidden = false;
+        navigationController.isNavigationBarHidden = true;
+        navigationController.isNavigationBarHidden = false;
     }
 }
