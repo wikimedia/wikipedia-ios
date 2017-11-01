@@ -89,10 +89,12 @@ fileprivate struct JSStrings: Encodable {
         menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
         sectionErrorMessage = WMFLocalizedString("article-unable-to-load-section", language: lang, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
     }
+
+    static let jsonEncoder = JSONEncoder()
+
     func toJSON() -> String {
-        let jsonEncoder = JSONEncoder()
         guard
-            let jsonData = try? jsonEncoder.encode(self),
+            let jsonData = try? JSStrings.jsonEncoder.encode(self),
             let jsonString = String(data: jsonData, encoding: .utf8)
             else {
                 assertionFailure("Expected JSON string")
