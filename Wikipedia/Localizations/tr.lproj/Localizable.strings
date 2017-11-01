@@ -100,6 +100,7 @@
 "button-save-for-later" = "Sonrası için kaydet";
 "button-saved-for-later" = "Sonrası için kaydedildi";
 "button-saved-remove" = "Kaydedildikten sonra kaldırıldı";
+"button-skip" = "Atla";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
@@ -214,6 +215,7 @@
 "info-box-close-text" = "Kapat";
 "info-box-title" = "Pratik Bilgiler";
 "languages-title" = "Dili değiştir";
+"languages-wikipedia" = "Vikipedi dilleri";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "İçerik, aksi belirtilmedikçe $1 lisansı altında kullanılabilir";
 "login-forgot-password" = "Parolanızı mı unuttunuz?";
@@ -351,8 +353,7 @@
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Bir bilgi paylaş";
+"share-a-fact-share-menu-item" = "Bir bilgi paylaş...";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
 "share-custom-menu-item" = "Paylaş...";
 "share-get-directions-in-maps" = "Yol tarifi al";
@@ -375,15 +376,30 @@
 "two-factor-login-title" = "Hesabınızda oturum açın";
 "two-factor-login-with-backup-code" = "Yedek kodlarınızdan birini kullanın";
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
+"view-in-browser-footer-link" = "Maddeyi tarayıcıda görüntüle";
+"welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
+"welcome-exploration-explore-feed-title" = "Keşfet bölümü";
+"welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";
+"welcome-exploration-on-this-day-title" = "Tarihte bugün";
+"welcome-exploration-places-title" = "Yerler sekmesi";
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
+"welcome-intro-free-encyclopedia-description" = "Vikipedi gönüllüler tarafından ortaklaşa yazılmakta ve yaklaşık 300 dilde, 40 milyondan fazla madde barındırmaktadır.";
+"welcome-intro-free-encyclopedia-more" = "Vikipedi hakkında daha fazla şey öğren";
+"welcome-intro-free-encyclopedia-more-about" = "Vikipedi hakkında";
+"welcome-intro-free-encyclopedia-more-description" = "Vikipedi dünyanın tüm dillerinde özgür ansiklopediler oluşturmayı amaçlayan bir küresel projedir. İnternet erişimi olan herkes tarafsız ve kaynaklı bilgilerle katkı yaparak katılım sağlamakta özgürdür.";
+"welcome-intro-free-encyclopedia-title" = "Özgür ansiklopedi";
 "welcome-languages-add-button" = "Başka bir dil ekle";
+"welcome-languages-add-or-edit-button" = "Dil tercihi ekle veya düzenle";
+"welcome-languages-description" = "Cihazınızda şu dilleri bulduk:";
+"welcome-languages-search-title" = "Yaklaşık 300 dilde ara";
 "welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihanız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
 "welcome-notifications-tell-me-more-storage" = "Bildirim tercihleri cihazda saklanır ve kişisel bilgi veya faaliyete dayalı değildir.";
 "welcome-notifications-tell-me-more-title" = "Bildirimler hakkında daha fazla bilgi";
-// Fuzzy
-"welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı bize bildirerek Wikimedia Vakfı'nın uygulamayı daha iyi hâle getirmesini sağlayın. Veriler anonim olarak toplanır";
+"welcome-send-data-helps-title" = "Uygulamayı iyileştirmeye yardım et";
+"welcome-send-data-learn-more" = "Toplanan veriler hakkında daha fazla bilgi edin";
+"welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı Wikimedia Vakfı'na bildirerek uygulamanın geliştirilmesine katkı sağlayın. Veriler anonim olarak toplanır.";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
 "wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-download-success" = "İçerik yüklendi.";
@@ -398,7 +414,6 @@
 "wikitext-upload-save" = "Paylaşılıyor...";
 "wikitext-upload-save-anonymously-warning" = "Değişiklikler cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-sign-in" = "Oturum aç";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Değişikliklerinizi kaydederek $1 kabul etmiş sayılırsınız ve bu değişiklikler $2 ve $3 lisansı altında yayınlanır.";
 "wikitext-upload-save-terms-name" = "Kullanım Şartları";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";

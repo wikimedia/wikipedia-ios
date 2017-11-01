@@ -219,6 +219,7 @@
 "info-box-close-text" = "Закрыть";
 "info-box-title" = "Краткие факты";
 "languages-title" = "Изменить язык";
+"languages-wikipedia" = "Языки Википедии";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "login-forgot-password" = "Забыли пароль?";
@@ -401,6 +402,8 @@
 "welcome-intro-free-encyclopedia-title" = "Свободная энциклопедия";
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";
+"welcome-languages-description" = "Мы нашли следующие языки на вашем устройстве:";
+"welcome-languages-search-title" = "Искать на почти 300 языках";
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";

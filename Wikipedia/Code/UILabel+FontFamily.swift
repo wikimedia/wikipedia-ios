@@ -2,7 +2,7 @@ import UIKit
 
 
 extension UILabel {
-    func setFont(with family: WMFFontFamily?, style: UIFontTextStyle?, traitCollection: UITraitCollection) {
+    public func setFont(with family: WMFFontFamily?, style: UIFontTextStyle?, traitCollection: UITraitCollection) {
         guard let family = family, let style = style else {
             return
         }

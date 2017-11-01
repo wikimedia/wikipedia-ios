@@ -50,7 +50,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFLanguagesViewController *languagesVC = [[WMFLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-wikipedia", nil, nil, @"Wikipedia languages", @"Title for list of Wikipedia languages");
+    languagesVC.title = [WMFCommonStrings wikipediaLanguages];
     languagesVC.editing = NO;
     languagesVC.showPreferredLanguages = NO;
 
@@ -387,7 +387,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     WMFPreferredLanguagesViewController *languagesVC = [[WMFPreferredLanguagesViewController alloc] initWithNibName:@"WMFLanguagesViewController" bundle:nil];
     NSParameterAssert(languagesVC);
 
-    languagesVC.title = [WMFCommonStrings myLanguages];
+    languagesVC.title = [WMFCommonStrings wikipediaLanguages];
 
     languagesVC.hideLanguageFilter = YES;
     languagesVC.showNonPreferredLanguages = NO;
