@@ -89,7 +89,7 @@ fileprivate struct JSStrings: Encodable {
         menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
         sectionErrorMessage = WMFLocalizedString("article-unable-to-load-section", language: lang, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
     }
-    func json() -> String {
+    func toJSON() -> String {
         let jsonEncoder = JSONEncoder()
         guard
             let jsonData = try? jsonEncoder.encode(self),
@@ -199,7 +199,7 @@ extension WKWebView {
         let apiURLString = apiURL.absoluteString
 
         evaluateJavaScript("""
-            window.wmf.sectionTransformation.localizedStrings = \(JSStrings.init(for: article).json())
+            window.wmf.sectionTransformation.localizedStrings = \(JSStrings.init(for: article).toJSON())
             window.wmf.sectionTransformation.menuItems = \(menuItemsJS(for: article))
             window.wmf.sectionTransformation.fetchTransformAndAppendSectionsToDocument(
             \(articleJS(for: article)),
