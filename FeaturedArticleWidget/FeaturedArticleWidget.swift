@@ -25,8 +25,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)
-
-        updateViewAlpha(isExpanded: isExpanded)
     }
     
     var isEmptyViewHidden = true {
@@ -93,23 +91,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         expandedArticleView.alpha = isExpanded ? 1 : 0
         collapsedArticleView.alpha =  isExpanded ? 0 : 1
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        let viewUpdates = {
-            self.updateViewAlpha(isExpanded: self.isExpanded)
-        }
-        
-        guard coordinator.isAnimated else {
-            viewUpdates()
-            return
-        }
-        
-        coordinator.animate(alongsideTransition: { (context) in
-            viewUpdates()
-        }) { (context) in }
-    }
-    
+
     @objc func updateView() {
         var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
         if let context = extensionContext {
@@ -122,6 +104,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
                 maximumSize = UIScreen.main.bounds.size
             }
         }
+        updateViewAlpha(isExpanded: isExpanded)
         updateViewWithMaximumSize(maximumSize, isExpanded: isExpanded)
     }
     

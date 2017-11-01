@@ -11,7 +11,7 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
 @interface WMFColumnarCollectionViewLayout ()
 
 @property (nonatomic, readonly) id<WMFColumnarCollectionViewLayoutDelegate> delegate;
-@property (nonatomic, strong) WMFCVLInfo *info;
+@property (nonatomic, strong) WMFCVLInfo *info; // holds layout information (sections, columns, layout attributes, etc)
 @property (nonatomic, strong) WMFCVLMetrics *metrics;
 @property (nonatomic, getter=isLayoutValid) BOOL layoutValid;
 @property (nonatomic) NSInteger maxNewSection;
@@ -85,6 +85,9 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     return nil;
 }
 
+/**
+ Prepare layout is called before any layout information is generated.
+ */
 - (void)prepareLayout {
     CGFloat readableWidth = 0;
     if (@available(iOS 11.0, *)) {
@@ -141,9 +144,13 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     return context;
 }
 
+/**
+ All layout invalidation flows through this method
+
+ @param context invalidation context
+ */
 - (void)invalidateLayoutWithContext:(WMFCVLInvalidationContext *)context {
     assert([context isKindOfClass:[WMFCVLInvalidationContext class]]);
-
     if (context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange) {
         self.layoutValid = NO;
     }

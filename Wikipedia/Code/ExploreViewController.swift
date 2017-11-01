@@ -77,11 +77,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
-        self.collectionViewController.willMove(toParentViewController: self)
+        self.addChildViewController(collectionViewController)
         self.collectionViewController.view.frame = self.containerView.bounds
         self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.containerView.addSubview(collectionViewController.view)
-        self.addChildViewController(collectionViewController)
         self.collectionViewController.didMove(toParentViewController: self)
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
@@ -226,8 +225,9 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
-        showSearchBar(animated: false)
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
+        showSearchBar(animated: true)
+        return true
     }
     
     // MARK: - UISearchBarDelegate

@@ -76,6 +76,8 @@
 "button-save-for-later" = "Uložiť na neskôr";
 "button-saved-for-later" = "Uložené na neskôr";
 "button-saved-remove" = "Odstrániť z uložených";
+"button-skip" = "Preskočiť";
+"cancel" = "Zrušiť";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
@@ -223,6 +225,7 @@
 "page-protected-sysop" = "Táto stránka je zamknutá.";
 "page-read-in-other-languages" = "Článok je dostupný v $1 ďalších jazykoch";
 "page-similar-titles" = "Podobné stránky";
+"page-talk-page" = "Zobraziť diskusiu";
 "pictured" = "na obrázku";
 "places-accessibility-clear-saved-searches" = "Vymazať nedávno hľadané výrazy";
 "places-accessibility-close-search" = "Zatvoriť vyhľadávanie";
@@ -253,6 +256,9 @@
 "preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
 "rank-accessibility-label" = "Číslo $1";
 "readers-accessibility-label" = "$1 čitateľov";
+"reading-themes-controls-accessibility-dark-theme-button" = "Tmavá téma vzhľadu";
+"reading-themes-controls-accessibility-light-theme-button" = "Svetlá téma vzhľadu";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sépia";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dnes|Včera|Pred $1 dňami}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";
@@ -292,6 +298,7 @@
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-custom-menu-item" = "Zdieľať...";
 "share-get-directions-in-maps" = "Nájsť trasu";
+"share-menu-item" = "Zdieľať…";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";
 "status-saved-for-later" = "Uložené na neskôr";
 "status-saving-for-later" = "Ukladanie na neskôr...";
@@ -307,8 +314,11 @@
 "two-factor-login-title" = "Prihláste sa do svojho účtu";
 "two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "two-factor-login-with-regular-code" = "Použite overovací kód";
+"view-in-browser-footer-link" = "Zobraziť článok v prehliadači";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
+"welcome-intro-free-encyclopedia-more-about" = "O Wikipédii";
+"welcome-intro-free-encyclopedia-title" = "Slobodná encyklopédia";
 "welcome-languages-add-button" = "Pridať ďalší jazyk";
 "welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
 "welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
