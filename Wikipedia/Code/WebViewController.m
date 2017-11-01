@@ -450,8 +450,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         safeInsets = self.view.safeAreaInsets;
     }
     
-    NSLog(@"top %f", top);
-
     UIEdgeInsets newIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
     if (!UIEdgeInsetsEqualToEdgeInsets(newIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         scrollView.scrollIndicatorInsets = newIndicatorInsets;

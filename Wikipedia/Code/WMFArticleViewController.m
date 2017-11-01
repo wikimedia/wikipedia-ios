@@ -1139,6 +1139,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         } @catch (NSException *exception) {
             DDLogError(@"Caught exception while ending refreshing: %@", exception);
         }
+        self.webViewController.navBarHidden = NO;
     }
 }
 
