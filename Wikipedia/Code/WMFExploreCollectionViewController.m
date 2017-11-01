@@ -1955,8 +1955,16 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     // DDLogDebug(@"Stopped scrolling");
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:shouldScrollToTop:)]) {
+        return [self.delegate exploreCollectionViewController:self shouldScrollToTop:scrollView];
+    }
+    return YES;
+}
+
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
         [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
     }

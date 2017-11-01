@@ -225,8 +225,9 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
-        showSearchBar(animated: false)
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
+        showSearchBar(animated: true)
+        return true
     }
     
     // MARK: - UISearchBarDelegate
