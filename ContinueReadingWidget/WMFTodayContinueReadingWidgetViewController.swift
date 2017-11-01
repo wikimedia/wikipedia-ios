@@ -34,7 +34,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         textLabel.textColor = theme.colors.secondaryText
         emptyTitleLabel.textColor = theme.colors.primaryText
         emptyDescriptionLabel.textColor = theme.colors.secondaryText
-        daysAgoLabel.textColor = theme.colors.secondaryText
+        daysAgoLabel.textColor = theme.colors.overlayText
         daysAgoView.backgroundColor = theme.colors.overlayBackground
 
         if #available(iOSApplicationExtension 11.0, *) {

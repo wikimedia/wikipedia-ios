@@ -1955,6 +1955,7 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     // DDLogDebug(@"Stopped scrolling");
 }
 
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willEndDragging:velocity:)]) {
             [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
@@ -1965,7 +1966,14 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:shouldScrollToTop:)]) {
         return [self.delegate exploreCollectionViewController:self shouldScrollToTop:scrollView];
     }
-    return NO;
+    return YES;
+}
+
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
+        [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
+    }
 }
 
 #pragma mark - WMFThemeable
