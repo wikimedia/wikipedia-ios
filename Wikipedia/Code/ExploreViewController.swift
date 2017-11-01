@@ -95,6 +95,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.updateNavigationBar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.wmf_updateNavigationBar(removeUnderline: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func updateNavigationBar() {
         updateNavigationBar(newOffset: abs(extendNavBarViewTopSpaceConstraint.constant))
     }

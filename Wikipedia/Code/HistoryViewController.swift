@@ -25,11 +25,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         deleteAllText = WMFLocalizedString("history-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action")
         isDeleteAllVisible = true
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.wmf_updateNavigationBar(removeUnderline: false)
-    }
     
     override var analyticsName: String {
         return "Recent"

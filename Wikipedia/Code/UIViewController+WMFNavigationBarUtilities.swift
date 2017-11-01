@@ -36,7 +36,7 @@ extension UIViewController {
         // the underline would not be removed until the view fully animated, instead of
         // before
         // http://stackoverflow.com/a/40948889
-        navigationController.isNavigationBarHidden = true;
-        navigationController.isNavigationBarHidden = false;
+        navigationController.isNavigationBarHidden = true
+        navigationController.isNavigationBarHidden = false
     }
 }
