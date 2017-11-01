@@ -299,13 +299,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
-        
+
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
 
         [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
-        NSAssert(self.article, @"Article not set - may need to use the old 0.1 second delay...");
+        NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
         [UIView animateWithDuration:0.3
