@@ -1130,6 +1130,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)endRefreshing {
     if (self.pullToRefresh.isRefreshing) {
+        self.webViewController.navBarHidden = NO;
         @try { // TODO: REMOVE AFTER DROPPING iOS 9
             [self.pullToRefresh endRefreshing];
         } @catch (NSException *exception) {
