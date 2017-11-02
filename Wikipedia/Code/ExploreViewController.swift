@@ -83,6 +83,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.collectionViewController.didMove(toParentViewController: self)
         
+        addStatusBarUnderlay()
+        
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
         apply(theme: self.theme)
     }
@@ -96,6 +98,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.wmf_updateNavigationBar(removeUnderline: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func updateNavigationBar() {
@@ -225,8 +228,32 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScrollToTop scrollView: UIScrollView) {
-        showSearchBar(animated: false)
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        showSearchBar(animated: true)
+        return true
+    }
+    
+    var statusBarUnderlay: UIView?
+    
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willEndDragging scrollView: UIScrollView, velocity: CGPoint) {
+        let velocity = velocity.y
+        guard velocity != 0 else { // don't hide or show on 0 velocity tap
+            return
+        }
+        self.navigationController?.setNavigationBarHidden(velocity > 0, animated: true)
+    }
+    
+    func addStatusBarUnderlay() {
+        let statusBarUnderlay = UIView()
+        statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = self.view.topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
+        let bottomConstraint = self.topLayoutGuide.bottomAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
+        let leadingConstraint = self.view.leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
+        let trailingConstraint = self.view.trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
+        self.view.addSubview(statusBarUnderlay)
+        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        self.statusBarUnderlay = statusBarUnderlay
     }
     
     // MARK: - UISearchBarDelegate
@@ -273,6 +300,7 @@ extension ExploreViewController: Themeable {
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
         }
+        statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
         wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
     }
 }

@@ -1362,6 +1362,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             }
             articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
         } break;
+        case WMFFeedDetailTypeGallery: {
+            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme overlayViewTopBarHidden:YES];
+        } break;
         default:
             vc = [self detailViewControllerForItemAtIndexPath:indexPath];
     }
@@ -1424,7 +1427,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:url dataStore:self.userStore theme:self.theme];
         } break;
         case WMFFeedDetailTypeGallery: {
-            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme];
+            vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme overlayViewTopBarHidden:NO];
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
@@ -1952,8 +1955,22 @@ NSString *const kvo_WMFExploreViewController_peek_state_keypath = @"state";
     // DDLogDebug(@"Stopped scrolling");
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
 
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willEndDragging:velocity:)]) {
+            [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
+        }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:shouldScrollToTop:)]) {
+        return [self.delegate exploreCollectionViewController:self shouldScrollToTop:scrollView];
+    }
+    return YES;
+}
+
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
         [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
     }

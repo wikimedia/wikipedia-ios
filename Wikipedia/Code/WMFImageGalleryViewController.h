@@ -57,13 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleImageGalleryViewController : WMFImageGalleryViewController <WMFImageInfoControllerDelegate>
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme;
+- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden;
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
-
-- (nullable instancetype)initForPeek:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme;
 
 - (MWKImage *)currentImage;
 
@@ -73,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFPOTDImageGalleryViewController : WMFImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates theme:(WMFTheme *)theme NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate NS_UNAVAILABLE;
 
