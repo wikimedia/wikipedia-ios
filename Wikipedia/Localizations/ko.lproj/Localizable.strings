@@ -65,8 +65,10 @@
 "action-read" = "읽기";
 "action-save" = "저장";
 "action-saved" = "저장됨";
+"action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
 "action-unsave" = "저장하지 않음";
+"action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
@@ -77,6 +79,7 @@
 "appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
+"article-deleted-accessibility-notification" = "문서가 삭제됨";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
@@ -323,6 +326,7 @@
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-title" = "저장된 문서";
+"search-button-accessibility-label" = "위키백과 검색";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-recent-clear-cancel" = "취소";

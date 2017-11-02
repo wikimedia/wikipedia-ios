@@ -83,6 +83,7 @@
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
+"article-deleted-accessibility-notification" = "Статья удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
