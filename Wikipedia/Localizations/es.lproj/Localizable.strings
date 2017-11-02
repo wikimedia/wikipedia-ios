@@ -68,8 +68,10 @@
 "action-save" = "Guardar";
 "action-saved" = "Guardado";
 "action-saved-accessibility" = "Guardado. Actívalo para borrarlo.";
+"action-saved-accessibility-notification" = "Artículo guardado para después";
 "action-share" = "Compartir";
 "action-unsave" = "No guardar";
+"action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
@@ -80,6 +82,7 @@
 "appearance-settings-title" = "Temas de lecturas";
 "article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
+"article-deleted-accessibility-notification" = "Artículo eliminado";
 "article-languages-filter-placeholder" = "Seleccionar idioma";
 "article-languages-label" = "Elige un idioma";
 "article-languages-others" = "Otros idiomas";
@@ -331,6 +334,7 @@
 "saved-pages-clear-delete-all" = "Sí, borrar todas";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-title" = "Guardados";
+"search-button-accessibility-label" = "Buscar en Wikipedia";
 "search-did-you-mean" = "¿Quisiste decir $1?";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-recent-clear-cancel" = "Cancelar";
@@ -415,7 +419,7 @@
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
 "welcome-send-data-helps-title" = "Ayuda a mejorar la aplicación";
 "welcome-send-data-learn-more" = "Más información sobre los datos recopilados";
-"welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación permitiéndonos conocer cómo la usas. Los datos recolectados son anónimos.";
+"welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación al decirnos cómo la usas. Los datos recolectados son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el contenido.";
