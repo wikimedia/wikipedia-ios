@@ -1043,7 +1043,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             rect = CGRectUnion(rect, reference.rect);
         }
         rect = [self.webView convertRect:rect toView:nil];
-        rect = CGRectOffset(rect, 0, 1);
+        rect = CGRectOffset(rect, 0, self.webView.scrollView.contentInset.top + 1);
         rect = CGRectInset(rect, -1, -3);
         return rect;
     }
