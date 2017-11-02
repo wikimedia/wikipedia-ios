@@ -621,6 +621,14 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         return;
     }
 
+    // Show  all navigation bars so that users will always see search when they re-open the app
+    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
+    for (UINavigationController *navC in allNavControllers) {
+        if (navC.isNavigationBarHidden) {
+            [navC setNavigationBarHidden:NO animated:NO];
+        }
+    }
+
     self.searchViewController = nil;
     self.settingsViewController = nil;
 
@@ -1006,7 +1014,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (self.rootTabBarController) {
         return [self.rootTabBarController shouldAutorotate];
     } else {
-        return NO;
+        return YES;
     }
 }
 
@@ -1014,7 +1022,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (self.rootTabBarController) {
         return [self.rootTabBarController supportedInterfaceOrientations];
     } else {
-        return [self wmf_orientationMaskPortraitiPhoneAnyiPad];
+        return UIInterfaceOrientationMaskAll;
     }
 }
 
@@ -1406,6 +1414,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
+- (NSArray<UINavigationController *> *)allNavigationControllers {
+    // Navigation controllers
+    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
+    if (self.settingsNavigationController) {
+        [navigationControllers addObject:self.settingsNavigationController];
+    }
+    return navigationControllers;
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     if (theme == nil) {
         return;
@@ -1420,13 +1437,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
-    // Navigation controllers
-    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
-    if (self.settingsNavigationController) {
-        [navigationControllers addObject:self.settingsNavigationController];
-    }
-
-    [self applyTheme:theme toNavigationControllers:navigationControllers];
+    [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
 
     // Tab bars
 

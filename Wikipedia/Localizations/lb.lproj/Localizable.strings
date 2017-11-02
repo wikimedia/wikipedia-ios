@@ -47,12 +47,15 @@
 "action-read" = "Liesen";
 "action-save" = "Späicheren";
 "action-saved" = "Gespäichert";
+"action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
 "action-unsave" = "Läschen";
+"action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
 "announcements-dismiss" = "Verwerfen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
+"article-deleted-accessibility-notification" = "Artikel geläscht";
 "article-languages-filter-placeholder" = "Sprooch fannen";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-others" = "Aner Sproochen";
@@ -238,7 +241,7 @@
 "page-protected-can-not-edit-title" = "Dës Säit ass gespaart";
 "page-protected-other" = "Dës Säit gouf fir dës Niveaue gespaart: $1";
 "page-protected-sysop" = "Dës Säit ass komplett gespaart.";
-"page-read-in-other-languages" = "Disponibel an $1 aneren Sproochen";
+"page-read-in-other-languages" = "Disponibel a(n) $1 anere Sproochen";
 "page-similar-titles" = "Ähnlech Säiten";
 "page-talk-page" = "Diskussiounssäit weisen";
 "pictured" = "als Bild";
@@ -290,6 +293,7 @@
 "saved-pages-clear-delete-all" = "Jo, all läschen";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
 "saved-title" = "Gespäichert";
+"search-button-accessibility-label" = "Op Wikipedia sichen";
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-recent-clear-cancel" = "Ofbriechen";
@@ -364,8 +368,7 @@
 "welcome-notifications-tell-me-more-title" = "Méi iwwer Notifikatiounen";
 "welcome-send-data-helps-title" = "Hëlleft d'App besser ze maachen";
 "welcome-send-data-learn-more" = "Méi iwwer déi gesammelt Donnéeë gewuer ginn";
-// Fuzzy
-"welcome-send-data-sub-title" = "Hëlleft der Wikimedia Foundation d'App besser ze maachen andeem Dir eis wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
+"welcome-send-data-sub-title" = "Hëlleft d'App besser ze maachen andeem Dir d'Wikimedia Foundation wësse loosst wéi Dir d'App benotzt. Déi gesammelt Date sinn anonym.";
 "welcome-volunteer-send-usage-reports" = "Rapporten iwwer d'Benotze schécken";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Inhalt gelueden.";
