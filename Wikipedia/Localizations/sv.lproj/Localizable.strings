@@ -63,8 +63,10 @@
 "action-save" = "Spara";
 "action-saved" = "Sparades";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
+"action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";
 "action-unsave" = "Spara inte";
+"action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Stäng";
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
@@ -75,6 +77,7 @@
 "appearance-settings-title" = "Lästeman";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
+"article-deleted-accessibility-notification" = "Artikeln raderades";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
@@ -326,6 +329,7 @@
 "saved-pages-clear-delete-all" = "Ja, radera allt";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-title" = "Sparade";
+"search-button-accessibility-label" = "Sök på Wikipedia";
 "search-did-you-mean" = "Menade du $1?";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-recent-clear-cancel" = "Avbryt";
