@@ -682,7 +682,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
       requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', fragment)
+      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
     }
   }
 
