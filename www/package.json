@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "dependencies": {
     "wikimedia-page-library": "4.7.2"
-   },
+  },
   "devDependencies": {
     "grunt": "1.0.1",
     "grunt-browserify": "5.0.0",
