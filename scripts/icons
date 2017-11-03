@@ -7,6 +7,6 @@ export APP_ICON_ROOT="Wikipedia/Images.xcassets/AppIcon.appiconset"
 for i in 20 29 40 58 60 76 80 87 120 152 167 180 1024
     do
         echo "Creating $i px icon"
-        convert -density 400 Icon/square.pdf -scale $ix$i -alpha remove "$APP_ICON_ROOT/$i.png"
+        convert -density 720x720 Icon/square.pdf -scale $ix$i -alpha remove "$APP_ICON_ROOT/$i.png"
         /Applications/ImageOptim.app/Contents/MacOS/ImageOptim "$APP_ICON_ROOT/$i.png"
 done
