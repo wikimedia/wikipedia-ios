@@ -264,10 +264,10 @@ const scrollToSection = hash => {
   }
 }
 
-const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, apiURL, hash) => {
+const fetchTransformAndAppendSectionsToDocument = (article, proxyURL, articleSectionsURL, hash) => {
   performEarlyNonSectionTransforms(article)
   const mainContentDiv = document.querySelector('div.content')
-  fetch(apiURL)
+  fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
   .then(extractJSONSections)
