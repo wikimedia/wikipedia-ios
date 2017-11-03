@@ -9214,7 +9214,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $WMF_PAGE_LIBRARY_DEVELOPMENT == \"YES\" ]\nthen\ncd \"$SRCROOT/../wikimedia-page-library\"\npwd\nnpm run -s build\ncd \"$SRCROOT/www\"\npwd\ngrunt\ncd \"$SRCROOT\"\nfi";
+			shellScript = "if [ $WMF_PAGE_LIBRARY_DEVELOPMENT == \"YES\" ]\nthen\n\ncd \"$SRCROOT/../wikimedia-page-library\"\npwd\n#npm link\nnpm run -s build\n\ncd \"$SRCROOT/www\"\npwd\n#npm link wikimedia-page-libary\ngrunt\n\n#else\n\n#cd \"$SRCROOT/www\"\n#pwd\n#npm unlink wikimedia-page-libary\n#npm install\n#grunt\n\nfi";
 		};
 		D8A42C1F1E815A9C00D8E281 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
