@@ -4,7 +4,11 @@ protocol AppearanceSettingsItem {
     var title: String? { get }
 }
 
-struct AppearanceSettingsSwitchItem: AppearanceSettingsItem {
+struct AppearanceSettingsDimSwitchItem: AppearanceSettingsItem {
+    let title: String?
+}
+
+struct AppearanceSettingsAutomaticTableOpenSwitchItem: AppearanceSettingsItem {
     let title: String?
 }
 
@@ -71,11 +75,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)})])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle)])
+        
+        let tableAutomaticOpenSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-set-automatic-table-opening", value: "Table Settings", comment: "Tables in article will be opened automatically"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsAutomaticTableOpenSwitchItem(title: "Automatically Open Tables")])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
         
-        return [readingThemesSection, themeOptionsSection, textSizingSection]
+        return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,6 +93,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("the index for this cell is \(indexPath)")
         let item = sections[indexPath.section].items[indexPath.item]
 
         
@@ -128,7 +135,8 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             tc.apply(theme: theme)
         }
 
-        if item is AppearanceSettingsSwitchItem {
+        if item is AppearanceSettingsDimSwitchItem {
+            print("here in if item is AppearanceSettingsDimSwitchItem")
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
@@ -149,9 +157,38 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.iconBackgroundColor = self.theme.colors.secondaryText
             cell.iconColor = self.theme.colors.paperBackground
             cell.selectionStyle = .none
+        }
+        else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
+            print("here if in AppearanceSettingsAutomaticTableOpenSwitchItem")
+            cell.disclosureType = .switch
+            cell.disclosureSwitch.isEnabled = true
+            cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled
+            
+            //let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+            cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
+            //userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
+            /*
+            switch currentAppTheme {
+            case  Theme.darkDimmed:
+                fallthrough
+            case Theme.dark:
+                cell.disclosureSwitch.isEnabled = true
+                
+                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
+            default:
+                break
+            }
+ 
+ */
+            //cell.iconName = "settings-image-dimming"
+            cell.iconBackgroundColor = self.theme.colors.secondaryText
+            cell.iconColor = self.theme.colors.paperBackground
+            cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none
         }
+        
         
         return cell
     }
@@ -242,6 +279,23 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         } else {
             PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
         }
+    }
+    
+    @objc func applyAutomaticTableOpenChange(isOn: NSNumber) {
+        UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled = isOn.boolValue
+    }
+    
+    @objc func handleAutomaticTableOpenSwitchValueChange(_ sender: UISwitch) {
+        let selector = #selector(applyAutomaticTableOpenChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
+        /*
+        if (sender.isOn) {
+            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
+        } else {
+            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
+        }
+ */
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

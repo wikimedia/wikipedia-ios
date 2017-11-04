@@ -22,6 +22,7 @@ let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocatio
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
 let WMFAppThemeName = "WMFAppThemeName"
 let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
+let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 
 //Legacy Keys
@@ -129,6 +130,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFIsImageDimmingEnabled)
+            synchronize()
+        }
+    }
+    
+    @objc public var wmf_isAutomaticTableOpeningEnabled: Bool {
+        get {
+            return bool(forKey: WMFIsAutomaticTableOpeningEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFIsAutomaticTableOpeningEnabled)
             synchronize()
         }
     }

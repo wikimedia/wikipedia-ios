@@ -622,7 +622,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
     NSArray *lateTransformNames = @[
         @"addEditPencils",
-        @"collapseTables",
         @"setPageProtected",
         @"setLanguage",
         @"addFooterContainer",
@@ -631,6 +630,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"addFooterLegal",
         @"classifyThemeElements"
     ];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    NSMutableArray *lateTransformsMutableArrayForHandlingAutomaticTableOpening = [NSMutableArray arrayWithArray:lateTransformNames];
+    if (![userDefaults wmf_isAutomaticTableOpeningEnabled]) {
+        [lateTransformsMutableArrayForHandlingAutomaticTableOpening addObject:@"collapseTables"];
+    }
+    lateTransformNames = [NSArray arrayWithArray: lateTransformsMutableArrayForHandlingAutomaticTableOpening];
+    
     for (NSString *transformName in lateTransformNames) {
         NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
         [userContentController addUserScript:[[WKUserScript alloc] initWithSource:transformJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];

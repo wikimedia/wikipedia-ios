@@ -33,8 +33,8 @@ static int const kMinimumTextSelectionLength = 2;
     NSString *tableTitle = [WMFLocalizedStringWithDefaultValue(@"table-title-other", language, nil, @"More information", @"The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     NSString *closeBoxText = [WMFLocalizedStringWithDefaultValue(@"info-box-close-text", language, nil, @"Close", @"The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}") wmf_stringByReplacingApostrophesWithBackslashApostrophes];
     return
-        [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@', '%@');",
-                                   article.isMain, [article.displaytitle wmf_stringByReplacingApostrophesWithBackslashApostrophes], infoBoxTitle, tableTitle, closeBoxText];
+    [NSString stringWithFormat:@"window.wmf.tables.hideTables(document, %d, '%@', '%@', '%@', '%@');",
+     article.isMain, [article.displaytitle wmf_stringByReplacingApostrophesWithBackslashApostrophes], infoBoxTitle, tableTitle, closeBoxText];
 }
 
 - (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo {
