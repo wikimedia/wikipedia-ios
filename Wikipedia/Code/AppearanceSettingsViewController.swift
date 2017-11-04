@@ -77,7 +77,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController.init(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle)])
         
-        let tableAutomaticOpenSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-set-automatic-table-opening", value: "Table Settings", comment: "Tables in article will be opened automatically"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsAutomaticTableOpenSwitchItem(title: "Automatically Open Tables")])
+        let tableAutomaticOpenSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-set-automatic-table-opening", value: "Table Settings", comment: "Tables in article will be opened automatically"), footerText: nil, items: [AppearanceSettingsAutomaticTableOpenSwitchItem(title: "Automatically Open Tables")])
         
         let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController.init(nibName: "FontSizeSliderViewController", bundle: nil)), AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController.init(nibName: "TextSizeChangeExampleViewController", bundle: nil))])
         
@@ -136,7 +136,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
 
         if item is AppearanceSettingsDimSwitchItem {
-            print("here in if item is AppearanceSettingsDimSwitchItem")
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
@@ -163,32 +162,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = true
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled
-            
-            //let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
-            //userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
-            /*
-            switch currentAppTheme {
-            case  Theme.darkDimmed:
-                fallthrough
-            case Theme.dark:
-                cell.disclosureSwitch.isEnabled = true
-                
-                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
-                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
-            default:
-                break
-            }
- 
- */
-            //cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = self.theme.colors.secondaryText
             cell.iconColor = self.theme.colors.paperBackground
             cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none
         }
-        
         
         return cell
     }
@@ -289,13 +269,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let selector = #selector(applyAutomaticTableOpenChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
-        /*
-        if (sender.isOn) {
-            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
-        } else {
-            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
-        }
- */
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
