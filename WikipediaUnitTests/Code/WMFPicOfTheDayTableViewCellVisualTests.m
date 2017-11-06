@@ -33,8 +33,20 @@
 }
 
 - (void)testStillShowsPlaceholderWithoutCaptionWhileImageIsDownloading {
+    [[LSNocilla sharedInstance] start];
+    // using a plain-white image to ensure the gradient is visible
+    UIImage *testImage = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+    NSRegularExpression *anyThumbRequest = [NSRegularExpression regularExpressionWithPattern:@"https://upload.wikimedia.org/wikipedia/commons/thumb/.*" options:0 error:nil];
+    stubRequest(@"GET", anyThumbRequest).andReturnRawResponse(UIImageJPEGRepresentation(testImage, 0));
+
+    NSURL *testURL = [NSURL URLWithString:@"http://dummyimage.com/foo"];
+    NSData *imageData = UIImagePNGRepresentation(testImage);
+
+    stubRequest(@"GET", testURL.absoluteString)
+        .andReturnRawResponse(imageData);
+
     [NSURLProtocol registerClass:[WMFHTTPHangingProtocol class]];
-    [self.cell setImageURL:[NSURL URLWithString:@"http://dummyimage.com/foo"]];
+    [self.cell setImageURL:testURL];
     [self wmf_verifyView:self.cell];
     [NSURLProtocol unregisterClass:[WMFHTTPHangingProtocol class]];
 }
