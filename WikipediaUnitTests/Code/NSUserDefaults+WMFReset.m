@@ -3,7 +3,7 @@
 @implementation NSUserDefaults (WMFReset)
 
 - (void)wmf_resetToDefaultValues {
-    [self removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    [self removePersistentDomainForName:WMFApplicationGroupIdentifier];
     [self synchronize];
 }
 
