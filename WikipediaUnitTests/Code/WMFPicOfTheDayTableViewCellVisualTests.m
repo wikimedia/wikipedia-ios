@@ -49,6 +49,7 @@
     [self.cell setImageURL:testURL];
     [self wmf_verifyView:self.cell];
     [NSURLProtocol unregisterClass:[WMFHTTPHangingProtocol class]];
+    [[LSNocilla sharedInstance] stop];
 }
 
 - (void)testShowsCaptionWhenImageIsFinallyDownloaded {
