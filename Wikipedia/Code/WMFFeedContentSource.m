@@ -437,6 +437,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
+#if TEST
+//Ignore this check when running tests - feed date is fixed
+#else
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
@@ -445,6 +448,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         done();
         return;
     }
+#endif
 
     WMFArticle *articlePreviewToNotifyAbout = nil;
     WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;
