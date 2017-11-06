@@ -63,8 +63,10 @@
 "action-save" = "Desa";
 "action-saved" = "Desat";
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
+"action-saved-accessibility-notification" = "Article desat per a més endavant";
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
+"action-unsaved-accessibility-notification" = "Article no desat";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
@@ -74,6 +76,7 @@
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
+"article-deleted-accessibility-notification" = "S'ha suprimit l'article";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
@@ -305,9 +308,11 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
+"reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
@@ -320,6 +325,7 @@
 "saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-title" = "Desat";
+"search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-recent-clear-cancel" = "Cancel·la";
