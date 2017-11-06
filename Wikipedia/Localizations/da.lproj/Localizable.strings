@@ -56,8 +56,10 @@
 "action-save" = "Gem";
 "action-saved" = "Gemt";
 "action-saved-accessibility" = "Gemt. Aktiver for at fortryde.";
+"action-saved-accessibility-notification" = "Artikel gemt til senere";
 "action-share" = "Del";
 "action-unsave" = "Gem ikke";
+"action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
@@ -68,6 +70,7 @@
 "appearance-settings-title" = "Læsetemaer";
 "article-about-title" = "Om denne artikel";
 "article-delete" = "Slet";
+"article-deleted-accessibility-notification" = "Artikel slettet";
 "article-languages-filter-placeholder" = "Find sprog";
 "article-languages-label" = "Vælg sprog";
 "article-languages-others" = "Andre sprog";
@@ -319,6 +322,7 @@
 "saved-pages-clear-delete-all" = "Ja, slet alt";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-title" = "Gemt";
+"search-button-accessibility-label" = "Søg i Wikipedia";
 "search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søg i Wikipedia";
 "search-recent-clear-cancel" = "Annullér";
