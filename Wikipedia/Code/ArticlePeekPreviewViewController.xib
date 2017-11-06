@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +15,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="cCB-wn-buP" id="o3i-U7-ys9"/>
                 <outlet property="headerView" destination="A2X-YE-PwK" id="Kf8-I9-h5J"/>
+                <outlet property="headerViewTopConstraint" destination="IIR-Nr-bRd" id="nOv-r0-5bQ"/>
                 <outlet property="leadImageView" destination="tMT-E4-kIC" id="9Vv-ey-fbN"/>
                 <outlet property="textLabel" destination="Ezb-Jj-MfF" id="XzA-dh-4bu"/>
                 <outlet property="textView" destination="MeE-uX-nNB" id="VEc-AH-b18"/>
