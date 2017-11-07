@@ -119,11 +119,6 @@
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
-		7A4FE5441FA011AE009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
-		7A4FE5451FA011AF009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
-		7A4FE5461FA011AF009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
-		7A4FE5471FA011B0009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
-		7A4FE5481FA011B1009FA199 /* ArticlePeekPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */; };
 		7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
@@ -3073,7 +3068,6 @@
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
-		7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticlePeekPreviewViewController.xib; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
@@ -7126,7 +7120,6 @@
 				83E52BB31F681F940045E776 /* ShareAFactViewController.xib */,
 				7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */,
 				7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */,
-				7A77B7811F9FCB2500753FF5 /* ArticlePeekPreviewViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -8650,7 +8643,6 @@
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958A1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				7A4FE5441FA011AE009FA199 /* ArticlePeekPreviewViewController.xib in Resources */,
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
@@ -8741,7 +8733,6 @@
 				D80ED4051EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				D80ED4071EE57F4800CE8C50 /* TSMessagesDefaultDesign.json in Resources */,
 				D80ED4081EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
-				7A4FE5481FA011B1009FA199 /* ArticlePeekPreviewViewController.xib in Resources */,
 				D80ED40A1EE57F4800CE8C50 /* ArticlePopoverViewController.xib in Resources */,
 				D80ED40B1EE57F4800CE8C50 /* Launch Screen.storyboard in Resources */,
 				D80ED40C1EE57F4800CE8C50 /* PreviewAndSaveViewController.storyboard in Resources */,
@@ -8879,7 +8870,6 @@
 				D8A42BFE1E815A9C00D8E281 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958D1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				7A4FE5471FA011B0009FA199 /* ArticlePeekPreviewViewController.xib in Resources */,
 				D8A42C001E815A9C00D8E281 /* PreviewLicenseView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
@@ -8972,7 +8962,6 @@
 				D8CE26851E698E2400DAE2E0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
 				D82E958B1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				7A4FE5451FA011AF009FA199 /* ArticlePeekPreviewViewController.xib in Resources */,
 				D8CE26871E698E2400DAE2E0 /* PreviewLicenseView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
@@ -9065,7 +9054,6 @@
 				D8EC3F851E9BDA35006712EB /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
 				D82E958C1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
-				7A4FE5461FA011AF009FA199 /* ArticlePeekPreviewViewController.xib in Resources */,
 				D8EC3F871E9BDA35006712EB /* PreviewLicenseView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
