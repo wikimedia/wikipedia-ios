@@ -152,20 +152,18 @@ extension WKWebView {
         """
     }
 
-    private func articleJS(for article: MWKArticle) -> String {
-        let articleTitle = (article.url as NSURL).wmf_title ?? ""
+    private func articleJS(for article: MWKArticle, title: String) -> String {
         let articleDisplayTitle = article.displaytitle ?? ""
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
         
         return """
         new window.wmf.sectionTransformation.Article(
         \(article.isMain.toString()),
-        '\(articleTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+        '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         \(article.editable.toString()),
-        \(languageJS(for: article)),
-        \(article.hasReadMore.toString())
+        \(languageJS(for: article))
         )
         """
     }
@@ -199,15 +197,29 @@ extension WKWebView {
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
         let proxyURLString = proxyURL.absoluteString
         let apiURLString = apiURL.absoluteString
+        let jsStrings = JSStrings.init(for: article).toJSON()
+        let title = (article.url as NSURL).wmf_title ?? ""
 
+        let footerAdditionCallbackJS = """
+        () => {
+            const footer = new window.wmf.footerTransformation.Footer(
+                '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+                \(menuItemsJS(for: article)),
+                \(article.hasReadMore.toString()),
+                3,
+                \(jsStrings),
+                '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())')
+            footer.add()
+        }
+        """
+        
         evaluateJavaScript("""
-            window.wmf.sectionTransformation.localizedStrings = \(JSStrings.init(for: article).toJSON())
-            window.wmf.sectionTransformation.menuItems = \(menuItemsJS(for: article))
+            window.wmf.sectionTransformation.localizedStrings = \(jsStrings)
             window.wmf.sectionTransformation.fetchTransformAndAppendSectionsToDocument(
-            \(articleJS(for: article)),
-            '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            \(articleJS(for: article, title: title)),
             '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+            '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            \(footerAdditionCallbackJS)
             )
             """) { (result, error) in
             guard let error = error else {
