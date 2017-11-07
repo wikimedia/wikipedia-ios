@@ -44,6 +44,9 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isSaveButtonHidden = true
         expandedArticleView.extractLabel?.numberOfLines = 6
         expandedArticleView.frame = view.bounds
+        expandedArticleView.isHeaderBackgroundViewHidden = false
+        expandedArticleView.headerBackgroundColor = theme.colors.midBackground
+        
         view.addSubview(expandedArticleView)
         
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
