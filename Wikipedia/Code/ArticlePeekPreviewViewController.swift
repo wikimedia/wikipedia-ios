@@ -15,6 +15,9 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     @IBOutlet weak var textLabel: UILabel!
     @IBOutlet weak var textView: UIView!
     
+    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
+    
+    
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.articleURL = articleURL
         self.dataStore = dataStore
@@ -43,12 +46,12 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         
         if let imageURL = article.imageURL(forWidth: traitCollection.wmf_leadImageWidth) {
             self.leadImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                self.leadImageView.isHidden = true
+                self.leadImageViewHidden = true
             }, success: {
                 //handle success
             })
         } else {
-            leadImageView.isHidden = true
+            leadImageViewHidden = true
         }
 
         titleLabel.text = article.displayTitle
@@ -57,6 +60,16 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         
         self.preferredContentSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.parent?.preferredContentSize = self.preferredContentSize
+    }
+    
+    fileprivate var leadImageViewHidden: Bool {
+        set {
+            leadImageView.isHidden = newValue
+            headerViewTopConstraint.constant = newValue ? 15 : 0
+        }
+        get {
+            return leadImageView.isHidden
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +89,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     func updateFonts() {
         titleLabel.setFont(with: .georgia, style: .title1, traitCollection: traitCollection)
         descriptionLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
-        textLabel.setFont(with: .system, style: .body, traitCollection: traitCollection)
+        textLabel.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
         textLabel.lineBreakMode = .byTruncatingTail
         
         if #available(iOS 11.0, *) {
