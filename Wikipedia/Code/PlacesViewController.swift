@@ -1229,6 +1229,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    @objc func updateViewModeToMap() {
+        viewMode = .map
+    }
+    
     func selectArticlePlace(_ articlePlace: ArticlePlace) {
         mapView.selectAnnotation(articlePlace, animated: articlePlace.identifier != previouslySelectedArticlePlaceIdentifier)
         previouslySelectedArticlePlaceIdentifier = articlePlace.identifier
