@@ -147,9 +147,9 @@ extension WKWebView {
         
         return """
         new window.wmf.sections.Language(
-        '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        \(UIApplication.shared.wmf_isRTL.toString())
+            '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            \(UIApplication.shared.wmf_isRTL.toString())
         )
         """
     }
@@ -160,12 +160,12 @@ extension WKWebView {
         
         return """
         new window.wmf.sections.Article(
-        \(article.isMain.toString()),
-        '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-        \(article.editable.toString()),
-        \(languageJS(for: article))
+            \(article.isMain.toString()),
+            '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            \(article.editable.toString()),
+            \(languageJS(for: article))
         )
         """
     }
@@ -209,7 +209,8 @@ extension WKWebView {
                 \(article.hasReadMore.toString()),
                 3,
                 \(FooterLocalizedStrings.init(for: article).toJSON()),
-                '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())')
+                '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+            )
             footer.add()
         }
         """
@@ -220,10 +221,10 @@ extension WKWebView {
             window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
-            \(articleJS(for: article, title: title)),
-            '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            \(addFooterCallbackJS)
+                \(articleJS(for: article, title: title)),
+                '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+                '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+                \(addFooterCallbackJS)
             )
             """) { (result, error) in
             guard let error = error else {
