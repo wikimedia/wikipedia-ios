@@ -36,22 +36,25 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        fetchArticle()
         expandedArticleView.isSaveButtonHidden = true
         expandedArticleView.extractLabel?.numberOfLines = 6
         expandedArticleView.frame = view.bounds
         expandedArticleView.isHeaderBackgroundViewHidden = false
         expandedArticleView.headerBackgroundColor = theme.colors.midBackground
-        
-        view.addSubview(expandedArticleView)
-        
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        fetchArticle()
+        view.addSubview(expandedArticleView)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        expandedArticleView.frame = view.bounds
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
