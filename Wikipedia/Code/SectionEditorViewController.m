@@ -64,6 +64,10 @@
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
 
+    if (@available(iOS 11.0, *)) {
+        self.editTextView.smartQuotesType = UITextSmartQuotesTypeNo;
+    }
+
     self.viewKeyboardRect = CGRectNull;
 
     [self applyTheme:self.theme];

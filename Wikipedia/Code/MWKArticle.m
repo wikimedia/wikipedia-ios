@@ -1,4 +1,3 @@
-#import "MWKSection+DisplayHtml.h"
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/WMFImageTagParser.h>
 #import <WMF/WMFImageTagList.h>
@@ -366,7 +365,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Images
 
 - (NSArray<NSURL *> *)imageURLsForGallery {
-    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
     NSArray *imageURLs = [tagList imageURLsForGallery];
     if (imageURLs.count == 0 && self.imageURL) {
         NSString *imageURLString = [self.imageURL copy];
@@ -387,7 +386,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSArray<NSURL *> *)imageURLsForSaving {
-    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url];
     return [tagList imageURLsForSaving];
 }
 
@@ -408,7 +407,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (NSSet<NSURL *> *)allImageURLs {
-    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.articleHTML withBaseURL:self.url];
+    WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url];
     NSMutableSet<NSURL *> *imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
     [imageURLs addObjectsFromArray:[tagList imageURLsForGallery]];
@@ -475,20 +474,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return nil;
 }
 
-- (NSString *)articleHTML {
+- (NSString *)allSectionsHTMLForImageParsing {
     NSMutableArray *sectionTextArray = [[NSMutableArray alloc] init];
-
     for (MWKSection *section in self.sections) {
-        // Structural html added around section html just before display.
-        NSString *sectionHTMLWithID = [section displayHTML];
-        [sectionTextArray addObject:sectionHTMLWithID];
+        [sectionTextArray addObject:section.text ? section.text : @""];
     }
-
-    // Join article sections text
-    NSString *joint = @""; //@"<div style=\"height:20px;\"></div>";
-    NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
-
-    return htmlStr;
+    return [sectionTextArray componentsJoinedByString:@""];
 }
 
 #pragma mark Read More

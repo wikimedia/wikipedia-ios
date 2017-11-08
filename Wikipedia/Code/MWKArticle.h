@@ -110,9 +110,13 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (BOOL)isCached;
 
 /**
+ *  HTML from all sections. Not for display (ie not wrapped in section container divs etc. Only for use when extracting image info)
+ *  TODO: We should probably move the image parsing/url size variant re-writing to JS so we don't have to parse the html in native
+ *  land and since we now have section DocumentFragments which make it easy to access and change individual image properties with
+ *  little to no extra overhead (especially vs native parsing).
  *  @return The HTML for the article (all of the sections)
  */
-- (NSString *)articleHTML;
+- (NSString *)allSectionsHTMLForImageParsing;
 
 @end
 

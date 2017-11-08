@@ -176,6 +176,7 @@
     if (self.viewIfLoaded == nil) {
         return;
     }
+    self.view.backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.separatorColor = theme.colors.border;
     [self.tableView reloadData];

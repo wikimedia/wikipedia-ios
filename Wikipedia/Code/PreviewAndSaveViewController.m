@@ -18,7 +18,6 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
-#import "WKWebView+LoadAssetsHtml.h"
 
 typedef NS_ENUM(NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
