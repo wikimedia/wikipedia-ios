@@ -1,7 +1,6 @@
 import UIKit
 import WMF
 
-@objc (WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate let articleURL: URL
@@ -41,6 +40,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.frame = view.bounds
         expandedArticleView.isHeaderBackgroundViewHidden = false
         expandedArticleView.headerBackgroundColor = theme.colors.midBackground
+        
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
