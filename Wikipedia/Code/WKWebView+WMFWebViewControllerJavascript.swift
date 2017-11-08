@@ -47,10 +47,23 @@ fileprivate extension Bool{
     }
 }
 
-fileprivate struct JSStrings: Encodable {
-    var tableInfoboxTitle: String = ""
-    var tableOtherTitle: String = ""
-    var tableFooterTitle: String = ""
+fileprivate protocol JSONEncodable: Encodable {
+}
+
+fileprivate extension JSONEncodable {
+    func toJSON() -> String {
+        guard
+            let jsonData = try? JSONEncoder().encode(self),
+            let jsonString = String(data: jsonData, encoding: .utf8)
+            else {
+                assertionFailure("Expected JSON string")
+                return "{}"
+        }
+        return jsonString
+    }
+}
+
+fileprivate struct FooterLocalizedStrings: JSONEncodable {
     var readMoreHeading: String = ""
     var licenseString: String = ""
     var licenseSubstitutionString: String = ""
@@ -63,16 +76,11 @@ fileprivate struct JSStrings: Encodable {
     var menuPageIssuesTitle: String = ""
     var menuDisambiguationTitle: String = ""
     var menuCoordinateTitle: String = ""
-    var sectionErrorMessage: String = ""
     init(for article: MWKArticle) {
         guard let lang = (article.url as NSURL).wmf_language else {
             assertionFailure("Expected lang")
             return
         }
-        
-        tableInfoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
-        tableOtherTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}")
-        tableFooterTitle = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}")
         readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").uppercased(with: Locale.current)
         licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
         licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}")
@@ -87,20 +95,21 @@ fileprivate struct JSStrings: Encodable {
         menuPageIssuesTitle = WMFLocalizedString("page-issues", language: lang, value: "Page issues", comment: "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         menuDisambiguationTitle = WMFLocalizedString("page-similar-titles", language: lang, value: "Similar pages", comment: "Label for button that shows a list of similar titles (disambiguation) for the current page")
         menuCoordinateTitle = WMFLocalizedString("page-location", language: lang, value: "View on a map", comment: "Label for button used to show an article on the map")
-        sectionErrorMessage = WMFLocalizedString("article-unable-to-load-section", language: lang, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
     }
+}
 
-    static let jsonEncoder = JSONEncoder()
-
-    func toJSON() -> String {
-        guard
-            let jsonData = try? JSStrings.jsonEncoder.encode(self),
-            let jsonString = String(data: jsonData, encoding: .utf8)
-            else {
-                assertionFailure("Expected JSON string")
-                return "{}"
+fileprivate struct CollapseTablesLocalizedStrings: JSONEncodable {
+    var tableInfoboxTitle: String = ""
+    var tableOtherTitle: String = ""
+    var tableFooterTitle: String = ""
+    init(for article: MWKArticle) {
+        guard let lang = (article.url as NSURL).wmf_language else {
+            assertionFailure("Expected lang")
+            return
         }
-        return jsonString
+        tableInfoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
+        tableOtherTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}")
+        tableFooterTitle = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}")
     }
 }
 
@@ -197,7 +206,6 @@ extension WKWebView {
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
         let proxyURLString = proxyURL.absoluteString
         let apiURLString = apiURL.absoluteString
-        let jsStrings = JSStrings.init(for: article).toJSON()
         let title = (article.url as NSURL).wmf_title ?? ""
 
         let footerAdditionCallbackJS = """
@@ -207,14 +215,17 @@ extension WKWebView {
                 \(menuItemsJS(for: article)),
                 \(article.hasReadMore.toString()),
                 3,
-                \(jsStrings),
+                \(FooterLocalizedStrings.init(for: article).toJSON()),
                 '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())')
             footer.add()
         }
         """
         
+        let sectionErrorMessageLocalizedString = WMFLocalizedString("article-unable-to-load-section", language: (article.url as NSURL).wmf_language, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
+        
         evaluateJavaScript("""
-            window.wmf.sectionTransformation.localizedStrings = \(jsStrings)
+            window.wmf.sectionTransformation.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+            window.wmf.sectionTransformation.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: article).toJSON())
             window.wmf.sectionTransformation.fetchTransformAndAppendSectionsToDocument(
             \(articleJS(for: article, title: title)),
             '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',

@@ -135,7 +135,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.localizedStrings.tableInfoboxTitle, this.localizedStrings.tableOtherTitle, this.localizedStrings.tableFooterTitle)
+  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
   requirements.images.widenImages(fragment)
 }
 
@@ -191,9 +191,10 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
-// Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle', 'readMoreHeading', 'licenseString', 'licenseSubstitutionString', 'viewInBrowserString', 'menuHeading', 'menuLanguagesTitle', 'menuLastEditedTitle', 'menuLastEditedSubtitle', 'menuTalkPageTitle', 'menuPageIssuesTitle', 'menuDisambiguationTitle', 'menuCoordinateTitle', 'sectionErrorMessage'
-exports.localizedStrings = undefined
+// Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
+exports.collapseTablesLocalizedStrings = undefined
 
+exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article

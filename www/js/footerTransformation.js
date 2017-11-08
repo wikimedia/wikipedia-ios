@@ -6,11 +6,8 @@ const requirements = {
   footerContainer: require('wikimedia-page-library').FooterContainer
 }
 
-// backfill fragments with "createElement" so transforms will work as well with fragments as
-// they do with documents
-DocumentFragment.prototype.createElement = name => document.createElement(name)
-
 class Footer {
+  // 'localizedStrings' is object containing the following localized strings key/value pairs: 'readMoreHeading', 'licenseString', 'licenseSubstitutionString', 'viewInBrowserString', 'menuHeading', 'menuLanguagesTitle', 'menuLastEditedTitle', 'menuLastEditedSubtitle', 'menuTalkPageTitle', 'menuPageIssuesTitle', 'menuDisambiguationTitle', 'menuCoordinateTitle'
   constructor(articleTitle, menuItems, hasReadMore, readMoreItemCount, localizedStrings, proxyURL) {
     this.articleTitle = articleTitle
     this.menuItems = menuItems
