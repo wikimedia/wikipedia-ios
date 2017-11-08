@@ -10,7 +10,7 @@ wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.platform = require('wikimedia-page-library').PlatformTransform
-wmf.sectionTransformation = require('./js/sectionTransformation')
-wmf.footerTransformation = require('./js/footerTransformation')
+wmf.sections = require('./js/sections')
+wmf.footers = require('./js/footers')
 
 window.wmf = wmf

@@ -11,11 +11,11 @@ wmf.footerContainer = require('wikimedia-page-library').FooterContainer
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.platform = require('wikimedia-page-library').PlatformTransform
-wmf.sectionTransformation = require('./js/sectionTransformation')
-wmf.footerTransformation = require('./js/footerTransformation')
+wmf.sections = require('./js/sections')
+wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footerTransformation":5,"./js/sectionTransformation":7,"./js/utilities":13,"wikimedia-page-library":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":13,"wikimedia-page-library":15}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable

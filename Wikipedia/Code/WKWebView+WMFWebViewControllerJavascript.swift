@@ -146,7 +146,7 @@ extension WKWebView {
         let langDir = langInfo.dir
         
         return """
-        new window.wmf.sectionTransformation.Language(
+        new window.wmf.sections.Language(
         '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         \(UIApplication.shared.wmf_isRTL.toString())
@@ -159,7 +159,7 @@ extension WKWebView {
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
         
         return """
-        new window.wmf.sectionTransformation.Article(
+        new window.wmf.sections.Article(
         \(article.isMain.toString()),
         '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
         '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
@@ -203,7 +203,7 @@ extension WKWebView {
 
         let footerAdditionCallbackJS = """
         () => {
-            const footer = new window.wmf.footerTransformation.Footer(
+            const footer = new window.wmf.footers.Footer(
                 '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
                 \(menuItemsJS(for: article)),
                 \(article.hasReadMore.toString()),
@@ -217,9 +217,9 @@ extension WKWebView {
         let sectionErrorMessageLocalizedString = WMFLocalizedString("article-unable-to-load-section", language: (article.url as NSURL).wmf_language, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
         
         evaluateJavaScript("""
-            window.wmf.sectionTransformation.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
-            window.wmf.sectionTransformation.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
-            window.wmf.sectionTransformation.fetchTransformAndAppendSectionsToDocument(
+            window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+            window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
+            window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
             \(articleJS(for: article, title: title)),
             '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
             '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
