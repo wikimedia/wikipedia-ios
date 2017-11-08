@@ -452,8 +452,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 
     UIEdgeInsets newScrollViewInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
-    if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, scrollView.contentInset)) {
+    UIEdgeInsets oldScrollViewInsets = scrollView.contentInset;
+    if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, oldScrollViewInsets)) {
+        BOOL wasScrolledToTop = scrollView.contentOffset.y == (0 - oldScrollViewInsets.top);
         scrollView.contentInset = newScrollViewInsets;
+        if (wasScrolledToTop) { // keep scrolled to top if we were at top
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0 - newScrollViewInsets.top);
+        }
     }
 }
 
