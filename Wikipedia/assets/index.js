@@ -752,7 +752,7 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
     if (sectionsJSON.length > 0) {
       transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
     }
-    // Giving the lead section a tiny head-start speeds up first paint dramatically.
+    // Giving the lead section a tiny head-start speeds up its appearance dramatically.
     const nonLeadDelay = 50
     setTimeout(() => {
       transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
