@@ -696,6 +696,11 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
   requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
   requirements.images.widenImages(fragment)
+
+  // Classifies some tricky elements like math formula images (examples are first images on
+  // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
+  // 'classifyElements' method itself for other examples.
+  requirements.themes.classifyElements(fragment)
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -711,19 +716,19 @@ const performEarlyNonSectionTransforms = article => {
   requirements.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
 }
 
-//late so they won't delay section fragment processing
-const performLateNonSectionTransforms = article => {
-  // 'themes.classifyElements()' needs to happen once after body elements are present. it
-  // classifies some tricky elements like math formula images (see 'enwiki > Quadradic formula')
-  requirements.themes.classifyElements(document)
+const extractSectionsJSON = json => json['mobileview']['sections']
+
+const transformAndAppendLeadSectionToMainContentDiv = (leadSectionJSON, article, mainContentDiv) => {
+  const leadModel = new Section(leadSectionJSON.level, leadSectionJSON.line, leadSectionJSON.anchor, leadSectionJSON.id, leadSectionJSON.text, article)
+  transformAndAppendSection(leadModel, mainContentDiv)
 }
 
-const extractJSONSections = json => json['mobileview']['sections']
-
-const transformAndAppendSectionsToMainContentDiv = (sections, article, mainContentDiv) => {
-  sections.forEach(section => {
-    const sectionModel = new Section(section.level, section.line, section.anchor, section.id, section.text, article)
-    transformAndAppendSection(sectionModel, mainContentDiv)
+const transformAndAppendNonLeadSectionsToMainContentDiv = (sectionsJSON, article, mainContentDiv) => {
+  sectionsJSON.forEach((sectionJSON, index) => {
+    if (index > 0) {
+      const sectionModel = new Section(sectionJSON.level, sectionJSON.line, sectionJSON.anchor, sectionJSON.id, sectionJSON.text, article)
+      transformAndAppendSection(sectionModel, mainContentDiv)
+    }
   })
 }
 
@@ -742,11 +747,19 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
   fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
-  .then(extractJSONSections)
-  .then(sections => transformAndAppendSectionsToMainContentDiv(sections, article, mainContentDiv))
-  .then(() => performLateNonSectionTransforms(article))
-  .then(() => scrollToSection(hash))
-  .then(successCallback)
+  .then(extractSectionsJSON)
+  .then(sectionsJSON => {
+    if (sectionsJSON.length > 0) {
+      transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
+    }
+    // Giving the lead section a tiny head-start speeds up first paint dramatically.
+    const nonLeadDelay = 50
+    setTimeout(() => {
+      transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
+      scrollToSection(hash)
+      successCallback()
+    }, nonLeadDelay)
+  })
   .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
