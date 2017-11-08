@@ -36,7 +36,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
-        expandedArticleView.extractLabel?.numberOfLines = 6
+        expandedArticleView.extractLabel?.numberOfLines = 5
         expandedArticleView.frame = view.bounds
         expandedArticleView.isHeaderBackgroundViewHidden = false
         expandedArticleView.headerBackgroundColor = theme.colors.midBackground
