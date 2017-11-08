@@ -77,10 +77,7 @@ fileprivate struct FooterLocalizedStrings: JSONEncodable {
     var menuDisambiguationTitle: String = ""
     var menuCoordinateTitle: String = ""
     init(for article: MWKArticle) {
-        guard let lang = (article.url as NSURL).wmf_language else {
-            assertionFailure("Expected lang")
-            return
-        }
+        let lang = (article.url as NSURL).wmf_language
         readMoreHeading = WMFLocalizedString("article-read-more-title", language: lang, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}").uppercased(with: Locale.current)
         licenseString = String.localizedStringWithFormat(WMFLocalizedString("license-footer-text", language: lang, value: "Content is available under %1$@ unless otherwise noted.", comment: "Marker at page end for who last modified the page when anonymous. %1$@ is a relative date such as '2 months ago' or 'today'."), "$1")
         licenseSubstitutionString = WMFLocalizedString("license-footer-name", language: lang, value: "CC BY-SA 3.0", comment: "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}")
@@ -102,11 +99,7 @@ fileprivate struct CollapseTablesLocalizedStrings: JSONEncodable {
     var tableInfoboxTitle: String = ""
     var tableOtherTitle: String = ""
     var tableFooterTitle: String = ""
-    init(for article: MWKArticle) {
-        guard let lang = (article.url as NSURL).wmf_language else {
-            assertionFailure("Expected lang")
-            return
-        }
+    init(for lang: String?) {
         tableInfoboxTitle = WMFLocalizedString("info-box-title", language: lang, value: "Quick Facts", comment: "The title of infoboxes – in collapsed and expanded form")
         tableOtherTitle = WMFLocalizedString("table-title-other", language: lang, value: "More information", comment: "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}")
         tableFooterTitle = WMFLocalizedString("info-box-close-text", language: lang, value: "Close", comment: "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}")
@@ -225,7 +218,7 @@ extension WKWebView {
         
         evaluateJavaScript("""
             window.wmf.sectionTransformation.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
-            window.wmf.sectionTransformation.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: article).toJSON())
+            window.wmf.sectionTransformation.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
             window.wmf.sectionTransformation.fetchTransformAndAppendSectionsToDocument(
             \(articleJS(for: article, title: title)),
             '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
