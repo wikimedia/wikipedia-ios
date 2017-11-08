@@ -2703,7 +2703,7 @@ extension PlacesViewController {
         guard viewMode == .list else {
             return nil
         }
-        let point = view.convert(location, to: listViewController.view)
+        let point = view.convert(location, to: listViewController.collectionView)
         return listViewController.previewingContext(previewingContext, viewControllerForLocation:point)
     }
     
