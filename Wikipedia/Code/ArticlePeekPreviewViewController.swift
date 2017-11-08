@@ -48,8 +48,12 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchArticle()
         view.addSubview(expandedArticleView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchArticle()
     }
 
     override func viewDidLayoutSubviews() {
