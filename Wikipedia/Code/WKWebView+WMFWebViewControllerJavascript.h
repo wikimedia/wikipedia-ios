@@ -6,14 +6,6 @@
 
 - (void)wmf_setTextSize:(NSInteger)textSize;
 
-- (void)wmf_collapseTablesForArticle:(MWKArticle *)article;
-
-- (void)wmf_addEditPencilsForArticle:(MWKArticle *)article;
-
-- (void)wmf_setLanguage:(MWLanguageInfo *)languageInfo;
-
-- (void)wmf_setPageProtected:(BOOL)isProtected;
-
 - (void)wmf_scrollToFragment:(NSString *)fragment;
 
 - (void)wmf_accessibilityCursorToFragment:(NSString *)fragment;

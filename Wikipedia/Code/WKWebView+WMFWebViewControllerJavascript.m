@@ -13,6 +13,7 @@ static int const kMinimumTextSelectionLength = 2;
     [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", (long)textSize] completionHandler:NULL];
 }
 
+
 - (void)wmf_collapseTablesForArticle:(MWKArticle *)article {
     [self evaluateJavaScript:[self tableCollapsingJavascriptForArticle:article] completionHandler:nil];
 }
@@ -48,6 +49,7 @@ static int const kMinimumTextSelectionLength = 2;
 - (void)wmf_setPageProtected:(BOOL)isProtected {
     [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.setPageProtected(%@)", isProtected ? @"true" : @"false"] completionHandler:nil];
 }
+
 
 - (void)wmf_scrollToFragment:(NSString *)fragment {
     [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.utilities.scrollToFragment('%@')", fragment] completionHandler:nil];
