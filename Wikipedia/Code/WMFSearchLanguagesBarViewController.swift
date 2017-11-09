@@ -138,7 +138,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         guard let button = otherLanguagesButton else {
             return
         }
-        self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: "Add languages", message: "Search Wikipedia in nearly 300 languages", width: 230.0, duration: 3.0)
+        self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in nearly 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230.0, duration: 3.0)
     }
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
