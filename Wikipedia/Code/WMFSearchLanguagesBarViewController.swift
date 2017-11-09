@@ -11,7 +11,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
     
-    var theme: Theme = Theme.standard
+    @objc var theme: Theme = Theme.standard
     
     fileprivate var hidden: Bool = false {
         didSet {
