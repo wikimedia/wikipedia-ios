@@ -27,30 +27,36 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
 }
 
 public class WMFCurrentlyLoggedInUserFetcher {
-    private let manager = AFHTTPSessionManager.wmf_createDefault()
-    public func isFetching() -> Bool {
-        return manager.operationQueue.operationCount > 0
-    }
+    private let session = Session.shared
     
-    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-        
+    public func fetch(siteURL: URL, success userSuccess: @escaping WMFCurrentlyLoggedInUserBlock, failure userFailure: @escaping WMFErrorHandler){
         let parameters = [
             "action": "query",
             "meta": "userinfo",
             "format": "json"
         ]
         
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
+        let failure = { (error: Error) in
+            DispatchQueue.main.async {
+                userFailure(error)
+            }
+        }
+        
+        let success = { (result: WMFCurrentlyLoggedInUser) in
+            DispatchQueue.main.async {
+                userSuccess(result)
+            }
+        }
+        _ = session.mediaWikiAPITask(host: siteURL.host ?? WMFDefaultSiteDomain, queryParameters: parameters, completionHandler: { (result, response, error) in
             guard
-                let response = response as? [String : AnyObject],
-                let query = response["query"] as? [String : AnyObject],
+                error == nil,
+                let result = result,
+                let query = result["query"] as? [String : AnyObject],
                 let userinfo = query["userinfo"] as? [String : AnyObject],
                 let userID = userinfo["id"] as? Int,
                 let userName = userinfo["name"] as? String
                 else {
-                    failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
+                    failure(error ?? WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
                     return
             }
             guard (userinfo["anon"] == nil) else {
@@ -58,8 +64,6 @@ public class WMFCurrentlyLoggedInUserFetcher {
                 return
             }
             success(WMFCurrentlyLoggedInUser.init(userID: userID, name: userName))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        })?.resume()
     }
 }

@@ -229,7 +229,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
     
     fileprivate func save() {
-        
+        createAccountButton.isEnabled = false
         usernameAlertLabel.isHidden = true
         passwordRepeatAlertLabel.isHidden = true
         
@@ -290,9 +290,12 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.funnel?.logError(error.localizedDescription)
             self.enableProgressiveButtonIfNecessary()
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.createAccountButton.isEnabled = true
         }
         
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+
+            let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+        
             tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
                 self.accountCreator.createAccount(username: self.usernameField.text!, password: self.passwordField.text!, retypePassword: self.passwordRepeatField.text!, email: self.emailField.text!, captchaID:self.captchaViewController?.captcha?.captchaID, captchaWord: self.captchaViewController?.solution, token: token.token, siteURL: siteURL!, success: {_ in
                     self.login()
