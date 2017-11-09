@@ -100,7 +100,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
         NSArray *bits = [path componentsSeparatedByString:@"#"];
         NSString *fragment = nil;
         if (bits.count > 1) {
-            fragment = bits[1];
+            fragment = [bits[1] stringByRemovingPercentEncoding];
         }
         return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:fragment];
     }

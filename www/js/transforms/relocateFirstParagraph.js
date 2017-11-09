@@ -21,20 +21,19 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
   function isParagraphGood(p) {
     // Narrow down to first P which is direct child of content_block_0 DIV.
     // (Don't want to yank P from somewhere in the middle of a table!)
-    if  (p.parentNode == block_0 ||
-            /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
-               leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
-            p.parentNode.className == 'mw-mobilefrontend-leadsection'
-            ){
+    if(p.parentNode == block_0) {
                 // Ensure the P being pulled up has at least a couple lines of text.
                 // Otherwise silly things like a empty P or P which only contains a
-                // BR tag will get pulled up (see articles on "Chemical Reaction" and
-                // "Hawaii").
-                // Trick for quickly determining element height:
-                //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-                //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
+                // BR tag will get pulled up (see articles on "Chemical Reaction",
+                // "Hawaii", "United States", "Color" and "Academy (educational
+                // institution)").
+
+      if(p.innerHTML.indexOf('id="coordinates"') !== -1) {
+        return false
+      }
+
+      var minLength = 60
+      var pIsTooSmall = p.textContent.length < minLength
       return !pIsTooSmall
     }
     return false

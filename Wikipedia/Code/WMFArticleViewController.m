@@ -264,16 +264,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _shareFunnel;
 }
 
-- (UIProgressView *)progressView {
-    if (!_progressView) {
-        UIProgressView *progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-        progress.translatesAutoresizingMaskIntoConstraints = NO;
-        _progressView = progress;
-    }
-
-    return _progressView;
-}
-
 - (UIView *)headerView {
     if (!_headerView) {
         // HAX: Only read the scale at setup
@@ -601,11 +591,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Progress
 
-- (void)addProgressView {
-    NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
-    if (self.navigationController.navigationBarHidden) {
-        return;
-    }
+- (void)setupProgressView {
+    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+    self.progressView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.progressView];
     [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
 }
@@ -741,7 +729,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-    [self addProgressView];
+    [self setupProgressView];
     [self hideProgressViewAnimated:NO];
 
     if (self.theme) {
@@ -788,7 +776,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
-    [self removeProgressView];
     [self dismissReadingThemesPopoverIfActive];
 }
 
@@ -1151,11 +1138,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
-    //only show a blank view if we have nothing to show
-    if (!self.article) {
-        [self.view bringSubviewToFront:self.progressView];
-    }
-
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
@@ -1184,7 +1166,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
-                [self.view bringSubviewToFront:self.progressView];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
                                            dismissPreviousAlerts:NO

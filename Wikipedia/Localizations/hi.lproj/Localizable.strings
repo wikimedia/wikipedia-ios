@@ -74,6 +74,7 @@
 "appearance-settings-title" = "विषय पढ़ रहा";
 "article-about-title" = "इस लेख के बारे में";
 "article-delete" = "हटाएँ";
+"article-deleted-accessibility-notification" = "लेख डिलीट कर दिया गया";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-languages-label" = "भाषा चुनें";
 "article-languages-others" = "अन्य भाषाएँ";
@@ -325,6 +326,7 @@
 "saved-pages-clear-delete-all" = "हाँ, सभी मिटायें";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
 "saved-title" = "सहेजा गया";
+"search-button-accessibility-label" = "विकिपीडिया में खोजें";
 "search-did-you-mean" = "क्या आपका मतलब $1 था?";
 "search-field-placeholder-text" = "विकिपीडिया में खोजें";
 "search-recent-clear-cancel" = "रद्द करें";
