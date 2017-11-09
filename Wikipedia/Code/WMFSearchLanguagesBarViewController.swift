@@ -94,7 +94,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.showMoreLanguagesIfNecessary()
+        self.showMoreLanguagesTooltipIfNecessary()
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
@@ -126,7 +126,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
     }
     
-    fileprivate func showMoreLanguagesIfNecessary() {
+    fileprivate func showMoreLanguagesTooltipIfNecessary() {
         guard !hidden && languageBarLanguages().count == 1 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
             return
         }
