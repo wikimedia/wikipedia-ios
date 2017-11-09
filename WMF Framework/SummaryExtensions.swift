@@ -29,9 +29,62 @@ extension WMFArticle {
     }
 }
 
+extension URLSession {
+    public func wmf_jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+        return self.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, response, error)
+                return
+            }
+            do {
+                guard let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    completionHandler(nil, response, nil)
+                    return
+                }
+                completionHandler(responseObject, response, nil)
+            } catch let error {
+                DDLogError("Error parsing JSON: \(error)")
+                completionHandler(nil, response, error)
+            }
+        })
+    }
+    
+    
+    public func wmf_summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
+            return nil
+        }
+        
+        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
+        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", encodedTitle])
+        
+        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        components.percentEncodedPath = percentEncodedPath
+        guard let summaryURL = components.url else {
+            return nil
+        }
+
+        var request = URLRequest(url: summaryURL)
+        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+        request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
+        return wmf_jsonDictionaryTask(with: request, completionHandler: completionHandler)
+    }
+    
+    @objc(wmf_fetchSummaryWithArticleURL:completionHandler:)
+    public func wmf_fetchSummary(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        guard let task = wmf_summaryTask(with: articleURL, completionHandler: completionHandler) else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return
+        }
+        task.resume()
+    }
+}
+
 extension NSManagedObjectContext {
     public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
-        let session = Session.shared
+        let session = URLSession.shared
         let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
         let taskGroup = WMFTaskGroup()
         var summaryResponses: [String: [String: Any]] = [:]
@@ -40,7 +93,7 @@ extension NSManagedObjectContext {
                 continue
             }
             taskGroup.enter()
-            session.fetchSummary(with: articleURL, completionHandler: { (responseObject, response, error) in
+            session.wmf_fetchSummary(with: articleURL, completionHandler: { (responseObject, response, error) in
                 guard let responseObject = responseObject else {
                     taskGroup.leave()
                     return

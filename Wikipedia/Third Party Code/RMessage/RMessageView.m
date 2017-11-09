@@ -127,18 +127,8 @@ static NSMutableDictionary *globalDesignDictionary;
 
 + (UIViewController *)defaultViewController
 {
-    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if (!viewController) {
-        return nil;
-    }
-    UIViewController *presentedViewController = nil;
-    do {
-        presentedViewController = viewController.presentedViewController;
-        if (presentedViewController) {
-            viewController = presentedViewController;
-        }
-    } while (presentedViewController != nil);
-    return viewController;
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return rootViewController.presentedViewController ?: rootViewController;
 }
 
 /**

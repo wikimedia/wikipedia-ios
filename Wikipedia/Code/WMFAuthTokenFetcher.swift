@@ -19,8 +19,8 @@ public enum WMFAuthTokenError: LocalizedError {
 public typealias WMFAuthTokenBlock = (WMFAuthToken) -> Void
 
 public class WMFAuthToken: NSObject {
-    @objc public var token: String
-    @objc public var type: WMFAuthTokenType
+    @objc var token: String
+    @objc var type: WMFAuthTokenType
     @objc init(token:String, type:WMFAuthTokenType) {
         self.token = token
         self.type = type

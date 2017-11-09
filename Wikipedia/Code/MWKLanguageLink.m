@@ -58,14 +58,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 #pragma mark - Computed Properties
 
 - (NSURL *)siteURL {
-#if WMF_USE_BETA_CLUSTER
-    NSURLComponents *URLComponents = [[NSURLComponents alloc] init];
-    URLComponents.scheme = @"https";
-    URLComponents.host = WMFDefaultSiteDomain;
-    return [URLComponents URL];
-#else
     return [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
-#endif
 }
 
 - (NSURL *)articleURL {
