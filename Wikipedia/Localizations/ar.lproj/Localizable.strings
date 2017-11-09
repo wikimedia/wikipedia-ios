@@ -70,8 +70,7 @@
 "action-saved" = "محفوظة";
 "action-share" = "شارك";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
-// Fuzzy
-"announcements-dismiss" = "لا شكرًا";
+"announcements-dismiss" = "تجاهل";
 "article-about-title" = "حول المقال";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
@@ -325,8 +324,7 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
-// Fuzzy
-"share-a-fact-share-menu-item" = "شارك حقيقة";
+"share-a-fact-share-menu-item" = "شارك حقيقة...";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-custom-menu-item" = "شارك...";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
@@ -359,8 +357,7 @@
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
 "welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
-// Fuzzy
-"welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
+"welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
