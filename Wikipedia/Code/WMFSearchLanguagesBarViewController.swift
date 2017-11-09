@@ -92,6 +92,11 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showMoreLanguagesIfNecessary()
+    }
+    
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
         return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
@@ -119,6 +124,17 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                 button.isHidden = false
             }
         }
+    }
+    
+    fileprivate func showMoreLanguagesIfNecessary() {
+        self.perform(#selector(showMoreLanguagesTooltip), with: nil, afterDelay: 1.0)
+    }
+    
+    @objc fileprivate func showMoreLanguagesTooltip() {
+        guard let button = languageButtons.first else {
+            return
+        }
+        self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: "Test title", message: "Test message", width: 230.0, duration: 3.0)
     }
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
