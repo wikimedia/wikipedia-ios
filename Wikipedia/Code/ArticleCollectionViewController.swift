@@ -274,6 +274,5 @@ extension ArticleCollectionViewController: WMFArticlePreviewingActionsDelegate {
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.openURL(placesURL)
     }
-    
-    
+
 }
