@@ -128,8 +128,7 @@
 "places-accessibility-group" = "$1 rakstu";
 "places-filter-list-title" = "Meklēšanas filtri";
 "places-filter-saved-articles" = "Saglabātie raksti";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 raksti";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 raksti|$1 raksts|$1 raksti}}";
 // Fuzzy
 "places-search-default-text" = "Meklēt";
 "places-search-saved-articles" = "Visi saglabātie raksti";

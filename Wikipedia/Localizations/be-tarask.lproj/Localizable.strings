@@ -56,8 +56,7 @@
 "edit-summary-field-placeholder-text" = "Іншыя шляхі, якімі Вы палепшылі артыкул";
 "edit-summary-title" = "Як Вы палепшылі артыкул?";
 "empty-no-article-message" = "Прабачце, немагчыма загрузіць артыкул";
-// Fuzzy
-"empty-no-feed-action-message" = "Пакуль Вы можаце пачытаць захаваныя старонкі";
+"empty-no-feed-action-message" = "Вы ўсё яшчэ можаце пачытаць захаваныя старонкі";
 "empty-no-feed-message" = "Вы зможаце ўбачыць Вашыя рэкамэндааныя артыкулы, калі зьявіцца інтэрнэт-злучэньне";
 "empty-no-feed-title" = "Няма інтэрнэт-злучэньня";
 "empty-no-history-message" = "Сачыце за тым, што вы чытаеце тут";

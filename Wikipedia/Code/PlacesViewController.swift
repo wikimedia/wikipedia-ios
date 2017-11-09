@@ -1229,6 +1229,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    @objc func updateViewModeToMap() {
+        viewMode = .map
+    }
+    
     func selectArticlePlace(_ articlePlace: ArticlePlace) {
         mapView.selectAnnotation(articlePlace, animated: articlePlace.identifier != previouslySelectedArticlePlaceIdentifier)
         previouslySelectedArticlePlaceIdentifier = articlePlace.identifier
@@ -2703,11 +2707,12 @@ extension PlacesViewController {
         guard viewMode == .list else {
             return nil
         }
-        let point = view.convert(location, to: listViewController.view)
+        let point = view.convert(location, to: listViewController.collectionView)
         return listViewController.previewingContext(previewingContext, viewControllerForLocation:point)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
