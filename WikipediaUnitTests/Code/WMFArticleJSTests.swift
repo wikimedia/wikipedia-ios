@@ -64,9 +64,13 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
 
         self.measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
             
-            // Needed because 'measureMetrics' fires this block off ten times.
+            // Needed because 'measureMetrics' fires this block off ten times and the other expectations aren't scoped
+            // to this block because they are fulfilled in a delegate callback.
             let safeToContinueExpectation = self.expectation(description: "waiting for previous measurement to finish")
             
+            startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
+            firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
+
             // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
             // keeping all existing JS in place.
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
@@ -100,9 +104,6 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             
             UIApplication.shared.keyWindow?.rootViewController = webVC
             webVC?.setArticle(obamaArticle, articleURL: obamaURL!)
-            
-            startTimeMessageReceivedExpectation = expectation(description: "waiting for start time section message")
-            firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
             
             wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
             startMeasuring()
