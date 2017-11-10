@@ -66,14 +66,14 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
                 )
                 
                 let tenMillisecondPollingJS = """
-                const checkForFirstSectionIsPresent = () => {
+                const checkFirstSectionPresence = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
                        window.webkit.messageHandlers.jsTesting.postMessage('firstSectionAppeared')
                    }else{
-                       setTimeout(checkForFirstSectionIsPresent, 10 )
+                       setTimeout(checkFirstSectionPresence, 10 )
                    }
                 }
-                checkForFirstSectionIsPresent()
+                checkFirstSectionPresence()
                 """
                 userContentController.addUserScript(
                     WKUserScript.init(source: tenMillisecondPollingJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
