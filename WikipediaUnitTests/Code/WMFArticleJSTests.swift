@@ -93,7 +93,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             
             webVC?.setArticle(obamaArticle, articleURL: obamaURL!)
             
-            startTimeMessageReceivedExpectation = expectation(description: "waiting for initial no first section message")
+            startTimeMessageReceivedExpectation = expectation(description: "waiting start time section message")
             firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section to appear")
             
             wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
