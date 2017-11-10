@@ -9,10 +9,8 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
     var obamaURL: URL?
     var obamaArticle: MWKArticle?
 
-    var receivedInitialNoFirstSectionYetMessage: Bool = false
-    
     var firstSectionAppearedMessageReceivedExpectation: XCTestExpectation?
-    var initialNoFirstSectionYetMessageReceivedExpectation: XCTestExpectation?
+    var startTimeMessageReceivedExpectation: XCTestExpectation?
 
     override func setUp() {
         super.setUp()
@@ -32,7 +30,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
         obamaArticle = article(withMobileViewJSONFixture: "Obama", with: newObamaURL, dataStore: dataStore)
         obamaArticle?.save()
         
-        initialNoFirstSectionYetMessageReceivedExpectation = nil
+        startTimeMessageReceivedExpectation = nil
         firstSectionAppearedMessageReceivedExpectation = nil
     }
     
@@ -44,19 +42,11 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // print("\n \n \n message body : \(message.body) \n \n \n ")
         
-        if
-            receivedInitialNoFirstSectionYetMessage == false,
-            let messageString = message.body as? String,
-            messageString == "noFirstSectionYet"
-        {
-            receivedInitialNoFirstSectionYetMessage = true
-            initialNoFirstSectionYetMessageReceivedExpectation?.fulfill()
+        if message.body as? String == "startTime" {
+            startTimeMessageReceivedExpectation?.fulfill()
         }
 
-        if
-            let messageString = message.body as? String,
-            messageString == "firstSectionAppeared"
-        {
+        if message.body as? String == "firstSectionAppeared" {
             firstSectionAppearedMessageReceivedExpectation?.fulfill()
         }
     }
@@ -70,43 +60,49 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
                 userContentController.add(self, name: "jsTesting")
                 
-                let js = """
+                let startTimeJS = "window.webkit.messageHandlers.jsTesting.postMessage('startTime')"
+                userContentController.addUserScript(
+                    WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+                )
+                
+                let tenMillisecondPollingJS = """
                 const checkForFirstSectionIsPresent = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
                        window.webkit.messageHandlers.jsTesting.postMessage('firstSectionAppeared')
                    }else{
-                       window.webkit.messageHandlers.jsTesting.postMessage('noFirstSectionYet')
                        setTimeout(checkForFirstSectionIsPresent, 10 )
                    }
                 }
                 checkForFirstSectionIsPresent()
-            """
-                userContentController.addUserScript(WKUserScript.init(source: js, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+                """
+                userContentController.addUserScript(
+                    WKUserScript.init(source: tenMillisecondPollingJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+                )
             }
             
             UIApplication.shared.keyWindow?.rootViewController = webVC
             
             webVC?.setArticle(obamaArticle, articleURL: obamaURL!)
             
-            initialNoFirstSectionYetMessageReceivedExpectation = expectation(description: "waiting for initial no first section message")
+            startTimeMessageReceivedExpectation = expectation(description: "waiting for initial no first section message")
             firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section to appear")
             
-            
-            wait(for: [initialNoFirstSectionYetMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
+            wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
             startMeasuring()
-            wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
+            wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
             stopMeasuring()
             
+            // sanity check only to ensure expections are fulfilled in expected order.
+            wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
             
             safeToContinueExpectation.fulfill()
             
-            wait(for: [safeToContinueExpectation], timeout: 100, enforceOrder: false)
+            wait(for: [safeToContinueExpectation], timeout: 100)
             
             // reset everything for next measurement run
             UIApplication.shared.keyWindow?.rootViewController = nil
             firstSectionAppearedMessageReceivedExpectation = nil
-            initialNoFirstSectionYetMessageReceivedExpectation = nil
-            receivedInitialNoFirstSectionYetMessage = false
+            startTimeMessageReceivedExpectation = nil
         })
     }
 }
