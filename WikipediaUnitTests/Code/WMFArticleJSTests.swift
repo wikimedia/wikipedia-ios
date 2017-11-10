@@ -2,7 +2,7 @@
 import WebKit
 import XCTest
 
-class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
+class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
     
     var session: SessionSingleton?
     var webVC: WebViewController?
