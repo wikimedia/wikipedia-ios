@@ -39,15 +39,24 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
         super.tearDown()
     }
     
+    let startTimeMessageString = "startTime"
+    let firstSectionAppearedMessageString = "firstSectionAppeared"
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // print("\n \n \n message body : \(message.body) \n \n \n ")
-        
-        if message.body as? String == "startTime" {
-            startTimeMessageReceivedExpectation?.fulfill()
+        guard
+            let messageString = message.body as? String
+        else {
+            assertionFailure("Unhandled message type")
+            return
         }
-
-        if message.body as? String == "firstSectionAppeared" {
+        switch messageString {
+        case startTimeMessageString:
+            startTimeMessageReceivedExpectation?.fulfill()
+        case firstSectionAppearedMessageString:
             firstSectionAppearedMessageReceivedExpectation?.fulfill()
+        default:
+            return
         }
     }
     
@@ -60,7 +69,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
                 userContentController.add(self, name: "jsTesting")
                 
-                let startTimeJS = "window.webkit.messageHandlers.jsTesting.postMessage('startTime')"
+                let startTimeJS = "window.webkit.messageHandlers.jsTesting.postMessage('\(self.startTimeMessageString)')"
                 userContentController.addUserScript(
                     WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
@@ -68,7 +77,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
                 let tenMillisecondPollingJS = """
                 const checkFirstSectionPresence = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
-                       window.webkit.messageHandlers.jsTesting.postMessage('firstSectionAppeared')
+                       window.webkit.messageHandlers.jsTesting.postMessage('\(self.firstSectionAppearedMessageString)')
                    }else{
                        setTimeout(checkFirstSectionPresence, 10 )
                    }
