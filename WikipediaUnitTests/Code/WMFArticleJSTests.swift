@@ -75,6 +75,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
             // keeping all existing JS in place.
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
+                // Add self as 'jsTesting' script message handler.
                 userContentController.add(self, name: self.jsTestingMessageHandlerString)
                 
                 // This message will be sent as soon as the web view inflates the DOM of the index.html (before our
@@ -111,7 +112,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
             stopMeasuring()
             
-            // sanity check only to ensure expections are fulfilled in expected order.
+            // Sanity check only to ensure expections are fulfilled in expected order.
             wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
             
             safeToContinueExpectation.fulfill()
