@@ -38,7 +38,8 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
+    let jsTestingMessageHandlerString = "jsTesting"
     let startTimeMessageString = "startTime"
     let firstSectionAppearedMessageString = "firstSectionAppeared"
     
@@ -74,11 +75,11 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
             // keeping all existing JS in place.
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
-                userContentController.add(self, name: "jsTesting")
+                userContentController.add(self, name: self.jsTestingMessageHandlerString)
                 
                 // This message will be sent as soon as the web view inflates the DOM of the index.html (before our
                 // sections are injected).
-                let startTimeJS = "window.webkit.messageHandlers.jsTesting.postMessage('\(self.startTimeMessageString)')"
+                let startTimeJS = "window.webkit.messageHandlers.\(self.jsTestingMessageHandlerString).postMessage('\(self.startTimeMessageString)')"
                 userContentController.addUserScript(
                     WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
@@ -90,7 +91,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
                 let tenMillisecondPollingJS = """
                 const checkFirstSectionPresence = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
-                       window.webkit.messageHandlers.jsTesting.postMessage('\(self.firstSectionAppearedMessageString)')
+                       window.webkit.messageHandlers.\(self.jsTestingMessageHandlerString).postMessage('\(self.firstSectionAppearedMessageString)')
                    }else{
                        setTimeout(checkFirstSectionPresence, 10 )
                    }
