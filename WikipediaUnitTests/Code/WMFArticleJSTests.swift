@@ -64,16 +64,25 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
 
         self.measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
             
-            let safeToContinueExpectation = self.expectation(description: "waiting for last measurement to finish")
+            // Needed because 'measureMetrics' fires this block off ten times.
+            let safeToContinueExpectation = self.expectation(description: "waiting for previous measurement to finish")
             
+            // Configure the WKUserContentController used by the web view controller - easy way to attach testing JS while
+            // keeping all existing JS in place.
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
                 userContentController.add(self, name: "jsTesting")
                 
+                // This message will be sent as soon as the web view inflates the DOM of the index.html (before our
+                // sections are injected).
                 let startTimeJS = "window.webkit.messageHandlers.jsTesting.postMessage('\(self.startTimeMessageString)')"
                 userContentController.addUserScript(
                     WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
                 
+                // This message will be sent as soon as the first section appears in the DOM (within ~10ms). This is
+                // reasonable because our sections have all of their JS transformations applied before their respective
+                // document fragments are attached to the DOM. The difference between start time and this time will tell
+                // about how long it takes for the first section to be created, transformed and appear.
                 let tenMillisecondPollingJS = """
                 const checkFirstSectionPresence = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
@@ -90,11 +99,10 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             }
             
             UIApplication.shared.keyWindow?.rootViewController = webVC
-            
             webVC?.setArticle(obamaArticle, articleURL: obamaURL!)
             
-            startTimeMessageReceivedExpectation = expectation(description: "waiting start time section message")
-            firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section to appear")
+            startTimeMessageReceivedExpectation = expectation(description: "waiting for start time section message")
+            firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
             
             wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
             startMeasuring()
@@ -108,7 +116,7 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
             
             wait(for: [safeToContinueExpectation], timeout: 100)
             
-            // reset everything for next measurement run
+            // Reset everything for next measurement run.
             UIApplication.shared.keyWindow?.rootViewController = nil
             firstSectionAppearedMessageReceivedExpectation = nil
             startTimeMessageReceivedExpectation = nil
