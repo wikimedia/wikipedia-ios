@@ -62,11 +62,11 @@ class WMFArticleJSTests2: XCTestCase, WKScriptMessageHandler {
     
     func testFirstSectionAppearanceDelay() {
 
-        self.measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
+        measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
             
             // Needed because 'measureMetrics' fires this block off ten times and the other expectations aren't scoped
             // to this block because they are fulfilled in a delegate callback.
-            let safeToContinueExpectation = self.expectation(description: "waiting for previous measurement to finish")
+            let safeToContinueExpectation = expectation(description: "waiting for previous measurement to finish")
             
             startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
             firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
