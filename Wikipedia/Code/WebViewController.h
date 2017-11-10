@@ -1,5 +1,6 @@
 @import UIKit;
 @import WMF.Swift;
+@import WebKit;
 
 @class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
 
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) WMFTheme *theme;
 
 @property (nonatomic) BOOL navBarHidden;
+
+@property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 

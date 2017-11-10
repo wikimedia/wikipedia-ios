@@ -640,6 +640,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    forMainFrameOnly:YES]];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    
+    if(self.wkUserContentControllerTestingConfigurationBlock) {
+        self.wkUserContentControllerTestingConfigurationBlock(userContentController);
+    }
+    
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
