@@ -1164,6 +1164,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
                 }
+            } else if ([error wmf_isWMFErrorMissingTitle]) {
+                [self wmf_openExternalUrl:self.articleURL];
+                [self.navigationController popToRootViewControllerAnimated:YES];
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
@@ -1522,6 +1525,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTalkPage {
     SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleTalkPageURL];
+    [self.navigationController presentViewController:safariController animated:YES completion:nil];
+}
+
+- (void)showSpecialPage {
+    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleURL];
     [self.navigationController presentViewController:safariController animated:YES completion:nil];
 }
 
