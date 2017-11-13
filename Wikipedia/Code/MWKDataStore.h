@@ -47,6 +47,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (void)performLibraryUpdates:(dispatch_block_t)completion;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
 
+- (void)readingListIt;
+
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
