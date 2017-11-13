@@ -50,8 +50,10 @@
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
 "action-saved-accessibility" = "Disimpen. Aktifkeun pikeun teu nyipenna.";
+"action-saved-accessibility-notification" = "Artikel kasimpen jang engké";
 "action-share" = "Bagikeun";
 "action-unsave" = "Ulah nyimpen";
+"action-unsaved-accessibility-notification" = "Artikel bolay kasimpen";
 "alert-no-internet" = "Taya sambungan internét";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
@@ -62,6 +64,7 @@
 "appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
+"article-deleted-accessibility-notification" = "Artikel kapupus";
 "article-languages-filter-placeholder" = "Panggihan basa";
 "article-languages-label" = "Pilih basa";
 "article-languages-others" = "Basa séjén";
@@ -313,6 +316,7 @@
 "saved-pages-clear-delete-all" = "Nya, hapus sadayana";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";
 "saved-title" = "Kasimpen";
+"search-button-accessibility-label" = "Paluruh Wikipédia";
 "search-did-you-mean" = "Maksud anjeun ''$1'' lain?";
 "search-field-placeholder-text" = "Paluruh Wikipédia";
 "search-recent-clear-cancel" = "Bolay";

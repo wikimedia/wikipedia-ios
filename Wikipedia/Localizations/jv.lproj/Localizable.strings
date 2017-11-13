@@ -50,15 +50,19 @@
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
 "action-saved-accessibility" = "Kasimpen. Urubaké saperlu wurung nyimpen.";
+"action-saved-accessibility-notification" = "Artikel disimpen kanggo mengko";
 "action-share" = "Dum";
 "action-unsave" = "Wurung nyimpen";
+"action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
 "alert-no-internet" = "Ora ana gayutan Internèt";
 "announcements-dismiss" = "Tutup";
+"appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
 "appearance-settings-reading-themes" = "Cakrik wacan";
 "appearance-settings-theme-options" = "Opsi cakrik";
 "appearance-settings-title" = "Cakrik wacan";
 "article-about-title" = "Ngenani artikel iki";
 "article-delete" = "Busak";
+"article-deleted-accessibility-notification" = "Artikel wis dibusak";
 "article-languages-filter-placeholder" = "Golèk basa";
 "article-languages-label" = "Pilih basa";
 "article-languages-others" = "Basa liyané";
@@ -79,6 +83,7 @@
 "button-save-for-later" = "Simpen kanggo mengko";
 "button-saved-for-later" = "Kasimpen kanggo mengko";
 "button-saved-remove" = "Busak saka panyimpenan";
+"button-skip" = "Langkahi";
 "cancel" = "Wurung";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tutup";
@@ -152,7 +157,7 @@
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Rèsèt";
 "forgot-password-email-sent" = "Layang-èl sing isiné panuntun setèl-ulang tembung wadi wis dikirim";
-"forgot-password-instructions" = "Isinen ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung wadi lumantar layang-èl";
+"forgot-password-instructions" = "Isi ing salah siji babagan ngisor iki saperlu nampa panuntun setèl-ulang tembung-wadi lumantar layang-èl";
 "forgot-password-title" = "Ambali nyetèl tembung wadi";
 "forgot-password-username-or-email-title" = "Utawa";
 "gfdl" = "GFDL";
@@ -196,6 +201,7 @@
 "info-box-close-text" = "Tutup";
 "info-box-title" = "Sunyata Rikat";
 "languages-title" = "Ganti basa";
+"languages-wikipedia" = "Basa-basa ing Wikipédia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Isi cumepak kanthi pangayoman $1, kajaba ana katerangan liyané.";
 "login-forgot-password" = "Lali tembung wadining sampéyan?";
@@ -308,6 +314,7 @@
 "saved-pages-clear-delete-all" = "Ya, busak kabèh";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";
 "saved-title" = "Kasimpen";
+"search-button-accessibility-label" = "Golèk ing Wikipédia";
 "search-did-you-mean" = "Sing penjenengan karepaké apa $1?";
 "search-field-placeholder-text" = "Golèk ing Wikipédia";
 "search-recent-clear-cancel" = "Wurung";
@@ -368,13 +375,21 @@
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
 "view-in-browser-footer-link" = "Deleng artikel ing pangluron";
+"welcome-exploration-on-this-day-title" = "Ing dina iki";
 "welcome-explore-continue-button" = "Miwiti";
 "welcome-explore-new-ways-title" = "Cara anyar ndlajah";
 "welcome-explore-tell-me-more-done-button" = "Mudheng";
+"welcome-intro-free-encyclopedia-more" = "Sinaoni liyané bab Wikipédia";
+"welcome-intro-free-encyclopedia-more-about" = "Bab Wikipédia";
+"welcome-intro-free-encyclopedia-title" = "Bauwarna bébas";
 "welcome-languages-add-button" = "Tambah basa liyané";
+"welcome-languages-add-or-edit-button" = "Tambah utawa besut basa-basa pinilih";
+"welcome-languages-description" = "Basa-basa ing ngisor iki ana ing pirantiné panjenengan:";
+"welcome-languages-search-title" = "Golèk ing mèh 300 basa";
 "welcome-notifications-tell-me-more-creation" = "Kabar sing digawe lan dikirim ing piranti kanthi app, ora saka server kita (utawa pihak katelu).";
 "welcome-notifications-tell-me-more-storage" = "Pilalan wara-wara disimpen ing piranti lan ora adhedhasar katerangan utawa kagiyatan priangga.";
 "welcome-notifications-tell-me-more-title" = "Candhaké ngenani wara-wara";
+"welcome-send-data-helps-title" = "Éwangi supaya aplikasiné dadi luwih becik";
 // Fuzzy
 "welcome-send-data-sub-title" = "Éwangi Yeyasan Wikimedia ngapiki aplikasiné kanthi ngolèhaké awak dhéwé ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
