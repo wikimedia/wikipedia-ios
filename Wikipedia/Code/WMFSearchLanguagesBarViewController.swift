@@ -127,7 +127,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     }
     
     fileprivate func showMoreLanguagesTooltipIfNecessary() {
-        guard !hidden && languageBarLanguages().count == 1 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
+        guard !hidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
             return
         }
         UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
