@@ -51,11 +51,17 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
             assertionFailure("Unhandled message type")
             return
         }
-        switch messageString {
-        case startTimeMessageString:
-            startTimeMessageReceivedExpectation?.fulfill()
-        case firstSectionAppearedMessageString:
-            firstSectionAppearedMessageReceivedExpectation?.fulfill()
+        
+        switch message.name {
+        case jsTestingMessageHandlerString:
+            switch messageString {
+            case startTimeMessageString:
+                startTimeMessageReceivedExpectation?.fulfill()
+            case firstSectionAppearedMessageString:
+                firstSectionAppearedMessageReceivedExpectation?.fulfill()
+            default:
+                return
+            }
         default:
             return
         }
