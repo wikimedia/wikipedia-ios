@@ -34,11 +34,12 @@ public class Session {
 
     fileprivate let session = URLSession.shared
 
-    public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
     }
 
-    public func jsonDictionaryTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+
+    public func jsonDictionaryTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
 
         var components = URLComponents()
         components.host = host
@@ -65,7 +66,6 @@ public class Session {
         guard let requestURL = components.url else {
             return nil
         }
-        print("requesting: \(requestURL)")
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.stringValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
@@ -95,6 +95,8 @@ public class Session {
             }
 
         }
-        return session.wmf_jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        return session.wmf_jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
+            completionHandler(result, response as? HTTPURLResponse, error)
+        })
     }
 }
