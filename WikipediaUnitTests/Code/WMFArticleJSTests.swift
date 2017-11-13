@@ -39,9 +39,9 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         super.tearDown()
     }
 
-    let jsTestingMessageHandlerString = "jsTesting"
-    let startTimeMessageString = "startTime"
-    let firstSectionAppearedMessageString = "firstSectionAppeared"
+    let testFirstSectionAppearanceMessageHandlerString = "testFirstSectionAppearance"
+    let testFirstSectionAppearanceStartTimeMessageString = "startTime"
+    let testFirstSectionAppearedMessageString = "firstSectionAppeared"
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         // print("\n \n \n message body : \(message.body) \n \n \n ")
@@ -53,11 +53,11 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         }
         
         switch message.name {
-        case jsTestingMessageHandlerString:
+        case testFirstSectionAppearanceMessageHandlerString:
             switch messageString {
-            case startTimeMessageString:
+            case testFirstSectionAppearanceStartTimeMessageString:
                 startTimeMessageReceivedExpectation?.fulfill()
-            case firstSectionAppearedMessageString:
+            case testFirstSectionAppearedMessageString:
                 firstSectionAppearedMessageReceivedExpectation?.fulfill()
             default:
                 return
@@ -82,11 +82,11 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
             // keeping all existing JS in place.
             webVC?.wkUserContentControllerTestingConfigurationBlock = { userContentController in
                 // Add self as 'jsTesting' script message handler.
-                userContentController.add(self, name: self.jsTestingMessageHandlerString)
+                userContentController.add(self, name: self.testFirstSectionAppearanceMessageHandlerString)
                 
                 // This message will be sent as soon as the web view inflates the DOM of the index.html (before our
                 // sections are injected).
-                let startTimeJS = "window.webkit.messageHandlers.\(self.jsTestingMessageHandlerString).postMessage('\(self.startTimeMessageString)')"
+                let startTimeJS = "window.webkit.messageHandlers.\(self.testFirstSectionAppearanceMessageHandlerString).postMessage('\(self.testFirstSectionAppearanceStartTimeMessageString)')"
                 userContentController.addUserScript(
                     WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
@@ -98,7 +98,7 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
                 let tenMillisecondPollingJS = """
                 const checkFirstSectionPresence = () => {
                    if(document.querySelector('#section_heading_and_content_block_0')){
-                       window.webkit.messageHandlers.\(self.jsTestingMessageHandlerString).postMessage('\(self.firstSectionAppearedMessageString)')
+                       window.webkit.messageHandlers.\(self.testFirstSectionAppearanceMessageHandlerString).postMessage('\(self.testFirstSectionAppearedMessageString)')
                    }else{
                        setTimeout(checkFirstSectionPresence, 10 )
                    }
