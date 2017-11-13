@@ -95,57 +95,6 @@ public class Session {
             }
 
         }
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
-    }
-
-    public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return session.dataTask(with: request, completionHandler: { (data, response, error) in
-            guard let data = data else {
-                completionHandler(nil, response, error)
-                return
-            }
-            do {
-                guard let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    completionHandler(nil, response, nil)
-                    return
-                }
-                completionHandler(responseObject, response, nil)
-            } catch let error {
-                DDLogError("Error parsing JSON: \(error)")
-                completionHandler(nil, response, error)
-            }
-        })
-    }
-
-
-    public func summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
-            return nil
-        }
-
-        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", encodedTitle])
-
-        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
-        components.percentEncodedPath = percentEncodedPath
-        guard let summaryURL = components.url else {
-            return nil
-        }
-
-        var request = URLRequest(url: summaryURL)
-        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
-        request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
-        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
-    }
-
-    //@objc(fetchSummaryWithArticleURL:completionHandler:)
-    public func fetchSummary(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        guard let task = summaryTask(with: articleURL, completionHandler: completionHandler) else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
-        }
-        task.resume()
+        return session.wmf_jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
 }
