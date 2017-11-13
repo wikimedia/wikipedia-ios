@@ -688,11 +688,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [self updateScrollViewInsets];
     self.webView.scrollView.delegate = self;

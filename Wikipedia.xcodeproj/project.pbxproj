@@ -466,7 +466,6 @@
 		B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */; };
 		B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		B0E8054E1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050B1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m */; };
-		B0E8054F1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */; };
 		B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
@@ -999,7 +998,6 @@
 		D80ED3AE1EE57F4800CE8C50 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
 		D80ED3AF1EE57F4800CE8C50 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D80ED3B01EE57F4800CE8C50 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
-		D80ED3B11EE57F4800CE8C50 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		D80ED3B21EE57F4800CE8C50 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D80ED3B41EE57F4800CE8C50 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
@@ -1724,7 +1722,6 @@
 		D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
 		D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
-		D8A42B991E815A9C00D8E281 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -2064,7 +2061,6 @@
 		D8CE26191E698E2400DAE2E0 /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
 		D8CE261A1E698E2400DAE2E0 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D8CE261B1E698E2400DAE2E0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
-		D8CE261C1E698E2400DAE2E0 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		D8CE261D1E698E2400DAE2E0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -2462,7 +2458,6 @@
 		D8EC3F181E9BDA35006712EB /* PageHistoryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */; };
 		D8EC3F191E9BDA35006712EB /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
-		D8EC3F1B1E9BDA35006712EB /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */; };
 		D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
 		D8EC3F201E9BDA35006712EB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */; };
@@ -3426,8 +3421,6 @@
 		B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+ScrollSubviewToLocation.m"; path = "Wikipedia/Code/UIScrollView+ScrollSubviewToLocation.m"; sourceTree = SOURCE_ROOT; };
 		B0E8050A1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+WMFContentOffsetUtils.h"; path = "Wikipedia/Code/UIScrollView+WMFContentOffsetUtils.h"; sourceTree = SOURCE_ROOT; };
 		B0E8050B1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+WMFContentOffsetUtils.m"; path = "Wikipedia/Code/UIScrollView+WMFContentOffsetUtils.m"; sourceTree = SOURCE_ROOT; };
-		B0E8050C1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+WMFScrollsToTop.h"; path = "Wikipedia/Code/UIScrollView+WMFScrollsToTop.h"; sourceTree = SOURCE_ROOT; };
-		B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+WMFScrollsToTop.m"; path = "Wikipedia/Code/UIScrollView+WMFScrollsToTop.m"; sourceTree = SOURCE_ROOT; };
 		B0E8050E1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+DynamicCellHeight.h"; path = "Wikipedia/Code/UITableView+DynamicCellHeight.h"; sourceTree = SOURCE_ROOT; };
 		B0E8050F1C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+DynamicCellHeight.m"; path = "Wikipedia/Code/UITableView+DynamicCellHeight.m"; sourceTree = SOURCE_ROOT; };
 		B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+IBExtras.swift"; path = "Wikipedia/Code/UIView+IBExtras.swift"; sourceTree = SOURCE_ROOT; };
@@ -6301,8 +6294,6 @@
 				B0E805091C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m */,
 				B0E8050A1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.h */,
 				B0E8050B1C0CE0DC0065EBC0 /* UIScrollView+WMFContentOffsetUtils.m */,
-				B0E8050C1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.h */,
-				B0E8050D1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m */,
 			);
 			name = UIScrollView;
 			sourceTree = "<group>";
@@ -9787,7 +9778,6 @@
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
 				B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */,
 				B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */,
-				B0E8054F1C0CE0DC0065EBC0 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */,
 			);
@@ -10090,7 +10080,6 @@
 				D80ED3AE1EE57F4800CE8C50 /* PageHistoryFetcher.swift in Sources */,
 				D80ED3AF1EE57F4800CE8C50 /* WikiTextSectionFetcher.m in Sources */,
 				D80ED3B01EE57F4800CE8C50 /* CreateAccountFunnel.m in Sources */,
-				D80ED3B11EE57F4800CE8C50 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				D80ED3B21EE57F4800CE8C50 /* WMFShareFunnel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10678,7 +10667,6 @@
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
-				D8A42B991E815A9C00D8E281 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				83927D841F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				D8A42B9A1E815A9C00D8E281 /* WMFShareFunnel.m in Sources */,
@@ -10982,7 +10970,6 @@
 				D8CE261A1E698E2400DAE2E0 /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CA1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D8CE261B1E698E2400DAE2E0 /* CreateAccountFunnel.m in Sources */,
-				D8CE261C1E698E2400DAE2E0 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				D8CE261D1E698E2400DAE2E0 /* WMFShareFunnel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11284,7 +11271,6 @@
 				D8EC3F191E9BDA35006712EB /* WikiTextSectionFetcher.m in Sources */,
 				B025D8CB1EAF00EC00716CED /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */,
-				D8EC3F1B1E9BDA35006712EB /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
