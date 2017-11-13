@@ -63,8 +63,7 @@
 "empty-no-history-title" = "Няма гісторыі для паказу";
 "empty-no-saved-pages-message" = "Захаваць старонкі для прагляду іх пазьней, нават оф-лайн";
 "empty-no-saved-pages-title" = "Няма захаваных старонак";
-// Fuzzy
-"empty-no-search-results-message" = "Прабачце, немагчыма загрузіць вынікі";
+"empty-no-search-results-message" = "Вынікі ня знойдзеныя";
 "explore-continue-reading-heading" = "Працягваць чытаньне";
 "explore-featured-article-heading" = "Абраны артыкул";
 "explore-main-page-heading" = "Сёньня ў Вікіпэдыі";
