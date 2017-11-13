@@ -190,7 +190,7 @@
 "hockeyapp-alert-do-not-send" = "Ne pas envoyer";
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikimedia puisse l’étudier ?";
-"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage est arrivé :";
+"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Wikimedia Foundation puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage est arrivé :";
 "hockeyapp-alert-send-report" = "Envoyer un rapport";
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
 "home-button-explore-accessibility-label" = "Wikipédia, revenir à Explorer";
