@@ -36,7 +36,7 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
             // Idea from: https://davidwalsh.name/detect-node-insertion
             let soughtID = "section_heading_and_content_block_0"
             let sectionAppearanceJS = """
-            var style = document.createElement('style')
+            const style = document.createElement('style')
             style.type = 'text/css'
             style.innerHTML = `
                 @keyframes soughtNodeInsertionAnimation {
@@ -48,7 +48,7 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
                     animation-name: soughtNodeInsertionAnimation;
                 }
             `
-            document.getElementsByTagName('head')[0].appendChild(style)
+            document.querySelector('head').appendChild(style)
             document.addEventListener('animationstart', (event) => {
                 if (event.animationName === 'soughtNodeInsertionAnimation') {
                     if(event.target.id === '\(soughtID)'){
