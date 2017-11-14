@@ -130,7 +130,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         guard !hidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
             return
         }
-        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
         self.perform(#selector(showMoreLanguagesTooltip), with: nil, afterDelay: 1.0)
     }
     
@@ -139,6 +138,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             return
         }
         self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in nearly 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230.0, duration: 3.0)
+        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
