@@ -97,6 +97,11 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         self.showMoreLanguagesTooltipIfNecessary()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+    }
+    
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
         return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
