@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ArticleList" representedClassName="ArticleList" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="listDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleListAction" inverseName="lists" inverseEntity="ArticleListAction" syncable="YES"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ArticleListEntry" inverseName="list" inverseEntity="ArticleListEntry" syncable="YES"/>
+        <fetchIndex name="byOrderIndex">
+            <fetchIndexElement property="order" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="ArticleListAction" representedClassName="ArticleListAction" syncable="YES">
+        <attribute name="action" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleListEntry" inverseName="actions" inverseEntity="ArticleListEntry" syncable="YES"/>
+        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="actions" inverseEntity="ArticleList" syncable="YES"/>
+        <fetchIndex name="byDateIndex">
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="ArticleListEntry" representedClassName="ArticleListEntry" syncable="YES">
+        <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleListAction" inverseName="entries" inverseEntity="ArticleListAction" syncable="YES"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="entries" inverseEntity="ArticleList" syncable="YES"/>
+        <fetchIndex name="byOrderIndex">
+            <fetchIndexElement property="order" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byKeyIndex">
+            <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -44,47 +85,6 @@
         <fetchIndex name="compoundIndex2">
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
-        </fetchIndex>
-    </entity>
-    <entity name="WMFArticleList" representedClassName="WMFArticleList" syncable="YES">
-        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="listDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticleListAction" inverseName="lists" inverseEntity="WMFArticleListAction" syncable="YES"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WMFArticleListEntry" inverseName="list" inverseEntity="WMFArticleListEntry" syncable="YES"/>
-        <fetchIndex name="byOrderIndex">
-            <fetchIndexElement property="order" type="Binary" order="ascending"/>
-        </fetchIndex>
-    </entity>
-    <entity name="WMFArticleListAction" representedClassName="WMFArticleListAction" syncable="YES">
-        <attribute name="action" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticleListEntry" inverseName="actions" inverseEntity="WMFArticleListEntry" syncable="YES"/>
-        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticleList" inverseName="actions" inverseEntity="WMFArticleList" syncable="YES"/>
-        <fetchIndex name="byDateIndex">
-            <fetchIndexElement property="date" type="Binary" order="ascending"/>
-        </fetchIndex>
-    </entity>
-    <entity name="WMFArticleListEntry" representedClassName="WMFArticleListEntry" syncable="YES">
-        <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="updated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFArticleListAction" inverseName="entries" inverseEntity="WMFArticleListAction" syncable="YES"/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFArticleList" inverseName="entries" inverseEntity="WMFArticleList" syncable="YES"/>
-        <fetchIndex name="byOrderIndex">
-            <fetchIndexElement property="order" type="Binary" order="ascending"/>
-        </fetchIndex>
-        <fetchIndex name="byKeyIndex">
-            <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
@@ -138,11 +138,11 @@
     </entity>
     <elements>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
-        <element name="WMFArticleList" positionX="-54" positionY="135" width="128" height="195"/>
+        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="195"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
-        <element name="WMFArticleListAction" positionX="-45" positionY="144" width="128" height="105"/>
-        <element name="WMFArticleListEntry" positionX="-27" positionY="153" width="128" height="180"/>
+        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="105"/>
+        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="180"/>
     </elements>
 </model>
