@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL navBarHidden;
 
-#if TEST
+#if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
 #endif
 
