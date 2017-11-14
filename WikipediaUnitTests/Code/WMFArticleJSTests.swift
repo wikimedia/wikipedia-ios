@@ -12,7 +12,7 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
     var firstSectionAppearedMessageReceivedExpectation: XCTestExpectation?
     var startTimeMessageReceivedExpectation: XCTestExpectation?
 
-    lazy var webVC: WebViewController = {
+    lazy var webVCConfiguredToEmitFirstSectionAppearanceTimingEvents: WebViewController = {
         // WebViewController configured to emit two events when an article is loaded:
         //    - 'startTime'
         //    - 'testFirstSectionAppearance'
@@ -109,7 +109,7 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
     func loadObamaArticleWithFirstSectionJSPerformanceExpectations() {
         startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
         firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
-        webVC.setArticle(obamaArticle, articleURL: obamaArticle.url)
+        webVCConfiguredToEmitFirstSectionAppearanceTimingEvents.setArticle(obamaArticle, articleURL: obamaArticle.url)
     }
 
     // Tests the performance of the javascript which fetches, transforms and appends article sections via headless JS DocumentFragments.
