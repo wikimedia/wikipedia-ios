@@ -777,6 +777,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self dismissReadingThemesPopoverIfActive];
+
+    [self cancelWIconPopoverDisplay];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -1865,6 +1867,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     [self performSelector:@selector(showWIconPopover) withObject:nil afterDelay:1.0];
+}
+
+- (void)cancelWIconPopoverDisplay {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showWIconPopover) object:nil];
 }
 
 - (void)showWIconPopover {
