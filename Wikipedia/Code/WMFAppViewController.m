@@ -761,6 +761,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeSpecialPage:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -778,13 +779,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         } break;
         case WMFUserActivityTypeGenericLink: {
             return YES;
-        }
-        case WMFUserActivityTypeSpecialPage: {
-            if ([activity webpageURL]) {
-                return YES;
-            } else {
-                return NO;
-            }
         }
         default:
             return NO;
@@ -898,8 +892,10 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeGenericLink:
-        case WMFUserActivityTypeSpecialPage:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
+            break;
+        case WMFUserActivityTypeSpecialPage:
+            [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         default:
             done();

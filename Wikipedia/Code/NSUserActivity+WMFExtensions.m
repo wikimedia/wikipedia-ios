@@ -52,8 +52,8 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 }
 
 + (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url {
-    NSUserActivity *activity = [self wmf_pageActivityWithName:@"SpecialPage"];
-    activity.webpageURL = url;
+    NSUserActivity *activity = [self wmf_activityWithType:@"SpecialPage"];
+    activity.userInfo = @{@"WMFURL": url};
     return activity;
 }
 
@@ -211,12 +211,13 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
-        } else if ([page isEqualToString:@"SpecialPage"]) {
-            return WMFUserActivityTypeSpecialPage;
         } else {
             return WMFUserActivityTypeSettings;
         }
     } else if ([self wmf_contentURL]) {
+        if ([self.activityType isEqualToString:@"org.wikimedia.wikipedia.specialpage"]) {
+            return WMFUserActivityTypeSpecialPage;
+        }
         return WMFUserActivityTypeContent;
     } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
