@@ -83,7 +83,7 @@
                                                            forDate:[NSDate date]
                                                        withSiteURL:self.siteURL
                                                  associatedContent:nil
-                                                customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                                                customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
                                                 }];
             [group updateVisibility];

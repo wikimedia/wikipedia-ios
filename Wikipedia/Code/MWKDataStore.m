@@ -540,8 +540,7 @@ static uint64_t bundleHash() {
         }
         return false;
     }
-    
-    
+
     while (contentGroups.count > 0) {
         @autoreleasepool {
             NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
@@ -564,7 +563,7 @@ static uint64_t bundleHash() {
             for (WMFContentGroup *group in toDelete) {
                 [moc deleteObject:group];
             }
-            
+
             if ([moc hasChanges]) {
                 NSError *saveError = nil;
                 [moc save:&saveError];
@@ -578,7 +577,7 @@ static uint64_t bundleHash() {
                 [moc reset];
             }
         }
-        
+
         contentGroups = [moc executeFetchRequest:request error:&fetchError];
         if (fetchError) {
             DDLogError(@"Error fetching content groups: %@", fetchError);

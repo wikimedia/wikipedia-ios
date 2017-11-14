@@ -46,7 +46,7 @@
             <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="WMFArticleList" representedClassName="WMFArticleList" syncable="YES" codeGenerationType="class">
+    <entity name="WMFArticleList" representedClassName="WMFArticleList" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -61,7 +61,7 @@
             <fetchIndexElement property="order" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="WMFArticleListAction" representedClassName="WMFArticleListAction" syncable="YES" codeGenerationType="class">
+    <entity name="WMFArticleListAction" representedClassName="WMFArticleListAction" syncable="YES">
         <attribute name="action" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticleListEntry" inverseName="actions" inverseEntity="WMFArticleListEntry" syncable="YES"/>
@@ -70,7 +70,7 @@
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="WMFArticleListEntry" representedClassName="WMFArticleListEntry" syncable="YES" codeGenerationType="class">
+    <entity name="WMFArticleListEntry" representedClassName="WMFArticleListEntry" syncable="YES">
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

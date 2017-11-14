@@ -1924,11 +1924,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     // DDLogDebug(@"Stopped scrolling");
 }
 
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willEndDragging:velocity:)]) {
-            [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
-        }
+        [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
+    }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
@@ -1937,7 +1936,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     return YES;
 }
-
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {

@@ -34,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) WMFContent *fullContent;
 
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -50,14 +50,14 @@
     metrics.interColumnSpacing = useTwoColumns ? 20 : 0;
     metrics.interItemSpacing = 0;
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 30;
-    
+
     if (useTwoColumns) {
-        CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
+        CGFloat marginWidth = MAX(20, round(0.5 * (boundsSize.width - readableWidth)));
         metrics.margins = UIEdgeInsetsMake(20, marginWidth, 20, marginWidth);
     } else {
-       metrics.margins = UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
+        metrics.margins = UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
     }
-    
+
     metrics.sectionMargins = UIEdgeInsetsZero;
     metrics.readableMargins = UIEdgeInsetsMake(15, 13, 15, 13);
     metrics.shouldMatchColumnHeights = YES;
@@ -75,7 +75,7 @@
     metrics.interSectionSpacing = 0;
     metrics.margins = UIEdgeInsetsZero;
     metrics.sectionMargins = UIEdgeInsetsZero;
-    CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
+    CGFloat marginWidth = MAX(20, round(0.5 * (boundsSize.width - readableWidth)));
     metrics.readableMargins = UIEdgeInsetsMake(10, marginWidth, 10, marginWidth);
     metrics.shouldMatchColumnHeights = NO;
     return metrics;

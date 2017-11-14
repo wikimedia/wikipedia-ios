@@ -119,7 +119,7 @@
     [super viewDidAppear:animated];
 
     [self registerForKeyboardNotifications];
-    
+
     [self highlightProgressiveButton:[self changesMade]];
 
     if ([self changesMade]) {
