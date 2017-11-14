@@ -99,7 +99,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showMoreLanguagesTooltip), object: nil)
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
