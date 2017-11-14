@@ -51,7 +51,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     return activity;
 }
 
-+ (instancetype)wmf_specialPagesActivityWithURL:(NSURL *)url {
++ (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"SpecialPage"];
     activity.webpageURL = url;
     return activity;
@@ -254,8 +254,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 
 - (NSURL *)wmf_articleURL {
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
-        NSURL *url = [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
-        return url;
+        return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
     } else {
         return self.webpageURL;
     }

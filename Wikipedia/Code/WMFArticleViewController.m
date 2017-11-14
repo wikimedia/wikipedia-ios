@@ -1165,7 +1165,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else if ([error wmf_isWMFErrorMissingTitle]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_specialPagesActivityWithURL:self.articleURL]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_specialPageActivityWithURL:self.articleURL]];
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];

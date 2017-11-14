@@ -37,7 +37,7 @@ extern NSString *const WMFNavigateToActivityNotification;
 + (instancetype)wmf_settingsViewActivity;
 + (instancetype)wmf_appearanceSettingsActivity;
 
-+ (instancetype)wmf_specialPagesActivityWithURL:(NSURL *)url;
++ (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url;
 
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url;
 
