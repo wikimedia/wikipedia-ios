@@ -35,22 +35,23 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
             // This message will fire when the element with the 'soughtID' appears.
             // Idea from: https://davidwalsh.name/detect-node-insertion
             let soughtID = "section_heading_and_content_block_0"
+            let animationName = "soughtNodeInsertionAnimation"
             let sectionAppearanceJS = """
             const style = document.createElement('style')
             style.type = 'text/css'
             style.innerHTML = `
-                @keyframes soughtNodeInsertionAnimation {
+                @keyframes \(animationName) {
                     from { opacity: .99; }
                     to { opacity: 1; }
                 }
                 #\(soughtID) {
                     animation-duration: 0.001s;
-                    animation-name: soughtNodeInsertionAnimation;
+                    animation-name: \(animationName);
                 }
             `
             document.querySelector('head').appendChild(style)
             document.addEventListener('animationstart', (event) => {
-                if (event.animationName === 'soughtNodeInsertionAnimation') {
+                if (event.animationName === '\(animationName)') {
                     if(event.target.id === '\(soughtID)'){
                         window.webkit.messageHandlers.\(self.testFirstSectionAppearanceMessageHandlerString).postMessage('\(self.testFirstSectionAppearedMessageString)')
                     }
