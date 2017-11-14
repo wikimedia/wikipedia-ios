@@ -1166,7 +1166,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }
             } else if ([error wmf_isWMFErrorMissingTitle]) {
                 [self wmf_openExternalUrl:self.articleURL];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
