@@ -105,21 +105,20 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         }
     }
 
-    func testFirstSectionAppearancePerformance() {
-        // Tests the performance of the javascript which fetches, transforms and appends article sections via headless JS DocumentFragments.
-        
-        // Load the article once before kicking off the 'measureMetrics' pass. Ensures any caching has been warmed.
-        webVC.setArticle(obamaArticle, articleURL: obamaArticle.url)
+    func loadObamaArticleWithFirstSectionJSPerformanceExpectations() {
         startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
         firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
+        webVC.setArticle(obamaArticle, articleURL: obamaArticle.url)
+    }
+
+    // Tests the performance of the javascript which fetches, transforms and appends article sections via headless JS DocumentFragments.
+    func testFirstSectionAppearancePerformance() {
+        // Load the article once before kicking off the 'measureMetrics' pass. Ensures any caching has been warmed.
+        loadObamaArticleWithFirstSectionJSPerformanceExpectations()
         wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
 
         measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
-            startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
-            firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
-            
-            webVC.setArticle(obamaArticle, articleURL: obamaArticle.url)
-            
+            loadObamaArticleWithFirstSectionJSPerformanceExpectations()
             wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
             startMeasuring()
             wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
