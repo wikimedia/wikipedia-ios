@@ -71,6 +71,10 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+
+        // Load the article once before kicking off the 'measureMetrics' tests. Ensures any caching has been warmed.
+        loadObamaArticleWithFirstSectionJSPerformanceExpectations()
+        wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
     }
     
     override func tearDown() {
@@ -112,22 +116,33 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         webVCConfiguredToEmitFirstSectionAppearanceTimingEvents.setArticle(obamaArticle, articleURL: obamaArticle.url)
     }
 
+    func measureFirstSectionAppearancePerformance() {
+        loadObamaArticleWithFirstSectionJSPerformanceExpectations()
+        wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
+        startMeasuring()
+        wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
+        stopMeasuring()
+        // Needed because 'measureMetrics' fires its block off ten times and the other expectations aren't scoped to its block because they are fulfilled in a delegate callback.
+        wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
+    }
+    
     // Tests the performance of the javascript which fetches, transforms and appends article sections via headless JS DocumentFragments.
     func testFirstSectionAppearancePerformance() {
-        // Load the article once before kicking off the 'measureMetrics' pass. Ensures any caching has been warmed.
-        loadObamaArticleWithFirstSectionJSPerformanceExpectations()
-        wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
-
         measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
-            loadObamaArticleWithFirstSectionJSPerformanceExpectations()
-            wait(for: [startTimeMessageReceivedExpectation!], timeout: 100)
-            startMeasuring()
-            wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
-            stopMeasuring()
-            
-            // Needed because 'measureMetrics' fires this block off ten times and the other expectations
-            // aren't scoped to this block because they are fulfilled in a delegate callback.
-            wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
+            measureFirstSectionAppearancePerformance()
+        })
+    }
+
+    func testFirstSectionAppearancePerformanceWithDarkTheme() {
+        webVCConfiguredToEmitFirstSectionAppearanceTimingEvents.apply(Theme.dark)
+        measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
+            measureFirstSectionAppearancePerformance()
+        })
+    }
+    func testFirstSectionAppearancePerformanceWithSepiaTheme() {
+        webVCConfiguredToEmitFirstSectionAppearanceTimingEvents.apply(Theme.sepia)
+        measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
+            measureFirstSectionAppearancePerformance()
         })
     }
 }

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
+- (void)applyTheme:(WMFTheme *)theme;
 #endif
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
