@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ArticleList" representedClassName="ArticleList" syncable="YES">
+        <attribute name="articleListDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleListID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="listDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -26,8 +27,8 @@
     </entity>
     <entity name="ArticleListEntry" representedClassName="ArticleListEntry" syncable="YES">
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="articleListEntryID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -137,12 +138,12 @@
         </fetchIndex>
     </entity>
     <elements>
+        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="210"/>
+        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="105"/>
+        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="180"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
-        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="195"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
-        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="105"/>
-        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="180"/>
     </elements>
 </model>

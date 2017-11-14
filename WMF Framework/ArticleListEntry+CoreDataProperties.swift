@@ -9,7 +9,7 @@ extension ArticleListEntry {
     }
 
     @NSManaged public var order: Int64
-    @NSManaged public var id: Int64
+    @NSManaged public var articleListEntryID: Int64
     @NSManaged public var project: String?
     @NSManaged public var title: String?
     @NSManaged public var createdDate: NSDate?

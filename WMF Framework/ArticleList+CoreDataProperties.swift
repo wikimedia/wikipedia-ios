@@ -7,13 +7,14 @@ extension ArticleList {
     }
     
     @NSManaged public var createdDate: NSDate?
-    @NSManaged public var id: Int64
-    @NSManaged public var listDescription: String?
+    @NSManaged public var articleListID: Int64
+    @NSManaged public var articleListDescription: String?
     @NSManaged public var name: String?
     @NSManaged public var order: Int64
     @NSManaged public var updatedDate: NSDate?
     @NSManaged public var color: String?
-    @NSManaged public var image: String?
+    @NSManaged public var imageName: String?
+    @NSManaged public var iconName: String?
     @NSManaged public var entries: NSOrderedSet?
     @NSManaged public var actions: NSSet?
 }
