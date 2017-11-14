@@ -115,10 +115,6 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
 
         measureMetrics(XCTestCase.defaultPerformanceMetrics, automaticallyStartMeasuring: false, for: {
-            // Needed because 'measureMetrics' fires this block off ten times and the other expectations aren't scoped
-            // to this block because they are fulfilled in a delegate callback.
-            let safeToContinueExpectation = expectation(description: "waiting for previous measurement to finish")
-            
             startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
             firstSectionAppearedMessageReceivedExpectation = expectation(description: "waiting for first section appeared message")
             
@@ -129,12 +125,9 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
             wait(for: [firstSectionAppearedMessageReceivedExpectation!], timeout: 100)
             stopMeasuring()
             
-            // Sanity check only to ensure expections are fulfilled in expected order.
+            // Needed because 'measureMetrics' fires this block off ten times and the other expectations
+            // aren't scoped to this block because they are fulfilled in a delegate callback.
             wait(for:[startTimeMessageReceivedExpectation!, firstSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
-            
-            safeToContinueExpectation.fulfill()
-            
-            wait(for: [safeToContinueExpectation], timeout: 100)
         })
     }
 }
