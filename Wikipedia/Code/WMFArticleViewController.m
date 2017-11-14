@@ -1528,11 +1528,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationController presentViewController:safariController animated:YES completion:nil];
 }
 
-- (void)showSpecialPage {
-    SFSafariViewController *safariController = [[SFSafariViewController alloc] initWithURL:self.articleURL];
-    [self.navigationController presentViewController:safariController animated:YES completion:nil];
-}
-
 - (NSURL *)articleTalkPageURL {
     return [self.articleURL wmf_URLWithTitle:[@"Talk:" stringByAppendingString:self.articleURL.wmf_title]];
 }
