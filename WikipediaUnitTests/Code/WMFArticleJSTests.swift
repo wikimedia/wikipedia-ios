@@ -91,22 +91,32 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
                     WKUserScript.init(source: startTimeJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
                 
-                // This message will be sent as soon as the first section appears in the DOM (within ~10ms). This is
-                // reasonable because our sections have all of their JS transformations applied before their respective
-                // document fragments are attached to the DOM. The difference between start time and this time will tell
-                // about how long it takes for the first section to be created, transformed and appear.
-                let tenMillisecondPollingJS = """
-                const checkFirstSectionPresence = () => {
-                   if(document.querySelector('#section_heading_and_content_block_0')){
-                       window.webkit.messageHandlers.\(self.testFirstSectionAppearanceMessageHandlerString).postMessage('\(self.testFirstSectionAppearedMessageString)')
-                   }else{
-                       setTimeout(checkFirstSectionPresence, 10 )
-                   }
-                }
-                checkFirstSectionPresence()
+                // See https://davidwalsh.name/detect-node-insertion for section appearance approach details.
+                let soughtID = "section_heading_and_content_block_0"
+                let sectionAppearanceJS = """
+                var style = document.createElement('style')
+                style.type = 'text/css'
+                style.innerHTML = `
+                    @keyframes soughtNodeInsertionAnimation {
+                        from { opacity: .99; }
+                        to { opacity: 1; }
+                    }
+                    #\(soughtID) {
+                        animation-duration: 0.001s;
+                        animation-name: soughtNodeInsertionAnimation;
+                    }
+                `
+                document.getElementsByTagName('head')[0].appendChild(style)
+                document.addEventListener('animationstart', (event) => {
+                    if (event.animationName === 'soughtNodeInsertionAnimation') {
+                        if(event.target.id === '\(soughtID)'){
+                            window.webkit.messageHandlers.\(self.testFirstSectionAppearanceMessageHandlerString).postMessage('\(self.testFirstSectionAppearedMessageString)')
+                        }
+                    }
+                }, false)
                 """
                 userContentController.addUserScript(
-                    WKUserScript.init(source: tenMillisecondPollingJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+                    WKUserScript.init(source: sectionAppearanceJS, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
                 )
             }
             
