@@ -105,8 +105,9 @@ class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
         }
     }
 
-    func testFirstSectionAppearanceDelay() {
-
+    func testFirstSectionAppearancePerformance() {
+        // Tests the performance of the javascript which fetches, transforms and appends article sections via headless JS DocumentFragments.
+        
         // Load the article once before kicking off the 'measureMetrics' pass. Ensures any caching has been warmed.
         webVC.setArticle(obamaArticle, articleURL: obamaArticle.url)
         startTimeMessageReceivedExpectation = expectation(description: "waiting for start time message")
