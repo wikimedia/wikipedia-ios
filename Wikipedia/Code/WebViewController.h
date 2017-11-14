@@ -28,7 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL navBarHidden;
 
+#if TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
+#endif
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL;
 
