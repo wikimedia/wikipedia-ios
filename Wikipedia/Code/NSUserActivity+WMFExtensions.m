@@ -51,6 +51,12 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
     return activity;
 }
 
++ (instancetype)wmf_specialPagesActivityWithURL:(NSURL *)url {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"SpecialPage"];
+    activity.webpageURL = url;
+    return activity;
+}
+
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
@@ -205,6 +211,8 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
+        } else if ([page isEqualToString:@"SpecialPage"]) {
+            return WMFUserActivityTypeSpecialPage;
         } else {
             return WMFUserActivityTypeSettings;
         }
@@ -246,7 +254,8 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 
 - (NSURL *)wmf_articleURL {
     if (self.userInfo[CSSearchableItemActivityIdentifier] != nil) {
-        return [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
+        NSURL *url = [NSURL URLWithString:self.userInfo[CSSearchableItemActivityIdentifier]];
+        return url;
     } else {
         return self.webpageURL;
     }

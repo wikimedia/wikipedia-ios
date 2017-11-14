@@ -779,6 +779,13 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         case WMFUserActivityTypeGenericLink: {
             return YES;
         }
+        case WMFUserActivityTypeSpecialPage: {
+            if ([activity webpageURL]) {
+                return YES;
+            } else {
+                return NO;
+            }
+        }
         default:
             return NO;
             break;
@@ -891,6 +898,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeGenericLink:
+            [self wmf_openExternalUrl:[activity wmf_articleURL]];
+            break;
+        case WMFUserActivityTypeSpecialPage:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
             break;
         default:
