@@ -1863,7 +1863,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (![self shouldShowWIconPopover]) {
         return;
     }
-    [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
 
     [self performSelector:@selector(showWIconPopover) withObject:nil afterDelay:1.0];
 }
@@ -1874,6 +1873,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                              message:WMFLocalizedStringWithDefaultValue(@"home-button-popover-description", nil, nil, @"Tap on the 'W' to return to the Explore feed", @"Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
                                                                width:230.0f
                                                             duration:3.0];
+    [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
 }
 
 #pragma mark - WMFThemeable
