@@ -33,6 +33,31 @@ class WMFAuthenticationManager: NSObject {
         keychainCredentials = WMFKeychainCredentials()
     }
     
+    var loginSiteURL: URL {
+        var baseURL: URL?
+        if let host = self.keychainCredentials.host {
+            var components = URLComponents()
+            components.host = host
+            components.scheme = "https"
+            baseURL = components.url
+        }
+        
+        if baseURL == nil {
+            #if DEBUG
+                let loginHost = "readinglists.wmflabs.org"
+                let loginScheme = "https"
+                var components = URLComponents()
+                components.host = loginHost
+                components.scheme = loginScheme
+                baseURL = components.url
+            #else
+                baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+            #endif
+        }
+        
+        return baseURL!
+    }
+    
     /**
      *  Login with the given username and password
      *
@@ -44,13 +69,14 @@ class WMFAuthenticationManager: NSObject {
      *  @param failure     The handler for any errors
      */
     @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
-            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL!, success: {result in
+        let siteURL = loginSiteURL
+        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { tokenBlock in
+            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
                 self.keychainCredentials.userName = normalizedUserName
                 self.keychainCredentials.password = password
+                self.keychainCredentials.host = siteURL.host
                 self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 loginSuccess(result)
@@ -77,8 +103,8 @@ class WMFAuthenticationManager: NSObject {
             return
         }
         
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL!, success: { result in
+        let siteURL = loginSiteURL
+        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
@@ -95,16 +121,16 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
-    private let logoutManager = AFHTTPSessionManager(baseURL: MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())
+    private var logoutManager:AFHTTPSessionManager?
     
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
     @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
-        let outerSuccess = success;
-        let outerFailure = failure;
-        
-        _ = logoutManager.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
+        let outerSuccess = success
+        let outerFailure = failure
+        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
+        _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
             
             self.keychainCredentials.userName = nil
             self.keychainCredentials.password = nil

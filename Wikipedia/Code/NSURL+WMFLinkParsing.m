@@ -4,7 +4,7 @@
 #import <WMF/NSURL+WMFExtras.h>
 
 #if WMF_USE_BETA_CLUSTER
-NSString *const WMFDefaultSiteDomain = @"readinglists.wmflabs.org";
+NSString *const WMFDefaultSiteDomain = @"wikipedia.beta.wmflabs.org";
 NSString *const WMFDefaultSiteMainDomain = @"wikipedia.org";
 #else
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";

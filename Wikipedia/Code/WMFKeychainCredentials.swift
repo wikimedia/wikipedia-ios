@@ -11,6 +11,7 @@ struct WMFKeychainCredentials {
     
     fileprivate let userNameKey = "org.wikimedia.wikipedia.username"
     fileprivate let passwordKey = "org.wikimedia.wikipedia.password"
+    fileprivate let hostKey = "org.wikimedia.wikipedia.host"
     
     public var userName: String? {
         get {
@@ -40,6 +41,23 @@ struct WMFKeychainCredentials {
         set(newPassword) {
             do {
                 return try set(value: newPassword, forKey: passwordKey)
+            } catch  {
+                assertionFailure("\(error)")
+            }
+        }
+    }
+    
+    public var host: String? {
+        get {
+            do {
+                return try getValue(forKey: hostKey)
+            } catch  {
+                return nil
+            }
+        }
+        set {
+            do {
+                return try set(value: newValue, forKey: hostKey)
             } catch  {
                 assertionFailure("\(error)")
             }
