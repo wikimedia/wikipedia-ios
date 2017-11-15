@@ -72,7 +72,9 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
         return;
     }
-
+#if WMF_USE_BETA_CLUSTER
+    useDeskTopURL = YES;
+#endif
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
 
     WMFSearchRequestParameters *params = [WMFSearchRequestParameters new];

@@ -89,7 +89,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                 selectedButtonCount += 1
             }
         }
-        assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {

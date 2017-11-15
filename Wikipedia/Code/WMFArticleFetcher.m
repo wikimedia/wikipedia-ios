@@ -104,6 +104,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         useDeskTopURL = YES;
     }
 
+#if WMF_USE_BETA_CLUSTER
+    useDeskTopURL = YES;
+#endif
+
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
 
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
