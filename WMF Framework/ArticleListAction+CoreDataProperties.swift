@@ -16,12 +16,12 @@ extension ArticleListAction {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ArticleListAction> {
         return NSFetchRequest<ArticleListAction>(entityName: "ArticleListAction")
     }
-
-    @NSManaged public var date: NSDate?
+    
     @NSManaged public var actionTypeInteger: Int16
-    @NSManaged public var lists: NSSet?
-    @NSManaged public var entries: NSSet?
-
+    @NSManaged public var date: NSDate?
+    @NSManaged public var articleListEntryIDs: [String]?
+    @NSManaged public var articleListIDs: [String]?
+    @NSManaged public var bodyParameters: [String: Any]?
 }
 
 // MARK: Generated accessors for lists

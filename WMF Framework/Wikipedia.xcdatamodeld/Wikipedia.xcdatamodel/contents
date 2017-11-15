@@ -8,19 +8,24 @@
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleListAction" inverseName="lists" inverseEntity="ArticleListAction" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ArticleListEntry" inverseName="list" inverseEntity="ArticleListEntry" syncable="YES"/>
-        <fetchIndex name="byOrderIndex">
-            <fetchIndexElement property="order" type="Binary" order="ascending"/>
+        <fetchIndex name="byNameIndex">
+            <fetchIndexElement property="name" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byCreatedDateIndex">
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUpdatedDateIndex">
+            <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="ArticleListAction" representedClassName="ArticleListAction" syncable="YES">
         <attribute name="actionTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="articleListEntryIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="articleListIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="bodyParameters" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleListEntry" inverseName="actions" inverseEntity="ArticleListEntry" syncable="YES"/>
-        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="actions" inverseEntity="ArticleList" syncable="YES"/>
         <fetchIndex name="byDateIndex">
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -29,17 +34,22 @@
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="articleListEntryID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="actions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleListAction" inverseName="entries" inverseEntity="ArticleListAction" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="entries" inverseEntity="ArticleList" syncable="YES"/>
-        <fetchIndex name="byOrderIndex">
-            <fetchIndexElement property="order" type="Binary" order="ascending"/>
-        </fetchIndex>
         <fetchIndex name="byKeyIndex">
             <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byNameIndex">
+            <fetchIndexElement property="name" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byCreatedDateIndex">
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUpdatedDateIndex">
+            <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
@@ -138,9 +148,9 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="210"/>
-        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="105"/>
-        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="180"/>
+        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="180"/>
+        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="120"/>
+        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="165"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
