@@ -115,8 +115,8 @@
 "edit-summary-title" = "Hur förbättrade du artikeln?";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
-"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
-"empty-no-feed-title" = "Ingen internetanslutning";
+"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
+"empty-no-feed-title" = "Ingen Internetanslutning";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";

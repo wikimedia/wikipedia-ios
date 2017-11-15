@@ -5,7 +5,6 @@
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
 #import "UIFont+WMFStyle.h"
-#import "UIScrollView+WMFScrollsToTop.h"
 @import WMF;
 
 const CGFloat WebViewControllerHeaderImageHeight = 210;

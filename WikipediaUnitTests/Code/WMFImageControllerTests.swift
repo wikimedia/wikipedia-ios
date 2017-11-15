@@ -7,15 +7,16 @@ class WMFImageControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        LSNocilla.sharedInstance().start()
         imageController = ImageController.temporaryController()
         imageController.deleteTemporaryCache()
     }
     
     override func tearDown() {
-        super.tearDown()
+        LSNocilla.sharedInstance().stop()
         // might have been set to nil in one of the tests. delcared as implicitly unwrapped for convenience
         imageController?.deleteTemporaryCache()
-        LSNocilla.sharedInstance().stop()
+        super.tearDown()
     }
     
     // MARK: - Simple fetching
@@ -24,8 +25,7 @@ class WMFImageControllerTests: XCTestCase {
         let testURL = URL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.main.scale))x.png")!
         let testImage = #imageLiteral(resourceName: "wikipedia-wordmark")
         let stubbedData = UIImagePNGRepresentation(testImage)
-        
-        LSNocilla.sharedInstance().start()
+
         _ = stubRequest("GET", testURL.absoluteString as LSMatcheable!).andReturnRawResponse(stubbedData)
         
         let expectation = self.expectation(description: "wait for image download")
@@ -51,7 +51,6 @@ class WMFImageControllerTests: XCTestCase {
         let testURL = URL(string: "https://upload.wikimedia.org/foo")!
         let stubbedError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost, userInfo: nil)
         
-        LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString as LSMatcheable!).andFailWithError(stubbedError)
         
         let expectation = self.expectation(description: "wait for image download");
@@ -101,10 +100,6 @@ class WMFImageControllerTests: XCTestCase {
         imageController.cancelFetch(withURL: testURL)
 
         URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
-        LSNocilla.sharedInstance().start()
-        defer {
-            LSNocilla.sharedInstance().stop()
-        }
         
         _ = stubRequest("GET", testURLString as LSMatcheable!).andReturnRawResponse(stubbedData)
         

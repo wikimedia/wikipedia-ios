@@ -63,8 +63,10 @@
 "action-save" = "Desa";
 "action-saved" = "Desat";
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
+"action-saved-accessibility-notification" = "Article desat per a més endavant";
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
+"action-unsaved-accessibility-notification" = "Article no desat";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
@@ -74,6 +76,7 @@
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
+"article-deleted-accessibility-notification" = "S'ha suprimit l'article";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
@@ -102,6 +105,7 @@
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
 "dark-theme-display-name" = "Fosc";
+"dim-images" = "Atenuació d'imatges";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
@@ -194,6 +198,7 @@
 "home-nearby-location-footer" = "Més propers a $1";
 "home-news-footer" = "Novetats";
 "home-themes-action-title" = "Gestiona les preferències";
+"home-themes-prompt" = "Ajusteu les preferències de lectura, incloent-hi la mida del text i el tema, des de la barra d'eines de l'article o des de les vostres preferències d'usuari per a una experiència de lectura més còmode.";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
@@ -305,9 +310,11 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
+"reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
@@ -320,6 +327,7 @@
 "saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-title" = "Desat";
+"search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-recent-clear-cancel" = "Cancel·la";
@@ -331,6 +339,7 @@
 "search-title" = "Cerca";
 "settings-appearance" = "Aparença";
 "settings-clear-cache" = "Neteja les dades en cau";
+"settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
@@ -350,6 +359,7 @@
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
 "share-a-fact-share-menu-item" = "Compateix-un-fet…";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
+"share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-custom-menu-item" = "Comparteix...";
 "share-default-format" = "«$1» de «$2»: $3";
 "share-email-format" = "«$1»\n\nde «$2»\n\n$3";
@@ -358,6 +368,8 @@
 "share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-open-in-maps" = "Obre a Mapes";
+"share-social-format" = "«$1» des de la Viquipèdia: $2";
+"share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
 "status-saved-for-later" = "Desat per a més endavant";
 "status-saving-for-later" = "Es desa per més endavant...";
 "table-of-contents-button-label" = "Taula de continguts";

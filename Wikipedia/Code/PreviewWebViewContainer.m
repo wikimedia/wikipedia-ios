@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                    forMainFrameOnly:YES]];
 
     [userContentController addUserScript:
-                               [[WKUserScript alloc] initWithSource:[WKWebView wmf_themeClassificationJavascript]
+                               [[WKUserScript alloc] initWithSource:@"window.wmf.themes.classifyElements(document)"
                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                    forMainFrameOnly:YES]];
 
