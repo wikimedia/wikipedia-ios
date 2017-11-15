@@ -1,6 +1,15 @@
 import Foundation
 import CoreData
 
+public enum ArticleListActionType: Int16 {
+    case unknown = 0
+    case createList = 1
+    case updateList = 2
+    case deleteList = 3
+    case createEntry = 4
+    case updateEntry = 5
+    case deleteEntry = 6
+}
 
 extension ArticleListAction {
 
@@ -9,7 +18,7 @@ extension ArticleListAction {
     }
 
     @NSManaged public var date: NSDate?
-    @NSManaged public var action: Int16
+    @NSManaged public var actionTypeInteger: Int16
     @NSManaged public var lists: NSSet?
     @NSManaged public var entries: NSSet?
 
@@ -47,4 +56,15 @@ extension ArticleListAction {
     @objc(removeEntries:)
     @NSManaged public func removeFromEntries(_ values: NSSet)
 
+}
+
+extension ArticleListAction {
+    var actionType: ArticleListActionType {
+        get {
+            return ArticleListActionType(rawValue: actionTypeInteger) ?? .unknown
+        }
+        set {
+            actionTypeInteger = newValue.rawValue
+        }
+    }
 }

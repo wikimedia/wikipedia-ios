@@ -17,7 +17,7 @@
         </fetchIndex>
     </entity>
     <entity name="ArticleListAction" representedClassName="ArticleListAction" syncable="YES">
-        <attribute name="action" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="actionTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleListEntry" inverseName="actions" inverseEntity="ArticleListEntry" syncable="YES"/>
         <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="actions" inverseEntity="ArticleList" syncable="YES"/>
