@@ -2226,7 +2226,7 @@
 		D8E27BB81F82B5DD00F9D2B3 /* RMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8E27BB21F82B5CB00F9D2B3 /* RMessageView.xib */; };
 		D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807331C0CED810065EBC0 /* WMFImageURLParsing.m */; };
 		D8E4CCAA1D931CE100EB6C61 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
-		D8E78FA41FB4C8250094B968 /* ReadingListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA31FB4C8250094B968 /* ReadingListController.swift */; };
+		D8E78FA41FB4C8250094B968 /* ArticleListsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA31FB4C8250094B968 /* ArticleListsController.swift */; };
 		D8E78FA61FB4C8740094B968 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E78FA51FB4C8740094B968 /* Session.swift */; };
 		D8E78FA71FB4D8890094B968 /* WMFAuthTokenFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */; };
 		D8E78FA81FB4D8EB0094B968 /* AFHTTPSessionManager+WMFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */; };
@@ -4374,7 +4374,7 @@
 		D8E27BA01F82AFE600F9D2B3 /* RMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMessageView.h; sourceTree = "<group>"; };
 		D8E27BAC1F82B4FF00F9D2B3 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		D8E27BB21F82B5CB00F9D2B3 /* RMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RMessageView.xib; sourceTree = "<group>"; };
-		D8E78FA31FB4C8250094B968 /* ReadingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListController.swift; sourceTree = "<group>"; };
+		D8E78FA31FB4C8250094B968 /* ArticleListsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListsController.swift; sourceTree = "<group>"; };
 		D8E78FA51FB4C8740094B968 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D8EBD1B71FBB13EE00AA7DA9 /* ArticleList+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleList+JSON.swift"; sourceTree = "<group>"; };
 		D8EBD1B91FBB16F700AA7DA9 /* Dictionary+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+JSON.swift"; sourceTree = "<group>"; };
@@ -7637,7 +7637,7 @@
 			children = (
 				D8F1BF241D9C2AFB00036E71 /* WMFNotificationsController.h */,
 				D8F1BF251D9C2AFB00036E71 /* WMFNotificationsController.m */,
-				D8E78FA31FB4C8250094B968 /* ReadingListController.swift */,
+				D8E78FA31FB4C8250094B968 /* ArticleListsController.swift */,
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
@@ -10244,7 +10244,7 @@
 				D8FA18AE1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
 				D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */,
 				D8FA18F71E1BDA4C009675C3 /* GroupedAccessibilityView.swift in Sources */,
-				D8E78FA41FB4C8250094B968 /* ReadingListController.swift in Sources */,
+				D8E78FA41FB4C8250094B968 /* ArticleListsController.swift in Sources */,
 				D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */,
 				D8FA18DB1E1BD899009675C3 /* NSURLComponents+WMFLinkParsing.m in Sources */,
 				D8FA18C21E1BD891009675C3 /* NSURL+WMFQueryParameters.m in Sources */,
