@@ -92,14 +92,14 @@ extension NSManagedObjectContext {
         } catch let error {
             DDLogError("Error fetching: \(error)")
         }
-        var valueSet = Set(values)
+        var missingValues = Set(values)
         for result in results {
             guard let value = result.value(forKey: key) as? V else {
                 continue
             }
-            valueSet.remove(value)
+            missingValues.remove(value)
         }
-        for value in valueSet {
+        for value in missingValues {
             guard let object = wmf_create(entityNamed: entityName, withValue: value, forKey: key) as? T else {
                 continue
             }
