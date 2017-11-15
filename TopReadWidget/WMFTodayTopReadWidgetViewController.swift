@@ -151,6 +151,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     }
     
     @objc func updateView() {
+        guard viewIfLoaded != nil else {
+            return
+        }
         if let context = self.extensionContext {
             var updatedIsExpanded: Bool?
             if #available(iOSApplicationExtension 10.0, *) {
