@@ -252,6 +252,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Apagar";
+"more-languages-tooltip-description" = "Pesquise na Wikipedia em quase 300 idiomas";
+"more-languages-tooltip-title" = "Adicionar idiomas";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";

@@ -38,7 +38,7 @@
 "account-creation-captcha-obtaining" = "Njupuk CAPTCHA anyar...";
 "account-creation-captcha-request-account" = "Nyuwun akun.";
 "account-creation-captcha-title" = "Pamriksa pangayoman CAPTCHA";
-"account-creation-create-account" = "Gawé akuné panjenengan";
+"account-creation-create-account" = "Gawé akun panjenengan";
 "account-creation-have-account" = "Wis duwé akun? $1";
 "account-creation-log-in" = "Mlebu log.";
 "account-creation-logging-in" = "Mlebu log...";
@@ -207,7 +207,7 @@
 "login-forgot-password" = "Lali tembung wadining sampéyan?";
 "login-join-wikipedia" = "Mèlu Wikipédia.";
 "login-no-account" = "Durung duwé akun? $1";
-"login-title" = "Mlebua menyang akuné panjenengan";
+"login-title" = "Mlebu log ing akun panjenengan";
 "main-menu-about" = "Bab aplikasi";
 "main-menu-account-login" = "Mlebu";
 "main-menu-account-logout" = "Metu";
@@ -371,7 +371,7 @@
 "top-read-see-more" = "Deleng wacan laris liyané";
 "two-factor-login-continue" = "Banjuraké mlebu log";
 "two-factor-login-instructions" = "Mangga isinen kodhe vèrifikasi rong faktor";
-"two-factor-login-title" = "Mlebu log nyang akuné panjenengan";
+"two-factor-login-title" = "Mlebu log ing akun panjenengan";
 "two-factor-login-with-backup-code" = "Anggonen salah siji kodhe sèrepé panjenengan";
 "two-factor-login-with-regular-code" = "Anggonen kodhe vèrifikasi";
 "view-in-browser-footer-link" = "Deleng artikel ing pangluron";
