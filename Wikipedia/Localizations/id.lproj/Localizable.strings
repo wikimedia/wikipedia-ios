@@ -243,6 +243,8 @@
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
 "menu-trash-accessibility-label" = "Hapus";
+"more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
+"more-languages-tooltip-title" = "Tambah bahasa";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";

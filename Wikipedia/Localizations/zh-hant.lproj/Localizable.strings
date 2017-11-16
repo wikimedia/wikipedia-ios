@@ -242,6 +242,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero 常見問題";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "刪除";
+"more-languages-tooltip-description" = "在近 300 種語言的維基百科裡搜尋";
+"more-languages-tooltip-title" = "新增語言";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
 "nearby-distance-label-feet" = "$1 英尺";
 "nearby-distance-label-km" = "$1 公里";

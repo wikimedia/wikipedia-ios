@@ -7,6 +7,7 @@
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Sarchia
+// Author: Épine
 
 "about-content-license" = "مۆڵەتی ناوەڕۆک";
 "about-content-license-details" = "مەگەر بە پێچەوانەوە وترابێت، ناوەڕۆک بەردەستە لەژێر $1.";
@@ -229,6 +230,8 @@
 "main-menu-zero-faq" = "پرسیارە دووپاتکراوەکانی ویکیپیدیا سفر";
 "menu-cancel-accessibility-label" = "ھەڵوەشاندنەوە";
 "menu-trash-accessibility-label" = "سڕینەوە";
+"more-languages-tooltip-description" = "بە نزیکەی ٣٠٠ زمان بگەڕێ لە ویکیپیدیادا";
+"more-languages-tooltip-title" = "زمان زیاد بکە";
 "navbar-title-mode-edit-wikitext-preview" = "پێشبینین";
 "nearby-distance-label-feet" = "$1 پێ";
 "nearby-distance-label-km" = "$1 کیلۆمەتر";
