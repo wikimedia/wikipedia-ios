@@ -1,9 +1,9 @@
 import Foundation
 
-extension ArticleList {
+extension ReadingList {
     func update(with json: [String: Any]) {
         if let listID = json["id"] as? Int64 {
-            self.articleListID = listID
+            self.readingListID = listID
         }
         
         if let listName = json["name"] as? String {

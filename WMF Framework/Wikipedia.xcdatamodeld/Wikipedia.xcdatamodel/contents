@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ArticleList" representedClassName="WMF.ArticleList" syncable="YES">
-        <attribute name="articleListDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="articleListID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readingListDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readingListID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ArticleListEntry" inverseName="list" inverseEntity="ArticleListEntry" syncable="YES"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="ReadingListEntry" inverseName="list" inverseEntity="ReadingListEntry" syncable="YES"/>
         <fetchIndex name="byNameIndex">
             <fetchIndexElement property="name" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -20,25 +20,25 @@
             <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="ArticleListAction" representedClassName="WMF.ArticleListAction" syncable="YES">
+    <entity name="ReadingListAction" representedClassName="WMF.ReadingListAction" syncable="YES">
         <attribute name="actionTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="articleListEntryIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="articleListIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="bodyParameters" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="readingListEntryIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="readingListIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
         <fetchIndex name="byDateIndex">
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="ArticleListEntry" representedClassName="WMF.ArticleListEntry" syncable="YES">
+    <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="articleListEntryID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleList" inverseName="entries" inverseEntity="ArticleList" syncable="YES"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="entries" inverseEntity="ReadingList" syncable="YES"/>
         <fetchIndex name="byKeyIndex">
             <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -148,9 +148,9 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ArticleList" positionX="-54" positionY="135" width="128" height="180"/>
-        <element name="ArticleListAction" positionX="-45" positionY="144" width="128" height="120"/>
-        <element name="ArticleListEntry" positionX="-27" positionY="153" width="128" height="165"/>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="180"/>
+        <element name="ReadingListAction" positionX="-45" positionY="144" width="128" height="120"/>
+        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="165"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>

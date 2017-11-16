@@ -85,17 +85,17 @@ public class ReadingListsController: NSObject {
     
     // User-facing actions. Everything is performed on the main context
     
-    public func createReadingList(named name: String, with articles: [WMFArticle] = []) throws -> ArticleList {
+    public func createReadingList(named name: String, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        let existingListRequest: NSFetchRequest<ArticleList> = ArticleList.fetchRequest()
+        let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         existingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
         existingListRequest.fetchLimit = 1
         let result = try moc.fetch(existingListRequest).first
         guard result == nil else {
             throw ReadingListError.listExistsWithTheSameName(name: name)
         }
-        guard let list = moc.wmf_create(entityNamed: "ArticleList", withValue: name, forKey: "name") as? ArticleList else {
+        guard let list = moc.wmf_create(entityNamed: "ReadingList", withValue: name, forKey: "name") as? ReadingList else {
             throw ReadingListError.unableToCreateList
         }
         return list

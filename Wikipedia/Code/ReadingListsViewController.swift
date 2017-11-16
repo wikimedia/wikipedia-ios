@@ -6,11 +6,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     let dataStore: MWKDataStore
     let managedObjectContext: NSManagedObjectContext
     let readingListsController: ReadingListsController
-    var fetchedResultsController: NSFetchedResultsController<ArticleList>!
+    var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     
     
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
-        let request: NSFetchRequest<ArticleList> = ArticleList.fetchRequest()
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
