@@ -241,6 +241,8 @@
 "main-menu-zero-faq" = "维基百科零常见问题";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "删除";
+"more-languages-tooltip-description" = "在近300种语言中搜索维基百科";
+"more-languages-tooltip-title" = "添加语言";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-km" = "$1千米";
