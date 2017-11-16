@@ -24,7 +24,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
-@property (nonatomic, strong) WMFArticleListsController *articleListsController;
+@property (nonatomic, strong) WMFReadingListsController *readingListsController;
 
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 
@@ -825,11 +825,7 @@ static uint64_t bundleHash() {
     [self.historyList migrateLegacyDataIfNeeded];
     self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
     [self.savedPageList migrateLegacyDataIfNeeded];
-}
-
-- (void)readingListIt {
-    self.articleListsController = [[WMFArticleListsController alloc] initWithManagedObjectContext:self.viewContext];
-    [self.articleListsController setup];
+    self.readingListsController = [[WMFReadingListsController alloc] initWithDataStore:self];
 }
 
 #pragma mark - Legacy DataStore

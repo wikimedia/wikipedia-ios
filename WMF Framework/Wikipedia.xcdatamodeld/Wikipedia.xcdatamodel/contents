@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B48" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ArticleList" representedClassName="ArticleList" syncable="YES">
+    <entity name="ArticleList" representedClassName="WMF.ArticleList" syncable="YES">
         <attribute name="articleListDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="articleListID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +20,7 @@
             <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="ArticleListAction" representedClassName="ArticleListAction" syncable="YES">
+    <entity name="ArticleListAction" representedClassName="WMF.ArticleListAction" syncable="YES">
         <attribute name="actionTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="articleListEntryIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="articleListIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -30,7 +30,7 @@
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="ArticleListEntry" representedClassName="ArticleListEntry" syncable="YES">
+    <entity name="ArticleListEntry" representedClassName="WMF.ArticleListEntry" syncable="YES">
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="articleListEntryID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>

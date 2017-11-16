@@ -1,19 +1,41 @@
 import Foundation
 
-@objc(WMFArticleListsController)
-class ArticleListsController: NSObject {
-    fileprivate let managedObjectContext: NSManagedObjectContext
+
+public enum ReadingListError: Error, Equatable {
+    case listExistsWithTheSameName(name: String)
+    case unableToCreateList
+    
+    public var localizedDescription: String {
+        switch self {
+        case .listExistsWithTheSameName(let name):
+            let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name ‟%1$@”", comment: "Informs the user that a reading list exists with the same name.")
+            return String.localizedStringWithFormat(format, name)
+        case .unableToCreateList:
+            return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
+        }
+    }
+    
+    public static func ==(lhs: ReadingListError, rhs: ReadingListError) -> Bool {
+        return lhs.localizedDescription == rhs.localizedDescription //shrug
+    }
+}
+
+
+@objc(WMFReadingListsController)
+public class ReadingListsController: NSObject {
+    fileprivate weak var dataStore: MWKDataStore!
     fileprivate let session = Session.shared
-    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
+    fileprivate lazy var tokenFetcher: WMFAuthTokenFetcher = {
+        return WMFAuthTokenFetcher()
+    }()
     fileprivate let basePath = "/api/rest_v1/data/lists/"
     fileprivate let host = "readinglists.wmflabs.org"
     fileprivate let scheme = "https"
 
-    @objc init(managedObjectContext: NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
+    @objc init(dataStore: MWKDataStore) {
+        self.dataStore = dataStore
         super.init()
     }
-
 
     fileprivate func post(path: String, completion: @escaping (Error?) -> Void) {
         var components = URLComponents()
@@ -59,6 +81,24 @@ class ArticleListsController: NSObject {
         post(path: "teardown") { (error) in
 
         }
+    }
+    
+    // User-facing actions. Everything is performed on the main context
+    
+    public func createReadingList(named name: String, with articles: [WMFArticle] = []) throws -> ArticleList {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        let existingListRequest: NSFetchRequest<ArticleList> = ArticleList.fetchRequest()
+        existingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
+        existingListRequest.fetchLimit = 1
+        let result = try moc.fetch(existingListRequest).first
+        guard result == nil else {
+            throw ReadingListError.listExistsWithTheSameName(name: name)
+        }
+        guard let list = moc.wmf_create(entityNamed: "ArticleList", withValue: name, forKey: "name") as? ArticleList else {
+            throw ReadingListError.unableToCreateList
+        }
+        return list
     }
 
 }
