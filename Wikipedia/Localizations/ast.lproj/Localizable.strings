@@ -1,6 +1,7 @@
 // Messages for Asturian (asturianu)
 // Exported from translatewiki.net
 // Author: Enolp
+// Author: Fitoschido
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
@@ -51,8 +52,10 @@
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
 "action-saved-accessibility" = "Guardao. Activa pa recuperar.";
+"action-saved-accessibility-notification" = "Artículu guardáu pa dempués";
 "action-share" = "Compartir";
 "action-unsave" = "Nun guardar";
+"action-unsaved-accessibility-notification" = "Artículu ensin guardar";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
@@ -63,6 +66,7 @@
 "appearance-settings-title" = "Lleyendo temes";
 "article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";
+"article-deleted-accessibility-notification" = "Artículu desaniciáu";
 "article-languages-filter-placeholder" = "Alcontrar llingua";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-others" = "Otres llingües";
@@ -314,6 +318,7 @@
 "saved-pages-clear-delete-all" = "Si, desaniciar too";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
 "saved-title" = "Guardada";
+"search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
 "search-recent-clear-cancel" = "Encaboxar";
@@ -376,15 +381,18 @@
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
 "view-in-browser-footer-link" = "Ver artículu nel navegador";
 "welcome-exploration-explore-feed-description" = "Llectures recomendaes y artículos diarios de la nuesa comunidá";
-"welcome-exploration-explore-feed-title" = "Esplorar canal";
+"welcome-exploration-explore-feed-title" = "Canal Esplorar";
 "welcome-exploration-on-this-day-description" = "Viaxa al pasáu pa saber qué asocedió na hestoria tal día como güei";
 "welcome-exploration-on-this-day-title" = "Tal día como güei";
+"welcome-exploration-places-description" = "Descubrir llugares destacaos cercanos o buscar llugares del mundu";
 "welcome-exploration-places-title" = "Llingüeta de llugares";
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contien más de 40 millones d'artículos en casi 300 llingües.";
 "welcome-intro-free-encyclopedia-more" = "Saber más sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tocante a Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia ye un proyectu global pa crear enciclopedies llibres en toles llingües del mundu. Virtualmente cualquiera con accesu a Internet tien llibertá pa participar apurriendo información neutral y con referencies.";
 "welcome-intro-free-encyclopedia-title" = "La enciclopedia llibre";
 "welcome-languages-add-button" = "Amestar otra llingua";
 "welcome-languages-add-or-edit-button" = "Amestar o editar llingües preferíes";

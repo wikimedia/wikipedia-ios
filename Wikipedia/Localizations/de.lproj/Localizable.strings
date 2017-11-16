@@ -52,8 +52,10 @@
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
 "action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
+"action-saved-accessibility-notification" = "Artikel für später gespeichert";
 "action-share" = "Teilen";
 "action-unsave" = "Löschen";
+"action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Ausblenden";
 "appearance-settings-adjust-text-sizing" = "Passe die Größe des Artikeltextes an";
@@ -64,6 +66,7 @@
 "appearance-settings-title" = "Lese-Farbschemen";
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
+"article-deleted-accessibility-notification" = "Artikel gelöscht";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
@@ -228,6 +231,8 @@
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Abbrechen";
 "menu-trash-accessibility-label" = "Löschen";
+"more-languages-tooltip-description" = "Wikipedia in fast 300 Sprachen durchsuchen";
+"more-languages-tooltip-title" = "Sprachen hinzufügen";
 "navbar-title-mode-edit-wikitext-preview" = "Vorschau";
 "nearby-distance-label-feet" = "$1 Fuß";
 "nearby-distance-label-km" = "$1 km";
@@ -315,6 +320,7 @@
 "saved-pages-clear-delete-all" = "Ja, alle löschen";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-title" = "Gespeichert";
+"search-button-accessibility-label" = "Wikipedia durchsuchen";
 "search-did-you-mean" = "Meintest du $1?";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
 "search-recent-clear-cancel" = "Abbrechen";
@@ -334,11 +340,11 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-my-languages" = "Meine Sprachen";
 "settings-notifications" = "Benachrichtigungen";
-"settings-notifications-info" = "Werde benachrichtigt über aktuelle und beliebte Artikel auf Wikipedia mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
+"settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
 "settings-notifications-push-notifications" = "Push-Benachrichtigungen";
 "settings-notifications-system-turn-on" = "Benachrichtigungen anschalten";
-"settings-notifications-trending" = "Aktuelle Ereignisse";
+"settings-notifications-trending" = "Beliebte aktuelle Ereignisse";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
 "settings-support" = "Wikipedia unterstützen";

@@ -7,6 +7,7 @@
 // Author: Jaumeortola
 // Author: Joan manel
 // Author: Kippelboy
+// Author: Leptictidium
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
@@ -62,22 +63,27 @@
 "action-save" = "Desa";
 "action-saved" = "Desat";
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
+"action-saved-accessibility-notification" = "Article desat per a més endavant";
 "action-share" = "Comparteix";
 "action-unsave" = "No ho desis";
+"action-unsaved-accessibility-notification" = "Article no desat";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
+"appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en el tema fosc";
 "appearance-settings-reading-themes" = "Temes de lectura";
 "appearance-settings-theme-options" = "Opcions del tema";
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
+"article-deleted-accessibility-notification" = "S'ha suprimit l'article";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
 "article-share" = "Comparteix";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back" = "Enrere";
@@ -91,12 +97,15 @@
 "button-save-for-later" = "Desa-ho per a més tard";
 "button-saved-for-later" = "Desat per a més tard";
 "button-saved-remove" = "Suprimeix dels desats";
+"button-skip" = "Omet";
+"cancel" = "Cancel·la";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
 "dark-theme-display-name" = "Fosc";
+"dim-images" = "Atenuació d'imatges";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
@@ -162,6 +171,7 @@
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "Restableix";
 "forgot-password-email-sent" = "S'ha enviat un missatge de correu electrònic amb instruccions de restabliment de contrasenya";
+"forgot-password-instructions" = "Omple un dels camps a continuació per a rebre instruccions de reinicialització de contrasenya per correu electrònic";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
 "gfdl" = "GFDL";
@@ -188,6 +198,7 @@
 "home-nearby-location-footer" = "Més propers a $1";
 "home-news-footer" = "Novetats";
 "home-themes-action-title" = "Gestiona les preferències";
+"home-themes-prompt" = "Ajusteu les preferències de lectura, incloent-hi la mida del text i el tema, des de la barra d'eines de l'article o des de les vostres preferències d'usuari per a una experiència de lectura més còmode.";
 "home-title" = "Exploreu!";
 "home-title-accessibility-label" = "Viquipèdia, desplaceu-vos amunt a Exploreu";
 "icon-shortcut-continue-reading-title" = "Continua llegint";
@@ -203,8 +214,9 @@
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
 "languages-title" = "Canvia la llengua";
+"languages-wikipedia" = "Llengües de la Viquipèdia";
 "license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "El contingut està disponible sota $1 a menys que s'indiqui el contrari.";
+"license-footer-text" = "Contingut disponible sota $1 a menys que s'indiqui el contrari.";
 "login-forgot-password" = "Heu perdut la contrasenya?";
 "login-join-wikipedia" = "Uniu-vos a Viquipèdia";
 "login-no-account" = "No teniu un compte? $1";
@@ -257,6 +269,7 @@
 "page-protected-sysop" = "La pàgina està protegida.";
 "page-read-in-other-languages" = "Disponible en $1 altres llengües";
 "page-similar-titles" = "Pàgines similars";
+"page-talk-page" = "Mostra la pàgina de discussió";
 "pictured" = "retratat";
 "places-accessibility-clear-saved-searches" = "Neteja les cerques desades";
 "places-accessibility-close-search" = "Tanca la cerca";
@@ -266,6 +279,7 @@
 "places-accessibility-show-as-map" = "Mostra com a mapa";
 "places-accessibility-show-more" = "Mostra més articles";
 "places-dismiss-filter-list-accessibility-label" = "Descarta els filtres de cerca";
+"places-empty-search-description" = "Exploreu ciutats, països, continents, llocs d'interès naturals, esdeveniments històrics, construccions i molt més!";
 "places-empty-search-title" = "Cerca a la Viquipèdia articles amb ubicacions geogràfiques";
 "places-enable-location-action-button-title" = "Habilitar geolocalització";
 "places-enable-location-description" = "L'accés a la vostra ubicació és disponible només quan l'aplicació o un dels seus serveis és visible a la vostra pantalla";
@@ -296,9 +310,11 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sèpia";
+"reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|Ahir|Fa $1 dies}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
@@ -311,6 +327,7 @@
 "saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-title" = "Desat";
+"search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-recent-clear-cancel" = "Cancel·la";
@@ -322,6 +339,7 @@
 "search-title" = "Cerca";
 "settings-appearance" = "Aparença";
 "settings-clear-cache" = "Neteja les dades en cau";
+"settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
 "settings-clear-cache-cancel" = "Cancel·la";
 "settings-clear-cache-ok" = "Neteja la memòria cau";
@@ -338,13 +356,20 @@
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Compateix-un-fet";
+"share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
+"share-a-fact-share-menu-item" = "Compateix-un-fet…";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
+"share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-custom-menu-item" = "Comparteix...";
+"share-default-format" = "«$1» de «$2»: $3";
+"share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
+"share-menu-item" = "Comparteix…";
+"share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-open-in-maps" = "Obre a Mapes";
+"share-social-format" = "«$1» des de la Viquipèdia: $2";
+"share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
 "status-saved-for-later" = "Desat per a més endavant";
 "status-saving-for-later" = "Es desa per més endavant...";
 "table-of-contents-button-label" = "Taula de continguts";
@@ -363,15 +388,31 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"view-in-browser-footer-link" = "Mostra l'article al navegador";
+"welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
+"welcome-exploration-explore-feed-title" = "Canal Exploreu!";
+"welcome-exploration-on-this-day-description" = "Aneu enrere en el temps per a saber què va passar avui al llarg de la història";
+"welcome-exploration-on-this-day-title" = "Tal dia com avui";
+"welcome-exploration-places-description" = "Descobriu llocs d'interès prop vostre o cerqueu-ne arreu del món";
+"welcome-exploration-places-title" = "Pestanya de llocs";
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
+"welcome-intro-free-encyclopedia-description" = "La Viquipèdia és escrita col·laborativament per voluntaris i conté més de 40 milions d'articles en gairebé 300 llengües.";
+"welcome-intro-free-encyclopedia-more" = "Més informació de la Viquipèdia";
+"welcome-intro-free-encyclopedia-more-about" = "Quant a la Viquipèdia";
+"welcome-intro-free-encyclopedia-more-description" = "La Viquipèdia és un projecte global per construir enciclopèdies lliures en totes les llengües del món. Virtualment qualsevol amb accés a Internet és lliure de participar-hi tot contribuint-hi informació neutral i que es pugui citar.";
+"welcome-intro-free-encyclopedia-title" = "L’enciclopèdia lliure";
 "welcome-languages-add-button" = "Afegeix una altra llengua";
+"welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
+"welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
+"welcome-languages-search-title" = "Cerca en vora 300 llengües";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
-// Fuzzy
-"welcome-send-data-sub-title" = "Ajudeu la Fundació Wikimedia a millorar l'aplicació fent saber com la feu servir. Les dades que es recullen són anònimes.";
+"welcome-send-data-helps-title" = "Ajudeu a millorar l'aplicació";
+"welcome-send-data-learn-more" = "Més informació de les dades recopilades";
+"welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
 "wikitext-download-failed" = "No s'ha pogut obtenir la darrera revisió.";
 "wikitext-download-success" = "S'ha carregat el contingut.";
@@ -386,7 +427,6 @@
 "wikitext-upload-save" = "S'està desant...";
 "wikitext-upload-save-anonymously-warning" = "Les edicions seran atribuïdes a l'adreça IP del dispositiu. Si vostè $1 disposarà de més privadesa.";
 "wikitext-upload-save-sign-in" = "Inicia una sessió";
-// Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "En publicar els canvis esteu d'acord amb els $1 i a alliberar la vostra contribució sota els termes de la llicència $2 i $3.";
 "wikitext-upload-save-terms-name" = "Condicions d'ús";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";

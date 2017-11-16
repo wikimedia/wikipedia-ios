@@ -43,8 +43,10 @@
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
+"action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
+"action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
@@ -55,6 +57,7 @@
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Text of the article list row action shown on swipe which deletes the article";
+"article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
@@ -219,6 +222,8 @@
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
+"more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
+"more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
@@ -306,6 +311,7 @@
 "saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
+"search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
 "search-recent-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";

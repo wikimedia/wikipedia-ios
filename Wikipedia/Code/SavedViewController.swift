@@ -36,7 +36,6 @@ class SavedViewController: ArticleFetchedResultsViewController {
         isDeleteAllVisible = true
     }
 
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)

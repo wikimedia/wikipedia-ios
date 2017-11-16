@@ -138,10 +138,15 @@ extension ArticleCollectionViewController {
                 return nil
         }
         previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        
+        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        articleViewController.articlePreviewingActionsDelegate = self
+        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
@@ -183,15 +188,18 @@ extension ArticleCollectionViewController: ActionDelegate {
         switch action.type {
         case .delete:
             delete(at: indexPath)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("article-deleted-accessibility-notification", value: "Article deleted", comment: "Notification spoken after user deletes an article from the list."))
             return true
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 return true
             }
         case .share:
@@ -206,7 +214,6 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let viewController = shareActivityController {
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     let cell = collectionView?.cellForItem(at: indexPath)
-                    viewController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
                     viewController.popoverPresentationController?.sourceView = cell ?? view
                     viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
                 }
@@ -248,4 +255,24 @@ extension ArticleCollectionViewController: ActionDelegate {
             cell.actions = availableActions(at: indexPath)
         }
     }
+}
+
+extension ArticleCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    
+    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
+    }
+    
+    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
+    }
+    
+    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.openURL(placesURL)
+    }
+
 }

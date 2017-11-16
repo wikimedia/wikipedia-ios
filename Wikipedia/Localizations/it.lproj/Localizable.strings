@@ -228,6 +228,8 @@
 "main-menu-zero-faq" = "FAQ di Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annulla";
 "menu-trash-accessibility-label" = "Cancella";
+"more-languages-tooltip-description" = "Cerca in Wikipedia in quasi 300 lingue";
+"more-languages-tooltip-title" = "Aggiungi lingue";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-km" = "$1 km";
@@ -367,6 +369,7 @@
 "welcome-intro-free-encyclopedia-description" = "Wikipedia è scritta collaborativamente da volontari e consiste in più di 40 milioni di voci in quasi 300 lingue.";
 "welcome-intro-free-encyclopedia-more" = "Ulteriori informazioni su Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Informazioni su Wikipedia";
+"welcome-intro-free-encyclopedia-title" = "L'enciclopedia libera";
 "welcome-languages-add-button" = "Aggiungi un'altra lingua";
 "welcome-languages-add-or-edit-button" = "Aggiungi o modifica lingue preferite";
 "welcome-languages-description" = "Abbiamo trovato le seguenti lingue sul tuo dispositivo:";

@@ -43,6 +43,7 @@
 "button-publish" = "Publicēt";
 "button-read-now" = "Lasīt tagad";
 "button-report-a-bug" = "Ziņot par kļūdu";
+"button-skip" = "Izlaist";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Aizvērt";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
@@ -112,6 +113,8 @@
 "main-menu-zero-faq" = "Vikipēdija Zero BUJ";
 "menu-cancel-accessibility-label" = "Atcelt";
 "menu-trash-accessibility-label" = "Dzēst";
+"more-languages-tooltip-description" = "Meklē Vikipēdijā gandrīz 300 valodās";
+"more-languages-tooltip-title" = "Pievienot valodas";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
 "nearby-distance-label-feet" = "$1 pēdas";
 "nearby-distance-label-km" = "$1 km";
@@ -127,8 +130,7 @@
 "places-accessibility-group" = "$1 rakstu";
 "places-filter-list-title" = "Meklēšanas filtri";
 "places-filter-saved-articles" = "Saglabātie raksti";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 raksti";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 raksti|$1 raksts|$1 raksti}}";
 // Fuzzy
 "places-search-default-text" = "Meklēt";
 "places-search-saved-articles" = "Visi saglabātie raksti";
@@ -166,9 +168,13 @@
 "table-title-other" = "Vairāk informācijas";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
+"welcome-exploration-on-this-day-title" = "Šajā dienā";
 "welcome-explore-tell-me-more-done-button" = "Sapratu";
+"welcome-intro-free-encyclopedia-more" = "Uzzini vairāk par Vikipēdiju";
+"welcome-intro-free-encyclopedia-more-about" = "Par Vikipēdiju";
 "welcome-languages-add-button" = "Pievienot citu valodu";
 "welcome-notifications-tell-me-more-title" = "Vairāk par paziņojumiem";
+"welcome-send-data-helps-title" = "Palīdzi uzlabot lietotni";
 "welcome-volunteer-send-usage-reports" = "Sūtīt lietojuma ziņojumus";
 "wikitext-download-success" = "Saturs ielādēts.";
 "wikitext-downloading" = "Ielādē saturu...";

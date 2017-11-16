@@ -2,7 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "share-a-fact-icon.pdf"
+      "filename" : "shareafact35.pdf"
+    },
+    {
+      "idiom" : "ipad",
+      "filename" : "share-a-fact-icon~ipad.pdf"
     }
   ],
   "info" : {

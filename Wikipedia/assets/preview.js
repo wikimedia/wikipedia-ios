@@ -258,8 +258,11 @@ var classifyElements = function classifyElements(element) {
   /* en > Away colours > 793128975 */
   /* en > Manchester United F.C. > 793244653 */
   /* en > Pantone > 792312384 */
-  Polyfill.querySelectorAll(element, 'div.color_swatch div, div[style*="position: absolute"]').forEach(function (div) {
-    div.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
+  /* en > Wikipedia:Graphs_and_charts > 801754530 */
+  /* en > PepsiCo > 807406166 */
+  var selector = ['div.color_swatch div', 'div[style*="position: absolute"]', 'div.barbox table div[style*="background:"]', 'div.chart div[style*="background-color"]', 'div.chart ul li span[style*="background-color"]', 'span.legend-color'].join();
+  Polyfill.querySelectorAll(element, selector).forEach(function (element) {
+    return element.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
   });
 };
 
@@ -282,45 +285,21 @@ var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
  */
 var getTableHeader = function getTableHeader(element, pageTitle) {
   var thArray = [];
-
-  if (!element.children) {
-    return thArray;
-  }
-
-  for (var i = 0; i < element.children.length; i++) {
-    var el = element.children[i];
-
-    if (el.tagName === 'TH') {
-      // ok, we have a TH element!
-      // However, if it contains more than two links, then ignore it, because
-      // it will probably appear weird when rendered as plain text.
-      var aNodes = el.querySelectorAll('a');
-      // todo: these conditionals are very confusing. Rewrite by extracting a
-      //       method or simplify.
-      if (aNodes.length < 3) {
-        // todo: remove nonstandard Element.innerText usage
-        // Also ignore it if it's identical to the page title.
-        if ((el.innerText && el.innerText.length || el.textContent.length) > 0 && el.innerText !== pageTitle && el.textContent !== pageTitle && el.innerHTML !== pageTitle) {
-          thArray.push(el.innerText || el.textContent);
-        }
+  var headers = Polyfill.querySelectorAll(element, 'th');
+  for (var i = 0; i < headers.length; ++i) {
+    var header = headers[i];
+    var anchors = Polyfill.querySelectorAll(header, 'a');
+    if (anchors.length < 3) {
+      // Also ignore it if it's identical to the page title.
+      if ((header.textContent && header.textContent.length) > 0 && header.textContent !== pageTitle && header.innerHTML !== pageTitle) {
+        thArray.push(header.textContent);
       }
     }
-
-    // if it's a table within a table, don't worry about it
-    if (el.tagName === 'TABLE') {
-      continue;
-    }
-
-    // todo: why do we need to recurse?
-    // recurse into children of this element
-    var ret = getTableHeader(el, pageTitle);
-
-    // did we get a list of TH from this child?
-    if (ret.length > 0) {
-      thArray = thArray.concat(ret);
+    if (thArray.length === 2) {
+      // 'newCaption' only ever uses the first 2 items.
+      break;
     }
   }
-
   return thArray;
 };
 
@@ -1018,7 +997,8 @@ var MenuItemType = {
   lastEdited: 2,
   pageIssues: 3,
   disambiguation: 4,
-  coordinate: 5
+  coordinate: 5,
+  talkPage: 6
 };
 
 /**
@@ -2204,6 +2184,9 @@ var widenAncestors = function widenAncestors(el) {
   for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
     if (parentElement.style.width) {
       parentElement.style.width = '100%';
+    }
+    if (parentElement.style.height) {
+      parentElement.style.height = 'auto';
     }
     if (parentElement.style.maxWidth) {
       parentElement.style.maxWidth = '100%';

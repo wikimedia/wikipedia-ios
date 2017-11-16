@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d 歴史的イベント</string>
+			<key>other</key>
+			<string>%1$d 歴史的イベント</string>
+		</dict>
+	</dict>
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +64,24 @@
 			<string>今日</string>
 		</dict>
 	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d 1時間前</string>
+			<key>other</key>
+			<string>%1$d 時間前</string>
+			<key>zero</key>
+			<string>最近</string>
+		</dict>
+	</dict>
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -62,6 +96,38 @@
 			<string>%1$d分前</string>
 			<key>zero</key>
 			<string>たった今</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>昨年</string>
+			<key>other</key>
+			<string> %1$d年前</string>
+			<key>zero</key>
+			<string>今年</string>
+		</dict>
+	</dict>
+	<key>wikitext-upload-save-terms-cc-by-sa-and-gfdl</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>other</key>
+			<string>変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。</string>
 		</dict>
 	</dict>
 </dict>

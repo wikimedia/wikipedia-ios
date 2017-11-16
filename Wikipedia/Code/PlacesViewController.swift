@@ -119,11 +119,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     override func viewDidLoad() {
         super.viewDidLoad()
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
-        listViewController.willMove(toParentViewController: self)
+        addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
-        addChildViewController(listViewController)
         listViewController.didMove(toParentViewController: self)
 
         let mapViewFrame = mapContainerView.bounds
@@ -1139,6 +1138,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
+                emptySearchOverlayView.removeFromSuperview()
+                
                 mapView.isHidden = true
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
@@ -1230,6 +1231,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
+    @objc func updateViewModeToMap() {
+        viewMode = .map
+    }
+    
     func selectArticlePlace(_ articlePlace: ArticlePlace) {
         mapView.selectAnnotation(articlePlace, animated: articlePlace.identifier != previouslySelectedArticlePlaceIdentifier)
         previouslySelectedArticlePlaceIdentifier = articlePlace.identifier
@@ -1261,7 +1266,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 keyValue.key = search.key
                 keyValue.group = currentSearchHistoryGroup()
                 keyValue.date = Date()
-                keyValue.value = search.dictionaryValue as NSObject
+                keyValue.value = search.dictionaryValue as NSCoding
             }
             try moc.save()
         } catch let error {
@@ -2704,11 +2709,12 @@ extension PlacesViewController {
         guard viewMode == .list else {
             return nil
         }
-        let point = view.convert(location, to: listViewController.view)
+        let point = view.convert(location, to: listViewController.collectionView)
         return listViewController.previewingContext(previewingContext, viewControllerForLocation:point)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }

@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @dynamic dataSource;
 
-- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme {
+- (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
     if (self) {
         /**
@@ -198,30 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         self.theme = theme;
 
-        [self setOverlayViewTopBarHidden:NO];
-    }
-    return self;
-}
-
-- (instancetype)initForPeek:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme {
-    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
-    if (self) {
-        /**
-         *  We are performing the following asserts to ensure that the
-         *  implmentation of of NYTPhotosViewController does not change.
-         *  We exposed these properties and methods via a category
-         *  in lieu of subclassing. (and then maintaining a separate fork)
-         */
-        NSParameterAssert(self.dataSource);
-        NSParameterAssert(self.photos);
-        NSAssert([self respondsToSelector:@selector(updateOverlayInformation)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentPhotoViewController)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(currentImageView)], @"NYTPhoto implementation changed!");
-        NSAssert([self respondsToSelector:@selector(newPhotoViewControllerForPhoto:)], @"NYTPhoto implementation changed!");
-
-        [self setOverlayViewTopBarHidden:YES];
-
-        self.theme = theme;
+        [self setOverlayViewTopBarHidden:overlayViewTopBarHidden];
     }
     return self;
 }
@@ -411,16 +388,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleImageGalleryViewController ()
 
 @property (nonatomic, strong) WMFImageInfoController *infoController;
-
+@property (nonatomic, getter=areDownloadErrorAlertsDisabled) BOOL downloadErrorAlertsDisabled;
 @end
 
 @implementation WMFArticleImageGalleryViewController
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme {
-    return [self initWithArticle:article selectedImage:nil theme:theme];
+- (nullable instancetype)initWithArticle:(MWKArticle *)article theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
+    return [self initWithArticle:article selectedImage:nil theme:theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden];
 }
 
-- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme {
+- (nullable instancetype)initWithArticle:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     NSParameterAssert(article);
     NSParameterAssert(article.dataStore);
 
@@ -437,37 +414,7 @@ NS_ASSUME_NONNULL_BEGIN
         selected = [[self class] photoWithImage:image inPhotos:photos];
     }
 
-    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil theme:theme];
-    if (self) {
-        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
-        [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
-        [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-            obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];
-        }];
-        self.infoController.delegate = self;
-    }
-
-    return self;
-}
-
-- (nullable instancetype)initForPeek:(MWKArticle *)article selectedImage:(nullable MWKImage *)image theme:(WMFTheme *)theme {
-    NSParameterAssert(article);
-    NSParameterAssert(article.dataStore);
-
-    NSArray *items = [article imagesForGallery];
-
-    if ([items count] == 0) {
-        return nil;
-    }
-
-    NSArray<WMFArticlePhoto *> *photos = [WMFArticlePhoto photosWithThumbnailImageObjects:items];
-
-    id<NYTPhoto> selected = nil;
-    if (image) {
-        selected = [[self class] photoWithImage:image inPhotos:photos];
-    }
-
-    self = [self initForPeek:photos initialPhoto:selected delegate:nil theme:theme];
+    self = [super initWithPhotos:photos initialPhoto:selected delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
     if (self) {
         self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
@@ -589,6 +536,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)imageInfoController:(WMFImageInfoController *)controller
          failedToFetchBatch:(NSRange)range
                       error:(NSError *)error {
+    if (self.areDownloadErrorAlertsDisabled) {
+        return;
+    }
+    self.downloadErrorAlertsDisabled = YES; //only show one alert per gallery session
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     //display error image?
 }
@@ -735,12 +686,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFPOTDImageGalleryViewController
 
-- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates theme:(WMFTheme *)theme {
+- (instancetype)initWithDates:(NSArray<NSDate *> *)imageDates theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
     NSParameterAssert(imageDates);
     NSArray *items = imageDates;
     NSArray<WMFPOTDPhoto *> *photos = [WMFPOTDPhoto photosWithDates:items];
 
-    self = [super initWithPhotos:photos initialPhoto:nil delegate:nil theme:theme];
+    self = [super initWithPhotos:photos initialPhoto:nil delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
     if (self) {
         self.infoFetcher = [[MWKImageInfoFetcher alloc] init];
     }

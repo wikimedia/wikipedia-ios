@@ -69,8 +69,10 @@
 "action-save" = "ذخیره";
 "action-saved" = "ذخیره شد";
 "action-saved-accessibility" = "ذخیره شد. به صورت ذخیره نشده فعال شد.";
+"action-saved-accessibility-notification" = "مقالهد ذخیره شده برای بعداً";
 "action-share" = "به اشتراک گذاشتن";
 "action-unsave" = "ذخیره‌نشده";
+"action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
 "alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "پنهان‌سازی";
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
@@ -81,6 +83,7 @@
 "appearance-settings-title" = "پوستهٔ خواندن";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
+"article-deleted-accessibility-notification" = "مقالهٔ حذف‌شده";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-others" = "زبان‌های دیگر";
@@ -332,6 +335,7 @@
 "saved-pages-clear-delete-all" = "بله، حذف همه";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-title" = "ذخیره شد";
+"search-button-accessibility-label" = "جستجوی ویکی‌پدیا";
 "search-did-you-mean" = "منظورتان «$1» بود؟";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
 "search-recent-clear-cancel" = "لغو";

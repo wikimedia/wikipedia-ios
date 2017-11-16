@@ -24,6 +24,8 @@
 
 #import "WMFChange.h"
 
+#import "WMFArticleFetcher.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
@@ -39,6 +41,7 @@
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFEmptyView.h"
+#import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"

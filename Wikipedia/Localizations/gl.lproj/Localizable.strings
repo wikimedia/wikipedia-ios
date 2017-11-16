@@ -54,8 +54,10 @@
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
 "action-saved-accessibility" = "Gardado. Activar para eliminar o gardado.";
+"action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
+"action-unsaved-accessibility-notification" = "ARtigo sen gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -66,6 +68,7 @@
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
+"article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-others" = "Outras linguas";
@@ -204,6 +207,7 @@
 "info-box-close-text" = "Pechar";
 "info-box-title" = "Datos rápidos";
 "languages-title" = "Cambiar lingua";
+"languages-wikipedia" = "Linguas de Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
 "login-forgot-password" = "Esqueceu o contrasinal?";
@@ -316,6 +320,7 @@
 "saved-pages-clear-delete-all" = "Si, borrar todo";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-title" = "Gardado";
+"search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-recent-clear-cancel" = "Cancelar";
@@ -377,17 +382,30 @@
 "two-factor-login-with-backup-code" = "Usar un dos seus códigos de copia de seguridade";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artigo no navegador";
+"welcome-exploration-explore-feed-description" = "Lecturas recomendadas e artigos diarios da nosa comunidade";
+"welcome-exploration-explore-feed-title" = "Canle Explorar";
+"welcome-exploration-on-this-day-description" = "Viaxe atrás no tempo para saber que sucedeu un día coma hoxe";
+"welcome-exploration-on-this-day-title" = "Neste día";
+"welcome-exploration-places-description" = "Descubra puntos de referencia preto de vostede ou procure lugares por todo o mundo";
+"welcome-exploration-places-title" = "Pestana Lugares";
 "welcome-explore-continue-button" = "Comezar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia está escrita de forma colaborativa por voluntarios e consta de máis de 40 millóns de artigos en preto de 300 linguas.";
+"welcome-intro-free-encyclopedia-more" = "Saber máis sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia é un proxecto mundial para crear enciclopedias libres en tódalas linguas do planeta. Virtualmente calquera persoa que conte con acceso a Internet está invitada a achegar información neutral e respaldada con referencias.";
 "welcome-intro-free-encyclopedia-title" = "A enciclopedia libre";
 "welcome-languages-add-button" = "Engadir outra lingua";
+"welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
+"welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
+"welcome-languages-search-title" = "Procurar en preto de 300 linguas";
 "welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
 "welcome-notifications-tell-me-more-title" = "Máis sobre notificacións";
-// Fuzzy
-"welcome-send-data-sub-title" = "Axude á Fundación Wikimedia a mellorar esta aplicación contándonos como o utiliza. Os datos recollidos son anónimos";
+"welcome-send-data-helps-title" = "Axúdenos a mellorar a aplicación";
+"welcome-send-data-learn-more" = "Saber máis sobre os datos recollidos";
+"welcome-send-data-sub-title" = "Axude a mellorar esta aplicación indicando á Fundación Wikimedia a maneira en como a utiliza. Os datos recollidos son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
 "wikitext-download-failed" = "Non se pode obter a versión máis recente.";
 "wikitext-download-success" = "Contido cargado.";

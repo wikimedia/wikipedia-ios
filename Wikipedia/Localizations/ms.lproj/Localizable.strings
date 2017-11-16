@@ -53,8 +53,10 @@
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk batal menyimpan.";
+"action-saved-accessibility-notification" = "Rencana disimpan untuk kemudian";
 "action-share" = "Kongsi";
 "action-unsave" = "Nyahsimpan";
+"action-unsaved-accessibility-notification" = "Rencana batal disimpan";
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
@@ -65,6 +67,7 @@
 "appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai rencana ini";
 "article-delete" = "Hapuskan";
+"article-deleted-accessibility-notification" = "Rencana dipadamkan";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lain";
@@ -229,6 +232,8 @@
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
 "menu-trash-accessibility-label" = "Padamkan";
+"more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
+"more-languages-tooltip-title" = "Tambahkan bahasa";
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
@@ -316,6 +321,7 @@
 "saved-pages-clear-delete-all" = "Ya, padamkan semua";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
 "saved-title" = "Disimpan";
+"search-button-accessibility-label" = "Cari dalam Wikipedia";
 "search-did-you-mean" = "Maksud anda, $1?";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
 "search-recent-clear-cancel" = "Batalkan";

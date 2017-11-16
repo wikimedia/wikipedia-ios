@@ -3,6 +3,7 @@
 NSString *const WMFErrorDomain = @"WMFErrorDomain";
 NSString *const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
 NSString *const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestParametersUserInfoKey";
+NSString *const WMFErrorMissingTitle = @"missingtitle";
 
 @implementation NSError (WMFExtensions)
 
@@ -24,6 +25,13 @@ NSString *const WMFFailingRequestParametersUserInfoKey = @"WMFFailingRequestPara
 
 - (BOOL)wmf_isWMFErrorDomain {
     if ([self.domain isEqualToString:WMFErrorDomain]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)wmf_isWMFErrorMissingTitle {
+    if ([self.localizedFailureReason isEqualToString:WMFErrorMissingTitle]) {
         return YES;
     }
     return NO;

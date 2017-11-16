@@ -30,7 +30,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         locationManager.delegate = self
-        locationManager.startMonitoringLocation()
+        if WMFLocationManager.isAuthorized() {
+            locationManager.startMonitoringLocation()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -106,6 +108,12 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
     func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
         updateLocationOnVisibleCells()
     }
+
+    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
+        if enabled {
+            locationManager.startMonitoringLocation()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -123,7 +131,10 @@ extension ArticleLocationCollectionViewController {
                 return nil
         }
         let url = articleURL(at: indexPath)
-        return WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        articleViewController.articlePreviewingActionsDelegate = self
+        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
@@ -138,6 +149,21 @@ extension ArticleLocationCollectionViewController {
     }
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing: true)
- 
+    }
+}
+
+extension ArticleLocationCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
+    }
+    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
+    }
+    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.openURL(placesURL)
     }
 }

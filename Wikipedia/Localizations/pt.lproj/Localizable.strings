@@ -8,6 +8,7 @@
 // Author: Jkb8
 // Author: Macofe
 // Author: Mansil
+// Author: MokaAkashiyaPT
 // Author: Nemo bis
 // Author: SandroHc
 // Author: Vitorvicentevalente
@@ -316,6 +317,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
+"welcome-intro-free-encyclopedia-title" = "A enciclopédia livre";
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";

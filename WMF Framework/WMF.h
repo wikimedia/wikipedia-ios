@@ -163,11 +163,14 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFArticle+Extensions.h>
 #import <WMF/WMFContentGroup+Extensions.h>
+#import <WMF/WMFContent+CoreDataProperties.h>
 #import <WMF/WMFKeyValue+CoreDataProperties.h>
+#import <WMF/NSManagedObjectContext+WMFKeyValue.h>
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
 #import <WMF/PiwikTracker+WMFExtensions.h>
+#import <WMF/WMFFIFOCache.h>
 
 //UI
 #import <WMF/UIImageView+WMFImageFetching.h>

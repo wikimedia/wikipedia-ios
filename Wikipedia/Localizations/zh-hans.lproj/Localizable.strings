@@ -9,10 +9,12 @@
 // Author: Liuxinyu970226
 // Author: Macofe
 // Author: Nemo bis
+// Author: NeverBehave
 // Author: NigelSoft
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: Tonylianlong
+// Author: Yfdyh000
 // Author: 王庭茂
 
 "about-content-license" = "内容许可协议";
@@ -60,8 +62,10 @@
 "action-save" = "保存";
 "action-saved" = "已保存";
 "action-saved-accessibility" = "已保存。激活以取消保存。";
+"action-saved-accessibility-notification" = "条目已保存供稍后使用";
 "action-share" = "分享";
 "action-unsave" = "未保存";
+"action-unsaved-accessibility-notification" = "条目未保存";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
@@ -72,6 +76,7 @@
 "appearance-settings-title" = "正在读取主题";
 "article-about-title" = "关于此条目";
 "article-delete" = "删除";
+"article-deleted-accessibility-notification" = "条目已删除";
 "article-languages-filter-placeholder" = "查找语言";
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
@@ -236,6 +241,8 @@
 "main-menu-zero-faq" = "维基百科零常见问题";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "删除";
+"more-languages-tooltip-description" = "在近300种语言中搜索维基百科";
+"more-languages-tooltip-title" = "添加语言";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-km" = "$1千米";
@@ -323,6 +330,7 @@
 "saved-pages-clear-delete-all" = "是的，删除全部";
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
 "saved-title" = "已保存";
+"search-button-accessibility-label" = "搜索维基百科";
 "search-did-you-mean" = "您的意思是$1么？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-recent-clear-cancel" = "取消";
@@ -396,18 +404,18 @@
 "welcome-intro-free-encyclopedia-description" = "维基百科由志愿者合作撰写，并由将近300种语言的4000万个条目构成。";
 "welcome-intro-free-encyclopedia-more" = "了解更多关于维基百科";
 "welcome-intro-free-encyclopedia-more-about" = "关于维基百科";
-"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个建立全世界所有语言的自由百科全书的全球项目。几乎所有拥有互联网访问的人都可以通过贡献中立，有来源的信息自由参与。";
+"welcome-intro-free-encyclopedia-more-description" = "维基百科是一个建立全世界所有语言的自由百科全书的全球项目。几乎所有拥有互联网访问的人都可以自由地通过贡献中立，有来源的信息来参与其中。";
 "welcome-intro-free-encyclopedia-title" = "自由的百科全书";
 "welcome-languages-add-button" = "添加另一个语言";
 "welcome-languages-add-or-edit-button" = "添加或编辑推荐语言";
 "welcome-languages-description" = "我们在您的设备上找到以下语言：";
-"welcome-languages-search-title" = "搜索近300中语言";
+"welcome-languages-search-title" = "在近300种语言中搜索";
 "welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
 "welcome-notifications-tell-me-more-storage" = "通知参数设置存储在设备上，且不基于个人信息或活动。";
 "welcome-notifications-tell-me-more-title" = "更多有关通知";
 "welcome-send-data-helps-title" = "帮助让应用变得更好";
 "welcome-send-data-learn-more" = "了解更多关于数据收集";
-"welcome-send-data-sub-title" = "通过向维基媒体基金会发送信息，让我们知道您如何使用它，来帮助改进引用。数据收集是匿名的。";
+"welcome-send-data-sub-title" = "通过让维基媒体基金会知道您是如何使用来协助改善应用程序。收集的数据都是匿名的。";
 "welcome-volunteer-send-usage-reports" = "发送使用情况报告";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";

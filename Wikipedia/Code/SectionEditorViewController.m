@@ -5,7 +5,6 @@
 #import "PreviewAndSaveViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIScrollView+WMFScrollsToTop.h"
 #import "Wikipedia-Swift.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
@@ -64,6 +63,10 @@
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
 
+    if (@available(iOS 11.0, *)) {
+        self.editTextView.smartQuotesType = UITextSmartQuotesTypeNo;
+    }
+
     self.viewKeyboardRect = CGRectNull;
 
     [self applyTheme:self.theme];
@@ -116,9 +119,7 @@
     [super viewDidAppear:animated];
 
     [self registerForKeyboardNotifications];
-
-    [self.editTextView wmf_shouldScrollToTopOnStatusBarTap:YES];
-
+    
     [self highlightProgressiveButton:[self changesMade]];
 
     if ([self changesMade]) {

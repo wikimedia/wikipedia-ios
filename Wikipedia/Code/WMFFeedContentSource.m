@@ -204,19 +204,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc performBlock:^{
 
         NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
-        NSFetchRequest *request = [WMFKeyValue fetchRequest];
-        request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
-        request.fetchLimit = 1;
-        NSArray<WMFKeyValue *> *results = [moc executeFetchRequest:request error:nil];
-        WMFKeyValue *keyValue = results.firstObject;
-
-        if (keyValue == nil) {
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"WMFKeyValue" inManagedObjectContext:moc];
-            keyValue = [[WMFKeyValue alloc] initWithEntity:entity insertIntoManagedObjectContext:moc];
-            keyValue.key = key;
-            NSNumber *value = @(feedDay.maxAge);
-            keyValue.value = value;
-        }
+        NSNumber *value = @(feedDay.maxAge);
+        [moc wmf_setValue:value forKey:key];
 
         [self saveGroupForFeaturedPreview:feedDay.featuredArticle date:date inManagedObjectContext:moc];
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
@@ -247,8 +236,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     if (featured == nil) {
         [moc createGroupOfKind:WMFContentGroupKindFeaturedArticle forDate:date withSiteURL:self.siteURL associatedContent:@[featuredURL]];
-    } else if (featured.content == nil) {
-        featured.content = @[featuredURL];
+    } else if (featured.contentPreview == nil) {
+        featured.contentPreview = featuredURL;
     }
 }
 
@@ -273,8 +262,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             customizationBlock:^(WMFContentGroup *_Nonnull group) {
                 group.contentMidnightUTCDate = topRead.date.wmf_midnightUTCDateFromLocalDate;
             }];
-    } else if (group.content == nil) {
-        group.content = topRead.articlePreviews;
+    } else {
+        group.fullContentObject = topRead.articlePreviews;
+        [group updateContentPreviewWithContent:topRead.articlePreviews];
     }
 }
 
@@ -286,10 +276,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFContentGroup *group = [self pictureOfTheDayForDate:date inManagedObjectContext:moc];
 
     if (group == nil) {
-        [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:@[image]];
-    } else if (group.content == nil) {
-        group.content = @[image];
+        group = [moc createGroupOfKind:WMFContentGroupKindPictureOfTheDay forDate:date withSiteURL:self.siteURL associatedContent:nil];
     }
+    group.contentPreview = image;
 }
 
 - (void)saveGroupForNews:(NSArray<WMFFeedNewsStory *> *)news pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews date:(NSDate *)feedDate inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -368,7 +357,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     if (newsGroup == nil) {
         newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
     } else {
-        newsGroup.content = news;
+        newsGroup.fullContentObject = news;
+        [newsGroup updateContentPreviewWithContent:news];
     }
     newsGroup.isVisible = isVisible;
     [self addNewsNotificationGroupForNewsGroup:newsGroup inManagedObjectContext:moc];
@@ -378,7 +368,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
     if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         NSURL *URL = [WMFContentGroup notificationContentGroupURL];
-        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:@[@""] customizationBlock:NULL];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
@@ -447,6 +437,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
+#if TEST
+//Ignore this check when running tests - feed date is fixed
+#else
     NSCalendar *utcCalendar = [NSCalendar wmf_utcGregorianCalendar];
     NSDate *midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     NSDate *newsMonthAndDay = newsStory.midnightUTCMonthAndDay;
@@ -455,6 +448,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         done();
         return;
     }
+#endif
 
     WMFArticle *articlePreviewToNotifyAbout = nil;
     WMFFeedArticlePreview *articlePreview = newsStory.featuredArticlePreview;

@@ -70,8 +70,7 @@
 "action-saved" = "محفوظة";
 "action-share" = "شارك";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
-// Fuzzy
-"announcements-dismiss" = "لا شكرًا";
+"announcements-dismiss" = "تجاهل";
 "article-about-title" = "حول المقال";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
@@ -200,6 +199,7 @@
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
 "languages-title" = "تغيير اللغة";
+"languages-wikipedia" = "لغات ويكيبيديا";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "المحتوى متاح بموجب رخصة $1 إلا في حالة ذكر خلاف ذلك.";
 "login-forgot-password" = "هل نسيت كلمة السر؟";
@@ -324,8 +324,7 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
-// Fuzzy
-"share-a-fact-share-menu-item" = "شارك حقيقة";
+"share-a-fact-share-menu-item" = "شارك حقيقة...";
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-custom-menu-item" = "شارك...";
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
@@ -351,12 +350,14 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
+"welcome-intro-free-encyclopedia-more" = "معرفة المزيد عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-title" = "الموسوعة الحرة";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
-// Fuzzy
-"welcome-send-data-sub-title" = "ساعد مؤسسة ويكيميديا لتحسين هذا التطبيق بإعلامنا كيف تستخدم هذا التطبيق. البيانات التي نجمعها غير مربوطة بشخصك";
+"welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
+"welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
+"welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "wikitext-download-failed" = "غير قادر على تحديد المراجعة الأخيرة";
 "wikitext-download-success" = "تم تحميل المحتوى.";
