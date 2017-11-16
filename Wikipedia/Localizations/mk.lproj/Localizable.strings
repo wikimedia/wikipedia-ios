@@ -230,6 +230,8 @@
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-trash-accessibility-label" = "Избриши";
+"more-languages-tooltip-description" = "Пребарајте ја Википедија на речиси 300 јазици";
+"more-languages-tooltip-title" = "Додај јазици";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стапки";
 "nearby-distance-label-km" = "$1 км";

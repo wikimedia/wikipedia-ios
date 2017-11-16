@@ -247,6 +247,8 @@
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Borrar";
+"more-languages-tooltip-description" = "Buscar en las casi 300 lenguas de Wikipedia";
+"more-languages-tooltip-title" = "Añadir idiomas";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";

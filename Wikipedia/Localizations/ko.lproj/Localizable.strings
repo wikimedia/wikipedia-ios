@@ -240,6 +240,8 @@
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "menu-cancel-accessibility-label" = "취소";
 "menu-trash-accessibility-label" = "삭제";
+"more-languages-tooltip-description" = "약 300개의 언어에서 위키백과 검색";
+"more-languages-tooltip-title" = "언어 추가";
 "navbar-title-mode-edit-wikitext-preview" = "미리 보기";
 "nearby-distance-label-feet" = "$1 피트";
 "nearby-distance-label-km" = "$1 km";

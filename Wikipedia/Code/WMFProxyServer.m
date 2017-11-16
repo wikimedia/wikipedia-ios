@@ -390,7 +390,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     return components.URL;
 }
 
-- (NSString *)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString *)HTMLString withBaseURL:(NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
+- (NSString *)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
 
     //defensively copy
     HTMLString = [HTMLString copy];
