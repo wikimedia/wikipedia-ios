@@ -1,7 +1,5 @@
 import Foundation
 
-
-
 public class Session {
     public struct Request {
         public enum Method {
