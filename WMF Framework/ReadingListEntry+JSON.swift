@@ -3,22 +3,15 @@ import Foundation
 extension ReadingListEntry {
     func update(with json: [String: Any]) {
         if let listID = json["id"] as? Int64 {
-            self.readingListEntryID = listID
+            self.readingListEntryID = NSNumber(value: listID)
         }
-        
-        if let project = json["project"] as? String {
-            self.project = project
-        }
-        
-        if let title = json["title"] as? String {
-            self.title = title
-        }
-        
+
         if
-            let project = self.project,
-            let title = self.title,
+            let project = json["project"] as? String,
+            let title = json["title"] as? String,
             let url = NSURL.wmf_URL(withDomain: project, language: nil, title: title, fragment: nil)
         {
+            self.displayTitle = url.wmf_title
             self.articleKey = url.wmf_articleDatabaseKey
         }
         

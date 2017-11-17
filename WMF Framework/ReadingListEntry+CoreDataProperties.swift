@@ -8,14 +8,11 @@ extension ReadingListEntry {
         return NSFetchRequest<ReadingListEntry>(entityName: "ReadingListEntry")
     }
 
-    @NSManaged public var order: Int64
-    @NSManaged public var readingListEntryID: Int64
-    @NSManaged public var project: String?
-    @NSManaged public var title: String?
+    @NSManaged public var readingListEntryID: NSNumber?
     @NSManaged public var createdDate: NSDate?
     @NSManaged public var updatedDate: NSDate?
     @NSManaged public var articleKey: String?
+    @NSManaged public var displayTitle: String?
     @NSManaged public var list: ReadingList?
-    @NSManaged public var actions: ReadingListAction?
-
+    
 }

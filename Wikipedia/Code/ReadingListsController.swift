@@ -46,7 +46,49 @@ public class ReadingListsController: NSObject {
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withValue: name, forKey: "name") as? ReadingList else {
             throw ReadingListError.unableToCreateList
         }
+        
+        try add(articles: articles, to: list)
+        
+        if moc.hasChanges {
+            try moc.save()
+        }
+        
         return list
     }
+    
+    public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+        assert(Thread.isMainThread)
 
+        let moc = dataStore.viewContext
+        
+        let keys = articles.flatMap { (article) -> String? in
+            return article.key
+        }
+        
+        let entries = readingList.entries ?? []
+        let existingKeys = entries.flatMap { (entry) -> String? in
+            guard let entry = entry as? ReadingListEntry else {
+                return nil
+            }
+            return entry.articleKey
+        }
+        
+        var keysToAdd = Set(existingKeys)
+        keysToAdd.subtract(keys)
+        
+        for key in keysToAdd {
+            guard let entry = moc.wmf_create(entityNamed: "Entry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
+                return
+            }
+            let url = URL(string: key)
+            entry.displayTitle = url?.wmf_title
+            entry.list = readingList
+        }
+        
+        if moc.hasChanges {
+            try moc.save()
+        }
+
+    }
+    
 }
