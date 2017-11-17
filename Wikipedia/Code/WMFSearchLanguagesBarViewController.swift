@@ -10,7 +10,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
-    @IBOutlet weak var scrollView: SearchLanguagesBarScrollView!
+    @IBOutlet weak var gradientView: WMFGradientView!
     
     @objc var theme: Theme = Theme.standard
     
@@ -74,6 +74,10 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
+        
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.startPoint = .zero
+        gradientView.endPoint = CGPoint(x: 4, y: 0)
     }
 
     deinit {
@@ -180,41 +184,12 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        let bgColor = theme.colors.paperBackground
+        view.backgroundColor = bgColor
         for languageButton in languageButtons {
             languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
             languageButton.tintColor = theme.colors.link
         }
-    }
-}
-
-class SearchLanguagesBarScrollView: UIScrollView {
-    
-    fileprivate let fadeWidth: CGFloat = 25
-    fileprivate let fadeColor = UIColor.white
-    fileprivate let clear = UIColor.white.withAlphaComponent(0)
-    
-    fileprivate lazy var rightGradientView: WMFGradientView = {
-        let gradient = WMFGradientView()
-        gradient.translatesAutoresizingMaskIntoConstraints = false
-        gradient.startPoint = .zero
-        gradient.endPoint = CGPoint(x: 1, y: 0)
-        gradient.setStart(clear, end: fadeColor)
-        addSubview(gradient)
-        return gradient
-    }()
-    
-    override func didMoveToSuperview() {
-        updateGradientFrames()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateGradientFrames()
-    }
-    
-    func updateGradientFrames() {
-        let frame = CGRect(x: contentOffset.x, y: 0, width: fadeWidth, height: bounds.size.height)
-        rightGradientView.frame = frame.offsetBy(dx: bounds.size.width - fadeWidth, dy: 0)
+        gradientView.setStart(UIColor.white.withAlphaComponent(0), end: bgColor)
     }
 }

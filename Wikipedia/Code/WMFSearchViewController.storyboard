@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tkf-8P-b2O">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -269,7 +269,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-uc-mYL">
-                                <rect key="frame" x="0.0" y="7" width="302" height="32"/>
+                                <rect key="frame" x="0.0" y="7" width="285" height="32"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="979-eE-gLA">
                                         <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
@@ -318,6 +318,12 @@
                                     <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leadingMargin" constant="-8" id="zF7-Ns-UDN"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISS-4R-3dj" customClass="WMFGradientView">
+                                <rect key="frame" x="285" y="0.0" width="25" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="3Fu-Bv-pbo"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">
                                 <rect key="frame" x="310" y="6" width="49" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -354,13 +360,16 @@
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
-                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="trailing" constant="8" id="KTa-Ex-muV"/>
+                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" secondItem="ISS-4R-3dj" secondAttribute="trailing" id="KTa-Ex-muV"/>
+                            <constraint firstItem="ISS-4R-3dj" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="Kfb-Hm-5vl"/>
                             <constraint firstItem="fBp-uc-mYL" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="RXC-bL-zjR"/>
+                            <constraint firstItem="ISS-4R-3dj" firstAttribute="bottom" secondItem="1Y5-MX-atE" secondAttribute="top" id="U88-r5-nKv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
                             <constraint firstAttribute="trailing" secondItem="iIa-dg-uH0" secondAttribute="trailing" id="ZzG-BV-MLc"/>
                             <constraint firstAttribute="bottom" secondItem="fBp-uc-mYL" secondAttribute="bottom" constant="5" id="cCn-73-Mv6"/>
                             <constraint firstItem="Rly-Nt-Gci" firstAttribute="top" secondItem="Jiw-B9-ljV" secondAttribute="bottom" constant="5" id="csO-to-6tK"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="d5E-ms-wOw"/>
+                            <constraint firstItem="ISS-4R-3dj" firstAttribute="top" secondItem="iIa-dg-uH0" secondAttribute="top" id="jbS-sG-pAA"/>
                             <constraint firstAttribute="trailing" secondItem="Rly-Nt-Gci" secondAttribute="trailing" id="m6O-Fp-TB9"/>
                             <constraint firstAttribute="bottom" secondItem="iIa-dg-uH0" secondAttribute="bottom" id="noD-1I-WPD"/>
                             <constraint firstAttribute="bottom" secondItem="Rly-Nt-Gci" secondAttribute="bottom" id="sHZ-xt-xU3"/>
@@ -381,6 +390,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
+                        <outlet property="gradientView" destination="ISS-4R-3dj" id="b9v-u8-Mek"/>
                         <outlet property="heightConstraint" destination="PNI-Oh-9ff" id="H0d-D5-9ni"/>
                         <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="hcH-JU-N1z"/>
                         <outletCollection property="languageButtons" destination="oqE-Xn-Paw" collectionClass="NSMutableArray" id="RBP-TK-Wje"/>
