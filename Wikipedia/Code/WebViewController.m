@@ -640,14 +640,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    forMainFrameOnly:YES]];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    
+
 #if DEBUG || TEST
     if (self.wkUserContentControllerTestingConfigurationBlock) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
 
-    
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -836,6 +835,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
+    self.navBarHidden = false;
     [self scrollToFragment:section.anchor animated:animated];
 }
 
