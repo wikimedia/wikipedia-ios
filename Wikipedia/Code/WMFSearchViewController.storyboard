@@ -268,8 +268,8 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="PNI-Oh-9ff"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-uc-mYL">
-                                <rect key="frame" x="0.0" y="7" width="285" height="32"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-uc-mYL">
+                                <rect key="frame" x="0.0" y="7" width="302" height="32"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="979-eE-gLA">
                                         <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
@@ -319,7 +319,8 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISS-4R-3dj" customClass="WMFGradientView">
-                                <rect key="frame" x="285" y="0.0" width="25" height="44"/>
+                                <rect key="frame" x="277" y="0.0" width="25" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="3Fu-Bv-pbo"/>
                                 </constraints>
@@ -359,9 +360,8 @@
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
+                            <constraint firstItem="ISS-4R-3dj" firstAttribute="trailing" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="1MZ-c8-TBi"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
-                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" secondItem="ISS-4R-3dj" secondAttribute="trailing" id="KTa-Ex-muV"/>
-                            <constraint firstItem="ISS-4R-3dj" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="Kfb-Hm-5vl"/>
                             <constraint firstItem="fBp-uc-mYL" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="RXC-bL-zjR"/>
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="bottom" secondItem="1Y5-MX-atE" secondAttribute="top" id="U88-r5-nKv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
@@ -372,6 +372,7 @@
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="top" secondItem="iIa-dg-uH0" secondAttribute="top" id="jbS-sG-pAA"/>
                             <constraint firstAttribute="trailing" secondItem="Rly-Nt-Gci" secondAttribute="trailing" id="m6O-Fp-TB9"/>
                             <constraint firstAttribute="bottom" secondItem="iIa-dg-uH0" secondAttribute="bottom" id="noD-1I-WPD"/>
+                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="trailing" constant="8" id="rIQ-4t-SBO"/>
                             <constraint firstAttribute="bottom" secondItem="Rly-Nt-Gci" secondAttribute="bottom" id="sHZ-xt-xU3"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="width" secondItem="tzw-k8-eL6" secondAttribute="width" id="tWI-Lv-oV9"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="top" secondItem="tzw-k8-eL6" secondAttribute="top" id="taD-Tb-F1s"/>
@@ -393,6 +394,7 @@
                         <outlet property="gradientView" destination="ISS-4R-3dj" id="b9v-u8-Mek"/>
                         <outlet property="heightConstraint" destination="PNI-Oh-9ff" id="H0d-D5-9ni"/>
                         <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="hcH-JU-N1z"/>
+                        <outlet property="scrollView" destination="fBp-uc-mYL" id="f1p-hU-tJT"/>
                         <outletCollection property="languageButtons" destination="oqE-Xn-Paw" collectionClass="NSMutableArray" id="RBP-TK-Wje"/>
                         <outletCollection property="languageButtons" destination="WJp-HZ-PFr" collectionClass="NSMutableArray" id="3pP-S2-62d"/>
                         <outletCollection property="languageButtons" destination="u5D-PX-Vyp" collectionClass="NSMutableArray" id="YXv-ra-U8y"/>
