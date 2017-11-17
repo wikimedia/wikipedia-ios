@@ -1,26 +1,21 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var wmf = {}
 
-wmf.editButtons = require('./js/transforms/addEditButtons')
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
 wmf.utilities = require('./js/utilities')
 wmf.findInPage = require('./js/findInPage')
 wmf.footerReadMore = require('wikimedia-page-library').FooterReadMore
 wmf.footerMenu = require('wikimedia-page-library').FooterMenu
-wmf.footerLegal = require('wikimedia-page-library').FooterLegal
 wmf.footerContainer = require('wikimedia-page-library').FooterContainer
-wmf.filePages = require('./js/transforms/disableFilePageEdit')
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
-wmf.tables = require('./js/transforms/collapseTables')
 wmf.themes = require('wikimedia-page-library').ThemeTransform
-wmf.redLinks = require('wikimedia-page-library').RedLinks
-wmf.paragraphs = require('./js/transforms/relocateFirstParagraph')
-wmf.images = require('./js/transforms/widenImages')
 wmf.platform = require('wikimedia-page-library').PlatformTransform
+wmf.sections = require('./js/sections')
+wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/transforms/addEditButtons":6,"./js/transforms/collapseTables":7,"./js/transforms/disableFilePageEdit":8,"./js/transforms/relocateFirstParagraph":9,"./js/transforms/widenImages":10,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":13,"wikimedia-page-library":15}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -158,7 +153,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":5,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":13,"wikimedia-page-library":15}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -325,6 +320,98 @@ exports.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForS
 exports.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
 exports.removeSearchTermHighlights = removeSearchTermHighlights
 },{}],5:[function(require,module,exports){
+
+const requirements = {
+  footerReadMore: require('wikimedia-page-library').FooterReadMore,
+  footerMenu: require('wikimedia-page-library').FooterMenu,
+  footerLegal: require('wikimedia-page-library').FooterLegal,
+  footerContainer: require('wikimedia-page-library').FooterContainer
+}
+
+class Footer {
+  // 'localizedStrings' is object containing the following localized strings key/value pairs: 'readMoreHeading', 'licenseString', 'licenseSubstitutionString', 'viewInBrowserString', 'menuHeading', 'menuLanguagesTitle', 'menuLastEditedTitle', 'menuLastEditedSubtitle', 'menuTalkPageTitle', 'menuPageIssuesTitle', 'menuDisambiguationTitle', 'menuCoordinateTitle'
+  constructor(articleTitle, menuItems, hasReadMore, readMoreItemCount, localizedStrings, proxyURL) {
+    this.articleTitle = articleTitle
+    this.menuItems = menuItems
+    this.hasReadMore = hasReadMore
+    this.readMoreItemCount = readMoreItemCount
+    this.localizedStrings = localizedStrings
+    this.proxyURL = proxyURL
+  }
+  addContainer() {
+    if (requirements.footerContainer.isContainerAttached(document) === false) {
+      document.querySelector('body').appendChild(requirements.footerContainer.containerFragment(document))
+      window.webkit.messageHandlers.footerContainerAdded.postMessage('added')
+    }
+  }
+  addDynamicBottomPadding() {
+    window.addEventListener('resize', function(){requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)})
+  }
+  addMenu() {
+    requirements.footerMenu.setHeading(this.localizedStrings.menuHeading, 'pagelib_footer_container_menu_heading', document)
+    this.menuItems.forEach(item => {
+      let title = ''
+      let subtitle = ''
+      let menuItemTypeString = ''
+      switch(item) {
+      case requirements.footerMenu.MenuItemType.languages:
+        menuItemTypeString = 'languages'
+        title = this.localizedStrings.menuLanguagesTitle
+        break
+      case requirements.footerMenu.MenuItemType.lastEdited:
+        menuItemTypeString = 'lastEdited'
+        title = this.localizedStrings.menuLastEditedTitle
+        subtitle = this.localizedStrings.menuLastEditedSubtitle
+        break
+      case requirements.footerMenu.MenuItemType.pageIssues:
+        menuItemTypeString = 'pageIssues'
+        title = this.localizedStrings.menuPageIssuesTitle
+        break
+      case requirements.footerMenu.MenuItemType.disambiguation:
+        menuItemTypeString = 'disambiguation'
+        title = this.localizedStrings.menuDisambiguationTitle
+        break
+      case requirements.footerMenu.MenuItemType.coordinate:
+        menuItemTypeString = 'coordinate'
+        title = this.localizedStrings.menuCoordinateTitle
+        break
+      case requirements.footerMenu.MenuItemType.talkPage:
+        menuItemTypeString = 'talkPage'
+        title = this.localizedStrings.menuTalkPageTitle
+        break
+      default:
+      }
+      const itemSelectionHandler = payload => window.webkit.messageHandlers.footerMenuItemClicked.postMessage({'selection': menuItemTypeString, 'payload': payload})
+      requirements.footerMenu.maybeAddItem(title, subtitle, item, 'pagelib_footer_container_menu_items', itemSelectionHandler, document)
+    })
+  }
+  addReadMore() {
+    if (this.hasReadMore){
+      requirements.footerReadMore.setHeading(this.localizedStrings.readMoreHeading, 'pagelib_footer_container_readmore_heading', document)
+      const saveButtonTapHandler = title => window.webkit.messageHandlers.footerReadMoreSaveClicked.postMessage({'title': title})
+      const titlesShownHandler = titles => {
+        window.webkit.messageHandlers.footerReadMoreTitlesShown.postMessage(titles)
+        requirements.footerContainer.updateBottomPaddingToAllowReadMoreToScrollToTop(window)
+      }
+      requirements.footerReadMore.add(this.articleTitle, this.readMoreItemCount, 'pagelib_footer_container_readmore_pages', this.proxyURL, saveButtonTapHandler, titlesShownHandler, document)
+    }
+  }
+  addLegal() {
+    const licenseLinkClickHandler = () => window.webkit.messageHandlers.footerLegalLicenseLinkClicked.postMessage('linkClicked')
+    const viewInBrowserLinkClickHandler = () => window.webkit.messageHandlers.footerBrowserLinkClicked.postMessage('linkClicked')
+    requirements.footerLegal.add(document, this.localizedStrings.licenseString, this.localizedStrings.licenseSubstitutionString, 'pagelib_footer_container_legal', licenseLinkClickHandler, this.localizedStrings.viewInBrowserString, viewInBrowserLinkClickHandler)
+  }
+  add() {
+    this.addContainer()
+    this.addDynamicBottomPadding()
+    this.addMenu()
+    this.addReadMore()
+    this.addLegal()
+  }
+}
+
+exports.Footer = Footer
+},{"wikimedia-page-library":15}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -469,7 +556,221 @@ exports.isEndnote = isEndnote
 exports.isReference = isReference
 exports.isCitation = isCitation
 exports.sendNearbyReferences = sendNearbyReferences
-},{"./elementLocation":3}],6:[function(require,module,exports){
+},{"./elementLocation":3}],7:[function(require,module,exports){
+
+const requirements = {
+  editButtons: require('./transforms/addEditButtons'),
+  utilities: require('./utilities'),
+  filePages: require('./transforms/disableFilePageEdit'),
+  tables: require('./transforms/collapseTables'),
+  themes: require('wikimedia-page-library').ThemeTransform,
+  redLinks: require('wikimedia-page-library').RedLinks,
+  paragraphs: require('./transforms/relocateFirstParagraph'),
+  images: require('./transforms/widenImages')
+}
+
+// backfill fragments with "createElement" so transforms will work as well with fragments as
+// they do with documents
+DocumentFragment.prototype.createElement = name => document.createElement(name)
+
+const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
+
+class Language {
+  constructor(code, dir, isRTL) {
+    this.code = code
+    this.dir = dir
+    this.isRTL = isRTL
+  }
+}
+
+class Article {
+  constructor(ismain, title, displayTitle, description, editable, language) {
+    this.ismain = ismain
+    this.title = title
+    this.displayTitle = displayTitle
+    this.description = description
+    this.editable = editable
+    this.language = language
+  }
+  descriptionParagraph() {
+    if(this.description !== undefined && this.description.length > 0){
+      return `<p id='entity_description'>${this.description}</p>`
+    }
+    return ''
+  }
+}
+
+class Section {
+  constructor(level, line, anchor, id, text, article) {
+    this.level = level
+    this.line = line
+    this.anchor = anchor
+    this.id = id
+    this.text = text
+    this.article = article
+  }
+
+  headingTagSize() {
+    return Math.max(1, Math.min(parseInt(this.level), 6))
+  }
+
+  headingTag() {
+    if(this.isLeadSection()){
+      return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
+                ${this.article.displayTitle}
+              </h1>${this.article.descriptionParagraph()}`
+    }
+    const hSize = this.headingTagSize()
+    return `<h${hSize} class="section_heading" data-id="${this.id}" id="${this.anchor}">
+              ${this.line}
+            </h${hSize}>`
+  }
+
+  isLeadSection() {
+    return this.id === 0
+  }
+
+  isNonMainPageLeadSection() {
+    return this.isLeadSection() && !this.article.ismain
+  }
+
+  anchorAsElementId() {
+    return this.anchor === undefined || this.anchor.length === 0 ? '' : `id='${this.anchor}'`
+  }
+
+  shouldWrapInTable() {
+    return ['References', 'External links', 'Notes', 'Further reading', 'Bibliography'].indexOf(this.line) != -1
+  }
+
+  html() {
+    if(this.shouldWrapInTable()){
+      return `<table><th>${this.line}</th><tr><td>${this.text}</td></tr></table>`
+    }
+    return this.text
+  }
+
+  containerDiv() {
+    const container = document.createElement('div')
+    container.id = `section_heading_and_content_block_${this.id}`
+    container.innerHTML = `
+        ${this.article.ismain ? '' : this.headingTag()}
+        <div id="content_block_${this.id}" class="content_block">
+            ${this.isNonMainPageLeadSection() ? '<hr id="content_block_0_hr">' : ''}
+            ${this.html()}
+        </div>`
+    return container
+  }
+}
+
+const processResponseStatus = response => {
+  if (response.status === 200) { // can use status 0 if loading local files
+    return Promise.resolve(response)
+  }
+  return Promise.reject(new Error(response.statusText))
+}
+
+const extractResponseJSON = response => response.json()
+
+const fragmentForSection = section => {
+  const fragment = document.createDocumentFragment()
+  const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
+  fragment.appendChild(container)
+  return fragment
+}
+
+const applyTransformationsToFragment = (fragment, article, isLead) => {
+  requirements.redLinks.hideRedLinks(document, fragment)
+
+  requirements.filePages.disableFilePageEdit(fragment)
+
+  if(!article.ismain){
+    if (isLead){
+      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
+      // Add lead section edit button after the lead section horizontal rule element.
+      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+    }else{
+      // Add non-lead section edit buttons inside respective header elements.
+      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+    }
+  }
+
+  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
+  requirements.images.widenImages(fragment)
+
+  // Classifies some tricky elements like math formula images (examples are first images on
+  // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
+  // 'classifyElements' method itself for other examples.
+  requirements.themes.classifyElements(fragment)
+}
+
+const transformAndAppendSection = (section, mainContentDiv) => {
+  const fragment = fragmentForSection(section)
+  // Transform the fragments *before* attaching them to the main DOM.
+  applyTransformationsToFragment(fragment, section.article, section.isLeadSection())
+  mainContentDiv.appendChild(fragment)
+}
+
+//early page-wide transforms which happen before any sections have been appended
+const performEarlyNonSectionTransforms = article => {
+  requirements.utilities.setPageProtected(!article.editable)
+  requirements.utilities.setLanguage(article.language.code, article.language.dir, article.language.isRTL ? 'rtl': 'ltr')
+}
+
+const extractSectionsJSON = json => json['mobileview']['sections']
+
+const transformAndAppendLeadSectionToMainContentDiv = (leadSectionJSON, article, mainContentDiv) => {
+  const leadModel = new Section(leadSectionJSON.level, leadSectionJSON.line, leadSectionJSON.anchor, leadSectionJSON.id, leadSectionJSON.text, article)
+  transformAndAppendSection(leadModel, mainContentDiv)
+}
+
+const transformAndAppendNonLeadSectionsToMainContentDiv = (sectionsJSON, article, mainContentDiv) => {
+  sectionsJSON.forEach((sectionJSON, index) => {
+    if (index > 0) {
+      const sectionModel = new Section(sectionJSON.level, sectionJSON.line, sectionJSON.anchor, sectionJSON.id, sectionJSON.text, article)
+      transformAndAppendSection(sectionModel, mainContentDiv)
+    }
+  })
+}
+
+const scrollToSection = hash => {
+  if (hash !== '') {
+    setTimeout(() => {
+      location.hash = ''
+      location.hash = hash
+    }, 50)
+  }
+}
+
+const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
+  performEarlyNonSectionTransforms(article)
+  const mainContentDiv = document.querySelector('div.content')
+  fetch(articleSectionsURL)
+  .then(processResponseStatus)
+  .then(extractResponseJSON)
+  .then(extractSectionsJSON)
+  .then(sectionsJSON => {
+    if (sectionsJSON.length > 0) {
+      transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
+    }
+    // Giving the lead section a tiny head-start speeds up its appearance dramatically.
+    const nonLeadDelay = 50
+    setTimeout(() => {
+      transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
+      scrollToSection(hash)
+      successCallback()
+    }, nonLeadDelay)
+  })
+  .catch(error => console.log(`Promise was rejected with error: ${error}`))
+}
+
+// Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
+exports.collapseTablesLocalizedStrings = undefined
+
+exports.sectionErrorMessageLocalizedString  = undefined
+exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
+exports.Language = Language
+exports.Article = Article
+},{"./transforms/addEditButtons":8,"./transforms/collapseTables":9,"./transforms/disableFilePageEdit":10,"./transforms/relocateFirstParagraph":11,"./transforms/widenImages":12,"./utilities":13,"wikimedia-page-library":15}],8:[function(require,module,exports){
 const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
 
 function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
@@ -487,15 +788,9 @@ function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content)
   })
 }
 
-function add(content) {
-  // Add lead section edit button after the lead section horizontal rule element.
-  addEditButtonAfterElement('#content_block_0_hr', 0, content)
-  // Add non-lead section edit buttons inside respective header elements.
-  addEditButtonsToElements('.section_heading[data-id]:not([data-id=""]):not([data-id="0"])', 'data-id', content)
-}
-
-exports.add = add
-},{"wikimedia-page-library":13}],7:[function(require,module,exports){
+exports.addEditButtonAfterElement = addEditButtonAfterElement
+exports.addEditButtonsToElements = addEditButtonsToElements
+},{"wikimedia-page-library":15}],9:[function(require,module,exports){
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 var location = require('../elementLocation')
 
@@ -515,7 +810,7 @@ function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, fo
 }
 
 exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":13}],8:[function(require,module,exports){
+},{"../elementLocation":3,"wikimedia-page-library":15}],10:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -541,7 +836,7 @@ function disableFilePageEdit( content ) {
 }
 
 exports.disableFilePageEdit = disableFilePageEdit
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -565,20 +860,19 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
   function isParagraphGood(p) {
     // Narrow down to first P which is direct child of content_block_0 DIV.
     // (Don't want to yank P from somewhere in the middle of a table!)
-    if  (p.parentNode == block_0 ||
-            /* HAX: the line below is a temporary fix for <div class="mw-mobilefrontend-leadsection"> temporarily
-               leaking into mobileview output - as soon as that div is removed the line below will no longer be needed. */
-            p.parentNode.className == 'mw-mobilefrontend-leadsection'
-            ){
+    if(p.parentNode == block_0) {
                 // Ensure the P being pulled up has at least a couple lines of text.
                 // Otherwise silly things like a empty P or P which only contains a
-                // BR tag will get pulled up (see articles on "Chemical Reaction" and
-                // "Hawaii").
-                // Trick for quickly determining element height:
-                //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-                //      http://stackoverflow.com/a/1343350/135557
-      var minHeight = 40
-      var pIsTooSmall = p.offsetHeight < minHeight
+                // BR tag will get pulled up (see articles on "Chemical Reaction",
+                // "Hawaii", "United States", "Color" and "Academy (educational
+                // institution)").
+
+      if(p.innerHTML.indexOf('id="coordinates"') !== -1) {
+        return false
+      }
+
+      var minLength = 60
+      var pIsTooSmall = p.textContent.length < minLength
       return !pIsTooSmall
     }
     return false
@@ -622,7 +916,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -639,7 +933,7 @@ function widenImages(content) {
 }
 
 exports.widenImages = widenImages
-},{"wikimedia-page-library":13}],11:[function(require,module,exports){
+},{"wikimedia-page-library":15}],13:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -681,7 +975,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -726,7 +1020,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":11}],13:[function(require,module,exports){
+},{"./utilities":13}],15:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -944,8 +1238,11 @@ var classifyElements = function classifyElements(element) {
   /* en > Away colours > 793128975 */
   /* en > Manchester United F.C. > 793244653 */
   /* en > Pantone > 792312384 */
-  Polyfill.querySelectorAll(element, 'div.color_swatch div, div[style*="position: absolute"]').forEach(function (div) {
-    div.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
+  /* en > Wikipedia:Graphs_and_charts > 801754530 */
+  /* en > PepsiCo > 807406166 */
+  var selector = ['div.color_swatch div', 'div[style*="position: absolute"]', 'div.barbox table div[style*="background:"]', 'div.chart div[style*="background-color"]', 'div.chart ul li span[style*="background-color"]', 'span.legend-color'].join();
+  Polyfill.querySelectorAll(element, selector).forEach(function (element) {
+    return element.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
   });
 };
 
@@ -968,45 +1265,21 @@ var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
  */
 var getTableHeader = function getTableHeader(element, pageTitle) {
   var thArray = [];
-
-  if (!element.children) {
-    return thArray;
-  }
-
-  for (var i = 0; i < element.children.length; i++) {
-    var el = element.children[i];
-
-    if (el.tagName === 'TH') {
-      // ok, we have a TH element!
-      // However, if it contains more than two links, then ignore it, because
-      // it will probably appear weird when rendered as plain text.
-      var aNodes = el.querySelectorAll('a');
-      // todo: these conditionals are very confusing. Rewrite by extracting a
-      //       method or simplify.
-      if (aNodes.length < 3) {
-        // todo: remove nonstandard Element.innerText usage
-        // Also ignore it if it's identical to the page title.
-        if ((el.innerText && el.innerText.length || el.textContent.length) > 0 && el.innerText !== pageTitle && el.textContent !== pageTitle && el.innerHTML !== pageTitle) {
-          thArray.push(el.innerText || el.textContent);
-        }
+  var headers = Polyfill.querySelectorAll(element, 'th');
+  for (var i = 0; i < headers.length; ++i) {
+    var header = headers[i];
+    var anchors = Polyfill.querySelectorAll(header, 'a');
+    if (anchors.length < 3) {
+      // Also ignore it if it's identical to the page title.
+      if ((header.textContent && header.textContent.length) > 0 && header.textContent !== pageTitle && header.innerHTML !== pageTitle) {
+        thArray.push(header.textContent);
       }
     }
-
-    // if it's a table within a table, don't worry about it
-    if (el.tagName === 'TABLE') {
-      continue;
-    }
-
-    // todo: why do we need to recurse?
-    // recurse into children of this element
-    var ret = getTableHeader(el, pageTitle);
-
-    // did we get a list of TH from this child?
-    if (ret.length > 0) {
-      thArray = thArray.concat(ret);
+    if (thArray.length === 2) {
+      // 'newCaption' only ever uses the first 2 items.
+      break;
     }
   }
-
   return thArray;
 };
 
@@ -3019,4 +3292,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);

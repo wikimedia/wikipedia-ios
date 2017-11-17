@@ -93,6 +93,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     }
 
     @objc func updateView() {
+        guard viewIfLoaded != nil else {
+            return
+        }
         var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
         if let context = extensionContext {
             if #available(iOSApplicationExtension 10.0, *) {

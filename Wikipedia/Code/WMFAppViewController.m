@@ -621,6 +621,14 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         return;
     }
 
+    // Show  all navigation bars so that users will always see search when they re-open the app
+    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
+    for (UINavigationController *navC in allNavControllers) {
+        if (navC.isNavigationBarHidden) {
+            [navC setNavigationBarHidden:NO animated:NO];
+        }
+    }
+
     self.searchViewController = nil;
     self.settingsViewController = nil;
 
@@ -753,6 +761,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeSpecialPage:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -811,6 +820,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
+                // For "View on a map" action to succeed, view mode has to be set to map.
+                [[self placesViewController] updateViewModeToMap];
                 [[self placesViewController] showArticleURL:articleURL];
             }
         } break;
@@ -882,6 +893,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         } break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
+            break;
+        case WMFUserActivityTypeSpecialPage:
+            [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         default:
             done();
@@ -1406,6 +1420,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
+- (NSArray<UINavigationController *> *)allNavigationControllers {
+    // Navigation controllers
+    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
+    if (self.settingsNavigationController) {
+        [navigationControllers addObject:self.settingsNavigationController];
+    }
+    return navigationControllers;
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     if (theme == nil) {
         return;
@@ -1420,13 +1443,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
-    // Navigation controllers
-    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeExplore], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
-    if (self.settingsNavigationController) {
-        [navigationControllers addObject:self.settingsNavigationController];
-    }
-
-    [self applyTheme:theme toNavigationControllers:navigationControllers];
+    [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
 
     // Tab bars
 

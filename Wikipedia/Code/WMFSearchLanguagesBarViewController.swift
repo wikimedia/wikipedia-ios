@@ -10,8 +10,9 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var scrollView: SearchLanguagesBarScrollView!
     
-    var theme: Theme = Theme.standard
+    @objc var theme: Theme = Theme.standard
     
     fileprivate var hidden: Bool = false {
         didSet {
@@ -93,6 +94,16 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.showMoreLanguagesTooltipIfNecessary()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showMoreLanguagesTooltip), object: nil)
+    }
+    
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
         return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
@@ -120,6 +131,21 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
                 button.isHidden = false
             }
         }
+    }
+    
+    fileprivate func showMoreLanguagesTooltipIfNecessary() {
+        guard !hidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
+            return
+        }
+        self.perform(#selector(showMoreLanguagesTooltip), with: nil, afterDelay: 1.0)
+    }
+    
+    @objc fileprivate func showMoreLanguagesTooltip() {
+        guard let button = otherLanguagesButton else {
+            return
+        }
+        self.wmf_presentDynamicHeightPopoverViewController(forSourceRect: button.convert(button.bounds, to: self.view), withTitle: WMFLocalizedString("more-languages-tooltip-title", value:"Add languages", comment:"Title for tooltip explaining the 'More' button may be tapped to add more languages."), message: WMFLocalizedString("more-languages-tooltip-description", value:"Search Wikipedia in nearly 300 languages", comment:"Description for tooltip explaining the 'More' button may be tapped to add more languages."), width: 230.0, duration: 3.0)
+        UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
     @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
@@ -159,5 +185,36 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
             languageButton.tintColor = theme.colors.link
         }
+    }
+}
+
+class SearchLanguagesBarScrollView: UIScrollView {
+    
+    fileprivate let fadeWidth: CGFloat = 25
+    fileprivate let fadeColor = UIColor.white
+    fileprivate let clear = UIColor.white.withAlphaComponent(0)
+    
+    fileprivate lazy var rightGradientView: WMFGradientView = {
+        let gradient = WMFGradientView()
+        gradient.translatesAutoresizingMaskIntoConstraints = false
+        gradient.startPoint = .zero
+        gradient.endPoint = CGPoint(x: 1, y: 0)
+        gradient.setStart(clear, end: fadeColor)
+        addSubview(gradient)
+        return gradient
+    }()
+    
+    override func didMoveToSuperview() {
+        updateGradientFrames()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateGradientFrames()
+    }
+    
+    func updateGradientFrames() {
+        let frame = CGRect(x: contentOffset.x, y: 0, width: fadeWidth, height: bounds.size.height)
+        rightGradientView.frame = frame.offsetBy(dx: bounds.size.width - fadeWidth, dy: 0)
     }
 }

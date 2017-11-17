@@ -308,6 +308,7 @@
 "saved-pages-clear-delete-all" = "Kyllä, poista kaikki";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-title" = "Tallennettu";
+"search-button-accessibility-label" = "Etsi Wikipediasta";
 "search-did-you-mean" = "Tarkoititko $1?";
 "search-field-placeholder-text" = "Wikipedia-haku";
 "search-recent-clear-cancel" = "Keskeytä";

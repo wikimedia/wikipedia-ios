@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 + (NSError *)wmf_cancelledError;
 
 - (BOOL)wmf_isWMFErrorDomain;
+- (BOOL)wmf_isWMFErrorMissingTitle;
 - (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type;
 
 @end

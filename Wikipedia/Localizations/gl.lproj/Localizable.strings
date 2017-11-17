@@ -54,8 +54,10 @@
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
 "action-saved-accessibility" = "Gardado. Activar para eliminar o gardado.";
+"action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
+"action-unsaved-accessibility-notification" = "ARtigo sen gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -66,6 +68,7 @@
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
+"article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-others" = "Outras linguas";
@@ -317,6 +320,7 @@
 "saved-pages-clear-delete-all" = "Si, borrar todo";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-title" = "Gardado";
+"search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-recent-clear-cancel" = "Cancelar";

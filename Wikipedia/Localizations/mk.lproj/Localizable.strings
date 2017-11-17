@@ -51,8 +51,10 @@
 "action-save" = "Зачувај";
 "action-saved" = "Зачувано";
 "action-saved-accessibility" = "Зачувано. Активирајте за да го избришете.";
+"action-saved-accessibility-notification" = "Статијата е зачувана за подоцна";
 "action-share" = "Сподели";
 "action-unsave" = "Тргни";
+"action-unsaved-accessibility-notification" = "Статијата е незачувана";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Тргни";
 "appearance-settings-adjust-text-sizing" = "Прилагоди големина на текстот";
@@ -63,6 +65,7 @@
 "appearance-settings-title" = "Читачки изгледи";
 "article-about-title" = "Уреди ја статијава";
 "article-delete" = "Избриши";
+"article-deleted-accessibility-notification" = "Статијата е избришана";
 "article-languages-filter-placeholder" = "Најди јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
@@ -227,6 +230,8 @@
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-trash-accessibility-label" = "Избриши";
+"more-languages-tooltip-description" = "Пребарајте ја Википедија на речиси 300 јазици";
+"more-languages-tooltip-title" = "Додај јазици";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стапки";
 "nearby-distance-label-km" = "$1 км";
@@ -314,6 +319,7 @@
 "saved-pages-clear-delete-all" = "Да, избриши ги сите";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
 "saved-title" = "Зачувано";
+"search-button-accessibility-label" = "Пребарај ја Википедија";
 "search-did-you-mean" = "Дали мислевте на $1?";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
 "search-recent-clear-cancel" = "Откажи";

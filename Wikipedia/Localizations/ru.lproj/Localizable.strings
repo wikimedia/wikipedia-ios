@@ -83,6 +83,7 @@
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
+"article-deleted-accessibility-notification" = "Статья удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
@@ -245,6 +246,8 @@
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Отмена";
 "menu-trash-accessibility-label" = "Удалить";
+"more-languages-tooltip-description" = "Искать в Википедии почти на 300 языках";
+"more-languages-tooltip-title" = "Добавить языки";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";

@@ -1,6 +1,5 @@
 #import "AboutViewController.h"
 #import <WMF/WikipediaAppUtils.h>
-#import "WKWebView+LoadAssetsHtml.h"
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "UIBarButtonItem+WMFButtonConvenience.h"

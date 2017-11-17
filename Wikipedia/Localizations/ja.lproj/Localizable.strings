@@ -337,6 +337,7 @@
 "saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-title" = "保存済み";
+"search-button-accessibility-label" = "ウィキペディア内を検索";
 "search-did-you-mean" = "もしかして: $1";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
 "search-recent-clear-cancel" = "キャンセル";

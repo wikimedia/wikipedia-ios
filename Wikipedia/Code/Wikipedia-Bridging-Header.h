@@ -41,6 +41,7 @@
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFEmptyView.h"
+#import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"

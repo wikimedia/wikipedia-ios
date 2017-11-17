@@ -63,8 +63,10 @@
 "action-save" = "Spara";
 "action-saved" = "Sparades";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
+"action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";
 "action-unsave" = "Spara inte";
+"action-unsaved-accessibility-notification" = "Artikeln togs bort";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Stäng";
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
@@ -75,6 +77,7 @@
 "appearance-settings-title" = "Lästeman";
 "article-about-title" = "Om den här artikeln";
 "article-delete" = "Radera";
+"article-deleted-accessibility-notification" = "Artikeln raderades";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
@@ -112,8 +115,8 @@
 "edit-summary-title" = "Hur förbättrade du artikeln?";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-feed-action-message" = "Du kan fortfarande läsa sparade sidor";
-"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
-"empty-no-feed-title" = "Ingen internetanslutning";
+"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
+"empty-no-feed-title" = "Ingen Internetanslutning";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
@@ -326,6 +329,7 @@
 "saved-pages-clear-delete-all" = "Ja, radera allt";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-title" = "Sparade";
+"search-button-accessibility-label" = "Sök på Wikipedia";
 "search-did-you-mean" = "Menade du $1?";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-recent-clear-cancel" = "Avbryt";

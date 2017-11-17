@@ -68,8 +68,10 @@
 "action-save" = "Enregistrer";
 "action-saved" = "Enregistré";
 "action-saved-accessibility" = "Enregistré. Activer pour supprimer la sauvegarde.";
+"action-saved-accessibility-notification" = "Article sauvegardé pour plus tard";
 "action-share" = "Partager";
 "action-unsave" = "Non enregistré";
+"action-unsaved-accessibility-notification" = "Article non sauvegardé";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Ignorer";
 "appearance-settings-adjust-text-sizing" = "Ajuster la taille du texte de l’article";
@@ -80,6 +82,7 @@
 "appearance-settings-title" = "Thèmes de lecture";
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
+"article-deleted-accessibility-notification" = "Article supprimé";
 "article-languages-filter-placeholder" = "Trouver la langue";
 "article-languages-label" = "Choisir langue";
 "article-languages-others" = "Autres langues";
@@ -187,7 +190,7 @@
 "hockeyapp-alert-do-not-send" = "Ne pas envoyer";
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikimedia puisse l’étudier ?";
-"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Fondation Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage est arrivé :";
+"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que la Wikimedia Foundation puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage est arrivé :";
 "hockeyapp-alert-send-report" = "Envoyer un rapport";
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
 "home-button-explore-accessibility-label" = "Wikipédia, revenir à Explorer";
@@ -244,6 +247,8 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Annuler";
 "menu-trash-accessibility-label" = "Supprimer";
+"more-languages-tooltip-description" = "Rechercher dans Wikipédia dans près de 300 langues";
+"more-languages-tooltip-title" = "Ajouter des langues";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "nearby-distance-label-feet" = "$1 pieds";
 "nearby-distance-label-km" = "$1 km";
@@ -331,6 +336,7 @@
 "saved-pages-clear-delete-all" = "Oui, supprimer tout";
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
 "saved-title" = "Enregistré";
+"search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
 "search-recent-clear-cancel" = "Annuler";

@@ -13,7 +13,7 @@
         <!--Explore View Controller-->
         <scene sceneID="7XG-fM-dwm">
             <objects>
-                <viewController storyboardIdentifier="Explore" id="U1o-Vy-4PN" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Explore" automaticallyAdjustsScrollViewInsets="NO" id="U1o-Vy-4PN" customClass="WMFExploreViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bvw-5L-o1P"/>
                         <viewControllerLayoutGuide type="bottom" id="8FH-VM-Onk"/>
