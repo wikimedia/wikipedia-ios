@@ -1,4 +1,17 @@
-class WMFArticleLanguagesSectionFooter : UITableViewHeaderFooterView, Themeable {
+class WMFInterfaceBuilderFriendlyUITableViewHeaderFooterView : UITableViewHeaderFooterView {
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        // There is no IB UITableViewHeaderFooterView component, which means you have to use a UIView.
+        // But you can't set UITableViewHeaderFooterView's 'contentView' from UIView IB component.
+        // This work-around fixes weird autolayout issues (likely related to this?) where multi-line
+        // labels from a xib using a UITableViewHeaderFooterView subclass appear at the wrong size for
+        // their text length, then jump to thier proper width a second after appearing.
+        frame = CGRect(origin: frame.origin, size: systemLayoutSizeFitting(CGSize(width: bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultHigh)
+        )
+    }
+}
+
+class WMFArticleLanguagesSectionFooter : WMFInterfaceBuilderFriendlyUITableViewHeaderFooterView, Themeable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
     override func awakeFromNib() {
