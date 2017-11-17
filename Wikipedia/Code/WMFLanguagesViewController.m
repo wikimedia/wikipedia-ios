@@ -500,10 +500,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         return 0;
     }
     footer.hidden = YES;
-    [tableView addSubview:footer];
+    [tableView addSubview:footer]; // updates footer's trait collection to adjust font sizes
     CGSize sizeToFit = CGSizeMake(tableView.bounds.size.width, UILayoutFittingCompressedSize.height);
     CGSize size = [footer systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
     [footer removeFromSuperview];
+    footer.hidden = NO;
     return size.height;
 }
 
