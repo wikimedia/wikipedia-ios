@@ -5,7 +5,8 @@ public extension NSManagedObjectContext {
         return object
     }
     
-    func wmf_fetchOrCreate<T: NSManagedObject>(objectForEntityName entityName: String, withValue value: Any, forKey key: String) -> T? {
+    
+    func wmf_fetch<T: NSManagedObject>(objectForEntityName entityName: String, withValue value: Any, forKey key: String) -> T? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "%@ == %@", argumentArray: [key, value])
         fetchRequest.fetchLimit = 1
@@ -16,8 +17,11 @@ public extension NSManagedObjectContext {
             DDLogError("Error fetching: \(error)")
         }
         
-        let result = results.first ?? wmf_create(entityNamed: entityName, withValue: value, forKey: key)
-        return result
+        return results.first
+    }
+    
+    func wmf_fetchOrCreate<T: NSManagedObject>(objectForEntityName entityName: String, withValue value: Any, forKey key: String) -> T? {
+        return wmf_fetch(objectForEntityName: entityName, withValue: value, forKey: key) ?? wmf_create(entityNamed: entityName, withValue: value, forKey: key)
     }
     
     func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) -> [T]? {
