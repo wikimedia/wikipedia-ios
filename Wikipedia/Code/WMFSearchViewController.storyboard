@@ -361,7 +361,7 @@
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="trailing" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="1MZ-c8-TBi"/>
-                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
+                            <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
                             <constraint firstItem="fBp-uc-mYL" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="RXC-bL-zjR"/>
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="bottom" secondItem="1Y5-MX-atE" secondAttribute="top" id="U88-r5-nKv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
@@ -376,7 +376,7 @@
                             <constraint firstAttribute="bottom" secondItem="Rly-Nt-Gci" secondAttribute="bottom" id="sHZ-xt-xU3"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="width" secondItem="tzw-k8-eL6" secondAttribute="width" id="tWI-Lv-oV9"/>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="top" secondItem="tzw-k8-eL6" secondAttribute="top" id="taD-Tb-F1s"/>
-                            <constraint firstItem="fBp-uc-mYL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tzw-k8-eL6" secondAttribute="top" constant="6" id="vw0-Am-hvH"/>
+                            <constraint firstItem="fBp-uc-mYL" firstAttribute="top" secondItem="tzw-k8-eL6" secondAttribute="top" constant="6" id="vw0-Am-hvH"/>
                             <constraint firstItem="Rly-Nt-Gci" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="zxY-rQ-mNX"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
