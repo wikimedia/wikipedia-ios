@@ -265,14 +265,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="PNI-Oh-9ff"/>
+                                    <constraint firstAttribute="height" constant="44" id="PNI-Oh-9ff"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-uc-mYL">
-                                <rect key="frame" x="0.0" y="7" width="302" height="32"/>
+                                <rect key="frame" x="0.0" y="6" width="302" height="32"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="979-eE-gLA">
-                                        <rect key="frame" x="0.0" y="0.0" width="163" height="32"/>
+                                        <rect key="frame" x="16" y="0.0" width="163" height="32"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqE-Xn-Paw" userLabel="Language One Button" customClass="WMFUnderlineButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="49" height="32"/>
@@ -315,7 +315,7 @@
                                     <constraint firstAttribute="trailing" secondItem="979-eE-gLA" secondAttribute="trailing" id="E0R-IG-fwT"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="top" secondItem="fBp-uc-mYL" secondAttribute="top" id="TkD-fL-SJc"/>
                                     <constraint firstAttribute="bottom" secondItem="979-eE-gLA" secondAttribute="bottom" id="cRp-g7-6qr"/>
-                                    <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leadingMargin" constant="-8" id="zF7-Ns-UDN"/>
+                                    <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leadingMargin" constant="8" id="zF7-Ns-UDN"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISS-4R-3dj" customClass="WMFGradientView">
@@ -366,7 +366,7 @@
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="bottom" secondItem="1Y5-MX-atE" secondAttribute="top" id="U88-r5-nKv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jiw-B9-ljV" secondAttribute="trailing" id="Y71-SA-0OH"/>
                             <constraint firstAttribute="trailing" secondItem="iIa-dg-uH0" secondAttribute="trailing" id="ZzG-BV-MLc"/>
-                            <constraint firstAttribute="bottom" secondItem="fBp-uc-mYL" secondAttribute="bottom" constant="5" id="cCn-73-Mv6"/>
+                            <constraint firstItem="Rly-Nt-Gci" firstAttribute="top" secondItem="fBp-uc-mYL" secondAttribute="bottom" constant="5" id="cCn-73-Mv6"/>
                             <constraint firstItem="Rly-Nt-Gci" firstAttribute="top" secondItem="Jiw-B9-ljV" secondAttribute="bottom" constant="5" id="csO-to-6tK"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="centerY" secondItem="tzw-k8-eL6" secondAttribute="centerY" id="d5E-ms-wOw"/>
                             <constraint firstItem="ISS-4R-3dj" firstAttribute="top" secondItem="iIa-dg-uH0" secondAttribute="top" id="jbS-sG-pAA"/>
@@ -398,6 +398,10 @@
                         <outletCollection property="languageButtons" destination="oqE-Xn-Paw" collectionClass="NSMutableArray" id="RBP-TK-Wje"/>
                         <outletCollection property="languageButtons" destination="WJp-HZ-PFr" collectionClass="NSMutableArray" id="3pP-S2-62d"/>
                         <outletCollection property="languageButtons" destination="u5D-PX-Vyp" collectionClass="NSMutableArray" id="YXv-ra-U8y"/>
+                        <outletCollection property="topConstraints" destination="vw0-Am-hvH" collectionClass="NSMutableArray" id="FhI-di-LvG"/>
+                        <outletCollection property="topConstraints" destination="C0q-MQ-6iA" collectionClass="NSMutableArray" id="Jc4-HU-nuz"/>
+                        <outletCollection property="bottomConstraints" destination="csO-to-6tK" collectionClass="NSMutableArray" id="KfA-qw-9we"/>
+                        <outletCollection property="bottomConstraints" destination="cCn-73-Mv6" collectionClass="NSMutableArray" id="pXi-KW-Tdt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eR3-yK-u5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
