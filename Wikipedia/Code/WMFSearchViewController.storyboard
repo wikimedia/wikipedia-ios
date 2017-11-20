@@ -398,10 +398,10 @@
                         <outletCollection property="languageButtons" destination="oqE-Xn-Paw" collectionClass="NSMutableArray" id="RBP-TK-Wje"/>
                         <outletCollection property="languageButtons" destination="WJp-HZ-PFr" collectionClass="NSMutableArray" id="3pP-S2-62d"/>
                         <outletCollection property="languageButtons" destination="u5D-PX-Vyp" collectionClass="NSMutableArray" id="YXv-ra-U8y"/>
-                        <outletCollection property="topConstraints" destination="vw0-Am-hvH" collectionClass="NSMutableArray" id="FhI-di-LvG"/>
-                        <outletCollection property="topConstraints" destination="C0q-MQ-6iA" collectionClass="NSMutableArray" id="Jc4-HU-nuz"/>
-                        <outletCollection property="bottomConstraints" destination="csO-to-6tK" collectionClass="NSMutableArray" id="KfA-qw-9we"/>
-                        <outletCollection property="bottomConstraints" destination="cCn-73-Mv6" collectionClass="NSMutableArray" id="pXi-KW-Tdt"/>
+                        <outletCollection property="topAndBottomConstraints" destination="cCn-73-Mv6" collectionClass="NSMutableArray" id="LKH-CL-zr1"/>
+                        <outletCollection property="topAndBottomConstraints" destination="csO-to-6tK" collectionClass="NSMutableArray" id="EUl-Kv-NoS"/>
+                        <outletCollection property="topAndBottomConstraints" destination="C0q-MQ-6iA" collectionClass="NSMutableArray" id="uyB-hs-cYN"/>
+                        <outletCollection property="topAndBottomConstraints" destination="vw0-Am-hvH" collectionClass="NSMutableArray" id="H56-3r-srt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eR3-yK-u5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
