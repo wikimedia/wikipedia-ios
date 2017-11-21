@@ -37,7 +37,7 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
+        existingListRequest.predicate = NSPredicate(format: "name MATCHES[cd] %@", name)
         existingListRequest.fetchLimit = 1
         let result = try moc.fetch(existingListRequest).first
         guard result == nil else {
