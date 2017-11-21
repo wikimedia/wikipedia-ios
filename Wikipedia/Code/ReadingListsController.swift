@@ -60,6 +60,34 @@ public class ReadingListsController: NSObject {
         return list
     }
     
+    public func delete(readingLists: [ReadingList]) throws -> [ReadingList] {
+        
+        let moc = dataStore.viewContext
+        let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        
+        let readingListNamesToDelete = readingLists.flatMap { (readingList) -> String? in
+            readingList.name
+        }
+        
+        readingListsToDeleteRequest.predicate = NSPredicate(format: "!(name MATCHES[cd] IN %@)", readingListNamesToDelete)
+        readingListsToDeleteRequest.fetchLimit = 1
+        
+        let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
+        
+        var deletedReadingLists: [ReadingList] = []
+        
+        for readingList in readingListsToDelete {
+            moc.delete(readingList)
+            deletedReadingLists.append(readingList)
+        }
+        
+        if moc.hasChanges {
+            try moc.save()
+        }
+        
+        return deletedReadingLists
+    }
+    
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
 
