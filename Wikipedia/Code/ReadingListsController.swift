@@ -95,13 +95,8 @@ public class ReadingListsController: NSObject {
 
     }
     
-    public func remove(articles: [WMFArticle], from readingList: ReadingList) throws {
+    public func remove(articles: [WMFArticle], fromReadingListNamed readingListName: String) throws {
         assert(Thread.isMainThread)
-        
-        guard let readingListName = readingList.name else {
-            return
-            // throw a ReadingList.listWithoutAName error? will this ever be the case?
-        }
         
         let moc = dataStore.viewContext
         let existingReadingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -120,7 +115,7 @@ public class ReadingListsController: NSObject {
         }
         
         let entriesToDeleteRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[cd] %@ && !(key IN %@)", readingListName, keysToDelete)
+        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[cd] %@ && !(articleKey IN %@)", readingListName, keysToDelete)
         
         let entriesToDelete = try moc.fetch(entriesToDeleteRequest)
         
@@ -131,7 +126,6 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        
     }
     
 }
