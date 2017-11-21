@@ -69,7 +69,7 @@ public class ReadingListsController: NSObject {
             readingList.name
         }
         
-        readingListsToDeleteRequest.predicate = NSPredicate(format: "!(name MATCHES[cd] IN %@)", readingListNamesToDelete)
+        readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", readingListNamesToDelete)
         readingListsToDeleteRequest.fetchLimit = 1
         
         let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
@@ -143,7 +143,7 @@ public class ReadingListsController: NSObject {
         }
         
         let entriesToDeleteRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[cd] %@ && !(articleKey IN %@)", readingListName, keysToDelete)
+        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[cd] %@ && articleKey IN %@", readingListName, keysToDelete)
         
         let entriesToDelete = try moc.fetch(entriesToDeleteRequest)
         
