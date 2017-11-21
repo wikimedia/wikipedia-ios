@@ -296,6 +296,7 @@
 "readers-accessibility-label" = "$1 readers";
 "reading-list-exists-with-same-name" = "A reading list already exists with the name ‟$1”";
 "reading-list-unable-to-create" = "An unexpected error occured while creating your reading list. Please try again later.";
+"reading-list-with-provided-name-not-found" = "A reading list with the name ‟$1” was not found. Please make sure you have the correct name.";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
