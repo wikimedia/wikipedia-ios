@@ -108,6 +108,9 @@ class WMFWelcomePanelGradientScrollView : UIScrollView {
         return gradient
     }()
     override func didMoveToSuperview() {
+        guard superview != nil else {
+            return
+        }
         updateGradientFrames()
     }
     override func layoutSubviews() {

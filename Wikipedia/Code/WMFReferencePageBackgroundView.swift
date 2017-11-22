@@ -13,6 +13,9 @@ class WMFReferencePageBackgroundView: UIView, Themeable {
     }
     
     override func didMoveToSuperview() {
+        guard superview != nil else {
+            return
+        }
         isUserInteractionEnabled = false
         clearsContextBeforeDrawing = false
         translatesAutoresizingMaskIntoConstraints = false

@@ -57,6 +57,9 @@
 }
 
 - (void)didMoveToSuperview {
+    if (!self.superview) {
+        return;
+    }
     // The labels have not been created when init happens, so reset type here.
     self.bulletType = self.bulletType;
     self.bulletColor = self.bulletColor;
