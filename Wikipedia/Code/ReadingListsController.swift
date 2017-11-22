@@ -60,16 +60,12 @@ public class ReadingListsController: NSObject {
         return list
     }
     
-    public func delete(readingLists: [ReadingList]) throws -> [ReadingList] {
+    public func delete(readingListsNamed names: [String]) throws -> [ReadingList] {
         
         let moc = dataStore.viewContext
         let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         
-        let readingListNamesToDelete = readingLists.flatMap { (readingList) -> String? in
-            readingList.name
-        }
-        
-        readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", readingListNamesToDelete)
+        readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", names)
         readingListsToDeleteRequest.fetchLimit = 1
         
         let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
