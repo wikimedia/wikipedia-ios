@@ -227,6 +227,7 @@
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
 "menu-cancel-accessibility-label" = "বাতিল";
 "menu-trash-accessibility-label" = "অপসারণ";
+"more-languages-tooltip-description" = "প্রায় ৩০০টি ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
 "nearby-distance-label-feet" = "$1 ফুট";
