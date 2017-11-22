@@ -41,4 +41,28 @@ class ReadingListTests: XCTestCase {
         }
     }
     
+    func testDeletingExistingReadingLists() {
+        let readingListNames = ["doggos", "goats"]
+        var readingLists: [ReadingList] = []
+
+        do {
+            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[0]))
+        } catch let error {
+            XCTAssert(false, "Should be able to create \(readingListNames[0]) reading list: \(error)")
+        }
+        
+        do {
+            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[1]))
+        } catch let error {
+            XCTAssert(false, "Should be able to create \(readingListNames[1]) reading list: \(error)")
+        }
+        
+        do {
+            let deletedLists = try dataStore.readingListsController.delete(readingListsNamed: readingListNames)
+            XCTAssertEqual(deletedLists, readingLists)
+        } catch let error {
+            XCTAssert(false, "Should be able to delete \(readingListNames) reading list: \(error)")
+        }
+    }
+
 }
