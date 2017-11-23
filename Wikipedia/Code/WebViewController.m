@@ -552,7 +552,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
 
-                                                 CGFloat halfSpaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y / 2.f;
+                                                 CGFloat spaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y - self.webView.scrollView.contentInset.top;
+                                                 if (self.navBarHidden) {
+                                                     spaceAboveKeyboardBar = spaceAboveKeyboardBar - self.navigationController.navigationBar.bounds.size.height;
+                                                 }
+                                                 CGFloat halfSpaceAboveKeyboardBar = spaceAboveKeyboardBar / 2.f;
                                                  CGFloat halfMatchHeight = rect.size.height / 2.f;
                                                  CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
                                                  CGPoint offsetCenteringMatchAboveKeyboardBar =
