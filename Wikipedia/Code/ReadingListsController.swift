@@ -94,8 +94,8 @@ public class ReadingListsController: NSObject {
         
         let existingKeys = readingList.articleKeys
         
-        var keysToAdd = Set(existingKeys)
-        keysToAdd.subtract(keys)
+        var keysToAdd = Set(keys)
+        keysToAdd.subtract(existingKeys)
         
         for key in keysToAdd {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
