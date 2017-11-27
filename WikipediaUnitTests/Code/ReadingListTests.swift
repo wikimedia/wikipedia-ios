@@ -85,8 +85,8 @@ class ReadingListTests: XCTestCase {
     
     func testCreatingReadingListWithArticles() {
         let readingListName = "foo"
-        let articleURLS = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
-        let articles = articleURLS.flatMap { (articleURL) -> WMFArticle? in
+        let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
+        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
@@ -98,6 +98,39 @@ class ReadingListTests: XCTestCase {
             let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
             XCTAssert(readingList.articleKeys.wmf_containsObjectsInAnyOrderAndMatchesCount(articleKeys))
 
+        } catch let error {
+            XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
+        }
+        
+    }
+    
+    func testAddingArticlesToExistingReadingList() {
+        let readingListName = "foo"
+        let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
+        let otherArticleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!, URL(string: "//en.wikipedia.org/wiki/Baz")!]
+        
+        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+            return dataStore.fetchOrCreateArticle(with: articleURL)
+        }
+        
+        let otherArticles = otherArticleURLs.flatMap { (articleURL) -> WMFArticle? in
+            return dataStore.fetchOrCreateArticle(with: articleURL)
+        }
+        
+        let otherArticleKeys = otherArticles.flatMap { (article) -> String? in
+            return article.key
+        }
+        
+        do {
+            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
+            
+            do {
+                try dataStore.readingListsController.add(articles: otherArticles, to: readingList)
+                XCTAssert(readingList.articleKeys.wmf_containsObjectsInAnyOrderAndMatchesCount(otherArticleKeys))
+            } catch let error {
+                XCTAssert(false, "Should be able to : \(error)")
+            }
+            
         } catch let error {
             XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
         }
