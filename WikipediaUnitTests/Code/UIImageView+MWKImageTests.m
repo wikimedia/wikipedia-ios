@@ -41,8 +41,9 @@
 }
 
 - (void)tearDown {
-    [super tearDown];
+    [[LSNocilla sharedInstance] stop];
     [[UIImageView faceDetectionCache] clearCache];
+    [super tearDown];
 }
 
 #pragma mark - Fetch Tests

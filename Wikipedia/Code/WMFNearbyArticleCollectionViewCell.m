@@ -200,6 +200,9 @@
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
     self.articleImageView.alpha = theme.imageOpacity;
+    if (@available(iOS 11.0, *)) {
+        self.articleImageView.accessibilityIgnoresInvertColors = true;
+    }
 }
 
 @end

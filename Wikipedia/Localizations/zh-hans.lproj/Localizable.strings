@@ -14,6 +14,7 @@
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: Tonylianlong
+// Author: Yfdyh000
 // Author: 王庭茂
 
 "about-content-license" = "内容许可协议";
@@ -61,8 +62,10 @@
 "action-save" = "保存";
 "action-saved" = "已保存";
 "action-saved-accessibility" = "已保存。激活以取消保存。";
+"action-saved-accessibility-notification" = "条目已保存供稍后使用";
 "action-share" = "分享";
 "action-unsave" = "未保存";
+"action-unsaved-accessibility-notification" = "条目未保存";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
@@ -73,6 +76,7 @@
 "appearance-settings-title" = "正在读取主题";
 "article-about-title" = "关于此条目";
 "article-delete" = "删除";
+"article-deleted-accessibility-notification" = "条目已删除";
 "article-languages-filter-placeholder" = "查找语言";
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
@@ -237,6 +241,8 @@
 "main-menu-zero-faq" = "维基百科零常见问题";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "删除";
+"more-languages-tooltip-description" = "在近300种语言中搜索维基百科";
+"more-languages-tooltip-title" = "添加语言";
 "navbar-title-mode-edit-wikitext-preview" = "预览";
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-km" = "$1千米";
@@ -324,6 +330,7 @@
 "saved-pages-clear-delete-all" = "是的，删除全部";
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
 "saved-title" = "已保存";
+"search-button-accessibility-label" = "搜索维基百科";
 "search-did-you-mean" = "您的意思是$1么？";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-recent-clear-cancel" = "取消";

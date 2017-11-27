@@ -761,6 +761,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
         case WMFUserActivityTypeContent:
+        case WMFUserActivityTypeSpecialPage:
             return YES;
         case WMFUserActivityTypeSearchResults:
             if ([activity wmf_searchTerm] != nil) {
@@ -819,6 +820,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
+                // For "View on a map" action to succeed, view mode has to be set to map.
+                [[self placesViewController] updateViewModeToMap];
                 [[self placesViewController] showArticleURL:articleURL];
             }
         } break;
@@ -890,6 +893,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         } break;
         case WMFUserActivityTypeGenericLink:
             [self wmf_openExternalUrl:[activity wmf_articleURL]];
+            break;
+        case WMFUserActivityTypeSpecialPage:
+            [self wmf_openExternalUrl:[activity wmf_contentURL]];
             break;
         default:
             done();

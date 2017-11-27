@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf ~/Library/Caches/org.carthage.CarthageKit
+
 if [ -z "$SRCROOT" ]
 then
     export SRCROOT=`pwd`

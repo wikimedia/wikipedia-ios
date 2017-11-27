@@ -25,6 +25,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: WindEwriX
+// Author: Wirbel78
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -83,6 +84,7 @@
 "appearance-settings-theme-options" = "Настройки темы";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
+"article-deleted-accessibility-notification" = "Статья удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
@@ -245,6 +247,8 @@
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Отмена";
 "menu-trash-accessibility-label" = "Удалить";
+"more-languages-tooltip-description" = "Искать в Википедии почти на 300 языках";
+"more-languages-tooltip-title" = "Добавить языки";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
@@ -332,6 +336,7 @@
 "saved-pages-clear-delete-all" = "Да, удалить всё";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
 "saved-title" = "Сохранено";
+"search-button-accessibility-label" = "Поиск по Википедии";
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "search-field-placeholder-text" = "Поиск по Википедии";
 "search-recent-clear-cancel" = "Отмена";

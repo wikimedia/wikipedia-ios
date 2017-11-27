@@ -65,8 +65,10 @@
 "action-read" = "읽기";
 "action-save" = "저장";
 "action-saved" = "저장됨";
+"action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
 "action-unsave" = "저장하지 않음";
+"action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
@@ -77,6 +79,7 @@
 "appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
+"article-deleted-accessibility-notification" = "문서가 삭제됨";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
@@ -181,12 +184,12 @@
 "history-title" = "역사";
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";
-"hockeyapp-alert-privacy" = "$1 개인 정보";
+"hockeyapp-alert-privacy" = "$1 개인정보";
 "hockeyapp-alert-question" = "위키미디어 재단이 충돌을 살펴볼 수 있도록 충돌 보고서를 $1으로 보내주시겠습니까?";
 "hockeyapp-alert-question-with-response-field" = "위키미디어 재단이 충돌을 살펴볼 수 있도록 충돌 보고서를 $1으로 보내주시겠습니까? 충돌이 발생했을 때 무엇이 일어났는지 설명해 주세요:";
 "hockeyapp-alert-send-report" = "보고서 보내기";
 "hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
-"home-button-explore-accessibility-label" = "위키백과, \"찾아보기\"로 돌아가기";
+"home-button-explore-accessibility-label" = "위키백과, 탐색으로 돌아가기";
 "home-button-history-accessibility-label" = "위키백과, \"역사\"로 돌아가기";
 "home-button-popover-title" = "대문으로 이동하려면 탭하세요";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
@@ -197,8 +200,8 @@
 "home-nearby-location-footer" = "$1의 주변 정보";
 "home-news-footer" = "뉴스에서 더 보기";
 "home-themes-action-title" = "환경 설정 관리하기";
-"home-title" = "찾아보기";
-"home-title-accessibility-label" = "위키백과, \"찾아보기\"의 최상단으로 스크롤";
+"home-title" = "탐색";
+"home-title-accessibility-label" = "위키백과, 탐색의 맨 위로 스크롤";
 "icon-shortcut-continue-reading-title" = "계속 읽기";
 "icon-shortcut-nearby-title" = "주변에 관한 문서";
 "icon-shortcut-random-title" = "임의 문서";
@@ -237,6 +240,8 @@
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "menu-cancel-accessibility-label" = "취소";
 "menu-trash-accessibility-label" = "삭제";
+"more-languages-tooltip-description" = "약 300개의 언어에서 위키백과 검색";
+"more-languages-tooltip-title" = "언어 추가";
 "navbar-title-mode-edit-wikitext-preview" = "미리 보기";
 "nearby-distance-label-feet" = "$1 피트";
 "nearby-distance-label-km" = "$1 km";
@@ -323,6 +328,7 @@
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-title" = "저장된 문서";
+"search-button-accessibility-label" = "위키백과 검색";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-recent-clear-cancel" = "취소";
@@ -347,7 +353,7 @@
 "settings-notifications-system-turn-on" = "알림 켜기";
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
-"settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 찾아보기에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
 "share-a-fact-made-with" = "위키백과 앱으로 작성함";
@@ -383,7 +389,7 @@
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
 "view-in-browser-footer-link" = "브라우저에서 문서 보기";
-"welcome-exploration-explore-feed-title" = "찾아보기 피드";
+"welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";
 "welcome-exploration-on-this-day-title" = "오늘의 역사";
 "welcome-exploration-places-title" = "위치 탭";

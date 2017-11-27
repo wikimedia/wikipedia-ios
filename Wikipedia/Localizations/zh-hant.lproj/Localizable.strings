@@ -63,8 +63,10 @@
 "action-save" = "儲存";
 "action-saved" = "已儲存";
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";
+"action-saved-accessibility-notification" = "條目已儲存供日後使用";
 "action-share" = "分享";
 "action-unsave" = "未儲存";
+"action-unsaved-accessibility-notification" = "條目未儲存";
 "alert-no-internet" = "無網路連線";
 "announcements-dismiss" = "關閉";
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
@@ -75,6 +77,7 @@
 "appearance-settings-title" = "閱讀主題";
 "article-about-title" = "關於此條目";
 "article-delete" = "刪除";
+"article-deleted-accessibility-notification" = "條目已刪除";
 "article-languages-filter-placeholder" = "尋找語言";
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
@@ -207,7 +210,7 @@
 "image-gallery-unknown-owner" = "作者未知。";
 "in-the-news-currently-trending" = "最新動態";
 "in-the-news-notification-read-now-action-title" = "立刻讀取";
-"in-the-news-notification-save-for-later-action-title" = "稍後儲存";
+"in-the-news-notification-save-for-later-action-title" = "儲存以供日後使用";
 "in-the-news-notification-share-action-title" = "分享...";
 "in-the-news-title" = "新聞動態";
 "info-box-close-text" = "關閉";
@@ -239,6 +242,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero 常見問題";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "刪除";
+"more-languages-tooltip-description" = "在近 300 種語言的維基百科裡搜尋";
+"more-languages-tooltip-title" = "新增語言";
 "navbar-title-mode-edit-wikitext-preview" = "預覽";
 "nearby-distance-label-feet" = "$1 英尺";
 "nearby-distance-label-km" = "$1 公里";
@@ -326,6 +331,7 @@
 "saved-pages-clear-delete-all" = "是的，刪除全部";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
 "saved-title" = "已儲存";
+"search-button-accessibility-label" = "搜尋維基百科";
 "search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
 "search-recent-clear-cancel" = "取消";

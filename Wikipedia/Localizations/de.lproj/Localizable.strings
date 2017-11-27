@@ -52,8 +52,10 @@
 "action-save" = "Speichern";
 "action-saved" = "Gespeichert";
 "action-saved-accessibility" = "Gespeichert. Aktivieren zum Löschen.";
+"action-saved-accessibility-notification" = "Artikel für später gespeichert";
 "action-share" = "Teilen";
 "action-unsave" = "Löschen";
+"action-unsaved-accessibility-notification" = "Artikel gelöscht";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
 "announcements-dismiss" = "Ausblenden";
 "appearance-settings-adjust-text-sizing" = "Passe die Größe des Artikeltextes an";
@@ -64,6 +66,7 @@
 "appearance-settings-title" = "Lese-Farbschemen";
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
+"article-deleted-accessibility-notification" = "Artikel gelöscht";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
@@ -228,6 +231,8 @@
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Abbrechen";
 "menu-trash-accessibility-label" = "Löschen";
+"more-languages-tooltip-description" = "Wikipedia in fast 300 Sprachen durchsuchen";
+"more-languages-tooltip-title" = "Sprachen hinzufügen";
 "navbar-title-mode-edit-wikitext-preview" = "Vorschau";
 "nearby-distance-label-feet" = "$1 Fuß";
 "nearby-distance-label-km" = "$1 km";
@@ -315,6 +320,7 @@
 "saved-pages-clear-delete-all" = "Ja, alle löschen";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
 "saved-title" = "Gespeichert";
+"search-button-accessibility-label" = "Wikipedia durchsuchen";
 "search-did-you-mean" = "Meintest du $1?";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
 "search-recent-clear-cancel" = "Abbrechen";
