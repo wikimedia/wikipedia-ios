@@ -138,7 +138,7 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    public func fetchReadingList(named name: String) throws -> ReadingList {
+    fileprivate func fetchReadingList(named name: String) throws -> ReadingList {
         let moc = dataStore.viewContext
         let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         readingListRequest.predicate = NSPredicate(format: "name MATCHES[cd] %@", name)
