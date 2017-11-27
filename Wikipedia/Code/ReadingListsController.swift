@@ -92,13 +92,7 @@ public class ReadingListsController: NSObject {
             return article.key
         }
         
-        let entries = readingList.entries ?? []
-        let existingKeys = entries.flatMap { (entry) -> String? in
-            guard let entry = entry as? ReadingListEntry else {
-                return nil
-            }
-            return entry.articleKey
-        }
+        let existingKeys = readingList.articleKeys
         
         var keysToAdd = Set(existingKeys)
         keysToAdd.subtract(keys)
