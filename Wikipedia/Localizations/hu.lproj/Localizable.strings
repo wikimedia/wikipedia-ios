@@ -59,8 +59,10 @@
 "action-save" = "Mentés";
 "action-saved" = "Elmentve";
 "action-saved-accessibility" = "Mentve. Aktiválja a visszavonáshoz.";
+"action-saved-accessibility-notification" = "Szócikk elmentve későbbre";
 "action-share" = "Megosztás";
 "action-unsave" = "Mentés eldobása";
+"action-unsaved-accessibility-notification" = "Szócikk eltávolítva";
 "alert-no-internet" = "Nincs internetkapcsolat";
 "announcements-dismiss" = "Kihagy";
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
@@ -70,6 +72,7 @@
 "appearance-settings-title" = "Olvasási témák";
 "article-about-title" = "Erről a szócikkről";
 "article-delete" = "Törlés";
+"article-deleted-accessibility-notification" = "Szócikk törölve";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
