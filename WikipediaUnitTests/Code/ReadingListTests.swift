@@ -82,5 +82,22 @@ class ReadingListTests: XCTestCase {
             XCTAssert(false, "Should attempt to delete \(readingListNames) reading lists: \(error)")
         }
     }
+    
+    func testCreatingReadingListsWithArticles() {
+        let readingListName = "sneks"
+        let articleURL = URL(string: "//en.wikipedia.org/wiki/ArticleAboutSneks")!
+        
+        if let article = dataStore.fetchOrCreateArticle(with: articleURL), let key = article.key {
+            
+            do {
+                let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: [article])
+                XCTAssert(readingList.articleKeys.contains(key))
+            } catch let error {
+                XCTAssert(false, "Should be able to add article to \(readingListName) reading list: \(error)")
+            }
+            
+        }
+        
+    }
 
 }
