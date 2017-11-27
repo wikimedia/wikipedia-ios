@@ -197,9 +197,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func login() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: {
-            self.setViewControllerUserInteraction(enabled: true)
-        })
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         WMFAuthenticationManager.sharedInstance.login(
             username: usernameField.text ?? "",
             password: passwordField.text ?? "",
@@ -268,9 +266,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: {
-            self.setViewControllerUserInteraction(enabled: true)
-        })
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         
         let creationFailure: WMFErrorHandler = {error in
             
@@ -332,9 +328,5 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccountButton.apply(theme: theme)
         captchaContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
-    }
-    
-    func setViewControllerUserInteraction(enabled: Bool) {
-        self.view.isUserInteractionEnabled = enabled
     }
 }
