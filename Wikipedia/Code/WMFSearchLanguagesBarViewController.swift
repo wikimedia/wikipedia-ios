@@ -13,15 +13,21 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
     
+    @IBOutlet var topAndBottomConstraints: [NSLayoutConstraint]!
+    
     @objc var theme: Theme = Theme.standard
     
     fileprivate var hidden: Bool = false {
         didSet {
-            if(hidden){
+            if hidden {
                 heightConstraint!.constant = 0
+                NSLayoutConstraint.deactivate(topAndBottomConstraints)
+                view.layoutIfNeeded()
                 view.isHidden = true
-            }else{
+            } else {
                 heightConstraint!.constant = 44
+                NSLayoutConstraint.activate(topAndBottomConstraints)
+                view.layoutIfNeeded()
                 view.isHidden = false
             }
         }
