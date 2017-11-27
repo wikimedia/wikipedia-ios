@@ -83,19 +83,22 @@ class ReadingListTests: XCTestCase {
         }
     }
     
-    func testCreatingReadingListsWithArticles() {
+    func testCreatingReadingListWithArticles() {
         let readingListName = "sneks"
-        let articleURL = URL(string: "//en.wikipedia.org/wiki/ArticleAboutSneks")!
+        let articleURLS = [URL(string: "//en.wikipedia.org/wiki/ArticleAboutSneks")!, URL(string: "//en.wikipedia.org/wiki/ArticleAboutDolphins")!]
+        let articles = articleURLS.flatMap { (articleURL) -> WMFArticle? in
+            return dataStore.fetchOrCreateArticle(with: articleURL)
+        }
         
-        if let article = dataStore.fetchOrCreateArticle(with: articleURL), let key = article.key {
-            
-            do {
-                let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: [article])
-                XCTAssert(readingList.articleKeys.contains(key))
-            } catch let error {
-                XCTAssert(false, "Should be able to add article to \(readingListName) reading list: \(error)")
-            }
-            
+        let articleKeys = articles.flatMap { (article) -> String? in
+            return article.key
+        }
+        
+        do {
+            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
+            XCTAssertEqual(readingList.articleKeys, articleKeys)
+        } catch let error {
+            XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
         }
         
     }
