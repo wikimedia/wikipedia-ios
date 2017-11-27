@@ -58,8 +58,10 @@
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
+"action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
 "action-share" = "שיתוף";
 "action-unsave" = "ביטול שמירה";
+"action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
@@ -70,6 +72,7 @@
 "appearance-settings-title" = "ערכות נושא לקריאה";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
+"article-deleted-accessibility-notification" = "הערך נמחק";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
@@ -234,6 +237,8 @@
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "menu-cancel-accessibility-label" = "ביטול";
 "menu-trash-accessibility-label" = "מחיקה";
+"more-languages-tooltip-description" = "חיפוש בוויקיפדיה בכמעט 300 שפות";
+"more-languages-tooltip-title" = "הוספת שפות";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
 "nearby-distance-label-feet" = "$1 רגל";
 "nearby-distance-label-km" = "$1 ק״מ";
@@ -321,6 +326,7 @@
 "saved-pages-clear-delete-all" = "כן, למחוק הכול";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
 "saved-title" = "נשמר";
+"search-button-accessibility-label" = "חיפוש בוויקיפדיה";
 "search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-recent-clear-cancel" = "ביטול";

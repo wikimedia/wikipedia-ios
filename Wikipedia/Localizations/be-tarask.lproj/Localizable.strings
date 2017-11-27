@@ -72,8 +72,7 @@
 "explore-random-article-heading" = "Выпадковы артыкул";
 "history-clear-cancel" = "Скасаваць";
 "history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
-// Fuzzy
-"history-clear-delete-all" = "Выдаліць усе";
+"history-clear-delete-all" = "Так, выдаліць усё";
 "history-title" = "Гісторыя";
 "hockeyapp-alert-always-send" = "Заўсёды дасылаць";
 "hockeyapp-alert-do-not-send" = "Не дасылаць";
