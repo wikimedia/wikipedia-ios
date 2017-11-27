@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Amire80
 // Author: Banjo
 // Author: Chairego apc
 // Author: Elisardojm
@@ -57,7 +58,7 @@
 "action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
-"action-unsaved-accessibility-notification" = "ARtigo sen gardar";
+"action-unsaved-accessibility-notification" = "Artigo sen gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -233,6 +234,8 @@
 "main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Borrar";
+"more-languages-tooltip-description" = "Procurar en Wikipedia en case 300 linguas";
+"more-languages-tooltip-title" = "Engadir linguas";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";
