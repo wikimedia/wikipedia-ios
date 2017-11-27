@@ -241,7 +241,11 @@ static NSMutableDictionary *globalDesignDictionary;
 
     [self setupDesign];
     [self setupLayout];
-    if (dismissingEnabled) [self setupGestureRecognizers];
+    if (dismissingEnabled) {
+      [self setupGestureRecognizers];
+    } else {
+      self.closeImageView.hidden = YES;
+    }
   }
   return self;
 }
