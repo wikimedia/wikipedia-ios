@@ -197,7 +197,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func login() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: {
+            self.setViewControllerUserInteraction(enabled: true)
+        })
         WMFAuthenticationManager.sharedInstance.login(
             username: usernameField.text ?? "",
             password: passwordField.text ?? "",
@@ -210,6 +212,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.dismiss(animated: true, completion: nil)
         }, failure: { error in
+            self.setViewControllerUserInteraction(enabled: true)
             self.enableProgressiveButtonIfNecessary()
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         })
@@ -265,9 +268,14 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
     }
 
     fileprivate func createAccount() {
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-saving", value:"Saving...", comment:"Alert shown when user saves account creation form.\n{{Identical|Saving}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: {
+            self.setViewControllerUserInteraction(enabled: true)
+        })
         
         let creationFailure: WMFErrorHandler = {error in
+            
+            self.setViewControllerUserInteraction(enabled: true)
+            
             // Captcha's appear to be one-time, so always try to get a new one on failure.
             self.getCaptcha()
             
@@ -291,6 +299,8 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
             self.enableProgressiveButtonIfNecessary()
             WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         }
+        
+        self.setViewControllerUserInteraction(enabled: false)
         
         let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
             tokenFetcher.fetchToken(ofType: .createAccount, siteURL: siteURL!, success: { token in
@@ -322,5 +332,9 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         createAccountButton.apply(theme: theme)
         captchaContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
+    }
+    
+    func setViewControllerUserInteraction(enabled: Bool) {
+        self.view.isUserInteractionEnabled = enabled
     }
 }

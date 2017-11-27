@@ -225,6 +225,7 @@
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "menu-cancel-accessibility-label" = "ألغ";
 "menu-trash-accessibility-label" = "حذف";
+"more-languages-tooltip-title" = "أضف لغات";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "nearby-distance-label-feet" = "$1 قدم";
 "nearby-distance-label-km" = "$1 كيلومتر";
