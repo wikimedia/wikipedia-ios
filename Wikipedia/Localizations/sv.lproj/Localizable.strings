@@ -242,6 +242,8 @@
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-trash-accessibility-label" = "Radera";
+"more-languages-tooltip-description" = "Sök på Wikipedia på nästan 300 språk";
+"more-languages-tooltip-title" = "Lägg till språk";
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";
