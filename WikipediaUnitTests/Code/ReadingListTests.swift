@@ -42,7 +42,7 @@ class ReadingListTests: XCTestCase {
     }
     
     func testDeletingExistingReadingLists() {
-        let readingListNames = ["doggos", "goats"]
+        let readingListNames = ["foo", "bar"]
         var readingLists: [ReadingList] = []
 
         do {
@@ -59,14 +59,14 @@ class ReadingListTests: XCTestCase {
         
         do {
             let deletedLists = try dataStore.readingListsController.delete(readingListsNamed: readingListNames)
-            XCTAssertEqual(deletedLists, readingLists)
+            XCTAssert(deletedLists.wmf_containsObjectsInAnyOrderAndMatchesCount(readingLists))
         } catch let error {
             XCTAssert(false, "Should be able to delete \(readingListNames) reading lists: \(error)")
         }
     }
     
     func testDeletingNonexistentReadingLists() {
-        let readingListNames = ["cattos", "sneks"]
+        let readingListNames = ["foo", "bar"]
         var readingLists: [ReadingList] = []
         
         do {
@@ -77,15 +77,15 @@ class ReadingListTests: XCTestCase {
         
         do {
             let deletedLists = try dataStore.readingListsController.delete(readingListsNamed: readingListNames)
-            XCTAssertEqual(deletedLists, readingLists)
+            XCTAssert(deletedLists.wmf_containsObjectsInAnyOrderAndMatchesCount(readingLists))
         } catch let error {
             XCTAssert(false, "Should attempt to delete \(readingListNames) reading lists: \(error)")
         }
     }
     
     func testCreatingReadingListWithArticles() {
-        let readingListName = "sneks"
-        let articleURLS = [URL(string: "//en.wikipedia.org/wiki/ArticleAboutSneks")!, URL(string: "//en.wikipedia.org/wiki/ArticleAboutDolphins")!]
+        let readingListName = "foo"
+        let articleURLS = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
         let articles = articleURLS.flatMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
@@ -96,7 +96,8 @@ class ReadingListTests: XCTestCase {
         
         do {
             let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
-            XCTAssertEqual(readingList.articleKeys, articleKeys)
+            XCTAssert(readingList.articleKeys.wmf_containsObjectsInAnyOrderAndMatchesCount(articleKeys))
+
         } catch let error {
             XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
         }
@@ -104,3 +105,12 @@ class ReadingListTests: XCTestCase {
     }
 
 }
+
+extension Array where Element: Hashable {
+    func wmf_containsObjectsInAnyOrderAndMatchesCount(_ other: [Element]) -> Bool {
+        let selfSet = Set(self)
+        let otherSet = Set(other)
+        return otherSet.isSubset(of: selfSet) && self.count == other.count
+    }
+}
+
