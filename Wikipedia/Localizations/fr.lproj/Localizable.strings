@@ -30,7 +30,7 @@
 "about-libraries" = "Bibliothèques utilisées";
 "about-libraries-complete-list" = "Liste complète";
 "about-libraries-license" = "Licence";
-"about-libraries-licenses-title" = "Nous aimons le logiciel de code ouvert $1";
+"about-libraries-licenses-title" = "Nous aimons le logiciel ouvert $1";
 "about-product-of" = "Fait par la $1 avec l’aide de volontaires tels que vous";
 "about-repositories" = "Référentiels";
 "about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
@@ -247,7 +247,7 @@
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Annuler";
 "menu-trash-accessibility-label" = "Supprimer";
-"more-languages-tooltip-description" = "Rechercher dans Wikipédia dans près de 300 langues";
+"more-languages-tooltip-description" = "Rechercher sur Wikipédia dans près de 300 langues";
 "more-languages-tooltip-title" = "Ajouter des langues";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "nearby-distance-label-feet" = "$1 pieds";
