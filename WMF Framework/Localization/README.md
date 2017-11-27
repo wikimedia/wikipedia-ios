@@ -1,0 +1,1 @@
+This folder exists so these files aren't run through the localization script. They generate errors that can be ignored, but trip up the build system.
