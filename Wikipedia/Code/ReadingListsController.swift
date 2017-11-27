@@ -98,7 +98,7 @@ public class ReadingListsController: NSObject {
         keysToAdd.subtract(keys)
         
         for key in keysToAdd {
-            guard let entry = moc.wmf_create(entityNamed: "Entry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
+            guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
                 return
             }
             let url = URL(string: key)
