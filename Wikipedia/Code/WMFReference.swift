@@ -14,7 +14,7 @@
         super.init()
     }
     
-    @objc convenience init?(scriptMessageDict: NSDictionary) {
+    @objc convenience init?(scriptMessageDict: NSDictionary, yOffset: CGFloat) {
         guard let rectDict = scriptMessageDict["rect"] as? NSDictionary, let rect =  CGRect.init(dictionaryRepresentation:rectDict) else {
             assertionFailure("'CGRectMakeWithDictionaryRepresentation' failed or Expected 'rect' dictionary not found in 'scriptMessageDict'")
             return nil
@@ -41,6 +41,6 @@
             assertionFailure("Expected 'text' string not found in 'scriptMessageDict'")
         }
         
-        self.init(html:htmlString, refId:refIdString, rect:rect, text:textString)
+        self.init(html:htmlString, refId:refIdString, rect:rect.offsetBy(dx: 0, dy: yOffset), text:textString)
     }
 }
