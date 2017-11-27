@@ -72,6 +72,7 @@
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
 "appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en el tema fosc";
 "appearance-settings-reading-themes" = "Temes de lectura";
+"appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per sobre per a canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
 "appearance-settings-theme-options" = "Opcions del tema";
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
@@ -189,6 +190,7 @@
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
+"home-button-popover-description" = "Feu un toc a la 'W' per tornar al canal Explora";
 "home-button-popover-title" = "Toca per a anar l'inici";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
 "home-hide-suggestion-cancel" = "Cancel·la";
@@ -240,6 +242,8 @@
 "main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
 "menu-cancel-accessibility-label" = "Cancel·la";
 "menu-trash-accessibility-label" = "Esborra";
+"more-languages-tooltip-description" = "Cerca a la Viquipèdia en vora 300 llengües";
+"more-languages-tooltip-title" = "Afegeix llengües";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
 "nearby-distance-label-feet" = "$1 peus";
 "nearby-distance-label-km" = "$1 km";

@@ -71,8 +71,7 @@
 "explore-potd-heading" = "Выява дня";
 "explore-random-article-heading" = "Выпадковы артыкул";
 "history-clear-cancel" = "Скасаваць";
-// Fuzzy
-"history-clear-confirmation-heading" = "Выдаліць усе нядаўнія элемэнты?";
+"history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
 // Fuzzy
 "history-clear-delete-all" = "Выдаліць усе";
 "history-title" = "Гісторыя";
