@@ -231,6 +231,8 @@
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Encaboxar";
 "menu-trash-accessibility-label" = "Desaniciar";
+"more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
+"more-languages-tooltip-title" = "Amestar llingües";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";

@@ -25,6 +25,7 @@
 // Author: Ping08
 // Author: Redredsonia
 // Author: WindEwriX
+// Author: Wirbel78
 // Author: Yuryleb
 // Author: Zpizza
 // Author: Александр Сигачёв
@@ -335,6 +336,7 @@
 "saved-pages-clear-delete-all" = "Да, удалить всё";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
 "saved-title" = "Сохранено";
+"search-button-accessibility-label" = "Поиск по Википедии";
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "search-field-placeholder-text" = "Поиск по Википедии";
 "search-recent-clear-cancel" = "Отмена";

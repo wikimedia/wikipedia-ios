@@ -137,8 +137,11 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     fileprivate func save() {
         wmf_hideKeyboard()
         passwordAlertLabel.isHidden = true
+        setViewControllerUserInteraction(enabled: false)
         disableProgressiveButton()
-        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: {
+            self.setViewControllerUserInteraction(enabled: true)
+        })
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -146,6 +149,8 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             self.funnel?.logSuccess()
         }, failure: { error in
 
+            self.setViewControllerUserInteraction(enabled: true)
+            
             // Captcha's appear to be one-time, so always try to get a new one on failure.
             self.getCaptcha()
             
@@ -318,5 +323,9 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         passwordAlertLabel.textColor = theme.colors.error
         scrollContainer.backgroundColor = theme.colors.paperBackground
         captchaViewController?.apply(theme: theme)
+    }
+    
+    func setViewControllerUserInteraction(enabled: Bool) {
+        self.view.isUserInteractionEnabled = enabled
     }
 }
