@@ -277,7 +277,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)handleReferenceClickedScriptMessage:(NSDictionary *)messageDict {
     NSAssert(messageDict[@"referencesGroup"], @"Expected key 'referencesGroup' not found in script message dictionary");
     self.lastClickedReferencesGroup = [messageDict[@"referencesGroup"] wmf_map:^id(NSDictionary *referenceDict) {
-        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict];
+        return [[WMFReference alloc] initWithScriptMessageDict:referenceDict yOffset:self.webView.scrollView.contentInset.top];
     }];
 
     NSAssert(messageDict[@"selectedIndex"], @"Expected key 'selectedIndex' not found in script message dictionary");
@@ -552,7 +552,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
 
-                                                 CGFloat halfSpaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y / 2.f;
+                                                 CGFloat spaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y - self.webView.scrollView.contentInset.top;
+                                                 if (self.navBarHidden) {
+                                                     spaceAboveKeyboardBar = spaceAboveKeyboardBar - self.navigationController.navigationBar.bounds.size.height;
+                                                 }
+                                                 CGFloat halfSpaceAboveKeyboardBar = spaceAboveKeyboardBar / 2.f;
                                                  CGFloat halfMatchHeight = rect.size.height / 2.f;
                                                  CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
                                                  CGPoint offsetCenteringMatchAboveKeyboardBar =
@@ -640,14 +644,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    forMainFrameOnly:YES]];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    
+
 #if DEBUG || TEST
     if (self.wkUserContentControllerTestingConfigurationBlock) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
 
-    
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -836,6 +839,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
+    self.navBarHidden = false;
     [self scrollToFragment:section.anchor animated:animated];
 }
 
@@ -1020,7 +1024,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             rect = CGRectUnion(rect, reference.rect);
         }
         rect = [self.webView convertRect:rect toView:nil];
-        rect = CGRectOffset(rect, 0, self.webView.scrollView.contentInset.top + 1);
+        rect = CGRectOffset(rect, 0, 1);
         rect = CGRectInset(rect, -1, -3);
         return rect;
     }
