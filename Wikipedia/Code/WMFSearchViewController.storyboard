@@ -263,7 +263,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIa-dg-uH0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="PNI-Oh-9ff"/>
                                 </constraints>
@@ -391,6 +391,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="44"/>
                     <connections>
+                        <outlet property="bottomSeparatorView" destination="Rly-Nt-Gci" id="24l-9S-Qvc"/>
                         <outlet property="gradientView" destination="ISS-4R-3dj" id="b9v-u8-Mek"/>
                         <outlet property="heightConstraint" destination="PNI-Oh-9ff" id="H0d-D5-9ni"/>
                         <outlet property="otherLanguagesButton" destination="Jiw-B9-ljV" id="hcH-JU-N1z"/>
