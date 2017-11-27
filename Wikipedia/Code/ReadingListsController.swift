@@ -66,7 +66,6 @@ public class ReadingListsController: NSObject {
         let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         
         readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", names)
-        readingListsToDeleteRequest.fetchLimit = 1
         
         let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
         
@@ -123,16 +122,9 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         
         let moc = dataStore.viewContext
-        let existingReadingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         
-        existingReadingListRequest.predicate = NSPredicate(format: "name MATCHES[cd] %@", readingListName)
-        existingReadingListRequest.fetchLimit = 1
-        
-        let existingReadingList = try moc.fetch(existingReadingListRequest).first
-        
-        guard existingReadingList != nil else {
-            throw ReadingListError.listWithProvidedNameNotFound(name: readingListName)
-        }
+        // will throw ReadingListError.listWithProvidedNameNotFound if list not found
+        let _ = try fetchReadingList(named: readingListName)
         
         let keysToDelete = articles.flatMap { (article) -> String? in
             return article.key
@@ -150,6 +142,17 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
+    }
+    
+    public func fetchReadingList(named name: String) throws -> ReadingList {
+        let moc = dataStore.viewContext
+        let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        readingListRequest.predicate = NSPredicate(format: "name MATCHES[cd] %@", name)
+        readingListRequest.fetchLimit = 1
+        guard let readingList = try moc.fetch(readingListRequest).first else {
+            throw ReadingListError.listWithProvidedNameNotFound(name: name)
+        }
+        return readingList
     }
     
 }
