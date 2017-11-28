@@ -20,48 +20,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVp-Ga-oZr">
-                                <rect key="frame" x="0.0" y="122" width="375" height="545"/>
+                                <rect key="frame" x="0.0" y="118" width="375" height="549"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="87"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="83"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ubv-Ay-ez0">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
-                                                <subviews>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="182.5" height="36"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                        <state key="normal" title="Saved articles">
-                                                            <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
-                                                        <rect key="frame" x="192.5" y="0.0" width="182.5" height="36"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                        <state key="normal" title="Reading lists">
-                                                            <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pnN-vW-S7Y">
-                                                <rect key="frame" x="0.0" y="51" width="375" height="36"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="iBM-cv-tTZ"/>
-                                                </constraints>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </searchBar>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="182.5" height="32"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                <state key="normal" title="Saved articles">
+                                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
+                                                <rect key="frame" x="192.5" y="0.0" width="182.5" height="32"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                <state key="normal" title="Reading lists">
+                                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                     </stackView>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qRL-zo-Csa">
+                                        <rect key="frame" x="0.0" y="47" width="375" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="BKa-DW-7hE"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Ubv-Ay-ez0" secondAttribute="bottom" id="CLD-BT-DIZ"/>
-                                    <constraint firstItem="Ubv-Ay-ez0" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="O1f-qE-iEz"/>
-                                    <constraint firstItem="Ubv-Ay-ez0" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="S2h-lh-mLl"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ubv-Ay-ez0" secondAttribute="trailing" id="vM6-AZ-fsb"/>
+                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="top" secondItem="Oco-6Z-eRG" secondAttribute="bottom" constant="15" id="RhH-zl-Ixp"/>
+                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="Spm-sh-QSJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
+                                    <constraint firstAttribute="trailing" secondItem="qRL-zo-Csa" secondAttribute="trailing" id="apa-dM-ret"/>
+                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="bkz-4g-J5W"/>
+                                    <constraint firstAttribute="bottom" secondItem="qRL-zo-Csa" secondAttribute="bottom" id="fyo-Am-chZ"/>
+                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -85,7 +83,7 @@
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="n0M-wK-fNc"/>
                         <outlet property="savedArticlesButton" destination="Euv-Dh-yK7" id="cx9-UN-6bW"/>
                         <outlet property="savedTitleView" destination="4oi-TZ-AA1" id="5gL-aX-PVO"/>
-                        <outlet property="searchBar" destination="pnN-vW-S7Y" id="IzZ-Tf-r5B"/>
+                        <outlet property="searchBar" destination="qRL-zo-Csa" id="L5r-oc-fU0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
