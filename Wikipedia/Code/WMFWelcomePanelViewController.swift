@@ -98,6 +98,7 @@ class WMFWelcomePanelGradientScrollView : UIScrollView {
         addSubview(gradient)
         return gradient
     }()
+    
     fileprivate lazy var bottomGradientView: WMFGradientView = {
         let gradient = WMFGradientView()
         gradient.translatesAutoresizingMaskIntoConstraints = false
@@ -107,13 +108,12 @@ class WMFWelcomePanelGradientScrollView : UIScrollView {
         addSubview(gradient)
         return gradient
     }()
-    override func didMoveToSuperview() {
-        updateGradientFrames()
-    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         updateGradientFrames()
     }
+
     fileprivate func updateGradientFrames() {
         topGradientView.frame = CGRect(x: 0, y: contentOffset.y, width: bounds.size.width, height: fadeHeight)
         bottomGradientView.frame = topGradientView.frame.offsetBy(dx: 0, dy: bounds.size.height - fadeHeight)
