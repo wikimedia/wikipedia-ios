@@ -119,6 +119,16 @@
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
+		7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
+		7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
+		7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
+		7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
+		7AE1D3371FCD057200393471 /* Saved.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1D3321FCD057200393471 /* Saved.storyboard */; };
+		7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
+		7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
+		7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
+		7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
+		7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
 		7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
@@ -136,11 +146,11 @@
 		830D71C51F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
 		830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
 		830D71C71F703C980080078B /* ArticleURLListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C21F703C980080078B /* ArticleURLListViewController.swift */; };
-		830D71C91F704D860080078B /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedViewController.swift */; };
-		830D71CA1F704D860080078B /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedViewController.swift */; };
-		830D71CB1F704D860080078B /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedViewController.swift */; };
-		830D71CC1F704D860080078B /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedViewController.swift */; };
-		830D71CD1F704D860080078B /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedViewController.swift */; };
+		830D71C91F704D860080078B /* SavedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedCollectionViewController.swift */; };
+		830D71CA1F704D860080078B /* SavedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedCollectionViewController.swift */; };
+		830D71CB1F704D860080078B /* SavedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedCollectionViewController.swift */; };
+		830D71CC1F704D860080078B /* SavedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedCollectionViewController.swift */; };
+		830D71CD1F704D860080078B /* SavedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71C81F704D860080078B /* SavedCollectionViewController.swift */; };
 		830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */; };
 		830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */; };
 		830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */; };
@@ -3073,13 +3083,15 @@
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
+		7AE1D3321FCD057200393471 /* Saved.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Saved.storyboard; sourceTree = "<group>"; };
+		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		830177F91FBF3E490005681C /* ReadingListsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsAPIController.swift; path = "WMF Framework/ReadingListsAPIController.swift"; sourceTree = SOURCE_ROOT; };
 		830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+WMFUtilities.swift"; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
 		830D71C21F703C980080078B /* ArticleURLListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleURLListViewController.swift; sourceTree = "<group>"; };
-		830D71C81F704D860080078B /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		830D71C81F704D860080078B /* SavedCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewController.swift; sourceTree = "<group>"; };
 		830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFetchedResultsViewController.swift; sourceTree = "<group>"; };
 		830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsViewController.swift; sourceTree = "<group>"; };
 		830ECAD51FBDE77F0080B1EF /* ReadingListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListTests.swift; sourceTree = "<group>"; };
@@ -7124,7 +7136,7 @@
 				830D71C21F703C980080078B /* ArticleURLListViewController.swift */,
 				830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */,
 				7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */,
-				830D71C81F704D860080078B /* SavedViewController.swift */,
+				830D71C81F704D860080078B /* SavedCollectionViewController.swift */,
 				D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */,
 				83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */,
 				83927D801F705B7B00051890 /* SearchResultsViewController.swift */,
@@ -7137,6 +7149,7 @@
 				83E52BB31F681F940045E776 /* ShareAFactViewController.xib */,
 				7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */,
 				7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */,
+				7AE1D3381FCD10B900393471 /* SavedViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7200,6 +7213,7 @@
 		D83F5C051F0E5111006130FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
@@ -8683,6 +8697,7 @@
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D51EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
+				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -8739,6 +8754,7 @@
 				B0B423711EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D80ED3E61EE57F4800CE8C50 /* Tharlon-Regular.ttf in Resources */,
 				D8E27BB81F82B5DD00F9D2B3 /* RMessageView.xib in Resources */,
+				7AE1D3371FCD057200393471 /* Saved.storyboard in Resources */,
 				D80ED3E71EE57F4800CE8C50 /* SectionEditorViewController.storyboard in Resources */,
 				D80ED3E81EE57F4800CE8C50 /* LibrariesUsed.plist in Resources */,
 				D80ED3E91EE57F4800CE8C50 /* NewsCollectionViewHeader.xib in Resources */,
@@ -8910,6 +8926,7 @@
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D81EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
+				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
 				D8A42C0D1E815A9C00D8E281 /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -9002,6 +9019,7 @@
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D61EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
+				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				D8CE26941E698E2400DAE2E0 /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -9094,6 +9112,7 @@
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B3B018D71EBD15C300BE7F21 /* Explore.storyboard in Resources */,
 				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
+				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				D8EC3F941E9BDA35006712EB /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -9767,7 +9786,7 @@
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
-				830D71C91F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71C91F704D860080078B /* SavedCollectionViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B066F0D21E4F00B100A199F8 /* WMFKeychainCredentials.swift in Sources */,
 				0E61C4881CD00984000B11B3 /* WMFHelpViewController.m in Sources */,
@@ -9814,6 +9833,7 @@
 				192275501E5376CA00860E55 /* WMFTitledExploreSectionFooter.swift in Sources */,
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
+				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
@@ -9866,7 +9886,7 @@
 				D8E27BA51F82B38300F9D2B3 /* RMessageView.m in Sources */,
 				D80ED2931EE57F4800CE8C50 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D80ED2951EE57F4800CE8C50 /* PlaceSearch.swift in Sources */,
-				830D71CD1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CD1F704D860080078B /* SavedCollectionViewController.swift in Sources */,
 				D80ED2961EE57F4800CE8C50 /* PlaceSearchService.swift in Sources */,
 				D80ED2971EE57F4800CE8C50 /* NotificationSettingsViewController.swift in Sources */,
 				D80ED2981EE57F4800CE8C50 /* PlaceSearchSuggestionController.swift in Sources */,
@@ -10068,6 +10088,7 @@
 				D80ED3791EE57F4800CE8C50 /* WMFKeychainCredentials.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
+				7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFProxyServer.m in Sources */,
 				D80ED37E1EE57F4800CE8C50 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				D80ED3801EE57F4800CE8C50 /* WMFForgotPasswordViewController.swift in Sources */,
@@ -10673,7 +10694,7 @@
 				D8A42B621E815A9C00D8E281 /* WMFProxyServer.m in Sources */,
 				D8D70EB31EAEAC8F00010F78 /* TouchOutsideOverlayView.swift in Sources */,
 				D8A42B651E815A9C00D8E281 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
-				830D71CC1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CC1F704D860080078B /* SavedCollectionViewController.swift in Sources */,
 				D8A42B671E815A9C00D8E281 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8A42B691E815A9C00D8E281 /* WMFImageGalleryViewController.m in Sources */,
 				D80ED25F1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
@@ -10717,6 +10738,7 @@
 				D8A42B941E815A9C00D8E281 /* WebViewController.m in Sources */,
 				D8A42B951E815A9C00D8E281 /* MWKSection+TOCItem.swift in Sources */,
 				D8533ED81ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
+				7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DEC1F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
@@ -10769,7 +10791,7 @@
 				D8E27BA21F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8CE25031E698E2400DAE2E0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				D8CE25041E698E2400DAE2E0 /* WMFPageCollectionViewController.m in Sources */,
-				830D71CA1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CA1F704D860080078B /* SavedCollectionViewController.swift in Sources */,
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
@@ -10971,6 +10993,7 @@
 				831774AF1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				D8CE25E31E698E2400DAE2E0 /* WMFKeychainCredentials.swift in Sources */,
+				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
 				D8CE25E61E698E2400DAE2E0 /* WMFProxyServer.m in Sources */,
@@ -11068,7 +11091,7 @@
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8EC3DF91E9BDA35006712EB /* UICollectionViewLayout+AttributeUtils.m in Sources */,
-				830D71CB1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CB1F704D860080078B /* SavedCollectionViewController.swift in Sources */,
 				D8EC3DFA1E9BDA35006712EB /* NSCharacterSet+WMFExtras.m in Sources */,
 				D8EC3DFB1E9BDA35006712EB /* WMFPageCollectionViewController.m in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */,
@@ -11271,6 +11294,7 @@
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				D8EC3EE21E9BDA35006712EB /* WMFKeychainCredentials.swift in Sources */,
+				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8EC3EE31E9BDA35006712EB /* WMFHelpViewController.m in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,

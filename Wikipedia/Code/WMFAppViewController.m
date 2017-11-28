@@ -182,7 +182,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
-    [self configureArticleListController:self.savedArticlesViewController];
+    [self configureSavedViewController];
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
@@ -208,8 +208,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.placesViewController.dataStore = self.dataStore;
 }
 
-- (void)configureArticleListController:(WMFSavedViewController *)controller {
-    controller.dataStore = self.dataStore;
+- (void)configureSavedViewController {
+    self.savedArticlesViewController.dataStore = self.dataStore;
 }
 
 #pragma mark - Notifications
@@ -1247,7 +1247,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && ![viewController isKindOfClass:[WMFSavedViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
         if ([viewController isKindOfClass:[WMFExploreViewController class]]) {

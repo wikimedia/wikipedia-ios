@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,6 +32,7 @@
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2e4-LR-hlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="bzO-gj-jpB" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -41,12 +42,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="zui-OD-N3C" kind="relationship" relationship="rootViewController" id="Soe-r1-kHz"/>
+                        <segue destination="Bhq-bA-mJ9" kind="relationship" relationship="rootViewController" id="3ia-eX-Bzu"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2e4-LR-hlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1689" y="2115"/>
+            <point key="canvasLocation" x="1689" y="2177"/>
         </scene>
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
@@ -65,7 +65,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8g-Wb-9RE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2367" y="2115"/>
+            <point key="canvasLocation" x="2366" y="2177"/>
         </scene>
         <!--Explore-->
         <scene sceneID="my8-ht-Vqg">
@@ -84,7 +84,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="2114"/>
+            <point key="canvasLocation" x="996" y="2176"/>
+        </scene>
+        <!--Saved-->
+        <scene sceneID="dZO-ia-aIR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Saved" id="Bhq-bA-mJ9" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="oAE-wg-oge"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z4g-hp-Lzt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644" y="2720"/>
         </scene>
         <!--Explore-->
         <scene sceneID="ja6-KK-7f5">
@@ -127,34 +137,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJa-kt-7qg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2367" y="2881"/>
-        </scene>
-        <!--Saved View Controller-->
-        <scene sceneID="zof-Hc-K5Q">
-            <objects>
-                <collectionViewController id="zui-OD-N3C" customClass="WMFSavedViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="BVp-Hr-RUA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2Ya-6k-vfw" customClass="WMFColumnarCollectionViewLayout">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="zui-OD-N3C" id="CPz-3I-iXP"/>
-                            <outlet property="delegate" destination="zui-OD-N3C" id="Eup-ol-Ozj"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="pkP-JF-iko"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4ve-Al-skL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
+            <point key="canvasLocation" x="2366" y="2948"/>
         </scene>
     </scenes>
     <resources>

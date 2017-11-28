@@ -1,56 +1,58 @@
 import UIKit
-import WMF
 
 @objc(WMFSavedViewController)
-class SavedViewController: ArticleFetchedResultsViewController {
+class SavedViewController: UIViewController, ArticleCollectionViewControllerDelegate {
+
+    public var collectionViewController: SavedCollectionViewController!
     
-    override func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-    }
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var savedTitleView: UIView!
     
-    override func canSave(at indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    override func canUnsave(at indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    override func delete(at indexPath: IndexPath) {
-        guard let articleURL = self.articleURL(at: indexPath) else {
-            return
+    @objc public var dataStore: MWKDataStore? {
+        didSet {
+            guard let newValue = dataStore else {
+                assertionFailure("cannot set collectionViewController.dataStore to nil")
+                return
+            }
+            collectionViewController.dataStore = newValue
         }
-        dataStore.savedPageList.removeEntry(with: articleURL)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let storyBoard = UIStoryboard(name: "Saved", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "SavedCollectionViewController")
+        guard let collectionViewController = (vc as? SavedCollectionViewController) else {
+            assertionFailure("Could not load SavedCollectionViewController")
+            return nil
+        }
+        self.collectionViewController = collectionViewController
+        self.collectionViewController.delegate = self
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
-        deleteAllButtonText = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
-        deleteAllConfirmationText = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
-        deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
-        deleteAllText = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
-        isDeleteAllVisible = true
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        PiwikTracker.sharedInstance()?.wmf_logView(self)
-        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
-    }
-    
-    override var analyticsName: String {
-        return "Saved"
-    }
-    
-    override var emptyViewType: WMFEmptyViewType {
-        return .noSavedPages
-    }
-    
-    override func deleteAll() {
-        dataStore.savedPageList.removeAllEntries()
+//        title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
+        wmf_updateNavigationBar(removeUnderline: true)
+        self.addChildViewController(collectionViewController)
+        self.collectionViewController.view.frame = self.containerView.bounds
+        self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.containerView.addSubview(collectionViewController.view)
+        self.collectionViewController.didMove(toParentViewController: self)
+        
+        let searchBarHeight: CGFloat = 32
+        let searchBarLeadingPadding: CGFloat = 7.5
+        let searchBarTrailingPadding: CGFloat = 2.5
+        
+        //        searchBar = titleViewSearchBar
+        
+        savedTitleView.frame = CGRect(x: searchBarLeadingPadding, y: 0, width: view.bounds.size.width - searchBarLeadingPadding - searchBarTrailingPadding, height: searchBarHeight)
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
+        titleView.addSubview(savedTitleView)
+        titleView.wmf_addConstraintsToEdgesOfView(savedTitleView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
+        navigationItem.titleView = titleView
     }
 }
