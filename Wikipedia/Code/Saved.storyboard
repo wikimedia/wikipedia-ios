@@ -81,7 +81,6 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
-                        <outlet property="editButton" destination="ks7-zF-sQu" id="e9x-5g-qOW"/>
                         <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="Dyz-3S-Guw"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="n0M-wK-fNc"/>
                         <outlet property="savedArticlesButton" destination="Euv-Dh-yK7" id="cx9-UN-6bW"/>
@@ -91,11 +90,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="4oi-TZ-AA1" userLabel="Saved Title View">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="301" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfV-ww-zDI">
-                            <rect key="frame" x="95.5" y="0.0" width="49" height="44"/>
+                            <rect key="frame" x="126" y="0.0" width="49" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="nXh-N2-edU"/>
                             </constraints>
@@ -103,22 +102,11 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ks7-zF-sQu">
-                            <rect key="frame" x="180" y="0.0" width="40" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="ZdS-Nd-xWk"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                            <state key="normal" title="Edit"/>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="ks7-zF-sQu" firstAttribute="top" secondItem="Q6b-aQ-kaI" secondAttribute="top" id="6iU-RV-KUQ"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="centerX" secondItem="4oi-TZ-AA1" secondAttribute="centerX" id="Vss-7r-1Uj"/>
-                        <constraint firstItem="ks7-zF-sQu" firstAttribute="centerY" secondItem="hfV-ww-zDI" secondAttribute="centerY" id="ZT5-4f-1Sj"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="top" secondItem="4oi-TZ-AA1" secondAttribute="top" id="i0D-oQ-0IY"/>
-                        <constraint firstItem="Q6b-aQ-kaI" firstAttribute="trailing" secondItem="ks7-zF-sQu" secondAttribute="trailing" constant="20" id="m70-yc-e03"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="centerY" secondItem="4oi-TZ-AA1" secondAttribute="centerY" id="miR-y1-eWh"/>
                         <constraint firstAttribute="bottom" secondItem="hfV-ww-zDI" secondAttribute="bottom" id="qJN-HW-lFk"/>
                     </constraints>

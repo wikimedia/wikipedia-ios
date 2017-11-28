@@ -7,7 +7,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
-    @IBOutlet weak var editButton: UIButton!
+//    @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -96,7 +96,7 @@ extension SavedViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        editButton.tintColor = theme.colors.link
+//        editButton.tintColor = theme.colors.link
         
         savedArticlesButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
         savedArticlesButton?.tintColor = theme.colors.link
