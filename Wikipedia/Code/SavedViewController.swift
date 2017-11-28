@@ -14,6 +14,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
                 assertionFailure("cannot set collectionViewController.dataStore to nil")
                 return
             }
+            title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}") // change
             collectionViewController.dataStore = newValue
         }
     }
@@ -34,8 +35,6 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
-        wmf_updateNavigationBar(removeUnderline: true)
         self.addChildViewController(collectionViewController)
         self.collectionViewController.view.frame = self.containerView.bounds
         self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -54,5 +53,15 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         titleView.addSubview(savedTitleView)
         titleView.wmf_addConstraintsToEdgesOfView(savedTitleView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        wmf_updateNavigationBar(removeUnderline: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        wmf_updateNavigationBar(removeUnderline: false)
     }
 }

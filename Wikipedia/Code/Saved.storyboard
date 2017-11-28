@@ -76,21 +76,28 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfV-ww-zDI">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
+                            <rect key="frame" x="95.5" y="0.0" width="49" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="nXh-N2-edU"/>
                             </constraints>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ks7-zF-sQu">
+                            <rect key="frame" x="210" y="0.0" width="30" height="44"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <state key="normal" title="Edit"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="hfV-ww-zDI" firstAttribute="leading" secondItem="4oi-TZ-AA1" secondAttribute="leading" id="Fja-x5-ucQ"/>
+                        <constraint firstItem="ks7-zF-sQu" firstAttribute="top" secondItem="Q6b-aQ-kaI" secondAttribute="top" id="6iU-RV-KUQ"/>
+                        <constraint firstItem="ks7-zF-sQu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hfV-ww-zDI" secondAttribute="trailing" constant="10" id="Pf3-u2-j2u"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="centerX" secondItem="4oi-TZ-AA1" secondAttribute="centerX" id="Vss-7r-1Uj"/>
-                        <constraint firstAttribute="trailing" secondItem="hfV-ww-zDI" secondAttribute="trailing" id="fNd-8M-puO"/>
+                        <constraint firstItem="ks7-zF-sQu" firstAttribute="centerY" secondItem="hfV-ww-zDI" secondAttribute="centerY" id="ZT5-4f-1Sj"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="top" secondItem="4oi-TZ-AA1" secondAttribute="top" id="i0D-oQ-0IY"/>
+                        <constraint firstItem="Q6b-aQ-kaI" firstAttribute="trailing" secondItem="ks7-zF-sQu" secondAttribute="trailing" id="m70-yc-e03"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="centerY" secondItem="4oi-TZ-AA1" secondAttribute="centerY" id="miR-y1-eWh"/>
                         <constraint firstAttribute="bottom" secondItem="hfV-ww-zDI" secondAttribute="bottom" id="qJN-HW-lFk"/>
                     </constraints>
