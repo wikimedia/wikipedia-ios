@@ -9,6 +9,10 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBOutlet weak var savedTitleView: UIView!
     @IBOutlet weak var editButton: UIButton!
     
+    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
+//    @IBOutlet weak var sortButton: UIButton!
+    
     @IBOutlet fileprivate var savedArticlesButton: UIButton?
     @IBOutlet fileprivate var readingListsButton: UIButton?
     
@@ -61,6 +65,12 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         navigationItem.titleView = titleView
         
         apply(theme: self.theme)
+        
+        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +84,10 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     }
 }
 
+extension SavedViewController: UISearchBarDelegate {
+    
+}
+
 extension SavedViewController: Themeable {
     
     func apply(theme: Theme) {
@@ -82,7 +96,6 @@ extension SavedViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-//        editButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         editButton.tintColor = theme.colors.link
         
         savedArticlesButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
@@ -90,5 +103,14 @@ extension SavedViewController: Themeable {
         
         readingListsButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
         readingListsButton?.tintColor = theme.colors.link
+        
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
+        }
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
     }
 }
