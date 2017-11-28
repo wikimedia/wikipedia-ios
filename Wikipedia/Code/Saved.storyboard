@@ -26,17 +26,17 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
-                                        <rect key="frame" x="8" y="8" width="359" height="36"/>
+                                        <rect key="frame" x="0.0" y="8" width="367" height="36"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="174.5" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="178.5" height="36"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                 <state key="normal" title="Saved articles">
                                                     <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
-                                                <rect key="frame" x="184.5" y="0.0" width="174.5" height="36"/>
+                                                <rect key="frame" x="188.5" y="0.0" width="178.5" height="36"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                 <state key="normal" title="Reading lists">
                                                     <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,8 +48,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="Q2e-1P-VOD"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Oco-6Z-eRG" secondAttribute="bottomMargin" constant="-8" id="YQH-wo-VmH"/>
-                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" id="e7B-ox-n2u"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oco-6Z-eRG" secondAttribute="bottom" id="YQH-wo-VmH"/>
+                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="e7B-ox-n2u"/>
                                     <constraint firstAttribute="height" constant="44" id="mf7-sj-oR2"/>
                                     <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="topMargin" id="wMf-L2-ThI"/>
                                 </constraints>
