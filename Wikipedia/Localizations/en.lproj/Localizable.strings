@@ -313,6 +313,7 @@
 "saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
+"saved-search-default-text" = "Search ";
 "saved-title" = "Saved";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";

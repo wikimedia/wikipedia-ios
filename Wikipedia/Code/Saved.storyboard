@@ -20,13 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVp-Ga-oZr">
-                                <rect key="frame" x="0.0" y="92" width="375" height="575"/>
+                                <rect key="frame" x="0.0" y="122" width="375" height="545"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="72"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="87"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ubv-Ay-ez0">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ubv-Ay-ez0">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
@@ -48,7 +48,7 @@
                                                 </subviews>
                                             </stackView>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pnN-vW-S7Y">
-                                                <rect key="frame" x="0.0" y="36" width="375" height="36"/>
+                                                <rect key="frame" x="0.0" y="51" width="375" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="iBM-cv-tTZ"/>
                                                 </constraints>
@@ -74,7 +74,7 @@
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="topMargin" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" id="aB5-eS-tFb"/>
+                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" constant="15" id="aB5-eS-tFb"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="MOy-Ht-6zp" secondAttribute="trailing" id="xBb-ie-urZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
