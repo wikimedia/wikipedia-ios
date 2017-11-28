@@ -71,6 +71,7 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
+                        <outlet property="editButton" destination="ks7-zF-sQu" id="e9x-5g-qOW"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="n0M-wK-fNc"/>
                         <outlet property="savedArticlesButton" destination="Euv-Dh-yK7" id="cx9-UN-6bW"/>
                         <outlet property="savedTitleView" destination="4oi-TZ-AA1" id="5gL-aX-PVO"/>
