@@ -8,6 +8,11 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
     
+    @IBOutlet fileprivate var savedArticlesButton: UIButton?
+    @IBOutlet fileprivate var readingListsButton: UIButton?
+    
+    fileprivate var theme: Theme = Theme.standard
+    
     @objc public var dataStore: MWKDataStore? {
         didSet {
             guard let newValue = dataStore else {
@@ -53,6 +58,8 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         titleView.addSubview(savedTitleView)
         titleView.wmf_addConstraintsToEdgesOfView(savedTitleView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
+        
+        apply(theme: self.theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,5 +70,21 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         wmf_updateNavigationBar(removeUnderline: false)
+    }
+}
+
+extension SavedViewController: Themeable {
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
+        savedArticlesButton?.setTitleColor(theme.colors.primaryText, for: .normal)
+        savedArticlesButton?.tintColor = theme.colors.link
+        
+        readingListsButton?.setTitleColor(theme.colors.primaryText, for: .normal)
+        readingListsButton?.tintColor = theme.colors.link
     }
 }

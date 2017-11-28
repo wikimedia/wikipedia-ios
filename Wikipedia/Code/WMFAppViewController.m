@@ -210,6 +210,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
 - (void)configureSavedViewController {
     self.savedArticlesViewController.dataStore = self.dataStore;
+    [self.savedArticlesViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
