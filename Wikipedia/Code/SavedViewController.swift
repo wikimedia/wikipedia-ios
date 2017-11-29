@@ -95,6 +95,17 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         super.viewWillDisappear(animated)
         wmf_updateNavigationBar(removeUnderline: false)
     }
+    
+    @IBAction func readingListsButtonPressed(_ sender: UIButton) {
+        savedArticlesButton.isSelected = false
+        readingListsButton.isSelected = true
+    }
+    
+    @IBAction func savedArticlesButtonPressed(_ sender: UIButton) {
+        readingListsButton.isSelected = false
+        savedArticlesButton.isSelected = true
+    }
+    
 }
 
 extension SavedViewController: UISearchBarDelegate {

@@ -39,6 +39,9 @@
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="savedArticlesButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="5Yt-Hl-BIp"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="32"/>
@@ -51,6 +54,9 @@
                                                         <real key="value" value="2"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="readingListsButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Ag7-Ik-Aug"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
