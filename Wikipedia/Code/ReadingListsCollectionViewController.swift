@@ -1,7 +1,7 @@
 import Foundation
 
-@objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController {
+@objc(WMFReadingListsCollectionViewController)
+class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     let dataStore: MWKDataStore
     let managedObjectContext: NSManagedObjectContext

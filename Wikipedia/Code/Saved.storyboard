@@ -136,25 +136,5 @@
             </objects>
             <point key="canvasLocation" x="-970" y="145"/>
         </scene>
-        <!--Saved Collection View Controller-->
-        <scene sceneID="OvH-sY-ePB">
-            <objects>
-                <collectionViewController storyboardIdentifier="SavedCollectionViewController" id="ZkC-kn-g3C" customClass="WMFSavedCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Jeo-Rz-t4f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewLayout key="collectionViewLayout" id="Hd7-gj-vpP" customClass="WMFColumnarCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="ZkC-kn-g3C" id="Cns-mU-4aq"/>
-                            <outlet property="delegate" destination="ZkC-kn-g3C" id="Bme-QE-9Nc"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3zc-4P-bxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-24" y="152"/>
-        </scene>
     </scenes>
 </document>

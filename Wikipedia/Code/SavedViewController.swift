@@ -3,8 +3,9 @@ import UIKit
 @objc(WMFSavedViewController)
 class SavedViewController: UIViewController, ArticleCollectionViewControllerDelegate {
 
-    public var collectionViewController: SavedCollectionViewController!
-    
+    public var savedArticlesCollectionViewController: SavedCollectionViewController!
+    public var readingListsCollectionViewController: ReadingListsCollectionViewController!
+
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
     
@@ -14,41 +15,73 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBOutlet weak var savedArticlesButton: UIButton!
     @IBOutlet weak var readingListsButton: UIButton!
     
+    fileprivate var currentView: View = .savedArticles {
+        didSet {
+            
+            guard oldValue != currentView else {
+                return
+            }
+            
+            switch currentView {
+            case .savedArticles:
+                addChild(savedArticlesCollectionViewController)
+            case .readingLists:
+                removeChild(savedArticlesCollectionViewController)
+            }
+        }
+    }
+    
     fileprivate var theme: Theme = Theme.standard
     
     @objc public var dataStore: MWKDataStore? {
         didSet {
             guard let newValue = dataStore else {
-                assertionFailure("cannot set collectionViewController.dataStore to nil")
+                assertionFailure("cannot set dataStore to nil")
                 return
             }
             title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}") // change
-            collectionViewController.dataStore = newValue
+            savedArticlesCollectionViewController.dataStore = newValue
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let storyBoard = UIStoryboard(name: "Saved", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "SavedCollectionViewController")
-        guard let collectionViewController = (vc as? SavedCollectionViewController) else {
-            assertionFailure("Could not load SavedCollectionViewController")
-            return nil
-        }
-        self.collectionViewController = collectionViewController
-        self.collectionViewController.delegate = self
+        savedArticlesCollectionViewController = SavedCollectionViewController()
+        savedArticlesCollectionViewController.delegate = self
         
+    }
+    
+    fileprivate enum View {
+        case savedArticles, readingLists
+    }
+    
+    fileprivate func setupReadingListsCollectionViewController() {
+        guard let dataStore = dataStore else {
+            return
+        }
+        readingListsCollectionViewController = ReadingListsCollectionViewController(with: dataStore)
+    }
+    
+    fileprivate func addChild(_ vc: UICollectionViewController) {
+        addChildViewController(vc)
+        vc.view.frame = containerView.bounds
+        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        containerView.addSubview(vc.view)
+        vc.didMove(toParentViewController: self)
+    }
+    
+    fileprivate func removeChild(_ vc: UICollectionViewController) {
+        vc.view.removeFromSuperview()
+        vc.willMove(toParentViewController: nil)
+        vc.removeFromParentViewController()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addChildViewController(collectionViewController)
-        self.collectionViewController.view.frame = self.containerView.bounds
-        self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.containerView.addSubview(collectionViewController.view)
-        self.collectionViewController.didMove(toParentViewController: self)
         
+        addChild(savedArticlesCollectionViewController)
+
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
         let searchBarTrailingPadding: CGFloat = 2.5
@@ -60,14 +93,14 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         titleView.wmf_addConstraintsToEdgesOfView(savedTitleView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
         navigationItem.titleView = titleView
         
-        apply(theme: self.theme)
-        
         searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
         addHairlines(to: [savedArticlesButton, readingListsButton])
+        
+        apply(theme: self.theme)
     }
     
     fileprivate func addHairlines(to buttons: [UIButton]) {
@@ -99,16 +132,14 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBAction func readingListsButtonPressed(_ sender: UIButton) {
         savedArticlesButton.isSelected = false
         readingListsButton.isSelected = true
+        currentView = .readingLists
     }
     
     @IBAction func savedArticlesButtonPressed(_ sender: UIButton) {
         readingListsButton.isSelected = false
         savedArticlesButton.isSelected = true
+        currentView = .savedArticles
     }
-    
-}
-
-extension SavedViewController: UISearchBarDelegate {
     
 }
 
@@ -120,7 +151,8 @@ extension SavedViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-//        editButton.tintColor = theme.colors.link
+        
+        savedArticlesCollectionViewController.apply(theme: theme)
         
         savedArticlesButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
         savedArticlesButton?.tintColor = theme.colors.link
