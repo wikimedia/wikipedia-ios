@@ -3,11 +3,12 @@ const requirements = {
   editButtons: require('./transforms/addEditButtons'),
   utilities: require('./utilities'),
   filePages: require('./transforms/disableFilePageEdit'),
-  tables: require('./transforms/collapseTables'),
+  tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages')
+  images: require('./transforms/widenImages'),
+  location: require('./elementLocation')
 }
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
@@ -135,7 +136,19 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
+  const tableFooterDivClickCallback = container => {
+    if(requirements.location.isElementTopOnscreen(container)){
+      window.scrollTo( 0, container.offsetTop - 10 )
+    }
+  }
+
+  // Adds table collapsing header/footers.
+  requirements.tables.adjustTables(window, fragment, article.displayTitle, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
+
+  // Prevents some collapsed tables from scrolling side-to-side.
+  // May want to move this to wikimedia-page-library if there are no issues.
+  Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
+  
   requirements.images.widenImages(fragment)
 
   // Classifies some tricky elements like math formula images (examples are first images on
@@ -206,6 +219,7 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
 exports.collapseTablesLocalizedStrings = undefined
+exports.collapseTablesInitially = false
 
 exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument

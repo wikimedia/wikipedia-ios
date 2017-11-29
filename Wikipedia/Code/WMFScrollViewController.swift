@@ -13,4 +13,18 @@ class WMFScrollViewController: UIViewController, WMFScrollable {
         wmf_endAdjustingScrollViewInsetsForKeyboard()
         super.viewWillDisappear(animated)
     }
+    
+    fileprivate var coverView: UIView?
+    func setViewControllerUserInteraction(enabled: Bool) {
+        if enabled {
+            coverView?.removeFromSuperview()
+        } else if coverView == nil {
+            let newCoverView = UIView()
+            newCoverView.backgroundColor = view.backgroundColor
+            newCoverView.alpha = 0.8
+            view.wmf_addSubviewWithConstraintsToEdges(newCoverView)
+            coverView = newCoverView
+        }
+        view.isUserInteractionEnabled = enabled
+    }
 }

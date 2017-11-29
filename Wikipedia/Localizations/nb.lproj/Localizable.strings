@@ -237,6 +237,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-trash-accessibility-label" = "Slett";
+"more-languages-tooltip-description" = "Søk i Wikipedia på nesten 300 språk";
+"more-languages-tooltip-title" = "Legg til språk";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";

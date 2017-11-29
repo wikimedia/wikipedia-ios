@@ -10,16 +10,25 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var gradientView: WMFGradientView!
+    @IBOutlet weak var bottomSeparatorView: UIView!
+
+    @IBOutlet var topAndBottomConstraints: [NSLayoutConstraint]!
     
     @objc var theme: Theme = Theme.standard
     
     fileprivate var hidden: Bool = false {
         didSet {
-            if(hidden){
+            if hidden {
                 heightConstraint!.constant = 0
+                NSLayoutConstraint.deactivate(topAndBottomConstraints)
+                view.layoutIfNeeded()
                 view.isHidden = true
-            }else{
+            } else {
                 heightConstraint!.constant = 44
+                NSLayoutConstraint.activate(topAndBottomConstraints)
+                view.layoutIfNeeded()
                 view.isHidden = false
             }
         }
@@ -72,6 +81,17 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             }
         }
         apply(theme: theme)
+        view.wmf_configureSubviewsForDynamicType()
+        
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.startPoint = .zero
+        gradientView.endPoint = CGPoint(x: 1, y: 0)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: gradientView.frame.size.width)
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
 
     deinit {
@@ -178,10 +198,13 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        let bgColor = theme.colors.paperBackground
+        view.backgroundColor = bgColor
         for languageButton in languageButtons {
             languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
             languageButton.tintColor = theme.colors.link
         }
+        gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
+        bottomSeparatorView.backgroundColor = theme.colors.border
     }
 }
