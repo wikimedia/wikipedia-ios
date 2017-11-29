@@ -61,19 +61,26 @@
                                         </subviews>
                                     </stackView>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qRL-zo-Csa">
-                                        <rect key="frame" x="0.0" y="47" width="375" height="36"/>
+                                        <rect key="frame" x="16" y="47" width="292" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="BKa-DW-7hE"/>
                                         </constraints>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-J1-7zh">
+                                        <rect key="frame" x="324" y="49" width="31" height="32"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                        <state key="normal" title="Sort"/>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Bh4-J1-7zh" firstAttribute="centerY" secondItem="qRL-zo-Csa" secondAttribute="centerY" id="1UA-Sc-HbF"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bh4-J1-7zh" secondAttribute="trailing" constant="20" id="QrH-Y0-26J"/>
                                     <constraint firstItem="qRL-zo-Csa" firstAttribute="top" secondItem="Oco-6Z-eRG" secondAttribute="bottom" constant="15" id="RhH-zl-Ixp"/>
                                     <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="Spm-sh-QSJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
-                                    <constraint firstAttribute="trailing" secondItem="qRL-zo-Csa" secondAttribute="trailing" id="apa-dM-ret"/>
-                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="bkz-4g-J5W"/>
+                                    <constraint firstItem="Bh4-J1-7zh" firstAttribute="leading" secondItem="qRL-zo-Csa" secondAttribute="trailing" constant="16" id="apa-dM-ret"/>
+                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="8" id="bkz-4g-J5W"/>
                                     <constraint firstAttribute="bottom" secondItem="qRL-zo-Csa" secondAttribute="bottom" id="fyo-Am-chZ"/>
                                     <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
                                 </constraints>
@@ -85,11 +92,11 @@
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="SMV-D9-nEr" secondAttribute="leading" id="4hu-cp-Aez"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="centerX" secondItem="GCG-ME-1AZ" secondAttribute="centerX" id="8qh-Q5-mYT"/>
                             <constraint firstItem="SMV-D9-nEr" firstAttribute="bottom" secondItem="hVp-Ga-oZr" secondAttribute="bottom" id="9DZ-na-b31"/>
+                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="hVp-Ga-oZr" secondAttribute="trailing" id="Avf-2s-IcF"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="topMargin" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" constant="15" id="aB5-eS-tFb"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="MOy-Ht-6zp" secondAttribute="trailing" id="xBb-ie-urZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>

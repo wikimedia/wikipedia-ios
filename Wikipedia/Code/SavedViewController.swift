@@ -7,11 +7,9 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
-//    @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-//    @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet weak var savedArticlesButton: UIButton!
     @IBOutlet weak var readingListsButton: UIButton!
