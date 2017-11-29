@@ -60,7 +60,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         
     }
     
-    fileprivate enum View {
+    fileprivate enum View: Int {
         case savedArticles, readingLists
     }
     
@@ -136,16 +136,10 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         wmf_updateNavigationBar(removeUnderline: false)
     }
     
-    @IBAction func readingListsButtonPressed(_ sender: UIButton) {
+    @IBAction func toggleButtonPressed(_ sender: UIButton) {
         toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
         sender.isSelected = true
-        currentView = .readingLists
-    }
-    
-    @IBAction func savedArticlesButtonPressed(_ sender: UIButton) {
-        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
-        sender.isSelected = true
-        currentView = .savedArticles
+        currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
 }

@@ -40,7 +40,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="savedArticlesButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="5Yt-Hl-BIp"/>
+                                                    <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Tjj-9u-FAV"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
@@ -55,7 +55,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="readingListsButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Ag7-Ik-Aug"/>
+                                                    <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="uxl-yy-BNt"/>
                                                 </connections>
                                             </button>
                                         </subviews>
