@@ -24,7 +24,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public let dismissButtonSpacing: CGFloat = 8
     public let dismissButtonHeight: CGFloat = 32
     @objc public var imageViewDimension: CGFloat = 150
-    public let captionSpacing: CGFloat = 8
+    public let captionSpacing: CGFloat = 20
 
     open override func setup() {
         layoutMargins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
@@ -74,10 +74,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        messageLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline)
-        actionButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body)
-        dismissButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote)
-        captionTextView.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote)
+        messageLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        actionButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
+        dismissButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        updateCaptionTextViewWithAttributedCaption()
     }
     
     @objc var isImageViewHidden = false {
@@ -94,33 +94,34 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             setNeedsLayout()
         }
     }
-    
-    @objc var caption: NSAttributedString? {
-        set {
-            guard let text = newValue else {
-                isCaptionHidden = true
-                return
-            }
-            
-            let mutableText = NSMutableAttributedString(attributedString: text)
-            guard mutableText.length > 0 else {
-                isCaptionHidden = true
-                return
-            }
-            
-            let pStyle = NSMutableParagraphStyle()
-            pStyle.lineBreakMode = .byWordWrapping
-            pStyle.baseWritingDirection = .natural
-            pStyle.alignment = .center
-            let attributes = [NSAttributedStringKey.paragraphStyle: pStyle]
-            mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
-            captionTextView.attributedText = mutableText
 
-            isCaptionHidden = false
+    fileprivate func updateCaptionTextViewWithAttributedCaption() {
+        guard let text = caption else {
+            isCaptionHidden = true
+            return
         }
 
-        get {
-            return captionTextView.attributedText
+        let mutableText = NSMutableAttributedString(attributedString: text)
+        guard mutableText.length > 0 else {
+            isCaptionHidden = true
+            return
+        }
+
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineBreakMode = .byWordWrapping
+        pStyle.baseWritingDirection = .natural
+        pStyle.alignment = .center
+        let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font]
+        mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
+        captionTextView.attributedText = mutableText
+
+        isCaptionHidden = false
+    }
+
+    @objc var caption: NSAttributedString? {
+        didSet {
+            updateCaptionTextViewWithAttributedCaption()
         }
     }
     
@@ -162,13 +163,18 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             }
             origin.y += separatorFrame.height
             origin.y += captionSpacing
-            let captionFrame = captionTextView.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: true)
-            let insets: UIEdgeInsets = captionTextView.textContainerInset;
-            origin.y += insets.top + insets.bottom;
-            origin.y += captionFrame.layoutHeight(with: 0)
+            // set width first to get proper content size
+            captionTextView.frame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: 32))
+            let captionTextViewSize = captionTextView.contentSize
+            let captionFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: captionTextViewSize.height))
+            if (apply) {
+                captionTextView.frame = captionFrame
+            }
+            origin.y += captionFrame.height
+        } else {
+            origin.y += layoutMargins.bottom
         }
     
-        origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
 }
