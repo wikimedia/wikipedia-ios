@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="118" width="375" height="549"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="83"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="98"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
@@ -81,7 +81,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
                                     <constraint firstItem="Bh4-J1-7zh" firstAttribute="leading" secondItem="qRL-zo-Csa" secondAttribute="trailing" constant="16" id="apa-dM-ret"/>
                                     <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="8" id="bkz-4g-J5W"/>
-                                    <constraint firstAttribute="bottom" secondItem="qRL-zo-Csa" secondAttribute="bottom" id="fyo-Am-chZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="qRL-zo-Csa" secondAttribute="bottom" constant="15" id="fyo-Am-chZ"/>
                                     <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
                                 </constraints>
                             </view>
@@ -96,7 +96,7 @@
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="topMargin" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" constant="15" id="aB5-eS-tFb"/>
+                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" id="aB5-eS-tFb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>
@@ -105,6 +105,7 @@
                         <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="Dyz-3S-Guw"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="n0M-wK-fNc"/>
                         <outlet property="savedArticlesButton" destination="Euv-Dh-yK7" id="cx9-UN-6bW"/>
+                        <outlet property="savedTitleLabel" destination="hfV-ww-zDI" id="Ay4-jS-wYC"/>
                         <outlet property="savedTitleView" destination="4oi-TZ-AA1" id="5gL-aX-PVO"/>
                         <outlet property="searchBar" destination="qRL-zo-Csa" id="L5r-oc-fU0"/>
                     </connections>
