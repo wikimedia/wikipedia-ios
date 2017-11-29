@@ -247,6 +247,8 @@
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Borrar";
+"more-languages-tooltip-description" = "Buscar en las casi 300 lenguas de Wikipedia";
+"more-languages-tooltip-title" = "Añadir idiomas";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
@@ -345,11 +347,11 @@
 "search-result-redirected-from" = "Redirigido desde: $1";
 "search-title" = "Buscar";
 "settings-appearance" = "Apariencia";
-"settings-clear-cache" = "Borrar datos en caché";
+"settings-clear-cache" = "Borrar datos en antememoria";
 "settings-clear-cache-are-you-sure-message" = "El borrado de los datos almacenados en caché liberará alrededor de $1 de espacio. No eliminará tus páginas guardadas.";
-"settings-clear-cache-are-you-sure-title" = "¿Borrar datos en caché?";
+"settings-clear-cache-are-you-sure-title" = "¿Quieres borrar los datos en la antememoria?";
 "settings-clear-cache-cancel" = "Cancelar";
-"settings-clear-cache-ok" = "Borrar caché";
+"settings-clear-cache-ok" = "Vaciar antememoria";
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-my-languages" = "Mis idiomas";

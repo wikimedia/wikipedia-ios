@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Mohammed Galib Hasan
 // Author: Nemo bis
+// Author: Rasal Lia
 // Author: Sayma Jahan
 // Author: Tauhid16
 // Author: আজিজ
@@ -122,7 +123,7 @@
 "explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
 "explore-most-read-heading" = "$1 উইকিপিডিয়ায় সর্বাধিক পঠিত";
-"explore-most-read-more-list-title-for-date" = "$1 তারিখে শীর্ষ পঠিত";
+"explore-most-read-more-list-title-for-date" = "$1 শীর্ষ পঠিত";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-placeholder-cancel" = "বাতিল";
 "explore-nearby-placeholder-dismiss" = "খারিজ";
@@ -226,6 +227,8 @@
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
 "menu-cancel-accessibility-label" = "বাতিল";
 "menu-trash-accessibility-label" = "অপসারণ";
+"more-languages-tooltip-description" = "প্রায় ৩০০টি ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
+"more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কিমি";
@@ -257,12 +260,12 @@
 "places-accessibility-clear-saved-searches" = "সংরক্ষিত অনুসন্ধানগুলি সাফ করুন";
 "places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
-"places-accessibility-recenter-map-on-user-location" = "আপনার অবস্থান পুনরায় কেন্দ্রে অনুন";
+"places-accessibility-recenter-map-on-user-location" = "আপনার অবস্থান পুন:চিহ্নিত করুন";
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
 "places-accessibility-show-as-map" = "মানচিত্র হিসাবে দেখাও";
 "places-accessibility-show-more" = "আরও নিবন্ধ দেখান";
 "places-dismiss-filter-list-accessibility-label" = "অনুসন্ধান ছাঁকনি খারিজ করুন";
-"places-empty-search-description" = "শহর, দেশ, মহাদেশ, প্রাকৃতিক স্থল, ঐতিহাসিক ঘটনা, বাড়ি ও আরও অনেক কিছু অন্বেষণ করুন।";
+"places-empty-search-description" = "শহর, দেশ, মহাদেশ, বিশেষ প্রাকৃতিক স্থান, ঐতিহাসিক ঘটনা, ভবন ও আরও অনেক কিছু অন্বেষণ করুন।";
 "places-empty-search-title" = "উইকিপিডিয়ার ভৌগোলিক অবস্থান যুক্ত পৃষ্ঠাসমূহের জন্য অনুসন্ধান করুন";
 "places-enable-location-action-button-title" = "অবস্থান সক্রিয় করুন";
 "places-filter-list-title" = "সন্ধানের ছাঁকনি";

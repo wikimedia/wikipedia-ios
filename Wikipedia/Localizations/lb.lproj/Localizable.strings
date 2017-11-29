@@ -215,6 +215,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Ofbriechen";
 "menu-trash-accessibility-label" = "Läschen";
+"more-languages-tooltip-description" = "Op Wikipedia a bal 300 Sprooche sichen";
+"more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "nearby-distance-label-feet" = "$1 Féiss";
 "nearby-distance-label-km" = "$1 km";

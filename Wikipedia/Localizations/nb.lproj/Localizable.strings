@@ -58,8 +58,10 @@
 "action-save" = "Lagre";
 "action-saved" = "Lagret";
 "action-saved-accessibility" = "Lagret. Aktiver for å fjerne lagring.";
+"action-saved-accessibility-notification" = "Lagrede artikler";
 "action-share" = "Del";
 "action-unsave" = "Fjern lagring";
+"action-unsaved-accessibility-notification" = "Artikkelen er ikke lenger lagret";
 "alert-no-internet" = "Ingen internettforbindelse";
 "announcements-dismiss" = "Lukk";
 "appearance-settings-adjust-text-sizing" = "Tilpass tekststørrelsen i artikler";
@@ -70,6 +72,7 @@
 "appearance-settings-title" = "Lesedrakter";
 "article-about-title" = "Om artikkelen";
 "article-delete" = "Slett";
+"article-deleted-accessibility-notification" = "Artikkelen er slettet";
 "article-languages-filter-placeholder" = "Finn språk";
 "article-languages-label" = "Velg språk";
 "article-languages-others" = "Andre språk";
@@ -234,6 +237,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-trash-accessibility-label" = "Slett";
+"more-languages-tooltip-description" = "Søk i Wikipedia på nesten 300 språk";
+"more-languages-tooltip-title" = "Legg til språk";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
 "nearby-distance-label-feet" = "$1 fot";
 "nearby-distance-label-km" = "$1 km";
@@ -321,6 +326,7 @@
 "saved-pages-clear-delete-all" = "Ja, slett alt";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
 "saved-title" = "Lagret";
+"search-button-accessibility-label" = "Søk i Wikipedia";
 "search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søk i Wikipedia";
 "search-recent-clear-cancel" = "Avbryt";

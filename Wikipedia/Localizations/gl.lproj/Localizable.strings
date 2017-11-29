@@ -1,5 +1,6 @@
 // Messages for Galician (galego)
 // Exported from translatewiki.net
+// Author: Amire80
 // Author: Banjo
 // Author: Chairego apc
 // Author: Elisardojm
@@ -54,8 +55,10 @@
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
 "action-saved-accessibility" = "Gardado. Activar para eliminar o gardado.";
+"action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
 "action-unsave" = "Non gardar";
+"action-unsaved-accessibility-notification" = "Artigo sen gardar";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -66,6 +69,7 @@
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
+"article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-others" = "Outras linguas";
@@ -230,6 +234,8 @@
 "main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Borrar";
+"more-languages-tooltip-description" = "Procurar en Wikipedia en case 300 linguas";
+"more-languages-tooltip-title" = "Engadir linguas";
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";
@@ -317,6 +323,7 @@
 "saved-pages-clear-delete-all" = "Si, borrar todo";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-title" = "Gardado";
+"search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-recent-clear-cancel" = "Cancelar";

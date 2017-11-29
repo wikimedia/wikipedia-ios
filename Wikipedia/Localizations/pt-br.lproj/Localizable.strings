@@ -73,8 +73,10 @@
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
 "action-saved-accessibility" = "Salvou. Ative para não se proteger.";
+"action-saved-accessibility-notification" = "Artigo salvo para posterior";
 "action-share" = "Compartilhar";
 "action-unsave" = "Não salvo";
+"action-unsaved-accessibility-notification" = "Artigo não salvo";
 "alert-no-internet" = "Não há conexão com a internet";
 "announcements-dismiss" = "Ignorar";
 "appearance-settings-adjust-text-sizing" = "Ajustar o tamanho do texto do artigo";
@@ -85,6 +87,7 @@
 "appearance-settings-title" = "Temas de leitura";
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Deletar";
+"article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Encontrar idioma";
 "article-languages-label" = "Escolha um idioma";
 "article-languages-others" = "Outros idiomas";
@@ -249,6 +252,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-trash-accessibility-label" = "Apagar";
+"more-languages-tooltip-description" = "Pesquise na Wikipedia em quase 300 idiomas";
+"more-languages-tooltip-title" = "Adicionar idiomas";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
 "nearby-distance-label-feet" = "$1 pés";
 "nearby-distance-label-km" = "$1 km";
@@ -336,6 +341,7 @@
 "saved-pages-clear-delete-all" = "Sim, apagar tudo";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-title" = "Salvo";
+"search-button-accessibility-label" = "Pesquisar na Wikipédia";
 "search-did-you-mean" = "Você quis dizer $1?";
 "search-field-placeholder-text" = "Procurar Wikipédia";
 "search-recent-clear-cancel" = "Cancelar";
