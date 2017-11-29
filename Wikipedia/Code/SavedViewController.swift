@@ -13,8 +13,8 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBOutlet weak var searchBar: UISearchBar!
 //    @IBOutlet weak var sortButton: UIButton!
     
-    @IBOutlet fileprivate var savedArticlesButton: UIButton?
-    @IBOutlet fileprivate var readingListsButton: UIButton?
+    @IBOutlet weak var savedArticlesButton: UIButton!
+    @IBOutlet weak var readingListsButton: UIButton!
     
     fileprivate var theme: Theme = Theme.standard
     
@@ -55,8 +55,6 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         let searchBarLeadingPadding: CGFloat = 7.5
         let searchBarTrailingPadding: CGFloat = 2.5
         
-        //        searchBar = titleViewSearchBar
-        
         savedTitleView.frame = CGRect(x: searchBarLeadingPadding, y: 0, width: view.bounds.size.width - searchBarLeadingPadding - searchBarTrailingPadding, height: searchBarHeight)
         
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
@@ -71,7 +69,24 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
+        addHairlines(to: [savedArticlesButton, readingListsButton])
     }
+    
+    fileprivate func addHairlines(to buttons: [UIButton]) {
+
+        for button in buttons {
+            let hairline = UIView()
+            let hairlineHeight: CGFloat = 0.5
+            hairline.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+            hairline.frame = CGRect(x: 0, y: button.bounds.height - (hairlineHeight * 2), width: button.bounds.width, height: hairlineHeight)
+            hairline.backgroundColor = button.titleColor(for: .normal)
+            button.addSubview(hairline)
+            buttonHairlines.append(hairline)
+        }
+
+    }
+    
+    fileprivate var buttonHairlines: [UIView] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -103,6 +118,10 @@ extension SavedViewController: Themeable {
         
         readingListsButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
         readingListsButton?.tintColor = theme.colors.link
+        
+        for hairline in buttonHairlines {
+            hairline.backgroundColor = theme.colors.border
+        }
         
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
