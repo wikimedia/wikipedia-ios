@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFSavedViewController)
 class SavedViewController: UIViewController, ArticleCollectionViewControllerDelegate {
 
-    fileprivate var savedArticlesCollectionViewController: SavedCollectionViewController!
+    fileprivate var savedArticlesCollectionViewController: SavedArticlesCollectionViewController!
     
     fileprivate lazy var readingListsCollectionViewController: ReadingListsCollectionViewController? = {
         guard let dataStore = dataStore else {
@@ -55,7 +55,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        savedArticlesCollectionViewController = SavedCollectionViewController()
+        savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
         savedArticlesCollectionViewController.delegate = self
         
     }

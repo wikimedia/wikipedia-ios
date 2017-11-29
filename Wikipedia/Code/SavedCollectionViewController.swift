@@ -1,8 +1,8 @@
 import UIKit
 import WMF
 
-@objc(WMFSavedCollectionViewController)
-class SavedCollectionViewController: ArticleFetchedResultsViewController {
+@objc(WMFSavedArticlesCollectionViewController)
+class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
