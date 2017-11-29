@@ -3,8 +3,14 @@ import UIKit
 @objc(WMFSavedViewController)
 class SavedViewController: UIViewController, ArticleCollectionViewControllerDelegate {
 
-    public var savedArticlesCollectionViewController: SavedCollectionViewController!
-    public var readingListsCollectionViewController: ReadingListsCollectionViewController!
+    fileprivate var savedArticlesCollectionViewController: SavedCollectionViewController!
+    
+    fileprivate lazy var readingListsCollectionViewController: ReadingListsCollectionViewController? = {
+        guard let dataStore = dataStore else {
+            return nil
+        }
+        return ReadingListsCollectionViewController(with: dataStore)
+    }()
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
@@ -25,9 +31,11 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
             
             switch currentView {
             case .savedArticles:
+                removeChild(readingListsCollectionViewController)
                 addChild(savedArticlesCollectionViewController)
-            case .readingLists:
+            case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
+                addChild(readingListsCollectionViewController)
             }
         }
     }
@@ -57,14 +65,10 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         case savedArticles, readingLists
     }
     
-    fileprivate func setupReadingListsCollectionViewController() {
-        guard let dataStore = dataStore else {
+    fileprivate func addChild(_ vc: UICollectionViewController?) {
+        guard let vc = vc else {
             return
         }
-        readingListsCollectionViewController = ReadingListsCollectionViewController(with: dataStore)
-    }
-    
-    fileprivate func addChild(_ vc: UICollectionViewController) {
         addChildViewController(vc)
         vc.view.frame = containerView.bounds
         vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -72,7 +76,10 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         vc.didMove(toParentViewController: self)
     }
     
-    fileprivate func removeChild(_ vc: UICollectionViewController) {
+    fileprivate func removeChild(_ vc: UICollectionViewController?) {
+        guard let vc = vc else {
+            return
+        }
         vc.view.removeFromSuperview()
         vc.willMove(toParentViewController: nil)
         vc.removeFromParentViewController()
