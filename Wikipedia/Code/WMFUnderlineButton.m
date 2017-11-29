@@ -1,20 +1,21 @@
 #import "WMFUnderlineButton.h"
 #import "UIFont+WMFStyle.h"
 
+IB_DESIGNABLE
 @interface WMFUnderlineButton ()
 
 @property (nonatomic, strong) UIView *underline;
+@property (nonatomic) IBInspectable CGFloat underlineHeight;
 
 @end
 
 @implementation WMFUnderlineButton
 
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
+-(void)awakeFromNib {
+    [super awakeFromNib];
     if (self) {
         [self configureStyle];
     }
-    return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -38,10 +39,10 @@
 }
 
 - (void)addUnderline {
-    self.underlineHeight = 1.0;
+    CGFloat underlineHeight = self.underlineHeight ? self.underlineHeight : 1.0;
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
-    v.frame = CGRectMake(0, self.bounds.size.height - self.underlineHeight, self.bounds.size.width, self.underlineHeight);
+    v.frame = CGRectMake(0, self.bounds.size.height - underlineHeight, self.bounds.size.width, underlineHeight);
     v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:v];
     self.underline = v;
