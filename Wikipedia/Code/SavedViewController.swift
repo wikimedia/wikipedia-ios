@@ -19,8 +19,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    @IBOutlet weak var savedArticlesButton: UIButton!
-    @IBOutlet weak var readingListsButton: UIButton!
+    @IBOutlet var toggleButtons: [UIButton]!
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
@@ -35,7 +34,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
                 addChild(savedArticlesCollectionViewController)
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                addChild(readingListsCollectionViewController)
+//                addChild(readingListsCollectionViewController)
             }
         }
     }
@@ -106,7 +105,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
-        addHairlines(to: [savedArticlesButton, readingListsButton])
+        addHairlines(to: toggleButtons)
         
         apply(theme: self.theme)
     }
@@ -138,14 +137,14 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     }
     
     @IBAction func readingListsButtonPressed(_ sender: UIButton) {
-        savedArticlesButton.isSelected = false
-        readingListsButton.isSelected = true
+        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
+        sender.isSelected = true
         currentView = .readingLists
     }
     
     @IBAction func savedArticlesButtonPressed(_ sender: UIButton) {
-        readingListsButton.isSelected = false
-        savedArticlesButton.isSelected = true
+        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
+        sender.isSelected = true
         currentView = .savedArticles
     }
     
@@ -162,12 +161,11 @@ extension SavedViewController: Themeable {
         
         savedArticlesCollectionViewController.apply(theme: theme)
         
-        savedArticlesButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
-        savedArticlesButton?.tintColor = theme.colors.link
-        
-        readingListsButton?.setTitleColor(theme.colors.secondaryText, for: .normal)
-        readingListsButton?.tintColor = theme.colors.link
-        
+        for button in toggleButtons {
+            button.setTitleColor(theme.colors.secondaryText, for: .normal)
+            button.tintColor = theme.colors.link
+        }
+
         for hairline in buttonHairlines {
             hairline.backgroundColor = theme.colors.border
         }
