@@ -38,9 +38,6 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="hairlineHeight">
-                                                        <real key="value" value="1.5"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
@@ -52,9 +49,6 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
                                                         <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="hairlineHeight">
-                                                        <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
@@ -88,11 +82,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="leading" secondItem="hVp-Ga-oZr" secondAttribute="leading" id="3jh-cu-e2g"/>
+                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="3jh-cu-e2g"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="SMV-D9-nEr" secondAttribute="leading" id="4hu-cp-Aez"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="centerX" secondItem="GCG-ME-1AZ" secondAttribute="centerX" id="8qh-Q5-mYT"/>
                             <constraint firstItem="SMV-D9-nEr" firstAttribute="bottom" secondItem="hVp-Ga-oZr" secondAttribute="bottom" id="9DZ-na-b31"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="hVp-Ga-oZr" secondAttribute="trailing" id="Avf-2s-IcF"/>
+                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="Avf-2s-IcF"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="topMargin" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
