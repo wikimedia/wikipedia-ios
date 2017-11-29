@@ -112,7 +112,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.baseWritingDirection = .natural
         pStyle.alignment = .center
         let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font]
+        let color = captionTextView.textColor ?? UIColor.black
+        let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
         mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
         captionTextView.attributedText = mutableText
 
@@ -193,7 +194,6 @@ extension AnnouncementCollectionViewCell: Themeable {
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
         messageLabel.textColor = theme.colors.primaryText
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
-        captionTextView.textColor = theme.colors.secondaryText
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
@@ -201,6 +201,8 @@ extension AnnouncementCollectionViewCell: Themeable {
         actionButton.layer.borderWidth = 1
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
+        captionTextView.textColor = theme.colors.secondaryText
         captionTextView.backgroundColor = theme.colors.paperBackground
+        updateCaptionTextViewWithAttributedCaption()
     }
 }
