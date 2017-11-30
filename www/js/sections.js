@@ -1,6 +1,6 @@
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
@@ -130,10 +130,15 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   if(!article.ismain && !isFilePage){
     if (isLead){
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      Array.from(fragment.querySelectorAll('.section_heading[data-id]:not([data-id=""])'))
+        .forEach(element => element.appendChild(requirements.editTransform.newEditSectionButton(fragment, element.getAttribute('data-id'))))
     }
   }
 
