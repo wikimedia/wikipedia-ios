@@ -137,8 +137,8 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
       )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      Array.from(fragment.querySelectorAll('.section_heading[data-id]:not([data-id=""])'))
-        .forEach(element => element.appendChild(requirements.editTransform.newEditSectionButton(fragment, element.getAttribute('data-id'))))
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
   }
 
