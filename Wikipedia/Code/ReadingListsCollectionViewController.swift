@@ -15,7 +15,7 @@ class ReadingListCollectionViewCell: ArticleRightAlignedImageCollectionViewCell 
         
         imageViewDimension = 40
         isSaveButtonHidden = true
-        descriptionLabel.text = readingList.description
+        descriptionLabel.text = readingList.readingListDescription
         extractLabel?.text = nil
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
@@ -100,7 +100,7 @@ extension ReadingListsCollectionViewController: CreateReadingListViewControllerD
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
         
         do {
-            let _ = try readingListsController.createReadingList(named: name)
+            let _ = try readingListsController.createReadingList(named: name, description: description)
             controller.dismiss(animated: true, completion: nil)
         } catch let err {
             print(err)
