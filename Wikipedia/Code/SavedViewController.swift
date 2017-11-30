@@ -23,17 +23,14 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
-            
-            guard oldValue != currentView else {
-                return
-            }
-            
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
+                navigationItem.leftBarButtonItem = nil
                 addChild(savedArticlesCollectionViewController)
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentCreateReadingListViewController))
                 addChild(readingListsCollectionViewController)
             }
         }
@@ -87,8 +84,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addChild(savedArticlesCollectionViewController)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReadingList))
+        currentView = .savedArticles
 
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
@@ -111,7 +107,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         apply(theme: self.theme)
     }
     
-    @objc fileprivate func addReadingList() {
+    @objc fileprivate func presentCreateReadingListViewController() {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
         present(createReadingListViewController, animated: true, completion: nil)
     }
