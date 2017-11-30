@@ -2,7 +2,6 @@
 const requirements = {
   editButtons: require('./transforms/addEditButtons'),
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
@@ -123,11 +122,13 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
       requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
     }else{
