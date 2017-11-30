@@ -82,7 +82,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 }
 
 extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
-    func createdNewReadingList(with name: String, description: String) {
+    func createdNewReadingList(with name: String, description: String?) {
         //
     }
 }

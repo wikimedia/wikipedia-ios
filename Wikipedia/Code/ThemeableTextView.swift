@@ -4,7 +4,7 @@ import WMF
 @objc(WMFThemeableTextView)
 class ThemeableTextView: SetupView {
     
-    fileprivate let textView = UITextView()
+    let textView = UITextView()
     fileprivate let underlineView = UIView()
     fileprivate let underlineHeight: CGFloat = 1
     
@@ -27,10 +27,6 @@ class ThemeableTextView: SetupView {
     
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: textView.contentSize.height + underlineHeight)
-    }
-    
-    var text: String {
-        return textView.text
     }
 
 }

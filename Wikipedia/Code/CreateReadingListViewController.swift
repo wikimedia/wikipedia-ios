@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateReadingListViewControllerDelegate: NSObjectProtocol {
-    func createdNewReadingList(with name: String, description: String)
+    func createdNewReadingList(with name: String, description: String?)
 }
 
 class CreateReadingListViewController: UIViewController {
@@ -21,6 +21,8 @@ class CreateReadingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
+        readingListNameTextView.textView.delegate = self
+        createReadingListButton.isEnabled = false
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {
@@ -39,17 +41,21 @@ class CreateReadingListViewController: UIViewController {
     weak var delegate: CreateReadingListViewControllerDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        let name = readingListNameTextView.text
-        let description = descriptionTextView.text
-        
-        guard !name.isEmpty else {
-            return
-            // error, reading list name cannot be empty
-        }
+        let description = descriptionTextView.textView.text
+        // The text has to be present for the button to be enabled.
+        let name = readingListNameTextView.textView.text!
         
         delegate?.createdNewReadingList(with: name, description: description)
     }
     
+}
+
+extension CreateReadingListViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        createReadingListButton.isEnabled = !textView.text.isEmpty
+    }
+
 }
 
 extension CreateReadingListViewController: Themeable {
