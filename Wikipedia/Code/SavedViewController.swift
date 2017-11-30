@@ -30,7 +30,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
                 addChild(savedArticlesCollectionViewController)
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentCreateReadingListViewController))
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
                 addChild(readingListsCollectionViewController)
             }
         }
@@ -105,11 +105,6 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         addHairlines(to: toggleButtons)
         
         apply(theme: self.theme)
-    }
-    
-    @objc fileprivate func presentCreateReadingListViewController() {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
-        present(createReadingListViewController, animated: true, completion: nil)
     }
     
     fileprivate func addHairlines(to buttons: [UIButton]) {

@@ -73,6 +73,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
+    @objc func presentCreateReadingListViewController() {
+        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
+        present(createReadingListViewController, animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource
