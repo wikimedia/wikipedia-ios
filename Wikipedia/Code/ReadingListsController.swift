@@ -48,6 +48,7 @@ public class ReadingListsController: NSObject {
             throw ReadingListError.listExistsWithTheSameName(name: name)
         }
         
+        
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["name": name, "readingListDescription": description]) as? ReadingList else {
             throw ReadingListError.unableToCreateList
         }

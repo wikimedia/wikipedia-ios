@@ -1,19 +1,21 @@
 import UIKit
 
-fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
-
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
     
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController {
+class ArticleCollectionViewController: SameRowHeightColumnarCollectionViewController<ArticleRightAlignedImageCollectionViewCell> {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: WMFLayoutEstimate?
     var swipeToEditController: CollectionViewSwipeToEditController!
     
     weak var delegate: ArticleCollectionViewControllerDelegate?
+    
+    override var reuseIdentifier: String {
+        return "ArticleRightAlignedImageCollectionViewCell"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         swipeToEditController.delegate = self
     }
     
-    open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    override open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let collectionView = self.collectionView else {
             return
         }
@@ -150,32 +152,6 @@ extension ArticleCollectionViewController {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension ArticleCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
-            return estimate
-        }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        cellLayoutEstimate = estimate
-        return estimate
-    }
-    
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
-    }
-}
-
 
 extension ArticleCollectionViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
