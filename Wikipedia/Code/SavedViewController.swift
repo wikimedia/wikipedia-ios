@@ -34,7 +34,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
                 addChild(savedArticlesCollectionViewController)
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-//                addChild(readingListsCollectionViewController)
+                addChild(readingListsCollectionViewController)
             }
         }
     }
@@ -160,6 +160,7 @@ extension SavedViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         
         savedArticlesCollectionViewController.apply(theme: theme)
+        readingListsCollectionViewController?.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)

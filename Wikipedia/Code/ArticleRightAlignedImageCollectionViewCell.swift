@@ -2,8 +2,8 @@ import UIKit
 
 @objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
-    let bottomSeparator = UIView()
-    let topSeparator = UIView()
+    public var bottomSeparator = UIView()
+    public var topSeparator = UIView()
 
     var singlePixelDimension: CGFloat = 0.5
     

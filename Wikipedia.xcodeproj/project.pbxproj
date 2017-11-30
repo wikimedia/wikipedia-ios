@@ -7172,7 +7172,6 @@
 				7AE1D3381FCD10B900393471 /* SavedViewController.swift */,
 				7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */,
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
-				7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7236,6 +7235,7 @@
 		D83F5C051F0E5111006130FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */,
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
