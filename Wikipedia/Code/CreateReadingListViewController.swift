@@ -14,7 +14,7 @@ class CreateReadingListViewController: UIViewController {
     @IBOutlet weak var readingListNameTextView: ThemeableTextView!
     @IBOutlet weak var descriptionTextView: ThemeableTextView!
     
-    @IBOutlet weak var createReadingListButton: UIButton!
+    @IBOutlet weak var createReadingListButton: WMFAuthButton!
     
     fileprivate var theme: Theme = Theme.standard
     
@@ -75,6 +75,8 @@ extension CreateReadingListViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
+        
+        createReadingListButton.apply(theme: theme)
        
     }
 }

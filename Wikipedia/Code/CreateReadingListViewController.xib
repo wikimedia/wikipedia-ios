@@ -95,7 +95,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="lCo-6s-4Lk" secondAttribute="trailing" id="uiI-FS-02s"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list">
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="23" y="244.5" width="329" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AUY-nK-uJd"/>
