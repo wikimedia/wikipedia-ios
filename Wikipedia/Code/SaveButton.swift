@@ -15,41 +15,6 @@ import UIKit
     public var analyticsContext = "unknown"
     public var analyticsContentType = "unknown"
     
-    lazy var paddingTop: CGFloat = contentEdgeInsets.top
-    lazy var paddingLeft: CGFloat = contentEdgeInsets.left
-    lazy var paddingBottom: CGFloat = contentEdgeInsets.bottom
-    lazy var paddingRight: CGFloat = contentEdgeInsets.right
-    
-    convenience public init(paddingTop: CGFloat?=nil, paddingLeft: CGFloat?=nil, paddingBottom: CGFloat?=nil, paddingRight: CGFloat?=nil) {
-        self.init(frame: .zero)
-        
-        if paddingTop != nil {
-            self.paddingTop = paddingTop!
-        }
-        if paddingLeft != nil {
-            self.paddingLeft = paddingLeft!
-        }
-        if paddingBottom != nil {
-            self.paddingBottom = paddingBottom!
-        }
-        if paddingRight != nil {
-            self.paddingRight = paddingRight!
-        }
-    }
-    
-    override fileprivate init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func adjustInsets() {
-        super.adjustInsets()
-        contentEdgeInsets = UIEdgeInsets(top: paddingTop, left: paddingLeft, bottom: paddingBottom, right: paddingRight)
-    }
-    
     public var saveButtonState: SaveButton.State = .shortSave {
         didSet {
             let saveTitle: String

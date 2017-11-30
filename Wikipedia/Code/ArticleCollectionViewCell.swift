@@ -11,7 +11,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
     @objc public let imageView = UIImageView()
-    @objc public let saveButton = SaveButton(paddingTop: 5, paddingBottom: 5)
+    @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
 
@@ -46,6 +46,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(saveButton)
 
+        saveButton.verticalPadding = 5
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
