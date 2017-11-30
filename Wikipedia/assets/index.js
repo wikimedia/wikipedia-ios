@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":10,"wikimedia-page-library":12}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":9,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -153,7 +153,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":10,"wikimedia-page-library":12}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":9,"wikimedia-page-library":11}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -411,7 +411,7 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":12}],6:[function(require,module,exports){
+},{"wikimedia-page-library":11}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -559,7 +559,7 @@ exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],7:[function(require,module,exports){
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
@@ -689,10 +689,15 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   if(!article.ismain && !isFilePage){
     if (isLead){
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      Array.from(fragment.querySelectorAll('.section_heading[data-id]:not([data-id=""])'))
+        .forEach(element => element.appendChild(requirements.editTransform.newEditSectionButton(fragment, element.getAttribute('data-id'))))
     }
   }
 
@@ -789,27 +794,7 @@ exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./elementLocation":3,"./transforms/addEditButtons":8,"./transforms/relocateFirstParagraph":9,"./utilities":10,"wikimedia-page-library":12}],8:[function(require,module,exports){
-const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
-
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
-  const preceedingElement = content.querySelector(preceedingElementSelector)
-  preceedingElement.parentNode.insertBefore(
-    newEditSectionButton(content, sectionID),
-    preceedingElement.nextSibling
-  )
-}
-
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
-}
-
-exports.addEditButtonAfterElement = addEditButtonAfterElement
-exports.addEditButtonsToElements = addEditButtonsToElements
-},{"wikimedia-page-library":12}],9:[function(require,module,exports){
+},{"./elementLocation":3,"./transforms/relocateFirstParagraph":8,"./utilities":9,"wikimedia-page-library":11}],8:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -889,7 +874,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -931,7 +916,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -976,7 +961,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":10}],12:[function(require,module,exports){
+},{"./utilities":9}],11:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -3280,4 +3265,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10]);
