@@ -28,6 +28,10 @@ class ThemeableTextView: SetupView {
     override open var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: textView.contentSize.height + underlineHeight)
     }
+    
+    var text: String {
+        return textView.text
+    }
 
 }
 

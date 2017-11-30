@@ -75,9 +75,16 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     @objc func presentCreateReadingListViewController() {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
+        createReadingListViewController.delegate = self
         present(createReadingListViewController, animated: true, completion: nil)
     }
     
+}
+
+extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
+    func createdNewReadingList(with name: String, description: String) {
+        //
+    }
 }
 
 // MARK: - UICollectionViewDataSource

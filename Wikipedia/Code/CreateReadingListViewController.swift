@@ -1,13 +1,18 @@
 import UIKit
 
+protocol CreateReadingListViewControllerDelegate: NSObjectProtocol {
+    func createdNewReadingList(with name: String, description: String)
+}
+
 class CreateReadingListViewController: UIViewController {
     
-    @IBOutlet var textViews: [ThemeableTextView]!
     @IBOutlet weak var closeButton: UIButton!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var readingListNameTextView: ThemeableTextView!
+    @IBOutlet weak var descriptionTextView: ThemeableTextView!
     
     @IBOutlet weak var createReadingListButton: UIButton!
     
@@ -31,6 +36,20 @@ class CreateReadingListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    weak var delegate: CreateReadingListViewControllerDelegate?
+    
+    @IBAction func createReadingListButtonPressed() {
+        let name = readingListNameTextView.text
+        let description = descriptionTextView.text
+        
+        guard !name.isEmpty else {
+            return
+            // error, reading list name cannot be empty
+        }
+        
+        delegate?.createdNewReadingList(with: name, description: description)
+    }
+    
 }
 
 extension CreateReadingListViewController: Themeable {
@@ -44,9 +63,8 @@ extension CreateReadingListViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         
-        for textView in textViews {
-            textView.apply(theme: theme)
-        }
+        readingListNameTextView.apply(theme: theme)
+        descriptionTextView.apply(theme: theme)
         
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText

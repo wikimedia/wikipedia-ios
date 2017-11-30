@@ -16,11 +16,11 @@
                 <outlet property="closeButton" destination="93B-kH-3f4" id="KbF-Q9-XfU"/>
                 <outlet property="createReadingListButton" destination="UtA-Zm-L74" id="fqQ-pX-Ptg"/>
                 <outlet property="descriptionLabel" destination="lCo-6s-4Lk" id="GEK-dQ-mTM"/>
+                <outlet property="descriptionTextView" destination="AQh-rT-vof" id="LVe-wg-29g"/>
                 <outlet property="readingListNameLabel" destination="1mL-FN-xFB" id="1KD-S4-Gtd"/>
+                <outlet property="readingListNameTextView" destination="64q-Uy-RKh" id="RAU-Yv-mQO"/>
                 <outlet property="titleLabel" destination="Rae-vX-ya2" id="SsJ-fW-Y6k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="textViews" destination="64q-Uy-RKh" collectionClass="NSMutableArray" id="9aX-XR-chd"/>
-                <outletCollection property="textViews" destination="AQh-rT-vof" collectionClass="NSMutableArray" id="Vbh-PQ-EX7"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -113,6 +113,9 @@
                                             <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="createReadingListButtonPressed" destination="-1" eventType="touchUpInside" id="EB8-GE-caI"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
