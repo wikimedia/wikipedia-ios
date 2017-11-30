@@ -61,7 +61,7 @@ public class ReadingListsController: NSObject {
         return list
     }
     
-    public func delete(readingListsNamed names: [String]) throws -> [ReadingList] {
+    public func delete(readingListsNamed names: [String]) throws {
         
         let moc = dataStore.viewContext
         let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -70,18 +70,13 @@ public class ReadingListsController: NSObject {
         
         let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
         
-        var deletedReadingLists: [ReadingList] = []
-        
         for readingList in readingListsToDelete {
             moc.delete(readingList)
-            deletedReadingLists.append(readingList)
         }
         
         if moc.hasChanges {
             try moc.save()
         }
-        
-        return deletedReadingLists
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {

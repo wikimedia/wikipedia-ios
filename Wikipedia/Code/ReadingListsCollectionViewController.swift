@@ -36,6 +36,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     var cellLayoutEstimate: WMFLayoutEstimate?
     
+    var swipeToEditController: CollectionViewSwipeToEditController!
+    
     fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
@@ -69,6 +71,12 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         collectionViewUpdater?.delegate = self
 
         register(ReadingListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
+        swipeToEditController.delegate = self
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -93,9 +101,10 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
+        
+        cell.actions = availableActions(at: indexPath)
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
-        cell.layoutMargins = layout.readableMargins
         cell.layoutMargins = layout.readableMargins
     }
     
@@ -123,6 +132,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
 }
 
+// MARK: - CreateReadingListViewControllerDelegate
 extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
         
@@ -170,12 +180,38 @@ extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
-//            cell.actions = availableActions(at: indexPath)
+            cell.actions = availableActions(at: indexPath)
         }
         updateEmptyState()
-//        updateDeleteButton()
+        collectionView.setNeedsLayout()
     }
     
+}
+
+// MARK: - ActionDelegate
+extension ReadingListsCollectionViewController: ActionDelegate {
+    func didPerformAction(_ action: Action) -> Bool {
+        let indexPath = action.indexPath
+        guard let readingList = readingList(at: indexPath), let readingListName = readingList.name else {
+            return false
+        }
+        switch action.type {
+        case .delete:
+            do {
+            try readingListsController.delete(readingListsNamed: [readingListName])
+            } catch let err {
+                // do something
+            }
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func availableActions(at indexPath: IndexPath) -> [Action] {
+        return [ActionType.delete.action(with: self, indexPath: indexPath)]
+    }
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
