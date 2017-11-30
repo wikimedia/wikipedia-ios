@@ -4,10 +4,18 @@ import UIKit
 public class AlignedImageButton: UIButton {
 
     /// Spacing between the image and title
-    @IBInspectable open var horizontalSpacing: CGFloat = 8
+    @IBInspectable open var horizontalSpacing: CGFloat = 8 {
+        didSet {
+            adjustInsets()
+        }
+    }
 
     /// Padding added to the top and bottom of the button
-    @IBInspectable open var verticalPadding: CGFloat = 0
+    @IBInspectable open var verticalPadding: CGFloat = 0 {
+        didSet {
+            adjustInsets()
+        }
+    }
 
     @IBInspectable open var imageIsRightAligned: Bool = false {
         didSet {
