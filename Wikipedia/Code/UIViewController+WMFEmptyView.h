@@ -9,7 +9,8 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeArticleDidNotLoad,
     WMFEmptyViewTypeNoSearchResults,
     WMFEmptyViewTypeNoSavedPages,
-    WMFEmptyViewTypeNoHistory
+    WMFEmptyViewTypeNoHistory,
+    WMFEmptyViewTypeNoReadingLists
 };
 
 @interface UIViewController (WMFEmptyView)

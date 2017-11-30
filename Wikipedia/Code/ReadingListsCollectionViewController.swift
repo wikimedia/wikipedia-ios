@@ -32,6 +32,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     let managedObjectContext: NSManagedObjectContext
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
+    var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
     
     var cellLayoutEstimate: WMFLayoutEstimate?
     
@@ -62,7 +63,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupFetchedResultsControllerOrdered(by: "name", ascending: true)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        collectionViewUpdater?.delegate = self
+
         register(ReadingListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
     }
     
@@ -92,6 +97,28 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
         cell.layoutMargins = layout.readableMargins
         cell.layoutMargins = layout.readableMargins
+    }
+    
+    fileprivate var isEmpty = true
+    
+    fileprivate final func updateEmptyState() {
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        let sectionCount = numberOfSections(in: collectionView)
+        
+        isEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isEmpty = false
+                break
+            }
+        }
+        if isEmpty {
+            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme)
+        } else {
+            wmf_hideEmptyView()
+        }
     }
     
 }
@@ -126,18 +153,29 @@ extension ReadingListsCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        
         guard let readingListCell = cell as? ReadingListCollectionViewCell else {
             return cell
         }
-        
         configure(cell: readingListCell, forItemAt: indexPath, layoutOnly: false)
-        
         return cell
     }
+}
 
+// MARK: - CollectionViewUpdaterDelegate
+extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ReadingListCollectionViewCell else {
+                continue
+            }
+            cell.configureSeparators(for: indexPath.item)
+//            cell.actions = availableActions(at: indexPath)
+        }
+        updateEmptyState()
+//        updateDeleteButton()
+    }
+    
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
