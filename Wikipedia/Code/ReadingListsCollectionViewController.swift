@@ -26,16 +26,16 @@ class ReadingListCollectionViewCell: ArticleRightAlignedImageCollectionViewCell 
 }
 
 @objc(WMFReadingListsCollectionViewController)
-class ReadingListsCollectionViewController: SameRowHeightColumnarCollectionViewController<ReadingListCollectionViewCell> {
+class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     let dataStore: MWKDataStore
     let managedObjectContext: NSManagedObjectContext
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     
-    override var reuseIdentifier: String {
-        return "ReadingListCollectionViewCell"
-    }
+    var cellLayoutEstimate: WMFLayoutEstimate?
+    
+    fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -81,7 +81,7 @@ class ReadingListsCollectionViewController: SameRowHeightColumnarCollectionViewC
         present(createReadingListViewController, animated: true, completion: nil)
     }
     
-    override open func configure(cell: ReadingListCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    open func configure(cell: ReadingListCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let collectionView = self.collectionView else {
             return
         }
@@ -94,7 +94,23 @@ class ReadingListsCollectionViewController: SameRowHeightColumnarCollectionViewC
         cell.layoutMargins = layout.readableMargins
     }
     
-    // MARK: - UICollectionViewDataSource
+}
+
+extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
+    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
+        
+        do {
+            let _ = try readingListsController.createReadingList(named: name, description: description)
+            controller.dismiss(animated: true, completion: nil)
+        } catch let err {
+            print(err)
+            // show error
+        }
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension ReadingListsCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let sectionsCount = self.fetchedResultsController.sections?.count else {
             return 0
@@ -121,18 +137,30 @@ class ReadingListsCollectionViewController: SameRowHeightColumnarCollectionViewC
         
         return cell
     }
-    
+
 }
 
-extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
-        
-        do {
-            let _ = try readingListsController.createReadingList(named: name, description: description)
-            controller.dismiss(animated: true, completion: nil)
-        } catch let err {
-            print(err)
-            // show error
+// MARK: - WMFColumnarCollectionViewLayoutDelegate
+extension ReadingListsCollectionViewController {
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
         }
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListCollectionViewCell else {
+            return estimate
+        }
+        placeholderCell.prepareForReuse()
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
+    }
+    
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
     }
 }
