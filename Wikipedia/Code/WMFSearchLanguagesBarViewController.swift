@@ -12,7 +12,8 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
-    
+    @IBOutlet weak var bottomSeparatorView: UIView!
+
     @IBOutlet var topAndBottomConstraints: [NSLayoutConstraint]!
     
     @objc var theme: Theme = Theme.standard
@@ -204,5 +205,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             languageButton.tintColor = theme.colors.link
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
+        bottomSeparatorView.backgroundColor = theme.colors.border
     }
 }

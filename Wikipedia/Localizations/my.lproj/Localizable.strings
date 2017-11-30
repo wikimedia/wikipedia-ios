@@ -35,8 +35,7 @@
 "action-saved" = "သိမ်းဆည်းပြီး";
 "action-share" = "မျှဝေ";
 "alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
-// Fuzzy
-"announcements-dismiss" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်";
+"announcements-dismiss" = "ဖြုတ်ရန်";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-languages-filter-placeholder" = "ဘာသာစကား ရှာဖွေရန်";
 "article-languages-label" = "ဘာသာစကားရွေးချယ်ရန်";
@@ -116,7 +115,6 @@
 "in-the-news-notification-share-action-title" = "မျှဝေ...";
 "in-the-news-title" = "သတင်းထဲတွင်";
 "info-box-close-text" = "ပိတ်ရန်";
-// Fuzzy
 "info-box-title" = "အချက်တိုများ";
 "languages-title" = "ဘာသာစကား ပြောင်းလဲရန်";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -162,7 +160,6 @@
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
 "page-read-in-other-languages" = "အခြားဘာသာစကား $1 ခုဖြင့် ရရှိနိုင်သည်";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
-// Fuzzy
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "saved-clear-all" = "ရှင်းလင်း";

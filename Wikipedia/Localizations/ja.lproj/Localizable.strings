@@ -86,6 +86,7 @@
 "appearance-settings-title" = "テーマを読み込む";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
+"article-deleted-accessibility-notification" = "記事を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "他の言語で読む";
@@ -250,6 +251,8 @@
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "menu-cancel-accessibility-label" = "キャンセル";
 "menu-trash-accessibility-label" = "削除";
+"more-languages-tooltip-description" = "約300言語でウィキペディアを検索";
+"more-languages-tooltip-title" = "言語を追加";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-km" = "$1 km";
