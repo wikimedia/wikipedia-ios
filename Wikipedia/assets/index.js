@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":12,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":11,"wikimedia-page-library":13}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -153,7 +153,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":12,"wikimedia-page-library":14}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":11,"wikimedia-page-library":13}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -411,7 +411,7 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":14}],6:[function(require,module,exports){
+},{"wikimedia-page-library":13}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -566,7 +566,7 @@ const requirements = {
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages'),
+  widenImage: require('wikimedia-page-library').WidenImage,
   location: require('./elementLocation')
 }
 
@@ -707,8 +707,12 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // Prevents some collapsed tables from scrolling side-to-side.
   // May want to move this to wikimedia-page-library if there are no issues.
   Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
-  
-  requirements.images.widenImages(fragment)
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
@@ -784,7 +788,7 @@ exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./elementLocation":3,"./transforms/addEditButtons":8,"./transforms/disableFilePageEdit":9,"./transforms/relocateFirstParagraph":10,"./transforms/widenImages":11,"./utilities":12,"wikimedia-page-library":14}],8:[function(require,module,exports){
+},{"./elementLocation":3,"./transforms/addEditButtons":8,"./transforms/disableFilePageEdit":9,"./transforms/relocateFirstParagraph":10,"./utilities":11,"wikimedia-page-library":13}],8:[function(require,module,exports){
 const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
 
 function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
@@ -804,7 +808,7 @@ function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content)
 
 exports.addEditButtonAfterElement = addEditButtonAfterElement
 exports.addEditButtonsToElements = addEditButtonsToElements
-},{"wikimedia-page-library":14}],9:[function(require,module,exports){
+},{"wikimedia-page-library":13}],9:[function(require,module,exports){
 
 function disableFilePageEdit( content ) {
   var filetoc = content.querySelector( '#filetoc' )
@@ -912,23 +916,6 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
 },{}],11:[function(require,module,exports){
 
-const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
-
-function widenImages(content) {
-  Array.from(content.querySelectorAll('img'))
-    .filter(isGalleryImage)
-    .forEach(maybeWidenImage)
-}
-
-exports.widenImages = widenImages
-},{"wikimedia-page-library":14}],12:[function(require,module,exports){
-
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
   while ((el = el.parentElement) && !el.matches(selector));
@@ -969,7 +956,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -1014,7 +1001,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":12}],14:[function(require,module,exports){
+},{"./utilities":11}],13:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -3318,4 +3305,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12]);
