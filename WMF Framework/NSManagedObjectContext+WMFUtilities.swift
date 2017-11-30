@@ -5,6 +5,14 @@ public extension NSManagedObjectContext {
         return object
     }
     
+    func wmf_create<T: NSManagedObject>(entityNamed entityName: String, withKeysAndValues dictionary: [String: Any]) -> T? {
+        let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: self) as? T
+        for (key, value) in dictionary {
+            object?.setValue(value, forKey: key)
+        }
+        return object
+    }
+    
     
     func wmf_fetch<T: NSManagedObject>(objectForEntityName entityName: String, withValue value: Any, forKey key: String) -> T? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)

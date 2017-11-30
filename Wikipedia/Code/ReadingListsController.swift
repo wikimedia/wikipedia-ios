@@ -37,7 +37,7 @@ public class ReadingListsController: NSObject {
     
     // User-facing actions. Everything is performed on the main context
     
-    public func createReadingList(named name: String, with articles: [WMFArticle] = []) throws -> ReadingList {
+    public func createReadingList(named name: String, description: String?, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -47,7 +47,8 @@ public class ReadingListsController: NSObject {
         guard result == nil else {
             throw ReadingListError.listExistsWithTheSameName(name: name)
         }
-        guard let list = moc.wmf_create(entityNamed: "ReadingList", withValue: name, forKey: "name") as? ReadingList else {
+        
+        guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["name": name, "readingListDescription": description]) as? ReadingList else {
             throw ReadingListError.unableToCreateList
         }
         
