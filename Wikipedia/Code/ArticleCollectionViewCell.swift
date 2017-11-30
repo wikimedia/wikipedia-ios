@@ -11,7 +11,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
     @objc public let imageView = UIImageView()
-    @objc public let saveButton = SaveButton()
+    @objc public let saveButton = SaveButton(paddingTop: 5, paddingBottom: 5)
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
 

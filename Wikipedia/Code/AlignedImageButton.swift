@@ -38,7 +38,7 @@ public class AlignedImageButton: UIButton {
         }
     }
     
-    fileprivate func adjustInsets() {
+    func adjustInsets() {
         let inset = semanticContentAttribute == .forceRightToLeft ? -0.5 * margin : 0.5 * margin
         imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
         titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
