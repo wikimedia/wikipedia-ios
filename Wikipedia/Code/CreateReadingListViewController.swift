@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateReadingListViewControllerDelegate: NSObjectProtocol {
-    func createdNewReadingList(with name: String, description: String?)
+    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?)
 }
 
 class CreateReadingListViewController: UIViewController {
@@ -45,7 +45,7 @@ class CreateReadingListViewController: UIViewController {
         // The text has to be present for the button to be enabled.
         let name = readingListNameTextView.textView.text!
         
-        delegate?.createdNewReadingList(with: name, description: description)
+        delegate?.createdNewReadingList(in: self, with: name, description: description)
     }
     
 }

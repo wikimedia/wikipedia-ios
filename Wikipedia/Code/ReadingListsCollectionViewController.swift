@@ -82,8 +82,15 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 }
 
 extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
-    func createdNewReadingList(with name: String, description: String?) {
-        //
+    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
+        
+        do {
+            let _ = try readingListsController.createReadingList(named: name)
+            controller.dismiss(animated: true, completion: nil)
+        } catch let err {
+            print(err)
+            // show error
+        }
     }
 }
 
