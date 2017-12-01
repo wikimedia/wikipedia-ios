@@ -50,7 +50,6 @@ public class NavigationBar: SetupView {
         let bottomConstraint = topAnchorForBarTopConstraint.constraint(equalTo: statusBarUnderlay.bottomAnchor)
         let leadingConstraint = leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
         let trailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
-        addSubview(statusBarUnderlay)
         addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
         
         let barTopConstraint = topAnchorForBarTopConstraint.constraint(equalTo: bar.topAnchor)
