@@ -19,47 +19,89 @@ public class SetupView: UIView {
     }
 }
 
-class Toolbar: SetupView {
-//    override var intrinsicContentSize: CGSize {
-//        return CGSize(width: UIViewNoIntrinsicMetric, height: 44)
-//    }
+public class NavigationBar: SetupView {
+    fileprivate let statusBarUnderlay: UIView =  UIView()
+    fileprivate let bar: UINavigationBar = UINavigationBar()
+    fileprivate let underBarView: UIView = UIView()
+    fileprivate let shadow: UIView = UIView()
+    
+    override open func setup() {
+        super.setup()
+        statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        underBarView.translatesAutoresizingMaskIntoConstraints = false
+        shadow.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(statusBarUnderlay)
+        addSubview(bar)
+        addSubview(underBarView)
+        addSubview(shadow)
+        
+        bar.delegate = self
+        
+        let topAnchorForBarTopConstraint: NSLayoutYAxisAnchor
+        if #available(iOSApplicationExtension 11.0, *) {
+            topAnchorForBarTopConstraint = safeAreaLayoutGuide.topAnchor
+        } else {
+            topAnchorForBarTopConstraint = topAnchor
+        }
+        
+        let topConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
+        let bottomConstraint = topAnchorForBarTopConstraint.constraint(equalTo: statusBarUnderlay.bottomAnchor)
+        let leadingConstraint = leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
+        let trailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
+        addSubview(statusBarUnderlay)
+        addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        
+        let barTopConstraint = topAnchorForBarTopConstraint.constraint(equalTo: bar.topAnchor)
+        let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
+        let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
+        addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint])
+        
+        let underBarTopConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        let underBarLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
+        let underBarTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+        addConstraints([underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint])
+
+        let shadowTopConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
+        let shadowLeadingConstraint = leadingAnchor.constraint(equalTo: shadow.leadingAnchor)
+        let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
+        let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
+        addConstraints([shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        
+        let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
+        shadow.addConstraint(shadowHeightConstraint)
+    }
+    
+    @objc public var navigationItem: UINavigationItem = UINavigationItem() {
+        didSet {
+            let back = UINavigationItem()
+            bar.setItems([back, navigationItem], animated: false)
+        }
+    }
 }
 
-class NavigationBar: SetupView {
-    fileprivate let container: UIView = UIView()
-    fileprivate var barHeight: CGFloat = 44
-    
-    override func setup() {
-        super.setup()
+extension NavigationBar: Themeable {
+    public func apply(theme: Theme) {
+        backgroundColor = .clear
         
-        backgroundColor = UIColor.green
+        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
+
+        bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
+        bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
+        bar.isTranslucent = false
+        bar.barTintColor = theme.colors.chromeBackground
+        bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+        bar.tintColor = theme.colors.chromeText
         
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = UIColor.orange
-        addSubview(container)
+        underBarView.backgroundColor = theme.colors.chromeBackground
+        
+        shadow.backgroundColor = theme.colors.shadow
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let fullViewFrame = CGRect(origin: .zero, size: bounds.size)
-        let containerFrame = UIEdgeInsetsInsetRect(fullViewFrame, layoutMargins)
-        container.frame = containerFrame
-    }
-    
-    override func layoutMarginsDidChange() {
-        super.layoutMarginsDidChange()
-        setNeedsLayout()
-        invalidateIntrinsicContentSize()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        barHeight = traitCollection.verticalSizeClass == .compact ? 32 : 44
-        setNeedsLayout()
-        invalidateIntrinsicContentSize()
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: layoutMargins.top + barHeight)
+}
+
+extension NavigationBar: UINavigationBarDelegate {
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        return false
     }
 }

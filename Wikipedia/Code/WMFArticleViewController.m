@@ -937,6 +937,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
+    
+    self.webViewController.navigationBar.navigationItem = self.navigationItem;
 }
 
 #pragma mark - Table of Contents

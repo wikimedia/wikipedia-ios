@@ -1169,6 +1169,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.statusBarUnderlayView wmf_addBottomShadowWith:theme];
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
+    
+    [self.navigationBar applyTheme:theme];
 }
 
 @end

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
+@property (weak, nonatomic) IBOutlet NavigationBar *navigationBar;
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;
 @property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
 
