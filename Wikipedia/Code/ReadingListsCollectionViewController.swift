@@ -222,7 +222,7 @@ extension ReadingListsCollectionViewController {
         if let estimate = cellLayoutEstimate {
             return estimate
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 90)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListCollectionViewCell else {
             return estimate
         }
