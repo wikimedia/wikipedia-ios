@@ -907,6 +907,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
+        guard viewIfLoaded != nil else {
+            return
+        }
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         extendedNavBarView.isHidden = false
         wmf_updateNavigationBar(removeUnderline: true)
@@ -1230,6 +1233,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @objc func updateViewModeToMap() {
+        guard viewIfLoaded != nil else {
+            return
+        }
         viewMode = .map
     }
     
