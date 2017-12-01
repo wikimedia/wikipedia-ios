@@ -141,13 +141,10 @@ extension NewsViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
-        articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        return articleVC
+        return WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
