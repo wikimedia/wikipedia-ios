@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class SavedArticleCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
+class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
@@ -30,16 +30,21 @@ class SavedArticleCollectionViewCell: ArticleRightAlignedImageCollectionViewCell
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
+        let separatorWidth: CGFloat = isImageViewHidden ? size.width : size.width - (imageViewDimension * 1.8)
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width - imageViewDimension, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width - imageViewDimension, height: singlePixelDimension)
+            topSeparator.frame = CGRect(x: 0, y: 0, width: separatorWidth, height: singlePixelDimension)
         }
         
         return superSize
     }
+    
+}
+
+class SavedArticleCollectionViewCell: SavedCollectionViewCell {
     
 }
 

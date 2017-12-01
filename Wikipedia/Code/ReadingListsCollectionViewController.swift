@@ -1,6 +1,6 @@
 import Foundation
 
-class ReadingListCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
+class ReadingListCollectionViewCell: SavedCollectionViewCell {
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
         if shouldShowSeparators {
