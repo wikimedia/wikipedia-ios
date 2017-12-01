@@ -122,6 +122,13 @@ platform :ios do
       build_number: get_latest_alpha_or_beta_build_number + 1
     })
   end
+  
+  desc "Set version number"
+  lane :set_version_number do |options|
+    increment_version_number(
+      version_number: options[:version_number]
+    )
+  end
 
   desc "Increment the app version patch"
   lane :bump_patch do
