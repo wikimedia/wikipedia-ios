@@ -1,13 +1,12 @@
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages'),
+  widenImage: require('wikimedia-page-library').WidenImage,
   location: require('./elementLocation')
 }
 
@@ -123,16 +122,23 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
   }
 
@@ -148,8 +154,12 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // Prevents some collapsed tables from scrolling side-to-side.
   // May want to move this to wikimedia-page-library if there are no issues.
   Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
-  
-  requirements.images.widenImages(fragment)
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
