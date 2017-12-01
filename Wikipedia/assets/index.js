@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":12,"wikimedia-page-library":14}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":9,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -153,7 +153,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":12,"wikimedia-page-library":14}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":9,"wikimedia-page-library":11}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -411,7 +411,7 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":14}],6:[function(require,module,exports){
+},{"wikimedia-page-library":11}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -559,14 +559,13 @@ exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],7:[function(require,module,exports){
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages'),
+  widenImage: require('wikimedia-page-library').WidenImage,
   location: require('./elementLocation')
 }
 
@@ -682,16 +681,23 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
   }
 
@@ -707,8 +713,12 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // Prevents some collapsed tables from scrolling side-to-side.
   // May want to move this to wikimedia-page-library if there are no issues.
   Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
-  
-  requirements.images.widenImages(fragment)
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
@@ -784,53 +794,7 @@ exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./elementLocation":3,"./transforms/addEditButtons":8,"./transforms/disableFilePageEdit":9,"./transforms/relocateFirstParagraph":10,"./transforms/widenImages":11,"./utilities":12,"wikimedia-page-library":14}],8:[function(require,module,exports){
-const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
-
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
-  const preceedingElement = content.querySelector(preceedingElementSelector)
-  preceedingElement.parentNode.insertBefore(
-    newEditSectionButton(content, sectionID),
-    preceedingElement.nextSibling
-  )
-}
-
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
-}
-
-exports.addEditButtonAfterElement = addEditButtonAfterElement
-exports.addEditButtonsToElements = addEditButtonsToElements
-},{"wikimedia-page-library":14}],9:[function(require,module,exports){
-
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],10:[function(require,module,exports){
+},{"./elementLocation":3,"./transforms/relocateFirstParagraph":8,"./utilities":9,"wikimedia-page-library":11}],8:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -910,24 +874,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],11:[function(require,module,exports){
-
-const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
-
-function widenImages(content) {
-  Array.from(content.querySelectorAll('img'))
-    .filter(isGalleryImage)
-    .forEach(maybeWidenImage)
-}
-
-exports.widenImages = widenImages
-},{"wikimedia-page-library":14}],12:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -969,7 +916,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],13:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -1014,7 +961,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":12}],14:[function(require,module,exports){
+},{"./utilities":9}],11:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1172,7 +1119,10 @@ var CONSTRAINT = {
 
 // Theme to CSS classes.
 var THEME = {
-  DEFAULT: 'pagelib_theme_default', DARK: 'pagelib_theme_dark', SEPIA: 'pagelib_theme_sepia'
+  DEFAULT: 'pagelib_theme_default',
+  DARK: 'pagelib_theme_dark',
+  SEPIA: 'pagelib_theme_sepia',
+  BLACK: 'pagelib_theme_black'
 };
 
 /**
@@ -3318,4 +3268,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10]);
