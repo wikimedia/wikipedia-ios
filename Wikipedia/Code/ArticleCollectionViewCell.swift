@@ -46,6 +46,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(saveButton)
 
+        saveButton.verticalPadding = 5
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         

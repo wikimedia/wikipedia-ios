@@ -62,9 +62,9 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing
+                origin.y += saveButtonTopSpacing - saveButton.verticalPadding
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height
+                origin.y += saveButtonFrame.height - saveButton.verticalPadding
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
