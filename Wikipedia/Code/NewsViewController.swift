@@ -143,6 +143,7 @@ extension NewsViewController {
         let article = previews[index]
         let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
+        articleVC.articlePreviewingActionsDelegate = self
         return articleVC
     }
     
