@@ -240,8 +240,8 @@ extension ReadingListsCollectionViewController {
 }
 
 extension ReadingListsCollectionViewController: ArticleCollectionViewControllerDelegate {
-    func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
-        return []
+    func readingList(for article: WMFArticle) -> ReadingList? {
+        return (try? readingListsController.getReadingList(for: article)) ?? nil
     }
     
     

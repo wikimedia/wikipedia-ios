@@ -4,7 +4,7 @@ fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList]
+    func readingList(for article: WMFArticle) -> ReadingList?
 }
 
 @objc(WMFArticleCollectionViewController)

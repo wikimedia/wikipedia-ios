@@ -121,7 +121,7 @@ public class ReadingListsController: NSObject {
         }
         
         let entriesToDeleteRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[cd] %@ && articleKey IN %@", readingListName, keysToDelete)
+        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", readingListName, keysToDelete)
         
         let entriesToDelete = try moc.fetch(entriesToDeleteRequest)
         
@@ -134,10 +134,26 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    // should return multiple reading lists
+    public func getReadingList(for article: WMFArticle) throws -> ReadingList? {
+        guard let articleKey = article.key else {
+            return nil
+        }
+        let moc = dataStore.viewContext
+        let readingListEntryRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        readingListEntryRequest.predicate = NSPredicate(format: "articleKey MATCHES[c] %@", articleKey)
+        readingListEntryRequest.fetchLimit = 1
+        guard let readingListEntry = try moc.fetch(readingListEntryRequest).first, let readingList = readingListEntry.list else {
+            return nil
+        }
+        
+        return readingList
+    }
+    
     fileprivate func fetchReadingList(named name: String) throws -> ReadingList {
         let moc = dataStore.viewContext
         let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        readingListRequest.predicate = NSPredicate(format: "name MATCHES[cd] %@", name)
+        readingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
         readingListRequest.fetchLimit = 1
         guard let readingList = try moc.fetch(readingListRequest).first else {
             throw ReadingListError.listWithProvidedNameNotFound(name: name)
