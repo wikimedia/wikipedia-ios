@@ -1,6 +1,48 @@
 import UIKit
 import WMF
 
+class SavedArticleCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
+    
+    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let superSize = super.sizeThatFits(size, apply: apply)
+        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+        let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
+        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        
+        if !isImageViewHidden {
+            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
+        }
+        
+        var x = layoutMargins.left
+        if isRTL {
+            x = size.width - x - widthMinusMargins
+        }
+        
+        let origin = CGPoint(x: x, y: layoutMargins.top)
+        let height = max(origin.y, minHeight)
+        
+        if (apply && !isImageViewHidden) {
+            let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
+            var x = layoutMargins.right
+            if !isRTL {
+                x = size.width - x - imageViewDimension
+            }
+            imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
+        
+        if (apply && !bottomSeparator.isHidden) {
+            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width - imageViewDimension, height: singlePixelDimension)
+        }
+        
+        if (apply && !topSeparator.isHidden) {
+            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width - imageViewDimension, height: singlePixelDimension)
+        }
+        
+        return superSize
+    }
+    
+}
+
 class ReadingListTag: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsetsMake(3, 3, 3, 3)
@@ -39,7 +81,7 @@ class ReadingListTag: SizeThatFitsView {
         let insetSize = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), padding)
         let labelSize = label.sizeThatFits(insetSize.size)
         if (apply) {
-            //            layer.cornerRadius = 0.5*size.width
+            layer.cornerRadius = 3
             label.frame = CGRect(origin: CGPoint(x: 0.5*size.width - 0.5*labelSize.width, y: 0.5*size.height - 0.5*labelSize.height), size: labelSize)
         }
         let width = labelSize.width + padding.left + padding.right
@@ -52,6 +94,8 @@ class ReadingListTag: SizeThatFitsView {
 @objc(WMFSavedArticlesCollectionViewController)
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
+    fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
+
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
@@ -76,6 +120,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        register(SavedArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         deleteAllButtonText = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
         deleteAllConfirmationText = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
         deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
@@ -99,6 +144,15 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func deleteAll() {
         dataStore.savedPageList.removeAllEntries()
+    }
+    
+    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        guard let savedArticleCell = cell as? SavedArticleCollectionViewCell else {
+            return cell
+        }
+        configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
+        return cell
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {

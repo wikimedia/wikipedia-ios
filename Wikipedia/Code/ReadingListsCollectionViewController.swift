@@ -1,6 +1,7 @@
 import Foundation
 
 class ReadingListCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
+    
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0
@@ -23,6 +24,7 @@ class ReadingListCollectionViewCell: ArticleRightAlignedImageCollectionViewCell 
         
         setNeedsLayout()
     }
+    
 }
 
 @objc(WMFReadingListsCollectionViewController)

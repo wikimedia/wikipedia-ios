@@ -5,7 +5,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     public var bottomSeparator = UIView()
     public var topSeparator = UIView()
 
-    var singlePixelDimension: CGFloat = 0.5
+    public var singlePixelDimension: CGFloat = 0.5
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
