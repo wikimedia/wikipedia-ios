@@ -12,9 +12,9 @@ xcode-select --install
 
 <table width="100%" >
 <tr>
-<th width="33%"><a href="http://brew.sh">Homebrew</a></th>
-<th width="33%">Installer Script</th>
-<th width="33%">RubyGems</th>
+<th width="33%"><a href="http://brew.sh">Homebrew</a></td>
+<th width="33%">Installer Script</td>
+<th width="33%">RubyGems</td>
 </tr>
 <tr>
 <td width="33%" align="center">macOS</td>
@@ -75,11 +75,6 @@ Records visual tests.
 fastlane ios bump_build
 ```
 Increment the build number
-### ios set_version_number
-```
-fastlane ios set_version_number
-```
-Set version number
 ### ios bump_patch
 ```
 fastlane ios bump_patch
