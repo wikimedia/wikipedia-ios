@@ -163,8 +163,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
         touchOutsideOverlayView.delegate = self
 
-        navigationController?.setNavigationBarHidden(false, animated: true)
-
         // Setup location manager
         locationManager.delegate = self
     
@@ -230,21 +228,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
         
-        if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
-            wmf_updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
-        } else {
-            DDLogDebug("not updating navigation bar because search bar isn't set yet")
-        }
-        
         super.viewWillAppear(animated)
         
         let defaults = UserDefaults.wmf_userDefaults()
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
-        }
-        
-        if isViewModeOverlay {
-            navigationController?.setNavigationBarHidden(true, animated: animated)
         }
 
         
@@ -269,7 +257,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        wmf_updateNavigationBar(removeUnderline: false)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
@@ -909,7 +896,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     func addSearchBarToNavigationBar(animated: Bool) {
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         extendedNavBarView.isHidden = false
-        wmf_updateNavigationBar(removeUnderline: true)
 
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
@@ -931,7 +917,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         extendedNavBarView.isHidden = true
-        wmf_updateNavigationBar(removeUnderline: false)
         
         listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
         filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
@@ -1746,9 +1731,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
-            if navigationController?.isNavigationBarHidden ?? false {
-                navigationController?.setNavigationBarHidden(false, animated: true)
-            }
 
             break
         case .save:
@@ -2774,8 +2756,8 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         listAndSearchOverlaySearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
-        wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
-        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
+        filterDropDownContainerView.wmf_addBottomShadow(with: theme)
+        extendedNavBarView.wmf_addBottomShadow(with: theme)
         searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         

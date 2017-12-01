@@ -88,22 +88,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
         apply(theme: self.theme)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.wmf_updateNavigationBar(removeUnderline: true)
-        self.updateNavigationBar()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.wmf_updateNavigationBar(removeUnderline: false)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    private func updateNavigationBar() {
-        updateNavigationBar(newOffset: abs(extendNavBarViewTopSpaceConstraint.constant))
-    }
     
     private func updateNavigationBar(newOffset extNavBarOffset: CGFloat) {
         let extNavBarHeight = extendedNavBarView.frame.size.height
@@ -224,12 +208,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         if (newOffset != nil) {
             updateSearchBar(offset: newOffset!, animated: true)
         } else {
-            updateNavigationBar()
         }
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         showSearchBar(animated: true)
         return true
     }
@@ -241,7 +223,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         guard velocity != 0 else { // don't hide or show on 0 velocity tap
             return
         }
-        self.navigationController?.setNavigationBarHidden(velocity > 0, animated: true)
     }
     
     func addStatusBarUnderlay() {
@@ -301,6 +282,6 @@ extension ExploreViewController: Themeable {
             cvc.apply(theme: theme)
         }
         statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
-        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
+        extendedNavBarView.wmf_addBottomShadow(with: theme)
     }
 }

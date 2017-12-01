@@ -723,7 +723,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFReferenceLinkTappedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification *)notification {
@@ -1127,7 +1126,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)setNavBarHidden:(BOOL)navBarHidden {
     _navBarHidden = navBarHidden;
-    [self.navigationController setNavigationBarHidden:navBarHidden animated:YES];
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
@@ -1168,7 +1166,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.containerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     self.statusBarUnderlayView.backgroundColor = theme.colors.chromeBackground;
-    [self wmf_addBottomShadowWithView:self.statusBarUnderlayView theme:theme];
+    [self.statusBarUnderlayView wmf_addBottomShadowWith:theme];
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
 }
