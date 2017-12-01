@@ -417,7 +417,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.webView.scrollView;
 
-    CGFloat top = self.navigationController.topLayoutGuide.length + self.navigationController.navigationBar.frame.size.height;
+    CGFloat top = self.navigationBar.frame.size.height;
 
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
 
@@ -1169,7 +1169,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.statusBarUnderlayView wmf_addBottomShadowWith:theme];
     [self.webView wmf_applyTheme:theme];
     [_inputAccessoryView applyTheme:theme];
-    
+
     [self.navigationBar applyTheme:theme];
 }
 
