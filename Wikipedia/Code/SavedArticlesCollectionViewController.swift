@@ -100,4 +100,13 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     override func deleteAll() {
         dataStore.savedPageList.removeAllEntries()
     }
+    
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        if let readingLists = delegate?.readingListsForArticle(at: indexPath) {
+            for readingList in readingLists {
+                print(readingList)
+            }
+        }
+    }
 }

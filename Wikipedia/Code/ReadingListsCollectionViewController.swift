@@ -238,3 +238,11 @@ extension ReadingListsCollectionViewController {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
     }
 }
+
+extension ReadingListsCollectionViewController: ArticleCollectionViewControllerDelegate {
+    func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
+        return []
+    }
+    
+    
+}

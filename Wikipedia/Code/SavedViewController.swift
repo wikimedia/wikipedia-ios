@@ -1,12 +1,13 @@
 import UIKit
 
 @objc(WMFSavedViewController)
-class SavedViewController: UIViewController, ArticleCollectionViewControllerDelegate {
+class SavedViewController: UIViewController {
 
     fileprivate var savedArticlesCollectionViewController: SavedArticlesCollectionViewController!
     
     fileprivate lazy var readingListsCollectionViewController: ReadingListsCollectionViewController? = {
         guard let dataStore = dataStore else {
+            assertionFailure("dataStore is nil")
             return nil
         }
         return ReadingListsCollectionViewController(with: dataStore)
@@ -51,10 +52,7 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
-        savedArticlesCollectionViewController.delegate = self
-        
     }
     
     fileprivate enum View: Int {
@@ -85,7 +83,9 @@ class SavedViewController: UIViewController, ArticleCollectionViewControllerDele
         super.viewDidLoad()
         
         currentView = .savedArticles
-
+        
+        savedArticlesCollectionViewController.delegate = readingListsCollectionViewController
+        
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
         let searchBarTrailingPadding: CGFloat = 2.5
