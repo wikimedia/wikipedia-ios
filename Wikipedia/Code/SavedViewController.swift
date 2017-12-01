@@ -12,7 +12,9 @@ class SavedViewController: UIViewController {
         }
         return ReadingListsCollectionViewController(with: dataStore)
     }()
-
+    
+    fileprivate var collectionViewBatchEditController: CollectionViewBatchEditController!
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
     @IBOutlet weak var savedTitleLabel: UILabel!
@@ -22,19 +24,34 @@ class SavedViewController: UIViewController {
     
     @IBOutlet var toggleButtons: [UIButton]!
     
+    fileprivate var activeChildViewController: UICollectionViewController? = nil {
+        didSet {
+            if let collectionView = activeChildViewController?.collectionView {
+                collectionViewBatchEditController.collectionView = collectionView
+            }
+        }
+    }
+    
     fileprivate var currentView: View = .savedArticles {
         didSet {
+            batchEditingState = .closed
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
+                activeChildViewController = savedArticlesCollectionViewController
+                
                 navigationItem.leftBarButtonItem = nil
-                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: savedArticlesCollectionViewController.self, action: #selector(savedArticlesCollectionViewController?.batchEdit))
-                addChild(savedArticlesCollectionViewController)
+                
+                addChild(activeChildViewController)
+                
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                navigationItem.rightBarButtonItem = nil
+                activeChildViewController = readingListsCollectionViewController
+                
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
-                addChild(readingListsCollectionViewController)
+                
+                addChild(activeChildViewController)
+                
             }
         }
     }
@@ -55,6 +72,7 @@ class SavedViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
+        collectionViewBatchEditController = CollectionViewBatchEditController()
     }
     
     fileprivate enum View: Int {
@@ -88,6 +106,9 @@ class SavedViewController: UIViewController {
         
         savedArticlesCollectionViewController.delegate = readingListsCollectionViewController
         
+        collectionViewBatchEditController.delegate = self
+        batchEditingState = .closed
+        
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
         let searchBarTrailingPadding: CGFloat = 2.5
@@ -107,6 +128,27 @@ class SavedViewController: UIViewController {
         addHairlines(to: toggleButtons)
         
         apply(theme: self.theme)
+    }
+    
+    fileprivate var batchEditingState: BatchEditState = .closed {
+        didSet {
+            let isClosed = batchEditingState == .closed
+            let barButtonSystemItem: UIBarButtonSystemItem = isClosed ? UIBarButtonSystemItem.edit : UIBarButtonSystemItem.cancel
+            let tag = isClosed ? 0 : 1
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
+            navigationItem.rightBarButtonItem?.tag = tag
+        }
+    }
+    
+    @objc func batchEdit(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            batchEditingState = .open
+        case 1:
+            batchEditingState = .closed
+        default:
+            return
+        }
     }
     
     fileprivate func addHairlines(to buttons: [UIButton]) {
@@ -175,4 +217,7 @@ extension SavedViewController: Themeable {
         
         savedTitleLabel.textColor = theme.colors.primaryText
     }
+}
+
+extension SavedViewController: CollectionViewBatchEditControllerDelegate {
 }

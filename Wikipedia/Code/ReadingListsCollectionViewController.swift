@@ -245,6 +245,9 @@ extension ReadingListsCollectionViewController: ArticleCollectionViewControllerD
     func readingList(for article: WMFArticle) -> ReadingList? {
         return (try? readingListsController.getReadingList(for: article)) ?? nil
     }
-    
-    
+}
+
+extension ReadingListsCollectionViewController {
+    @objc func batchEdit() {
+    }
 }
