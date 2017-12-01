@@ -43,7 +43,7 @@ public class NavigationBar: SetupView {
         if #available(iOSApplicationExtension 11.0, *) {
             topAnchorForBarTopConstraint = safeAreaLayoutGuide.topAnchor
         } else {
-            topAnchorForBarTopConstraint = topAnchor
+            topAnchorForBarTopConstraint = readableContentGuide.topAnchor
         }
         
         let topConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
