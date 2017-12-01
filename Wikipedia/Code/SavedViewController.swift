@@ -28,9 +28,11 @@ class SavedViewController: UIViewController {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
                 navigationItem.leftBarButtonItem = nil
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: savedArticlesCollectionViewController.self, action: #selector(savedArticlesCollectionViewController?.batchEdit))
                 addChild(savedArticlesCollectionViewController)
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
+                navigationItem.rightBarButtonItem = nil
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
                 addChild(readingListsCollectionViewController)
             }

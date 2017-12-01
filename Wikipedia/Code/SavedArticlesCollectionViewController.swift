@@ -169,4 +169,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
             print(readingList)
         }
     }
+    
+    fileprivate var isBatchEditing: Bool = false
+    
+    @objc func batchEdit() {
+        isBatchEditing = true
+        
+    }
 }
