@@ -1,7 +1,18 @@
 import UIKit
 
-public protocol CollectionViewBatchEditControllerDelegate: NSObjectProtocol {
+public class BatchEditActionsView: SizeThatFitsView, Themeable {
+    public var actions: [BatchEditAction] = [] {
+        didSet {
+        }
+    }
     
+    public func apply(theme: Theme) {
+        //
+    }
+}
+
+public protocol CollectionViewBatchEditControllerDelegate: NSObjectProtocol {
+    func availableActions(at indexPath: IndexPath) -> [BatchEditAction]
 }
 
 public class CollectionViewBatchEditController {
@@ -10,7 +21,7 @@ public class CollectionViewBatchEditController {
     
     public var collectionView: UICollectionView? = nil {
         didSet {
-           batchEditingState = .closed
+           batchEditingState = .none
         }
     }
     
@@ -19,15 +30,31 @@ public class CollectionViewBatchEditController {
     public init(viewController: UIViewController) {
         self.viewController = viewController
         defer {
-            batchEditingState = .closed
+            batchEditingState = .none
         }
     }
     
-    fileprivate var batchEditingState: BatchEditState = .closed {
+    fileprivate var editableCells: [BatchEditableCell] {
+        guard let collectionView = collectionView, let editableCells = collectionView.visibleCells as? [BatchEditableCell] else {
+            return []
+        }
+        return editableCells
+    }
+    
+    fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
-            let isClosed = batchEditingState == .closed
-            let barButtonSystemItem: UIBarButtonSystemItem = isClosed ? UIBarButtonSystemItem.edit : UIBarButtonSystemItem.cancel
-            let tag = isClosed ? 0 : 1
+            editableCells.forEach({ $0.batchEditingState = batchEditingState })
+            var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
+            var tag = 0
+            switch batchEditingState {
+            case .none:
+                fallthrough
+            case .cancelled:
+                break
+            case .open:
+                barButtonSystemItem = UIBarButtonSystemItem.cancel
+                tag = 1
+            }
             viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
             viewController.navigationItem.rightBarButtonItem?.tag = tag
         }
@@ -38,7 +65,7 @@ public class CollectionViewBatchEditController {
         case 0:
             batchEditingState = .open
         case 1:
-            batchEditingState = .closed
+            batchEditingState = .cancelled
         default:
             return
         }
@@ -48,15 +75,12 @@ public class CollectionViewBatchEditController {
 }
 
 public enum BatchEditActionType {
-    case edit
-    case delete
+    case select
     
     public func action(with target: Any?, indexPath: IndexPath) -> BatchEditAction {
         switch self {
-        case .edit:
-            return BatchEditAction(type: .edit, icon: #imageLiteral(resourceName: "temp-remove-control"), at: indexPath)
-        case .delete:
-            return BatchEditAction(type: .edit, icon: #imageLiteral(resourceName: "temp-remove-control"), at: indexPath)
+        case .select:
+            return BatchEditAction(type: .select, icon: #imageLiteral(resourceName: "temp-remove-control"), at: indexPath)
         }
     }
 }
@@ -73,12 +97,13 @@ public class BatchEditAction {
     }
 }
 
-public enum BatchEditState {
+public enum BatchEditingState {
+    case none
     case open
-    case closed
+    case cancelled
 }
 
 public protocol BatchEditableCell: NSObjectProtocol {
-    var batchEditState: BatchEditState { get set }
+    var batchEditingState: BatchEditingState { get set }
 }
 

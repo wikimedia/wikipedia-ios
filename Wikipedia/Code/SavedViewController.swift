@@ -197,4 +197,8 @@ extension SavedViewController: Themeable {
 }
 
 extension SavedViewController: CollectionViewBatchEditControllerDelegate {
+    func availableActions(at indexPath: IndexPath) -> [BatchEditAction] {
+        return [BatchEditActionType.select.action(with: self, indexPath: indexPath)]
+    }
+    
 }
