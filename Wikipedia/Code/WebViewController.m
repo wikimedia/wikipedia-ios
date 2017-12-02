@@ -997,16 +997,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
 
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
-        CGFloat spaceAbovePanel = [firstPanel convertRect:firstPanel.bounds toView:self.webView].origin.y;
         CGRect refGroupRectInWebViewCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:self.webView];
 
-        if (@available(iOS 11.0, *)) {
-            spaceAbovePanel = spaceAbovePanel + self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
-        } else {
-            spaceAbovePanel = spaceAbovePanel + self.topLayoutGuide.length;
-        }
-
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
+            CGFloat spaceAbovePanel = [firstPanel convertRect:firstPanel.bounds toView:self.webView].origin.y;
+            if (@available(iOS 11.0, *)) {
+                spaceAbovePanel = spaceAbovePanel + self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
+            } else {
+                spaceAbovePanel = spaceAbovePanel + self.topLayoutGuide.length;
+            }
+
             CGFloat distanceFromVerticalCenterAbovePanel = (spaceAbovePanel / 2.0) - refGroupRectInWebViewCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
 
             CGPoint centeredOffset = CGPointMake(
