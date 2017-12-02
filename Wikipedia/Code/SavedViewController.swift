@@ -34,7 +34,6 @@ class SavedViewController: UIViewController {
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
-            batchEditingState = .closed
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
@@ -72,7 +71,7 @@ class SavedViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
-        collectionViewBatchEditController = CollectionViewBatchEditController()
+        collectionViewBatchEditController = CollectionViewBatchEditController(viewController: self)
     }
     
     fileprivate enum View: Int {
@@ -107,7 +106,6 @@ class SavedViewController: UIViewController {
         savedArticlesCollectionViewController.delegate = readingListsCollectionViewController
         
         collectionViewBatchEditController.delegate = self
-        batchEditingState = .closed
         
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
@@ -128,27 +126,6 @@ class SavedViewController: UIViewController {
         addHairlines(to: toggleButtons)
         
         apply(theme: self.theme)
-    }
-    
-    fileprivate var batchEditingState: BatchEditState = .closed {
-        didSet {
-            let isClosed = batchEditingState == .closed
-            let barButtonSystemItem: UIBarButtonSystemItem = isClosed ? UIBarButtonSystemItem.edit : UIBarButtonSystemItem.cancel
-            let tag = isClosed ? 0 : 1
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            navigationItem.rightBarButtonItem?.tag = tag
-        }
-    }
-    
-    @objc func batchEdit(_ sender: UIBarButtonItem) {
-        switch sender.tag {
-        case 0:
-            batchEditingState = .open
-        case 1:
-            batchEditingState = .closed
-        default:
-            return
-        }
     }
     
     fileprivate func addHairlines(to buttons: [UIButton]) {
