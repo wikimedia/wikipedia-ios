@@ -39,7 +39,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     
     var swipeToEditController: CollectionViewSwipeToEditController!
-    
+    fileprivate var batchEditController: CollectionViewBatchEditController!
+
     fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
@@ -130,6 +131,10 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         } else {
             wmf_hideEmptyView()
         }
+    }
+    
+    override func didMove(toParentViewController parent: UIViewController?) {
+        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
     }
     
 }
@@ -238,16 +243,5 @@ extension ReadingListsCollectionViewController {
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
-    }
-}
-
-extension ReadingListsCollectionViewController: ArticleCollectionViewControllerDelegate {
-    func readingList(for article: WMFArticle) -> ReadingList? {
-        return (try? readingListsController.getReadingList(for: article)) ?? nil
-    }
-}
-
-extension ReadingListsCollectionViewController {
-    @objc func batchEdit() {
     }
 }

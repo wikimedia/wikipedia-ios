@@ -16,29 +16,27 @@ public protocol CollectionViewBatchEditControllerDelegate: NSObjectProtocol {
 }
 
 public class CollectionViewBatchEditController {
-    /// View controller that owns the navigationItem.
-    let viewController: UIViewController
-    
-    public var collectionView: UICollectionView? = nil {
-        didSet {
-           batchEditingState = .none
-        }
-    }
+
+    let collectionViewController: UICollectionViewController
     
     public weak var delegate: CollectionViewBatchEditControllerDelegate?
     
-    public init(viewController: UIViewController) {
-        self.viewController = viewController
+    public init(collectionViewController: UICollectionViewController) {
+        self.collectionViewController = collectionViewController
         defer {
             batchEditingState = .none
         }
     }
     
     fileprivate var editableCells: [BatchEditableCell] {
-        guard let collectionView = collectionView, let editableCells = collectionView.visibleCells as? [BatchEditableCell] else {
+        guard let editableCells = collectionViewController.collectionView?.visibleCells as? [BatchEditableCell] else {
             return []
         }
         return editableCells
+    }
+    
+    public func cancelBatchEditing() {
+        
     }
     
     fileprivate var batchEditingState: BatchEditingState = .none {
@@ -55,8 +53,9 @@ public class CollectionViewBatchEditController {
                 barButtonSystemItem = UIBarButtonSystemItem.cancel
                 tag = 1
             }
-            viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            viewController.navigationItem.rightBarButtonItem?.tag = tag
+            // change
+            collectionViewController.parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
+            collectionViewController.parent?.navigationItem.rightBarButtonItem?.tag = tag
         }
     }
     
@@ -70,7 +69,6 @@ public class CollectionViewBatchEditController {
             return
         }
     }
-    
     
 }
 

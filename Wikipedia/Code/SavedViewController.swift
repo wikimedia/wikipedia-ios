@@ -13,8 +13,6 @@ class SavedViewController: UIViewController {
         return ReadingListsCollectionViewController(with: dataStore)
     }()
     
-    fileprivate var collectionViewBatchEditController: CollectionViewBatchEditController!
-    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var savedTitleView: UIView!
     @IBOutlet weak var savedTitleLabel: UILabel!
@@ -24,13 +22,7 @@ class SavedViewController: UIViewController {
     
     @IBOutlet var toggleButtons: [UIButton]!
     
-    fileprivate var activeChildViewController: UICollectionViewController? = nil {
-        didSet {
-            if let collectionView = activeChildViewController?.collectionView {
-                collectionViewBatchEditController.collectionView = collectionView
-            }
-        }
-    }
+    fileprivate var activeChildViewController: UICollectionViewController?
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
@@ -71,7 +63,6 @@ class SavedViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
-        collectionViewBatchEditController = CollectionViewBatchEditController(viewController: self)
     }
     
     fileprivate enum View: Int {
@@ -194,11 +185,4 @@ extension SavedViewController: Themeable {
         
         savedTitleLabel.textColor = theme.colors.primaryText
     }
-}
-
-extension SavedViewController: CollectionViewBatchEditControllerDelegate {
-    func availableActions(at indexPath: IndexPath) -> [BatchEditAction] {
-        return [BatchEditActionType.select.action(with: self, indexPath: indexPath)]
-    }
-    
 }

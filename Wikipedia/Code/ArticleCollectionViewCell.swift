@@ -3,7 +3,7 @@ import UIKit
 
 
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
+open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
@@ -261,5 +261,49 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     func resetSwipeable() {
         swipeTranslation = 0
         swipeState = .closed
+    }
+    
+    // MARK: - BatchEditableCell
+    
+    public let batchEditActionsView = BatchEditActionsView()
+    
+    public var batchEditActions: [BatchEditAction] {
+        set {
+            batchEditActionsView.actions = newValue
+            updateAccessibilityElements()
+        }
+        get {
+            return batchEditActionsView.actions
+        }
+    }
+    
+    fileprivate var regularWidth: CGFloat = 0
+    
+    public var batchEditingState: BatchEditingState = .none {
+        didSet {
+            switch batchEditingState {
+            case .open:
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                    self.transform = CGAffineTransform(translationX: self.imageViewDimension, y: 0)
+                    let newSize = CGSize(width: self.frame.size.width - self.imageViewDimension, height: self.frame.height)
+                    self.frame.size = self.sizeThatFits(newSize, apply: true)
+                    self.layoutIfNeeded()
+                }, completion: nil)
+            case .none:
+                fallthrough
+            case .cancelled:
+                guard self.frame.width != regularWidth else {
+                    return
+                }
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                    let oldSize = CGSize(width: self.frame.width + self.imageViewDimension, height: self.frame.height)
+                    self.transform = CGAffineTransform.identity
+                    self.frame.size = self.sizeThatFits(oldSize, apply: true)
+                    self.layoutIfNeeded()
+                }, completion: { (done) in
+                    self.regularWidth = self.frame.width
+                })
+            }
+        }
     }
 }

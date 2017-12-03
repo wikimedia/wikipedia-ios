@@ -57,7 +57,8 @@ class ReadingListTag: SizeThatFitsView {
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
     fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
-
+    fileprivate var batchEditController: CollectionViewBatchEditController!
+    
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
@@ -119,20 +120,22 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        guard let article = article(at: indexPath) else {
-            return
-        }
-        if let readingList = delegate?.readingList(for: article) {
-            print(readingList)
-        }
     }
     
-    @objc func batchEdit() {
-//        guard let collectionView = collectionView, let visibleCells = collectionView.visibleCells as? [BatchEditableCell] else {
-//            return
-//        }
-//        for visibleCell in visibleCells {
-//            visibleCell.batchEditState = .closed
-//        }
+    override func didMove(toParentViewController parent: UIViewController?) {
+        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
+        batchEditController.delegate = self
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: NSNotification.Name.WMFSavedArticlesDisappeared, object: self)
+    }
+
+}
+
+extension SavedArticlesCollectionViewController: CollectionViewBatchEditControllerDelegate {
+    func availableActions(at indexPath: IndexPath) -> [BatchEditAction] {
+        return [BatchEditActionType.select.action(with: self, indexPath: indexPath)]
+    }
+    
 }

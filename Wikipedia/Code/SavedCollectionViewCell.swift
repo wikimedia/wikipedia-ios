@@ -1,6 +1,6 @@
 import WMF
 
-class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell, BatchEditableCell {
+class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
@@ -39,46 +39,6 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell, Batch
         }
         
         return superSize
-    }
-    
-    var spaceForEditingControl: CGFloat = 0
-    
-
-    // MARK: - BatchEditableCell
-    
-    public let batchEditActionsView = BatchEditActionsView()
-    
-    public var batchEditActions: [BatchEditAction] {
-        set {
-            batchEditActionsView.actions = newValue
-            updateAccessibilityElements()
-        }
-        get {
-            return batchEditActionsView.actions
-        }
-    }
-    
-    var batchEditingState: BatchEditingState = .none {
-        didSet {
-            switch batchEditingState {
-            case .open:
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                    self.transform = CGAffineTransform(translationX: self.imageViewDimension, y: 0)
-                    let newSize = CGSize(width: self.frame.width - self.imageViewDimension, height: self.frame.height)
-                    self.frame.size = self.sizeThatFits(newSize, apply: true)
-                    self.layoutIfNeeded()
-                }, completion: nil)
-            case .none:
-                fallthrough
-            case .cancelled:
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                    self.transform = CGAffineTransform.identity
-                    let oldSize = CGSize(width: self.frame.width + self.imageViewDimension, height: self.frame.height)
-                    self.frame.size = self.sizeThatFits(oldSize, apply: true)
-                    self.layoutIfNeeded()
-                }, completion: nil)
-            }
-        }
     }
     
 }
