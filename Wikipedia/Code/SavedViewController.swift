@@ -94,10 +94,6 @@ class SavedViewController: UIViewController {
         
         currentView = .savedArticles
         
-        savedArticlesCollectionViewController.delegate = readingListsCollectionViewController
-        
-        collectionViewBatchEditController.delegate = self
-        
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
         let searchBarTrailingPadding: CGFloat = 2.5

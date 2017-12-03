@@ -126,10 +126,6 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         batchEditController = CollectionViewBatchEditController(collectionViewController: self)
         batchEditController.delegate = self
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.post(name: NSNotification.Name.WMFSavedArticlesDisappeared, object: self)
-    }
 
 }
 
