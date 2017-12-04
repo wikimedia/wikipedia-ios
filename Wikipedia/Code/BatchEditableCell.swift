@@ -111,15 +111,15 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
     
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
-            editableCells.forEach({
-                $0.batchEditingState = batchEditingState
-                $0.batchEditActionView.delegate = self
-            })
+            for cell in editableCells {
+                cell.batchEditingState = batchEditingState
+                cell.batchEditActionView.delegate = self
+            }
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
             var tag = 0
             switch batchEditingState {
             case .none:
-                fallthrough
+                break
             case .cancelled:
                 closeBatchEditPane()
             case .open:

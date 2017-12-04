@@ -248,9 +248,35 @@ extension ReadingListsCollectionViewController {
     }
 }
 
+// same for saved articles
 extension ReadingListsCollectionViewController: BatchEditActionDelegate {
     func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        return true
+        let indexPath = action.indexPath
+        
+        switch action.type {
+        case .select:
+            selectReadingList(at: indexPath)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
+            return true
+        }
+        
+    }
+    
+    fileprivate func selectReadingList(at indexPath: IndexPath) {
+        let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
+        
+        if isSelected {
+            collectionView?.deselectItem(at: indexPath, animated: true)
+        } else {
+            collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+            return
+        }
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
     func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
