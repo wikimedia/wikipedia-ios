@@ -301,8 +301,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
-
-        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
+        BOOL collapseTables = ![[NSUserDefaults wmf_userDefaults] wmf_isAutomaticTableOpeningEnabled];
+        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article collapseTables:collapseTables scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
@@ -613,29 +613,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (WKWebViewConfiguration *)configuration {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
-
-
-    NSArray *lateTransformNames = @[
-        @"addEditPencils",
-        @"setPageProtected",
-        @"setLanguage",
-        @"addFooterContainer",
-        @"addFooterReadMore",
-        @"addFooterMenu",
-        @"addFooterLegal",
-        @"classifyThemeElements"
-    ];
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
-    NSMutableArray *lateTransformsMutableArrayForHandlingAutomaticTableOpening = [NSMutableArray arrayWithArray:lateTransformNames];
-    if (![userDefaults wmf_isAutomaticTableOpeningEnabled]) {
-        [lateTransformsMutableArrayForHandlingAutomaticTableOpening addObject:@"collapseTables"];
-    }
-    lateTransformNames = [NSArray arrayWithArray: lateTransformsMutableArrayForHandlingAutomaticTableOpening];
-    
-    for (NSString *transformName in lateTransformNames) {
-        NSString *transformJS = [NSString stringWithFormat:@"window.webkit.messageHandlers.lateJavascriptTransform.postMessage('%@');", transformName];
-        [userContentController addUserScript:[[WKUserScript alloc] initWithSource:transformJS injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES]];
-    }
 
     NSArray *handlerNames = @[
         @"peek",
