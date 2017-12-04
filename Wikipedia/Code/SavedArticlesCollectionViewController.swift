@@ -131,17 +131,21 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         cell.batchEditAction = batchEditAction(at: indexPath)
     }
     
-    fileprivate var selectedCells: [SavedArticleCollectionViewCell] = []
-    
     fileprivate func select(at indexPath: IndexPath) {
-        guard let cell = collectionView?.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
-            return
-        }
-        if cell.isSelected {
+        let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
+        
+        if isSelected {
             collectionView?.deselectItem(at: indexPath, animated: true)
         } else {
             collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+            return
+        }
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
 
 }
