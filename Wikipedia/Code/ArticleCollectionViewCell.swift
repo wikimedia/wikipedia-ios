@@ -71,6 +71,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
+        resetBatchEdit()
         updateFonts(with: traitCollection)
     }
 
@@ -109,6 +110,19 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
+            if batchEditingState != .none {
+                
+                // contentView needs to be resized
+                // let width = batchEditingState == .open ? contentView.frame.width - batchEditingTranslation : contentView.frame.width + batchEditingTranslation
+                // let newSize = CGSize(width: width, height: size.height)
+                
+                contentView.frame = CGRect(origin: CGPoint(x: batchEditingTranslation, y: 0), size: size)
+                let batchActionViewWidth = abs(batchEditingTranslation)
+                batchEditActionView.frame = CGRect(x: 0, y: 0, width: batchActionViewWidth, height: size.height)
+                batchEditActionView.layoutIfNeeded()
+
+            }
+            
             let isActionsViewLeftAligned = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
             let actionsViewWidth = abs(swipeTranslation)
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
@@ -240,20 +254,17 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
+    
+    public var batchEditingTranslation: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
 
     public var swipeTranslationWhenOpen: CGFloat {
         let maxWidth = actionsView.maximumWidth
         let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
         return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
-    }
-    
-    func showActionsView(with swipeType: CollectionViewCellSwipeType) {
-        // We don't need to do this if the view is already visible.
-        guard actionsView.superview == nil else { return }
-        
-        insertSubview(actionsView, belowSubview: contentView)
-        layoutSubviews()
-        actionsView.layoutIfNeeded()
     }
 
     // MARK: Prepare for reuse
@@ -265,44 +276,34 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     // MARK: - BatchEditableCell
     
-    public let batchEditActionsView = BatchEditActionsView()
+    public let batchEditActionView = BatchEditActionView()
     
-    public var batchEditActions: [BatchEditAction] {
+    func resetBatchEdit() {
+        batchEditingTranslation = 0
+        batchEditingState = .none
+    }
+    
+    public var batchEditAction: BatchEditAction? {
         set {
-            batchEditActionsView.actions = newValue
+            batchEditActionView.action = newValue
             updateAccessibilityElements()
         }
         get {
-            return batchEditActionsView.actions
+            return batchEditActionView.action
         }
     }
     
-    fileprivate var regularWidth: CGFloat = 0
-    
     public var batchEditingState: BatchEditingState = .none {
         didSet {
-            switch batchEditingState {
-            case .open:
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                    self.transform = CGAffineTransform(translationX: self.imageViewDimension, y: 0)
-                    let newSize = CGSize(width: self.frame.size.width - self.imageViewDimension, height: self.frame.height)
-                    self.frame.size = self.sizeThatFits(newSize, apply: true)
-                    self.layoutIfNeeded()
-                }, completion: nil)
-            case .none:
-                fallthrough
-            case .cancelled:
-                guard self.frame.width != regularWidth else {
-                    return
-                }
-                UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                    let oldSize = CGSize(width: self.frame.width + self.imageViewDimension, height: self.frame.height)
-                    self.transform = CGAffineTransform.identity
-                    self.frame.size = self.sizeThatFits(oldSize, apply: true)
-                    self.layoutIfNeeded()
-                }, completion: { (done) in
-                    self.regularWidth = self.frame.width
-                })
+            if batchEditingState != .cancelled && batchEditingState != .none && batchEditActionView.superview == nil {
+                insertSubview(batchEditActionView, belowSubview: contentView)
+                contentView.backgroundColor = backgroundView?.backgroundColor
+                clipsToBounds = true
+            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditActionView.superview != nil {
+                batchEditActionView.removeFromSuperview()
+                contentView.backgroundColor = .clear
+                clipsToBounds = false
+                batchEditingState = .none
             }
         }
     }

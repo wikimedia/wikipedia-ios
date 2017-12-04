@@ -120,6 +120,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        cell.batchEditAction = batchEditAction(at: indexPath)
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
@@ -130,8 +131,8 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
 }
 
 extension SavedArticlesCollectionViewController: CollectionViewBatchEditControllerDelegate {
-    func availableActions(at indexPath: IndexPath) -> [BatchEditAction] {
-        return [BatchEditActionType.select.action(with: self, indexPath: indexPath)]
+    func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
+        return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
     
 }
