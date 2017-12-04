@@ -149,10 +149,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             default:
                 break
             }
-            
             cell.iconName = "settings-image-dimming"
-            cell.iconBackgroundColor = self.theme.colors.secondaryText
-            cell.iconColor = self.theme.colors.paperBackground
+            cell.iconBackgroundColor = .wmf_lightGray
+            cell.iconColor = .white
             cell.selectionStyle = .none
         }
         else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
@@ -160,13 +159,19 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.disclosureSwitch.isEnabled = true
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
-            cell.iconBackgroundColor = self.theme.colors.secondaryText
-            cell.iconColor = self.theme.colors.paperBackground
+            cell.iconName = "settings-tables-expand"
+            cell.iconBackgroundColor = UIColor.wmf_colorWithHex(0x5C97BF)
+            cell.iconColor = .white
             cell.selectionStyle = .none
         } else {
             cell.disclosureType = .none
         }
-        
+
+        if let iconBackgroundColor = theme.colors.iconBackground, let iconColor = theme.colors.icon {
+            cell.iconBackgroundColor = iconColor
+            cell.iconColor = iconBackgroundColor
+        }
+
         return cell
     }
     
