@@ -17,6 +17,7 @@ public class Action: UIAccessibilityCustomAction {
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
     @objc func didPerformAction(_ action: Action) -> Bool
+    @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
 public enum ActionType {

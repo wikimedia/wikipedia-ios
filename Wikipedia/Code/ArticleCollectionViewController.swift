@@ -178,6 +178,11 @@ extension ArticleCollectionViewController {
 
 
 extension ArticleCollectionViewController: ActionDelegate {
+    
+    func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        return false
+    }
+    
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {

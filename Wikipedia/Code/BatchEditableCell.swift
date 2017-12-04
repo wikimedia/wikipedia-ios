@@ -1,9 +1,5 @@
 import UIKit
 
-@objc public protocol BatchEditActionDelegate: NSObjectProtocol {
-    @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
-}
-
 @objc public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int)
     func didSetIsBatchEditToolbarVisible(_ isVisibile: Bool)
@@ -83,7 +79,7 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         setNeedsLayout()
     }
     
-    public weak var delegate: BatchEditActionDelegate?
+    public weak var delegate: ActionDelegate?
     
     @objc func didBatchSelect(_ sender: UIButton) {
         guard let action = action else {
@@ -100,133 +96,6 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
 
 }
 
-public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegate {
-
-    let collectionView: UICollectionView
-    
-    public weak var delegate: BatchEditActionDelegate?
-    
-    public weak var navigationDelegate: BatchEditNavigationDelegate? {
-        didSet {
-            batchEditingState = .none
-        }
-    }
-    
-    public init(collectionView: UICollectionView) {
-        self.collectionView = collectionView
-        super.init()
-    }
-    
-    fileprivate var editableCells: [BatchEditableCell] {
-        guard let editableCells = collectionView.visibleCells as? [BatchEditableCell] else {
-            return []
-        }
-        return editableCells
-    }
-    
-    fileprivate var batchEditingState: BatchEditingState = .none {
-        didSet {
-            for cell in editableCells {
-                cell.batchEditingState = batchEditingState
-                cell.batchEditActionView.delegate = self
-            }
-            var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
-            var tag = 0
-            switch batchEditingState {
-            case .none:
-                break
-            case .cancelled:
-                closeBatchEditPane()
-            case .open:
-                barButtonSystemItem = UIBarButtonSystemItem.cancel
-                tag = 1
-                openBatchEditPane()
-            }
-            let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            navigationDelegate?.didChangeBatchEditingState(button: button, tag: tag)
-        }
-    }
-    
-    fileprivate func openBatchEditPane() {
-        collectionView.allowsMultipleSelection = true
-        for cell in editableCells {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.batchEditActionView.expand()
-                cell.batchEditingTranslation = cell.batchEditActionView.buttonWidth != 0 ? cell.batchEditActionView.buttonWidth : cell.batchEditActionView.minButtonWidth
-                cell.layoutIfNeeded()
-            }, completion: nil)
-        }
-
-    }
-    
-    fileprivate func closeBatchEditPane() {
-        isBatchEditToolbarVisible = false
-        for cell in editableCells {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.isSelected = false
-                cell.batchEditingTranslation = 0
-                cell.layoutIfNeeded()
-            }, completion: nil)
-        }
-    }
-    
-    @objc func batchEdit(_ sender: UIBarButtonItem) {
-        switch sender.tag {
-        case 0:
-            batchEditingState = .open
-        case 1:
-            batchEditingState = .cancelled
-        default:
-            return
-        }
-    }
-    
-    public func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        isBatchEditToolbarVisible = true
-        return self.delegate?.didBatchSelect(action) ?? false
-    }
-    
-    var isBatchEditToolbarVisible: Bool = false {
-        didSet {
-            guard let toolbar = batchEditToolbar else {
-                return
-            }
-            if isBatchEditToolbarVisible {
-                collectionView.addSubview(toolbar)
-            } else {
-                toolbar.removeFromSuperview()
-            }
-            
-            navigationDelegate?.didSetIsBatchEditToolbarVisible(isBatchEditToolbarVisible)
-        }
-    }
-    
-    fileprivate lazy var batchEditToolbar: UIToolbar? = {
-        let toolbarHeight: CGFloat = 50
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - toolbarHeight, width: collectionView.bounds.width, height: toolbarHeight))
-        let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
-        let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
-        let unsaveItem = UIBarButtonItem(title: "Unsave", style: .plain, target: self, action: #selector(unsave))
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        toolbar.items = [updateItem, flexibleSpace, addToListItem, flexibleSpace, unsaveItem]
-        return toolbar
-    }()
-    
-    @objc func update() {
-        
-    }
-    
-    @objc func addToList() {
-        
-    }
-    
-    @objc func unsave() {
-        
-    }
-    
-}
-
 public enum BatchEditActionType {
     case select
     
@@ -235,7 +104,7 @@ public enum BatchEditActionType {
         case .select:
             let icon = UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
             let confirmationIcon = UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil)
-            return BatchEditAction(accessibilityTitle: "Select", type: .select, icon: icon!, confirmationIcon: confirmationIcon!, at: indexPath, target: target, selector: #selector(BatchEditActionDelegate.didBatchSelect(_:)))
+            return BatchEditAction(accessibilityTitle: "Select", type: .select, icon: icon!, confirmationIcon: confirmationIcon!, at: indexPath, target: target, selector: #selector(ActionDelegate.didBatchSelect(_:)))
         }
     }
 }

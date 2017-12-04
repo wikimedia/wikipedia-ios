@@ -39,7 +39,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     
     var editController: CollectionViewEditController!
-    var batchEditController: CollectionViewBatchEditController!
 
     fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
 
@@ -80,9 +79,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
-        
-        batchEditController = CollectionViewBatchEditController(collectionView: collectionView)
-        batchEditController.delegate = self
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -247,7 +243,7 @@ extension ReadingListsCollectionViewController {
 }
 
 // same for saved articles
-extension ReadingListsCollectionViewController: BatchEditActionDelegate {
+extension ReadingListsCollectionViewController {
     func didBatchSelect(_ action: BatchEditAction) -> Bool {
         let indexPath = action.indexPath
         

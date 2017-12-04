@@ -60,7 +60,6 @@ class ReadingListTag: SizeThatFitsView {
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
     fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
-    var batchEditController: CollectionViewBatchEditController!
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -95,8 +94,6 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         guard let collectionView = self.collectionView else {
             return
         }
-        batchEditController = CollectionViewBatchEditController(collectionView: collectionView)
-        batchEditController.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -150,8 +147,8 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
 
 }
 
-extension SavedArticlesCollectionViewController: BatchEditActionDelegate {
-    func didBatchSelect(_ action: BatchEditAction) -> Bool {
+extension SavedArticlesCollectionViewController {
+    override func didBatchSelect(_ action: BatchEditAction) -> Bool {
         let indexPath = action.indexPath
         
         switch action.type {

@@ -30,7 +30,7 @@ class SavedViewController: UIViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
-                savedArticlesCollectionViewController.batchEditController.navigationDelegate = self
+                savedArticlesCollectionViewController.editController.navigationDelegate = self
                 activeChildViewController = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
@@ -39,7 +39,7 @@ class SavedViewController: UIViewController {
                 
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                readingListsCollectionViewController?.batchEditController.navigationDelegate = self
+                readingListsCollectionViewController?.editController.navigationDelegate = self
                 activeChildViewController = readingListsCollectionViewController
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
