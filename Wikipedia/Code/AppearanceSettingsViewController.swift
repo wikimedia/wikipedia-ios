@@ -184,6 +184,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         vc.willMove(toParentViewController: nil)
         vc.view.removeFromSuperview()
         vc.removeFromParentViewController()
+        if let cell = cell as? WMFSettingsTableViewCell {
+            cell.disclosureSwitch.removeTarget(nil, action: nil, for: .valueChanged)
+        }
     }
     
     func userDidSelect(theme: Theme) {
