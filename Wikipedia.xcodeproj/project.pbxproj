@@ -735,7 +735,7 @@
 		BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
 		BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */; };
 		BA7FF0B41F6188C70054CF02 /* CollectionViewCellActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7FF0B31F6188C70054CF02 /* CollectionViewCellActionsView.swift */; };
-		BA7FF0B61F618F5A0054CF02 /* CollectionViewSwipeToEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7FF0B51F618F5A0054CF02 /* CollectionViewSwipeToEditController.swift */; };
+		BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7FF0B51F618F5A0054CF02 /* CollectionViewEditController.swift */; };
 		BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */; };
 		BAA0D91C1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */; };
 		BAA0D91D1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */; };
@@ -3845,7 +3845,7 @@
 		BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageDimmingExampleViewController.xib; sourceTree = "<group>"; };
 		BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProminentSwitch.swift; sourceTree = "<group>"; };
 		BA7FF0B31F6188C70054CF02 /* CollectionViewCellActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellActionsView.swift; sourceTree = "<group>"; };
-		BA7FF0B51F618F5A0054CF02 /* CollectionViewSwipeToEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSwipeToEditController.swift; sourceTree = "<group>"; };
+		BA7FF0B51F618F5A0054CF02 /* CollectionViewEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewEditController.swift; sourceTree = "<group>"; };
 		BA8203E11F15B4CC00925E93 /* ShareActivityController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareActivityController.swift; sourceTree = "<group>"; };
 		BAA0D91B1F4F165A00091284 /* PageIssuesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageIssuesTableViewController.swift; path = Wikipedia/Code/PageIssuesTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		BAFCE8411F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
@@ -7520,7 +7520,7 @@
 				D8497F631EE09BE600100CBD /* CircledRankView.swift */,
 				D8733C951ECA48490011E379 /* CollectionViewCell.swift */,
 				BA7FF0B31F6188C70054CF02 /* CollectionViewCellActionsView.swift */,
-				BA7FF0B51F618F5A0054CF02 /* CollectionViewSwipeToEditController.swift */,
+				BA7FF0B51F618F5A0054CF02 /* CollectionViewEditController.swift */,
 				D83F5C081F0E5177006130FF /* Article */,
 				D83C5ABA1F2281A90066C892 /* AnnouncementCollectionViewCell.swift */,
 				D83F5C091F0E5187006130FF /* Extensions */,
@@ -10231,7 +10231,7 @@
 				D844D9941D6CB5970042D692 /* MWKSectionMetaData.m in Sources */,
 				D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */,
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
-				BA7FF0B61F618F5A0054CF02 /* CollectionViewSwipeToEditController.swift in Sources */,
+				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				D8987E061E325D8A00E75DA6 /* QuadKey.swift in Sources */,
 				D8FA18B11E1BD891009675C3 /* NSBundle+WMFInfoUtils.m in Sources */,

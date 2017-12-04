@@ -240,6 +240,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
+    var areSwipeActionsDisabled: Bool = false {
+        didSet {
+            longPressGestureRecognizer.isEnabled = !areSwipeActionsDisabled
+            panGestureRecognizer.isEnabled = !areSwipeActionsDisabled
+        }
+    }
+    
     // MARK: - States
     
     func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
@@ -300,8 +307,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     // MARK: - Batch editing
     
-    
-    
     public weak var navigationDelegate: BatchEditNavigationDelegate? {
         didSet {
             batchEditingState = .none
@@ -339,6 +344,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     fileprivate func openBatchEditPane() {
+        areSwipeActionsDisabled = true
         collectionView.allowsMultipleSelection = true
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
@@ -350,6 +356,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     fileprivate func closeBatchEditPane() {
+        areSwipeActionsDisabled = false
         isBatchEditToolbarVisible = false
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
