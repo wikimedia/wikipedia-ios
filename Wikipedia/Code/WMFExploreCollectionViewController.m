@@ -1546,7 +1546,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     [articleController wmf_removePeekableChildViewControllers];
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
-    [[UIApplication sharedApplication] openURL:placesURL];
+    [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate

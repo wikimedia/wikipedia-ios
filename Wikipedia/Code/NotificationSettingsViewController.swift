@@ -113,7 +113,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             guard let URL = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
             }
-            UIApplication.shared.openURL(URL)
+            UIApplication.shared.open(URL, options: [:], completionHandler: nil)
         })]
         return [NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: unauthorizedItems)]
     }

@@ -213,6 +213,6 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
-        UIApplication.shared.openURL(placesURL)
+        UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
 }
