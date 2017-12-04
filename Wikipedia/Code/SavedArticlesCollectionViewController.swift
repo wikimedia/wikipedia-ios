@@ -60,7 +60,7 @@ class ReadingListTag: SizeThatFitsView {
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
     fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
-    fileprivate var batchEditController: CollectionViewBatchEditController!
+    var batchEditController: CollectionViewBatchEditController!
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -92,17 +92,17 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
         isDeleteAllVisible = true
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        batchEditController = CollectionViewBatchEditController(collectionView: collectionView)
+        batchEditController.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
-    }
-    
-    override func didMove(toParentViewController parent: UIViewController?) {
-        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
-        batchEditController.delegate = self
     }
     
     override var analyticsName: String {

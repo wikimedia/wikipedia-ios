@@ -39,7 +39,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     
     var editController: CollectionViewEditController!
-    fileprivate var batchEditController: CollectionViewBatchEditController!
+    var batchEditController: CollectionViewBatchEditController!
 
     fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
 
@@ -80,6 +80,9 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        
+        batchEditController = CollectionViewBatchEditController(collectionView: collectionView)
+        batchEditController.delegate = self
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -132,11 +135,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         } else {
             wmf_hideEmptyView()
         }
-    }
-    
-    override func didMove(toParentViewController parent: UIViewController?) {
-        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
-        batchEditController.delegate = self
     }
     
 }

@@ -10,7 +10,8 @@ class SavedViewController: UIViewController {
             assertionFailure("dataStore is nil")
             return nil
         }
-        return ReadingListsCollectionViewController(with: dataStore)
+        let readingListsCollectionViewController = ReadingListsCollectionViewController(with: dataStore)
+        return readingListsCollectionViewController
     }()
     
     @IBOutlet weak var containerView: UIView!
@@ -22,13 +23,14 @@ class SavedViewController: UIViewController {
     
     @IBOutlet var toggleButtons: [UIButton]!
     
-    fileprivate var activeChildViewController: UICollectionViewController?
+    fileprivate var activeChildViewController: UICollectionViewController? 
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
+                savedArticlesCollectionViewController.batchEditController.navigationAndToolbarDelegate = self
                 activeChildViewController = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
@@ -37,6 +39,7 @@ class SavedViewController: UIViewController {
                 
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
+                readingListsCollectionViewController?.batchEditController.navigationAndToolbarDelegate = self
                 activeChildViewController = readingListsCollectionViewController
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
@@ -150,6 +153,13 @@ class SavedViewController: UIViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
+}
+
+extension SavedViewController: BatchEditNavigationAndToolbarDelegate {
+    func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int) {
+        navigationItem.rightBarButtonItem = button
+        button.tag = tag
+    }
 }
 
 extension SavedViewController: Themeable {

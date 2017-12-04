@@ -4,6 +4,10 @@ import UIKit
     @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
+@objc public protocol BatchEditNavigationAndToolbarDelegate: NSObjectProtocol {
+    func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int)
+}
+
 public class BatchEditActionView: SizeThatFitsView, Themeable {
     
     var needsSubviews = true
@@ -97,20 +101,23 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
 
 public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegate {
 
-    let collectionViewController: UICollectionViewController
+    let collectionView: UICollectionView
     
     public weak var delegate: BatchEditActionDelegate?
     
-    public init(collectionViewController: UICollectionViewController) {
-        self.collectionViewController = collectionViewController
-        super.init()
-        defer {
+    public weak var navigationAndToolbarDelegate: BatchEditNavigationAndToolbarDelegate? {
+        didSet {
             batchEditingState = .none
         }
     }
     
+    public init(collectionView: UICollectionView) {
+        self.collectionView = collectionView
+        super.init()
+    }
+    
     fileprivate var editableCells: [BatchEditableCell] {
-        guard let editableCells = collectionViewController.collectionView?.visibleCells as? [BatchEditableCell] else {
+        guard let editableCells = collectionView.visibleCells as? [BatchEditableCell] else {
             return []
         }
         return editableCells
@@ -134,14 +141,13 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
                 tag = 1
                 openBatchEditPane()
             }
-            // change, don't call parent directly here
-            collectionViewController.parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            collectionViewController.parent?.navigationItem.rightBarButtonItem?.tag = tag
+            let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
+            navigationAndToolbarDelegate?.didChangeBatchEditingState(button: button, tag: tag)
         }
     }
     
     fileprivate func openBatchEditPane() {
-        collectionViewController.collectionView?.allowsMultipleSelection = true
+        collectionView.allowsMultipleSelection = true
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.batchEditActionView.expand()
@@ -185,19 +191,18 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
                 return
             }
             if isBatchEditToolbarVisible {
-                collectionViewController.collectionView?.addSubview(toolbar)
+                collectionView.addSubview(toolbar)
             } else {
                 toolbar.removeFromSuperview()
             }
-            collectionViewController.parent?.tabBarController?.tabBar.isHidden = isBatchEditToolbarVisible
+//            collectionViewController.parent?.tabBarController?.tabBar.isHidden = isBatchEditToolbarVisible
         }
     }
     
     fileprivate lazy var batchEditToolbar: UIToolbar? = {
-        let tabBarHeight = collectionViewController.parent?.tabBarController?.tabBar.frame.size.height ?? 0
-        guard let collectionView = collectionViewController.collectionView else {
-            return nil
-        }
+//        let tabBarHeight = collectionViewController.parent?.tabBarController?.tabBar.frame.size.height ?? 0
+        let tabBarHeight = 0
+
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - 44, width: collectionView.bounds.width, height: 44))
         let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
         let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
