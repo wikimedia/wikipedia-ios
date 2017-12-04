@@ -298,13 +298,13 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
     WMFFeedNewsStory *firstStory = [news firstObject];
     NSDate *midnightMonthAndDay = firstStory.midnightUTCMonthAndDay;
-    NSDate *date = feedDate;
-    if (midnightMonthAndDay && date) {
+    NSDate *storyDate = feedDate;
+    NSCalendar *utcCalendar = NSCalendar.wmf_utcGregorianCalendar;
+    if (midnightMonthAndDay && storyDate) {
         // This logic assumes we won't be loading something more than 30 days old
-        NSCalendar *utcCalendar = NSCalendar.wmf_utcGregorianCalendar;
         NSDateComponents *storyComponents = [utcCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay fromDate:midnightMonthAndDay];
         NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
-        NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:date];
+        NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:storyDate];
         if (storyComponents.month > components.month + 1) { //probably not how this should be done
             components.year = components.year - 1; // assume it's last year
         } else if (components.month > storyComponents.month + 1) {
@@ -312,10 +312,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
         components.day = storyComponents.day;
         components.month = storyComponents.month;
-        date = [localCalendar dateFromComponents:components];
+        storyDate = [localCalendar dateFromComponents:components];
     }
 
-    if (!date) {
+    if (!storyDate) {
         return;
     }
 
@@ -323,8 +323,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     // If the dates don't match, add the section but make it invisible.
     BOOL isVisible = YES;
     NSDate *feedMidnightUTCDate = [feedDate wmf_midnightUTCDateFromLocalDate];
-    if (feedMidnightUTCDate && ![[date wmf_midnightUTCDateFromLocalDate] isEqualToDate:feedMidnightUTCDate]) {
-        isVisible = NO;
+    NSDate *storyMidnightUTCDate = [storyDate wmf_midnightUTCDateFromLocalDate];
+    if (feedMidnightUTCDate && storyMidnightUTCDate && [utcCalendar wmf_daysFromDate:storyMidnightUTCDate toDate:feedMidnightUTCDate] > 1) {
+        WMFContentGroup *featuredGroup = [self featuredForDate:storyDate inManagedObjectContext:moc];
+        isVisible = featuredGroup != nil; // hide the news story if we haven't loaded that day yet
     }
 
     [news enumerateObjectsUsingBlock:^(WMFFeedNewsStory *_Nonnull story, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -353,9 +355,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         }
     }];
 
-    WMFContentGroup *newsGroup = [self newsForDate:date inManagedObjectContext:moc];
+    WMFContentGroup *newsGroup = [self newsForDate:storyDate inManagedObjectContext:moc];
     if (newsGroup == nil) {
-        newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:date withSiteURL:self.siteURL associatedContent:news];
+        newsGroup = [moc createGroupOfKind:WMFContentGroupKindNews forDate:storyDate withSiteURL:self.siteURL associatedContent:news];
     } else {
         newsGroup.fullContentObject = news;
         [newsGroup updateContentPreviewWithContent:news];
