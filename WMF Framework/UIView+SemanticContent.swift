@@ -11,14 +11,6 @@ public enum VerticalAlignment : Int {
 }
 
 extension UIView {
-    public var wmf_effectiveUserInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
-        if #available(iOS 10.0, *) {
-            return self.effectiveUserInterfaceLayoutDirection
-        } else {
-            return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
-        }
-    }
-    
     public func wmf_preferredFrame(at point: CGPoint, maximumViewSize: CGSize, minimumLayoutAreaSize: CGSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric), horizontalAlignment: HorizontalAlignment, verticalAlignment: VerticalAlignment, apply: Bool) -> CGRect {
         let viewSize = sizeThatFits(maximumViewSize)
         var x = point.x

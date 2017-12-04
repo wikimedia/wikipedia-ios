@@ -36,9 +36,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         let headerView = UIView.init(frame: headerFrame)
         let labelFrame = headerView.frame.insetBy(dx: 10, dy: 10)
         let label = UILabel.init(frame: labelFrame)
-        if #available(iOS 10.0, *) {
-            label.adjustsFontForContentSizeCategory = true
-        }
+        label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = self.theme.colors.primaryText
         label.textAlignment = .center
@@ -147,9 +145,7 @@ class LibraryUsedViewController: UIViewController {
         
         self.apply(theme: self.theme)
         
-        if #available(iOS 10.0, *) {
-            textView.adjustsFontForContentSizeCategory = true
-        }
+        textView.adjustsFontForContentSizeCategory = true
         textView.textContainerInset = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
         guard let licenseText = library?.licenseText else { return }
         textView.text = normalizeWhitespaceForBetterReadability(from: licenseText)
