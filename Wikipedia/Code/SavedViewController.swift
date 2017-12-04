@@ -112,6 +112,9 @@ class SavedViewController: UIViewController {
         
         addHairlines(to: toggleButtons)
         
+        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = .all
+        
         apply(theme: self.theme)
     }
     

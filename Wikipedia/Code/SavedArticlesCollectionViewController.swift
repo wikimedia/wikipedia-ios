@@ -133,7 +133,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     fileprivate func select(at indexPath: IndexPath) {
         let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
-        
+
         if isSelected {
             collectionView?.deselectItem(at: indexPath, animated: true)
         } else {

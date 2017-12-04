@@ -153,6 +153,7 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
     }
     
     fileprivate func closeBatchEditPane() {
+        isBatchEditToolbarVisible = false
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.isSelected = false
