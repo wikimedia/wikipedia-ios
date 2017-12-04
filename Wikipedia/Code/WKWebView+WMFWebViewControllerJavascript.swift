@@ -185,7 +185,7 @@ extension WKWebView {
         return "[\(menuItemTypeJSPaths.joined(separator: ", "))]"
     }
     
-    @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, scrolledTo fragment: String?){
+    @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, collapseTables: Bool, scrolledTo fragment: String?){
         guard
             let url = article.url,
             let host = url.host,
@@ -220,7 +220,7 @@ extension WKWebView {
         evaluateJavaScript("""
             window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
-            window.wmf.sections.collapseTablesInitially = true
+            window.wmf.sections.collapseTablesInitially = \(collapseTables ? "true" : "false")
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
                 '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
