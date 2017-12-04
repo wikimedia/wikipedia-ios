@@ -4,8 +4,6 @@ import WMF
 class SavedArticleCollectionViewCell: SavedCollectionViewCell {
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-            }
         }
     }
 }
@@ -136,7 +134,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     fileprivate var selectedCells: [SavedArticleCollectionViewCell] = []
     
     fileprivate func select(at indexPath: IndexPath) {
-        guard let cell = collectionView?.cellForItem(at: indexPath) else {
+        guard let cell = collectionView?.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
             return
         }
         if cell.isSelected {
@@ -144,6 +142,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         } else {
             collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         }
+        cell.updateSelected(theme: theme)
     }
 
 }

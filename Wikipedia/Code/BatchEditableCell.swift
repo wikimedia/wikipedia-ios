@@ -51,7 +51,7 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
         return CGSize(width: width, height: height)
     }
-    public var theme = Theme.dark
+    public var theme = Theme.standard
     var buttonWidth: CGFloat  = 0
     var minButtonWidth: CGFloat = 60
     
@@ -67,7 +67,7 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         button.setImage(action.confirmationIcon, for: .selected)
         button.titleLabel?.numberOfLines = 1
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
-        button.backgroundColor = theme.colors.paperBackground
+        button.backgroundColor = .clear
         button.addTarget(self, action: #selector(didBatchSelect(_:)), for: .touchUpInside)
         maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
         insertSubview(button, at: 0)
@@ -89,7 +89,8 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
     }
     
     public func apply(theme: Theme) {
-        //
+        self.theme = theme
+        backgroundColor = theme.colors.baseBackground
     }
 }
 
