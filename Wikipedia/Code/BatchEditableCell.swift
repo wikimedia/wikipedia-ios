@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol BatchEditActionDelegate: NSObjectProtocol {
-    @objc func didPerformAction(_ action: BatchEditAction) -> Bool
+    @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
 public class BatchEditActionView: SizeThatFitsView, Themeable {
@@ -64,10 +64,11 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         
         let button = UIButton(type: .custom)
         button.setImage(action.icon, for: .normal)
+        button.setImage(action.confirmationIcon, for: .selected)
         button.titleLabel?.numberOfLines = 1
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
         button.backgroundColor = theme.colors.paperBackground
-        button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didBatchSelect(_:)), for: .touchUpInside)
         maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
         insertSubview(button, at: 0)
         self.button = button
@@ -79,18 +80,12 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
     
     public weak var delegate: BatchEditActionDelegate?
     
-    @objc func didPerformAction(_ sender: UIButton) {
+    @objc func didBatchSelect(_ sender: UIButton) {
         guard let action = action else {
             return
         }
-        if let image = action.confirmationIcon {
-            sender.setImage(image, for: .normal)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = self.delegate?.didPerformAction(action)
-            }
-        } else {
-            let _ = delegate?.didPerformAction(action)
-        }
+        sender.isSelected = !sender.isSelected
+        let _ = delegate?.didBatchSelect(action)
     }
     
     public func apply(theme: Theme) {
@@ -98,18 +93,15 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
     }
 }
 
-public protocol CollectionViewBatchEditControllerDelegate: NSObjectProtocol {
-    func batchEditAction(at indexPath: IndexPath) -> BatchEditAction
-}
-
-public class CollectionViewBatchEditController {
+public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegate {
 
     let collectionViewController: UICollectionViewController
     
-    public weak var delegate: CollectionViewBatchEditControllerDelegate?
+    public weak var delegate: BatchEditActionDelegate?
     
     public init(collectionViewController: UICollectionViewController) {
         self.collectionViewController = collectionViewController
+        super.init()
         defer {
             batchEditingState = .none
         }
@@ -124,7 +116,10 @@ public class CollectionViewBatchEditController {
     
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
-            editableCells.forEach({ $0.batchEditingState = batchEditingState })
+            editableCells.forEach({
+                $0.batchEditingState = batchEditingState
+                $0.batchEditActionView.delegate = self
+            })
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
             var tag = 0
             switch batchEditingState {
@@ -144,9 +139,10 @@ public class CollectionViewBatchEditController {
     }
     
     fileprivate func openBatchEditPane() {
+        collectionViewController.collectionView?.allowsMultipleSelection = true
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-//                cell.batchEditActionView.expand()
+                cell.batchEditActionView.expand()
                 cell.batchEditingTranslation = cell.batchEditActionView.buttonWidth != 0 ? cell.batchEditActionView.buttonWidth : cell.batchEditActionView.minButtonWidth
                 cell.layoutIfNeeded()
             }, completion: nil)
@@ -174,6 +170,10 @@ public class CollectionViewBatchEditController {
         }
     }
     
+    public func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        return self.delegate?.didBatchSelect(action) ?? false
+    }
+    
 }
 
 public enum BatchEditActionType {
@@ -182,16 +182,18 @@ public enum BatchEditActionType {
     public func action(with target: Any?, indexPath: IndexPath) -> BatchEditAction {
         switch self {
         case .select:
-            return BatchEditAction(accessibilityTitle: "Select", type: .select, icon: #imageLiteral(resourceName: "temp-remove-control"), confirmationIcon: #imageLiteral(resourceName: "temp-remove-control"), at: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            let icon = UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
+            let confirmationIcon = UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil)
+            return BatchEditAction(accessibilityTitle: "Select", type: .select, icon: icon!, confirmationIcon: confirmationIcon!, at: indexPath, target: target, selector: #selector(BatchEditActionDelegate.didBatchSelect(_:)))
         }
     }
 }
 
 public class BatchEditAction: UIAccessibilityCustomAction {
-    let type: BatchEditActionType
+    public let type: BatchEditActionType
     let icon: UIImage
     let confirmationIcon: UIImage?
-    let indexPath: IndexPath
+    public let indexPath: IndexPath
     
     public init(accessibilityTitle: String, type: BatchEditActionType, icon: UIImage, confirmationIcon: UIImage?, at indexPath: IndexPath, target: Any?, selector: Selector) {
         self.type = type

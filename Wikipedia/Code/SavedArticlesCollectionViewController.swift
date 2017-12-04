@@ -2,7 +2,12 @@ import UIKit
 import WMF
 
 class SavedArticleCollectionViewCell: SavedCollectionViewCell {
-    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+            }
+        }
+    }
 }
 
 class ReadingListTag: SizeThatFitsView {
@@ -97,6 +102,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
     }
     
+    override func didMove(toParentViewController parent: UIViewController?) {
+        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
+        batchEditController.delegate = self
+    }
+    
     override var analyticsName: String {
         return "Saved"
     }
@@ -123,16 +133,35 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         cell.batchEditAction = batchEditAction(at: indexPath)
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        batchEditController = CollectionViewBatchEditController(collectionViewController: self)
-        batchEditController.delegate = self
+    fileprivate var selectedCells: [SavedArticleCollectionViewCell] = []
+    
+    fileprivate func select(at indexPath: IndexPath) {
+        guard let cell = collectionView?.cellForItem(at: indexPath) else {
+            return
+        }
+        if cell.isSelected {
+            collectionView?.deselectItem(at: indexPath, animated: true)
+        } else {
+            collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        }
     }
 
 }
 
-extension SavedArticlesCollectionViewController: CollectionViewBatchEditControllerDelegate {
+extension SavedArticlesCollectionViewController: BatchEditActionDelegate {
+    func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        let indexPath = action.indexPath
+        
+        switch action.type {
+        case .select:
+            select(at: indexPath)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
+            return true
+        }
+        
+    }
+    
     func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
         return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
-    
 }

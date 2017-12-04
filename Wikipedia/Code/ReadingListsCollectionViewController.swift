@@ -106,6 +106,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         
         cell.actions = availableActions(at: indexPath)
+        cell.batchEditAction = batchEditAction(at: indexPath)
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
         cell.layoutMargins = layout.readableMargins
@@ -135,6 +136,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     override func didMove(toParentViewController parent: UIViewController?) {
         batchEditController = CollectionViewBatchEditController(collectionViewController: self)
+        batchEditController.delegate = self
     }
     
 }
@@ -243,5 +245,15 @@ extension ReadingListsCollectionViewController {
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
+    }
+}
+
+extension ReadingListsCollectionViewController: BatchEditActionDelegate {
+    func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        return true
+    }
+    
+    func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
+        return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
 }
