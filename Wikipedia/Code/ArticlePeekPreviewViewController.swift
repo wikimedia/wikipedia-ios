@@ -6,7 +6,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
-
+    fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
@@ -40,7 +40,10 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.frame = view.bounds
         expandedArticleView.isHeaderBackgroundViewHidden = false
         expandedArticleView.headerBackgroundColor = theme.colors.midBackground
-        
+        expandedArticleView.isHidden = false
+
+        activityIndicatorView.stopAnimating()
+
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
@@ -48,6 +51,13 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = theme.colors.paperBackground
+
+        activityIndicatorView.activityIndicatorViewStyle = theme.isDark ? .white : .gray
+        activityIndicatorView.startAnimating()
+
+        view.addSubview(activityIndicatorView)
+        expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
     }
     
@@ -59,6 +69,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         expandedArticleView.frame = view.bounds
+        activityIndicatorView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
