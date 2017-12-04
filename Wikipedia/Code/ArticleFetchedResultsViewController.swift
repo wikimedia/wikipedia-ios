@@ -133,19 +133,19 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        swipeToEditController.closeActionPane()
+        editController.closeActionPane()
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        guard !layoutOnly, let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
             return
         }
         cell.swipeTranslation = translation
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        guard let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+        guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
             return true
         }
         return translation == 0

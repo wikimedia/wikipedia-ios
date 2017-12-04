@@ -11,7 +11,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 class ArticleCollectionViewController: ColumnarCollectionViewController {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: WMFLayoutEstimate?
-    var swipeToEditController: CollectionViewSwipeToEditController!
+    var editController: CollectionViewEditController!
     
     weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -21,8 +21,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
         guard let collectionView = collectionView else {
             return
         }
-        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
-        swipeToEditController.delegate = self
+        editController = CollectionViewEditController(collectionView: collectionView)
+        editController.delegate = self
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -127,7 +127,7 @@ extension ArticleCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard !swipeToEditController.isActive else {
+        guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
         guard let collectionView = collectionView,

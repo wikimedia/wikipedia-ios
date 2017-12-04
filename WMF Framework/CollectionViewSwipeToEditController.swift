@@ -8,7 +8,7 @@ enum CollectionViewCellState {
     case idle, open
 }
 
-public class CollectionViewSwipeToEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {
+public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {
     
     let collectionView: UICollectionView
     

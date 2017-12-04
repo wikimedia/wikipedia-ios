@@ -38,7 +38,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     var cellLayoutEstimate: WMFLayoutEstimate?
     
-    var swipeToEditController: CollectionViewSwipeToEditController!
+    var editController: CollectionViewEditController!
     fileprivate var batchEditController: CollectionViewBatchEditController!
 
     fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
@@ -78,8 +78,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         guard let collectionView = collectionView else {
             return
         }
-        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
-        swipeToEditController.delegate = self
+        editController = CollectionViewEditController(collectionView: collectionView)
+        editController.delegate = self
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
