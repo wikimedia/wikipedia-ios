@@ -191,7 +191,9 @@ extension OnThisDayViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        vc.articlePreviewingActionsDelegate = self
+        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         if let themeable = vc as Themeable? {
             themeable.apply(theme: self.theme)
         }
@@ -199,6 +201,7 @@ extension OnThisDayViewController {
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }

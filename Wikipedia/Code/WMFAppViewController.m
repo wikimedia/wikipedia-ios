@@ -1307,7 +1307,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-learn-more", nil, nil, @"Read more", @"Button text for learn more about Wikipedia Zero.\n{{Identical|Read more}}")
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"]];
+                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"] options:@{} completionHandler:NULL];
                                              }]];
 
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];

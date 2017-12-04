@@ -301,8 +301,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
-
-        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article scrolledTo:decodedFragment];
+        BOOL collapseTables = ![[NSUserDefaults wmf_userDefaults] wmf_isAutomaticTableOpeningEnabled];
+        [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article collapseTables:collapseTables scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
@@ -996,11 +996,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
 
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
-        CGRect panelRectInWebViewCoords = [firstPanel convertRect:firstPanel.bounds toView:self.webView];
-        CGRect refGroupRectInWebViewCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:self.webView];
+        CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
 
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
-            CGFloat distanceFromVerticalCenterAbovePanel = (panelRectInWebViewCoords.origin.y / 2.0) - refGroupRectInWebViewCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
+            CGFloat spaceAbovePanel = [firstPanel convertRect:firstPanel.bounds toView:self.webView].origin.y;
+            if (@available(iOS 11.0, *)) {
+                spaceAbovePanel = spaceAbovePanel + self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
+            } else {
+                spaceAbovePanel = spaceAbovePanel + self.topLayoutGuide.length;
+            }
+
+            CGFloat distanceFromVerticalCenterAbovePanel = (spaceAbovePanel / 2.0) - refGroupRectInWindowCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
+
             CGPoint centeredOffset = CGPointMake(
                 self.webView.scrollView.contentOffset.x,
                 self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel);

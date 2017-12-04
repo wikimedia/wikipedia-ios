@@ -25,11 +25,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         super.viewDidLoad()
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
-        if #available(iOS 10.0, *) {
-            // use traitCollectionDidChange on iOS 10 and newer
-        } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
-        }
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -151,10 +146,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.registerForPreviewingIfAvailable()
-        if #available(iOS 10.0, *) {
-            if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-                contentSizeCategoryDidChange(nil)
-            }
+        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            contentSizeCategoryDidChange(nil)
         }
     }
     
@@ -196,5 +189,23 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     
     func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing: false)
+    }
+}
+
+extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
+    }
+    
+    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
+    }
+    
+    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
     }
 }

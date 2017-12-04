@@ -81,7 +81,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
                 createSubviews(for: actions)
                 needsSubviews = false
             }
-            let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let buttons = isRTL ? self.buttons.reversed() : self.buttons
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
