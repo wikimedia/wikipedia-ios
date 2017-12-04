@@ -566,12 +566,24 @@ const requirements = {
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
   widenImage: require('wikimedia-page-library').WidenImage,
+  lazyLoadTransformer: require('wikimedia-page-library').LazyLoadTransformer,
   location: require('./elementLocation')
 }
 
+// Documents attached to Window will attempt eager pre-fetching of image element resources as soon
+// as image elements appear in DOM of such documents. So for lazy image loading transform to work
+// (without the images being eagerly pre-fetched) our section fragments need to be created on a
+// document not attached to window - `lazyDocument`. The `live` document's `mainContentDiv` is only
+// used when we append our transformed fragments to it. See this Android commit message for details:
+// https://github.com/wikimedia/apps-android-wikipedia/commit/620538d961221942e340ca7ac7f429393d1309d6
+const lazyDocument = document.implementation.createHTMLDocument()
+const lazyImageLoadViewportDistanceMultiplier = 2 // Load images on the current screen up to one ahead.
+const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window, lazyImageLoadViewportDistanceMultiplier)
+const liveDocument = document
+
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
-DocumentFragment.prototype.createElement = name => document.createElement(name)
+DocumentFragment.prototype.createElement = name => lazyDocument.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -650,7 +662,7 @@ class Section {
   }
 
   containerDiv() {
-    const container = document.createElement('div')
+    const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
     container.innerHTML = `
         ${this.article.ismain ? '' : this.headingTag()}
@@ -672,7 +684,7 @@ const processResponseStatus = response => {
 const extractResponseJSON = response => response.json()
 
 const fragmentForSection = section => {
-  const fragment = document.createDocumentFragment()
+  const fragment = lazyDocument.createDocumentFragment()
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
@@ -724,6 +736,9 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
   // 'classifyElements' method itself for other examples.
   requirements.themes.classifyElements(fragment)
+
+  lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
+  lazyImageLoadingTransformer.loadPlaceholders()
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -766,7 +781,7 @@ const scrollToSection = hash => {
 
 const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
   performEarlyNonSectionTransforms(article)
-  const mainContentDiv = document.querySelector('div.content')
+  const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
