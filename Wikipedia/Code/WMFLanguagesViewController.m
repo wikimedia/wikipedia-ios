@@ -403,11 +403,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //need to update the footer
-    [self setEditing:self.editing animated:NO];
 
-    self.tableView.sectionFooterHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionFooterHeight = 50.f;
+    [self setEditing:self.editing animated:NO];
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
 }
@@ -497,6 +494,20 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         (self.languageFilter.languageFilter.length == 0);
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    UIView *footer = [self tableView:tableView viewForFooterInSection:section];
+    if (!footer) {
+        return 0;
+    }
+    footer.hidden = YES;
+    [tableView addSubview:footer]; // updates footer's trait collection to adjust font sizes
+    CGSize sizeToFit = CGSizeMake(tableView.bounds.size.width, UILayoutFittingCompressedSize.height);
+    CGSize size = [footer systemLayoutSizeFittingSize:sizeToFit withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+    [footer removeFromSuperview];
+    footer.hidden = NO;
+    return size.height;
+}
+
 @end
 
 @interface WMFArticleLanguagesViewController ()
@@ -556,11 +567,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         failure:^(NSError *__nonnull error) {
             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         }];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    // HAX: hide line separators which appear before sections/rows load
-    return 0.1f;
 }
 
 @end
