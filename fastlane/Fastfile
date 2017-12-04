@@ -7,13 +7,13 @@ default_platform :ios
 
 configurations_to_test_on_pull = [
   {device: 'iPhone 6s', os: '11.1'},
-  {device: 'iPad Air 2', os: '10.3'}
+  {device: 'iPad Air 2', os: '10.3.1'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '10.3'},
+  {device: 'iPhone 6s', os: '10.3.1'},
   {device: 'iPhone 6s', os: '11.1', scheme: "WikipediaRTL"},
-  {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"}
+  {device: 'iPhone 6s', os: '10.3.1', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
@@ -44,7 +44,7 @@ platform :ios do
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
-      destination: 'platform=iOS Simulator,OS=10.3,name=iPhone 6',
+      destination: 'platform=iOS Simulator,OS=10.3.1,name=iPhone 6',
       analyze: true
     )
   end
@@ -74,7 +74,7 @@ platform :ios do
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3'
+    os = options[:os]         || '10.3.1'
     sim = "#{device} (#{os})"
     opts = {
       device: sim,
@@ -101,7 +101,7 @@ platform :ios do
   lane :record_visual_tests_for_config do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3'
+    os = options[:os]         || '10.3.1'
     sim = "#{device} (#{os})"
     opts = {
       device: sim,
