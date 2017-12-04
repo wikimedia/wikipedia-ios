@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" restorationIdentifier="WMFArticleLanguagesSectionFooter" id="iN0-l3-epB" customClass="WMFArticleLanguagesSectionFooter">
-            <rect key="frame" x="0.0" y="0.0" width="341" height="102"/>
+        <view contentMode="scaleToFill" restorationIdentifier="WMFArticleLanguagesSectionFooter" id="iN0-l3-epB" customClass="WMFArticleLanguagesSectionFooter" customModule="Wikipedia">
+            <rect key="frame" x="0.0" y="0.0" width="349" height="96"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhC-mU-g1n">
-                    <rect key="frame" x="0.0" y="0.0" width="341" height="40"/>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhC-mU-g1n">
+                    <rect key="frame" x="16" y="0.0" width="317" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="999" constant="40" id="cgx-uq-ywp"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                    <inset key="contentEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Button"/>
                     <connections>
                         <action selector="addLanguages:" destination="-2" eventType="touchUpInside" id="cup-o4-42O"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1q-e8-8VS">
-                    <rect key="frame" x="16" y="50" width="309" height="42"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1q-e8-8VS">
+                    <rect key="frame" x="16" y="70" width="317" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="70" id="S4f-d9-m6u"/>
+                    </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="DhC-mU-g1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="-16" id="I6z-qW-DyW"/>
+                <constraint firstItem="DhC-mU-g1n" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="I6z-qW-DyW"/>
                 <constraint firstItem="M1q-e8-8VS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="UfA-FP-uBf"/>
                 <constraint firstItem="DhC-mU-g1n" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="W5C-Fw-TlJ"/>
                 <constraint firstItem="M1q-e8-8VS" firstAttribute="top" secondItem="DhC-mU-g1n" secondAttribute="bottom" constant="10" id="fKg-h7-KcO"/>
-                <constraint firstAttribute="trailingMargin" secondItem="M1q-e8-8VS" secondAttribute="trailing" id="gWU-tJ-6Sh"/>
+                <constraint firstItem="M1q-e8-8VS" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="gWU-tJ-6Sh"/>
                 <constraint firstAttribute="bottom" secondItem="M1q-e8-8VS" secondAttribute="bottom" constant="10" id="hDc-Rm-Qsa"/>
-                <constraint firstAttribute="trailingMargin" secondItem="DhC-mU-g1n" secondAttribute="trailing" constant="-16" id="lF1-rf-9Tq"/>
+                <constraint firstItem="DhC-mU-g1n" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="lF1-rf-9Tq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="addButton" destination="DhC-mU-g1n" id="INQ-UU-Pbg"/>
-                <outlet property="titleLabel" destination="M1q-e8-8VS" id="WQ8-if-LXk"/>
+                <outlet property="addButton" destination="DhC-mU-g1n" id="hza-ca-MIN"/>
+                <outlet property="titleLabel" destination="M1q-e8-8VS" id="QH3-Cq-QM6"/>
             </connections>
-            <point key="canvasLocation" x="272.5" y="197"/>
+            <point key="canvasLocation" x="276.5" y="194"/>
         </view>
     </objects>
 </document>
