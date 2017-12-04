@@ -30,7 +30,7 @@ class SavedViewController: UIViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
-                savedArticlesCollectionViewController.batchEditController.navigationAndToolbarDelegate = self
+                savedArticlesCollectionViewController.batchEditController.navigationDelegate = self
                 activeChildViewController = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
@@ -39,7 +39,7 @@ class SavedViewController: UIViewController {
                 
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                readingListsCollectionViewController?.batchEditController.navigationAndToolbarDelegate = self
+                readingListsCollectionViewController?.batchEditController.navigationDelegate = self
                 activeChildViewController = readingListsCollectionViewController
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
@@ -155,10 +155,14 @@ class SavedViewController: UIViewController {
     
 }
 
-extension SavedViewController: BatchEditNavigationAndToolbarDelegate {
+extension SavedViewController: BatchEditNavigationDelegate {
     func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int) {
         navigationItem.rightBarButtonItem = button
         button.tag = tag
+    }
+    
+    func didSetIsBatchEditToolbarVisible(_ isVisibile: Bool) {
+        tabBarController?.tabBar.isHidden = isVisibile
     }
 }
 

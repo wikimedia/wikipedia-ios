@@ -4,8 +4,9 @@ import UIKit
     @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
-@objc public protocol BatchEditNavigationAndToolbarDelegate: NSObjectProtocol {
+@objc public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int)
+    func didSetIsBatchEditToolbarVisible(_ isVisibile: Bool)
 }
 
 public class BatchEditActionView: SizeThatFitsView, Themeable {
@@ -105,7 +106,7 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
     
     public weak var delegate: BatchEditActionDelegate?
     
-    public weak var navigationAndToolbarDelegate: BatchEditNavigationAndToolbarDelegate? {
+    public weak var navigationDelegate: BatchEditNavigationDelegate? {
         didSet {
             batchEditingState = .none
         }
@@ -142,7 +143,7 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
                 openBatchEditPane()
             }
             let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            navigationAndToolbarDelegate?.didChangeBatchEditingState(button: button, tag: tag)
+            navigationDelegate?.didChangeBatchEditingState(button: button, tag: tag)
         }
     }
     
@@ -195,15 +196,14 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
             } else {
                 toolbar.removeFromSuperview()
             }
-//            collectionViewController.parent?.tabBarController?.tabBar.isHidden = isBatchEditToolbarVisible
+            
+            navigationDelegate?.didSetIsBatchEditToolbarVisible(isBatchEditToolbarVisible)
         }
     }
     
     fileprivate lazy var batchEditToolbar: UIToolbar? = {
-//        let tabBarHeight = collectionViewController.parent?.tabBarController?.tabBar.frame.size.height ?? 0
-        let tabBarHeight = 0
-
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - 44, width: collectionView.bounds.width, height: 44))
+        let toolbarHeight: CGFloat = 50
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - toolbarHeight, width: collectionView.bounds.width, height: toolbarHeight))
         let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
         let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
         let unsaveItem = UIBarButtonItem(title: "Unsave", style: .plain, target: self, action: #selector(unsave))
