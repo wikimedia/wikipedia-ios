@@ -293,6 +293,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    override open var isSelected: Bool {
+        didSet {
+            batchEditActionView.button.isSelected = isSelected
+        }
+    }
+    
     public var batchEditingState: BatchEditingState = .none {
         didSet {
             if batchEditingState != .cancelled && batchEditingState != .none && batchEditActionView.superview == nil {

@@ -83,7 +83,6 @@ public class BatchEditActionView: SizeThatFitsView {
         guard let action = action else {
             return
         }
-        sender.isSelected = !sender.isSelected
         let _ = delegate?.didBatchSelect(action)
     }
 
