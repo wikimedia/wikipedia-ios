@@ -4,7 +4,7 @@ import UIKit
     @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
-public class BatchEditActionView: SizeThatFitsView {
+public class BatchEditActionView: SizeThatFitsView, Themeable {
     
     var needsSubviews = true
     var button: UIButton = UIButton()
@@ -61,9 +61,10 @@ public class BatchEditActionView: SizeThatFitsView {
         
         var maxButtonWidth: CGFloat = 0
         
+        // .withRenderingMode(.alwaysTemplate) can be set directly on assets, once we have them
         let button = UIButton(type: .custom)
-        button.setImage(action.icon, for: .normal)
-        button.setImage(action.confirmationIcon, for: .selected)
+        button.setImage(action.icon.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(action.confirmationIcon.withRenderingMode(.alwaysTemplate), for: .selected)
         button.titleLabel?.numberOfLines = 1
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
         button.backgroundColor = .clear
@@ -84,6 +85,12 @@ public class BatchEditActionView: SizeThatFitsView {
             return
         }
         let _ = delegate?.didBatchSelect(action)
+    }
+    
+    fileprivate var theme: Theme = Theme.standard
+    
+    public func apply(theme: Theme) {
+        button.imageView?.tintColor = theme.colors.secondaryText
     }
 
 }
@@ -127,7 +134,7 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
                 tag = 1
                 openBatchEditPane()
             }
-            // change
+            // change, don't call parent directly here
             collectionViewController.parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
             collectionViewController.parent?.navigationItem.rightBarButtonItem?.tag = tag
         }
@@ -148,6 +155,7 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
     fileprivate func closeBatchEditPane() {
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                cell.isSelected = false
                 cell.batchEditingTranslation = 0
                 cell.layoutIfNeeded()
             }, completion: nil)
@@ -166,7 +174,49 @@ public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegat
     }
     
     public func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        isBatchEditToolbarVisible = true
         return self.delegate?.didBatchSelect(action) ?? false
+    }
+    
+    var isBatchEditToolbarVisible: Bool = false {
+        didSet {
+            guard let toolbar = batchEditToolbar else {
+                return
+            }
+            if isBatchEditToolbarVisible {
+                collectionViewController.collectionView?.addSubview(toolbar)
+            } else {
+                toolbar.removeFromSuperview()
+            }
+            collectionViewController.parent?.tabBarController?.tabBar.isHidden = isBatchEditToolbarVisible
+        }
+    }
+    
+    fileprivate lazy var batchEditToolbar: UIToolbar? = {
+        let tabBarHeight = collectionViewController.parent?.tabBarController?.tabBar.frame.size.height ?? 0
+        guard let collectionView = collectionViewController.collectionView else {
+            return nil
+        }
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - 44, width: collectionView.bounds.width, height: 44))
+        let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
+        let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
+        let unsaveItem = UIBarButtonItem(title: "Unsave", style: .plain, target: self, action: #selector(unsave))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        toolbar.items = [updateItem, flexibleSpace, addToListItem, flexibleSpace, unsaveItem]
+        return toolbar
+    }()
+    
+    @objc func update() {
+        
+    }
+    
+    @objc func addToList() {
+        
+    }
+    
+    @objc func unsave() {
+        
     }
     
 }
@@ -187,10 +237,10 @@ public enum BatchEditActionType {
 public class BatchEditAction: UIAccessibilityCustomAction {
     public let type: BatchEditActionType
     let icon: UIImage
-    let confirmationIcon: UIImage?
+    let confirmationIcon: UIImage
     public let indexPath: IndexPath
     
-    public init(accessibilityTitle: String, type: BatchEditActionType, icon: UIImage, confirmationIcon: UIImage?, at indexPath: IndexPath, target: Any?, selector: Selector) {
+    public init(accessibilityTitle: String, type: BatchEditActionType, icon: UIImage, confirmationIcon: UIImage, at indexPath: IndexPath, target: Any?, selector: Selector) {
         self.type = type
         self.icon = icon
         self.confirmationIcon = confirmationIcon
@@ -210,5 +260,6 @@ public protocol BatchEditableCell: NSObjectProtocol {
     var batchEditingTranslation: CGFloat { get set }
     var batchEditActionView: BatchEditActionView { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation
+    var isSelected: Bool { get set } // selection has to be reset on cancel
 }
 
