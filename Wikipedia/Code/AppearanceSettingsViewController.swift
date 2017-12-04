@@ -93,9 +93,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("the index for this cell is \(indexPath)")
         let item = sections[indexPath.section].items[indexPath.item]
-
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier, for: indexPath)
@@ -158,7 +156,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             cell.selectionStyle = .none
         }
         else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
-            print("here if in AppearanceSettingsAutomaticTableOpenSwitchItem")
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = true
             cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled
