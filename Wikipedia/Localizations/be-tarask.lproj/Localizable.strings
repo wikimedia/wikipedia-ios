@@ -56,28 +56,23 @@
 "edit-summary-field-placeholder-text" = "Іншыя шляхі, якімі Вы палепшылі артыкул";
 "edit-summary-title" = "Як Вы палепшылі артыкул?";
 "empty-no-article-message" = "Прабачце, немагчыма загрузіць артыкул";
-// Fuzzy
-"empty-no-feed-action-message" = "Пакуль Вы можаце пачытаць захаваныя старонкі";
+"empty-no-feed-action-message" = "Вы ўсё яшчэ можаце пачытаць захаваныя старонкі";
 "empty-no-feed-message" = "Вы зможаце ўбачыць Вашыя рэкамэндааныя артыкулы, калі зьявіцца інтэрнэт-злучэньне";
 "empty-no-feed-title" = "Няма інтэрнэт-злучэньня";
 "empty-no-history-message" = "Сачыце за тым, што вы чытаеце тут";
 "empty-no-history-title" = "Няма гісторыі для паказу";
 "empty-no-saved-pages-message" = "Захаваць старонкі для прагляду іх пазьней, нават оф-лайн";
 "empty-no-saved-pages-title" = "Няма захаваных старонак";
-// Fuzzy
-"empty-no-search-results-message" = "Прабачце, немагчыма загрузіць вынікі";
+"empty-no-search-results-message" = "Вынікі ня знойдзеныя";
 "explore-continue-reading-heading" = "Працягваць чытаньне";
 "explore-featured-article-heading" = "Абраны артыкул";
 "explore-main-page-heading" = "Сёньня ў Вікіпэдыі";
-// Fuzzy
-"explore-nearby-heading" = "Навакольныя мясьціны";
+"explore-nearby-heading" = "Месцы побач";
 "explore-potd-heading" = "Выява дня";
 "explore-random-article-heading" = "Выпадковы артыкул";
 "history-clear-cancel" = "Скасаваць";
-// Fuzzy
-"history-clear-confirmation-heading" = "Выдаліць усе нядаўнія элемэнты?";
-// Fuzzy
-"history-clear-delete-all" = "Выдаліць усе";
+"history-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя нядаўнія элемэнты?";
+"history-clear-delete-all" = "Так, выдаліць усё";
 "history-title" = "Гісторыя";
 "hockeyapp-alert-always-send" = "Заўсёды дасылаць";
 "hockeyapp-alert-do-not-send" = "Не дасылаць";

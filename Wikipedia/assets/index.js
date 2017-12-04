@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":13,"wikimedia-page-library":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":9,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -153,7 +153,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":13,"wikimedia-page-library":15}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":9,"wikimedia-page-library":11}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -411,7 +411,7 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":15}],6:[function(require,module,exports){
+},{"wikimedia-page-library":11}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -559,14 +559,14 @@ exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],7:[function(require,module,exports){
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
-  tables: require('./transforms/collapseTables'),
+  tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages')
+  widenImage: require('wikimedia-page-library').WidenImage,
+  location: require('./elementLocation')
 }
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
@@ -681,21 +681,44 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
-  requirements.images.widenImages(fragment)
+  const tableFooterDivClickCallback = container => {
+    if(requirements.location.isElementTopOnscreen(container)){
+      window.scrollTo( 0, container.offsetTop - 10 )
+    }
+  }
+
+  // Adds table collapsing header/footers.
+  requirements.tables.adjustTables(window, fragment, article.displayTitle, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
+
+  // Prevents some collapsed tables from scrolling side-to-side.
+  // May want to move this to wikimedia-page-library if there are no issues.
+  Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
@@ -765,78 +788,13 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
 exports.collapseTablesLocalizedStrings = undefined
+exports.collapseTablesInitially = false
 
 exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./transforms/addEditButtons":8,"./transforms/collapseTables":9,"./transforms/disableFilePageEdit":10,"./transforms/relocateFirstParagraph":11,"./transforms/widenImages":12,"./utilities":13,"wikimedia-page-library":15}],8:[function(require,module,exports){
-const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
-
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
-  const preceedingElement = content.querySelector(preceedingElementSelector)
-  preceedingElement.parentNode.insertBefore(
-    newEditSectionButton(content, sectionID),
-    preceedingElement.nextSibling
-  )
-}
-
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
-}
-
-exports.addEditButtonAfterElement = addEditButtonAfterElement
-exports.addEditButtonsToElements = addEditButtonsToElements
-},{"wikimedia-page-library":15}],9:[function(require,module,exports){
-const tableCollapser = require('wikimedia-page-library').CollapseTable
-var location = require('../elementLocation')
-
-function footerDivClickCallback(container) {
-  if(location.isElementTopOnscreen(container)){
-    window.scrollTo( 0, container.offsetTop - 10 )
-  }
-}
-
-function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
-  tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
-
-  // Prevents some collapsed tables from scrolling side-to-side.
-  // May want to move this to wikimedia-page-library if there are no issues.
-  Array.from(document.querySelectorAll('.app_table_container *[class~="nowrap"]'))
-    .forEach(function(el) {el.classList.remove('nowrap')})
-}
-
-exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":15}],10:[function(require,module,exports){
-
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],11:[function(require,module,exports){
+},{"./elementLocation":3,"./transforms/relocateFirstParagraph":8,"./utilities":9,"wikimedia-page-library":11}],8:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -916,24 +874,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],12:[function(require,module,exports){
-
-const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
-
-function widenImages(content) {
-  Array.from(content.querySelectorAll('img'))
-    .filter(isGalleryImage)
-    .forEach(maybeWidenImage)
-}
-
-exports.widenImages = widenImages
-},{"wikimedia-page-library":15}],13:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -975,7 +916,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],14:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -1020,7 +961,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":13}],15:[function(require,module,exports){
+},{"./utilities":9}],11:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1178,7 +1119,10 @@ var CONSTRAINT = {
 
 // Theme to CSS classes.
 var THEME = {
-  DEFAULT: 'pagelib_theme_default', DARK: 'pagelib_theme_dark', SEPIA: 'pagelib_theme_sepia'
+  DEFAULT: 'pagelib_theme_default',
+  DARK: 'pagelib_theme_dark',
+  SEPIA: 'pagelib_theme_sepia',
+  BLACK: 'pagelib_theme_black'
 };
 
 /**
@@ -1238,8 +1182,12 @@ var classifyElements = function classifyElements(element) {
   /* en > Away colours > 793128975 */
   /* en > Manchester United F.C. > 793244653 */
   /* en > Pantone > 792312384 */
-  Polyfill.querySelectorAll(element, 'div.color_swatch div, div[style*="position: absolute"]').forEach(function (div) {
-    div.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
+  /* en > Wikipedia:Graphs_and_charts > 801754530 */
+  /* en > PepsiCo > 807406166 */
+  /* en > Lua_(programming_language) > 809310207 */
+  var selector = ['div.color_swatch div', 'div[style*="position: absolute"]', 'div.barbox table div[style*="background:"]', 'div.chart div[style*="background-color"]', 'div.chart ul li span[style*="background-color"]', 'span.legend-color', 'div.mw-highlight span', 'code.mw-highlight span'].join();
+  Polyfill.querySelectorAll(element, selector).forEach(function (element) {
+    return element.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
   });
 };
 
@@ -1287,15 +1235,12 @@ var getTableHeader = function getTableHeader(element, pageTitle) {
  */
 
 /**
- * Ex: toggleCollapseClickCallback.bind(el, (container) => {
- *       window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
- *     })
- * @this HTMLElement
+ * @param {!Element} container div
+ * @param {?Element} trigger element that was clicked or tapped
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {boolean} true if collapsed, false if expanded.
  */
-var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
-  var container = this.parentNode;
+var toggleCollapsedForContainer = function toggleCollapsedForContainer(container, trigger, footerDivClickCallback) {
   var header = container.children[0];
   var table = container.children[1];
   var footer = container.children[2];
@@ -1311,7 +1256,7 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     }
     footer.style.display = 'none';
     // if they clicked the bottom div, then scroll back up to the top of the table.
-    if (this === footer && footerDivClickCallback) {
+    if (trigger === footer && footerDivClickCallback) {
       footerDivClickCallback(container);
     }
   } else {
@@ -1325,6 +1270,19 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     footer.style.display = 'block';
   }
   return collapsed;
+};
+
+/**
+ * Ex: toggleCollapseClickCallback.bind(el, (container) => {
+ *       window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
+ *     })
+ * @this HTMLElement
+ * @param {?FooterDivClickCallback} footerDivClickCallback
+ * @return {boolean} true if collapsed, false if expanded.
+ */
+var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
+  var container = this.parentNode;
+  return toggleCollapsedForContainer(container, this, footerDivClickCallback);
 };
 
 /**
@@ -1401,13 +1359,14 @@ var newCaption = function newCaption(title, headerText) {
  * @param {!Element} content
  * @param {?string} pageTitle
  * @param {?boolean} isMainPage
+ * @param {?boolean} isInitiallyCollapsed
  * @param {?string} infoboxTitle
  * @param {?string} otherTitle
  * @param {?string} footerTitle
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {void}
  */
-var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+var adjustTables = function adjustTables(window, content, pageTitle, isMainPage, isInitiallyCollapsed, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
   if (isMainPage) {
     return;
   }
@@ -1471,6 +1430,10 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
       var collapsed = toggleCollapseClickCallback.bind(collapsedFooterDiv, footerDivClickCallback)();
       dispatchSectionToggledEvent(collapsed);
     };
+
+    if (!isInitiallyCollapsed) {
+      toggleCollapsedForContainer(containerDiv);
+    }
   };
 
   for (var i = 0; i < tables.length; ++i) {
@@ -1478,6 +1441,21 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
 
     if (_ret === 'continue') continue;
   }
+};
+
+/**
+ * @param {!Window} window
+ * @param {!Element} content
+ * @param {?string} pageTitle
+ * @param {?boolean} isMainPage
+ * @param {?string} infoboxTitle
+ * @param {?string} otherTitle
+ * @param {?string} footerTitle
+ * @param {?FooterDivClickCallback} footerDivClickCallback
+ * @return {void}
+ */
+var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+  adjustTables(window, content, pageTitle, isMainPage, true, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback);
 };
 
 /**
@@ -1508,6 +1486,7 @@ var CollapseTable = {
   SECTION_TOGGLED_EVENT_TYPE: SECTION_TOGGLED_EVENT_TYPE,
   toggleCollapseClickCallback: toggleCollapseClickCallback,
   collapseTables: collapseTables,
+  adjustTables: adjustTables,
   expandCollapsedTableIfItContainsElement: expandCollapsedTableIfItContainsElement,
   test: {
     getTableHeader: getTableHeader,
@@ -3289,4 +3268,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10]);

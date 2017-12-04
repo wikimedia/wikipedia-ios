@@ -311,6 +311,20 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             return false
         }
     }
+    
+    @objc public func wmf_setDidShowMoreLanguagesTooltip(_ shown: Bool) {
+        self.set(NSNumber(value: shown as Bool), forKey: "ShowMoreLanguagesTooltip")
+        self.synchronize()
+        
+    }
+    
+    @objc public func wmf_didShowMoreLanguagesTooltip() -> Bool {
+        if let enabled = self.object(forKey: "ShowMoreLanguagesTooltip") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
 
     @objc public func wmf_setTableOfContentsIsVisibleInline(_ visibleInline: Bool) {
         self.set(NSNumber(value: visibleInline as Bool), forKey: "TableOfContentsIsVisibleInline")

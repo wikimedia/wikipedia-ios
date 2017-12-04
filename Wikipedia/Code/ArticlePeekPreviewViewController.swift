@@ -1,7 +1,6 @@
 import UIKit
 import WMF
 
-@objc (WMFArticlePeekPreviewViewController)
 class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     fileprivate let articleURL: URL
@@ -37,10 +36,11 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
-        expandedArticleView.extractLabel?.numberOfLines = 6
+        expandedArticleView.extractLabel?.numberOfLines = 5
         expandedArticleView.frame = view.bounds
         expandedArticleView.isHeaderBackgroundViewHidden = false
         expandedArticleView.headerBackgroundColor = theme.colors.midBackground
+        
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
@@ -48,8 +48,12 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchArticle()
         view.addSubview(expandedArticleView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchArticle()
     }
 
     override func viewDidLayoutSubviews() {

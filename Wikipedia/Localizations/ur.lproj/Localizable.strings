@@ -1,11 +1,13 @@
 // Messages for Urdu (اردو)
 // Exported from translatewiki.net
+// Author: BukhariSaeed
 // Author: Hindustanilanguage
 // Author: Mhurd
 // Author: Muhammad Shuaib
 // Author: Nemo bis
 // Author: Obaid Raza
 // Author: Sohaib
+// Author: Zainab Meher
 // Author: امین اکبر
 
 "about-content-license" = "مواد کا اجازت نامہ";
@@ -140,6 +142,8 @@
 "main-menu-zero-faq" = "ویکیپیڈیا زیرو عمومی سوالات";
 "menu-cancel-accessibility-label" = "منسوخ";
 "menu-trash-accessibility-label" = "حذف کریں";
+"more-languages-tooltip-description" = "ویکیپیڈیا کو تقریباً 300 زبانوں میں تلاش کریں۔";
+"more-languages-tooltip-title" = "لسانیات کا اضافہ کریں";
 "navbar-title-mode-edit-wikitext-preview" = "نمائش";
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";

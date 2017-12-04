@@ -220,6 +220,7 @@ extension WKWebView {
         evaluateJavaScript("""
             window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
+            window.wmf.sections.collapseTablesInitially = true
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
                 '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',

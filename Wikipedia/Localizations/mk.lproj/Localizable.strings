@@ -178,7 +178,7 @@
 "hockeyapp-alert-title" = "За жал, прилогот се урна минатиот пат";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
 "home-button-history-accessibility-label" = "Википедија, назад на Историја";
-"home-button-popover-description" = "Допрете го „W“ за да се вратите на каналот „Истражи“";
+"home-button-popover-description" = "Допрете го „W“ за да се вратите на тековникот „Истражи“";
 "home-button-popover-title" = "Допрете за да се вратите на почетната";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-hide-suggestion-cancel" = "Откажи";
@@ -230,6 +230,8 @@
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-trash-accessibility-label" = "Избриши";
+"more-languages-tooltip-description" = "Пребарајте ја Википедија на речиси 300 јазици";
+"more-languages-tooltip-title" = "Додај јазици";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стапки";
 "nearby-distance-label-km" = "$1 км";
@@ -380,7 +382,7 @@
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
-"welcome-exploration-explore-feed-title" = "Канал на Истражи";
+"welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";
 "welcome-exploration-on-this-day-title" = "На денешен ден";
 "welcome-exploration-places-description" = "Откријте ги знаменитостите околу вас или пребарувајте места низ светот";

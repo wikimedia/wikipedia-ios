@@ -44,10 +44,6 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
                                                       duration:(NSTimeInterval)duration
                                withPresenterConfigurationBlock:(WMFDynamicHeightPopoverPresentationHandler)presenterConfigurationBlock {
 
-    if (self.navigationController.visibleViewController != self) {
-        return;
-    }
-
     UIViewController *popoverVC = [self wmf_dynamicHeightPopoverViewControllerWithTitle:title
                                                                                 message:message
                                                                                   width:width
