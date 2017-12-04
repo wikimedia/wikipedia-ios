@@ -142,7 +142,6 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         } else {
             collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
         }
-        cell.updateSelected(theme: theme)
     }
 
 }

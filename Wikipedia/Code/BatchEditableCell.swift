@@ -4,7 +4,7 @@ import UIKit
     @objc func didBatchSelect(_ action: BatchEditAction) -> Bool
 }
 
-public class BatchEditActionView: SizeThatFitsView, Themeable {
+public class BatchEditActionView: SizeThatFitsView {
     
     var needsSubviews = true
     var button: UIButton = UIButton()
@@ -51,7 +51,6 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
         return CGSize(width: width, height: height)
     }
-    public var theme = Theme.standard
     var buttonWidth: CGFloat  = 0
     var minButtonWidth: CGFloat = 60
     
@@ -87,11 +86,7 @@ public class BatchEditActionView: SizeThatFitsView, Themeable {
         sender.isSelected = !sender.isSelected
         let _ = delegate?.didBatchSelect(action)
     }
-    
-    public func apply(theme: Theme) {
-        self.theme = theme
-        backgroundColor = theme.colors.baseBackground
-    }
+
 }
 
 public class CollectionViewBatchEditController: NSObject, BatchEditActionDelegate {

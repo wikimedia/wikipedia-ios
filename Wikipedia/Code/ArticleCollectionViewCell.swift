@@ -297,11 +297,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         didSet {
             if batchEditingState != .cancelled && batchEditingState != .none && batchEditActionView.superview == nil {
                 insertSubview(batchEditActionView, belowSubview: contentView)
-                contentView.backgroundColor = backgroundView?.backgroundColor
+                contentView.backgroundColor = .clear
                 clipsToBounds = true
             } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditActionView.superview != nil {
                 batchEditActionView.removeFromSuperview()
-                contentView.backgroundColor = .clear
+                contentView.backgroundColor = backgroundColor
                 clipsToBounds = false
                 batchEditingState = .none
             }

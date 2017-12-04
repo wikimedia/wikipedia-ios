@@ -41,13 +41,4 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
         return superSize
     }
     
-    func updateSelected(theme: Theme) {
-        if isSelected {
-            contentView.backgroundColor = theme.colors.midBackground
-            batchEditActionView.backgroundColor = theme.colors.midBackground
-        } else {
-            contentView.backgroundColor = theme.colors.paperBackground
-            batchEditActionView.backgroundColor = theme.colors.paperBackground
-        }
-    }
 }
