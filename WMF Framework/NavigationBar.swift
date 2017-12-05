@@ -145,10 +145,9 @@ public class NavigationBar: SetupView {
             let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
             let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
             self.bar.transform = barTransform
-            let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - underBarTransformHeight)
-            self.extendedView.transform = underBarTransform
-            self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
             let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+            self.extendedView.transform = totalTransform
+            self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
             self.progressView.transform = totalTransform
             self.shadow.transform = totalTransform
         }
