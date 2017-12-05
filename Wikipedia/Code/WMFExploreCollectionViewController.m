@@ -53,8 +53,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
-@property (nonatomic) CGFloat topInsetBeforeHeader;
-
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 

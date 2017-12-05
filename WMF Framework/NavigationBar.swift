@@ -19,17 +19,11 @@ public class SetupView: UIView {
     }
 }
 
-@objc(WMFNavigationBarDelegate)
-public protocol NavigationBarDelegate {
-    func navigationController() -> UINavigationController?
-    func navigationItem() -> UINavigationItem?
-}
-
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     fileprivate let bar: UINavigationBar = UINavigationBar()
-    fileprivate let underBarView: UIView = UIView()
+    fileprivate let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     
@@ -37,11 +31,11 @@ public class NavigationBar: SetupView {
     fileprivate var kvoTopLayoutGuideLengthContext = "kvoTopLayoutGuideLengthContext"
     
     /// back button presses will be forwarded to this nav controller
-    @objc public weak var delegate: NavigationBarDelegate? {
+    @objc public weak var delegate: UIViewController? {
         didSet {
             let back = UINavigationItem()
             var items = [back]
-            if let item = delegate?.navigationItem() {
+            if let item = delegate?.navigationItem {
                 items.append(item)
             }
             bar.setItems(items, animated: false)
@@ -62,14 +56,14 @@ public class NavigationBar: SetupView {
         super.setup()
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
         bar.translatesAutoresizingMaskIntoConstraints = false
-        underBarView.translatesAutoresizingMaskIntoConstraints = false
+        extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(shadow)
-        addSubview(underBarView)
-        addSubview(bar)
+        addSubview(extendedView)
         addSubview(statusBarUnderlay)
+        addSubview(bar)
         addSubview(progressView)
 
         bar.delegate = self
@@ -98,15 +92,15 @@ public class NavigationBar: SetupView {
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
         let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
         
-        let underBarTopConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
-        let underBarLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
-        let underBarTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+        let underBarTopConstraint = bar.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
+        let underBarLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
+        let underBarTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
         
         let progressViewBottomConstraint = shadow.topAnchor.constraint(equalTo: progressView.bottomAnchor)
         let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
         let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
         
-        let shadowTopConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
+        let shadowTopConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         let shadowLeadingConstraint = leadingAnchor.constraint(equalTo: shadow.leadingAnchor)
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
@@ -114,21 +108,52 @@ public class NavigationBar: SetupView {
         addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
     }
     
-    @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
+    fileprivate var _navigationBarPercentHidden: CGFloat = 0
+    var navigationBarPercentHidden: CGFloat {
+        get {
+            return _navigationBarPercentHidden
+        }
+        set {
+            _navigationBarPercentHidden = newValue
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+        }
+    }
+    
+    fileprivate var _extendedViewPercentHidden: CGFloat = 0
+    var extendedViewPercentHidden: CGFloat {
+        get {
+            return _extendedViewPercentHidden
+        }
+        set {
+            _extendedViewPercentHidden = newValue
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+        }
+    }
+
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        _navigationBarPercentHidden = navigationBarPercentHidden
+        _extendedViewPercentHidden = extendedViewPercentHidden
         let changes = {
-            let totalHeight = self.bar.frame.height + self.underBarView.frame.height
-            let transformHeight = totalHeight * percentHidden
-            let transform = CGAffineTransform(translationX: 0, y: 0 - transformHeight)
-            self.bar.transform = transform
-            self.underBarView.transform = transform
-            self.progressView.transform = transform;
-            self.shadow.transform = transform
+            let barTransformHeight = self.bar.frame.height * navigationBarPercentHidden
+            let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
+            let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
+            self.bar.transform = barTransform
+            let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - underBarTransformHeight)
+            self.extendedView.transform = underBarTransform
+            self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
+            let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+            self.progressView.transform = totalTransform
+            self.shadow.transform = totalTransform
         }
         if animated {
             UIView.animate(withDuration: 0.2, animations: changes)
         } else {
             changes()
         }
+    }
+    
+    @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
+        setNavigationBarPercentHidden(percentHidden, extendedViewPercentHidden: percentHidden, animated: animated)
     }
     
     @objc public func setProgressViewHidden(_ hidden: Bool, animated: Bool) {
@@ -154,6 +179,10 @@ public class NavigationBar: SetupView {
             progressView.progress = progress
         }
     }
+    
+    public func addExtendedNavigationBarView(_ view: UIView) {
+        extendedView.wmf_addSubviewWithConstraintsToEdges(view)
+    }
 }
 
 extension NavigationBar: Themeable {
@@ -169,7 +198,7 @@ extension NavigationBar: Themeable {
         bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
         bar.tintColor = theme.colors.chromeText
         
-        underBarView.backgroundColor = theme.colors.chromeBackground
+        extendedView.backgroundColor = theme.colors.chromeBackground
         
         shadow.backgroundColor = theme.colors.shadow
         
@@ -181,7 +210,7 @@ extension NavigationBar: Themeable {
 
 extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
-        delegate?.navigationController()?.popViewController(animated: true)
+        delegate?.navigationController?.popViewController(animated: true)
         return false
     }
 }

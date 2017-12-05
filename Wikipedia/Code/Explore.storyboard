@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U1o-Vy-4PN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U1o-Vy-4PN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,62 +22,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-WZ-awY">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </containerView>
-                            <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" layoutMarginsFollowReadableWidth="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vQH-78-FaV">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="pc7-Py-DZ1"/>
-                                        </constraints>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="U1o-Vy-4PN" id="eCa-bN-gWL"/>
-                                        </connections>
-                                    </searchBar>
-                                </subviews>
+                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nai-Yt-sU6" customClass="WMFNavigationBar">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="vQH-78-FaV" secondAttribute="bottom" constant="4" id="BOV-8a-KMc"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="vQH-78-FaV" secondAttribute="trailing" priority="999" constant="-8" id="I1q-zB-maA"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vQH-78-FaV" secondAttribute="trailing" constant="12" id="Yfe-VN-hBg"/>
-                                    <constraint firstItem="vQH-78-FaV" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="top" id="o5c-Cu-MuW"/>
-                                    <constraint firstItem="vQH-78-FaV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Nai-Yt-sU6" secondAttribute="leading" constant="12" id="px1-Hf-jRH"/>
-                                    <constraint firstAttribute="height" constant="44" id="qkK-r4-n2U"/>
-                                    <constraint firstItem="vQH-78-FaV" firstAttribute="leading" secondItem="Nai-Yt-sU6" secondAttribute="leadingMargin" priority="999" constant="-8" id="t8q-U9-LBl"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Yfe-VN-hBg"/>
-                                        <exclude reference="px1-Hf-jRH"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="Yfe-VN-hBg"/>
-                                        <include reference="px1-Hf-jRH"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="Nai-Yt-sU6" secondAttribute="bottom" id="0MW-Y4-Jhn"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="centerX" secondItem="k2o-HG-1ae" secondAttribute="centerX" id="GJZ-PR-uek"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="trailing" secondItem="MHl-WZ-awY" secondAttribute="trailing" id="J0d-lE-0Nd"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="width" secondItem="k2o-HG-1ae" secondAttribute="width" id="JNh-W6-EUk"/>
                             <constraint firstItem="MHl-WZ-awY" firstAttribute="bottom" secondItem="8FH-VM-Onk" secondAttribute="top" id="QxO-vs-KGH"/>
                             <constraint firstItem="Nai-Yt-sU6" firstAttribute="leading" secondItem="MHl-WZ-awY" secondAttribute="leading" id="bO8-9O-U7T"/>
-                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="topMargin" id="q6P-Yl-10b"/>
+                            <constraint firstItem="Nai-Yt-sU6" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="top" id="q6P-Yl-10b"/>
+                            <constraint firstItem="MHl-WZ-awY" firstAttribute="top" secondItem="k2o-HG-1ae" secondAttribute="top" id="wHf-6k-mq7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bvZ-8Y-hFE"/>
                     <connections>
                         <outlet property="containerView" destination="MHl-WZ-awY" id="v2T-pM-cel"/>
-                        <outlet property="extendNavBarViewTopSpaceConstraint" destination="q6P-Yl-10b" id="Ufm-fZ-mqQ"/>
-                        <outlet property="extendedNavBarView" destination="Nai-Yt-sU6" id="U0J-9q-kCQ"/>
-                        <outlet property="searchBar" destination="vQH-78-FaV" id="asT-tg-Fxi"/>
+                        <outlet property="navigationBar" destination="Nai-Yt-sU6" id="71j-hQ-5Yo"/>
                         <outlet property="view" destination="k2o-HG-1ae" id="g3M-4Q-Kgb"/>
                     </connections>
                 </viewController>

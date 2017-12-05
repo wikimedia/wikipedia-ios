@@ -87,8 +87,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate,
-                                        WMFNavigationBarDelegate>
+                                        WMFArticlePreviewingActionsDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
