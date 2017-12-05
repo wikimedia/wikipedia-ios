@@ -188,7 +188,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             self.shortTitleButton?.alpha = extendedViewPercentHidden
             self.longTitleButton?.alpha = 1.0 - extendedViewPercentHidden
             self.navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
-            self.navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: extendedViewPercentHidden, animated: false)
+            self.navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: false)
         }
         if animated {
             UIView.animate(withDuration: 0.2, animations: changes)
@@ -238,6 +238,11 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         guard velocity != 0 else { // don't hide or show on 0 velocity tap
             return
         }
+        let percentHidden: CGFloat = velocity > 0 ? 1 : 0
+        guard percentHidden != navigationBar.navigationBarPercentHidden else {
+            return
+        }
+        setNavigationBarPercentHidden(percentHidden, extendedViewPercentHidden: navigationBar.extendedViewPercentHidden, animated: true)
     }
     
     func addStatusBarUnderlay() {
