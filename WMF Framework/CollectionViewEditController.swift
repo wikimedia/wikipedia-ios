@@ -100,6 +100,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return true
     }
     
+    public func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        return self.delegate?.didPerformBatchEditToolbarAction(action) ?? false
+    }
+    
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         var shouldBegin = false
         defer {
@@ -406,37 +410,39 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public func didBatchSelect(_ action: BatchEditAction) -> Bool {
         let didSelect = self.delegate?.didBatchSelect(action) ?? false
-        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems, didSelect {
+        if didSelect {
             isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
         }
         return didSelect
     }
     
+    var selectedIndexPaths: [IndexPath] {
+        return collectionView.indexPathsForSelectedItems ?? []
+    }
+    
     var isBatchEditToolbarVisible: Bool = false {
         didSet {
-                self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, add: self.isBatchEditToolbarVisible)
-                self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, add: self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
         }
     }
     
     fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
-        let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
-        let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
-        let unsaveItem = UIBarButtonItem(title: "Unsave", style: .plain, target: self, action: #selector(unsave))
+        guard let delegate = delegate, let actions = delegate.availableBatchEditToolbarActions else {
+            return []
+        }
+        
+        var buttons: [UIBarButtonItem] = []
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        return [updateItem, flexibleSpace, addToListItem, flexibleSpace, unsaveItem]
+        
+        for (index, action) in actions.enumerated() {
+            if index != 0 {
+                buttons.append(flexibleSpace)
+            }
+            buttons.append(action.button)
+        }
+        
+        return buttons
     }()
-    
-    @objc func update() {
-        
-    }
-    
-    @objc func addToList() {
-        
-    }
-    
-    @objc func unsave() {
-        
-    }
     
 }

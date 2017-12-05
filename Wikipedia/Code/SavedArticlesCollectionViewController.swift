@@ -125,6 +125,8 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         cell.batchEditAction = batchEditAction(at: indexPath)
     }
     
+    // MARK: - Batch editing
+    
     fileprivate func select(at indexPath: IndexPath) {
         let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
 
@@ -141,6 +143,13 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         }
         super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
+    
+    lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
+        let updateItem = BatchEditToolbarActionType.update.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
+        let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
+        return [updateItem, addToListItem, unsaveItem]
+    }()
 
 }
 
@@ -160,4 +169,9 @@ extension SavedArticlesCollectionViewController {
     func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
         return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
+    
+    override func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        return true
+    }
+    
 }

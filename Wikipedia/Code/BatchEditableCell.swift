@@ -132,6 +132,42 @@ public enum BatchEditingState {
     case disabled
 }
 
+public enum BatchEditToolbarActionType: Int {
+    case update, addToList, unsave
+    
+    public func action(with target: Any?) -> BatchEditToolbarAction {
+        var title: String = "Update"
+        var type: BatchEditToolbarActionType = .update
+        switch self {
+        case .addToList:
+            title = "Add to list"
+            type = .addToList
+        case .unsave:
+            title = "Un-save"
+            type = .unsave
+        default:
+            break
+        }
+        let button = UIBarButtonItem(title: title, style: .plain, target: target, action: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)))
+        button.tag = type.rawValue
+        return BatchEditToolbarAction(title: title, type: type, button: button, target: target)
+    }
+}
+
+public class BatchEditToolbarAction: UIAccessibilityCustomAction {
+    let title: String
+    public let type: BatchEditToolbarActionType
+    public let button: UIBarButtonItem
+    
+    public init(title: String, type: BatchEditToolbarActionType, button: UIBarButtonItem, target: Any?) {
+        self.title = title
+        self.type = type
+        self.button = button
+        let selector = button.action ?? #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:))
+        super.init(name: title, target: target, selector: selector)
+    }
+}
+
 public protocol BatchEditableCell: NSObjectProtocol {
     var batchEditingState: BatchEditingState { get set }
     var batchEditingTranslation: CGFloat { get set }

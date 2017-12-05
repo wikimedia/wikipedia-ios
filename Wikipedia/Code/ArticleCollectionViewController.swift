@@ -179,7 +179,14 @@ extension ArticleCollectionViewController {
 
 extension ArticleCollectionViewController: ActionDelegate {
     
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        assert(false, "Subclassers should override this function")
+        return false
+    }
+    
+
     func didBatchSelect(_ action: BatchEditAction) -> Bool {
+        assert(false, "Subclassers should override this function")
         return false
     }
     

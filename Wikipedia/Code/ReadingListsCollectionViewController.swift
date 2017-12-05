@@ -138,6 +138,15 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
     }
     
+    // MARK: - Batch editing
+    
+    lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
+        let updateItem = BatchEditToolbarActionType.update.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
+        let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
+        return [updateItem, addToListItem, unsaveItem]
+    }()
+    
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
@@ -198,6 +207,11 @@ extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
 
 // MARK: - ActionDelegate
 extension ReadingListsCollectionViewController: ActionDelegate {
+    
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        return true
+    }
+    
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         guard let readingList = readingList(at: indexPath), let readingListName = readingList.name else {
@@ -220,6 +234,7 @@ extension ReadingListsCollectionViewController: ActionDelegate {
     func availableActions(at indexPath: IndexPath) -> [Action] {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
+
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
