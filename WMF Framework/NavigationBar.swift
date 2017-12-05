@@ -42,6 +42,8 @@ public class NavigationBar: SetupView {
         }
     }
     
+    fileprivate var shadowHeightConstraint: NSLayoutConstraint!
+
     /// Remove this when dropping iOS 10
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
     /// Remove this when dropping iOS 10
@@ -68,7 +70,7 @@ public class NavigationBar: SetupView {
 
         bar.delegate = self
         
-        let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 1)
+        shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
         shadow.addConstraint(shadowHeightConstraint)
         
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
@@ -106,6 +108,11 @@ public class NavigationBar: SetupView {
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
         addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+    }
+    
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
     }
     
     fileprivate var _navigationBarPercentHidden: CGFloat = 0
