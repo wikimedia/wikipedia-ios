@@ -55,6 +55,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeEntryWithURL:(NSURL *)url;
 
 /**
+ *  Remove entries with given urls
+ */
+- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls;
+
+/**
  *  Remove all history entries
  */
 - (void)removeAllEntries;

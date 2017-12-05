@@ -171,6 +171,14 @@ extension SavedArticlesCollectionViewController {
     }
     
     override func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+            return false
+        }
+        
+        var articleURLs: [URL?] = []
+        selectedIndexPaths.forEach({ articleURLs.append(articleURL(at: $0)) })
+        let validArticleURLs = articleURLs.flatMap { $0 }
+        
         switch action.type {
         case .update:
             print("Update")
@@ -179,7 +187,8 @@ extension SavedArticlesCollectionViewController {
             print("Add to list")
             return true
         case .unsave:
-            print("Unsave")
+            dataStore.savedPageList.removeEntries(with: validArticleURLs)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         }
     }

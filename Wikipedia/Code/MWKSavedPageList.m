@@ -173,6 +173,17 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     [self.dataStore save:nil];
 }
 
+- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
+    WMFArticle *article;
+    for (NSURL *url in urls) {
+        article = [self.dataStore fetchArticleWithURL:url];
+        if (article) {
+            article.savedDate = nil;
+        }
+    }
+    [self.dataStore save:nil];
+}
+
 #pragma mark - Legacy Schema Migration
 
 + (NSArray<NSDictionary *> *)savedEntryDataFromExportedData:(NSDictionary *)savedPageListData {
