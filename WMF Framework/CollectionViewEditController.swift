@@ -33,6 +33,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         didSet {
             if activeIndexPath != nil {
                 batchEditingState = .disabled
+            } else {
+                batchEditingState = .none
             }
         }
     }
