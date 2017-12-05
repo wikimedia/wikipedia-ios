@@ -129,6 +129,7 @@ public enum BatchEditingState {
     case none
     case open
     case cancelled
+    case disabled
 }
 
 public protocol BatchEditableCell: NSObjectProtocol {

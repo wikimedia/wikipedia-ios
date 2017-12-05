@@ -29,7 +29,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return activeIndexPath != nil
     }
     
-    var activeIndexPath: IndexPath?
+    var activeIndexPath: IndexPath? {
+        didSet {
+            if activeIndexPath != nil {
+                batchEditingState = .disabled
+            }
+        }
+    }
     var isRTL: Bool = false
     var initialSwipeTranslation: CGFloat = 0
     let maxExtension: CGFloat = 10
@@ -251,9 +257,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     // MARK: - States
     
     func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
-        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-        navigationDelegate?.changeRightNavButton(to: button)
-        
         collectionView.allowsSelection = false
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
@@ -324,22 +327,28 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
-    @objc func done() {
-        closeActionPane()
-        batchEditingState = .none
-    }
-    
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
-            guard !isActive else {
+            var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
+            var tag = 0
+            
+            defer {
+                let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
+                button.tag = tag
+                navigationDelegate?.changeRightNavButton(to: button)
+            }
+            
+            guard batchEditingState != .disabled else {
+                barButtonSystemItem = .done
+                tag = -1
                 return
             }
+            
             for cell in editableCells {
                 cell.batchEditingState = batchEditingState
                 cell.batchEditActionView.delegate = self
             }
-            var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
-            var tag = 0
+
             switch batchEditingState {
             case .none:
                 break
@@ -349,10 +358,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 barButtonSystemItem = UIBarButtonSystemItem.cancel
                 tag = 1
                 openBatchEditPane()
+            default:
+                break
             }
-            let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            button.tag = tag
-            navigationDelegate?.changeRightNavButton(to: button)
         }
     }
     
@@ -382,6 +390,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     @objc func batchEdit(_ sender: UIBarButtonItem) {
         switch sender.tag {
+        case -1:
+            closeActionPane()
+            batchEditingState = .none
         case 0:
             batchEditingState = .open
         case 1:
