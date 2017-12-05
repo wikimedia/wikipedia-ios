@@ -332,12 +332,18 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
+            var enabled = true
             var tag = 0
             
             defer {
                 let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
                 button.tag = tag
+                button.isEnabled = enabled
                 navigationDelegate?.changeRightNavButton(to: button)
+            }
+            
+            if collectionView.visibleCells.isEmpty {
+                enabled = false
             }
             
             guard batchEditingState != .disabled else {
