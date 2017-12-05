@@ -81,6 +81,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         editController.delegate = self
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        editController.closeActionPane()
+    }
+    
     func readingList(at indexPath: IndexPath) -> ReadingList? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
