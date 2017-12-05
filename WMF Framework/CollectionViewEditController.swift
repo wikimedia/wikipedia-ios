@@ -405,8 +405,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        isBatchEditToolbarVisible = true
-        return self.delegate?.didBatchSelect(action) ?? false
+        let didSelect = self.delegate?.didBatchSelect(action) ?? false
+        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems, didSelect {
+            isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
+        }
+        return didSelect
     }
     
     var isBatchEditToolbarVisible: Bool = false {
