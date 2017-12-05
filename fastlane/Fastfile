@@ -6,18 +6,18 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '11.1'},
+  {device: 'iPhone 6s', os: '11.2'},
   {device: 'iPad Air 2', os: '10.3.1'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
   {device: 'iPhone 6s', os: '10.3.1'},
-  {device: 'iPhone 6s', os: '11.1', scheme: "WikipediaRTL"},
+  {device: 'iPhone 6s', os: '11.2', scheme: "WikipediaRTL"},
   {device: 'iPhone 6s', os: '10.3.1', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone 6s', os: '11.1', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone 6s', os: '11.2', scheme: "Beta Cluster Tests"}
 ]
 
 platform :ios do
