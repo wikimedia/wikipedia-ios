@@ -19,6 +19,12 @@ public class SetupView: UIView {
     }
 }
 
+@objc(WMFNavigationBarDelegate)
+public protocol NavigationBarDelegate {
+    func navigationController() -> UINavigationController?
+    func navigationItem() -> UINavigationItem?
+}
+
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
@@ -26,18 +32,28 @@ public class NavigationBar: SetupView {
     fileprivate let underBarView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     
+    /// Remove this when dropping iOS 10
+    fileprivate var kvoTopLayoutGuideLengthContext = "kvoTopLayoutGuideLengthContext"
+    
+    /// back button presses will be forwarded to this nav controller
+    @objc public weak var delegate: NavigationBarDelegate? {
+        didSet {
+            let back = UINavigationItem()
+            var items = [back]
+            if let item = delegate?.navigationItem() {
+                items.append(item)
+            }
+            bar.setItems(items, animated: false)
+        }
+    }
+    
+    /// Remove this when dropping iOS 10
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
+    /// Remove this when dropping iOS 10
     /// `statusBarHeight` only used on iOS 10 due to lack of safeAreaLayoutGuide
     @objc public var statusBarHeight: CGFloat = 0 {
         didSet {
             statusBarHeightConstraint?.constant = statusBarHeight
-        }
-    }
-    
-    @objc public var navigationItem: UINavigationItem = UINavigationItem() {
-        didSet {
-            let back = UINavigationItem()
-            bar.setItems([back, navigationItem], animated: false)
         }
     }
     
@@ -48,11 +64,11 @@ public class NavigationBar: SetupView {
         underBarView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(statusBarUnderlay)
-        addSubview(bar)
-        addSubview(underBarView)
         addSubview(shadow)
-        
+        addSubview(underBarView)
+        addSubview(bar)
+        addSubview(statusBarUnderlay)
+
         bar.delegate = self
         
         let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
@@ -67,7 +83,6 @@ public class NavigationBar: SetupView {
         } else {
             let underlayHeightConstraint = statusBarUnderlay.heightAnchor.constraint(equalToConstant: 0)
             statusBarHeightConstraint = underlayHeightConstraint
-            statusBarHeight = UIApplication.shared.statusBarFrame.height
             statusBarUnderlay.addConstraint(underlayHeightConstraint)
         }
         
@@ -90,6 +105,22 @@ public class NavigationBar: SetupView {
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
         addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+    }
+    
+    @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
+        let changes = {
+            let totalHeight = self.bar.frame.height + self.underBarView.frame.height
+            let transformHeight = totalHeight * percentHidden
+            let transform = CGAffineTransform(translationX: 0, y: 0 - transformHeight)
+            self.bar.transform = transform
+            self.underBarView.transform = transform
+            self.shadow.transform = transform
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
     }
 }
 
@@ -114,6 +145,7 @@ extension NavigationBar: Themeable {
 
 extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        delegate?.navigationController()?.popViewController(animated: true)
         return false
     }
 }

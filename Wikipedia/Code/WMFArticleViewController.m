@@ -87,7 +87,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate>
+                                        WMFArticlePreviewingActionsDelegate,
+                                        WMFNavigationBarDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -938,7 +939,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
     
-    self.webViewController.navigationBar.navigationItem = self.navigationItem;
+    self.webViewController.navigationBar.delegate = self;
 }
 
 #pragma mark - Table of Contents

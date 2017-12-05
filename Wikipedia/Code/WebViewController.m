@@ -673,7 +673,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -1139,6 +1139,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)setNavBarHidden:(BOOL)navBarHidden {
     _navBarHidden = navBarHidden;
+    [self.navigationBar setPercentHidden:navBarHidden ? 1 : 0 animated:YES];
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
