@@ -31,6 +31,7 @@ public class NavigationBar: SetupView {
     fileprivate let bar: UINavigationBar = UINavigationBar()
     fileprivate let underBarView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
+    fileprivate let progressView: UIProgressView = UIProgressView()
     
     /// Remove this when dropping iOS 10
     fileprivate var kvoTopLayoutGuideLengthContext = "kvoTopLayoutGuideLengthContext"
@@ -62,16 +63,18 @@ public class NavigationBar: SetupView {
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
         bar.translatesAutoresizingMaskIntoConstraints = false
         underBarView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(shadow)
         addSubview(underBarView)
         addSubview(bar)
         addSubview(statusBarUnderlay)
+        addSubview(progressView)
 
         bar.delegate = self
         
-        let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
+        let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 1)
         shadow.addConstraint(shadowHeightConstraint)
         
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
@@ -99,12 +102,16 @@ public class NavigationBar: SetupView {
         let underBarLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
         let underBarTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
         
+        let progressViewBottomConstraint = shadow.topAnchor.constraint(equalTo: progressView.bottomAnchor)
+        let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
+        let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
+        
         let shadowTopConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         let shadowLeadingConstraint = leadingAnchor.constraint(equalTo: shadow.leadingAnchor)
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
     }
     
     @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
@@ -114,12 +121,37 @@ public class NavigationBar: SetupView {
             let transform = CGAffineTransform(translationX: 0, y: 0 - transformHeight)
             self.bar.transform = transform
             self.underBarView.transform = transform
+            self.progressView.transform = transform;
             self.shadow.transform = transform
         }
         if animated {
             UIView.animate(withDuration: 0.2, animations: changes)
         } else {
             changes()
+        }
+    }
+    
+    @objc public func setProgressViewHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            self.progressView.alpha = hidden ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
+    }
+    
+    @objc public func setProgress(_ progress: Float, animated: Bool) {
+        progressView.setProgress(progress, animated: animated)
+    }
+    
+    @objc public var progress: Float {
+        get {
+            return progressView.progress
+        }
+        set {
+            progressView.progress = progress
         }
     }
 }
@@ -140,6 +172,10 @@ extension NavigationBar: Themeable {
         underBarView.backgroundColor = theme.colors.chromeBackground
         
         shadow.backgroundColor = theme.colors.shadow
+        
+        progressView.progressViewStyle = .bar
+        progressView.trackTintColor = .clear
+        progressView.progressTintColor = theme.colors.link
     }
 }
 

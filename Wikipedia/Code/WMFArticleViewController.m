@@ -126,7 +126,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
-@property (strong, nonatomic) UIProgressView *progressView;
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
 
 // Table of Contents
@@ -592,59 +591,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Progress
 
-- (void)setupProgressView {
-    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-    self.progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.progressView];
-    [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
-}
-
-- (void)removeProgressView {
-    [self.progressView removeFromSuperview];
-}
-
 - (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.05;
-
-    if (!animated) {
-        [self _showProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [self _showProgressView];
-                     }
-                     completion:^(BOOL finished){
-                     }];
-}
-
-- (void)_showProgressView {
-    self.progressView.alpha = 1.0;
+    [self.webViewController.navigationBar setProgressViewHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    if (!animated) {
-        [self _hideProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [self _hideProgressView];
-                     }
-                     completion:nil];
-}
-
-- (void)_hideProgressView {
-    self.progressView.alpha = 0.0;
+    [self.webViewController.navigationBar setProgressViewHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
-    if (progress < self.progressView.progress) {
+    if (progress < self.webViewController.navigationBar.progress) {
         return;
     }
-    [self.progressView setProgress:progress animated:animated];
+    [self.webViewController.navigationBar setProgress:progress animated:animated];
 
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
@@ -730,7 +689,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-    [self setupProgressView];
     [self hideProgressViewAnimated:NO];
 
     if (self.theme) {
@@ -1897,7 +1855,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [[self wmf_emptyView] applyTheme:self.theme];
-    self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
