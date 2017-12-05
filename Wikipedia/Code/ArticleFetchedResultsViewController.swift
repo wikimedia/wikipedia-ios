@@ -131,9 +131,9 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         updateDeleteButton()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        editController.closeActionPane()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        editController.close()
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {

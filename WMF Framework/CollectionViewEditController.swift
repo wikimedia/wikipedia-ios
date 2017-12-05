@@ -342,10 +342,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 navigationDelegate?.changeRightNavButton(to: button)
             }
             
-            if collectionView.visibleCells.isEmpty {
-                enabled = false
-            }
-            
             guard batchEditingState != .disabled else {
                 barButtonSystemItem = .done
                 tag = -1
@@ -382,6 +378,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 cell.layoutIfNeeded()
             }, completion: nil)
         }
+    }
+    
+    @objc public func close() {
+        closeActionPane()
+        batchEditingState = .cancelled
     }
     
     fileprivate func closeBatchEditPane() {

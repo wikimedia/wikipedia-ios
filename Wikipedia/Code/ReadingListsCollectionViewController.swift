@@ -81,9 +81,9 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         editController.delegate = self
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        editController.closeActionPane()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        editController.close()
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
