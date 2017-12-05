@@ -132,9 +132,9 @@ public enum BatchEditingState {
     case disabled
 }
 
-public enum BatchEditToolbarActionType: Int {
+public enum BatchEditToolbarActionType {
     case update, addToList, unsave
-    
+        
     public func action(with target: Any?) -> BatchEditToolbarAction {
         var title: String = "Update"
         var type: BatchEditToolbarActionType = .update
@@ -149,7 +149,6 @@ public enum BatchEditToolbarActionType: Int {
             break
         }
         let button = UIBarButtonItem(title: title, style: .plain, target: target, action: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)))
-        button.tag = type.rawValue
         return BatchEditToolbarAction(title: title, type: type, button: button, target: target)
     }
 }

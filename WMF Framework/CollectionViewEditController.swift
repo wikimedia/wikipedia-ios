@@ -100,10 +100,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return true
     }
     
-    public func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        return self.delegate?.didPerformBatchEditToolbarAction(action) ?? false
-    }
-    
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         var shouldBegin = false
         defer {
@@ -427,19 +423,35 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
+    fileprivate var batchEditToolbarActions: [BatchEditToolbarAction] {
         guard let delegate = delegate, let actions = delegate.availableBatchEditToolbarActions else {
             return []
         }
+        return actions
+    }
+    
+    @objc public func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        return delegate?.didPerformBatchEditToolbarAction(action) ?? false
+    }
+    
+    @objc public func didPerformBatchEditToolbarAction(with sender: UIBarButtonItem) {
+        let _ = delegate?.didPerformBatchEditToolbarAction(batchEditToolbarActions[sender.tag])
+    }
+    
+    fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
         
         var buttons: [UIBarButtonItem] = []
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        for (index, action) in actions.enumerated() {
+        for (index, action) in batchEditToolbarActions.enumerated() {
             if index != 0 {
                 buttons.append(flexibleSpace)
             }
-            buttons.append(action.button)
+            let button = action.button
+            button.target = self
+            button.action = #selector(didPerformBatchEditToolbarAction(with:))
+            button.tag = index
+            buttons.append(button)
         }
         
         return buttons

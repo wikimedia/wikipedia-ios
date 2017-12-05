@@ -171,7 +171,17 @@ extension SavedArticlesCollectionViewController {
     }
     
     override func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        return true
+        switch action.type {
+        case .update:
+            print("Update")
+            return true
+        case .addToList:
+            print("Add to list")
+            return true
+        case .unsave:
+            print("Unsave")
+            return true
+        }
     }
     
 }
