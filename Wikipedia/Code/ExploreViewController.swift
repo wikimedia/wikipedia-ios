@@ -180,7 +180,21 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         
-        navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: updatedPercentage, animated: false)
+        setNavigationBarPercentHidden(0, extendedViewPercentHidden: updatedPercentage, animated: false)
+    }
+    
+    fileprivate func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        let changes = {
+            self.shortTitleButton?.alpha = extendedViewPercentHidden
+            self.longTitleButton?.alpha = 1.0 - extendedViewPercentHidden
+            self.navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
+            self.navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: extendedViewPercentHidden, animated: false)
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didEndScrolling scrollView: UIScrollView) {
@@ -204,8 +218,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         
-        navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: percentage, animated: true)
-        
+        setNavigationBarPercentHidden(0, extendedViewPercentHidden: percentage, animated: true)
         if percentage < 1 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: true)
         } else {
