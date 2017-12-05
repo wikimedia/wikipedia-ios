@@ -322,6 +322,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
+            if isActive {
+                return
+            }
             for cell in editableCells {
                 cell.batchEditingState = batchEditingState
                 cell.batchEditActionView.delegate = self
@@ -356,7 +359,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     fileprivate func closeBatchEditPane() {
-        areSwipeActionsDisabled = false
         isBatchEditToolbarVisible = false
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
@@ -365,6 +367,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 cell.layoutIfNeeded()
             }, completion: nil)
         }
+        areSwipeActionsDisabled = false
     }
     
     @objc func batchEdit(_ sender: UIBarButtonItem) {
@@ -385,28 +388,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     var isBatchEditToolbarVisible: Bool = false {
         didSet {
-            guard let toolbar = batchEditToolbar else {
-                return
-            }
-            if isBatchEditToolbarVisible {
-                collectionView.addSubview(toolbar)
-            } else {
-                toolbar.removeFromSuperview()
-            }
-            navigationDelegate?.didSetIsBatchEditToolbarVisible(isBatchEditToolbarVisible)
+                self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, add: self.isBatchEditToolbarVisible)
+                self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
         }
     }
     
-    fileprivate lazy var batchEditToolbar: UIToolbar? = {
-        let toolbarHeight: CGFloat = 50
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: collectionView.bounds.height - toolbarHeight, width: collectionView.bounds.width, height: toolbarHeight))
+    fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
         let updateItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(update))
         let addToListItem = UIBarButtonItem(title: "Add to list", style: .plain, target: self, action: #selector(addToList))
         let unsaveItem = UIBarButtonItem(title: "Unsave", style: .plain, target: self, action: #selector(unsave))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        toolbar.items = [updateItem, flexibleSpace, addToListItem, flexibleSpace, unsaveItem]
-        return toolbar
+        return [updateItem, flexibleSpace, addToListItem, flexibleSpace, unsaveItem]
     }()
     
     @objc func update() {
