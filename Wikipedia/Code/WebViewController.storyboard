@@ -25,6 +25,7 @@
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-t3-9Cu" customClass="WMFNavigationBar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="rBQ-sB-6Ri"/>
                             </view>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
                                 <rect key="frame" x="0.0" y="627" width="375" height="40"/>

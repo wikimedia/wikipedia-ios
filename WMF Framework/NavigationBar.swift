@@ -26,8 +26,20 @@ public class NavigationBar: SetupView {
     fileprivate let underBarView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     
-    /// status bar height constraint only used on iOS 10 due to lack of safeAreaLayoutGuide
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
+    /// `statusBarHeight` only used on iOS 10 due to lack of safeAreaLayoutGuide
+    @objc public var statusBarHeight: CGFloat = 0 {
+        didSet {
+            statusBarHeightConstraint?.constant = statusBarHeight
+        }
+    }
+    
+    @objc public var navigationItem: UINavigationItem = UINavigationItem() {
+        didSet {
+            let back = UINavigationItem()
+            bar.setItems([back, navigationItem], animated: false)
+        }
+    }
     
     override open func setup() {
         super.setup()
@@ -46,20 +58,19 @@ public class NavigationBar: SetupView {
         let shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
         shadow.addConstraint(shadowHeightConstraint)
         
-    
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
         addConstraint(statusBarUnderlayTopConstraint)
 
         if #available(iOS 11.0, *) {
-            let statusBarUnderlayBottomConstraint = safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
+            let statusBarUnderlayBottomConstraint = safeAreaLayoutGuide.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
             addConstraint(statusBarUnderlayBottomConstraint)
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(statusBarFrameChanged(with:)), name: NSNotification.Name.UIApplicationWillChangeStatusBarFrame, object: nil)
             let underlayHeightConstraint = statusBarUnderlay.heightAnchor.constraint(equalToConstant: 0)
             statusBarHeightConstraint = underlayHeightConstraint
-            updateStatusBarHeightConstraint(with: UIApplication.shared.statusBarFrame)
+            statusBarHeight = UIApplication.shared.statusBarFrame.height
             statusBarUnderlay.addConstraint(underlayHeightConstraint)
         }
+        
         let statusBarUnderlayLeadingConstraint = leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
         addConstraint(statusBarUnderlayLeadingConstraint)
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
@@ -79,30 +90,6 @@ public class NavigationBar: SetupView {
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
         addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarTopConstraint, underBarLeadingConstraint, underBarTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
-    }
-    
-    @objc public func statusBarFrameChanged(with notification: Notification) {
-        guard let userInfo = notification.userInfo,
-            let frame = userInfo[UIApplicationStatusBarFrameUserInfoKey] as? CGRect else {
-                return
-        }
-        updateStatusBarHeightConstraint(with: frame)
-    }
-    
-    fileprivate func updateStatusBarHeightConstraint(with statusBarFrame: CGRect) {
-        let adjustedFrame = convert(statusBarFrame, from: nil)
-        statusBarHeightConstraint?.constant = adjustedFrame.maxY
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc public var navigationItem: UINavigationItem = UINavigationItem() {
-        didSet {
-            let back = UINavigationItem()
-            bar.setItems([back, navigationItem], animated: false)
-        }
     }
 }
 

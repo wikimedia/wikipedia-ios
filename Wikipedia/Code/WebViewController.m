@@ -416,16 +416,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.webView.scrollView;
-
-    CGFloat top = self.navigationBar.frame.size.height;
-
+    
     CGFloat bottom = self.navigationController.toolbar.frame.size.height;
 
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
     }
-
+    
+    [self.view layoutIfNeeded];
+    CGFloat top = self.navigationBar.frame.size.height;
+    
     UIEdgeInsets newIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
     if (!UIEdgeInsetsEqualToEdgeInsets(newIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         scrollView.scrollIndicatorInsets = newIndicatorInsets;
@@ -481,6 +482,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    if (@available(iOS 11.0, *)) {
+    } else {
+        self.navigationBar.statusBarHeight = self.navigationController.topLayoutGuide.length;
+        [self updateScrollViewInsets];
+    }
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
