@@ -153,16 +153,34 @@ class SavedViewController: UIViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
+    fileprivate lazy var batchEditToolbar: UIToolbar = {
+        let toolbarHeight: CGFloat = 50
+        let spacingToBottom: CGFloat = 15
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - (toolbarHeight + spacingToBottom), width: view.bounds.width, height: toolbarHeight))
+        toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return toolbar
+    }()
+    
 }
 
 extension SavedViewController: BatchEditNavigationDelegate {
+
     func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int) {
         navigationItem.rightBarButtonItem = button
         button.tag = tag
     }
     
-    func didSetIsBatchEditToolbarVisible(_ isVisibile: Bool) {
-        tabBarController?.tabBar.isHidden = isVisibile
+    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+        tabBarController?.tabBar.isHidden = isVisible
+    }
+    
+    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
+        if add {
+            batchEditToolbar.items = items
+            view.addSubview(batchEditToolbar)
+        } else {
+            batchEditToolbar.removeFromSuperview()
+        }
     }
 }
 
@@ -186,6 +204,9 @@ extension SavedViewController: Themeable {
         for hairline in buttonHairlines {
             hairline.backgroundColor = theme.colors.border
         }
+        
+        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.tintColor = theme.colors.link
         
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)

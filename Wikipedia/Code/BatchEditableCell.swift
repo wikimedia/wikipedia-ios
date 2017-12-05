@@ -2,7 +2,8 @@ import UIKit
 
 @objc public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int)
-    func didSetIsBatchEditToolbarVisible(_ isVisibile: Bool)
+    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
+    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool)
 }
 
 public class BatchEditActionView: SizeThatFitsView, Themeable {

@@ -91,9 +91,6 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
         isDeleteAllVisible = true
-        guard let collectionView = self.collectionView else {
-            return
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
