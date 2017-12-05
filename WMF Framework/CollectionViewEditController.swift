@@ -28,6 +28,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isActive: Bool {
         return activeIndexPath != nil
     }
+    
     var activeIndexPath: IndexPath?
     var isRTL: Bool = false
     var initialSwipeTranslation: CGFloat = 0
@@ -250,6 +251,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     // MARK: - States
     
     func openActionPane(_ completion: @escaping (Bool) -> Void = {_ in }) {
+        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        navigationDelegate?.changeRightNavButton(to: button)
+        
         collectionView.allowsSelection = false
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
@@ -320,9 +324,14 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
+    @objc func done() {
+        closeActionPane()
+        batchEditingState = .none
+    }
+    
     fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
-            if isActive {
+            guard !isActive else {
                 return
             }
             for cell in editableCells {
@@ -342,7 +351,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 openBatchEditPane()
             }
             let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-            navigationDelegate?.didChangeBatchEditingState(button: button, tag: tag)
+            button.tag = tag
+            navigationDelegate?.changeRightNavButton(to: button)
         }
     }
     

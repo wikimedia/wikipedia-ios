@@ -165,9 +165,8 @@ class SavedViewController: UIViewController {
 
 extension SavedViewController: BatchEditNavigationDelegate {
 
-    func didChangeBatchEditingState(button: UIBarButtonItem, tag: Int) {
+    func changeRightNavButton(to button: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = button
-        button.tag = tag
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
