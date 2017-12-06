@@ -184,7 +184,7 @@ extension SavedArticlesCollectionViewController {
             print("Update")
             return true
         case .addToList:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(articleURLs: validArticleURLs)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articleURLs: validArticleURLs, theme: theme)
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
