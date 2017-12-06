@@ -157,10 +157,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: 0, animated: true)
     }
     
-    public func hideSearchBar(animated: Bool) {
-        navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: 1, animated: true)
-    }
-    
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willBeginScrolling scrollView: UIScrollView) {
         isUserScrolling = true
     }
@@ -188,7 +184,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         
-        setNavigationBarPercentHidden(0, extendedViewPercentHidden: updatedPercentage, animated: false)
+        setNavigationBarPercentHidden(navigationBar.navigationBarPercentHidden, extendedViewPercentHidden: updatedPercentage, animated: false)
     }
     
     fileprivate func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
@@ -226,7 +222,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         
-        setNavigationBarPercentHidden(0, extendedViewPercentHidden: percentage, animated: true)
+        setNavigationBarPercentHidden(navigationBar.navigationBarPercentHidden, extendedViewPercentHidden: percentage, animated: true)
         if percentage < 1 {
             scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: true)
         } else {
