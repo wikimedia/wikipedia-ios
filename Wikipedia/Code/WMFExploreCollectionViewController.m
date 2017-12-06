@@ -99,7 +99,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)titleBarButtonPressed {
-    [self.collectionView setContentOffset:CGPointZero animated:YES];
+    [self.collectionView setContentOffset:CGPointMake(0, 0 - self.collectionView.contentInset.top) animated:YES];
 }
 
 #pragma mark - Accessors
@@ -154,7 +154,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (BOOL)isScrolledToTop {
-    return self.collectionView.contentOffset.y <= 0;
+    return self.collectionView.contentOffset.y <=  0 - self.collectionView.contentInset.top;
 }
 
 #pragma mark - Section Access
@@ -355,7 +355,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (!self.refreshControl.isRefreshing) {
         [self.refreshControl beginRefreshing];
         if (self.isScrolledToTop && self.numberOfSectionsInExploreFeed == 0) {
-            self.collectionView.contentOffset = CGPointMake(0, 0 - self.refreshControl.frame.size.height);
+            self.collectionView.contentOffset = CGPointMake(0, 0 - self.collectionView.contentInset.top - self.refreshControl.frame.size.height);
         }
     }
     [self updateFeedSourcesWithDate:nil
