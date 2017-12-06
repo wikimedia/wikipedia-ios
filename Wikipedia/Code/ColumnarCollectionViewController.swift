@@ -36,6 +36,11 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
+        
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .never
+        }
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -58,15 +63,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
                 cellWithSubItems.deselectSelectedSubItems(animated: animated)
             }
         }
-        updateScrollViewInsets()
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            
-        }) { (context) in
-            self.updateScrollViewInsets()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -74,8 +70,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         if #available(iOS 11.0, *) {
         } else {
             navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0
-            updateScrollViewInsets()
         }
+        updateScrollViewInsets()
     }
     
     // MARK - Scroll View Insets
