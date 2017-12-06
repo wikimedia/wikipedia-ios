@@ -85,6 +85,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         extendedNavBarView.wmf_addSubviewWithConstraintsToEdges(searchBar)
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         
+        automaticallyAdjustsScrollViewInsets = false
+        collectionViewController.automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            collectionViewController.collectionView?.contentInsetAdjustmentBehavior = .never
+        }
+        
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         self.addChildViewController(collectionViewController)
@@ -93,25 +99,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.containerView.addSubview(collectionViewController.view)
         self.collectionViewController.didMove(toParentViewController: self)
         
-        addStatusBarUnderlay()
-        
         navigationBar.delegate = self
 
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
         apply(theme: self.theme)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateScrollViewInsets()
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        coordinator.animate(alongsideTransition: { (context) in
-            
-        }) { (context) in
-            self.updateScrollViewInsets()
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -119,16 +110,24 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         if #available(iOS 11.0, *) {
         } else {
             navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0
-            updateScrollViewInsets()
         }
+        updateScrollViewInsets()
     }
     
     // MARK - Scroll View Insets
     fileprivate func updateScrollViewInsets() {
-        view.layoutIfNeeded()
-        let insets = UIEdgeInsets(top: navigationBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        collectionViewController.collectionView?.scrollIndicatorInsets = insets
-        collectionViewController.collectionView?.contentInset = insets
+        guard let collectionView = collectionViewController.collectionView else {
+            return
+        }
+        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
+        let frame = navigationBar.frame
+        let convertedFrame = view.convert(frame, to: containerView)
+        let insets = UIEdgeInsets(top: convertedFrame.maxY, left: 0, bottom: 0, right: 0)
+        collectionView.scrollIndicatorInsets = insets
+        collectionView.contentInset = insets
+        if wasAtTop {
+            collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
+        }
     }
     
     // MARK: - Actions
@@ -146,7 +145,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     public func showSearchBar(animated: Bool) {
         navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: 0, animated: true)
-
     }
     
     public func hideSearchBar(animated: Bool) {
@@ -231,8 +229,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         return true
     }
     
-    var statusBarUnderlay: UIView?
-    
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willEndDragging scrollView: UIScrollView, velocity: CGPoint) {
         let velocity = velocity.y
         guard velocity != 0 else { // don't hide or show on 0 velocity tap
@@ -243,18 +239,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
             return
         }
         setNavigationBarPercentHidden(percentHidden, extendedViewPercentHidden: navigationBar.extendedViewPercentHidden, animated: true)
-    }
-    
-    func addStatusBarUnderlay() {
-        let statusBarUnderlay = UIView()
-        statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = self.view.topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
-        let bottomConstraint = self.topLayoutGuide.bottomAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
-        let leadingConstraint = self.view.leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
-        let trailingConstraint = self.view.trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
-        self.view.addSubview(statusBarUnderlay)
-        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-        self.statusBarUnderlay = statusBarUnderlay
     }
     
     // MARK: - UISearchBarDelegate
@@ -301,7 +285,6 @@ extension ExploreViewController: Themeable {
         if let cvc = collectionViewController as Themeable? {
             cvc.apply(theme: theme)
         }
-        statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.wmf_addBottomShadow(with: theme)
         
         navigationBar.apply(theme: theme)

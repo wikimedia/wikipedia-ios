@@ -485,8 +485,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (@available(iOS 11.0, *)) {
     } else {
         self.navigationBar.statusBarHeight = self.navigationController.topLayoutGuide.length;
-        [self updateScrollViewInsets];
     }
+    [self updateScrollViewInsets];
     [self updateWebContentMarginForSize:self.view.bounds.size force:NO];
 }
 
