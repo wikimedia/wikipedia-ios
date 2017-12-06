@@ -3,6 +3,9 @@ import WMF
 
 @objc(WMFDisambiguationPagesViewController)
 class DisambiguationPagesViewController: ArticleURLListViewController {
+    override var showsNavigationBar: Bool {
+        return false
+    }
     
     let titlesSearchFetcher = WMFArticlePreviewFetcher()
     let siteURL: URL
