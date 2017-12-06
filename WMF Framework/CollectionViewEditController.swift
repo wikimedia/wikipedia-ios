@@ -343,6 +343,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
             
             guard !isCollectionViewEmpty else {
+                closeBatchEditPane()
                 enabled = false
                 return
             }
@@ -392,10 +393,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
-            if isCollectionViewEmpty {
-                close()
-            }
-            batchEditingState = .none
+            batchEditingState = .cancelled
         }
     }
     
