@@ -321,7 +321,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
 
     public func logListViewImpressionsForVisibleCells() {
-        for indexPath in listViewController.collectionView?.indexPathsForVisibleItems ?? [] {
+        for indexPath in listViewController.collectionView.indexPathsForVisibleItems {
             logListViewImpression(forIndexPath: indexPath)
         }
     }
@@ -1664,7 +1664,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
 
         if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
-            listViewController.collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+            listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
         let articleVC = ArticlePopoverViewController(article)

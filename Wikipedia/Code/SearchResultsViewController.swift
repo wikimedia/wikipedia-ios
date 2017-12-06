@@ -7,7 +7,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     @objc var results: [MWKSearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
-            collectionView?.reloadData()
+            collectionView.reloadData()
         }
     }
     
@@ -18,7 +18,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
     
     deinit {

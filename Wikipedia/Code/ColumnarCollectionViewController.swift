@@ -1,26 +1,31 @@
 import UIKit
 
 @objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: UICollectionViewController, Themeable {
-    var layout: WMFColumnarCollectionViewLayout {
-        return collectionViewLayout as? WMFColumnarCollectionViewLayout ?? WMFColumnarCollectionViewLayout()
-    }
+class ColumnarCollectionViewController: UIViewController, Themeable {
+    lazy var layout: WMFColumnarCollectionViewLayout = {
+        return WMFColumnarCollectionViewLayout()
+    }()
+    @objc lazy var collectionView: UICollectionView = {
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.delegate = self
+        cv.dataSource = self
+        return cv
+    }()
     var theme: Theme = Theme.standard
     
-    let navigationBar: NavigationBar = NavigationBar()
-    open var showsNavigationBar: Bool {
-        return true
-    }
-    
-    fileprivate var placeholders: [String:UICollectionReusableView] = [:]
-
     init() {
-        super.init(collectionViewLayout:  WMFColumnarCollectionViewLayout())
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    let navigationBar: NavigationBar = NavigationBar()
+    open var showsNavigationBar: Bool {
+        return true
+    }
+    fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -28,30 +33,28 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.alwaysBounceVertical = true
+        view.wmf_addSubviewWithConstraintsToEdges(collectionView)
+        collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForPreviewingIfAvailable()
-        if let selectedIndexPaths = collectionView?.indexPathsForSelectedItems {
+        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
-                collectionView?.deselectItem(at: selectedIndexPath, animated: animated)
+                collectionView.deselectItem(at: selectedIndexPath, animated: animated)
             }
         }
-        if let visibleCells = collectionView?.visibleCells {
-            for cell in visibleCells {
-                guard let cellWithSubItems = cell as? SubCellProtocol else {
-                    continue
-                }
-                cellWithSubItems.deselectSelectedSubItems(animated: animated)
+        for cell in collectionView.visibleCells {
+            guard let cellWithSubItems = cell as? SubCellProtocol else {
+                continue
             }
+            cellWithSubItems.deselectSelectedSubItems(animated: animated)
         }
         
         guard showsNavigationBar && navigationBar.superview == nil else {
@@ -67,7 +70,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         
         automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInsetAdjustmentBehavior = .never
         }
     }
     
@@ -85,17 +88,21 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     // MARK - Scroll View Insets
     fileprivate func updateScrollViewInsets() {
-        guard let collectionView = collectionView else {
-            return
-        }
         let frame = navigationBar.frame
-        let insets = UIEdgeInsets(top: frame.maxY, left: 0, bottom: 0, right: 0)
-        guard insets != collectionView.contentInset else {
+        let top = frame.maxY
+        var safeInsets = UIEdgeInsets.zero
+        if #available(iOS 11.0, *) {
+            safeInsets = view.safeAreaInsets
+        }
+        let bottom = bottomLayoutGuide.length
+        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        guard contentInset != collectionView.contentInset || scrollIndicatorInsets != collectionView.scrollIndicatorInsets else {
             return
         }
         let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
-        collectionView.scrollIndicatorInsets = insets
-        collectionView.contentInset = insets
+        collectionView.scrollIndicatorInsets = scrollIndicatorInsets
+        collectionView.contentInset = contentInset
         if wasAtTop {
             collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
         }
@@ -118,7 +125,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)
     final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView?.register(cellClass, forCellWithReuseIdentifier: identifier)
+        collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
         guard addPlaceholder else {
             return
         }
@@ -133,7 +140,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     @objc(registerNib:forCellWithReuseIdentifier:)
     final func register(_ nib: UINib?, forCellWithReuseIdentifier identifier: String) {
-        collectionView?.register(nib, forCellWithReuseIdentifier: identifier)
+        collectionView.register(nib, forCellWithReuseIdentifier: identifier)
         guard let cell = nib?.instantiate(withOwner: nil, options: nil).first as? UICollectionViewCell else {
             return
         }
@@ -144,7 +151,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     @objc(registerViewClass:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
     final func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView?.register(viewClass, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+        collectionView.register(viewClass, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
         guard addPlaceholder else {
             return
         }
@@ -159,7 +166,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     @objc(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
     final func register(_ nib: UINib?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView?.register(nib, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+        collectionView.register(nib, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
         guard addPlaceholder else {
             return
         }
@@ -186,9 +193,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     func registerForPreviewingIfAvailable() {
         wmf_ifForceTouchAvailable({
             self.unregisterForPreviewing()
-            guard let collectionView = self.collectionView else {
-                return
-            }
             self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
         }, unavailable: {
             self.unregisterForPreviewing()
@@ -207,10 +211,28 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         self.theme = theme
         navigationBar.apply(theme: theme)
         view.backgroundColor = theme.colors.baseBackground
-        collectionView?.backgroundColor = theme.colors.baseBackground
-        collectionView?.indicatorStyle = theme.scrollIndicatorStyle
-        collectionView?.reloadData()
+        collectionView.backgroundColor = theme.colors.baseBackground
+        collectionView.indicatorStyle = theme.scrollIndicatorStyle
+        collectionView.reloadData()
     }
+}
+
+extension ColumnarCollectionViewController: UICollectionViewDataSource {
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
+    }
+}
+
+extension ColumnarCollectionViewController: UICollectionViewDelegate {
+
 }
 
 // MARK: - UIViewControllerPreviewingDelegate

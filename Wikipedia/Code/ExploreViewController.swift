@@ -121,13 +121,20 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
         let frame = navigationBar.frame
         let convertedFrame = view.convert(frame, to: containerView)
-        let insets = UIEdgeInsets(top: convertedFrame.maxY, left: 0, bottom: 0, right: 0)
-        guard insets != collectionView.contentInset else {
+        let top = convertedFrame.maxY
+        var safeInsets = UIEdgeInsets.zero
+        if #available(iOS 11.0, *) {
+            safeInsets = view.safeAreaInsets
+        }
+        let bottom = bottomLayoutGuide.length
+        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        guard contentInset != collectionView.contentInset || scrollIndicatorInsets != collectionView.scrollIndicatorInsets else {
             return
         }
         let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
-        collectionView.scrollIndicatorInsets = insets
-        collectionView.contentInset = insets
+        collectionView.scrollIndicatorInsets = scrollIndicatorInsets
+        collectionView.contentInset = contentInset
         if wasAtTop {
             collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
         }

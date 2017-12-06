@@ -42,7 +42,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         titlesSearchFetcher.fetchArticlePreviewResults(forArticleURLs: articleURLs, siteURL: siteURL, completion: { (results) in
             DispatchQueue.main.async {
                 self.results = results
-                self.collectionView?.reloadData()
+                self.collectionView.reloadData()
             }
         }) { (error) in
             DispatchQueue.main.async {
