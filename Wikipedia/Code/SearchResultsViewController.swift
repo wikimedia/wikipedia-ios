@@ -11,6 +11,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
     }
     
+    override var showsNavigationBar: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)

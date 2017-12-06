@@ -8,6 +8,9 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     var theme: Theme = Theme.standard
     
     let navigationBar: NavigationBar = NavigationBar()
+    open var showsNavigationBar: Bool {
+        return true
+    }
     
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
@@ -26,6 +29,12 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView?.alwaysBounceVertical = true
+        extendedLayoutIncludesOpaqueBars = true
+        
+        guard showsNavigationBar else {
+            return
+        }
         navigationBar.delegate = self
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar)
@@ -33,9 +42,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
         let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
         view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
-        
-        collectionView?.alwaysBounceVertical = true
-        extendedLayoutIncludesOpaqueBars = true
         
         automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
@@ -67,6 +73,9 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        guard showsNavigationBar else {
+            return
+        }
         if #available(iOS 11.0, *) {
         } else {
             navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0

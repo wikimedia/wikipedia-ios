@@ -11,6 +11,10 @@ class RecentSearchesViewController: ArticleCollectionViewController {
     @objc weak var recentSearchesViewControllerDelegate: RecentSearchesViewControllerDelegate?
     @objc var recentSearches: MWKRecentSearchList?
     
+    override var showsNavigationBar: Bool {
+        return false
+    }
+    
     @objc func reloadRecentSearches() {
         collectionView?.reloadData()
         updateHeaderVisibility()
