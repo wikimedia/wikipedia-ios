@@ -86,12 +86,14 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         gradientView.startPoint = .zero
         gradientView.endPoint = CGPoint(x: 1, y: 0)
+        
+        scrollView.clipsToBounds = false
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: gradientView.frame.size.width)
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: gradientView.frame.size.width)
     }
 
     deinit {
