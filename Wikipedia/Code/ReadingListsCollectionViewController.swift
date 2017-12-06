@@ -334,7 +334,10 @@ extension ReadingListsCollectionViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
             return
         }
-        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController.wmf_viewControllerFromStoryboardNamed("Saved")
+        guard let readingList = readingList(at: indexPath) else {
+            return
+        }
+        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, dataStore: dataStore)
         readingListDetailCollectionViewController.apply(theme: theme)
         navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
     }
