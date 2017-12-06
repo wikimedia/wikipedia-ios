@@ -73,9 +73,9 @@ public class NavigationBar: SetupView {
         
         addSubview(shadow)
         addSubview(extendedView)
-        addSubview(statusBarUnderlay)
         addSubview(bar)
         addSubview(progressView)
+        addSubview(statusBarUnderlay)
 
         bar.delegate = self
         
