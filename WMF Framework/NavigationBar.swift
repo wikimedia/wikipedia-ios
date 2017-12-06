@@ -33,13 +33,25 @@ public class NavigationBar: SetupView {
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
         didSet {
-            let back = UINavigationItem()
-            var items = [back]
-            if let item = delegate?.navigationItem {
-                items.append(item)
-            }
-            bar.setItems(items, animated: false)
+            updateNavigationItems()
         }
+    }
+    
+    public var isBackVisible: Bool = true {
+        didSet {
+            updateNavigationItems()
+        }
+    }
+    
+    fileprivate func updateNavigationItems() {
+        var items: [UINavigationItem] = []
+        if isBackVisible {
+            items.append(UINavigationItem())
+        }
+        if let item = delegate?.navigationItem {
+            items.append(item)
+        }
+        bar.setItems(items, animated: false)
     }
     
     fileprivate var shadowHeightConstraint: NSLayoutConstraint!
