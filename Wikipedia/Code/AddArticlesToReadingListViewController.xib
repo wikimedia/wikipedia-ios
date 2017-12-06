@@ -32,7 +32,7 @@
                     <items>
                         <navigationItem title="Title" id="JIf-hQ-zmK">
                             <barButtonItem key="leftBarButtonItem" systemItem="add" id="zns-gk-UXr"/>
-                            <barButtonItem key="rightBarButtonItem" title="Item" image="close" id="nQX-cJ-qCZ">
+                            <barButtonItem key="rightBarButtonItem" image="close" id="nQX-cJ-qCZ">
                                 <connections>
                                     <action selector="closeButtonPressed" destination="-1" id="sX7-yt-xxB"/>
                                 </connections>

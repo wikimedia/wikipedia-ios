@@ -151,9 +151,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let updateItem = BatchEditToolbarActionType.update.action(with: self)
-        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
-        let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
-        return [updateItem, addToListItem, unsaveItem]
+        let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
+        return [updateItem, deleteItem]
     }()
     
 }
@@ -218,18 +217,38 @@ extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
 extension ReadingListsCollectionViewController: ActionDelegate {
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        return true
+        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+            return false
+        }
+        
+        let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
+        
+        switch action.type {
+        case .update:
+            print("Update")
+            return true
+        case .delete:
+            do {
+                try readingListsController.delete(readingLists: readingLists)
+            } catch let err {
+                // do something
+            }
+            return true
+        default:
+            break
+        }
+        return false
     }
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        guard let readingList = readingList(at: indexPath), let readingListName = readingList.name else {
+        guard let readingList = readingList(at: indexPath) else {
             return false
         }
         switch action.type {
         case .delete:
             do {
-            try readingListsController.delete(readingListsNamed: [readingListName])
+            try readingListsController.delete(readingLists: [readingList])
             } catch let err {
                 // do something
             }

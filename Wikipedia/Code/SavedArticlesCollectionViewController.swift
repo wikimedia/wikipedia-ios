@@ -181,23 +181,24 @@ extension SavedArticlesCollectionViewController {
             return false
         }
         
-        var articleURLs: [URL?] = []
-        selectedIndexPaths.forEach({ articleURLs.append(articleURL(at: $0)) })
-        let validArticleURLs = articleURLs.flatMap { $0 }
+        let articleURLs = selectedIndexPaths.flatMap({ articleURL(at: $0) })
         
         switch action.type {
         case .update:
             print("Update")
             return true
         case .addToList:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articleURLs: validArticleURLs, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articleURLs: articleURLs, theme: theme)
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            dataStore.savedPageList.removeEntries(with: validArticleURLs)
+            dataStore.savedPageList.removeEntries(with: articleURLs)
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
+        default:
+            break
         }
+        return false
     }
     
 }
