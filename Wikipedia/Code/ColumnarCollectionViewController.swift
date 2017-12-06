@@ -31,22 +31,6 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
-        
-        guard showsNavigationBar else {
-            return
-        }
-        navigationBar.delegate = self
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationBar)
-        let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
-        let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
-        let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
-        view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
-        
-        automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            collectionView?.contentInsetAdjustmentBehavior = .never
-        }
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -68,6 +52,22 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
                 }
                 cellWithSubItems.deselectSelectedSubItems(animated: animated)
             }
+        }
+        
+        guard showsNavigationBar && navigationBar.superview == nil else {
+            return
+        }
+        navigationBar.delegate = self
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+        let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
+        let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
+        let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
+        view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
+        
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .never
         }
     }
     
