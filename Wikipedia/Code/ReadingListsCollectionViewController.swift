@@ -302,14 +302,14 @@ extension ReadingListsCollectionViewController {
     }
     
     fileprivate func selectReadingList(at indexPath: IndexPath) {
-        guard let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected else {
+        guard let collectionView = collectionView, let isSelected = collectionView.cellForItem(at: indexPath)?.isSelected else {
             return
         }
         
         if isSelected {
-            collectionView?.deselectItem(at: indexPath, animated: true)
+            collectionView.deselectItem(at: indexPath, animated: true)
         } else {
-            collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
         }
     }
     

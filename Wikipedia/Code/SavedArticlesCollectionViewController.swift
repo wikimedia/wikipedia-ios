@@ -86,7 +86,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         deleteAllConfirmationText = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
         deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
         deleteAllText = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
-        isDeleteAllVisible = true
+        isDeleteAllVisible = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -99,13 +99,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         return "Saved"
     }
     
-    override var emptyViewType: WMFEmptyViewType {
-        return .noSavedPages
-    }
-    
     override func deleteAll() {
         dataStore.savedPageList.removeAllEntries()
     }
+    
+    // MARK: - Cell configuartion
     
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
@@ -121,24 +119,19 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         cell.batchEditAction = batchEditAction(at: indexPath)
     }
     
+    // MARK: - Empty state
+    
+    override var emptyViewType: WMFEmptyViewType {
+        return .noSavedPages
+    }
+    
+    override var isEmpty: Bool {
+        didSet {
+            editController.isCollectionViewEmpty = isEmpty
+        }
+    }
+    
     // MARK: - Batch editing
-    
-    fileprivate func select(at indexPath: IndexPath) {
-        let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
-
-        if isSelected {
-            collectionView?.deselectItem(at: indexPath, animated: true)
-        } else {
-            collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
-            return
-        }
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
-    }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let updateItem = BatchEditToolbarActionType.update.action(with: self)
@@ -146,16 +139,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
     }()
-    
-    override var isEmpty: Bool {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-        }
-    }
 
-}
-
-extension SavedArticlesCollectionViewController {
     override func didBatchSelect(_ action: BatchEditAction) -> Bool {
         let indexPath = action.indexPath
         
@@ -166,6 +150,25 @@ extension SavedArticlesCollectionViewController {
             return true
         }
         
+    }
+    
+    fileprivate func select(at indexPath: IndexPath) {
+        guard let collectionView = collectionView, let isSelected = collectionView.cellForItem(at: indexPath)?.isSelected else {
+            return
+        }
+        
+        if isSelected {
+            collectionView.deselectItem(at: indexPath, animated: true)
+        } else {
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+            return
+        }
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
     func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
@@ -200,6 +203,8 @@ extension SavedArticlesCollectionViewController {
     }
     
 }
+
+// MARK: - AddArticlesToReadingListViewControllerDelegate
 
 extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
     func viewControllerWillBeDismissed() {

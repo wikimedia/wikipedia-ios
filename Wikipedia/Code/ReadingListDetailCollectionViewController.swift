@@ -149,11 +149,24 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
         }
     }
     
+    fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
+        guard let entry = entry(at: indexPath), let key = entry.articleKey else {
+            assertionFailure("Can't get articleURL")
+            return nil
+        }
+        return URL(string: key)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
             return
         }
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
+        guard let articleURL = articleURL(at: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        
     }
     
     
