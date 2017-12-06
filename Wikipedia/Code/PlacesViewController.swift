@@ -1928,16 +1928,18 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                                       from: listAndSearchOverlayContainerView)
         }
         
-        touchOutsideOverlayView.resetInsideRects()
-        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
-        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
-        self.view.addSubview(touchOutsideOverlayView)
+
         filterDropDownContainerView.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin]
         filterDropDownContainerView.frame = frame
         searchFilterListController.currentFilterType = currentSearchFilter
         self.view.addSubview(filterDropDownContainerView)
         
-        self.view.layoutIfNeeded()
+        touchOutsideOverlayView.resetInsideRects()
+        touchOutsideOverlayView.addInsideRect(fromView: navigationBar)
+        touchOutsideOverlayView.frame = view.bounds
+        touchOutsideOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(touchOutsideOverlayView)
+
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
@@ -1945,8 +1947,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                                                             y: self.filterDropDownContainerView.frame.origin.y,
                                                             width: self.filterDropDownContainerView.frame.size.width,
                                                             height: origHeight)
+
             
         }, completion: { (done) in
+            self.touchOutsideOverlayView.addInsideRect(fromView: self.filterDropDownContainerView)
             completion(done)
         })
     }
