@@ -121,12 +121,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         cell.layoutMargins = layout.readableMargins
     }
     
-    fileprivate var isEmpty = true {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-        }
-    }
-    
     fileprivate final func updateEmptyState() {
         guard let collectionView = self.collectionView else {
             return
@@ -154,6 +148,12 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
         return [updateItem, deleteItem]
     }()
+    
+    fileprivate var isEmpty = true {
+        didSet {
+            editController.isCollectionViewEmpty = isEmpty
+        }
+    }
     
 }
 
@@ -337,7 +337,8 @@ extension ReadingListsCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, dataStore: dataStore)
+        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList)
+        readingListDetailCollectionViewController.dataStore = dataStore
         readingListDetailCollectionViewController.apply(theme: theme)
         navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
     }

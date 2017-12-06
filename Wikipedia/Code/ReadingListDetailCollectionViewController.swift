@@ -4,20 +4,30 @@ class ReadingListDetailExtendedNavBarView: UIView {
     
 }
 
-class ReadingListDetailCollectionViewController: UIViewController {
+class ReadingListDetailCollectionViewController: ColumnarCollectionViewController {
     
-    fileprivate let readingList: ReadingList
     fileprivate let dataStore: MWKDataStore
-    
-    fileprivate var theme: Theme = Theme.standard
-    
-    fileprivate var extendedNavBarView: UIView?
-    fileprivate var containerView: UIView?
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
+    fileprivate let readingList: ReadingList
 
-    init(for readingList: ReadingList, dataStore: MWKDataStore) {
+    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
-        super.init(nibName: nil, bundle: nil)
+        super.init()
+    }
+    
+    func setupFetchedResultsControllerOrdered() {
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        request.predicate = NSPredicate(format: "list == %@", readingList)
+        request.sortDescriptors = [NSSortDescriptor(key: "displayTitle", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            DDLogError("Error fetching reading list entries: \(error)")
+        }
+        collectionView?.reloadData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,31 +43,6 @@ class ReadingListDetailCollectionViewController: UIViewController {
         
         navigationController?.navigationBar.topItem?.title = "Back"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        
-        extendedNavBarView = ReadingListDetailExtendedNavBarView()
-        containerView = UIView()
-        guard let extendedNavBarView = extendedNavBarView, let containerView = containerView else {
-            return
-        }
-        
-        containerView.addConstraints([containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor), containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor), containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-        view.addSubview(containerView)
-
-        extendedNavBarView.addConstraints([extendedNavBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor), extendedNavBarView.topAnchor.constraint(equalTo: view.topAnchor), extendedNavBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-        view.addSubview(extendedNavBarView)
-        
-        containerView.addConstraint(containerView.topAnchor.constraint(equalTo: extendedNavBarView.bottomAnchor))
     }
 
-}
-extension ReadingListDetailCollectionViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-    }
-    
-    
 }

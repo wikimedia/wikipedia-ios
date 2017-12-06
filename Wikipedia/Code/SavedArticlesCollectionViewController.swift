@@ -2,10 +2,6 @@ import UIKit
 import WMF
 
 class SavedArticleCollectionViewCell: SavedCollectionViewCell {
-    override var isSelected: Bool {
-        didSet {
-        }
-    }
 }
 
 class ReadingListTag: SizeThatFitsView {
