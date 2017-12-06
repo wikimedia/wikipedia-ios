@@ -88,9 +88,12 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
         guard let collectionView = collectionView else {
             return
         }
-        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
         let frame = navigationBar.frame
         let insets = UIEdgeInsets(top: frame.maxY, left: 0, bottom: 0, right: 0)
+        guard insets != collectionView.contentInset else {
+            return
+        }
+        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
         collectionView.scrollIndicatorInsets = insets
         collectionView.contentInset = insets
         if wasAtTop {
