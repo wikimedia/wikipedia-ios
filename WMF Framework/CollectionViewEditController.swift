@@ -130,7 +130,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
         }
 
-        isRTL = collectionView.wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+        isRTL = collectionView.effectiveUserInterfaceLayoutDirection == .rightToLeft
         let isOpenSwipe = isRTL ? velocity.x > 0 : velocity.x < 0
 
         if !isOpenSwipe { // only allow closing swipes on active cells

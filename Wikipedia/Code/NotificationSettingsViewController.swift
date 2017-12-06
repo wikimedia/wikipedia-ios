@@ -83,16 +83,14 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             return UserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
             }, switchAction: { (isOn) in
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
-                if #available(iOS 10.0, *) {
-                    if (isOn) {
-                        WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { (granted, error) in
-                            if let error = error as NSError? {
-                                self.wmf_showAlertWithError(error)
-                            }
-                        })
-                    } else {
-                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                    }
+                if (isOn) {
+                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { (granted, error) in
+                        if let error = error as NSError? {
+                            self.wmf_showAlertWithError(error)
+                        }
+                    })
+                } else {
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                 }
                 
                 if isOn {
@@ -113,29 +111,27 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             guard let URL = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
             }
-            UIApplication.shared.openURL(URL)
+            UIApplication.shared.open(URL, options: [:], completionHandler: nil)
         })]
         return [NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: unauthorizedItems)]
     }
     
     func updateSections() {
         tableView.reloadData()
-        if #available(iOS 10.0, *) {
-            UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-                DispatchQueue.main.async(execute: { 
-                    switch settings.authorizationStatus {
-                    case .authorized:
-                        fallthrough
-                    case .notDetermined:
-                        self.sections = self.sectionsForSystemSettingsAuthorized()
-                        break
-                    case .denied:
-                        self.sections = self.sectionsForSystemSettingsUnauthorized()
-                        break
-                    }
-                    self.tableView.reloadData()
-                })
-            }
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            DispatchQueue.main.async(execute: {
+                switch settings.authorizationStatus {
+                case .authorized:
+                    fallthrough
+                case .notDetermined:
+                    self.sections = self.sectionsForSystemSettingsAuthorized()
+                    break
+                case .denied:
+                    self.sections = self.sectionsForSystemSettingsUnauthorized()
+                    break
+                }
+                self.tableView.reloadData()
+            })
         }
     }
     

@@ -79,14 +79,8 @@ class ArticlePopoverViewController: UIViewController {
     
     func updateMoreButtonImage(with traitCollection: UITraitCollection) {
         var moreImage = #imageLiteral(resourceName: "places-more")
-        if #available(iOS 10.0, *) {
-            if traitCollection.layoutDirection == .rightToLeft {
-                moreImage = moreImage.withHorizontallyFlippedOrientation()
-            }
-        } else {
-            if UIApplication.shared.wmf_isRTL {
-                moreImage = moreImage.imageFlippedForRightToLeftLayoutDirection()
-            }
+        if traitCollection.layoutDirection == .rightToLeft {
+            moreImage = moreImage.withHorizontallyFlippedOrientation()
         }
         readButton.setImage(moreImage, for: .normal)
     }
