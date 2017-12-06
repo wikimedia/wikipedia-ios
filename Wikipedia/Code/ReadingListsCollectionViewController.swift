@@ -222,18 +222,30 @@ extension ReadingListsCollectionViewController: ActionDelegate {
         }
         
         let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
+        let articlesCount = readingLists.flatMap({ $0.entries?.count }).reduce( 0, + )
         
         switch action.type {
         case .update:
             print("Update")
             return true
         case .delete:
-            do {
-                try readingListsController.delete(readingLists: readingLists)
-            } catch let err {
-                print(err)
-                // do something
-            }
+            let title = "Delete reading lists and all of their saved articles?"
+            let message = "Your \(readingLists.count) lists and \(articlesCount) articles will be deleted"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
+            })
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                do {
+                    try self.readingListsController.delete(readingLists: readingLists)
+                } catch let err {
+                    print(err)
+                    // do something
+                }
+            })
+            alert.addAction(cancelAction)
+            alert.addAction(deleteAction)
+            present(alert, animated: true, completion: nil)
             return true
         default:
             break
@@ -319,9 +331,10 @@ extension ReadingListsCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
             return
         }
+        
         super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
     
