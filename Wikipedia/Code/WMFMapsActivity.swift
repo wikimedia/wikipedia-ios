@@ -85,13 +85,7 @@ class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
             activityDidFinish(false)
             return
         }
-        
-        if #available(iOS 10.0, *) {
-            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
-        } else {
-            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-        }
-        
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
         activityDidFinish(true)
     }
 }

@@ -75,6 +75,11 @@ Records visual tests.
 fastlane ios bump_build
 ```
 Increment the build number
+### ios set_version_number
+```
+fastlane ios set_version_number
+```
+Set version number
 ### ios bump_patch
 ```
 fastlane ios bump_patch

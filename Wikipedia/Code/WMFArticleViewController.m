@@ -1499,7 +1499,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
-    [[UIApplication sharedApplication] openURL:placesURL];
+    [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
 }
 
 - (void)presentViewControllerEmbeddedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
@@ -1820,7 +1820,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:articleController.articleURL];
-    [[UIApplication sharedApplication] openURL:placesURL];
+    [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
 }
 
 #pragma mark - Article Navigation

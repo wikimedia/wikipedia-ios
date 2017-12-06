@@ -36,11 +36,7 @@ public class LabelGroupAccessibilityElement: UIAccessibilityElement {
                 combinedLabel.append(labelLine)
             }
         }
-        if #available(iOS 10.0, *) {
-            self.accessibilityFrameInContainerSpace = combinedFrame
-        } else {
-            self.accessibilityFrame = view?.convert(combinedFrame, to: nil) ?? CGRect.zero
-        }
+        self.accessibilityFrameInContainerSpace = combinedFrame
         self.accessibilityLabel = combinedLabel
     }
 }
