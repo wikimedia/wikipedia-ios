@@ -155,8 +155,7 @@ class SavedViewController: UIViewController {
     
     fileprivate lazy var batchEditToolbar: UIToolbar = {
         let toolbarHeight: CGFloat = 50
-        let spacingToBottom: CGFloat = 15
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - (toolbarHeight + spacingToBottom), width: view.bounds.width, height: toolbarHeight))
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight))
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return toolbar
     }()

@@ -189,6 +189,7 @@ extension SavedArticlesCollectionViewController {
             return true
         case .addToList:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articleURLs: articleURLs, theme: theme)
+            addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
@@ -201,4 +202,10 @@ extension SavedArticlesCollectionViewController {
         return false
     }
     
+}
+
+extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
+    func didDisappear() {
+        editController.close()
+    }
 }

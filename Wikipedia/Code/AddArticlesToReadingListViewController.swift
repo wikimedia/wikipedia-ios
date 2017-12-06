@@ -65,6 +65,10 @@ extension ReadingListsListCollectionViewController {
     }
 }
 
+public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
+    func didDisappear()
+}
+
 class AddArticlesToReadingListViewController: UIViewController {
     
     fileprivate let dataStore: MWKDataStore
@@ -74,6 +78,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem?
     @IBOutlet weak var closeButton: UIBarButtonItem?
     
+    fileprivate var readingListsListViewController: ReadingListsCollectionViewController?
     @IBOutlet weak var containerView: UIView!
     
     fileprivate var theme: Theme
@@ -98,14 +103,23 @@ class AddArticlesToReadingListViewController: UIViewController {
         navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articleURLs.count)")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         
-        let readingListsListViewController = ReadingListsListCollectionViewController.init(with: dataStore)
-        readingListsListViewController.apply(theme: theme)
+        readingListsListViewController = ReadingListsListCollectionViewController.init(with: dataStore)
+        guard let readingListsListViewController = readingListsListViewController else {
+            return
+        }
         addChildViewController(readingListsListViewController)
         readingListsListViewController.view.frame = containerView.bounds
         readingListsListViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(readingListsListViewController.view)
         readingListsListViewController.didMove(toParentViewController: self)
         apply(theme: theme)
+    }
+    
+    public weak var delegate: AddArticlesToReadingListViewControllerDelegate?
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.didDisappear()
     }
 
 }
@@ -120,5 +134,6 @@ extension AddArticlesToReadingListViewController: Themeable {
         navigationBar?.tintColor = theme.colors.chromeText
         navigationBar?.titleTextAttributes = theme.navigationBarTitleTextAttributes
         view.backgroundColor = theme.colors.chromeBackground
+        readingListsListViewController?.apply(theme: theme)
     }
 }
