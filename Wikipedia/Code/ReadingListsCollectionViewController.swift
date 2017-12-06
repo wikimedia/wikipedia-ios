@@ -1,30 +1,6 @@
 import Foundation
 
 class ReadingListCollectionViewCell: SavedCollectionViewCell {
-    
-    func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        if shouldShowSeparators {
-            topSeparator.isHidden = index != 0
-            bottomSeparator.isHidden = false
-        } else {
-            bottomSeparator.isHidden = true
-        }
-        apply(theme: theme)
-        
-        isImageViewHidden = true
-        titleLabel.text = readingList.name
-        
-        imageViewDimension = 40
-        isSaveButtonHidden = true
-        descriptionLabel.text = readingList.readingListDescription
-        extractLabel?.text = nil
-        if (shouldAdjustMargins) {
-            adjustMargins(for: index, count: count)
-        }
-        
-        setNeedsLayout()
-    }
-    
 }
 
 @objc(WMFReadingListsCollectionViewController)
@@ -44,7 +20,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
@@ -121,6 +97,14 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         cell.layoutMargins = layout.readableMargins
     }
     
+    // MARK: - Empty state
+    
+    fileprivate var isEmpty = true {
+        didSet {
+            editController.isCollectionViewEmpty = isEmpty
+        }
+    }
+    
     fileprivate final func updateEmptyState() {
         guard let collectionView = self.collectionView else {
             return
@@ -148,12 +132,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
         return [updateItem, deleteItem]
     }()
-    
-    fileprivate var isEmpty = true {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-        }
-    }
     
 }
 
@@ -337,8 +315,7 @@ extension ReadingListsCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList)
-        readingListDetailCollectionViewController.dataStore = dataStore
+        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
         readingListDetailCollectionViewController.apply(theme: theme)
         navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
     }
