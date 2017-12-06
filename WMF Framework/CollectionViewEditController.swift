@@ -271,7 +271,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
     
-    public func closeActionPane(with expandedAction: Action? = nil, _ completion: @escaping (Bool) -> Void = {_ in }) {
+    func closeActionPane(with expandedAction: Action? = nil, _ completion: @escaping (Bool) -> Void = {_ in }) {
         collectionView.allowsSelection = true
         guard let cell = activeCell, let indexPath = activeIndexPath else {
             completion(false)
@@ -387,8 +387,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc public func close() {
-        closeActionPane()
         batchEditingState = .cancelled
+        closeActionPane()
     }
     
     public var isCollectionViewEmpty: Bool = false {

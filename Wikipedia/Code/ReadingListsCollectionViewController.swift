@@ -231,6 +231,7 @@ extension ReadingListsCollectionViewController: ActionDelegate {
             do {
                 try readingListsController.delete(readingLists: readingLists)
             } catch let err {
+                print(err)
                 // do something
             }
             return true
@@ -250,6 +251,7 @@ extension ReadingListsCollectionViewController: ActionDelegate {
             do {
             try readingListsController.delete(readingLists: [readingList])
             } catch let err {
+                print(err)
                 // do something
             }
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
@@ -305,7 +307,9 @@ extension ReadingListsCollectionViewController {
     }
     
     fileprivate func selectReadingList(at indexPath: IndexPath) {
-        let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
+        guard let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected else {
+            return
+        }
         
         if isSelected {
             collectionView?.deselectItem(at: indexPath, animated: true)
