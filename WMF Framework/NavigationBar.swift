@@ -125,6 +125,9 @@ public class NavigationBar: SetupView {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.displayScale > 0 else {
+            return
+        }
         shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
     }
     
