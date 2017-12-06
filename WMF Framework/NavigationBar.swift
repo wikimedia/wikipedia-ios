@@ -83,12 +83,14 @@ public class NavigationBar: SetupView {
         shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
         shadow.addConstraint(shadowHeightConstraint)
         
+        var updatedConstraints: [NSLayoutConstraint] = []
+        
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
-        addConstraint(statusBarUnderlayTopConstraint)
+        updatedConstraints.append(statusBarUnderlayTopConstraint)
 
         if #available(iOS 11.0, *) {
             let statusBarUnderlayBottomConstraint = safeAreaLayoutGuide.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
-            addConstraint(statusBarUnderlayBottomConstraint)
+            updatedConstraints.append(statusBarUnderlayBottomConstraint)
         } else {
             let underlayHeightConstraint = statusBarUnderlay.heightAnchor.constraint(equalToConstant: 0)
             statusBarHeightConstraint = underlayHeightConstraint
@@ -96,9 +98,9 @@ public class NavigationBar: SetupView {
         }
         
         let statusBarUnderlayLeadingConstraint = leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
-        addConstraint(statusBarUnderlayLeadingConstraint)
+        updatedConstraints.append(statusBarUnderlayLeadingConstraint)
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
-        addConstraint(statusBarUnderlayTrailingConstraint)
+        updatedConstraints.append(statusBarUnderlayTrailingConstraint)
 
         let barTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: bar.topAnchor)
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
@@ -120,7 +122,8 @@ public class NavigationBar: SetupView {
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        addConstraints([barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        addConstraints(updatedConstraints)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
