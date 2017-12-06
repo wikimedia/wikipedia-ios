@@ -4,6 +4,11 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     fileprivate let articleURLs: [URL]
     
+    @IBOutlet weak var navigationBar: UINavigationBar?
+    @IBOutlet weak var addButton: UIBarButtonItem?
+    @IBOutlet weak var closeButton: UIBarButtonItem?
+    
+    
     init(articleURLs: [URL]) {
         self.articleURLs = articleURLs
         super.init(nibName: "AddArticlesToReadingListViewController", bundle: nil)
@@ -19,8 +24,8 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articleURLs.count)")
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articleURLs.count)")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     }
 
 }
