@@ -401,6 +401,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         isBatchEditToolbarVisible = false
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+                // change
                 cell.isSelected = false
                 cell.batchEditingTranslation = 0
                 cell.layoutIfNeeded()

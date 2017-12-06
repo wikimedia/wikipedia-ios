@@ -334,8 +334,9 @@ extension ReadingListsCollectionViewController {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
             return
         }
-        
-        super.collectionView(collectionView, didSelectItemAt: indexPath)
+        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController.wmf_viewControllerFromStoryboardNamed("Saved")
+        readingListDetailCollectionViewController.apply(theme: theme)
+        navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
     }
     
     func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
