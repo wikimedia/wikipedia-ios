@@ -95,6 +95,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
         cell.layoutMargins = layout.readableMargins
+        
+        guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
+            return
+        }
+        cell.swipeTranslation = translation
     }
     
     // MARK: - Empty state
