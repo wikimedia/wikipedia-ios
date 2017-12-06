@@ -19,13 +19,13 @@ class ReadingListTests: XCTestCase {
         let casedName = "pEbBLes"
         let diacriticName = "pEbBLés"
         do {
-            let list = try dataStore.readingListsController.createReadingList(named: originalName)
+            let list = try dataStore.readingListsController.createReadingList(named: originalName, description: "Foo")
             XCTAssert(list.name == originalName)
         } catch let error {
             XCTAssert(false, "Should be able to create \(originalName) reading list: \(error)")
         }
         do {
-            let _ = try dataStore.readingListsController.createReadingList(named: casedName)
+            let _ = try dataStore.readingListsController.createReadingList(named: casedName, description: "Foo")
             XCTAssert(false, "Should not be able to create list with same title and different case")
         } catch let error as ReadingListError {
             XCTAssert(error == ReadingListError.listExistsWithTheSameName(name: casedName), "Should throw an error when creating a list with the same title and different case")
@@ -34,7 +34,7 @@ class ReadingListTests: XCTestCase {
         }
         
         do {
-            let list = try dataStore.readingListsController.createReadingList(named: diacriticName)
+            let list = try dataStore.readingListsController.createReadingList(named: diacriticName, description: "Foo")
             XCTAssert(list.name == diacriticName)
         } catch let error {
             XCTAssert(false, "Should be able to create \(diacriticName) reading list: \(error)")
@@ -46,20 +46,19 @@ class ReadingListTests: XCTestCase {
         var readingLists: [ReadingList] = []
 
         do {
-            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[0]))
+            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[0], description: "Foo"))
         } catch let error {
             XCTAssert(false, "Should be able to create \(readingListNames[0]) reading list: \(error)")
         }
         
         do {
-            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[1]))
+            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[1], description: "Foo"))
         } catch let error {
             XCTAssert(false, "Should be able to create \(readingListNames[1]) reading list: \(error)")
         }
         
         do {
-            let deletedLists = try dataStore.readingListsController.delete(readingListsNamed: readingListNames)
-            XCTAssert(deletedLists.wmf_containsObjectsInAnyOrderAndMatchesCount(readingLists))
+            try dataStore.readingListsController.delete(readingLists: readingLists)
         } catch let error {
             XCTAssert(false, "Should be able to delete \(readingListNames) reading lists: \(error)")
         }
@@ -70,14 +69,13 @@ class ReadingListTests: XCTestCase {
         var readingLists: [ReadingList] = []
         
         do {
-            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[0]))
+            readingLists.append(try dataStore.readingListsController.createReadingList(named: readingListNames[0], description: "Foo"))
         } catch let error {
             XCTAssert(false, "Should be able to create \(readingListNames[0]) reading list: \(error)")
         }
         
         do {
-            let deletedLists = try dataStore.readingListsController.delete(readingListsNamed: readingListNames)
-            XCTAssert(deletedLists.wmf_containsObjectsInAnyOrderAndMatchesCount(readingLists))
+            try dataStore.readingListsController.delete(readingLists: readingLists)
         } catch let error {
             XCTAssert(false, "Should attempt to delete \(readingListNames) reading lists: \(error)")
         }
@@ -95,7 +93,7 @@ class ReadingListTests: XCTestCase {
         }
         
         do {
-            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
+            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, description: "Foo", with: articles)
             XCTAssert(readingList.articleKeys.wmf_containsObjectsInAnyOrderAndMatchesCount(articleKeys))
 
         } catch let error {
@@ -122,7 +120,7 @@ class ReadingListTests: XCTestCase {
         }
         
         do {
-            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, with: articles)
+            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, description: "Foo", with: articles)
             
             do {
                 try dataStore.readingListsController.add(articles: otherArticles, to: readingList)
