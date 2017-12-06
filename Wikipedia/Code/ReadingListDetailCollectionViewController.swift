@@ -61,6 +61,16 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateEmptyState()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        editController.close()
+    }
+    
     fileprivate func entry(at indexPath: IndexPath) -> ReadingListEntry? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
