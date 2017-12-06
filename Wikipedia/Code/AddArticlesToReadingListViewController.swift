@@ -4,14 +4,37 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     fileprivate let headerReuseIdentifier = "ReadingListsListCollectionViewControllerHeader"
     fileprivate var headerLayoutEstimate: WMFLayoutEstimate?
     
+    fileprivate let articles: [WMFArticle]
+    
+    init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
+        self.articles = articles
+        super.init(with: dataStore)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
-        collectionView?.allowsSelection = false
+        collectionView?.allowsMultipleSelection = false
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //
+        guard let selectedReadingList = readingList(at: indexPath) else {
+            return
+        }
+        do {
+         try readingListsController.add(articles: articles, to: selectedReadingList)
+        } catch let err {
+            print(err)
+            // do something
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            // some confirmation?
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -66,13 +89,13 @@ extension ReadingListsListCollectionViewController {
 }
 
 public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
-    func didDisappear()
+    func viewControllerWillBeDismissed()
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
     
     fileprivate let dataStore: MWKDataStore
-    fileprivate let articleURLs: [URL]
+    fileprivate let articles: [WMFArticle]
     
     @IBOutlet weak var navigationBar: UINavigationBar?
     @IBOutlet weak var addButton: UIBarButtonItem?
@@ -83,9 +106,9 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     fileprivate var theme: Theme
     
-    init(with dataStore: MWKDataStore, articleURLs: [URL], theme: Theme) {
+    init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
         self.dataStore = dataStore
-        self.articleURLs = articleURLs
+        self.articles = articles
         self.theme = theme
         super.init(nibName: "AddArticlesToReadingListViewController", bundle: nil)
     }
@@ -100,10 +123,10 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articleURLs.count)")
+        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articles.count)")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         
-        readingListsListViewController = ReadingListsListCollectionViewController.init(with: dataStore)
+        readingListsListViewController = ReadingListsListCollectionViewController.init(with: dataStore, articles: articles)
         guard let readingListsListViewController = readingListsListViewController else {
             return
         }
@@ -119,7 +142,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.didDisappear()
+        delegate?.viewControllerWillBeDismissed()
     }
 
 }

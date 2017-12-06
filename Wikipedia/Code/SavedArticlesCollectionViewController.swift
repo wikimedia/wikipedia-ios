@@ -182,13 +182,14 @@ extension SavedArticlesCollectionViewController {
         }
         
         let articleURLs = selectedIndexPaths.flatMap({ articleURL(at: $0) })
+        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
         
         switch action.type {
         case .update:
             print("Update")
             return true
         case .addToList:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articleURLs: articleURLs, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
@@ -205,7 +206,7 @@ extension SavedArticlesCollectionViewController {
 }
 
 extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
-    func didDisappear() {
+    func viewControllerWillBeDismissed() {
         editController.close()
     }
 }
