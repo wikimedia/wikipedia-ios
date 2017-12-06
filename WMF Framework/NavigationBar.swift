@@ -26,6 +26,7 @@ public class NavigationBar: SetupView {
     fileprivate let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
+    fileprivate let backgroundView: UIView = UIView()
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -66,12 +67,14 @@ public class NavigationBar: SetupView {
     
     override open func setup() {
         super.setup()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
         bar.translatesAutoresizingMaskIntoConstraints = false
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
         
+        addSubview(backgroundView)
         addSubview(shadow)
         addSubview(extendedView)
         addSubview(bar)
@@ -84,7 +87,7 @@ public class NavigationBar: SetupView {
         shadow.addConstraint(shadowHeightConstraint)
         
         var updatedConstraints: [NSLayoutConstraint] = []
-        
+
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
         updatedConstraints.append(statusBarUnderlayTopConstraint)
 
@@ -113,6 +116,11 @@ public class NavigationBar: SetupView {
         let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
         let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
         
+        let backgroundViewTopConstraint = topAnchor.constraint(equalTo: backgroundView.topAnchor)
+        let backgroundViewLeadingConstraint = leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
+        let backgroundViewTrailingConstraint = trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
+        let backgroundViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
+        
         let progressViewBottomConstraint = shadow.topAnchor.constraint(equalTo: progressView.bottomAnchor)
         let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
         let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
@@ -122,7 +130,7 @@ public class NavigationBar: SetupView {
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
         addConstraints(updatedConstraints)
     }
     
@@ -166,6 +174,7 @@ public class NavigationBar: SetupView {
             self.bar.transform = barTransform
             let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
             self.extendedView.transform = totalTransform
+            self.backgroundView.transform = totalTransform
             self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
             self.progressView.transform = totalTransform
             self.shadow.transform = totalTransform
@@ -216,7 +225,8 @@ extension NavigationBar: Themeable {
         backgroundColor = .clear
         
         statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
-
+        backgroundView.backgroundColor = theme.colors.chromeBackground
+        
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
