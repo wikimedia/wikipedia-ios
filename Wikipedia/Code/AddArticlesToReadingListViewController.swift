@@ -7,6 +7,11 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
+        collectionView?.allowsSelection = false
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //
     }
 }
 
@@ -17,11 +22,12 @@ extension ReadingListsListCollectionViewController {
             return nil
         }
         let sectionInfo = sections[section]
-        guard let article = sectionInfo.objects?.first as? WMFArticle, let date = article.viewedDateWithoutTime else {
+        guard let readingList = sectionInfo.objects?.first as? ReadingList else {
             return nil
         }
         
-        return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
+        // change
+        return nil
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

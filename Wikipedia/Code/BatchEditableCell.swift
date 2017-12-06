@@ -129,7 +129,7 @@ public enum BatchEditingState {
     case none
     case open
     case cancelled
-    case disabled
+    case inactive // swipe action is open
 }
 
 public enum BatchEditToolbarActionType {

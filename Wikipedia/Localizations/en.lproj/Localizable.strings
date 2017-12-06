@@ -100,6 +100,8 @@
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-history-message" = "Keep track of what you've been reading here";
 "empty-no-history-title" = "No history to show";
+"empty-no-reading-lists-message" = "Create reading lists to view them later, even offline";
+"empty-no-reading-lists-title" = "No reading lists yet";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";

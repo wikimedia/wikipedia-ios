@@ -28,11 +28,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isActive: Bool {
         return activeIndexPath != nil
     }
-    
+    // disabled
     var activeIndexPath: IndexPath? {
         didSet {
             if activeIndexPath != nil {
-                batchEditingState = .disabled
+                batchEditingState = .inactive
             } else {
                 batchEditingState = .none
             }
@@ -342,7 +342,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 navigationDelegate?.changeRightNavButton(to: button)
             }
             
-            guard batchEditingState != .disabled else {
+            guard !isCollectionViewEmpty else {
+                enabled = false
+                return
+            }
+            
+            guard batchEditingState != .inactive else {
                 barButtonSystemItem = .done
                 tag = -1
                 return
@@ -383,6 +388,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     @objc public func close() {
         closeActionPane()
         batchEditingState = .cancelled
+    }
+    
+    public var isCollectionViewEmpty: Bool = false {
+        didSet {
+            if isCollectionViewEmpty {
+                close()
+            }
+            batchEditingState = .none
+        }
     }
     
     fileprivate func closeBatchEditPane() {

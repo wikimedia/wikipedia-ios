@@ -150,6 +150,12 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
     }()
+    
+    override var isEmpty: Bool {
+        didSet {
+            editController.isCollectionViewEmpty = isEmpty
+        }
+    }
 
 }
 

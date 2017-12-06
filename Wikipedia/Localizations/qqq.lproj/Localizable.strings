@@ -100,6 +100,8 @@
 "empty-no-feed-title" = "Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available";
 "empty-no-history-message" = "Message of a blank screen shown when a user has no history";
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
+"empty-no-reading-lists-message" = "Message of a blank screen shown when a user has no reading lists";
+"empty-no-reading-lists-title" = "Title of a blank screen shown when a user has no reading lists";
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";

@@ -81,6 +81,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         editController.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateEmptyState()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
@@ -116,7 +121,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         cell.layoutMargins = layout.readableMargins
     }
     
-    fileprivate var isEmpty = true
+    fileprivate var isEmpty = true {
+        didSet {
+            editController.isCollectionViewEmpty = isEmpty
+        }
+    }
     
     fileprivate final func updateEmptyState() {
         guard let collectionView = self.collectionView else {

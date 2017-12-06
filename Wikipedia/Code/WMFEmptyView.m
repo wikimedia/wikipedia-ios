@@ -84,6 +84,17 @@
     return view;
 }
 
++ (instancetype)noReadingListsEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"saved-blank"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"No reading lists yet", @"Title of a blank screen shown when a user has no reading lists");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Create reading lists to view them later, even offline", @"Message of a blank screen shown when a user has no reading lists");
+    
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    return view;
+}
+
 + (instancetype)noHistoryEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"recent-blank"];
