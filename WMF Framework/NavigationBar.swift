@@ -27,9 +27,6 @@ public class NavigationBar: SetupView {
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     
-    /// Remove this when dropping iOS 10
-    fileprivate var kvoTopLayoutGuideLengthContext = "kvoTopLayoutGuideLengthContext"
-    
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
         didSet {
