@@ -7,6 +7,8 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     }
     var theme: Theme = Theme.standard
     
+    let navigationBar: NavigationBar = NavigationBar()
+    
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
     init() {
@@ -23,6 +25,15 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationBar.delegate = self
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+        let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
+        let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
+        let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
+        view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
+        
         collectionView?.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
@@ -46,6 +57,39 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
                 }
                 cellWithSubItems.deselectSelectedSubItems(animated: animated)
             }
+        }
+        updateScrollViewInsets()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (context) in
+            
+        }) { (context) in
+            self.updateScrollViewInsets()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if #available(iOS 11.0, *) {
+        } else {
+            navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0
+            updateScrollViewInsets()
+        }
+    }
+    
+    // MARK - Scroll View Insets
+    fileprivate func updateScrollViewInsets() {
+        guard let collectionView = collectionView else {
+            return
+        }
+        view.layoutIfNeeded()
+        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
+        let insets = UIEdgeInsets(top: navigationBar.frame.size.height, left: 0, bottom: 0, right: 0)
+        collectionView.scrollIndicatorInsets = insets
+        collectionView.contentInset = insets
+        if wasAtTop {
+            collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
         }
     }
     
@@ -153,6 +197,7 @@ class ColumnarCollectionViewController: UICollectionViewController, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
+        navigationBar.apply(theme: theme)
         view.backgroundColor = theme.colors.baseBackground
         collectionView?.backgroundColor = theme.colors.baseBackground
         collectionView?.indicatorStyle = theme.scrollIndicatorStyle
