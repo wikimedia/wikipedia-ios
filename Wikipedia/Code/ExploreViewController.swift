@@ -140,18 +140,14 @@ class ExploreViewController: ViewController, WMFExploreCollectionViewControllerD
         setNavigationBarPercentHidden(navigationBar.navigationBarPercentHidden, extendedViewPercentHidden: updatedPercentage, animated: false)
     }
     
-    fileprivate func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+    fileprivate func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         let changes = {
             self.shortTitleButton?.alpha = extendedViewPercentHidden
             self.longTitleButton?.alpha = 1.0 - extendedViewPercentHidden
             self.navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
-            self.navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: false)
+            additionalAnimations?()
         }
-        if animated {
-            UIView.animate(withDuration: 0.2, animations: changes)
-        } else {
-            changes()
-        }
+        self.navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations: changes)
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didEndScrolling scrollView: UIScrollView) {
@@ -175,12 +171,14 @@ class ExploreViewController: ViewController, WMFExploreCollectionViewControllerD
             return
         }
         
-        setNavigationBarPercentHidden(navigationBar.navigationBarPercentHidden, extendedViewPercentHidden: percentage, animated: true)
-        if percentage < 1 {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: true)
-        } else {
-            scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top + searchBar.frame.size.height), animated: true)
-        }
+        setNavigationBarPercentHidden(navigationBar.navigationBarPercentHidden, extendedViewPercentHidden: percentage, animated: true, additionalAnimations:{
+            if percentage < 1 {
+                scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: false)
+            } else {
+                scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top + self.searchBar.frame.size.height), animated: false)
+            }
+        })
+       
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {

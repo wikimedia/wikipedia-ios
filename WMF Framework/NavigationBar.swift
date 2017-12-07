@@ -166,8 +166,9 @@ public class NavigationBar: SetupView {
             setNavigationBarPercentHidden(_navigationBarPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
-
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+    
+    
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         _navigationBarPercentHidden = navigationBarPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
         let changes = {
@@ -181,12 +182,18 @@ public class NavigationBar: SetupView {
             self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
             self.progressView.transform = totalTransform
             self.shadow.transform = totalTransform
+            additionalAnimations?()
         }
         if animated {
             UIView.animate(withDuration: 0.2, animations: changes)
         } else {
             changes()
         }
+    }
+
+
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations: nil)
     }
     
     @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
