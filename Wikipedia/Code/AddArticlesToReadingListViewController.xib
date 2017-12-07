@@ -50,7 +50,7 @@
                 <constraint firstItem="HOJ-IE-tto" firstAttribute="topMargin" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="WLz-jm-eKh"/>
                 <constraint firstItem="9pV-yW-VY3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZNt-dm-RGS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9pV-yW-VY3" secondAttribute="trailing" id="aF1-QQ-Q9f"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9pV-yW-VY3" secondAttribute="bottom" id="aOM-eu-jbH"/>
+                <constraint firstAttribute="bottom" secondItem="9pV-yW-VY3" secondAttribute="bottom" id="aOM-eu-jbH"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

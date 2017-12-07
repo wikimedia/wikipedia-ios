@@ -153,9 +153,12 @@ extension AddArticlesToReadingListViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        
         navigationBar?.barTintColor = theme.colors.chromeBackground
         navigationBar?.tintColor = theme.colors.chromeText
         navigationBar?.titleTextAttributes = theme.navigationBarTitleTextAttributes
+        view.tintColor = theme.colors.link
+        navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         view.backgroundColor = theme.colors.chromeBackground
         readingListsListViewController?.apply(theme: theme)
     }
