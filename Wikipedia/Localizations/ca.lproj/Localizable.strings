@@ -70,8 +70,11 @@
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
+"appearance-settings-expand-tables" = "Expandeix les taules";
+"appearance-settings-expand-tables-footer" = "Estableix que totes les taules en tots els articles es despleguin per defecte, incloent les infotaules, referències, notes i enllaços externs.";
 "appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en el tema fosc";
 "appearance-settings-reading-themes" = "Temes de lectura";
+"appearance-settings-set-automatic-table-opening" = "Preferències de les taules";
 "appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per sobre per a canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
 "appearance-settings-theme-options" = "Opcions del tema";
 "appearance-settings-title" = "Temes de lectura";
