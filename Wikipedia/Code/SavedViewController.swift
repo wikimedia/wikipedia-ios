@@ -144,7 +144,6 @@ class SavedViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        title = "Back"
         wmf_updateNavigationBar(removeUnderline: false)
     }
     

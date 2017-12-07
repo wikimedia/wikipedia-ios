@@ -430,6 +430,34 @@ extension ReadingListDetailCollectionViewController {
     }
 }
 
+// MARK: - UIViewControllerPreviewingDelegate
+
+extension ReadingListDetailCollectionViewController {
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard !editController.isActive else {
+            return nil // don't allow 3d touch when swipe actions are active
+        }
+        guard let collectionView = collectionView,
+            let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
+            let url = articleURL(at: indexPath)
+            else {
+                return nil
+        }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
+        
+        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        articleViewController.articlePreviewingActionsDelegate = self
+        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        return articleViewController
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
+        wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
 // MARK: - Analytics
 
 extension ReadingListDetailCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {

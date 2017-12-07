@@ -55,6 +55,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        // Remove peek & pop for now
+        unregisterForPreviewing()
     }
     
     override func viewWillAppear(_ animated: Bool) {
