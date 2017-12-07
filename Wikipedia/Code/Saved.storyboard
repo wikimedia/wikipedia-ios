@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVp-Ga-oZr">
-                                <rect key="frame" x="0.0" y="118" width="375" height="549"/>
+                                <rect key="frame" x="0.0" y="126" width="375" height="541"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="20" width="375" height="98"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="98"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
@@ -94,7 +94,7 @@
                             <constraint firstAttribute="bottom" secondItem="hVp-Ga-oZr" secondAttribute="bottom" id="9DZ-na-b31"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="Avf-2s-IcF"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="SMV-D9-nEr" secondAttribute="top" id="RGY-vF-9Yr"/>
+                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="SMV-D9-nEr" secondAttribute="top" constant="8" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" id="aB5-eS-tFb"/>
                         </constraints>

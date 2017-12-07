@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -25,30 +25,30 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANn-ak-pec">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-ce-n7H" userLabel="Content View">
-                            <rect key="frame" x="43.5" y="0.0" width="288" height="304.5"/>
+                            <rect key="frame" x="16" y="0.0" width="288" height="322.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
-                                    <rect key="frame" x="31" y="12" width="132.5" height="20.5"/>
+                                    <rect key="frame" x="31" y="30" width="132.5" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93B-kH-3f4">
-                                    <rect key="frame" x="262" y="12" width="18" height="22"/>
+                                    <rect key="frame" x="262" y="30" width="18" height="22"/>
                                     <state key="normal" image="close"/>
                                     <connections>
                                         <action selector="closeButtonPressed:" destination="-1" eventType="touchUpInside" id="bid-pp-SZL"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vph-EY-NCY" userLabel="Name Container View">
-                                    <rect key="frame" x="23" y="62.5" width="242" height="63.5"/>
+                                    <rect key="frame" x="23" y="80.5" width="242" height="63.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading list name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mL-FN-xFB">
                                             <rect key="frame" x="8" y="0.0" width="226" height="14.5"/>
@@ -72,7 +72,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oam-nO-8c3" userLabel="Description Container View">
-                                    <rect key="frame" x="23" y="151" width="242" height="63.5"/>
+                                    <rect key="frame" x="23" y="169" width="242" height="63.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCo-6s-4Lk">
                                             <rect key="frame" x="8" y="0.0" width="226" height="14.5"/>
@@ -96,7 +96,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="23" y="244.5" width="242" height="40"/>
+                                    <rect key="frame" x="23" y="262.5" width="242" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AUY-nK-uJd"/>
                                     </constraints>
@@ -133,7 +133,7 @@
                                 <constraint firstItem="vph-EY-NCY" firstAttribute="top" secondItem="Rae-vX-ya2" secondAttribute="bottom" constant="30" id="mia-3z-x3l"/>
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="trailing" secondItem="oam-nO-8c3" secondAttribute="trailing" id="nuI-WC-Uhw"/>
                                 <constraint firstItem="oam-nO-8c3" firstAttribute="trailing" secondItem="vph-EY-NCY" secondAttribute="trailing" id="rZv-Ei-DUJ"/>
-                                <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="12" id="zDF-Av-3Tt"/>
+                                <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="zDF-Av-3Tt"/>
                                 <constraint firstItem="oam-nO-8c3" firstAttribute="top" secondItem="vph-EY-NCY" secondAttribute="bottom" constant="25" id="zKU-pW-RoO"/>
                             </constraints>
                         </view>
