@@ -69,6 +69,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         editController.close()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        cellLayoutEstimate = nil
+    }
+    
     func readingList(at indexPath: IndexPath) -> ReadingList? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,

@@ -65,6 +65,11 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         editController.close()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        cellLayoutEstimate = nil
+    }
+    
     fileprivate func entry(at indexPath: IndexPath) -> ReadingListEntry? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
@@ -140,7 +145,8 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
     internal lazy var batchEditToolbar: UIToolbar = {
         let toolbarHeight: CGFloat = 50
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight))
-        toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        toolbar.autoresizingMask = [.flexibleWidth]
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
 
@@ -319,6 +325,8 @@ extension ReadingListDetailCollectionViewController: BatchEditNavigationDelegate
         if add {
             batchEditToolbar.items = items
             view.addSubview(batchEditToolbar)
+            let bottomConstraint = view.bottomAnchor.constraint(equalTo: batchEditToolbar.bottomAnchor)
+            view.addConstraint(bottomConstraint)
         } else {
             batchEditToolbar.removeFromSuperview()
         }
