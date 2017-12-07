@@ -58,23 +58,24 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.sortDescriptors = [NSSortDescriptor(key: "savedDate", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        setupFetchedResultsController(with: dataStore, sortBy: "savedDate", ascending: false)
     }
     
-    fileprivate func sort(by key: String) {
-        let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.sortDescriptors = [NSSortDescriptor(key: key, ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    fileprivate func sort(by key: String, ascending: Bool) {
+        setupFetchedResultsController(with: dataStore, sortBy: key, ascending: ascending)
         do {
             try fetchedResultsController.performFetch()
         } catch let err {
             assertionFailure("Couldn't sort by \(key): \(err)")
         }
         collectionView?.reloadData()
+    }
+    
+    fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore, sortBy key: String, ascending: Bool) {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     override func canSave(at indexPath: IndexPath) -> Bool {
@@ -224,7 +225,7 @@ extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
     @objc func didPressSortButton() {
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         let titleAction = UIAlertAction(title: "Title", style: .default) { (actions) in
-            self.sort(by: "displayTitle")
+            self.sort(by: "displayTitle", ascending: true)
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (actions) in
             print("Recently added")
