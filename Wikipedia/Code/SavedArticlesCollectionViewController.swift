@@ -64,6 +64,19 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
+    fileprivate func sort(by key: String) {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.sortDescriptors = [NSSortDescriptor(key: key, ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let err {
+            assertionFailure("Couldn't sort by \(key): \(err)")
+        }
+        collectionView?.reloadData()
+    }
+    
     override func canSave(at indexPath: IndexPath) -> Bool {
         return false
     }
@@ -207,10 +220,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
+    
     @objc func didPressSortButton() {
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         let titleAction = UIAlertAction(title: "Title", style: .default) { (actions) in
-            print("Title")
+            self.sort(by: "displayTitle")
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (actions) in
             print("Recently added")
