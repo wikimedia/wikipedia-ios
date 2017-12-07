@@ -71,6 +71,9 @@
                                         <rect key="frame" x="324" y="49" width="31" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <state key="normal" title="Sort"/>
+                                        <connections>
+                                            <action selector="sortButonPressed" destination="DbA-ai-MSH" eventType="touchUpInside" id="mhp-Go-Cd2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

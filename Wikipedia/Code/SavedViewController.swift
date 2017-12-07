@@ -1,5 +1,9 @@
 import UIKit
 
+@objc public protocol SavedViewControllerDelegate: NSObjectProtocol {
+    @objc func didPressSortButton()
+}
+
 @objc(WMFSavedViewController)
 class SavedViewController: UIViewController {
 
@@ -31,6 +35,7 @@ class SavedViewController: UIViewController {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
                 savedArticlesCollectionViewController.editController.navigationDelegate = self
+                savedDelegate = savedArticlesCollectionViewController
                 activeChildViewController = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
@@ -145,6 +150,14 @@ class SavedViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         wmf_updateNavigationBar(removeUnderline: false)
+    }
+    
+    // MARK: - Sorting
+    
+    public weak var savedDelegate: SavedViewControllerDelegate?
+    
+    @IBAction func sortButonPressed() {
+        savedDelegate?.didPressSortButton()
     }
     
     // MARK: - Batch edit toolbar

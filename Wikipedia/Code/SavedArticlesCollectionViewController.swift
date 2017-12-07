@@ -204,6 +204,32 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
 }
 
+// MARK: - SavedViewControllerDelegate
+
+extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
+    @objc func didPressSortButton() {
+        let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
+        let titleAction = UIAlertAction(title: "Title", style: .default) { (actions) in
+            print("Title")
+        }
+        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (actions) in
+            print("Recently added")
+        }
+        let recentlyUpdatedAction = UIAlertAction(title: "Recently updated", style: .default) { (actions) in
+            print("Recently updated")
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(titleAction)
+        alert.addAction(recentlyAddedAction)
+        alert.addAction(recentlyUpdatedAction)
+        alert.addAction(cancelAction)
+        // add sourceView for iPad
+        present(alert, animated: true, completion: nil)
+    }
+}
+
 // MARK: - AddArticlesToReadingListViewControllerDelegate
 
 extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
