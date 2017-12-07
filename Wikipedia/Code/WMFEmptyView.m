@@ -86,10 +86,10 @@
 
 + (instancetype)noReadingListsEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"saved-blank"];
-    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"No reading lists yet", @"Title of a blank screen shown when a user has no reading lists");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Create reading lists to view them later, even offline", @"Message of a blank screen shown when a user has no reading lists");
-    
+    view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Tap on the blue ‘+’ to create lists for places to travel to, favorite topics and much more", @"Message of a blank screen shown when a user has no reading lists");
+
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     return view;
