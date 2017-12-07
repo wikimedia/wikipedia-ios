@@ -147,6 +147,8 @@ class SavedViewController: UIViewController {
         wmf_updateNavigationBar(removeUnderline: false)
     }
     
+    // MARK: - Batch edit toolbar
+    
     @IBAction func toggleButtonPressed(_ sender: UIButton) {
         toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
         sender.isSelected = true
@@ -155,11 +157,27 @@ class SavedViewController: UIViewController {
     
     internal lazy var batchEditToolbar: UIToolbar = {
         let toolbarHeight: CGFloat = 50
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight))
+        let toolbar = UIToolbar()
+        updateBatchEditToolbarFrame(toolbar)
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         return toolbar
     }()
+    
+    fileprivate var isBatchEditToolbarVisible = false
+    
+    fileprivate func updateBatchEditToolbarFrame(_ toolbar: UIToolbar) {
+        let toolbarHeight: CGFloat = 50
+        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if isBatchEditToolbarVisible {
+            updateBatchEditToolbarFrame(batchEditToolbar)
+        }
+    }
 }
+
+// MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
 
@@ -168,6 +186,7 @@ extension SavedViewController: BatchEditNavigationDelegate {
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+        isBatchEditToolbarVisible = isVisible
         tabBarController?.tabBar.isHidden = isVisible
     }
     
