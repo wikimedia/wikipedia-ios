@@ -161,12 +161,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         fakeProgressController = FakeProgressController(progressView: progressView)
         
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
-        
-        searchFilterListController = PlaceSearchFilterListController(delegate: self)
-        searchFilterListController.tableView = filterDropDownTableView
-        filterDropDownTableView.dataSource = searchFilterListController
-        filterDropDownTableView.delegate = searchFilterListController
-        
+
         touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
         touchOutsideOverlayView.delegate = self
 
@@ -228,6 +223,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         apply(theme: theme)
         self.view.layoutIfNeeded()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case "filterListController":
+            searchFilterListController = segue.destination as! PlaceSearchFilterListController
+            searchFilterListController.delegate = self
+        default:
+            break
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -1929,10 +1934,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
         
 
-        filterDropDownContainerView.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin]
         filterDropDownContainerView.frame = frame
         searchFilterListController.currentFilterType = currentSearchFilter
-        self.view.addSubview(filterDropDownContainerView)
         
         touchOutsideOverlayView.resetInsideRects()
         touchOutsideOverlayView.addInsideRect(fromView: navigationBar)
@@ -1940,7 +1943,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         touchOutsideOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(touchOutsideOverlayView)
 
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
@@ -1956,13 +1958,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        let width = view.bounds.size.width
-        let origHeight = searchFilterListController.preferredHeight(for: width)
-        
         self.touchOutsideOverlayView.removeFromSuperview()
-        
-        UIView.commitAnimations()
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
@@ -1970,8 +1966,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                                                             width: self.filterDropDownContainerView.frame.width,
                                                             height: 0)
         }, completion: { (done) in
-            self.filterDropDownContainerView.removeFromSuperview()
-            self.filterDropDownContainerView.frame.size.height = origHeight
             completion(done)
         })
     }
