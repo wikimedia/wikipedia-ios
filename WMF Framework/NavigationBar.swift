@@ -62,6 +62,7 @@ public class NavigationBar: SetupView {
     @objc public var statusBarHeight: CGFloat = 0 {
         didSet {
             statusBarHeightConstraint?.constant = statusBarHeight
+            setNeedsLayout()
         }
     }
     
