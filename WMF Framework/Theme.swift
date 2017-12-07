@@ -270,6 +270,5 @@ public class Theme: NSObject {
 
 @objc(WMFThemeable)
 public protocol Themeable : NSObjectProtocol {
-    @objc(applyTheme:)
-    func apply(theme: Theme) //this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
+    @objc func apply(theme: Theme) //this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
 }

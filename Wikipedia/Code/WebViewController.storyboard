@@ -22,11 +22,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="64" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-t3-9Cu" customClass="WMFNavigationBar">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <viewLayoutGuide key="safeArea" id="rBQ-sB-6Ri"/>
-                            </view>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.93000000000000005" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aCV-ih-PXn" userLabel="Zero Status Label" customClass="PaddedLabel">
                                 <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,10 +39,7 @@
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="CEq-wS-qK0"/>
                             <constraint firstItem="aCV-ih-PXn" firstAttribute="leading" secondItem="dho-2s-f1C" secondAttribute="leading" id="Odo-tm-VoC"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="dho-2s-f1C" secondAttribute="trailing" id="WBK-jv-ayM"/>
-                            <constraint firstItem="Uce-t3-9Cu" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="Wek-Kh-6wm"/>
-                            <constraint firstItem="Uce-t3-9Cu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="XPa-wn-bcQ"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="aLf-fD-fGd"/>
-                            <constraint firstItem="Uce-t3-9Cu" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" id="c2M-u4-uKb"/>
                             <constraint firstItem="dho-2s-f1C" firstAttribute="bottom" secondItem="aCV-ih-PXn" secondAttribute="bottom" id="pGp-mc-GIK"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="sgn-CU-OVa"/>
                         </constraints>
@@ -61,7 +53,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="containerView" destination="WeL-Mj-Zsh" id="Tj2-D7-M5k"/>
-                        <outlet property="navigationBar" destination="Uce-t3-9Cu" id="6aY-uI-dkx"/>
                         <outlet property="webViewBottomConstraint" destination="aLf-fD-fGd" id="tTg-Aw-gdz"/>
                         <outlet property="zeroStatusLabel" destination="aCV-ih-PXn" id="uhp-ae-eMa"/>
                     </connections>

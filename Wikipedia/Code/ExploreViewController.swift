@@ -1,11 +1,10 @@
 import UIKit
 
 @objc(WMFExploreViewController)
-class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate, AnalyticsViewNameProviding, AnalyticsContextProviding
+class ExploreViewController: WMFViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate, AnalyticsViewNameProviding, AnalyticsContextProviding
 {
     public var collectionViewController: WMFExploreCollectionViewController!
 
-    @IBOutlet weak var navigationBar: NavigationBar!
     @IBOutlet weak var containerView: UIView!
     
     fileprivate var extendedNavBarView: UIView!
@@ -15,8 +14,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     private var shortTitleButton: UIButton?
     
     private var isUserScrolling = false
-    
-    fileprivate var theme: Theme = Theme.standard
     
     @objc public var userStore: MWKDataStore? {
         didSet {
@@ -77,20 +74,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
-        searchBar.delegate = self
-        extendedNavBarView = UIView()
-        extendedNavBarView.wmf_addSubviewWithConstraintsToEdges(searchBar)
-        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
-        
-        automaticallyAdjustsScrollViewInsets = false
-        collectionViewController.automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            collectionViewController.collectionView?.contentInsetAdjustmentBehavior = .never
-        }
-        
         // programmatically add sub view controller
         // originally did via an embed segue but this caused the `exploreViewController` to load too late
         self.addChildViewController(collectionViewController)
@@ -98,46 +81,21 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.containerView.addSubview(collectionViewController.view)
         self.collectionViewController.didMove(toParentViewController: self)
-        
-        navigationBar.delegate = self
+    }
+    
+    override func navigationBarDidLoad() {
+        super.navigationBarDidLoad()
+        searchBar = UISearchBar(frame: .zero)
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        extendedNavBarView = UIView(frame: .zero)
+        extendedNavBarView.wmf_addSubviewWithConstraintsToEdges(searchBar)
+        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
+    }
 
-        self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
-        apply(theme: self.theme)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if #available(iOS 11.0, *) {
-        } else {
-            navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0
-        }
-        updateScrollViewInsets()
-    }
-    
-    // MARK - Scroll View Insets
-    fileprivate func updateScrollViewInsets() {
-        guard let collectionView = collectionViewController.collectionView else {
-            return
-        }
-        let frame = navigationBar.frame
-        let convertedFrame = view.convert(frame, to: containerView)
-        let top = convertedFrame.maxY
-        var safeInsets = UIEdgeInsets.zero
-        if #available(iOS 11.0, *) {
-            safeInsets = view.safeAreaInsets
-        }
-        let bottom = bottomLayoutGuide.length
-        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
-        guard contentInset != collectionView.contentInset || scrollIndicatorInsets != collectionView.scrollIndicatorInsets else {
-            return
-        }
-        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
-        collectionView.scrollIndicatorInsets = scrollIndicatorInsets
-        collectionView.contentInset = contentInset
-        if wasAtTop {
-            collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
-        }
+    override var scrollView: UIScrollView? {
+        return collectionViewController.collectionView
     }
     
     // MARK: - Actions
@@ -271,11 +229,8 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping () -> Void) {
         self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
     }
-}
 
-extension ExploreViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
         guard viewIfLoaded != nil else {
             return
         }
@@ -292,7 +247,5 @@ extension ExploreViewController: Themeable {
             cvc.apply(theme: theme)
         }
         extendedNavBarView.wmf_addBottomShadow(with: theme)
-        
-        navigationBar.apply(theme: theme)
     }
 }

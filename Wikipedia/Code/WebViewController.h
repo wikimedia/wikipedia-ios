@@ -2,7 +2,7 @@
 @import WMF.Swift;
 @import WebKit;
 
-@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView, WMFNavigationBar;
+@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView, NavigationBar;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
-@property (weak, nonatomic) IBOutlet WMFNavigationBar *navigationBar;
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;
 @property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
 
@@ -28,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) WMFTheme *theme;
 
 @property (nonatomic) BOOL navBarHidden;
+
+@property (nonatomic, weak) NavigationBar *navigationBar;
 
 #if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);

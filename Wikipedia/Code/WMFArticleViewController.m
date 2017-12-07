@@ -145,8 +145,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
-@property (strong, nonatomic, nullable) WMFTheme *theme;
-
 @end
 
 @implementation WMFArticleViewController
@@ -331,37 +329,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-#pragma mark - Scroll view insets
+#pragma mark - WMFViewController
 
-- (void)updateScrollViewInsets {
-    UIScrollView *scrollView = self.webViewController.webView.scrollView;
-
-    CGFloat bottom = self.navigationController.toolbar.frame.size.height;
-
-    UIEdgeInsets safeInsets = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *)) {
-        safeInsets = self.view.safeAreaInsets;
-    }
-
-    CGRect frame = self.webViewController.navigationBar.frame;
-    CGRect convertedFrame = [self.webViewController.view convertRect:frame toView:self.webViewController.webView];
-
-    CGFloat top = CGRectGetMaxY(convertedFrame);
-
-    UIEdgeInsets newIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
-    if (!UIEdgeInsetsEqualToEdgeInsets(newIndicatorInsets, scrollView.scrollIndicatorInsets)) {
-        scrollView.scrollIndicatorInsets = newIndicatorInsets;
-    }
-
-    UIEdgeInsets newScrollViewInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
-    UIEdgeInsets oldScrollViewInsets = scrollView.contentInset;
-    if (!UIEdgeInsetsEqualToEdgeInsets(newScrollViewInsets, oldScrollViewInsets)) {
-        BOOL wasScrolledToTop = scrollView.contentOffset.y == (0 - oldScrollViewInsets.top);
-        scrollView.contentInset = newScrollViewInsets;
-        if (wasScrolledToTop) { // keep scrolled to top if we were at top
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0 - newScrollViewInsets.top);
-        }
-    }
+- (nullable UIScrollView *)scrollView {
+    return self.webViewController.webView.scrollView;
 }
 
 #pragma mark - Public
@@ -624,18 +595,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Progress
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    [self.webViewController.navigationBar setProgressViewHidden:NO animated:animated];
+    [self.navigationBar setProgressViewHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    [self.webViewController.navigationBar setProgressViewHidden:YES animated:animated];
+    [self.navigationBar setProgressViewHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
-    if (progress < self.webViewController.navigationBar.progress) {
+    if (progress < self.navigationBar.progress) {
         return;
     }
-    [self.webViewController.navigationBar setProgress:progress animated:animated];
+    [self.navigationBar setProgress:progress animated:animated];
 
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
@@ -858,11 +829,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self layoutForSize:self.view.bounds.size];
-    if (@available(iOS 11.0, *)) {
-    } else {
-        self.webViewController.navigationBar.statusBarHeight = self.navigationController.topLayoutGuide.length;
-    }
-    [self updateScrollViewInsets];
 }
 
 - (WMFTableOfContentsDisplayStyle)tableOfContentsStyleTweakValue {
@@ -933,8 +899,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
-
-    self.webViewController.navigationBar.delegate = self;
+    
+    self.webViewController.navigationBar = self.navigationBar;
 }
 
 #pragma mark - Table of Contents
@@ -1886,6 +1852,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
+    [super applyTheme:theme];
+    
     self.theme = theme;
     [self.webViewController applyTheme:theme];
     if (self.viewIfLoaded == nil) {
