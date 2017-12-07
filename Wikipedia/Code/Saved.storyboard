@@ -88,13 +88,13 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="3jh-cu-e2g"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="SMV-D9-nEr" secondAttribute="leading" id="4hu-cp-Aez"/>
+                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="4hu-cp-Aez"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="centerX" secondItem="GCG-ME-1AZ" secondAttribute="centerX" id="8qh-Q5-mYT"/>
                             <constraint firstAttribute="bottom" secondItem="hVp-Ga-oZr" secondAttribute="bottom" id="9DZ-na-b31"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="Avf-2s-IcF"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="SMV-D9-nEr" secondAttribute="top" constant="8" id="RGY-vF-9Yr"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="SMV-D9-nEr" secondAttribute="trailing" id="RKs-dI-FzJ"/>
+                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="RKs-dI-FzJ"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" id="aB5-eS-tFb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
