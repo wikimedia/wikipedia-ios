@@ -41,12 +41,6 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        defer {
-            navigationController?.navigationBar.topItem?.title = "Back"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-            apply(theme: theme)
-        }
-        
         setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
         collectionViewUpdater?.delegate = self

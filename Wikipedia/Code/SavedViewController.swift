@@ -58,7 +58,7 @@ class SavedViewController: UIViewController {
                 assertionFailure("cannot set dataStore to nil")
                 return
             }
-            title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}") // change
+            title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
             savedArticlesCollectionViewController.dataStore = newValue
         }
     }
@@ -144,6 +144,7 @@ class SavedViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        title = "Back"
         wmf_updateNavigationBar(removeUnderline: false)
     }
     
