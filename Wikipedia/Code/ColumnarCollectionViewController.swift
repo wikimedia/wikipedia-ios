@@ -23,7 +23,10 @@ class ColumnarCollectionViewController: UIViewController, Themeable {
     
     let navigationBar: NavigationBar = NavigationBar()
     open var showsNavigationBar: Bool {
-        return true
+        guard let navigationController = navigationController else {
+            return false
+        }
+        return parent == navigationController && navigationController.isNavigationBarHidden
     }
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 

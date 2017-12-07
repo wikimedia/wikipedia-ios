@@ -16,14 +16,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
-    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
     var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
-    @IBOutlet weak var filterSelectorView: PlaceSearchFilterSelectorView!
+    @IBOutlet var filterSelectorView: PlaceSearchFilterSelectorView!
     @IBOutlet weak var filterDropDownContainerView: UIView!
     @IBOutlet weak var filterDropDownTableView: UITableView!
     @IBOutlet weak var filterDropDownHeightConstraint: NSLayoutConstraint!
@@ -49,7 +49,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var listContainerView: UIView!
     var listViewController: ArticleLocationCollectionViewController!
     @IBOutlet weak var searchSuggestionView: UITableView!
-    @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
+    @IBOutlet var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
     @objc public var dataStore: MWKDataStore!
 
@@ -124,6 +124,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         navigationBar.isBackVisible = false
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.delegate = self
+        
+        filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
         
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
         addChildViewController(listViewController)
@@ -941,8 +943,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     func removeSearchBarFromNavigationBar(animated: Bool) {
         extendedNavBarView.isHidden = true
         
-        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
-        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
+        listAndSearchOverlayFilterSelectorContainerView.wmf_addSubviewWithConstraintsToEdges(filterSelectorView)
         
         searchBar = listAndSearchOverlaySearchBar
         
@@ -1938,7 +1939,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchFilterListController.currentFilterType = currentSearchFilter
         
         touchOutsideOverlayView.resetInsideRects()
-        touchOutsideOverlayView.addInsideRect(fromView: navigationBar)
+        touchOutsideOverlayView.addInsideRect(fromView: filterSelectorView)
         touchOutsideOverlayView.frame = view.bounds
         touchOutsideOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(touchOutsideOverlayView)
