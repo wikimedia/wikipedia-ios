@@ -3,6 +3,7 @@ import UIKit
 @objc public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func changeRightNavButton(to button: UIBarButtonItem)
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
+    var batchEditToolbar: UIToolbar { get }
     func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool)
 }
 

@@ -58,6 +58,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        editController.navigationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,6 +130,8 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
+        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.tintColor = theme.colors.link
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -138,6 +141,13 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
+    }()
+    
+    internal lazy var batchEditToolbar: UIToolbar = {
+        let toolbarHeight: CGFloat = 50
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight))
+        toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return toolbar
     }()
 
 }
@@ -182,7 +192,30 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
-    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+    internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+            return false
+        }
+        
+        let entries = selectedIndexPaths.flatMap({ entry(at: $0) })
+        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        
+        switch action.type {
+        case .update:
+            print("Update")
+            return true
+        case .addToList:
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            addArticlesToReadingListViewController.delegate = self
+            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            return true
+        case .unsave:
+            delete(entries)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+            return true
+        default:
+            break
+        }
         return false
     }
     
@@ -194,6 +227,14 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
             try dataStore.readingListsController.remove(entries: [entry], from: readingList)
         } catch let err {
             DDLogError("Error removing entry from a reading list: \(err)")
+        }
+    }
+    
+    fileprivate func delete(_ entries: [ReadingListEntry]) {
+        do {
+            try dataStore.readingListsController.remove(entries: entries, from: readingList)
+        } catch let err {
+            DDLogError("Error removing entries from a reading list: \(err)")
         }
     }
     
@@ -266,6 +307,35 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
         actions.append(ActionType.delete.action(with: self, indexPath: indexPath))
         
         return actions
+    }
+}
+
+// MARK: - BatchEditNavigationDelegate
+
+extension ReadingListDetailCollectionViewController: BatchEditNavigationDelegate {
+    func changeRightNavButton(to button: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = button
+    }
+    
+    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+        tabBarController?.tabBar.isHidden = isVisible
+    }
+    
+    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
+        if add {
+            batchEditToolbar.items = items
+            view.addSubview(batchEditToolbar)
+        } else {
+            batchEditToolbar.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: - AddArticlesToReadingListViewControllerDelegate
+
+extension ReadingListDetailCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
+    func viewControllerWillBeDismissed() {
+        editController.close()
     }
 }
 
