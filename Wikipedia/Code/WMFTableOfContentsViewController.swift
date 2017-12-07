@@ -45,7 +45,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
     }
 
-    lazy var tableView: UITableView = {
+    @objc lazy var tableView: UITableView = {
         
         let tv = UITableView(frame: CGRect.zero, style: .grouped)
         
@@ -63,11 +63,6 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         
         tv.sectionHeaderHeight = UITableViewAutomaticDimension
         tv.estimatedSectionHeaderHeight = 32
-        if #available(iOS 11.0, *) {
-            tv.contentInset = UIEdgeInsetsMake(max(20, view.safeAreaInsets.top, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
-        } else {
-            tv.contentInset = UIEdgeInsetsMake(max(20, UIApplication.shared.statusBarFrame.size.height), 0, 0, 0)
-        }
         tv.separatorStyle = .none
 
         //add to the view now to ensure view did load is kicked off
@@ -116,8 +111,6 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         transitioningDelegate = self.animator
         edgesForExtendedLayout = .all
         extendedLayoutIncludesOpaqueBars = true
-        automaticallyAdjustsScrollViewInsets = true
-                            
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -222,6 +215,9 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         view.wmf_addConstraintsToEdgesOfView(tableView)
 
         automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
         
         apply(theme: theme)
     }
