@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -123,7 +123,7 @@
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="top" secondItem="oam-nO-8c3" secondAttribute="bottom" constant="30" id="3ou-sb-f7n"/>
                                 <constraint firstAttribute="bottom" secondItem="UtA-Zm-L74" secondAttribute="bottom" constant="20" id="CPy-AM-b7B"/>
                                 <constraint firstItem="vph-EY-NCY" firstAttribute="leading" secondItem="tX4-ce-n7H" secondAttribute="leadingMargin" constant="15" id="MTC-LG-mHm"/>
-                                <constraint firstAttribute="trailingMargin" secondItem="93B-kH-3f4" secondAttribute="trailing" id="XMD-Oq-X8d"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="93B-kH-3f4" secondAttribute="trailingMargin" constant="8" id="XMD-Oq-X8d"/>
                                 <constraint firstItem="oam-nO-8c3" firstAttribute="leading" secondItem="vph-EY-NCY" secondAttribute="leading" id="Xf9-F7-Y6T"/>
                                 <constraint firstItem="Rae-vX-ya2" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="bd6-n4-ysL"/>
                                 <constraint firstItem="93B-kH-3f4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rae-vX-ya2" secondAttribute="trailing" constant="8" id="g7a-Ps-bNY"/>
