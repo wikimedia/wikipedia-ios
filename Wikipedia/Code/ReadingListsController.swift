@@ -109,49 +109,48 @@ public class ReadingListsController: NSObject {
 
     }
     
-    public func remove(articles: [WMFArticle], fromReadingListNamed readingListName: String) throws {
+    public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
         assert(Thread.isMainThread)
-        
+        guard let name = readingList.name else {
+            return
+        }
         let moc = dataStore.viewContext
+        let _ = try fetch(readingList: readingList)
+        let keys = articles.flatMap({ $0.key })
         
-        // will throw ReadingListError.listWithProvidedNameNotFound if list not found
-        let _ = try fetchReadingList(named: readingListName)
+        let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        entriesRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", name, keys)
+        let entriesToDelete = try moc.fetch(entriesRequest)
         
-        let keysToDelete = articles.flatMap { (article) -> String? in
-            return article.key
-        }
-        
-        let entriesToDeleteRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesToDeleteRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", readingListName, keysToDelete)
-        
-        let entriesToDelete = try moc.fetch(entriesToDeleteRequest)
-        
-        for entry in entriesToDelete {
-            moc.delete(entry)
-        }
-        
+        entriesToDelete.forEach({ moc.delete($0) })
         if moc.hasChanges {
             try moc.save()
         }
     }
     
-    // should return multiple reading lists
-    public func getReadingList(for article: WMFArticle) throws -> ReadingList? {
-        guard let articleKey = article.key else {
-            return nil
+    public func remove(entries: [ReadingListEntry], from readingList: ReadingList) throws {
+        assert(Thread.isMainThread)
+        guard let name = readingList.name else {
+            return
         }
         let moc = dataStore.viewContext
-        let readingListEntryRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        readingListEntryRequest.predicate = NSPredicate(format: "articleKey MATCHES[c] %@", articleKey)
-        readingListEntryRequest.fetchLimit = 1
-        guard let readingListEntry = try moc.fetch(readingListEntryRequest).first, let readingList = readingListEntry.list else {
-            return nil
-        }
+        let _ = try fetch(readingList: readingList)
+        let keys = entries.flatMap({ $0.articleKey })
+        let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        entriesRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", name, keys)
+        let entriesToDelete = try moc.fetch(entriesRequest)
         
-        return readingList
+        entriesToDelete.forEach({ moc.delete($0) })
+        if moc.hasChanges {
+            try moc.save()
+        }
     }
     
-    fileprivate func fetchReadingList(named name: String) throws -> ReadingList {
+    
+    fileprivate func fetch(readingList: ReadingList) throws -> ReadingList? {
+        guard let name = readingList.name else {
+            return nil
+        }
         let moc = dataStore.viewContext
         let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         readingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)

@@ -42,6 +42,8 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         super.viewDidLoad()
         
         defer {
+            navigationController?.navigationBar.topItem?.title = "Back"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
             apply(theme: theme)
         }
         
@@ -56,9 +58,6 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
-        
-        navigationController?.navigationBar.topItem?.title = "Back"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +77,21 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
                 return nil
         }
         return fetchedResultsController.object(at: indexPath)
+    }
+    
+    fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
+        guard let entry = entry(at: indexPath), let key = entry.articleKey else {
+            assertionFailure("Can't get articleURL")
+            return nil
+        }
+        return URL(string: key)
+    }
+    
+    fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
+        guard let entry = entry(at: indexPath), let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key) else {
+            return nil
+        }
+        return article
     }
     
     // MARK: - Empty state
@@ -105,6 +119,15 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
             wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme)
         } else {
             wmf_hideEmptyView()
+        }
+    }
+    
+    // MARK: - Theme
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        if wmf_isShowingEmptyView() {
+            updateEmptyState()
         }
     }
     
@@ -136,7 +159,6 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
             return true
         }
-        
     }
     
     fileprivate func select(at indexPath: IndexPath) {
@@ -149,14 +171,6 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
         }
     }
     
-    fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
-        guard let entry = entry(at: indexPath), let key = entry.articleKey else {
-            assertionFailure("Can't get articleURL")
-            return nil
-        }
-        return URL(string: key)
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
             return
@@ -166,22 +180,93 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-        
     }
-    
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
         return false
     }
     
+    fileprivate func delete(at indexPath: IndexPath) {
+        guard let entry = entry(at: indexPath) else {
+            return
+        }
+        do {
+            try dataStore.readingListsController.remove(entries: [entry], from: readingList)
+        } catch let err {
+            DDLogError("Error removing entry from a reading list: \(err)")
+        }
+    }
+    
     func didPerformAction(_ action: Action) -> Bool {
+        let indexPath = action.indexPath
+        defer {
+            if let cell = collectionView?.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+                cell.actions = availableActions(at: indexPath)
+            }
+        }
+        switch action.type {
+        case .delete:
+            delete(at: indexPath)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("article-deleted-accessibility-notification", value: "Article deleted", comment: "Notification spoken after user deletes an article from the list."))
+            return true
+        case .save:
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.addSavedPage(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
+                return true
+            }
+        case .unsave:
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.removeEntry(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+                return true
+            }
+        case .share:
+            let shareActivityController: ShareActivityController?
+            if let article = article(at: indexPath) {
+                shareActivityController = ShareActivityController(article: article, context: self)
+            } else if let articleURL =  self.articleURL(at: indexPath) {
+                shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
+            } else {
+                shareActivityController = nil
+            }
+            if let viewController = shareActivityController {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    let cell = collectionView?.cellForItem(at: indexPath)
+                    viewController.popoverPresentationController?.sourceView = cell ?? view
+                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+                }
+                present(viewController, animated: true, completion: nil)
+                return true
+            }
+        }
         return false
     }
     
-    func availableActions(at indexPath: IndexPath) -> [Action] {
-        return [ActionType.unsave.action(with: self, indexPath: indexPath), ActionType.share.action(with: self, indexPath: indexPath), ActionType.delete.action(with: self, indexPath: indexPath)]
+    fileprivate func canSave(at indexPath: IndexPath) -> Bool {
+        guard let articleURL = articleURL(at: indexPath) else {
+            return false
+        }
+        return !dataStore.savedPageList.isSaved(articleURL)
     }
     
+    func availableActions(at indexPath: IndexPath) -> [Action] {
+        var actions: [Action] = []
+        
+        if canSave(at: indexPath) {
+            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
+        } else {
+            actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
+        }
+        
+        if articleURL(at: indexPath) != nil {
+            actions.append(ActionType.share.action(with: self, indexPath: indexPath))
+        }
+
+        actions.append(ActionType.delete.action(with: self, indexPath: indexPath))
+        
+        return actions
+    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -279,5 +364,16 @@ extension ReadingListDetailCollectionViewController {
         }
         cell.swipeTranslation = translation
     }
+}
 
+// MARK: - Analytics
+
+extension ReadingListDetailCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
+    var analyticsName: String {
+        return "ReadingListDetailView"
+    }
+    
+    var analyticsContext: String {
+        return analyticsName
+    }
 }

@@ -96,7 +96,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     }
     
     override var analyticsName: String {
-        return "Saved"
+        return "Saved Articles"
     }
     
     override func deleteAll() {
