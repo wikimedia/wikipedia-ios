@@ -110,7 +110,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
-            let isActionsViewLeftAligned = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let actionsViewWidth = abs(swipeTranslation)
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
@@ -177,7 +177,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
-            let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             _effectiveArticleSemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
         } else {
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
@@ -244,7 +244,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
 
     public var swipeTranslationWhenOpen: CGFloat {
         let maxWidth = actionsView.maximumWidth
-        let isRTL = wmf_effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
         return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
     }
     

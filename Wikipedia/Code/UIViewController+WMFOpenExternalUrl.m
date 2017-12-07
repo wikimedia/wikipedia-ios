@@ -44,7 +44,7 @@
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL *)url forceSafari:(BOOL)forceSafari {
     if (forceSafari || [url.scheme.lowercaseString isEqualToString:@"mailto"]) {
-        [[UIApplication sharedApplication] openURL:url];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
     } else {
         if (self.presentedViewController) {
             [self dismissViewControllerAnimated:YES

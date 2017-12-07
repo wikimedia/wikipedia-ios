@@ -6,6 +6,6 @@ extension UIApplication {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier, let settingsURL = URL(string: UIApplicationOpenSettingsURLString + bundleIdentifier) else {
             return
         }
-        self.openURL(settingsURL as URL)
+        self.open(settingsURL as URL, options: [:], completionHandler: nil)
     }
 }

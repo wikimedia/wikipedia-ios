@@ -9,6 +9,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
+    @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
@@ -86,12 +87,14 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         gradientView.translatesAutoresizingMaskIntoConstraints = false
         gradientView.startPoint = .zero
         gradientView.endPoint = CGPoint(x: 1, y: 0)
+        
+        scrollView.clipsToBounds = false
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: gradientView.frame.size.width)
-        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: gradientView.frame.size.width)
     }
 
     deinit {
@@ -206,5 +209,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         bottomSeparatorView.backgroundColor = theme.colors.border
+        otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
     }
 }

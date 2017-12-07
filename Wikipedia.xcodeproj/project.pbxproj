@@ -971,7 +971,6 @@
 		D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		D80ED38D1EE57F4800CE8C50 /* WMFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */; };
 		D80ED38E1EE57F4800CE8C50 /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
-		D80ED38F1EE57F4800CE8C50 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
 		D80ED3911EE57F4800CE8C50 /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		D80ED3921EE57F4800CE8C50 /* ArticleLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */; };
 		D80ED3931EE57F4800CE8C50 /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
@@ -1088,7 +1087,6 @@
 		D80ED41D1EE57F4800CE8C50 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */; };
 		D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804071C0CDE480065EBC0 /* WebViewController.storyboard */; };
 		D80ED41F1EE57F4800CE8C50 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
-		D80ED4201EE57F4800CE8C50 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
 		D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */; };
 		D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
@@ -1129,8 +1127,6 @@
 		D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
 		D82014781E6864BF00BA8579 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */; };
 		D82014791E6864C100BA8579 /* AFHTTPSessionManager+WMFCancelAll.h in Headers */ = {isa = PBXBuildFile; fileRef = B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D820147C1E6868E100BA8579 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
-		D82014801E6868F800BA8579 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
 		D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */; };
 		D82117FA1EE587650076C040 /* Mapbox+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117F91EE587650076C040 /* Mapbox+Extensions.swift */; };
 		D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82117FB1EE58C080076C040 /* MapAnnotation.swift */; };
@@ -1696,7 +1692,6 @@
 		D8A42B751E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		D8A42B771E815A9C00D8E281 /* WMFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */; };
 		D8A42B781E815A9C00D8E281 /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
-		D8A42B791E815A9C00D8E281 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
 		D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
 		D8A42B7D1E815A9C00D8E281 /* WMFCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */; };
@@ -1805,7 +1800,6 @@
 		D8A42C111E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */; };
 		D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804071C0CDE480065EBC0 /* WebViewController.storyboard */; };
 		D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
-		D8A42C141E815A9C00D8E281 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
 		D8A42C151E815A9C00D8E281 /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */; };
 		D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
@@ -1828,6 +1822,16 @@
 		D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
 		D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */; };
 		D8C0C00B1D144FF30019374D /* WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C0C00A1D144FF30019374D /* WMFProxyServer.m */; };
+		D8C4D3D31FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */; };
+		D8C4D3D41FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */; };
+		D8C4D3D51FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */; };
+		D8C4D3D61FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */; };
+		D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */; };
+		D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
+		D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
+		D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
+		D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
+		D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
 		D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
@@ -2035,7 +2039,6 @@
 		D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		D8CE25FA1E698E2400DAE2E0 /* WMFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */; };
 		D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
-		D8CE25FC1E698E2400DAE2E0 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
 		D8CE25FE1E698E2400DAE2E0 /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		D8CE25FF1E698E2400DAE2E0 /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
 		D8CE26001E698E2400DAE2E0 /* WMFCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */; };
@@ -2146,7 +2149,6 @@
 		D8CE26981E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */; };
 		D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804071C0CDE480065EBC0 /* WebViewController.storyboard */; };
 		D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
-		D8CE269B1E698E2400DAE2E0 /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
 		D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */; };
 		D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
@@ -2432,7 +2434,6 @@
 		D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */; };
 		D8EC3EF91E9BDA35006712EB /* WMFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */; };
 		D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
-		D8EC3EFB1E9BDA35006712EB /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D820147B1E6868E100BA8579 /* TUSafariActivity.m */; };
 		D8EC3EFD1E9BDA35006712EB /* WMFArticleRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E11C223FAE00B5AFDE /* WMFArticleRevision.m */; };
 		D8EC3EFE1E9BDA35006712EB /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
 		D8EC3EFF1E9BDA35006712EB /* WMFCaptchaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE491E42D19D0033BD6E /* WMFCaptchaViewController.swift */; };
@@ -2547,7 +2548,6 @@
 		D8EC3F981E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib */; };
 		D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804071C0CDE480065EBC0 /* WebViewController.storyboard */; };
 		D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
-		D8EC3F9B1E9BDA35006712EB /* TUSafariActivity.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */; };
 		D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */; };
 		D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09B03F41CE0FB7700009083 /* ReadingThemesControlsViewController.xib */; };
@@ -4087,9 +4087,6 @@
 		D81FB2681D47B5DC0000C685 /* WMFCVLInvalidationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLInvalidationContext.m; path = Wikipedia/Code/WMFCVLInvalidationContext.m; sourceTree = SOURCE_ROOT; };
 		D81FB26A1D493E6A0000C685 /* WMFCVLMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCVLMetrics.h; path = Wikipedia/Code/WMFCVLMetrics.h; sourceTree = SOURCE_ROOT; };
 		D81FB26B1D493E6A0000C685 /* WMFCVLMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCVLMetrics.m; path = Wikipedia/Code/WMFCVLMetrics.m; sourceTree = SOURCE_ROOT; };
-		D820147A1E6868E100BA8579 /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUSafariActivity.h; path = Carthage/Checkouts/TUSafariActivity/Pod/Classes/TUSafariActivity.h; sourceTree = SOURCE_ROOT; };
-		D820147B1E6868E100BA8579 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUSafariActivity.m; path = Carthage/Checkouts/TUSafariActivity/Pod/Classes/TUSafariActivity.m; sourceTree = SOURCE_ROOT; };
-		D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TUSafariActivity.bundle; path = Carthage/Checkouts/TUSafariActivity/TUSafariActivity/TUSafariActivity.bundle; sourceTree = SOURCE_ROOT; };
 		D820F78A1DD0E5E100806045 /* WMFNotificationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFNotificationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D82117F91EE587650076C040 /* Mapbox+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mapbox+Extensions.swift"; sourceTree = "<group>"; };
 		D82117FB1EE58C080076C040 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
@@ -4310,6 +4307,9 @@
 		D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBlocksKitTests.m; sourceTree = "<group>"; };
 		D8C0C0091D144FF30019374D /* WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProxyServer.h; sourceTree = "<group>"; };
 		D8C0C00A1D144FF30019374D /* WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProxyServer.m; sourceTree = "<group>"; };
+		D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TUSafariActivity.bundle; sourceTree = "<group>"; };
+		D8C4D3D11FD5D9250089CEC2 /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
+		D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -7083,7 +7083,7 @@
 				D84DAA051EEEF527008E4B18 /* Hex Colors */,
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D8E27B9C1F82AFE600F9D2B3 /* RMessage */,
-				D82014841E68695A00BA8579 /* TUSafariActivity */,
+				D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */,
 				D82014811E68693600BA8579 /* HexColors */,
 			);
 			name = "Third Party";
@@ -7121,16 +7121,6 @@
 			children = (
 			);
 			name = HexColors;
-			sourceTree = "<group>";
-		};
-		D82014841E68695A00BA8579 /* TUSafariActivity */ = {
-			isa = PBXGroup;
-			children = (
-				D820147A1E6868E100BA8579 /* TUSafariActivity.h */,
-				D820147B1E6868E100BA8579 /* TUSafariActivity.m */,
-				D820147F1E6868F800BA8579 /* TUSafariActivity.bundle */,
-			);
-			name = TUSafariActivity;
 			sourceTree = "<group>";
 		};
 		D82E95001F0FD2DA007BD960 /* Table View Cells */ = {
@@ -7636,6 +7626,17 @@
 			);
 			path = Resources;
 			sourceTree = "<group>";
+		};
+		D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */ = {
+			isa = PBXGroup;
+			children = (
+				D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */,
+				D8C4D3D11FD5D9250089CEC2 /* TUSafariActivity.h */,
+				D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */,
+			);
+			name = TUSafariActivity;
+			path = "Wikipedia/Third Party Code/TUSafariActivity";
+			sourceTree = SOURCE_ROOT;
 		};
 		D8CE26B91E698F0700DAE2E0 /* Appsee */ = {
 			isa = PBXGroup;
@@ -8633,6 +8634,7 @@
 				D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */,
 				B0B4CF0C1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */,
+				D8C4D3D31FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				0E69CD5B1C8773410095918B /* Launch Screen.storyboard in Resources */,
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8D92B641DF22E1700B95311 /* NotificationBackgroundWarning.png in Resources */,
@@ -8652,7 +8654,6 @@
 				B0E802CC1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				B0E804161C0CDE480065EBC0 /* WebViewController.storyboard in Resources */,
 				D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */,
-				D82014801E6868F800BA8579 /* TUSafariActivity.bundle in Resources */,
 				B0E804181C0CDE480065EBC0 /* WMFSettingsViewController.storyboard in Resources */,
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				B09B03F61CE0FB7700009083 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -8685,6 +8686,7 @@
 				D80ED3DC1EE57F4800CE8C50 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D80ED3DD1EE57F4800CE8C50 /* InfoPlist.strings in Resources */,
 				D80ED3DE1EE57F4800CE8C50 /* WMFAppViewController.storyboard in Resources */,
+				D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D80ED3DF1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D80ED3E01EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				D80ED3E11EE57F4800CE8C50 /* PageHistoryResultPrototypeView.xib in Resources */,
@@ -8746,7 +8748,6 @@
 				D80ED41D1EE57F4800CE8C50 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				D80ED41F1EE57F4800CE8C50 /* NotificationButtonBackground.png in Resources */,
-				D80ED4201EE57F4800CE8C50 /* TUSafariActivity.bundle in Resources */,
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
 				D80ED4221EE57F4800CE8C50 /* Images.xcassets in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -8860,6 +8861,7 @@
 				D8A42BF91E815A9C00D8E281 /* TSMessagesDefaultDesign.json in Resources */,
 				D8A42BFA1E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8A42BFC1E815A9C00D8E281 /* ArticlePopoverViewController.xib in Resources */,
+				D8C4D3D61FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D8A42BFD1E815A9C00D8E281 /* Launch Screen.storyboard in Resources */,
 				D8A42BFE1E815A9C00D8E281 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8A42BFF1E815A9C00D8E281 /* NotificationBackgroundWarning.png in Resources */,
@@ -8879,7 +8881,6 @@
 				D8A42C111E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */,
 				D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */,
-				D8A42C141E815A9C00D8E281 /* TUSafariActivity.bundle in Resources */,
 				D8A42C151E815A9C00D8E281 /* WMFSettingsViewController.storyboard in Resources */,
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -8952,6 +8953,7 @@
 				D8CE26801E698E2400DAE2E0 /* TSMessagesDefaultDesign.json in Resources */,
 				D8CE26811E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8CE26831E698E2400DAE2E0 /* ArticlePopoverViewController.xib in Resources */,
+				D8C4D3D41FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
 				D8CE26851E698E2400DAE2E0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8CE26861E698E2400DAE2E0 /* NotificationBackgroundWarning.png in Resources */,
@@ -8971,7 +8973,6 @@
 				D8CE26981E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
-				D8CE269B1E698E2400DAE2E0 /* TUSafariActivity.bundle in Resources */,
 				D8CE269C1E698E2400DAE2E0 /* WMFSettingsViewController.storyboard in Resources */,
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9044,6 +9045,7 @@
 				D8EC3F801E9BDA35006712EB /* TSMessagesDefaultDesign.json in Resources */,
 				D8EC3F811E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.xib in Resources */,
 				D8EC3F831E9BDA35006712EB /* ArticlePopoverViewController.xib in Resources */,
+				D8C4D3D51FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D8EC3F841E9BDA35006712EB /* Launch Screen.storyboard in Resources */,
 				D8EC3F851E9BDA35006712EB /* PreviewAndSaveViewController.storyboard in Resources */,
 				D8EC3F861E9BDA35006712EB /* NotificationBackgroundWarning.png in Resources */,
@@ -9063,7 +9065,6 @@
 				D8EC3F981E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
 				D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
-				D8EC3F9B1E9BDA35006712EB /* TUSafariActivity.bundle in Resources */,
 				D8EC3F9C1E9BDA35006712EB /* WMFSettingsViewController.storyboard in Resources */,
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
@@ -9700,6 +9701,7 @@
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,
+				D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
@@ -9746,7 +9748,6 @@
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
-				D820147C1E6868E100BA8579 /* TUSafariActivity.m in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
 				D818D38B1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */,
@@ -9962,6 +9963,7 @@
 				D80ED3371EE57F4800CE8C50 /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
 				D80ED33A1EE57F4800CE8C50 /* UILabel+WMFStyling.m in Sources */,
+				D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D80ED33B1EE57F4800CE8C50 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D80ED33C1EE57F4800CE8C50 /* WMFBorderButton.m in Sources */,
 				D80ED33D1EE57F4800CE8C50 /* WMFEmptySectionCollectionViewCell.m in Sources */,
@@ -10050,7 +10052,6 @@
 				B0CD9DF81F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D80ED38D1EE57F4800CE8C50 /* WMFSearchViewController.m in Sources */,
 				D80ED38E1EE57F4800CE8C50 /* UIApplication+SystemSettings.swift in Sources */,
-				D80ED38F1EE57F4800CE8C50 /* TUSafariActivity.m in Sources */,
 				B0B4236C1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D80ED3911EE57F4800CE8C50 /* WMFArticleRevision.m in Sources */,
 				D80ED3921EE57F4800CE8C50 /* ArticleLocationCollectionViewController.swift in Sources */,
@@ -10590,6 +10591,7 @@
 				D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */,
 				D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */,
+				D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8A42B441E815A9C00D8E281 /* UIView+RemoveConstraints.m in Sources */,
 				D8A42B451E815A9C00D8E281 /* SectionEditorViewController.m in Sources */,
 				D818D38E1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
@@ -10636,7 +10638,6 @@
 				D8A42B751E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				D8A42B771E815A9C00D8E281 /* WMFSearchViewController.m in Sources */,
 				D8A42B781E815A9C00D8E281 /* UIApplication+SystemSettings.swift in Sources */,
-				D8A42B791E815A9C00D8E281 /* TUSafariActivity.m in Sources */,
 				D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */,
 				D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */,
 				D8A42B7D1E815A9C00D8E281 /* WMFCaptchaViewController.swift in Sources */,
@@ -10852,6 +10853,7 @@
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				D8CE259B1E698E2400DAE2E0 /* BITHockeyManager+WMFExtensions.m in Sources */,
+				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -10940,7 +10942,6 @@
 				D8CE25FA1E698E2400DAE2E0 /* WMFSearchViewController.m in Sources */,
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */,
-				D8CE25FC1E698E2400DAE2E0 /* TUSafariActivity.m in Sources */,
 				B0B423691EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8CE25FE1E698E2400DAE2E0 /* WMFArticleRevision.m in Sources */,
 				D8CE25FF1E698E2400DAE2E0 /* ArticlePlaceView.swift in Sources */,
@@ -11153,6 +11154,7 @@
 				D8EC3E941E9BDA35006712EB /* MenuButton.m in Sources */,
 				D8EC3E961E9BDA35006712EB /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
+				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
@@ -11240,7 +11242,6 @@
 				B0CD9DEA1F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D8EC3EF91E9BDA35006712EB /* WMFSearchViewController.m in Sources */,
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
-				D8EC3EFB1E9BDA35006712EB /* TUSafariActivity.m in Sources */,
 				D8EC3EFD1E9BDA35006712EB /* WMFArticleRevision.m in Sources */,
 				D8EC3EFE1E9BDA35006712EB /* ArticlePlaceView.swift in Sources */,
 				D8EC3EFF1E9BDA35006712EB /* WMFCaptchaViewController.swift in Sources */,
@@ -11848,7 +11849,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
@@ -12081,7 +12082,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -Xfrontend -warn-long-function-bodies=500";
@@ -12149,7 +12150,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -12668,7 +12669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DOSM";
@@ -12868,7 +12869,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -13089,7 +13090,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DOSM";
 				SDKROOT = iphoneos;
@@ -13285,7 +13286,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -13499,7 +13500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -13568,7 +13569,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
@@ -14447,7 +14448,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
@@ -14477,7 +14478,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
@@ -14539,7 +14540,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -14776,7 +14777,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -15625,7 +15626,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -15651,7 +15652,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -15676,7 +15677,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -15741,7 +15742,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -Xfrontend -warn-long-function-bodies=500";
@@ -15941,7 +15942,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -16246,7 +16247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -16344,7 +16345,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
@@ -16540,7 +16541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -16642,7 +16643,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
@@ -17147,7 +17148,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
@@ -17277,7 +17278,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -17472,7 +17473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_NO_APP_GROUP";
@@ -17606,7 +17607,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
@@ -18022,7 +18023,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -18120,7 +18121,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
