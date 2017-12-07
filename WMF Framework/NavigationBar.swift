@@ -1,5 +1,7 @@
 import WMF
 
+/// This is a placeholder - the actual class is implemented in the Reading Lists branch
+/// Delete this class when merging Reading Lists
 public class SetupView: UIView {
     // MARK - Initializers
     // Don't override these initializers, use setup() instead
