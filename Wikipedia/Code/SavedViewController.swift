@@ -207,7 +207,7 @@ extension SavedViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.chromeBackground
         
         savedArticlesCollectionViewController.apply(theme: theme)
         readingListsCollectionViewController?.apply(theme: theme)

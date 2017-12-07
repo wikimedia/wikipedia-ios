@@ -86,7 +86,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MOy-Ht-6zp" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="3jh-cu-e2g"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="SMV-D9-nEr" secondAttribute="leading" id="4hu-cp-Aez"/>
@@ -125,7 +124,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="centerX" secondItem="4oi-TZ-AA1" secondAttribute="centerX" id="Vss-7r-1Uj"/>
                         <constraint firstItem="hfV-ww-zDI" firstAttribute="top" secondItem="4oi-TZ-AA1" secondAttribute="top" id="i0D-oQ-0IY"/>
