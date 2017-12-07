@@ -2,7 +2,6 @@
 @class MWKDataStore;
 @class WMFShareFunnel;
 @class WMFArticleViewController;
-#import "WMFViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WebViewController.h"
 #import "WMFImageGalleryViewController.h"
@@ -33,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : WMFViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
+@interface WMFArticleViewController : UIViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate, WMFThemeable>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore
@@ -63,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic, nullable) id<WMFArticlePreviewingActionsDelegate> articlePreviewingActionsDelegate;
 
 - (UIButton *)titleButton;
+
+@property (strong, nonatomic, nullable, readonly) WMFTheme *theme;
 
 @end
 

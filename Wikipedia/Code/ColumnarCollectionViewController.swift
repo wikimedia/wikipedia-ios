@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: WMFViewController {
+class ColumnarCollectionViewController: UIViewController, Themeable {
     lazy var layout: WMFColumnarCollectionViewLayout = {
         return WMFColumnarCollectionViewLayout()
     }()
@@ -11,6 +11,7 @@ class ColumnarCollectionViewController: WMFViewController {
         cv.dataSource = self
         return cv
     }()
+    var theme: Theme = Theme.standard
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -19,15 +20,18 @@ class ColumnarCollectionViewController: WMFViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
+    let navigationBar: NavigationBar = NavigationBar()
+    open var showsNavigationBar: Bool {
+        guard let navigationController = navigationController else {
+            return false
+        }
+        return parent == navigationController && navigationController.isNavigationBarHidden
+    }
     fileprivate var placeholders: [String:UICollectionReusableView] = [:]
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    override var scrollView: UIScrollView? {
-        return collectionView
     }
 
     override func viewDidLoad() {
@@ -55,8 +59,58 @@ class ColumnarCollectionViewController: WMFViewController {
             }
             cellWithSubItems.deselectSelectedSubItems(animated: animated)
         }
+        
+        guard showsNavigationBar && navigationBar.superview == nil else {
+            return
+        }
+        navigationBar.delegate = self
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+        let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
+        let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
+        let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
+        view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
+        
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        }
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard showsNavigationBar else {
+            return
+        }
+        if #available(iOS 11.0, *) {
+        } else {
+            navigationBar.statusBarHeight = navigationController?.topLayoutGuide.length ?? 0
+        }
+        updateScrollViewInsets()
+    }
+    
+    // MARK - Scroll View Insets
+    fileprivate func updateScrollViewInsets() {
+        let frame = navigationBar.frame
+        let top = frame.maxY
+        var safeInsets = UIEdgeInsets.zero
+        if #available(iOS 11.0, *) {
+            safeInsets = view.safeAreaInsets
+        }
+        let bottom = bottomLayoutGuide.length
+        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        guard contentInset != collectionView.contentInset || scrollIndicatorInsets != collectionView.scrollIndicatorInsets else {
+            return
+        }
+        let wasAtTop = collectionView.contentOffset.y == 0 - collectionView.contentInset.top
+        collectionView.scrollIndicatorInsets = scrollIndicatorInsets
+        collectionView.contentInset = contentInset
+        if wasAtTop {
+            collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top)
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         unregisterForPreviewing()
@@ -157,7 +211,8 @@ class ColumnarCollectionViewController: WMFViewController {
     }
     
     func apply(theme: Theme) {
-        super.apply(theme)
+        self.theme = theme
+        navigationBar.apply(theme: theme)
         view.backgroundColor = theme.colors.baseBackground
         collectionView.backgroundColor = theme.colors.baseBackground
         collectionView.indicatorStyle = theme.scrollIndicatorStyle

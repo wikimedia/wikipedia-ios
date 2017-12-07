@@ -54,6 +54,8 @@ open class ThemeableTextField: UITextField, Themeable {
         _clear()
     }
     
+    
+    @objc(applyTheme:)
     public func apply(theme: Theme) {
         self.theme = theme
         rightView?.tintColor = theme.colors.tertiaryText

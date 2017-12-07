@@ -19,6 +19,7 @@ public class SetupView: UIView {
     }
 }
 
+@objc(WMFNavigationBar)
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     fileprivate let bar: UINavigationBar = UINavigationBar()

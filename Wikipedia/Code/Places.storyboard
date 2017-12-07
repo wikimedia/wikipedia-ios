@@ -382,6 +382,7 @@
                         <outlet property="didYouMeanButton" destination="5Dc-Qk-ppi" id="Sad-E5-72F"/>
                         <outlet property="emptySearchOverlayView" destination="Mkb-GI-RvY" id="2xk-Oh-VdE"/>
                         <outlet property="extendedNavBarView" destination="qzd-3E-mH2" id="jG5-i0-4B5"/>
+                        <outlet property="extendedNavBarViewHeightContraint" destination="Rb6-54-TnS" id="Vcg-Xk-pkX"/>
                         <outlet property="filterDropDownContainerView" destination="mwy-SF-J1D" id="VkK-Ni-Hy1"/>
                         <outlet property="filterSelectorView" destination="VAs-ZO-0gF" id="Nmc-zk-NHH"/>
                         <outlet property="listAndSearchOverlayBottomConstraint" destination="1PC-H2-U7d" id="Spi-3n-6kC"/>
@@ -451,6 +452,9 @@
                         <constraint firstItem="HrB-BE-o86" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" constant="7.5" id="7Pw-vp-Tko"/>
                         <constraint firstItem="BGl-w8-FTx" firstAttribute="top" secondItem="qzd-3E-mH2" secondAttribute="top" id="7p9-Jh-Mkw"/>
                         <constraint firstItem="HrB-BE-o86" firstAttribute="centerY" secondItem="BGl-w8-FTx" secondAttribute="centerY" id="GJ3-Dy-nDT"/>
+                        <constraint firstAttribute="height" constant="48" id="Rb6-54-TnS">
+                            <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                        </constraint>
                         <constraint firstAttribute="trailingMargin" secondItem="l8n-jw-YsR" secondAttribute="trailing" constant="-6" id="Vbp-hj-bD5"/>
                         <constraint firstItem="l8n-jw-YsR" firstAttribute="height" secondItem="BGl-w8-FTx" secondAttribute="height" id="Yvu-dH-xmj"/>
                         <constraint firstItem="l8n-jw-YsR" firstAttribute="leading" secondItem="BGl-w8-FTx" secondAttribute="trailing" id="dj2-Qs-aTQ"/>
