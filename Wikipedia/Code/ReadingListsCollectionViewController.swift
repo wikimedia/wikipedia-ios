@@ -150,7 +150,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 // MARK: - CreateReadingListViewControllerDelegate
 extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
-        
         do {
             let _ = try readingListsController.createReadingList(named: name, description: description)
             controller.dismiss(animated: true, completion: nil)
