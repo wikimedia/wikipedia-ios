@@ -29,6 +29,38 @@ class SavedViewController: UIViewController {
     
     @IBOutlet var toggleButtons: [UIButton]!
     
+    fileprivate var theme: Theme = Theme.standard
+    
+    // MARK: - Initalization and setup
+    
+    @objc public var dataStore: MWKDataStore? {
+        didSet {
+            guard let newValue = dataStore else {
+                assertionFailure("cannot set dataStore to nil")
+                return
+            }
+            title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
+            savedArticlesCollectionViewController.dataStore = newValue
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
+    }
+    
+    // MARK: - Toggling views
+    
+    fileprivate enum View: Int {
+        case savedArticles, readingLists
+    }
+    
+    @IBAction func toggleButtonPressed(_ sender: UIButton) {
+        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
+        sender.isSelected = true
+        currentView = View(rawValue: sender.tag) ?? .savedArticles
+    }
+    
     fileprivate var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
@@ -66,28 +98,6 @@ class SavedViewController: UIViewController {
         }
     }
     
-    fileprivate var theme: Theme = Theme.standard
-    
-    @objc public var dataStore: MWKDataStore? {
-        didSet {
-            guard let newValue = dataStore else {
-                assertionFailure("cannot set dataStore to nil")
-                return
-            }
-            title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
-            savedArticlesCollectionViewController.dataStore = newValue
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
-    }
-    
-    fileprivate enum View: Int {
-        case savedArticles, readingLists
-    }
-    
     fileprivate func addChild(_ vc: UICollectionViewController?) {
         guard let vc = vc else {
             return
@@ -108,6 +118,8 @@ class SavedViewController: UIViewController {
         vc.removeFromParentViewController()
     }
     
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -124,8 +136,6 @@ class SavedViewController: UIViewController {
         
         apply(theme: self.theme)
     }
-    
-    fileprivate var buttonHairlines: [UIView] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -146,12 +156,6 @@ class SavedViewController: UIViewController {
     }
     
     // MARK: - Batch edit toolbar
-    
-    @IBAction func toggleButtonPressed(_ sender: UIButton) {
-        toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
-        sender.isSelected = true
-        currentView = View(rawValue: sender.tag) ?? .savedArticles
-    }
     
     internal lazy var batchEditToolbar: UIToolbar = {
         let toolbarHeight: CGFloat = 50
@@ -197,6 +201,8 @@ extension SavedViewController: BatchEditNavigationDelegate {
         }
     }
 }
+
+// MARK: - Themeable
 
 extension SavedViewController: Themeable {
     
