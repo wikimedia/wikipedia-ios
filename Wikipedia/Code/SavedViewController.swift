@@ -31,6 +31,7 @@ class SavedViewController: UIViewController {
     
     fileprivate var currentView: View = .savedArticles {
         didSet {
+            searchBar.resignFirstResponder()
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
@@ -39,7 +40,6 @@ class SavedViewController: UIViewController {
                 
                 navigationItem.leftBarButtonItem = nil
                 isSearchBarHidden = false
-                searchBar.delegate = savedArticlesCollectionViewController
                 
                 addChild(savedArticlesCollectionViewController)
                 
@@ -113,6 +113,7 @@ class SavedViewController: UIViewController {
         
         currentView = .savedArticles
         
+        searchBar.delegate = savedArticlesCollectionViewController
         searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
