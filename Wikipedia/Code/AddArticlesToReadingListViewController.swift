@@ -68,6 +68,12 @@ class AddArticlesToReadingListViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func addButtonPressed() {
+        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
+        createReadingListViewController.delegate = readingListsListViewController
+        present(createReadingListViewController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articles.count)")

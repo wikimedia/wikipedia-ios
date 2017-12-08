@@ -31,7 +31,11 @@
                     <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                     <items>
                         <navigationItem title="Title" id="JIf-hQ-zmK">
-                            <barButtonItem key="leftBarButtonItem" systemItem="add" id="zns-gk-UXr"/>
+                            <barButtonItem key="leftBarButtonItem" systemItem="add" id="zns-gk-UXr">
+                                <connections>
+                                    <action selector="addButtonPressed" destination="-1" id="jSt-e4-fcv"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem key="rightBarButtonItem" image="close" id="nQX-cJ-qCZ">
                                 <connections>
                                     <action selector="closeButtonPressed" destination="-1" id="sX7-yt-xxB"/>
