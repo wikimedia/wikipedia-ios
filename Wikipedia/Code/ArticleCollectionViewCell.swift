@@ -119,9 +119,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 // let newSize = CGSize(width: width, height: size.height)
                 
                 contentView.frame = CGRect(origin: CGPoint(x: batchEditingTranslation, y: 0), size: size)
-                let batchActionViewWidth = abs(batchEditingTranslation)
-                batchEditActionView.frame = CGRect(x: 0, y: 0, width: batchActionViewWidth, height: size.height)
-                batchEditActionView.layoutIfNeeded()
+                let batchEditSelectViewWidth = abs(batchEditingTranslation)
+                batchEditSelectView.frame = CGRect(x: 0, y: 0, width: batchEditSelectViewWidth, height: size.height)
+                batchEditSelectView.layoutIfNeeded()
 
             }
             
@@ -279,7 +279,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     // MARK: - BatchEditableCell
     
-    public let batchEditActionView = BatchEditActionView()
+    public let batchEditSelectView = BatchEditSelectView()
     
     func resetBatchEdit() {
         batchEditingTranslation = 0
@@ -288,24 +288,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var isBatchEditable: Bool = false {
         didSet {
-            batchEditActionView.needsSubviews = isBatchEditable
+            batchEditSelectView.needsSubviews = isBatchEditable
         }
     }
     
     override open var isSelected: Bool {
         didSet {
-            batchEditActionView.button.isSelected = isSelected
+            batchEditSelectView.isSelected = isSelected
         }
     }
     
     public var batchEditingState: BatchEditingState = .none {
         didSet {
-            if batchEditingState != .cancelled && batchEditingState != .none && batchEditActionView.superview == nil {
-                insertSubview(batchEditActionView, belowSubview: contentView)
+            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView.superview == nil {
+                insertSubview(batchEditSelectView, belowSubview: contentView)
                 contentView.backgroundColor = .clear
                 clipsToBounds = true
-            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditActionView.superview != nil {
-                batchEditActionView.removeFromSuperview()
+            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView.superview != nil {
+                batchEditSelectView.removeFromSuperview()
                 contentView.backgroundColor = backgroundColor
                 clipsToBounds = false
                 batchEditingState = .none

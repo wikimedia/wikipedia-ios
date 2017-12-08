@@ -180,7 +180,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     }
     
     // MARK: - Batch editing
-    ç
+    
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let updateItem = BatchEditToolbarActionType.update.action(with: self)
         let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)

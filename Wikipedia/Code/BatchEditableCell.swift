@@ -7,10 +7,16 @@ import UIKit
     func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool)
 }
 
-public class BatchEditActionView: SizeThatFitsView, Themeable {
+public class BatchEditSelectView: SizeThatFitsView, Themeable {
     
     public var needsSubviews = false
     var button: UIButton = UIButton()
+    
+    var isSelected: Bool = false {
+        didSet {
+            button.isSelected = isSelected
+        }
+    }
     
     func expand() {
         bringSubview(toFront: button)
@@ -129,7 +135,7 @@ public class BatchEditToolbarAction: UIAccessibilityCustomAction {
 public protocol BatchEditableCell: NSObjectProtocol {
     var batchEditingState: BatchEditingState { get set }
     var batchEditingTranslation: CGFloat { get set }
-    var batchEditActionView: BatchEditActionView { get }
+    var batchEditSelectView: BatchEditSelectView { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation
     var isSelected: Bool { get set } // selection has to be reset on cancel
 }
