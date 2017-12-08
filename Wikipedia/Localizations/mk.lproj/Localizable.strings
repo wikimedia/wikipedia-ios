@@ -58,8 +58,11 @@
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Тргни";
 "appearance-settings-adjust-text-sizing" = "Прилагоди големина на текстот";
+"appearance-settings-expand-tables" = "Расклопувај табели";
+"appearance-settings-expand-tables-footer" = "Задај сите табели во сите статии да бидат отворени по освновно. Тука се вклучени брзите факти, наводите, белешките и надворешните врски.";
 "appearance-settings-image-dimming-footer" = "Намали ја непроѕирноста на сликите во темниот изглед";
 "appearance-settings-reading-themes" = "Читачки изгледи";
+"appearance-settings-set-automatic-table-opening" = "Поставки за табели";
 "appearance-settings-text-sizing-example-text" = "Изменете ја големината на текстот со лизгачот погоре. Користете ја големината зададена во вашиот систем за да го прилагодите текстот во другите подрачја на прилогот.";
 "appearance-settings-theme-options" = "Можности за изгледот";
 "appearance-settings-title" = "Читачки изгледи";
@@ -261,7 +264,7 @@
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-similar-titles" = "Слични страници";
-"page-talk-page" = "Страница за разговор";
+"page-talk-page" = "Разговорна страница";
 "pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-close-search" = "Затвори пребарување";

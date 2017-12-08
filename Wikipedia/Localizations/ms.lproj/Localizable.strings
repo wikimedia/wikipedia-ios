@@ -60,8 +60,11 @@
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
+"appearance-settings-expand-tables" = "Kembangkan jadual";
+"appearance-settings-expand-tables-footer" = "Tetapkan semua jadual dalam semua rencana untuk dibuka secara lalai, termasuk Fakta pantas, Rujukan, Nota dan Pautan luar.";
 "appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar di atas untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
 "appearance-settings-title" = "Tema bacaan";

@@ -66,8 +66,11 @@
 "alert-no-internet" = "Nincs internetkapcsolat";
 "announcements-dismiss" = "Kihagy";
 "appearance-settings-adjust-text-sizing" = "A szócikk szövegméretének beállítása";
+"appearance-settings-expand-tables" = "Táblázatok kinyitása";
+"appearance-settings-expand-tables-footer" = "Az összes táblázat kinyitása alapértelmezetten a cikkekben, beleértve a Gyors adatok, Forráshivatkozások, Jegyzetek és Külső hivatkozások dobozokat is.";
 "appearance-settings-image-dimming-footer" = "A képek átlátszatlanságának csökkentése sötét téma esetén";
 "appearance-settings-reading-themes" = "Olvasási témák";
+"appearance-settings-set-automatic-table-opening" = "Táblázatbeállítások";
 "appearance-settings-theme-options" = "Témabeállítások";
 "appearance-settings-title" = "Olvasási témák";
 "article-about-title" = "Erről a szócikkről";
@@ -140,8 +143,7 @@
 "explore-random-article-heading" = "Lap találomra";
 "explore-randomizer" = "Randomizáló";
 "feed-news-notification-button-text" = "Értesítések bekapcsolása";
-// Fuzzy
-"feed-news-notification-text" = "Most már értesítve leszel a felkapott Wikipédia cikkekről.";
+"feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
 "field-alert-password-invalid" = "Érvénytelen jelszó";
@@ -235,6 +237,8 @@
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "menu-cancel-accessibility-label" = "Mégse";
 "menu-trash-accessibility-label" = "Törlés";
+"more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
+"more-languages-tooltip-title" = "Nyelvek hozzáadása";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
 "nearby-distance-label-feet" = "$1 láb";
 "nearby-distance-label-km" = "$1 km";
@@ -322,6 +326,7 @@
 "saved-pages-clear-delete-all" = "Igen, összes törlése";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
 "saved-title" = "Elmentve";
+"search-button-accessibility-label" = "Keresés a Wikipédiában";
 "search-did-you-mean" = "Úgy érted: $1?";
 "search-field-placeholder-text" = "Keresés a Wikipédiában";
 "search-recent-clear-cancel" = "Mégse";
@@ -391,8 +396,7 @@
 "welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
 "welcome-send-data-helps-title" = "Segítsen jobbá tenni az appot";
 "welcome-send-data-learn-more" = "Tudjon meg többet a gyűjtött adatokról";
-// Fuzzy
-"welcome-send-data-sub-title" = "Segíts a Wikimédia Alapítványnak az alkalmazás jobbá tételében azzal, hogy megosztod velünk, hogyan használod az alkalmazást. A gyűjtött adatok névtelenek";
+"welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
 "wikitext-download-failed" = "A legfrissebb változat lekérése sikertelen.";
 "wikitext-download-success" = "A tartalom betöltve.";

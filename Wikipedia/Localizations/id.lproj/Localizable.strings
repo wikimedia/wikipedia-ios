@@ -71,8 +71,11 @@
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Sesuaikan ukuran teks artikel";
+"appearance-settings-expand-tables" = "Perluas tabel";
+"appearance-settings-expand-tables-footer" = "Tetapkan semua tabel di semua artikel agar dibuka secara default, termasuk Fakta singkat, Referensi, Catatan dan Pranala luar.";
 "appearance-settings-image-dimming-footer" = "Turunkan kegelapan gambar pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-set-automatic-table-opening" = "Pengaturan Tabel";
 "appearance-settings-text-sizing-example-text" = "Seret penggeser di atas untuk mengubah ukuran teks artikel. Manfaatkan ukuran teks sistem Anda untuk mengubah ukuran area teks lain di aplikasi.";
 "appearance-settings-theme-options" = "Opsi tema";
 "appearance-settings-title" = "Tema bacaan";
