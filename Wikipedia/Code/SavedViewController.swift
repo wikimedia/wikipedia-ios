@@ -130,26 +130,10 @@ class SavedViewController: UIViewController {
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
-        addHairlines(to: toggleButtons)
-        
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
         apply(theme: self.theme)
-    }
-    
-    fileprivate func addHairlines(to buttons: [UIButton]) {
-
-        for button in buttons {
-            let hairline = UIView()
-            let hairlineHeight: CGFloat = 0.5
-            hairline.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-            hairline.frame = CGRect(x: 0, y: button.bounds.height - (hairlineHeight * 2), width: button.bounds.width, height: hairlineHeight)
-            hairline.backgroundColor = button.titleColor(for: .normal)
-            button.addSubview(hairline)
-            buttonHairlines.append(hairline)
-        }
-
     }
     
     fileprivate var buttonHairlines: [UIView] = []
@@ -240,10 +224,6 @@ extension SavedViewController: Themeable {
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
             button.tintColor = theme.colors.link
-        }
-
-        for hairline in buttonHairlines {
-            hairline.backgroundColor = theme.colors.border
         }
         
         batchEditToolbar.barTintColor = theme.colors.paperBackground
