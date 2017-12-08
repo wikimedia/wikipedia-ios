@@ -1,8 +1,6 @@
 import UIKit
 
 class ReadingListsListCollectionViewController: ReadingListsCollectionViewController {
-    fileprivate let headerReuseIdentifier = "ReadingListsListCollectionViewControllerHeader"
-    fileprivate var headerLayoutEstimate: WMFLayoutEstimate?
     
     fileprivate let articles: [WMFArticle]
     
@@ -17,7 +15,6 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         collectionView?.allowsMultipleSelection = false
     }
     
@@ -35,56 +32,6 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
             // some confirmation?
             self.dismiss(animated: true, completion: nil)
         }
-    }
-}
-
-// MARK: UICollectionViewDataSource
-extension ReadingListsListCollectionViewController {
-    func titleForHeaderInSection(_ section: Int) -> String? {
-        guard let sections = fetchedResultsController.sections, sections.count > section else {
-            return nil
-        }
-        let sectionInfo = sections[section]
-        guard let readingList = sectionInfo.objects?.first as? ReadingList else {
-            return nil
-        }
-        
-        // change
-        return nil
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath)
-        guard let headerView = view as? CollectionViewHeader else {
-            return view
-        }
-        headerView.text = titleForHeaderInSection(indexPath.section)
-        headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.readableMargins
-        return headerView
-    }
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension ReadingListsListCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        if let estimate = headerLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
-        guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
-            return estimate
-        }
-        let title = titleForHeaderInSection(section)
-        placeholder.prepareForReuse()
-        placeholder.text = title
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
-        estimate.precalculated = true
-        headerLayoutEstimate = estimate
-        return estimate
     }
 }
 

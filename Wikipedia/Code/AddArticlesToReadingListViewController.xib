@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pV-yW-VY3" userLabel="Container View">
-                    <rect key="frame" x="0.0" y="78" width="375" height="589"/>
+                    <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                 </view>
                 <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOJ-IE-tto">
                     <rect key="frame" x="0.0" y="50" width="375" height="44"/>
@@ -44,7 +43,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="HOJ-IE-tto" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="5aK-DW-W09"/>
-                <constraint firstItem="9pV-yW-VY3" firstAttribute="topMargin" secondItem="HOJ-IE-tto" secondAttribute="bottomMargin" id="7cE-JO-XzJ"/>
+                <constraint firstItem="9pV-yW-VY3" firstAttribute="top" secondItem="HOJ-IE-tto" secondAttribute="bottom" id="7cE-JO-XzJ"/>
                 <constraint firstItem="HOJ-IE-tto" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SKm-ZC-NfY"/>
                 <constraint firstItem="HOJ-IE-tto" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="WLz-jm-eKh">
                     <variation key="heightClass=compact-widthClass=regular" constant="8"/>
