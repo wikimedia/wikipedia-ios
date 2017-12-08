@@ -105,8 +105,6 @@
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="Dyz-3S-Guw"/>
-                        <outlet property="savedTitleLabel" destination="hfV-ww-zDI" id="Ay4-jS-wYC"/>
-                        <outlet property="savedTitleView" destination="4oi-TZ-AA1" id="5gL-aX-PVO"/>
                         <outlet property="searchBar" destination="qRL-zo-Csa" id="L5r-oc-fU0"/>
                         <outlet property="searchBarBottomConstraint" destination="fyo-Am-chZ" id="ztZ-UN-iQR"/>
                         <outlet property="searchBarHeightConstraint" destination="BKa-DW-7hE" id="9qW-Oh-uNb"/>
@@ -117,28 +115,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="4oi-TZ-AA1" userLabel="Saved Title View">
-                    <rect key="frame" x="0.0" y="0.0" width="301" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfV-ww-zDI">
-                            <rect key="frame" x="126" y="0.0" width="49" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="44" id="nXh-N2-edU"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="hfV-ww-zDI" firstAttribute="centerX" secondItem="4oi-TZ-AA1" secondAttribute="centerX" id="Vss-7r-1Uj"/>
-                        <constraint firstItem="hfV-ww-zDI" firstAttribute="top" secondItem="4oi-TZ-AA1" secondAttribute="top" id="i0D-oQ-0IY"/>
-                        <constraint firstItem="hfV-ww-zDI" firstAttribute="centerY" secondItem="4oi-TZ-AA1" secondAttribute="centerY" id="miR-y1-eWh"/>
-                        <constraint firstAttribute="bottom" secondItem="hfV-ww-zDI" secondAttribute="bottom" id="qJN-HW-lFk"/>
-                    </constraints>
-                    <viewLayoutGuide key="safeArea" id="Q6b-aQ-kaI"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="-970" y="145"/>
         </scene>

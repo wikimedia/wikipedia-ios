@@ -19,7 +19,6 @@ class SavedViewController: UIViewController {
     }()
     
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var savedTitleView: UIView!
     @IBOutlet weak var savedTitleLabel: UILabel!
     
     @IBOutlet weak var extendedNavBarView: UIView!
@@ -113,17 +112,6 @@ class SavedViewController: UIViewController {
         super.viewDidLoad()
         
         currentView = .savedArticles
-        
-        let searchBarHeight: CGFloat = 32
-        let searchBarLeadingPadding: CGFloat = 7.5
-        let searchBarTrailingPadding: CGFloat = 2.5
-        
-        savedTitleView.frame = CGRect(x: searchBarLeadingPadding, y: 0, width: view.bounds.size.width - searchBarLeadingPadding - searchBarTrailingPadding, height: searchBarHeight)
-        
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
-        titleView.addSubview(savedTitleView)
-        titleView.wmf_addConstraintsToEdgesOfView(savedTitleView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
-        navigationItem.titleView = titleView
         
         searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
