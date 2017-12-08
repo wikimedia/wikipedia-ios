@@ -246,7 +246,7 @@ extension NavigationBar: Themeable {
         
         extendedView.backgroundColor = theme.colors.chromeBackground
         
-        shadow.backgroundColor = theme.colors.shadow
+        shadow.backgroundColor = theme.colors.chromeShadow
         
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear
