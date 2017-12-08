@@ -293,6 +293,7 @@ extension SavedArticlesCollectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchString = nil
+            // Calling .resignFirstResponder() directly is not enough. https://stackoverflow.com/a/2823182/4574147
             perform(#selector(dismisKeyboard(for:)), with: searchBar, afterDelay: 0)
         } else {
            searchString = searchText
