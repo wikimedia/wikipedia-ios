@@ -19,7 +19,6 @@ class SavedViewController: UIViewController {
     }()
     
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var savedTitleLabel: UILabel!
     
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -226,6 +225,5 @@ extension SavedViewController: Themeable {
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
-        savedTitleLabel.textColor = theme.colors.primaryText
     }
 }
