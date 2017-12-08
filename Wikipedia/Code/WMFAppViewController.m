@@ -194,6 +194,21 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         UINavigationController *navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self;
         navigationController.interactivePopGestureRecognizer.delegate = self;
+        switch (i) {
+            case WMFAppTabTypeSaved:
+                navigationController.title = [WMFCommonStrings savedTabTitle];
+                break;
+            case WMFAppTabTypePlaces:
+                navigationController.title = [WMFCommonStrings placesTabTitle];
+                break;
+            case WMFAppTabTypeRecent:
+                navigationController.title = [WMFCommonStrings historyTabTitle];
+                break;
+            case WMFAppTabTypeExplore:
+            default:
+                navigationController.title = [WMFCommonStrings exploreTabTitle];
+                break;
+        }
     }
 }
 

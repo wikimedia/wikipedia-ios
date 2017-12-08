@@ -116,7 +116,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = CommonStrings.placesTitle
+        title = CommonStrings.placesTabTitle
     }
     
     override func viewDidLoad() {

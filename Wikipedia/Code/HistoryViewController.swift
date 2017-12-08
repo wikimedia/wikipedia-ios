@@ -16,7 +16,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab\n{{Identical|History}}")
+        title = CommonStrings.historyTabTitle
         register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
