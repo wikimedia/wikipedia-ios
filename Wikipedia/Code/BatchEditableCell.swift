@@ -10,16 +10,24 @@ import UIKit
 public class BatchEditSelectView: SizeThatFitsView, Themeable {
     
     public var needsSubviews = false
-    var button: UIButton = UIButton()
+    var multiSelectIndicator: UIImageView?
     
     var isSelected: Bool = false {
         didSet {
-            button.isSelected = isSelected
+            updateMultiSelectIndicatorImage()
         }
     }
     
+    func updateMultiSelectIndicatorImage() {
+        let image = isSelected ? UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil) : UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
+        multiSelectIndicator?.image = image
+    }
+    
     func expand() {
-        bringSubview(toFront: button)
+        guard let multiSelectIndicator = multiSelectIndicator else {
+            return
+        }
+        bringSubview(toFront: multiSelectIndicator)
         setNeedsLayout()
     }
     
@@ -35,6 +43,8 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
     }
     
+    public let fixedWidth: CGFloat = 60
+    
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
@@ -42,14 +52,12 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
                 createSubview()
                 needsSubviews = false
             }
-            button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: size.height)
+            multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: fixedWidth, height: size.height)
         }
-        let width = superSize.width == UIViewNoIntrinsicMetric ? buttonWidth : superSize.width
+        let width = superSize.width == UIViewNoIntrinsicMetric ? fixedWidth : superSize.width
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
         return CGSize(width: width, height: height)
     }
-    var buttonWidth: CGFloat  = 0
-    var minButtonWidth: CGFloat = 60
     
     func createSubview() {
         for view in subviews {
@@ -57,26 +65,22 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
         
         // .withRenderingMode(.alwaysTemplate) can be set directly on assets, once we have them
-        let button = UIButton(type: .custom)
-        let icon = UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
-        let selectedIcon = UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil)
-        button.setImage(icon?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.setImage(selectedIcon?.withRenderingMode(.alwaysTemplate), for: .selected)
-        button.titleLabel?.numberOfLines = 1
-        button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
-        button.backgroundColor = .clear
-        insertSubview(button, at: 0)
-        self.button = button
+        let multiSelectIndicator = UIImageView()
+        multiSelectIndicator.backgroundColor = .clear
+        insertSubview(multiSelectIndicator, at: 0)
+        multiSelectIndicator.contentMode = .center
+        self.multiSelectIndicator = multiSelectIndicator
+        updateMultiSelectIndicatorImage()
         
-        backgroundColor = button.backgroundColor
-        buttonWidth = max(minButtonWidth, button.intrinsicContentSize.width)
+        backgroundColor = multiSelectIndicator.backgroundColor
+        
         setNeedsLayout()
     }
     
     fileprivate var theme: Theme = Theme.standard
     
     public func apply(theme: Theme) {
-        button.imageView?.tintColor = theme.colors.secondaryText
+        multiSelectIndicator?.tintColor = theme.colors.secondaryText
     }
 
 }

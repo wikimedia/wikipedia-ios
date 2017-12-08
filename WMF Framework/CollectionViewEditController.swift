@@ -379,7 +379,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.batchEditSelectView.expand()
-                cell.batchEditingTranslation = cell.batchEditSelectView.buttonWidth != 0 ? cell.batchEditSelectView.buttonWidth : cell.batchEditSelectView.minButtonWidth
+                cell.batchEditingTranslation = cell.batchEditSelectView.fixedWidth
                 cell.layoutIfNeeded()
             }, completion: nil)
         }

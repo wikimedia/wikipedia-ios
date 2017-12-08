@@ -135,6 +135,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
             case .unsave:
                 button.backgroundColor = theme.colors.link
             }
+            button.imageView?.tintColor = .white
             button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
