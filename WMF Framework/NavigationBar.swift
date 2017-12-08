@@ -124,7 +124,7 @@ public class NavigationBar: SetupView {
         let backgroundViewTrailingConstraint = trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
         let backgroundViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
         
-        let progressViewBottomConstraint = shadow.topAnchor.constraint(equalTo: progressView.bottomAnchor)
+        let progressViewBottomConstraint = shadow.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 1)
         let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
         let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
         
