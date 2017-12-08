@@ -42,10 +42,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
                 createSubview()
                 needsSubviews = false
             }
-            let buttonDelta = min(size.width, buttonWidth)
-            var x: CGFloat = 0
-            button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
-            x += buttonDelta
+            button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: size.height)
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? buttonWidth : superSize.width
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
@@ -59,8 +56,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
             view.removeFromSuperview()
         }
         
-        var maxButtonWidth: CGFloat = 0
-        
         // .withRenderingMode(.alwaysTemplate) can be set directly on assets, once we have them
         let button = UIButton(type: .custom)
         let icon = UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
@@ -70,12 +65,11 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         button.titleLabel?.numberOfLines = 1
         button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
         button.backgroundColor = .clear
-        maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
         insertSubview(button, at: 0)
         self.button = button
         
         backgroundColor = button.backgroundColor
-        buttonWidth = max(minButtonWidth, maxButtonWidth)
+        buttonWidth = max(minButtonWidth, button.intrinsicContentSize.width)
         setNeedsLayout()
     }
     
