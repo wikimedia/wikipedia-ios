@@ -24,6 +24,10 @@ class SavedViewController: UIViewController {
     
     @IBOutlet weak var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBarBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet var toggleButtons: [UIButton]!
     
@@ -36,6 +40,7 @@ class SavedViewController: UIViewController {
                 savedDelegate = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
+                isSearchBarHidden = false
                 
                 addChild(savedArticlesCollectionViewController)
                 
@@ -44,10 +49,21 @@ class SavedViewController: UIViewController {
                 readingListsCollectionViewController?.editController.navigationDelegate = self
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
+                isSearchBarHidden = true
                 
                 addChild(readingListsCollectionViewController)
                 
             }
+        }
+    }
+    
+    fileprivate var isSearchBarHidden: Bool = false {
+        didSet {
+            searchBar.isHidden = isSearchBarHidden
+            sortButton.isHidden = isSearchBarHidden
+            searchBarHeightConstraint.constant = isSearchBarHidden ? 0 : 36
+            searchBarTopConstraint.constant = isSearchBarHidden ? 0 : 15
+            searchBarBottomConstraint.constant = isSearchBarHidden ? 0 : 15
         }
     }
     

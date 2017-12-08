@@ -84,7 +84,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
                                     <constraint firstItem="Bh4-J1-7zh" firstAttribute="leading" secondItem="qRL-zo-Csa" secondAttribute="trailing" constant="16" id="apa-dM-ret"/>
                                     <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="8" id="bkz-4g-J5W"/>
-                                    <constraint firstAttribute="bottom" secondItem="qRL-zo-Csa" secondAttribute="bottom" constant="15" id="fyo-Am-chZ"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="qRL-zo-Csa" secondAttribute="bottomMargin" constant="15" id="fyo-Am-chZ"/>
                                     <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
                                 </constraints>
                             </view>
@@ -108,6 +108,10 @@
                         <outlet property="savedTitleLabel" destination="hfV-ww-zDI" id="Ay4-jS-wYC"/>
                         <outlet property="savedTitleView" destination="4oi-TZ-AA1" id="5gL-aX-PVO"/>
                         <outlet property="searchBar" destination="qRL-zo-Csa" id="L5r-oc-fU0"/>
+                        <outlet property="searchBarBottomConstraint" destination="fyo-Am-chZ" id="ztZ-UN-iQR"/>
+                        <outlet property="searchBarHeightConstraint" destination="BKa-DW-7hE" id="9qW-Oh-uNb"/>
+                        <outlet property="searchBarTopConstraint" destination="RhH-zl-Ixp" id="lMN-GC-iqU"/>
+                        <outlet property="sortButton" destination="Bh4-J1-7zh" id="e9m-im-dof"/>
                         <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
                     </connections>
