@@ -58,25 +58,35 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        setupFetchedResultsController(with: dataStore, sortBy: "savedDate", ascending: false)
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.sortDescriptors = [sortDescriptor]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    // MARK: - Sorting
+    
+    fileprivate var sortDescriptor: NSSortDescriptor = NSSortDescriptor(key: "savedDate", ascending: false) {
+        didSet {
+            guard sortDescriptor != oldValue else {
+                return
+            }
+            setupFetchedResultsController(with: dataStore)
+            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+            do {
+                try fetchedResultsController.performFetch()
+            } catch let err {
+                assertionFailure("Couldn't sort by \(sortDescriptor.key ?? "unknown key"): \(err)")
+            }
+            collectionView?.reloadData()
+        }
     }
     
     fileprivate func sort(by key: String, ascending: Bool) {
-        setupFetchedResultsController(with: dataStore, sortBy: key, ascending: ascending)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let err {
-            assertionFailure("Couldn't sort by \(key): \(err)")
-        }
-        collectionView?.reloadData()
+        sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
     }
     
-    fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore, sortBy key: String, ascending: Bool) {
-        let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-    }
+    // MARK: - Swipe actions
     
     override func canSave(at indexPath: IndexPath) -> Bool {
         return false
@@ -93,6 +103,8 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         dataStore.savedPageList.removeEntry(with: articleURL)
     }
     
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         register(SavedArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
@@ -108,6 +120,8 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
     }
+    
+    // MARK: - Analytics
     
     override var analyticsName: String {
         return "Saved Articles"
@@ -223,24 +237,24 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
 extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
     
     @objc func didPressSortButton() {
+        // TODO: Add an option to sort by "recently updated" once we have the key hooked up.
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         let titleAction = UIAlertAction(title: "Title", style: .default) { (actions) in
             self.sort(by: "displayTitle", ascending: true)
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (actions) in
-            print("Recently added")
-        }
-        let recentlyUpdatedAction = UIAlertAction(title: "Recently updated", style: .default) { (actions) in
-            print("Recently updated")
+            self.sort(by: "savedDate", ascending: false)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(titleAction)
         alert.addAction(recentlyAddedAction)
-        alert.addAction(recentlyUpdatedAction)
         alert.addAction(cancelAction)
-        // add sourceView for iPad
+        if let popoverController = alert.popoverPresentationController, let collectionView = collectionView, let first = collectionView.visibleCells.first {
+            popoverController.sourceView = first
+            popoverController.sourceRect = first.bounds
+        }
         present(alert, animated: true, completion: nil)
     }
 }
