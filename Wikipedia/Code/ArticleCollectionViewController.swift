@@ -184,12 +184,6 @@ extension ArticleCollectionViewController: ActionDelegate {
         return false
     }
     
-
-    func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        assert(false, "Subclassers should override this function")
-        return false
-    }
-    
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {

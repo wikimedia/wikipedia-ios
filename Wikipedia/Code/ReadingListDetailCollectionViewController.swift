@@ -169,31 +169,6 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
 
 extension ReadingListDetailCollectionViewController: ActionDelegate {
     
-    fileprivate func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
-        return BatchEditActionType.select.action(with: self, indexPath: indexPath)
-    }
-    
-    internal func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        let indexPath = action.indexPath
-        
-        switch action.type {
-        case .select:
-            select(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
-            return true
-        }
-    }
-    
-    fileprivate func select(at indexPath: IndexPath) {
-        let isSelected = collectionView?.cellForItem(at: indexPath)?.isSelected ?? false
-        
-        if isSelected {
-            collectionView?.deselectItem(at: indexPath, animated: true)
-        } else {
-            collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
             return
@@ -424,7 +399,7 @@ extension ReadingListDetailCollectionViewController {
     }
     
     fileprivate func configure(cell: SavedArticleCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.batchEditAction = batchEditAction(at: indexPath)
+        cell.isBatchEditable = true
     
         guard let collectionView = self.collectionView else {
             return

@@ -98,7 +98,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         
         cell.actions = availableActions(at: indexPath)
-        cell.batchEditAction = batchEditAction(at: indexPath)
+        cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
         cell.layoutMargins = layout.readableMargins
@@ -295,30 +295,6 @@ extension ReadingListsCollectionViewController {
 
 // same for saved articles
 extension ReadingListsCollectionViewController {
-    func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        let indexPath = action.indexPath
-        
-        switch action.type {
-        case .select:
-            selectReadingList(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
-            return true
-        }
-        
-    }
-    
-    fileprivate func selectReadingList(at indexPath: IndexPath) {
-        guard let collectionView = collectionView, let isSelected = collectionView.cellForItem(at: indexPath)?.isSelected else {
-            return
-        }
-        
-        if isSelected {
-            collectionView.deselectItem(at: indexPath, animated: true)
-        } else {
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
-        }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
             return
@@ -329,9 +305,5 @@ extension ReadingListsCollectionViewController {
         let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
         readingListDetailCollectionViewController.apply(theme: theme)
         navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
-    }
-    
-    func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
-        return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
 }

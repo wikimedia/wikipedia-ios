@@ -286,13 +286,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         batchEditingState = .none
     }
     
-    public var batchEditAction: BatchEditAction? {
-        set {
-            batchEditActionView.action = newValue
-            updateAccessibilityElements()
-        }
-        get {
-            return batchEditActionView.action
+    public var isBatchEditable: Bool = false {
+        didSet {
+            batchEditActionView.needsSubviews = isBatchEditable
         }
     }
     

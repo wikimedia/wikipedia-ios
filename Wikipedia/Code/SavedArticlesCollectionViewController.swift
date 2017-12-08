@@ -164,7 +164,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        cell.batchEditAction = batchEditAction(at: indexPath)
+        cell.isBatchEditable = true
     }
     
     // MARK: - Empty state
@@ -180,47 +180,26 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     }
     
     // MARK: - Batch editing
-    
+    ç
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let updateItem = BatchEditToolbarActionType.update.action(with: self)
         let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
     }()
-
-    override func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        let indexPath = action.indexPath
-        
-        switch action.type {
-        case .select:
-            select(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("item-selected-accessibility-notification", value: "Item selected", comment: "Notification spoken after user batch selects an item from the list."))
-            return true
-        }
-        
-    }
     
-    fileprivate func select(at indexPath: IndexPath) {
-        guard let collectionView = collectionView, let isSelected = collectionView.cellForItem(at: indexPath)?.isSelected else {
-            return
-        }
-        
-        if isSelected {
-            collectionView.deselectItem(at: indexPath, animated: true)
-        } else {
-            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState == .open {
+            editController.didTapCellWhileBatchEditing()
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+            editController.didTapCellWhileBatchEditing()
             return
         }
         super.collectionView(collectionView, didSelectItemAt: indexPath)
-    }
-    
-    func batchEditAction(at indexPath: IndexPath) -> BatchEditAction {
-        return BatchEditActionType.select.action(with: self, indexPath: indexPath)
     }
     
     override func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {

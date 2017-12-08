@@ -356,7 +356,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             
             for cell in editableCells {
                 cell.batchEditingState = batchEditingState
-                cell.batchEditActionView.delegate = self
             }
 
             switch batchEditingState {
@@ -424,12 +423,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    public func didBatchSelect(_ action: BatchEditAction) -> Bool {
-        let didSelect = self.delegate?.didBatchSelect(action) ?? false
-        if didSelect {
-            isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
-        }
-        return didSelect
+    public func didTapCellWhileBatchEditing() {
+        isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
     }
     
     var selectedIndexPaths: [IndexPath] {
