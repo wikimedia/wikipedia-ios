@@ -27,8 +27,6 @@ class SavedViewController: UIViewController {
     
     @IBOutlet var toggleButtons: [UIButton]!
     
-    fileprivate var activeChildViewController: UICollectionViewController? 
-    
     fileprivate var currentView: View = .savedArticles {
         didSet {
             switch currentView {
@@ -36,20 +34,18 @@ class SavedViewController: UIViewController {
                 removeChild(readingListsCollectionViewController)
                 savedArticlesCollectionViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesCollectionViewController
-                activeChildViewController = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
                 
-                addChild(activeChildViewController)
+                addChild(savedArticlesCollectionViewController)
                 
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
                 readingListsCollectionViewController?.editController.navigationDelegate = self
-                activeChildViewController = readingListsCollectionViewController
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
                 
-                addChild(activeChildViewController)
+                addChild(readingListsCollectionViewController)
                 
             }
         }
