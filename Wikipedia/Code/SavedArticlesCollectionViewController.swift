@@ -59,7 +59,12 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        let basePredicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.predicate = basePredicate
+        if let searchString = searchString {
+            let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
+            articleRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+        }
         articleRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
@@ -71,19 +76,34 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
             guard sortDescriptor != oldValue else {
                 return
             }
-            setupFetchedResultsController(with: dataStore)
-            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
-            do {
-                try fetchedResultsController.performFetch()
-            } catch let err {
-                assertionFailure("Couldn't sort by \(sortDescriptor.key ?? "unknown key"): \(err)")
-            }
-            collectionView?.reloadData()
+            setupCollectionViewUpdaterAndFetch()
         }
+    }
+    
+    fileprivate func setupCollectionViewUpdaterAndFetch() {
+        setupFetchedResultsController(with: dataStore)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let err {
+            assertionFailure("Couldn't sort by \(sortDescriptor.key ?? "unknown key"): \(err)")
+        }
+        collectionView?.reloadData()
     }
     
     fileprivate func sort(by key: String, ascending: Bool) {
         sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+    }
+    
+    // MARK: - Filtering
+    
+    fileprivate var searchString: String? {
+        didSet {
+            guard searchString != oldValue else {
+                return
+            }
+            setupCollectionViewUpdaterAndFetch()
+        }
     }
     
     // MARK: - Swipe actions
@@ -264,5 +284,17 @@ extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
 extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
     func viewControllerWillBeDismissed() {
         editController.close()
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension SavedArticlesCollectionViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            searchString = nil
+        } else {
+           searchString = searchText
+        }
     }
 }
