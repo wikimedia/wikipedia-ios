@@ -293,8 +293,17 @@ extension SavedArticlesCollectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchString = nil
+            perform(#selector(dismisKeyboard(for:)), with: searchBar, afterDelay: 0)
         } else {
            searchString = searchText
         }
+    }
+    
+    @objc fileprivate func dismisKeyboard(for searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
