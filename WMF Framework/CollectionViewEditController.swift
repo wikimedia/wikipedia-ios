@@ -378,9 +378,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         collectionView.allowsMultipleSelection = true
         for cell in editableCells {
             UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.batchEditSelectView.expand()
-                cell.batchEditingTranslation = cell.batchEditSelectView.fixedWidth
+                cell.batchEditSelectView?.expand()
                 cell.layoutIfNeeded()
+                cell.batchEditingTranslation = cell.batchEditSelectView?.fixedWidth ?? 60
             }, completion: nil)
         }
     }

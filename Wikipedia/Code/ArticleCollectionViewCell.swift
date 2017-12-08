@@ -113,16 +113,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
 
             if batchEditingState != .none {
-                
-                // contentView needs to be resized
-                // let width = batchEditingState == .open ? contentView.frame.width - batchEditingTranslation : contentView.frame.width + batchEditingTranslation
-                // let newSize = CGSize(width: width, height: size.height)
-                
-                contentView.frame = CGRect(origin: CGPoint(x: batchEditingTranslation, y: 0), size: size)
-                let batchEditSelectViewWidth = abs(batchEditingTranslation)
-                batchEditSelectView.frame = CGRect(x: 0, y: 0, width: batchEditSelectViewWidth, height: size.height)
-                batchEditSelectView.layoutIfNeeded()
-
+                batchEditSelectView?.frame = CGRect(x: layoutMargins.left, y: 0, width: abs(batchEditingTranslation), height: size.height)
+                batchEditSelectView?.layoutIfNeeded()
             }
             
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -260,6 +252,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var batchEditingTranslation: CGFloat = 0 {
         didSet {
+            var updatedMultipliers = layoutMarginsMultipliers
+            updatedMultipliers.left = batchEditingTranslation > 0 ? (batchEditingTranslation + layoutMargins.left) / layoutMargins.left : 1
+            layoutMarginsMultipliers = updatedMultipliers
             setNeedsLayout()
         }
     }
@@ -279,7 +274,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     // MARK: - BatchEditableCell
     
-    public let batchEditSelectView = BatchEditSelectView()
+    public var batchEditSelectView: BatchEditSelectView?
     
     func resetBatchEdit() {
         batchEditingTranslation = 0
@@ -288,26 +283,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var isBatchEditable: Bool = false {
         didSet {
-            batchEditSelectView.needsSubviews = isBatchEditable
+            batchEditSelectView = BatchEditSelectView()
         }
     }
     
     override open var isSelected: Bool {
         didSet {
-            batchEditSelectView.isSelected = isSelected
+            batchEditSelectView?.isSelected = isSelected
         }
     }
     
     public var batchEditingState: BatchEditingState = .none {
         didSet {
-            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView.superview == nil {
-                insertSubview(batchEditSelectView, belowSubview: contentView)
-                contentView.backgroundColor = .clear
-                clipsToBounds = true
-            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView.superview != nil {
-                batchEditSelectView.removeFromSuperview()
-                contentView.backgroundColor = backgroundColor
-                clipsToBounds = false
+            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
+                if let batchEditSelectView = batchEditSelectView {
+                    contentView.addSubview(batchEditSelectView)
+                }
+            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
+                batchEditSelectView?.removeFromSuperview()
                 batchEditingState = .none
             }
         }

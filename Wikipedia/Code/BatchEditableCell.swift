@@ -9,7 +9,6 @@ import UIKit
 
 public class BatchEditSelectView: SizeThatFitsView, Themeable {
     
-    public var needsSubviews = false
     var multiSelectIndicator: UIImageView?
     
     var isSelected: Bool = false {
@@ -24,10 +23,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     }
     
     func expand() {
-        guard let multiSelectIndicator = multiSelectIndicator else {
-            return
-        }
-        bringSubview(toFront: multiSelectIndicator)
+        createSubview()
         setNeedsLayout()
     }
     
@@ -43,15 +39,11 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
     }
     
-    public let fixedWidth: CGFloat = 60
+    public var fixedWidth: CGFloat = 60
     
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            if (size.width > 0 && needsSubviews) {
-                createSubview()
-                needsSubviews = false
-            }
             multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: fixedWidth, height: size.height)
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? fixedWidth : superSize.width
@@ -71,7 +63,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         multiSelectIndicator.contentMode = .center
         self.multiSelectIndicator = multiSelectIndicator
         updateMultiSelectIndicatorImage()
-        
+
         backgroundColor = multiSelectIndicator.backgroundColor
         
         setNeedsLayout()
@@ -133,7 +125,7 @@ public class BatchEditToolbarAction: UIAccessibilityCustomAction {
 public protocol BatchEditableCell: NSObjectProtocol {
     var batchEditingState: BatchEditingState { get set }
     var batchEditingTranslation: CGFloat { get set }
-    var batchEditSelectView: BatchEditSelectView { get }
+    var batchEditSelectView: BatchEditSelectView? { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation
     var isSelected: Bool { get set } // selection has to be reset on cancel
 }
