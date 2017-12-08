@@ -30,7 +30,7 @@
 "about-libraries" = "Bibliothèques utilisées";
 "about-libraries-complete-list" = "Liste complète";
 "about-libraries-license" = "Licence";
-"about-libraries-licenses-title" = "Nous aimons le logiciel ouvert $1";
+"about-libraries-licenses-title" = "Nous aimons le logiciel open source $1";
 "about-product-of" = "Fait par la $1 avec l’aide de volontaires tels que vous";
 "about-repositories" = "Référentiels";
 "about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
@@ -75,8 +75,11 @@
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Ignorer";
 "appearance-settings-adjust-text-sizing" = "Ajuster la taille du texte de l’article";
+"appearance-settings-expand-tables" = "Développer les tables";
+"appearance-settings-expand-tables-footer" = "Positionner tous les tableaux dans tous les articles comme ouvertes par défaut, y compris les Faits rapides, les Références, les Notes et les Liens externes.";
 "appearance-settings-image-dimming-footer" = "Diminuer l’opacité des images du thème sombre";
 "appearance-settings-reading-themes" = "Thèmes de lecture";
+"appearance-settings-set-automatic-table-opening" = "Paramètres de tableau";
 "appearance-settings-text-sizing-example-text" = "Déplacez le curseur ci-dessus pour modifier la taille du texte de l’article. Utilisez votre taille de texte système pour dimensionner les autres zones de texte de l’application.";
 "appearance-settings-theme-options" = "Options des thèmes";
 "appearance-settings-title" = "Thèmes de lecture";
