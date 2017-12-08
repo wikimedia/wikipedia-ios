@@ -70,8 +70,11 @@
 "alert-no-internet" = "無網路連線";
 "announcements-dismiss" = "關閉";
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
+"appearance-settings-expand-tables" = "展開表格";
+"appearance-settings-expand-tables-footer" = "設定所有表格在所有條目裡來依預設值自動開啓，包含快速預覽、參考資料、備註與外部連結";
 "appearance-settings-image-dimming-footer" = "在暗黑主題裡減少圖片的不透明度";
 "appearance-settings-reading-themes" = "閱讀主題";
+"appearance-settings-set-automatic-table-opening" = "表格設定";
 "appearance-settings-text-sizing-example-text" = "拖拉上方滑動桿來改變條目文字大小。利用您系統的文字大小；來向在應用程式裡其它文字區域做調整。";
 "appearance-settings-theme-options" = "主題選項";
 "appearance-settings-title" = "閱讀主題";

@@ -75,8 +75,10 @@
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
+"appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
+"appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
 "appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "appearance-settings-title" = "Temas de lecturas";

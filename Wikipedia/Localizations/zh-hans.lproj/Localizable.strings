@@ -69,8 +69,11 @@
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
+"appearance-settings-expand-tables" = "展开表格";
+"appearance-settings-expand-tables-footer" = "将所有条目内的表格设置为默认开启，包括快速预览、参考资料、注释和外部链接。";
 "appearance-settings-image-dimming-footer" = "在夜间主题中减小图片的不透明度";
 "appearance-settings-reading-themes" = "正在读取主题";
+"appearance-settings-set-automatic-table-opening" = "表格设置";
 "appearance-settings-text-sizing-example-text" = "拖动上方滑块以更改条目文本大小。利用您系统的文本大小以更改应用中其他文本区域的大小。";
 "appearance-settings-theme-options" = "主题选项";
 "appearance-settings-title" = "正在读取主题";

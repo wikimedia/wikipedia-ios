@@ -71,6 +71,8 @@
 "action-share" = "شارك";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "announcements-dismiss" = "تجاهل";
+"appearance-settings-expand-tables" = "تمديد الجداول";
+"appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
 "article-about-title" = "حول المقال";
 "article-languages-filter-placeholder" = "ابحث عن لغة";
 "article-languages-label" = "اختر لغة";
