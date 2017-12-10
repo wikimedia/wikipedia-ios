@@ -87,6 +87,12 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
         apply(theme: self.theme)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -279,6 +285,43 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     @objc(updateFeedSourcesUserInitiated:completion:)
     public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping () -> Void) {
         self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
+    }
+    
+    // MARK: - Reading lists toolbar view
+    
+    internal lazy var toolbarView: UIView = {
+        let toolbarViewHeight: CGFloat = 50
+        let toolbarView = UIView()
+        updateToolbarViewFrame(toolbarView)
+        toolbarView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        return toolbarView
+    }()
+    
+    fileprivate func updateToolbarViewFrame(_ toolbar: UIView) {
+        let toolbarHeight: CGFloat = 50
+        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
+    }
+    
+    fileprivate var isToolbarViewVisible: Bool = false
+    
+    override func viewDidLayoutSubviews() {
+        if isToolbarViewVisible {
+            updateToolbarViewFrame(toolbarView)
+        }
+    }
+    
+    @objc func articleUpdated(notification: Notification) {
+        guard let article = notification.object as? WMFArticle else {
+            return
+        }
+        let wasSaved = article.savedDate == nil
+        if !wasSaved {
+            isToolbarViewVisible = true
+            toolbarView.backgroundColor = UIColor.red
+            view.addSubview(toolbarView)
+        } else {
+            toolbarView.removeFromSuperview()
+        }
     }
 }
 
