@@ -377,7 +377,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         areSwipeActionsDisabled = true
         collectionView.allowsMultipleSelection = true
         for cell in editableCells {
-            UIView.animate(withDuration: 0.4, delay: 0.1, options: [.allowUserInteraction], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.batchEditSelectView?.expand()
                 cell.batchEditingTranslation = cell.batchEditSelectView?.fixedWidth ?? 60
                 cell.layoutIfNeeded()
@@ -399,7 +399,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     fileprivate func closeBatchEditPane() {
         isBatchEditToolbarVisible = false
         for cell in editableCells {
-            UIView.animate(withDuration: 0.4, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.isSelected = false
                 cell.batchEditingTranslation = 0
                 cell.layoutIfNeeded()

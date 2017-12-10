@@ -11,6 +11,15 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     
     var multiSelectIndicator: UIImageView?
     
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        createSubview()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var isSelected: Bool = false {
         didSet {
             updateMultiSelectIndicatorImage()
@@ -23,7 +32,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     }
     
     func expand() {
-        createSubview()
         setNeedsLayout()
     }
     
@@ -64,7 +72,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     fileprivate var theme: Theme = Theme.standard
     
     public func apply(theme: Theme) {
-        multiSelectIndicator?.tintColor = theme.colors.secondaryText
+        multiSelectIndicator?.tintColor = theme.colors.link
     }
 
 }
