@@ -304,7 +304,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 }
             } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
                 batchEditSelectView?.removeFromSuperview()
-//                batchEditingState = .none
             }
         }
     }
