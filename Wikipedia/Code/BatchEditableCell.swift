@@ -33,18 +33,12 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
     }
     
-    public override var bounds: CGRect {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     public var fixedWidth: CGFloat = 60
     
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: fixedWidth, height: size.height)
+            multiSelectIndicator?.frame = CGRect(x: -fixedWidth, y: 0, width: fixedWidth, height: size.height)
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? fixedWidth : superSize.width
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
@@ -56,7 +50,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
             view.removeFromSuperview()
         }
         
-        // .withRenderingMode(.alwaysTemplate) can be set directly on assets, once we have them
         let multiSelectIndicator = UIImageView()
         multiSelectIndicator.backgroundColor = .clear
         insertSubview(multiSelectIndicator, at: 0)
@@ -65,7 +58,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         updateMultiSelectIndicatorImage()
 
         backgroundColor = multiSelectIndicator.backgroundColor
-        
         setNeedsLayout()
     }
     

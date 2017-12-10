@@ -7,6 +7,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    var editStateMargins = defaultMargins
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -252,9 +253,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            var updatedMultipliers = layoutMarginsMultipliers
-            updatedMultipliers.left = batchEditingTranslation > 0 ? (batchEditingTranslation + layoutMargins.left) / layoutMargins.left : 1
-            layoutMarginsMultipliers = updatedMultipliers
+            editStateMargins.left = batchEditingTranslation > 0 ? batchEditingTranslation : ArticleCollectionViewCell.defaultMargins.left
+            if #available(iOSApplicationExtension 11.0, *) {
+                editStateMargins.left += safeAreaInsets.left
+            }
+            self.layoutMargins.left = self.editStateMargins.left
             setNeedsLayout()
         }
     }
@@ -301,7 +304,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 }
             } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
                 batchEditSelectView?.removeFromSuperview()
-                batchEditingState = .none
+//                batchEditingState = .none
             }
         }
     }
