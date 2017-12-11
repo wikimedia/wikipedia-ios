@@ -1,5 +1,9 @@
 import UIKit
 
+public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
+    func addArticlesToReadingListViewControllerWillBeDismissed()
+}
+
 class AddArticleToReadingListToolbarViewController: UIViewController {
 
     @IBOutlet weak var button: UIButton!
@@ -13,14 +17,31 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     func setup(dataStore: MWKDataStore, article: WMFArticle) {
         self.dataStore = dataStore
         self.article = article
-        label?.text = "Add \(article.displayTitle!) to reading list"
+        label.text = "Add \(article.displayTitle!) to reading list"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
     }
+    
+    public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
+    
+    @IBAction fileprivate func buttonPressed() {
+        guard let dataStore = dataStore, let article = article else {
+            return
+        }
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+        addArticlesToReadingListViewController.delegate = self
+        present(addArticlesToReadingListViewController, animated: true, completion: nil)
+    }
 
+}
+
+extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListViewControllerDelegate {
+    func viewControllerWillBeDismissed() {
+        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
+    }
 }
 
 extension AddArticleToReadingListToolbarViewController: Themeable {
@@ -30,6 +51,6 @@ extension AddArticleToReadingListToolbarViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.disabledLink
-        label?.textColor = theme.colors.link
+        label.textColor = theme.colors.link
     }
 }

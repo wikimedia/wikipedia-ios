@@ -300,7 +300,22 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         toolbarView?.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
     }
     
-    fileprivate var isToolbarViewVisible: Bool = false
+    fileprivate var isToolbarViewVisible: Bool = false {
+        didSet {
+            if isToolbarViewVisible {
+                addChildViewController(toolbarViewController)
+                updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
+                toolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                view.addSubview(toolbarViewController.view)
+                toolbarViewController.didMove(toParentViewController: self)
+                toolbarViewController.delegate = self
+            } else {
+                toolbarViewController.view.removeFromSuperview()
+                toolbarViewController.willMove(toParentViewController: nil)
+                toolbarViewController.removeFromParentViewController()
+            }
+        }
+    }
     
     override func viewDidLayoutSubviews() {
         if isToolbarViewVisible {
@@ -314,19 +329,17 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
         let wasSaved = article.savedDate == nil
         if !wasSaved {
-            addChildViewController(toolbarViewController)
-            updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
-            toolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.addSubview(toolbarViewController.view)
-            toolbarViewController.didMove(toParentViewController: self)
-            toolbarViewController.setup(dataStore: userStore, article: article)
             isToolbarViewVisible = true
+            toolbarViewController.setup(dataStore: userStore, article: article)
         } else {
             isToolbarViewVisible = false
-            toolbarViewController.view.removeFromSuperview()
-            toolbarViewController.willMove(toParentViewController: nil)
-            toolbarViewController.removeFromParentViewController()
         }
+    }
+}
+
+extension ExploreViewController: AddArticleToReadingListToolbarViewControllerDelegate {
+    func addArticlesToReadingListViewControllerWillBeDismissed() {
+        isToolbarViewVisible = false
     }
 }
 
