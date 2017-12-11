@@ -26,10 +26,13 @@ extension ArticleCollectionViewController {
     }
 }
 
-extension ExploreViewController {
+extension WMFViewController {
     @objc func scrollToTop() {
-        guard collectionViewController.canScrollToTop else { return }
-        collectionViewController.scrollToTop()
-        showSearchBar(animated: true)
+        guard let scrollView = scrollView else {
+            return
+        }
+        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: 0 - scrollView.contentInset.top), animated: true)
+        navigationBar.setPercentHidden(0, animated: true)
     }
 }
+

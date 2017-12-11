@@ -1,5 +1,3 @@
-import WMF
-
 /// This is a placeholder - the actual class is implemented in the Reading Lists branch
 /// Delete this class when merging Reading Lists
 public class SetupView: UIView {
@@ -25,7 +23,7 @@ public class SetupView: UIView {
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     fileprivate let bar: UINavigationBar = UINavigationBar()
-    fileprivate let extendedView: UIView = UIView()
+    public let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
@@ -224,7 +222,7 @@ public class NavigationBar: SetupView {
         }
     }
     
-    public func addExtendedNavigationBarView(_ view: UIView) {
+    @objc public func addExtendedNavigationBarView(_ view: UIView) {
         extendedViewHeightConstraint.isActive = false
         extendedView.wmf_addSubviewWithConstraintsToEdges(view)
     }

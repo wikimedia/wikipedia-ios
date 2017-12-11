@@ -1,4 +1,4 @@
-#import "WMFExploreCollectionViewController.h"
+#import "WMFExploreViewController.h"
 @import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
@@ -28,9 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate>
 
-@property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, strong) WMFColumnarCollectionViewLayout *collectionViewLayout;
+
+@property (nonatomic, strong) UIButton *longTitleButton;
+@property (nonatomic, strong) UIButton *shortTitleButton;
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @property (nonatomic, strong) WMFLocationManager *locationManager;
 
@@ -61,18 +67,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @end
 
-@implementation WMFExploreCollectionViewController
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
-    self.objectChanges = [NSMutableArray arrayWithCapacity:10];
-    self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
-    self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
-    self.placeholderViews = [NSMutableDictionary dictionaryWithCapacity:10];
-    self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
-    self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
-}
+@implementation WMFExploreViewController
 
 - (void)setUserStore:(MWKDataStore *)userStore {
     if (_userStore == userStore) {
@@ -319,14 +314,54 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self registerCellsAndViews];
-
+    
+    self.collectionViewLayout = [[WMFColumnarCollectionViewLayout alloc] init];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
+    [self.view wmf_addSubviewWithConstraintsToEdges:self.collectionView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     if ([self.collectionView respondsToSelector:@selector(setPrefetchDataSource:)]) {
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
+    
+    self.longTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.longTitleButton.adjustsImageWhenHighlighted = YES;
+    [self.longTitleButton setImage:[UIImage imageNamed:@"wikipedia"] forState:UIControlStateNormal];
+    [self.longTitleButton sizeToFit];
+    [self.longTitleButton addTarget:self action:@selector(titleBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.shortTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.shortTitleButton.adjustsImageWhenHighlighted = YES;
+    [self.shortTitleButton setImage:[UIImage imageNamed:@"W"] forState:UIControlStateNormal];
+    [self.shortTitleButton sizeToFit];
+    self.shortTitleButton.alpha = 0;
+    [self.shortTitleButton addTarget:self action:@selector(titleBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *titleView = [[UIView alloc] initWithFrame:self.longTitleButton.bounds];
+    [titleView addSubview:self.longTitleButton];
+    [titleView addSubview:self.shortTitleButton];
+    self.shortTitleButton.center = titleView.center;
+    
+    self.navigationItem.titleView = titleView;
+    self.navigationItem.isAccessibilityElement = YES;
+    self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader;
+    
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchBar.delegate = self;
+    self.searchBar.placeholder = WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text");
+    [self.navigationBar addExtendedNavigationBarView:self.searchBar];
+    
+    self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
+    self.objectChanges = [NSMutableArray arrayWithCapacity:10];
+    self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
+    self.placeholderCells = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.placeholderViews = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
+    self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
+    
+    [self registerCellsAndViews];
     [self setupRefreshControl];
 }
 
@@ -1610,7 +1645,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
                [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreCollectionViewController class]]) {
+    } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
         }
@@ -1831,7 +1866,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 #pragma mark - Analytics
-// TODO: pull from parent view?
 
 - (NSString *)analyticsContext {
     return @"Explore";
@@ -1844,9 +1878,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - Load More
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScroll:)]) {
-        [self.delegate exploreCollectionViewController:self didScroll:scrollView];
-    }
+    [self.navigationBarHider scrollViewDidScroll:scrollView];
 
     if (self.isLoadingOlderContent) {
         return;
@@ -1888,26 +1920,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    //DDLogDebug(@"Stopped dragging");
-    if (!decelerate) {
-        if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
-            [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
-        }
-    }
+    [self.navigationBarHider scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    //DDLogDebug(@"Begin dragging");
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willBeginScrolling:)]) {
-        [self.delegate exploreCollectionViewController:self willBeginScrolling:scrollView];
-    }
+    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    //DDLogDebug(@"Stopped decelerating");
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didEndScrolling:)]) {
-        [self.delegate exploreCollectionViewController:self didEndScrolling:scrollView];
-    }
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
@@ -1916,29 +1937,53 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:willEndDragging:velocity:)]) {
-            [self.delegate exploreCollectionViewController:self willEndDragging:scrollView velocity:velocity];
-        }
+    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:shouldScrollToTop:)]) {
-        return [self.delegate exploreCollectionViewController:self shouldScrollToTop:scrollView];
-    }
+    [self.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
     return YES;
 }
 
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didScrollToTop:)]) {
-        [self.delegate exploreCollectionViewController:self didScrollToTop:scrollView];
-    }
+- (void)titleBarButtonPressed:(UIButton *)sender {
+    [self scrollToTop];
 }
+
+#pragma mark - WMFViewController
+
+- (nullable UIScrollView *)scrollView {
+    return self.collectionView;
+}
+
+- (void)navigationBarHider:(WMFNavigationBarHider * _Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+    self.shortTitleButton.alpha = extendedViewPercentHidden;
+    self.longTitleButton.alpha = 1.0 - extendedViewPercentHidden;
+    self.navigationItem.rightBarButtonItem.customView.alpha = extendedViewPercentHidden;
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+    NSUserActivity *searchActivity = [NSUserActivity wmf_searchViewActivity];
+    [NSNotificationCenter.defaultCenter postNotificationName:WMFNavigateToActivityNotification object:searchActivity];
+    return NO;
+}
+
 
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    self.theme = theme;
+    [super applyTheme:theme];
+    
+    [self.searchBar setSearchFieldBackgroundImage:theme.searchBarBackgroundImage forState:UIControlStateNormal];
+    [self.searchBar wmf_enumerateSubviewTextFields:^(UITextField *textField){
+        textField.textColor = theme.colors.primaryText;
+        textField.keyboardAppearance = theme.keyboardAppearance;
+        textField.font = [UIFont systemFontOfSize:14];
+    }];
+
+    self.searchBar.searchTextPositionAdjustment = UIOffsetMake(7, 0);
+    
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
     self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;

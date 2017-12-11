@@ -3,6 +3,7 @@
 
 @interface WMFViewController ()
 @property (nonatomic, strong) WMFNavigationBar *navigationBar;
+@property (nonatomic, strong) WMFNavigationBarHider *navigationBarHider;
 @end
 
 @implementation WMFViewController
@@ -10,6 +11,9 @@
 - (void)setup {
     self.theme = [WMFTheme standard];
     self.navigationBar = [[WMFNavigationBar alloc] initWithFrame:CGRectZero];
+    self.navigationBarHider = [[WMFNavigationBarHider alloc] init];
+    self.navigationBarHider.navigationBar = self.navigationBar;
+    self.navigationBarHider.delegate = self;
 }
 
 - (instancetype)init {
@@ -125,6 +129,12 @@
         return;
     }
     [self.navigationBar applyTheme:theme];
+}
+
+#pragma mark - WMFNavigationBarHiderDelegate
+
+- (void)navigationBarHider:(WMFNavigationBarHider * _Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+    
 }
 
 @end

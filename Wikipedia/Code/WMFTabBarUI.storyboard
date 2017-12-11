@@ -76,22 +76,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ee9-Ec-cf5" kind="relationship" relationship="rootViewController" id="azh-iY-UGR"/>
+                        <segue destination="LJo-n3-DFe" kind="relationship" relationship="rootViewController" id="tV2-Xo-hpI"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="2114"/>
-        </scene>
-        <!--Explore-->
-        <scene sceneID="ja6-KK-7f5">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Explore" storyboardName="Explore" id="ee9-Ec-cf5" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Als-n1-TeI"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x8l-Ve-Gbj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1054" y="2880"/>
         </scene>
         <!--Places-->
         <scene sceneID="f6L-ye-aCD">
@@ -121,6 +111,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ac1-fZ-rPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2442" y="2930"/>
+        </scene>
+        <!--Explore View Controller-->
+        <scene sceneID="QWP-L4-TCq">
+            <objects>
+                <viewController id="LJo-n3-DFe" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6UG-Sa-Op7"/>
+                        <viewControllerLayoutGuide type="bottom" id="VSn-Ag-kQN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="327-WV-rsQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wi1-Nr-WVK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rLC-zY-Hja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="866" y="2904"/>
         </scene>
         <!--Saved View Controller-->
         <scene sceneID="sXb-sz-y0c">
