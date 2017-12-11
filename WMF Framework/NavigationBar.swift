@@ -169,7 +169,7 @@ public class NavigationBar: SetupView {
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         _navigationBarPercentHidden = navigationBarPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
-        print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
+        //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let changes = {
             let barTransformHeight = self.bar.frame.height * navigationBarPercentHidden
             let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
