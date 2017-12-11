@@ -28,7 +28,8 @@ const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
-  reference: 3
+  imagePlaceholder: 3,
+  reference: 4
 }
 
 /**
@@ -50,6 +51,8 @@ class ClickedItem {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
+    } else if (this.target.tagName === 'SPAN' && this.target.parentElement.getAttribute( 'data-data-image-gallery' ) === 'true') {
+      return ItemType.imagePlaceholder
     } else if (this.href) {
       return ItemType.link
     }
@@ -69,6 +72,9 @@ function sendMessageForClickedItem(item){
     break
   case ItemType.image:
     sendMessageForImageWithTarget(item.target)
+    break
+  case ItemType.imagePlaceholder:
+    sendMessageForImagePlaceholderWithTarget(item.target)
     break
   case ItemType.reference:
     sendMessageForReferenceWithTarget(item.target)
@@ -103,6 +109,22 @@ function sendMessageForImageWithTarget(target){
     'height': target.naturalHeight,
     'data-file-width': target.getAttribute('data-file-width'),
     'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+/**
+ * Sends message for a lazy load image placeholder click.
+ * @param  {!Element} innerPlaceholderSpan
+ * @return {void}
+ */
+function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
+  const outerSpan = innerPlaceholderSpan.parentElement
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': outerSpan.getAttribute('data-src'),
+    'width': outerSpan.getAttribute('data-width'),
+    'height': outerSpan.getAttribute('data-height'),
+    'data-file-width': outerSpan.getAttribute('data-data-file-width'),
+    'data-file-height': outerSpan.getAttribute('data-data-file-height')
   })
 }
 
@@ -566,12 +588,24 @@ const requirements = {
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
   widenImage: require('wikimedia-page-library').WidenImage,
+  lazyLoadTransformer: require('wikimedia-page-library').LazyLoadTransformer,
   location: require('./elementLocation')
 }
 
+// Documents attached to Window will attempt eager pre-fetching of image element resources as soon
+// as image elements appear in DOM of such documents. So for lazy image loading transform to work
+// (without the images being eagerly pre-fetched) our section fragments need to be created on a
+// document not attached to window - `lazyDocument`. The `live` document's `mainContentDiv` is only
+// used when we append our transformed fragments to it. See this Android commit message for details:
+// https://github.com/wikimedia/apps-android-wikipedia/commit/620538d961221942e340ca7ac7f429393d1309d6
+const lazyDocument = document.implementation.createHTMLDocument()
+const lazyImageLoadViewportDistanceMultiplier = 2 // Load images on the current screen up to one ahead.
+const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window, lazyImageLoadViewportDistanceMultiplier)
+const liveDocument = document
+
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
-DocumentFragment.prototype.createElement = name => document.createElement(name)
+DocumentFragment.prototype.createElement = name => lazyDocument.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -650,7 +684,7 @@ class Section {
   }
 
   containerDiv() {
-    const container = document.createElement('div')
+    const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
     container.innerHTML = `
         ${this.article.ismain ? '' : this.headingTag()}
@@ -672,7 +706,7 @@ const processResponseStatus = response => {
 const extractResponseJSON = response => response.json()
 
 const fragmentForSection = section => {
-  const fragment = document.createDocumentFragment()
+  const fragment = lazyDocument.createDocumentFragment()
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
@@ -724,6 +758,9 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
   // 'classifyElements' method itself for other examples.
   requirements.themes.classifyElements(fragment)
+
+  lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
+  lazyImageLoadingTransformer.loadPlaceholders()
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -766,7 +803,7 @@ const scrollToSection = hash => {
 
 const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
   performEarlyNonSectionTransforms(article)
-  const mainContentDiv = document.querySelector('div.content')
+  const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
@@ -2708,7 +2745,8 @@ var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed
 
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
-var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt'];
+// The 3 data-* items are used by iOS.
+var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt', 'data-file-width', 'data-file-height', 'data-image-gallery'];
 
 // Small images, especially icons, are quickly downloaded and may appear in many places. Lazily
 // loading these images degrades the experience with little gain. Always eagerly load these images.
@@ -3129,27 +3167,99 @@ var RedLinks = {
 };
 
 /**
+ * Gets array of ancestors of element which need widening.
+ * @param  {!HTMLElement} element
+ * @return {!Array.<HTMLElement>} Zero length array is returned if no elements should be widened.
+ */
+var ancestorsToWiden = function ancestorsToWiden(element) {
+  var widenThese = [];
+  var el = element;
+  while (el.parentNode) {
+    el = el.parentNode;
+    // No need to walk above 'content_block'.
+    if (el.classList.contains('content_block')) {
+      break;
+    }
+    widenThese.push(el);
+  }
+  return widenThese;
+};
+
+/**
+ * Sets style value.
+ * @param {!CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateStyleValue = function updateStyleValue(style, key, value) {
+  style[key] = value;
+};
+
+/**
+ * Sets style value only if value for given key already exists.
+ * @param {CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateExistingStyleValue = function updateExistingStyleValue(style, key, value) {
+  var valueExists = Boolean(style[key]);
+  if (valueExists) {
+    updateStyleValue(style, key, value);
+  }
+};
+
+/**
+ * Image widening CSS key/value pairs.
+ * @type {Object}
+ */
+var styleWideningKeysAndValues = {
+  width: '100%',
+  height: 'auto',
+  maxWidth: '100%',
+  float: 'none'
+};
+
+/**
+ * Perform widening on an element. Certain style properties are updated, but only if existing values
+ * for these properties already exist.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingExistingStyles = function widenElementByUpdatingExistingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateExistingStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
+ * Perform widening on an element.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingStyles = function widenElementByUpdatingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
  * To widen an image element a css class called 'pagelib_widen_image_override' is applied to the
  * image element, however, ancestors of the image element can prevent the widening from taking
  * effect. This method makes minimal adjustments to ancestors of the image element being widened so
  * the image widening can take effect.
- * @param  {!HTMLElement} el Element whose ancestors will be widened
+ * @param  {!HTMLElement} element Element whose ancestors will be widened
  * @return {void}
  */
-var widenAncestors = function widenAncestors(el) {
-  for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
-    if (parentElement.style.width) {
-      parentElement.style.width = '100%';
-    }
-    if (parentElement.style.height) {
-      parentElement.style.height = 'auto';
-    }
-    if (parentElement.style.maxWidth) {
-      parentElement.style.maxWidth = '100%';
-    }
-    if (parentElement.style.float) {
-      parentElement.style.float = 'none';
-    }
+var widenAncestors = function widenAncestors(element) {
+  ancestorsToWiden(element).forEach(widenElementByUpdatingExistingStyles);
+
+  // Without forcing widening on the parent anchor, lazy image loading placeholders
+  // aren't correctly widened on iOS for some reason.
+  var parentAnchor = elementUtilities.findClosestAncestor(element, 'a.image');
+  if (parentAnchor) {
+    widenElementByUpdatingStyles(parentAnchor);
   }
 };
 
@@ -3217,8 +3327,12 @@ var maybeWidenImage = function maybeWidenImage(image) {
 var WidenImage = {
   maybeWidenImage: maybeWidenImage,
   test: {
+    ancestorsToWiden: ancestorsToWiden,
     shouldWidenImage: shouldWidenImage,
-    widenAncestors: widenAncestors
+    updateExistingStyleValue: updateExistingStyleValue,
+    widenAncestors: widenAncestors,
+    widenElementByUpdatingExistingStyles: widenElementByUpdatingExistingStyles,
+    widenElementByUpdatingStyles: widenElementByUpdatingStyles
   }
 };
 

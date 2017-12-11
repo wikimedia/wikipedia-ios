@@ -1787,7 +1787,8 @@ var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed
 
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
-var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt'];
+// The 3 data-* items are used by iOS.
+var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt', 'data-file-width', 'data-file-height', 'data-image-gallery'];
 
 // Small images, especially icons, are quickly downloaded and may appear in many places. Lazily
 // loading these images degrades the experience with little gain. Always eagerly load these images.
@@ -2208,27 +2209,99 @@ var RedLinks = {
 };
 
 /**
+ * Gets array of ancestors of element which need widening.
+ * @param  {!HTMLElement} element
+ * @return {!Array.<HTMLElement>} Zero length array is returned if no elements should be widened.
+ */
+var ancestorsToWiden = function ancestorsToWiden(element) {
+  var widenThese = [];
+  var el = element;
+  while (el.parentNode) {
+    el = el.parentNode;
+    // No need to walk above 'content_block'.
+    if (el.classList.contains('content_block')) {
+      break;
+    }
+    widenThese.push(el);
+  }
+  return widenThese;
+};
+
+/**
+ * Sets style value.
+ * @param {!CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateStyleValue = function updateStyleValue(style, key, value) {
+  style[key] = value;
+};
+
+/**
+ * Sets style value only if value for given key already exists.
+ * @param {CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateExistingStyleValue = function updateExistingStyleValue(style, key, value) {
+  var valueExists = Boolean(style[key]);
+  if (valueExists) {
+    updateStyleValue(style, key, value);
+  }
+};
+
+/**
+ * Image widening CSS key/value pairs.
+ * @type {Object}
+ */
+var styleWideningKeysAndValues = {
+  width: '100%',
+  height: 'auto',
+  maxWidth: '100%',
+  float: 'none'
+};
+
+/**
+ * Perform widening on an element. Certain style properties are updated, but only if existing values
+ * for these properties already exist.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingExistingStyles = function widenElementByUpdatingExistingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateExistingStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
+ * Perform widening on an element.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingStyles = function widenElementByUpdatingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
  * To widen an image element a css class called 'pagelib_widen_image_override' is applied to the
  * image element, however, ancestors of the image element can prevent the widening from taking
  * effect. This method makes minimal adjustments to ancestors of the image element being widened so
  * the image widening can take effect.
- * @param  {!HTMLElement} el Element whose ancestors will be widened
+ * @param  {!HTMLElement} element Element whose ancestors will be widened
  * @return {void}
  */
-var widenAncestors = function widenAncestors(el) {
-  for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
-    if (parentElement.style.width) {
-      parentElement.style.width = '100%';
-    }
-    if (parentElement.style.height) {
-      parentElement.style.height = 'auto';
-    }
-    if (parentElement.style.maxWidth) {
-      parentElement.style.maxWidth = '100%';
-    }
-    if (parentElement.style.float) {
-      parentElement.style.float = 'none';
-    }
+var widenAncestors = function widenAncestors(element) {
+  ancestorsToWiden(element).forEach(widenElementByUpdatingExistingStyles);
+
+  // Without forcing widening on the parent anchor, lazy image loading placeholders
+  // aren't correctly widened on iOS for some reason.
+  var parentAnchor = elementUtilities.findClosestAncestor(element, 'a.image');
+  if (parentAnchor) {
+    widenElementByUpdatingStyles(parentAnchor);
   }
 };
 
@@ -2296,8 +2369,12 @@ var maybeWidenImage = function maybeWidenImage(image) {
 var WidenImage = {
   maybeWidenImage: maybeWidenImage,
   test: {
+    ancestorsToWiden: ancestorsToWiden,
     shouldWidenImage: shouldWidenImage,
-    widenAncestors: widenAncestors
+    updateExistingStyleValue: updateExistingStyleValue,
+    widenAncestors: widenAncestors,
+    widenElementByUpdatingExistingStyles: widenElementByUpdatingExistingStyles,
+    widenElementByUpdatingStyles: widenElementByUpdatingStyles
   }
 };
 

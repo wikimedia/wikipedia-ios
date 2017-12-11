@@ -521,10 +521,14 @@ div.pagelib_collapse_table_container {
   clear: both;
 }
 
-.pagelib_theme_dark .content div.pagelib_collapse_table_container,
-.pagelib_theme_black .content div.pagelib_collapse_table_container {
+.pagelib_theme_dark .content div.pagelib_collapse_table_container {
   box-shadow: none !important;
   background-color: #222 !important;
+}
+
+.pagelib_theme_black .content div.pagelib_collapse_table_container {
+  box-shadow: none !important;
+  border: 1px solid #43464a;
 }
 
 .pagelib_theme_sepia .content div.pagelib_collapse_table_container {
