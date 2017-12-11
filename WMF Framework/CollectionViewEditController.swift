@@ -392,7 +392,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
-            batchEditingState = .cancelled
+            batchEditingState = .none
         }
     }
     
@@ -432,6 +432,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     var isBatchEditToolbarVisible: Bool = false {
         didSet {
+            guard collectionView.window != nil else {
+                return
+            }
             self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, add: self.isBatchEditToolbarVisible)
             self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
         }
