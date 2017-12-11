@@ -36,7 +36,7 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
 }
 
 public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
-    func viewControllerWillBeDismissed()
+    func addArticlesToReadingListViewControllerWillBeDismissed()
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
@@ -95,7 +95,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.viewControllerWillBeDismissed()
+        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
     }
 
 }

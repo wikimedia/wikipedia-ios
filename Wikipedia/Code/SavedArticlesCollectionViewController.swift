@@ -261,7 +261,7 @@ extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
 // MARK: - AddArticlesToReadingListViewControllerDelegate
 
 extension SavedArticlesCollectionViewController: AddArticlesToReadingListViewControllerDelegate {
-    func viewControllerWillBeDismissed() {
+    func addArticlesToReadingListViewControllerWillBeDismissed() {
         editController.close()
     }
 }
