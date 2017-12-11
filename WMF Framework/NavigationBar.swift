@@ -22,7 +22,7 @@ public class SetupView: UIView {
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
-    fileprivate let bar: UINavigationBar = UINavigationBar()
+    public let bar: UINavigationBar = UINavigationBar()
     public let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
@@ -169,6 +169,7 @@ public class NavigationBar: SetupView {
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         _navigationBarPercentHidden = navigationBarPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
+        print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let changes = {
             let barTransformHeight = self.bar.frame.height * navigationBarPercentHidden
             let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
