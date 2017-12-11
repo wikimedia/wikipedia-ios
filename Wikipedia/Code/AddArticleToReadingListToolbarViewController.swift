@@ -5,20 +5,36 @@ public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectPr
 }
 
 class AddArticleToReadingListToolbarViewController: UIViewController {
-
-    
-    @IBOutlet weak var button: AlignedImageButton!
     
     var dataStore: MWKDataStore?
     var article: WMFArticle?
+    
+    fileprivate var button: AlignedImageButton?
     
     fileprivate var theme: Theme = Theme.standard
     
     func setup(dataStore: MWKDataStore, article: WMFArticle) {
         self.dataStore = dataStore
         self.article = article
-        button.setTitle("Add \(article.displayTitle!) to reading list", for: .normal)
+        button = AlignedImageButton()
+        guard let button = button else {
+            return
+        }
+        view.addSubview(button)
+        let articleTitle = article.displayTitle ?? "article"
+        button.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        button.titleLabel?.lineBreakMode = .byTruncatingTail
+        button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        button.verticalPadding = 5
         button.setImage(UIImage(named: "add"), for: .normal)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.sizeToFit()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let centerConstraint = button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let leadingConstraint = button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
+        centerConstraint.isActive = true
+        leadingConstraint.isActive = true
+        apply(theme: theme)
     }
     
     override func viewDidLoad() {
@@ -28,7 +44,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     
     public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
     
-    @IBAction fileprivate func buttonPressed() {
+    @objc fileprivate func buttonPressed() {
         guard let dataStore = dataStore, let article = article else {
             return
         }
@@ -52,6 +68,6 @@ extension AddArticleToReadingListToolbarViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.disabledLink
-        button.titleLabel?.textColor = theme.colors.link
+        button?.setTitleColor(theme.colors.link, for: .normal)
     }
 }
