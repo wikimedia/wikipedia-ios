@@ -294,7 +294,17 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         let toolbarView = UIView()
         updateToolbarViewFrame(toolbarView)
         toolbarView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        toolbarView.addSubview(addButton)
         return toolbarView
+    }()
+    
+    internal lazy var addButton: UIButton = {
+        let dimension: CGFloat = 50
+        let addButton = UIButton(type: .custom)
+        addButton.setImage(UIImage(named: "add"), for: .normal)
+        addButton.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
+        addButton.contentEdgeInsets = UIEdgeInsetsMake(0, 13, 0, 0)
+        return addButton
     }()
     
     fileprivate func updateToolbarViewFrame(_ toolbar: UIView) {
@@ -317,7 +327,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         let wasSaved = article.savedDate == nil
         if !wasSaved {
             isToolbarViewVisible = true
-            toolbarView.backgroundColor = UIColor.red
             view.addSubview(toolbarView)
         } else {
             toolbarView.removeFromSuperview()
@@ -345,5 +354,6 @@ extension ExploreViewController: Themeable {
         }
         statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
         wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
+        toolbarView.backgroundColor = theme.colors.disabledLink
     }
 }
