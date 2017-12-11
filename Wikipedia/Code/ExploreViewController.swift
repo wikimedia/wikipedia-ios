@@ -289,47 +289,43 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     // MARK: - Reading lists toolbar view
     
-    internal lazy var toolbarView: UIView = {
-        let toolbarViewHeight: CGFloat = 50
-        let toolbarView = UIView()
-        updateToolbarViewFrame(toolbarView)
-        toolbarView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        toolbarView.addSubview(addButton)
-        return toolbarView
+    internal lazy var toolbarViewController: AddArticleToReadingListToolbarViewController = {
+        let toolbarViewController = AddArticleToReadingListToolbarViewController()
+        updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
+        return toolbarViewController
     }()
     
-    internal lazy var addButton: UIButton = {
-        let dimension: CGFloat = 50
-        let addButton = UIButton(type: .custom)
-        addButton.setImage(UIImage(named: "add"), for: .normal)
-        addButton.frame = CGRect(x: 0, y: 0, width: dimension, height: dimension)
-        addButton.contentEdgeInsets = UIEdgeInsetsMake(0, 13, 0, 0)
-        return addButton
-    }()
-    
-    fileprivate func updateToolbarViewFrame(_ toolbar: UIView) {
+    fileprivate func updateToolbarViewFrame(_ toolbarView: UIView?) {
         let toolbarHeight: CGFloat = 50
-        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
+        toolbarView?.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
     }
     
     fileprivate var isToolbarViewVisible: Bool = false
     
     override func viewDidLayoutSubviews() {
         if isToolbarViewVisible {
-            updateToolbarViewFrame(toolbarView)
+            updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
         }
     }
     
     @objc func articleUpdated(notification: Notification) {
-        guard let article = notification.object as? WMFArticle else {
+        guard let article = notification.object as? WMFArticle, let userStore = userStore else {
             return
         }
         let wasSaved = article.savedDate == nil
         if !wasSaved {
+            addChildViewController(toolbarViewController)
+            updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
+            toolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(toolbarViewController.view)
+            toolbarViewController.didMove(toParentViewController: self)
+            toolbarViewController.setup(dataStore: userStore, article: article)
             isToolbarViewVisible = true
-            view.addSubview(toolbarView)
         } else {
-            toolbarView.removeFromSuperview()
+            isToolbarViewVisible = false
+            toolbarViewController.view.removeFromSuperview()
+            toolbarViewController.willMove(toParentViewController: nil)
+            toolbarViewController.removeFromParentViewController()
         }
     }
 }
@@ -354,6 +350,6 @@ extension ExploreViewController: Themeable {
         }
         statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
         wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
-        toolbarView.backgroundColor = theme.colors.disabledLink
+        toolbarViewController.apply(theme: theme)
     }
 }

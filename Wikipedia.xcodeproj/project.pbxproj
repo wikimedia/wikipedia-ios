@@ -103,6 +103,16 @@
 		192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
+		7A203F0B1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F0C1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F0E1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F0F1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F101FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */; };
+		7A203F111FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */; };
+		7A203F121FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */; };
+		7A203F131FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */; };
+		7A203F141FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */; };
 		7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
@@ -3122,6 +3132,8 @@
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
+		7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleToReadingListToolbarViewController.swift; sourceTree = "<group>"; };
+		7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddArticleToReadingListToolbarViewController.xib; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
@@ -7207,6 +7219,8 @@
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7ADEAB021FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib */,
+				7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */,
+				7A203F0A1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -8779,6 +8793,7 @@
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				B09B03F61CE0FB7700009083 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */,
+				7A203F101FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8871,6 +8886,7 @@
 				83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D80ED41C1EE57F4800CE8C50 /* WMFTableHeaderLabelView.xib in Resources */,
 				D80ED41D1EE57F4800CE8C50 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
+				7A203F141FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */,
 				D80ED41E1EE57F4800CE8C50 /* WebViewController.storyboard in Resources */,
 				D80ED41F1EE57F4800CE8C50 /* NotificationButtonBackground.png in Resources */,
 				D80ED4211EE57F4800CE8C50 /* WMFSettingsViewController.storyboard in Resources */,
@@ -9014,6 +9030,7 @@
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8A42C181E815A9C00D8E281 /* NotificationButtonBackground@2x.png in Resources */,
+				7A203F131FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9110,6 +9127,7 @@
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8CE269F1E698E2400DAE2E0 /* NotificationButtonBackground@2x.png in Resources */,
+				7A203F111FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9206,6 +9224,7 @@
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
 				D8EC3F9F1E9BDA35006712EB /* NotificationButtonBackground@2x.png in Resources */,
+				7A203F121FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9918,6 +9937,7 @@
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				7A203F0B1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
 				B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */,
@@ -10016,6 +10036,7 @@
 				D80ED2C81EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D80ED2CA1EE57F4800CE8C50 /* SavedPagesFunnel.m in Sources */,
 				D80ED2CB1EE57F4800CE8C50 /* AssetsFileFetcher.m in Sources */,
+				7A203F0F1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
 				D80ED2CC1EE57F4800CE8C50 /* WMFChange.m in Sources */,
 				D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */,
 				D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -10835,6 +10856,7 @@
 				D8533ED81ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DEC1F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				7A203F0E1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
@@ -10933,6 +10955,7 @@
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
+				7A203F0C1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
 				D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */,
 				D8CE25381E698E2400DAE2E0 /* AssetsFileFetcher.m in Sources */,
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
@@ -11239,6 +11262,7 @@
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */,
+				7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
 				D8EC3E2F1E9BDA35006712EB /* AssetsFileFetcher.m in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
