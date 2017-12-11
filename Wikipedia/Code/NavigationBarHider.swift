@@ -63,7 +63,7 @@ public class NavigationBarHider: NSObject {
         }
         
         let barHeight = navigationBar.bar.frame.size.height
-        if scrollY <= extendedViewHeight + barHeight {
+        if initialScrollY < extendedViewHeight + barHeight || scrollY <= extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
         } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
@@ -91,16 +91,20 @@ public class NavigationBarHider: NSObject {
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
         let barHeight = navigationBar.bar.frame.size.height
 
-        let targetOffsetY = targetContentOffset.pointee.y
         let top = 0 - scrollView.contentInset.top
-        if targetOffsetY < top + extendedViewHeight + barHeight {
-            if targetOffsetY < top + 0.5 * extendedViewHeight { // both visible
+        let targetOffsetY = targetContentOffset.pointee.y - top
+        if targetOffsetY < extendedViewHeight + barHeight {
+            if targetOffsetY < 0.5 * extendedViewHeight { // both visible
                 targetContentOffset.pointee = CGPoint(x: 0, y: top)
-            } else if targetOffsetY < top + extendedViewHeight + 0.5 * barHeight  { // only nav bar visible
+            } else if targetOffsetY < extendedViewHeight + 0.5 * barHeight  { // only nav bar visible
                 targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight)
-            } else if targetOffsetY < top + extendedViewHeight + barHeight {
+            } else if targetOffsetY < extendedViewHeight + barHeight {
                 targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight)
             }
+            return
+        }
+        
+        if initialScrollY < extendedViewHeight + barHeight && targetOffsetY > extendedViewHeight + barHeight { // let it naturally hide
             return
         }
 
