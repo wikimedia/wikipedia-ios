@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate>
+@interface WMFExploreCollectionViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, WMFSaveButtonsControllerDelegate>
 
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -82,6 +82,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     _userStore = userStore;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
+    self.saveButtonsController.delegate = self;
 }
 
 - (void)dealloc {
@@ -1952,6 +1953,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
+}
+
+#pragma mark - WMFSaveButtonsControllerDelegate
+
+-(void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
+    if ([self.delegate respondsToSelector:@selector(exploreCollectionViewController:didSave:article:)]) {
+        [self.delegate exploreCollectionViewController:self didSave:didSave article:article];
+    }
 }
 
 #if DEBUG && DEBUG_CHAOS

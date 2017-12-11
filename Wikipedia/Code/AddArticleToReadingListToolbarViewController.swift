@@ -7,22 +7,33 @@ public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectPr
 class AddArticleToReadingListToolbarViewController: UIViewController {
     
     var dataStore: MWKDataStore?
-    var article: WMFArticle?
+    var article: WMFArticle? {
+        didSet {
+            let articleTitle = article?.displayTitle ?? "article"
+            button?.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        }
+    }
     
     fileprivate var button: AlignedImageButton?
-    
     fileprivate var theme: Theme = Theme.standard
     
     func setup(dataStore: MWKDataStore, article: WMFArticle) {
         self.dataStore = dataStore
         self.article = article
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         button = AlignedImageButton()
+        apply(theme: theme)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         guard let button = button else {
             return
         }
         view.addSubview(button)
-        let articleTitle = article.displayTitle ?? "article"
-        button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.titleLabel?.lineBreakMode = .byTruncatingTail
         button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
         button.verticalPadding = 5
@@ -34,12 +45,6 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         let leadingConstraint = button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
         centerConstraint.isActive = true
         leadingConstraint.isActive = true
-        apply(theme: theme)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        apply(theme: theme)
     }
     
     public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?

@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didScrollToTop:(UIScrollView *)scrollView;
 
+@optional
+- (void)exploreCollectionViewController:(WMFExploreCollectionViewController *)collectionVC didSave:(BOOL)didSave article:(WMFArticle *)article;
 @end
 
 NS_ASSUME_NONNULL_END

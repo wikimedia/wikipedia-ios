@@ -1,5 +1,9 @@
 import UIKit
 
+@objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
+    func didSaveArticle(_ didSave: Bool, article: WMFArticle)
+}
+
 @objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
@@ -49,6 +53,8 @@ import UIKit
         }
     }
     
+    fileprivate var updatedArticle: WMFArticle?
+    
     @objc func articleUpdated(notification: Notification) {
         guard let article = notification.object as? WMFArticle, let key = article.key, let saveButtons = visibleSaveButtons[key.hash] else {
             return
@@ -56,7 +62,10 @@ import UIKit
         for saveButton in saveButtons {
             saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         }
+        updatedArticle = article
     }
+    
+    @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
     
     @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
@@ -70,6 +79,9 @@ import UIKit
         } else {
             PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
             savedPagesFunnel.logDelete()
+        }
+        if let article = updatedArticle {
+        delegate?.didSaveArticle(isSaved, article: article)
         }
     }
 }

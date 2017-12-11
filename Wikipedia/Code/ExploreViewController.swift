@@ -87,12 +87,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         
         self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
         apply(theme: self.theme)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -324,17 +318,15 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         }
     }
     
-    @objc func articleUpdated(notification: Notification) {
-        guard let article = notification.object as? WMFArticle, let userStore = userStore else {
+    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didSave: Bool, article: WMFArticle) {
+        guard let userStore = userStore else {
             return
         }
-        let wasSaved = article.savedDate == nil
-        if !wasSaved {
-            isToolbarViewVisible = true
+        
+        if didSave {
             toolbarViewController.setup(dataStore: userStore, article: article)
-        } else {
-            isToolbarViewVisible = false
         }
+        isToolbarViewVisible = didSave
     }
 }
 
