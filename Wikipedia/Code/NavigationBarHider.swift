@@ -109,9 +109,6 @@ public class NavigationBarHider: NSObject {
         }
 
         let animated = true
-        guard velocity.y != 0 else {
-            return
-        }
 
         let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
@@ -120,7 +117,16 @@ public class NavigationBarHider: NSObject {
             navigationBarPercentHidden = 1
         } else if velocity.y < 0 {
             navigationBarPercentHidden = 0
+        } else if navigationBarPercentHidden < 0.5 {
+            navigationBarPercentHidden = 0
+        } else {
+            navigationBarPercentHidden = 1
         }
+
+        guard navigationBarPercentHidden != currentNavigationBarPercentHidden else {
+            return
+        }
+
         navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
