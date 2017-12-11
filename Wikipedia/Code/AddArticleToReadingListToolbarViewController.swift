@@ -6,8 +6,8 @@ public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectPr
 
 class AddArticleToReadingListToolbarViewController: UIViewController {
 
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var label: UILabel!
+    
+    @IBOutlet weak var button: AlignedImageButton!
     
     var dataStore: MWKDataStore?
     var article: WMFArticle?
@@ -17,7 +17,8 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     func setup(dataStore: MWKDataStore, article: WMFArticle) {
         self.dataStore = dataStore
         self.article = article
-        label.text = "Add \(article.displayTitle!) to reading list"
+        button.setTitle("Add \(article.displayTitle!) to reading list", for: .normal)
+        button.setImage(UIImage(named: "add"), for: .normal)
     }
     
     override func viewDidLoad() {
@@ -51,6 +52,6 @@ extension AddArticleToReadingListToolbarViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.disabledLink
-        label.textColor = theme.colors.link
+        button.titleLabel?.textColor = theme.colors.link
     }
 }

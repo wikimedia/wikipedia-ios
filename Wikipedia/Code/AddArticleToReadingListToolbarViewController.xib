@@ -12,8 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddArticleToReadingListToolbarViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="button" destination="ZmK-Jc-9mN" id="hFn-AF-bqd"/>
-                <outlet property="label" destination="mWB-4U-MZD" id="erT-5a-3XD"/>
+                <outlet property="button" destination="ZmK-Jc-9mN" id="yHw-UE-84U"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,33 +21,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmK-Jc-9mN">
-                    <rect key="frame" x="12" y="12" width="22" height="22"/>
-                    <state key="normal" image="add"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZmK-Jc-9mN" customClass="AlignedImageButton">
+                    <rect key="frame" x="12" y="12" width="30" height="34"/>
                     <connections>
                         <action selector="buttonPressed" destination="-1" eventType="touchUpInside" id="M3Y-Fd-VIz"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWB-4U-MZD">
-                    <rect key="frame" x="44" y="14.5" width="37.5" height="18"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="mWB-4U-MZD" firstAttribute="centerY" secondItem="ZmK-Jc-9mN" secondAttribute="centerY" id="Q7u-8O-e7D"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZmK-Jc-9mN" secondAttribute="trailing" constant="12" id="gVK-mQ-TWU"/>
                 <constraint firstItem="ZmK-Jc-9mN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="hSQ-Mc-5Jd"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mWB-4U-MZD" secondAttribute="trailing" constant="12" id="n44-sk-huS"/>
                 <constraint firstItem="ZmK-Jc-9mN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="tZq-Kj-pdx"/>
-                <constraint firstItem="mWB-4U-MZD" firstAttribute="leading" secondItem="ZmK-Jc-9mN" secondAttribute="trailing" constant="10" id="to3-fB-VMb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
-    <resources>
-        <image name="add" width="22" height="22"/>
-    </resources>
 </document>
