@@ -23,7 +23,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         view.addSubview(button)
         button.titleLabel?.lineBreakMode = .byTruncatingTail
         button.verticalPadding = 5
-        button.setImage(UIImage(named: "add"), for: .normal)
+        button.setImage(UIImage(named: "add-to-list"), for: .normal)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         button.sizeToFit()
         button.translatesAutoresizingMaskIntoConstraints = false
