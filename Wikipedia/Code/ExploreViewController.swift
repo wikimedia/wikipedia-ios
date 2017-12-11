@@ -105,6 +105,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
         super.viewWillDisappear(animated)
         self.wmf_updateNavigationBar(removeUnderline: false)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        isToolbarViewVisible = false
     }
     
     private func updateNavigationBar() {

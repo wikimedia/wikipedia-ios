@@ -139,6 +139,25 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     // MARK: - Batch editing
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
+            editController.didTapCellWhileBatchEditing()
+            return
+        }
+        guard let readingList = readingList(at: indexPath) else {
+            return
+        }
+        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
+        readingListDetailCollectionViewController.apply(theme: theme)
+        navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState == .open {
+            editController.didTapCellWhileBatchEditing()
+        }
+    }
+    
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let updateItem = BatchEditToolbarActionType.update.action(with: self)
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
@@ -290,20 +309,5 @@ extension ReadingListsCollectionViewController {
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth,  collapseSectionSpacing:true)
-    }
-}
-
-// same for saved articles
-extension ReadingListsCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell, cell.batchEditingState != .open else {
-            return
-        }
-        guard let readingList = readingList(at: indexPath) else {
-            return
-        }
-        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
-        readingListDetailCollectionViewController.apply(theme: theme)
-        navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
     }
 }
