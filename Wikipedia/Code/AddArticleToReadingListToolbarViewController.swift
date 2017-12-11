@@ -19,14 +19,8 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        apply(theme: theme)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         view.addSubview(button)
         button.titleLabel?.lineBreakMode = .byTruncatingTail
-        button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
         button.verticalPadding = 5
         button.setImage(UIImage(named: "add"), for: .normal)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -34,8 +28,16 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         let centerConstraint = button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         let leadingConstraint = button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
+        let trailingConstraint = view.trailingAnchor.constraint(greaterThanOrEqualTo: button.trailingAnchor, constant: 12)
         centerConstraint.isActive = true
         leadingConstraint.isActive = true
+        trailingConstraint.isActive = true
+        
+        apply(theme: theme)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
     public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
