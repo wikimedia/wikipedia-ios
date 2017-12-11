@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
 
-@property (nonatomic, weak, nullable) WMFNavigationBar *navigationBar;
 @property (nonatomic, strong, nullable, readonly) MWKArticle *article;
 @property (nonatomic, strong, nullable, readonly) NSURL *articleURL;
 
@@ -76,7 +75,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapShareWithSelectedText:(NSString *)text;
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
+- (BOOL)webViewController:(WebViewController *)controller scrollViewShouldScrollToTop:(UIScrollView *)scrollView;
+
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 
 @end

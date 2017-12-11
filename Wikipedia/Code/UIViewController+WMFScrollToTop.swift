@@ -32,7 +32,6 @@ extension WMFViewController {
             return
         }
         scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: 0 - scrollView.contentInset.top), animated: true)
-        navigationBar.setPercentHidden(0, animated: true)
     }
 }
 

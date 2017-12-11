@@ -704,18 +704,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return NO;
 }
 
-#pragma mark - UIScrollViewDelegate
-
-/**
- *  This must be done to work around a bug in WKWebview that
- *  resets the deceleration rate each time dragging begins
- *  http://stackoverflow.com/questions/31369538/cannot-change-wkwebviews-scroll-rate-on-ios-9-beta
- */
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
-}
-
 #pragma mark - Zero
 
 - (void)updateZeroBannerWithNotification:(NSNotification *)notification {
@@ -1090,13 +1078,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    self.navBarHidden = NO;
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewShouldScrollToTop:)]) {
+        return [self.delegate webViewController:self scrollViewShouldScrollToTop:scrollView];
+    }
     return YES;
-}
-
-- (void)setNavBarHidden:(BOOL)navBarHidden {
-    _navBarHidden = navBarHidden;
-    [self.navigationBar setPercentHidden:navBarHidden ? 1 : 0 animated:YES];
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
@@ -1105,13 +1090,20 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocityPoint targetContentOffset:(inout CGPoint *)targetContentOffset {
-    CGFloat velocity = velocityPoint.y;
-    if (velocity == 0) { // don't hide or show on 0 velocity tap
-        return;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewWillBeginDragging:)]) {
+        [self.delegate webViewController:self scrollViewWillBeginDragging:scrollView];
     }
-    self.navBarHidden = velocity > 0;
+    [self wmf_dismissReferencePopoverAnimated:NO completion:nil];
 }
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocityPoint targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.delegate webViewController:self scrollViewWillEndDragging:scrollView withVelocity:velocityPoint targetContentOffset:targetContentOffset];
+    }
+}
+
+
 
 #pragma mark -
 

@@ -1919,29 +1919,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                          }];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self.navigationBarHider scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    // DDLogDebug(@"Stopped scrolling");
-}
-
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    [self.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
     return YES;
 }
 

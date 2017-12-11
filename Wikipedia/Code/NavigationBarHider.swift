@@ -26,7 +26,7 @@ extension CGFloat {
 
 
 @objc(WMFNavigationBarHider)
-public class NavigationBarHider: NSObject, UIScrollViewDelegate {
+public class NavigationBarHider: NSObject {
     @objc public weak var navigationBar: NavigationBar?
     @objc public weak var delegate: NavigationBarHiderDelegate?
     
@@ -34,8 +34,7 @@ public class NavigationBarHider: NSObject, UIScrollViewDelegate {
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
     
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
             return
         }
@@ -43,9 +42,8 @@ public class NavigationBarHider: NSObject, UIScrollViewDelegate {
         initialScrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
     }
-    
 
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
             return
         }
@@ -79,7 +77,7 @@ public class NavigationBarHider: NSObject, UIScrollViewDelegate {
         })
     }
     
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard isUserScrolling else {
             return
         }
@@ -122,13 +120,5 @@ public class NavigationBarHider: NSObject, UIScrollViewDelegate {
         navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
-    }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-    }
-    
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
     }
 }

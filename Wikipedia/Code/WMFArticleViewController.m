@@ -926,8 +926,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
-
-    self.webViewController.navigationBar = self.navigationBar;
 }
 
 #pragma mark - Table of Contents
@@ -1452,10 +1450,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+}
+
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    [self.navigationBarHider scrollViewDidScroll:scrollView];
+}
+
+- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
