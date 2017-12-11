@@ -2,6 +2,7 @@ import UIKit
 
 public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func addArticlesToReadingListViewControllerWillBeDismissed()
+    func addedArticleToReadingList(named name: String)
 }
 
 class AddArticleToReadingListToolbarViewController: UIViewController {
@@ -56,6 +57,11 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
 extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListViewControllerDelegate {
     func addArticlesToReadingListViewControllerWillBeDismissed() {
         delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
+    }
+    
+    func addedArticleToReadingList(named name: String) {
+        button.setTitle("Article added to \(name)", for: .normal)
+        delegate?.addedArticleToReadingList(named: name)
     }
 }
 

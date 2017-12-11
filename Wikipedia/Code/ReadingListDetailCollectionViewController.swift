@@ -171,13 +171,19 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+            editController.didTapCellWhileBatchEditing()
             return
         }
         guard let articleURL = articleURL(at: indexPath) else {
-            collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState == .open {
+            editController.didTapCellWhileBatchEditing()
+        }
     }
     
     internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {

@@ -18,12 +18,15 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
         collectionView?.allowsMultipleSelection = false
     }
     
+    public weak var delegate: AddArticlesToReadingListViewControllerDelegate?
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedReadingList = readingList(at: indexPath) else {
             return
         }
         do {
          try readingListsController.add(articles: articles, to: selectedReadingList)
+            delegate?.addedArticleToReadingList?(named: selectedReadingList.name!)
         } catch let err {
             print(err)
             // do something
@@ -35,8 +38,9 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     }
 }
 
-public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
+@objc public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
     func addArticlesToReadingListViewControllerWillBeDismissed()
+    @objc optional func addedArticleToReadingList(named name: String)
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
@@ -48,7 +52,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem?
     @IBOutlet weak var closeButton: UIBarButtonItem?
     
-    fileprivate var readingListsListViewController: ReadingListsCollectionViewController?
+    fileprivate var readingListsListViewController: ReadingListsListCollectionViewController?
     @IBOutlet weak var containerView: UIView!
     
     fileprivate var theme: Theme
@@ -66,6 +70,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     @IBAction func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
+        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
     }
     
     @IBAction func addButtonPressed() {
@@ -88,16 +93,21 @@ class AddArticlesToReadingListViewController: UIViewController {
         readingListsListViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(readingListsListViewController.view)
         readingListsListViewController.didMove(toParentViewController: self)
+        readingListsListViewController.delegate = self
         apply(theme: theme)
     }
     
     public weak var delegate: AddArticlesToReadingListViewControllerDelegate?
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
-    }
 
+}
+
+extension AddArticlesToReadingListViewController: AddArticlesToReadingListViewControllerDelegate {
+    func addArticlesToReadingListViewControllerWillBeDismissed() {
+    }
+    
+    func addedArticleToReadingList(named name: String) {
+        delegate?.addedArticleToReadingList?(named: name)
+    }
 }
 
 extension AddArticlesToReadingListViewController: Themeable {

@@ -344,6 +344,11 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 }
 
 extension ExploreViewController: AddArticleToReadingListToolbarViewControllerDelegate {
+    // Show a confirmation.
+    func addedArticleToReadingList(named name: String) {
+        isToolbarViewVisible = true
+    }
+    
     func addArticlesToReadingListViewControllerWillBeDismissed() {
         isToolbarViewVisible = false
     }
