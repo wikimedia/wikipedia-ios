@@ -54,8 +54,8 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
 
 }
 
-extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListViewControllerDelegate {
-    func addArticlesToReadingListViewControllerWillBeDismissed() {
+extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListDelegate {
+    func viewControllerWillBeDismissed() {
         delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
     }
     

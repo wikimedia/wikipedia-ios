@@ -18,7 +18,7 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
         collectionView?.allowsMultipleSelection = false
     }
     
-    public weak var delegate: AddArticlesToReadingListViewControllerDelegate?
+    public weak var delegate: AddArticlesToReadingListDelegate?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedReadingList = readingList(at: indexPath) else {
@@ -38,8 +38,8 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     }
 }
 
-@objc public protocol AddArticlesToReadingListViewControllerDelegate: NSObjectProtocol {
-    func addArticlesToReadingListViewControllerWillBeDismissed()
+@objc public protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
+    func viewControllerWillBeDismissed()
     @objc optional func addedArticleToReadingList(named name: String)
 }
 
@@ -70,7 +70,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     @IBAction func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
-        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
+        delegate?.viewControllerWillBeDismissed()
     }
     
     @IBAction func addButtonPressed() {
@@ -97,12 +97,12 @@ class AddArticlesToReadingListViewController: UIViewController {
         apply(theme: theme)
     }
     
-    public weak var delegate: AddArticlesToReadingListViewControllerDelegate?
+    public weak var delegate: AddArticlesToReadingListDelegate?
 
 }
 
-extension AddArticlesToReadingListViewController: AddArticlesToReadingListViewControllerDelegate {
-    func addArticlesToReadingListViewControllerWillBeDismissed() {
+extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelegate {
+    func viewControllerWillBeDismissed() {
     }
     
     func addedArticleToReadingList(named name: String) {
