@@ -63,8 +63,11 @@
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
+"appearance-settings-expand-tables" = "Udvid tabeller";
+"appearance-settings-expand-tables-footer" = "Angiv at alle tabeller i alle artikler skal være åbne som standard, inklusive hurtige fakta, referencer, noter og eksterne henvisninger.";
 "appearance-settings-image-dimming-footer" = "Sænk gennemsigtighed for billeder på det mørke tema";
 "appearance-settings-reading-themes" = "Læsetemaer";
+"appearance-settings-set-automatic-table-opening" = "Tabelindstillinger";
 "appearance-settings-text-sizing-example-text" = "Træk skyderen oven over for at ændre størrelsen på artikelteksten. Udnyt din tekststørrelse fra systemet til at ændre størrelse på andre tekstområder i programmet.";
 "appearance-settings-theme-options" = "Temaindstillinger";
 "appearance-settings-title" = "Læsetemaer";
