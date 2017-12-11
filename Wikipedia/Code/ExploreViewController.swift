@@ -286,6 +286,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     
     internal lazy var toolbarViewController: AddArticleToReadingListToolbarViewController = {
         let toolbarViewController = AddArticleToReadingListToolbarViewController()
+        toolbarViewController.dataStore = userStore
         updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
         return toolbarViewController
     }()
@@ -319,13 +320,18 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didSave: Bool, article: WMFArticle) {
-        guard let userStore = userStore else {
+        let didSaveOtherArticle = didSave && isToolbarViewVisible && article != toolbarViewController.article
+        let didUnsaveOtherArticle = !didSave && isToolbarViewVisible && article != toolbarViewController.article
+        
+        if didUnsaveOtherArticle {
             return
         }
-        
-        if didSave {
-            toolbarViewController.setup(dataStore: userStore, article: article)
+        if didSaveOtherArticle {
+            toolbarViewController.article = article
+            return
         }
+
+        toolbarViewController.article = article
         isToolbarViewVisible = didSave
     }
 }
