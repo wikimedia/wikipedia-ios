@@ -210,7 +210,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         switch action.type {
         case .update:
             print("Update")
-            return true
+            return false
         case .addToList:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
             addArticlesToReadingListViewController.delegate = self

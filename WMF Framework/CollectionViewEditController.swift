@@ -392,6 +392,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
+            guard isCollectionViewEmpty != oldValue else {
+                return
+            }
             batchEditingState = .cancelled
             navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
@@ -469,6 +472,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             button.action = #selector(didPerformBatchEditToolbarAction(with:))
             button.tag = index
             buttons.append(button)
+            if action.type == BatchEditToolbarActionType.update {
+                button.isEnabled = false
+            }
         }
         
         return buttons
