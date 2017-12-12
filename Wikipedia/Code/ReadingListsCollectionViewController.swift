@@ -149,7 +149,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         }
         let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
         readingListDetailCollectionViewController.apply(theme: theme)
-        navigationController?.pushViewController(readingListDetailCollectionViewController, animated: true)
+        wmf_push(readingListDetailCollectionViewController, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

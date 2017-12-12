@@ -102,6 +102,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>
+                    <navigationItem key="navigationItem" id="BCS-mT-Lm6">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="moe-WC-1c5"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="Dyz-3S-Guw"/>
