@@ -301,6 +301,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
                 if let batchEditSelectView = batchEditSelectView {
                     contentView.addSubview(batchEditSelectView)
+                    setNeedsLayout()
                 }
             } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
                 batchEditSelectView?.removeFromSuperview()
