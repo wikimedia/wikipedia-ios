@@ -45,7 +45,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
         collectionViewUpdater?.delegate = self
         
-        register(SavedArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         guard let collectionView = collectionView else {
             return
@@ -362,7 +362,7 @@ extension ReadingListDetailCollectionViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticleCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -397,14 +397,14 @@ extension ReadingListDetailCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let savedArticleCell = cell as? SavedArticleCollectionViewCell else {
+        guard let savedArticleCell = cell as? SavedCollectionViewCell else {
             return cell
         }
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
-    fileprivate func configure(cell: SavedArticleCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    fileprivate func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
     
         guard let collectionView = self.collectionView else {

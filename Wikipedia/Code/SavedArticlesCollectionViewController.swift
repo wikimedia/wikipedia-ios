@@ -1,9 +1,6 @@
 import UIKit
 import WMF
 
-class SavedArticleCollectionViewCell: SavedCollectionViewCell {
-}
-
 class ReadingListTag: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsetsMake(3, 3, 3, 3)
@@ -55,7 +52,7 @@ class ReadingListTag: SizeThatFitsView {
 @objc(WMFSavedArticlesCollectionViewController)
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
-    fileprivate let reuseIdentifier = "SavedArticleCollectionViewCell"
+    fileprivate let reuseIdentifier = "SavedCollectionViewCell"
     
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -127,7 +124,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(SavedArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         deleteAllButtonText = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
         deleteAllConfirmationText = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
         deleteAllCancelText = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
@@ -155,7 +152,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let savedArticleCell = cell as? SavedArticleCollectionViewCell else {
+        guard let savedArticleCell = cell as? SavedCollectionViewCell else {
             return cell
         }
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)

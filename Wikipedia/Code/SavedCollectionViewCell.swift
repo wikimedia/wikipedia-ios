@@ -32,6 +32,7 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
         configureCommon(shouldShowSeparators: shouldShowSeparators, index: index, theme: theme, shouldAdjustMargins: shouldAdjustMargins, count: count)
     }
     
+
     fileprivate func configureCommon(shouldShowSeparators: Bool = false, index: Int, theme: Theme, shouldAdjustMargins: Bool = true, count: Int) {
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0
