@@ -216,6 +216,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self.exploreViewController setUserStore:self.dataStore];
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+    settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
     self.exploreViewController.navigationItem.leftBarButtonItem = settingsBarButtonItem;
 }
 

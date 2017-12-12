@@ -74,7 +74,9 @@ public class NavigationBar: SetupView {
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
-        
+
+        progressView.isAccessibilityElement = false
+
         addSubview(backgroundView)
         addSubview(shadow)
         addSubview(extendedView)
