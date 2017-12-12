@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +40,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="290" height="290"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KZU-5g-iSy">
-                            <rect key="frame" x="0.0" y="0.0" width="290" height="231"/>
+                            <rect key="frame" x="0.0" y="0.0" width="290" height="240"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vzF-dw-OTG">
                                     <rect key="frame" x="0.0" y="0.0" width="290" height="32"/>
@@ -150,17 +151,17 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ick-Zb-dz8">
-                                    <rect key="frame" x="0.0" y="156" width="290" height="75"/>
+                                    <rect key="frame" x="0.0" y="156" width="290" height="84"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="56n-xZ-69v">
-                                            <rect key="frame" x="17" y="12.666666666666657" width="256" height="50"/>
+                                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="56n-xZ-69v">
+                                            <rect key="frame" x="17" y="14.333333333333343" width="256" height="56"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZ3-3K-fnR" userLabel="Aa Light">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="Uf9-QY-mBe"/>
-                                                        <constraint firstAttribute="height" constant="50" id="hBr-gh-wNS"/>
+                                                        <constraint firstAttribute="width" constant="56" id="Uf9-QY-mBe"/>
+                                                        <constraint firstAttribute="height" constant="56" id="hBr-gh-wNS"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -171,7 +172,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
+                                                            <real key="value" value="28"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -180,11 +181,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0K-vq-CgH" userLabel="Aa Sepia">
-                                                    <rect key="frame" x="68.666666666666671" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="66.666666666666671" y="0.0" width="56" height="56"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.94509803920000002" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="7Xj-F8-NFQ"/>
-                                                        <constraint firstAttribute="width" constant="50" id="Qkk-NW-Svx"/>
+                                                        <constraint firstAttribute="height" constant="56" id="7Xj-F8-NFQ"/>
+                                                        <constraint firstAttribute="width" constant="56" id="Qkk-NW-Svx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -195,7 +196,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
+                                                            <real key="value" value="28"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -204,11 +205,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWG-tp-jny" userLabel="Aa Dark">
-                                                    <rect key="frame" x="137.33333333333334" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="133.33333333333334" y="0.0" width="56" height="56"/>
                                                     <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="5KZ-1d-ePj"/>
-                                                        <constraint firstAttribute="width" constant="50" id="Oin-AL-Ql1"/>
+                                                        <constraint firstAttribute="height" constant="56" id="5KZ-1d-ePj"/>
+                                                        <constraint firstAttribute="width" constant="56" id="Oin-AL-Ql1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -219,7 +220,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
+                                                            <real key="value" value="28"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -228,11 +229,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73S-3R-kf2" userLabel="Aa Black">
-                                                    <rect key="frame" x="206" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="200" y="0.0" width="56" height="56"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="Geh-kU-win"/>
-                                                        <constraint firstAttribute="width" constant="50" id="nCx-Fx-wsf"/>
+                                                        <constraint firstAttribute="height" constant="56" id="Geh-kU-win"/>
+                                                        <constraint firstAttribute="width" constant="56" id="nCx-Fx-wsf"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <state key="normal" title="Aa">
@@ -243,7 +244,7 @@
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
+                                                            <real key="value" value="28"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -256,7 +257,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="56n-xZ-69v" firstAttribute="centerY" secondItem="ick-Zb-dz8" secondAttribute="centerY" id="1RD-cu-TUC"/>
-                                        <constraint firstAttribute="height" priority="999" constant="75" id="PIk-nL-WTB"/>
+                                        <constraint firstAttribute="height" priority="999" constant="84" id="PIk-nL-WTB"/>
                                         <constraint firstItem="56n-xZ-69v" firstAttribute="leading" secondItem="ick-Zb-dz8" secondAttribute="leading" constant="17" id="PN9-zE-XJA"/>
                                         <constraint firstAttribute="trailing" secondItem="56n-xZ-69v" secondAttribute="trailing" constant="17" id="m0h-MT-JGM"/>
                                     </constraints>
