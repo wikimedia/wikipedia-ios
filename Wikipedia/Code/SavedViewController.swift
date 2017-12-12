@@ -202,7 +202,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        sortButton.isEnabled = !empty
         isSearchBarHidden = empty
     }
 }

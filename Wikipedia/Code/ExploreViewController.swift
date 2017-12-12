@@ -320,13 +320,6 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
     }
     
     func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didSave: Bool, article: WMFArticle) {
-        
-        defer {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6)) {
-                self.isToolbarViewVisible = false
-            }
-        }
-        
         let didSaveOtherArticle = didSave && isToolbarViewVisible && article != toolbarViewController.article
         let didUnsaveOtherArticle = !didSave && isToolbarViewVisible && article != toolbarViewController.article
         
@@ -340,6 +333,10 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
 
         toolbarViewController.article = article
         isToolbarViewVisible = didSave
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(8)) {
+            self.isToolbarViewVisible = false
+        }
     }
 }
 
