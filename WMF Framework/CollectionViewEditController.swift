@@ -382,6 +382,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     @objc public func close() {
         batchEditingState = .cancelled
+        isBatchEditToolbarVisible = false
         closeActionPane()
     }
     

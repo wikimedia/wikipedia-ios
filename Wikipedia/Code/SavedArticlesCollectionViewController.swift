@@ -261,6 +261,9 @@ extension SavedArticlesCollectionViewController: AddArticlesToReadingListDelegat
     func viewControllerWillBeDismissed() {
         editController.close()
     }
+    func addedArticleToReadingList(named name: String) {
+        editController.close()
+    }
 }
 
 // MARK: - UISearchBarDelegate

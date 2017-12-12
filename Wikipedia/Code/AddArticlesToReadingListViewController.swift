@@ -18,6 +18,11 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
         collectionView?.allowsMultipleSelection = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.delegate?.viewControllerWillBeDismissed()
+    }
+    
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -103,6 +108,7 @@ class AddArticlesToReadingListViewController: UIViewController {
 
 extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
+        delegate?.viewControllerWillBeDismissed()
     }
     
     func addedArticleToReadingList(named name: String) {
