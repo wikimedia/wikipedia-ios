@@ -85,6 +85,7 @@ public class NavigationBar: SetupView {
         bar.delegate = self
         
         shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
+        shadowHeightConstraint.priority = .defaultHigh
         shadow.addConstraint(shadowHeightConstraint)
         
         var updatedConstraints: [NSLayoutConstraint] = []
