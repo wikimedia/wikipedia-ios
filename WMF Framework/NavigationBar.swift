@@ -174,11 +174,19 @@ public class NavigationBar: SetupView {
             let barTransformHeight = self.bar.frame.height * navigationBarPercentHidden
             let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
             let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
+            let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
             self.bar.transform = barTransform
+            
+            for subview in self.bar.subviews {
+                for subview in subview.subviews {
+                    subview.transform = barScaleTransform
+                }
+            }
+            self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden 
             let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
             self.extendedView.transform = totalTransform
             self.backgroundView.transform = totalTransform
-            self.extendedView.subviews.first?.alpha = 1.0 - extendedViewPercentHidden
+            self.extendedView.alpha = 1.0 - extendedViewPercentHidden
             self.progressView.transform = totalTransform
             self.shadow.transform = totalTransform
             additionalAnimations?()
@@ -233,7 +241,7 @@ extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
+        //statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
         backgroundView.backgroundColor = theme.colors.chromeBackground
         
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
