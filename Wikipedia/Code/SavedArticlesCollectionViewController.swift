@@ -155,6 +155,9 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         guard let savedArticleCell = cell as? SavedCollectionViewCell else {
             return cell
         }
+        let readingLists = readingListsForArticle(at: indexPath)
+        let readingListNames = readingLists.flatMap({ $0.name })
+        readingListNames.forEach({ print("name: \($0)") })
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
@@ -162,6 +165,20 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         cell.isBatchEditable = true
+    }
+    
+    fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        let moc = dataStore.viewContext
+        do {
+            let entries = try moc.fetch(request)
+            let articleKey = article(at: indexPath)?.key
+            let readingLists = entries.filter { $0.articleKey == articleKey }.flatMap { $0.list }
+            return readingLists
+        } catch let err {
+            print(err)
+        }
+        return []
     }
     
     // MARK: - Empty state

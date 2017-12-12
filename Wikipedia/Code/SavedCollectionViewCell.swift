@@ -2,6 +2,12 @@ import WMF
 
 class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
     
+    public var readingLists: [ReadingList]? = nil {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
         isImageViewHidden = true
         titleLabel.text = readingList.name
