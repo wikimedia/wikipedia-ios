@@ -1,6 +1,6 @@
 import UIKit
 
-protocol CreateReadingListViewControllerDelegate: NSObjectProtocol {
+protocol CreateReadingListDelegate: NSObjectProtocol {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?)
 }
 
@@ -38,7 +38,7 @@ class CreateReadingListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var delegate: CreateReadingListViewControllerDelegate?
+    weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
         let description = descriptionTextView.textView.text

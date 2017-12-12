@@ -448,10 +448,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return actions
     }
     
-    @objc public func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        return delegate?.didPerformBatchEditToolbarAction(action) ?? false
-    }
-    
     @objc public func didPerformBatchEditToolbarAction(with sender: UIBarButtonItem) {
         let _ = delegate?.didPerformBatchEditToolbarAction(batchEditToolbarActions[sender.tag])
     }

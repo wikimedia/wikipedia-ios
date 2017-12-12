@@ -346,7 +346,7 @@ extension ExploreViewController: AddArticleToReadingListToolbarViewControllerDel
         isToolbarViewVisible = true
     }
     
-    func addArticlesToReadingListViewControllerWillBeDismissed() {
+    func viewControllerWillBeDismissed() {
         isToolbarViewVisible = false
     }
 }

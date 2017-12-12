@@ -358,7 +358,7 @@ extension ReadingListDetailCollectionViewController: AddArticlesToReadingListDel
 extension ReadingListDetailCollectionViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ReadingListCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)

@@ -1,7 +1,7 @@
 import UIKit
 
 public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
-    func addArticlesToReadingListViewControllerWillBeDismissed()
+    func viewControllerWillBeDismissed()
     func addedArticleToReadingList(named name: String)
 }
 
@@ -56,7 +56,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
 
 extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
-        delegate?.addArticlesToReadingListViewControllerWillBeDismissed()
+        delegate?.viewControllerWillBeDismissed()
     }
     
     func addedArticleToReadingList(named name: String) {

@@ -1,8 +1,5 @@
 import Foundation
 
-class ReadingListCollectionViewCell: SavedCollectionViewCell {
-}
-
 @objc(WMFReadingListsCollectionViewController)
 class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
@@ -16,7 +13,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     var editController: CollectionViewEditController!
 
-    fileprivate let reuseIdentifier = "ReadingListCollectionViewCell"
+    fileprivate let reuseIdentifier = "ReadingListsCollectionViewCell"
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -48,7 +45,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
         collectionViewUpdater?.delegate = self
 
-        register(ReadingListCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         guard let collectionView = collectionView else {
             return
@@ -89,7 +86,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         present(createReadingListViewController, animated: true, completion: nil)
     }
     
-    open func configure(cell: ReadingListCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    open func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let collectionView = self.collectionView else {
             return
         }
@@ -167,7 +164,8 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
-extension ReadingListsCollectionViewController: CreateReadingListViewControllerDelegate {
+
+extension ReadingListsCollectionViewController: CreateReadingListDelegate {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
         do {
             let _ = try readingListsController.createReadingList(named: name, description: description)
@@ -197,7 +195,7 @@ extension ReadingListsCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let readingListCell = cell as? ReadingListCollectionViewCell else {
+        guard let readingListCell = cell as? SavedCollectionViewCell else {
             return cell
         }
         configure(cell: readingListCell, forItemAt: indexPath, layoutOnly: false)
@@ -209,7 +207,7 @@ extension ReadingListsCollectionViewController {
 extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ReadingListCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
@@ -296,7 +294,7 @@ extension ReadingListsCollectionViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
