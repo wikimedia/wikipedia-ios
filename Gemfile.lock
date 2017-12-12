@@ -104,7 +104,7 @@ GEM
     multipart-post (2.0.0)
     nanaimo (0.2.3)
     os (0.9.6)
-    plist (3.3.0)
+    plist (3.4.0)
     public_suffix (2.0.5)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
