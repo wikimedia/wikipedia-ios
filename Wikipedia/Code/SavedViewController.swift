@@ -71,7 +71,6 @@ class SavedViewController: UIViewController {
                 savedDelegate = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
-                isSearchBarHidden = false
                 
                 addChild(savedArticlesCollectionViewController)
                 
@@ -202,6 +201,10 @@ extension SavedViewController: BatchEditNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
+        guard currentView != .readingLists else {
+            isSearchBarHidden = true
+            return
+        }
         isSearchBarHidden = empty
     }
 }

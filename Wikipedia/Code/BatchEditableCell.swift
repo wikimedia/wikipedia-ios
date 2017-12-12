@@ -32,10 +32,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         multiSelectIndicator?.image = image
     }
     
-    func expand() {
-        setNeedsLayout()
-    }
-    
     public override var frame: CGRect {
         didSet {
             setNeedsLayout()

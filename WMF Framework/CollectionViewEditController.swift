@@ -370,13 +370,14 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         collectionView.allowsMultipleSelection = willOpen
         for cell in editableCells {
             let targetTranslation = willOpen ? cell.batchEditSelectView?.fixedWidth : 0
-            UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
                 cell.batchEditingTranslation = targetTranslation ?? 0
                 cell.layoutIfNeeded()
             }, completion: { (finished: Bool) in
-                if !willOpen {
-                    cell.batchEditSelectView?.removeFromSuperview()
-                }
+//                print("finished: \(finished)")
+//                if !willOpen {
+//                    cell.batchEditSelectView?.removeFromSuperview()
+//                }
             })
         }
         if !willOpen {
@@ -391,11 +392,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
-            guard isCollectionViewEmpty != oldValue else {
-                return
+            if selectedIndexPaths.isEmpty || selectedIndexPaths.count == 1 {
+                batchEditingState = .none
+                navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
             }
-            batchEditingState = .cancelled
-            navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
     }
     

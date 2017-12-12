@@ -280,6 +280,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     func resetBatchEdit() {
         batchEditingTranslation = 0
+        batchEditSelectView?.removeFromSuperview()
     }
     
     public var isBatchEditable: Bool = false {
@@ -293,18 +294,4 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             batchEditSelectView?.isSelected = isSelected
         }
     }
-    
-//    public var batchEditingState: BatchEditingState = .none {
-//        didSet {
-//            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
-//                if let batchEditSelectView = batchEditSelectView {
-//                    contentView.addSubview(batchEditSelectView)
-//                    batchEditSelectView.clipsToBounds = true
-//                    setNeedsLayout()
-//                }
-//            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
-//                batchEditSelectView?.removeFromSuperview()
-//            }
-//        }
-//    }
 }
