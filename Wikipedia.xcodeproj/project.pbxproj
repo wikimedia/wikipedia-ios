@@ -1176,6 +1176,7 @@
 		D837B5B21F0D68B800DCB9CD /* URL+WMFLinkParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837B5B11F0D68B800DCB9CD /* URL+WMFLinkParsing.swift */; };
 		D837D0381D6CC8B3004EFBC6 /* QueuesSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806721C0CE9850065EBC0 /* QueuesSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
+		D83AC1C61FE0101A005587B7 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83AC1C51FE0101A005587B7 /* CollectionView.swift */; };
 		D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */; };
 		D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4109,6 +4110,7 @@
 		D837B5A71F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+WikipediaLanguage.swift"; sourceTree = "<group>"; };
 		D837B5A91F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFFeedOnThisDayEvent+LocalizedDates.swift"; path = "WMF Framework/WMFFeedOnThisDayEvent+LocalizedDates.swift"; sourceTree = SOURCE_ROOT; };
 		D837B5B11F0D68B800DCB9CD /* URL+WMFLinkParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URL+WMFLinkParsing.swift"; path = "Wikipedia/Code/URL+WMFLinkParsing.swift"; sourceTree = SOURCE_ROOT; };
+		D83AC1C51FE0101A005587B7 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		D83C5ABA1F2281A90066C892 /* AnnouncementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnnouncementCollectionViewCell.swift; path = ../Wikipedia/Code/AnnouncementCollectionViewCell.swift; sourceTree = "<group>"; };
 		D83FD2891EF4724700532B15 /* FeaturedArticleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeaturedArticleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83FD28C1EF4724700532B15 /* FeaturedArticleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedArticleWidget.swift; sourceTree = "<group>"; };
@@ -7254,6 +7256,7 @@
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
 				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
+				D83AC1C51FE0101A005587B7 /* CollectionView.swift */,
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
 				D82E954B1F15397D007BD960 /* ThemeableTextField.swift */,
@@ -10141,6 +10144,7 @@
 				0E728D2E1DAEE8FF0074EB4B /* WMFMainPageContentSource.m in Sources */,
 				D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
+				D83AC1C61FE0101A005587B7 /* CollectionView.swift in Sources */,
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */,
 				B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */,

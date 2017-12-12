@@ -1101,7 +1101,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndDecelerating:)]) {
+        [self.delegate webViewController:self scrollViewDidEndDecelerating:scrollView];
+    }
+}
 
 #pragma mark -
 

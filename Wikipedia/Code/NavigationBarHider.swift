@@ -31,6 +31,7 @@ public class NavigationBarHider: NSObject {
     @objc public weak var delegate: NavigationBarHiderDelegate?
     
     fileprivate var isUserScrolling: Bool = false
+    fileprivate var isScrollingToTop: Bool = false
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
     
@@ -45,6 +46,10 @@ public class NavigationBarHider: NSObject {
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
+            return
+        }
+
+        guard isUserScrolling || isScrollingToTop else {
             return
         }
         
@@ -65,7 +70,7 @@ public class NavigationBarHider: NSObject {
         let barHeight = navigationBar.bar.frame.size.height
         if initialScrollY < extendedViewHeight + barHeight || scrollY <= extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
-        } else if isUserScrolling && initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
+        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
         }
 
@@ -82,7 +87,9 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        isUserScrolling = false
+        if velocity.y == 0 {
+            isUserScrolling = false
+        }
         
         guard let navigationBar = navigationBar else {
             return
@@ -130,5 +137,17 @@ public class NavigationBarHider: NSObject {
         navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
+    }
+
+    @objc public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isUserScrolling = false
+    }
+
+    @objc public func scrollViewWillScrollToTop(_ scrollView: UIScrollView) {
+        isScrollingToTop = true
+    }
+
+    @objc public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        isScrollingToTop = false
     }
 }

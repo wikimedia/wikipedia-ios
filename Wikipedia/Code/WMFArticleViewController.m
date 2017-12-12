@@ -1463,10 +1463,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+}
+
+- (BOOL)webViewController:(nonnull WebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    return YES;
+}
+
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - Footer menu
@@ -1493,11 +1503,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 }
-
-- (BOOL)webViewController:(nonnull WebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
-    return YES;
-}
-
 
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];

@@ -119,6 +119,7 @@
     [self didUpdateScrollViewInsets];
     if (wasAtTop) {
         scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
+        [self.navigationBar setPercentHidden:0 animated:NO];
     }
 }
 

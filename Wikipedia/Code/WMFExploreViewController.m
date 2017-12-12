@@ -316,7 +316,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [super viewDidLoad];
     
     self.collectionViewLayout = [[WMFColumnarCollectionViewLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
+    self.collectionView = [[WMFCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
     [self.view wmf_addSubviewWithConstraintsToEdges:self.collectionView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -1923,12 +1923,22 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
+
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+}
+
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 - (void)titleBarButtonPressed:(UIButton *)sender {
