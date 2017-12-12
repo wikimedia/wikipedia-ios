@@ -71,6 +71,7 @@ class SavedViewController: UIViewController {
                 savedDelegate = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
+                isSearchBarHidden = savedArticlesCollectionViewController.isEmpty
                 
                 addChild(savedArticlesCollectionViewController)
                 
