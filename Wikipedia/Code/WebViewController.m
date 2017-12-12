@@ -516,10 +516,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
 
-                                                 CGFloat spaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y - self.webView.scrollView.contentInset.top;
-                                                 if (self.navBarHidden) {
-                                                     spaceAboveKeyboardBar = spaceAboveKeyboardBar - self.navigationController.navigationBar.bounds.size.height;
-                                                 }
+                                                 CGFloat spaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y - self.webView.scrollView.contentInset.top - self.delegate.navigationBar.visibleHeight;
                                                  CGFloat halfSpaceAboveKeyboardBar = spaceAboveKeyboardBar / 2.f;
                                                  CGFloat halfMatchHeight = rect.size.height / 2.f;
                                                  CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
@@ -782,14 +779,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
                                                                                                   animated:animated
-                                                                                                completion:nil];
+                                                                                                completion:^(BOOL finished) {
+                                                                                                    [self.delegate.navigationBar setPercentHidden:0 animated:YES];
+                                                                                                }];
                                                      }
                                                  }];
     }
 }
 
 - (void)scrollToSection:(MWKSection *)section animated:(BOOL)animated {
-    self.navBarHidden = false;
     [self scrollToFragment:section.anchor animated:animated];
 }
 

@@ -133,6 +133,8 @@ public class NavigationBar: SetupView {
         
         updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
         addConstraints(updatedConstraints)
+        
+        setNavigationBarPercentHidden(0, extendedViewPercentHidden: 0, animated: false)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -165,14 +167,18 @@ public class NavigationBar: SetupView {
         }
     }
     
+    @objc public var visibleHeight: CGFloat = 0
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         _navigationBarPercentHidden = navigationBarPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
+        let barHeight = bar.frame.height
+        let extendedViewHeight = extendedView.frame.height
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let changes = {
-            let barTransformHeight = self.bar.frame.height * navigationBarPercentHidden
-            let underBarTransformHeight = self.extendedView.frame.height * extendedViewPercentHidden
+            let barTransformHeight = barHeight * navigationBarPercentHidden
+            let underBarTransformHeight = extendedViewHeight * extendedViewPercentHidden
             let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
             let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
             self.bar.transform = barTransform

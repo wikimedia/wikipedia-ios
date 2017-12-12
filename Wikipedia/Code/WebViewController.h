@@ -26,8 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) WMFTheme *theme;
 
-@property (nonatomic) BOOL navBarHidden;
-
 #if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
 - (void)applyTheme:(WMFTheme *)theme;
@@ -67,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol WMFWebViewControllerDelegate <NSObject>
+
+@property (nonatomic, readonly) WMFNavigationBar *navigationBar;
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article;
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section;
