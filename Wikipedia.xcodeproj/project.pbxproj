@@ -108,6 +108,16 @@
 		7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
 		7A203F0E1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
 		7A203F0F1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F1D1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */; };
+		7A203F1E1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */; };
+		7A203F1F1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */; };
+		7A203F201FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */; };
+		7A203F211FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */; };
+		7A203F221FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */; };
+		7A203F231FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */; };
+		7A203F241FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */; };
+		7A203F251FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */; };
+		7A203F261FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */; };
 		7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
@@ -140,11 +150,6 @@
 		7A35CB891FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift */; };
 		7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift */; };
 		7A35CB8B1FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift */; };
-		7A35CB8D1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */; };
-		7A35CB8E1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */; };
-		7A35CB8F1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */; };
-		7A35CB901FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */; };
-		7A35CB911FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */; };
 		7A4FE53F1FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
@@ -3128,6 +3133,8 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleToReadingListToolbarViewController.swift; sourceTree = "<group>"; };
+		7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailExtendedNavBarViewController.swift; sourceTree = "<group>"; };
+		7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailExtendedNavBarViewController.xib; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
@@ -3135,7 +3142,6 @@
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailCollectionViewController.swift; sourceTree = "<group>"; };
-		7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailExtendedNavBarView.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
 		7ADB2A021FD1E55200B84818 /* SavedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewCell.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditableCell.swift; sourceTree = "<group>"; };
@@ -7214,6 +7220,8 @@
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7ADEAB021FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib */,
 				7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */,
+				7A203F1B1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift */,
+				7A203F1C1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7271,7 +7279,6 @@
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
-				7A35CB8C1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D82E95001F0FD2DA007BD960 /* Table View Cells */,
 				D83F5C061F0E511C006130FF /* Collection View Cells */,
@@ -8706,7 +8713,6 @@
 				B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */,
 				BA45241D1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				D8D92B5E1DF22E1700B95311 /* NotificationBackgroundMessage.png in Resources */,
-				7A35CB8D1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */,
 				B0E8033D1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard in Resources */,
 				0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
@@ -8775,6 +8781,7 @@
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
 				B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */,
 				7ADEAB081FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
+				7A203F221FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */,
 				B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */,
 				B0E803141C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
 				83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */,
@@ -8842,7 +8849,6 @@
 				D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */,
 				D80ED3F31EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
-				7A35CB911FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
 				D80ED3F61EE57F4800CE8C50 /* NotificationBackgroundSuccess@2x.png in Resources */,
@@ -8854,6 +8860,7 @@
 				D80ED3FD1EE57F4800CE8C50 /* WMFAccountCreationViewController.storyboard in Resources */,
 				7ADEAB0C1FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
 				D80ED3FE1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon.png in Resources */,
+				7A203F261FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */,
 				D80ED3FF1EE57F4800CE8C50 /* WMFSettingsTableViewCell.xib in Resources */,
 				D80ED4021EE57F4800CE8C50 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D80ED4031EE57F4800CE8C50 /* WMFTableOfContentsHeader.xib in Resources */,
@@ -8941,7 +8948,6 @@
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
 				D8A42BBE1E815A9C00D8E281 /* WMFSearchViewController.storyboard in Resources */,
 				D8A42BBF1E815A9C00D8E281 /* WMFTabBarUI.storyboard in Resources */,
-				7A35CB901FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */,
 				D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9010,6 +9016,7 @@
 				D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */,
 				D8A42C0D1E815A9C00D8E281 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				7ADEAB0B1FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
+				7A203F251FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */,
 				D8A42C0E1E815A9C00D8E281 /* PageHistoryViewController.storyboard in Resources */,
 				D8A42C0F1E815A9C00D8E281 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
 				83836ED41F615E5B007D1A05 /* ShareViewController.xib in Resources */,
@@ -9037,7 +9044,6 @@
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
 				D8CE26451E698E2400DAE2E0 /* WMFSearchViewController.storyboard in Resources */,
 				D8CE26461E698E2400DAE2E0 /* WMFTabBarUI.storyboard in Resources */,
-				7A35CB8E1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */,
 				D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9106,6 +9112,7 @@
 				D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */,
 				D8CE26941E698E2400DAE2E0 /* WMFForgotPasswordViewController.storyboard in Resources */,
 				7ADEAB091FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
+				7A203F231FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */,
 				D8CE26951E698E2400DAE2E0 /* PageHistoryViewController.storyboard in Resources */,
 				D8CE26961E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
 				83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */,
@@ -9133,7 +9140,6 @@
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
 				D8EC3F451E9BDA35006712EB /* WMFSearchViewController.storyboard in Resources */,
 				D8EC3F461E9BDA35006712EB /* WMFTabBarUI.storyboard in Resources */,
-				7A35CB8F1FD850C900AAF3B7 /* ReadingListDetailExtendedNavBarView.xib in Resources */,
 				D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */,
@@ -9202,6 +9208,7 @@
 				D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */,
 				D8EC3F941E9BDA35006712EB /* WMFForgotPasswordViewController.storyboard in Resources */,
 				7ADEAB0A1FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
+				7A203F241FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.xib in Resources */,
 				D8EC3F951E9BDA35006712EB /* PageHistoryViewController.storyboard in Resources */,
 				D8EC3F961E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.xib in Resources */,
 				83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */,
@@ -9822,6 +9829,7 @@
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0E804471C0CDF850065EBC0 /* WMFBorderButton.m in Sources */,
+				7A203F1D1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */,
 				B0E803131C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				831774AE1F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
@@ -10142,6 +10150,7 @@
 				D80ED34E1EE57F4800CE8C50 /* PaddedLabel.m in Sources */,
 				D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */,
 				D80ED3501EE57F4800CE8C50 /* WMFSearchResults+ResponseSerializer.m in Sources */,
+				7A203F211FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */,
 				D850A53E1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D80ED3531EE57F4800CE8C50 /* WMFExploreSectionFooter.m in Sources */,
 				D80ED3561EE57F4800CE8C50 /* WikiTextSectionUploader.m in Sources */,
@@ -10741,6 +10750,7 @@
 				83B87EC41F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
 				D8A42B201E815A9C00D8E281 /* MWKLicense+ToGlyph.m in Sources */,
 				D8A42B211E815A9C00D8E281 /* PreviewWebViewContainer.m in Sources */,
+				7A203F201FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */,
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8A42B241E815A9C00D8E281 /* WMFArticleNavigationController.m in Sources */,
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
@@ -11061,6 +11071,7 @@
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				D8CE25B21E698E2400DAE2E0 /* PaddedLabel.m in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
+				7A203F1E1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */,
 				D8CE25B51E698E2400DAE2E0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				D850A53B1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8CE25B91E698E2400DAE2E0 /* WMFExploreSectionFooter.m in Sources */,
@@ -11368,6 +11379,7 @@
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				D8EC3EAF1E9BDA35006712EB /* PaddedLabel.m in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
+				7A203F1F1FDF653200A229EC /* ReadingListDetailExtendedNavBarViewController.swift in Sources */,
 				D8EC3EB21E9BDA35006712EB /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8EC3EB61E9BDA35006712EB /* WMFExploreSectionFooter.m in Sources */,

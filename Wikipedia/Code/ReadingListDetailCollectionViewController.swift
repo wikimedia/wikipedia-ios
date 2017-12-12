@@ -1,9 +1,5 @@
 import UIKit
 
-class ReadingListDetailExtendedNavBarView: UIView {
-    
-}
-
 class ReadingListDetailCollectionViewController: ColumnarCollectionViewController {
     
     fileprivate let dataStore: MWKDataStore
@@ -12,7 +8,6 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
     fileprivate var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
     fileprivate var cellLayoutEstimate: WMFLayoutEstimate?
     fileprivate let reuseIdentifier = "ReadingListDetailCollectionViewCell"
-    
     var editController: CollectionViewEditController!
 
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
@@ -38,6 +33,10 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         fatalError("init(coder:) not supported")
     }
     
+    fileprivate lazy var extendedNavBarViewController: ReadingListDetailExtendedNavBarViewController = {
+        return ReadingListDetailExtendedNavBarViewController()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,16 +52,30 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
         editController.navigationDelegate = self
+        
+        addChildViewController(extendedNavBarViewController)
+        extendedNavBarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(extendedNavBarViewController.view)
+        extendedNavBarViewController.didMove(toParentViewController: self)
+    }
+    
+    fileprivate func updatExtendedNavBarViewControllerFrame() {
+        extendedNavBarViewController.view.frame = CGRect(x: 0, y: 44, width: view.bounds.width, height: 50)
+        extendedNavBarViewController.view.backgroundColor = UIColor.red
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateEmptyState()
+        updatExtendedNavBarViewControllerFrame()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
+        extendedNavBarViewController.view.removeFromSuperview()
+        extendedNavBarViewController.willMove(toParentViewController: nil)
+        extendedNavBarViewController.removeFromParentViewController()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
