@@ -128,6 +128,5 @@ public protocol BatchEditableCell: NSObjectProtocol {
     var batchEditingTranslation: CGFloat { get set }
     var batchEditSelectView: BatchEditSelectView? { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation
-    var isSelected: Bool { get set } // selection has to be reset on cancel
 }
 

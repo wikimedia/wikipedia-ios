@@ -253,7 +253,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     public var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation > 0 ? batchEditingTranslation : 0
+            layoutMarginsAdditions.left = batchEditingTranslation
             setNeedsLayout()
         }
     }
@@ -297,6 +297,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
                 if let batchEditSelectView = batchEditSelectView {
                     contentView.addSubview(batchEditSelectView)
+                    batchEditSelectView.clipsToBounds = true
                     setNeedsLayout()
                 }
             } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
