@@ -111,10 +111,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            if batchEditingState != .none {
-                batchEditSelectView?.frame = CGRect(x: layoutMargins.left, y: 0, width: abs(batchEditingTranslation), height: size.height)
-                batchEditSelectView?.layoutIfNeeded()
-            }
+            batchEditSelectView?.frame = CGRect(x: layoutMargins.left, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            batchEditSelectView?.layoutIfNeeded()
             
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
 
@@ -253,7 +251,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     public var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation
+            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
+            let isOpen = batchEditingTranslation > 0
+            if isOpen, let batchEditSelectView = batchEditSelectView {
+                contentView.addSubview(batchEditSelectView)
+                batchEditSelectView.clipsToBounds = true
+            }
             setNeedsLayout()
         }
     }
@@ -277,7 +280,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     func resetBatchEdit() {
         batchEditingTranslation = 0
-        batchEditingState = .none
     }
     
     public var isBatchEditable: Bool = false {
@@ -292,17 +294,17 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    public var batchEditingState: BatchEditingState = .none {
-        didSet {
-            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
-                if let batchEditSelectView = batchEditSelectView {
-                    contentView.addSubview(batchEditSelectView)
-                    batchEditSelectView.clipsToBounds = true
-                    setNeedsLayout()
-                }
-            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
-                batchEditSelectView?.removeFromSuperview()
-            }
-        }
-    }
+//    public var batchEditingState: BatchEditingState = .none {
+//        didSet {
+//            if batchEditingState != .cancelled && batchEditingState != .none && batchEditSelectView?.superview == nil {
+//                if let batchEditSelectView = batchEditSelectView {
+//                    contentView.addSubview(batchEditSelectView)
+//                    batchEditSelectView.clipsToBounds = true
+//                    setNeedsLayout()
+//                }
+//            } else if batchEditingState == .cancelled || batchEditingState == .none && batchEditSelectView?.superview != nil {
+//                batchEditSelectView?.removeFromSuperview()
+//            }
+//        }
+//    }
 }

@@ -329,7 +329,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
-    fileprivate var batchEditingState: BatchEditingState = .none {
+    public var batchEditingState: BatchEditingState = .none {
         didSet {
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
             var enabled = true
@@ -347,42 +347,40 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 enabled = false
                 return
             }
-            
-            guard batchEditingState != .inactive else {
-                barButtonSystemItem = .done
-                tag = -1
-                return
-            }
-            
-            for cell in editableCells {
-                cell.batchEditingState = batchEditingState
-            }
 
             switch batchEditingState {
+            case .inactive:
+                barButtonSystemItem = .done
+                tag = -1
             case .none:
                 break
             case .cancelled:
-                closeBatchEditPane()
+                animateBatchEditPane(for: batchEditingState)
             case .open:
                 barButtonSystemItem = UIBarButtonSystemItem.cancel
                 tag = 1
-                openBatchEditPane()
-            default:
-                break
+                animateBatchEditPane(for: batchEditingState)
             }
         }
     }
     
-    fileprivate func openBatchEditPane() {
-        areSwipeActionsDisabled = true
-        collectionView.allowsMultipleSelection = true
+    fileprivate func animateBatchEditPane(for state: BatchEditingState) {
+        let willOpen = state == .open
+        areSwipeActionsDisabled = willOpen
+        collectionView.allowsMultipleSelection = willOpen
         for cell in editableCells {
-            cell.layoutIfNeeded()
+            let targetTranslation = willOpen ? cell.batchEditSelectView?.fixedWidth : 0
             UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.batchEditSelectView?.expand()
-                cell.batchEditingTranslation = cell.batchEditSelectView?.fixedWidth ?? 60
+                cell.batchEditingTranslation = targetTranslation ?? 0
                 cell.layoutIfNeeded()
+            }, completion: { (finished: Bool) in
+                if !willOpen {
+                    cell.batchEditSelectView?.removeFromSuperview()
+                }
             })
+        }
+        if !willOpen {
+            selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
         }
     }
     
@@ -399,18 +397,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             batchEditingState = .cancelled
             navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
-    }
-    
-    fileprivate func closeBatchEditPane() {
-        isBatchEditToolbarVisible = false
-        for cell in editableCells {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.batchEditingTranslation = 0
-                cell.layoutIfNeeded()
-            })
-        }
-        selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
-        areSwipeActionsDisabled = false
     }
     
     @objc func batchEdit(_ sender: UIBarButtonItem) {

@@ -62,7 +62,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         let multiSelectIndicator = UIImageView()
         multiSelectIndicator.backgroundColor = .clear
         insertSubview(multiSelectIndicator, at: 0)
-        multiSelectIndicator.contentMode = .center
+        multiSelectIndicator.contentMode = .left
         self.multiSelectIndicator = multiSelectIndicator
         updateMultiSelectIndicatorImage()
 
@@ -124,7 +124,6 @@ public class BatchEditToolbarAction: UIAccessibilityCustomAction {
 }
 
 public protocol BatchEditableCell: NSObjectProtocol {
-    var batchEditingState: BatchEditingState { get set }
     var batchEditingTranslation: CGFloat { get set }
     var batchEditSelectView: BatchEditSelectView? { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation

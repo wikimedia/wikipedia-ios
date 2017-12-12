@@ -183,7 +183,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
 extension ReadingListDetailCollectionViewController: ActionDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState != .open  else {
+        guard editController.batchEditingState != .open  else {
             editController.didTapCellWhileBatchEditing()
             return
         }
@@ -194,7 +194,7 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? BatchEditableCell,  cell.batchEditingState == .open {
+        if editController.batchEditingState == .open {
             editController.didTapCellWhileBatchEditing()
         }
     }
