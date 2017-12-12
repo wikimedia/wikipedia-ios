@@ -83,7 +83,10 @@ class ViewController: UIViewController, Themeable {
         }
         
         let frame = navigationBar.frame
-        let top = frame.maxY
+        var top = frame.maxY
+        if let rc = scrollView.refreshControl, rc.isRefreshing {
+            top += rc.frame.height
+        }
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
