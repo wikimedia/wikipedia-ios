@@ -47,6 +47,7 @@ class ViewController: UIViewController, Themeable {
                 scrollView?.contentInsetAdjustmentBehavior = .never
             }
         }
+        navigationBar.navigationBarPercentHidden = 0
         updateNavigationBarStatusBarHeight()
     }
     

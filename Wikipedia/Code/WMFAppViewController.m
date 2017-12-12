@@ -636,6 +636,18 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         return;
     }
 
+    // Show  all navigation bars so that users will always see search when they re-open the app
+    NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
+    for (UINavigationController *navC in allNavControllers) {
+        UIViewController *vc = [navC visibleViewController];
+        if ([vc respondsToSelector:@selector(navigationBar)]) {
+            id navigationBar = [(id)vc navigationBar];
+            if ([navigationBar isKindOfClass:[WMFNavigationBar class]]) {
+                [(WMFNavigationBar *)navigationBar setNavigationBarPercentHidden:0];
+            }
+        }
+    }
+
     self.searchViewController = nil;
     self.settingsViewController = nil;
 

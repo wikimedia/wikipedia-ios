@@ -68,7 +68,7 @@
             self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
     }
-
+    self.navigationBar.navigationBarPercentHidden = 0;
     [self updateNavigationBarStatusBarHeight];
 }
 

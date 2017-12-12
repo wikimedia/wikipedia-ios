@@ -146,7 +146,7 @@ public class NavigationBar: SetupView {
     }
     
     fileprivate var _navigationBarPercentHidden: CGFloat = 0
-    var navigationBarPercentHidden: CGFloat {
+    @objc public var navigationBarPercentHidden: CGFloat {
         get {
             return _navigationBarPercentHidden
         }
@@ -157,7 +157,7 @@ public class NavigationBar: SetupView {
     }
     
     fileprivate var _extendedViewPercentHidden: CGFloat = 0
-    var extendedViewPercentHidden: CGFloat {
+    @objc public var extendedViewPercentHidden: CGFloat {
         get {
             return _extendedViewPercentHidden
         }
