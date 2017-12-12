@@ -88,7 +88,6 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"dark-theme-display-name" = "Dark";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -297,6 +296,7 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
@@ -364,6 +364,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
 "theme-sepia-display-name" = "Sepia";
