@@ -56,28 +56,27 @@
         self.navigationBar.delegate = self;
         self.navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
         [self.view addSubview:self.navigationBar];
-        
+
         NSLayoutConstraint *topConstraint = [self.view.topAnchor constraintEqualToAnchor:self.navigationBar.topAnchor];
         NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.navigationBar.leadingAnchor];
         NSLayoutConstraint *trailingConstraint = [self.view.trailingAnchor constraintEqualToAnchor:self.navigationBar.trailingAnchor];
-        
+
         [self.view addConstraints:@[topConstraint, leadingConstraint, trailingConstraint]];
-        
+
         self.automaticallyAdjustsScrollViewInsets = NO;
         if (@available(iOS 11.0, *)) {
             self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
     }
-    
+
     [self updateNavigationBarStatusBarHeight];
 }
-
 
 - (void)updateNavigationBarStatusBarHeight {
     if (!self.showsNavigationBar) {
         return;
     }
-    
+
     if (@available(iOS 11.0, *)) {
         // automatically handled by safe area insets
     } else {
@@ -95,13 +94,15 @@
 }
 
 - (void)didUpdateScrollViewInsets {
-    
 }
 
 - (void)updateScrollViewInsets {
     UIScrollView *scrollView = self.scrollView;
     CGRect frame = self.navigationBar.frame;
     CGFloat top = CGRectGetMaxY(frame);
+    if (scrollView.refreshControl.isRefreshing) {
+        top += scrollView.refreshControl.frame.size.height;
+    }
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
@@ -133,8 +134,7 @@
 
 #pragma mark - WMFNavigationBarHiderDelegate
 
-- (void)navigationBarHider:(WMFNavigationBarHider * _Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
-    
+- (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
 }
 
 @end
