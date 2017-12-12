@@ -149,7 +149,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (BOOL)isScrolledToTop {
-    return self.collectionView.contentOffset.y <=  0 - self.collectionView.contentInset.top;
+    return self.collectionView.contentOffset.y <= 0 - self.collectionView.contentInset.top;
 }
 
 #pragma mark - Section Access
@@ -314,7 +314,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.collectionViewLayout = [[WMFColumnarCollectionViewLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
     [self.view wmf_addSubviewWithConstraintsToEdges:self.collectionView];
@@ -324,35 +324,42 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.collectionView.prefetchDataSource = self;
         self.collectionView.prefetchingEnabled = YES;
     }
-    
+
     self.longTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.longTitleButton.adjustsImageWhenHighlighted = YES;
     [self.longTitleButton setImage:[UIImage imageNamed:@"wikipedia"] forState:UIControlStateNormal];
     [self.longTitleButton sizeToFit];
     [self.longTitleButton addTarget:self action:@selector(titleBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     self.shortTitleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shortTitleButton.adjustsImageWhenHighlighted = YES;
     [self.shortTitleButton setImage:[UIImage imageNamed:@"W"] forState:UIControlStateNormal];
     [self.shortTitleButton sizeToFit];
     self.shortTitleButton.alpha = 0;
     [self.shortTitleButton addTarget:self action:@selector(titleBarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     UIView *titleView = [[UIView alloc] initWithFrame:self.longTitleButton.bounds];
     [titleView addSubview:self.longTitleButton];
     [titleView addSubview:self.shortTitleButton];
     self.shortTitleButton.center = titleView.center;
-    
+
     self.navigationItem.titleView = titleView;
     self.navigationItem.isAccessibilityElement = YES;
     self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader;
-    
+
+    UIView *searchBarContainerView = [[UIView alloc] init];
+    NSLayoutConstraint *searchBarHeight = [searchBarContainerView.heightAnchor constraintEqualToConstant:44];
+    [searchBarContainerView addConstraint:searchBarHeight];
+
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.delegate = self;
     self.searchBar.placeholder = WMFLocalizedStringWithDefaultValue(@"search-field-placeholder-text", nil, nil, @"Search Wikipedia", @"Search field placeholder text");
-    [self.navigationBar addExtendedNavigationBarView:self.searchBar];
-    
+
+    [searchBarContainerView wmf_addSubview:self.searchBar withConstraintsToEdgesWithInsets:UIEdgeInsetsMake(0, 0, 3, 0) priority:UILayoutPriorityRequired];
+
+    [self.navigationBar addExtendedNavigationBarView:searchBarContainerView];
+
     self.sectionChanges = [NSMutableArray arrayWithCapacity:10];
     self.objectChanges = [NSMutableArray arrayWithCapacity:10];
     self.sectionCounts = [NSMutableArray arrayWithCapacity:100];
@@ -360,7 +367,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.placeholderViews = [NSMutableDictionary dictionaryWithCapacity:10];
     self.prefetchURLsByIndexPath = [NSMutableDictionary dictionaryWithCapacity:10];
     self.cachedHeights = [NSMutableDictionary dictionaryWithCapacity:10];
-    
+
     [self registerCellsAndViews];
     [self setupRefreshControl];
 }
@@ -1923,7 +1930,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
 }
 
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
@@ -1951,7 +1957,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return self.collectionView;
 }
 
-- (void)navigationBarHider:(WMFNavigationBarHider * _Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+- (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
     self.shortTitleButton.alpha = extendedViewPercentHidden;
     self.longTitleButton.alpha = 1.0 - extendedViewPercentHidden;
     self.navigationItem.rightBarButtonItem.customView.alpha = extendedViewPercentHidden;
@@ -1965,21 +1971,20 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return NO;
 }
 
-
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
     [super applyTheme:theme];
-    
+
     [self.searchBar setSearchFieldBackgroundImage:theme.searchBarBackgroundImage forState:UIControlStateNormal];
-    [self.searchBar wmf_enumerateSubviewTextFields:^(UITextField *textField){
+    [self.searchBar wmf_enumerateSubviewTextFields:^(UITextField *textField) {
         textField.textColor = theme.colors.primaryText;
         textField.keyboardAppearance = theme.keyboardAppearance;
         textField.font = [UIFont systemFontOfSize:14];
     }];
 
     self.searchBar.searchTextPositionAdjustment = UIOffsetMake(7, 0);
-    
+
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
     self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
