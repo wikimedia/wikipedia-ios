@@ -65,7 +65,7 @@ public class NavigationBarHider: NSObject {
         let barHeight = navigationBar.bar.frame.size.height
         if initialScrollY < extendedViewHeight + barHeight || scrollY <= extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
-        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
+        } else if isUserScrolling && initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
         }
 
