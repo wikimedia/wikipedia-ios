@@ -1,50 +1,61 @@
 import WMF
 
-class ReadingListTag: SizeThatFitsView {
-    fileprivate let label: UILabel = UILabel()
+class ReadingListTagsView: SizeThatFitsView {
     let padding = UIEdgeInsetsMake(3, 3, 3, 3)
+    var buttons: [UIButton] = []
+    fileprivate var needsSubviews = true
     
-    override func setup() {
-        super.setup()
-        layer.borderWidth = 1
-        label.isOpaque = true
-        addSubview(label)
+    var readingLists: [ReadingList] = [] {
+        didSet {
+            needsSubviews = true
+        }
     }
     
-    var readingListName: String = "" {
+    public override var frame: CGRect {
         didSet {
-            label.text = readingListName
             setNeedsLayout()
         }
     }
     
-    var labelBackgroundColor: UIColor? {
-        didSet {
-            label.backgroundColor = labelBackgroundColor
+    fileprivate let minButtonWidth: CGFloat = 15
+    var maximumWidth: CGFloat = 0
+    var buttonWidth: CGFloat  = 0
+    
+    fileprivate func createSubviews() {
+        var maxButtonWidth: CGFloat = 0
+        
+        for readingList in readingLists {
+            guard let name = readingList.name else {
+                assertionFailure("Reading list with no name")
+                return
+            }
+            let button = UIButton(type: .custom)
+            button.setTitle(name, for: .normal)
+            button.titleLabel?.numberOfLines = 1
+            button.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+            button.backgroundColor = UIColor.blue
+            maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
+            insertSubview(button, at: 0)
+            buttons.append(button)
         }
-    }
-    
-    override func tintColorDidChange() {
-        label.textColor = tintColor
-        layer.borderColor = tintColor.cgColor
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        label.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        buttonWidth = max(minButtonWidth, maxButtonWidth)
+        maximumWidth = buttonWidth * CGFloat(subviews.count)
+        setNeedsLayout()
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let insetSize = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), padding)
-        let labelSize = label.sizeThatFits(insetSize.size)
-        if (apply) {
-            layer.cornerRadius = 3
-            label.frame = CGRect(origin: CGPoint(x: 0.5*size.width - 0.5*labelSize.width, y: 0.5*size.height - 0.5*labelSize.height), size: labelSize)
-
+        if (apply && needsSubviews) {
+            createSubviews()
+            needsSubviews = false
         }
-        let width = labelSize.width + padding.left + padding.right
-        let height = labelSize.height + padding.top + padding.bottom
-        return CGSize(width: width, height: height)
+        let numberOfButtons = CGFloat(subviews.count)
+        let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
+        var x: CGFloat = 0
+        for button in buttons {
+            button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: button.intrinsicContentSize.height)
+            x += buttonDelta
+        }
+        return CGSize(width: maximumWidth, height: 20)
     }
 }
 
@@ -52,26 +63,29 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
     
     public var readingLists: [ReadingList] = [] {
         didSet {
+            contentView.addSubview(readingListTagsView)
+            readingListTagsView.readingLists = readingLists
             setNeedsLayout()
         }
     }
     
+    fileprivate lazy var readingListTagsView: ReadingListTagsView = {
+        return ReadingListTagsView()
+    }()
+    
+    override func reset() {
+        super.reset()
+        readingListTagsView.removeFromSuperview()
+    }
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
-        
-        var tagHeight: CGFloat = 0
-        readingLists.forEach { (readingList) in
-            let name = readingList.name
-            let tag = ReadingListTag()
-            tag.readingListName = name!
-            addSubview(tag)
-            let tagSize = tag.sizeThatFits(size, apply: true)
-            tag.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: superSize.height - tagSize.height), size: tagSize)
-            print("tag.frame: \(tag.frame)")
-            tagHeight = tagSize.height
+        guard !readingLists.isEmpty else {
+            return superSize
         }
-        print("tagHeight: \(tagHeight)")
-        return CGSize(width: superSize.width, height: superSize.height + tagHeight)
+        let tagsViewSize = readingListTagsView.sizeThatFits(size, apply: true)
+        readingListTagsView.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: superSize.height - tagsViewSize.height), size: tagsViewSize)
+        return CGSize(width: superSize.width, height: superSize.height + tagsViewSize.height)
     }
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {

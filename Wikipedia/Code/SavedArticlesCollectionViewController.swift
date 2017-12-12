@@ -107,16 +107,19 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         guard let savedArticleCell = cell as? SavedCollectionViewCell else {
             return cell
         }
-        savedArticleCell.readingLists = readingListsForArticle(at: indexPath)
-        let readingLists = readingListsForArticle(at: indexPath)
-        let readingListNames = readingLists.flatMap({ $0.name })
-        readingListNames.forEach({ print("name: \($0)") })
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+        if let savedArticleCell = cell as? SavedCollectionViewCell {
+            savedArticleCell.readingLists = readingListsForArticle(at: indexPath)
+            let readingLists = readingListsForArticle(at: indexPath)
+            
+            let readingListNames = readingLists.flatMap({ $0.name })
+            readingListNames.forEach({ print("name: \($0)") })
+        }
         cell.isBatchEditable = true
     }
     
@@ -132,6 +135,21 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
             print(err)
         }
         return []
+    }
+    
+    // MARK: - Layout
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
+            return estimate
+        }
+        placeholderCell.prepareForReuse()
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
     }
     
     // MARK: - Empty state
