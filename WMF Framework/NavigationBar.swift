@@ -75,14 +75,14 @@ public class NavigationBar: SetupView {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
 
-        progressView.isAccessibilityElement = false
-
         addSubview(backgroundView)
         addSubview(shadow)
         addSubview(extendedView)
         addSubview(bar)
         addSubview(progressView)
         addSubview(statusBarUnderlay)
+        
+        accessibilityElements = [extendedView, bar]
 
         bar.delegate = self
         
