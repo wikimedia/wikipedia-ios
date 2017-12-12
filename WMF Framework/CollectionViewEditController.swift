@@ -369,15 +369,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
         for cell in editableCells {
-            let targetTranslation = willOpen ? cell.batchEditSelectView?.fixedWidth : 0
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                cell.batchEditingTranslation = targetTranslation ?? 0
+            let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
+                cell.batchEditingTranslation = targetTranslation
                 cell.layoutIfNeeded()
-            }, completion: { (finished: Bool) in
-//                print("finished: \(finished)")
-//                if !willOpen {
-//                    cell.batchEditSelectView?.removeFromSuperview()
-//                }
             })
         }
         if !willOpen {

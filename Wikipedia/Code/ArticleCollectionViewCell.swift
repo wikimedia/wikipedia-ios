@@ -111,7 +111,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            batchEditSelectView?.frame = CGRect(x: layoutMargins.left, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
