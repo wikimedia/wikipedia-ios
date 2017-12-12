@@ -85,16 +85,16 @@ class ViewController: UIViewController, Themeable {
         
         let frame = navigationBar.frame
         var top = frame.maxY
-        if let rc = scrollView.refreshControl, rc.isRefreshing {
-            top += rc.frame.height
-        }
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
         }
         let bottom = bottomLayoutGuide.length
-        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        if let rc = scrollView.refreshControl, rc.isRefreshing {
+            top += rc.frame.height
+        }
+        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
         guard contentInset != scrollView.contentInset || scrollIndicatorInsets != scrollView.scrollIndicatorInsets else {
             return
         }

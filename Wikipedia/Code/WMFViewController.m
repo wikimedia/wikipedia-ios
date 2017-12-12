@@ -100,16 +100,16 @@
     UIScrollView *scrollView = self.scrollView;
     CGRect frame = self.navigationBar.frame;
     CGFloat top = CGRectGetMaxY(frame);
-    if (scrollView.refreshControl.isRefreshing) {
-        top += scrollView.refreshControl.frame.size.height;
-    }
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
     }
     CGFloat bottom = self.bottomLayoutGuide.length;
-    UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
     UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
+    if (scrollView.refreshControl.isRefreshing) {
+        top += scrollView.refreshControl.frame.size.height;
+    }
+    UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
