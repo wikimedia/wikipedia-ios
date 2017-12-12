@@ -393,6 +393,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isCollectionViewEmpty: Bool = false {
         didSet {
             batchEditingState = .none
+            navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
     }
     

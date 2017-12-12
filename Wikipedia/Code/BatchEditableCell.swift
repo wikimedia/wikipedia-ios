@@ -5,6 +5,7 @@ import UIKit
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
     var batchEditToolbar: UIToolbar { get }
     func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool)
+    func emptyStateDidChange(_ empty: Bool)
 }
 
 public class BatchEditSelectView: SizeThatFitsView, Themeable {

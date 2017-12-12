@@ -200,6 +200,11 @@ extension SavedViewController: BatchEditNavigationDelegate {
             batchEditToolbar.removeFromSuperview()
         }
     }
+    
+    func emptyStateDidChange(_ empty: Bool) {
+        sortButton.isEnabled = !empty
+        isSearchBarHidden = empty
+    }
 }
 
 // MARK: - Themeable
