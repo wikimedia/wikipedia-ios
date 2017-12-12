@@ -316,7 +316,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [super viewDidLoad];
     
     self.collectionViewLayout = [[WMFColumnarCollectionViewLayout alloc] init];
-    self.collectionView = [[WMFCollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
     [self.view wmf_addSubviewWithConstraintsToEdges:self.collectionView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
