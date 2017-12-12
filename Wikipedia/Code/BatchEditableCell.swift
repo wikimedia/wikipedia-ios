@@ -47,7 +47,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            multiSelectIndicator?.frame = CGRect(x: -fixedWidth, y: 0, width: fixedWidth, height: size.height)
+            multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: fixedWidth, height: size.height)
         }
         let width = superSize.width == UIViewNoIntrinsicMetric ? fixedWidth : superSize.width
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height

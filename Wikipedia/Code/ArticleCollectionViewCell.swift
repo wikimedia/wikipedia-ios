@@ -7,7 +7,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
-    var editStateMargins = defaultMargins
+    var layoutMarginsAdditions: UIEdgeInsets = .zero
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -111,8 +111,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
-
             if batchEditingState != .none {
                 batchEditSelectView?.frame = CGRect(x: layoutMargins.left, y: 0, width: abs(batchEditingTranslation), height: size.height)
                 batchEditSelectView?.layoutIfNeeded()
@@ -233,7 +231,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     var swipeState: SwipeState = .closed {
         didSet {
             if swipeState != .closed && actionsView.superview == nil {
-                insertSubview(actionsView, belowSubview: contentView)
+                contentView.addSubview(actionsView)
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
             } else if swipeState == .closed && actionsView.superview != nil {
@@ -247,17 +245,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
+            layoutMarginsAdditions.right = 0 - swipeTranslation
+            layoutMarginsAdditions.left = swipeTranslation
             setNeedsLayout()
         }
     }
-    
+
     public var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            editStateMargins.left = batchEditingTranslation > 0 ? batchEditingTranslation : ArticleCollectionViewCell.defaultMargins.left
-            if #available(iOSApplicationExtension 11.0, *) {
-                editStateMargins.left += safeAreaInsets.left
-            }
-            self.layoutMargins.left = self.editStateMargins.left
+            layoutMarginsAdditions.left = batchEditingTranslation > 0 ? batchEditingTranslation : 0
             setNeedsLayout()
         }
     }

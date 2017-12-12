@@ -36,14 +36,14 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
 
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top), left: round(margins.left * multipliers.left), bottom: round(margins.bottom * multipliers.bottom), right: round(margins.right * multipliers.right))
+        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
 
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
         }
         
         var x = layoutMargins.left
