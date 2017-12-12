@@ -68,8 +68,10 @@ public class NavigationBarHider: NSObject {
         }
         
         let barHeight = navigationBar.bar.frame.size.height
-        if initialScrollY < extendedViewHeight + barHeight || scrollY <= extendedViewHeight + barHeight {
+        if initialScrollY < extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
+        } else if scrollY <= extendedViewHeight + barHeight {
+            navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage)
         } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
         }
@@ -83,14 +85,6 @@ public class NavigationBarHider: NSObject {
     }
     
     @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard isUserScrolling else {
-            return
-        }
-        
-        if velocity.y == 0 {
-            isUserScrolling = false
-        }
-        
         guard let navigationBar = navigationBar else {
             return
         }
@@ -114,6 +108,8 @@ public class NavigationBarHider: NSObject {
         if initialScrollY < extendedViewHeight + barHeight && targetOffsetY > extendedViewHeight + barHeight { // let it naturally hide
             return
         }
+
+        isUserScrolling = false
 
         let animated = true
 
