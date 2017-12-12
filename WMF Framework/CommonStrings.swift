@@ -17,7 +17,8 @@ public class CommonStrings: NSObject {
     @objc public static let savedTitle:String = CommonStrings.savedTitle(language: nil)
     @objc public static let saveTitle:String = CommonStrings.saveTitle(language: nil)
     @objc public static let dimImagesTitle = WMFLocalizedString("dim-images", value: "Dim images", comment: "Label for image dimming setting")
-    
+
+    @objc public static let settingsTitle = WMFLocalizedString("settings-title", value: "Settings", comment: "Title of the view where app settings are displayed.\n{{Identical|Settings}}")
     @objc public static let placesTabTitle = WMFLocalizedString("places-title", value: "Places", comment: "Title of the Places screen shown on the places tab.")
     @objc public static let historyTabTitle = WMFLocalizedString("history-title", value: "History", comment: "Title of the history screen shown on history tab\n{{Identical|History}}")
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface.\n{{Identical|Explore}}")
