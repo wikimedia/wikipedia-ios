@@ -343,7 +343,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
             
             guard !isCollectionViewEmpty else {
-                closeBatchEditPane()
+                isBatchEditToolbarVisible = false
                 enabled = false
                 return
             }
@@ -392,7 +392,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
-            batchEditingState = .none
+            batchEditingState = .cancelled
             navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
     }
@@ -449,7 +449,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc public func didPerformBatchEditToolbarAction(with sender: UIBarButtonItem) {
-        let _ = delegate?.didPerformBatchEditToolbarAction(batchEditToolbarActions[sender.tag])
+        let didPerformAction = delegate?.didPerformBatchEditToolbarAction?(batchEditToolbarActions[sender.tag]) ?? false
+        if didPerformAction {
+            batchEditingState = .cancelled
+        }
     }
     
     fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {

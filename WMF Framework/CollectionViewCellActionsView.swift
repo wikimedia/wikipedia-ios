@@ -17,7 +17,7 @@ public class Action: UIAccessibilityCustomAction {
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
     @objc func didPerformAction(_ action: Action) -> Bool
-    @objc func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
+    @objc optional func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
     @objc optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
 }
 
