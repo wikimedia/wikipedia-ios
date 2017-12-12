@@ -140,6 +140,11 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewWillScrollToTop(_ scrollView: UIScrollView) {
+        guard let navigationBar = navigationBar else {
+            return
+        }
+        initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
+        initialScrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         isScrollingToTop = true
     }
 
