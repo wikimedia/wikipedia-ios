@@ -95,7 +95,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         
         webVCConfiguredToEmitLastSectionAppearanceEvent.setArticle(obamaArticle, articleURL: obamaArticle.url)
 
-        wait(for:[lastSectionAppearedMessageReceivedExpectation!], timeout: 1000, enforceOrder: true)
+        wait(for:[lastSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
 
         testValueReceivedExpectation = expectation(description: "waiting for test message")
     }
