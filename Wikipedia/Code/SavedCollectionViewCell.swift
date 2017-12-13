@@ -1,9 +1,8 @@
 import WMF
 
 class ReadingListTagsView: SizeThatFitsView {
-    let padding = UIEdgeInsetsMake(3, 3, 3, 3)
     var buttons: [UIButton] = []
-    fileprivate var needsSubviews = true
+    fileprivate var needsSubviews = false
     
     var readingLists: [ReadingList] = [] {
         didSet {
@@ -17,7 +16,7 @@ class ReadingListTagsView: SizeThatFitsView {
         }
     }
     
-    fileprivate let minButtonWidth: CGFloat = 15
+    fileprivate let minButtonWidth: CGFloat = 26
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     
@@ -28,7 +27,7 @@ class ReadingListTagsView: SizeThatFitsView {
         
         var maxButtonWidth: CGFloat = 0
         
-        for readingList in readingLists {
+        for (index, readingList) in readingLists.enumerated() {
             guard let name = readingList.name else {
                 assertionFailure("Reading list with no name")
                 return
@@ -36,8 +35,10 @@ class ReadingListTagsView: SizeThatFitsView {
             let button = UIButton(type: .custom)
             button.setTitle(name, for: .normal)
             button.titleLabel?.numberOfLines = 1
-            button.contentEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3)
+            button.contentEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6)
             button.backgroundColor = UIColor.blue
+            button.tag = index
+            button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
             buttons.append(button)
@@ -47,20 +48,28 @@ class ReadingListTagsView: SizeThatFitsView {
         setNeedsLayout()
     }
     
+    @objc fileprivate func buttonPressed(_ sender: UIButton) {
+        let readingList = readingLists[sender.tag]
+        print("pressed \(readingList.name)")
+    }
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        if (apply && needsSubviews) {
-            createSubviews()
-            needsSubviews = false
-            
+        var height: CGFloat = 0
+        if apply {
+            if size.width > 0 && needsSubviews {
+                createSubviews()
+                needsSubviews = false
+            }
             let numberOfButtons = CGFloat(subviews.count)
-            let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
+            let buttonDelta = (min(size.width, maximumWidth) / numberOfButtons) + 5
             var x: CGFloat = 0
             for button in buttons {
                 button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: button.intrinsicContentSize.height)
                 x += buttonDelta
+                height = button.intrinsicContentSize.height
             }
         }
-        return CGSize(width: maximumWidth, height: 20)
+        return CGSize(width: maximumWidth, height: height)
 
     }
 }
@@ -69,7 +78,8 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
     
     public var readingLists: [ReadingList] = [] {
         didSet {
-            contentView.addSubview(readingListTagsView)
+            contentView.insertSubview(readingListTagsView, at: 0)
+            imageViewDimension = 70
             readingListTagsView.readingLists = readingLists
             setNeedsLayout()
         }
@@ -90,8 +100,9 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
             return superSize
         }
         let tagsViewSize = readingListTagsView.sizeThatFits(size, apply: true)
-        let newSize = CGSize(width: superSize.width, height: superSize.height + tagsViewSize.height)
-        readingListTagsView.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: newSize.height - tagsViewSize.height - layoutMargins.bottom), size: tagsViewSize)
+        let newSize = CGSize(width: superSize.width, height: superSize.height)
+        readingListTagsView.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: newSize.height - tagsViewSize.height), size: tagsViewSize)
+        print("readingListTagsView.frame: \(readingListTagsView.frame.origin.y)")
         return newSize
     }
     
