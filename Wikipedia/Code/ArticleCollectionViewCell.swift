@@ -304,7 +304,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var tagsView: TagsView?
     
-    public var tags: [Any] = [] {
+    public var tags: [ReadingList] = [] {
         didSet {
             tagsView = TagsView()
             tagsView?.tags = tags

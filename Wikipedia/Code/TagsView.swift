@@ -2,7 +2,7 @@ public class TagsView: SizeThatFitsView {
     var buttons: [UIButton] = []
     fileprivate var needsSubviews = false
     
-    public var tags: [Any] = [] {
+    public var tags: [ReadingList] = [] {
         didSet {
             needsSubviews = true
         }
@@ -23,17 +23,18 @@ public class TagsView: SizeThatFitsView {
             view.removeFromSuperview()
         }
         
-        var maxButtonWidth: CGFloat = 0
+        var maxButtonWidth: CGFloat = 100
         
         for (index, tag) in tags.enumerated() {
             let button = UIButton(type: .custom)
-            button.setTitle("Some name", for: .normal)
+            button.setTitle(tag.name?.uppercased(), for: .normal)
             button.titleLabel?.numberOfLines = 1
+            button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6)
             button.backgroundColor = UIColor.blue
             button.tag = index
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-            maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
+            maxButtonWidth = min(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
             buttons.append(button)
         }
