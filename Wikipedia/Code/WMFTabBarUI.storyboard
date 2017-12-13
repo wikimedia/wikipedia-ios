@@ -43,8 +43,9 @@
                         <segue destination="IpJ-bK-BRh" kind="relationship" relationship="rootViewController" id="q7b-WZ-Q5W"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2e4-LR-hlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1689" y="2177"/>
+            <point key="canvasLocation" x="1689" y="2115"/>
         </scene>
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
@@ -62,7 +63,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8g-Wb-9RE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2366" y="2177"/>
+            <point key="canvasLocation" x="2367" y="2115"/>
         </scene>
         <!--Explore-->
         <scene sceneID="my8-ht-Vqg">
@@ -80,17 +81,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="2176"/>
-        </scene>
-        <!--Saved-->
-        <scene sceneID="dZO-ia-aIR">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Saved" id="Bhq-bA-mJ9" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="oAE-wg-oge"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z4g-hp-Lzt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1644" y="2720"/>
+            <point key="canvasLocation" x="996" y="2114"/>
         </scene>
         <!--Places-->
         <scene sceneID="f6L-ye-aCD">
