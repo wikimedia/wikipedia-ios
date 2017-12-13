@@ -1,6 +1,6 @@
 public class TagsView: SizeThatFitsView {
     var buttons: [UIButton] = []
-    fileprivate var needsSubviews = false
+    fileprivate var needsSubviews = true
     
     public var tags: [ReadingList] = [] {
         didSet {
@@ -15,6 +15,7 @@ public class TagsView: SizeThatFitsView {
     }
     
     fileprivate let minButtonWidth: CGFloat = 26
+    fileprivate let maxButtonWidth: CGFloat = 100
     var maximumWidth: CGFloat = 0
     var buttonWidth: CGFloat  = 0
     
@@ -23,28 +24,28 @@ public class TagsView: SizeThatFitsView {
             view.removeFromSuperview()
         }
         
-        var maxButtonWidth: CGFloat = 100
-        
         for (index, tag) in tags.enumerated() {
+            guard index != 3 else {
+                return
+            }
             let button = UIButton(type: .custom)
-            button.setTitle(tag.name?.uppercased(), for: .normal)
+            let title = index == 2 ? "+ \(tags.count - index)" : tag.name?.uppercased()
+            button.setTitle(title, for: .normal)
             button.titleLabel?.numberOfLines = 1
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6)
             button.backgroundColor = UIColor.blue
             button.tag = index
             button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-            maxButtonWidth = min(maxButtonWidth, button.intrinsicContentSize.width)
+            maximumWidth += min(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
             buttons.append(button)
         }
-        buttonWidth = max(minButtonWidth, maxButtonWidth)
-        maximumWidth = buttonWidth * CGFloat(subviews.count)
         setNeedsLayout()
     }
     
     @objc fileprivate func buttonPressed(_ sender: UIButton) {
-        print("buttonPressed")
+        let readingList = tags[sender.tag]
     }
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -58,7 +59,7 @@ public class TagsView: SizeThatFitsView {
             let buttonDelta = (min(size.width, maximumWidth) / numberOfButtons) + 5
             var x: CGFloat = 0
             for button in buttons {
-                button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: button.intrinsicContentSize.height)
+                button.frame = CGRect(x: x, y: 0, width: min(maxButtonWidth, button.intrinsicContentSize.width), height: button.intrinsicContentSize.height)
                 x += buttonDelta
                 height = button.intrinsicContentSize.height
             }
