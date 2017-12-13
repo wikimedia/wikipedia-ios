@@ -74,7 +74,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.wmf_reset()
         resetSwipeable()
         resetBatchEdit()
-        tagsView?.removeFromSuperview()
         updateFonts(with: traitCollection)
     }
 
@@ -122,9 +121,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
-            
-            let tagsViewSize: CGSize = tagsView?.sizeThatFits(size, apply: true) ?? .zero
-            tagsView?.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: size.height - tagsViewSize.height), size: tagsViewSize)
         }
         return size
     }
@@ -299,21 +295,4 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             batchEditSelectView?.isSelected = isSelected
         }
     }
-    
-    // MARK: - Tags view
-    
-    public var tagsView: TagsView?
-    
-    public var tags: [ReadingList] = [] {
-        didSet {
-            tagsView = TagsView()
-            tagsView?.tags = tags
-            contentView.addSubview(tagsView!)
-            imageViewDimension = 70
-            setNeedsLayout()
-        }
-    }
-    
-    
-    
 }
