@@ -34,11 +34,11 @@ import UIKit
         subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
         let topConstraint = subview.topAnchor.constraint(equalTo: topAnchor, constant: insets.top)
         topConstraint.priority = priority
-        let bottomConstraint = subview.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom)
+        let bottomConstraint = bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: insets.bottom)
         bottomConstraint.priority = priority
         let leftConstraint = subview.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left)
         leftConstraint.priority = priority
-        let rightConstraint = subview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.right)
+        let rightConstraint = trailingAnchor.constraint(equalTo: subview.trailingAnchor, constant: insets.right)
         rightConstraint.priority = priority
         addConstraints([topConstraint, bottomConstraint, leftConstraint, rightConstraint])
     }

@@ -18,17 +18,11 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        guard let collectionView = collectionView else {
-            return
-        }
         swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
         swipeToEditController.delegate = self
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let collectionView = self.collectionView else {
-            return
-        }
         guard let article = article(at: indexPath) else {
             return
         }
@@ -115,7 +109,7 @@ extension ArticleCollectionViewController {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
@@ -130,8 +124,7 @@ extension ArticleCollectionViewController {
         guard !swipeToEditController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
             let url = articleURL(at: indexPath)
         else {
@@ -181,7 +174,7 @@ extension ArticleCollectionViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
-            if let cell = collectionView?.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
                 cell.actions = availableActions(at: indexPath)
             }
         }
@@ -213,7 +206,7 @@ extension ArticleCollectionViewController: ActionDelegate {
             }
             if let viewController = shareActivityController {
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    let cell = collectionView?.cellForItem(at: indexPath)
+                    let cell = collectionView.cellForItem(at: indexPath)
                     viewController.popoverPresentationController?.sourceView = cell ?? view
                     viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
                 }
@@ -245,9 +238,6 @@ extension ArticleCollectionViewController: ActionDelegate {
     }
     
     func updateVisibleCellActions() {
-        guard let collectionView = collectionView else {
-            return
-        }
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
                 continue

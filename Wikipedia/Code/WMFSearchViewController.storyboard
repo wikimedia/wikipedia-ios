@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="30" width="375" height="529"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="XYC-9k-LIV" kind="embed" identifier="searchResults" id="tYs-NR-YxD"/>
+                                            <segue destination="AO7-gh-xKO" kind="embed" id="d0e-uw-vaH"/>
                                         </connections>
                                     </containerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="54" width="375" height="505"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="A57-ie-Vee" kind="embed" identifier="recentSearches" id="jR9-HN-JVn"/>
+                                            <segue destination="CiO-SS-pWA" kind="embed" id="OMy-Lq-Vf9"/>
                                         </connections>
                                     </containerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfG-Ll-LOD">
@@ -418,61 +418,40 @@
             <point key="canvasLocation" x="1421.5999999999999" y="2681.5592203898054"/>
         </scene>
         <!--Search Results View Controller-->
-        <scene sceneID="QJa-1a-Aok">
+        <scene sceneID="Ji0-BU-8jG">
             <objects>
-                <collectionViewController id="XYC-9k-LIV" customClass="WMFSearchResultsViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bpz-l0-dF0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="AO7-gh-xKO" customClass="WMFSearchResultsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qTI-CX-Sxa"/>
+                        <viewControllerLayoutGuide type="bottom" id="e1J-Ee-g4i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ui2-kx-uv4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="529"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bmc-4m-8rS" customClass="WMFColumnarCollectionViewLayout">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="XYC-9k-LIV" id="yRj-IF-SFK"/>
-                            <outlet property="delegate" destination="XYC-9k-LIV" id="Asf-fU-r8v"/>
-                        </connections>
-                    </collectionView>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UTO-Fa-gdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wWL-cm-mg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-766" y="2302"/>
+            <point key="canvasLocation" x="-609" y="2470"/>
         </scene>
         <!--Recent Searches View Controller-->
-        <scene sceneID="5Aw-Ha-wgn">
+        <scene sceneID="ufh-oI-htu">
             <objects>
-                <collectionViewController restorationIdentifier="RecentSearchesViewController" storyboardIdentifier="RecentSearchesViewController" id="A57-ie-Vee" customClass="WMFRecentSearchesViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Hbl-ER-DWv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="CiO-SS-pWA" customClass="WMFRecentSearchesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vqy-PH-zBa"/>
+                        <viewControllerLayoutGuide type="bottom" id="ntc-X2-Daf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tCs-h9-jjs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xZu-Dk-XOC" customClass="WMFColumnarCollectionViewLayout">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="A57-ie-Vee" id="qvd-tI-VFR"/>
-                            <outlet property="delegate" destination="A57-ie-Vee" id="ari-AP-u6h"/>
-                        </connections>
-                    </collectionView>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WLJ-9m-QsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4c3-NB-FKL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-119" y="3089"/>
+            <point key="canvasLocation" x="388" y="3154"/>
         </scene>
     </scenes>
     <resources>
