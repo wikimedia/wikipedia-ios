@@ -118,8 +118,11 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         // https://github.com/wikimedia/wikimedia-page-library/pull/111/files#diff-74d0264e88f36c807d54002d3838b2beR95
         evaluateJavaScript(js: """
                 const placeholderSpan = document.querySelector("SPAN[data-src$='640px-Obama_family_portrait_in_the_Green_Room.jpg']")
+                if (!placeholderSpan) return false
                 const placeholderSpanWidth = window.getComputedStyle(placeholderSpan).width
-                const desiredWidth = window.getComputedStyle(placeholderSpan.parentElement.parentElement.parentElement).width
+                const ancestorWithDesiredWidth = placeholderSpan.parentElement.parentElement.parentElement
+                if (!ancestorWithDesiredWidth) return false
+                const desiredWidth = window.getComputedStyle(ancestorWithDesiredWidth).width
                 return (placeholderSpanWidth === desiredWidth)
             """, then: {value in
                 if let widthsAreEqual = value as? Bool {
