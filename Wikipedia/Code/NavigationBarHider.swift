@@ -151,4 +151,8 @@ public class NavigationBarHider: NSObject {
     @objc public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         isScrollingToTop = false
     }
+
+    @objc public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isScrollingToTop = false
+    }
 }

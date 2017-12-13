@@ -1937,6 +1937,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+}
+
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;

@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didUpdateScrollViewInsets;
 
+- (void)scrollToTop;
+
 @end
 
 NS_ASSUME_NONNULL_END

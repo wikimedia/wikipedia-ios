@@ -1107,6 +1107,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidEndScrollingAnimation:)]) {
+        [self.delegate webViewController:self scrollViewDidEndScrollingAnimation:scrollView];
+    }
+}
+
 #pragma mark -
 
 - (void)setContentWidthPercentage:(CGFloat)contentWidthPercentage {

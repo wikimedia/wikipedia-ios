@@ -25,13 +25,3 @@ extension ArticleCollectionViewController {
         scrollToTop()
     }
 }
-
-extension WMFViewController {
-    @objc func scrollToTop() {
-        guard let scrollView = scrollView else {
-            return
-        }
-        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: 0 - scrollView.contentInset.top), animated: true)
-    }
-}
-
