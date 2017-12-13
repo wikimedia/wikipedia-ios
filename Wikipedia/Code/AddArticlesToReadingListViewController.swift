@@ -18,11 +18,6 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
         collectionView.allowsMultipleSelection = false
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.delegate?.viewControllerWillBeDismissed()
-    }
-    
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -37,7 +32,6 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
             // do something
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            // some confirmation?
             self.dismiss(animated: true, completion: nil)
         }
     }

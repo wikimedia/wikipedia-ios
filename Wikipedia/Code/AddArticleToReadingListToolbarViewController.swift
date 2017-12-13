@@ -1,18 +1,30 @@
 import UIKit
 
+@objc(WMFAddArticleToReadingListToolbarViewControllerDelegate)
 public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
     func addedArticleToReadingList(named name: String)
 }
 
+@objc(WMFAddArticleToReadingListToolbarViewController)
 class AddArticleToReadingListToolbarViewController: UIViewController {
     
-    var dataStore: MWKDataStore?
-    var article: WMFArticle? {
+    fileprivate let dataStore: MWKDataStore
+    
+    @objc var article: WMFArticle? {
         didSet {
             let articleTitle = article?.displayTitle ?? "article"
             button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         }
+    }
+    
+    @objc public init(dataStore: MWKDataStore) {
+        self.dataStore = dataStore
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     fileprivate var button: AlignedImageButton = AlignedImageButton()
@@ -37,7 +49,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         apply(theme: theme)
     }
     
-    func reset() {
+    @objc func reset() {
         let articleTitle = article?.displayTitle ?? "article"
         button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
@@ -48,10 +60,10 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
-    public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
+    @objc public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
     
     @objc fileprivate func buttonPressed() {
-        guard let dataStore = dataStore, let article = article else {
+        guard let article = article else {
             return
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
