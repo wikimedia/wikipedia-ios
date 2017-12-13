@@ -20,85 +20,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVp-Ga-oZr">
-                                <rect key="frame" x="0.0" y="126" width="375" height="541"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
-                                <rect key="frame" x="0.0" y="28" width="375" height="98"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
-                                        <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="32"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                <state key="normal" title="Saved articles">
-                                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
-                                                        <real key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Tjj-9u-FAV"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
-                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="32"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                <state key="normal" title="Reading lists">
-                                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="uxl-yy-BNt"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qRL-zo-Csa">
-                                        <rect key="frame" x="16" y="47" width="292" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="BKa-DW-7hE"/>
-                                        </constraints>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-J1-7zh">
-                                        <rect key="frame" x="324" y="49" width="31" height="32"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                        <state key="normal" title="Sort"/>
-                                        <connections>
-                                            <action selector="sortButonPressed" destination="DbA-ai-MSH" eventType="touchUpInside" id="mhp-Go-Cd2"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Bh4-J1-7zh" firstAttribute="centerY" secondItem="qRL-zo-Csa" secondAttribute="centerY" id="1UA-Sc-HbF"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Bh4-J1-7zh" secondAttribute="trailingMargin" constant="20" id="QrH-Y0-26J"/>
-                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="top" secondItem="Oco-6Z-eRG" secondAttribute="bottom" constant="15" id="RhH-zl-Ixp"/>
-                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="Spm-sh-QSJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
-                                    <constraint firstItem="Bh4-J1-7zh" firstAttribute="leading" secondItem="qRL-zo-Csa" secondAttribute="trailing" constant="16" id="apa-dM-ret"/>
-                                    <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="8" id="bkz-4g-J5W"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="qRL-zo-Csa" secondAttribute="bottomMargin" constant="15" id="fyo-Am-chZ"/>
-                                    <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="3jh-cu-e2g"/>
+                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="top" id="28a-Hq-cFn"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="4hu-cp-Aez"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="centerX" secondItem="GCG-ME-1AZ" secondAttribute="centerX" id="8qh-Q5-mYT"/>
                             <constraint firstAttribute="bottom" secondItem="hVp-Ga-oZr" secondAttribute="bottom" id="9DZ-na-b31"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="Avf-2s-IcF"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="width" secondItem="GCG-ME-1AZ" secondAttribute="width" id="ICz-qk-9F2"/>
-                            <constraint firstItem="MOy-Ht-6zp" firstAttribute="top" secondItem="SMV-D9-nEr" secondAttribute="top" constant="8" id="RGY-vF-9Yr"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="RKs-dI-FzJ"/>
-                            <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="bottom" id="aB5-eS-tFb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>
@@ -107,17 +36,85 @@
                     </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
-                        <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="Dyz-3S-Guw"/>
+                        <outlet property="extendedNavBarView" destination="MOy-Ht-6zp" id="mSs-VX-ac5"/>
                         <outlet property="searchBar" destination="qRL-zo-Csa" id="L5r-oc-fU0"/>
                         <outlet property="searchBarBottomConstraint" destination="fyo-Am-chZ" id="ztZ-UN-iQR"/>
                         <outlet property="searchBarHeightConstraint" destination="BKa-DW-7hE" id="9qW-Oh-uNb"/>
                         <outlet property="searchBarTopConstraint" destination="RhH-zl-Ixp" id="lMN-GC-iqU"/>
                         <outlet property="sortButton" destination="Bh4-J1-7zh" id="e9m-im-dof"/>
-                        <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
+                        <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="MOy-Ht-6zp" userLabel="Extended Nav Bar View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                            <subviews>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="40"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                    <state key="normal" title="Saved articles">
+                                        <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
+                                            <real key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Tjj-9u-FAV"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
+                                    <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                    <state key="normal" title="Reading lists">
+                                        <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="uxl-yy-BNt"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="qRL-zo-Csa">
+                            <rect key="frame" x="24" y="55" width="276" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="BKa-DW-7hE"/>
+                            </constraints>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bh4-J1-7zh">
+                            <rect key="frame" x="316" y="57" width="31" height="32"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                            <state key="normal" title="Sort"/>
+                            <connections>
+                                <action selector="sortButonPressed" destination="DbA-ai-MSH" eventType="touchUpInside" id="mhp-Go-Cd2"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Bh4-J1-7zh" firstAttribute="centerY" secondItem="qRL-zo-Csa" secondAttribute="centerY" id="1UA-Sc-HbF"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="Bh4-J1-7zh" secondAttribute="trailingMargin" constant="20" id="QrH-Y0-26J"/>
+                        <constraint firstItem="qRL-zo-Csa" firstAttribute="top" secondItem="Oco-6Z-eRG" secondAttribute="bottom" constant="15" id="RhH-zl-Ixp"/>
+                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="Spm-sh-QSJ"/>
+                        <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
+                        <constraint firstItem="Bh4-J1-7zh" firstAttribute="leading" secondItem="qRL-zo-Csa" secondAttribute="trailing" constant="16" id="apa-dM-ret"/>
+                        <constraint firstItem="qRL-zo-Csa" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="8" id="bkz-4g-J5W"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="qRL-zo-Csa" secondAttribute="bottomMargin" constant="15" id="fyo-Am-chZ"/>
+                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="anm-PF-eyE"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="-970" y="145"/>
         </scene>

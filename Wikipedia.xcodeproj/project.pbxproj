@@ -8396,7 +8396,7 @@
 				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					0E8380621D64989F0076EDE4 = {
@@ -9936,7 +9936,6 @@
 				D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */,
 				D80ED2781EE57F4800CE8C50 /* EnableLocationViewController.swift in Sources */,
 				7A2432E51FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
-				D80ED2791EE57F4800CE8C50 /* ExploreViewController.swift in Sources */,
 				D80ED27A1EE57F4800CE8C50 /* PlacesViewController.swift in Sources */,
 				B0CD9DF31F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				B0C7A07C1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
@@ -9967,7 +9966,7 @@
 				D80ED2951EE57F4800CE8C50 /* PlaceSearch.swift in Sources */,
 				830D71CD1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
 				D8B166901FD97FE000097D8B /* WMFViewController.m in Sources */,
-				830D71CD1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CD1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
 				D80ED2961EE57F4800CE8C50 /* PlaceSearchService.swift in Sources */,
 				7ADB2A071FD1E55200B84818 /* SavedCollectionViewCell.swift in Sources */,
 				D80ED2971EE57F4800CE8C50 /* NotificationSettingsViewController.swift in Sources */,
@@ -10891,7 +10890,7 @@
 				D8CE25041E698E2400DAE2E0 /* WMFPageCollectionViewController.m in Sources */,
 				830D71CA1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
 				D8B1668D1FD97FE000097D8B /* WMFViewController.m in Sources */,
-				830D71CA1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CA1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				7ADB2A041FD1E55200B84818 /* SavedCollectionViewCell.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
@@ -11197,7 +11196,7 @@
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8EC3DF91E9BDA35006712EB /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				830D71CB1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
-				830D71CB1F704D860080078B /* SavedViewController.swift in Sources */,
+				830D71CB1F704D860080078B /* SavedArticlesCollectionViewController.swift in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				D8EC3DFA1E9BDA35006712EB /* NSCharacterSet+WMFExtras.m in Sources */,
 				D8EC3DFB1E9BDA35006712EB /* WMFPageCollectionViewController.m in Sources */,

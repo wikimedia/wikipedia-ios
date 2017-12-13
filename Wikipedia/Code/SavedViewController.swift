@@ -5,7 +5,7 @@ import UIKit
 }
 
 @objc(WMFSavedViewController)
-class SavedViewController: UIViewController {
+class SavedViewController: ViewController {
 
     fileprivate var savedArticlesCollectionViewController: SavedArticlesCollectionViewController!
     
@@ -20,7 +20,7 @@ class SavedViewController: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     
-    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchBarHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
@@ -28,8 +28,6 @@ class SavedViewController: UIViewController {
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet var toggleButtons: [UIButton]!
-    
-    fileprivate var theme: Theme = Theme.standard
     
     // MARK: - Initalization and setup
     
@@ -67,23 +65,20 @@ class SavedViewController: UIViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsCollectionViewController)
+                addChild(savedArticlesCollectionViewController)
                 savedArticlesCollectionViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesCollectionViewController
                 
                 navigationItem.leftBarButtonItem = nil
                 isSearchBarHidden = savedArticlesCollectionViewController.isEmpty
                 
-                addChild(savedArticlesCollectionViewController)
-                
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
+                addChild(readingListsCollectionViewController)
                 readingListsCollectionViewController?.editController.navigationDelegate = self
                 
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
                 isSearchBarHidden = true
-                
-                addChild(readingListsCollectionViewController)
-                
             }
         }
     }
@@ -121,8 +116,8 @@ class SavedViewController: UIViewController {
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.isBackVisible = false
         currentView = .savedArticles
         
         searchBar.delegate = savedArticlesCollectionViewController
@@ -134,7 +129,7 @@ class SavedViewController: UIViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
-        apply(theme: self.theme)
+        super.viewDidLoad()
     }
     
     // MARK: - Sorting
@@ -143,6 +138,37 @@ class SavedViewController: UIViewController {
     
     @IBAction func sortButonPressed() {
         savedDelegate?.didPressSortButton()
+    }
+    
+    // MARK: - Themeable
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.chromeBackground
+        
+        savedArticlesCollectionViewController.apply(theme: theme)
+        readingListsCollectionViewController?.apply(theme: theme)
+        
+        for button in toggleButtons {
+            button.setTitleColor(theme.colors.secondaryText, for: .normal)
+            button.tintColor = theme.colors.link
+        }
+        
+        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.tintColor = theme.colors.link
+        
+        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
+        }
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
+        
     }
     
     // MARK: - Batch edit toolbar
@@ -197,39 +223,5 @@ extension SavedViewController: BatchEditNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
-    }
-}
-
-// MARK: - Themeable
-
-extension SavedViewController: Themeable {
-    
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.chromeBackground
-        
-        savedArticlesCollectionViewController.apply(theme: theme)
-        readingListsCollectionViewController?.apply(theme: theme)
-        
-        for button in toggleButtons {
-            button.setTitleColor(theme.colors.secondaryText, for: .normal)
-            button.tintColor = theme.colors.link
-        }
-        
-        batchEditToolbar.barTintColor = theme.colors.paperBackground
-        batchEditToolbar.tintColor = theme.colors.link
-        
-        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
-        }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
-        
     }
 }
