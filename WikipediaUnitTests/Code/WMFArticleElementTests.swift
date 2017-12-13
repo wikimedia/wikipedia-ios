@@ -117,21 +117,61 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
     func testLazyImageLoadImagePlaceholderUsesImageWideningWidth() {
         // Test for iOS image widening issue which fixed by this line:
         // https://github.com/wikimedia/wikimedia-page-library/pull/111/files#diff-74d0264e88f36c807d54002d3838b2beR95
-        evaluateJavaScript(js: """
+
+        // Get placeholderSpanWidth then scroll placeholderSpan into view.
+        var placeholderSpanWidth: Any? = nil
+        webVCConfiguredToEmitLastSectionAppearanceEvent.webView?.evaluateJavaScript("""
+            const getPlaceholderSpanWidth = () => {
                 const placeholderSpan = document.querySelector("SPAN[data-src$='640px-Obama_family_portrait_in_the_Green_Room.jpg']")
-                if (!placeholderSpan) return false
-                const placeholderSpanWidth = window.getComputedStyle(placeholderSpan).width
-                const ancestorWithDesiredWidth = placeholderSpan.parentElement.parentElement.parentElement
-                if (!ancestorWithDesiredWidth) return false
-                const desiredWidth = window.getComputedStyle(ancestorWithDesiredWidth).width
-                return (placeholderSpanWidth === desiredWidth)
-            """, then: {value in
-                if let widthsAreEqual = value as? Bool {
-                    XCTAssertTrue(widthsAreEqual);
-                }else{
-                    XCTFail()
-                }
-        })
+                if (!placeholderSpan) return 0
+                const placeholderSpanWidth = parseInt(window.getComputedStyle(placeholderSpan).width, 10)
+                placeholderSpan.scrollIntoView()
+                return placeholderSpanWidth
+            }
+            window.webkit.messageHandlers.\(self.testValueMessageHandlerString).postMessage({"\(testValueKeyString)": getPlaceholderSpanWidth()})
+        """) { (result, error) in
+            guard let error = error else {
+                return
+            }
+            print(error)
+        }
+        wait(for: [testValueReceivedExpectation!], timeout: 100)
+        placeholderSpanWidth = testValue
+        
+        // Wait a bit then get imgWidth.
+        testValueReceivedExpectation = expectation(description: "waiting for test message")
+        var imgWidth: Any? = nil
+        webVCConfiguredToEmitLastSectionAppearanceEvent.webView?.evaluateJavaScript("""
+            const getImageWidth = () => {
+                const img = document.querySelector("IMG[src$='640px-Obama_family_portrait_in_the_Green_Room.jpg']")
+                if (!img) return 0
+                const imgWidth = parseInt(window.getComputedStyle(img).width, 10)
+                return imgWidth
+            }
+            setTimeout(() => {
+                window.webkit.messageHandlers.\(self.testValueMessageHandlerString).postMessage({"\(testValueKeyString)": getImageWidth()})
+            }, 3000);
+            
+        """) { (result, error) in
+            guard let error = error else {
+                return
+            }
+            print(error)
+        }
+        wait(for: [testValueReceivedExpectation!], timeout: 100)
+        imgWidth = testValue
+
+        // Compare placeholderSpanWidth and imgWidth.
+        guard
+            let placeholderSpanWidthString = placeholderSpanWidth as? Int,
+            let imgWidthString = imgWidth as? Int,
+            placeholderSpanWidthString > 0,
+            imgWidthString > 0
+        else {
+            XCTFail()
+            return
+        }
+        XCTAssertTrue(placeholderSpanWidthString == imgWidthString)
     }
     
     func testExpectedEditPencilCount() {
