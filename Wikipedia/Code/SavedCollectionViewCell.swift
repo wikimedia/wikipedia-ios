@@ -22,6 +22,10 @@ class ReadingListTagsView: SizeThatFitsView {
     var buttonWidth: CGFloat  = 0
     
     fileprivate func createSubviews() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+        
         var maxButtonWidth: CGFloat = 0
         
         for readingList in readingLists {
@@ -47,15 +51,17 @@ class ReadingListTagsView: SizeThatFitsView {
         if (apply && needsSubviews) {
             createSubviews()
             needsSubviews = false
-        }
-        let numberOfButtons = CGFloat(subviews.count)
-        let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
-        var x: CGFloat = 0
-        for button in buttons {
-            button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: button.intrinsicContentSize.height)
-            x += buttonDelta
+            
+            let numberOfButtons = CGFloat(subviews.count)
+            let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
+            var x: CGFloat = 0
+            for button in buttons {
+                button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: button.intrinsicContentSize.height)
+                x += buttonDelta
+            }
         }
         return CGSize(width: maximumWidth, height: 20)
+
     }
 }
 
@@ -84,8 +90,9 @@ class SavedCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
             return superSize
         }
         let tagsViewSize = readingListTagsView.sizeThatFits(size, apply: true)
-        readingListTagsView.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: superSize.height - tagsViewSize.height), size: tagsViewSize)
-        return CGSize(width: superSize.width, height: superSize.height + tagsViewSize.height)
+        let newSize = CGSize(width: superSize.width, height: superSize.height + tagsViewSize.height)
+        readingListTagsView.frame = CGRect(origin: CGPoint(x: layoutMargins.left, y: newSize.height - tagsViewSize.height - layoutMargins.bottom), size: tagsViewSize)
+        return newSize
     }
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
