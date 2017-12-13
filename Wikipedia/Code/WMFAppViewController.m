@@ -194,6 +194,21 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         UINavigationController *navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self;
         navigationController.interactivePopGestureRecognizer.delegate = self;
+        switch (i) {
+            case WMFAppTabTypeSaved:
+                navigationController.title = [WMFCommonStrings savedTabTitle];
+                break;
+            case WMFAppTabTypePlaces:
+                navigationController.title = [WMFCommonStrings placesTabTitle];
+                break;
+            case WMFAppTabTypeRecent:
+                navigationController.title = [WMFCommonStrings historyTabTitle];
+                break;
+            case WMFAppTabTypeExplore:
+            default:
+                navigationController.title = [WMFCommonStrings exploreTabTitle];
+                break;
+        }
     }
 }
 
@@ -201,6 +216,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self.exploreViewController setUserStore:self.dataStore];
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+    settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
     self.exploreViewController.navigationItem.leftBarButtonItem = settingsBarButtonItem;
 }
 
@@ -625,8 +641,12 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
     for (UINavigationController *navC in allNavControllers) {
-        if (navC.isNavigationBarHidden) {
-            [navC setNavigationBarHidden:NO animated:NO];
+        UIViewController *vc = [navC visibleViewController];
+        if ([vc respondsToSelector:@selector(navigationBar)]) {
+            id navigationBar = [(id)vc navigationBar];
+            if ([navigationBar isKindOfClass:[WMFNavigationBar class]]) {
+                [(WMFNavigationBar *)navigationBar setNavigationBarPercentHidden:0];
+            }
         }
     }
 

@@ -24,7 +24,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         } catch let error {
             DDLogError("Error fetching reading lists: \(error)")
         }
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
     
     init(with dataStore: MWKDataStore) {
@@ -42,14 +42,11 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
         
         setupFetchedResultsControllerOrdered(by: "name", ascending: true)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
 
         register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        guard let collectionView = collectionView else {
-            return
-        }
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
         // Remove peek & pop for now
@@ -87,9 +84,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     }
     
     open func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let collectionView = self.collectionView else {
-            return
-        }
         guard let readingList = readingList(at: indexPath) else {
             return
         }
@@ -115,9 +109,6 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     }
     
     fileprivate final func updateEmptyState() {
-        guard let collectionView = self.collectionView else {
-            return
-        }
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -136,7 +127,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     // MARK: - Batch editing
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.batchEditingState != .open else {
             editController.didTapCellWhileBatchEditing()
             return
@@ -149,7 +140,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         wmf_push(readingListDetailCollectionViewController, animated: true)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if editController.batchEditingState == .open {
             editController.didTapCellWhileBatchEditing()
         }
@@ -223,7 +214,7 @@ extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
 extension ReadingListsCollectionViewController: ActionDelegate {
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             return false
         }
         

@@ -35,7 +35,6 @@
         self.theme = [WMFTheme standard];
     }
 
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
     buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");

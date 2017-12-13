@@ -31,14 +31,14 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     fileprivate func setupCollectionViewUpdaterAndFetch() {
         setupFetchedResultsController(with: dataStore)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch let err {
             assertionFailure("Couldn't sort by \(sortDescriptor.key ?? "unknown key"): \(err)")
         }
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
     
     fileprivate func sort(by key: String, ascending: Bool) {
@@ -172,7 +172,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
         return [updateItem, addToListItem, unsaveItem]
     }()
     
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if editController.batchEditingState == .open {
             editController.didTapCellWhileBatchEditing()
         }
@@ -187,7 +187,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     }
     
     override func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             return false
         }
         
@@ -234,7 +234,7 @@ extension SavedArticlesCollectionViewController: SavedViewControllerDelegate {
         alert.addAction(titleAction)
         alert.addAction(recentlyAddedAction)
         alert.addAction(cancelAction)
-        if let popoverController = alert.popoverPresentationController, let collectionView = collectionView, let first = collectionView.visibleCells.first {
+        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
             popoverController.sourceView = first
             popoverController.sourceRect = first.bounds
         }

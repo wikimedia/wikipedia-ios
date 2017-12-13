@@ -12,7 +12,7 @@ class RecentSearchesViewController: ArticleCollectionViewController {
     @objc var recentSearches: MWKRecentSearchList?
     
     @objc func reloadRecentSearches() {
-        collectionView?.reloadData()
+        collectionView.reloadData()
         updateHeaderVisibility()
         updateTrashButtonEnabledState()
     }
@@ -27,11 +27,11 @@ class RecentSearchesViewController: ArticleCollectionViewController {
 
     @objc(deselectAllAnimated:)
     func deselectAll(animated: Bool) {
-        guard let selected = collectionView?.indexPathsForSelectedItems else {
+        guard let selected = collectionView.indexPathsForSelectedItems else {
             return
         }
         for indexPath in selected {
-            collectionView?.deselectItem(at: indexPath, animated: animated)
+            collectionView.deselectItem(at: indexPath, animated: animated)
         }
     }
     
@@ -53,7 +53,7 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         }
         recentSearches?.removeEntry(entry)
         recentSearches?.save()
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -2,7 +2,7 @@
 @import WMF.Swift;
 @import WebKit;
 
-@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView;
+@class MWKSection, MWKArticle, WMFPeekHTMLElement, WKWebView, WMFNavigationBar;
 
 typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
@@ -25,8 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) CGFloat marginWidth;
 
 @property (nonatomic, readonly) WMFTheme *theme;
-
-@property (nonatomic) BOOL navBarHidden;
 
 #if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
@@ -68,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFWebViewControllerDelegate <NSObject>
 
+@property (nonatomic, readonly) WMFNavigationBar *navigationBar;
+
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article;
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section;
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url;
@@ -75,7 +75,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController *)controller didTapShareWithSelectedText:(NSString *)text;
 - (void)webViewController:(WebViewController *)controller didTapImageWithSourceURL:(NSURL *)imageSourceURL;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView;
+- (BOOL)webViewController:(WebViewController *)controller scrollViewShouldScrollToTop:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 
 @end

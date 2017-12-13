@@ -26,7 +26,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         } catch let error {
             DDLogError("Error fetching reading list entries: \(error)")
         }
-        collectionView?.reloadData()
+        collectionView.reloadData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,14 +37,11 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
         super.viewDidLoad()
         
         setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         
         register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
-        guard let collectionView = collectionView else {
-            return
-        }
+
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
         editController.navigationDelegate = self
@@ -98,9 +95,6 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
     }
     
     fileprivate final func updateEmptyState() {
-        guard let collectionView = self.collectionView else {
-            return
-        }
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -164,7 +158,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
 
 extension ReadingListDetailCollectionViewController: ActionDelegate {
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.batchEditingState != .open  else {
             editController.didTapCellWhileBatchEditing()
             return
@@ -175,14 +169,14 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if editController.batchEditingState == .open {
             editController.didTapCellWhileBatchEditing()
         }
     }
     
     internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
-        guard let collectionView = collectionView, let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
+        guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             return false
         }
         
@@ -230,7 +224,7 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
-            if let cell = collectionView?.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
                 cell.actions = availableActions(at: indexPath)
             }
         }
@@ -262,7 +256,7 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
             }
             if let viewController = shareActivityController {
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    let cell = collectionView?.cellForItem(at: indexPath)
+                    let cell = collectionView.cellForItem(at: indexPath)
                     viewController.popoverPresentationController?.sourceView = cell ?? view
                     viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
                 }
@@ -405,10 +399,6 @@ extension ReadingListDetailCollectionViewController {
     
     fileprivate func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
-    
-        guard let collectionView = self.collectionView else {
-            return
-        }
         
         guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
             assertionFailure("Coudn't get a reading list entry or an article key to configure the cell")
@@ -439,8 +429,7 @@ extension ReadingListDetailCollectionViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
             let url = articleURL(at: indexPath)
             else {

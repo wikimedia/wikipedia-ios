@@ -6,7 +6,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     
     var articleURLs: [URL] {
         didSet {
-            collectionView?.reloadData()
+            collectionView.reloadData()
         }
     }
     let dataStore: MWKDataStore
@@ -89,11 +89,7 @@ extension ArticleLocationCollectionViewController {
 // MARK: - WMFLocationManagerDelegate
 extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
     func updateLocationOnVisibleCells() {
-        guard let visibleCells = collectionView?.visibleCells else {
-            return
-        }
-        
-        for cell in visibleCells {
+        for cell in collectionView.visibleCells {
             guard let locationCell = cell as? WMFNearbyArticleCollectionViewCell else {
                 continue
             }
@@ -118,7 +114,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
@@ -126,8 +122,7 @@ extension ArticleLocationCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleLocationCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location) else {
+        guard let indexPath = collectionView.indexPathForItem(at: location) else {
                 return nil
         }
         let url = articleURL(at: indexPath)

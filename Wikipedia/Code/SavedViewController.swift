@@ -98,7 +98,7 @@ class SavedViewController: UIViewController {
         }
     }
     
-    fileprivate func addChild(_ vc: UICollectionViewController?) {
+    fileprivate func addChild(_ vc: UIViewController?) {
         guard let vc = vc else {
             return
         }
@@ -109,7 +109,7 @@ class SavedViewController: UIViewController {
         vc.didMove(toParentViewController: self)
     }
     
-    fileprivate func removeChild(_ vc: UICollectionViewController?) {
+    fileprivate func removeChild(_ vc: UIViewController?) {
         guard let vc = vc else {
             return
         }
@@ -135,16 +135,6 @@ class SavedViewController: UIViewController {
         edgesForExtendedLayout = .all
         
         apply(theme: self.theme)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        wmf_updateNavigationBar(removeUnderline: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        wmf_updateNavigationBar(removeUnderline: false)
     }
     
     // MARK: - Sorting

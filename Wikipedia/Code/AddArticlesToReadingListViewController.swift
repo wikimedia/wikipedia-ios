@@ -15,7 +15,7 @@ class ReadingListsListCollectionViewController: ReadingListsCollectionViewContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.allowsMultipleSelection = false
+        collectionView.allowsMultipleSelection = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
