@@ -141,4 +141,16 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
                 }
         })
     }
+
+    func testExpectedCollapsedTableCount() {
+        evaluateJavaScript(js: """
+                return document.querySelectorAll("div.pagelib_collapse_table_container").length
+            """, then: {value in
+                if let value = value as? Int {
+                    XCTAssertTrue(value == 6);
+                }else{
+                    XCTFail()
+                }
+        })
+    }
 }
