@@ -1467,6 +1467,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+}
+
 - (BOOL)webViewController:(nonnull WebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
     return YES;

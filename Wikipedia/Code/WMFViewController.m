@@ -123,6 +123,15 @@
     }
 }
 
+- (void)scrollToTop {
+    UIScrollView *scrollView = self.scrollView;
+    if (!scrollView) {
+        return;
+    }
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    [scrollView setContentOffset:CGPointMake(0, 0 - scrollView.contentInset.top) animated:YES];
+}
+
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
