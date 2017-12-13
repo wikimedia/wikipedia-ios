@@ -729,7 +729,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 }
                 default: {
                     WMFArticleCollectionViewCell *cell = [self placeholderCellForIdentifier:reuseIdentifier];
-                    [cell prepareForReuse];
                     [self configureArticleCell:cell withSection:section displayType:displayType withArticle:article atIndexPath:indexPath layoutOnly:YES];
                     CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
                     estimate.height = size.height;
@@ -1142,7 +1141,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (id)placeholderCellForIdentifier:(NSString *)identifier {
-    return self.placeholderCells[identifier];
+    WMFExploreCollectionViewCell *cell = self.placeholderCells[identifier];
+    [cell prepareForReuse];
+    return cell;
 }
 
 - (id)placeholderForSupplementaryViewOfKind:(nonnull NSString *)kind withReuseIdentifier:(nonnull NSString *)identifier {
@@ -1255,7 +1256,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.imageViewDimension = cell.imageView.image.size.height;
             cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"feed-news-notification-text", nil, nil, @"Enable notifications to be notified by Wikipedia when articles are trending in the news.", @"Text shown to users to notify them that it is now possible to get notifications for articles related to trending news");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"feed-news-notification-button-text", nil, nil, @"Turn on notifications", @"Text for button to turn on trending news notifications") forState:UIControlStateNormal];
-            cell.isCaptionHidden = YES;
         } break;
         case WMFFeedDisplayTypeTheme: {
             cell.isImageViewHidden = NO;
@@ -1263,7 +1263,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.imageViewDimension = cell.imageView.image.size.height;
             cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", @"Description on feed card that describes how to adjust reading preferences.");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
-            cell.isCaptionHidden = YES;
         } break;
         default:
             break;
