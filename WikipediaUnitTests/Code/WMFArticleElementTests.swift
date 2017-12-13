@@ -82,7 +82,6 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         switch message.body {
         case let messageString as String where messageString == lastSectionAppearedMessageString && message.name == lastSectionAppearanceMessageHandlerString:
             lastSectionAppearedMessageReceivedExpectation?.fulfill()
-//print("wa")
         case let messageDict as Dictionary<String, Any>:
             testValue = messageDict["value"]
             testValueReceivedExpectation?.fulfill()
@@ -118,10 +117,10 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         // Test for iOS image widening issue which fixed by this line:
         // https://github.com/wikimedia/wikimedia-page-library/pull/111/files#diff-74d0264e88f36c807d54002d3838b2beR95
         evaluateJavaScript(js: """
-                const img = document.querySelector("SPAN[data-src$='640px-Obama_family_portrait_in_the_Green_Room.jpg']")
-                const imageWidth = window.getComputedStyle(img).width
-                const desiredWidth = window.getComputedStyle(img.parentElement.parentElement.parentElement).width
-                return (imageWidth === desiredWidth)
+                const placeholderSpan = document.querySelector("SPAN[data-src$='640px-Obama_family_portrait_in_the_Green_Room.jpg']")
+                const placeholderSpanWidth = window.getComputedStyle(placeholderSpan).width
+                const desiredWidth = window.getComputedStyle(placeholderSpan.parentElement.parentElement.parentElement).width
+                return (placeholderSpanWidth === desiredWidth)
             """, then: {value in
                 if let widthsAreEqual = value as? Bool {
                     XCTAssertTrue(widthsAreEqual);
