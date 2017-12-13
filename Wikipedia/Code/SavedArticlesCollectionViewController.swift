@@ -113,13 +113,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        if let savedArticleCell = cell as? SavedCollectionViewCell {
-            savedArticleCell.readingLists = readingListsForArticle(at: indexPath)
-            let readingLists = readingListsForArticle(at: indexPath)
-            
-            let readingListNames = readingLists.flatMap({ $0.name })
-            readingListNames.forEach({ print("name: \($0)") })
-        }
+        cell.tags = readingListsForArticle(at: indexPath)
+        
+        let readingLists = readingListsForArticle(at: indexPath)
+        let readingListNames = readingLists.flatMap({ $0.name })
+        readingListNames.forEach({ print("name: \($0)") })
         cell.isBatchEditable = true
     }
     

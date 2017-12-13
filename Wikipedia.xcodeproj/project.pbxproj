@@ -113,6 +113,7 @@
 		7A1F19AA1FE06EF70067A1A0 /* ReadingListTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F19A21FE06EF60067A1A0 /* ReadingListTagsViewController.xib */; };
 		7A1F19AB1FE06EF70067A1A0 /* ReadingListTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F19A21FE06EF60067A1A0 /* ReadingListTagsViewController.xib */; };
 		7A1F19AC1FE06EF70067A1A0 /* ReadingListTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A1F19A21FE06EF60067A1A0 /* ReadingListTagsViewController.xib */; };
+		7A1F19AE1FE0C14F0067A1A0 /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1F19AD1FE0C14F0067A1A0 /* TagsView.swift */; };
 		7A203F0B1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
 		7A203F0C1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
 		7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
@@ -3134,6 +3135,7 @@
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A1F19A11FE06EF60067A1A0 /* ReadingListTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListTagsViewController.swift; sourceTree = "<group>"; };
 		7A1F19A21FE06EF60067A1A0 /* ReadingListTagsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListTagsViewController.xib; sourceTree = "<group>"; };
+		7A1F19AD1FE0C14F0067A1A0 /* TagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
 		7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleToReadingListToolbarViewController.swift; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
@@ -7279,6 +7281,7 @@
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
+				7A1F19AD1FE0C14F0067A1A0 /* TagsView.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D82E95001F0FD2DA007BD960 /* Table View Cells */,
 				D83F5C061F0E511C006130FF /* Collection View Cells */,
@@ -10475,6 +10478,7 @@
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				83222DB31F8E554800338BE5 /* WMFContent+CoreDataClass.m in Sources */,
 				D8726D431EBA052900A107D0 /* Localization.swift in Sources */,
+				7A1F19AE1FE0C14F0067A1A0 /* TagsView.swift in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
