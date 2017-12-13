@@ -32,6 +32,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     fileprivate func setupCollectionViewUpdaterAndFetch() {
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+        collectionViewUpdater.delegate = self
         do {
             try fetchedResultsController.performFetch()
         } catch let err {
@@ -113,7 +114,7 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        cell.tags = readingListsForArticle(at: indexPath)
+//        cell.tags = readingListsForArticle(at: indexPath)
         
         let readingLists = readingListsForArticle(at: indexPath)
         let readingListNames = readingLists.flatMap({ $0.name })
