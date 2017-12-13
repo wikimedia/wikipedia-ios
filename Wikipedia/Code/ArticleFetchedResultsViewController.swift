@@ -13,7 +13,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     @objc override var dataStore: MWKDataStore! {
         didSet {
             setupFetchedResultsController(with: dataStore)
-            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView!)
+            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
             collectionViewUpdater?.delegate = self
         }
     }
@@ -49,9 +49,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     var isEmpty = true
     
     fileprivate final func updateEmptyState() {
-        guard let collectionView = self.collectionView else {
-            return
-        }
         let sectionCount = numberOfSections(in: collectionView)
 
         isEmpty = true
@@ -126,7 +123,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         } catch let error {
             DDLogError("Error fetching articles for \(self): \(error)")
         }
-        collectionView?.reloadData()
+        collectionView.reloadData()
         updateEmptyState()
         updateDeleteButton()
     }
@@ -144,7 +141,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         cell.swipeTranslation = translation
     }
     
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         guard let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
             return true
         }

@@ -127,7 +127,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (nullable NSString *)title {
-    return WMFLocalizedStringWithDefaultValue(@"settings-title", nil, nil, @"Settings", @"Title of the view where app settings are displayed.\n{{Identical|Settings}}");
+    return [WMFCommonStrings settingsTitle];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {

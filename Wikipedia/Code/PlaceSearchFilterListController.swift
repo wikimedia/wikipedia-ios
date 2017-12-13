@@ -7,13 +7,14 @@ protocol PlaceSearchFilterListDelegate: NSObjectProtocol {
     
 }
 
+@objc(WMFPlaceSearchFilterListController)
 class PlaceSearchFilterListController: UITableViewController, Themeable {
     fileprivate var theme: Theme = Theme.standard
     
     static var savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
     static var topArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
     
-    weak var delegate: PlaceSearchFilterListDelegate!
+    weak var delegate: PlaceSearchFilterListDelegate?
     
     var currentFilterType: PlaceFilterType = .top {
         didSet {
@@ -25,19 +26,10 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
         return 128 // this should be dynamically calculated if/when this view supports dynamic type
     }
     
-    init(delegate: PlaceSearchFilterListDelegate) {
-        super.init(style: .plain)
-        self.delegate = delegate
-        self.currentFilterType = .top
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentFilterType = .top
         apply(theme: theme)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,8 +47,7 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
     }
     
     func configureCell(cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        guard let myCell = cell as? PlaceSearchFilterCell else {
+        guard let delegate = delegate, let myCell = cell as? PlaceSearchFilterCell else {
             return
         }
         
@@ -85,7 +76,9 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
     //MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-     
+        guard let delegate = delegate else {
+            return
+        }
         tableView.deselectRow(at: indexPath, animated: true)
         
         if (indexPath.row == 0) {
