@@ -75,6 +75,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
     let lastSectionAppearanceMessageHandlerString = "lastSectionAppearanceHandler"
     let lastSectionAppearedMessageString = "lastSectionAppeared"
     let testValueMessageHandlerString = "testValueReceivedHandler"
+    let testValueKeyString = "value"
     var testValueReceivedExpectation: XCTestExpectation?
     var testValue: Any? = nil
     
@@ -83,7 +84,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         case let messageString as String where messageString == lastSectionAppearedMessageString && message.name == lastSectionAppearanceMessageHandlerString:
             lastSectionAppearedMessageReceivedExpectation?.fulfill()
         case let messageDict as Dictionary<String, Any>:
-            testValue = messageDict["value"]
+            testValue = messageDict[testValueKeyString]
             testValueReceivedExpectation?.fulfill()
         default:
             return
@@ -102,7 +103,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
     
     func evaluateJavaScript(js: String, then: (Any?) -> ()) {
         webVCConfiguredToEmitLastSectionAppearanceEvent.webView?.evaluateJavaScript("""
-            window.webkit.messageHandlers.\(self.testValueMessageHandlerString).postMessage({"value": (() => {\(js)})()})
+            window.webkit.messageHandlers.\(self.testValueMessageHandlerString).postMessage({"\(testValueKeyString)": (() => {\(js)})()})
         """) { (result, error) in
             guard let error = error else {
                 return
