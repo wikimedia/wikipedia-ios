@@ -173,31 +173,13 @@ public class NavigationBar: SetupView {
     @objc public var visibleHeight: CGFloat = 0
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
+        layoutIfNeeded()
         _navigationBarPercentHidden = navigationBarPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
-        let barHeight = bar.frame.height
-        let extendedViewHeight = extendedView.frame.height
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
+        setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let changes = {
-            let barTransformHeight = barHeight * navigationBarPercentHidden
-            let underBarTransformHeight = extendedViewHeight * extendedViewPercentHidden
-            let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
-            let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
-            self.bar.transform = barTransform
-            
-            for subview in self.bar.subviews {
-                for subview in subview.subviews {
-                    subview.transform = barScaleTransform
-                }
-            }
-            self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden 
-            let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
-            self.extendedView.transform = totalTransform
-            self.backgroundView.transform = totalTransform
-            self.extendedView.alpha = 1.0 - extendedViewPercentHidden
-            self.progressView.transform = totalTransform
-            self.shadow.transform = totalTransform
+            self.layoutIfNeeded()
             additionalAnimations?()
         }
         if animated {
@@ -205,6 +187,32 @@ public class NavigationBar: SetupView {
         } else {
             changes()
         }
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        let navigationBarPercentHidden = _navigationBarPercentHidden
+        let extendedViewPercentHidden = _extendedViewPercentHidden
+        let barHeight = bar.frame.height
+        let extendedViewHeight = extendedView.frame.height
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
+        let barTransformHeight = barHeight * navigationBarPercentHidden
+        let underBarTransformHeight = extendedViewHeight * extendedViewPercentHidden
+        let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
+        let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
+        self.bar.transform = barTransform
+        for subview in self.bar.subviews {
+            for subview in subview.subviews {
+                subview.transform = barScaleTransform
+            }
+        }
+        self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden
+        let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+        self.extendedView.transform = totalTransform
+        self.backgroundView.transform = totalTransform
+        self.extendedView.alpha = 1.0 - extendedViewPercentHidden
+        self.progressView.transform = totalTransform
+        self.shadow.transform = totalTransform
     }
 
 
