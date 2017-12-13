@@ -82,6 +82,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         switch message.body {
         case let messageString as String where messageString == lastSectionAppearedMessageString && message.name == lastSectionAppearanceMessageHandlerString:
             lastSectionAppearedMessageReceivedExpectation?.fulfill()
+//print("wa")
         case let messageDict as Dictionary<String, Any>:
             testValue = messageDict["value"]
             testValueReceivedExpectation?.fulfill()
@@ -95,7 +96,7 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         
         webVCConfiguredToEmitLastSectionAppearanceEvent.setArticle(obamaArticle, articleURL: obamaArticle.url)
 
-        wait(for:[lastSectionAppearedMessageReceivedExpectation!], timeout: 100, enforceOrder: true)
+        wait(for:[lastSectionAppearedMessageReceivedExpectation!], timeout: 1000, enforceOrder: true)
 
         testValueReceivedExpectation = expectation(description: "waiting for test message")
     }
@@ -134,8 +135,8 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         evaluateJavaScript(js: """
                 return Array.from(document.querySelectorAll("SPAN.pagelib_edit_section_link_container")).filter(container => window.getComputedStyle(container).display !== 'none').length
             """, then: {value in
-                if let value = value as? Int {
-                    XCTAssertTrue(value == 9);
+                if let pencilCount = value as? Int {
+                    XCTAssertTrue(pencilCount == 9);
                 }else{
                     XCTFail()
                 }
@@ -146,8 +147,21 @@ class WMFArticleElementTests : XCTestCase, WKScriptMessageHandler {
         evaluateJavaScript(js: """
                 return document.querySelectorAll("div.pagelib_collapse_table_container").length
             """, then: {value in
-                if let value = value as? Int {
-                    XCTAssertTrue(value == 6);
+                if let collapsedTableCount = value as? Int {
+                    XCTAssertTrue(collapsedTableCount == 6);
+                }else{
+                    XCTFail()
+                }
+        })
+    }
+
+    func testFirstParagraphRelocation() {
+        evaluateJavaScript(js: """
+                const boldWithinParagraphAfterHatnoteDiv = document.querySelector("div#content_block_0 > div.hatnote ~ p > b")
+                return boldWithinParagraphAfterHatnoteDiv ? false : true
+            """, then: {value in
+                if let paragraphWasMoved = value as? Bool {
+                    XCTAssertTrue(paragraphWasMoved);
                 }else{
                     XCTFail()
                 }
