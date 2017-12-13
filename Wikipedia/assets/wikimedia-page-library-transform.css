@@ -58,7 +58,7 @@ styles with only the things which need tweaking.
 .pagelib_theme_black .content td,
 .pagelib_theme_black .content tr,
 .pagelib_theme_black .content th {
-  background: #000 !important;
+  background: #27292d !important;
   color: #f8f9fa !important;
 }
 
@@ -528,7 +528,7 @@ div.pagelib_collapse_table_container {
 
 .pagelib_theme_black .content div.pagelib_collapse_table_container {
   box-shadow: none !important;
-  border: 1px solid #43464a;
+  background-color: #43464A !important;
 }
 
 .pagelib_theme_sepia .content div.pagelib_collapse_table_container {
@@ -581,7 +581,7 @@ div.pagelib_collapse_table_container {
 
 .pagelib_theme_black .content div.pagelib_collapse_table_collapsed_container,
 .pagelib_theme_black .content div.pagelib_collapse_table_collapsed_bottom {
-  background-color: #000 !important;
+  background-color: #27292d !important;
 }
 
 .pagelib_collapse_table_icon {
@@ -735,7 +735,7 @@ a.pagelib_edit_section_link {
 }
 
 .pagelib_theme_black .pagelib_footer_container {
-  background-color: #000;
+  background-color: #101418;
 }
 
 .pagelib_footer_container_heading {
@@ -868,7 +868,7 @@ html[dir='rtl'] .pagelib_footer_legal_contents,
 }
 
 .pagelib_theme_black .pagelib_footer_menu_item {
-  background-color: #000;
+  background-color: #27292D;
 }
 
 html[dir='ltr'] .pagelib_footer_menu_item {
@@ -1021,7 +1021,7 @@ html[dir='rtl'] .pagelib_footer_menu_item_subtitle {
 }
 
 .pagelib_theme_black .pagelib_footer_readmore_page {
-  background-color: #000;
+  background-color: #27292D;
   box-shadow: 0px 2px 4px rgba(67, 70, 74, 0.75);
 }
 
