@@ -368,6 +368,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
+        isBatchEditToolbarVisible = false
         for cell in editableCells {
             let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
             UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
@@ -382,7 +383,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     @objc public func close() {
         batchEditingState = .cancelled
-        isBatchEditToolbarVisible = false
         closeActionPane()
     }
     
