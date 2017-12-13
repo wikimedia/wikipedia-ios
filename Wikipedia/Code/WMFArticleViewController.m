@@ -717,6 +717,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
+
     [self hideProgressViewAnimated:NO];
 
     if (self.theme) {
@@ -1127,7 +1128,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self articleDidLoad];
         return;
     }
-    
+
     [self showProgressViewAnimated:YES];
     
     @weakify(self);
@@ -1190,6 +1191,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                      self.articleFetcherPromise = nil;
                                                                                      [self articleDidLoad];
                                                                                  }];
+
 }
 
 - (void)fetchArticle {
