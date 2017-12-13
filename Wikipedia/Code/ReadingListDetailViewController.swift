@@ -1,6 +1,6 @@
 import UIKit
 
-class ReadingListDetailCollectionViewController: ColumnarCollectionViewController {
+class ReadingListDetailViewController: ColumnarCollectionViewController {
     
     fileprivate let dataStore: MWKDataStore
     fileprivate var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
@@ -156,7 +156,7 @@ class ReadingListDetailCollectionViewController: ColumnarCollectionViewControlle
 
 // MARK: - ActionDelegate
 
-extension ReadingListDetailCollectionViewController: ActionDelegate {
+extension ReadingListDetailViewController: ActionDelegate {
     
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.batchEditingState != .open  else {
@@ -295,7 +295,7 @@ extension ReadingListDetailCollectionViewController: ActionDelegate {
 
 // MARK: - BatchEditNavigationDelegate
 
-extension ReadingListDetailCollectionViewController: BatchEditNavigationDelegate {
+extension ReadingListDetailViewController: BatchEditNavigationDelegate {
     func emptyStateDidChange(_ empty: Bool) {
         //
     }
@@ -323,7 +323,7 @@ extension ReadingListDetailCollectionViewController: BatchEditNavigationDelegate
 
 // MARK: - AddArticlesToReadingListViewControllerDelegate
 
-extension ReadingListDetailCollectionViewController: AddArticlesToReadingListDelegate {
+extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
         editController.close()
     }
@@ -331,7 +331,7 @@ extension ReadingListDetailCollectionViewController: AddArticlesToReadingListDel
 
 // MARK: - CollectionViewUpdaterDelegate
 
-extension ReadingListDetailCollectionViewController: CollectionViewUpdaterDelegate {
+extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
@@ -347,7 +347,7 @@ extension ReadingListDetailCollectionViewController: CollectionViewUpdaterDelega
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 
-extension ReadingListDetailCollectionViewController {
+extension ReadingListDetailViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
@@ -373,7 +373,7 @@ extension ReadingListDetailCollectionViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension ReadingListDetailCollectionViewController {
+extension ReadingListDetailViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let sectionsCount = self.fetchedResultsController.sections?.count else {
             return 0
@@ -424,7 +424,7 @@ extension ReadingListDetailCollectionViewController {
 
 // MARK: - UIViewControllerPreviewingDelegate
 
-extension ReadingListDetailCollectionViewController {
+extension ReadingListDetailViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
@@ -451,7 +451,7 @@ extension ReadingListDetailCollectionViewController {
 
 // MARK: - Analytics
 
-extension ReadingListDetailCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
+extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
     var analyticsName: String {
         return "ReadingListDetailView"
     }

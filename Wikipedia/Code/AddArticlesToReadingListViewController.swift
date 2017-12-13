@@ -1,6 +1,6 @@
 import UIKit
 
-class ReadingListsListCollectionViewController: ReadingListsCollectionViewController {
+class ReadingListsListCollectionViewController: ReadingListsViewController {
     
     fileprivate let articles: [WMFArticle]
     

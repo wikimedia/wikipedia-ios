@@ -9,12 +9,12 @@ class SavedViewController: ViewController {
 
     fileprivate var savedArticlesCollectionViewController: SavedArticlesCollectionViewController!
     
-    fileprivate lazy var readingListsCollectionViewController: ReadingListsCollectionViewController? = {
+    fileprivate lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
             assertionFailure("dataStore is nil")
             return nil
         }
-        let readingListsCollectionViewController = ReadingListsCollectionViewController(with: dataStore)
+        let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
         return readingListsCollectionViewController
     }()
     
@@ -64,7 +64,7 @@ class SavedViewController: ViewController {
             searchBar.resignFirstResponder()
             switch currentView {
             case .savedArticles:
-                removeChild(readingListsCollectionViewController)
+                removeChild(readingListsViewController)
                 addChild(savedArticlesCollectionViewController)
                 savedArticlesCollectionViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesCollectionViewController
@@ -74,10 +74,10 @@ class SavedViewController: ViewController {
                 
             case .readingLists :
                 removeChild(savedArticlesCollectionViewController)
-                addChild(readingListsCollectionViewController)
-                readingListsCollectionViewController?.editController.navigationDelegate = self
+                addChild(readingListsViewController)
+                readingListsViewController?.editController.navigationDelegate = self
                 
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsCollectionViewController.self, action: #selector(readingListsCollectionViewController?.presentCreateReadingListViewController))
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
                 isSearchBarHidden = true
             }
         }
@@ -150,7 +150,7 @@ class SavedViewController: ViewController {
         view.backgroundColor = theme.colors.chromeBackground
         
         savedArticlesCollectionViewController.apply(theme: theme)
-        readingListsCollectionViewController?.apply(theme: theme)
+        readingListsViewController?.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)

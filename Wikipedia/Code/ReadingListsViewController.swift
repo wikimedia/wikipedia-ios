@@ -1,7 +1,7 @@
 import Foundation
 
-@objc(WMFReadingListsCollectionViewController)
-class ReadingListsCollectionViewController: ColumnarCollectionViewController {
+@objc(WMFReadingListsViewController)
+class ReadingListsViewController: ColumnarCollectionViewController {
     
     let dataStore: MWKDataStore
     let managedObjectContext: NSManagedObjectContext
@@ -13,7 +13,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
     
     var editController: CollectionViewEditController!
 
-    fileprivate let reuseIdentifier = "ReadingListsCollectionViewCell"
+    fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -135,9 +135,9 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        let readingListDetailCollectionViewController = ReadingListDetailCollectionViewController(for: readingList, with: dataStore)
-        readingListDetailCollectionViewController.apply(theme: theme)
-        wmf_push(readingListDetailCollectionViewController, animated: true)
+        let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+        readingListDetailViewController.apply(theme: theme)
+        wmf_push(readingListDetailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -156,7 +156,7 @@ class ReadingListsCollectionViewController: ColumnarCollectionViewController {
 
 // MARK: - CreateReadingListViewControllerDelegate
 
-extension ReadingListsCollectionViewController: CreateReadingListDelegate {
+extension ReadingListsViewController: CreateReadingListDelegate {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
         do {
             let _ = try readingListsController.createReadingList(named: name, description: description)
@@ -169,7 +169,7 @@ extension ReadingListsCollectionViewController: CreateReadingListDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension ReadingListsCollectionViewController {
+extension ReadingListsViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let sectionsCount = self.fetchedResultsController.sections?.count else {
             return 0
@@ -195,7 +195,7 @@ extension ReadingListsCollectionViewController {
 }
 
 // MARK: - CollectionViewUpdaterDelegate
-extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
+extension ReadingListsViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
@@ -211,7 +211,7 @@ extension ReadingListsCollectionViewController: CollectionViewUpdaterDelegate {
 }
 
 // MARK: - ActionDelegate
-extension ReadingListsCollectionViewController: ActionDelegate {
+extension ReadingListsViewController: ActionDelegate {
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
@@ -289,7 +289,7 @@ extension ReadingListsCollectionViewController: ActionDelegate {
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension ReadingListsCollectionViewController {
+extension ReadingListsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
