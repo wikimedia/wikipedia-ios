@@ -8,12 +8,14 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
-    
     var cellLayoutEstimate: WMFLayoutEstimate?
-    
     var editController: CollectionViewEditController!
-
+    fileprivate var articles: [WMFArticle] = []
+    
     fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
+    
+    fileprivate var isList: Bool = false
+    public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -32,6 +34,12 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         self.managedObjectContext = dataStore.viewContext
         self.readingListsController = dataStore.readingListsController
         super.init()
+    }
+    
+    convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
+        self.init(with: dataStore)
+        self.articles = articles
+        self.isList = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -128,6 +136,23 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     // MARK: - Batch editing
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !isList else {
+            guard let selectedReadingList = readingList(at: indexPath) else {
+                return
+            }
+            do {
+                try readingListsController.add(articles: articles, to: selectedReadingList)
+                addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: selectedReadingList.name!)
+            } catch let err {
+                print(err)
+                // do something
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                self.dismiss(animated: true, completion: nil)
+            }
+            return
+        }
+        
         guard editController.batchEditingState != .open else {
             editController.didTapCellWhileBatchEditing()
             return
