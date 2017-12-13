@@ -628,7 +628,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -766,6 +766,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
+    [self.delegate.navigationBar setPercentHidden:0 animated:animated];
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
@@ -779,8 +780,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                      if (!CGRectIsNull(rect)) {
                                                          [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(self.webView.scrollView.contentOffset.x, rect.origin.y)
                                                                                                   animated:animated
-                                                                                                completion:^(BOOL finished) {
-                                                                                                    [self.delegate.navigationBar setPercentHidden:0 animated:YES];
+                                                                                                completion:^(BOOL finished){
                                                                                                 }];
                                                      }
                                                  }];
