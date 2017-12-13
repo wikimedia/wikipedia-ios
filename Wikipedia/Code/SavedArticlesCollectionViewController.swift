@@ -173,14 +173,11 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     }()
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if editController.batchEditingState == .open {
-            editController.didTapCellWhileBatchEditing()
-        }
+        let _ = editController.isOpen
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard editController.batchEditingState != .open  else {
-            editController.didTapCellWhileBatchEditing()
+        guard !editController.isOpen else {
             return
         }
         super.collectionView(collectionView, didSelectItemAt: indexPath)

@@ -159,8 +159,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
 extension ReadingListDetailViewController: ActionDelegate {
     
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard editController.batchEditingState != .open  else {
-            editController.didTapCellWhileBatchEditing()
+        guard !editController.isOpen else {
             return
         }
         guard let articleURL = articleURL(at: indexPath) else {
@@ -170,9 +169,7 @@ extension ReadingListDetailViewController: ActionDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if editController.batchEditingState == .open {
-            editController.didTapCellWhileBatchEditing()
-        }
+        let _ = editController.isOpen
     }
     
     internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {

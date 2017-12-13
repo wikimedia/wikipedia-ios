@@ -136,16 +136,20 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     // MARK: - Batch editing
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !editController.isOpen else {
+            return
+        }
+        
+        guard let readingList = readingList(at: indexPath) else {
+            return
+        }
+        
         guard !isList else {
-            guard let selectedReadingList = readingList(at: indexPath) else {
-                return
-            }
             do {
-                try readingListsController.add(articles: articles, to: selectedReadingList)
-                addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: selectedReadingList.name!)
+                try readingListsController.add(articles: articles, to: readingList)
+                addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name!)
             } catch let err {
                 print(err)
-                // do something
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
                 self.dismiss(animated: true, completion: nil)
@@ -153,22 +157,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         
-        guard editController.batchEditingState != .open else {
-            editController.didTapCellWhileBatchEditing()
-            return
-        }
-        guard let readingList = readingList(at: indexPath) else {
-            return
-        }
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore)
         readingListDetailViewController.apply(theme: theme)
         wmf_push(readingListDetailViewController, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if editController.batchEditingState == .open {
-            editController.didTapCellWhileBatchEditing()
-        }
+        let _ = editController.isOpen
     }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {

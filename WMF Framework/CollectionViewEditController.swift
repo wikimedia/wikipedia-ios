@@ -407,8 +407,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    public func didTapCellWhileBatchEditing() {
-        isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
+    public var isOpen: Bool {
+        let isOpen = batchEditingState == .open
+        if isOpen {
+            isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
+        }
+        return isOpen
     }
     
     var selectedIndexPaths: [IndexPath] {
