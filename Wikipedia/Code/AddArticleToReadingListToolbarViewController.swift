@@ -37,6 +37,13 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         apply(theme: theme)
     }
     
+    func reset() {
+        let articleTitle = article?.displayTitle ?? "article"
+        button.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        button.setImage(UIImage(named: "add-to-list"), for: .normal)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
@@ -61,6 +68,8 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
     
     func addedArticleToReadingList(named name: String) {
         button.setTitle("Article added to \(name)", for: .normal)
+        button.setImage(nil, for: .normal)
+        button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         delegate?.addedArticleToReadingList(named: name)
     }
 }

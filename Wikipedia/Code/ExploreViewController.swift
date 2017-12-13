@@ -309,6 +309,7 @@ class ExploreViewController: UIViewController, WMFExploreCollectionViewControlle
                 toolbarViewController.view.removeFromSuperview()
                 toolbarViewController.willMove(toParentViewController: nil)
                 toolbarViewController.removeFromParentViewController()
+                toolbarViewController.reset()
             }
         }
     }
@@ -347,7 +348,6 @@ extension ExploreViewController: AddArticleToReadingListToolbarViewControllerDel
     }
     
     func viewControllerWillBeDismissed() {
-        isToolbarViewVisible = false
     }
 }
 
