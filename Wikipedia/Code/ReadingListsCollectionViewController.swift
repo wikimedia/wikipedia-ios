@@ -230,6 +230,16 @@ extension ReadingListsCollectionViewController: ActionDelegate {
         let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
         let articlesCount = readingLists.flatMap({ $0.entries?.count }).reduce( 0, + )
         
+        func delete(_ readingLists: [ReadingList]) -> Bool {
+            do {
+                try self.readingListsController.delete(readingLists: readingLists)
+                return true
+            } catch let err {
+                print(err)
+            }
+            return false
+        }
+        
         switch action.type {
         case .update:
             print("Update")
@@ -241,18 +251,20 @@ extension ReadingListsCollectionViewController: ActionDelegate {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                 alert.dismiss(animated: true, completion: nil)
             })
+            var didPerform = false
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
                 do {
                     try self.readingListsController.delete(readingLists: readingLists)
                 } catch let err {
                     print(err)
-                    // do something
                 }
             })
             alert.addAction(cancelAction)
             alert.addAction(deleteAction)
-            present(alert, animated: true, completion: nil)
-            return true
+            present(alert, animated: true, completion: {
+                didPerform = true
+            })
+            return didPerform
         default:
             break
         }
