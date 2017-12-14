@@ -69,7 +69,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) WMFSavedViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
@@ -225,8 +225,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 }
 
 - (void)configureSavedViewController {
-    self.savedArticlesViewController.dataStore = self.dataStore;
-    [self.savedArticlesViewController applyTheme:self.theme];
+    self.savedViewController.dataStore = self.dataStore;
+    [self.savedViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
@@ -1023,7 +1023,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
-- (WMFSavedViewController *)savedArticlesViewController {
+- (WMFSavedViewController *)savedViewController {
     return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 

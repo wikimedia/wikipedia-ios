@@ -1,6 +1,7 @@
 import UIKit
 import WMF
 
+// TODO: Remove this class.
 @objc(WMFSavedArticlesCollectionViewController)
 class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController {
     
@@ -114,11 +115,9 @@ class SavedArticlesCollectionViewController: ArticleFetchedResultsViewController
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-//        cell.tags = readingListsForArticle(at: indexPath)
-        
-        let readingLists = readingListsForArticle(at: indexPath)
-        let readingListNames = readingLists.flatMap({ $0.name })
-        readingListNames.forEach({ print("name: \($0)") })
+//        let readingLists = readingListsForArticle(at: indexPath)
+//        let readingListNames = readingLists.flatMap({ $0.name })
+//        readingListNames.forEach({ print("name: \($0)") })
         cell.isBatchEditable = true
     }
     

@@ -7,7 +7,7 @@ import UIKit
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
-    fileprivate var savedArticlesCollectionViewController: SavedArticlesCollectionViewController!
+    fileprivate var savedArticlesViewController: SavedArticlesViewController!
     
     fileprivate lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
@@ -38,13 +38,13 @@ class SavedViewController: ViewController {
                 return
             }
             title = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}")
-            savedArticlesCollectionViewController.dataStore = newValue
+            savedArticlesViewController.dataStore = newValue
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        savedArticlesCollectionViewController = SavedArticlesCollectionViewController()
+        savedArticlesViewController = SavedArticlesViewController()
     }
     
     // MARK: - Toggling views
@@ -65,15 +65,15 @@ class SavedViewController: ViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsViewController)
-                addChild(savedArticlesCollectionViewController)
-                savedArticlesCollectionViewController.editController.navigationDelegate = self
-                savedDelegate = savedArticlesCollectionViewController
+                addChild(savedArticlesViewController)
+                savedArticlesViewController.editController.navigationDelegate = self
+                savedDelegate = savedArticlesViewController
                 
                 navigationItem.leftBarButtonItem = nil
-                isSearchBarHidden = savedArticlesCollectionViewController.isEmpty
+                isSearchBarHidden = savedArticlesViewController.isEmpty
                 
             case .readingLists :
-                removeChild(savedArticlesCollectionViewController)
+                removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 
@@ -120,7 +120,7 @@ class SavedViewController: ViewController {
         navigationBar.isBackVisible = false
         currentView = .savedArticles
         
-        searchBar.delegate = savedArticlesCollectionViewController
+        searchBar.delegate = savedArticlesViewController
         searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
@@ -155,7 +155,7 @@ class SavedViewController: ViewController {
         }
         view.backgroundColor = theme.colors.chromeBackground
         
-        savedArticlesCollectionViewController.apply(theme: theme)
+        savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
         
         for button in toggleButtons {
