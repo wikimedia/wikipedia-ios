@@ -515,17 +515,16 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                              completion:^(CGRect rect) {
                                                  @strongify(self);
                                                  self.disableMinimizeFindInPage = YES;
-
-                                                 CGFloat spaceAboveKeyboardBar = [self.findInPageKeyboardBar convertPoint:CGPointZero toView:self.webView].y - self.webView.scrollView.contentInset.top - self.delegate.navigationBar.visibleHeight;
-                                                 CGFloat halfSpaceAboveKeyboardBar = spaceAboveKeyboardBar / 2.f;
-                                                 CGFloat halfMatchHeight = rect.size.height / 2.f;
-                                                 CGFloat yCenteringMatchAboveKeyboardBar = halfSpaceAboveKeyboardBar - halfMatchHeight;
-                                                 CGPoint offsetCenteringMatchAboveKeyboardBar =
-                                                     CGPointMake(
-                                                         self.webView.scrollView.contentOffset.x,
-                                                         fmaxf(rect.origin.y - yCenteringMatchAboveKeyboardBar, 0.f));
-
-                                                 [self.webView.scrollView wmf_safeSetContentOffset:offsetCenteringMatchAboveKeyboardBar
+                                                 CGFloat matchScrollOffsetY = CGRectGetMinY(rect);
+                                                 CGFloat keyboardBarOriginY = [self.findInPageKeyboardBar.window convertPoint:CGPointZero fromView:self.findInPageKeyboardBar].y;
+                                                 CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
+                                                 CGFloat newOffsetY = matchScrollOffsetY + contentInsetTop - 0.5 * self.delegate.navigationBar.visibleHeight - 0.5 * keyboardBarOriginY + 0.5 * CGRectGetHeight(rect);
+                                                 if (newOffsetY <= 0 - contentInsetTop) {
+                                                     newOffsetY = 0 - contentInsetTop;
+                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                                                 }
+                                                 CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
+                                                 [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                                                           animated:YES
                                                                                         completion:^(BOOL done) {
                                                                                             self.disableMinimizeFindInPage = NO;
@@ -948,6 +947,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
             CGFloat refGroupScrollOffsetY = self.webView.scrollView.contentOffset.y + CGRectGetMinY(refGroupRectInWindowCoords);
             CGFloat newOffsetY = refGroupScrollOffsetY - 0.5 * CGRectGetMinY(panelRectInWindowCoords) + 0.5 * CGRectGetHeight(refGroupRectInWindowCoords) - 0.5 * self.delegate.navigationBar.visibleHeight;
+            CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
+            if (newOffsetY <= 0 - contentInsetTop) {
+                newOffsetY = 0 - contentInsetTop;
+                [self.delegate.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+            }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
             [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
