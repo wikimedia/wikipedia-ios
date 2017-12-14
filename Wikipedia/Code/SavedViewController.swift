@@ -182,8 +182,6 @@ class SavedViewController: ViewController {
     internal lazy var batchEditToolbar: UIToolbar = {
         return BatchEditToolbar(for: view).toolbar
     }()
-    
-    fileprivate var isBatchEditToolbarVisible = false
 }
 
 // MARK: - BatchEditNavigationDelegate
@@ -195,7 +193,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
-        isBatchEditToolbarVisible = isVisible
         tabBarController?.tabBar.isHidden = isVisible
     }
     
