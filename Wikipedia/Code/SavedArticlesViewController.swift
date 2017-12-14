@@ -186,11 +186,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     }()
     
     internal lazy var batchEditToolbar: UIToolbar = {
-        let toolbar = UIToolbar()
-        let height: CGFloat = 50
-        toolbar.frame = CGRect(x: 0, y: view.bounds.height - height, width: view.bounds.width, height: height)
-        toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
-        return toolbar
+        return BatchEditToolbar(for: view).toolbar
     }()
     
     
