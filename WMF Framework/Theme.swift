@@ -18,6 +18,9 @@ public extension UIColor {
     }
 
     fileprivate static let defaultShadow = UIColor(white: 0, alpha: 0.25)
+
+    fileprivate static let pitchBlack = UIColor(0x101418)
+
     fileprivate static let base10 = UIColor(0x222222)
     fileprivate static let base20 = UIColor(0x54595D)
     fileprivate static let base30 = UIColor(0x72777D)
@@ -102,6 +105,8 @@ public class Colors: NSObject {
     fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, overlayText: .base20, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft, chromeShadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi)
     
     fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesophere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, overlayText: .base20, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, chromeShadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70)
+
+    fileprivate static let black = Colors(baseBackground: .pitchBlack, midBackground: .exosphere, paperBackground: .black, chromeBackground: .thermosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, overlayText: .base20, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, chromeShadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70)
     
     fileprivate static let widgetiOS9 = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear, popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 0.3, alpha: 0.3), overlayText: .base70, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesophere, shadow: .base10, chromeShadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70)
 
@@ -238,7 +243,11 @@ public class Theme: NSObject {
     
     @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
     
-    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "dark-dimmed", displayName: WMFLocalizedString("dark-theme-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
+
+    @objc public static let black = Theme(colors: .black, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
+
+    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
 
     @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, searchBarBackgroundImage: nil, isDark: false, name: "", displayName: "")
     
@@ -253,7 +262,8 @@ public class Theme: NSObject {
         self.isDark = isDark
     }
     
-    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed]
+    fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed, Theme.black.name: Theme.black, Theme.blackDimmed.name: Theme.blackDimmed]
+    
     @objc(withName:)
     public class func withName(_ name: String?) -> Theme? {
         guard let name = name else {

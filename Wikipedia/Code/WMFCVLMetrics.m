@@ -64,15 +64,15 @@
     return metrics;
 }
 
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth collapseSectionSpacing:(BOOL)collapseSectionSpacing {
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth interItemSpacing:(CGFloat)interItemSpacing interSectionSpacing:(CGFloat)interSectionSpacing {
     WMFCVLMetrics *metrics = [[WMFCVLMetrics alloc] init];
     metrics.boundsSize = boundsSize;
     metrics.readableWidth = readableWidth;
     metrics.numberOfColumns = 1;
     metrics.columnWeights = @[@1];
     metrics.interColumnSpacing = 0;
-    metrics.interItemSpacing = 0;
-    metrics.interSectionSpacing = 0;
+    metrics.interItemSpacing = interItemSpacing;
+    metrics.interSectionSpacing = interSectionSpacing;
     metrics.margins = UIEdgeInsetsZero;
     metrics.sectionMargins = UIEdgeInsetsZero;
     CGFloat marginWidth = MAX(20, round(0.5*(boundsSize.width - readableWidth)));
@@ -80,4 +80,9 @@
     metrics.shouldMatchColumnHeights = NO;
     return metrics;
 }
+
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth {
+    return [self singleColumnMetricsWithBoundsSize:boundsSize readableWidth:readableWidth interItemSpacing:0 interSectionSpacing:0];
+}
+
 @end

@@ -102,10 +102,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     return [summaryArray componentsJoinedByString:@"; "];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)wmf_showAlertForTappedAnchorHref:(NSString *)href {
     NSString *title = WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-title", nil, nil, @"Link preview", @"Title for link preview popup");
     NSString *message = [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"wikitext-preview-link-preview-description", nil, nil, @"This link leads to '%1$@'", @"Description of the link URL. %1$@ is the URL."), href];

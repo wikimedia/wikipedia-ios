@@ -80,7 +80,7 @@
                 valid = YES;
                 *stop = YES;
             }
-            if ([cookieValue containsString:obj]) {
+            if ([header length] < 1 && [cookieValue hasPrefix:obj]) {
                 valid = YES;
                 *stop = YES;
             }
