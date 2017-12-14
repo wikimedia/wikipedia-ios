@@ -180,25 +180,14 @@ class SavedViewController: ViewController {
     // MARK: - Batch edit toolbar
     
     internal lazy var batchEditToolbar: UIToolbar = {
-        let toolbarHeight: CGFloat = 50
         let toolbar = UIToolbar()
-        updateBatchEditToolbarFrame(toolbar)
+        let toolbarHeight: CGFloat = 50
+        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         return toolbar
     }()
     
     fileprivate var isBatchEditToolbarVisible = false
-    
-    fileprivate func updateBatchEditToolbarFrame(_ toolbar: UIToolbar) {
-        let toolbarHeight: CGFloat = 50
-        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        if isBatchEditToolbarVisible {
-            updateBatchEditToolbarFrame(batchEditToolbar)
-        }
-    }
 }
 
 // MARK: - BatchEditNavigationDelegate
