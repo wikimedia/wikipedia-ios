@@ -89,7 +89,7 @@ class ViewController: UIViewController, Themeable {
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
         } else {
-            safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+            safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: min(44, bottomLayoutGuide.length), right: 0) // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
         }
         
         let bottom = safeInsets.bottom

@@ -104,7 +104,7 @@
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
     } else {
-        safeInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0);
+        safeInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, MIN(44, self.bottomLayoutGuide.length), 0); // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
     }
     CGFloat bottom = safeInsets.bottom;
     UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
