@@ -26,6 +26,10 @@ class NewsViewController: ColumnarCollectionViewController {
         register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
+    
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, interItemSpacing: 0, interSectionSpacing: 15)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -61,9 +65,7 @@ extension NewsViewController {
             header.apply(theme: theme)
             return header
         default:
-            
-//FIXME: According to docs looks like this will crash - "The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:"
-            
+            assert(false, "ensure you've registered cells and added cases to this switch statement to handle all header/footer types")
             return UICollectionReusableView()
         }
     }

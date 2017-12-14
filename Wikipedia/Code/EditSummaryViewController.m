@@ -93,10 +93,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

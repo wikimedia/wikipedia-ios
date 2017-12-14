@@ -2,7 +2,7 @@
 import WebKit
 import XCTest
 
-class WMFArticleJSTests: XCTestCase, WKScriptMessageHandler {
+class WMFArticleSectionLoadingJSPerformanceTests: XCTestCase, WKScriptMessageHandler {
     
     lazy var session: SessionSingleton = SessionSingleton.init(dataStore: MWKDataStore.temporary())
     lazy var dataStore = session.dataStore!

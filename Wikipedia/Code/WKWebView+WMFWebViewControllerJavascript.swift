@@ -117,6 +117,11 @@ extension WKWebView {
         switch theme.name {
         case Theme.sepia.name:
             jsThemeConstant = "SEPIA"
+        case Theme.blackDimmed.name:
+            isDim = true
+            fallthrough
+        case Theme.black.name:
+            jsThemeConstant = "BLACK"
         case Theme.darkDimmed.name:
             isDim = true
             fallthrough
