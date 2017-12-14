@@ -1598,11 +1598,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSInteger section = previewIndexPath.section;
     NSInteger sectionCount = [self numberOfItemsInSection:section];
 
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader] && sectionCount > 0) {
-        //no peek occurs on the card headers
-        return nil;
-    }
-
     if (previewIndexPath.row >= sectionCount) {
         return nil;
     }
@@ -1613,8 +1608,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0 && [group detailType] != WMFFeedMoreTypePageWithRandomButton) {
-        //peek full list on the card footers
+    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount > 0 && [group detailType] != WMFFeedMoreTypePageWithRandomButton) {
+        //peek full list on the card headers & footers
         return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     }
 
