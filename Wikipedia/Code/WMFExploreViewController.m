@@ -1379,6 +1379,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDetailTypeEvent: {
             articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
+            if (!articleURL) {
+                vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+            }
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
@@ -1386,6 +1389,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 return nil;
             }
             articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
+            if (!articleURL) {
+                vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+            }
         } break;
         case WMFFeedDetailTypeGallery: {
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme overlayViewTopBarHidden:YES];
@@ -1604,7 +1610,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount > 0 && [group detailType] != WMFFeedMoreTypePageWithRandomButton) {
+    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount != 1) {
         //peek full list on the card headers & footers
         return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     }
