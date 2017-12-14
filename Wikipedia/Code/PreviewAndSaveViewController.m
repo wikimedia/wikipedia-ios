@@ -661,6 +661,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.view bringSubviewToFront:self.captchaScrollView];
 
+    self.captchaScrollView.alpha = 1.0f;
     self.captchaScrollView.backgroundColor = self.theme.colors.paperBackground;
 
     self.captchaScrollContainer.backgroundColor = [UIColor clearColor];
