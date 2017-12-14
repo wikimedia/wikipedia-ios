@@ -1379,10 +1379,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDetailTypeEvent: {
             articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
-            if (!articleURL) {
-                NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
-                vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
-            }
         } break;
         case WMFFeedDetailTypeStory: {
             NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)group.fullContent.object;
