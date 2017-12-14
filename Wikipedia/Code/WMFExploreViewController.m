@@ -1380,8 +1380,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         case WMFFeedDetailTypeEvent: {
             articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
             if (!articleURL) {
-                NSArray<WMFFeedOnThisDayEvent *> *events = (NSArray<WMFFeedOnThisDayEvent *> *)group.fullContent.object;
-                vc = [[WMFOnThisDayViewController alloc] initWithEvents:events dataStore:self.userStore midnightUTCDate:group.midnightUTCDate];
+                vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
             }
         } break;
         case WMFFeedDetailTypeStory: {
@@ -1390,6 +1389,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                 return nil;
             }
             articleURL = [self inTheNewsArticleURLAtIndexPath:indexPath stories:stories];
+            if (!articleURL) {
+                vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+            }
         } break;
         case WMFFeedDetailTypeGallery: {
             vc = [[WMFPOTDImageGalleryViewController alloc] initWithDates:@[group.date] theme:self.theme overlayViewTopBarHidden:YES];
@@ -1598,11 +1600,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSInteger section = previewIndexPath.section;
     NSInteger sectionCount = [self numberOfItemsInSection:section];
 
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
-        //preview the last item in the section when tapping the footer
-        previewIndexPath = [NSIndexPath indexPathForItem:sectionCount - 1 inSection:section];
-    }
-
     if (previewIndexPath.row >= sectionCount) {
         return nil;
     }
@@ -1612,6 +1609,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     self.groupForPreviewedCell = group;
+
+    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount != 1) {
+        //peek full list on the card headers & footers
+        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+    }
 
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
@@ -1648,8 +1650,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
-               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
+    } else if ([viewControllerToCommit isKindOfClass:[WMFColumnarCollectionViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
