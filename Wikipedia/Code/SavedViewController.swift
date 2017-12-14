@@ -132,6 +132,12 @@ class SavedViewController: ViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let topConstraint = navigationBar.bottomAnchor.constraint(equalTo: containerView.topAnchor)
+        topConstraint.isActive = true
+    }
+    
     // MARK: - Sorting
     
     public weak var savedDelegate: SavedViewControllerDelegate?
