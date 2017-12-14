@@ -673,6 +673,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                              selector:@selector(articleUpdatedWithNotification:)
                                                  name:WMFArticleUpdatedNotification
                                                object:nil];
+
+    UIGestureRecognizer *interactivePopGR = self.navigationController.interactivePopGestureRecognizer;
+    if (interactivePopGR) {
+        [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:interactivePopGR];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

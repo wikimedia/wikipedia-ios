@@ -88,8 +88,11 @@ class ViewController: UIViewController, Themeable {
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
+        } else {
+            safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: min(44, bottomLayoutGuide.length), right: 0) // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
         }
-        let bottom = bottomLayoutGuide.length
+        
+        let bottom = safeInsets.bottom
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
