@@ -1598,9 +1598,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSInteger section = previewIndexPath.section;
     NSInteger sectionCount = [self numberOfItemsInSection:section];
 
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
-        //preview the last item in the section when tapping the footer
-        previewIndexPath = [NSIndexPath indexPathForItem:sectionCount - 1 inSection:section];
+    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader] && sectionCount > 0) {
+        //no peek occurs on the card headers
+        return nil;
     }
 
     if (previewIndexPath.row >= sectionCount) {
@@ -1612,6 +1612,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return nil;
     }
     self.groupForPreviewedCell = group;
+
+    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
+        //peek full list on the card footers
+        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+    }
 
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
@@ -1649,7 +1654,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
-               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]]) {
+               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]] ||
+               [viewControllerToCommit isKindOfClass:[WMFArticleURLListViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
