@@ -490,7 +490,6 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
             } break;
 
             case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 switch (error.code) {
                     case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA: {
@@ -500,7 +499,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
                         NSURL *captchaUrl = [[NSURL alloc] initWithString:error.userInfo[@"captchaUrl"]];
                         NSString *captchaId = error.userInfo[@"captchaId"];
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                         self.captchaViewController.captcha = [[WMFCaptcha alloc] initWithCaptchaID:captchaId captchaURL:captchaUrl];
                         [self revealCaptcha];
                     } break;
@@ -509,6 +508,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                     case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
                     case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER: {
                         //NSString *warningHtml = error.userInfo[@"warning"];
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                         [self wmf_hideKeyboard];
 
@@ -532,11 +532,13 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
                     case WIKITEXT_UPLOAD_ERROR_SERVER:
                     case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                         [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
                         break;
 
                     default:
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                         break;
                 }
             } break;
