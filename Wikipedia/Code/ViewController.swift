@@ -88,8 +88,11 @@ class ViewController: UIViewController, Themeable {
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
+        } else {
+            safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         }
-        let bottom = bottomLayoutGuide.length
+        
+        let bottom = safeInsets.bottom
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
