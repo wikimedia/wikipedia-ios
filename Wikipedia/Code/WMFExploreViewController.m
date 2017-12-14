@@ -1613,7 +1613,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0) {
+    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && sectionCount > 0 && [group detailType] != WMFFeedMoreTypePageWithRandomButton) {
         //peek full list on the card footers
         return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     }
