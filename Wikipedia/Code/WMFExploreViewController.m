@@ -1650,13 +1650,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
         [self wmf_pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
-    } else if ([viewControllerToCommit isKindOfClass:[WMFNewsViewController class]] ||
-               [viewControllerToCommit isKindOfClass:[WMFOnThisDayViewController class]] ||
-               [viewControllerToCommit isKindOfClass:[WMFArticleURLListViewController class]]) {
+    } else if ([viewControllerToCommit isKindOfClass:[WMFColumnarCollectionViewController class]]) {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
-            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
+            [(WMFImageGalleryViewController *)viewControllerTsoCommit setOverlayViewTopBarHidden:NO];
         }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
