@@ -45,31 +45,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
     }
 
-    @objc lazy var tableView: UITableView = {
-        
-        let tv = UITableView(frame: CGRect.zero, style: .grouped)
-        
-        assert(tv.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
-        
-        tv.separatorStyle = .none
-        tv.delegate = self
-        tv.dataSource = self
-        tv.backgroundView = nil
-
-        tv.register(WMFTableOfContentsCell.wmf_classNib(),
-                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tv.estimatedRowHeight = 41
-        tv.rowHeight = UITableViewAutomaticDimension
-        
-        tv.sectionHeaderHeight = UITableViewAutomaticDimension
-        tv.estimatedSectionHeaderHeight = 32
-        tv.separatorStyle = .none
-
-        //add to the view now to ensure view did load is kicked off
-        self.view.addSubview(tv)
-
-        return tv
-    }()
+    @objc var tableView: UITableView!
 
     var items: [TableOfContentsItem] {
         didSet{
@@ -208,17 +184,38 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     // MARK: - UIViewController
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.semanticContentAttribute = semanticContentAttributeOverride
-        tableView.semanticContentAttribute = semanticContentAttributeOverride
 
-        view.wmf_addConstraintsToEdgesOfView(tableView)
+        let tv = UITableView(frame: CGRect.zero, style: .grouped)
+
+        assert(tv.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+
+        tv.separatorStyle = .none
+        tv.delegate = self
+        tv.dataSource = self
+        tv.backgroundView = nil
+
+        tv.register(WMFTableOfContentsCell.wmf_classNib(),
+                    forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
+        tv.estimatedRowHeight = 41
+        tv.rowHeight = UITableViewAutomaticDimension
+
+        tv.sectionHeaderHeight = UITableViewAutomaticDimension
+        tv.estimatedSectionHeaderHeight = 32
+        tv.separatorStyle = .none
+
+        view.wmf_addSubviewWithConstraintsToEdges(tv)
+
+        if #available(iOS 11.0, *) {
+            tv.contentInsetAdjustmentBehavior = .never
+        }
+        tv.semanticContentAttribute = self.semanticContentAttributeOverride
+
+        self.tableView = tv
+
+        view.semanticContentAttribute = semanticContentAttributeOverride
 
         automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }
-        
+
         apply(theme: theme)
     }
 

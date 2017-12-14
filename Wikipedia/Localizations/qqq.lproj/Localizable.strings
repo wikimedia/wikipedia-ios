@@ -88,7 +88,6 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"dark-theme-display-name" = "Dark theme name presented to the user";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
@@ -297,6 +296,7 @@
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
+"reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
@@ -364,6 +364,7 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
+"theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
