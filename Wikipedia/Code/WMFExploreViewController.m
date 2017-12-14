@@ -1654,7 +1654,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     } else if (![viewControllerToCommit isKindOfClass:[WMFExploreViewController class]]) {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
-            [(WMFImageGalleryViewController *)viewControllerTsoCommit setOverlayViewTopBarHidden:NO];
+            [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
         }
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
