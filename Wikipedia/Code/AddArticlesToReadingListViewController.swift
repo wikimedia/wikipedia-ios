@@ -16,7 +16,8 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     fileprivate var readingListsViewController: ReadingListsViewController?
     @IBOutlet weak var containerView: UIView!
-    
+    public weak var delegate: AddArticlesToReadingListDelegate?
+
     fileprivate var theme: Theme
     
     init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
@@ -58,9 +59,6 @@ class AddArticlesToReadingListViewController: UIViewController {
         readingListsViewController.addArticlesToReadingListDelegate = self
         apply(theme: theme)
     }
-    
-    public weak var delegate: AddArticlesToReadingListDelegate?
-
 }
 
 extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelegate {
@@ -79,7 +77,7 @@ extension AddArticlesToReadingListViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        
+
         navigationBar?.barTintColor = theme.colors.chromeBackground
         navigationBar?.tintColor = theme.colors.chromeText
         navigationBar?.titleTextAttributes = theme.navigationBarTitleTextAttributes

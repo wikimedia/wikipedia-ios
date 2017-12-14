@@ -181,8 +181,6 @@ class SavedViewController: ViewController {
     
     internal lazy var batchEditToolbar: UIToolbar = {
         let toolbar = UIToolbar()
-        let toolbarHeight: CGFloat = 50
-        toolbar.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         return toolbar
     }()
@@ -205,6 +203,8 @@ extension SavedViewController: BatchEditNavigationDelegate {
     
     func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
         if add {
+            let height: CGFloat = 50
+            batchEditToolbar.frame = CGRect(x: 0, y: view.bounds.height - height, width: view.bounds.width, height: height)
             batchEditToolbar.items = items
             view.addSubview(batchEditToolbar)
         } else {

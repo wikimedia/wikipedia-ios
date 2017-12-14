@@ -1998,7 +1998,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }];
     
     self.searchBar.searchTextPositionAdjustment = UIOffsetMake(7, 0);
-    
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
     self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
@@ -2022,6 +2021,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     _readingListsToolbarVisible = readingListsToolbarVisible;
     if (readingListsToolbarVisible) {
+        [_readingListsToolbarViewController applyTheme:self.theme];
         [self addChildViewController:_readingListsToolbarViewController];
         _readingListsToolbarViewController.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         [self.view addSubview:_readingListsToolbarViewController.view];

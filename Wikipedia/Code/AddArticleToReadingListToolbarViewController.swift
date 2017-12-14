@@ -10,6 +10,7 @@ public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectPr
 class AddArticleToReadingListToolbarViewController: UIViewController {
     
     fileprivate let dataStore: MWKDataStore
+    fileprivate var theme: Theme = Theme.standard
     
     @objc var article: WMFArticle? {
         didSet {
@@ -28,7 +29,6 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     }
     
     fileprivate var button: AlignedImageButton = AlignedImageButton()
-    fileprivate var theme: Theme = Theme.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,6 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         centerConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
-        
         apply(theme: theme)
     }
     
