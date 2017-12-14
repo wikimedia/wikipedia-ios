@@ -943,27 +943,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
-
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
-
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
-            CGFloat spaceAbovePanel = [firstPanel convertRect:firstPanel.bounds toView:self.webView].origin.y;
-            if (@available(iOS 11.0, *)) {
-                spaceAbovePanel = spaceAbovePanel + self.view.safeAreaLayoutGuide.layoutFrame.origin.y;
-            } else {
-                spaceAbovePanel = spaceAbovePanel + self.topLayoutGuide.length;
-            }
-
-            CGFloat distanceFromVerticalCenterAbovePanel = (spaceAbovePanel / 2.0) - refGroupRectInWindowCoords.origin.y - (windowCoordsRefGroupRect.size.height / 2.0);
-
-            CGPoint centeredOffset = CGPointMake(
-                self.webView.scrollView.contentOffset.x,
-                self.webView.scrollView.contentOffset.y - distanceFromVerticalCenterAbovePanel);
+            CGFloat refGroupScrollOffsetY = self.webView.scrollView.contentOffset.y + CGRectGetMinY(refGroupRectInWindowCoords);
+            CGFloat newOffsetY = refGroupScrollOffsetY - 0.5 * CGRectGetMinY(panelRectInWindowCoords) + 0.5 * CGRectGetHeight(refGroupRectInWindowCoords) - 0.5 * self.delegate.navigationBar.visibleHeight;
+            CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
+            CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
             [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                      animated:YES
                                                    completion:^(BOOL finished) {
-                                                       controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, distanceFromVerticalCenterAbovePanel);
+                                                       controller.backgroundView.clearRect = CGRectOffset(windowCoordsRefGroupRect, 0, delta);
                                                    }];
         } else {
             controller.backgroundView.clearRect = windowCoordsRefGroupRect;
