@@ -1373,7 +1373,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
     }
-    if (group.detailType == WMFFeedDetailTypePageWithRandomButton) {
+    if (group.detailType == WMFFeedDetailTypePageWithRandomButton && self.nextRandomArticleURL) {
         vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:self.nextRandomArticleURL dataStore:self.userStore theme:self.theme];
     }
     [self.navigationController pushViewController:vc animated:animated];
