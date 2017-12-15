@@ -44,10 +44,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
 
         activityIndicatorView.stopAnimating()
         
-        updateSize()
-    }
-    
-    fileprivate func updateSize() {
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
@@ -63,7 +59,6 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
-        updateSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
