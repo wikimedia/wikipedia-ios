@@ -2019,19 +2019,48 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     _readingListsToolbarVisible = readingListsToolbarVisible;
     if (readingListsToolbarVisible) {
-        [self.readingListsToolbarViewController applyTheme:self.theme];
-        [self addChildViewController:self.readingListsToolbarViewController];
-        CGFloat height = 50;
-        self.readingListsToolbarViewController.view.frame = CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height);
-        self.readingListsToolbarViewController.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        [self.view addSubview:self.readingListsToolbarViewController.view];
-        [self.readingListsToolbarViewController didMoveToParentViewController:self];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            self.readingListsToolbarVisible = NO;
-        });
+        [self addReadingListToolbarViewController];
     } else {
         [self removeReadingListToolbarViewController];
     }
+}
+
+- (CGRect)readingListsToolbarFrame:(BOOL)visible {
+    CGFloat height = 50;
+    CGFloat y = visible ? self.view.bounds.size.height - height : self.view.bounds.size.height + height;
+    return CGRectMake(0, y, self.view.bounds.size.width, height);
+}
+
+- (void)setReadingListsToolbarVisible:(BOOL)visible animated:(BOOL)animated {
+    CGRect frame = [self readingListsToolbarFrame:visible];
+    if (animated) {
+        if (visible) {
+            self.readingListsToolbarVisible = visible;
+        }
+        [UIView animateWithDuration:0.4
+            delay:0
+            options:UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                self.readingListsToolbarViewController.view.frame = frame;
+                [self.view setNeedsLayout];
+            }
+            completion:^(BOOL finished) {
+                if (!visible) {
+                    self.readingListsToolbarVisible = visible;
+                }
+            }];
+    }
+}
+
+- (void)addReadingListToolbarViewController {
+    [self.readingListsToolbarViewController applyTheme:self.theme];
+    [self addChildViewController:self.readingListsToolbarViewController];
+    self.readingListsToolbarViewController.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.readingListsToolbarViewController.view];
+    [self.readingListsToolbarViewController didMoveToParentViewController:self];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self setReadingListsToolbarVisible:NO animated:YES];
+    });
 }
 
 - (void)removeReadingListToolbarViewController {
@@ -2055,17 +2084,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     self.readingListsToolbarViewController.article = article;
-    self.readingListsToolbarVisible = didSave;
+    [self setReadingListsToolbarVisible:didSave animated:YES];
 }
 
 #pragma mark - WMFAddArticleToReadingListToolbarViewControllerDelegate
 // TODO: View not disappearing after 8 seconds as it shoukd.
 - (void)addedArticleToReadingListWithNamed:(NSString *)name {
-    self.readingListsToolbarVisible = YES;
+    [self setReadingListsToolbarVisible:YES animated:YES];
 }
 
 - (void)viewControllerWillBeDismissed {
-    self.readingListsToolbarVisible = NO;
+    [self setReadingListsToolbarVisible:NO animated:YES];
 }
 
 #if DEBUG && DEBUG_CHAOS
