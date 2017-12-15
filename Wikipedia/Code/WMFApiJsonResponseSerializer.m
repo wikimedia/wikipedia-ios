@@ -27,6 +27,14 @@
         }
         return nil;
     }
+
+#if DEBUG
+    NSDictionary *warnings = json[@"warnings"];
+    if (warnings) {
+        NSLog(@"\n\n\nWarnings for request:\n%@\n%@", response.URL.absoluteString, warnings);
+    }
+#endif
+
     return json;
 }
 
