@@ -122,9 +122,11 @@ extension ArticleLocationCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleLocationCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location) else {
+        guard let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) else {
                 return nil
         }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         let url = articleURL(at: indexPath)
         let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
