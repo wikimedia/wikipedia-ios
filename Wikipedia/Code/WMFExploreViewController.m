@@ -595,11 +595,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
-        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypeRanked:
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeContinueReading:
         case WMFFeedDisplayTypeMainPage:
+        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypePageWithPreview:
         case WMFFeedDisplayTypeRelatedPagesSourceArticle:
         case WMFFeedDisplayTypeRelatedPages: {
@@ -650,7 +650,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
     [fetcher fetchRandomArticleWithSiteURL:[self currentSiteURL]
         failure:^(NSError *_Nonnull error) {
-            NSLog(@"Failed here! %@", error);
             DDLogError(@"Failed fetching next random article url: %@ ", error);
         }
         success:^(MWKSearchResult *_Nonnull result) {
