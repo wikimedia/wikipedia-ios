@@ -65,8 +65,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
-@property (nonatomic, strong, nullable) NSURL *nextRandomArticleURL;
-
 @end
 
 @implementation WMFExploreViewController
