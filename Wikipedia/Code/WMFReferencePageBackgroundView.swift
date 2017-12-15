@@ -1,5 +1,6 @@
 
 class WMFReferencePageBackgroundView: UIView, Themeable {
+    var referenceHighlightBackground: UIColor = .clear
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -24,12 +25,13 @@ class WMFReferencePageBackgroundView: UIView, Themeable {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        UIColor.clear.setFill()
+        referenceHighlightBackground.setFill()
         UIBezierPath.init(roundedRect: clearRect, cornerRadius: 3).fill(with: .copy, alpha: 1.0)
     }
 
     
     func apply(theme: Theme) {
         backgroundColor = theme.colors.overlayBackground
+        referenceHighlightBackground = theme.colors.referenceHighlightBackground
     }
 }

@@ -58,7 +58,7 @@ styles with only the things which need tweaking.
 .pagelib_theme_black .content td,
 .pagelib_theme_black .content tr,
 .pagelib_theme_black .content th {
-  background: #27292d !important;
+  background: #222 !important;
   color: #f8f9fa !important;
 }
 
@@ -528,7 +528,7 @@ div.pagelib_collapse_table_container {
 
 .pagelib_theme_black .content div.pagelib_collapse_table_container {
   box-shadow: none !important;
-  background-color: #43464A !important;
+  background-color: #222 !important;
 }
 
 .pagelib_theme_sepia .content div.pagelib_collapse_table_container {
@@ -581,7 +581,7 @@ div.pagelib_collapse_table_container {
 
 .pagelib_theme_black .content div.pagelib_collapse_table_collapsed_container,
 .pagelib_theme_black .content div.pagelib_collapse_table_collapsed_bottom {
-  background-color: #27292d !important;
+  background-color: #222 !important;
 }
 
 .pagelib_collapse_table_icon {
@@ -868,7 +868,7 @@ html[dir='rtl'] .pagelib_footer_legal_contents,
 }
 
 .pagelib_theme_black .pagelib_footer_menu_item {
-  background-color: #27292D;
+  background-color: #222;
 }
 
 html[dir='ltr'] .pagelib_footer_menu_item {
@@ -1012,7 +1012,7 @@ html[dir='rtl'] .pagelib_footer_menu_item_subtitle {
 
 .pagelib_theme_dark .pagelib_footer_readmore_page {
   background-color: #2e3136;
-  box-shadow: 0px 2px 4px rgba(67, 70, 74, 0.75);
+  box-shadow: 0px 2px 2px rgba(34, 34, 34, 0.8);
 }
 
 .pagelib_theme_sepia .pagelib_footer_readmore_page {
@@ -1021,8 +1021,8 @@ html[dir='rtl'] .pagelib_footer_menu_item_subtitle {
 }
 
 .pagelib_theme_black .pagelib_footer_readmore_page {
-  background-color: #27292D;
-  box-shadow: 0px 2px 4px rgba(67, 70, 74, 0.75);
+  background-color: #222;
+  box-shadow: 0px 2px 2px rgba(34, 34, 34, 0.8);
 }
 
 .pagelib_footer_readmore_page_container {
