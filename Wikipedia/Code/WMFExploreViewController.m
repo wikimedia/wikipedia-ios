@@ -646,17 +646,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-- (void)fetchNextRandomArticle {
-    WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithSiteURL:[self currentSiteURL]
-        failure:^(NSError *_Nonnull error) {
-            DDLogError(@"Failed fetching next random article url: %@ ", error);
-        }
-        success:^(MWKSearchResult *_Nonnull result) {
-            self.nextRandomArticleURL = [[self currentSiteURL] wmf_URLWithTitle:result.displayTitle];
-        }];
-}
-
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         return [self collectionView:collectionView viewForSectionHeaderAtIndexPath:indexPath];
@@ -877,10 +866,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } else {
             [self.locationManager stopMonitoringLocation];
         }
-    }
-
-    if ([section detailType] == WMFFeedDetailTypePageWithRandomButton) {
-        [self fetchNextRandomArticle];
     }
 }
 
@@ -1373,9 +1358,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
     }
-    if (group.detailType == WMFFeedDetailTypePageWithRandomButton && self.nextRandomArticleURL) {
-        vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:self.nextRandomArticleURL dataStore:self.userStore theme:self.theme];
-    }
+
     [self.navigationController pushViewController:vc animated:animated];
 }
 
@@ -1398,11 +1381,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:
         case WMFFeedDetailTypePageWithRandomButton: {
-            if (peekedFooter) {
-                articleURL = self.nextRandomArticleURL;
-            } else {
-                articleURL = [self contentURLForIndexPath:indexPath];
-            }
+            articleURL = [self contentURLForIndexPath:indexPath];
         } break;
         case WMFFeedDetailTypeEvent: {
             articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
