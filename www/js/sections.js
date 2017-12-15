@@ -152,6 +152,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
       const heading = fragment.querySelector('.section_heading[data-id]')
       heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
+    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'});
   }
 
   const tableFooterDivClickCallback = container => {

@@ -575,7 +575,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WKUserContentController *userContentController = [[WKUserContentController alloc] init];
 
     NSArray *handlerNames = @[
-        @"peek",
         @"linkClicked",
         @"imageClicked",
         @"referenceClicked",
