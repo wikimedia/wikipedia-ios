@@ -10,7 +10,7 @@ import UIKit
 
 public class BatchEditSelectView: SizeThatFitsView, Themeable {
     
-    var multiSelectIndicator: UIImageView?
+    fileprivate var multiSelectIndicator: UIImageView?
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
     }
     
-    func updateMultiSelectIndicatorImage() {
+    fileprivate func updateMultiSelectIndicatorImage() {
         let image = isSelected ? UIImage(named: "add-to-list", in: Bundle.main, compatibleWith: nil) : UIImage(named: "add-language", in: Bundle.main, compatibleWith: nil)
         multiSelectIndicator?.image = image
     }
@@ -50,7 +50,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         return CGSize(width: width, height: height)
     }
     
-    func createSubview() {
+    fileprivate func createSubview() {
         for view in subviews {
             view.removeFromSuperview()
         }
@@ -65,8 +65,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         backgroundColor = multiSelectIndicator.backgroundColor
         setNeedsLayout()
     }
-    
-    fileprivate var theme: Theme = Theme.standard
     
     public func apply(theme: Theme) {
         multiSelectIndicator?.tintColor = theme.colors.link

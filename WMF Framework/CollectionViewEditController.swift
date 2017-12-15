@@ -329,7 +329,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
-    public var batchEditingState: BatchEditingState = .none {
+    fileprivate var batchEditingState: BatchEditingState = .none {
         didSet {
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
             var enabled = true
@@ -393,7 +393,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    @objc func batchEdit(_ sender: UIBarButtonItem) {
+    @objc fileprivate func batchEdit(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case -1:
             closeActionPane()
@@ -415,11 +415,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return isOpen
     }
     
-    var selectedIndexPaths: [IndexPath] {
+    fileprivate var selectedIndexPaths: [IndexPath] {
         return collectionView.indexPathsForSelectedItems ?? []
     }
     
-    var isBatchEditToolbarVisible: Bool = false {
+    fileprivate var isBatchEditToolbarVisible: Bool = false {
         didSet {
             guard collectionView.window != nil else {
                 return
