@@ -3,6 +3,7 @@
 #import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
 #import <WMF/WMFLocalization.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
+#import <WMF/WMFNumberOfExtractCharacters.h>
 
 //Networking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
@@ -204,7 +205,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             [NSString stringWithFormat:@"%f|%f", params.region.center.latitude, params.region.center.longitude];
         return @{
             @"action": @"query",
-            @"prop": @"coordinates|pageimages|pageterms",
+            @"prop": @"coordinates|pageimages|pageterms|extracts",
             @"coprop": @"type|dim",
             @"colimit": @(params.numberOfResults),
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
@@ -216,6 +217,10 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             @"codistancefrompoint": coords,
             @"ggsradius": @(params.region.radius),
             @"ggslimit": @(params.numberOfResults),
+            @"exintro": @YES,
+            @"exlimit": @(params.numberOfResults),
+            @"explaintext": @"",
+            @"exchars": @(WMFNumberOfExtractCharacters),
             @"format": @"json"
         };
     }
