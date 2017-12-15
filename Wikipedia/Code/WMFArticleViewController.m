@@ -1886,9 +1886,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)cancelWIconPopoverDisplay {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showWIconPopover) object:nil];
-    if (self.presentedViewController) {
-        [self dismissViewControllerAnimated:NO completion:NULL];
-    }
 }
 
 - (void)showWIconPopover {
