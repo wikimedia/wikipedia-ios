@@ -2020,6 +2020,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     _readingListsToolbarVisible = readingListsToolbarVisible;
     if (readingListsToolbarVisible) {
         [self addReadingListToolbarViewController];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self setReadingListsToolbarVisible:NO animated:YES];
+        });
     } else {
         [self removeReadingListToolbarViewController];
     }
@@ -2058,9 +2061,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.readingListsToolbarViewController.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.readingListsToolbarViewController.view];
     [self.readingListsToolbarViewController didMoveToParentViewController:self];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self setReadingListsToolbarVisible:NO animated:YES];
-    });
 }
 
 - (void)removeReadingListToolbarViewController {
