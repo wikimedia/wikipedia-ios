@@ -1356,7 +1356,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
     }
-
     [self.navigationController pushViewController:vc animated:animated];
 }
 
