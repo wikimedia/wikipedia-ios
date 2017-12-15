@@ -1,5 +1,6 @@
 #import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/WMFNetworkUtilities.h>
+#import <WMF/WMFLogging.h>
 
 @implementation WMFApiJsonResponseSerializer
 
@@ -31,7 +32,7 @@
 #if DEBUG
     NSDictionary *warnings = json[@"warnings"];
     if (warnings) {
-        NSLog(@"\n\n\nWarnings for request:\n%@\n%@", response.URL.absoluteString, warnings);
+        DDLogWarn(@"\n\n\nWarnings for request:\n%@\n%@", response.URL.absoluteString, warnings);
     }
 #endif
 
