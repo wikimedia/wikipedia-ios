@@ -65,7 +65,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
-@property (nonatomic, strong) NSURL *nextRandomArticleURL;
+@property (nonatomic, strong, nullable) NSURL *nextRandomArticleURL;
 
 @end
 
@@ -595,9 +595,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
     switch (displayType) {
-        case WMFFeedDisplayTypeRandom: {
-            [self fetchNextRandomArticle];
-        };
+        case WMFFeedDisplayTypeRandom:
         case WMFFeedDisplayTypeRanked:
         case WMFFeedDisplayTypePage:
         case WMFFeedDisplayTypeContinueReading:
@@ -649,16 +647,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)fetchNextRandomArticle {
-    if (!self.nextRandomArticleURL) {
-        WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-        [fetcher fetchRandomArticleWithSiteURL:[self currentSiteURL]
-            failure:^(NSError *_Nonnull error) {
-                NSLog(@"Failed here! %@", error);
-            }
-            success:^(MWKSearchResult *_Nonnull result) {
-                self.nextRandomArticleURL = [[self currentSiteURL] wmf_URLWithTitle:result.displayTitle];
-            }];
-    }
+    WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
+    [fetcher fetchRandomArticleWithSiteURL:[self currentSiteURL]
+        failure:^(NSError *_Nonnull error) {
+            NSLog(@"Failed here! %@", error);
+            DDLogError(@"Failed fetching next random article url: %@ ", error);
+        }
+        success:^(MWKSearchResult *_Nonnull result) {
+            self.nextRandomArticleURL = [[self currentSiteURL] wmf_URLWithTitle:result.displayTitle];
+        }];
 }
 
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -881,6 +878,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } else {
             [self.locationManager stopMonitoringLocation];
         }
+    }
+
+    if ([section detailType] == WMFFeedDetailTypePageWithRandomButton) {
+        [self fetchNextRandomArticle];
     }
 }
 
