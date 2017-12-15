@@ -1386,10 +1386,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Peek View Controller
 
-- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath peekedHeaderOrFooter:(BOOL)peekedHeaderOrFooter {
-    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath group:(WMFContentGroup *)group sectionCount:(NSInteger)sectionCount peekedHeader:(BOOL)peekedHeader peekedFooter:(BOOL)peekedFooter {
 
-    if (peekedHeaderOrFooter && [group detailType] != WMFFeedDetailTypePageWithRandomButton) {
+    if ((peekedHeader || peekedFooter) && sectionCount != 1) {
         return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     }
 
@@ -1399,7 +1398,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:
         case WMFFeedDetailTypePageWithRandomButton: {
-            if (peekedHeaderOrFooter) {
+            if (peekedFooter) {
                 articleURL = self.nextRandomArticleURL;
             } else {
                 articleURL = [self contentURLForIndexPath:indexPath];
@@ -1638,16 +1637,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    BOOL peekedHeaderOrFooter;
-
-    if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] && [group detailType] == WMFFeedDetailTypePageWithRandomButton) {
-        peekedHeaderOrFooter = YES;
-    }
-
-    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount != 1) {
-        //peek full list on the card headers & footers
-        peekedHeaderOrFooter = YES;
-    }
+    BOOL peekedHeader = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
+    BOOL peekedFooter = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter];
 
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
@@ -1665,7 +1656,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath peekedHeaderOrFooter:peekedHeaderOrFooter];
+    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath group:group sectionCount:sectionCount peekedHeader:peekedHeader peekedFooter:peekedFooter];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
