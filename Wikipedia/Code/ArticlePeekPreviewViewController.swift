@@ -20,7 +20,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         return nil
     }
     
-    func fetchArticle() {
+    fileprivate func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (articles) in
                 guard let first = articles.first else {
@@ -33,7 +33,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         updateView(with: article)
     }
     
-    func updateView(with article: WMFArticle) {
+    fileprivate func updateView(with article: WMFArticle) {
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
         expandedArticleView.extractLabel?.numberOfLines = 5
@@ -43,7 +43,11 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         expandedArticleView.isHidden = false
 
         activityIndicatorView.stopAnimating()
-
+        
+        updateSize()
+    }
+    
+    fileprivate func updateSize() {
         let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
@@ -59,6 +63,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true
         view.addSubview(expandedArticleView)
+        updateSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -65,6 +65,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
+@property (nonatomic, strong, nullable) NSURL *nextRandomArticleURL;
+
 @end
 
 @implementation WMFExploreViewController
@@ -644,6 +646,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+- (void)fetchNextRandomArticle {
+    WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
+    [fetcher fetchRandomArticleWithSiteURL:[self currentSiteURL]
+        failure:^(NSError *_Nonnull error) {
+            DDLogError(@"Failed fetching next random article url: %@ ", error);
+        }
+        success:^(MWKSearchResult *_Nonnull result) {
+            self.nextRandomArticleURL = [[self currentSiteURL] wmf_URLWithTitle:result.displayTitle];
+        }];
+}
+
 - (nonnull UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         return [self collectionView:collectionView viewForSectionHeaderAtIndexPath:indexPath];
@@ -864,6 +877,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } else {
             [self.locationManager stopMonitoringLocation];
         }
+    }
+
+    if ([section detailType] == WMFFeedDetailTypePageWithRandomButton) {
+        [self fetchNextRandomArticle];
     }
 }
 
@@ -1356,6 +1373,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSAssert(false, @"Missing VC for group: %@", group);
         return;
     }
+    if (group.detailType == WMFFeedDetailTypePageWithRandomButton && self.nextRandomArticleURL) {
+        vc = [[WMFRandomArticleViewController alloc] initWithArticleURL:self.nextRandomArticleURL dataStore:self.userStore theme:self.theme];
+    }
     [self.navigationController pushViewController:vc animated:animated];
 }
 
@@ -1366,8 +1386,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Peek View Controller
 
-- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath group:(WMFContentGroup *)group sectionCount:(NSInteger)sectionCount peekedHeader:(BOOL)peekedHeader peekedFooter:(BOOL)peekedFooter {
+
+    if ((peekedHeader || peekedFooter) && sectionCount != 1) {
+        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+    }
 
     UIViewController *vc = nil;
     NSURL *articleURL = nil;
@@ -1375,7 +1398,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch ([group detailType]) {
         case WMFFeedDetailTypePage:
         case WMFFeedDetailTypePageWithRandomButton: {
-            articleURL = [self contentURLForIndexPath:indexPath];
+            if (peekedFooter) {
+                articleURL = self.nextRandomArticleURL;
+            } else {
+                articleURL = [self contentURLForIndexPath:indexPath];
+            }
         } break;
         case WMFFeedDetailTypeEvent: {
             articleURL = [self onThisDayArticleURLAtIndexPath:indexPath group:group];
@@ -1610,10 +1637,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount != 1) {
-        //peek full list on the card headers & footers
-        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
-    }
+    BOOL peekedHeader = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
+    BOOL peekedFooter = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter];
 
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
@@ -1631,7 +1656,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath];
+    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath group:group sectionCount:sectionCount peekedHeader:peekedHeader peekedFooter:peekedFooter];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
