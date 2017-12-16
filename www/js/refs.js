@@ -1,53 +1,36 @@
-var elementLocation = require('./elementLocation')
+const elementLocation = require('./elementLocation')
 
-function isCitation( href ) {
-  return href.indexOf('#cite_note') > -1
-}
+const isCitation = href => href.indexOf('#cite_note') > -1
+const isEndnote = href => href.indexOf('#endnote_') > -1
+const isReference = href => href.indexOf('#ref_') > -1
 
-function isEndnote( href ) {
-  return href.indexOf('#endnote_') > -1
-}
-
-function isReference( href ) {
-  return href.indexOf('#ref_') > -1
-}
-
-function goDown( element ) {
-  return element.getElementsByTagName( 'A' )[0]
-}
+const goDown = element => element.getElementsByTagName( 'A' )[0]
 
 /**
  * Skip over whitespace but not other elements
  */
-function skipOverWhitespace( skipFunc ) {
-  return function(element) {
-    do {
-      element = skipFunc( element )
-      if (element && element.nodeType == Node.TEXT_NODE) {
-        if (element.textContent.match(/^\s+$/)) {
-          // Ignore empty whitespace
-          continue
-        } else {
-          break
-        }
+const skipOverWhitespace = skipFunc => element => {
+  do {
+    element = skipFunc( element )
+    if (element && element.nodeType == Node.TEXT_NODE) {
+      if (element.textContent.match(/^\s+$/)) {
+        // Ignore empty whitespace
+        continue
       } else {
-        // found an element or ran out
         break
       }
-    } while (true)
-    return element
-  }
+    } else {
+      // found an element or ran out
+      break
+    }
+  } while (true)
+  return element
 }
 
-var goLeft = skipOverWhitespace( function( element ) {
-  return element.previousSibling
-})
+let goLeft = skipOverWhitespace( element => element.previousSibling )
+let goRight = skipOverWhitespace( element => element.nextSibling )
 
-var goRight = skipOverWhitespace( function( element ) {
-  return element.nextSibling
-})
-
-function hasCitationLink( element ) {
+const hasCitationLink = element => {
   try {
     return isCitation( goDown( element ).getAttribute( 'href' ) )
   } catch (e) {
@@ -55,10 +38,10 @@ function hasCitationLink( element ) {
   }
 }
 
-function collectRefText( sourceNode ) {
-  var href = sourceNode.getAttribute( 'href' )
-  var targetId = href.slice(1)
-  var targetNode = document.getElementById( targetId )
+const collectRefText = sourceNode => {
+  const href = sourceNode.getAttribute( 'href' )
+  const targetId = href.slice(1)
+  const targetNode = document.getElementById( targetId )
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)
@@ -66,15 +49,15 @@ function collectRefText( sourceNode ) {
   }
 
   // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
-  for (var i = 0; i < backlinks.length; i++) {
-    backlinks[i].style.display = 'none'
-  }
+  targetNode.querySelectorAll( '.mw-cite-backlink' )
+    .forEach(backlink => {
+      backlink.style.display = 'none'
+    })
   return targetNode.innerHTML
 }
 
-function collectRefLink( sourceNode ) {
-  var node = sourceNode
+const collectRefLink = sourceNode => {
+  let node = sourceNode
   while (!node.classList || !node.classList.contains('reference')) {
     node = node.parentNode
     if (!node) {
@@ -84,13 +67,13 @@ function collectRefLink( sourceNode ) {
   return node.id
 }
 
-function sendNearbyReferences( sourceNode ) {
-  var selectedIndex = 0
-  var refs = []
-  var linkId = []
-  var linkText = []
-  var linkRects = []
-  var curNode = sourceNode
+const sendNearbyReferences = sourceNode => {
+  let selectedIndex = 0
+  let refs = []
+  let linkId = []
+  let linkText = []
+  let linkRects = []
+  let curNode = sourceNode
 
   // handle clicked ref:
   refs.push( collectRefText( curNode ) )
@@ -116,13 +99,13 @@ function sendNearbyReferences( sourceNode ) {
     linkText.push( curNode.textContent )
   }
 
-  for(var i = 0; i < linkId.length; i++){
-    var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
+  for(let i = 0; i < linkId.length; i++){
+    const rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
     linkRects.push(rect)
   }
 
-  var referencesGroup = []
-  for(var j = 0; j < linkId.length; j++){
+  let referencesGroup = []
+  for(let j = 0; j < linkId.length; j++){
     referencesGroup.push({
       'id': linkId[j],
       'rect': linkRects[j],
