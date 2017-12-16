@@ -37,7 +37,7 @@ public class ReadingListsController: NSObject {
     
     // User-facing actions. Everything is performed on the main context
     
-    public func createReadingList(named name: String, description: String?, with articles: [WMFArticle] = []) throws -> ReadingList {
+    public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()

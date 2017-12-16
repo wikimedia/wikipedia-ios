@@ -10,8 +10,8 @@ class ReadingListsTests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        dataStore.removeFolderAtBasePath()
     }
     
     func testListsWithTheSameName() {
@@ -134,7 +134,16 @@ class ReadingListsTests: XCTestCase {
         }
         
     }
-
+    
+    // MARK: - Performance
+    
+    func testPerformanceCreatingReadingList() {
+        let name = "foo"
+        
+        self.measure {
+            _ = try? dataStore.readingListsController.createReadingList(named: name)
+        }
+    }
 }
 
 extension Array where Element: Hashable {
