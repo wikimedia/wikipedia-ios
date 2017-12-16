@@ -920,15 +920,15 @@ exports.findClosest = findClosest
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
-var topElement = undefined
-var relativeYOffset = 0
+let topElement = undefined
+let relativeYOffset = 0
 
-const relativeYOffsetForElement = function(element) {
+const relativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return rect.top / rect.height
 }
 
-const recordTopElementAndItsRelativeYOffset = function() {
+const recordTopElementAndItsRelativeYOffset = () => {
   topElement = document.elementFromPoint( window.innerWidth / 2, window.innerHeight / 3 )
   topElement = utilities.findClosest(topElement, 'div#content > div') || topElement
   if (topElement) {
@@ -938,24 +938,22 @@ const recordTopElementAndItsRelativeYOffset = function() {
   }
 }
 
-const yOffsetFromRelativeYOffsetForElement = function(element) {
+const yOffsetFromRelativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return window.scrollY + rect.top - relativeYOffset * rect.height
 }
 
-const scrollToSamePlaceBeforeResize = function() {
+const scrollToSamePlaceBeforeResize = () => {
   if (!topElement) {
     return
   }
   window.scrollTo(0, yOffsetFromRelativeYOffsetForElement(topElement))
 }
 
-window.addEventListener('resize', function (event) {
-  setTimeout(scrollToSamePlaceBeforeResize, 50)
-})
+window.addEventListener('resize', event => setTimeout(scrollToSamePlaceBeforeResize, 50))
 
-var timer = null
-window.addEventListener('scroll', function() {
+let timer = null
+window.addEventListener('scroll', () => {
   if(timer !== null) {
     clearTimeout(timer)
   }
