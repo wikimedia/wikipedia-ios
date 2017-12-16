@@ -59,6 +59,11 @@ function collectRefText( sourceNode ) {
   var href = sourceNode.getAttribute( 'href' )
   var targetId = href.slice(1)
   var targetNode = document.getElementById( targetId )
+
+  if ( targetNode === null ) {
+    targetNode = document.getElementById( decodeURIComponent( targetId ) )
+  }
+  
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)
