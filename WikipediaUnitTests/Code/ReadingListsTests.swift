@@ -1,6 +1,6 @@
 import XCTest
 
-class ReadingListTests: XCTestCase {
+class ReadingListsTests: XCTestCase {
     
     var dataStore: MWKDataStore!
     
