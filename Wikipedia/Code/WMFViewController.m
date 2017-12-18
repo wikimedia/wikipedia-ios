@@ -105,6 +105,13 @@
     [self updateScrollViewInsets];
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+    }
+    [self updateScrollViewInsets];
+}
+
 - (void)didUpdateScrollViewInsets {
 }
 
