@@ -57,10 +57,6 @@ class ViewController: UIViewController, Themeable {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard showsNavigationBar else {
-            return
-        }
-        
         updateScrollViewInsets()
     }
     
