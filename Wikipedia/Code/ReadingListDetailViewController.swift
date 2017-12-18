@@ -40,7 +40,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         
-        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
@@ -204,7 +204,7 @@ extension ReadingListDetailViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
                 cell.actions = availableActions(at: indexPath)
             }
         }
@@ -313,7 +313,7 @@ extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
 extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
@@ -334,7 +334,7 @@ extension ReadingListDetailViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -369,14 +369,14 @@ extension ReadingListDetailViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let savedArticleCell = cell as? SavedCollectionViewCell else {
+        guard let savedArticleCell = cell as? SavedArticlesCollectionViewCell else {
             return cell
         }
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
-    fileprivate func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    fileprivate func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
         
         guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
@@ -409,7 +409,7 @@ extension ReadingListDetailViewController {
             return nil // don't allow 3d touch when swipe actions are active
         }
         guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
+            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
             let url = articleURL(at: indexPath)
             else {
                 return nil

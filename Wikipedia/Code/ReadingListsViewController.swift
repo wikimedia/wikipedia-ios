@@ -53,7 +53,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
 
-        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
@@ -91,7 +91,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         present(createReadingListViewController, animated: true, completion: nil)
     }
     
-    open func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
@@ -205,7 +205,7 @@ extension ReadingListsViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let readingListCell = cell as? SavedCollectionViewCell else {
+        guard let readingListCell = cell as? ReadingListsCollectionViewCell else {
             return cell
         }
         configure(cell: readingListCell, forItemAt: indexPath, layoutOnly: false)
@@ -217,7 +217,7 @@ extension ReadingListsViewController {
 extension ReadingListsViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell else {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
@@ -305,7 +305,7 @@ extension ReadingListsViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()

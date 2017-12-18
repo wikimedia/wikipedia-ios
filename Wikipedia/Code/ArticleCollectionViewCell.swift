@@ -6,8 +6,8 @@ import UIKit
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
-    var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    public var layoutMarginsAdditions: UIEdgeInsets = .zero
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()

@@ -26,7 +26,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(SavedCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
@@ -34,6 +34,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        
+        // Keep until we decide whether we need these translations.
+        _ = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
+        _ = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
+        _ = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
+        _ = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
     }
     
     fileprivate var isFirstAppearance = true
@@ -197,7 +203,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
 extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
             }
             cell.configureSeparators(for: indexPath.item)
@@ -218,7 +224,7 @@ extension SavedArticlesViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedCollectionViewCell else {
+        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -253,14 +259,14 @@ extension SavedArticlesViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        guard let savedArticleCell = cell as? SavedCollectionViewCell else {
+        guard let savedArticleCell = cell as? SavedArticlesCollectionViewCell else {
             return cell
         }
         configure(cell: savedArticleCell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
-    fileprivate func configure(cell: SavedCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    fileprivate func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
         
         guard let article = article(at: indexPath) else {
@@ -328,7 +334,7 @@ extension SavedArticlesViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
                 cell.actions = availableActions(at: indexPath)
             }
         }
@@ -430,7 +436,7 @@ extension SavedArticlesViewController {
             return nil // don't allow 3d touch when swipe actions are active
         }
         guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
+            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
             let url = articleURL(at: indexPath)
             else {
                 return nil
