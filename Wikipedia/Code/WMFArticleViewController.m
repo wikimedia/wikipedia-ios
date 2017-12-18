@@ -708,7 +708,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
@@ -720,9 +719,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self hideProgressViewAnimated:NO];
 
-    if (self.theme) {
-        [self applyTheme:self.theme];
-    }
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)viewWillAppear:(BOOL)animated {
