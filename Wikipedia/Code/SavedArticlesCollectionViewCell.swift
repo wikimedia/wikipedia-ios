@@ -76,14 +76,16 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         origin.y += layoutMargins.bottom
-        let height = max(origin.y, minHeight)
         
+        let height = max(origin.y, minHeight)
+        let separatorXPositon = layoutMargins.left - margins.left
+        let separatorWidth = size.width - imageViewDimension * 1.5
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width - imageViewDimension * 1.5, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width - imageViewDimension * 1.5, height: singlePixelDimension)
+            topSeparator.frame = CGRect(x: separatorXPositon, y: 0, width: separatorWidth, height: singlePixelDimension)
         }
         
         if (apply && !isImageViewHidden) {
