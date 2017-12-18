@@ -79,11 +79,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let height = max(origin.y, minHeight)
         
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width - imageViewDimension * 1.5, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width, height: singlePixelDimension)
+            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width - imageViewDimension * 1.5, height: singlePixelDimension)
         }
         
         if (apply && !isImageViewHidden) {
@@ -126,7 +126,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 40
+        imageViewDimension = 70
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
