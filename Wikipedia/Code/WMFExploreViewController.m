@@ -2040,10 +2040,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (animated) {
         if (visible) {
             self.readingListsToolbarVisible = visible;
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                self.readingListsToolbarViewController.view.frame = [self readingListsToolbarFrame:NO];
+            });
         }
         [UIView animateWithDuration:0.4
             delay:0
-            options:UIViewAnimationOptionCurveEaseInOut
+            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState
             animations:^{
                 self.readingListsToolbarViewController.view.frame = frame;
                 [self.view setNeedsLayout];
