@@ -679,9 +679,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(
-                            WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
-                            , sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     }
                     return
                 }

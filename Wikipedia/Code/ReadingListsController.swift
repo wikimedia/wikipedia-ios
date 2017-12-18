@@ -8,6 +8,7 @@ public enum ReadingListError: Error, Equatable {
     
     public var localizedDescription: String {
         switch self {
+        // TODO: WMFAlertManager can't display this string
         case .listExistsWithTheSameName(let name):
             let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name ‟%1$@”", comment: "Informs the user that a reading list exists with the same name.")
             return String.localizedStringWithFormat(format, name)

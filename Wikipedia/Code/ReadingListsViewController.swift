@@ -148,8 +148,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
                 addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name!)
-            } catch let err {
-                print(err)
+            } catch let error {
+                readingListsController.handle(error)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
                 self.dismiss(animated: true, completion: nil)
@@ -181,9 +181,8 @@ extension ReadingListsViewController: CreateReadingListDelegate {
         do {
             let _ = try readingListsController.createReadingList(named: name, description: description)
             controller.dismiss(animated: true, completion: nil)
-        } catch let err {
-            print(err)
-            // show error
+        } catch let error {
+            readingListsController.handle(error)
         }
     }
 }
@@ -241,16 +240,6 @@ extension ReadingListsViewController: ActionDelegate {
         let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
         let articlesCount = readingLists.flatMap({ $0.entries?.count }).reduce( 0, + )
         
-        func delete(_ readingLists: [ReadingList]) -> Bool {
-            do {
-                try self.readingListsController.delete(readingLists: readingLists)
-                return true
-            } catch let err {
-                print(err)
-            }
-            return false
-        }
-        
         switch action.type {
         case .update:
             print("Update")
@@ -266,8 +255,8 @@ extension ReadingListsViewController: ActionDelegate {
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
                 do {
                     try self.readingListsController.delete(readingLists: readingLists)
-                } catch let err {
-                    print(err)
+                } catch let error {
+                    self.readingListsController.handle(error)
                 }
             })
             alert.addAction(cancelAction)
@@ -291,9 +280,8 @@ extension ReadingListsViewController: ActionDelegate {
         case .delete:
             do {
             try readingListsController.delete(readingLists: [readingList])
-            } catch let err {
-                print(err)
-                // do something
+            } catch let error {
+                readingListsController.handle(error)
             }
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
             return true
