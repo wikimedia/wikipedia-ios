@@ -1374,8 +1374,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Peek View Controller
 
-- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
+- (nullable UIViewController *)peekViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath group:(WMFContentGroup *)group sectionCount:(NSInteger)sectionCount peekedHeader:(BOOL)peekedHeader peekedFooter:(BOOL)peekedFooter {
+
+    if ((peekedHeader || peekedFooter) && sectionCount != 1) {
+        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
+    }
 
     UIViewController *vc = nil;
     NSURL *articleURL = nil;
@@ -1618,10 +1621,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.groupForPreviewedCell = group;
 
-    if (([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter] || [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) && sectionCount != 1) {
-        //peek full list on the card headers & footers
-        return [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
-    }
+    BOOL peekedHeader = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader];
+    BOOL peekedFooter = [layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionFooter];
 
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:previewIndexPath];
     previewingContext.sourceRect = cell.frame;
@@ -1639,7 +1640,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
     }
 
-    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath];
+    UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath group:group sectionCount:sectionCount peekedHeader:peekedHeader peekedFooter:peekedFooter];
     [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
