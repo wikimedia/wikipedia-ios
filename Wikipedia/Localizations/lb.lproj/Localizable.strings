@@ -82,7 +82,6 @@
 "compass-direction" = "ëm $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
-"dark-theme-display-name" = "Däischter";
 "dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
@@ -343,6 +342,7 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
 "table-title-other" = "Méi Informatiounen";
+"theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
 "top-read-header-generic" = "Wikipedia";

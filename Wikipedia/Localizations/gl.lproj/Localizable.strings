@@ -62,8 +62,11 @@
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
+"appearance-settings-expand-tables" = "Expandir táboas";
+"appearance-settings-expand-tables-footer" = "Facer que tódalas táboas en tódolos artigos estean abertas por defecto, incluíndo Caixas de información, Referencias, Notas e Ligazóns externas.";
 "appearance-settings-image-dimming-footer" = "Diminuír a opacidade das imaxes do tema escuro";
 "appearance-settings-reading-themes" = "Temas de lectura";
+"appearance-settings-set-automatic-table-opening" = "Axustes de táboa";
 "appearance-settings-text-sizing-example-text" = "Mova a barra de arriba para cambiar o tamaño do texto do artigo. Use o cambio de tamaño de texto do seu sistema para redimensionar outras áreas de texto da aplicación.";
 "appearance-settings-theme-options" = "Opcións dos temas";
 "appearance-settings-title" = "Temas de lectura";
@@ -97,7 +100,6 @@
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
-"dark-theme-display-name" = "Escuro";
 "dim-images" = "Atenuación de imaxes";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Error ortográfico correxido";
@@ -306,6 +308,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-brightness-slider" = "Cursor de luminosidade";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
@@ -373,6 +376,7 @@
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";
 "table-of-contents-heading" = "Contidos";
 "table-title-other" = "Máis información";
+"theme-black-display-name" = "Escuro";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Por defecto";
 "theme-sepia-display-name" = "Sepia";

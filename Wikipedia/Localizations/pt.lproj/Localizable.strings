@@ -66,8 +66,11 @@
 "alert-no-internet" = "Não há ligação à Internet";
 "announcements-dismiss" = "Ignorar";
 "appearance-settings-adjust-text-sizing" = "Ajustar o tamanho do texto do artigo";
+"appearance-settings-expand-tables" = "Expandir tabelas";
+"appearance-settings-expand-tables-footer" = "Defina todas as tabelas em todos os artigos para serem abertas por padrão, incluindo os factos rápidos, referências, notas e ligações externas.";
 "appearance-settings-image-dimming-footer" = "Diminuir a opacidade das imagens num tema escuro";
 "appearance-settings-reading-themes" = "Temas de leitura";
+"appearance-settings-set-automatic-table-opening" = "Configurações da tabela";
 "appearance-settings-text-sizing-example-text" = "Arraste a barra deslizante para alterar o tamanho do texto do artigo. Utilize o tamanho do texto do seu sistema para redimensionar outras áreas de texto da aplicação.";
 "appearance-settings-theme-options" = "Opções do tema";
 "appearance-settings-title" = "Temas de leitura";
@@ -101,7 +104,6 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
-"dark-theme-display-name" = "Escuro";
 "dim-images" = "Atenuar imagens";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
@@ -310,6 +312,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-brightness-slider" = "Controlo do brilho";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
@@ -377,6 +380,7 @@
 "table-of-contents-close-accessibility-label" = "Fechar Índice";
 "table-of-contents-heading" = "Índice";
 "table-title-other" = "Mais informação";
+"theme-black-display-name" = "Preto";
 "theme-dark-display-name" = "Escuro";
 "theme-default-display-name" = "Por omissão";
 "theme-sepia-display-name" = "Sépia";

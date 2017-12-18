@@ -108,7 +108,6 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
-"dark-theme-display-name" = "Fosc";
 "dim-images" = "Atenuació d'imatges";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
@@ -317,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
 "reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clar";
@@ -384,6 +384,7 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-title-other" = "Més informació";
+"theme-black-display-name" = "Negre";
 "theme-dark-display-name" = "Fosc";
 "theme-default-display-name" = "Per defecte";
 "theme-sepia-display-name" = "Sèpia";

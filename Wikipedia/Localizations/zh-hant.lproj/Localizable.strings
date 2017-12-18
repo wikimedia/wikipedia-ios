@@ -75,7 +75,7 @@
 "appearance-settings-image-dimming-footer" = "在暗黑主題裡減少圖片的不透明度";
 "appearance-settings-reading-themes" = "閱讀主題";
 "appearance-settings-set-automatic-table-opening" = "表格設定";
-"appearance-settings-text-sizing-example-text" = "拖拉上方滑動桿來改變條目文字大小。利用您系統的文字大小；來向在應用程式裡其它文字區域做調整。";
+"appearance-settings-text-sizing-example-text" = "拖拉上方滑動桿來改變條目文字大小。利用您系統的文字大小，來向在應用程式裡其它文字區域做調整。";
 "appearance-settings-theme-options" = "主題選項";
 "appearance-settings-title" = "閱讀主題";
 "article-about-title" = "關於此條目";
@@ -108,7 +108,6 @@
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-"dark-theme-display-name" = "暗黑";
 "dim-images" = "調暗圖片";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-typos" = "修正筆誤";
@@ -203,7 +202,7 @@
 "home-nearby-location-footer" = "$1 附近更多";
 "home-news-footer" = "更多的新聞";
 "home-themes-action-title" = "管理偏好設定";
-"home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定；以獲得更舒適的閱讀體驗。";
+"home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定，以獲得更舒適的閱讀體驗。";
 "home-title" = "探索";
 "home-title-accessibility-label" = "維基百科，滾動至探索頁面頂端";
 "icon-shortcut-continue-reading-title" = "繼續閱讀";
@@ -236,13 +235,13 @@
 "main-menu-debug-tweaks" = "開發人員設定";
 "main-menu-heading-debug" = "除錯";
 "main-menu-heading-legal" = "隱私與條款";
-"main-menu-heading-zero" = "維基百科 Zero";
+"main-menu-heading-zero" = "維基百科零計劃";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隱私政策";
 "main-menu-rate-app" = "付費應用程式";
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-title" = "更多";
-"main-menu-zero-faq" = "Wikipedia Zero 常見問題";
+"main-menu-zero-faq" = "維基百科零計劃常見問題";
 "menu-cancel-accessibility-label" = "取消";
 "menu-trash-accessibility-label" = "刪除";
 "more-languages-tooltip-description" = "在近 300 種語言的維基百科裡搜尋";
@@ -317,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
 "reading-themes-controls-accessibility-dark-theme-button" = "暗黑主題";
 "reading-themes-controls-accessibility-light-theme-button" = "明亮主題";
@@ -384,6 +384,7 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
+"theme-black-display-name" = "漆黑";
 "theme-dark-display-name" = "暗黑";
 "theme-default-display-name" = "預設";
 "theme-sepia-display-name" = "深褐";
@@ -419,7 +420,7 @@
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-send-data-helps-title" = "協助讓應用程式更好";
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
-"welcome-send-data-sub-title" = "透過讓我們了解您是如何使用；來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
+"welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
 "wikitext-download-failed" = "無法取得最新的版本。";
 "wikitext-download-success" = "已讀取內容。";
@@ -436,14 +437,14 @@
 "wikitext-upload-save-sign-in" = "登入";
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 授權條款來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
-"zero-charged-verbiage" = "Wikipedia Zero 已關閉";
+"zero-charged-verbiage" = "維基百科零計劃已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科 (不需要支出資料費用)";
 "zero-interstitial-cancel" = "留在這裡";
 "zero-interstitial-continue" = "離開";
 "zero-interstitial-leave-app" = "可能產生資料資料費用。要繼續前往外部網站嗎？";
-"zero-interstitial-title" = "離開 Wikipedia Zero";
+"zero-interstitial-title" = "離開維基百科零計劃";
 "zero-learn-more" = "此維基百科應用程式可免除資料費用。";
 "zero-learn-more-learn-more" = "延伸閱讀";
 "zero-learn-more-no-thanks" = "關閉";
-"zero-warn-when-leaving" = "離開 Wikipedia Zero 時提示";
+"zero-warn-when-leaving" = "離開維基百科零計劃時警告";

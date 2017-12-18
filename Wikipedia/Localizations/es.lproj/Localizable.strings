@@ -75,6 +75,7 @@
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
+"appearance-settings-expand-tables" = "Ampliar tablas";
 "appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
@@ -112,7 +113,6 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
-"dark-theme-display-name" = "Oscuro";
 "dim-images" = "Atenuación de imágenes";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
@@ -321,6 +321,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema negro";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de brillo";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema oscuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema ligero";
@@ -388,6 +389,7 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-title-other" = "Más información";
+"theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Oscuro";
 "theme-default-display-name" = "Predeterminado";
 "theme-sepia-display-name" = "Sepia";

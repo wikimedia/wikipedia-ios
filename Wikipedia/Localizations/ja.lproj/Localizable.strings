@@ -25,6 +25,7 @@
 // Author: Thibaut120094
 // Author: Wicklo
 // Author: WwLMvmT
+// Author: Yusuke1109
 // Author: おはぐろ蜻蛉
 // Author: ネイ
 // Author: 아라
@@ -114,7 +115,6 @@
 "compass-direction" = "$1時の位置";
 "continue-reading-empty-description" = "Wikipediaでさらに多くの記事を読む";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
-"dark-theme-display-name" = "暗";
 "dim-images" = "暗い画像";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
@@ -390,6 +390,7 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"theme-black-display-name" = "黒";
 "theme-dark-display-name" = "暗";
 "theme-default-display-name" = "既定";
 "theme-sepia-display-name" = "セピア";

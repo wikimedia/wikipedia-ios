@@ -112,7 +112,6 @@
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
-"dark-theme-display-name" = "Тёмная";
 "dim-images" = "Делать изображения менее яркими";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
@@ -380,7 +379,7 @@
 "share-social-format" = "«$1» в Википедии: $2";
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "status-saved-for-later" = "Сохранено на потом";
-"status-saving-for-later" = "Экономия на потом...";
+"status-saving-for-later" = "Сохранение на потом...";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
