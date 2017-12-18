@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(nullable UIActivityType)activityType {
-    if ([activityType isEqualToString:UIActivityTypeCopyToPasteboard] || [activityType isEqualToString:UIActivityTypeAirDrop]) {
+    if (![activityType isEqualToString:UIActivityTypePostToTwitter]) {
         if (self.shareText.length > 0) {
             return self.shareText;
         } else {

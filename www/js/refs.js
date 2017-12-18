@@ -41,7 +41,10 @@ const hasCitationLink = element => {
 const collectRefText = sourceNode => {
   const href = sourceNode.getAttribute( 'href' )
   const targetId = href.slice(1)
-  const targetNode = document.getElementById( targetId )
+  let targetNode = document.getElementById( targetId )
+  if ( targetNode === null ) {
+    targetNode = document.getElementById( decodeURIComponent( targetId ) )
+  }
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)

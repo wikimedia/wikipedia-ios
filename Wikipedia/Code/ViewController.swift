@@ -12,12 +12,7 @@ class ViewController: UIViewController, Themeable {
     }
     
     let navigationBar: NavigationBar = NavigationBar()
-    open var showsNavigationBar: Bool {
-        guard let navigationController = navigationController else {
-            return false
-        }
-        return parent == navigationController && navigationController.isNavigationBarHidden
-    }
+    open var showsNavigationBar: Bool = false
     
     open var scrollView: UIScrollView? {
         return nil
@@ -26,37 +21,42 @@ class ViewController: UIViewController, Themeable {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
+        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            scrollView?.contentInsetAdjustmentBehavior = .never
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard showsNavigationBar else {
-            return
+
+        if let navigationController = navigationController {
+            showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+        } else {
+            showsNavigationBar = false
         }
-        if navigationBar.superview == nil {
-            navigationBar.delegate = self
-            navigationBar.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(navigationBar)
-            let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
-            let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
-            let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
-            view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
-            
-            automaticallyAdjustsScrollViewInsets = false
-            if #available(iOS 11.0, *) {
-                scrollView?.contentInsetAdjustmentBehavior = .never
+
+        if showsNavigationBar {
+            if navigationBar.superview == nil {
+                navigationBar.delegate = self
+                navigationBar.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(navigationBar)
+                let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
+                let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
+                let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
+                view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
+            }
+            navigationBar.navigationBarPercentHidden = 0
+            updateNavigationBarStatusBarHeight()
+        } else {
+            if navigationBar.superview != nil {
+                navigationBar.removeFromSuperview()
             }
         }
-        navigationBar.navigationBarPercentHidden = 0
-        updateNavigationBarStatusBarHeight()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard showsNavigationBar else {
-            return
-        }
-        
         updateScrollViewInsets()
     }
     
@@ -83,7 +83,13 @@ class ViewController: UIViewController, Themeable {
             return
         }
         
-        let frame = navigationBar.frame
+        var frame = CGRect.zero
+        if showsNavigationBar {
+            frame = navigationBar.frame
+        } else if let navigationController = navigationController {
+            frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
+        }
+
         var top = frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
