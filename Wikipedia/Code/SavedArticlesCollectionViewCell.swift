@@ -13,6 +13,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
@@ -26,6 +27,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     fileprivate lazy var placeholderCell: TagCollectionViewCell = {
         return TagCollectionViewCell()
     }()
+    
+    fileprivate var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -129,9 +132,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let tagsCount: CGFloat = CGFloat(tags.count)
         if (apply && tagsCount != 0), let layout = layout {
             let width = tagsCollectionViewWidth + (layout.minimumLineSpacing * (tagsCount - 1))
-
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: layout.itemSize.height)
-            collectionView.backgroundColor = UIColor.cyan
         }
         
         return CGSize(width: size.width, height: height)
@@ -162,6 +163,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         } else {
             bottomSeparator.isHidden = true
         }
+        self.theme = theme
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
@@ -202,7 +204,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
             return cell
         }
         let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
-        tagCell.configure(with: tag)
+        tagCell.configure(with: tag, for: tags.count, theme: theme)
         return tagCell
     }
 
@@ -223,7 +225,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         }
         
         let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
-        placeholderCell.configure(with: tag)
+        placeholderCell.configure(with: tag, for: tags.count, theme: theme)
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         tagsCollectionViewWidth += size.width
         // simply returning size is not altering the item's size

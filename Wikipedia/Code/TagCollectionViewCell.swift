@@ -11,13 +11,15 @@ class TagCollectionViewCell: CollectionViewCell {
     override func setup() {
         label.isOpaque = true
         contentView.addSubview(label)
+        layer.cornerRadius = 3
+        clipsToBounds = true
         super.setup()
     }
     
-    func configure(with tag: Tag, for count: Int = 1) {
-        label.text = tag.index == 2 ? "+\(count - 2)" : tag.text
+    func configure(with tag: Tag, for count: Int, theme: Theme) {
+        label.text = (tag.index == 2 ? "+\(count - 2)" : tag.text).uppercased()
         width = min(100, label.intrinsicContentSize.width)
-        label.backgroundColor = UIColor.yellow
+        apply(theme: theme)
         setNeedsLayout()
     }
     
@@ -35,5 +37,11 @@ class TagCollectionViewCell: CollectionViewCell {
         }
         
         return CGSize(width: size.width, height: origin.y)
+    }
+}
+
+extension TagCollectionViewCell: Themeable {
+    func apply(theme: Theme) {
+        label.backgroundColor = theme.colors.midBackground
     }
 }
