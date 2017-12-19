@@ -127,10 +127,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         let tagsCount: CGFloat = CGFloat(tags.count)
-        tagsConfiguration: if (apply && tagsCount != 0) {
-            guard let layout = layout else {
-                break tagsConfiguration
-            }
+        if (apply && tagsCount != 0), let layout = layout {
             let width = tagsCollectionViewWidth + (layout.minimumLineSpacing * (tagsCount - 1))
             
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: layout.itemSize.height)
