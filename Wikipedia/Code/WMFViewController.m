@@ -139,7 +139,9 @@
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    [self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets];
+    if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
+        [self didUpdateScrollViewInsets];
+    }
 }
 
 - (void)scrollToTop {

@@ -18,16 +18,16 @@ extension UIScrollView {
     }
 
     fileprivate var wmf_isAtTop: Bool {
-        return contentOffset.y == wmf_topOffsetY
+        return contentOffset.y <= wmf_topOffsetY
     }
 
     fileprivate var wmf_isAtBottom: Bool {
-        return contentOffset.y == wmf_bottomOffsetY
+        return contentOffset.y >= wmf_bottomOffsetY
     }
 
-    @objc public func wmf_setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets) {
+    @objc public func wmf_setContentInsetPreservingTopAndBottomOffset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, withNavigationBar navigationBar: NavigationBar?) -> Bool {
         guard updatedContentInset != contentInset || updatedScrollIndicatorInsets != scrollIndicatorInsets else {
-            return
+            return false
         }
         let wasAtTop = wmf_isAtTop
         let wasAtBottom = wmf_isAtBottom
@@ -38,5 +38,9 @@ extension UIScrollView {
         } else if wasAtBottom {
             contentOffset = wmf_bottomOffset
         }
+        if wmf_isAtTop {
+            navigationBar?.setPercentHidden(0, animated: false)
+        }
+        return true
     }
 }

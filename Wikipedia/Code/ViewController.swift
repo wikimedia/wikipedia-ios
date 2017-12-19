@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 class ViewController: UIViewController, Themeable {
     var theme: Theme = Theme.standard
@@ -111,7 +112,13 @@ class ViewController: UIViewController, Themeable {
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets)
+        if scrollView.wmf_setContentInsetPreservingTopAndBottomOffset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, withNavigationBar: navigationBar) {
+            didUpdateScrollViewInsets()
+        }
+    }
+
+    open func didUpdateScrollViewInsets() {
+        
     }
 
     func apply(theme: Theme) {
