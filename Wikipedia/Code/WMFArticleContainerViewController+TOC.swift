@@ -108,7 +108,7 @@ extension WMFArticleViewController {
     @objc public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
             let semanticContentAttribute:UISemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: article?.url.wmf_language)
-            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: self.theme ?? Theme.standard)
+            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: tableOfContentsDisplayMode == .modal ? self : nil , items: items, delegate: self, semanticContentAttribute: semanticContentAttribute, theme: self.theme)
         }
     }
 
@@ -133,7 +133,7 @@ extension WMFArticleViewController {
     func backgroundView() -> UIVisualEffectView {
         let view = UIVisualEffectView(frame: CGRect.zero)
         view.autoresizingMask = .flexibleWidth
-        view.effect = UIBlurEffect(style: self.theme?.blurEffectStyle ?? .light)
+        view.effect = UIBlurEffect(style: self.theme.blurEffectStyle)
         view.alpha = 0.0
         return view
     }

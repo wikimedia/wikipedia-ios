@@ -70,6 +70,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         super.reset()
         imageViewDimension = 150
         updateFonts(with: traitCollection)
+        caption = nil
+        messageLabel.text = nil
+        isImageViewHidden = true
     }
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
@@ -87,7 +90,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         }
     }
     
-    @objc var isCaptionHidden = false {
+    fileprivate var isCaptionHidden = false {
         didSet {
             captionSeparatorView.isHidden = isCaptionHidden
             captionTextView.isHidden = isCaptionHidden

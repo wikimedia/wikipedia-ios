@@ -10,7 +10,8 @@ const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
-  reference: 3
+  imagePlaceholder: 3,
+  reference: 4
 }
 
 /**
@@ -32,6 +33,8 @@ class ClickedItem {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
+    } else if (this.target.tagName === 'SPAN' && this.target.parentElement.getAttribute( 'data-data-image-gallery' ) === 'true') {
+      return ItemType.imagePlaceholder
     } else if (this.href) {
       return ItemType.link
     }
@@ -51,6 +54,9 @@ function sendMessageForClickedItem(item){
     break
   case ItemType.image:
     sendMessageForImageWithTarget(item.target)
+    break
+  case ItemType.imagePlaceholder:
+    sendMessageForImagePlaceholderWithTarget(item.target)
     break
   case ItemType.reference:
     sendMessageForReferenceWithTarget(item.target)
@@ -85,6 +91,22 @@ function sendMessageForImageWithTarget(target){
     'height': target.naturalHeight,
     'data-file-width': target.getAttribute('data-file-width'),
     'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+/**
+ * Sends message for a lazy load image placeholder click.
+ * @param  {!Element} innerPlaceholderSpan
+ * @return {void}
+ */
+function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
+  const outerSpan = innerPlaceholderSpan.parentElement
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': outerSpan.getAttribute('data-src'),
+    'width': outerSpan.getAttribute('data-width'),
+    'height': outerSpan.getAttribute('data-height'),
+    'data-file-width': outerSpan.getAttribute('data-data-file-width'),
+    'data-file-height': outerSpan.getAttribute('data-data-file-height')
   })
 }
 

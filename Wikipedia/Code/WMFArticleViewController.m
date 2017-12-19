@@ -125,7 +125,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *showTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
-@property (strong, nonatomic) UIProgressView *progressView;
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
 
 // Table of Contents
@@ -145,8 +144,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, assign) BOOL skipFetchOnViewDidAppear;
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
-
-@property (strong, nonatomic, nullable) WMFTheme *theme;
 
 @end
 
@@ -329,6 +326,37 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSString *myDatabaseKey = self.articleURL.wmf_articleDatabaseKey;
     if (articleKey && myDatabaseKey && [articleKey isEqual:myDatabaseKey]) {
         [self updateSaveButtonStateForSaved:article.savedDate != nil];
+    }
+}
+
+#pragma mark - WMFViewController
+
+- (nullable UIScrollView *)scrollView {
+    return self.webViewController.webView.scrollView;
+}
+
+- (void)didUpdateScrollViewInsets {
+    [super didUpdateScrollViewInsets];
+    [self updateTableOfContentsInsets];
+}
+
+- (void)updateTableOfContentsInsets {
+    UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
+    BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
+    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
+        scrollView.contentInset = self.scrollView.contentInset;
+        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+    } else {
+        CGFloat top = self.navigationController.topLayoutGuide.length;
+        if (@available(iOS 11.0, *)) {
+            top = self.view.safeAreaInsets.top;
+        }
+        CGFloat bottom = self.bottomLayoutGuide.length;
+        scrollView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
+        scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
+    }
+    if (wasAtTop) {
+        scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
     }
 }
 
@@ -591,59 +619,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Progress
 
-- (void)setupProgressView {
-    self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-    self.progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.progressView];
-    [self.view addConstraints:@[[self.progressView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor], [self.progressView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor], [self.progressView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor], [self.progressView.heightAnchor constraintEqualToConstant:2]]];
-}
-
-- (void)removeProgressView {
-    [self.progressView removeFromSuperview];
-}
-
 - (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.05;
-
-    if (!animated) {
-        [self _showProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [self _showProgressView];
-                     }
-                     completion:^(BOOL finished){
-                     }];
-}
-
-- (void)_showProgressView {
-    self.progressView.alpha = 1.0;
+    [self.navigationBar setProgressViewHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    if (!animated) {
-        [self _hideProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         [self _hideProgressView];
-                     }
-                     completion:nil];
-}
-
-- (void)_hideProgressView {
-    self.progressView.alpha = 0.0;
+    [self.navigationBar setProgressViewHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
-    if (progress < self.progressView.progress) {
+    if (progress < self.navigationBar.progress) {
         return;
     }
-    [self.progressView setProgress:progress animated:animated];
+    [self.navigationBar setProgress:progress animated:animated];
 
     [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
@@ -720,7 +708,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
@@ -729,12 +716,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-    [self setupProgressView];
+
     [self hideProgressViewAnimated:NO];
 
-    if (self.theme) {
-        [self applyTheme:self.theme];
-    }
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -826,8 +811,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     CGPoint origin = CGPointZero;
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
-        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, self.topLayoutGuide.length, tocWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
-        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, self.topLayoutGuide.length, separatorWidth, size.height - self.topLayoutGuide.length - self.bottomLayoutGuide.length);
+        self.tableOfContentsViewController.view.frame = CGRectMake(tocOriginX, 0, tocWidth, size.height);
+        self.tableOfContentsSeparatorView.frame = CGRectMake(separatorOriginX, 0, separatorWidth, size.height);
         self.tableOfContentsViewController.view.alpha = isTOCVisible ? 1 : 0;
         self.tableOfContentsSeparatorView.alpha = isTOCVisible ? 1 : 0;
     }
@@ -912,6 +897,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsViewController.displayMode = self.tableOfContentsDisplayMode;
     self.tableOfContentsViewController.displaySide = self.tableOfContentsDisplaySide;
+
+    [self updateTableOfContentsInsets];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -1082,6 +1069,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         } break;
     }
     [self updateToolbar];
+    [self updateTableOfContentsInsets];
 }
 
 - (void)handleTableOfContentsCloseGesture:(UISwipeGestureRecognizer *)recognizer {
@@ -1120,13 +1108,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)endRefreshing {
     if (self.pullToRefresh.isRefreshing) {
-        self.webViewController.navBarHidden = NO;
         @try { // TODO: REMOVE AFTER DROPPING iOS 9
             [self.pullToRefresh endRefreshing];
         } @catch (NSException *exception) {
             DDLogError(@"Caught exception while ending refreshing: %@", exception);
         }
-        self.webViewController.navBarHidden = NO;
     }
 }
 
@@ -1460,16 +1446,39 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.previousContentOffsetYForTOCUpdate = scrollView.contentOffset.y;
 }
 
+- (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+}
+
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    [self.navigationBarHider scrollViewDidScroll:scrollView];
+}
+
+- (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+}
+
+- (void)webViewController:(WebViewController *)controller scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+- (BOOL)webViewController:(nonnull WebViewController *)controller scrollViewShouldScrollToTop:(nonnull UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    return YES;
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - Footer menu
@@ -1857,11 +1866,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - One-time toolbar item popover tips
 
 - (BOOL)shouldShowWIconPopover {
-    if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
-        return NO;
-    } else {
-        return YES;
-    }
+    return NO;
+    //    if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
+    //        return NO;
+    //    } else {
+    //        return YES;
+    //    }
 }
 
 - (void)showWIconPopoverIfNecessary {
@@ -1888,13 +1898,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
+    [super applyTheme:theme];
+
     self.theme = theme;
     [self.webViewController applyTheme:theme];
     if (self.viewIfLoaded == nil) {
         return;
     }
     [[self wmf_emptyView] applyTheme:self.theme];
-    self.progressView.trackTintColor = [UIColor clearColor];
     self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
@@ -1907,6 +1918,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
     // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
     self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
+}
+
+- (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
 }
 
 @end

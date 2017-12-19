@@ -24,7 +24,11 @@ class NewsViewController: ColumnarCollectionViewController {
         super.viewDidLoad()
         register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
         register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
-        collectionView?.allowsSelection = false
+        collectionView.allowsSelection = false
+    }
+    
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, interItemSpacing: 0, interSectionSpacing: 15)
     }
 }
 
@@ -44,15 +48,13 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
-        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
-            cell.layoutMargins = layout.readableMargins
-        }
+        cell.layoutMargins = layout.readableMargins
         let story = stories[indexPath.section]
         newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionElementKindSectionHeader:
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NewsViewController.headerReuseIdentifier, for: indexPath)
@@ -63,21 +65,19 @@ extension NewsViewController {
             header.apply(theme: theme)
             return header
         default:
-            
-//FIXME: According to docs looks like this will crash - "The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:"
-            
+            assert(false, "ensure you've registered cells and added cases to this switch statement to handle all header/footer types")
             return UICollectionReusableView()
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
         cell.selectionDelegate = self
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }
@@ -122,8 +122,7 @@ extension NewsViewController: SideScrollingCollectionViewCellDelegate {
 // MARK: - UIViewControllerPreviewingDelegate
 extension NewsViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
             return nil
         }

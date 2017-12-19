@@ -117,6 +117,11 @@ extension WKWebView {
         switch theme.name {
         case Theme.sepia.name:
             jsThemeConstant = "SEPIA"
+        case Theme.blackDimmed.name:
+            isDim = true
+            fallthrough
+        case Theme.black.name:
+            jsThemeConstant = "BLACK"
         case Theme.darkDimmed.name:
             isDim = true
             fallthrough
@@ -137,10 +142,7 @@ extension WKWebView {
     }
     
     private func languageJS(for article: MWKArticle) -> String {
-        guard let lang = (article.url as NSURL).wmf_language else {
-            assertionFailure("Expected lang")
-            return ""
-        }
+        let lang = (article.url as NSURL).wmf_language ?? MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let langInfo = MWLanguageInfo(forCode: lang)
         let langCode = langInfo.code
         let langDir = langInfo.dir

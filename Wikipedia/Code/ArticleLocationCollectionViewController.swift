@@ -6,7 +6,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     
     var articleURLs: [URL] {
         didSet {
-            collectionView?.reloadData()
+            collectionView.reloadData()
         }
     }
     let dataStore: MWKDataStore
@@ -89,11 +89,7 @@ extension ArticleLocationCollectionViewController {
 // MARK: - WMFLocationManagerDelegate
 extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
     func updateLocationOnVisibleCells() {
-        guard let visibleCells = collectionView?.visibleCells else {
-            return
-        }
-        
-        for cell in visibleCells {
+        for cell in collectionView.visibleCells {
             guard let locationCell = cell as? WMFNearbyArticleCollectionViewCell else {
                 continue
             }
@@ -118,7 +114,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
@@ -126,10 +122,11 @@ extension ArticleLocationCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleLocationCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location) else {
+        guard let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) else {
                 return nil
         }
+        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         let url = articleURL(at: indexPath)
         let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
@@ -138,6 +135,7 @@ extension ArticleLocationCollectionViewController {
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
@@ -148,6 +146,6 @@ extension ArticleLocationCollectionViewController {
         return WMFLayoutEstimate(precalculated: false, height: WMFNearbyArticleCollectionViewCell.estimatedRowHeight())
     }
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing: true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
     }
 }
