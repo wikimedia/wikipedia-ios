@@ -13,7 +13,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.alwaysBounceHorizontal = true
         return collectionView
     }()
     
