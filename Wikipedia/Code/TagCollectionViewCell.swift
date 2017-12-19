@@ -14,8 +14,8 @@ class TagCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    func configure(with tag: Tag) {
-        label.text = tag.text
+    func configure(with tag: Tag, for count: Int = 1) {
+        label.text = tag.index == 2 ? "+\(count - 2)" : tag.text
         width = min(100, label.intrinsicContentSize.width)
         label.backgroundColor = UIColor.yellow
         setNeedsLayout()

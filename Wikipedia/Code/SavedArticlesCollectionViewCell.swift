@@ -21,8 +21,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.scrollDirection = .horizontal
         layout?.sectionInset = UIEdgeInsets.zero
-        // magic 🧙‍♀️ change this
-        layout?.minimumLineSpacing = -20
         return layout
     }()
     
@@ -131,7 +129,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         let tagsCount: CGFloat = CGFloat(tags.count)
-
         if (apply && tagsCount != 0) {
             
             let prototypeTagCellSize = prototypeCell.wmf_preferredFrame(at: .zero, fitting: prototypeCell.width, alignedBy: semanticContentAttribute, apply: false).size
@@ -226,3 +223,4 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
 }
+
