@@ -133,6 +133,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
         listViewController.didMove(toParentViewController: self)
+        listViewController.automaticallyAdjustsScrollViewInsets = true
+        if #available(iOS 11.0, *) {
+            listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
+        }
 
         let mapViewFrame = mapContainerView.bounds
         #if OSM

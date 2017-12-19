@@ -116,7 +116,13 @@
 }
 
 - (void)updateScrollViewInsets {
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        return;
+    }
     UIScrollView *scrollView = self.scrollView;
+    if (!scrollView) {
+        return;
+    }
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
         frame = self.navigationBar.frame;
@@ -139,13 +145,8 @@
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
-    scrollView.contentInset = contentInset;
-    scrollView.scrollIndicatorInsets = scrollIndicatorInsets;
-    [self didUpdateScrollViewInsets];
-    if (wasAtTop) {
-        scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
-        [self.navigationBar setPercentHidden:0 animated:NO];
+    if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
+        [self didUpdateScrollViewInsets];
     }
 }
 
