@@ -20,6 +20,7 @@ class TagCollectionViewCell: CollectionViewCell {
         label.text = (tag.index == 2 ? "+\(count - 2)" : tag.text).uppercased()
         width = min(100, label.intrinsicContentSize.width)
         apply(theme: theme)
+        updateFonts(with: traitCollection)
         setNeedsLayout()
     }
     
@@ -27,6 +28,11 @@ class TagCollectionViewCell: CollectionViewCell {
         didSet {
             label.semanticContentAttribute = semanticContentAttributeOverride
         }
+    }
+    
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        label.setFont(with: .system, style: .footnote, traitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -42,6 +48,7 @@ class TagCollectionViewCell: CollectionViewCell {
 
 extension TagCollectionViewCell: Themeable {
     func apply(theme: Theme) {
+        label.textColor = theme.colors.secondaryText
         label.backgroundColor = theme.colors.midBackground
     }
 }
