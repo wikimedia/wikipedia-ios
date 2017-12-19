@@ -211,6 +211,9 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("didSelectAt: \(indexPath)")
+    }
 }
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
@@ -223,6 +226,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         placeholderCell.configure(with: tag)
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         tagsCollectionViewWidth += size.width
+        // simply returning size is not altering the item's size
         layout?.itemSize = size
         return size
     }
