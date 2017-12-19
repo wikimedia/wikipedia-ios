@@ -133,12 +133,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if (apply && tagsCount != 0) {
             layout?.sectionInset = UIEdgeInsets.zero
             
-            let prototypeTagCellWidth: CGFloat = prototypeCell.width
-            let prototypeTagCellFrame = prototypeCell.wmf_preferredFrame(at: .zero, fitting: prototypeTagCellWidth, alignedBy: semanticContentAttribute, apply: false)
+            let prototypeTagCellSize = prototypeCell.wmf_preferredFrame(at: .zero, fitting: prototypeCell.width, alignedBy: semanticContentAttribute, apply: false).size
             
-            layout?.itemSize = tagCellSize == .zero ? prototypeTagCellFrame.size : tagCellSize
+            // If the actual tag cell's size is calculated, choose that over the prototype's size.
+            layout?.itemSize = tagCellSize == .zero ? prototypeTagCellSize : tagCellSize
             let width = tagsCollectionViewWidth == 0 ? layout!.itemSize.width * tagsCount : tagsCollectionViewWidth
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: prototypeTagCellFrame.size.height)
+            
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: prototypeTagCellSize.height)
             collectionView.backgroundColor = UIColor.cyan
         }
         
