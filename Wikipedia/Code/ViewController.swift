@@ -87,7 +87,7 @@ class ViewController: UIViewController, Themeable {
     }
     
     fileprivate func updateScrollViewInsets() {
-        guard let scrollView = scrollView else {
+        guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
         }
         

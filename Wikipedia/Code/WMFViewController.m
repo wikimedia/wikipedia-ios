@@ -116,7 +116,13 @@
 }
 
 - (void)updateScrollViewInsets {
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        return;
+    }
     UIScrollView *scrollView = self.scrollView;
+    if (!scrollView) {
+        return;
+    }
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
         frame = self.navigationBar.frame;
