@@ -128,10 +128,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && tags.count != 0) {
-            let spacing: CGFloat = 5
-            layout?.itemSize = CGSize(width: 50, height: 10)
-            layout?.minimumInteritemSpacing = spacing
-            layout?.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+            layout?.itemSize = CGSize(width: 40, height: 20)
+            layout?.sectionInset = UIEdgeInsets.zero
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth - margins.right, height: 20)
             collectionView.backgroundColor = UIColor.cyan
         }
@@ -167,7 +165,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 70
+        imageViewDimension = 80
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
