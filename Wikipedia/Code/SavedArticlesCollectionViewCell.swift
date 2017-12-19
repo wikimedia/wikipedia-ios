@@ -4,6 +4,29 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
+    public var tags: [String] = []
+    
+    fileprivate lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
+        return collectionView
+    }()
+    
+    fileprivate lazy var layout: UICollectionViewFlowLayout? = {
+        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    fileprivate lazy var prototypeCell: TagCollectionViewCell = {
+        return TagCollectionViewCell()
+    }()
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
@@ -15,6 +38,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(prototypeCell)
+        
+        wmf_configureSubviewsForDynamicType()
+        prototypeCell.configure(with: "PlaceholderTag")
+        prototypeCell.isHidden = true
+
         super.setup()
     }
     
@@ -140,4 +170,26 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
     }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
+    
 }

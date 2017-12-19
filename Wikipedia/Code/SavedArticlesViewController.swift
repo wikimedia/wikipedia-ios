@@ -277,6 +277,7 @@ extension SavedArticlesViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
+        cell.tags = ["Some tag", "Some other tag"]
         cell.layoutMargins = layout.readableMargins
         
         guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
