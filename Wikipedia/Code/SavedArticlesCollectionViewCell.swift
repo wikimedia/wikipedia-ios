@@ -127,6 +127,15 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
+        if (apply && tags.count != 0) {
+            let spacing: CGFloat = 5
+            layout?.itemSize = CGSize(width: 50, height: 10)
+            layout?.minimumInteritemSpacing = spacing
+            layout?.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth - margins.right, height: 20)
+            collectionView.backgroundColor = UIColor.cyan
+        }
+        
         return CGSize(width: size.width, height: height)
     }
     
@@ -180,11 +189,17 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier, for: indexPath)
+        guard let tagCell = cell as? TagCollectionViewCell else {
+            return cell
+        }
+        let tag = tags[indexPath.item]
+        tagCell.configure(with: tag)
+        return tagCell
     }
 }
 
