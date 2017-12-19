@@ -23,7 +23,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return layout
     }()
     
-    fileprivate lazy var prototypeCell: TagCollectionViewCell = {
+    fileprivate lazy var placeholderCell: TagCollectionViewCell = {
         return TagCollectionViewCell()
     }()
     
@@ -39,10 +39,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
         contentView.addSubview(collectionView)
-        contentView.addSubview(prototypeCell)
+        contentView.addSubview(placeholderCell)
         
         wmf_configureSubviewsForDynamicType()
-        prototypeCell.isHidden = true
+        placeholderCell.isHidden = true
 
         super.setup()
     }
@@ -129,7 +129,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let tagsCount: CGFloat = CGFloat(tags.count)
         if (apply && tagsCount != 0), let layout = layout {
             let width = tagsCollectionViewWidth + (layout.minimumLineSpacing * (tagsCount - 1))
-            
+
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: layout.itemSize.height)
             collectionView.backgroundColor = UIColor.cyan
         }
@@ -220,9 +220,10 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         }
         
         let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
-        prototypeCell.configure(with: tag)
-        let size = prototypeCell.wmf_preferredFrame(at: .zero, fitting: prototypeCell.width, alignedBy: semanticContentAttribute, apply: false).size
+        placeholderCell.configure(with: tag)
+        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         tagsCollectionViewWidth += size.width
+        layout?.itemSize = size
         return size
     }
 }
