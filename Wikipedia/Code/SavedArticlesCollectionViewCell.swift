@@ -43,7 +43,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(prototypeCell)
         
         wmf_configureSubviewsForDynamicType()
-        prototypeCell.configure(with: "PlaceholderTag")
+        prototypeCell.configure(with: Tag(text: "PlaceholderTag", index: 0))
         prototypeCell.isHidden = true
 
         super.setup()
@@ -137,7 +137,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             // If the actual tag cell's size is calculated, choose that over the prototype's size.
             layout?.itemSize = tagCellSize == .zero ? prototypeTagCellSize : tagCellSize
-            let width = tagsCollectionViewWidth == 0 ? layout!.itemSize.width * tagsCount : tagsCollectionViewWidth
+            let width = tagsCollectionViewWidth == 0 ? (layout?.itemSize.width ?? 0) * tagsCount : tagsCollectionViewWidth
             
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: prototypeTagCellSize.height)
             collectionView.backgroundColor = UIColor.cyan
@@ -213,15 +213,15 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        let tag = tags[indexPath.item]
+        let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
         tagCell.configure(with: tag)
         tagCellSize = tagCell.wmf_preferredFrame(at: .zero, fitting: tagCell.width, alignedBy: semanticContentAttribute, apply: false).size
         return tagCell
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
-    
 }

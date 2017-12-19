@@ -1,3 +1,8 @@
+struct Tag {
+    let text: String
+    let index: Int
+}
+
 class TagCollectionViewCell: CollectionViewCell {
     static let reuseIdentifier = "TagCollectionViewCell"
     fileprivate let label = UILabel()
@@ -9,8 +14,8 @@ class TagCollectionViewCell: CollectionViewCell {
         super.setup()
     }
     
-    func configure(with tag: String) {
-        label.text = tag
+    func configure(with tag: Tag) {
+        label.text = tag.text
         width = min(100, label.intrinsicContentSize.width)
         label.backgroundColor = UIColor.yellow
         setNeedsLayout()
