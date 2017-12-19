@@ -1,6 +1,7 @@
 class TagCollectionViewCell: CollectionViewCell {
     static let reuseIdentifier = "TagCollectionViewCell"
     fileprivate let label = UILabel()
+    internal var width: CGFloat = 0
     
     override func setup() {
         label.isOpaque = true
@@ -10,6 +11,7 @@ class TagCollectionViewCell: CollectionViewCell {
     
     func configure(with tag: String) {
         label.text = tag
+        width = min(100, label.intrinsicContentSize.width)
         label.backgroundColor = UIColor.yellow
         setNeedsLayout()
     }
@@ -22,10 +24,9 @@ class TagCollectionViewCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var origin = CGPoint.zero
-        let widthToFit: CGFloat = 40
         
         if label.wmf_hasText {
-            origin.y += label.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 0, apply: apply)
+            origin.y += label.wmf_preferredHeight(at: origin, fitting: width, alignedBy: semanticContentAttributeOverride, spacing: 0, apply: apply)
         }
         
         return CGSize(width: size.width, height: origin.y)
