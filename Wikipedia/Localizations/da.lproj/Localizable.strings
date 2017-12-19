@@ -101,7 +101,6 @@
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
-"dark-theme-display-name" = "Mørk";
 "dim-images" = "Mørklæg billeder";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -310,6 +309,7 @@
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 læsere";
+"reading-themes-controls-accessibility-black-theme-button" = "Sort tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Lysstyrkeskyder";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Lyst tema";
@@ -377,6 +377,7 @@
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-heading" = "Indhold";
 "table-title-other" = "Flere oplysninger";
+"theme-black-display-name" = "Sort";
 "theme-dark-display-name" = "Mørk";
 "theme-default-display-name" = "Standard";
 "theme-sepia-display-name" = "Sepia";

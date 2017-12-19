@@ -65,8 +65,11 @@
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
+"appearance-settings-expand-tables" = "להרחיב טבלאות";
+"appearance-settings-expand-tables-footer" = "מגדיר שכל הטבלאות בכל הערכים יהיו פתוחות כשהערך נפתח, כולל עובדות מהירות, הערות שוליים, הערות אחרות, וקישורים חיצוניים.";
 "appearance-settings-image-dimming-footer" = "הפחתת העמימות של התמונות בערכת הנושא החשוכה";
 "appearance-settings-reading-themes" = "ערכות נושא לקריאה";
+"appearance-settings-set-automatic-table-opening" = "הגדרות טבלה";
 "appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק לעיל כדי לשנות את גודל טקסט הערך. השתמשו בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
 "appearance-settings-title" = "ערכות נושא לקריאה";
@@ -100,7 +103,6 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
-"dark-theme-display-name" = "חשוכה";
 "dim-images" = "עמעום תמונות";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";

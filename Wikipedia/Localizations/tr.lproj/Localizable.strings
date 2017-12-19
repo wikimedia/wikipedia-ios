@@ -106,7 +106,6 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla makale okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan makale yok";
-"dark-theme-display-name" = "Koyu";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
@@ -325,6 +324,7 @@
 "saved-pages-clear-delete-all" = "Evet, tümünü sil";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
 "saved-title" = "Kaydedilenler";
+"search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-recent-clear-cancel" = "Vazgeç";

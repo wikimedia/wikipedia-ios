@@ -97,7 +97,6 @@
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
-"dark-theme-display-name" = "Dunkel";
 "dim-images" = "Bilder dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
@@ -306,6 +305,7 @@
 "preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
+"reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Farbschema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht-Farbschema";
@@ -373,6 +373,7 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";
 "table-of-contents-heading" = "Inhalte";
 "table-title-other" = "Weitere Informationen";
+"theme-black-display-name" = "Schwarz";
 "theme-dark-display-name" = "Dunkel";
 "theme-default-display-name" = "Standard";
 "theme-sepia-display-name" = "Sepia";
