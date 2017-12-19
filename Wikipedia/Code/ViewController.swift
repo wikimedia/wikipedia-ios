@@ -111,15 +111,7 @@ class ViewController: UIViewController, Themeable {
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        guard contentInset != scrollView.contentInset || scrollIndicatorInsets != scrollView.scrollIndicatorInsets else {
-            return
-        }
-        let wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top
-        scrollView.scrollIndicatorInsets = scrollIndicatorInsets
-        scrollView.contentInset = contentInset
-        if wasAtTop {
-            scrollView.contentOffset = CGPoint(x: 0, y: 0 - scrollView.contentInset.top)
-        }
+        scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets)
     }
 
     func apply(theme: Theme) {
