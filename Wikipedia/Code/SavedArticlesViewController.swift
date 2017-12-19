@@ -280,6 +280,9 @@ extension SavedArticlesViewController {
 
         let tags = indexPath.item % 2 == 0 ? ["Some tag", "Some other tag"] : ["Some different tag"]
         cell.tags = tags
+        if indexPath.item == 0 {
+            cell.tags = []
+        }
         
         cell.layoutMargins = layout.readableMargins
         

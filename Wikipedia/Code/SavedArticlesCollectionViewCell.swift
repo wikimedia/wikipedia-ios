@@ -20,6 +20,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     fileprivate lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.scrollDirection = .horizontal
+        layout?.minimumLineSpacing = -20
         return layout
     }()
     
@@ -130,12 +131,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let tagsCount: CGFloat = CGFloat(tags.count)
 
         if (apply && tagsCount != 0) {
+            layout?.sectionInset = UIEdgeInsets.zero
+            
             let prototypeTagCellWidth: CGFloat = prototypeCell.width
             let prototypeTagCellFrame = prototypeCell.wmf_preferredFrame(at: .zero, fitting: prototypeTagCellWidth, alignedBy: semanticContentAttribute, apply: false)
             
-            layout?.itemSize = prototypeTagCellFrame.size
-            layout?.sectionInset = UIEdgeInsets.zero
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: prototypeTagCellFrame.size.width * tagsCount, height: prototypeTagCellFrame.size.height)
+            layout?.itemSize = tagCellSize == .zero ? prototypeTagCellFrame.size : tagCellSize
+            let width = tagsCollectionViewWidth == 0 ? layout!.itemSize.width * tagsCount : tagsCollectionViewWidth
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: prototypeTagCellFrame.size.height)
             collectionView.backgroundColor = UIColor.cyan
         }
         
@@ -182,6 +185,15 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
     }
+    
+    fileprivate var tagsCollectionViewWidth: CGFloat = 0
+    
+    fileprivate var tagCellSize: CGSize = .zero {
+        didSet {
+            tagsCollectionViewWidth += tagCellSize.width
+            setNeedsLayout()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -202,6 +214,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         }
         let tag = tags[indexPath.item]
         tagCell.configure(with: tag)
+        tagCellSize = tagCell.wmf_preferredFrame(at: .zero, fitting: tagCell.width, alignedBy: semanticContentAttribute, apply: false).size
         return tagCell
     }
 }
