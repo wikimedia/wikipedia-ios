@@ -14,7 +14,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
     
-    fileprivate var isList: Bool = false
+    fileprivate enum ViewMode {
+        case readingListsTab, addArticlesToReadingList, readingListsForArticle
+    }
+    fileprivate var viewMode: ViewMode = .readingListsTab
+    
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
     
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
@@ -39,7 +43,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
         self.init(with: dataStore)
         self.articles = articles
-        self.isList = true
+        self.viewMode = .addArticlesToReadingList
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -144,7 +148,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         
-        guard !isList else {
+        guard viewMode != .addArticlesToReadingList else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
                 addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name!)
