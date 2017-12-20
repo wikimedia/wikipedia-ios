@@ -1,5 +1,5 @@
 public struct Tag {
-    let text: String
+    let readingList: ReadingList
     let index: Int
 }
 
@@ -17,7 +17,10 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     func configure(with tag: Tag, for count: Int, theme: Theme) {
-        label.text = (tag.index == 2 ? "+\(count - 2)" : tag.text).uppercased()
+        guard let name = tag.readingList.name else {
+            return
+        }
+        label.text = (tag.index == 2 ? "+\(count - 2)" : name).uppercased()
         width = min(100, label.intrinsicContentSize.width)
         apply(theme: theme)
         updateFonts(with: traitCollection)

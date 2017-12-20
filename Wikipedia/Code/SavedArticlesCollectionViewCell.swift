@@ -8,7 +8,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
-    public var tags: [String] = []
+    public var tags: [ReadingList] = []
     
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -194,7 +194,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
     
     fileprivate func tag(at indexPath: IndexPath) -> Tag {
-        return Tag(text: tags[indexPath.item], index: indexPath.item)
+        return Tag(readingList: tags[indexPath.item], index: indexPath.item)
     }
 }
 
@@ -214,7 +214,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
+        let tag = Tag(readingList: tags[indexPath.item], index: indexPath.item)
         tagCell.configure(with: tag, for: tags.count, theme: theme)
         return tagCell
     }

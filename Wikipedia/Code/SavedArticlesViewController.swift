@@ -150,14 +150,14 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    fileprivate func readingListNamesForArticle(at indexPath: IndexPath) -> [String] {
+    fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         let moc = dataStore.viewContext
         do {
             let entries = try moc.fetch(request)
             let articleKey = article(at: indexPath)?.key
             let readingLists = entries.filter { $0.articleKey == articleKey }.flatMap { $0.list }
-            return readingLists.flatMap { $0.name }
+            return readingLists
         } catch let err {
             print(err)
         }
@@ -208,7 +208,7 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
             }
             cell.configureSeparators(for: indexPath.item)
             cell.actions = availableActions(at: indexPath)
-            cell.tags = readingListNamesForArticle(at: indexPath)
+            cell.tags = readingListsForArticle(at: indexPath)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
@@ -278,7 +278,7 @@ extension SavedArticlesViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
-        cell.tags = readingListNamesForArticle(at: indexPath)
+        cell.tags = readingListsForArticle(at: indexPath)
         cell.delegate = self
         
         cell.layoutMargins = layout.readableMargins
@@ -485,7 +485,9 @@ extension SavedArticlesViewController: UISearchBarDelegate {
 
 extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     func didSelect(tag: Tag) {
-        print(tag)
+        let readingListDetailViewController = ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        readingListDetailViewController.apply(theme: theme)
+        wmf_push(readingListDetailViewController, animated: true)
     }
 }
 
