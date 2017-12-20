@@ -142,8 +142,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         let tagsCount: CGFloat = CGFloat(tags.count)
         if (apply && tagsCount != 0), let layout = layout {
-            let width = tagsCollectionViewWidth + (layout.minimumLineSpacing * (tagsCount - 1))
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: width, height: layout.itemSize.height)
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth, height: layout.itemSize.height)
         }
         
         return CGSize(width: size.width, height: height)
@@ -192,12 +191,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.backgroundColor = theme.colors.border
     }
     
-    fileprivate var tagsCollectionViewWidth: CGFloat = 0 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     fileprivate func tag(at indexPath: IndexPath) -> Tag {
         return Tag(readingList: tags[indexPath.item], index: indexPath.item)
     }
@@ -242,7 +235,6 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         placeholderCell.configure(with: tag(at: indexPath), for: tags.count, theme: theme)
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
-        tagsCollectionViewWidth += size.width
         // simply returning size is not altering the item's size
         layout?.itemSize = size
         return size

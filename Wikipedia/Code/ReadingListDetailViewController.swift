@@ -187,7 +187,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             return
         }
         do {
-            try dataStore.readingListsController.remove(entries: [entry], from: readingList)
+            try dataStore.readingListsController.remove(entries: [entry])
         } catch let err {
             DDLogError("Error removing entry from a reading list: \(err)")
         }
@@ -195,7 +195,7 @@ extension ReadingListDetailViewController: ActionDelegate {
     
     fileprivate func delete(_ entries: [ReadingListEntry]) {
         do {
-            try dataStore.readingListsController.remove(entries: entries, from: readingList)
+            try dataStore.readingListsController.remove(entries: entries)
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }

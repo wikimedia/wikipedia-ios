@@ -109,15 +109,11 @@ public class ReadingListsController: NSObject {
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
         assert(Thread.isMainThread)
-        guard let name = readingList.name else {
-            return
-        }
         let moc = dataStore.viewContext
         let _ = try fetch(readingList: readingList)
-        let keys = articles.flatMap({ $0.key })
         
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", name, keys)
+        entriesRequest.predicate = NSPredicate(format: "list == %@ && article IN %@", readingList, articles)
         let entriesToDelete = try moc.fetch(entriesRequest)
         
         entriesToDelete.forEach({ moc.delete($0) })
@@ -126,19 +122,10 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    public func remove(entries: [ReadingListEntry], from readingList: ReadingList) throws {
+    public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
-        guard let name = readingList.name else {
-            return
-        }
         let moc = dataStore.viewContext
-        let _ = try fetch(readingList: readingList)
-        let keys = entries.flatMap({ $0.article?.key })
-        let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entriesRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", name, keys)
-        let entriesToDelete = try moc.fetch(entriesRequest)
-        
-        entriesToDelete.forEach({ moc.delete($0) })
+        entries.forEach({ moc.delete($0) })
         if moc.hasChanges {
             try moc.save()
         }

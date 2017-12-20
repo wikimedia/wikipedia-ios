@@ -491,20 +491,6 @@ extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     }
 }
 
-// MARK: - ReadingListsViewControllerDelegate
-
-extension SavedArticlesViewController: ReadingListsViewControllerDelegate {
-    func collectionViewUpdaterDidUpdateCollectionView() {
-        let cells = collectionView.visibleCells.flatMap { $0 as? SavedArticlesCollectionViewCell }
-        for cell in cells {
-            guard let indexPath = collectionView.indexPath(for: cell) else {
-                continue
-            }
-            cell.tags = readingListsForArticle(at: indexPath)
-        }
-    }
-}
-
 // MARK: - Analytics
 
 extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
