@@ -8,7 +8,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
-    public var tags: [ReadingList] = []
+    public var tags: [ReadingList] = [] {
+        didSet {
+            guard tags.count > 0 else {
+                return
+            }
+            setNeedsLayout()
+        }
+    }
     
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -233,6 +240,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         // simply returning size is not altering the item's size
         layout?.itemSize = size
+        setNeedsLayout()
         return size
     }
 }
