@@ -150,14 +150,14 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
+    fileprivate func readingListNamesForArticle(at indexPath: IndexPath) -> [String] {
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         let moc = dataStore.viewContext
         do {
             let entries = try moc.fetch(request)
             let articleKey = article(at: indexPath)?.key
             let readingLists = entries.filter { $0.articleKey == articleKey }.flatMap { $0.list }
-            return readingLists
+            return readingLists.flatMap { $0.name }
         } catch let err {
             print(err)
         }
@@ -208,6 +208,7 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
             }
             cell.configureSeparators(for: indexPath.item)
             cell.actions = availableActions(at: indexPath)
+            cell.tags = readingListNamesForArticle(at: indexPath)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
@@ -277,13 +278,8 @@ extension SavedArticlesViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
+        cell.tags = readingListNamesForArticle(at: indexPath)
         cell.delegate = self
-
-        let tags = indexPath.item % 2 == 0 ? ["Some tag", "Some other tag", "Some third tag"] : ["Some different tag"]
-        cell.tags = tags
-        if indexPath.item == 0 {
-            cell.tags = []
-        }
         
         cell.layoutMargins = layout.readableMargins
         
