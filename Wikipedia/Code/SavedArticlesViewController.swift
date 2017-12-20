@@ -295,7 +295,7 @@ extension SavedArticlesViewController {
 extension SavedArticlesViewController: ActionDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard !editController.isOpen else {
+        guard editController.isClosed else {
             return
         }
         guard let articleURL = articleURL(at: indexPath) else {
@@ -305,7 +305,7 @@ extension SavedArticlesViewController: ActionDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let _ = editController.isOpen
+        let _ = editController.isClosed
     }
     
     internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {

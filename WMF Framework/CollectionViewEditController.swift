@@ -407,12 +407,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    public var isOpen: Bool {
-        let isOpen = batchEditingState == .open
-        if isOpen {
+    public var isClosed: Bool {
+        let isClosed = batchEditingState != .open
+        if !isClosed {
             isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
         }
-        return isOpen
+        return isClosed
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {

@@ -140,7 +140,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     // MARK: - Batch editing
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard !editController.isOpen else {
+        guard editController.isClosed else {
             return
         }
         
@@ -148,7 +148,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         
-        guard viewMode != .addArticlesToReadingList else {
+        guard viewMode == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
                 addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name!)
@@ -167,7 +167,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let _ = editController.isOpen
+        let _ = editController.isClosed
     }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
