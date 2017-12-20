@@ -1,5 +1,9 @@
 import Foundation
 
+public protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
+    func collectionViewUpdaterDidUpdateCollectionView()
+}
+
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
@@ -16,6 +20,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     fileprivate var isList: Bool = false
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
+    
+    public weak var delegate: ReadingListsViewControllerDelegate?
 
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -220,6 +226,7 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell else {
                 continue
             }
+            delegate?.collectionViewUpdaterDidUpdateCollectionView()
             cell.configureSeparators(for: indexPath.item)
             cell.actions = availableActions(at: indexPath)
         }

@@ -15,6 +15,7 @@ class SavedViewController: ViewController {
             return nil
         }
         let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
+        readingListsCollectionViewController.delegate = savedArticlesViewController
         return readingListsCollectionViewController
     }()
     

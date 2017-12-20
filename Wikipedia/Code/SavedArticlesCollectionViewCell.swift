@@ -8,7 +8,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
-    public var tags: [ReadingList] = []
+    public var tags: [ReadingList] = [] {
+        didSet {
+            collectionView.setNeedsLayout()
+            collectionView.reloadData()
+        }
+    }
     
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -182,7 +187,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
-        let _ = collectionView.visibleCells.map { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
+        collectionView.visibleCells.forEach { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
     }
