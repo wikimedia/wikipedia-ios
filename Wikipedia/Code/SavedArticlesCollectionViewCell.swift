@@ -224,6 +224,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelect(tag: tag(at: indexPath))
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 
