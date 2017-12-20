@@ -176,6 +176,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
+        let _ = collectionView.visibleCells.map { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
     }
