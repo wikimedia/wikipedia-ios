@@ -17,7 +17,7 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     func configure(with tag: Tag, for count: Int, theme: Theme) {
-        guard let name = tag.readingList.name else {
+        guard let name = tag.readingList.name, tag.index <= 2 else {
             return
         }
         label.text = (tag.index == 2 ? "+\(count - 2)" : name).uppercased()

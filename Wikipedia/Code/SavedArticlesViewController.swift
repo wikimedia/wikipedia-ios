@@ -485,9 +485,9 @@ extension SavedArticlesViewController: UISearchBarDelegate {
 
 extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     func didSelect(tag: Tag) {
-        let readingListDetailViewController = ReadingListDetailViewController(for: tag.readingList, with: dataStore)
-        readingListDetailViewController.apply(theme: theme)
-        wmf_push(readingListDetailViewController, animated: true)
+        let viewController = tag.index == 2 ? ReadingListsViewController(with: dataStore) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        viewController.apply(theme: theme)
+        wmf_push(viewController, animated: true)
     }
 }
 

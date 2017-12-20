@@ -8,12 +8,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
-    public var tags: [ReadingList] = [] {
-        didSet {
-            collectionView.setNeedsLayout()
-            collectionView.reloadData()
-        }
-    }
+    public var tags: [ReadingList] = []
     
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
