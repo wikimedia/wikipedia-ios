@@ -277,6 +277,7 @@ extension SavedArticlesViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
+        cell.delegate = self
 
         let tags = indexPath.item % 2 == 0 ? ["Some tag", "Some other tag", "Some third tag"] : ["Some different tag"]
         cell.tags = tags
@@ -481,6 +482,14 @@ extension SavedArticlesViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+
+// MARK: - SavedArticlesCollectionViewCellDelegate
+
+extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
+    func didSelect(tag: Tag) {
+        print(tag)
     }
 }
 

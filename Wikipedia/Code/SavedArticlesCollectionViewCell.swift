@@ -1,3 +1,7 @@
+public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
+    func didSelect(tag: Tag)
+}
+
 class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var bottomSeparator = UIView()
     fileprivate var topSeparator = UIView()
@@ -29,6 +33,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }()
     
     fileprivate var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
+    
+    weak public var delegate: SavedArticlesCollectionViewCellDelegate?
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -186,6 +192,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             setNeedsLayout()
         }
     }
+    
+    fileprivate func tag(at indexPath: IndexPath) -> Tag {
+        return Tag(text: tags[indexPath.item], index: indexPath.item)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -215,7 +225,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("didSelectAt: \(indexPath)")
+        delegate?.didSelect(tag: tag(at: indexPath))
     }
 }
 
@@ -225,8 +235,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        let tag = Tag(text: tags[indexPath.item], index: indexPath.item)
-        placeholderCell.configure(with: tag, for: tags.count, theme: theme)
+        placeholderCell.configure(with: tag(at: indexPath), for: tags.count, theme: theme)
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         tagsCollectionViewWidth += size.width
         // simply returning size is not altering the item's size

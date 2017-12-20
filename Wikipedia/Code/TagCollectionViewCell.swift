@@ -1,4 +1,4 @@
-struct Tag {
+public struct Tag {
     let text: String
     let index: Int
 }
@@ -49,6 +49,7 @@ class TagCollectionViewCell: CollectionViewCell {
 extension TagCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         label.textColor = theme.colors.secondaryText
-        label.backgroundColor = theme.colors.midBackground
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
+        updateSelectedOrHighlighted()
     }
 }
