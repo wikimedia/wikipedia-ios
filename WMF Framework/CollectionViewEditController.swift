@@ -339,7 +339,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
                 button.tag = tag
                 button.isEnabled = enabled
-                navigationDelegate?.changeRightNavButton(to: button)
+                // so we can disable the sort button if necessary
+                let isCancelledOrNone = batchEditingState == .cancelled || batchEditingState == .none
+                navigationDelegate?.didChangeEditingState(isCancelledOrNone: isCancelledOrNone, rightBarButton: button)
             }
             
             guard !isCollectionViewEmpty else {

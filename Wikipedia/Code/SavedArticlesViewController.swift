@@ -133,6 +133,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
             guard searchString != oldValue else {
                 return
             }
+            editController.close()
             setupCollectionViewUpdaterAndFetch()
         }
     }

@@ -280,8 +280,8 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
         //
     }
     
-    func changeRightNavButton(to button: UIBarButtonItem) {
-        navigationItem.rightBarButtonItem = button
+    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
