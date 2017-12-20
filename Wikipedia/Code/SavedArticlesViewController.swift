@@ -496,8 +496,10 @@ extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
 extension SavedArticlesViewController: ReadingListsViewControllerDelegate {
     func collectionViewUpdaterDidUpdateCollectionView() {
         let cells = collectionView.visibleCells.flatMap { $0 as? SavedArticlesCollectionViewCell }
-        let indexPaths = cells.flatMap { collectionView.indexPath(for: $0) }
-        for (cell, indexPath) in zip(cells, indexPaths) {
+        for cell in cells {
+            guard let indexPath = collectionView.indexPath(for: cell) else {
+                continue
+            }
             cell.tags = readingListsForArticle(at: indexPath)
         }
     }
