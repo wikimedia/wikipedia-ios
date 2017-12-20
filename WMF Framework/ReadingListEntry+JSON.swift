@@ -12,7 +12,8 @@ extension ReadingListEntry {
             let url = NSURL.wmf_URL(withDomain: project, language: nil, title: title, fragment: nil)
         {
             self.displayTitle = url.wmf_title
-            self.articleKey = url.wmf_articleDatabaseKey
+            // fetch or create the article later
+            // self.articleKey = url.wmf_articleDatabaseKey
         }
         
         if let createdDate = json.wmf_iso8601DateValue(for: "created") {

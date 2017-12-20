@@ -86,19 +86,16 @@ public class ReadingListsController: NSObject {
 
         let moc = dataStore.viewContext
         
-        let keys = articles.flatMap { (article) -> String? in
-            return article.key
-        }
+        let existingKeys = Set(readingList.articleKeys)
         
-        let existingKeys = readingList.articleKeys
-        
-        var keysToAdd = Set(keys)
-        keysToAdd.subtract(existingKeys)
-        
-        for key in keysToAdd {
-            guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
+        for article in articles {
+            guard let key = article.key, !existingKeys.contains(key) else {
+                continue
+            }
+            guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: article, forKey: "article") as? ReadingListEntry else {
                 return
             }
+            
             let url = URL(string: key)
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
@@ -136,7 +133,7 @@ public class ReadingListsController: NSObject {
         }
         let moc = dataStore.viewContext
         let _ = try fetch(readingList: readingList)
-        let keys = entries.flatMap({ $0.articleKey })
+        let keys = entries.flatMap({ $0.article?.key })
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list.name MATCHES[c] %@ && articleKey IN %@", name, keys)
         let entriesToDelete = try moc.fetch(entriesRequest)

@@ -72,7 +72,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
     }
     
     fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
-        guard let entry = entry(at: indexPath), let key = entry.articleKey else {
+        guard let entry = entry(at: indexPath), let key = entry.article?.key else {
             assertionFailure("Can't get articleURL")
             return nil
         }
@@ -80,7 +80,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
     }
     
     fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let entry = entry(at: indexPath), let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key) else {
+        guard let entry = entry(at: indexPath), let key = entry.article?.key, let article = dataStore.fetchArticle(withKey: key) else {
             return nil
         }
         return article
@@ -379,7 +379,7 @@ extension ReadingListDetailViewController {
     fileprivate func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
         
-        guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
+        guard let entry = entry(at: indexPath), let articleKey = entry.article?.key else {
             assertionFailure("Coudn't get a reading list entry or an article key to configure the cell")
             return
         }

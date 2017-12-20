@@ -9,7 +9,7 @@ public class ReadingList: NSManagedObject {
             guard let entry = entry as? ReadingListEntry else {
                 return nil
             }
-            return entry.articleKey
+            return entry.article?.key
         }
         return existingKeys
     }
