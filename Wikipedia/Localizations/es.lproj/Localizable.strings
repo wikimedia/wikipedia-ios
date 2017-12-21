@@ -15,6 +15,7 @@
 // Author: Mcervera
 // Author: Mgpena
 // Author: Nemo bis
+// Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
 // Author: VegaDark
@@ -197,7 +198,7 @@
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
-"home-button-popover-description" = "Toca la «W» para volver al suministro Explorar";
+"home-button-popover-description" = "Toca la «W» para volver al canal de exploración";
 "home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-hide-suggestion-cancel" = "Cancelar";
@@ -403,7 +404,7 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
-"welcome-exploration-explore-feed-title" = "Suministro Explorar";
+"welcome-exploration-explore-feed-title" = "Canal de exploración";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";
 "welcome-exploration-on-this-day-title" = "Un día como hoy";
 "welcome-exploration-places-description" = "Descubre puntos de referencia cerca de ti o busca en lugares por todo el mundo";

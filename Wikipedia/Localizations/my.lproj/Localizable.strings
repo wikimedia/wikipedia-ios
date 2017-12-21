@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Dr Lotus Black
 // Author: Mhurd
+// Author: NayiMuu
 // Author: Nemo bis
 // Author: Ninjastrikers
 
@@ -42,6 +43,7 @@
 "article-languages-others" = "အခြားဘာသာစကားများ";
 "article-languages-yours" = "သင့်ဘာသာစကားများ";
 "article-read-more-title" = "ဆက်ဖတ်ပါ";
+"article-share" = "မျှဝေ";
 "article-unable-to-load-article" = "ဆောင်းပါးအား မပြသနိုင်ပါ။";
 "article-unable-to-load-section" = "ဤအပိုင်းအား မရယူနိုင်ပါ။ ဆောင်းပါးအား ပြန်လည်ရှင်းသန့်ခြင်းဖြင့် ဤပြဿနာအား ပြင်ဆင်ရန် ကြိုးပမ်းကြည့်ပါ။";
 "back" = "နောက်သို့";
@@ -55,6 +57,8 @@
 "button-save-for-later" = "နောင်မှ သိမ်းဆည်းရန်";
 "button-saved-for-later" = "နောင်အတွက် သိမ်းဆည်းပြီး";
 "button-saved-remove" = "သိမ်းဆည်းမှုမှ ဖယ်ရှားပြီး";
+"button-skip" = "ကျော်ရန်";
+"cancel" = "မလုပ်တော့ပါ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ပိတ်ရန်";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
@@ -63,8 +67,11 @@
 "edit-summary-choice-other" = "အခြား";
 "edit-summary-title" = "စာမျက်နှာကို တိုးတက်ကောင်းမွန်အောင် သင်မည်သို့ လုပ်ခဲ့သနည်း?";
 "empty-no-search-results-message" = "မည်သည့်ရလဒ်မျှ မရပါ";
+"explore-another-random" = "အခြားသော ကျပန်းဆောင်းပါး";
+"explore-because-you-read" = "သင်ဖတ်ရှုခဲ့သောကြောင့်";
 "explore-continue-reading-heading" = "ဆက်လက် ဖတ်ရှုရန်";
 "explore-featured-article-heading" = "အထူးဆောင်းပါး";
+"explore-main-page-description" = "ဝီကီမီဒီယာပရောဂျက်များ၏ ပင်မစာမျက်နှာ";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
 "explore-most-read-footer-for-date" = "$1 ရှိ ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ အားလုံး";
 "explore-most-read-generic-heading" = "ဖတ်ရှုမှု အများဆုံး";
@@ -73,11 +80,16 @@
 "explore-nearby-heading" = "အနီးအနား နေရာများ";
 "explore-nearby-placeholder-cancel" = "မလုပ်တော့ပါ";
 "explore-nearby-placeholder-dismiss" = "ဖြုတ်ရန်";
+"explore-nearby-placeholder-heading" = "နေရာများ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ဝီကီပီးဒီးယားပေါ်တွင်";
 "explore-nearby-sub-heading-your-location" = "သင့်တည်နေရာ";
 "explore-potd-heading" = "ယနေ့အတွက် ဓာတ်ပုံ";
 "explore-random-article-heading" = "ကျပန်း ဆောင်းပါး";
+"explore-randomizer" = "ကျပန်းစဉ်";
+"feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
+"field-alert-password-invalid" = "မှားယွင်းသော စကားဝှက်";
+"field-alert-token-invalid" = "မှားယွင်းသော ကုဒ်";
 "field-email-placeholder" = "example@wikipedia.org";
 "field-email-title" = "အီးမေး";
 "field-email-title-optional" = "အီးမေးလ် (ရှိပါက)";
@@ -92,7 +104,12 @@
 "field-token-title" = "အတည်ပြုကုဒ်";
 "field-username-placeholder" = "အသုံးပြုသူအမည်တစ်ခုကို ထည့်ပါ -";
 "field-username-title" = "အသုံးပြုသူအမည်";
+"find-in-page-button-label" = "စာမျက်နှာတွင် ရှာဖွေရန်";
+"find-in-page-number-matches" = "$1 / $2";
+"forgot-password-button-title" = "ပြန်စရန်";
+"forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
+"gfdl" = "GFDL";
 "history-clear-all" = "ရှင်းလင်း";
 "history-clear-cancel" = "မလုပ်တော့ပါ";
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
@@ -111,12 +128,14 @@
 "icon-shortcut-random-title" = "ကျပန်း ဆောင်းပါး";
 "icon-shortcut-search-title" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "in-the-news-currently-trending" = "လက်ရှိ ရေပန်းစားမှု";
+"in-the-news-notification-read-now-action-title" = "ယခုဖတ်ရန်။";
 "in-the-news-notification-save-for-later-action-title" = "နောင်အတွက် သိမ်းဆည်းရန်";
 "in-the-news-notification-share-action-title" = "မျှဝေ...";
 "in-the-news-title" = "သတင်းထဲတွင်";
 "info-box-close-text" = "ပိတ်ရန်";
 "info-box-title" = "အချက်တိုများ";
 "languages-title" = "ဘာသာစကား ပြောင်းလဲရန်";
+"languages-wikipedia" = "ဝီကီပီဒီးယား ဘာသာစကားများ";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "အကြောင်းအရာများကို အခြားမှတ်ချက်မရှိပါက $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "login-forgot-password" = "စကားဝှက် မေ့နေသလား။";
@@ -137,6 +156,7 @@
 "main-menu-zero-faq" = "ဝီကီပီးဒီးယားသုည FAQ";
 "menu-cancel-accessibility-label" = "မလုပ်တော့ပါ";
 "menu-trash-accessibility-label" = "ဖျက်​ပါ​";
+"more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
 "nearby-distance-label-feet" = "$1 ပေ";
 "nearby-distance-label-km" = "$1 ကီလိုမီတာ";
@@ -147,12 +167,14 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
+"on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
 "onboarding-wikipedia" = "ဝီကီပီးဒီးယား";
 "open-link-cancel" = "မလုပ်တော့ပါ";
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-title" = "ဆောင်းပါး ရာဇဝင်";
 "page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-last-edited" = "$1 ရက်အကြာက တည်းဖြတ်ခဲ့သည်";
+"page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
@@ -160,6 +182,18 @@
 "page-protected-sysop" = "ဤစာမျက်နှာအား အပြည့်အဝ ကာကွယ်ထားသည်။";
 "page-read-in-other-languages" = "အခြားဘာသာစကား $1 ခုဖြင့် ရရှိနိုင်သည်";
 "page-similar-titles" = "ဆင်တူစာမျက်နှာများ";
+"page-talk-page" = "ဆွေးနွေးချက်စာမျက်နှာကို ကြည့်ရန်";
+"places-accessibility-clear-saved-searches" = "သိမ်းဆည်းခဲ့သော ရှာဖွေမှုများကို ရှင်းရန်";
+"places-accessibility-group" = "ဆောင်းပါး $1 များ";
+"places-accessibility-show-as-list" = "စာရင်းအဖြစ် ပြရန်။";
+"places-accessibility-show-as-map" = "မြေပုံအဖြစ် ပြရန်။";
+"places-filter-top-articles" = "ဖတ်ရှုမှု အများဆုံး";
+"places-search-saved-articles" = "သိမ်းဆည်းခဲ့သော ဆောင်းပါးများအားလုံး";
+"places-search-suggested-searches-header" = "အဆိုပြုထားသော ရှာဖွေမှုများ";
+"places-search-top-articles" = "ဖတ်ရှုမှု အများဆုံး ဆောင်းပါးများ အားလုံး";
+"places-search-top-articles-that-match-scope" = "အနီးအနား";
+"places-search-your-current-location" = "သင်၏ လက်ရှိတည်နေရာ";
+"places-title" = "နေရာများ";
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "saved-clear-all" = "ရှင်းလင်း";
@@ -167,6 +201,7 @@
 "saved-pages-clear-confirmation-heading" = "သိမ်းဆည်းထားသော စာမျက်နှာများအားလုံး ဖျက်ပစ်ရန် သေချာပါသလား?";
 "saved-pages-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "saved-title" = "သိမ်းဆည်းပြီး";
+"search-button-accessibility-label" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "search-did-you-mean" = "$1 ဟု ဆိုလိုပါသလား?";
 "search-field-placeholder-text" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေရန်";
 "search-recent-clear-cancel" = "မလုပ်တော့ပါ";
@@ -176,6 +211,7 @@
 "search-recent-title" = "လတ်တလော ရှာဖွေမှုများ";
 "search-result-redirected-from" = "$1 မှ ပြန်ညွှန်းထားသည်";
 "search-title" = "ရှာဖွေရန်";
+"settings-clear-cache-cancel" = "မလုပ်တော့ပါ";
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
@@ -194,12 +230,16 @@
 "table-title-other" = "နောက်ထပ် အချက်အလက်များ";
 "top-read-header-generic" = "ဝီကီပီးဒီးယား";
 "top-read-header-with-language" = "$1 ဝီကီပီးဒီးယား";
+"top-read-see-more" = "ဖတ်ရှုမှုအများဆုံးဆောင်းပါးများ ပိုမိုကြည့်ရှုရန်။";
 "two-factor-login-continue" = "ဆက်လက် ဝင်ရောက်ပါ";
 "two-factor-login-instructions" = "အတည်ပြုကုဒ်ကို ရိုက်ထည့်ပါ";
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
+"welcome-exploration-on-this-day-title" = "ယနေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
+"welcome-intro-free-encyclopedia-more-about" = "ဝီကီပီးဒီးယားအကြောင်း";
+"welcome-intro-free-encyclopedia-title" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
 "wikitext-download-failed" = "နောက်ဆုံးမူအား မရယူနိုင်ပါ။";
 "wikitext-download-success" = "အကြောင်းအရာ ရယူပြီး။";
