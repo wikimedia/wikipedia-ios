@@ -3186,7 +3186,7 @@ var ancestorsToWiden = function ancestorsToWiden(element) {
   while (el.parentNode) {
     el = el.parentNode;
     // No need to walk above 'content_block'.
-    if (!el || (el.classList && el.classList.contains('content_block'))) {
+    if (el.classList && el.classList.contains('content_block')) {
       break;
     }
     widenThese.push(el);
