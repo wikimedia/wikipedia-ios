@@ -59,8 +59,11 @@
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
+"appearance-settings-expand-tables" = "Ampliar tables";
+"appearance-settings-expand-tables-footer" = "Definir que toles tables de tolos artículos tean abiertes de manera predeterminada, incluyendo les Fiches, Referencies, Notes y Enllaces esternos.";
 "appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
+"appearance-settings-set-automatic-table-opening" = "Configuración de tables";
 "appearance-settings-text-sizing-example-text" = "Arrastra el control d'arriba pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
 "appearance-settings-title" = "Lleyendo temes";
@@ -302,6 +305,7 @@
 "preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "rank-accessibility-label" = "Númberu $1";
 "readers-accessibility-label" = "$1 llectores";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema prietu";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de rellumu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escura";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema clara";
@@ -369,6 +373,7 @@
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";
 "table-of-contents-heading" = "Conteníu";
 "table-title-other" = "Más información";
+"theme-black-display-name" = "Prietu";
 "theme-dark-display-name" = "Escuru";
 "theme-default-display-name" = "Predetermináu";
 "theme-sepia-display-name" = "Sepia";

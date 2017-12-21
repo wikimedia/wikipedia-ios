@@ -37,7 +37,7 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-complete-list" = "完全なリスト";
 "about-libraries-license" = "ライセンス";
-"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛してます";
+"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛しています";
 "about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-repositories" = "リポジトリについて";
 "about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
@@ -75,11 +75,14 @@
 "action-save" = "保存";
 "action-saved" = "保存済み";
 "action-saved-accessibility" = "保存しました。有効にして解除します。";
+"action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
 "action-unsave" = "保存しない";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整する";
+"appearance-settings-expand-tables" = "テーブルを展開する";
+"appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべてのテーブルをデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "テーマを読み込む";
 "appearance-settings-text-sizing-example-text" = "上記のスライダをドラッグして記事のテキストサイズを変更します。システムのテキストサイズを利用して、アプリ内の他のテキスト領域のサイズを変更します。";
