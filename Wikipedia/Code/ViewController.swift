@@ -13,6 +13,7 @@ class ViewController: UIViewController, Themeable {
     }
     
     let navigationBar: NavigationBar = NavigationBar()
+    
     open var showsNavigationBar: Bool = false
     
     open var scrollView: UIScrollView? {
@@ -127,5 +128,16 @@ class ViewController: UIViewController, Themeable {
             return
         }
         navigationBar.apply(theme: theme)
+    }
+}
+
+
+extension ViewController: WMFEmptyViewContainer {
+    func addEmpty(_ emptyView: UIView) {
+        if navigationBar.superview === view {
+            view.insertSubview(emptyView, belowSubview: navigationBar)
+        } else {
+            view.addSubview(emptyView)
+        }
     }
 }
