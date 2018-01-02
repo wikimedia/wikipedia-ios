@@ -78,6 +78,7 @@
 "action-saved-accessibility-notification" = "Статья сохранена на потом.";
 "action-share" = "Поделиться";
 "action-unsave" = "Не сохранено";
+"action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
 "appearance-settings-adjust-text-sizing" = "Регулирует размер текста статьи";
@@ -385,6 +386,7 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-title-other" = "Подробнее";
+"theme-black-display-name" = "Чёрная";
 "theme-dark-display-name" = "Тёмная";
 "theme-default-display-name" = "По умолчанию";
 "theme-sepia-display-name" = "Сепия";

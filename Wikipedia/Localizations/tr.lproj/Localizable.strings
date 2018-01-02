@@ -7,6 +7,7 @@
 // Author: Botansahin
 // Author: Bulgu
 // Author: HakanIST
+// Author: Hedda
 // Author: Incelemeelemani
 // Author: Kumkumuk
 // Author: Macofe
@@ -72,21 +73,31 @@
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedilenler";
 "action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
+"action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
 "action-unsave" = "Kaydedilenlerden çıkar";
+"action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Kapat";
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
+"appearance-settings-expand-tables" = "Tabloları genişlet";
+"appearance-settings-expand-tables-footer" = "Pratik Bilgiler, Kaynakça, Notlar ve Dış bağlantılar da dahil olmak üzere tüm maddelerin tüm tablolarını açık olacak şekilde ayarlayın.";
 "appearance-settings-image-dimming-footer" = "Karanlık temadaki görüntülerin opaklığını düşür.";
 "appearance-settings-reading-themes" = "Okuma temaları";
+"appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
+"appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için yukarıdaki kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
+"appearance-settings-theme-options" = "Tema seçenekleri";
+"appearance-settings-title" = "Okuma temaları";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
+"article-deleted-accessibility-notification" = "Madde silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamı";
 "article-share" = "Paylaş";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "back" = "Geri";
@@ -101,11 +112,13 @@
 "button-saved-for-later" = "Sonrası için kaydedildi";
 "button-saved-remove" = "Kaydedildikten sonra kaldırıldı";
 "button-skip" = "Atla";
+"cancel" = "İptal";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Kapat";
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla makale okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan makale yok";
+"dim-images" = "Resimleri karart";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
@@ -199,6 +212,7 @@
 "home-nearby-location-footer" = "$1 yakınından daha fazla";
 "home-news-footer" = "Daha fazla haber";
 "home-themes-action-title" = "Tercihleri yönet";
+"home-themes-prompt" = "Yazı araç çubuğundan veya kullanıcı ayarlarınızdan metin boyutu ve teması da dahil olmak üzere Okuma tercihlerinizi daha rahat bir okuma deneyimi için ayarlayın.";
 "home-title" = "Keşfet";
 "home-title-accessibility-label" = "Vikipedi, Keşfet'in başına git";
 "icon-shortcut-continue-reading-title" = "Okumaya devam et";
@@ -240,6 +254,8 @@
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "menu-cancel-accessibility-label" = "İptal";
 "menu-trash-accessibility-label" = "Sil";
+"more-languages-tooltip-description" = "Yaklaşık 300 dilde ara";
+"more-languages-tooltip-title" = "Dil ekle";
 "navbar-title-mode-edit-wikitext-preview" = "Ön izleme";
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
@@ -269,6 +285,7 @@
 "page-protected-sysop" = "Bu sayfa tam korumalıdır.";
 "page-read-in-other-languages" = "$1 farklı dilde mevcut";
 "page-similar-titles" = "Benzer sayfalar";
+"page-talk-page" = "Tartışma sayfasını görüntüle";
 "pictured" = "resimdeki";
 "places-accessibility-clear-saved-searches" = "Kayıtlı aramaları temizle";
 "places-accessibility-close-search" = "Aramayı kapat";
@@ -309,9 +326,12 @@
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
+"reading-themes-controls-accessibility-black-theme-button" = "Siyah tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Parlaklık çubuğu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Koyu tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Açık tema";
+"reading-themes-controls-accessibility-sepia-theme-button" = "Sepya tema";
+"reading-themes-controls-accessibility-text-size-slider" = "Metin boyutu kaydırıcısı";
 "reference-title" = "$1 referansı";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|Dün|$1 gün önce}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
@@ -353,12 +373,20 @@
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
+"share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
 "share-a-fact-share-menu-item" = "Bir bilgi paylaş...";
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
+"share-building" = "Bir bilgi kartı paylaşımı oluşturun...";
 "share-custom-menu-item" = "Paylaş...";
+"share-default-format" = "$3 sayfasındaki $2 maddesinden $1";
+"share-email-format" = "“$1”\n\n“$2” maddesinden\n\n$3";
 "share-get-directions-in-maps" = "Yol tarifi al";
+"share-menu-item" = "Paylaş...";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
 "share-open-in-maps" = "Haritalar'da aç";
+"share-social-format" = "Vikipedi'den $1: $2";
+"share-social-mention-format" = "@Wikipedia'dan $1: $2";
 "status-saved-for-later" = "Sonrası için kaydedildi";
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "table-of-contents-button-label" = "İçindekiler";
@@ -366,8 +394,10 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-title-other" = "Daha fazla bilgi";
+"theme-black-display-name" = "Siyah";
 "theme-dark-display-name" = "Koyu";
 "theme-default-display-name" = "Varsayılan";
+"theme-sepia-display-name" = "Sepya";
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-see-more" = "En çok okunanları gör";
@@ -381,6 +411,7 @@
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
 "welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";
 "welcome-exploration-on-this-day-title" = "Tarihte bugün";
+"welcome-exploration-places-description" = "Yakınınızdaki belirli noktaları keşfedin veya dünya genelinde yerler arayın";
 "welcome-exploration-places-title" = "Yerler sekmesi";
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";

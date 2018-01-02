@@ -26,7 +26,7 @@
 "about-libraries-complete-list" = "Llista completa";
 "about-libraries-license" = "Llicència";
 "about-libraries-licenses-title" = "Ens encanta el programari de codi obert $1";
-"about-product-of" = "Feta per l' $1 amb l'ajuda de voluntaris com tu";
+"about-product-of" = "Creada per la $1 amb l’ajuda de voluntaris com tu";
 "about-repositories" = "Repositoris";
 "about-repositories-app-source-license" = "Codi font disponible sota la $1.";
 "about-repositories-app-source-license-mit" = "Llicència MIT";
@@ -42,7 +42,7 @@
 "abuse-filter-disallow-notable" = "La Viquipèdia és una enciclopèdia, i només conté informació neutral i notable.";
 "abuse-filter-disallow-unconstructive" = "Un filtre automàtic ha identificat la modificació com a potencialment inconstructiva o bé com a intent de vandalisme.";
 "abuse-filter-warning-blanking" = "Blanqueig d'articles o brossa";
-"abuse-filter-warning-caps" = "Escrivint en MAJÚSCULES";
+"abuse-filter-warning-caps" = "Escriptura en MAJÚSCULES";
 "abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";
 "abuse-filter-warning-irrelevant" = "Enllaços externs o imatges no rellevants";
 "abuse-filter-warning-repeat" = "Caràcters repeeetits";

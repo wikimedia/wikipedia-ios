@@ -90,18 +90,13 @@
 "icon-shortcut-nearby-title" = "Артыклы пра тое што ёсьць навокал";
 "icon-shortcut-random-title" = "Выпадковы артыкул";
 "icon-shortcut-search-title" = "Пошук па Вікіпэдыі";
-// Fuzzy
-"image-gallery-unknown-owner" = "Загрузіў невядомы.";
+"image-gallery-unknown-owner" = "Аўтар невядомы.";
 "info-box-close-text" = "Закрыць";
-// Fuzzy
 "info-box-title" = "Хуткія факты";
-// Fuzzy
-"languages-title" = "Мовы";
+"languages-title" = "Зьмяніць мову";
 "license-footer-name" = "CC BY-SA 3.0";
-// Fuzzy
-"license-footer-text" = "Зьмест даступны на ўмовах $1";
-// Fuzzy
-"main-menu-about" = "Пра дастасаваньне Вікіпэдыя";
+"license-footer-text" = "Зьмест даступны на ўмовах $1, калі не пазначанае іншае.";
+"main-menu-about" = "Пра праграму";
 // Fuzzy
 "main-menu-account-login" = "Увайсьці ў Вікіпэдыю";
 "main-menu-account-logout" = "Выйсьці";
