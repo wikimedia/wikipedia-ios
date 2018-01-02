@@ -40,9 +40,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        Thread.callStackSymbols.forEach{
-            DDLogDebug("WMFBU: \($0)")
-        }
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START ===")

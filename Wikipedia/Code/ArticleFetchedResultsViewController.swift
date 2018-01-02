@@ -104,8 +104,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
                 continue
             }
-            cell.configureSeparators(for: indexPath.item)
-            cell.actions = availableActions(at: indexPath)
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
         updateDeleteButton()
