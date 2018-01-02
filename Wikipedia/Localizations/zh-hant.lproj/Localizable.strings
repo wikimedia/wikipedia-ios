@@ -39,7 +39,7 @@
 "about-wikimedia-foundation" = "維基媒體基金會";
 "about-wikipedia" = "維基百科";
 "abuse-filter-disallow-heading" = "您不能發佈此編輯。請返回並修正。";
-"abuse-filter-disallow-notable" = "維基百科是一本百科全書，這裡只接受中立的、 知名的內容。";
+"abuse-filter-disallow-notable" = "維基百科是個百科全書，僅接受中立的、俱關注度的內容。";
 "abuse-filter-disallow-unconstructive" = "自動過濾器已確定此編輯可能不具建設性或企圖破壞。";
 "abuse-filter-warning-blanking" = "空白的條目或含有垃圾訊息";
 "abuse-filter-warning-caps" = "全部輸入大寫字母";
@@ -72,7 +72,7 @@
 "appearance-settings-adjust-text-sizing" = "調整條目文字大小";
 "appearance-settings-expand-tables" = "展開表格";
 "appearance-settings-expand-tables-footer" = "設定所有表格在所有條目裡來依預設值自動開啓，包含快速預覽、參考資料、備註與外部連結";
-"appearance-settings-image-dimming-footer" = "在暗黑主題裡減少圖片的不透明度";
+"appearance-settings-image-dimming-footer" = "在陰暗主題裡減少圖片的不透明度";
 "appearance-settings-reading-themes" = "閱讀主題";
 "appearance-settings-set-automatic-table-opening" = "表格設定";
 "appearance-settings-text-sizing-example-text" = "拖拉上方滑動桿來改變條目文字大小。利用您系統的文字大小，來向在應用程式裡其它文字區域做調整。";
@@ -126,7 +126,7 @@
 "empty-no-search-results-message" = "找不到任何結果";
 "error-unknown" = "發生不明錯誤";
 "explore-another-random" = "另一個隨機條目";
-"explore-because-you-read" = "因為您讀了";
+"explore-because-you-read" = "您曾閱讀過的";
 "explore-continue-reading-heading" = "繼續閱讀";
 "explore-enable-location-title" = "瀏覽接近您目前位置的條目";
 "explore-featured-article-heading" = "典範條目";
@@ -288,7 +288,7 @@
 "places-empty-search-description" = "瀏覽城市、國家、各大洲、自然地標、歷史事件、建物以及其它更多。";
 "places-empty-search-title" = "以地理位置來搜尋維基百科條目";
 "places-enable-location-action-button-title" = "啟用位置";
-"places-enable-location-description" = "訪問您的位置僅在應用程式、或其一功能在您的螢幕上可見時才可用。";
+"places-enable-location-description" = "訪問您的位置僅在應用程式，或其一功能在您的螢幕上可見時才可用。";
 "places-enable-location-title" = "透過啟用位置訪問來瀏覽接近您位置的條目";
 "places-filter-list-title" = "搜尋過濾器";
 "places-filter-no-saved-places" = "您已沒有儲存的地方";
@@ -318,7 +318,7 @@
 "readers-accessibility-label" = "$1個讀者";
 "reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
-"reading-themes-controls-accessibility-dark-theme-button" = "暗黑主題";
+"reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
 "reading-themes-controls-accessibility-light-theme-button" = "明亮主題";
 "reading-themes-controls-accessibility-sepia-theme-button" = "深褐主題";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
@@ -385,7 +385,7 @@
 "table-of-contents-heading" = "內容";
 "table-title-other" = "更多資訊";
 "theme-black-display-name" = "漆黑";
-"theme-dark-display-name" = "暗黑";
+"theme-dark-display-name" = "陰暗";
 "theme-default-display-name" = "預設";
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";
@@ -401,7 +401,7 @@
 "welcome-exploration-explore-feed-title" = "探索訊息來源";
 "welcome-exploration-on-this-day-description" = "返回時間來了解在歷史上的今天發生了什麼事";
 "welcome-exploration-on-this-day-title" = "歷史上的今天";
-"welcome-exploration-places-description" = "發掘接近您所在的地標、或搜尋世界上的地點";
+"welcome-exploration-places-description" = "發掘接近您所在的地標，或搜尋世界上的地點";
 "welcome-exploration-places-title" = "地點分頁";
 "welcome-explore-continue-button" = "入門";
 "welcome-explore-new-ways-title" = "探索的新方式";
@@ -409,7 +409,7 @@
 "welcome-intro-free-encyclopedia-description" = "維基百科是由各志願者們協作編寫，並包含將近 300 種語言的 4000 萬個條目。";
 "welcome-intro-free-encyclopedia-more" = "了解更多關於維基百科";
 "welcome-intro-free-encyclopedia-more-about" = "關於維基百科";
-"welcome-intro-free-encyclopedia-more-description" = "維基百科是一個建立出世界上所有語言的自由百科全書之全球專案。實質上任何能訪問網際網路的人都可自由參與來貢獻出中立、有引用的訊息。";
+"welcome-intro-free-encyclopedia-more-description" = "維基百科是一個建立出世界上所有語言的自由百科全書之全球專案。實質上任何能訪問網際網路的人都可自由參與來貢獻出中立，俱有引用來源的訊息。";
 "welcome-intro-free-encyclopedia-title" = "自由的百科全書";
 "welcome-languages-add-button" = "新增另一個語言";
 "welcome-languages-add-or-edit-button" = "新增或編輯首選語言";

@@ -225,8 +225,7 @@
 "places-filter-list-title" = "Filtry wyszukiwania";
 "places-filter-saved-articles" = "Zapisane artykuły";
 "places-filter-saved-articles-count" = "Znaleziono $1 {{PLURAL:$1|miejsce|miejsca|miejsc}}";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 {{PLURAL:$1|artykuł|artykuły|artykułów}}";
+"places-filter-top-articles-count" = "{{PLURAL:$1|artykuł|artykuły|artykułów}}";
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 // Fuzzy
 "places-search-default-text" = "Szukaj";
@@ -240,6 +239,7 @@
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "readers-accessibility-label" = "$1 czytelników";
 "reference-title" = "Przypis $1";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
 "saved-clear-all" = "Wyczyść";
 "saved-pages-clear-cancel" = "Anuluj";
 "saved-pages-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje zapisane strony?";
@@ -254,6 +254,7 @@
 "search-recent-title" = "Ostatnio wyszukiwane";
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "settings-clear-cache-cancel" = "Anuluj";
+"settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-my-languages" = "Moje języki";
 "settings-notifications" = "Powiadomienia";
@@ -278,6 +279,7 @@
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
+"view-in-browser-footer-link" = "Zobacz artykuł w przeglądarce";
 "welcome-exploration-on-this-day-title" = "W tym dniu";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-intro-free-encyclopedia-more" = "Dowiedz się więcej o Wikipedii";

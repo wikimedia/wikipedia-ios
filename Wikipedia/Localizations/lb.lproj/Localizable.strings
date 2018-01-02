@@ -282,6 +282,7 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";

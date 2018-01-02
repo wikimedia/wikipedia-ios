@@ -49,11 +49,29 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>few</key>
-			<string>%1$d artykuły</string>
+			<string>artykuły</string>
 			<key>one</key>
-			<string>%1$d artykuł</string>
+			<string>artykuł</string>
 			<key>other</key>
-			<string>%1$d artykułów</string>
+			<string>artykułów</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Wczoraj</string>
+			<key>other</key>
+			<string>%1$d dni temu</string>
+			<key>zero</key>
+			<string>Dzisiaj</string>
 		</dict>
 	</dict>
 </dict>
