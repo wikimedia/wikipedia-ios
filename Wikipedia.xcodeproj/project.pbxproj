@@ -4168,6 +4168,10 @@
 		D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWStepSlider.swift; sourceTree = "<group>"; };
 		D84E07D61EF05B0D0020A2DB /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Frameworks/HockeySDK.framework; sourceTree = "<group>"; };
 		D84E2A9A1FFBCAF600878968 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ta; path = ta.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9B1FFBCB9400878968 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9C1FFBCBBB00878968 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9D1FFBCBE900878968 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9E1FFBCC0500878968 /* ne */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ne; path = ne.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D84F2BF01D2FE7ED00963D42 /* WMFArticleNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationController.h; sourceTree = "<group>"; };
 		D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleNavigationController.m; sourceTree = "<group>"; };
 		D84F2BF31D2FE80A00963D42 /* WMFRotationRespectingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRotationRespectingNavigationController.h; sourceTree = "<group>"; };
@@ -11677,6 +11681,10 @@
 				D81EF2D61F1D2F0500D26D3F /* cs */,
 				D85C145B1F38859A002186A5 /* kab */,
 				D84E2A9A1FFBCAF600878968 /* ta */,
+				D84E2A9B1FFBCB9400878968 /* pt */,
+				D84E2A9C1FFBCBBB00878968 /* lv */,
+				D84E2A9D1FFBCBE900878968 /* vi */,
+				D84E2A9E1FFBCC0500878968 /* ne */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
