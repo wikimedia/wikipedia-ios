@@ -69,8 +69,11 @@
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
+"appearance-settings-expand-tables" = "展开表格";
+"appearance-settings-expand-tables-footer" = "将所有条目内的表格设置为默认开启，包括快速预览、参考资料、注释和外部链接。";
 "appearance-settings-image-dimming-footer" = "在夜间主题中减小图片的不透明度";
 "appearance-settings-reading-themes" = "正在读取主题";
+"appearance-settings-set-automatic-table-opening" = "表格设置";
 "appearance-settings-text-sizing-example-text" = "拖动上方滑块以更改条目文本大小。利用您系统的文本大小以更改应用中其他文本区域的大小。";
 "appearance-settings-theme-options" = "主题选项";
 "appearance-settings-title" = "正在读取主题";
@@ -104,7 +107,6 @@
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
-"dark-theme-display-name" = "夜间";
 "dim-images" = "使图片变暗";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-typos" = "修正笔误";
@@ -313,6 +315,7 @@
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
 "rank-accessibility-label" = "第$1";
 "readers-accessibility-label" = "$1位读者";
+"reading-themes-controls-accessibility-black-theme-button" = "黑暗主题";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
 "reading-themes-controls-accessibility-dark-theme-button" = "夜间主题";
 "reading-themes-controls-accessibility-light-theme-button" = "白天主题";
@@ -380,6 +383,7 @@
 "table-of-contents-close-accessibility-label" = "关闭目录";
 "table-of-contents-heading" = "内容";
 "table-title-other" = "更多信息";
+"theme-black-display-name" = "黑暗";
 "theme-dark-display-name" = "夜间";
 "theme-default-display-name" = "默认";
 "theme-sepia-display-name" = "棕黑";

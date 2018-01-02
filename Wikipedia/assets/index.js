@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":13,"wikimedia-page-library":15}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":9,"wikimedia-page-library":11}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -28,7 +28,8 @@ const ItemType = {
   unknown: 0,
   link: 1,
   image: 2,
-  reference: 3
+  imagePlaceholder: 3,
+  reference: 4
 }
 
 /**
@@ -50,6 +51,8 @@ class ClickedItem {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
+    } else if (this.target.tagName === 'SPAN' && this.target.parentElement.getAttribute( 'data-data-image-gallery' ) === 'true') {
+      return ItemType.imagePlaceholder
     } else if (this.href) {
       return ItemType.link
     }
@@ -69,6 +72,9 @@ function sendMessageForClickedItem(item){
     break
   case ItemType.image:
     sendMessageForImageWithTarget(item.target)
+    break
+  case ItemType.imagePlaceholder:
+    sendMessageForImagePlaceholderWithTarget(item.target)
     break
   case ItemType.reference:
     sendMessageForReferenceWithTarget(item.target)
@@ -103,6 +109,22 @@ function sendMessageForImageWithTarget(target){
     'height': target.naturalHeight,
     'data-file-width': target.getAttribute('data-file-width'),
     'data-file-height': target.getAttribute('data-file-height')
+  })
+}
+
+/**
+ * Sends message for a lazy load image placeholder click.
+ * @param  {!Element} innerPlaceholderSpan
+ * @return {void}
+ */
+function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
+  const outerSpan = innerPlaceholderSpan.parentElement
+  window.webkit.messageHandlers.imageClicked.postMessage({
+    'src': outerSpan.getAttribute('data-src'),
+    'width': outerSpan.getAttribute('data-width'),
+    'height': outerSpan.getAttribute('data-height'),
+    'data-file-width': outerSpan.getAttribute('data-data-file-width'),
+    'data-file-height': outerSpan.getAttribute('data-data-file-height')
   })
 }
 
@@ -153,7 +175,7 @@ document.addEventListener('click', function (event) {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":13,"wikimedia-page-library":15}],3:[function(require,module,exports){
+},{"./refs":6,"./utilities":9,"wikimedia-page-library":11}],3:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -411,7 +433,7 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":15}],6:[function(require,module,exports){
+},{"wikimedia-page-library":11}],6:[function(require,module,exports){
 var elementLocation = require('./elementLocation')
 
 function isCitation( href ) {
@@ -473,6 +495,11 @@ function collectRefText( sourceNode ) {
   var href = sourceNode.getAttribute( 'href' )
   var targetId = href.slice(1)
   var targetNode = document.getElementById( targetId )
+
+  if ( targetNode === null ) {
+    targetNode = document.getElementById( decodeURIComponent( targetId ) )
+  }
+  
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)
@@ -559,19 +586,31 @@ exports.sendNearbyReferences = sendNearbyReferences
 },{"./elementLocation":3}],7:[function(require,module,exports){
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
-  tables: require('./transforms/collapseTables'),
+  tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages')
+  widenImage: require('wikimedia-page-library').WidenImage,
+  lazyLoadTransformer: require('wikimedia-page-library').LazyLoadTransformer,
+  location: require('./elementLocation')
 }
+
+// Documents attached to Window will attempt eager pre-fetching of image element resources as soon
+// as image elements appear in DOM of such documents. So for lazy image loading transform to work
+// (without the images being eagerly pre-fetched) our section fragments need to be created on a
+// document not attached to window - `lazyDocument`. The `live` document's `mainContentDiv` is only
+// used when we append our transformed fragments to it. See this Android commit message for details:
+// https://github.com/wikimedia/apps-android-wikipedia/commit/620538d961221942e340ca7ac7f429393d1309d6
+const lazyDocument = document.implementation.createHTMLDocument()
+const lazyImageLoadViewportDistanceMultiplier = 2 // Load images on the current screen up to one ahead.
+const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window, lazyImageLoadViewportDistanceMultiplier)
+const liveDocument = document
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
-DocumentFragment.prototype.createElement = name => document.createElement(name)
+DocumentFragment.prototype.createElement = name => lazyDocument.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -650,7 +689,7 @@ class Section {
   }
 
   containerDiv() {
-    const container = document.createElement('div')
+    const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
     container.innerHTML = `
         ${this.article.ismain ? '' : this.headingTag()}
@@ -672,7 +711,7 @@ const processResponseStatus = response => {
 const extractResponseJSON = response => response.json()
 
 const fragmentForSection = section => {
-  const fragment = document.createDocumentFragment()
+  const fragment = lazyDocument.createDocumentFragment()
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
@@ -681,26 +720,53 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
+    }
+    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'});
+  }
+
+  const tableFooterDivClickCallback = container => {
+    if(requirements.location.isElementTopOnscreen(container)){
+      window.scrollTo( 0, container.offsetTop - 10 )
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
-  requirements.images.widenImages(fragment)
+  // Adds table collapsing header/footers.
+  requirements.tables.adjustTables(window, fragment, article.displayTitle, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
+
+  // Prevents some collapsed tables from scrolling side-to-side.
+  // May want to move this to wikimedia-page-library if there are no issues.
+  Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
   // 'classifyElements' method itself for other examples.
   requirements.themes.classifyElements(fragment)
+
+  lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
+  lazyImageLoadingTransformer.loadPlaceholders()
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -743,7 +809,7 @@ const scrollToSection = hash => {
 
 const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
   performEarlyNonSectionTransforms(article)
-  const mainContentDiv = document.querySelector('div.content')
+  const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
@@ -765,78 +831,13 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
 exports.collapseTablesLocalizedStrings = undefined
+exports.collapseTablesInitially = false
 
 exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./transforms/addEditButtons":8,"./transforms/collapseTables":9,"./transforms/disableFilePageEdit":10,"./transforms/relocateFirstParagraph":11,"./transforms/widenImages":12,"./utilities":13,"wikimedia-page-library":15}],8:[function(require,module,exports){
-const newEditSectionButton = require('wikimedia-page-library').EditTransform.newEditSectionButton
-
-function addEditButtonAfterElement(preceedingElementSelector, sectionID, content) {
-  const preceedingElement = content.querySelector(preceedingElementSelector)
-  preceedingElement.parentNode.insertBefore(
-    newEditSectionButton(content, sectionID),
-    preceedingElement.nextSibling
-  )
-}
-
-function addEditButtonsToElements(elementsSelector, sectionIDAttribute, content) {
-  Array.from(content.querySelectorAll(elementsSelector))
-  .forEach(function(element){
-    element.appendChild(newEditSectionButton(content, element.getAttribute(sectionIDAttribute)))
-  })
-}
-
-exports.addEditButtonAfterElement = addEditButtonAfterElement
-exports.addEditButtonsToElements = addEditButtonsToElements
-},{"wikimedia-page-library":15}],9:[function(require,module,exports){
-const tableCollapser = require('wikimedia-page-library').CollapseTable
-var location = require('../elementLocation')
-
-function footerDivClickCallback(container) {
-  if(location.isElementTopOnscreen(container)){
-    window.scrollTo( 0, container.offsetTop - 10 )
-  }
-}
-
-function hideTables(content, isMainPage, pageTitle, infoboxTitle, otherTitle, footerTitle) {
-  tableCollapser.collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback)
-
-  // Prevents some collapsed tables from scrolling side-to-side.
-  // May want to move this to wikimedia-page-library if there are no issues.
-  Array.from(document.querySelectorAll('.app_table_container *[class~="nowrap"]'))
-    .forEach(function(el) {el.classList.remove('nowrap')})
-}
-
-exports.hideTables = hideTables
-},{"../elementLocation":3,"wikimedia-page-library":15}],10:[function(require,module,exports){
-
-function disableFilePageEdit( content ) {
-  var filetoc = content.querySelector( '#filetoc' )
-  if (filetoc) {
-    // We're on a File: page! Do some quick hacks.
-    // In future, replace entire thing with a custom view most of the time.
-    // Hide edit sections
-    var editSections = content.querySelectorAll('.edit_section_button')
-    for (var i = 0; i < editSections.length; i++) {
-      editSections[i].style.display = 'none'
-    }
-    var fullImageLink = content.querySelector('.fullImageLink a')
-    if (fullImageLink) {
-      // Don't replace the a with a span, as it will break styles.
-      // Just disable clicking.
-      // Don't disable touchstart as this breaks scrolling!
-      fullImageLink.href = ''
-      fullImageLink.addEventListener( 'click', function( event ) {
-        event.preventDefault()
-      } )
-    }
-  }
-}
-
-exports.disableFilePageEdit = disableFilePageEdit
-},{}],11:[function(require,module,exports){
+},{"./elementLocation":3,"./transforms/relocateFirstParagraph":8,"./utilities":9,"wikimedia-page-library":11}],8:[function(require,module,exports){
 
 function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
     /*
@@ -916,24 +917,7 @@ function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
 }
 
 exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],12:[function(require,module,exports){
-
-const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-
-const isGalleryImage = function(image) {
-  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
-  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
-  return image.getAttribute('data-image-gallery') === 'true'
-}
-
-function widenImages(content) {
-  Array.from(content.querySelectorAll('img'))
-    .filter(isGalleryImage)
-    .forEach(maybeWidenImage)
-}
-
-exports.widenImages = widenImages
-},{"wikimedia-page-library":15}],13:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function findClosest (el, selector) {
@@ -975,7 +959,7 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],14:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
@@ -1020,7 +1004,7 @@ window.addEventListener('scroll', function() {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":13}],15:[function(require,module,exports){
+},{"./utilities":9}],11:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1178,7 +1162,10 @@ var CONSTRAINT = {
 
 // Theme to CSS classes.
 var THEME = {
-  DEFAULT: 'pagelib_theme_default', DARK: 'pagelib_theme_dark', SEPIA: 'pagelib_theme_sepia'
+  DEFAULT: 'pagelib_theme_default',
+  DARK: 'pagelib_theme_dark',
+  SEPIA: 'pagelib_theme_sepia',
+  BLACK: 'pagelib_theme_black'
 };
 
 /**
@@ -1240,7 +1227,8 @@ var classifyElements = function classifyElements(element) {
   /* en > Pantone > 792312384 */
   /* en > Wikipedia:Graphs_and_charts > 801754530 */
   /* en > PepsiCo > 807406166 */
-  var selector = ['div.color_swatch div', 'div[style*="position: absolute"]', 'div.barbox table div[style*="background:"]', 'div.chart div[style*="background-color"]', 'div.chart ul li span[style*="background-color"]', 'span.legend-color'].join();
+  /* en > Lua_(programming_language) > 809310207 */
+  var selector = ['div.color_swatch div', 'div[style*="position: absolute"]', 'div.barbox table div[style*="background:"]', 'div.chart div[style*="background-color"]', 'div.chart ul li span[style*="background-color"]', 'span.legend-color', 'div.mw-highlight span', 'code.mw-highlight span'].join();
   Polyfill.querySelectorAll(element, selector).forEach(function (element) {
     return element.classList.add(CONSTRAINT.DIV_DO_NOT_APPLY_BASELINE);
   });
@@ -1290,15 +1278,12 @@ var getTableHeader = function getTableHeader(element, pageTitle) {
  */
 
 /**
- * Ex: toggleCollapseClickCallback.bind(el, (container) => {
- *       window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
- *     })
- * @this HTMLElement
+ * @param {!Element} container div
+ * @param {?Element} trigger element that was clicked or tapped
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {boolean} true if collapsed, false if expanded.
  */
-var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
-  var container = this.parentNode;
+var toggleCollapsedForContainer = function toggleCollapsedForContainer(container, trigger, footerDivClickCallback) {
   var header = container.children[0];
   var table = container.children[1];
   var footer = container.children[2];
@@ -1314,7 +1299,7 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     }
     footer.style.display = 'none';
     // if they clicked the bottom div, then scroll back up to the top of the table.
-    if (this === footer && footerDivClickCallback) {
+    if (trigger === footer && footerDivClickCallback) {
       footerDivClickCallback(container);
     }
   } else {
@@ -1328,6 +1313,19 @@ var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDiv
     footer.style.display = 'block';
   }
   return collapsed;
+};
+
+/**
+ * Ex: toggleCollapseClickCallback.bind(el, (container) => {
+ *       window.scrollTo(0, container.offsetTop - transformer.getDecorOffset())
+ *     })
+ * @this HTMLElement
+ * @param {?FooterDivClickCallback} footerDivClickCallback
+ * @return {boolean} true if collapsed, false if expanded.
+ */
+var toggleCollapseClickCallback = function toggleCollapseClickCallback(footerDivClickCallback) {
+  var container = this.parentNode;
+  return toggleCollapsedForContainer(container, this, footerDivClickCallback);
 };
 
 /**
@@ -1404,13 +1402,14 @@ var newCaption = function newCaption(title, headerText) {
  * @param {!Element} content
  * @param {?string} pageTitle
  * @param {?boolean} isMainPage
+ * @param {?boolean} isInitiallyCollapsed
  * @param {?string} infoboxTitle
  * @param {?string} otherTitle
  * @param {?string} footerTitle
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {void}
  */
-var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+var adjustTables = function adjustTables(window, content, pageTitle, isMainPage, isInitiallyCollapsed, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
   if (isMainPage) {
     return;
   }
@@ -1474,6 +1473,10 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
       var collapsed = toggleCollapseClickCallback.bind(collapsedFooterDiv, footerDivClickCallback)();
       dispatchSectionToggledEvent(collapsed);
     };
+
+    if (!isInitiallyCollapsed) {
+      toggleCollapsedForContainer(containerDiv);
+    }
   };
 
   for (var i = 0; i < tables.length; ++i) {
@@ -1481,6 +1484,21 @@ var collapseTables = function collapseTables(window, content, pageTitle, isMainP
 
     if (_ret === 'continue') continue;
   }
+};
+
+/**
+ * @param {!Window} window
+ * @param {!Element} content
+ * @param {?string} pageTitle
+ * @param {?boolean} isMainPage
+ * @param {?string} infoboxTitle
+ * @param {?string} otherTitle
+ * @param {?string} footerTitle
+ * @param {?FooterDivClickCallback} footerDivClickCallback
+ * @return {void}
+ */
+var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+  adjustTables(window, content, pageTitle, isMainPage, true, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback);
 };
 
 /**
@@ -1511,6 +1529,7 @@ var CollapseTable = {
   SECTION_TOGGLED_EVENT_TYPE: SECTION_TOGGLED_EVENT_TYPE,
   toggleCollapseClickCallback: toggleCollapseClickCallback,
   collapseTables: collapseTables,
+  adjustTables: adjustTables,
   expandCollapsedTableIfItContainsElement: expandCollapsedTableIfItContainsElement,
   test: {
     getTableHeader: getTableHeader,
@@ -2440,7 +2459,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
  * @return {void}
 */
 var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
-  var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + title);
+  var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + encodeURI(title));
   saveButton.innerText = text;
   saveButton.title = text;
   updateSaveButtonBookmarkIcon(saveButton, isSaved);
@@ -2732,7 +2751,8 @@ var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed
 
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
-var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt'];
+// The 3 data-* items are used by iOS.
+var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt', 'usemap', 'data-file-width', 'data-file-height', 'data-image-gallery'];
 
 // Small images, especially icons, are quickly downloaded and may appear in many places. Lazily
 // loading these images degrades the experience with little gain. Always eagerly load these images.
@@ -3153,27 +3173,99 @@ var RedLinks = {
 };
 
 /**
+ * Gets array of ancestors of element which need widening.
+ * @param  {!HTMLElement} element
+ * @return {!Array.<HTMLElement>} Zero length array is returned if no elements should be widened.
+ */
+var ancestorsToWiden = function ancestorsToWiden(element) {
+  var widenThese = [];
+  var el = element;
+  while (el.parentNode) {
+    el = el.parentNode;
+    // No need to walk above 'content_block'.
+    if (el.classList.contains('content_block')) {
+      break;
+    }
+    widenThese.push(el);
+  }
+  return widenThese;
+};
+
+/**
+ * Sets style value.
+ * @param {!CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateStyleValue = function updateStyleValue(style, key, value) {
+  style[key] = value;
+};
+
+/**
+ * Sets style value only if value for given key already exists.
+ * @param {CSSStyleDeclaration} style
+ * @param {!string} key
+ * @param {*} value
+ * @return {void}
+ */
+var updateExistingStyleValue = function updateExistingStyleValue(style, key, value) {
+  var valueExists = Boolean(style[key]);
+  if (valueExists) {
+    updateStyleValue(style, key, value);
+  }
+};
+
+/**
+ * Image widening CSS key/value pairs.
+ * @type {Object}
+ */
+var styleWideningKeysAndValues = {
+  width: '100%',
+  height: 'auto',
+  maxWidth: '100%',
+  float: 'none'
+};
+
+/**
+ * Perform widening on an element. Certain style properties are updated, but only if existing values
+ * for these properties already exist.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingExistingStyles = function widenElementByUpdatingExistingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateExistingStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
+ * Perform widening on an element.
+ * @param  {!HTMLElement} element
+ * @return {void}
+ */
+var widenElementByUpdatingStyles = function widenElementByUpdatingStyles(element) {
+  Object.keys(styleWideningKeysAndValues).forEach(function (key) {
+    return updateStyleValue(element.style, key, styleWideningKeysAndValues[key]);
+  });
+};
+
+/**
  * To widen an image element a css class called 'pagelib_widen_image_override' is applied to the
  * image element, however, ancestors of the image element can prevent the widening from taking
  * effect. This method makes minimal adjustments to ancestors of the image element being widened so
  * the image widening can take effect.
- * @param  {!HTMLElement} el Element whose ancestors will be widened
+ * @param  {!HTMLElement} element Element whose ancestors will be widened
  * @return {void}
  */
-var widenAncestors = function widenAncestors(el) {
-  for (var parentElement = el.parentElement; parentElement && !parentElement.classList.contains('content_block'); parentElement = parentElement.parentElement) {
-    if (parentElement.style.width) {
-      parentElement.style.width = '100%';
-    }
-    if (parentElement.style.height) {
-      parentElement.style.height = 'auto';
-    }
-    if (parentElement.style.maxWidth) {
-      parentElement.style.maxWidth = '100%';
-    }
-    if (parentElement.style.float) {
-      parentElement.style.float = 'none';
-    }
+var widenAncestors = function widenAncestors(element) {
+  ancestorsToWiden(element).forEach(widenElementByUpdatingExistingStyles);
+
+  // Without forcing widening on the parent anchor, lazy image loading placeholders
+  // aren't correctly widened on iOS for some reason.
+  var parentAnchor = elementUtilities.findClosestAncestor(element, 'a.image');
+  if (parentAnchor) {
+    widenElementByUpdatingStyles(parentAnchor);
   }
 };
 
@@ -3241,8 +3333,12 @@ var maybeWidenImage = function maybeWidenImage(image) {
 var WidenImage = {
   maybeWidenImage: maybeWidenImage,
   test: {
+    ancestorsToWiden: ancestorsToWiden,
     shouldWidenImage: shouldWidenImage,
-    widenAncestors: widenAncestors
+    updateExistingStyleValue: updateExistingStyleValue,
+    widenAncestors: widenAncestors,
+    widenElementByUpdatingExistingStyles: widenElementByUpdatingExistingStyles,
+    widenElementByUpdatingStyles: widenElementByUpdatingStyles
   }
 };
 
@@ -3292,4 +3388,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14]);
+},{}]},{},[1,2,3,4,5,6,7,8,9,10]);

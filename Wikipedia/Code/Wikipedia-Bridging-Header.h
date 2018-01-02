@@ -34,7 +34,7 @@
 #import "WMFThemeableNavigationController.h"
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
-#import "WMFExploreCollectionViewController.h"
+#import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"

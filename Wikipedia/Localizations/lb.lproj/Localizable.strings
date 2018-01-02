@@ -82,7 +82,6 @@
 "compass-direction" = "ëm $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
-"dark-theme-display-name" = "Däischter";
 "dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
@@ -283,6 +282,7 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
@@ -343,6 +343,7 @@
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
 "table-title-other" = "Méi Informatiounen";
+"theme-black-display-name" = "Schwaarz";
 "theme-dark-display-name" = "Däischter";
 "theme-default-display-name" = "Standard";
 "top-read-header-generic" = "Wikipedia";

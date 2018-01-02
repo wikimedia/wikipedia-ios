@@ -68,7 +68,7 @@
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
-"article-delete" = "মুছুন";
+"article-delete" = "অপসারণ";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
@@ -95,7 +95,6 @@
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
 "continue-reading-empty-title" = "সম্প্রতি পড়া কোনও নিবন্ধ নেই";
-"dark-theme-display-name" = "আঁধার";
 "dim-images" = "অনুজ্জ্বল ছবি";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
@@ -364,7 +363,7 @@
 "welcome-explore-new-ways-title" = "প্রকাশের নতুন পথ";
 "welcome-explore-tell-me-more-done-button" = "বুঝেছি";
 "welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
-"welcome-intro-free-encyclopedia-title" = "একটু মুক্ত বিশ্বকোষ";
+"welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";

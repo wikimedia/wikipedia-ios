@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnL-0W-TZO">
-                    <rect key="frame" x="13" y="15" width="43.5" height="20.5"/>
+                    <rect key="frame" x="16" y="15" width="43.5" height="20.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" red="0.44705882352941173" green="0.46666666666666667" blue="0.49019607843137253" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -27,7 +27,7 @@
             <constraints>
                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="xnL-0W-TZO" secondAttribute="trailing" constant="13" id="AzU-sf-Dq8"/>
                 <constraint firstItem="xnL-0W-TZO" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" priority="999" id="EXl-2N-14j"/>
-                <constraint firstItem="xnL-0W-TZO" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" constant="-3" id="NSA-0E-ZEQ"/>
+                <constraint firstItem="xnL-0W-TZO" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" id="NSA-0E-ZEQ"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xnL-0W-TZO" secondAttribute="bottom" constant="13" id="T2D-b7-Zn9"/>
                 <constraint firstItem="xnL-0W-TZO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="13" id="acf-Jd-CNG"/>
             </constraints>

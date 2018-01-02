@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: NehalDaveND
 // Author: Nemo bis
+// Author: Rajatkatiyar10
 // Author: Rishi.Singh
 // Author: Sachinkatiyar
 // Author: Sahilrathod
@@ -104,7 +105,6 @@
 "compass-direction" = "$1 बजे पर";
 "continue-reading-empty-description" = "विकिपीडिया को और लेख पढ़ने के लिए खोजें";
 "continue-reading-empty-title" = "कोई हाल के पढ़े लेख नहीं";
-"dark-theme-display-name" = "अंधेरा";
 "dim-images" = "मंद छवियाँ";
 "edit-summary-choice-fixed-grammar" = "व्याकरण सुधार";
 "edit-summary-choice-fixed-typos" = "टाइपो सुधारा गया";
@@ -313,6 +313,7 @@
 "preference-title-eventlogging-opt-in" = "उपयोग रिपोर्ट भेजें";
 "rank-accessibility-label" = "नंबर $1";
 "readers-accessibility-label" = "$1 पाठक";
+"reading-themes-controls-accessibility-black-theme-button" = "काला रूपरंग";
 "reading-themes-controls-accessibility-brightness-slider" = "चमक स्लाइडर";
 "reading-themes-controls-accessibility-dark-theme-button" = "डार्क थीम";
 "reading-themes-controls-accessibility-light-theme-button" = "हल्का थीम";
@@ -380,6 +381,7 @@
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";
 "table-of-contents-heading" = "सामग्री";
 "table-title-other" = "अधिक जानकारी";
+"theme-black-display-name" = "काला";
 "theme-dark-display-name" = "गहरा";
 "theme-default-display-name" = "डिफ़ॉल्ट";
 "theme-sepia-display-name" = "लाल-भूरा रंग";

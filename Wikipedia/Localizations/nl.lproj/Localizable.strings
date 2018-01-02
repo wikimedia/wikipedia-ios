@@ -69,12 +69,16 @@
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
+"appearance-settings-expand-tables" = "Tabellen uitklappen";
+"appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
 "appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
+"appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
 "appearance-settings-theme-options" = "Thema-opties";
 "appearance-settings-title" = "Leesthema's";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
+"article-deleted-accessibility-notification" = "Artikel verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
@@ -101,7 +105,6 @@
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
-"dark-theme-display-name" = "Donker";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
@@ -238,6 +241,7 @@
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annuleren";
 "menu-trash-accessibility-label" = "Verwijderen";
+"more-languages-tooltip-title" = "Talen toevoegen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
@@ -308,6 +312,7 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
@@ -323,6 +328,7 @@
 "saved-pages-clear-delete-all" = "Ja, alles verwijderen";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-title" = "Opgeslagen";
+"search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-did-you-mean" = "Bedoelde u $1?";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
 "search-recent-clear-cancel" = "Annuleren";
@@ -372,6 +378,7 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
 "theme-sepia-display-name" = "Sepia";

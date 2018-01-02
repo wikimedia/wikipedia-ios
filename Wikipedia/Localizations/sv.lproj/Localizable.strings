@@ -70,8 +70,11 @@
 "alert-no-internet" = "Det finns ingen Internetanslutning";
 "announcements-dismiss" = "Stäng";
 "appearance-settings-adjust-text-sizing" = "Justera artikelns textstorlek";
+"appearance-settings-expand-tables" = "Expandera tabeller";
+"appearance-settings-expand-tables-footer" = "Ändra alla tabeller på alla artiklar att vara öppna som standard, inklusive snabbfakta, referenser, anteckningar och externa länkar.";
 "appearance-settings-image-dimming-footer" = "Minska opaciteten för bilder i mörkt tema";
 "appearance-settings-reading-themes" = "Lästeman";
+"appearance-settings-set-automatic-table-opening" = "Tabellinställningar";
 "appearance-settings-text-sizing-example-text" = "Dra i reglaget ovan för att ändra artikelns textstorlek. Ändra systemets textstorlek för att storleksändra andra textområden i appen.";
 "appearance-settings-theme-options" = "Temaalternativ";
 "appearance-settings-title" = "Lästeman";
@@ -105,7 +108,6 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
-"dark-theme-display-name" = "Mörk";
 "dim-images" = "Mörklägg bilder";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
@@ -314,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
+"reading-themes-controls-accessibility-black-theme-button" = "Svart tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
@@ -381,6 +384,7 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörk";
 "theme-default-display-name" = "Standard";
 "theme-sepia-display-name" = "Sepia";

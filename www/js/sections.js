@@ -1,18 +1,30 @@
 
 const requirements = {
-  editButtons: require('./transforms/addEditButtons'),
+  editTransform: require('wikimedia-page-library').EditTransform,
   utilities: require('./utilities'),
-  filePages: require('./transforms/disableFilePageEdit'),
-  tables: require('./transforms/collapseTables'),
+  tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
   paragraphs: require('./transforms/relocateFirstParagraph'),
-  images: require('./transforms/widenImages')
+  widenImage: require('wikimedia-page-library').WidenImage,
+  lazyLoadTransformer: require('wikimedia-page-library').LazyLoadTransformer,
+  location: require('./elementLocation')
 }
+
+// Documents attached to Window will attempt eager pre-fetching of image element resources as soon
+// as image elements appear in DOM of such documents. So for lazy image loading transform to work
+// (without the images being eagerly pre-fetched) our section fragments need to be created on a
+// document not attached to window - `lazyDocument`. The `live` document's `mainContentDiv` is only
+// used when we append our transformed fragments to it. See this Android commit message for details:
+// https://github.com/wikimedia/apps-android-wikipedia/commit/620538d961221942e340ca7ac7f429393d1309d6
+const lazyDocument = document.implementation.createHTMLDocument()
+const lazyImageLoadViewportDistanceMultiplier = 2 // Load images on the current screen up to one ahead.
+const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window, lazyImageLoadViewportDistanceMultiplier)
+const liveDocument = document
 
 // backfill fragments with "createElement" so transforms will work as well with fragments as
 // they do with documents
-DocumentFragment.prototype.createElement = name => document.createElement(name)
+DocumentFragment.prototype.createElement = name => lazyDocument.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -91,7 +103,7 @@ class Section {
   }
 
   containerDiv() {
-    const container = document.createElement('div')
+    const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
     container.innerHTML = `
         ${this.article.ismain ? '' : this.headingTag()}
@@ -113,7 +125,7 @@ const processResponseStatus = response => {
 const extractResponseJSON = response => response.json()
 
 const fragmentForSection = section => {
-  const fragment = document.createDocumentFragment()
+  const fragment = lazyDocument.createDocumentFragment()
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
@@ -122,26 +134,53 @@ const fragmentForSection = section => {
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(document, fragment)
 
-  requirements.filePages.disableFilePageEdit(fragment)
+  if(!article.ismain && isLead){
+    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+  }
 
-  if(!article.ismain){
+  const isFilePage = fragment.querySelector('#filetoc') !== null
+  if(!article.ismain && !isFilePage){
     if (isLead){
-      requirements.paragraphs.moveFirstGoodParagraphAfterElement( 'content_block_0_hr', fragment )
       // Add lead section edit button after the lead section horizontal rule element.
-      requirements.editButtons.addEditButtonAfterElement('#content_block_0_hr', 0, fragment)
+      const hr = fragment.querySelector('#content_block_0_hr')
+      hr.parentNode.insertBefore(
+        requirements.editTransform.newEditSectionButton(fragment, 0),
+        hr.nextSibling
+      )
     }else{
       // Add non-lead section edit buttons inside respective header elements.
-      requirements.editButtons.addEditButtonsToElements('.section_heading[data-id]:not([data-id=""])', 'data-id', fragment)
+      const heading = fragment.querySelector('.section_heading[data-id]')
+      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
+    }
+    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'});
+  }
+
+  const tableFooterDivClickCallback = container => {
+    if(requirements.location.isElementTopOnscreen(container)){
+      window.scrollTo( 0, container.offsetTop - 10 )
     }
   }
 
-  requirements.tables.hideTables(fragment, article.ismain, article.displayTitle, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle)
-  requirements.images.widenImages(fragment)
+  // Adds table collapsing header/footers.
+  requirements.tables.adjustTables(window, fragment, article.displayTitle, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
+
+  // Prevents some collapsed tables from scrolling side-to-side.
+  // May want to move this to wikimedia-page-library if there are no issues.
+  Array.from(fragment.querySelectorAll('.app_table_container *[class~="nowrap"]')).forEach(function(el) {el.classList.remove('nowrap')})
+
+  // 'data-image-gallery' is added to 'gallery worthy' img tags before html is sent to WKWebView.
+  // WidenImage's maybeWidenImage code will do further checks before it widens an image.
+  Array.from(fragment.querySelectorAll('img'))
+    .filter(image => image.getAttribute('data-image-gallery') === 'true')
+    .forEach(requirements.widenImage.maybeWidenImage)
 
   // Classifies some tricky elements like math formula images (examples are first images on
   // 'enwiki > Quadradic equation' and 'enwiki > Away colors > Association football'). See the
   // 'classifyElements' method itself for other examples.
   requirements.themes.classifyElements(fragment)
+
+  lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
+  lazyImageLoadingTransformer.loadPlaceholders()
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -184,7 +223,7 @@ const scrollToSection = hash => {
 
 const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
   performEarlyNonSectionTransforms(article)
-  const mainContentDiv = document.querySelector('div.content')
+  const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
   .then(processResponseStatus)
   .then(extractResponseJSON)
@@ -206,6 +245,7 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
 exports.collapseTablesLocalizedStrings = undefined
+exports.collapseTablesInitially = false
 
 exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument

@@ -60,8 +60,11 @@
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
+"appearance-settings-expand-tables" = "Kembangkan jadual";
+"appearance-settings-expand-tables-footer" = "Tetapkan semua jadual dalam semua rencana untuk dibuka secara lalai, termasuk Fakta pantas, Rujukan, Nota dan Pautan luar.";
 "appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
+"appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar di atas untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
 "appearance-settings-title" = "Tema bacaan";
@@ -95,7 +98,6 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "continue-reading-empty-title" = "Tiada rencana yang dibaca baru-baru ini";
-"dark-theme-display-name" = "Gelap";
 "dim-images" = "Samarkan imej";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
@@ -304,6 +306,7 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Nombor $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
 "reading-themes-controls-accessibility-brightness-slider" = "Slider kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
@@ -371,6 +374,7 @@
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
 "table-title-other" = "Maklumat lanjut";
+"theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
 "theme-sepia-display-name" = "Sepia";

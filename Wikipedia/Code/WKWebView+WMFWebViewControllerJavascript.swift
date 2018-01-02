@@ -117,6 +117,11 @@ extension WKWebView {
         switch theme.name {
         case Theme.sepia.name:
             jsThemeConstant = "SEPIA"
+        case Theme.blackDimmed.name:
+            isDim = true
+            fallthrough
+        case Theme.black.name:
+            jsThemeConstant = "BLACK"
         case Theme.darkDimmed.name:
             isDim = true
             fallthrough
@@ -137,10 +142,7 @@ extension WKWebView {
     }
     
     private func languageJS(for article: MWKArticle) -> String {
-        guard let lang = (article.url as NSURL).wmf_language else {
-            assertionFailure("Expected lang")
-            return ""
-        }
+        let lang = (article.url as NSURL).wmf_language ?? MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let langInfo = MWLanguageInfo(forCode: lang)
         let langCode = langInfo.code
         let langDir = langInfo.dir
@@ -185,7 +187,7 @@ extension WKWebView {
         return "[\(menuItemTypeJSPaths.joined(separator: ", "))]"
     }
     
-    @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, scrolledTo fragment: String?){
+    @objc public func wmf_fetchTransformAndAppendSectionsToDocument(_ article: MWKArticle, collapseTables: Bool, scrolledTo fragment: String?){
         guard
             let url = article.url,
             let host = url.host,
@@ -220,6 +222,7 @@ extension WKWebView {
         evaluateJavaScript("""
             window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
+            window.wmf.sections.collapseTablesInitially = \(collapseTables ? "true" : "false")
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
                 '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',

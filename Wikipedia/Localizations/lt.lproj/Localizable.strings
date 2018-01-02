@@ -202,6 +202,7 @@
 "preference-title-eventlogging-opt-in" = "Siųsti naudojimo ataskaitas";
 "rank-accessibility-label" = "Numeris $1";
 "readers-accessibility-label" = "$1 skaitytojai";
+"reading-themes-controls-accessibility-black-theme-button" = "Juoda tema";
 "reference-title" = "Išnaša $1";
 "saved-clear-all" = "Išvalyti";
 "saved-pages-clear-cancel" = "Atšaukti";
@@ -240,6 +241,7 @@
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";
 "table-of-contents-heading" = "Turinys";
 "table-title-other" = "Daugiau informacijos";
+"theme-black-display-name" = "Juoda";
 "top-read-header-generic" = "Vikipedija";
 "top-read-header-with-language" = "$1 Vikipedija";
 "top-read-see-more" = "Žiūrėti daugiau skaitomiausių";

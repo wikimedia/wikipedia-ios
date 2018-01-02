@@ -30,7 +30,7 @@
 "about-libraries" = "Bibliothèques utilisées";
 "about-libraries-complete-list" = "Liste complète";
 "about-libraries-license" = "Licence";
-"about-libraries-licenses-title" = "Nous aimons le logiciel ouvert $1";
+"about-libraries-licenses-title" = "Nous aimons le logiciel open source $1";
 "about-product-of" = "Fait par la $1 avec l’aide de volontaires tels que vous";
 "about-repositories" = "Référentiels";
 "about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
@@ -75,8 +75,11 @@
 "alert-no-internet" = "Il n'y a pas de connexion internet";
 "announcements-dismiss" = "Ignorer";
 "appearance-settings-adjust-text-sizing" = "Ajuster la taille du texte de l’article";
+"appearance-settings-expand-tables" = "Développer les tables";
+"appearance-settings-expand-tables-footer" = "Positionner tous les tableaux dans tous les articles comme ouvertes par défaut, y compris les Faits rapides, les Références, les Notes et les Liens externes.";
 "appearance-settings-image-dimming-footer" = "Diminuer l’opacité des images du thème sombre";
 "appearance-settings-reading-themes" = "Thèmes de lecture";
+"appearance-settings-set-automatic-table-opening" = "Paramètres de tableau";
 "appearance-settings-text-sizing-example-text" = "Déplacez le curseur ci-dessus pour modifier la taille du texte de l’article. Utilisez votre taille de texte système pour dimensionner les autres zones de texte de l’application.";
 "appearance-settings-theme-options" = "Options des thèmes";
 "appearance-settings-title" = "Thèmes de lecture";
@@ -110,7 +113,6 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
-"dark-theme-display-name" = "Sombre";
 "dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
@@ -319,6 +321,7 @@
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
+"reading-themes-controls-accessibility-black-theme-button" = "Thème noir";
 "reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";
 "reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
 "reading-themes-controls-accessibility-light-theme-button" = "Thème clair";
@@ -386,6 +389,7 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"theme-black-display-name" = "Noir";
 "theme-dark-display-name" = "Sombre";
 "theme-default-display-name" = "Par défaut";
 "theme-sepia-display-name" = "Sépia";

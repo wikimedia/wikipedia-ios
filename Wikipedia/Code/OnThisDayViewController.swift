@@ -41,7 +41,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
     }
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, collapseSectionSpacing:true)
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -77,16 +77,14 @@ extension OnThisDayViewController {
             return cell
         }
         let event = events[indexPath.section]
-        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
-            onThisDayCell.layoutMargins = layout.readableMargins
-        }
+        onThisDayCell.layoutMargins = layout.readableMargins
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
 
         return onThisDayCell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard
             indexPath.section == 0,
             kind == UICollectionElementKindSectionHeader,
@@ -101,7 +99,7 @@ extension OnThisDayViewController {
         return header
     }
     
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? OnThisDayCollectionViewCell else {
             return
         }
@@ -109,7 +107,7 @@ extension OnThisDayViewController {
         cell.pauseDotsAnimation = false
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? OnThisDayCollectionViewCell else {
             return
         }
@@ -117,25 +115,25 @@ extension OnThisDayViewController {
         cell.pauseDotsAnimation = true
     }
     
-    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
             return
         }
         isDateVisibleInTitle = false
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         guard indexPath.section == 0, elementKind == UICollectionElementKindSectionHeader else {
             return
         }
         isDateVisibleInTitle = true
     }
     
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
     }
 }
@@ -152,9 +150,7 @@ extension OnThisDayViewController {
             return estimate
         }
         let event = events[indexPath.section]
-        if let layout = collectionViewLayout as? WMFColumnarCollectionViewLayout {
-            placeholderCell.layoutMargins = layout.readableMargins
-        }
+        placeholderCell.layoutMargins = layout.readableMargins
         placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -172,8 +168,7 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
 // MARK: - UIViewControllerPreviewingDelegate
 extension OnThisDayViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let collectionView = collectionView,
-            let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
             return nil
         }
@@ -191,7 +186,9 @@ extension OnThisDayViewController {
         
         previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
         let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: self.theme)
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        vc.articlePreviewingActionsDelegate = self
+        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         if let themeable = vc as Themeable? {
             themeable.apply(theme: self.theme)
         }
@@ -199,6 +196,7 @@ extension OnThisDayViewController {
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }

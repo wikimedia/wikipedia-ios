@@ -77,10 +77,8 @@
 "hockeyapp-alert-always-send" = "Заўсёды дасылаць";
 "hockeyapp-alert-do-not-send" = "Не дасылаць";
 "hockeyapp-alert-privacy" = "Умовы прыватнасьці $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Вы жадаеце даслаць справаздачу пра памылку ў $1, каб Вікімэдыя вывучыла прычыну Вашай памылкі?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Ці жадаеце вы даслаць справаздачу ў $1, каб Вікімэдыя магла вывучыць памылку? Калі ласка, апішыце, што адбывалася, калі ўзьнікла памылка:";
+"hockeyapp-alert-question" = "Ці жадаеце вы даслаць справаздачу пра памылку ў $1, каб фундацыя «Вікімэдыя» вывучыла прычыну гэтай памылкі?";
+"hockeyapp-alert-question-with-response-field" = "Ці жадаеце вы даслаць справаздачу ў $1, каб фундацыя «Вікімэдыя» магла вывучыць памылку? Калі ласка, апішыце, што адбывалася, калі ўзьнікла памылка:";
 "hockeyapp-alert-send-report" = "Даслаць справаздачу";
 "hockeyapp-alert-title" = "Выбачаемся, праграма спынілася мінулым разам";
 "home-hide-suggestion-cancel" = "Скасаваць";
@@ -92,18 +90,13 @@
 "icon-shortcut-nearby-title" = "Артыклы пра тое што ёсьць навокал";
 "icon-shortcut-random-title" = "Выпадковы артыкул";
 "icon-shortcut-search-title" = "Пошук па Вікіпэдыі";
-// Fuzzy
-"image-gallery-unknown-owner" = "Загрузіў невядомы.";
+"image-gallery-unknown-owner" = "Аўтар невядомы.";
 "info-box-close-text" = "Закрыць";
-// Fuzzy
 "info-box-title" = "Хуткія факты";
-// Fuzzy
-"languages-title" = "Мовы";
+"languages-title" = "Зьмяніць мову";
 "license-footer-name" = "CC BY-SA 3.0";
-// Fuzzy
-"license-footer-text" = "Зьмест даступны на ўмовах $1";
-// Fuzzy
-"main-menu-about" = "Пра дастасаваньне Вікіпэдыя";
+"license-footer-text" = "Зьмест даступны на ўмовах $1, калі не пазначанае іншае.";
+"main-menu-about" = "Пра праграму";
 // Fuzzy
 "main-menu-account-login" = "Увайсьці ў Вікіпэдыю";
 "main-menu-account-logout" = "Выйсьці";

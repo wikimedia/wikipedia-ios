@@ -69,7 +69,7 @@
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
-    [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> _) {
+    [coordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self setCurrentPage:currentImageIndex animated:NO forceViewUpdate:YES];
     }];
 }

@@ -1,5 +1,22 @@
 
 class WMFReferencePageBackgroundView: UIView, Themeable {
+    var referenceHighlightBackground: UIColor = .clear
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+
+    func setup() {
+        isUserInteractionEnabled = false
+        clearsContextBeforeDrawing = false
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+
     @objc var clearRect:CGRect = CGRect.zero {
         didSet {
             setNeedsDisplay()
@@ -8,17 +25,13 @@ class WMFReferencePageBackgroundView: UIView, Themeable {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        UIColor.clear.setFill()
+        referenceHighlightBackground.setFill()
         UIBezierPath.init(roundedRect: clearRect, cornerRadius: 3).fill(with: .copy, alpha: 1.0)
     }
-    
-    override func didMoveToSuperview() {
-        isUserInteractionEnabled = false
-        clearsContextBeforeDrawing = false
-        translatesAutoresizingMaskIntoConstraints = false
-    }
+
     
     func apply(theme: Theme) {
         backgroundColor = theme.colors.overlayBackground
+        referenceHighlightBackground = theme.colors.referenceHighlightBackground
     }
 }

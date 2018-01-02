@@ -50,8 +50,11 @@
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
+"appearance-settings-expand-tables" = "Expand tables";
+"appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
 "appearance-settings-image-dimming-footer" = "Decrease the opacity of images on dark theme";
 "appearance-settings-reading-themes" = "Reading themes";
+"appearance-settings-set-automatic-table-opening" = "Table Settings";
 "appearance-settings-text-sizing-example-text" = "Drag the slider above to change the article text sizing. Utilize your system text size to resize other text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
 "appearance-settings-title" = "Reading themes";
@@ -85,7 +88,6 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"dark-theme-display-name" = "Dark";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -294,6 +296,7 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
@@ -361,6 +364,7 @@
 "table-of-contents-close-accessibility-label" = "Close Table of contents";
 "table-of-contents-heading" = "Contents";
 "table-title-other" = "More information";
+"theme-black-display-name" = "Black";
 "theme-dark-display-name" = "Dark";
 "theme-default-display-name" = "Default";
 "theme-sepia-display-name" = "Sepia";

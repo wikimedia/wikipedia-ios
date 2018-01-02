@@ -73,6 +73,8 @@
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
+"appearance-settings-expand-tables" = "Espandi le tabelle";
+"appearance-settings-set-automatic-table-opening" = "Impostazioni tabella";
 "appearance-settings-theme-options" = "Opzioni tema";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
@@ -102,7 +104,6 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
-"dark-theme-display-name" = "Scuro";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";

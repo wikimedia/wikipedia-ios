@@ -6,18 +6,18 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '11.1'},
-  {device: 'iPad Air 2', os: '10.3'}
+  {device: 'iPhone 6s', os: '11.2'},
+  {device: 'iPad Air 2', os: '10.3.1'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '10.3'},
-  {device: 'iPhone 6s', os: '11.1', scheme: "WikipediaRTL"},
-  {device: 'iPhone 6s', os: '10.3', scheme: "WikipediaRTL"}
+  {device: 'iPhone 6s', os: '10.3.1'},
+  {device: 'iPhone 6s', os: '11.2', scheme: "WikipediaRTL"},
+  {device: 'iPhone 6s', os: '10.3.1', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone 6s', os: '11.1', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone 6s', os: '11.2', scheme: "Beta Cluster Tests"}
 ]
 
 platform :ios do
@@ -44,7 +44,7 @@ platform :ios do
       scheme: "Wikipedia",
       configuration: "Debug",
       sdk: 'iphonesimulator',
-      destination: 'platform=iOS Simulator,OS=10.3,name=iPhone 6',
+      destination: 'platform=iOS Simulator,OS=10.3.1,name=iPhone 6',
       analyze: true
     )
   end
@@ -74,7 +74,7 @@ platform :ios do
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3'
+    os = options[:os]         || '10.3.1'
     sim = "#{device} (#{os})"
     opts = {
       device: sim,
@@ -101,7 +101,7 @@ platform :ios do
   lane :record_visual_tests_for_config do |options|
     scheme = options[:scheme] || 'Wikipedia'
     device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3'
+    os = options[:os]         || '10.3.1'
     sim = "#{device} (#{os})"
     opts = {
       device: sim,
@@ -121,6 +121,13 @@ platform :ios do
     increment_build_number({
       build_number: get_latest_alpha_or_beta_build_number + 1
     })
+  end
+  
+  desc "Set version number"
+  lane :set_version_number do |options|
+    increment_version_number(
+      version_number: options[:version_number]
+    )
   end
 
   desc "Increment the app version patch"
@@ -243,11 +250,12 @@ platform :ios do
       build_number: build_number
     )
     
-    changelog_from_git_commits(
-      pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
-      tag_match_pattern: "#{tag_prefix}/*", # Optional, lets you search for a tag name that matches a glob(7) pattern
-      include_merges: false # Optional, lets you filter out merge commits
-    )
+    # the changelog was overwriting whatever custom test notes we added
+    # changelog_from_git_commits(
+    #   pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
+    #   tag_match_pattern: "#{tag_prefix}/*", # Optional, lets you search for a tag name that matches a glob(7) pattern
+    #   include_merges: false # Optional, lets you filter out merge commits
+    # )
 
     build(
       product_name: product_name,

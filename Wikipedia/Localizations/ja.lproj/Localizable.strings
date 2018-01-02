@@ -25,6 +25,7 @@
 // Author: Thibaut120094
 // Author: Wicklo
 // Author: WwLMvmT
+// Author: Yusuke1109
 // Author: おはぐろ蜻蛉
 // Author: ネイ
 // Author: 아라
@@ -36,7 +37,7 @@
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-complete-list" = "完全なリスト";
 "about-libraries-license" = "ライセンス";
-"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛してます";
+"about-libraries-licenses-title" = "オープンソースソフトウェア$1を愛しています";
 "about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-repositories" = "リポジトリについて";
 "about-repositories-app-source-license" = "ソースコードは $1 で利用可能です。";
@@ -74,11 +75,14 @@
 "action-save" = "保存";
 "action-saved" = "保存済み";
 "action-saved-accessibility" = "保存しました。有効にして解除します。";
+"action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
 "action-unsave" = "保存しない";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整する";
+"appearance-settings-expand-tables" = "テーブルを展開する";
+"appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべてのテーブルをデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "テーマを読み込む";
 "appearance-settings-text-sizing-example-text" = "上記のスライダをドラッグして記事のテキストサイズを変更します。システムのテキストサイズを利用して、アプリ内の他のテキスト領域のサイズを変更します。";
@@ -86,6 +90,7 @@
 "appearance-settings-title" = "テーマを読み込む";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
+"article-deleted-accessibility-notification" = "記事を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
 "article-languages-others" = "他の言語で読む";
@@ -113,7 +118,6 @@
 "compass-direction" = "$1時の位置";
 "continue-reading-empty-description" = "Wikipediaでさらに多くの記事を読む";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
-"dark-theme-display-name" = "暗";
 "dim-images" = "暗い画像";
 "edit-summary-choice-fixed-grammar" = "文法を修正";
 "edit-summary-choice-fixed-typos" = "誤字訂正";
@@ -250,6 +254,8 @@
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "menu-cancel-accessibility-label" = "キャンセル";
 "menu-trash-accessibility-label" = "削除";
+"more-languages-tooltip-description" = "約300言語でウィキペディアを検索";
+"more-languages-tooltip-title" = "言語を追加";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-km" = "$1 km";
@@ -387,6 +393,7 @@
 "table-of-contents-close-accessibility-label" = "目次を閉じる";
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
+"theme-black-display-name" = "黒";
 "theme-dark-display-name" = "暗";
 "theme-default-display-name" = "既定";
 "theme-sepia-display-name" = "セピア";

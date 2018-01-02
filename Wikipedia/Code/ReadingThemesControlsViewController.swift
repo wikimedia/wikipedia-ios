@@ -22,7 +22,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     @IBOutlet weak var lightThemeButton: UIButton!
     @IBOutlet weak var sepiaThemeButton: UIButton!
     @IBOutlet weak var darkThemeButton: UIButton!
-    
+    @IBOutlet weak var blackThemeButton: UIButton!
+
     @IBOutlet var separatorViews: [UIView]!
     
     @IBOutlet var textSizeSliderViews: [UIView]!
@@ -54,15 +55,18 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         lightThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-light-theme-button", value: "Light theme", comment: "Accessibility label for the light theme button in the Reading Themes Controls popover")
         sepiaThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-sepia-theme-button", value: "Sepia theme", comment: "Accessibility label for the sepia theme button in the Reading Themes Controls popover")
         darkThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-dark-theme-button", value: "Dark theme", comment: "Accessibility label for the dark theme button in the Reading Themes Controls popover")
+        blackThemeButton.accessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-black-theme-button", value: "Black theme", comment: "Accessibility label for the black theme button in the Reading Themes Controls popover")
         
         lightThemeButton.backgroundColor = Theme.light.colors.paperBackground
         sepiaThemeButton.backgroundColor = Theme.sepia.colors.paperBackground
         darkThemeButton.backgroundColor = Theme.dark.colors.paperBackground
+        blackThemeButton.backgroundColor = Theme.black.colors.paperBackground
         
         lightThemeButton.setTitleColor(Theme.light.colors.primaryText, for: .normal)
         sepiaThemeButton.setTitleColor(Theme.sepia.colors.primaryText, for: .normal)
         darkThemeButton.setTitleColor(Theme.dark.colors.primaryText, for: .normal)
-        
+        blackThemeButton.setTitleColor(Theme.black.colors.primaryText, for: .normal)
+
         for slideView in textSizeSliderViews {
             slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
@@ -91,7 +95,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     func removeBorderFrom(_ button: UIButton) {
         button.borderWidth = traitCollection.displayScale > 0.0 ? 1.0/traitCollection.displayScale : 0.5
         button.isEnabled = true
-        button.borderColor = UIColor.wmf_lighterGray //intentionally unthemed
+        button.borderColor = theme.colors.border
         button.accessibilityTraits = UIAccessibilityTraitButton
     }
     
@@ -179,6 +183,10 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
         userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
     }
+
+    @IBAction func blackThemeButtonPressed(_ sender: Any) {
+        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
+    }
 }
 
 // MARK: - Themeable
@@ -198,6 +206,7 @@ extension ReadingThemesControlsViewController: Themeable {
         removeBorderFrom(lightThemeButton)
         removeBorderFrom(darkThemeButton)
         removeBorderFrom(sepiaThemeButton)
+        removeBorderFrom(blackThemeButton)
         switch theme.name {
         case Theme.sepia.name:
             applyBorder(to: sepiaThemeButton)
@@ -207,6 +216,10 @@ extension ReadingThemesControlsViewController: Themeable {
             fallthrough
         case Theme.dark.name:
             applyBorder(to: darkThemeButton)
+        case Theme.blackDimmed.name:
+            fallthrough
+        case Theme.black.name:
+            applyBorder(to: blackThemeButton)
         default:
             break
         }

@@ -58,8 +58,11 @@
 "alert-no-internet" = "Не сте поврзани со семрежјето";
 "announcements-dismiss" = "Тргни";
 "appearance-settings-adjust-text-sizing" = "Прилагоди големина на текстот";
+"appearance-settings-expand-tables" = "Расклопувај табели";
+"appearance-settings-expand-tables-footer" = "Задај сите табели во сите статии да бидат отворени по освновно. Тука се вклучени брзите факти, наводите, белешките и надворешните врски.";
 "appearance-settings-image-dimming-footer" = "Намали ја непроѕирноста на сликите во темниот изглед";
 "appearance-settings-reading-themes" = "Читачки изгледи";
+"appearance-settings-set-automatic-table-opening" = "Поставки за табели";
 "appearance-settings-text-sizing-example-text" = "Изменете ја големината на текстот со лизгачот погоре. Користете ја големината зададена во вашиот систем за да го прилагодите текстот во другите подрачја на прилогот.";
 "appearance-settings-theme-options" = "Можности за изгледот";
 "appearance-settings-title" = "Читачки изгледи";
@@ -93,7 +96,6 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
-"dark-theme-display-name" = "Темна";
 "dim-images" = "Пригушени слики";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
@@ -178,7 +180,7 @@
 "hockeyapp-alert-title" = "За жал, прилогот се урна минатиот пат";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
 "home-button-history-accessibility-label" = "Википедија, назад на Историја";
-"home-button-popover-description" = "Допрете го „W“ за да се вратите на каналот „Истражи“";
+"home-button-popover-description" = "Допрете го „W“ за да се вратите на тековникот „Истражи“";
 "home-button-popover-title" = "Допрете за да се вратите на почетната";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-hide-suggestion-cancel" = "Откажи";
@@ -261,7 +263,7 @@
 "page-protected-sysop" = "Оваа страница е наполно заштитена.";
 "page-read-in-other-languages" = "Достапно на $1 други јазици";
 "page-similar-titles" = "Слични страници";
-"page-talk-page" = "Страница за разговор";
+"page-talk-page" = "Разговорна страница";
 "pictured" = "на сликата";
 "places-accessibility-clear-saved-searches" = "Исчисти зачувани пребарувања";
 "places-accessibility-close-search" = "Затвори пребарување";
@@ -302,6 +304,7 @@
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
+"reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";
 "reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
 "reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
 "reading-themes-controls-accessibility-light-theme-button" = "Светол изглед";
@@ -369,6 +372,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";
 "theme-default-display-name" = "Основен";
 "theme-sepia-display-name" = "Сипа";
@@ -382,7 +386,7 @@
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "view-in-browser-footer-link" = "Отвори во прелистувач";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
-"welcome-exploration-explore-feed-title" = "Канал на Истражи";
+"welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";
 "welcome-exploration-on-this-day-title" = "На денешен ден";
 "welcome-exploration-places-description" = "Откријте ги знаменитостите околу вас или пребарувајте места низ светот";

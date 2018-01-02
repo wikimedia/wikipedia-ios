@@ -10,21 +10,24 @@ import MapKit
 class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
 
     fileprivate var mapView: MapView!
+    @IBOutlet weak var navigationBar: NavigationBar!
     
     @IBOutlet weak var mapContainerView: UIView!
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
-    @IBOutlet weak var extendedNavBarView: UIView!
+    @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
     var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var titleViewSearchBar: UISearchBar!
     @IBOutlet weak var mapListToggle: UISegmentedControl!
-    @IBOutlet weak var filterSelectorView: PlaceSearchFilterSelectorView!
+    @IBOutlet var filterSelectorView: PlaceSearchFilterSelectorView!
     @IBOutlet weak var filterDropDownContainerView: UIView!
     @IBOutlet weak var filterDropDownTableView: UITableView!
+    @IBOutlet weak var filterDropDownHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterDropDownWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var closeSearchButton: UIButton!
     @IBOutlet weak var searchBarToMapListToggleTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchBarToCloseTrailingConstraint: NSLayoutConstraint!
@@ -46,7 +49,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var listContainerView: UIView!
     var listViewController: ArticleLocationCollectionViewController!
     @IBOutlet weak var searchSuggestionView: UITableView!
-    @IBOutlet weak var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
+    @IBOutlet var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
     @objc public var dataStore: MWKDataStore!
 
@@ -113,17 +116,27 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        title = CommonStrings.placesTitle
+        title = CommonStrings.placesTabTitle
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBar.isBackVisible = false
+        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.delegate = self
+        
+        filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
+        
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
         addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
         listViewController.didMove(toParentViewController: self)
+        listViewController.automaticallyAdjustsScrollViewInsets = true
+        if #available(iOS 11.0, *) {
+            listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
+        }
 
         let mapViewFrame = mapContainerView.bounds
         #if OSM
@@ -154,16 +167,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         fakeProgressController = FakeProgressController(progressView: progressView)
         
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
-        
-        searchFilterListController = PlaceSearchFilterListController(delegate: self)
-        searchFilterListController.tableView = filterDropDownTableView
-        filterDropDownTableView.dataSource = searchFilterListController
-        filterDropDownTableView.delegate = searchFilterListController
-        
+
         touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
         touchOutsideOverlayView.delegate = self
-
-        navigationController?.setNavigationBarHidden(false, animated: true)
 
         // Setup location manager
         locationManager.delegate = self
@@ -225,26 +231,34 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         self.view.layoutIfNeeded()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case "filterListController":
+            searchFilterListController = segue.destination as! PlaceSearchFilterListController
+            searchFilterListController.delegate = self
+        default:
+            break
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if #available(iOS 11.0, *) {
+        } else {
+            navigationBar.statusBarHeight = self.navigationController?.topLayoutGuide.length ?? 0
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
-        
-        if let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar {
-            wmf_updateNavigationBar(removeUnderline: isSearchBarInNavigationBar)
-        } else {
-            DDLogDebug("not updating navigation bar because search bar isn't set yet")
-        }
         
         super.viewWillAppear(animated)
         
         let defaults = UserDefaults.wmf_userDefaults()
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
-        }
-        
-        if isViewModeOverlay {
-            navigationController?.setNavigationBarHidden(true, animated: animated)
         }
 
         
@@ -269,7 +283,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        wmf_updateNavigationBar(removeUnderline: false)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
@@ -319,7 +332,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
 
     public func logListViewImpressionsForVisibleCells() {
-        for indexPath in listViewController.collectionView?.indexPathsForVisibleItems ?? [] {
+        for indexPath in listViewController.collectionView.indexPathsForVisibleItems {
             logListViewImpression(forIndexPath: indexPath)
         }
     }
@@ -907,9 +920,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
     func addSearchBarToNavigationBar(animated: Bool) {
+        guard viewIfLoaded != nil else {
+            return
+        }
         //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
         extendedNavBarView.isHidden = false
-        wmf_updateNavigationBar(removeUnderline: true)
 
         let searchBarHeight: CGFloat = 32
         let searchBarLeadingPadding: CGFloat = 7.5
@@ -931,10 +946,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func removeSearchBarFromNavigationBar(animated: Bool) {
         extendedNavBarView.isHidden = true
-        wmf_updateNavigationBar(removeUnderline: false)
         
-        listAndSearchOverlayFilterSelectorContainerView.addSubview(filterSelectorView)
-        filterSelectorView.frame = listAndSearchOverlayFilterSelectorContainerView.bounds
+        listAndSearchOverlayFilterSelectorContainerView.wmf_addSubviewWithConstraintsToEdges(filterSelectorView)
         
         searchBar = listAndSearchOverlaySearchBar
         
@@ -1232,6 +1245,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @objc func updateViewModeToMap() {
+        guard viewIfLoaded != nil else {
+            return
+        }
         viewMode = .map
     }
     
@@ -1658,7 +1674,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
 
         if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
-            listViewController.collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+            listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
         let articleVC = ArticlePopoverViewController(article)
@@ -1746,9 +1762,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .read:
             tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
-            if navigationController?.isNavigationBarHidden ?? false {
-                navigationController?.setNavigationBarHidden(false, animated: true)
-            }
 
             break
         case .save:
@@ -1909,16 +1922,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         
-        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
+        let width = view.bounds.width
+        let origHeight = searchFilterListController.preferredHeight(for: width)
         
         
         let frame: CGRect
         if (isSearchBarInNavigationBar) {
-            frame = CGRect(x: 0,
-                           y: extendedNavBarView.frame.minY,
-                           width: extendedNavBarView.bounds.width,
-                           height: 0)
-            
+            let frameInExtendedNavBarViewCoordinateSpace = CGRect(x: 0,  y: 0, width: width, height: 0)
+            frame = view.convert(frameInExtendedNavBarViewCoordinateSpace, from: extendedNavBarView)
         } else {
             frame = self.view.convert(CGRect(x: 0,
                                              y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
@@ -1927,35 +1938,32 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                                       from: listAndSearchOverlayContainerView)
         }
         
-        touchOutsideOverlayView.resetInsideRects()
-        touchOutsideOverlayView.addInsideRect(fromView: filterDropDownContainerView)
-        touchOutsideOverlayView.addInsideRect(fromView: listAndSearchOverlayFilterSelectorContainerView)
-        self.view.addSubview(touchOutsideOverlayView)
-        
+
         filterDropDownContainerView.frame = frame
         searchFilterListController.currentFilterType = currentSearchFilter
-        self.view.addSubview(filterDropDownContainerView)
         
+        touchOutsideOverlayView.resetInsideRects()
+        touchOutsideOverlayView.addInsideRect(fromView: filterSelectorView)
+        touchOutsideOverlayView.frame = view.bounds
+        touchOutsideOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(touchOutsideOverlayView)
+
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
                                                             y: self.filterDropDownContainerView.frame.origin.y,
                                                             width: self.filterDropDownContainerView.frame.size.width,
                                                             height: origHeight)
+
             
         }, completion: { (done) in
+            self.touchOutsideOverlayView.addInsideRect(fromView: self.filterDropDownContainerView)
             completion(done)
         })
     }
     
     fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        
-        let origHeight = searchFilterListController.preferredHeight(for: view.bounds.size.width)
-        
         self.touchOutsideOverlayView.removeFromSuperview()
-        
-        UIView.commitAnimations()
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
             
             self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
@@ -1963,8 +1971,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                                                             width: self.filterDropDownContainerView.frame.width,
                                                             height: 0)
         }, completion: { (done) in
-            self.filterDropDownContainerView.removeFromSuperview()
-            self.filterDropDownContainerView.frame.size.height = origHeight
             completion(done)
         })
     }
@@ -2465,6 +2471,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - TouchOutsideOverlayDelegate
     
     func touchOutside(_ overlayView: TouchOutsideOverlayView) {
+        guard isSearchFilterDropDownShowing else {
+            return
+        }
         toggleSearchFilterDropDown(overlayView)
     }
     
@@ -2751,6 +2760,7 @@ extension PlacesViewController: Themeable {
         }
         view.backgroundColor = theme.colors.baseBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
+        navigationBar.apply(theme: theme)
         
         titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
         titleViewSearchBar.barTintColor = theme.colors.chromeBackground
@@ -2774,8 +2784,8 @@ extension PlacesViewController: Themeable {
         listAndSearchOverlaySearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         listAndSearchOverlaySearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
-        wmf_addBottomShadow(view: filterDropDownContainerView, theme: theme)
-        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
+        filterDropDownContainerView.wmf_addBottomShadow(with: theme)
+        extendedNavBarView.wmf_addBottomShadow(with: theme)
         searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         

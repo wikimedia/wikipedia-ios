@@ -15,6 +15,7 @@
 // Author: Mcervera
 // Author: Mgpena
 // Author: Nemo bis
+// Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
 // Author: VegaDark
@@ -75,8 +76,11 @@
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
+"appearance-settings-expand-tables" = "Ampliar tablas";
+"appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
+"appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
 "appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "appearance-settings-title" = "Temas de lecturas";
@@ -110,7 +114,6 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
-"dark-theme-display-name" = "Oscuro";
 "dim-images" = "Atenuación de imágenes";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
@@ -195,7 +198,7 @@
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
-"home-button-popover-description" = "Toca la «W» para volver al suministro Explorar";
+"home-button-popover-description" = "Toca la «W» para volver al canal de exploración";
 "home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-hide-suggestion-cancel" = "Cancelar";
@@ -319,6 +322,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema negro";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de brillo";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema oscuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema ligero";
@@ -386,6 +390,7 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-title-other" = "Más información";
+"theme-black-display-name" = "Negro";
 "theme-dark-display-name" = "Oscuro";
 "theme-default-display-name" = "Predeterminado";
 "theme-sepia-display-name" = "Sepia";
@@ -399,7 +404,7 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
-"welcome-exploration-explore-feed-title" = "Suministro Explorar";
+"welcome-exploration-explore-feed-title" = "Canal de exploración";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";
 "welcome-exploration-on-this-day-title" = "Un día como hoy";
 "welcome-exploration-places-description" = "Descubre puntos de referencia cerca de ti o busca en lugares por todo el mundo";
