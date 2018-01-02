@@ -234,7 +234,8 @@ open class ImageController : NSObject {
         let variant = self.variantForURL(url)
         let identifier = self.identifierForKey(key, variant: variant)
         let completion = ImageControllerPermanentCacheCompletion(success: success, failure: failure)
-        guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier) else {
+        let token = UUID().uuidString
+        guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) else {
             return
         }
         let moc = self.managedObjectContext
@@ -449,22 +450,27 @@ open class ImageController : NSObject {
         return error?.isCancellationError ?? false
     }
     
-    @objc public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
+    @objc public func fetchData(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) -> String? {
         guard let url = url else {
             failure(ImageControllerError.invalidOrEmptyURL)
-            return
+            return nil
         }
+        let token = UUID().uuidString
         let identifier = identifierForURL(url)
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        guard dataCompletionManager.add(completion, priority: priority, forIdentifier: identifier) else {
-            return
+        guard dataCompletionManager.add(completion, priority: priority, forIdentifier: identifier, token: token) else {
+            //DDLogDebug("unable to add completion: %@", url)
+            return nil
         }
         let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
+        //DDLogDebug("fetching: \(url) \(token)")
         let task = session.dataTask(with: schemedURL) { (data, response, error) in
             guard !self.isCancellationError(error) else {
+                //DDLogDebug("cancelled: \(url) \(token)")
                 return
             }
             self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
+                //DDLogDebug("complete: \(url) \(token)")
                 guard let data = data, let response = response else {
                     completion.failure(error ?? ImageControllerError.invalidResponse)
                     return
@@ -475,47 +481,52 @@ open class ImageController : NSObject {
         task.priority = priority
         dataCompletionManager.add(task, forIdentifier: identifier)
         task.resume()
+        return token
     }
     
     @objc public func fetchData(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        let _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
-    
-    
-    @objc public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
+
+    @objc public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
+            //DDLogDebug("invalid or empty")
             failure(ImageControllerError.invalidOrEmptyURL)
-            return
+            return nil
         }
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
+            //DDLogDebug("memory: \(url)")
             success(ImageDownload(url: url, image: memoryCachedImage, origin: .memory))
-            return
+            return nil
         }
-        fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
+        return fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
                 DispatchQueue.main.async {
+                    //DDLogDebug("invalid: \(url)")
                     failure(ImageControllerError.invalidResponse)
                 }
                 return
             }
             self.addToMemoryCache(image, url: url)
             DispatchQueue.main.async {
+                //DDLogDebug("success: \(url)")
                 success(ImageDownload(url: url, image: image, origin: .unknown))
             }
         }
     }
     
     @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
-    @objc public func cancelFetch(withURL url: URL?) {
-        guard let url = url else {
+    @objc public func cancelFetch(withURL url: URL?, token: String?) {
+        guard let url = url, let token = token else {
             return
         }
         let identifier = identifierForURL(url)
-        dataCompletionManager.cancel(identifier)
+        //DDLogDebug("cancelling: \(url) \(token)")
+        dataCompletionManager.cancel(identifier, token: token)
     }
     
     @objc public func prefetch(withURL url: URL?) {
@@ -523,7 +534,7 @@ open class ImageController : NSObject {
     }
     
     @objc public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
+        let _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
     @objc public func deleteTemporaryCache() {

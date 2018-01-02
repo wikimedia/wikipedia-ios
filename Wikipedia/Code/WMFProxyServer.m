@@ -411,7 +411,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }];
 
     //append the final chunk of the original string
-    [newHTMLString appendString:[HTMLString substringWithRange:NSMakeRange(location, HTMLString.length - location)]];
+    if (HTMLString && location < HTMLString.length) {
+        [newHTMLString appendString:[HTMLString substringWithRange:NSMakeRange(location, HTMLString.length - location)]];
+    }
 
     return newHTMLString;
 }

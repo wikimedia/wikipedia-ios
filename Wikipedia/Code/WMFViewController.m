@@ -1,7 +1,8 @@
 #import "WMFViewController.h"
 #import "Wikipedia-Swift.h"
+#import "UIViewController+WMFEmptyView.h"
 
-@interface WMFViewController ()
+@interface WMFViewController () <WMFEmptyViewContainer>
 @property (nonatomic, strong) WMFNavigationBar *navigationBar;
 @property (nonatomic, strong) WMFNavigationBarHider *navigationBarHider;
 @property (nonatomic) BOOL showsNavigationBar;
@@ -172,6 +173,16 @@
 #pragma mark - WMFNavigationBarHiderDelegate
 
 - (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+}
+
+#pragma mark - WMFEmptyViewContainer
+
+- (void)addEmptyView:(UIView *)emptyView {
+    if (self.navigationBar.superview == self.view) {
+        [self.view insertSubview:emptyView belowSubview:self.navigationBar];
+    } else {
+        [self.view addSubview:emptyView];
+    }
 }
 
 @end
