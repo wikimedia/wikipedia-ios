@@ -765,8 +765,8 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   // 'classifyElements' method itself for other examples.
   requirements.themes.classifyElements(fragment)
 
-  lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
-  lazyImageLoadingTransformer.loadPlaceholders()
+  //lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
+  //lazyImageLoadingTransformer.loadPlaceholders()
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
