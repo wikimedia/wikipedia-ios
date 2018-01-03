@@ -62,7 +62,9 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 switch objectChange.type {
                 case .delete:
                     if let fromIndexPath = objectChange.fromIndexPath {
-                        collectionView.deleteItems(at: [fromIndexPath])
+                        if !deletedSections.contains(fromIndexPath.section) {
+                            collectionView.deleteItems(at: [fromIndexPath])
+                        }
                     }
                 case .insert:
                     if let toIndexPath = objectChange.toIndexPath {
