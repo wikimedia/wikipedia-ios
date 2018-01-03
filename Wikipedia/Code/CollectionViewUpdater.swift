@@ -48,12 +48,15 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
+                    DDLogDebug("section delete: \(sectionChange.sectionIndex)")
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
                     deletedSections.add(sectionChange.sectionIndex)
                 case .insert:
+                    DDLogDebug("section insert: \(sectionChange.sectionIndex)")
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
                     insertedSections.add(sectionChange.sectionIndex)
                 default:
+                    DDLogDebug("section update: \(sectionChange.sectionIndex)")
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
                     updatedSections.add(sectionChange.sectionIndex)
                 }
@@ -63,26 +66,35 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 case .delete:
                     if let fromIndexPath = objectChange.fromIndexPath {
                         if !deletedSections.contains(fromIndexPath.section) {
+                            DDLogDebug("object delete: \(fromIndexPath)")
                             collectionView.deleteItems(at: [fromIndexPath])
                         }
                     }
                 case .insert:
                     if let toIndexPath = objectChange.toIndexPath {
+                        DDLogDebug("object insert: \(toIndexPath)")
                         collectionView.insertItems(at: [toIndexPath])
                     }
                 case .move:
+                    DDLogDebug("object move (fallthrough)")
                     fallthrough
                 default:
                     if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
+                        DDLogDebug("object move: \(fromIndexPath) \(toIndexPath)")
                         if deletedSections.contains(fromIndexPath.section) {
+                            DDLogDebug("inserting: \(toIndexPath)")
                             collectionView.insertItems(at: [toIndexPath])
                         } else {
+                            DDLogDebug("moving: \(fromIndexPath) \(toIndexPath)")
                             collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
                         }
                     } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
+                        DDLogDebug("object update: \(updatedIndexPath)")
                         if insertedSections.contains(updatedIndexPath.section) {
+                            DDLogDebug("inserting: \(updatedIndexPath)")
                             collectionView.insertItems(at: [updatedIndexPath])
                         } else {
+                            DDLogDebug("reloading: \(updatedIndexPath)")
                             collectionView.reloadItems(at: [updatedIndexPath])
                         }
                     }
