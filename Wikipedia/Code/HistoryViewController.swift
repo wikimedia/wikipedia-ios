@@ -48,10 +48,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         headerLayoutEstimate = nil
     }
-}
-    
-// MARK: UICollectionViewDataSource
-extension HistoryViewController {
+
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
             return nil
@@ -77,6 +74,21 @@ extension HistoryViewController {
         headerView.layoutMargins = layout.readableMargins
         return headerView
     }
+
+    override func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        super.collectionViewUpdater(updater, didUpdate: collectionView)
+        updateVisibleHeaders()
+    }
+
+    func updateVisibleHeaders() {
+        for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionElementKindSectionHeader) {
+            guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
+                continue
+            }
+            headerView.text = titleForHeaderInSection(indexPath.section)
+        }
+    }
+
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
