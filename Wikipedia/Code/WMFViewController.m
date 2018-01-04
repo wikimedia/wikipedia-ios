@@ -1,9 +1,11 @@
 #import "WMFViewController.h"
 #import "Wikipedia-Swift.h"
+#import "UIViewController+WMFEmptyView.h"
 
-@interface WMFViewController ()
+@interface WMFViewController () <WMFEmptyViewContainer>
 @property (nonatomic, strong) WMFNavigationBar *navigationBar;
 @property (nonatomic, strong) WMFNavigationBarHider *navigationBarHider;
+@property (nonatomic) BOOL showsNavigationBar;
 @end
 
 @implementation WMFViewController
@@ -11,9 +13,6 @@
 - (void)setup {
     self.theme = [WMFTheme standard];
     self.navigationBar = [[WMFNavigationBar alloc] initWithFrame:CGRectZero];
-    self.navigationBarHider = [[WMFNavigationBarHider alloc] init];
-    self.navigationBarHider.navigationBar = self.navigationBar;
-    self.navigationBarHider.delegate = self;
 }
 
 - (instancetype)init {
@@ -40,36 +39,50 @@
     return self;
 }
 
-- (BOOL)showsNavigationBar {
-    return self.parentViewController == self.navigationController && self.navigationController.isNavigationBarHidden;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    if (@available(iOS 11.0, *)) {
+        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self applyTheme:self.theme];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (self.showsNavigationBar && self.navigationBar.superview == nil) {
-        self.navigationBar.delegate = self;
-        self.navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view addSubview:self.navigationBar];
 
-        NSLayoutConstraint *topConstraint = [self.view.topAnchor constraintEqualToAnchor:self.navigationBar.topAnchor];
-        NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.navigationBar.leadingAnchor];
-        NSLayoutConstraint *trailingConstraint = [self.view.trailingAnchor constraintEqualToAnchor:self.navigationBar.trailingAnchor];
+    self.showsNavigationBar = self.parentViewController == self.navigationController && self.navigationController.isNavigationBarHidden;
 
-        [self.view addConstraints:@[topConstraint, leadingConstraint, trailingConstraint]];
+    if (self.showsNavigationBar) {
+        if (self.navigationBar.superview == nil) {
+            self.navigationBarHider = [[WMFNavigationBarHider alloc] init];
+            self.navigationBarHider.navigationBar = self.navigationBar;
+            self.navigationBarHider.delegate = self;
 
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        if (@available(iOS 11.0, *)) {
-            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            self.navigationBar.delegate = self;
+            self.navigationBar.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.view addSubview:self.navigationBar];
+
+            NSLayoutConstraint *topConstraint = [self.view.topAnchor constraintEqualToAnchor:self.navigationBar.topAnchor];
+            NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.navigationBar.leadingAnchor];
+            NSLayoutConstraint *trailingConstraint = [self.view.trailingAnchor constraintEqualToAnchor:self.navigationBar.trailingAnchor];
+
+            [self.view addConstraints:@[topConstraint, leadingConstraint, trailingConstraint]];
+
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            if (@available(iOS 11.0, *)) {
+                self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            }
+        }
+
+        self.navigationBar.navigationBarPercentHidden = 0;
+        [self updateNavigationBarStatusBarHeight];
+    } else {
+        if (self.navigationBar.superview) {
+            [self.navigationBar removeFromSuperview];
+            self.navigationBarHider = nil;
         }
     }
-    self.navigationBar.navigationBarPercentHidden = 0;
-    [self updateNavigationBarStatusBarHeight];
 }
 
 - (void)updateNavigationBarStatusBarHeight {
@@ -93,12 +106,30 @@
     [self updateScrollViewInsets];
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    if (@available(iOS 11.0, *)) {
+        [super viewSafeAreaInsetsDidChange];
+    }
+    [self updateScrollViewInsets];
+}
+
 - (void)didUpdateScrollViewInsets {
 }
 
 - (void)updateScrollViewInsets {
+    if (self.automaticallyAdjustsScrollViewInsets) {
+        return;
+    }
     UIScrollView *scrollView = self.scrollView;
-    CGRect frame = self.navigationBar.frame;
+    if (!scrollView) {
+        return;
+    }
+    CGRect frame = CGRectZero;
+    if (self.showsNavigationBar) {
+        frame = self.navigationBar.frame;
+    } else if (self.navigationController) {
+        frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
+    }
     CGFloat top = CGRectGetMaxY(frame);
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
@@ -115,13 +146,8 @@
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
-    scrollView.contentInset = contentInset;
-    scrollView.scrollIndicatorInsets = scrollIndicatorInsets;
-    [self didUpdateScrollViewInsets];
-    if (wasAtTop) {
-        scrollView.contentOffset = CGPointMake(0, 0 - scrollView.contentInset.top);
-        [self.navigationBar setPercentHidden:0 animated:NO];
+    if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
+        [self didUpdateScrollViewInsets];
     }
 }
 
@@ -147,6 +173,16 @@
 #pragma mark - WMFNavigationBarHiderDelegate
 
 - (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+}
+
+#pragma mark - WMFEmptyViewContainer
+
+- (void)addEmptyView:(UIView *)emptyView {
+    if (self.navigationBar.superview == self.view) {
+        [self.view insertSubview:emptyView belowSubview:self.navigationBar];
+    } else {
+        [self.view addSubview:emptyView];
+    }
 }
 
 @end

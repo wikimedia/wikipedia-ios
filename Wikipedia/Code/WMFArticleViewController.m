@@ -708,7 +708,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
@@ -720,9 +719,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self hideProgressViewAnimated:NO];
 
-    if (self.theme) {
-        [self applyTheme:self.theme];
-    }
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1129,6 +1126,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
+    [self updateProgress:0.1 animated:NO]; //initial progress is 0.1, incorporated with totalProgressWithArticleFetcherProgress
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
@@ -1156,8 +1154,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else if ([error wmf_isWMFErrorMissingTitle]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_specialPageActivityWithURL:self.articleURL]];
-                [self.navigationController popViewControllerAnimated:YES];
+                NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
+                if (specialPageActivity) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                              sticky:NO
+                                               dismissPreviousAlerts:NO
+                                                         tapCallBack:NULL];
+                }
             } else {
                 [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error

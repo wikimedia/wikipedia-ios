@@ -321,8 +321,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
     self.collectionViewLayout = [[WMFColumnarCollectionViewLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewLayout];
     [self.view wmf_addSubviewWithConstraintsToEdges:self.collectionView];
@@ -378,6 +376,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerCellsAndViews];
     [self setupRefreshControl];
+
+    [super viewDidLoad];  // intentionally at the bottom of the method for theme application
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {

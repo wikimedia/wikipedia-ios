@@ -11,6 +11,8 @@ static const char *const MWKURLAssociationKey = "MWKURL";
 
 static const char *const MWKURLToCancelAssociationKey = "MWKURLToCancel";
 
+static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
+
 static const char *const MWKImageAssociationKey = "MWKImage";
 
 static const char *const WMFImageControllerAssociationKey = "WMFImageController";
@@ -55,6 +57,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     objc_setAssociatedObject(self, MWKURLToCancelAssociationKey, imageURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSString *__nullable)wmf_imageTokenToCancel {
+    return objc_getAssociatedObject(self, MWKTokenToCancelAssociationKey);
+}
+
+- (void)wmf_setImageTokenToCancel:(nullable NSString *)token {
+    objc_setAssociatedObject(self, MWKTokenToCancelAssociationKey, token, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 #pragma mark - Face Detection
 
 + (WMFFaceDetectionCache *)faceDetectionCache {
@@ -91,7 +101,6 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
-
     if (!imageURL) {
         failure([NSError wmf_cancelledError]);
         return;
@@ -99,13 +108,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
-    [self.wmf_imageController fetchImageWithURL:imageURL
+    self.wmf_imageTokenToCancel = [self.wmf_imageController fetchImageWithURL:imageURL
                                        priority:0.5
                                         failure:failure
                                         success:^(WMFImageDownload *_Nonnull download) {
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 @strongify(self);
                                                 self.wmf_imageURLToCancel = nil;
+                                                self.wmf_imageTokenToCancel = nil;
                                                 if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                                     failure([NSError wmf_cancelledError]);
                                                 } else {
@@ -208,10 +218,11 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (void)wmf_cancelImageDownload {
-    [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel]];
+    [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel] token:[self wmf_imageTokenToCancel]];
     self.wmf_imageURL = nil;
     self.wmf_imageMetadata = nil;
     self.wmf_imageURLToCancel = nil;
+    self.wmf_imageTokenToCancel = nil;
 }
 
 @end

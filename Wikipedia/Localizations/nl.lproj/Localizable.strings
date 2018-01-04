@@ -6,6 +6,7 @@
 // Author: JurgenNL
 // Author: Macofe
 // Author: Mainframe98
+// Author: Mar(c)
 // Author: Mathonius
 // Author: MedShot
 // Author: MrLeopold
@@ -69,12 +70,16 @@
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
+"appearance-settings-expand-tables" = "Tabellen uitklappen";
+"appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
 "appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
+"appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
 "appearance-settings-theme-options" = "Thema-opties";
 "appearance-settings-title" = "Leesthema's";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
+"article-deleted-accessibility-notification" = "Artikel verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
@@ -101,14 +106,13 @@
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
-"dark-theme-display-name" = "Donker";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-typos" = "Spelfout gecorrigeerd";
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-other" = "Overige";
 "edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
-"edit-summary-title" = "Hoe heeft u de pagina verbeterd?";
+"edit-summary-title" = "Hoe hebt u het artikel verbeterd?";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 "empty-no-feed-action-message" = "U kunt nog steeds opgeslagen pagina's lezen";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
@@ -238,6 +242,7 @@
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annuleren";
 "menu-trash-accessibility-label" = "Verwijderen";
+"more-languages-tooltip-title" = "Talen toevoegen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
@@ -261,7 +266,7 @@
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-location" = "Op een kaart bekijken";
 "page-protected-autoconfirmed" = "Deze pagina is semibeveiligd.";
-"page-protected-can-not-edit" = "U heeft geen rechten om deze pagina te bewerken";
+"page-protected-can-not-edit" = "U hebt geen rechten om deze pagina te bewerken";
 "page-protected-can-not-edit-title" = "Deze pagina is beveiligd";
 "page-protected-other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page-protected-sysop" = "Deze pagina is volledig beveiligd.";
@@ -283,7 +288,7 @@
 "places-enable-location-description" = "Toegang tot uw locatie is alleen beschikbaar als de app of een van de functies op uw scherm zichtbaar is.";
 "places-enable-location-title" = "Verken artikels in de buurt van uw locatie door Locatie Toegang te activeren";
 "places-filter-list-title" = "Zoekfilters";
-"places-filter-no-saved-places" = "U heeft geen opgeslagen plaatsen";
+"places-filter-no-saved-places" = "U hebt geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
 "places-filter-saved-articles-count" = "{{PLURAL:$1|$1 plaats|$1 plaatsen}} gevonden";
 "places-filter-top-articles" = "Meest gelezen";
@@ -308,6 +313,7 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia-thema";
@@ -323,6 +329,7 @@
 "saved-pages-clear-delete-all" = "Ja, alles verwijderen";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-title" = "Opgeslagen";
+"search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-did-you-mean" = "Bedoelde u $1?";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
 "search-recent-clear-cancel" = "Annuleren";
@@ -372,6 +379,7 @@
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";
 "table-of-contents-heading" = "Inhoud";
 "table-title-other" = "Meer informatie";
+"theme-black-display-name" = "Zwart";
 "theme-dark-display-name" = "Donker";
 "theme-default-display-name" = "Standaard";
 "theme-sepia-display-name" = "Sepia";
@@ -412,7 +420,7 @@
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-save" = "Bezig met publiceren...";
-"wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan uw IP-adres. Door $1 heeft u meer privacy.";
+"wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
 // Fuzzy
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";

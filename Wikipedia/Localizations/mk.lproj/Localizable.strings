@@ -96,7 +96,6 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
-"dark-theme-display-name" = "Темна";
 "dim-images" = "Пригушени слики";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
@@ -305,6 +304,7 @@
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
+"reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";
 "reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
 "reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
 "reading-themes-controls-accessibility-light-theme-button" = "Светол изглед";
@@ -372,6 +372,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-title-other" = "Повеќе информации";
+"theme-black-display-name" = "Црн";
 "theme-dark-display-name" = "Темен";
 "theme-default-display-name" = "Основен";
 "theme-sepia-display-name" = "Сипа";
