@@ -2097,7 +2097,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 #pragma mark - WMFAddArticleToReadingListToolbarViewControllerDelegate
-// TODO: View not disappearing after 8 seconds as it shoukd.
+
 - (void)addedArticleToReadingListWithNamed:(NSString *)name {
     [self setReadingListsToolbarVisible:YES animated:YES];
 }
