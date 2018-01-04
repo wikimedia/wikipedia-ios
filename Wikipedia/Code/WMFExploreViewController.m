@@ -377,7 +377,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerCellsAndViews];
     [self setupRefreshControl];
 
-    [super viewDidLoad];  // intentionally at the bottom of the method for theme application
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
@@ -2021,9 +2021,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     _readingListsToolbarVisible = readingListsToolbarVisible;
     if (readingListsToolbarVisible) {
         [self addReadingListToolbarViewController];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 8 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self setReadingListsToolbarVisible:NO animated:YES];
-        });
+        [self performSelector:@selector(dismissReadingListsToolbar) withObject:self afterDelay:8];
     } else {
         [self removeReadingListToolbarViewController];
     }
@@ -2060,6 +2058,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+- (void)dismissReadingListsToolbar {
+    [self setReadingListsToolbarVisible:NO animated:YES];
+}
+
 - (void)addReadingListToolbarViewController {
     [self.readingListsToolbarViewController applyTheme:self.theme];
     [self addChildViewController:self.readingListsToolbarViewController];
@@ -2084,6 +2086,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     if (didSaveOtherArticle) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissReadingListsToolbar) object:self];
+        [self performSelector:@selector(dismissReadingListsToolbar) withObject:self afterDelay:8];
         self.readingListsToolbarViewController.article = article;
         return;
     }
