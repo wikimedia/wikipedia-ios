@@ -25,6 +25,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 @property (nonatomic, strong) WMFFIFOCache<NSString *, WMFProxyServerResponse *> *responseCache;
 @property (nonatomic, strong) WMFFIFOCache<NSString *, MWKArticle *> *articleCache;
 @property (nonatomic, strong) GCDWebServer *webServer;
+@property (nonatomic) NSUInteger port;
 @property (nonatomic, copy, nonnull) NSString *secret;
 @property (nonatomic, copy, nonnull) NSString *hostedFolderPath;
 @property (nonatomic) NSURLComponents *hostURLComponents;
@@ -52,6 +53,8 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (void)setup {
+    self.port = 0; // setting the port to 0 allows the OS to pick a random port on the first pass
+
     self.responseCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
     self.articleCache = [[WMFFIFOCache alloc] initWithCountLimit:WMFCachedResponseCountLimit];
 
@@ -67,6 +70,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     [self.webServer addDefaultHandlerForMethod:@"GET" requestClass:[GCDWebServerRequest class] asyncProcessBlock:self.defaultHandler];
 
     [self start];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)start {
@@ -75,7 +81,8 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }
 
     NSDictionary *options = @{ GCDWebServerOption_BindToLocalhost: @(YES), //only accept requests from localhost
-                               GCDWebServerOption_Port: @(0) }; // allow the OS to pick a random port
+                               GCDWebServerOption_Port: @(self.port),
+                               GCDWebServerOption_AutomaticallySuspendInBackground: @(NO) };
 
     NSError *serverStartError = nil;
     NSUInteger attempts = 0;
@@ -84,7 +91,10 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
     while (!didStartServer && attempts < attemptLimit) {
         didStartServer = [self.webServer startWithOptions:options error:&serverStartError];
-        if (!didStartServer) {
+        if (didStartServer) {
+            self.port = self.webServer.port; // store the port to re-use on app resume - fixes mismatched image URLs causing images to remain blank
+        } else {
+            self.port = 0; // setting the port to 0 will pick a new random port on the next pass
             DDLogError(@"Error starting proxy: %@", serverStartError);
             attempts++;
             if (attempts == attemptLimit) {
@@ -105,12 +115,28 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }
 }
 
+- (void)stop {
+    if (!self.isRunning) {
+        return;
+    }
+
+    [self.webServer stop];
+}
+
 #pragma mark - GCDWebServer
 
 - (void)webServerDidStop:(GCDWebServer *)server {
     if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateBackground) { //restart the server if it fails for some reason other than being in the background
         [self start];
     }
+}
+
+- (void)appDidEnterBackground:(NSNotification *)note {
+    [self stop];
+}
+
+- (void)appWillEnterForeground:(NSNotification *)note {
+    [self start];
 }
 
 - (BOOL)isRunning {
