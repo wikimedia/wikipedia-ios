@@ -2,6 +2,8 @@
 @class WMFTheme;
 @class WMFEmptyView;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNone,
     WMFEmptyViewTypeBlank,
@@ -12,6 +14,12 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNoHistory
 };
 
+@protocol WMFEmptyViewContainer
+
+- (void)addEmptyView:(UIView *)emptyView;
+
+@end
+
 @interface UIViewController (WMFEmptyView)
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme;
@@ -21,3 +29,5 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
 @property (nonatomic, readonly) WMFEmptyView *wmf_emptyView;
 
 @end
+
+NS_ASSUME_NONNULL_END
