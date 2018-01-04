@@ -1496,6 +1496,9 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 */
 var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
   var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + encodeURI(title));
+  if (!saveButton) {
+    return;
+  }
   saveButton.innerText = text;
   saveButton.title = text;
   updateSaveButtonBookmarkIcon(saveButton, isSaved);
@@ -2219,7 +2222,7 @@ var ancestorsToWiden = function ancestorsToWiden(element) {
   while (el.parentNode) {
     el = el.parentNode;
     // No need to walk above 'content_block'.
-    if (el.classList.contains('content_block')) {
+    if (el.classList && el.classList.contains('content_block')) {
       break;
     }
     widenThese.push(el);
@@ -2235,6 +2238,9 @@ var ancestorsToWiden = function ancestorsToWiden(element) {
  * @return {void}
  */
 var updateStyleValue = function updateStyleValue(style, key, value) {
+  if (!style || !key) {
+    return;
+  }
   style[key] = value;
 };
 
@@ -2246,7 +2252,7 @@ var updateStyleValue = function updateStyleValue(style, key, value) {
  * @return {void}
  */
 var updateExistingStyleValue = function updateExistingStyleValue(style, key, value) {
-  var valueExists = Boolean(style[key]);
+  var valueExists = style && key && Boolean(style[key]);
   if (valueExists) {
     updateStyleValue(style, key, value);
   }
