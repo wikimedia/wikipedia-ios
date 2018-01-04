@@ -108,7 +108,6 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
-"dark-theme-display-name" = "Mörk";
 "dim-images" = "Mörklägg bilder";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-typos" = "Rättade felstavning";
@@ -317,6 +316,7 @@
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
+"reading-themes-controls-accessibility-black-theme-button" = "Svart tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
 "reading-themes-controls-accessibility-light-theme-button" = "Ljust tema";
@@ -384,6 +384,7 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-title-other" = "Mer information";
+"theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mörk";
 "theme-default-display-name" = "Standard";
 "theme-sepia-display-name" = "Sepia";

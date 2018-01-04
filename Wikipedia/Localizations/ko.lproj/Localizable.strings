@@ -109,7 +109,6 @@
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
-"dark-theme-display-name" = "어두움";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
@@ -313,6 +312,7 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
 "reading-themes-controls-accessibility-dark-theme-button" = "어두운 테마";
 "reading-themes-controls-accessibility-light-theme-button" = "밝은 테마";
@@ -379,6 +379,7 @@
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
 "table-title-other" = "자세한 정보";
+"theme-black-display-name" = "블랙";
 "theme-dark-display-name" = "어두움";
 "theme-default-display-name" = "기본값";
 "theme-sepia-display-name" = "세피아";

@@ -1795,6 +1795,7 @@
 		D8A6BAED1E4C9BF400A981C8 /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */; };
 		D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEE1E4C9C0700A981C8 /* ArticlePlaceView.swift */; };
 		D8A6E8741D80A4A0002D6D4D /* TopReadWidgetImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8A6E8731D80A4A0002D6D4D /* TopReadWidgetImages.xcassets */; };
+		D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */; };
 		D8AC391D1D6F2324007E3C14 /* UIScreen+WMFImageWidth.h in Headers */ = {isa = PBXBuildFile; fileRef = BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
 		D8B166851FD97A0500097D8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B166841FD97A0500097D8B /* ViewController.swift */; };
@@ -4166,6 +4167,11 @@
 		D84DAA071EEEF527008E4B18 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
 		D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWStepSlider.swift; sourceTree = "<group>"; };
 		D84E07D61EF05B0D0020A2DB /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Frameworks/HockeySDK.framework; sourceTree = "<group>"; };
+		D84E2A9A1FFBCAF600878968 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ta; path = ta.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9B1FFBCB9400878968 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pt; path = pt.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9C1FFBCBBB00878968 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = lv; path = lv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9D1FFBCBE900878968 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D84E2A9E1FFBCC0500878968 /* ne */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ne; path = ne.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D84F2BF01D2FE7ED00963D42 /* WMFArticleNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationController.h; sourceTree = "<group>"; };
 		D84F2BF11D2FE7ED00963D42 /* WMFArticleNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleNavigationController.m; sourceTree = "<group>"; };
 		D84F2BF31D2FE80A00963D42 /* WMFRotationRespectingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRotationRespectingNavigationController.h; sourceTree = "<group>"; };
@@ -4300,6 +4306,7 @@
 		D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTaskGroup.h; path = Wikipedia/Code/WMFTaskGroup.h; sourceTree = SOURCE_ROOT; };
 		D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTaskGroup.m; path = Wikipedia/Code/WMFTaskGroup.m; sourceTree = SOURCE_ROOT; };
 		D8A9E0471D9D5F41002E2697 /* InTheNewsNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InTheNewsNotification.entitlements; sourceTree = "<group>"; };
+		D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Limits.swift"; sourceTree = "<group>"; };
 		D8B166841FD97A0500097D8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D8B1668A1FD97FE000097D8B /* WMFViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFViewController.h; sourceTree = "<group>"; };
 		D8B1668B1FD97FE000097D8B /* WMFViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFViewController.m; sourceTree = "<group>"; };
@@ -7256,6 +7263,7 @@
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
 				D81528511E71DA9B00966DD9 /* Analytics.swift */,
+				D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */,
 				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
@@ -10225,6 +10233,7 @@
 				D8FA18FE1E1BDA4C009675C3 /* UIColor+WMFStyle.m in Sources */,
 				D84C36161F32401B00895FA1 /* RankedArticleCollectionViewCell.swift in Sources */,
 				B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */,
+				D8AAF6B81FE93DE9005760E6 /* UIScrollView+Limits.swift in Sources */,
 				D8FA18AE1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.m in Sources */,
 				D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */,
 				D8FA18F71E1BDA4C009675C3 /* GroupedAccessibilityView.swift in Sources */,
@@ -11671,6 +11680,11 @@
 				D8497F5D1EE027D700100CBD /* hrx */,
 				D81EF2D61F1D2F0500D26D3F /* cs */,
 				D85C145B1F38859A002186A5 /* kab */,
+				D84E2A9A1FFBCAF600878968 /* ta */,
+				D84E2A9B1FFBCB9400878968 /* pt */,
+				D84E2A9C1FFBCBBB00878968 /* lv */,
+				D84E2A9D1FFBCBE900878968 /* vi */,
+				D84E2A9E1FFBCC0500878968 /* ne */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

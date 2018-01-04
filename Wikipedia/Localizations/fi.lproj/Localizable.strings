@@ -60,14 +60,18 @@
 "action-read" = "Lue";
 "action-save" = "Tallenna";
 "action-saved" = "Tallennettu";
+"action-saved-accessibility-notification" = "Artikkeli tallennettu myöhemmäksi";
 "action-share" = "Jaa";
 "action-unsave" = "Kumoa tallennus";
+"action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "alert-no-internet" = "Ei Internet-yhteyttä";
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
+"appearance-settings-expand-tables" = "Laajenna taulukoita";
 "appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
+"article-deleted-accessibility-notification" = "Artikkeli poistettu";
 "article-languages-filter-placeholder" = "Löydä kieli";
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
@@ -94,7 +98,6 @@
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
-"dark-theme-display-name" = "Tumma";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
@@ -183,6 +186,7 @@
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää paikallisia artikkeleita";
 "home-nearby-location-footer" = "Lähistöllä: $1";
+"home-news-footer" = "Lisää uutisissa";
 "home-themes-action-title" = "Hallinnoi asetuksia";
 "home-title" = "Tutki";
 "home-title-accessibility-label" = "Wikipedia, selaa alkuun Tutki";
@@ -199,6 +203,7 @@
 "info-box-close-text" = "Sulje";
 "info-box-title" = "Pikafaktoja";
 "languages-title" = "Kielenvaihto";
+"languages-wikipedia" = "Wikipedian kielet";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti ellei toisin mainita.";
 "login-forgot-password" = "Unohditko salasanasi?";
@@ -224,6 +229,8 @@
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "menu-cancel-accessibility-label" = "Peru";
 "menu-trash-accessibility-label" = "Poista";
+"more-languages-tooltip-description" = "Etsi Wikipediasta lähes 300 kielellä";
+"more-languages-tooltip-title" = "Lisää kieliä";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
 "nearby-distance-label-feet" = "$1 jalkaa";
 "nearby-distance-label-km" = "$1 km";
@@ -291,6 +298,7 @@
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
+"reading-themes-controls-accessibility-black-theme-button" = "Musta teema";
 "reading-themes-controls-accessibility-brightness-slider" = "Kirkkauden liukusäädin";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tumma teema";
 "reading-themes-controls-accessibility-light-theme-button" = "Vaalea teema";
@@ -352,6 +360,7 @@
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";
 "table-of-contents-heading" = "Sisällys";
 "table-title-other" = "Lisätietoja";
+"theme-black-display-name" = "Musta";
 "theme-dark-display-name" = "Tumma";
 "theme-default-display-name" = "Oletus";
 "theme-sepia-display-name" = "Seepia";
@@ -364,13 +373,17 @@
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
+"welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
 "welcome-exploration-on-this-day-title" = "Tänä päivänä";
+"welcome-exploration-places-description" = "Löydä maamerkkejä lähellä sivua tai etsi paikkoja ympäri maailmaa";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia on kirjoitettu yhteistyössä vapaaehtoisten kanssa ja se koostuu yli 40 miljoonasta artikkelista lähes 300 kielellä.";
 "welcome-intro-free-encyclopedia-more" = "Lue lisää Wikipediasta";
 "welcome-intro-free-encyclopedia-more-about" = "Tietoja Wikipediasta";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia on maailmanlaajuinen projekti luoda vapaa tietosanakirja kaikilla maailman kielillä. \nKäytännössä kuka tahansa, jolla on Internet-yhteys, voi vapaasti osallistua myötävaikuttamalla neutraaleihin, siteerattuihin tietoihin.";
 "welcome-intro-free-encyclopedia-title" = "Vapaa tietosanakirja";
 "welcome-languages-add-button" = "Lisää toinen kieli";
 "welcome-languages-add-or-edit-button" = "Lisää tai muokkaa ensisijaisia kieliä";

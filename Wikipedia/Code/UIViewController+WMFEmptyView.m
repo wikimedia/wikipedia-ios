@@ -45,9 +45,18 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView *)self.view setScrollEnabled:NO];
     }
-    [self.view addSubview:view];
-
+    
     objc_setAssociatedObject(self, WMFEmptyViewKey, view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    if (!view) {
+        return;
+    }
+    
+    if ([self conformsToProtocol:@protocol(WMFEmptyViewContainer)]) {
+        [(id)self addEmptyView:view];
+    } else {
+        [self.view addSubview:view];
+    }
 }
 
 - (void)wmf_hideEmptyView {

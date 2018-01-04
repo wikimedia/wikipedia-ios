@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 class ViewController: UIViewController, Themeable {
     var theme: Theme = Theme.standard
@@ -12,6 +13,7 @@ class ViewController: UIViewController, Themeable {
     }
     
     let navigationBar: NavigationBar = NavigationBar()
+    
     open var showsNavigationBar: Bool = false
     
     open var scrollView: UIScrollView? {
@@ -78,8 +80,15 @@ class ViewController: UIViewController, Themeable {
         
     }
     
+    override func viewSafeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            super.viewSafeAreaInsetsDidChange()
+        }
+        self.updateScrollViewInsets()
+    }
+    
     fileprivate func updateScrollViewInsets() {
-        guard let scrollView = scrollView else {
+        guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
         }
         
@@ -104,15 +113,13 @@ class ViewController: UIViewController, Themeable {
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        guard contentInset != scrollView.contentInset || scrollIndicatorInsets != scrollView.scrollIndicatorInsets else {
-            return
+        if scrollView.wmf_setContentInsetPreservingTopAndBottomOffset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, withNavigationBar: navigationBar) {
+            didUpdateScrollViewInsets()
         }
-        let wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top
-        scrollView.scrollIndicatorInsets = scrollIndicatorInsets
-        scrollView.contentInset = contentInset
-        if wasAtTop {
-            scrollView.contentOffset = CGPoint(x: 0, y: 0 - scrollView.contentInset.top)
-        }
+    }
+
+    open func didUpdateScrollViewInsets() {
+        
     }
 
     func apply(theme: Theme) {
@@ -121,5 +128,16 @@ class ViewController: UIViewController, Themeable {
             return
         }
         navigationBar.apply(theme: theme)
+    }
+}
+
+
+extension ViewController: WMFEmptyViewContainer {
+    func addEmpty(_ emptyView: UIView) {
+        if navigationBar.superview === view {
+            view.insertSubview(emptyView, belowSubview: navigationBar)
+        } else {
+            view.addSubview(emptyView)
+        }
     }
 }

@@ -95,9 +95,9 @@ class WMFImageControllerTests: XCTestCase {
         let success = { (imgDownload: ImageDownload) in
         }
         
-        imageController.fetchImage(withURL: testURL, failure:failure, success: success)
+        let token = imageController.fetchImage(withURL: testURL, priority: URLSessionTask.defaultPriority, failure:failure, success: success)
         
-        imageController.cancelFetch(withURL: testURL)
+        imageController.cancelFetch(withURL: testURL, token: token)
 
         URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
         

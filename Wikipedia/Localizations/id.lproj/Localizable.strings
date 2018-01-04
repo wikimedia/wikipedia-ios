@@ -109,7 +109,6 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
-"dark-theme-display-name" = "Gelap";
 "dim-images" = "Redupkan gambar";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
@@ -318,6 +317,7 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
 "reading-themes-controls-accessibility-brightness-slider" = "Penggeser kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema terang";
@@ -385,6 +385,7 @@
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";
 "table-of-contents-heading" = "Konten";
 "table-title-other" = "Informasi lebih lanjut";
+"theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Baku";
 "theme-sepia-display-name" = "Sepia";

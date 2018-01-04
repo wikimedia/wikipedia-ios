@@ -113,7 +113,6 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
-"dark-theme-display-name" = "Sombre";
 "dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
@@ -322,6 +321,7 @@
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
+"reading-themes-controls-accessibility-black-theme-button" = "Thème noir";
 "reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";
 "reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
 "reading-themes-controls-accessibility-light-theme-button" = "Thème clair";
@@ -389,6 +389,7 @@
 "table-of-contents-close-accessibility-label" = "Fermer la Table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-title-other" = "Plus d’information";
+"theme-black-display-name" = "Noir";
 "theme-dark-display-name" = "Sombre";
 "theme-default-display-name" = "Par défaut";
 "theme-sepia-display-name" = "Sépia";

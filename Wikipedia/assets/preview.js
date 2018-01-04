@@ -1487,6 +1487,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 
 /**
  * Updates save button text and bookmark icon for saved state.
+ * Safe to call even for titles for which there is not currently a 'Read more' item.
  * @param {!string} title
  * @param {!string} text
  * @param {!boolean} isSaved
@@ -1495,6 +1496,9 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 */
 var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
   var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + encodeURI(title));
+  if (!saveButton) {
+    return;
+  }
   saveButton.innerText = text;
   saveButton.title = text;
   updateSaveButtonBookmarkIcon(saveButton, isSaved);
@@ -1787,7 +1791,7 @@ var IMAGE_LOADED_CLASS = 'pagelib_lazy_load_image_loaded'; // Download completed
 // Attributes copied from images to placeholders via data-* attributes for later restoration. The
 // image's classes and dimensions are also set on the placeholder.
 // The 3 data-* items are used by iOS.
-var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt', 'data-file-width', 'data-file-height', 'data-image-gallery'];
+var COPY_ATTRIBUTES = ['class', 'style', 'src', 'srcset', 'width', 'height', 'alt', 'usemap', 'data-file-width', 'data-file-height', 'data-image-gallery'];
 
 // Small images, especially icons, are quickly downloaded and may appear in many places. Lazily
 // loading these images degrades the experience with little gain. Always eagerly load these images.
@@ -2215,8 +2219,8 @@ var RedLinks = {
 var ancestorsToWiden = function ancestorsToWiden(element) {
   var widenThese = [];
   var el = element;
-  while (el.parentNode) {
-    el = el.parentNode;
+  while (el.parentElement) {
+    el = el.parentElement;
     // No need to walk above 'content_block'.
     if (el.classList.contains('content_block')) {
       break;
