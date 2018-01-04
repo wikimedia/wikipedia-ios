@@ -52,6 +52,9 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 }
 
 + (instancetype)wmf_specialPageActivityWithURL:(NSURL *)url {
+    if (!url) {
+        return nil;
+    }
     NSUserActivity *activity = [self wmf_activityWithType:@"SpecialPage"];
     activity.userInfo = @{@"WMFURL": url};
     return activity;
