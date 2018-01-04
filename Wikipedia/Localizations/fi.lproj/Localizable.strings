@@ -60,11 +60,14 @@
 "action-read" = "Lue";
 "action-save" = "Tallenna";
 "action-saved" = "Tallennettu";
+"action-saved-accessibility-notification" = "Artikkeli tallennettu myöhemmäksi";
 "action-share" = "Jaa";
 "action-unsave" = "Kumoa tallennus";
+"action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "alert-no-internet" = "Ei Internet-yhteyttä";
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
+"appearance-settings-expand-tables" = "Laajenna taulukoita";
 "appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";

@@ -97,8 +97,7 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Зьмест даступны на ўмовах $1, калі не пазначанае іншае.";
 "main-menu-about" = "Пра праграму";
-// Fuzzy
-"main-menu-account-login" = "Увайсьці ў Вікіпэдыю";
+"main-menu-account-login" = "Увайсьці";
 "main-menu-account-logout" = "Выйсьці";
 // Fuzzy
 "main-menu-account-title-logged-in" = "Увайшлі як: $1";
