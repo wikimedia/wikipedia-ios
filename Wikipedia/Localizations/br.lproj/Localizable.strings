@@ -1,5 +1,6 @@
 // Messages for Breton (brezhoneg)
 // Exported from translatewiki.net
+// Author: Dishual
 // Author: Fohanno
 // Author: Fulup
 // Author: Gwenn-Ael
@@ -329,6 +330,7 @@
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";
 "table-of-contents-heading" = "Endalc'had";
 "table-title-other" = "Muioc'h a ditouroù";
+"theme-black-display-name" = "Du";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Gwelet muioc'h a bajennoù hag a vez sellet ar muiañ outo.";
