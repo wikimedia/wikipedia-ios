@@ -11,25 +11,25 @@ internal struct ImageControllerDataCompletion {
 }
 
 internal class ImageControllerCompletionManager<T> {
-    var completions: [String: [T]] = [:]
+    var completions: [String: [String: T]] = [:]
     var tasks: [String: [String:URLSessionTask]] = [:]
     let queue = DispatchQueue(label: "ImageControllerCompletionManager-" + UUID().uuidString)
     
-    func add(_ completion: T, priority: Float, forGroup group: String, identifier: String) -> Bool {
+    func add(_ completion: T, priority: Float, forGroup group: String, identifier: String, token: String) -> Bool {
         return queue.sync {
-            var completionsForKey = completions[identifier] ?? []
+            var completionsForKey = completions[identifier] ?? [:]
             let isFirst = completionsForKey.count == 0
             if !isFirst {
                 self.tasks[group]?[identifier]?.priority = priority
             }
-            completionsForKey.append(completion)
+            completionsForKey[token] = completion
             completions[identifier] = completionsForKey
             return isFirst
         }
     }
     
-    func add(_ completion: T, priority: Float, forIdentifier identifier: String) -> Bool {
-        return add(completion, priority: priority, forGroup: "", identifier: identifier)
+    func add(_ completion: T, priority: Float, forIdentifier identifier: String, token: String) -> Bool {
+        return add(completion, priority: priority, forGroup: "", identifier: identifier, token: token)
     }
     
     func add(_ task: URLSessionTask, forGroup group: String, identifier: String) {
@@ -42,6 +42,24 @@ internal class ImageControllerCompletionManager<T> {
     
     func add(_ task: URLSessionTask, forIdentifier identifier: String) {
         add(task, forGroup: "", identifier: identifier)
+    }
+    
+    
+    func cancel(group: String, identifier: String, token: String) {
+        queue.async {
+            guard var tasks = self.tasks[group], let task = tasks[identifier], var completions = self.completions[identifier] else {
+                return
+            }
+            completions.removeValue(forKey: token)
+            if completions.count == 0 {
+                self.completions.removeValue(forKey: identifier)
+                task.cancel()
+                tasks.removeValue(forKey: identifier)
+                self.tasks[group] = tasks
+            } else {
+                self.completions[identifier] = completions
+            }
+        }
     }
     
     func cancel(group: String, identifier: String) {
@@ -58,6 +76,10 @@ internal class ImageControllerCompletionManager<T> {
     
     func cancel(_ identifier: String) {
         cancel(group: "", identifier: identifier)
+    }
+    
+    func cancel(_ identifier: String, token: String) {
+        cancel(group: "", identifier: identifier, token: token)
     }
     
     func cancel(group: String) {
@@ -77,7 +99,7 @@ internal class ImageControllerCompletionManager<T> {
             guard let completionsForKey = self.completions[identifier] else {
                 return
             }
-            for completion in completionsForKey {
+            for (_, completion) in completionsForKey {
                 enumerator(completion)
             }
             self.completions.removeValue(forKey: identifier)
