@@ -12,12 +12,15 @@ class ViewController: UIViewController, Themeable {
         super.init(coder: aDecoder)
     }
     
-    let navigationBar: NavigationBar = NavigationBar()
+    var navigationBar: NavigationBar = NavigationBar()
     
     open var showsNavigationBar: Bool = false
+    var ownsNavigationBar: Bool = true
     
     open var scrollView: UIScrollView? {
-        return nil
+        didSet {
+            updateScrollViewInsets()
+        }
     }
     
     override func viewDidLoad() {
@@ -31,11 +34,20 @@ class ViewController: UIViewController, Themeable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let navigationController = navigationController {
+        
+        if let parentVC = parent as? ViewController {
+            showsNavigationBar = true
+            ownsNavigationBar = false
+            navigationBar = parentVC.navigationBar
+        }  else if let navigationController = navigationController {
+            ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
         } else {
             showsNavigationBar = false
+        }
+        
+        guard ownsNavigationBar else {
+            return
         }
 
         if showsNavigationBar {
@@ -87,7 +99,7 @@ class ViewController: UIViewController, Themeable {
         self.updateScrollViewInsets()
     }
     
-    fileprivate func updateScrollViewInsets() {
+    public final func updateScrollViewInsets() {
         guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
         }

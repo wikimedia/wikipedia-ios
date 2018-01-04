@@ -10,6 +10,7 @@ class ColumnarCollectionViewController: ViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
+        scrollView = cv
         return cv
     }()
 
@@ -24,10 +25,6 @@ class ColumnarCollectionViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
-    }
-    
-    override var scrollView: UIScrollView? {
-        return collectionView
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {

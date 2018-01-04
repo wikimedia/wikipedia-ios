@@ -68,17 +68,16 @@ class SavedViewController: ViewController {
                 addChild(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesViewController
-                
                 navigationItem.leftBarButtonItem = nil
                 isSearchBarHidden = savedArticlesViewController.isEmpty
-                
+                scrollView = savedArticlesViewController.collectionView
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
-                
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
                 isSearchBarHidden = true
+                scrollView = readingListsViewController?.collectionView
             }
         }
     }
@@ -98,9 +97,7 @@ class SavedViewController: ViewController {
             return
         }
         addChildViewController(vc)
-        vc.view.frame = containerView.bounds
-        vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.addSubview(vc.view)
+        containerView.wmf_addSubviewWithConstraintsToEdges(vc.view)
         vc.didMove(toParentViewController: self)
     }
     
@@ -130,12 +127,6 @@ class SavedViewController: ViewController {
         edgesForExtendedLayout = .all
         
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let topConstraint = navigationBar.bottomAnchor.constraint(equalTo: containerView.topAnchor)
-        topConstraint.isActive = true
     }
     
     // MARK: - Sorting
