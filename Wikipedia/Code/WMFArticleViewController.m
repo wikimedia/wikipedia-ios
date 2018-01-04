@@ -1126,6 +1126,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
 
+    [self updateProgress:0.1 animated:NO]; //initial progress is 0.1, incorporated with totalProgressWithArticleFetcherProgress
     [self showProgressViewAnimated:YES];
 
     @weakify(self);
