@@ -11,12 +11,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
-    fileprivate var article: WMFArticle? // the article for which reading lists are displayed
     
     fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
     
     fileprivate enum ViewMode {
-        case readingListsTab, addArticlesToReadingList, readingListsForArticle
+        case readingListsTab, addArticlesToReadingList
     }
     fileprivate var viewMode: ViewMode = .readingListsTab
     
@@ -45,12 +44,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         self.init(with: dataStore)
         self.articles = articles
         self.viewMode = .addArticlesToReadingList
-    }
-    
-    convenience init(with dataStore: MWKDataStore, article: WMFArticle) {
-        self.init(with: dataStore)
-        self.article = article
-        self.viewMode = .readingListsForArticle
     }
     
     required init?(coder aDecoder: NSCoder) {
