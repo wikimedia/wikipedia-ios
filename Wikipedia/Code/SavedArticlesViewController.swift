@@ -152,6 +152,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     }
     
     fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
+        // different order every time cause set
         return article(at: indexPath)?.readingListEntries?.flatMap { $0.list } ?? []
     }
     
@@ -475,7 +476,7 @@ extension SavedArticlesViewController: UISearchBarDelegate {
 // MARK: - SavedArticlesCollectionViewCellDelegate
 
 extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
-    func didSelect(_ tag: Tag, at indexPath: IndexPath) {
+    func didSelect(_ tag: Tag) {
         let viewController = tag.index == 2 ? ReadingListsViewController(with: dataStore) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         wmf_push(viewController, animated: true)

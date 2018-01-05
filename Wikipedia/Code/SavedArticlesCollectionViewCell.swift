@@ -1,5 +1,5 @@
 public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
-    func didSelect(_ tag: Tag, at indexPath: IndexPath)
+    func didSelect(_ tag: Tag)
 }
 
 class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
@@ -225,7 +225,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelect(tag(at: indexPath), at: indexPath)
+        delegate?.didSelect(tag(at: indexPath))
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }

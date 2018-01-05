@@ -36,6 +36,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let name = readingList.name {
+            title = name
+        }
+        
         setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
