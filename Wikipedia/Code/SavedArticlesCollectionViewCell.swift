@@ -194,7 +194,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
     
     fileprivate func tag(at indexPath: IndexPath) -> Tag {
-        return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item)
+        return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item, indexPath: tags.indexPath)
     }
 }
 
@@ -214,8 +214,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        let tag = Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item)
-        tagCell.configure(with: tag, for: tags.readingLists.count, theme: theme)
+        tagCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
         return tagCell
     }
 

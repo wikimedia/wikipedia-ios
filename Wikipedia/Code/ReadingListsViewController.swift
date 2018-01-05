@@ -11,6 +11,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
+    fileprivate var readingLists: [ReadingList]? // the displayed reading lists
     
     fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
     
@@ -23,6 +24,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        if let names = readingLists?.flatMap({ $0.name }) {
+            request.predicate = NSPredicate(format: "name IN %@", names)
+        }
         request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
@@ -44,6 +48,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         self.init(with: dataStore)
         self.articles = articles
         self.viewMode = .addArticlesToReadingList
+    }
+    
+    convenience init(with dataStore: MWKDataStore, readingLists: [ReadingList]?) {
+        self.init(with: dataStore)
+        self.readingLists = readingLists
     }
     
     required init?(coder aDecoder: NSCoder) {

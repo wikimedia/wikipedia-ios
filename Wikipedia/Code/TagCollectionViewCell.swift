@@ -1,6 +1,7 @@
 public struct Tag {
     let readingList: ReadingList
     let index: Int
+    let indexPath: IndexPath
 }
 
 class TagCollectionViewCell: CollectionViewCell {
