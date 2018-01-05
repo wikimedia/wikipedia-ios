@@ -10,9 +10,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
-            guard tags.readingLists.count > 0 else {
-                return
-            }
+            collectionView.reloadData()
             setNeedsLayout()
         }
     }

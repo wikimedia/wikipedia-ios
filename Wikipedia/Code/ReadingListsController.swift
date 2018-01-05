@@ -82,6 +82,10 @@ public class ReadingListsController: NSObject {
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+        guard !readingList.isDefaultList else {
+            return
+        }
+        
         assert(Thread.isMainThread)
 
         let moc = dataStore.viewContext

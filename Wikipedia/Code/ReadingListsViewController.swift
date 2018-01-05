@@ -150,6 +150,21 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard viewMode != .addArticlesToReadingList else {
+            return true
+        }
+        
+        guard !editController.isClosed else {
+            return true
+        }
+        
+        guard let readingList = readingList(at: indexPath), !readingList.isDefaultList else {
+            return false
+        }
+        return true
+    }
+    
     // MARK: - Batch editing
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
