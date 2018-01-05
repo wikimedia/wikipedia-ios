@@ -507,7 +507,7 @@ static uint64_t bundleHash() {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     static NSString *key = @"WMFLibraryVersion";
-    static const NSInteger libraryVersion = 1;
+    static const NSInteger libraryVersion = 2;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -517,11 +517,18 @@ static uint64_t bundleHash() {
         return;
     }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        if (currentLibraryVersion < 1) {
-            if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
-                [moc wmf_setValue:@(1) forKey:key];
-                [moc save:nil];
+        if (currentLibraryVersion < 2) {
+            if (currentLibraryVersion < 1) {
+                if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
+                    [moc wmf_setValue:@(1) forKey:key];
+                    [moc save:nil];
+                }
             }
+            ReadingList *readingList = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingList" inManagedObjectContext:moc];
+            readingList.isDefault = @(YES);
+            NSLog(@"Created sdefault reading list");
+            [moc wmf_setValue:@(2) forKey:key];
+            [moc save:nil];
         }
         dispatch_async(dispatch_get_main_queue(), completion);
     }];

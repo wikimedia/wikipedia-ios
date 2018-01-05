@@ -27,7 +27,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         if let names = readingLists?.flatMap({ $0.name }) {
             request.predicate = NSPredicate(format: "name IN %@", names)
         }
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: key, ascending: ascending)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()

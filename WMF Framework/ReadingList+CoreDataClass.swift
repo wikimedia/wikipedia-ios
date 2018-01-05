@@ -14,4 +14,7 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
+    public var isDefaultList: Bool {
+        return self.isDefault?.boolValue ?? false
+    }
 }

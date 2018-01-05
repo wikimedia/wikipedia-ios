@@ -16,6 +16,7 @@ extension ReadingList {
     @NSManaged public var imageName: String?
     @NSManaged public var iconName: String?
     @NSManaged public var entries: NSSet?
+    @NSManaged public var isDefault: NSNumber?
 }
 
 // MARK: Generated accessors for entries
