@@ -194,6 +194,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard !readingList.isDefaultList else {
             let savedArticlesViewController = SavedArticlesViewController()
             savedArticlesViewController.dataStore = dataStore
+            savedArticlesViewController.apply(theme: theme)
             wmf_push(savedArticlesViewController, animated: true)
             return
         }
