@@ -8,9 +8,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
-    public var tags: [ReadingList] = [] {
+    public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
-            guard tags.count > 0 else {
+            guard tags.readingLists.count > 0 else {
                 return
             }
             setNeedsLayout()
@@ -142,7 +142,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        let tagsCount: CGFloat = CGFloat(tags.count)
+        let tagsCount: CGFloat = CGFloat(tags.readingLists.count)
         if (apply && tagsCount != 0), let layout = layout {
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth, height: layout.itemSize.height)
         }
@@ -194,7 +194,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
     
     fileprivate func tag(at indexPath: IndexPath) -> Tag {
-        return Tag(readingList: tags[indexPath.item], index: indexPath.item)
+        return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item)
     }
 }
 
@@ -206,7 +206,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags.count
+        return tags.readingLists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -214,8 +214,8 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        let tag = Tag(readingList: tags[indexPath.item], index: indexPath.item)
-        tagCell.configure(with: tag, for: tags.count, theme: theme)
+        let tag = Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item)
+        tagCell.configure(with: tag, for: tags.readingLists.count, theme: theme)
         return tagCell
     }
 
@@ -232,11 +232,11 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard tags.count != 0 else {
+        guard tags.readingLists.count != 0 else {
             return .zero
         }
         
-        placeholderCell.configure(with: tag(at: indexPath), for: tags.count, theme: theme)
+        placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
         let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
         // simply returning size is not altering the item's size
         layout?.itemSize = size

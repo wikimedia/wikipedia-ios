@@ -200,7 +200,7 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
             }
             cell.configureSeparators(for: indexPath.item)
             cell.actions = availableActions(at: indexPath)
-            cell.tags = readingListsForArticle(at: indexPath)
+            cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
@@ -270,7 +270,7 @@ extension SavedArticlesViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
-        cell.tags = readingListsForArticle(at: indexPath)
+        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         cell.delegate = self
         
         cell.layoutMargins = layout.readableMargins
