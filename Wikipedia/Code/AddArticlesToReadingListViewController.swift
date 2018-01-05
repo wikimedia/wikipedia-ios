@@ -2,7 +2,7 @@ import UIKit
 
 @objc public protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
-    @objc optional func addedArticleToReadingList(named name: String?)
+    @objc optional func addedArticle(to readingList: ReadingList)
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
@@ -66,8 +66,8 @@ extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelega
         delegate?.viewControllerWillBeDismissed()
     }
     
-    func addedArticleToReadingList(named name: String?) {
-        delegate?.addedArticleToReadingList?(named: name)
+    func addedArticle(to readingList: ReadingList) {
+        delegate?.addedArticle?(to: readingList)
     }
 }
 

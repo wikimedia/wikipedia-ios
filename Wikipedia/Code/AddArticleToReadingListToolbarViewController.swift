@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFAddArticleToReadingListToolbarViewControllerDelegate)
 public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
-    func addedArticleToReadingList(named name: String?)
+    func addedArticle(to readingList: ReadingList)
 }
 
 @objc(WMFAddArticleToReadingListToolbarViewController)
@@ -77,11 +77,14 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         delegate?.viewControllerWillBeDismissed()
     }
     
-    func addedArticleToReadingList(named name: String?) {
+    func addedArticle(to readingList: ReadingList) {
+        guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
+            return
+        }
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        delegate?.addedArticleToReadingList(named: name)
+        delegate?.addedArticle(to: readingList)
     }
 }
 
