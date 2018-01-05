@@ -134,9 +134,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
+        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, theme: theme)
+    }
+    
+    func configure(with name: String?, description: String?, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
         isImageViewHidden = true
-        titleLabel.text = readingList.name
-        descriptionLabel.text = readingList.readingListDescription
+        titleLabel.text = name
+        descriptionLabel.text = description
         
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0

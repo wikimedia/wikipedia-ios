@@ -2098,7 +2098,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFAddArticleToReadingListToolbarViewControllerDelegate
 
-- (void)addedArticleToReadingListWithNamed:(NSString *)name {
+- (void)addedArticleToReadingListWithNamed:(nullable NSString *)name {
     [self setReadingListsToolbarVisible:YES animated:YES];
 }
 

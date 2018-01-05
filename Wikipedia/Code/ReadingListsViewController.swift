@@ -108,7 +108,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        
+        guard !readingList.isDefaultList else {
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
+            cell.layoutMargins = layout.readableMargins
+            return
+        }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
@@ -160,13 +164,20 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard viewMode == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
-                addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name!)
+                addArticlesToReadingListDelegate?.addedArticleToReadingList?(named: readingList.name)
             } catch let error {
                 readingListsController.handle(error)
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
                 self.dismiss(animated: true, completion: nil)
             }
+            return
+        }
+        
+        guard !readingList.isDefaultList else {
+            let savedArticlesViewController = SavedArticlesViewController()
+            savedArticlesViewController.dataStore = dataStore
+            wmf_push(savedArticlesViewController, animated: true)
             return
         }
         

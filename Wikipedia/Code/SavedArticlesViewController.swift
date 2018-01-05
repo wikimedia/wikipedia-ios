@@ -417,7 +417,7 @@ extension SavedArticlesViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
         editController.close()
     }
-    func addedArticleToReadingList(named name: String) {
+    func addedArticleToReadingList(named name: String?) {
         editController.close()
     }
 }
