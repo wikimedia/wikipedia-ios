@@ -152,17 +152,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     }
     
     fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
-        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        let moc = dataStore.viewContext
-        do {
-            let entries = try moc.fetch(request)
-            let articleKey = article(at: indexPath)?.key
-            let readingLists = entries.filter { $0.article?.key == articleKey }.flatMap { $0.list }
-            return readingLists
-        } catch let err {
-            print(err)
-        }
-        return []
+        return article(at: indexPath)?.readingListEntries?.flatMap { $0.list } ?? []
     }
     
     fileprivate func delete(at indexPath: IndexPath) {
