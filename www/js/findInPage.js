@@ -1,27 +1,27 @@
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
-var FindInPageResultCount = 0
-var FindInPageResultMatches = []
-var FindInPagePreviousFocusMatchSpanId = null
+let FindInPageResultCount = 0
+let FindInPageResultMatches = []
+let FindInPagePreviousFocusMatchSpanId = null
 
-function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, searchTerm) {
+const recursivelyHighlightSearchTermInTextNodesStartingWithElement = (element, searchTerm) => {
   if (element) {
     if (element.nodeType == 3) {            // Text node
       while (true) {
-        var value = element.nodeValue  // Search for searchTerm in text node
-        var idx = value.toLowerCase().indexOf(searchTerm)
+        const value = element.nodeValue  // Search for searchTerm in text node
+        const idx = value.toLowerCase().indexOf(searchTerm)
 
         if (idx < 0) break
 
-        var span = document.createElement('span')
-        var text = document.createTextNode(value.substr(idx, searchTerm.length))
+        const span = document.createElement('span')
+        let text = document.createTextNode(value.substr(idx, searchTerm.length))
         span.appendChild(text)
         span.setAttribute('class', 'findInPageMatch')
 
         text = document.createTextNode(value.substr(idx + searchTerm.length))
         element.deleteData(idx, value.length - idx)
-        var next = element.nextSibling
+        const next = element.nextSibling
         element.parentNode.insertBefore(span, next)
         element.parentNode.insertBefore(text, next)
         element = text
@@ -29,7 +29,7 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
       }
     } else if (element.nodeType == 1) {     // Element node
       if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
-        for (var i = element.childNodes.length - 1; i >= 0; i--) {
+        for (let i = element.childNodes.length - 1; i >= 0; i--) {
           recursivelyHighlightSearchTermInTextNodesStartingWithElement(element.childNodes[i], searchTerm)
         }
       }
@@ -37,17 +37,17 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
   }
 }
 
-function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
+const recursivelyRemoveSearchTermHighlightsStartingWithElement = element => {
   if (element) {
     if (element.nodeType == 1) {
       if (element.getAttribute('class') == 'findInPageMatch') {
-        var text = element.removeChild(element.firstChild)
-        element.parentNode.insertBefore(text,element)
+        const text = element.removeChild(element.firstChild)
+        element.parentNode.insertBefore(text, element)
         element.parentNode.removeChild(element)
         return true
       }
-      var normalize = false
-      for (var i = element.childNodes.length - 1; i >= 0; i--) {
+      let normalize = false
+      for (let i = element.childNodes.length - 1; i >= 0; i--) {
         if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
           normalize = true
         }
@@ -61,21 +61,21 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
   return false
 }
 
-function deFocusPreviouslyFocusedSpan() {
+const deFocusPreviouslyFocusedSpan = () => {
   if(FindInPagePreviousFocusMatchSpanId){
     document.getElementById(FindInPagePreviousFocusMatchSpanId).classList.remove('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = null
   }
 }
 
-function removeSearchTermHighlights() {
+const removeSearchTermHighlights = () => {
   FindInPageResultCount = 0
   FindInPageResultMatches = []
   deFocusPreviouslyFocusedSpan()
   recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
 }
 
-function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
+const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   removeSearchTermHighlights()
   if (searchTerm.trim().length === 0){
     window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
@@ -89,10 +89,10 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     // matches in first-to-last order. We can work around this by adding the "id"
     // and building our results array *after* the recursion is done, thanks to
     // "getElementsByClassName".
-  var orderedMatchElements = document.getElementsByClassName('findInPageMatch')
+  const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
   FindInPageResultMatches.length = orderedMatchElements.length
-  for (var i = 0; i < orderedMatchElements.length; i++) {
-    var matchSpanId = 'findInPageMatchID|' + i
+  for (let i = 0; i < orderedMatchElements.length; i++) {
+    const matchSpanId = 'findInPageMatchID|' + i
     orderedMatchElements[i].setAttribute('id', matchSpanId)
         // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
@@ -101,9 +101,9 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
   window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
 }
 
-function useFocusStyleForHighlightedSearchTermWithId(id) {
+const useFocusStyleForHighlightedSearchTermWithId = id => {
   deFocusPreviouslyFocusedSpan()
-  setTimeout(function(){
+  setTimeout(() => {
     document.getElementById(id).classList.add('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = id
   }, 0)
