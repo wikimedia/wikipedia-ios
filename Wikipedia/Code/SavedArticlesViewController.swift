@@ -198,9 +198,7 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
             }
-            cell.configureSeparators(for: indexPath.item)
-            cell.actions = availableActions(at: indexPath)
-            cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
