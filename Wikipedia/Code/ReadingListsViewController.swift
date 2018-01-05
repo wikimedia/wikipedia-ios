@@ -138,7 +138,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         
         isEmpty = true
         for sectionIndex in 0..<sectionCount {
-            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+            let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
+            if numberOfItems > 0 {
+                editController.hasDefaultCell = numberOfItems == 1
                 isEmpty = false
                 break
             }

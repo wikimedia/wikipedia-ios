@@ -344,7 +344,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 navigationDelegate?.didChangeEditingState(isCancelledOrNone: isCancelledOrNone, rightBarButton: button)
             }
             
-            guard !isCollectionViewEmpty else {
+            guard !isCollectionViewEmpty && !hasDefaultCell else {
                 isBatchEditToolbarVisible = false
                 enabled = false
                 return
@@ -392,6 +392,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         didSet {
             batchEditingState = .none
             navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
+        }
+    }
+    
+    public var hasDefaultCell: Bool = false {
+        didSet {
+            guard hasDefaultCell else {
+                return
+            }
+            batchEditingState = .none
         }
     }
     
