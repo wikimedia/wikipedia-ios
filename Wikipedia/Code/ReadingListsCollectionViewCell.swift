@@ -99,7 +99,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldShowSeparators: shouldShowSeparators, theme: theme)
+        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme)
     }
     
     func configure(with name: String?, description: String?, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
