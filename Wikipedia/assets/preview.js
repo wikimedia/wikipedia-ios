@@ -1,34 +1,33 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-function findClosest (el, selector) {
+const findClosest = (el, selector) => {
   while ((el = el.parentElement) && !el.matches(selector));
   return el
 }
 
-function setLanguage(lang, dir, uidir){
-  var html = document.querySelector( 'html' )
+const setLanguage = (lang, dir, uidir) => {
+  const html = document.querySelector( 'html' )
   html.lang = lang
   html.dir = dir
   html.classList.add( 'content-' + dir )
   html.classList.add( 'ui-' + uidir )
 }
 
-function setPageProtected(isProtected){
-  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-}
+const setPageProtected =
+  isProtected => document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
 
-function scrollToFragment(fragmentId){
+const scrollToFragment = fragmentId => {
   location.hash = ''
   location.hash = fragmentId
 }
 
-function accessibilityCursorToFragment(fragmentId){
+const accessibilityCursorToFragment = fragmentId => {
     /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
      in order to have the desired effect, so we first give focus to the body element,
      then move it to the desired fragment. */
-  var focus_element = document.getElementById(fragmentId)
-  var other_element = document.body
+  const focus_element = document.getElementById(fragmentId)
+  const other_element = document.body
   other_element.setAttribute('tabindex', 0)
   other_element.focus()
   focus_element.setAttribute('tabindex', 0)
@@ -1488,6 +1487,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 
 /**
  * Updates save button text and bookmark icon for saved state.
+ * Safe to call even for titles for which there is not currently a 'Read more' item.
  * @param {!string} title
  * @param {!string} text
  * @param {!boolean} isSaved
@@ -1496,6 +1496,9 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 */
 var updateSaveButtonForTitle = function updateSaveButtonForTitle(title, text, isSaved, document) {
   var saveButton = document.getElementById('' + SAVE_BUTTON_ID_PREFIX + encodeURI(title));
+  if (!saveButton) {
+    return;
+  }
   saveButton.innerText = text;
   saveButton.title = text;
   updateSaveButtonBookmarkIcon(saveButton, isSaved);
@@ -2216,8 +2219,8 @@ var RedLinks = {
 var ancestorsToWiden = function ancestorsToWiden(element) {
   var widenThese = [];
   var el = element;
-  while (el.parentNode) {
-    el = el.parentNode;
+  while (el.parentElement) {
+    el = el.parentElement;
     // No need to walk above 'content_block'.
     if (el.classList.contains('content_block')) {
       break;
@@ -2425,7 +2428,7 @@ return pagelib$1;
 
 
 },{}],3:[function(require,module,exports){
-var wmf = {}
+const wmf = {}
 
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.themes = require('wikimedia-page-library').ThemeTransform

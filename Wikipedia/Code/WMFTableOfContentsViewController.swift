@@ -45,7 +45,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
     }
 
-    @objc var tableView: UITableView!
+    @objc let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
 
     var items: [TableOfContentsItem] {
         didSet{
@@ -185,32 +185,28 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tv = UITableView(frame: CGRect.zero, style: .grouped)
+        assert(tableView.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
 
-        assert(tv.style == .grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        tableView.separatorStyle = .none
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundView = nil
 
-        tv.separatorStyle = .none
-        tv.delegate = self
-        tv.dataSource = self
-        tv.backgroundView = nil
-
-        tv.register(WMFTableOfContentsCell.wmf_classNib(),
+        tableView.register(WMFTableOfContentsCell.wmf_classNib(),
                     forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        tv.estimatedRowHeight = 41
-        tv.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 41
+        tableView.rowHeight = UITableViewAutomaticDimension
 
-        tv.sectionHeaderHeight = UITableViewAutomaticDimension
-        tv.estimatedSectionHeaderHeight = 32
-        tv.separatorStyle = .none
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 32
+        tableView.separatorStyle = .none
 
-        view.wmf_addSubviewWithConstraintsToEdges(tv)
+        view.wmf_addSubviewWithConstraintsToEdges(tableView)
 
         if #available(iOS 11.0, *) {
-            tv.contentInsetAdjustmentBehavior = .never
+            tableView.contentInsetAdjustmentBehavior = .never
         }
-        tv.semanticContentAttribute = self.semanticContentAttributeOverride
-
-        self.tableView = tv
+        tableView.semanticContentAttribute = self.semanticContentAttributeOverride
 
         view.semanticContentAttribute = semanticContentAttributeOverride
 

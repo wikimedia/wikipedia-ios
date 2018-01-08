@@ -42,18 +42,22 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
+            DDLogDebug("=== WMFBU BATCH UPDATE START ===")
             let insertedSections = NSMutableIndexSet()
             let deletedSections = NSMutableIndexSet()
             let updatedSections = NSMutableIndexSet()
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
+                    DDLogDebug("WMFBU section delete: \(sectionChange.sectionIndex)")
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
                     deletedSections.add(sectionChange.sectionIndex)
                 case .insert:
+                    DDLogDebug("WMFBU section insert: \(sectionChange.sectionIndex)")
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
                     insertedSections.add(sectionChange.sectionIndex)
                 default:
+                    DDLogDebug("WMFBU section update: \(sectionChange.sectionIndex)")
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
                     updatedSections.add(sectionChange.sectionIndex)
                 }
@@ -62,30 +66,44 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 switch objectChange.type {
                 case .delete:
                     if let fromIndexPath = objectChange.fromIndexPath {
-                        collectionView.deleteItems(at: [fromIndexPath])
+                        if !deletedSections.contains(fromIndexPath.section) {
+                            DDLogDebug("WMFBU object delete: \(fromIndexPath)")
+                            collectionView.deleteItems(at: [fromIndexPath])
+                        }
                     }
                 case .insert:
                     if let toIndexPath = objectChange.toIndexPath {
+                        DDLogDebug("WMFBU object insert: \(toIndexPath)")
                         collectionView.insertItems(at: [toIndexPath])
                     }
                 case .move:
+                    DDLogDebug("WMFBU object move (fallthrough)")
                     fallthrough
                 default:
                     if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
+                        DDLogDebug("WMFBU object move: \(fromIndexPath) \(toIndexPath)")
                         if deletedSections.contains(fromIndexPath.section) {
+                            DDLogDebug("WMFBU inserting: \(toIndexPath)")
                             collectionView.insertItems(at: [toIndexPath])
                         } else {
+                            DDLogDebug("WMFBU moving: \(fromIndexPath) \(toIndexPath)")
                             collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
                         }
                     } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
+                        DDLogDebug("WMFBU object update: \(updatedIndexPath)")
                         if insertedSections.contains(updatedIndexPath.section) {
+                            DDLogDebug("WMFBU inserting: \(updatedIndexPath)")
                             collectionView.insertItems(at: [updatedIndexPath])
                         } else {
+                            DDLogDebug("WMFBU reloading: \(updatedIndexPath)")
                             collectionView.reloadItems(at: [updatedIndexPath])
                         }
+                    } else {
+                        DDLogDebug("WMFBU unhandled update: \(objectChange)")
                     }
                 }
             }
+            DDLogDebug("=== WMFBU BATCH UPDATE END ===")
         }) { (done) in
             self.delegate?.collectionViewUpdater(self, didUpdate: collectionView)
         }
