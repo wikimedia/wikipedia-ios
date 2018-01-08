@@ -70,11 +70,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
-    public func configureSeparators(for index: Int) {
-        topSeparator.isHidden = index > 0
-        bottomSeparator.isHidden = false
-    }
-    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
@@ -172,7 +167,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         if shouldShowSeparators {
-            configureSeparators(for: index)
+            topSeparator.isHidden = index > 0
+            bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
         }

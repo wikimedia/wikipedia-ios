@@ -6,7 +6,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
     }
     
     override func setup() {
@@ -25,11 +25,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         titleFontFamily = .system
         titleTextStyle = .body
         updateFonts(with: traitCollection)
-    }
-    
-    public func configureSeparators(for index: Int) {
-        topSeparator.isHidden = index > 0
-        bottomSeparator.isHidden = false
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
