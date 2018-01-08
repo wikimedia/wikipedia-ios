@@ -34,6 +34,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        editController.navigationDelegate = self
         
         // Keep until we decide whether we need these translations.
         _ = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
@@ -186,8 +187,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     internal lazy var batchEditToolbar: UIToolbar = {
         return BatchEditToolbar(for: view).toolbar
     }()
-    
-    
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -446,6 +445,29 @@ extension SavedArticlesViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - BatchEditNavigationDelegate
+
+extension SavedArticlesViewController: BatchEditNavigationDelegate {
+    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+        tabBarController?.tabBar.isHidden = isVisible
+    }
+    
+    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
+        if add {
+            batchEditToolbar.items = items
+            view.addSubview(batchEditToolbar)
+            let bottomConstraint = view.bottomAnchor.constraint(equalTo: batchEditToolbar.bottomAnchor)
+            view.addConstraint(bottomConstraint)
+        } else {
+            batchEditToolbar.removeFromSuperview()
+        }
     }
 }
 
