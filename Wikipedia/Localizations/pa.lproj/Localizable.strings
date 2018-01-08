@@ -40,14 +40,24 @@
 "abuse-filter-warning-repeat" = "ਦੁਹਰਾਏਏਏ ਚਿੰਨ";
 "abuse-filter-warning-subheading" = "ਤੁਹਾਡੀ ਸੋਧ ਵਿੱਚ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਇੱਕ ਜਾਂ ਇੱਕ ਤੋਂ ਵੱਧ ਹੋ ਸਕਦੇ ਹਨ:";
 "account-creation-captcha-obtaining" = "ਨਵਾਂ ਕੈਪਚਾ ਲਿਆਉਂਦਾ ਜਾ ਰਿਹਾ ਹੈ...";
+"account-creation-captcha-request-account" = "ਅਕਾਊਂਟ ਬੇਨਤੀ";
+"account-creation-create-account" = "ਆਪਣਾ ਖਾਤਾ ਬਣਾਓ";
+"account-creation-have-account" = "ਪਹਿਲੋਂ ਹੀ ਖਾਤਾ ਹੈ? $1";
+"account-creation-log-in" = "ਦਾਖ਼ਲ";
 "account-creation-logging-in" = "...ਲਾਗ ਇਨ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
 "account-creation-passwords-mismatched" = "ਪਛਾਣ-ਸ਼ਬਦ ਦੇ ਡੱਬੇ ਮੇਲ ਨਹੀਂ ਖਾ ਰਹੇ।";
 "account-creation-saving" = "ਸਾਂਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
+"account-creation-title" = "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ";
+"action-read" = "ਪੜ੍ਹੋ";
+"action-save" = "ਸਾਂਭੋ";
+"action-saved" = "ਸੰਭਾਲਿਆ";
+"action-share" = "ਸਾਂਝਾ ਕਰੋ";
 "alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";
 // Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
 "article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
+"article-delete" = "ਮਿਟਾਉ";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾ ਲੱਭੋ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-others" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ";
@@ -66,6 +76,7 @@
 "button-save-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "button-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
 "button-saved-remove" = "ਸੰਭਾਲਿਆਂ ਵਿੱਚੋਂ ਹਟਾਓ";
+"cancel" = "ਰੱਦ ਕਰੋ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ਬੰਦ";
 "compass-direction" = "$1 ਵਜੇ";
@@ -91,10 +102,22 @@
 "explore-most-read-heading" = "$1 ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "explore-nearby-heading" = "ਥਾਵਾਂ ਨੇੜੇ";
+"explore-nearby-placeholder-cancel" = "ਰੱਦ ਕਰੋ";
+"explore-nearby-placeholder-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
+"explore-nearby-placeholder-heading" = "ਥਾਂਵਾਂ";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੇ";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੇ";
 "explore-nearby-sub-heading-your-location" = "ਤੁਹਾਡੀ ਸਥਿਤੀ";
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
+"explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
 "feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+"field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
+"field-email-title" = "ਈਮੇਲ";
+"field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
+"field-new-password-title" = "ਨਵਾਂ ਪਾਸਵਰਡ:";
+"field-password-title" = "ਪਾਸਵਰਡ";
+"forgot-password-username-or-email-title" = "ਜਾਂ";
 "history-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "history-clear-confirmation-heading" = "ਕੀ ਤੁਸੀੰ ਪੱਕਾ ਆਪਣੀਆੰ ਸਾਰੀਆਂ ਹਾਲੀਆ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?";
@@ -127,6 +150,8 @@
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "ਇਹ ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ। ਅਜਿਹਾ ਨਾ ਹੋਣ ਉੱਤੇ ਵਿਸ਼ੇਸ਼ ਤੌਰ ਉੱਤੇ ਦੱਸਿਆ ਜਾਵੇਗਾ।";
+"login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
+"login-no-account" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? $1";
 "main-menu-about" = "ਐਪ ਬਾਰੇ";
 "main-menu-account-login" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "main-menu-account-logout" = "ਵਿਦਾਈ ਲਉ";
@@ -168,6 +193,7 @@
 "page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
 "page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
+"places-title" = "ਥਾਂਵਾਂ";
 "potd-description-prefix" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
 // Fuzzy
@@ -175,6 +201,7 @@
 "preference-title-eventlogging-opt-in" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
 "rank-accessibility-label" = "ਨੰਬਰ $1";
 "readers-accessibility-label" = "$1 ਪਡ਼੍ਹਨ ਵਾਲੇ";
+"reading-themes-controls-accessibility-black-theme-button" = "ਕਾਲਾ ਥੀਮ";
 "reference-title" = "ਹਵਾਲਾ $1";
 "saved-clear-all" = "ਸਾਫ਼ ਕਰੋ";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -182,6 +209,7 @@
 "saved-pages-clear-delete-all" = "ਹਾੰਜੀ, ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "saved-pages-image-download-error" = "ਇਸ ਸਾਂਭੇ ਹੋਏ ਸਾਫ਼ ਲਈ ਤਸਵੀਰਾਂ ਉਤਾਰੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ।";
 "saved-title" = "ਸੰਭਾਲਿਆ";
+"search-button-accessibility-label" = "ਵਿਕੀਪੀਡੀਆ ’ਤੇ ਖੋਜੋ";
 "search-did-you-mean" = "ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ $1 ਸੀ?";
 "search-field-placeholder-text" = "ਵਿਕੀਪੀਡੀਆ ’ਤੇ ਭਾਲ਼ੋ";
 "search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -191,6 +219,8 @@
 "search-recent-title" = "ਹਾਲੀਆ ਖੋਜ਼ਾਂ";
 "search-result-redirected-from" = "$1 ਤੋਂ ਰੀਡਿਰੈਕਟ";
 "search-title" = "ਖੋਜ";
+"settings-appearance" = "ਦਿੱਖ";
+"settings-clear-cache-cancel" = "ਰੱਦ ਕਰੋ";
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਫੀਡਬੈਕ";
 "settings-language-bar" = "ਖੋਜ ਵਿੱਚ ਭਾਸ਼ਾਵਾੰ ਵਿਖਾਓ";
 "settings-my-languages" = "ਮੇਰੀਆੰ ਭਾਸ਼ਾਵਾੰ";
@@ -205,7 +235,10 @@
 "share-a-fact-share-menu-item" = "ਤੱਥ ਸਾੰਝਾ ਕਰੋ";
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
 "share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ...";
+"share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
+"share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
+"share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "status-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
 "status-saving-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
