@@ -1,28 +1,28 @@
-var wmf = {}
+const wmf = {}
 
-wmf.applyDarkThemeLogo = function applyDarkThemeLogo() {
+wmf.applyDarkThemeLogo = () => {
   hideElementById('dark-logo')
   showElementById('light-logo')
 }
 
-wmf.applyLightThemeLogo = function() {
+wmf.applyLightThemeLogo = () => {
   hideElementById('light-logo')
   showElementById('dark-logo')
 }
 
-function showElementById(id) {
+const showElementById = id => {
   show(document.getElementById(id))
 }
 
-function hideElementById(id) {
+const hideElementById = id => {
   hide(document.getElementById(id))
 }
 
-function show(element) {
+const show = element => {
   element.style.display = ''
 }
 
-function hide(element) {
+const hide = element => {
   element.style.display = 'none'
 }
 
