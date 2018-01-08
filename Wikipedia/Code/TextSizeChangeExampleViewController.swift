@@ -35,7 +35,7 @@ extension TextSizeChangeExampleViewController: Themeable {
             return
         }
         
-        view.backgroundColor = theme.colors.baseBackground
+        view.backgroundColor = theme.colors.paperBackground
         textSizeChangeExampleLabel.textColor = theme.colors.primaryText
     }
     
