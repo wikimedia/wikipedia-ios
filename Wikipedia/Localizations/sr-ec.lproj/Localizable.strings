@@ -80,6 +80,7 @@
 "button-save-for-later" = "Сачувај за касније";
 "button-saved-for-later" = "Сачувано за касније";
 "button-saved-remove" = "Уклони из спремљених";
+"cancel" = "Откажи";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "у $1 ч.";
