@@ -18,6 +18,7 @@
 // Author: Maspadana
 // Author: Namo
 // Author: Nemo bis
+// Author: Ni eu
 // Author: Obzord
 // Author: Reza1615
 // Author: Sahehco
@@ -76,8 +77,10 @@
 "alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "پنهان‌سازی";
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
+"appearance-settings-expand-tables" = "گسترش جدول";
 "appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تاریک";
 "appearance-settings-reading-themes" = "پوستهٔ خواندن";
+"appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
 "appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
 "appearance-settings-theme-options" = "تنظیمات پوسته";
 "appearance-settings-title" = "پوستهٔ خواندن";
@@ -247,6 +250,8 @@
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "menu-cancel-accessibility-label" = "لغو";
 "menu-trash-accessibility-label" = "حذف";
+"more-languages-tooltip-description" = "جستجو در ویکیپدیا به نزدیک ۳۰۰ زبان";
+"more-languages-tooltip-title" = "افزودن زبان";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
 "nearby-distance-label-feet" = "$1 پا";
 "nearby-distance-label-km" = "$1 کیلومتر";
@@ -317,6 +322,7 @@
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
+"reading-themes-controls-accessibility-black-theme-button" = "تِم سیاه";
 "reading-themes-controls-accessibility-brightness-slider" = "لغزندهٔ درخشندگی";
 "reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
 "reading-themes-controls-accessibility-light-theme-button" = "پوسته روشن";
@@ -384,6 +390,7 @@
 "table-of-contents-close-accessibility-label" = "بستن جدول محتویات";
 "table-of-contents-heading" = "محتویات";
 "table-title-other" = "اطلاعات بیشتر";
+"theme-black-display-name" = "سیاه";
 "theme-dark-display-name" = "تیره";
 "theme-default-display-name" = "پیش‌فرض";
 "theme-sepia-display-name" = "قهوه‌ای";

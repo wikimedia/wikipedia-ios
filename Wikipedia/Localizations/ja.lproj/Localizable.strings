@@ -9,6 +9,7 @@
 // Author: Hzy980512
 // Author: Iwai.masaharu
 // Author: Kanon und wikipedia
+// Author: Kkairri
 // Author: Los688
 // Author: Macofe
 // Author: Nemo bis
@@ -59,7 +60,7 @@
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
-"account-creation-captcha-cannot-see-image" = "画像が見れませんか？ $1";
+"account-creation-captcha-cannot-see-image" = "画像が見られませんか？ $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "リクエストアカウント。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
@@ -290,7 +291,7 @@
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
 "places-accessibility-close-search" = "検索を閉じる";
 "places-accessibility-group" = "$1記事";
-"places-accessibility-recenter-map-on-user-location" = "あなたいる場所を訪れる";
+"places-accessibility-recenter-map-on-user-location" = "あなたの現在地に中心を戻す";
 "places-accessibility-show-as-list" = "リストとして表示";
 "places-accessibility-show-as-map" = "マップとして表示";
 "places-accessibility-show-more" = "さらに記事を見る";

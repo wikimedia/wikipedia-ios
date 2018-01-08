@@ -7,6 +7,7 @@
 // Author: Jayarathina
 // Author: Mahir78
 // Author: Rakeshonwiki
+// Author: Rakshika
 // Author: Sharanrajindia
 // Author: Solomonsunder
 // Author: கலைவாணன்
@@ -260,7 +261,7 @@
 "preference-title-eventlogging-opt-in" = "பயன்பாடு அறிக்கை அனுப்புக";
 "rank-accessibility-label" = "எண் $1";
 "readers-accessibility-label" = "$1 படிப்பவர்கள்";
-"reading-themes-controls-accessibility-black-theme-button" = "கருத்த தோற்றம்";
+"reading-themes-controls-accessibility-black-theme-button" = "பிளாக் தீம்";
 "reading-themes-controls-accessibility-brightness-slider" = "ஓளிர்வு வழுக்கி";
 "reading-themes-controls-accessibility-dark-theme-button" = "இருண்ட தோற்றம்";
 "reading-themes-controls-accessibility-light-theme-button" = "வெளிர் தோற்றம்";
