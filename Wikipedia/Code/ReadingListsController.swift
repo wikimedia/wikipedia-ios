@@ -26,15 +26,59 @@ public enum ReadingListError: Error, Equatable {
 }
 
 
+fileprivate class ReadingListDownloadOperation: AsyncOperation {
+    weak var readingListsController: ReadingListsController!
+    
+    init(readingListsController: ReadingListsController) {
+        self.readingListsController = readingListsController
+        super.init()
+    }
+    
+    override func execute() {
+        //readingListsController.apiController
+    }
+    
+}
+
+fileprivate class ReadingListUploadOperation: AsyncOperation {
+    weak var readingListsController: ReadingListsController!
+    
+    init(readingListsController: ReadingListsController) {
+        self.readingListsController = readingListsController
+        super.init()
+    }
+    
+    
+    override func execute() {
+        
+//        readingListsController.dataStore.performBackgroundCoreDataOperation { (moc) in
+//            let batchSize = 4
+//            let readingListsToCreateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+//            readingListsToCreateFetch.predicate = NSPredicate(format: "readingListID == NULL && deletedAt == NULL")
+//            readingListsToCreateFetch.fetchLimit = batchSize
+//            do {
+//                let results = try moc.fetch(readingListsToCreateFetch)
+//                
+//            } catch let error {
+//                DDLogError("Error fetching: \(error)")
+//            }
+//        }
+    }
+}
+
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
     fileprivate weak var dataStore: MWKDataStore!
     fileprivate let apiController = ReadingListsAPIController()
+    fileprivate let operationQueue = OperationQueue()
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
+        operationQueue.maxConcurrentOperationCount = 1
         super.init()
     }
+    
+    
     
     // User-facing actions. Everything is performed on the main context
     

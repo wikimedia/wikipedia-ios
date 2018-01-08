@@ -3,7 +3,7 @@ import Foundation
 extension ReadingList {
     func update(with json: [String: Any]) {
         if let listID = json["id"] as? Int64 {
-            self.readingListID = listID
+            self.readingListID = NSNumber(value: listID)
         }
         
         if let listName = json["name"] as? String {

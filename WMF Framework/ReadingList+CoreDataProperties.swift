@@ -7,7 +7,7 @@ extension ReadingList {
     }
     
     @NSManaged public var createdDate: NSDate?
-    @NSManaged public var readingListID: Int64
+    @NSManaged public var readingListID: NSNumber?
     @NSManaged public var readingListDescription: String?
     @NSManaged public var name: String?
     @NSManaged public var order: Int64

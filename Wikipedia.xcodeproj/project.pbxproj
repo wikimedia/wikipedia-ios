@@ -1497,8 +1497,6 @@
 		D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */; };
 		D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */; };
 		D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */; };
-		D8619BA81FBB10240045C8BC /* ReadingListAction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA21FBB10240045C8BC /* ReadingListAction+CoreDataClass.swift */; };
-		D8619BA91FBB10240045C8BC /* ReadingListAction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA31FBB10240045C8BC /* ReadingListAction+CoreDataProperties.swift */; };
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D87021631EBA63EF000D02D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021621EBA63EF000D02D6 /* main.swift */; };
@@ -4344,8 +4342,6 @@
 		D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		D8619BA21FBB10240045C8BC /* ReadingListAction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListAction+CoreDataClass.swift"; sourceTree = "<group>"; };
-		D8619BA31FBB10240045C8BC /* ReadingListAction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListAction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
 		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -7447,8 +7443,6 @@
 				D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */,
 				D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */,
 				D8EBD1BB1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift */,
-				D8619BA21FBB10240045C8BC /* ReadingListAction+CoreDataClass.swift */,
-				D8619BA31FBB10240045C8BC /* ReadingListAction+CoreDataProperties.swift */,
 				D8EBD1B91FBB16F700AA7DA9 /* Dictionary+JSON.swift */,
 				D8FA19081E1BDA72009675C3 /* UI */,
 				D8D5513E1DF1A33D00B90177 /* Third Party */,
@@ -10324,7 +10318,6 @@
 				D8FA18B11E1BD891009675C3 /* NSBundle+WMFInfoUtils.m in Sources */,
 				D8FA18FB1E1BDA4C009675C3 /* UIImage+WMFStyle.m in Sources */,
 				8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */,
-				D8619BA91FBB10240045C8BC /* ReadingListAction+CoreDataProperties.swift in Sources */,
 				D8FA18F31E1BDA35009675C3 /* UIImageView+WMFContentOffset.m in Sources */,
 				D84C36001F323E0900895FA1 /* WMFCVLInfo.m in Sources */,
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
@@ -10354,7 +10347,6 @@
 				D844DA011D6CC3C20042D692 /* MWKLanguageLink.m in Sources */,
 				D844D9F71D6CC05F0042D692 /* ImageDownload.swift in Sources */,
 				0E728D531DAEEFB00074EB4B /* MWKSiteInfo.m in Sources */,
-				D8619BA81FBB10240045C8BC /* ReadingListAction+CoreDataClass.swift in Sources */,
 				0E728D361DAEE8FF0074EB4B /* WMFRandomContentSource.m in Sources */,
 				D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
