@@ -526,7 +526,6 @@ static uint64_t bundleHash() {
             }
             ReadingList *readingList = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingList" inManagedObjectContext:moc];
             readingList.isDefault = @(YES);
-            NSLog(@"Created sdefault reading list");
             [moc wmf_setValue:@(2) forKey:key];
             [moc save:nil];
         }

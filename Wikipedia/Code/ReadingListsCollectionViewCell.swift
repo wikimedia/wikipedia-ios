@@ -78,12 +78,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
-        if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
-        }
+        let separatorXPositon = layoutMargins.left - margins.left
+        let separatorWidth = isImageViewHidden ? size.width : size.width - imageViewDimension * 1.5
         
-        if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width, height: singlePixelDimension)
+        if (apply) {
+            if (!bottomSeparator.isHidden) {
+                bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
+            }
+            
+            if (!topSeparator.isHidden) {
+                topSeparator.frame = CGRect(x: separatorXPositon, y: 0, width: separatorWidth, height: singlePixelDimension)
+            }
         }
         
         if (apply && !isImageViewHidden) {
@@ -116,7 +121,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 40
+        imageViewDimension = 80
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
