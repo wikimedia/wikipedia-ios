@@ -36,6 +36,7 @@ fileprivate class ReadingListDownloadOperation: AsyncOperation {
     
     override func execute() {
         //readingListsController.apiController
+        
     }
     
 }
@@ -58,7 +59,7 @@ fileprivate class ReadingListUploadOperation: AsyncOperation {
 //            readingListsToCreateFetch.fetchLimit = batchSize
 //            do {
 //                let results = try moc.fetch(readingListsToCreateFetch)
-//                
+//
 //            } catch let error {
 //                DDLogError("Error fetching: \(error)")
 //            }
@@ -153,6 +154,12 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
 
+    }
+    
+    @objc public func setupReadingLists() {
+        apiController.getAllReadingLists { (lists, error) in
+            
+        }
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {

@@ -43,16 +43,16 @@ class WMFAuthenticationManager: NSObject {
         }
         
         if baseURL == nil {
-            #if DEBUG
-                let loginHost = "readinglists.wmflabs.org"
-                let loginScheme = "https"
-                var components = URLComponents()
-                components.host = loginHost
-                components.scheme = loginScheme
-                baseURL = components.url
-            #else
+//            #if DEBUG
+//                let loginHost = "readinglists.wmflabs.org"
+//                let loginScheme = "https"
+//                var components = URLComponents()
+//                components.host = loginHost
+//                components.scheme = loginScheme
+//                baseURL = components.url
+//            #else
                 baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-            #endif
+//            #endif
         }
         
         return baseURL!

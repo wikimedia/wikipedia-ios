@@ -1,12 +1,25 @@
 import Foundation
 
+struct APIReadingLists: Codable {
+    let lists: [APIReadingList]
+    let next: String?
+}
+
+struct APIReadingList: Codable {
+    let id: Int
+    let name: String
+    let description: String
+    let created: String
+    let updated: String
+}
+
 class ReadingListsAPIController: NSObject {
     fileprivate let session = Session.shared
     fileprivate lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
     }()
     fileprivate let basePath = "/api/rest_v1/data/lists/"
-    fileprivate let host = "readinglists.wmflabs.org"
+    fileprivate let host = "en.wikipedia.org"
     fileprivate let scheme = "https"
     
     fileprivate func post(path: String, completion: @escaping (Error?) -> Void) {
@@ -29,29 +42,27 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
-    fileprivate func get(path: String, completion: (Error?)) {
-        guard
-            let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL(),
-            let host = siteURL.host
-            else {
-                return
-        }
-        
+    fileprivate func get<T>(path: String, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable  {
         let fullPath = basePath.appending(path)
-        session.jsonDictionaryTask(host: host, method: .post, path: fullPath) { (result , response, error) in
-            }?.resume()
+        session.jsonCodableTask(host: host, method: .get, path: fullPath, completionHandler: completionHandler)?.resume()
     }
     
     
-    @objc func setup() {
+    @objc func setupReadingLists() {
         post(path: "setup") { (error) in
             
         }
     }
     
-    @objc func teardown() {
+    @objc func teardownReadingLists() {
         post(path: "teardown") { (error) in
             
+        }
+    }
+    
+    func getAllReadingLists(completion: @escaping (APIReadingLists?, Error?) -> Swift.Void ) {
+        get(path: "") { (lists: APIReadingLists?, response, error) in
+            print("\(lists) \(response) \(error)")
         }
     }
 }
