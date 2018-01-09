@@ -6,11 +6,21 @@ struct APIReadingLists: Codable {
 }
 
 struct APIReadingList: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case description
+        case created
+        case updated
+        case isDefault = "default"
+    }
+    
     let id: Int64
     let name: String
     let description: String
     let created: String
     let updated: String
+    let isDefault: Bool
 }
 
 struct APIReadingListEntries: Codable {

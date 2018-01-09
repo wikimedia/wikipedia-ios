@@ -54,7 +54,7 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
             }
             var readingListsByID: [Int64: APIReadingList] = [:]
             for apiReadingList in allAPIReadingLists {
-                guard apiReadingList.name != "default" else {
+                guard !apiReadingList.isDefault else {
                     continue
                 }
                 readingListsByID[apiReadingList.id] = apiReadingList
