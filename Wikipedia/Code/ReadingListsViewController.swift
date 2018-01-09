@@ -345,7 +345,7 @@ extension ReadingListsViewController {
         if let estimate = cellLayoutEstimate {
             return estimate
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 80)
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }

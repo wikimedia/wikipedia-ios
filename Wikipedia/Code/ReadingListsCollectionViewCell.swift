@@ -6,7 +6,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
     }
     
     override func setup() {
@@ -25,11 +25,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         titleFontFamily = .system
         titleTextStyle = .body
         updateFonts(with: traitCollection)
-    }
-    
-    public func configureSeparators(for index: Int) {
-        topSeparator.isHidden = index > 0
-        bottomSeparator.isHidden = false
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -78,12 +73,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
-        if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
-        }
+        let separatorXPositon = layoutMargins.left - margins.left
+        let separatorWidth = isImageViewHidden ? size.width : size.width - imageViewDimension * 1.5
         
-        if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width, height: singlePixelDimension)
+        if (apply) {
+            if (!bottomSeparator.isHidden) {
+                bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
+            }
+            
+            if (!topSeparator.isHidden) {
+                topSeparator.frame = CGRect(x: separatorXPositon, y: 0, width: separatorWidth, height: singlePixelDimension)
+            }
         }
         
         if (apply && !isImageViewHidden) {
@@ -99,7 +99,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldShowSeparators: shouldShowSeparators, theme: theme)
+        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme)
     }
     
     func configure(with name: String?, description: String?, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
@@ -116,7 +116,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 40
+        imageViewDimension = 80
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
