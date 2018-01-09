@@ -6,9 +6,22 @@ struct APIReadingLists: Codable {
 }
 
 struct APIReadingList: Codable {
-    let id: Int
+    let id: Int64
     let name: String
     let description: String
+    let created: String
+    let updated: String
+}
+
+struct APIReadingListEntries: Codable {
+    let entries: [APIReadingListEntry]
+    let next: String?
+}
+
+struct APIReadingListEntry: Codable {
+    let id: Int64
+    let project: String
+    let title: String
     let created: String
     let updated: String
 }
@@ -42,9 +55,9 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
-    fileprivate func get<T>(path: String, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable  {
+    fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable  {
         let fullPath = basePath.appending(path)
-        session.jsonCodableTask(host: host, method: .get, path: fullPath, completionHandler: completionHandler)?.resume()
+        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: completionHandler)?.resume()
     }
     
     
@@ -60,9 +73,43 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
-    func getAllReadingLists(completion: @escaping (APIReadingLists?, Error?) -> Swift.Void ) {
-        get(path: "") { (lists: APIReadingLists?, response, error) in
-            print("\(lists) \(response) \(error)")
+    func getAllReadingLists(next: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], Error?) -> Swift.Void ) {
+        var queryParameters: [String: Any]? = nil
+        if let next = next {
+            queryParameters = ["next": next]
+        }
+        get(path: "", queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
+            guard let apiListsResponse = apiListsResponse else {
+                completion([], error)
+                return
+            }
+            var combinedList = lists
+            combinedList.append(contentsOf: apiListsResponse.lists)
+            if let next = apiListsResponse.next {
+                self.getAllReadingLists(next: next, lists: combinedList, completion: completion)
+            } else {
+                completion(combinedList, nil)
+            }
+        }
+    }
+    
+    func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
+        var queryParameters: [String: Any]? = nil
+        if let next = next {
+            queryParameters = ["next": next]
+        }
+        get(path: "\(readingListID)/entries", queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
+            guard let apiEntriesResponse = apiEntriesResponse else {
+                completion([], error)
+                return
+            }
+            var combinedList = entries
+            combinedList.append(contentsOf: apiEntriesResponse.entries)
+            if let next = apiEntriesResponse.next {
+                self.getAllEntriesForReadingListWithID(next: next, entries: combinedList, readingListID: readingListID, completion: completion)
+            } else {
+                completion(combinedList, nil)
+            }
         }
     }
 }

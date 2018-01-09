@@ -158,7 +158,12 @@ public class ReadingListsController: NSObject {
     
     @objc public func setupReadingLists() {
         apiController.getAllReadingLists { (lists, error) in
-            
+            print("\(String(describing: lists)) \(String(describing: error))")
+            for list in lists {
+                self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
+                    print("\(String(describing: entries)) \(String(describing: error))")
+                })
+            }
         }
     }
     
