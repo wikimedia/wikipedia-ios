@@ -73,7 +73,17 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
-    func createList(name: String, description: String, completion: @escaping (Int64?, Error?) -> Swift.Void ) {
+    
+    /**
+     Creates a new reading list using the reading list API
+     - parameters:
+        - name: The name for the new list
+        - description: The description for the new list
+        - completion: Called after the request completes
+        - listID: The list ID if it was created
+        - error: Any error preventing list creation
+    */
+    func createList(name: String, description: String, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name, "description": description]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let id = result["id"] as? Int64 else {
