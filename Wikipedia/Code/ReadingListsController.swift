@@ -29,8 +29,16 @@ public enum ReadingListError: Error, Equatable {
 }
 
 
-fileprivate class ReadingListDownloadOperation: AsyncOperation {
+fileprivate class ReadingListSyncOperation: AsyncOperation {
     weak var readingListsController: ReadingListsController!
+    
+    var apiController: ReadingListsAPIController {
+        return readingListsController.apiController
+    }
+    
+    var dataStore: MWKDataStore {
+        return readingListsController.dataStore
+    }
     
     init(readingListsController: ReadingListsController) {
         self.readingListsController = readingListsController
@@ -39,36 +47,70 @@ fileprivate class ReadingListDownloadOperation: AsyncOperation {
     
     override func execute() {
         //readingListsController.apiController
-        
+        readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
+            if let error = getAllAPIReadingListsError {
+                self.finish(with: error)
+                return
+            }
+            var readingListsByID: [Int64: APIReadingList] = [:]
+            for apiReadingList in allAPIReadingLists {
+                guard apiReadingList.name != "default" else {
+                    continue
+                }
+                readingListsByID[apiReadingList.id] = apiReadingList
+            }
+            DispatchQueue.main.async {
+                self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
+                    let group = WMFTaskGroup()
+                    let localReadingListsFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                    localReadingListsFetchRequest.predicate = NSPredicate(format: "isDefault == NO && isDeletedLocally == NO")
+                    do {
+                        let localReadingLists = try moc.fetch(localReadingListsFetchRequest)
+                        var listIDsToUpdate: [(Int64, ReadingList)] = []
+                        for localReadingList in localReadingLists {
+                            guard let localID = localReadingList.readingListID, let remoteList = readingListsByID[localID.int64Value] else {
+                                group.enter()
+                                self.apiController.createList(name: localReadingList.name ?? "", description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
+                                    if let listID = listID {
+                                        listIDsToUpdate.append((listID, localReadingList))
+                                    }
+                                    group.leave()
+                                })
+                                continue
+                            }
+                            readingListsByID.removeValue(forKey: remoteList.id)
+                            localReadingList.update(with: remoteList)
+                        }
+                        
+                        group.wait()
+                        for update in listIDsToUpdate {
+                            update.1.readingListID = NSNumber(value: update.0)
+                        }
+                        
+                        for (_, list) in readingListsByID {
+                            guard let localList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
+                                continue
+                            }
+                            localList.update(with: list)
+                        }
+                        
+                        guard moc.hasChanges else {
+                            return
+                        }
+                        try moc.save()
+                        
+                    } catch let error {
+                        DDLogError("Error fetching: \(error)")
+                    }
+                    
+                })
+            }
+        }
     }
+    
     
 }
 
-fileprivate class ReadingListUploadOperation: AsyncOperation {
-    weak var readingListsController: ReadingListsController!
-    
-    init(readingListsController: ReadingListsController) {
-        self.readingListsController = readingListsController
-        super.init()
-    }
-    
-    
-    override func execute() {
-        
-//        readingListsController.dataStore.performBackgroundCoreDataOperation { (moc) in
-//            let batchSize = 4
-//            let readingListsToCreateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-//            readingListsToCreateFetch.predicate = NSPredicate(format: "readingListID == NULL && deletedAt == NULL")
-//            readingListsToCreateFetch.fetchLimit = batchSize
-//            do {
-//                let results = try moc.fetch(readingListsToCreateFetch)
-//
-//            } catch let error {
-//                DDLogError("Error fetching: \(error)")
-//            }
-//        }
-    }
-}
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
@@ -160,22 +202,8 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setupReadingLists() {
-
-        apiController.createList(name: "test", description: "test list") { (listID, error) in
-            self.apiController.getAllReadingLists { (lists, error) in
-                print("\(String(describing: lists)) \(String(describing: error))")
-                for list in lists {
-                    self.apiController.addEntryToList(withListID: list.id, project: "https://en.wikipedia.org", title: "Philadelphia", completion: { (entryID, error) in
-
-                        print("\(String(describing:entryID)) \(String(describing: error))")
-                            self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
-                            print("\(String(describing: entries)) \(String(describing: error))")
-                    })
-                    })
-                }
-            }
-        }
-
+        let op = ReadingListSyncOperation(readingListsController: self)
+        operationQueue.addOperation(op)
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {

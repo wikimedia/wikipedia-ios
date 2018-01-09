@@ -13,5 +13,7 @@ extension ReadingListEntry {
     @NSManaged public var displayTitle: String?
     @NSManaged public var list: ReadingList?
     @NSManaged public var article: WMFArticle?
+    @NSManaged public var isDeletedLocally: Bool
+    @NSManaged public var isUpdatedLocally: Bool
     
 }

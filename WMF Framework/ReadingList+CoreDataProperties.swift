@@ -7,6 +7,8 @@ extension ReadingList {
     }
     
     @NSManaged public var createdDate: NSDate?
+    @NSManaged public var isDeletedLocally: Bool
+    @NSManaged public var isUpdatedLocally: Bool
     @NSManaged public var readingListID: NSNumber?
     @NSManaged public var readingListDescription: String?
     @NSManaged public var name: String?

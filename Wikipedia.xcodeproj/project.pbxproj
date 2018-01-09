@@ -1563,6 +1563,7 @@
 		D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062F1C0CE7670065EBC0 /* WMFApiJsonResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89F51101D6CC9BA008018E1 /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8067E1C0CE9C70065EBC0 /* WMFNetworkUtilities.m */; };
 		D89F51111D6CC9BD008018E1 /* WMFNetworkUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8A13F9D2005176D00E50845 /* ReadingListsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830177F91FBF3E490005681C /* ReadingListsAPIController.swift */; };
 		D8A42A571E815A9C00D8E281 /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6BAEC1E4C9BF400A981C8 /* UserLocationAnnotationView.swift */; };
 		D8A42A581E815A9C00D8E281 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */; };
 		D8A42A591E815A9C00D8E281 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
@@ -10566,6 +10567,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D88B929E1F02AD0F00F5DD40 /* WikipediaBetaClusterTests.m in Sources */,
+				D8A13F9D2005176D00E50845 /* ReadingListsAPIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

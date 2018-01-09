@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="deletedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isDefault" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readingListDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readingListID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
@@ -22,11 +23,17 @@
         <fetchIndex name="byUpdatedDateIndex">
             <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
         </fetchIndex>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="deletedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingListEntries" inverseEntity="WMFArticle" syncable="YES"/>
@@ -138,8 +145,8 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="210"/>
-        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="150"/>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="225"/>
+        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="165"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="420"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
