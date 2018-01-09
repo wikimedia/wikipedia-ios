@@ -35,7 +35,7 @@ class ReadingListsAPIController: NSObject {
     fileprivate let host = "en.wikipedia.org"
     fileprivate let scheme = "https"
     
-    fileprivate func post(path: String, completion: @escaping (Error?) -> Void) {
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         var components = URLComponents()
         components.host = host
         components.scheme = scheme
@@ -47,11 +47,11 @@ class ReadingListsAPIController: NSObject {
         
         let fullPath = basePath.appending(path)
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
-            self.session.jsonDictionaryTask(host: self.host, method: .post, path: fullPath, queryParameters: ["csrf_token": token.token]) { (result , response, error) in
-                completion(error)
+            self.session.jsonDictionaryTask(host: self.host, method: .post, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
+                completion(result, response, error)
                 }?.resume()
         }) { (failure) in
-            completion(failure)
+            completion(nil, nil, failure)
         }
     }
     
@@ -62,14 +62,25 @@ class ReadingListsAPIController: NSObject {
     
     
     @objc func setupReadingLists() {
-        post(path: "setup") { (error) in
+        post(path: "setup") { (result, response, error) in
             
         }
     }
     
     @objc func teardownReadingLists() {
-        post(path: "teardown") { (error) in
+        post(path: "teardown") { (result, response, error) in
             
+        }
+    }
+    
+    func createList(name: String, description: String, completion: @escaping (Int64?, Error?) -> Swift.Void ) {
+        let bodyParams = ["name": name, "description": description]
+        post(path: "", bodyParameters: bodyParams) { (result, response, error) in
+            guard let result = result, let id = result["id"] as? Int64 else {
+                completion(nil, error ?? ReadingListError.unableToCreateList)
+                return
+            }
+            completion(id, nil)
         }
     }
     

@@ -157,14 +157,17 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setupReadingLists() {
-        apiController.getAllReadingLists { (lists, error) in
-            print("\(String(describing: lists)) \(String(describing: error))")
-            for list in lists {
-                self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
-                    print("\(String(describing: entries)) \(String(describing: error))")
-                })
+        apiController.createList(name: "test", description: "test list") { (listID, error) in
+            self.apiController.getAllReadingLists { (lists, error) in
+                print("\(String(describing: lists)) \(String(describing: error))")
+                for list in lists {
+                    self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
+                        print("\(String(describing: entries)) \(String(describing: error))")
+                    })
+                }
             }
         }
+
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
