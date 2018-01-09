@@ -24,6 +24,7 @@ class CreateReadingListViewController: UIViewController {
         
         readingListNameTextView.textViewDelegate = self
         descriptionTextView.textViewDelegate = self
+        readingListNameTextView.showsClearButton = true
         
         readingListNameTextView.textView.returnKeyType = .next
         readingListNameTextView.textView.enablesReturnKeyAutomatically = true

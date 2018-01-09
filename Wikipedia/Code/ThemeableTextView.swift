@@ -10,6 +10,8 @@ class ThemeableTextView: SetupView {
     fileprivate let clearButton = UIButton()
     public weak var textViewDelegate: UITextViewDelegate?
     
+    var showsClearButton: Bool = false
+    
     override open func setup() {
         super.setup()
         
@@ -44,6 +46,9 @@ class ThemeableTextView: SetupView {
     }
     
     fileprivate func updateClearButton() {
+        guard showsClearButton else {
+            return
+        }
         clearButton.isHidden = textView.text.isEmpty || !textView.isFirstResponder
     }
     
