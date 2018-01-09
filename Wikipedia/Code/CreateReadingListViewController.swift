@@ -22,8 +22,8 @@ class CreateReadingListViewController: UIViewController {
         super.viewDidLoad()
         apply(theme: theme)
         
-        readingListNameTextView.textViewDelegate = self
-        descriptionTextView.textViewDelegate = self
+        readingListNameTextView.delegate = self
+        descriptionTextView.delegate = self
         readingListNameTextView.showsClearButton = true
         
         readingListNameTextView.textView.returnKeyType = .next
@@ -57,7 +57,7 @@ class CreateReadingListViewController: UIViewController {
     }
 }
 
-extension CreateReadingListViewController: UITextViewDelegate {
+extension CreateReadingListViewController: ThemeableTextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         createReadingListButton.isEnabled = !readingListNameTextView.textView.text.isEmpty

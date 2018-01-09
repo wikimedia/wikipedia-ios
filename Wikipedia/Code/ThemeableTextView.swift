@@ -1,6 +1,11 @@
 import UIKit
 import WMF
 
+public protocol ThemeableTextViewDelegate: NSObjectProtocol {
+    func textViewDidChange(_ textView: UITextView)
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
+}
+
 @objc(WMFThemeableTextView)
 class ThemeableTextView: SetupView {
     
@@ -8,7 +13,7 @@ class ThemeableTextView: SetupView {
     fileprivate let underlineView = UIView()
     fileprivate let underlineHeight: CGFloat = 1
     fileprivate let clearButton = UIButton()
-    public weak var textViewDelegate: UITextViewDelegate?
+    public weak var delegate: ThemeableTextViewDelegate?
     
     var showsClearButton: Bool = false
     
@@ -61,7 +66,7 @@ extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         invalidateIntrinsicContentSize()
         updateClearButton()
-        textViewDelegate?.textViewDidChange?(textView)
+        delegate?.textViewDidChange(textView)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -73,7 +78,7 @@ extension ThemeableTextView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return textViewDelegate?.textView?(textView, shouldChangeTextIn: range, replacementText: text) ?? false
+        return delegate?.textView(textView, shouldChangeTextIn: range, replacementText: text) ?? false
     }
 }
 
