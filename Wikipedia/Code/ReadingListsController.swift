@@ -4,6 +4,7 @@ import Foundation
 public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
     case unableToCreateList
+    case unableToAddEntry
     case listWithProvidedNameNotFound(name: String)
     
     public var localizedDescription: String {
@@ -17,6 +18,8 @@ public enum ReadingListError: Error, Equatable {
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
+        case .unableToAddEntry:
+            return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         }
     }
     
@@ -157,12 +160,17 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setupReadingLists() {
+
         apiController.createList(name: "test", description: "test list") { (listID, error) in
             self.apiController.getAllReadingLists { (lists, error) in
                 print("\(String(describing: lists)) \(String(describing: error))")
                 for list in lists {
-                    self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
-                        print("\(String(describing: entries)) \(String(describing: error))")
+                    self.apiController.addEntryToList(withListID: list.id, project: "https://en.wikipedia.org", title: "Philadelphia", completion: { (entryID, error) in
+
+                        print("\(String(describing:entryID)) \(String(describing: error))")
+                            self.apiController.getAllEntriesForReadingListWithID(readingListID: list.id, completion: { (entries, error) in
+                            print("\(String(describing: entries)) \(String(describing: error))")
+                    })
                     })
                 }
             }

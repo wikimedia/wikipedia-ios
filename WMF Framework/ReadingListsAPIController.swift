@@ -94,6 +94,28 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
+    
+    /**
+     Adds a new entry to a reading list using the reading list API
+     - parameters:
+        - listID: The list ID of the list that is getting an entry
+        - project: The project name of the new entry
+        - title: The title of the new entry
+        - completion: Called after the request completes
+        - entryID: The entry ID if it was created
+        - error: Any error preventing entry creation
+     */
+    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let bodyParams = ["project": project, "title": title]
+        post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
+            guard let result = result, let id = result["id"] as? Int64 else {
+                completion(nil, error ?? ReadingListError.unableToAddEntry)
+                return
+            }
+            completion(id, nil)
+        }
+    }
+    
     func getAllReadingLists(next: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
@@ -119,7 +141,7 @@ class ReadingListsAPIController: NSObject {
         if let next = next {
             queryParameters = ["next": next]
         }
-        get(path: "\(readingListID)/entries", queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
+        get(path: "\(readingListID)/entries/", queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
             guard let apiEntriesResponse = apiEntriesResponse else {
                 completion([], error)
                 return
