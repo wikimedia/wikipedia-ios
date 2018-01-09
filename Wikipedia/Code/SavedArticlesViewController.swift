@@ -13,10 +13,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         let basePredicate = NSPredicate(format: "savedDate != NULL")
+        check(true, action: sortActions.recentlyAdded.action)
         articleRequest.predicate = basePredicate
         if let searchString = searchString {
             let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
             articleRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+            check(true, action: sortActions.title.action)
         }
         articleRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -126,6 +128,45 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     fileprivate func sort(by key: String, ascending: Bool) {
         sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
     }
+    
+    typealias SortAction = (action: UIAlertAction, isChecked: Bool)
+    
+    fileprivate lazy var sortActions: (title: SortAction, recentlyAdded: SortAction) = {
+        let titleAlertAction = UIAlertAction(title: "Title", style: .default) { (action) in
+            self.sort(by: "displayTitle", ascending: true)
+        }
+        let titleSortAction = SortAction(action: titleAlertAction, isChecked: isChecked(titleAlertAction))
+        let recentlyAddedAlertAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
+            self.sort(by: "savedDate", ascending: false)
+        }
+        let recentlyAddedSortAction = SortAction(action: recentlyAddedAlertAction, isChecked: isChecked(recentlyAddedAlertAction))
+        return (titleSortAction, recentlyAddedSortAction)
+    }()
+    
+    fileprivate func isChecked(_ action: UIAlertAction) -> Bool {
+        return action.value(forKey: "checked") as? Bool ?? false
+    }
+    
+    fileprivate func check(_ checked: Bool, action: UIAlertAction) {
+        check(false, action: sortActions.title.action)
+        check(false, action: sortActions.recentlyAdded.action)
+        action.setValue(checked, forKey: "checked")
+    }
+    
+    fileprivate lazy var sortAlert: UIAlertController = {
+        let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(sortActions.title.action)
+        alert.addAction(sortActions.recentlyAdded.action)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancel)
+        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
+            popoverController.sourceView = first
+            popoverController.sourceRect = first.bounds
+        }
+        return alert
+    }()
     
     // MARK: - Filtering
     
@@ -388,25 +429,7 @@ extension SavedArticlesViewController: ActionDelegate {
 extension SavedArticlesViewController: SavedViewControllerDelegate {
     
     @objc func didPressSortButton() {
-        // TODO: Add an option to sort by "recently updated" once we have the key hooked up.
-        let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
-        let titleAction = UIAlertAction(title: "Title", style: .default) { (actions) in
-            self.sort(by: "displayTitle", ascending: true)
-        }
-        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (actions) in
-            self.sort(by: "savedDate", ascending: false)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(titleAction)
-        alert.addAction(recentlyAddedAction)
-        alert.addAction(cancelAction)
-        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
-            popoverController.sourceView = first
-            popoverController.sourceRect = first.bounds
-        }
-        present(alert, animated: true, completion: nil)
+        present(sortAlert, animated: true, completion: nil)
     }
 }
 
