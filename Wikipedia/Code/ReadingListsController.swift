@@ -102,7 +102,7 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                     } catch let error {
                         DDLogError("Error fetching: \(error)")
                     }
-                    
+                    self.finish()
                 })
             }
         }
