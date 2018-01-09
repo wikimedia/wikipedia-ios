@@ -14,6 +14,7 @@ class CreateReadingListViewController: UIViewController {
     @IBOutlet weak var readingListNameTextView: ThemeableTextView!
     @IBOutlet weak var descriptionTextView: ThemeableTextView!
     
+    @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var createReadingListButton: WMFAuthButton!
     
     fileprivate var theme: Theme = Theme.standard
@@ -21,10 +22,17 @@ class CreateReadingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
+        
         readingListNameTextView.textView.delegate = self
         descriptionTextView.textView.delegate = self
+        
         readingListNameTextView.textView.returnKeyType = .next
+        readingListNameTextView.textView.enablesReturnKeyAutomatically = true
         descriptionTextView.textView.returnKeyType = .done
+        descriptionTextView.textView.enablesReturnKeyAutomatically = true
+        
+        readingListNameTextView.bringSubview(toFront: clearButton)
+        
         createReadingListButton.isEnabled = false
     }
     
@@ -49,12 +57,22 @@ class CreateReadingListViewController: UIViewController {
         }
         delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextView.textView.text)
     }
+    
+    @IBAction func clearButtonPressed() {
+        readingListNameTextView.textView.text = ""
+        updateClearButton()
+    }
+    
+    fileprivate func updateClearButton() {
+        clearButton.isHidden = readingListNameTextView.textView.text.isEmpty || !readingListNameTextView.textView.isFirstResponder
+    }
 }
 
 extension CreateReadingListViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         createReadingListButton.isEnabled = !readingListNameTextView.textView.text.isEmpty
+        updateClearButton()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -69,6 +87,10 @@ extension CreateReadingListViewController: UITextViewDelegate {
             return false
         }
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        updateClearButton()
     }
 }
 
@@ -89,6 +111,8 @@ extension CreateReadingListViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
+        
+        clearButton.tintColor = theme.colors.secondaryText
         
         createReadingListButton.apply(theme: theme)
        

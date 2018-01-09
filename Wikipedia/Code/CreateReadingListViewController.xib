@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateReadingListViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
+                <outlet property="clearButton" destination="1iV-gV-XcJ" id="Ppk-fo-cBc"/>
                 <outlet property="closeButton" destination="93B-kH-3f4" id="KbF-Q9-XfU"/>
                 <outlet property="createReadingListButton" destination="UtA-Zm-L74" id="fqQ-pX-Ptg"/>
                 <outlet property="descriptionLabel" destination="lCo-6s-4Lk" id="GEK-dQ-mTM"/>
@@ -58,7 +59,22 @@
                                         </label>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="64q-Uy-RKh" customClass="WMFThemeableTextView">
                                             <rect key="frame" x="0.0" y="19.5" width="234" height="44"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <subviews>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1iV-gV-XcJ" userLabel="Clear Button">
+                                                    <rect key="frame" x="204" y="11" width="32" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="FIg-BX-vjF"/>
+                                                    </constraints>
+                                                    <state key="normal" image="clear-mini"/>
+                                                    <connections>
+                                                        <action selector="clearButtonPressed" destination="-1" eventType="touchUpInside" id="Zbe-av-5HS"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="1iV-gV-XcJ" secondAttribute="trailingMargin" constant="6" id="Egi-3X-if0"/>
+                                                <constraint firstItem="1iV-gV-XcJ" firstAttribute="centerY" secondItem="64q-Uy-RKh" secondAttribute="centerY" id="KeI-RW-fiA"/>
+                                            </constraints>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -82,7 +98,6 @@
                                         </label>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="AQh-rT-vof" customClass="WMFThemeableTextView">
                                             <rect key="frame" x="0.0" y="19.5" width="234" height="44"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -160,6 +175,7 @@
         </view>
     </objects>
     <resources>
+        <image name="clear-mini" width="14" height="14"/>
         <image name="close" width="18" height="18"/>
     </resources>
 </document>
