@@ -20,12 +20,13 @@ class ThemeableTextView: SetupView {
         
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.setImage(UIImage(named: "clear-mini"), for: .normal)
+        clearButton.addTarget(self, action: #selector(clearButtonPressed), for: .touchUpInside)
         addSubview(clearButton)
         clearButton.isHidden = true
         let clearButtonWidthConstraint = clearButton.widthAnchor.constraint(equalToConstant: 32)
         clearButton.addConstraints([clearButtonWidthConstraint])
         
-        wmf_addSubview(textView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: underlineHeight, right: clearButtonWidthConstraint.constant))
+        wmf_addSubview(textView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: underlineHeight, right: clearButtonWidthConstraint.constant - 8))
         addSubview(underlineView)
         
         let leadingConstraint = leadingAnchor.constraint(equalTo: underlineView.leadingAnchor)
@@ -33,7 +34,7 @@ class ThemeableTextView: SetupView {
         let heightConstraint = underlineView.heightAnchor.constraint(equalToConstant: underlineHeight)
         let bottomConstraint = bottomAnchor.constraint(equalTo: underlineView.bottomAnchor)
         let centerYConstraint = clearButton.centerYAnchor.constraint(equalTo: textView.centerYAnchor)
-        let clearButtonTrailingConstraint = clearButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 6)
+        let clearButtonTrailingConstraint = clearButton.trailingAnchor.constraint(equalTo: trailingAnchor)
 
         addConstraints([leadingConstraint, trailingConstraint, bottomConstraint, clearButtonTrailingConstraint])
         underlineView.addConstraint(heightConstraint)
@@ -46,29 +47,29 @@ class ThemeableTextView: SetupView {
     }
     
     fileprivate func updateClearButton() {
-        guard showsClearButton else {
-            return
-        }
-        clearButton.isHidden = textView.text.isEmpty || !textView.isFirstResponder
+        clearButton.isHidden = showsClearButton ? textView.text.isEmpty : true
     }
     
     @objc fileprivate func clearButtonPressed() {
         textView.text = ""
-        updateClearButton()
+        textViewDidChange(textView)
     }
 
 }
 
 extension ThemeableTextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        updateClearButton()
         invalidateIntrinsicContentSize()
+        updateClearButton()
         textViewDelegate?.textViewDidChange?(textView)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        clearButton.isHidden = true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         updateClearButton()
-        textViewDelegate?.textViewDidBeginEditing?(textView)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
