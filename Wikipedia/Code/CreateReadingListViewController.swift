@@ -22,6 +22,9 @@ class CreateReadingListViewController: UIViewController {
         super.viewDidLoad()
         apply(theme: theme)
         readingListNameTextView.textView.delegate = self
+        descriptionTextView.textView.delegate = self
+        readingListNameTextView.textView.returnKeyType = .next
+        descriptionTextView.textView.returnKeyType = .done
         createReadingListButton.isEnabled = false
     }
     
@@ -41,21 +44,32 @@ class CreateReadingListViewController: UIViewController {
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        let description = descriptionTextView.textView.text
-        // The text has to be present for the button to be enabled.
-        let name = readingListNameTextView.textView.text!
-        
-        delegate?.createdNewReadingList(in: self, with: name, description: description)
+        guard let name = readingListNameTextView.textView.text else {
+            return
+        }
+        delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextView.textView.text)
     }
-    
 }
 
 extension CreateReadingListViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        createReadingListButton.isEnabled = !textView.text.isEmpty
+        createReadingListButton.isEnabled = !readingListNameTextView.textView.text.isEmpty
     }
-
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard text != "\n" else {
+            if !descriptionTextView.textView.isFirstResponder {
+                readingListNameTextView.textView.resignFirstResponder()
+                descriptionTextView.textView.becomeFirstResponder()
+            } else if !readingListNameTextView.textView.text.isEmpty {
+                descriptionTextView.textView.resignFirstResponder()
+                perform(#selector(createReadingListButtonPressed))
+            }
+            return false
+        }
+        return true
+    }
 }
 
 extension CreateReadingListViewController: Themeable {
