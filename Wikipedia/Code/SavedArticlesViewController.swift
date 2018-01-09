@@ -11,14 +11,15 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     var dataStore: MWKDataStore!
     
     fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore) {
+        sortActions.forEach { $0.setValue(false, forKey: "checked") }
+        sortActions[0].setValue(true, forKey: "checked")
+        
         let articleRequest = WMFArticle.fetchRequest()
         let basePredicate = NSPredicate(format: "savedDate != NULL")
-        check(true, action: sortActions.recentlyAdded.action)
         articleRequest.predicate = basePredicate
         if let searchString = searchString {
             let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
             articleRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
-            check(true, action: sortActions.title.action)
         }
         articleRequest.sortDescriptors = [sortDescriptor]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -125,38 +126,41 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         collectionView.reloadData()
     }
     
-    fileprivate func sort(by key: String, ascending: Bool) {
-        sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+    fileprivate func sort(by sortKey: SortKey) {
+        sortDescriptor = sortKey.action.descriptor
     }
     
-    typealias SortAction = (action: UIAlertAction, isChecked: Bool)
+    enum SortKey {
+        case title, recentlyAdded
+        
+        var action: SortAction {
+            switch self {
+            case .title:
+                return SortAction(sortKey: self, descriptor: NSSortDescriptor(key: "displayTitle", ascending: true))
+            case .recentlyAdded:
+                return SortAction(sortKey: self, descriptor: NSSortDescriptor(key: "savedDate", ascending: false))
+            }
+        }
+    }
     
-    fileprivate lazy var sortActions: (title: SortAction, recentlyAdded: SortAction) = {
-        let titleAlertAction = UIAlertAction(title: "Title", style: .default) { (action) in
-            self.sort(by: "displayTitle", ascending: true)
+    struct SortAction {
+        let sortKey: SortKey
+        let descriptor: NSSortDescriptor
+    }
+    
+    fileprivate lazy var sortActions: [UIAlertAction] = {
+        let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
+            self.sort(by: SortKey.title.action.sortKey)
         }
-        let titleSortAction = SortAction(action: titleAlertAction, isChecked: isChecked(titleAlertAction))
-        let recentlyAddedAlertAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
-            self.sort(by: "savedDate", ascending: false)
+        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
+            self.sort(by: SortKey.recentlyAdded.action.sortKey)
         }
-        let recentlyAddedSortAction = SortAction(action: recentlyAddedAlertAction, isChecked: isChecked(recentlyAddedAlertAction))
-        return (titleSortAction, recentlyAddedSortAction)
+        return [titleAction, recentlyAddedAction]
     }()
-    
-    fileprivate func isChecked(_ action: UIAlertAction) -> Bool {
-        return action.value(forKey: "checked") as? Bool ?? false
-    }
-    
-    fileprivate func check(_ checked: Bool, action: UIAlertAction) {
-        check(false, action: sortActions.title.action)
-        check(false, action: sortActions.recentlyAdded.action)
-        action.setValue(checked, forKey: "checked")
-    }
     
     fileprivate lazy var sortAlert: UIAlertController = {
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(sortActions.title.action)
-        alert.addAction(sortActions.recentlyAdded.action)
+        sortActions.forEach { alert.addAction($0) }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
             self.dismiss(animated: true, completion: nil)
         }
