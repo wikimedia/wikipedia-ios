@@ -67,8 +67,15 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                     do {
                         let localReadingLists = try moc.fetch(localReadingListsFetchRequest)
                         var listIDsToUpdate: [(Int64, ReadingList)] = []
+                        var localReadingListsToDelete: [Int64: ReadingList] = [:]
+                        for list in localReadingLists {
+                            guard let listID = list.readingListID else {
+                                continue
+                            }
+                            localReadingListsToDelete[listID.int64Value] = list
+                        }
                         for localReadingList in localReadingLists {
-                            guard let localID = localReadingList.readingListID, let remoteList = readingListsByID[localID.int64Value] else {
+                            guard let localID = localReadingList.readingListID else {
                                 group.enter()
                                 self.apiController.createList(name: localReadingList.name ?? "", description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
                                     if let listID = listID {
@@ -78,6 +85,12 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                                 })
                                 continue
                             }
+                            
+                            guard let remoteList = readingListsByID[localID.int64Value] else {
+                                continue
+                            }
+                            
+                            localReadingListsToDelete.removeValue(forKey: localID.int64Value)
                             readingListsByID.removeValue(forKey: remoteList.id)
                             localReadingList.update(with: remoteList)
                         }
@@ -92,6 +105,10 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                                 continue
                             }
                             localList.update(with: list)
+                        }
+                        
+                        for (_, list) in localReadingListsToDelete {
+                            moc.delete(list)
                         }
                         
                         guard moc.hasChanges else {
