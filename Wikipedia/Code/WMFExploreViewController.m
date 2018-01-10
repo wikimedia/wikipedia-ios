@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFAddArticleToReadingListToolbarViewControllerDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -62,8 +62,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 
-@property (nonatomic, strong) WMFAddArticleToReadingListToolbarViewController *readingListsToolbarViewController;
-@property (nonatomic, getter=isReadingListsToolbarVisible) BOOL readingListsToolbarVisible;
+@property (nonatomic, strong) WMFAddArticleToReadingListToolbarController *readingListsToolbarController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -79,10 +78,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     _userStore = userStore;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
-    // Removing old view if it exists.
-    [self removeReadingListToolbarViewController];
-    self.readingListsToolbarViewController = [[WMFAddArticleToReadingListToolbarViewController alloc] initWithDataStore:self.userStore];
-    self.readingListsToolbarViewController.delegate = self;
+    self.readingListsToolbarController = [[WMFAddArticleToReadingListToolbarController alloc] initWithDataStore:self.userStore owner:self];
 }
 
 - (void)dealloc {
@@ -2012,99 +2008,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
 }
 
-#pragma mark - Reading lists toolbar view
-
-- (void)setReadingListsToolbarVisible:(BOOL)readingListsToolbarVisible {
-    if (self.isReadingListsToolbarVisible == readingListsToolbarVisible) {
-        return;
-    }
-    _readingListsToolbarVisible = readingListsToolbarVisible;
-    if (readingListsToolbarVisible) {
-        [self addReadingListToolbarViewController];
-        [self performSelector:@selector(dismissReadingListsToolbar) withObject:self afterDelay:8];
-    } else {
-        [self removeReadingListToolbarViewController];
-    }
-}
-
-- (CGRect)readingListsToolbarFrame:(BOOL)visible {
-    CGFloat height = 50;
-    CGFloat y = visible ? self.view.bounds.size.height - height : self.view.bounds.size.height + height;
-    return CGRectMake(0, y, self.view.bounds.size.width, height);
-}
-
-- (void)setReadingListsToolbarVisible:(BOOL)visible animated:(BOOL)animated {
-    CGRect frame = [self readingListsToolbarFrame:visible];
-    if (animated) {
-        if (visible) {
-            self.readingListsToolbarVisible = visible;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                self.readingListsToolbarViewController.view.frame = [self readingListsToolbarFrame:NO];
-            });
-        }
-        [UIView animateWithDuration:0.4
-            delay:0
-            options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState
-            animations:^{
-                self.readingListsToolbarViewController.view.frame = frame;
-                [self.view setNeedsLayout];
-            }
-            completion:^(BOOL finished) {
-                if (!visible) {
-                    self.readingListsToolbarVisible = visible;
-                }
-            }];
-    }
-}
-
-- (void)dismissReadingListsToolbar {
-    [self setReadingListsToolbarVisible:NO animated:YES];
-}
-
-- (void)addReadingListToolbarViewController {
-    [self.readingListsToolbarViewController applyTheme:self.theme];
-    [self addChildViewController:self.readingListsToolbarViewController];
-    self.readingListsToolbarViewController.view.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:self.readingListsToolbarViewController.view];
-    [self.readingListsToolbarViewController didMoveToParentViewController:self];
-}
-
-- (void)removeReadingListToolbarViewController {
-    [self.readingListsToolbarViewController willMoveToParentViewController:nil];
-    [self.readingListsToolbarViewController.view removeFromSuperview];
-    [self.readingListsToolbarViewController removeFromParentViewController];
-    [self.readingListsToolbarViewController reset];
-}
-
 - (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
-    BOOL didSaveOtherArticle = (didSave && self.isReadingListsToolbarVisible && article != self.readingListsToolbarViewController.article);
-    BOOL didUnsaveOtherArticle = (!didSave && self.isReadingListsToolbarVisible && article != self.readingListsToolbarViewController.article);
-
-    if (didUnsaveOtherArticle) {
-        return;
-    }
-
-    if (didSaveOtherArticle) {
-        [self.readingListsToolbarViewController reset];
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissReadingListsToolbar) object:self];
-        [self performSelector:@selector(dismissReadingListsToolbar) withObject:self afterDelay:8];
-        self.readingListsToolbarViewController.article = article;
-        return;
-    }
-
-    self.readingListsToolbarViewController.article = article;
-    [self setReadingListsToolbarVisible:didSave animated:YES];
-}
-
-#pragma mark - WMFAddArticleToReadingListToolbarViewControllerDelegate
-
-- (void)viewControllerWillBeDismissed {
-    [self setReadingListsToolbarVisible:NO animated:YES];
-}
-
-- (void)addedArticleTo:(ReadingList *_Nonnull)readingList {
-    [self setReadingListsToolbarVisible:YES animated:YES];
+    [self.readingListsToolbarController didSave:didSave article:article];
 }
 
 #if DEBUG && DEBUG_CHAOS
