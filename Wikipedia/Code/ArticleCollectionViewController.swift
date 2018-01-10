@@ -263,4 +263,8 @@ extension ArticleCollectionViewController: ActionDelegate {
     }
 }
 
-
+extension ArticleCollectionViewController {
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        addArticleToReadingListToolbarController.didSave(didSave, articleURL: articleURL)
+    }
+}

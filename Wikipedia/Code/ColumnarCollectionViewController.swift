@@ -209,6 +209,10 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
 }
 
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        //
+    }
+    
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)
