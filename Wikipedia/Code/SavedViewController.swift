@@ -83,6 +83,7 @@ class SavedViewController: ViewController {
     
     fileprivate var isSearchBarHidden: Bool = false {
         didSet {
+            extendedNavBarView.isHidden = isSearchBarHidden
             if isSearchBarHidden {
                 NSLayoutConstraint.deactivate(searchBarConstraints)
             } else {
@@ -158,6 +159,7 @@ class SavedViewController: ViewController {
         batchEditToolbar.barTintColor = theme.colors.paperBackground
         batchEditToolbar.tintColor = theme.colors.link
         
+        underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
