@@ -65,9 +65,8 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
                     toolbar.view.frame = toolbarFrame.hidden
                 }
             }
-            // if the vc doesn't have toolbar items, we'd be hiding this toolbar
-            if owner.toolbarItems != nil {
-                owner.navigationController?.setToolbarHidden(visible, animated: animated)
+            if shouldHideExistingToolbar {
+                owner.navigationController?.setToolbarHidden(visible, animated: true)
             }
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 self.toolbar.view.frame = frame
@@ -81,9 +80,14 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
         }
     }
     
+    fileprivate lazy var shouldHideExistingToolbar: Bool = {
+        return owner.tabBarController?.tabBar.isHidden ?? true
+    }()
+    
     fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
-        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
-        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let existingTabBarHeight = (owner is WMFExploreViewController || shouldHideExistingToolbar) ? 0 : owner.tabBarController?.tabBar.frame.size.height ?? 0 // hax
+        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - existingTabBarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - existingTabBarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
         return (visible: visible, hidden: hidden)
     }()
     
