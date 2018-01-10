@@ -211,22 +211,17 @@ public class ReadingListsController: NSObject {
     }
     
     public func delete(readingLists: [ReadingList]) throws {
-        
         let moc = dataStore.viewContext
-        let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         
-        let names = readingLists.flatMap({ $0.name })
-        readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", names)
-        
-        let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
-        
-        for readingList in readingListsToDelete {
-            moc.delete(readingList)
+        for readingList in readingLists {
+            readingList.isDeletedLocally = true
         }
         
         if moc.hasChanges {
             try moc.save()
         }
+        
+        sync()
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
@@ -260,6 +255,10 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setupReadingLists() {
+        sync()
+    }
+    
+    fileprivate func sync() {
         let op = ReadingListSyncOperation(readingListsController: self)
         operationQueue.addOperation(op)
     }

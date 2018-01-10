@@ -23,9 +23,14 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        let basePredicate = NSPredicate(format: "isDeletedLocally == NO")
+        
         if let names = readingLists?.flatMap({ $0.name }) {
-            request.predicate = NSPredicate(format: "name IN %@", names)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"name IN %@", names)])
+        } else {
+            request.predicate = basePredicate
         }
+        
         request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "name", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {

@@ -144,7 +144,7 @@ class ReadingListsAPIController: NSObject {
          - error: Any error preventing list deletion
      */
     func deleteList(withListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
-        delete(path: "\(listID)/") { (result, response, error) in
+        delete(path: "\(listID)") { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return
@@ -163,7 +163,7 @@ class ReadingListsAPIController: NSObject {
         - error: Any error preventing list update
      */
     func updateList(withListID listID: Int64, name: String, description: String, completion: @escaping (_ error: Error?) -> Swift.Void ) {
-        put(path: "\(listID)/", bodyParameters: ["name": name, "description": description]) { (result, response, error) in
+        put(path: "\(listID)", bodyParameters: ["name": name, "description": description]) { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return
