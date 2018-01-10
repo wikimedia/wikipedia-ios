@@ -58,6 +58,7 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
         let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
         if animated {
             if visible {
+                // add toolbar before animation starts
                 isToolbarVisible = visible
                 // set initial frame
                 if toolbar.view.frame.origin.y == 0 {
@@ -69,6 +70,7 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
                 self.owner.view.setNeedsLayout()
             }, completion: { (_) in
                 if !visible {
+                    // remove toolbar after animation is completed
                     self.isToolbarVisible = visible
                 }
             })
