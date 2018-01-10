@@ -304,6 +304,7 @@
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";
+"reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
 "reading-lists-default-list-description" = "The description of the default saved pages list";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";

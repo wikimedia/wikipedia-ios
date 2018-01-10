@@ -78,6 +78,10 @@ class ReadingListsAPIController: NSObject {
         requestWithCSRF(path: path, method: .delete, completion: completion)
     }
     
+    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
+    }
+    
     @objc func setupReadingLists() {
         post(path: "setup") { (result, response, error) in
             
@@ -137,10 +141,29 @@ class ReadingListsAPIController: NSObject {
      - parameters:
          - listID: The list ID of the list to delete
          - completion: Called after the request completes
-         - error: Any error preventing entry creation
+         - error: Any error preventing list deletion
      */
     func deleteList(withListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
         delete(path: "\(listID)/") { (result, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completion(error ?? ReadingListError.unableToDeleteList)
+                return
+            }
+            completion(nil)
+        }
+    }
+    
+    /**
+     Updates a reading list using the reading list API
+     - parameters:
+        - listID: The list ID of the list to update
+        - name: The name of the list
+        - description: The description of the list
+        - completion: Called after the request completes
+        - error: Any error preventing list update
+     */
+    func updateList(withListID listID: Int64, name: String, description: String, completion: @escaping (_ error: Error?) -> Swift.Void ) {
+        put(path: "\(listID)/", bodyParameters: ["name": name, "description": description]) { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return

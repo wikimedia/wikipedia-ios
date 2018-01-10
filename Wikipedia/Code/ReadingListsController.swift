@@ -5,6 +5,7 @@ public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
     case unableToCreateList
     case unableToDeleteList
+    case unableToUpdateList
     case unableToAddEntry
     case listWithProvidedNameNotFound(name: String)
     
@@ -21,6 +22,8 @@ public enum ReadingListError: Error, Equatable {
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
         case .unableToDeleteList:
             return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occured while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
+        case .unableToUpdateList:
+            return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occured while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         }
@@ -66,19 +69,23 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                 self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
                     let group = WMFTaskGroup()
                     let localReadingListsFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-                    localReadingListsFetchRequest.predicate = NSPredicate(format: "isDefault == NO && isDeletedLocally == NO")
+                    localReadingListsFetchRequest.predicate = NSPredicate(format: "isDefault == NO")
                     do {
                         let localReadingLists = try moc.fetch(localReadingListsFetchRequest)
                         var listIDsToUpdate: [(Int64, ReadingList)] = []
                         var localReadingListsToDelete: [Int64: ReadingList] = [:]
+
                         for list in localReadingLists {
-                            guard let listID = list.readingListID else {
+                            guard let listID = list.readingListID?.int64Value else {
                                 continue
                             }
-                            localReadingListsToDelete[listID.int64Value] = list
+                            localReadingListsToDelete[listID] = list
                         }
+                        
+                        var localReadingListsToMarkLocallyUpdatedFalse: [Int64: ReadingList] = [:]
+                        
                         for localReadingList in localReadingLists {
-                            guard let localID = localReadingList.readingListID else {
+                            guard let readingListID = localReadingList.readingListID?.int64Value else {
                                 group.enter()
                                 self.apiController.createList(name: localReadingList.name ?? "", description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
                                     if let listID = listID {
@@ -89,13 +96,40 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                                 continue
                             }
                             
-                            guard let remoteList = readingListsByID[localID.int64Value] else {
+                            guard let remoteList = readingListsByID[readingListID] else {
                                 continue
                             }
                             
-                            localReadingListsToDelete.removeValue(forKey: localID.int64Value)
-                            readingListsByID.removeValue(forKey: remoteList.id)
-                            localReadingList.update(with: remoteList)
+                            readingListsByID.removeValue(forKey: readingListID)
+                            
+                            guard !localReadingList.isDeletedLocally else {
+                                group.enter()
+                                self.apiController.deleteList(withListID: readingListID, completion: { (error) in
+                                    if let error = error {
+                                        DDLogError("error deleting list with id: \(readingListID) error: \(error)")
+                                        localReadingListsToDelete.removeValue(forKey: readingListID)
+                                    }
+                                    group.leave()
+                                })
+                                continue
+                            }
+                            
+                            localReadingListsToDelete.removeValue(forKey: readingListID)
+                            
+                            if localReadingList.isUpdatedLocally {
+                                group.enter()
+                                localReadingListsToMarkLocallyUpdatedFalse[readingListID] = localReadingList
+                                self.apiController.updateList(withListID: readingListID, name: localReadingList.name ?? "", description: localReadingList.readingListDescription ?? "", completion: { (error) in
+                                    if let error = error {
+                                        DDLogError("error updating list with id: \(readingListID) error: \(error)")
+                                        localReadingListsToMarkLocallyUpdatedFalse.removeValue(forKey: readingListID)
+                                    }
+                                    group.leave()
+                                })
+                                localReadingList.isUpdatedLocally = false
+                            } else {
+                                localReadingList.update(with: remoteList)
+                            }
                         }
                         
                         group.wait()
@@ -108,6 +142,10 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                                 continue
                             }
                             localList.update(with: list)
+                        }
+                        
+                        for (_, list) in localReadingListsToMarkLocallyUpdatedFalse {
+                            list.isUpdatedLocally = false
                         }
                         
                         for (_, list) in localReadingListsToDelete {
