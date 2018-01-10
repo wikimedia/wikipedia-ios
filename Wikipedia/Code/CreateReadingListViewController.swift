@@ -50,7 +50,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        guard let name = readingListNameTextField.text else {
+        guard let name = readingListNameTextField.text, !name.isEmpty else {
             return
         }
         delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextField.text)
@@ -90,6 +90,9 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if readingListNameTextField.isFirstResponder {
             descriptionTextField.becomeFirstResponder()
+        }
+        if descriptionTextField.isFirstResponder {
+            createReadingListButtonPressed()
         }
         return true
     }
