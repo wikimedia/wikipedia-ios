@@ -21,10 +21,8 @@ class SavedViewController: ViewController {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet var extendedNavBarView: UIView!
+    @IBOutlet var underBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var searchBarHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBarBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet var toggleButtons: [UIButton]!
@@ -86,9 +84,7 @@ class SavedViewController: ViewController {
         didSet {
             searchBar.isHidden = isSearchBarHidden
             sortButton.isHidden = isSearchBarHidden
-            searchBarHeightConstraint.constant = isSearchBarHidden ? 0 : 36
-            searchBarTopConstraint.constant = isSearchBarHidden ? 0 : 15
-            searchBarBottomConstraint.constant = isSearchBarHidden ? 0 : 15
+            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
         }
     }
     
@@ -114,6 +110,7 @@ class SavedViewController: ViewController {
     
     override func viewDidLoad() {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
         currentView = .savedArticles
         

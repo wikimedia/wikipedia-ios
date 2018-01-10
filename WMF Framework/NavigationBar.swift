@@ -2,6 +2,7 @@
 public class NavigationBar: SetupView {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     public let bar: UINavigationBar = UINavigationBar()
+    public let underBarView: UIView = UIView() // this is always visible below the navigation bar
     public let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
@@ -31,6 +32,8 @@ public class NavigationBar: SetupView {
         bar.setItems(items, animated: false)
     }
     
+    fileprivate var underBarViewHeightConstraint: NSLayoutConstraint!
+    
     fileprivate var shadowHeightConstraint: NSLayoutConstraint!
     fileprivate var extendedViewHeightConstraint: NSLayoutConstraint!
 
@@ -50,6 +53,7 @@ public class NavigationBar: SetupView {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
         bar.translatesAutoresizingMaskIntoConstraints = false
+        underBarView.translatesAutoresizingMaskIntoConstraints = false
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
@@ -57,11 +61,12 @@ public class NavigationBar: SetupView {
         addSubview(backgroundView)
         addSubview(shadow)
         addSubview(extendedView)
+        addSubview(underBarView)
         addSubview(bar)
         addSubview(progressView)
         addSubview(statusBarUnderlay)
         
-        accessibilityElements = [extendedView, bar]
+        accessibilityElements = [extendedView, underBarView, bar]
 
         bar.delegate = self
         
@@ -92,10 +97,17 @@ public class NavigationBar: SetupView {
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
         let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
         
+        underBarViewHeightConstraint = underBarView.heightAnchor.constraint(equalToConstant: 0)
+        underBarView.addConstraint(underBarViewHeightConstraint)
+        
+        let underBarViewTopConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
+        let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
+        
         extendedViewHeightConstraint = extendedView.heightAnchor.constraint(equalToConstant: 0)
         extendedView.addConstraint(extendedViewHeightConstraint)
         
-        let extendedViewTopConstraint = bar.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
+        let extendedViewTopConstraint = underBarView.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
         let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
         let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
         
@@ -113,7 +125,7 @@ public class NavigationBar: SetupView {
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopConstraint, underBarViewLeadingConstraint, extendedViewTopConstraint, underBarViewTrailingConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
         addConstraints(updatedConstraints)
         
         setNavigationBarPercentHidden(0, extendedViewPercentHidden: 0, animated: false)
@@ -230,6 +242,12 @@ public class NavigationBar: SetupView {
     @objc public func addExtendedNavigationBarView(_ view: UIView) {
         extendedViewHeightConstraint.isActive = false
         extendedView.wmf_addSubviewWithConstraintsToEdges(view)
+    }
+    
+    
+    @objc public func addUnderNavigationBarView(_ view: UIView) {
+        underBarViewHeightConstraint.isActive = false
+        underBarView.wmf_addSubviewWithConstraintsToEdges(view)
     }
 }
 

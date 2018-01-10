@@ -68,7 +68,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // 
+        //
     }
 
 }
