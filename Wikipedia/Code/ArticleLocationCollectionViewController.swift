@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleLocationCollectionViewController)
 class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController!
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController?
     
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
     

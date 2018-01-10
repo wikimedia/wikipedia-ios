@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol ReadingListHintProvider: NSObjectProtocol {
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController! { get set }
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController? { get set }
 }
 
 protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {

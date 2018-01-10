@@ -9,10 +9,14 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
-    @objc var dataStore: MWKDataStore!
+    @objc var dataStore: MWKDataStore! {
+        didSet {
+            addArticleToReadingListToolbarController = AddArticleToReadingListToolbarController(dataStore: dataStore, owner: self)
+        }
+    }
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController!
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController?
     
     weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -22,8 +26,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
 
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
-        
-        addArticleToReadingListToolbarController = AddArticleToReadingListToolbarController(dataStore: dataStore, owner: self)
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -198,7 +200,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController.didSave(true, article: article)
+                    addArticleToReadingListToolbarController?.didSave(true, article: article)
                 }
                 return true
             }
@@ -207,7 +209,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController.didSave(false, article: article)
+                    addArticleToReadingListToolbarController?.didSave(false, article: article)
                 }
                 return true
             }
