@@ -25,8 +25,8 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         descriptionTextField.delegate = self
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
-        descriptionTextField.returnKeyType = .done
-        descriptionTextField.enablesReturnKeyAutomatically = true
+        
+//        descriptionTextField.enablesReturnKeyAutomatically = true
         
         readingListNameTextField.placeholder = "reading list title"
         descriptionTextField.placeholder = "optional short description"
@@ -58,9 +58,33 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     
+    fileprivate var isReadingListFieldEmpty: Bool {
+        return readingListNameTextField.text?.isEmpty ?? true
+    }
+    
+    fileprivate var isDescriptionFieldEmpty: Bool {
+        return descriptionTextField.text?.isEmpty ?? true
+    }
+    
     @IBAction func textFieldDidChange(_ textField: UITextField) {
-        let isEmpty = readingListNameTextField.text?.isEmpty ?? true
-        createReadingListButton.isEnabled = !isEmpty
+        createReadingListButton.isEnabled = !isReadingListFieldEmpty
+
+        showDoneReturnKeyIfNecessary()
+    }
+    
+    func showDoneReturnKeyIfNecessary() {
+        if !isReadingListFieldEmpty && !isDescriptionFieldEmpty {
+            descriptionTextField.returnKeyType = .done
+        } else {
+            descriptionTextField.returnKeyType = .default
+        }
+        if descriptionTextField.isFirstResponder {
+            descriptionTextField.resignFirstResponder()
+            descriptionTextField.becomeFirstResponder()
+        } else {
+            readingListNameTextField.resignFirstResponder()
+            readingListNameTextField.becomeFirstResponder()
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -72,13 +96,9 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         createReadingListButton.isEnabled = false
+        showDoneReturnKeyIfNecessary()
         return true
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //
-    }
-
 }
 
 extension CreateReadingListViewController: Themeable {

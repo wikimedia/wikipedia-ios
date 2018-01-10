@@ -90,6 +90,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="3PC-B1-aTN"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </stackView>
