@@ -64,6 +64,9 @@
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="Fbw-x7-Qcl"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>

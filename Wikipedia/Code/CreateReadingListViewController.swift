@@ -4,7 +4,7 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?)
 }
 
-class CreateReadingListViewController: UIViewController {
+class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var closeButton: UIButton!
     
@@ -21,15 +21,9 @@ class CreateReadingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
-        
-//        readingListNameTextView.delegate = self
-//        descriptionTextView.delegate = self
-//        readingListNameTextView.showsClearButton = true
-//
-//        readingListNameTextView.textView.returnKeyType = .next
-//        readingListNameTextView.textView.enablesReturnKeyAutomatically = true
-//        descriptionTextView.textView.returnKeyType = .done
-//        descriptionTextView.textView.enablesReturnKeyAutomatically = true
+        readingListNameTextField.delegate = self
+        readingListNameTextField.returnKeyType = .next
+        readingListNameTextField.enablesReturnKeyAutomatically = true
         
         createReadingListButton.isEnabled = false
     }
@@ -55,28 +49,22 @@ class CreateReadingListViewController: UIViewController {
         }
         delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextField.text)
     }
-}
+    
+    // MARK: - UITextFieldDelegate
+    
+    @IBAction func textFieldDidChange(_ textField: UITextField) {
+        let isEmpty = readingListNameTextField.text?.isEmpty ?? true
+        createReadingListButton.isEnabled = !isEmpty
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if readingListNameTextField.isFirstResponder {
+            descriptionTextField.becomeFirstResponder()
+        }
+        return true
+    }
 
-//extension CreateReadingListViewController: ThemeableTextViewDelegate {
-//
-//    func textViewDidChange(_ textView: UITextView) {
-//        createReadingListButton.isEnabled = !readingListNameTextView.textView.text.isEmpty
-//    }
-//
-//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        guard text != "\n" else {
-//            if !descriptionTextView.textView.isFirstResponder {
-//                readingListNameTextView.textView.resignFirstResponder()
-//                descriptionTextView.textView.becomeFirstResponder()
-//            } else if !readingListNameTextView.textView.text.isEmpty {
-//                descriptionTextView.textView.resignFirstResponder()
-//                perform(#selector(createReadingListButtonPressed))
-//            }
-//            return false
-//        }
-//        return true
-//    }
-//}
+}
 
 extension CreateReadingListViewController: Themeable {
     func apply(theme: Theme) {
