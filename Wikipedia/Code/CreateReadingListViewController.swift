@@ -22,8 +22,11 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         apply(theme: theme)
         readingListNameTextField.delegate = self
+        descriptionTextField.delegate = self
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
+        descriptionTextField.returnKeyType = .done
+        descriptionTextField.enablesReturnKeyAutomatically = true
         
         createReadingListButton.isEnabled = false
     }
@@ -62,6 +65,10 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
             descriptionTextField.becomeFirstResponder()
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // 
     }
 
 }
