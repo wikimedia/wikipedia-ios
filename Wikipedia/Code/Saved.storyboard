@@ -38,6 +38,7 @@
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="eby-nN-6Yg" id="VN4-EM-xv8"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
+                        <outlet property="separatorView" destination="YHx-oI-zV4" id="I7m-6y-sIv"/>
                         <outlet property="sortButton" destination="269-0y-zMz" id="2EB-vW-bIH"/>
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
@@ -101,6 +102,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHx-oI-zV4" userLabel="Separator View">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="cmT-II-Uxm"/>
+                            </constraints>
+                        </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-Fx-dME">
                             <rect key="frame" x="24" y="8" width="276" height="36"/>
                             <constraints>
@@ -122,7 +129,10 @@
                         <constraint firstItem="nj7-Fx-dME" firstAttribute="top" secondItem="ZLC-gE-F7n" secondAttribute="top" constant="8" id="7kR-eh-tKa"/>
                         <constraint firstItem="nj7-Fx-dME" firstAttribute="leading" secondItem="eby-nN-6Yg" secondAttribute="leadingMargin" constant="8" id="E0A-Ao-hGa"/>
                         <constraint firstAttribute="trailingMargin" secondItem="269-0y-zMz" secondAttribute="trailingMargin" constant="20" id="PXp-EW-wg3"/>
+                        <constraint firstItem="YHx-oI-zV4" firstAttribute="leading" secondItem="eby-nN-6Yg" secondAttribute="leading" id="Vds-kL-RUg"/>
+                        <constraint firstAttribute="trailing" secondItem="YHx-oI-zV4" secondAttribute="trailing" id="ePJ-X2-gvi"/>
                         <constraint firstItem="269-0y-zMz" firstAttribute="centerY" secondItem="nj7-Fx-dME" secondAttribute="centerY" id="jlo-bf-sL9"/>
+                        <constraint firstItem="YHx-oI-zV4" firstAttribute="top" secondItem="eby-nN-6Yg" secondAttribute="top" id="xw3-5y-tcA"/>
                         <constraint firstAttribute="bottomMargin" secondItem="nj7-Fx-dME" secondAttribute="bottom" constant="8" id="yFy-GN-5oz"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="ZLC-gE-F7n"/>

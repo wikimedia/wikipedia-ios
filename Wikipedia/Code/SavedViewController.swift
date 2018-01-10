@@ -26,6 +26,8 @@ class SavedViewController: ViewController {
     @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
     @IBOutlet weak var sortButton: UIButton!
     
+    @IBOutlet weak var separatorView: UIView!
+    
     @IBOutlet var toggleButtons: [UIButton]!
     
     // MARK: - Initalization and setup
@@ -172,6 +174,7 @@ class SavedViewController: ViewController {
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
+        separatorView.backgroundColor = theme.colors.border
     }
     
     // MARK: - Batch edit toolbar
