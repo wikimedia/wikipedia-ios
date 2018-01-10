@@ -35,13 +35,13 @@
                             <rect key="frame" x="16" y="0.0" width="288" height="294.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
-                                    <rect key="frame" x="31" y="30" width="132.5" height="20.5"/>
+                                    <rect key="frame" x="31" y="30" width="226" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93B-kH-3f4">
-                                    <rect key="frame" x="262" y="30" width="18" height="22"/>
+                                    <rect key="frame" x="265" y="30" width="16" height="22"/>
                                     <state key="normal" image="close"/>
                                     <connections>
                                         <action selector="closeButtonPressed:" destination="-1" eventType="touchUpInside" id="bid-pp-SZL"/>
@@ -57,7 +57,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pLi-n2-Obn" userLabel="Reading List Name Text Field" customClass="WMFThemeableTextField">
-                                            <rect key="frame" x="0.0" y="19.5" width="242" height="30"/>
+                                            <rect key="frame" x="8" y="19.5" width="234" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="Iwb-XE-O3d"/>
                                             </constraints>
@@ -71,7 +71,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="pLi-n2-Obn" secondAttribute="trailing" id="9hm-yy-FqF"/>
-                                        <constraint firstItem="pLi-n2-Obn" firstAttribute="leading" secondItem="vph-EY-NCY" secondAttribute="leading" id="JcI-cH-1P1"/>
+                                        <constraint firstItem="pLi-n2-Obn" firstAttribute="leading" secondItem="1mL-FN-xFB" secondAttribute="leading" id="F9F-TE-Mng"/>
                                         <constraint firstItem="1mL-FN-xFB" firstAttribute="top" secondItem="vph-EY-NCY" secondAttribute="top" id="SsJ-iJ-8V9"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="1mL-FN-xFB" secondAttribute="trailing" id="h8N-X6-wIz"/>
                                         <constraint firstAttribute="bottom" secondItem="pLi-n2-Obn" secondAttribute="bottom" id="isa-eb-0wx"/>
@@ -89,7 +89,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bd-dM-Z1B" userLabel="Description Text Field" customClass="WMFThemeableTextField">
-                                            <rect key="frame" x="0.0" y="19.5" width="242" height="30"/>
+                                            <rect key="frame" x="8" y="19.5" width="234" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="yMZ-JL-Ela"/>
                                             </constraints>
@@ -99,9 +99,9 @@
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="9bd-dM-Z1B" firstAttribute="leading" secondItem="oam-nO-8c3" secondAttribute="leading" id="2QT-vD-sea"/>
                                         <constraint firstItem="lCo-6s-4Lk" firstAttribute="top" secondItem="oam-nO-8c3" secondAttribute="top" id="6q7-2R-Crf"/>
                                         <constraint firstItem="9bd-dM-Z1B" firstAttribute="top" secondItem="lCo-6s-4Lk" secondAttribute="bottom" constant="5" id="AjE-W4-Qca"/>
+                                        <constraint firstItem="9bd-dM-Z1B" firstAttribute="leading" secondItem="lCo-6s-4Lk" secondAttribute="leading" id="HDR-fz-RXY"/>
                                         <constraint firstAttribute="trailing" secondItem="9bd-dM-Z1B" secondAttribute="trailing" id="PAb-DF-klf"/>
                                         <constraint firstItem="lCo-6s-4Lk" firstAttribute="leading" secondItem="oam-nO-8c3" secondAttribute="leadingMargin" id="Sm0-P7-bjd"/>
                                         <constraint firstAttribute="bottom" secondItem="9bd-dM-Z1B" secondAttribute="bottom" id="uMa-yN-mlq"/>
@@ -135,10 +135,14 @@
                                 <constraint firstAttribute="trailingMargin" secondItem="vph-EY-NCY" secondAttribute="trailing" constant="15" id="3Pw-An-0LE"/>
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="top" secondItem="oam-nO-8c3" secondAttribute="bottom" constant="30" id="3ou-sb-f7n"/>
                                 <constraint firstAttribute="bottom" secondItem="UtA-Zm-L74" secondAttribute="bottom" constant="20" id="CPy-AM-b7B"/>
+                                <constraint firstItem="oam-nO-8c3" firstAttribute="centerX" secondItem="vph-EY-NCY" secondAttribute="centerX" id="Jaf-Ih-FWc"/>
+                                <constraint firstItem="vph-EY-NCY" firstAttribute="centerX" secondItem="Rae-vX-ya2" secondAttribute="centerX" id="Lky-pj-3hg"/>
                                 <constraint firstItem="vph-EY-NCY" firstAttribute="leading" secondItem="tX4-ce-n7H" secondAttribute="leadingMargin" constant="15" id="MTC-LG-mHm"/>
                                 <constraint firstAttribute="width" constant="288" id="R2J-1Q-nIl">
                                     <variation key="heightClass=regular-widthClass=regular" constant="588"/>
                                 </constraint>
+                                <constraint firstItem="Rae-vX-ya2" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="T6d-BJ-pTr"/>
+                                <constraint firstItem="UtA-Zm-L74" firstAttribute="centerX" secondItem="oam-nO-8c3" secondAttribute="centerX" id="Uhw-eR-mrr"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="93B-kH-3f4" secondAttribute="trailingMargin" constant="8" id="XMD-Oq-X8d"/>
                                 <constraint firstItem="oam-nO-8c3" firstAttribute="leading" secondItem="vph-EY-NCY" secondAttribute="leading" id="Xf9-F7-Y6T"/>
                                 <constraint firstItem="Rae-vX-ya2" firstAttribute="leading" secondItem="1mL-FN-xFB" secondAttribute="leading" id="cu4-Xo-ezn"/>
