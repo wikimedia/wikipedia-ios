@@ -115,9 +115,7 @@ class SavedViewController: ViewController {
         currentView = .savedArticles
         
         searchBar.delegate = savedArticlesViewController
-        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
-        searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
         extendedLayoutIncludesOpaqueBars = true
