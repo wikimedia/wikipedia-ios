@@ -65,6 +65,10 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
                     toolbar.view.frame = toolbarFrame.hidden
                 }
             }
+            // if the vc doesn't have toolbar items, we'd be hiding this toolbar
+            if owner.toolbarItems != nil {
+                owner.navigationController?.setToolbarHidden(visible, animated: animated)
+            }
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 self.toolbar.view.frame = frame
                 self.owner.view.setNeedsLayout()

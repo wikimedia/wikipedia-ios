@@ -145,6 +145,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
+@property (nonatomic, strong) WMFAddArticleToReadingListToolbarController *readingListsToolbarController;
+
 @end
 
 @implementation WMFArticleViewController
@@ -167,6 +169,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
         self.dataStore = dataStore;
+        self.readingListsToolbarController = [[WMFAddArticleToReadingListToolbarController alloc] initWithDataStore:dataStore owner:self];
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
@@ -1264,6 +1267,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    [self.readingListsToolbarController didSave:isSaved article:article];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {

@@ -61,7 +61,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
-
 @property (nonatomic, strong) WMFAddArticleToReadingListToolbarController *readingListsToolbarController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
