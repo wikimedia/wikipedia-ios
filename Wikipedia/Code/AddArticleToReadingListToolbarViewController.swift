@@ -89,9 +89,14 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     }()
     
     fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
-        let existingTabBarHeight = (owner is WMFExploreViewController || shouldHideExistingToolbar) ? 0 : owner.tabBarController?.tabBar.frame.size.height ?? 0 // hax
-        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - existingTabBarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
-        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - existingTabBarHeight, width: owner.view.bounds.size.width, height: toolbarHeight)
+        var bottomInset: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottomInset = owner.view.safeAreaInsets.bottom
+        } else {
+            bottomInset = owner.bottomLayoutGuide.length
+        }
+        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
         return (visible: visible, hidden: hidden)
     }()
     

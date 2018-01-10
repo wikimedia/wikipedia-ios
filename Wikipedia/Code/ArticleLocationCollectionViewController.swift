@@ -1,7 +1,9 @@
 import UIKit
 
 @objc(WMFArticleLocationCollectionViewController)
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController!
+    
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
     
     var articleURLs: [URL] {
@@ -25,6 +27,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController 
     override func viewDidLoad() {
         super.viewDidLoad()
         register(WMFNearbyArticleCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: ArticleLocationCollectionViewController.cellReuseIdentifier)
+        addArticleToReadingListToolbarController = AddArticleToReadingListToolbarController(dataStore: dataStore, owner: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
