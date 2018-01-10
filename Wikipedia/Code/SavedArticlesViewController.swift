@@ -12,10 +12,11 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore) {
         // hax
-        sortActions.title.setValue(false, forKey: "checked")
-        sortActions.recentlyAdded.setValue(false, forKey: "checked")
+        let checkedKey = "checked"
+        sortActions.title.setValue(false, forKey: checkedKey)
+        sortActions.recentlyAdded.setValue(false, forKey: checkedKey)
         let checkedAction = sort.action ?? sortActions.recentlyAdded
-        checkedAction.setValue(true, forKey: "checked")
+        checkedAction.setValue(true, forKey: checkedKey)
         
         let articleRequest = WMFArticle.fetchRequest()
         let basePredicate = NSPredicate(format: "savedDate != NULL")
@@ -141,8 +142,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     fileprivate lazy var sortAlert: UIAlertController = {
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(sortActions.title)
         alert.addAction(sortActions.recentlyAdded)
+        alert.addAction(sortActions.title)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
             self.dismiss(animated: true, completion: nil)
         }
