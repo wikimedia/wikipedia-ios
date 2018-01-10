@@ -70,6 +70,11 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        createReadingListButton.isEnabled = false
+        return true
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //
     }
