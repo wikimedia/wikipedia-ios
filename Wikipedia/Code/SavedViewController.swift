@@ -23,7 +23,6 @@ class SavedViewController: ViewController {
     @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet var underBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet var toggleButtons: [UIButton]!
@@ -83,13 +82,9 @@ class SavedViewController: ViewController {
     
     fileprivate var isSearchBarHidden: Bool = false {
         didSet {
-            extendedNavBarView.isHidden = isSearchBarHidden
-            if isSearchBarHidden {
-                NSLayoutConstraint.deactivate(searchBarConstraints)
-            } else {
-                NSLayoutConstraint.activate(searchBarConstraints)
-            }
             navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
+            readingListsViewController?.updateScrollViewInsets()
+            savedArticlesViewController.updateScrollViewInsets()
         }
     }
     

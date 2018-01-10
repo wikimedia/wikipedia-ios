@@ -42,9 +42,6 @@
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
                         <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
-                        <outletCollection property="searchBarConstraints" destination="cRy-oU-bgr" collectionClass="NSMutableArray" id="oX9-cY-dQN"/>
-                        <outletCollection property="searchBarConstraints" destination="7kR-eh-tKa" collectionClass="NSMutableArray" id="KEL-eM-VJS"/>
-                        <outletCollection property="searchBarConstraints" destination="yFy-GN-5oz" collectionClass="NSMutableArray" id="9b5-7E-wav"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -3,6 +3,7 @@ import WMF
 
 class ViewController: UIViewController, Themeable {
     var theme: Theme = Theme.standard
+    var areScrollViewInsetsDeterminedByVisibleHeight: Bool = false
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -110,8 +111,8 @@ class ViewController: UIViewController, Themeable {
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
-
-        var top = frame.maxY
+        
+        var top = areScrollViewInsetsDeterminedByVisibleHeight ? navigationBar.visibleHeight : frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
