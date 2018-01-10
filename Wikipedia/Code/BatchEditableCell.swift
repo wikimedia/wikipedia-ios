@@ -8,7 +8,7 @@ import UIKit
     @objc optional func emptyStateDidChange(_ empty: Bool)
 }
 
-public class BatchEditSelectView: SizeThatFitsView, Themeable {
+public class BatchEditSelectView: SizeThatFitsView {
     
     fileprivate var multiSelectIndicator: UIImageView?
     
@@ -28,7 +28,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     }
     
     fileprivate func updateMultiSelectIndicatorImage() {
-        let image = isSelected ? UIImage(named: "add-to-list", in: Bundle.main, compatibleWith: nil) : UIImage(named: "add-language", in: Bundle.main, compatibleWith: nil)
+        let image = isSelected ? UIImage(named: "selected", in: Bundle.main, compatibleWith: nil) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
         multiSelectIndicator?.image = image
     }
     
@@ -64,10 +64,6 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
 
         backgroundColor = multiSelectIndicator.backgroundColor
         setNeedsLayout()
-    }
-    
-    public func apply(theme: Theme) {
-        multiSelectIndicator?.tintColor = theme.colors.link
     }
 
 }
