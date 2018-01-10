@@ -28,6 +28,9 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         descriptionTextField.returnKeyType = .done
         descriptionTextField.enablesReturnKeyAutomatically = true
         
+        readingListNameTextField.placeholder = "reading list title"
+        descriptionTextField.placeholder = "optional short description"
+        
         createReadingListButton.isEnabled = false
     }
     
