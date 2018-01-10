@@ -6,6 +6,7 @@ public class Session {
             case get
             case post
             case put
+            case delete
 
             var stringValue: String {
                 switch self {
@@ -13,6 +14,8 @@ public class Session {
                     return "POST"
                 case .put:
                     return "PUT"
+                case .delete:
+                    return "DELETE"
                 case .get:
                     fallthrough
                 default:

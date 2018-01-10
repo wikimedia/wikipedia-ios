@@ -45,7 +45,7 @@ class ReadingListsAPIController: NSObject {
     fileprivate let host = "en.wikipedia.org"
     fileprivate let scheme = "https"
     
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         var components = URLComponents()
         components.host = host
         components.scheme = scheme
@@ -57,7 +57,7 @@ class ReadingListsAPIController: NSObject {
         
         let fullPath = basePath.appending(path)
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
-            self.session.jsonDictionaryTask(host: self.host, method: .post, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
+            self.session.jsonDictionaryTask(host: self.host, method: method, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
                 completion(result, response, error)
                 }?.resume()
         }) { (failure) in
@@ -65,11 +65,18 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
+    }
+    
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable  {
         let fullPath = basePath.appending(path)
         session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: completionHandler)?.resume()
     }
     
+    fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        requestWithCSRF(path: path, method: .delete, completion: completion)
+    }
     
     @objc func setupReadingLists() {
         post(path: "setup") { (result, response, error) in
@@ -82,7 +89,6 @@ class ReadingListsAPIController: NSObject {
             
         }
     }
-    
     
     /**
      Creates a new reading list using the reading list API
@@ -123,6 +129,23 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             completion(id, nil)
+        }
+    }
+    
+    /**
+     Deletes a reading list using the reading list API
+     - parameters:
+         - listID: The list ID of the list to delete
+         - completion: Called after the request completes
+         - error: Any error preventing entry creation
+     */
+    func deleteList(withListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
+        delete(path: "\(listID)/") { (result, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completion(error ?? ReadingListError.unableToDeleteList)
+                return
+            }
+            completion(nil)
         }
     }
     

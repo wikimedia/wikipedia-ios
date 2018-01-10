@@ -4,6 +4,7 @@ import Foundation
 public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
     case unableToCreateList
+    case unableToDeleteList
     case unableToAddEntry
     case listWithProvidedNameNotFound(name: String)
     
@@ -18,6 +19,8 @@ public enum ReadingListError: Error, Equatable {
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
+        case .unableToDeleteList:
+            return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occured while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         }
