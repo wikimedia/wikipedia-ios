@@ -288,8 +288,8 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
         tabBarController?.tabBar.isHidden = isVisible
     }
     
-    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
-        if add {
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
+        if visible {
             batchEditToolbar.items = items
             view.addSubview(batchEditToolbar)
             let bottomConstraint = view.bottomAnchor.constraint(equalTo: batchEditToolbar.bottomAnchor)

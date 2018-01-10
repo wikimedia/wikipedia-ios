@@ -4,7 +4,7 @@ import UIKit
     func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem)
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
     var batchEditToolbar: UIToolbar { get }
-    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool)
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
     @objc optional func emptyStateDidChange(_ empty: Bool)
 }
 
