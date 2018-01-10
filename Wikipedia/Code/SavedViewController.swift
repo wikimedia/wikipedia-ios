@@ -1,7 +1,7 @@
 import UIKit
 
-@objc public protocol SavedViewControllerDelegate: NSObjectProtocol {
-    @objc func didPressSortButton()
+public protocol SavedViewControllerDelegate: NSObjectProtocol {
+    func didPressSortButton()
 }
 
 @objc(WMFSavedViewController)
@@ -182,9 +182,12 @@ class SavedViewController: ViewController {
 
 extension SavedViewController: BatchEditNavigationDelegate {
 
-    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
-        sortButton.isEnabled = isCancelledOrNone
+        sortButton.isEnabled = editingState == .cancelled || editingState == .none
+        if editingState == .open && searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
+        }
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {

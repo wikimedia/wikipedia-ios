@@ -414,8 +414,7 @@ extension SavedArticlesViewController: ActionDelegate {
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    
-    @objc func didPressSortButton() {
+    func didPressSortButton() {
         present(sortAlert, animated: true, completion: nil)
     }
 }
@@ -461,7 +460,11 @@ extension SavedArticlesViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedArticlesViewController: BatchEditNavigationDelegate {
-    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+    func emptyStateDidChange(_ empty: Bool) {
+        //
+    }
+    
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     
@@ -487,13 +490,13 @@ extension SavedArticlesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             searchString = nil
-            // Calling .resignFirstResponder() directly is not enough. https://stackoverflow.com/a/2823182/4574147
             perform(#selector(dismisKeyboard(for:)), with: searchBar, afterDelay: 0)
         } else {
             searchString = searchText
         }
     }
     
+    // Calling .resignFirstResponder() directly is not enough. https://stackoverflow.com/a/2823182/4574147
     @objc fileprivate func dismisKeyboard(for searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }

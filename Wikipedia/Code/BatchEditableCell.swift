@@ -1,11 +1,11 @@
 import UIKit
 
-@objc public protocol BatchEditNavigationDelegate: NSObjectProtocol {
-    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem)
+public protocol BatchEditNavigationDelegate: NSObjectProtocol {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem)
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
     var batchEditToolbar: UIToolbar { get }
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
-    @objc optional func emptyStateDidChange(_ empty: Bool)
+    func emptyStateDidChange(_ empty: Bool)
 }
 
 public class BatchEditSelectView: SizeThatFitsView {
