@@ -1267,8 +1267,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
-    [self.readingListsToolbarController didSave:isSaved article:article];
+    [self.readingListsToolbarController didSave:isSaved articleURL:self.articleURL];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
@@ -1785,13 +1784,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
-                                     // No need to have articlePreviewingActionsDelegate method for saving since saving doesn't require presenting anything.
                                      if ([self.savedPages isSaved:self.articleURL]) {
                                          [self.savedPages removeEntryWithURL:self.articleURL];
                                          UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [WMFCommonStrings accessibilityUnsavedNotification]);
+                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:NO articleURL:self.articleURL];
                                      } else {
                                          [self.savedPages addSavedPageWithURL:self.articleURL];
                                          UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [WMFCommonStrings accessibilitySavedNotification]);
+                                         [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:YES articleURL:self.articleURL];
                                      }
                                  }];
 

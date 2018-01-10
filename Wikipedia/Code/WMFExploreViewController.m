@@ -1576,6 +1576,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
+- (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
+    [self.readingListsToolbarController didSave:didSave articleURL:articleURL];
+}
+
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [articleController wmf_removePeekableChildViewControllers];

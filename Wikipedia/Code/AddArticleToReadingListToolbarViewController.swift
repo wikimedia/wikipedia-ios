@@ -111,6 +111,13 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
         setToolbar(visible: didSave, animated: true)
     }
     
+    @objc func didSave(_ saved: Bool, articleURL: URL) {
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
+            return
+        }
+        didSave(saved, article: article)
+    }
+    
     // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
