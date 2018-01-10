@@ -1,12 +1,16 @@
 import UIKit
 
+@objc public protocol ReadingListHintProvider: NSObjectProtocol {
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController! { get set }
+}
+
 protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
     func addedArticleToReadingList()
 }
 
 @objc(WMFAddArticleToReadingListToolbarController)
-class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingListToolbarViewControllerDelegate {
+public class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingListToolbarViewControllerDelegate {
 
     fileprivate let dataStore: MWKDataStore
     fileprivate let owner: UIViewController

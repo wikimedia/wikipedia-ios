@@ -8,7 +8,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
@@ -260,11 +260,5 @@ extension ArticleCollectionViewController: ActionDelegate {
             }
             cell.actions = availableActions(at: indexPath)
         }
-    }
-}
-
-extension ArticleCollectionViewController {
-    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        addArticleToReadingListToolbarController.didSave(didSave, articleURL: articleURL)
     }
 }

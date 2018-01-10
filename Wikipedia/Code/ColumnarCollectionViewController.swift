@@ -208,9 +208,12 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     }
 }
 
+// MARK: - WMFArticlePreviewingActionsDelegate
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        //
+        if let hintProvider = self as? ReadingListHintProvider {
+            hintProvider.addArticleToReadingListToolbarController.didSave(didSave, articleURL: articleURL)
+        }
     }
     
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
