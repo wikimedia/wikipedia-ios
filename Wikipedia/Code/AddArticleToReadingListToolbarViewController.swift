@@ -57,9 +57,13 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
     func setToolbar(visible: Bool, animated: Bool) {
         let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
         if animated {
-            isToolbarVisible = visible
-            // dispatch once to make sure animation doesn't start at a random spot
-            toolbar.view.frame = toolbarFrame.hidden
+            if visible {
+                isToolbarVisible = visible
+                // set initial frame
+                if toolbar.view.frame.origin.y == 0 {
+                    toolbar.view.frame = toolbarFrame.hidden
+                }
+            }
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 self.toolbar.view.frame = frame
                 self.owner.view.setNeedsLayout()
