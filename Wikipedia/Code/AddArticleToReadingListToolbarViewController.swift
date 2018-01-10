@@ -5,6 +5,16 @@ protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol 
     func addedArticle(to readingList: ReadingList)
 }
 
+extension AddArticleToReadingListToolbarViewControllerDelegate {
+    func viewControllerWillBeDismissed() {
+        print("viewControllerWillBeDismissed")
+    }
+    
+    func addedArticle(to readingList: ReadingList) {
+        print("addedArticle")
+    }
+}
+
 @objc(WMFAddArticleToReadingListToolbarController)
 class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingListToolbarViewControllerDelegate {
 
@@ -95,16 +105,6 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
         
         toolbar.article = article
         setToolbar(visible: didSave, animated: true)
-    }
-    
-    // MARK: AddArticleToReadingListToolbarViewControllerDelegate
-    
-    func viewControllerWillBeDismissed() {
-        print("viewControllerWillBeDismissed")
-    }
-    
-    func addedArticle(to readingList: ReadingList) {
-        print("addedArticle")
     }
 }
 
