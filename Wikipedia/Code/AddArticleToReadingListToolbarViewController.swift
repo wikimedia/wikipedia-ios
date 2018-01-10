@@ -2,17 +2,7 @@ import UIKit
 
 protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
-    func addedArticle(to readingList: ReadingList)
-}
-
-extension AddArticleToReadingListToolbarViewControllerDelegate {
-    func viewControllerWillBeDismissed() {
-        print("viewControllerWillBeDismissed")
-    }
-    
-    func addedArticle(to readingList: ReadingList) {
-        print("addedArticle")
-    }
+    func addedArticleToReadingList()
 }
 
 @objc(WMFAddArticleToReadingListToolbarController)
@@ -106,6 +96,16 @@ class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingLis
         toolbar.article = article
         setToolbar(visible: didSave, animated: true)
     }
+    
+    // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
+    
+    func viewControllerWillBeDismissed() {
+        self.setToolbar(visible: false, animated: true)
+    }
+    
+    func addedArticleToReadingList() {
+        self.setToolbar(visible: true, animated: true)
+    }
 }
 
 @objc(WMFAddArticleToReadingListToolbarViewController)
@@ -186,7 +186,7 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        delegate?.addedArticle(to: readingList)
+        delegate?.addedArticleToReadingList()
     }
 }
 
