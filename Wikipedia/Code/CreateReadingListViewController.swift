@@ -4,15 +4,15 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
     func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?)
 }
 
-class CreateReadingListViewController: UIViewController {
+class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var closeButton: UIButton!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var readingListNameTextView: ThemeableTextView!
-    @IBOutlet weak var descriptionTextView: ThemeableTextView!
+    @IBOutlet weak var readingListNameTextField: ThemeableTextField!
+    @IBOutlet weak var descriptionTextField: ThemeableTextField!
     
     @IBOutlet weak var createReadingListButton: WMFAuthButton!
     
@@ -21,15 +21,12 @@ class CreateReadingListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
-        
-        readingListNameTextView.delegate = self
-        descriptionTextView.delegate = self
-        readingListNameTextView.showsClearButton = true
-        
-        readingListNameTextView.textView.returnKeyType = .next
-        readingListNameTextView.textView.enablesReturnKeyAutomatically = true
-        descriptionTextView.textView.returnKeyType = .done
-        descriptionTextView.textView.enablesReturnKeyAutomatically = true
+        readingListNameTextField.delegate = self
+        descriptionTextField.delegate = self
+        readingListNameTextField.returnKeyType = .next
+        readingListNameTextField.enablesReturnKeyAutomatically = true
+        descriptionTextField.returnKeyType = .done
+        descriptionTextField.enablesReturnKeyAutomatically = true
         
         createReadingListButton.isEnabled = false
     }
@@ -50,32 +47,30 @@ class CreateReadingListViewController: UIViewController {
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        guard let name = readingListNameTextView.textView.text else {
+        guard let name = readingListNameTextField.text else {
             return
         }
-        delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextView.textView.text)
-    }
-}
-
-extension CreateReadingListViewController: ThemeableTextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        createReadingListButton.isEnabled = !readingListNameTextView.textView.text.isEmpty
+        delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextField.text)
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard text != "\n" else {
-            if !descriptionTextView.textView.isFirstResponder {
-                readingListNameTextView.textView.resignFirstResponder()
-                descriptionTextView.textView.becomeFirstResponder()
-            } else if !readingListNameTextView.textView.text.isEmpty {
-                descriptionTextView.textView.resignFirstResponder()
-                perform(#selector(createReadingListButtonPressed))
-            }
-            return false
+    // MARK: - UITextFieldDelegate
+    
+    @IBAction func textFieldDidChange(_ textField: UITextField) {
+        let isEmpty = readingListNameTextField.text?.isEmpty ?? true
+        createReadingListButton.isEnabled = !isEmpty
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if readingListNameTextField.isFirstResponder {
+            descriptionTextField.becomeFirstResponder()
         }
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // 
+    }
+
 }
 
 extension CreateReadingListViewController: Themeable {
@@ -89,8 +84,8 @@ extension CreateReadingListViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         
-        readingListNameTextView.apply(theme: theme)
-        descriptionTextView.apply(theme: theme)
+        readingListNameTextField.apply(theme: theme)
+        descriptionTextField.apply(theme: theme)
         
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText

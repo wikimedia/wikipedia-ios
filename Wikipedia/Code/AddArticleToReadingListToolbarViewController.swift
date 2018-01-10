@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol ReadingListHintProvider: NSObjectProtocol {
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController! { get set }
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController? { get set }
 }
 
 protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
@@ -89,12 +89,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     }()
     
     fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
-        var bottomInset: CGFloat = 0
-        if #available(iOS 11.0, *) {
-            bottomInset = owner.view.safeAreaInsets.bottom
-        } else {
-            bottomInset = owner.bottomLayoutGuide.length
-        }
+        let bottomInset = owner is WMFViewController ? 0 : owner.bottomLayoutGuide.length
         let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
         let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
         return (visible: visible, hidden: hidden)

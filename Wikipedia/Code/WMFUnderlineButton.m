@@ -6,6 +6,7 @@ IB_DESIGNABLE
 
 @property (nonatomic, strong) UIView *underline;
 @property (nonatomic) IBInspectable CGFloat underlineHeight;
+@property (nonatomic) IBInspectable BOOL useDefaultFont;
 
 @end
 
@@ -26,8 +27,19 @@ IB_DESIGNABLE
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self inspectableDefaults];
+    }
+    return self;
+}
+
 - (void)configureStyle {
-    self.titleLabel.font = [UIFont wmf_subtitle];
+    if (self.useDefaultFont) {
+        self.titleLabel.font = [UIFont wmf_subtitle];
+    }
     [self addUnderline];
     [self setTitleColor:self.tintColor forState:UIControlStateSelected];
 }
@@ -39,7 +51,7 @@ IB_DESIGNABLE
 }
 
 - (void)addUnderline {
-    CGFloat underlineHeight = self.underlineHeight ? self.underlineHeight : 1.0;
+    CGFloat underlineHeight = self.underlineHeight;
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
     v.frame = CGRectMake(0, self.bounds.size.height - underlineHeight, self.bounds.size.width, underlineHeight);
@@ -56,6 +68,11 @@ IB_DESIGNABLE
     } else {
         self.underline.alpha = 0.0;
     }
+}
+
+- (void)inspectableDefaults {
+    _useDefaultFont = YES;
+    _underlineHeight = 1.0;
 }
 
 @end

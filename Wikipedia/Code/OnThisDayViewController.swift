@@ -5,7 +5,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController!
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController?
     
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
