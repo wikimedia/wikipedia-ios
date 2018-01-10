@@ -32,7 +32,7 @@
                     <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-ce-n7H" userLabel="Content View">
-                            <rect key="frame" x="16" y="0.0" width="288" height="234.5"/>
+                            <rect key="frame" x="16" y="0.0" width="288" height="294.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
                                     <rect key="frame" x="78" y="30" width="132.5" height="20.5"/>
@@ -128,6 +128,7 @@
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="width" secondItem="Nyk-1i-Eum" secondAttribute="width" id="9Lv-ml-01l"/>
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="top" secondItem="Nyk-1i-Eum" secondAttribute="bottom" constant="30" id="FxV-hW-Yvp"/>
                                 <constraint firstItem="Nyk-1i-Eum" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="G7J-8s-fAn"/>
+                                <constraint firstAttribute="bottom" secondItem="UtA-Zm-L74" secondAttribute="bottom" constant="20" id="J1i-Q2-u3d"/>
                                 <constraint firstAttribute="width" constant="288" id="R2J-1Q-nIl">
                                     <variation key="heightClass=regular-widthClass=regular" constant="588"/>
                                 </constraint>
@@ -137,7 +138,6 @@
                                 <constraint firstItem="93B-kH-3f4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rae-vX-ya2" secondAttribute="trailing" constant="8" id="g7a-Ps-bNY"/>
                                 <constraint firstItem="93B-kH-3f4" firstAttribute="centerY" secondItem="Rae-vX-ya2" secondAttribute="centerY" id="jkh-7x-Hfx"/>
                                 <constraint firstItem="Nyk-1i-Eum" firstAttribute="top" secondItem="Rae-vX-ya2" secondAttribute="bottom" constant="30" id="seb-q4-Ra9"/>
-                                <constraint firstAttribute="bottom" secondItem="Nyk-1i-Eum" secondAttribute="bottom" constant="30" id="yUX-o4-9wU"/>
                                 <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="zDF-Av-3Tt"/>
                             </constraints>
                         </view>
