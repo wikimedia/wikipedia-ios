@@ -4,7 +4,6 @@ import Foundation
 class ReadingListsViewController: ColumnarCollectionViewController {
     
     let dataStore: MWKDataStore
-    let managedObjectContext: NSManagedObjectContext
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
@@ -22,13 +21,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
     
-    func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
+    func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         if let names = readingLists?.flatMap({ $0.name }) {
             request.predicate = NSPredicate(format: "name IN %@", names)
         }
-        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: key, ascending: ascending)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "name", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
         } catch let error {
@@ -39,7 +38,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     init(with dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        self.managedObjectContext = dataStore.viewContext
         self.readingListsController = dataStore.readingListsController
         super.init()
     }
@@ -62,7 +60,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupFetchedResultsControllerOrdered(by: "name", ascending: true)
+        setupFetchedResultsController()
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
 

@@ -8,10 +8,11 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController!
     
     weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -21,6 +22,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
 
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        
+        addArticleToReadingListToolbarController = AddArticleToReadingListToolbarController(dataStore: dataStore, owner: self)
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -194,12 +197,18 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
+                if let article = article(at: indexPath) {
+                    addArticleToReadingListToolbarController.didSave(true, article: article)
+                }
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+                if let article = article(at: indexPath) {
+                    addArticleToReadingListToolbarController.didSave(false, article: article)
+                }
                 return true
             }
         case .share:
@@ -253,5 +262,3 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
     }
 }
-
-

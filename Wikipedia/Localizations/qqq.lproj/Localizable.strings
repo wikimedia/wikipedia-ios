@@ -334,7 +334,7 @@
 "search-recent-title" = "Title for list of recent search terms";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "search-title" = "Title for search interface.\n{{Identical|Search}}";
-"settings-appearance" = "Title for button letting user choose appearance settings.";
+"settings-appearance" = "Title for button letting user customize reading preferences.";
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";

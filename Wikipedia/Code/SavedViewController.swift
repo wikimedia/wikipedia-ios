@@ -188,8 +188,8 @@ extension SavedViewController: BatchEditNavigationDelegate {
         tabBarController?.tabBar.isHidden = isVisible
     }
     
-    func createBatchEditToolbar(with items: [UIBarButtonItem], add: Bool) {
-        if add {
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
+        if visible {
             batchEditToolbar.items = items
             view.addSubview(batchEditToolbar)
         } else {

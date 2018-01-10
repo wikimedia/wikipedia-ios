@@ -1,9 +1,141 @@
 import UIKit
 
-@objc(WMFAddArticleToReadingListToolbarViewControllerDelegate)
-public protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
+@objc public protocol ReadingListHintProvider: NSObjectProtocol {
+    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController! { get set }
+}
+
+protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
-    func addedArticle(to readingList: ReadingList)
+    func addedArticleToReadingList()
+}
+
+@objc(WMFAddArticleToReadingListToolbarController)
+public class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingListToolbarViewControllerDelegate {
+
+    fileprivate let dataStore: MWKDataStore
+    fileprivate let owner: UIViewController
+    fileprivate let toolbar: AddArticleToReadingListToolbarViewController
+    fileprivate let toolbarHeight: CGFloat = 50
+    
+    fileprivate var isToolbarVisible = false {
+        didSet {
+            guard isToolbarVisible != oldValue else {
+                return
+            }
+            if isToolbarVisible {
+                addToolbar()
+                perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+            } else {
+                removeToolbar()
+            }
+        }
+    }
+    
+    @objc init(dataStore: MWKDataStore, owner: UIViewController) {
+        self.dataStore = dataStore
+        self.owner = owner
+        self.toolbar = AddArticleToReadingListToolbarViewController(dataStore: dataStore)
+        super.init()
+        self.toolbar.delegate = self
+    }
+    
+    func removeToolbar() {
+        toolbar.willMove(toParentViewController: nil)
+        toolbar.view.removeFromSuperview()
+        toolbar.removeFromParentViewController()
+        toolbar.reset()
+    }
+    
+    func addToolbar() {
+        // apply theme
+        owner.addChildViewController(toolbar)
+        toolbar.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        owner.view.addSubview(toolbar.view)
+        toolbar.didMove(toParentViewController: owner)
+    }
+    
+    @objc func dismissToolbar() {
+        setToolbar(visible: false, animated: true)
+    }
+    
+    func setToolbar(visible: Bool, animated: Bool) {
+        let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
+        if animated {
+            if visible {
+                // add toolbar before animation starts
+                isToolbarVisible = visible
+                // set initial frame
+                if toolbar.view.frame.origin.y == 0 {
+                    toolbar.view.frame = toolbarFrame.hidden
+                }
+            }
+            if shouldHideExistingToolbar {
+                owner.navigationController?.setToolbarHidden(visible, animated: true)
+            }
+            UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+                self.toolbar.view.frame = frame
+                self.owner.view.setNeedsLayout()
+            }, completion: { (_) in
+                if !visible {
+                    // remove toolbar after animation is completed
+                    self.isToolbarVisible = visible
+                }
+            })
+        }
+    }
+    
+    fileprivate lazy var shouldHideExistingToolbar: Bool = {
+        return owner.tabBarController?.tabBar.isHidden ?? true
+    }()
+    
+    fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
+        var bottomInset: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottomInset = owner.view.safeAreaInsets.bottom
+        } else {
+            bottomInset = owner.bottomLayoutGuide.length
+        }
+        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
+        return (visible: visible, hidden: hidden)
+    }()
+    
+    @objc func didSave(_ didSave: Bool, article: WMFArticle) {
+        let didSaveOtherArticle = didSave && isToolbarVisible && article != toolbar.article
+        let didUnsaveOtherArticle = !didSave && isToolbarVisible && article != toolbar.article
+        
+        guard !didUnsaveOtherArticle else {
+            return
+        }
+        
+        guard !didSaveOtherArticle else {
+            toolbar.reset()
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismissToolbar), object: self) // object: nil?
+            perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+            toolbar.article = article
+            return
+        }
+        
+        toolbar.article = article
+        setToolbar(visible: didSave, animated: true)
+    }
+    
+    @objc func didSave(_ saved: Bool, articleURL: URL) {
+        guard let article = dataStore.fetchArticle(with: articleURL) else {
+            return
+        }
+        didSave(saved, article: article)
+    }
+    
+    // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
+    
+    func viewControllerWillBeDismissed() {
+        self.setToolbar(visible: false, animated: true)
+    }
+    
+    func addedArticleToReadingList() {
+        self.setToolbar(visible: true, animated: true)
+    }
 }
 
 @objc(WMFAddArticleToReadingListToolbarViewController)
@@ -12,14 +144,14 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme = Theme.standard
     
-    @objc var article: WMFArticle? {
+    var article: WMFArticle? {
         didSet {
             let articleTitle = article?.displayTitle ?? "article"
             button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         }
     }
     
-    @objc public init(dataStore: MWKDataStore) {
+    public init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init(nibName: nil, bundle: nil)
     }
@@ -48,7 +180,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         apply(theme: theme)
     }
     
-    @objc func reset() {
+    func reset() {
         let articleTitle = article?.displayTitle ?? "article"
         button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
@@ -59,7 +191,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
-    @objc public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
+    public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
     
     @objc fileprivate func buttonPressed() {
         guard let article = article else {
@@ -84,7 +216,7 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        delegate?.addedArticle(to: readingList)
+        delegate?.addedArticleToReadingList()
     }
 }
 

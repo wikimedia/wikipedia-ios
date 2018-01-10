@@ -58,7 +58,6 @@
                                         </label>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="64q-Uy-RKh" customClass="WMFThemeableTextView">
                                             <rect key="frame" x="0.0" y="19.5" width="234" height="44"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -82,7 +81,6 @@
                                         </label>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="AQh-rT-vof" customClass="WMFThemeableTextView">
                                             <rect key="frame" x="0.0" y="19.5" width="234" height="44"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                     </subviews>
                                     <constraints>
