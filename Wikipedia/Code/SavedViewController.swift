@@ -23,6 +23,7 @@ class SavedViewController: ViewController {
     @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet var underBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet var toggleButtons: [UIButton]!
@@ -74,17 +75,26 @@ class SavedViewController: ViewController {
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
-                isSearchBarHidden = true
                 scrollView = readingListsViewController?.collectionView
+                isSearchBarHidden = true
             }
         }
     }
     
     fileprivate var isSearchBarHidden: Bool = false {
         didSet {
+            extendedNavBarView.isHidden = isSearchBarHidden
+            if isSearchBarHidden {
+                NSLayoutConstraint.deactivate(searchBarConstraints)
+            } else {
+                NSLayoutConstraint.activate(searchBarConstraints)
+            }
+            guard currentView != .readingLists else {
+                return
+            }
             navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
-            readingListsViewController?.updateScrollViewInsets()
-            savedArticlesViewController.updateScrollViewInsets()
+            savedArticlesViewController?.updateScrollViewInsets()
+            updateScrollViewInsets()
         }
     }
     
@@ -113,7 +123,7 @@ class SavedViewController: ViewController {
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
         currentView = .savedArticles
-        
+
         searchBar.delegate = savedArticlesViewController
         searchBar.returnKeyType = .search
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
@@ -198,7 +208,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
     
     func emptyStateDidChange(_ empty: Bool) {
         guard currentView != .readingLists else {
-            isSearchBarHidden = true
             return
         }
         isSearchBarHidden = empty
