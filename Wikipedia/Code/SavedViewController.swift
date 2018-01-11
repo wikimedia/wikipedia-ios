@@ -173,8 +173,8 @@ class SavedViewController: ViewController {
             textField.font = UIFont.systemFont(ofSize: 14)
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
-        
         separatorView.backgroundColor = theme.colors.border
+        
     }
     
     // MARK: - Batch edit toolbar
@@ -190,6 +190,7 @@ extension SavedViewController: BatchEditNavigationDelegate {
 
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
         sortButton.isEnabled = editingState == .cancelled || editingState == .none
         if editingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
