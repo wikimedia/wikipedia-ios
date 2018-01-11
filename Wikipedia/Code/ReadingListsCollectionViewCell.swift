@@ -1,6 +1,8 @@
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var bottomSeparator = UIView()
     fileprivate var topSeparator = UIView()
+    fileprivate var articleCountLabel = UILabel()
+    var articleCount: Int = 0
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
@@ -15,6 +17,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
+        contentView.addSubview(articleCountLabel)
         super.setup()
     }
     
@@ -51,6 +54,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
+        
+        articleCountLabel.text = "5 articles"
+        let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+        origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
 
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
