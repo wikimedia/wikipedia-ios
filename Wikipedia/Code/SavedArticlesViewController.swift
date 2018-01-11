@@ -64,6 +64,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         }
         collectionView.reloadData()
         updateEmptyState()
+        navigationBarHider.isNavigationBarHidingEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -215,6 +216,33 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     internal lazy var batchEditToolbar: UIToolbar = {
         return BatchEditToolbar(for: view).toolbar
     }()
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScroll(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        navigationBarHider.scrollViewWillScrollToTop(scrollView)
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScrollToTop(scrollView)
+    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
