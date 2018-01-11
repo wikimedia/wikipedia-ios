@@ -176,6 +176,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         let articleTitle = article?.displayTitle ?? "article"
         button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
+        button.removeTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
@@ -193,6 +194,18 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         addArticlesToReadingListViewController.delegate = self
         present(addArticlesToReadingListViewController, animated: true, completion: nil)
     }
+    
+    fileprivate var readingList: ReadingList?
+    
+    @objc fileprivate func openReadingList() {
+        guard let readingList = readingList else {
+            return
+        }
+        let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
+        (viewController as? SavedArticlesViewController)?.dataStore = dataStore
+        viewController.apply(theme: theme)
+        wmf_push(viewController, animated: true)
+    }
 
 }
 
@@ -205,9 +218,11 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
             return
         }
+        self.readingList = readingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         delegate?.addedArticleToReadingList()
     }
 }
