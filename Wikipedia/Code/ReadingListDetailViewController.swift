@@ -287,6 +287,7 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
