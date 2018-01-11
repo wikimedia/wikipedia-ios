@@ -56,7 +56,7 @@ class AddArticlesToReadingListViewController: UIViewController {
         readingListsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
-        readingListsViewController.addArticlesToReadingListDelegate = self
+        readingListsViewController.areScrollViewInsetsDeterminedByVisibleHeight = false
         apply(theme: theme)
     }
 }
@@ -85,5 +85,6 @@ extension AddArticlesToReadingListViewController: Themeable {
         navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         view.backgroundColor = theme.colors.chromeBackground
         readingListsViewController?.apply(theme: theme)
+        containerView.backgroundColor = UIColor.red
     }
 }
