@@ -25,7 +25,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
             }
             if isToolbarVisible {
                 addToolbar()
-                perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+                dismissToolbar()
             } else {
                 removeToolbar()
             }
@@ -55,13 +55,13 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         toolbar.didMove(toParentViewController: owner)
     }
     
-    @objc func dismissToolbar() {
-        setToolbar(visible: false, animated: true)
+    func dismissToolbar() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setToolbar(visible:)), object: false)
+        perform(#selector(setToolbar(visible:)), with: false, afterDelay: 8)
     }
     
-    func setToolbar(visible: Bool, animated: Bool) {
+    @objc func setToolbar(visible: Bool) {
         let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
-        if animated {
             if visible {
                 // add toolbar before animation starts
                 isToolbarVisible = visible
@@ -82,7 +82,6 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
                     self.isToolbarVisible = visible
                 }
             })
-        }
     }
     
     fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
@@ -104,14 +103,13 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         
         guard !didSaveOtherArticle else {
             toolbar.reset()
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismissToolbar), object: self) // object: nil?
-            perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+            dismissToolbar()
             toolbar.article = article
             return
         }
         
         toolbar.article = article
-        setToolbar(visible: didSave, animated: true)
+        setToolbar(visible: didSave)
     }
     
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
@@ -124,11 +122,11 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
-        self.setToolbar(visible: false, animated: true)
+        self.setToolbar(visible: false)
     }
     
     func addedArticleToReadingList() {
-        self.setToolbar(visible: true, animated: true)
+        self.setToolbar(visible: true)
     }
 }
 
