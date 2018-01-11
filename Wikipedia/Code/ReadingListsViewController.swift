@@ -109,15 +109,15 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        let articleCount = readingList.articleKeys.count
         guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        let articleCount = readingList.articleKeys.count
         let firstFourArticles = (readingList.entries)?.prefix(3).flatMap { ($0 as? ReadingListEntry)?.article } ?? []
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
