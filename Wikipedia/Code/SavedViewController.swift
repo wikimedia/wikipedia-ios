@@ -161,7 +161,7 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.barTintColor = theme.colors.midBackground
         batchEditToolbar.tintColor = theme.colors.link
         
         underBarView.backgroundColor = theme.colors.chromeBackground

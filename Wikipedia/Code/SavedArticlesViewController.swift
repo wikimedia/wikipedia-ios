@@ -199,7 +199,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
-        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.barTintColor = theme.colors.midBackground
         batchEditToolbar.tintColor = theme.colors.link
     }
     
