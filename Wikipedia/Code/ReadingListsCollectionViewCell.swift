@@ -90,7 +90,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let height = max(origin.y, minHeight)
         
         let separatorXPositon = layoutMargins.left - margins.left
-        let separatorWidth = isImageViewHidden ? size.width : size.width - imageViewDimension * 1.5
+        let separatorWidth = size.width - imageViewDimension * 1.5 // size.width when isImageViewHidden?
         
         if (apply) {
             if (!bottomSeparator.isHidden) {
@@ -114,20 +114,30 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle]) {
-        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles)
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle]) {
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
         
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
         
         articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
-        isImageViewHidden = true
         titleLabel.text = name
         descriptionLabel.text = description
+        
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
+        if let imageURL = firstFourArticles.first?.imageURL(forWidth: imageWidthToRequest) {
+            isImageViewHidden = false
+            if !layoutOnly {
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+            }
+        } else {
+            isImageViewHidden = true
+        }
+            
         
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0
