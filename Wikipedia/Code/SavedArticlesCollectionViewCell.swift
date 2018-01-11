@@ -169,7 +169,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         if shouldShowSeparators {
-//            topSeparator.isHidden = index > 0
+            topSeparator.isHidden = index > 0
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
