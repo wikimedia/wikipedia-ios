@@ -140,7 +140,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             
         
         if shouldShowSeparators {
-            topSeparator.isHidden = index != 0
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
