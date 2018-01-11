@@ -79,6 +79,7 @@
 "action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
 "action-unsave" = "保存しない";
+"action-unsaved-accessibility-notification" = "ページを保存できませんでした";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整する";
@@ -86,6 +87,7 @@
 "appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべてのテーブルをデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "テーマを読み込む";
+"appearance-settings-set-automatic-table-opening" = "表の書式設定";
 "appearance-settings-text-sizing-example-text" = "上記のスライダをドラッグして記事のテキストサイズを変更します。システムのテキストサイズを利用して、アプリ内の他のテキスト領域のサイズを変更します。";
 "appearance-settings-theme-options" = "テーマオプション";
 "appearance-settings-title" = "テーマを読み込む";
@@ -327,6 +329,7 @@
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
+"reading-themes-controls-accessibility-black-theme-button" = "黒のテーマ";
 "reading-themes-controls-accessibility-brightness-slider" = "輝度調節スライダ";
 "reading-themes-controls-accessibility-dark-theme-button" = "ダークモード";
 "reading-themes-controls-accessibility-light-theme-button" = "ライトテーマ";
@@ -354,7 +357,7 @@
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
-"settings-appearance" = "表示";
+"settings-appearance" = "閲覧設定";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか？";

@@ -338,6 +338,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+// Fuzzy
 "settings-appearance" = "מראה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";

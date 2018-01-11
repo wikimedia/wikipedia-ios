@@ -287,6 +287,7 @@
 "search-recent-clear-delete-all" = "அனைத்தையும் நீக்குக";
 "search-recent-title" = "அண்மையில் தேடப்பட்டது";
 "search-title" = "தேடு";
+// Fuzzy
 "settings-appearance" = "தோற்றம்";
 "settings-clear-cache-cancel" = "கைவிடுக";
 "settings-my-languages" = "என் மொழிகள்";

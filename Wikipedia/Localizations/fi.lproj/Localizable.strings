@@ -326,6 +326,7 @@
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
+// Fuzzy
 "settings-appearance" = "Ulkoasu";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";

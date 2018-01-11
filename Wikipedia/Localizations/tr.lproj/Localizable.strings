@@ -354,6 +354,7 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Arama";
+// Fuzzy
 "settings-appearance" = "Görünüm";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
 "settings-clear-cache-are-you-sure-message" = "Önbellekteki verileri silmek $1 kadar alan açacak. Kaydedilmiş sayfalarınız silinmeyecek.";
