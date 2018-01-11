@@ -33,6 +33,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
+    }
+    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
@@ -119,7 +124,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.isDefault = isDefault
         self.articleCount = articleCount
         
-        articleCountLabel.text = "\(articleCount) articles"
+        articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
         isImageViewHidden = true
         titleLabel.text = name
         descriptionLabel.text = description
@@ -144,6 +149,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.apply(theme: theme)
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
+        articleCountLabel.textColor = theme.colors.secondaryText
     }
 }
 
