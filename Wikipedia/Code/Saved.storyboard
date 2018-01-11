@@ -82,6 +82,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
                                             <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="useDefaultFont" value="NO"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="uxl-yy-BNt"/>
