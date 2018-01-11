@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)mostRecentEntry;
 
+- (nullable NSArray<WMFArticle *> *)recentEntries:(NSInteger)count;
+
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;

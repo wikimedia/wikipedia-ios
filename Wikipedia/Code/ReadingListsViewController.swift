@@ -111,11 +111,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         }
         let articleCount = readingList.articleKeys.count
         guard !readingList.isDefaultList else {
-            var firstFourArticles: [WMFArticle] = []
-            if let mostRecentEntry = dataStore.savedPageList.mostRecentEntry() {
-                firstFourArticles.append(mostRecentEntry)
-            }
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
