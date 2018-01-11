@@ -18,6 +18,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    fileprivate var isDefault: Bool = false
+    
     open override func reset() {
         super.reset()
         bottomSeparator.isHidden = true
@@ -48,14 +51,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
-        
+
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = false
+            descriptionLabel.isHidden = displayType == .addArticlesToReadingList && !isDefault
             
             if !isSaveButtonHidden {
                 origin.y += spacing
@@ -98,11 +101,15 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme)
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType)
     }
     
-    func configure(with name: String?, description: String?, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType) {
+        
+        self.displayType = displayType
+        self.isDefault = isDefault
+        
         isImageViewHidden = true
         titleLabel.text = name
         descriptionLabel.text = description
