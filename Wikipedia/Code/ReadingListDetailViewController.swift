@@ -281,6 +281,15 @@ extension ReadingListDetailViewController: ActionDelegate {
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
     
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
+    }
+    
     func emptyStateDidChange(_ empty: Bool) {
         //
     }

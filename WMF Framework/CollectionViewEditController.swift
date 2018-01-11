@@ -417,7 +417,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public var isClosed: Bool {
-        return batchEditingState != .open
+        let isClosed = batchEditingState != .open
+        if !isClosed {
+            navigationDelegate?.setToolbarButtons(enabled: !selectedIndexPaths.isEmpty)
+        }
+        return isClosed
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {
@@ -462,9 +466,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             button.action = #selector(didPerformBatchEditToolbarAction(with:))
             button.tag = index
             buttons.append(button)
-            if action.type == BatchEditToolbarActionType.update {
-                button.isEnabled = false
-            }
+            button.isEnabled = false
         }
         
         return buttons

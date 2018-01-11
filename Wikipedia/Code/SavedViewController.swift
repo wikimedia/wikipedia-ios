@@ -190,7 +190,16 @@ class SavedViewController: ViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
-
+    
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
+    }
+    
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
