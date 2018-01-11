@@ -44,7 +44,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        let displayTypeAddition: CGFloat = displayType == .readingListsTab ? 0 : 5
+        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + displayTypeAddition, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -60,7 +61,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if apply && articleCount > 0 {
+        if apply && displayType == .readingListsTab && articleCount > 0 {
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
         }
