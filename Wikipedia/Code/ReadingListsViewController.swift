@@ -299,6 +299,7 @@ extension ReadingListsViewController: ActionDelegate {
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
                 do {
                     try self.readingListsController.delete(readingLists: readingLists)
+                    self.editController.close()
                 } catch let error {
                     self.readingListsController.handle(error)
                 }
