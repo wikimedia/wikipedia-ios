@@ -59,11 +59,13 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                 return
             }
             var readingListsByID: [Int64: APIReadingList] = [:]
+            var readingListsByName: [String: APIReadingList] = [:]
             for apiReadingList in allAPIReadingLists {
                 guard !apiReadingList.isDefault else {
                     continue
                 }
                 readingListsByID[apiReadingList.id] = apiReadingList
+                readingListsByName[apiReadingList.name.precomposedStringWithCanonicalMapping] = apiReadingList
             }
             DispatchQueue.main.async {
                 self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
@@ -87,12 +89,17 @@ fileprivate class ReadingListSyncOperation: AsyncOperation {
                         for localReadingList in localReadingLists {
                             guard let readingListID = localReadingList.readingListID?.int64Value else {
                                 group.enter()
-                                self.apiController.createList(name: localReadingList.name ?? "", description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
-                                    if let listID = listID {
-                                        listIDsToUpdate.append((listID, localReadingList))
-                                    }
-                                    group.leave()
-                                })
+                                let name = localReadingList.name ?? ""
+                                if let readingListWithTheSameName = readingListsByName[name.precomposedStringWithCanonicalMapping] {
+                                    listIDsToUpdate.append((readingListWithTheSameName.id, localReadingList))
+                                } else {
+                                    self.apiController.createList(name: name, description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
+                                        if let listID = listID {
+                                            listIDsToUpdate.append((listID, localReadingList))
+                                        }
+                                        group.leave()
+                                    })
+                                }
                                 continue
                             }
                             
@@ -188,16 +195,17 @@ public class ReadingListsController: NSObject {
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
+        let name = name.precomposedStringWithCanonicalMapping
         let moc = dataStore.viewContext
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
+        existingListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@", name)
         existingListRequest.fetchLimit = 1
         let result = try moc.fetch(existingListRequest).first
         guard result == nil else {
             throw ReadingListError.listExistsWithTheSameName(name: name)
         }
         
-        guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["name": name, "readingListDescription": description]) as? ReadingList else {
+        guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
             throw ReadingListError.unableToCreateList
         }
         
@@ -206,6 +214,8 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
+        
+        sync()
         
         return list
     }
@@ -266,7 +276,6 @@ public class ReadingListsController: NSObject {
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        let _ = try fetch(readingList: readingList)
         
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list == %@ && article IN %@", readingList, articles)

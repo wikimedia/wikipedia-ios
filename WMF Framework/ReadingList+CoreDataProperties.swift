@@ -11,7 +11,7 @@ extension ReadingList {
     @NSManaged public var isUpdatedLocally: Bool
     @NSManaged public var readingListID: NSNumber?
     @NSManaged public var readingListDescription: String?
-    @NSManaged public var name: String?
+    @NSManaged public var canonicalName: String?
     @NSManaged public var order: Int64
     @NSManaged public var updatedDate: NSDate?
     @NSManaged public var color: String?
@@ -19,6 +19,16 @@ extension ReadingList {
     @NSManaged public var iconName: String?
     @NSManaged public var entries: NSSet?
     @NSManaged public var isDefault: NSNumber?
+    
+    
+    public var name: String? {
+        set {
+            canonicalName = newValue?.precomposedStringWithCanonicalMapping
+        }
+        get {
+            return canonicalName
+        }
+    }
 }
 
 // MARK: Generated accessors for entries

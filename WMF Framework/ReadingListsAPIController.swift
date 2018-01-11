@@ -104,7 +104,7 @@ class ReadingListsAPIController: NSObject {
         - error: Any error preventing list creation
     */
     func createList(name: String, description: String, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let bodyParams = ["name": name, "description": description]
+        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let id = result["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
