@@ -339,9 +339,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
                 button.tag = tag
                 button.isEnabled = enabled
-                // so we can disable the sort button if necessary
-                let isCancelledOrNone = batchEditingState == .cancelled || batchEditingState == .none
-                navigationDelegate?.didChangeEditingState(isCancelledOrNone: isCancelledOrNone, rightBarButton: button)
+                navigationDelegate?.didChange(editingState: batchEditingState, rightBarButton: button)
             }
             
             guard !isCollectionViewEmpty && !hasDefaultCell else {
@@ -391,7 +389,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isCollectionViewEmpty: Bool = false {
         didSet {
             batchEditingState = .none
-            navigationDelegate?.emptyStateDidChange?(isCollectionViewEmpty)
+            navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
     }
     
@@ -419,11 +417,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public var isClosed: Bool {
-        let isClosed = batchEditingState != .open
-        if !isClosed {
-            isBatchEditToolbarVisible = !selectedIndexPaths.isEmpty
-        }
-        return isClosed
+        return batchEditingState != .open
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {

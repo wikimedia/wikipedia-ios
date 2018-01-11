@@ -34,6 +34,7 @@ public class NavigationBarHider: NSObject {
     fileprivate var isScrollingToTop: Bool = false
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
+    public var isNavigationBarHidingEnabled: Bool = true // setting this to false will only hide the extended view
     
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
@@ -68,7 +69,9 @@ public class NavigationBarHider: NSObject {
         }
         
         let barHeight = navigationBar.bar.frame.size.height
-        if initialScrollY < extendedViewHeight + barHeight {
+        if !isNavigationBarHidingEnabled {
+          navigationBarPercentHidden = 0
+        } else if initialScrollY < extendedViewHeight + barHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
         } else if scrollY <= extendedViewHeight + barHeight {
             navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage)
@@ -116,7 +119,9 @@ public class NavigationBarHider: NSObject {
         let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
-        if velocity.y > 0 {
+        if !isNavigationBarHidingEnabled {
+            navigationBarPercentHidden = 0
+        } else if velocity.y > 0 {
             navigationBarPercentHidden = 1
         } else if velocity.y < 0 {
             navigationBarPercentHidden = 0
@@ -125,7 +130,7 @@ public class NavigationBarHider: NSObject {
         } else {
             navigationBarPercentHidden = 1
         }
-
+        
         guard navigationBarPercentHidden != currentNavigationBarPercentHidden else {
             return
         }

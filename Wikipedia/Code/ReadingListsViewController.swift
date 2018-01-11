@@ -1,5 +1,9 @@
 import Foundation
 
+enum ReadingListsDisplayType {
+    case readingListsTab, addArticlesToReadingList
+}
+
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
@@ -13,11 +17,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     fileprivate var readingLists: [ReadingList]? // the displayed reading lists
     
     fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
-    
-    fileprivate enum ViewMode {
-        case readingListsTab, addArticlesToReadingList
-    }
-    fileprivate var viewMode: ViewMode = .readingListsTab
+
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
     
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
     
@@ -50,7 +51,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     convenience init(with dataStore: MWKDataStore, articles: [WMFArticle]) {
         self.init(with: dataStore)
         self.articles = articles
-        self.viewMode = .addArticlesToReadingList
+        self.displayType = .addArticlesToReadingList
     }
     
     convenience init(with dataStore: MWKDataStore, readingLists: [ReadingList]?) {
@@ -75,6 +76,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         editController.delegate = self
         // Remove peek & pop for now
         unregisterForPreviewing()
+        
+        areScrollViewInsetsDeterminedByVisibleHeight = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,15 +114,17 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
+        let articleCount = readingList.articleKeys.count
         guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme)
+        let firstFourArticles = (readingList.entries)?.prefix(3).flatMap { ($0 as? ReadingListEntry)?.article } ?? []
+        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
         guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
@@ -156,7 +161,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard viewMode != .addArticlesToReadingList else {
+        guard displayType != .addArticlesToReadingList else {
             return true
         }
         
@@ -181,7 +186,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         
-        guard viewMode == .readingListsTab else {
+        guard displayType == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
                 addArticlesToReadingListDelegate?.addedArticle?(to: readingList)

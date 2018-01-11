@@ -122,7 +122,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
-        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.barTintColor = theme.colors.midBackground
         batchEditToolbar.tintColor = theme.colors.link
     }
     
@@ -280,7 +280,12 @@ extension ReadingListDetailViewController: ActionDelegate {
 // MARK: - BatchEditNavigationDelegate
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
-    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+    
+    func emptyStateDidChange(_ empty: Bool) {
+        //
+    }
+    
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
     }
     

@@ -1,7 +1,7 @@
 import UIKit
 
-@objc public protocol SavedViewControllerDelegate: NSObjectProtocol {
-    @objc func didPressSortButton()
+public protocol SavedViewControllerDelegate: NSObjectProtocol {
+    func didPressSortButton()
 }
 
 @objc(WMFSavedViewController)
@@ -21,11 +21,12 @@ class SavedViewController: ViewController {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet var extendedNavBarView: UIView!
+    @IBOutlet var underBarView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var searchBarHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBarBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
     @IBOutlet weak var sortButton: UIButton!
+    
+    @IBOutlet weak var separatorView: UIView!
     
     @IBOutlet var toggleButtons: [UIButton]!
     
@@ -76,19 +77,26 @@ class SavedViewController: ViewController {
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
-                isSearchBarHidden = true
                 scrollView = readingListsViewController?.collectionView
+                isSearchBarHidden = true
             }
         }
     }
     
     fileprivate var isSearchBarHidden: Bool = false {
         didSet {
-            searchBar.isHidden = isSearchBarHidden
-            sortButton.isHidden = isSearchBarHidden
-            searchBarHeightConstraint.constant = isSearchBarHidden ? 0 : 36
-            searchBarTopConstraint.constant = isSearchBarHidden ? 0 : 15
-            searchBarBottomConstraint.constant = isSearchBarHidden ? 0 : 15
+            extendedNavBarView.isHidden = isSearchBarHidden
+            if isSearchBarHidden {
+                NSLayoutConstraint.deactivate(searchBarConstraints)
+            } else {
+                NSLayoutConstraint.activate(searchBarConstraints)
+            }
+            guard currentView != .readingLists else {
+                return
+            }
+            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
+            savedArticlesViewController?.updateScrollViewInsets()
+            updateScrollViewInsets()
         }
     }
     
@@ -114,13 +122,12 @@ class SavedViewController: ViewController {
     
     override func viewDidLoad() {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
         currentView = .savedArticles
-        
+
         searchBar.delegate = savedArticlesViewController
-        searchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchBar.returnKeyType = .search
-        searchBar.searchBarStyle = .minimal
         searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
         
         extendedLayoutIncludesOpaqueBars = true
@@ -154,9 +161,10 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        batchEditToolbar.barTintColor = theme.colors.paperBackground
+        batchEditToolbar.barTintColor = theme.colors.midBackground
         batchEditToolbar.tintColor = theme.colors.link
         
+        underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
@@ -165,6 +173,7 @@ class SavedViewController: ViewController {
             textField.font = UIFont.systemFont(ofSize: 14)
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
+        separatorView.backgroundColor = theme.colors.border
         
     }
     
@@ -179,9 +188,13 @@ class SavedViewController: ViewController {
 
 extension SavedViewController: BatchEditNavigationDelegate {
 
-    func didChangeEditingState(isCancelledOrNone: Bool, rightBarButton: UIBarButtonItem) {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
-        sortButton.isEnabled = isCancelledOrNone
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        sortButton.isEnabled = editingState == .cancelled || editingState == .none
+        if editingState == .open && searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
+        }
     }
     
     func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
@@ -199,7 +212,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
     
     func emptyStateDidChange(_ empty: Bool) {
         guard currentView != .readingLists else {
-            isSearchBarHidden = true
             return
         }
         isSearchBarHidden = empty

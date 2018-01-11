@@ -1,6 +1,8 @@
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var bottomSeparator = UIView()
     fileprivate var topSeparator = UIView()
+    fileprivate var articleCountLabel = UILabel()
+    var articleCount: Int = 0
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
@@ -15,8 +17,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
+        contentView.addSubview(articleCountLabel)
         super.setup()
     }
+    
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    fileprivate var isDefault: Bool = false
     
     open override func reset() {
         super.reset()
@@ -27,13 +33,19 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
+    override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
+    }
+    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        let displayTypeAddition: CGFloat = displayType == .readingListsTab ? 0 : 5
+        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + displayTypeAddition, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -49,13 +61,18 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
+        if apply && displayType == .readingListsTab && articleCount > 0 {
+            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
+        }
+
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = false
+            descriptionLabel.isHidden = displayType == .addArticlesToReadingList && !isDefault
             
             if !isSaveButtonHidden {
                 origin.y += spacing
@@ -74,7 +91,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let height = max(origin.y, minHeight)
         
         let separatorXPositon = layoutMargins.left - margins.left
-        let separatorWidth = isImageViewHidden ? size.width : size.width - imageViewDimension * 1.5
+        let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
         
         if (apply) {
             if (!bottomSeparator.isHidden) {
@@ -98,17 +115,31 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configure(readingList: ReadingList, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        configure(with: readingList.name, description: readingList.readingListDescription, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme)
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
     }
     
-    func configure(with name: String?, description: String?, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme) {
-        isImageViewHidden = true
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
+        
+        self.displayType = displayType
+        self.isDefault = isDefault
+        self.articleCount = articleCount
+        
+        articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
         titleLabel.text = name
         descriptionLabel.text = description
         
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
+        if let imageURL = firstFourArticles.first?.imageURL(forWidth: imageWidthToRequest) {
+            isImageViewHidden = false
+            if !layoutOnly {
+                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+            }
+        } else {
+            isImageViewHidden = true
+        }
+        
         if shouldShowSeparators {
-            topSeparator.isHidden = index != 0
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
@@ -116,7 +147,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 80
+        imageViewDimension = displayType == .readingListsTab ? 80 : 40
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
@@ -127,6 +158,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.apply(theme: theme)
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
+        articleCountLabel.textColor = theme.colors.secondaryText
     }
 }
 
