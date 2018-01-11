@@ -138,7 +138,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
-            
         
         if shouldShowSeparators {
             bottomSeparator.isHidden = false
@@ -148,7 +147,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 80
+        imageViewDimension = displayType == .readingListsTab ? 80 : 40
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
