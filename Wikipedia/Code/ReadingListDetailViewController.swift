@@ -318,6 +318,10 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
 // MARK: - AddArticlesToReadingListViewControllerDelegate
 
 extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
+    func addedArticle(to readingList: ReadingList) {
+        //
+    }
+    
     func viewControllerWillBeDismissed() {
         editController.close()
     }

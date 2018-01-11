@@ -184,7 +184,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard displayType == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
-                addArticlesToReadingListDelegate?.addedArticle?(to: readingList)
+                addArticlesToReadingListDelegate?.addedArticle(to: readingList)
             } catch let error {
                 readingListsController.handle(error)
             }

@@ -450,10 +450,11 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
 // MARK: - AddArticlesToReadingListDelegate
 
 extension SavedArticlesViewController: AddArticlesToReadingListDelegate {
-    func viewControllerWillBeDismissed() {
+    func addedArticle(to readingList: ReadingList) {
         editController.close()
     }
-    func addedArticleToReadingList(named name: String?) {
+    
+    func viewControllerWillBeDismissed() {
         editController.close()
     }
 }
