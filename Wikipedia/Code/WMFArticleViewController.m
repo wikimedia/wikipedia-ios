@@ -1267,7 +1267,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
-    [self.readingListsToolbarController didSave:isSaved articleURL:self.articleURL];
+    [self.readingListsToolbarController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {

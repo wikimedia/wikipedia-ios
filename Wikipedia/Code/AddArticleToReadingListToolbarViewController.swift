@@ -16,6 +16,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     fileprivate let owner: UIViewController
     fileprivate let toolbar: AddArticleToReadingListToolbarViewController
     fileprivate let toolbarHeight: CGFloat = 50
+    fileprivate var theme: Theme = Theme.standard
     
     fileprivate var isToolbarVisible = false {
         didSet {
@@ -47,7 +48,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     }
     
     func addToolbar() {
-        // apply theme
+        toolbar.apply(theme: theme)
         owner.addChildViewController(toolbar)
         toolbar.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         owner.view.addSubview(toolbar.view)
@@ -95,7 +96,10 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         return (visible: visible, hidden: hidden)
     }()
     
-    @objc func didSave(_ didSave: Bool, article: WMFArticle) {
+    @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+        
+        self.theme = theme
+        
         let didSaveOtherArticle = didSave && isToolbarVisible && article != toolbar.article
         let didUnsaveOtherArticle = !didSave && isToolbarVisible && article != toolbar.article
         
@@ -115,11 +119,11 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         setToolbar(visible: didSave, animated: true)
     }
     
-    @objc func didSave(_ saved: Bool, articleURL: URL) {
+    @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             return
         }
-        didSave(saved, article: article)
+        didSave(saved, article: article, theme: theme)
     }
     
     // MARK: - AddArticleToReadingListToolbarViewControllerDelegate

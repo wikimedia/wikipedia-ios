@@ -1577,7 +1577,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
-    [self.readingListsToolbarController didSave:didSave articleURL:articleURL];
+    [self.readingListsToolbarController didSave:didSave articleURL:articleURL theme:self.theme];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -2012,7 +2012,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
-    [self.readingListsToolbarController didSave:didSave article:article];
+    [self.readingListsToolbarController didSave:didSave article:article theme:self.theme];
 }
 
 #if DEBUG && DEBUG_CHAOS
