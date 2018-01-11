@@ -201,10 +201,18 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         guard let readingList = readingList else {
             return
         }
-        let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
-        (viewController as? SavedArticlesViewController)?.dataStore = dataStore
-        viewController.apply(theme: theme)
-        wmf_push(viewController, animated: true)
+        
+        if readingList.isDefaultList {
+           let viewController = SavedArticlesViewController()
+            viewController.dataStore = dataStore
+            viewController.apply(theme: theme)
+            wmf_push(viewController, animated: true)
+        } else {
+            let viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+            viewController.apply(theme: theme)
+            wmf_push(viewController, animated: true)
+        }
+        delegate?.viewControllerWillBeDismissed()
     }
 
 }
@@ -222,7 +230,7 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         delegate?.addedArticleToReadingList()
     }
 }
