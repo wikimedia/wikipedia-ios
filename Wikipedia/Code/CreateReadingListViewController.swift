@@ -26,8 +26,6 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
-//        descriptionTextField.enablesReturnKeyAutomatically = true
-        
         readingListNameTextField.placeholder = "reading list title"
         descriptionTextField.placeholder = "optional short description"
         
@@ -68,7 +66,6 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {
         createReadingListButton.isEnabled = !isReadingListFieldEmpty
-
         showDoneReturnKeyIfNecessary()
     }
     
@@ -88,11 +85,12 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard !descriptionTextField.isFirstResponder else {
+            createReadingListButtonPressed()
+            return true
+        }
         if readingListNameTextField.isFirstResponder {
             descriptionTextField.becomeFirstResponder()
-        }
-        if descriptionTextField.isFirstResponder {
-            createReadingListButtonPressed()
         }
         return true
     }
