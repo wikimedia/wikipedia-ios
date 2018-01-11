@@ -296,19 +296,4 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    
-    fileprivate func fetch(readingList: ReadingList) throws -> ReadingList? {
-        guard let name = readingList.name else {
-            return nil
-        }
-        let moc = dataStore.viewContext
-        let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        readingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
-        readingListRequest.fetchLimit = 1
-        guard let readingList = try moc.fetch(readingListRequest).first else {
-            throw ReadingListError.listWithProvidedNameNotFound(name: name)
-        }
-        return readingList
-    }
-    
 }
