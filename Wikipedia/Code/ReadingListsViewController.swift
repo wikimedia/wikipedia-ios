@@ -72,7 +72,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         // Remove peek & pop for now
         unregisterForPreviewing()
         
-        areScrollViewInsetsDeterminedByVisibleHeight = true
+        areScrollViewInsetsDeterminedByVisibleHeight = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
