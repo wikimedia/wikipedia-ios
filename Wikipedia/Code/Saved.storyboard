@@ -109,15 +109,15 @@
                             </constraints>
                         </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-Fx-dME">
-                            <rect key="frame" x="24" y="8" width="276" height="36"/>
+                            <rect key="frame" x="24" y="8" width="277" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="cRy-oU-bgr"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz">
-                            <rect key="frame" x="316" y="10" width="31" height="32"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                            <rect key="frame" x="317" y="11" width="30" height="30"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
                             <connections>
                                 <action selector="sortButonPressed" destination="DbA-ai-MSH" eventType="touchUpInside" id="YaZ-LW-869"/>
