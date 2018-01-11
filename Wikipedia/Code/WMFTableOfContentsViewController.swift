@@ -130,6 +130,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         }
 
         guard indexPath.section < tableView.numberOfSections && indexPath.row < tableView.numberOfRows(inSection: indexPath.section) else {
+            assertionFailure("Attempted to select out of range item \(item)")
             return
         }
         
