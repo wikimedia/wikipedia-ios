@@ -217,7 +217,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return BatchEditToolbar(for: view).toolbar
     }()
     
-    // MARK: - UIScrollViewDelegate
+    // MARK: - Hiding extended view
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)

@@ -10,6 +10,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
+            collectionView.removeFromSuperview()
+            addSubview(collectionView)
             collectionView.reloadData()
             setNeedsLayout()
         }
