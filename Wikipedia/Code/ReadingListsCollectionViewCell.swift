@@ -21,7 +21,16 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab {
+        didSet {
+            guard displayType == .addArticlesToReadingList else {
+                return
+            }
+            layoutMarginsAdditions.top += 10
+            imageViewDimension = 40
+        }
+    }
+    
     fileprivate var isDefault: Bool = false
     
     open override func reset() {
@@ -44,8 +53,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
-        let displayTypeAddition: CGFloat = displayType == .readingListsTab ? 0 : 5
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + displayTypeAddition, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -89,6 +97,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
+        print("height: \(height)")
         
         let separatorXPositon = layoutMargins.left - margins.left
         let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
@@ -111,7 +120,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
-        
+                
         return CGSize(width: size.width, height: height)
     }
     
@@ -121,6 +130,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
         
+        imageViewDimension = 80
+
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
@@ -147,7 +158,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = displayType == .readingListsTab ? 80 : 40
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
