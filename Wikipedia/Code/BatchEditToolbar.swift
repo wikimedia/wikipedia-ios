@@ -1,5 +1,5 @@
 struct BatchEditToolbar {
-    fileprivate let height: CGFloat = 50
+    fileprivate let height: CGFloat = 44
     internal var toolbar = UIToolbar()
     let owner: UIView
     
