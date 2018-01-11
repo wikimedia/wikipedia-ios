@@ -90,7 +90,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let height = max(origin.y, minHeight)
         
         let separatorXPositon = layoutMargins.left - margins.left
-        let separatorWidth = size.width - imageViewDimension * 1.5 // size.width when isImageViewHidden?
+        let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
         
         if (apply) {
             if (!bottomSeparator.isHidden) {
