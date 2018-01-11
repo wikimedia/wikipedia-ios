@@ -314,6 +314,7 @@
 "search-recent-title" = "সম্প্রতি অনুসন্ধানকৃত";
 "search-result-redirected-from" = "$1 থেকে পুনর্নির্দেশিত";
 "search-title" = "অনুসন্ধান";
+// Fuzzy
 "settings-appearance" = "অবয়ব";
 "settings-clear-cache-cancel" = "বাতিল";
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";

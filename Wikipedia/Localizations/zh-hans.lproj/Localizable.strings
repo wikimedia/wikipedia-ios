@@ -343,7 +343,7 @@
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
 "search-title" = "搜索";
-"settings-appearance" = "外观";
+"settings-appearance" = "阅读参数设置";
 "settings-clear-cache" = "清空缓存的数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存的数据将腾出约$1空间。这将不会删除您保存的页面。";
 "settings-clear-cache-are-you-sure-title" = "清空缓存的数据么？";

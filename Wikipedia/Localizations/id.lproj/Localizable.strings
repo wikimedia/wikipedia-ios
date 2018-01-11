@@ -345,7 +345,7 @@
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "search-title" = "Cari";
-"settings-appearance" = "Penampilan";
+"settings-appearance" = "Preferensi pembacaan";
 "settings-clear-cache" = "Hapus data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Menghapus data cache akan membebaskan sekitar $1 ruang. Ini tidak akan menghapus halaman tersimpan Anda.";
 "settings-clear-cache-are-you-sure-title" = "Hapus data dalam cache?";

@@ -335,6 +335,7 @@
 "search-recent-title" = "Legutóbbi keresések";
 "search-result-redirected-from" = "$1 szócikkből átirányítva";
 "search-title" = "Keresés";
+// Fuzzy
 "settings-appearance" = "Megjelenés";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";

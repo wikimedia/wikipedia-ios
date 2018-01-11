@@ -323,6 +323,7 @@
 "search-recent-title" = "Mentas digolèki";
 "search-result-redirected-from" = "Dilih saka: $1";
 "search-title" = "Golèk";
+// Fuzzy
 "settings-appearance" = "Cakrik";
 "settings-clear-cache" = "Resiki dhata ing telih";
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké $1 ruwang. Tumindak iki ora bakal mbusak kaca simpenané panjenengan.";

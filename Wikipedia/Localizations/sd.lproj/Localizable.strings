@@ -326,7 +326,7 @@
 "search-recent-title" = "تازو ڳولھيل";
 "search-result-redirected-from" = "$1: کان چوريل";
 "search-title" = "ڳوليو";
-"settings-appearance" = "حليو";
+"settings-appearance" = "پڙھڻ جون ترجيحون";
 "settings-clear-cache" = "ڪيچڊ ڊيٽا صاف ڪريو";
 "settings-clear-cache-are-you-sure-message" = "ڪيچڊ ڊيٽا صاف ڪرڻ سان توھان $1 جڳھ بچندي. ان سان توھان جا سانڍيل صفحا نہ ڊھندا.";
 "settings-clear-cache-are-you-sure-title" = "ڪيچڊ ڊيٽا صاف ڪريون؟";
@@ -347,6 +347,7 @@
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";
 "share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو...";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
+"share-building" = "ھڪ-نقطو-ونڊيو ڪارڊ اڏيندي...";
 "share-custom-menu-item" = "ونڊيو...";
 "share-default-format" = "”$1“ کان ”$2“: $3";
 "share-email-format" = "”$1“\n\nکان ”$2“\n\n$3";

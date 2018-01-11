@@ -290,6 +290,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+// Fuzzy
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";
