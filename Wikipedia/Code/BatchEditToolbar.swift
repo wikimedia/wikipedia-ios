@@ -27,4 +27,13 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
             item.isEnabled = enabled
         }
     }
+    
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
+        if visible {
+            batchEditToolbar.items = items
+            view.addSubview(batchEditToolbar)
+        } else {
+            batchEditToolbar.removeFromSuperview()
+        }
+    }
 }

@@ -497,17 +497,6 @@ extension SavedArticlesViewController: BatchEditNavigationDelegate {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
-    
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
-        if visible {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
-            let bottomConstraint = view.bottomAnchor.constraint(equalTo: batchEditToolbar.bottomAnchor)
-            view.addConstraint(bottomConstraint)
-        } else {
-            batchEditToolbar.removeFromSuperview()
-        }
-    }
 }
 
 // MARK: - UISearchBarDelegate

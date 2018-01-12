@@ -12,9 +12,13 @@ public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
     func didSetBatchEditToolbarVisible(_ isVisible: Bool) // has default implementation
     var batchEditToolbar: UIToolbar { get }
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) // has default implementation
     func setToolbarButtons(enabled: Bool) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
+}
+
+public protocol BatchEditToolbarDelegate: NSObjectProtocol {
+    
 }
 
 public protocol EditableCollection: NSObjectProtocol {

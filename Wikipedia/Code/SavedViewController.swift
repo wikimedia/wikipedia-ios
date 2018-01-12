@@ -200,15 +200,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
         }
     }
     
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
-        if visible {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
-        } else {
-            batchEditToolbar.removeFromSuperview()
-        }
-    }
-    
     func emptyStateDidChange(_ empty: Bool) {
         guard currentView != .readingLists else {
             return
