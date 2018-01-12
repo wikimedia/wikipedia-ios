@@ -17,10 +17,6 @@ public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func emptyStateDidChange(_ empty: Bool)
 }
 
-public protocol BatchEditToolbarDelegate: NSObjectProtocol {
-    
-}
-
 public protocol EditableCollection: NSObjectProtocol {
     var editController: CollectionViewEditController! { get set }
 }
