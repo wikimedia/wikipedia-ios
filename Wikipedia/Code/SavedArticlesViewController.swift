@@ -507,7 +507,7 @@ extension SavedArticlesViewController: BatchEditNavigationDelegate {
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
     
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool) {
         tabBarController?.tabBar.isHidden = isVisible
     }
     

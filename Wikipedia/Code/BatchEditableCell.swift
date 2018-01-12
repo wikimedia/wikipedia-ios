@@ -2,7 +2,7 @@ import UIKit
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool)
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool)
     var batchEditToolbar: UIToolbar { get }
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
     func setToolbarButtons(enabled: Bool) // same implementation

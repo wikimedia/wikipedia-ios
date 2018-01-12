@@ -209,7 +209,7 @@ extension SavedViewController: BatchEditNavigationDelegate {
         }
     }
     
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool) {
         tabBarController?.tabBar.isHidden = isVisible
     }
     

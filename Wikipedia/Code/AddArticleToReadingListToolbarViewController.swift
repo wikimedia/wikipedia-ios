@@ -230,7 +230,7 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-//        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
+        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         delegate?.addedArticleToReadingList()
     }
 }

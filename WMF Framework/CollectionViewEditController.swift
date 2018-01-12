@@ -434,7 +434,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 return
             }
             self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, setVisible: self.isBatchEditToolbarVisible)
-            self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
         }
     }
     
