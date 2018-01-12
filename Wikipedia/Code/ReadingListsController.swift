@@ -64,6 +64,24 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
         super.init()
     }
     
+    func syncEntriesForReadingList(_ readingList: ReadingList, completion: @escaping (Error?) -> Void) {
+        guard let moc = readingList.managedObjectContext else {
+            completion(nil)
+            return
+        }
+        
+        do {
+            let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "list == %@", readingList)
+            fetchRequest.relationshipKeyPathsForPrefetching = ["article"]
+            let results = try moc.fetch(fetchRequest)
+            print("list: \(readingList) results: \(results)")
+            completion(nil)
+        } catch let error {
+            completion(error)
+        }
+    }
+    
     override func execute() {
         //readingListsController.apiController
         readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
@@ -96,13 +114,11 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         
                         for localReadingList in localReadingLists {
                             guard let readingListID = localReadingList.readingListID?.int64Value else {
-                                group.enter()
                                 let name = localReadingList.name ?? ""
-                                
                                 if let remoteReadingListWithTheSameName = remoteReadingListsByName[name.precomposedStringWithCanonicalMapping] {
                                     localReadingListsToSync[remoteReadingListWithTheSameName.id] = localReadingList
-
                                 } else {
+                                    group.enter()
                                     self.apiController.createList(name: name, description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
                                         if let listID = listID {
                                             localReadingListsToSync[listID] = localReadingList
@@ -165,47 +181,21 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         for (_, list) in localReadingListsToDelete {
                             moc.delete(list)
                         }
+
                         
-                        for (readingListID, localList) in localReadingListsToSync {
-                            if localList.readingListID == nil {
-                                localList.readingListID = NSNumber(value: readingListID)
+                        for (readingListID, readingList) in localReadingListsToSync {
+                            if readingList.readingListID == nil {
+                                readingList.readingListID = NSNumber(value: readingListID)
                             }
                             
                             if localReadingListsIdsToMarkLocallyUpdatedFalse.contains(readingListID) {
-                                localList.isUpdatedLocally = false
+                                readingList.isUpdatedLocally = false
                             }
                             
-                            if let localEntries = localList.entries {
-                                var localEntriesByID: [Int64: ReadingListEntry] = [:]
-                                var locallyDeletedEntriesByID: [Int64: ReadingListEntry] = [:]
-                                for entry in localEntries {
-                                    guard let entry = entry as? ReadingListEntry else {
-                                        continue
-                                    }
-                                    
-                                    guard let entryID = entry.readingListEntryID?.int64Value else {
-                                        
-                                    
-                                        
-//                                        self.readingListsController.apiController.addEntryToList(withListID: readingListID, project: entry.canonicalProject, title: entry.canonicalTitle, completion: { 
-//                                        })
-                                        
-                                        continue
-                                    }
-//                                    if entry.isDeletedLocally {
-//                                        locallyDeletedEntriesByID[entryID] =
-//                                    } else {
-//
-//                                    }
-                                }
-                                group.enter()
-                                self.readingListsController.apiController.getAllEntriesForReadingListWithID(readingListID: readingListID, completion: { (entries, error) in
-                                    print("\nreadingListID: \(readingListID)\nentries: \(entries)")
-                                    
-                                    group.leave()
-                                })
-                            }
-                            
+                            group.enter()
+                            self.syncEntriesForReadingList(readingList, completion: { (_) in
+                                group.leave()
+                            })
                         }
                         
                         group.wait()
