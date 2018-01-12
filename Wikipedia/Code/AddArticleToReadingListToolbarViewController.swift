@@ -202,16 +202,10 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
             return
         }
         
-        if readingList.isDefaultList {
-           let viewController = SavedArticlesViewController()
-            viewController.dataStore = dataStore
-            viewController.apply(theme: theme)
-            wmf_push(viewController, animated: true)
-        } else {
-            let viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
-            viewController.apply(theme: theme)
-            wmf_push(viewController, animated: true)
-        }
+        let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
+        (viewController as? SavedArticlesViewController)?.dataStore = dataStore
+        viewController.apply(theme: theme)
+        wmf_push(viewController, animated: true)
         delegate?.viewControllerWillBeDismissed()
     }
 
