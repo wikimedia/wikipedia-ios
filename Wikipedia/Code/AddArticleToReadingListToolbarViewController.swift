@@ -70,9 +70,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
                     toolbar.view.frame = toolbarFrame.hidden
                 }
             }
-            if let articleNavigationController = owner.navigationController as? WMFArticleNavigationController {
-                articleNavigationController.setSecondToolbarHidden(visible, animated: true)
-            }
+
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 self.toolbar.view.frame = frame
                 self.owner.view.setNeedsLayout()
