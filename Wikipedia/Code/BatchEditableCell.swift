@@ -1,14 +1,5 @@
 import UIKit
 
-public protocol BatchEditNavigationDelegate: NSObjectProtocol {
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool)
-    var batchEditToolbar: UIToolbar { get }
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
-    func setToolbarButtons(enabled: Bool) // same implementation
-    func emptyStateDidChange(_ empty: Bool)
-}
-
 public class BatchEditSelectView: SizeThatFitsView {
     
     fileprivate var multiSelectIndicator: UIImageView?
