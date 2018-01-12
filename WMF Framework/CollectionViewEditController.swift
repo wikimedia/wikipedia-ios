@@ -10,11 +10,15 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool)
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool) // has default implementation
     var batchEditToolbar: UIToolbar { get }
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
-    func setToolbarButtons(enabled: Bool) // same implementation
+    func setToolbarButtons(enabled: Bool) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
+}
+
+public protocol EditableCollection: NSObjectProtocol {
+    var editController: CollectionViewEditController! { get set }
 }
 
 public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {

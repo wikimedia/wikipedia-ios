@@ -18,4 +18,13 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarVisible(_ isVisible: Bool) {
         tabBarController?.tabBar.isHidden = isVisible
     }
+    
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
+    }
 }

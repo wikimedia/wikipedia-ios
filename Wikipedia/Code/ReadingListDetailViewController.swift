@@ -1,6 +1,6 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
     
     fileprivate let dataStore: MWKDataStore
     fileprivate var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
@@ -280,15 +280,6 @@ extension ReadingListDetailViewController: ActionDelegate {
 // MARK: - BatchEditNavigationDelegate
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
-    
-    func setToolbarButtons(enabled: Bool) {
-        guard let items = batchEditToolbar.items else {
-            return
-        }
-        for (index, item) in items.enumerated() where index != 0 {
-            item.isEnabled = enabled
-        }
-    }
     
     func emptyStateDidChange(_ empty: Bool) {
         //
