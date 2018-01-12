@@ -10,9 +10,8 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool) // has default implementation
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool, with items: [UIBarButtonItem]) // has default implementation
     var batchEditToolbar: UIToolbar { get }
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) // has default implementation
     func setToolbarButtons(enabled: Bool) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
 }
@@ -446,8 +445,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             guard collectionView.window != nil else {
                 return
             }
-            self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, setVisible: self.isBatchEditToolbarVisible)
-            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible, with: self.batchEditToolbarItems)
         }
     }
     

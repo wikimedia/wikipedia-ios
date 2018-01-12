@@ -15,7 +15,13 @@ struct BatchEditToolbar {
 }
 
 extension BatchEditNavigationDelegate where Self: UIViewController {
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool) {
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool, with items: [UIBarButtonItem]) {
+        if isVisible {
+            batchEditToolbar.items = items
+            view.addSubview(batchEditToolbar)
+        } else {
+            batchEditToolbar.removeFromSuperview()
+        }
         tabBarController?.tabBar.isHidden = isVisible
     }
     
@@ -25,15 +31,6 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
         }
         for (index, item) in items.enumerated() where index != 0 {
             item.isEnabled = enabled
-        }
-    }
-    
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
-        if visible {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
-        } else {
-            batchEditToolbar.removeFromSuperview()
         }
     }
 }

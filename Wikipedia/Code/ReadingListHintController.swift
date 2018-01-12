@@ -63,7 +63,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     @objc func setHint(visible: Bool) {
         let frame = visible ? hintFrame.visible : hintFrame.hidden
             if visible {
-                // add toolbar before animation starts
+                // add hint before animation starts
                 isHintVisible = visible
                 // set initial frame
                 if hint.view.frame.origin.y == 0 {
@@ -76,7 +76,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
                 self.hint.view.setNeedsLayout()
             }, completion: { (_) in
                 if !visible {
-                    // remove toolbar after animation is completed
+                    // remove hint after animation is completed
                     self.isHintVisible = visible
                 }
             })
@@ -117,7 +117,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         didSave(saved, article: article, theme: theme)
     }
     
-    // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
+    // MARK: - ReadingListHintViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
         setHint(visible: false)
