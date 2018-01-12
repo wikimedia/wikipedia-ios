@@ -13,3 +13,9 @@ struct BatchEditToolbar {
         toolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
     }
 }
+
+extension BatchEditNavigationDelegate where Self: UIViewController {
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool) {
+        tabBarController?.tabBar.isHidden = isVisible
+    }
+}

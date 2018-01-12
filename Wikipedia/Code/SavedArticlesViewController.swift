@@ -217,7 +217,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return BatchEditToolbar(for: view).toolbar
     }()
     
-    // MARK: - UIScrollViewDelegate
+    // MARK: - Hiding extended view
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)
@@ -450,10 +450,11 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
 // MARK: - AddArticlesToReadingListDelegate
 
 extension SavedArticlesViewController: AddArticlesToReadingListDelegate {
-    func viewControllerWillBeDismissed() {
+    func addedArticle(to readingList: ReadingList) {
         editController.close()
     }
-    func addedArticleToReadingList(named name: String?) {
+    
+    func viewControllerWillBeDismissed() {
         editController.close()
     }
 }
@@ -492,12 +493,18 @@ extension SavedArticlesViewController: BatchEditNavigationDelegate {
         //
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
-        navigationItem.rightBarButtonItem = rightBarButton
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
     }
     
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
-        tabBarController?.tabBar.isHidden = isVisible
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
     
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {

@@ -77,6 +77,7 @@ class SavedViewController: ViewController {
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+                navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
             }
@@ -175,6 +176,8 @@ class SavedViewController: ViewController {
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
         
+        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
     }
     
     // MARK: - Batch edit toolbar
@@ -187,18 +190,23 @@ class SavedViewController: ViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
-
+    
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
+    }
+    
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         sortButton.isEnabled = editingState == .cancelled || editingState == .none
         if editingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
         }
-    }
-    
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
-        tabBarController?.tabBar.isHidden = isVisible
     }
     
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {

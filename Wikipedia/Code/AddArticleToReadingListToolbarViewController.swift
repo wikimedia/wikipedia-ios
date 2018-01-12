@@ -16,6 +16,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     fileprivate let owner: UIViewController
     fileprivate let toolbar: AddArticleToReadingListToolbarViewController
     fileprivate let toolbarHeight: CGFloat = 50
+    fileprivate var theme: Theme = Theme.standard
     
     fileprivate var isToolbarVisible = false {
         didSet {
@@ -24,7 +25,7 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
             }
             if isToolbarVisible {
                 addToolbar()
-                perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+                dismissToolbar()
             } else {
                 removeToolbar()
             }
@@ -47,20 +48,20 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
     }
     
     func addToolbar() {
-        // apply theme
+        toolbar.apply(theme: theme)
         owner.addChildViewController(toolbar)
         toolbar.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         owner.view.addSubview(toolbar.view)
         toolbar.didMove(toParentViewController: owner)
     }
     
-    @objc func dismissToolbar() {
-        setToolbar(visible: false, animated: true)
+    func dismissToolbar() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setToolbar(visible:)), object: false)
+        perform(#selector(setToolbar(visible:)), with: false, afterDelay: 8)
     }
     
-    func setToolbar(visible: Bool, animated: Bool) {
+    @objc func setToolbar(visible: Bool) {
         let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
-        if animated {
             if visible {
                 // add toolbar before animation starts
                 isToolbarVisible = visible
@@ -69,8 +70,8 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
                     toolbar.view.frame = toolbarFrame.hidden
                 }
             }
-            if shouldHideExistingToolbar {
-                owner.navigationController?.setToolbarHidden(visible, animated: true)
+            if let articleNavigationController = owner.navigationController as? WMFArticleNavigationController {
+                articleNavigationController.setSecondToolbarHidden(visible, animated: true)
             }
             UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
                 self.toolbar.view.frame = frame
@@ -81,21 +82,18 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
                     self.isToolbarVisible = visible
                 }
             })
-        }
     }
     
-    fileprivate lazy var shouldHideExistingToolbar: Bool = {
-        return owner.tabBarController?.tabBar.isHidden ?? true
-    }()
-    
     fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
-        let bottomInset = owner is WMFViewController ? 0 : owner.bottomLayoutGuide.length
-        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
-        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - bottomInset, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - owner.bottomLayoutGuide.length, width: owner.view.bounds.size.width, height: toolbarHeight)
+        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - owner.bottomLayoutGuide.length, width: owner.view.bounds.size.width, height: toolbarHeight)
         return (visible: visible, hidden: hidden)
     }()
     
-    @objc func didSave(_ didSave: Bool, article: WMFArticle) {
+    @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+        
+        self.theme = theme
+        
         let didSaveOtherArticle = didSave && isToolbarVisible && article != toolbar.article
         let didUnsaveOtherArticle = !didSave && isToolbarVisible && article != toolbar.article
         
@@ -105,31 +103,30 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         
         guard !didSaveOtherArticle else {
             toolbar.reset()
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismissToolbar), object: self) // object: nil?
-            perform(#selector(dismissToolbar), with: self, afterDelay: 8)
+            dismissToolbar()
             toolbar.article = article
             return
         }
         
         toolbar.article = article
-        setToolbar(visible: didSave, animated: true)
+        setToolbar(visible: didSave)
     }
     
-    @objc func didSave(_ saved: Bool, articleURL: URL) {
+    @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             return
         }
-        didSave(saved, article: article)
+        didSave(saved, article: article, theme: theme)
     }
     
     // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
-        self.setToolbar(visible: false, animated: true)
+        self.setToolbar(visible: false)
     }
     
     func addedArticleToReadingList() {
-        self.setToolbar(visible: true, animated: true)
+        self.setToolbar(visible: true)
     }
 }
 
@@ -179,6 +176,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         let articleTitle = article?.displayTitle ?? "article"
         button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
+        button.removeTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
@@ -196,6 +194,26 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         addArticlesToReadingListViewController.delegate = self
         present(addArticlesToReadingListViewController, animated: true, completion: nil)
     }
+    
+    fileprivate var readingList: ReadingList?
+    
+    @objc fileprivate func openReadingList() {
+        guard let readingList = readingList else {
+            return
+        }
+        
+        if readingList.isDefaultList {
+           let viewController = SavedArticlesViewController()
+            viewController.dataStore = dataStore
+            viewController.apply(theme: theme)
+            wmf_push(viewController, animated: true)
+        } else {
+            let viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+            viewController.apply(theme: theme)
+            wmf_push(viewController, animated: true)
+        }
+        delegate?.viewControllerWillBeDismissed()
+    }
 
 }
 
@@ -208,9 +226,11 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
         guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
             return
         }
+        self.readingList = readingList
         button.setTitle("Article added to \(name)", for: .normal)
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         delegate?.addedArticleToReadingList()
     }
 }

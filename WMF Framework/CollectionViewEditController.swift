@@ -8,6 +8,15 @@ enum CollectionViewCellState {
     case idle, open
 }
 
+public protocol BatchEditNavigationDelegate: NSObjectProtocol {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
+    func didSetBatchEditToolbarVisible(_ isVisible: Bool)
+    var batchEditToolbar: UIToolbar { get }
+    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
+    func setToolbarButtons(enabled: Bool) // same implementation
+    func emptyStateDidChange(_ empty: Bool)
+}
+
 public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {
     
     let collectionView: UICollectionView
@@ -417,7 +426,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public var isClosed: Bool {
-        return batchEditingState != .open
+        let isClosed = batchEditingState != .open
+        if !isClosed {
+            navigationDelegate?.setToolbarButtons(enabled: !selectedIndexPaths.isEmpty)
+        }
+        return isClosed
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {
@@ -430,7 +443,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 return
             }
             self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, setVisible: self.isBatchEditToolbarVisible)
-            self.navigationDelegate?.didSetIsBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
         }
     }
     
@@ -462,9 +475,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             button.action = #selector(didPerformBatchEditToolbarAction(with:))
             button.tag = index
             buttons.append(button)
-            if action.type == BatchEditToolbarActionType.update {
-                button.isEnabled = false
-            }
+            button.isEnabled = false
         }
         
         return buttons

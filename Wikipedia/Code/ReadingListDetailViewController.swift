@@ -281,16 +281,22 @@ extension ReadingListDetailViewController: ActionDelegate {
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
     
+    func setToolbarButtons(enabled: Bool) {
+        guard let items = batchEditToolbar.items else {
+            return
+        }
+        for (index, item) in items.enumerated() where index != 0 {
+            item.isEnabled = enabled
+        }
+    }
+    
     func emptyStateDidChange(_ empty: Bool) {
         //
     }
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
-    }
-    
-    func didSetIsBatchEditToolbarVisible(_ isVisible: Bool) {
-        tabBarController?.tabBar.isHidden = isVisible
+        navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
     
     func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
@@ -308,6 +314,10 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
 // MARK: - AddArticlesToReadingListViewControllerDelegate
 
 extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
+    func addedArticle(to readingList: ReadingList) {
+        //
+    }
+    
     func viewControllerWillBeDismissed() {
         editController.close()
     }

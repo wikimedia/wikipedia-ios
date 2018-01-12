@@ -200,7 +200,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController?.didSave(true, article: article)
+                    addArticleToReadingListToolbarController?.didSave(true, article: article, theme: theme)
                 }
                 return true
             }
@@ -209,7 +209,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController?.didSave(false, article: article)
+                    addArticleToReadingListToolbarController?.didSave(false, article: article, theme: theme)
                 }
                 return true
             }

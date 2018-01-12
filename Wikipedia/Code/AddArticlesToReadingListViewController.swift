@@ -1,8 +1,8 @@
 import UIKit
 
-@objc public protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
+public protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
-    @objc optional func addedArticle(to readingList: ReadingList)
+    func addedArticle(to readingList: ReadingList)
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
@@ -57,6 +57,7 @@ class AddArticlesToReadingListViewController: UIViewController {
         containerView.addSubview(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
         readingListsViewController.areScrollViewInsetsDeterminedByVisibleHeight = false
+        readingListsViewController.addArticlesToReadingListDelegate = self
         apply(theme: theme)
     }
 }
@@ -67,7 +68,7 @@ extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelega
     }
     
     func addedArticle(to readingList: ReadingList) {
-        delegate?.addedArticle?(to: readingList)
+        delegate?.addedArticle(to: readingList)
     }
 }
 
@@ -86,5 +87,6 @@ extension AddArticlesToReadingListViewController: Themeable {
         view.backgroundColor = theme.colors.chromeBackground
         readingListsViewController?.apply(theme: theme)
         containerView.backgroundColor = UIColor.red
+        addButton?.tintColor = theme.colors.link
     }
 }
