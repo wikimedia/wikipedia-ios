@@ -194,6 +194,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     }
     
     fileprivate var readingList: ReadingList?
+    fileprivate var themeableNavigationController: WMFThemeableNavigationController?
     
     @objc fileprivate func openReadingList() {
         guard let readingList = readingList else {
@@ -202,9 +203,17 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         
         let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
         (viewController as? SavedArticlesViewController)?.dataStore = dataStore
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
         viewController.apply(theme: theme)
-        wmf_push(viewController, animated: true)
-        delegate?.viewControllerWillBeDismissed()
+        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
+        themeableNavigationController = navigationController
+        present(navigationController, animated: true) {
+            self.delegate?.viewControllerWillBeDismissed()
+        }
+    }
+    
+    @objc private func dismissReadingListDetailViewController() {
+        themeableNavigationController?.dismiss(animated: true, completion: nil)
     }
 
 }
