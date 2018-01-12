@@ -8,15 +8,15 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintProvider {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     @objc var dataStore: MWKDataStore! {
         didSet {
-            addArticleToReadingListToolbarController = AddArticleToReadingListToolbarController(dataStore: dataStore, owner: self)
+            readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
         }
     }
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController?
+    var readingListHintController: ReadingListHintController?
     
     weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -200,7 +200,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController?.didSave(true, article: article, theme: theme)
+                    readingListHintController?.didSave(true, article: article, theme: theme)
                 }
                 return true
             }
@@ -209,7 +209,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
-                    addArticleToReadingListToolbarController?.didSave(false, article: article, theme: theme)
+                    readingListHintController?.didSave(false, article: article, theme: theme)
                 }
                 return true
             }
