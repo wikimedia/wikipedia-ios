@@ -10,7 +10,7 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool, with items: [UIBarButtonItem]) // has default implementation
+    func didSetBatchEditToolbarHidden(_ hidden: Bool, with items: [UIBarButtonItem]) // has default implementation
     var batchEditToolbar: UIToolbar { get }
     func setToolbarButtons(enabled: Bool) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
@@ -355,7 +355,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
             
             guard !isCollectionViewEmpty && !hasDefaultCell else {
-                isBatchEditToolbarVisible = false
+                isBatchEditToolbarHidden = true
                 enabled = false
                 return
             }
@@ -380,7 +380,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
-        isBatchEditToolbarVisible = willOpen
+        isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
             let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
             UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
@@ -440,12 +440,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return collectionView.indexPathsForSelectedItems ?? []
     }
     
-    fileprivate var isBatchEditToolbarVisible: Bool = false {
+    fileprivate var isBatchEditToolbarHidden: Bool = true {
         didSet {
             guard collectionView.window != nil else {
                 return
             }
-            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible, with: self.batchEditToolbarItems)
+            self.navigationDelegate?.didSetBatchEditToolbarHidden(self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
         }
     }
     
