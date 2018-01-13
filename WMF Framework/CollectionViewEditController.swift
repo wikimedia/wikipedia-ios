@@ -10,9 +10,8 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarHidden(_ hidden: Bool, with items: [UIBarButtonItem]) // has default implementation
-    var batchEditToolbar: UIToolbar { get }
-    func setToolbarButtons(enabled: Bool) // has default implementation
+    func didSetBatchEditToolbarHidden(_ toolbar: UIToolbar, isHidden: Bool, with items: [UIBarButtonItem]) // has default implementation
+    var frameForBatchEditToolbar: CGRect { get }
     func emptyStateDidChange(_ empty: Bool)
 }
 
@@ -198,6 +197,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         return false
     }
+    
+    fileprivate lazy var batchEditToolbar: UIToolbar = {
+       let batchEditToolbar = UIToolbar()
+        batchEditToolbar.frame = navigationDelegate?.frameForBatchEditToolbar ?? .zero
+        batchEditToolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        return batchEditToolbar
+    }()
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         guard let indexPath = activeIndexPath, let cell = activeCell else {
@@ -431,7 +437,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isClosed: Bool {
         let isClosed = batchEditingState != .open
         if !isClosed {
-            navigationDelegate?.setToolbarButtons(enabled: !selectedIndexPaths.isEmpty)
+            guard let items = batchEditToolbar.items else {
+                return isClosed
+            }
+            for (index, item) in items.enumerated() where index != 0 {
+                item.isEnabled = !selectedIndexPaths.isEmpty
+            }
         }
         return isClosed
     }
@@ -445,7 +456,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             guard collectionView.window != nil else {
                 return
             }
-            self.navigationDelegate?.didSetBatchEditToolbarHidden(self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
+            self.navigationDelegate?.didSetBatchEditToolbarHidden(batchEditToolbar, isHidden: self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
         }
     }
     

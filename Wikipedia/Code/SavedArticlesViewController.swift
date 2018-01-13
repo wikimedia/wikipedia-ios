@@ -200,8 +200,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
-        batchEditToolbar.barTintColor = theme.colors.midBackground
-        batchEditToolbar.tintColor = theme.colors.link
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -211,10 +209,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
-    }()
-    
-    internal lazy var batchEditToolbar: UIToolbar = {
-        return BatchEditToolbar(for: view).toolbar
     }()
     
     // MARK: - Hiding extended view

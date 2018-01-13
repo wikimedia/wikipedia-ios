@@ -162,8 +162,8 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        batchEditToolbar.barTintColor = theme.colors.midBackground
-        batchEditToolbar.tintColor = theme.colors.link
+//        batchEditToolbar.barTintColor = theme.colors.midBackground
+//        batchEditToolbar.tintColor = theme.colors.link
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
@@ -179,12 +179,6 @@ class SavedViewController: ViewController {
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
     }
-    
-    // MARK: - Batch edit toolbar
-    
-    internal lazy var batchEditToolbar: UIToolbar = {
-        return BatchEditToolbar(for: view).toolbar
-    }()
 }
 
 // MARK: - BatchEditNavigationDelegate
