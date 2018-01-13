@@ -12,7 +12,7 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
     }
     
     var frameForBatchEditToolbar: CGRect {
-        let height = tabBarController?.tabBar.frame.height ?? 0
+        let height = tabBarController?.tabBar.frame.height ?? navigationController?.navigationBar.frame.height ?? 0
         return CGRect(x: 0, y: view.bounds.height - height, width: view.bounds.width, height: height)
     }
 }
