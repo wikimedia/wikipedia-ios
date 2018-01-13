@@ -1,14 +1,16 @@
 extension BatchEditNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarHidden(_ batchEditToolbar: UIToolbar, isHidden: Bool, with items: [UIBarButtonItem]) {
-
-        if isHidden {
-            batchEditToolbar.removeFromSuperview()
-        } else {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
+        defer {
+            tabBarController?.tabBar.isHidden = !isHidden
         }
         
-        tabBarController?.tabBar.isHidden = !isHidden
+        guard batchEditToolbar.superview == nil else {
+            batchEditToolbar.isHidden = isHidden
+            return
+        }
+        
+        batchEditToolbar.items = items
+        view.addSubview(batchEditToolbar)
     }
     
     var frameForBatchEditToolbar: CGRect {
