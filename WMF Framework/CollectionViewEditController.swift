@@ -11,7 +11,6 @@ enum CollectionViewCellState {
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ toolbar: UIToolbar, isHidden: Bool, with items: [UIBarButtonItem]) // has default implementation
-    var frameForBatchEditToolbar: CGRect { get }
     func emptyStateDidChange(_ empty: Bool)
 }
 
@@ -200,8 +199,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     fileprivate lazy var batchEditToolbar: UIToolbar = {
        let batchEditToolbar = UIToolbar()
-        batchEditToolbar.frame = navigationDelegate?.frameForBatchEditToolbar ?? .zero
-        batchEditToolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        batchEditToolbar.translatesAutoresizingMaskIntoConstraints = false
         return batchEditToolbar
     }()
     
@@ -396,6 +394,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         if !willOpen {
             selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
+            guard let items = batchEditToolbar.items else {
+                return
+            }
+            for (index, item) in items.enumerated() where index != 0 {
+                item.isEnabled = false
+            }
         }
     }
     
