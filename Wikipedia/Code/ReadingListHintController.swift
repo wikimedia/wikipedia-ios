@@ -18,16 +18,16 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     fileprivate let hintHeight: CGFloat = 50
     fileprivate var theme: Theme = Theme.standard
     
-    fileprivate var isHintVisible = false {
+    fileprivate var isHintHidden = true {
         didSet {
-            guard isHintVisible != oldValue else {
+            guard isHintHidden != oldValue else {
                 return
             }
-            if isHintVisible {
+            if isHintHidden {
+                removeHint()
+            } else {
                 addHint()
                 dismissHint()
-            } else {
-                removeHint()
             }
         }
     }
@@ -56,16 +56,15 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     func dismissHint() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHint(visible:)), object: false)
-        perform(#selector(setHint(visible:)), with: false, afterDelay: 8)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHintHidden), object: 1)
+        perform(#selector(setHintHidden), with: 1, afterDelay: 8)
     }
     
-    @objc func setHint(visible: Bool) {
-        
-        let frame = visible ? hintFrame.visible : hintFrame.hidden
-        if visible {
+    @objc func setHintHidden(_ hintHidden: Bool) {
+        let frame = hintHidden ? hintFrame.hidden : hintFrame.visible
+        if !hintHidden {
             // add hint before animation starts
-            isHintVisible = visible
+            isHintHidden = hintHidden
             // set initial frame
             if hint.view.frame.origin.y == 0 {
                 hint.view.frame = hintFrame.hidden
@@ -73,7 +72,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }
         
         if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
-            randomArticleViewController.isReadingListHintHidden = !visible
+            randomArticleViewController.isReadingListHintHidden = hintHidden
         }
 
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
@@ -81,7 +80,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             self.hint.view.setNeedsLayout()
         }, completion: { (_) in
             // remove hint after animation is completed
-            self.isHintVisible = visible
+            self.isHintHidden = hintHidden
         })
     }
     
@@ -95,8 +94,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         
         self.theme = theme
         
-        let didSaveOtherArticle = didSave && isHintVisible && article != hint.article
-        let didUnsaveOtherArticle = !didSave && isHintVisible && article != hint.article
+        let didSaveOtherArticle = didSave && !isHintHidden && article != hint.article
+        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != hint.article
         
         guard !didUnsaveOtherArticle else {
             return
@@ -110,7 +109,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }
         
         hint.article = article
-        setHint(visible: didSave)
+        setHintHidden(!didSave)
     }
     
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
@@ -123,11 +122,11 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     // MARK: - ReadingListHintViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
-        setHint(visible: false)
+        setHintHidden(true)
     }
     
     func addedArticleToReadingList() {
-        setHint(visible: true)
+        setHintHidden(false)
     }
 }
 
