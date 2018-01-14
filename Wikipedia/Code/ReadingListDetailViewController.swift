@@ -1,6 +1,6 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController {
     
     fileprivate let dataStore: MWKDataStore
     fileprivate var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!

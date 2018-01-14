@@ -370,26 +370,31 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             case .none:
                 break
             case .cancelled:
-                animateBatchEditPane(for: batchEditingState)
+                transformBatchEditPane(for: batchEditingState)
             case .open:
                 barButtonSystemItem = UIBarButtonSystemItem.cancel
                 tag = 1
-                animateBatchEditPane(for: batchEditingState)
+                transformBatchEditPane(for: batchEditingState)
             }
         }
     }
     
-    fileprivate func animateBatchEditPane(for state: BatchEditingState) {
+    fileprivate func transformBatchEditPane(for state: BatchEditingState, animated: Bool = true) {
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
         isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
             let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
-            UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
+            if animated {
+                UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
+                    cell.batchEditingTranslation = targetTranslation
+                    cell.layoutIfNeeded()
+                })
+            } else {
                 cell.batchEditingTranslation = targetTranslation
                 cell.layoutIfNeeded()
-            })
+            }
         }
         if !willOpen {
             selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
@@ -448,6 +453,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
         }
         return isClosed
+    }
+    
+    public func openBatchEditPaneForCellsThatWillDisplay() {
+        transformBatchEditPane(for: batchEditingState, animated: false)
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {

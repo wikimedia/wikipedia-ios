@@ -215,6 +215,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)
+        editController.openBatchEditPaneForCellsThatWillDisplay()
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
