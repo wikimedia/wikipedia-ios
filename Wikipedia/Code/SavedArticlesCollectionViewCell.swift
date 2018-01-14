@@ -10,8 +10,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
-            collectionView.removeFromSuperview()
-            addSubview(collectionView)
             collectionView.reloadData()
             setNeedsLayout()
         }
@@ -205,7 +203,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags.readingLists.count
+        return tags.readingLists.count > 3 ? 3 : tags.readingLists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
