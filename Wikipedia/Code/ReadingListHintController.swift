@@ -61,6 +61,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func setHint(visible: Bool) {
+        
         let frame = visible ? hintFrame.visible : hintFrame.hidden
         if visible {
             // add hint before animation starts
@@ -79,8 +80,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             self.hint.view.frame = frame
             self.hint.view.setNeedsLayout()
         }, completion: { (_) in
-                // remove hint after animation is completed
-                self.isHintVisible = visible
+            // remove hint after animation is completed
+            self.isHintVisible = visible
         })
     }
     

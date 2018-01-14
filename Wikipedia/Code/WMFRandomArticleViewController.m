@@ -67,6 +67,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    self.isReadingListHintHidden = YES;
     self.viewAppeared = YES;
 
 #if WMF_TWEAKS_ENABLED
@@ -132,8 +133,11 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
         return;
     }
-    
-    [articleNavgiationController setSecondToolbarHidden:!isReadingListHintHidden animated:YES];
+    BOOL shouldHideRandomButton = !isReadingListHintHidden;
+    self.shouldShowRandomDiceOnScroll = !shouldHideRandomButton;
+    if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
+        [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
+    }
 }
 
 #pragma mark - WebViewControllerDelegate
@@ -142,6 +146,10 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [super webViewController:controller scrollViewDidScroll:scrollView];
 
     if (!self.viewHasAppeared) {
+        return;
+    }
+    
+    if (!self.shouldShowRandomDiceOnScroll) {
         return;
     }
 
