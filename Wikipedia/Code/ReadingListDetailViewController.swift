@@ -132,6 +132,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [updateItem, addToListItem, unsaveItem]
     }()
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        editController.transformBatchEditPaneOnScroll()
+    }
 
 }
 

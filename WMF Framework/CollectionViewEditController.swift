@@ -455,7 +455,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return isClosed
     }
     
-    public func openBatchEditPaneForCellsThatWillDisplay() {
+    public func transformBatchEditPaneOnScroll() {
         transformBatchEditPane(for: batchEditingState, animated: false)
     }
     

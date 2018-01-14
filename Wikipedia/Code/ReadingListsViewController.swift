@@ -217,6 +217,10 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         return [updateItem, deleteItem]
     }()
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        editController.transformBatchEditPaneOnScroll()
+    }
+    
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
