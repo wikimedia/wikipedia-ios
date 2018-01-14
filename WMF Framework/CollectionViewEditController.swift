@@ -199,7 +199,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     fileprivate lazy var batchEditToolbar: UIToolbar = {
        let batchEditToolbar = UIToolbar()
-        batchEditToolbar.translatesAutoresizingMaskIntoConstraints = false
         return batchEditToolbar
     }()
     
@@ -491,6 +490,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             button.target = self
             button.action = #selector(didPerformBatchEditToolbarAction(with:))
             button.tag = index
+            button.title = action.title
             buttons.append(button)
             button.isEnabled = false
         }

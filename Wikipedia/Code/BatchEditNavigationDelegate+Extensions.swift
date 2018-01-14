@@ -1,30 +1,21 @@
 extension BatchEditNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarHidden(_ batchEditToolbar: UIToolbar, isHidden: Bool, with items: [UIBarButtonItem]) {
         defer {
-            batchEditToolbar.isHidden = isHidden
-            tabBarController?.tabBar.isHidden = !isHidden
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.layoutSubviews, .curveLinear], animations: {
+                self.tabBarController?.tabBar.alpha = isHidden ? 1 : 0
+                batchEditToolbar.alpha = isHidden ? 0 : 1
+            }, completion: nil)
         }
         
         guard batchEditToolbar.superview == nil else {
             return
         }
         
+        let height = tabBarController?.tabBar.frame.height ?? navigationController?.navigationBar.frame.size.height ?? 0
+        batchEditToolbar.frame = CGRect(x: 0, y: view.bounds.height - height, width: view.bounds.width, height: height)
+        batchEditToolbar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         batchEditToolbar.items = items
         view.addSubview(batchEditToolbar)
-        
-        let layoutGuide = view.layoutMarginsGuide
-        let bottomConstraint = batchEditToolbar.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
-        let leadingConstraint = batchEditToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        let trailingConstraint = batchEditToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        
-        if let tabBar = tabBarController?.tabBar {
-            let topConstraint = batchEditToolbar.topAnchor.constraint(equalTo: tabBar.topAnchor)
-            topConstraint.isActive = true
-        } else if let navigationBar = navigationController?.navigationBar {
-            let heightConstraint = batchEditToolbar.heightAnchor.constraint(equalToConstant: navigationBar.frame.size.height)
-            heightConstraint.isActive = true
-        }
-        
-        NSLayoutConstraint.activate([bottomConstraint, leadingConstraint, trailingConstraint])
+        batchEditToolbar.isHidden = false
     }
 }
