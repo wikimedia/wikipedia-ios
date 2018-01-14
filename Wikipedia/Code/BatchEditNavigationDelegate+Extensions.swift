@@ -16,7 +16,15 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
         let bottomConstraint = batchEditToolbar.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
         let leadingConstraint = batchEditToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailingConstraint = batchEditToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        let topConstraint = batchEditToolbar.topAnchor.constraint(equalTo: tabBarController!.tabBar.topAnchor)
-        NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+        
+        if let tabBar = tabBarController?.tabBar {
+            let topConstraint = batchEditToolbar.topAnchor.constraint(equalTo: tabBar.topAnchor)
+            topConstraint.isActive = true
+        } else if let navigationBar = navigationController?.navigationBar {
+            let heightConstraint = batchEditToolbar.heightAnchor.constraint(equalToConstant: navigationBar.frame.size.height)
+            heightConstraint.isActive = true
+        }
+        
+        NSLayoutConstraint.activate([bottomConstraint, leadingConstraint, trailingConstraint])
     }
 }
