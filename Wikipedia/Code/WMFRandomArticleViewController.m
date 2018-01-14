@@ -127,6 +127,15 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         }];
 }
 
+- (void)setIsReadingListHintHidden:(BOOL)isReadingListHintHidden {
+    WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
+    if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
+        return;
+    }
+    
+    [articleNavgiationController setSecondToolbarHidden:!isReadingListHintHidden animated:YES];
+}
+
 #pragma mark - WebViewControllerDelegate
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -152,7 +161,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     } else {
         shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
-
+    
     if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
         [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
     }

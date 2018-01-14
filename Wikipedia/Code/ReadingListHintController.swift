@@ -62,24 +62,26 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     @objc func setHint(visible: Bool) {
         let frame = visible ? hintFrame.visible : hintFrame.hidden
-            if visible {
-                // add hint before animation starts
-                isHintVisible = visible
-                // set initial frame
-                if hint.view.frame.origin.y == 0 {
-                    hint.view.frame = hintFrame.hidden
-                }
+        if visible {
+            // add hint before animation starts
+            isHintVisible = visible
+            // set initial frame
+            if hint.view.frame.origin.y == 0 {
+                hint.view.frame = hintFrame.hidden
             }
+        }
+        
+        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
+            randomArticleViewController.isReadingListHintHidden = !visible
+        }
 
-            UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-                self.hint.view.frame = frame
-                self.hint.view.setNeedsLayout()
-            }, completion: { (_) in
-                if !visible {
-                    // remove hint after animation is completed
-                    self.isHintVisible = visible
-                }
-            })
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+            self.hint.view.frame = frame
+            self.hint.view.setNeedsLayout()
+        }, completion: { (_) in
+                // remove hint after animation is completed
+                self.isHintVisible = visible
+        })
     }
     
     fileprivate lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
