@@ -20,6 +20,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomArticleFetcher;
 @property (nonatomic, getter=viewHasAppeared) BOOL viewAppeared;
 @property (nonatomic) CGFloat previousContentOffsetY;
+@property (nonatomic) BOOL shouldRandomDiceRespondToScroll;
+
 @end
 
 @implementation WMFRandomArticleViewController
@@ -129,14 +131,17 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 }
 
 - (void)setIsReadingListHintHidden:(BOOL)isReadingListHintHidden {
+    self.shouldRandomDiceRespondToScroll = isReadingListHintHidden;
+    [self setRandomButtonHidden:!isReadingListHintHidden animated:YES];
+}
+
+- (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
     WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
     if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
         return;
     }
-    BOOL shouldHideRandomButton = !isReadingListHintHidden;
-    self.shouldShowRandomDiceOnScroll = !shouldHideRandomButton;
-    if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
-        [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
+    if (articleNavgiationController.secondToolbarHidden != randomButtonHidden) {
+        [articleNavgiationController setSecondToolbarHidden:randomButtonHidden animated:animated];
     }
 }
 
@@ -149,7 +154,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         return;
     }
     
-    if (!self.shouldShowRandomDiceOnScroll) {
+    if (!self.shouldRandomDiceRespondToScroll) {
         return;
     }
 
@@ -170,10 +175,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
     
-    if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
-        [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
-    }
-
+    [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
+    
     self.previousContentOffsetY = newContentOffsetY;
 }
 
