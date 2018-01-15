@@ -162,9 +162,6 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-//        batchEditToolbar.barTintColor = theme.colors.midBackground
-//        batchEditToolbar.tintColor = theme.colors.link
-        
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
@@ -188,6 +185,9 @@ class SavedViewController: ViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
+    var themeForBatchEditToolbar: Theme {
+        return self.theme
+    }
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton

@@ -4,7 +4,7 @@ public class BatchEditToolbarViewController: UIViewController {
 
     public var items: [UIButton] = []
     fileprivate var stackView: UIStackView?
-    fileprivate let theme: Theme = Theme.standard
+    fileprivate var theme: Theme = Theme.standard
     
     public override func didMove(toParentViewController parent: UIViewController?) {
         let stackView = UIStackView(arrangedSubviews: items)
@@ -31,6 +31,7 @@ public class BatchEditToolbarViewController: UIViewController {
 
 extension BatchEditToolbarViewController: Themeable {
     public func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
             return
         }

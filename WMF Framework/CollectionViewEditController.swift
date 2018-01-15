@@ -13,6 +13,7 @@ public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func didCreateBatchEditToolbarViewController(_ batchEditToolbarViewController: BatchEditToolbarViewController)
     func emptyStateDidChange(_ empty: Bool)
+    var themeForBatchEditToolbar: Theme { get }
 }
 
 public protocol EditableCollection: NSObjectProtocol {

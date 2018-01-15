@@ -278,9 +278,8 @@ extension ReadingListDetailViewController: ActionDelegate {
 // MARK: - BatchEditNavigationDelegate
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
-    
-    func emptyStateDidChange(_ empty: Bool) {
-        //
+    var themeForBatchEditToolbar: Theme {
+        return self.theme
     }
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
