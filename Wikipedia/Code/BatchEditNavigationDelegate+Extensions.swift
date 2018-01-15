@@ -3,7 +3,7 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
         
         let tabBar = self.tabBarController?.tabBar
         
-        if batchEditToolbarViewController.parent != nil {
+        if batchEditToolbarViewController.parent == nil {
             addChildViewController(batchEditToolbarViewController)
             batchEditToolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
             view.addSubview(batchEditToolbarViewController.view)
