@@ -25,6 +25,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         updateVisibleCellActions()
     }
     
+    @objc func reset() {
+        results = []
+    }
+    
     @objc var searchSiteURL: URL? = nil
     
     @objc(isDisplayingResultsForSearchTerm:fromSiteURL:)

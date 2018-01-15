@@ -538,7 +538,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearches {
     [self.recentSearchesViewController reloadRecentSearches];
-    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.countOfEntries == 0 || self.clearedAllRecentSearches;
+    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.countOfEntries == 0;
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
@@ -555,6 +555,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  [self.dataStore.recentSearchList save];
                                                  self.clearedAllRecentSearches = YES;
                                                  [self updateRecentSearches];
+                                                 [self.resultsListController reset];
+                                                 [self updateRecentSearchesVisibility:NO];
                                              }]];
 
     [self presentViewController:dialog animated:YES completion:NULL];
