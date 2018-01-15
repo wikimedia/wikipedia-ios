@@ -99,8 +99,7 @@
 "main-menu-about" = "Пра праграму";
 "main-menu-account-login" = "Увайсьці";
 "main-menu-account-logout" = "Выйсьці";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Увайшлі як: $1";
+"main-menu-account-title-logged-in" = "Увайшлі як $1";
 "main-menu-debug-crash" = "Збой";
 "main-menu-debug-tweaks" = "Налады для распрацоўнікаў";
 "main-menu-heading-debug" = "Наладка";

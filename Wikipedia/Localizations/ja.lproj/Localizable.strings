@@ -60,7 +60,7 @@
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
-"account-creation-captcha-cannot-see-image" = "画像が見られませんか？ $1";
+"account-creation-captcha-cannot-see-image" = "画像が表示できませんか？ $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "リクエストアカウント。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
