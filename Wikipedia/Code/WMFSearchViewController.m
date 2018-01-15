@@ -190,6 +190,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
+    
+    self.clearedAllRecentSearches = NO;
 
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
@@ -231,7 +233,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
          Only perform animations & search site sync if search is being modally dismissed (as opposed to having another
          view presented on top of it.
          */
-        [self saveLastSearch];
+        if (!self.clearedAllRecentSearches) {
+            [self saveLastSearch];
+        }
 
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
@@ -523,7 +527,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - RecentSearches
 
 - (void)saveLastSearch {
-    if (!self.clearedAllRecentSearches && [self currentResultsSearchTerm]) {
+    if ([self currentResultsSearchTerm]) {
         MWKRecentSearchEntry *entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                      searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.recentSearchList addEntry:entry];
