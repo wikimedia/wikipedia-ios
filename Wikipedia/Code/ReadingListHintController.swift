@@ -214,7 +214,7 @@ class ReadingListHintViewController: UIViewController {
     }
     
     @objc private func dismissReadingListDetailViewController() {
-        themeableNavigationController?.dismiss(animated: true, completion: nil)
+        themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
     }
 
 }

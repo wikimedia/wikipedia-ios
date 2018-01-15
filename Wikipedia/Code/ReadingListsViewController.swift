@@ -111,7 +111,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     @objc func presentCreateReadingListViewController() {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
         createReadingListViewController.delegate = self
-        present(createReadingListViewController, animated: true, completion: nil)
+        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
+        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    @objc func dismissCreateReadingListViewController() {
+        dismiss(animated: true, completion: nil)
     }
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
