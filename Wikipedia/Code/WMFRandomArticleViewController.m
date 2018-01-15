@@ -69,7 +69,6 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.isReadingListHintHidden = YES;
     self.viewAppeared = YES;
 
 #if WMF_TWEAKS_ENABLED

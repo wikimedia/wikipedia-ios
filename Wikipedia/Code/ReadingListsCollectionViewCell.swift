@@ -26,7 +26,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             guard displayType == .addArticlesToReadingList else {
                 return
             }
-            imageViewDimension = 40
+//            imageViewDimension = 40
         }
     }
     
