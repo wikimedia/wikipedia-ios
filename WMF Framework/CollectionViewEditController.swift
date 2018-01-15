@@ -10,7 +10,8 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarHidden(_ toolbar: UIToolbar, isHidden: Bool, with items: [UIBarButtonItem]) // has default implementation
+    func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
+    func didCreateBatchEditToolbarViewController(_ batchEditToolbarViewController: BatchEditToolbarViewController)
     func emptyStateDidChange(_ empty: Bool)
 }
 
@@ -197,9 +198,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return false
     }
     
-    fileprivate lazy var batchEditToolbar: UIToolbar = {
-       let batchEditToolbar = UIToolbar()
-        return batchEditToolbar
+    fileprivate lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
+       let batchEditToolbarViewController = BatchEditToolbarViewController()
+        batchEditToolbarViewController.items = self.batchEditToolbarItems
+        navigationDelegate?.didCreateBatchEditToolbarViewController(batchEditToolbarViewController)
+        return batchEditToolbarViewController
     }()
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -398,12 +401,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         if !willOpen {
             selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
-            guard let items = batchEditToolbar.items else {
-                return
-            }
-            for (index, item) in items.enumerated() where index != 0 {
-                item.isEnabled = false
-            }
+            batchEditToolbarViewController.setItemsEnabled(false)
         }
     }
     
@@ -445,12 +443,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isClosed: Bool {
         let isClosed = batchEditingState != .open
         if !isClosed {
-            guard let items = batchEditToolbar.items else {
-                return isClosed
-            }
-            for (index, item) in items.enumerated() where index != 0 {
-                item.isEnabled = !selectedIndexPaths.isEmpty
-            }
+            batchEditToolbarViewController.setItemsEnabled(!selectedIndexPaths.isEmpty)
         }
         return isClosed
     }
@@ -468,7 +461,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             guard collectionView.window != nil else {
                 return
             }
-            self.navigationDelegate?.didSetBatchEditToolbarHidden(batchEditToolbar, isHidden: self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
+            self.navigationDelegate?.didSetBatchEditToolbarHidden(batchEditToolbarViewController, isHidden: self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
         }
     }
     
@@ -486,20 +479,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
+    fileprivate lazy var batchEditToolbarItems: [UIButton] = {
         
-        var buttons: [UIBarButtonItem] = []
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        var buttons: [UIButton] = []
         
         for (index, action) in batchEditToolbarActions.enumerated() {
-            if index != 0 {
-                buttons.append(flexibleSpace)
-            }
             let button = action.button
-            button.target = self
-            button.action = #selector(didPerformBatchEditToolbarAction(with:))
+            button.addTarget(self, action: #selector(didPerformBatchEditToolbarAction(with:)), for: .touchUpInside)
             button.tag = index
-            button.title = action.title
+            button.setTitle(action.title, for: UIControlState.normal)
             buttons.append(button)
             button.isEnabled = false
         }

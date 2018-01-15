@@ -160,6 +160,7 @@
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
+		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
@@ -3154,6 +3155,7 @@
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
+		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BatchEditNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
@@ -7213,6 +7215,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */,
 				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B1668A1FD97FE000097D8B /* WMFViewController.h */,
 				D8B1668B1FD97FE000097D8B /* WMFViewController.m */,
@@ -10345,6 +10348,7 @@
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
+				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
 				D84C35FF1F323E0900895FA1 /* WMFColumnarCollectionViewLayout.m in Sources */,
