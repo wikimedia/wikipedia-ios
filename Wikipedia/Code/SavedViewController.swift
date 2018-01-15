@@ -176,10 +176,6 @@ class SavedViewController: ViewController {
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
     }
-    
-    override func viewSafeAreaInsetsDidChange() {
-        print("viewSafeAreaInsetsDidChange")
-    }
 }
 
 // MARK: - BatchEditNavigationDelegate

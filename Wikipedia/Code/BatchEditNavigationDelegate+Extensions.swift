@@ -2,9 +2,10 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) {
         
         batchEditToolbarViewController.apply(theme: themeForBatchEditToolbar)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.layoutSubviews, .curveLinear], animations: {
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveLinear], animations: {
             self.tabBarController?.tabBar.alpha = isHidden ? 1 : 0
+            batchEditToolbarViewController.view.alpha = isHidden ? 0 : 1
         }, completion: nil)
     }
     
