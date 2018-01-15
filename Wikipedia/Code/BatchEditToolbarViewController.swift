@@ -9,6 +9,7 @@ public final class BatchEditToolbarViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: items)
         stackView.axis = UILayoutConstraintAxis.horizontal
         stackView.distribution = UIStackViewDistribution.fillEqually
+        stackView.alignment = UIStackViewAlignment.center
         view.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let centerXConstraint = stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
