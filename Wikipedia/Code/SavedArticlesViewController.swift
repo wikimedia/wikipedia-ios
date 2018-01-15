@@ -10,6 +10,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     var dataStore: MWKDataStore!
     
+    weak public var readingListsViewControllerDelegate: ReadingListsViewControllerDelegate?
+    
     fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore) {
         // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
         let checkedKey = "checked"
@@ -249,6 +251,7 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
                 continue
             }
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            readingListsViewControllerDelegate?.didUpdateDefaultList()
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
