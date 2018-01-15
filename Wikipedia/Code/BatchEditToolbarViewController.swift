@@ -1,14 +1,12 @@
 import UIKit
 
-public class BatchEditToolbarViewController: UIViewController {
+public final class BatchEditToolbarViewController: UIViewController {
 
     public var items: [UIButton] = []
-    fileprivate var stackView: UIStackView?
     fileprivate var theme: Theme = Theme.standard
     
     public override func didMove(toParentViewController parent: UIViewController?) {
         let stackView = UIStackView(arrangedSubviews: items)
-        self.stackView = stackView
         stackView.axis = UILayoutConstraintAxis.horizontal
         stackView.distribution = UIStackViewDistribution.fillEqually
         view.addSubview(stackView)
@@ -26,6 +24,17 @@ public class BatchEditToolbarViewController: UIViewController {
         for item in items where item.tag != 0 {
             item.isEnabled = enabled
         }
+    }
+    
+    public func remove() {
+        self.willMove(toParentViewController: nil)
+        view.removeFromSuperview()
+        self.removeFromParentViewController()
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        apply(theme: theme)
     }
 }
 

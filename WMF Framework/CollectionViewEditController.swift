@@ -11,7 +11,6 @@ enum CollectionViewCellState {
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
-    func didCreateBatchEditToolbarViewController(_ batchEditToolbarViewController: BatchEditToolbarViewController)
     func emptyStateDidChange(_ empty: Bool)
     var themeForBatchEditToolbar: Theme { get }
 }
@@ -202,7 +201,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     fileprivate lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
        let batchEditToolbarViewController = BatchEditToolbarViewController()
         batchEditToolbarViewController.items = self.batchEditToolbarItems
-        navigationDelegate?.didCreateBatchEditToolbarViewController(batchEditToolbarViewController)
         return batchEditToolbarViewController
     }()
     
@@ -336,6 +334,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     // MARK: - Batch editing
     
     public weak var navigationDelegate: BatchEditNavigationDelegate? {
+        willSet {
+            batchEditToolbarViewController.remove()
+        }
         didSet {
             batchEditingState = .none
         }

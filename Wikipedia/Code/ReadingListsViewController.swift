@@ -73,6 +73,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        editController.navigationDelegate = self
         
         savedArticlesViewController = SavedArticlesViewController()
         savedArticlesViewController.readingListsViewControllerDelegate = self
@@ -350,6 +351,16 @@ extension ReadingListsViewController: ActionDelegate {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
 
+}
+
+extension ReadingListsViewController: BatchEditNavigationDelegate {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+        //
+    }
+    
+    var themeForBatchEditToolbar: Theme {
+        return self.theme
+    }
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
