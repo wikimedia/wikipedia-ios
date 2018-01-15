@@ -556,7 +556,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  self.clearedAllRecentSearches = YES;
                                                  [self updateRecentSearches];
                                                  [self updateRecentSearchesVisibility:YES];
-                                                 [self.resultsListController reset];
                                              }]];
 
     [self presentViewController:dialog animated:YES completion:NULL];
