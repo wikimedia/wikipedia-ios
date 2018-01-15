@@ -57,6 +57,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTop;
 
 @property (nonatomic, assign, getter=isRecentSearchesHidden) BOOL recentSearchesHidden;
+@property (nonatomic) BOOL clearedAllRecentSearches;
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 
@@ -172,7 +173,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     self.fakeProgressController = [[WMFFakeProgressController alloc] initWithProgressView:self.progressView];
     self.recentSearchesHeaderLabel.text = [WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms") uppercaseStringWithLocale:[NSLocale currentLocale]];
-    
+
     [self configureSearchField];
 
     // move search field offscreen, preparing for transition in viewWillAppear
@@ -408,7 +409,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
     [self.fakeProgressController start];
-    
+
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
@@ -448,8 +449,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.fakeProgressController finish];
         return;
     }
-    
-    
+
     [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                      siteURL:url
                                  resultLimit:WMFMaxSearchResultLimit
@@ -479,7 +479,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                                                   success:success];
                                                  return;
                                              }
-                                             
+
                                              success(results);
                                          });
                                      }];
@@ -523,7 +523,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - RecentSearches
 
 - (void)saveLastSearch {
-    if ([self currentResultsSearchTerm]) {
+    if (!self.clearedAllRecentSearches && [self currentResultsSearchTerm]) {
         MWKRecentSearchEntry *entry = [[MWKRecentSearchEntry alloc] initWithURL:[self currentResultsSearchSiteURL]
                                                                      searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.recentSearchList addEntry:entry];
@@ -534,7 +534,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearches {
     [self.recentSearchesViewController reloadRecentSearches];
-    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.entries.count == 0;
+    self.recentSearchesHeader.hidden = self.dataStore.recentSearchList.countOfEntries == 0 || self.clearedAllRecentSearches;
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
@@ -545,12 +545,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
-        style:UIAlertActionStyleDestructive
-        handler:^(UIAlertAction *_Nonnull action) {
-            [self.dataStore.recentSearchList removeAllEntries];
-            [self.dataStore.recentSearchList save];
-            [self updateRecentSearches];
-        }]];
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction *_Nonnull action) {
+                                                 [self.dataStore.recentSearchList removeAllEntries];
+                                                 [self.dataStore.recentSearchList save];
+                                                 self.clearedAllRecentSearches = YES;
+                                                 [self updateRecentSearches];
+                                             }]];
 
     [self presentViewController:dialog animated:YES completion:NULL];
 }
@@ -608,7 +609,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
     self.view.tintColor = theme.colors.link;
-    
+
     self.recentSearchesHeader.backgroundColor = theme.colors.midBackground;
     self.recentSearchesHeaderLabel.textColor = theme.colors.secondaryText;
     self.clearRecentSearchesButton.tintColor = theme.colors.secondaryText;
