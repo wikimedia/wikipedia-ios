@@ -190,7 +190,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
-    
+
     self.clearedAllRecentSearches = NO;
 
     if (self.searchTerm) {
@@ -555,8 +555,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  [self.dataStore.recentSearchList save];
                                                  self.clearedAllRecentSearches = YES;
                                                  [self updateRecentSearches];
+                                                 [self updateRecentSearchesVisibility:YES];
                                                  [self.resultsListController reset];
-                                                 [self updateRecentSearchesVisibility:NO];
                                              }]];
 
     [self presentViewController:dialog animated:YES completion:NULL];
