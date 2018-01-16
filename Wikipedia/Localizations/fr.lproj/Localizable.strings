@@ -349,6 +349,7 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";
+// Fuzzy
 "settings-appearance" = "Apparence";
 "settings-clear-cache" = "Effacer les données en cache";
 "settings-clear-cache-are-you-sure-message" = "L’effacement des données en cache libérera environ $1 d’espace. Cela ne supprimera pas vos pages sauvegardées.";

@@ -191,6 +191,7 @@
 "search-recent-title" = "Azken bilaketak";
 "search-result-redirected-from" = "$1(e)tik birzuzenduta";
 "search-title" = "Bilatu";
+// Fuzzy
 "settings-appearance" = "Itxura";
 "settings-clear-cache" = "Garbitu katxeratutako datuak";
 "settings-clear-cache-are-you-sure-title" = "Garbitu katxeratutako datuak?";

@@ -325,6 +325,7 @@
 "search-recent-title" = "Inadiyen n melmi kan";
 "search-result-redirected-from" = "Awelleh si: $1";
 "search-title" = "Nadi";
+// Fuzzy
 "settings-appearance" = "Udem";
 "settings-clear-cache" = "Sfeḍ akk isefka yeffren";
 "settings-clear-cache-are-you-sure-message" = "Asfaḍ n isefka n tuffirt ad iserreḥ azal n $1 n umḍiq. Ayagi ur itekkes ara isebtar-ik yettwaskelsen.";

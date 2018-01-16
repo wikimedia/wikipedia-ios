@@ -344,7 +344,7 @@
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自: $1";
 "search-title" = "搜尋";
-"settings-appearance" = "外觀";
+"settings-appearance" = "讀取偏好設定";
 "settings-clear-cache" = "清除快取資料";
 "settings-clear-cache-are-you-sure-message" = "清除快取資料將會釋放出 $1 空間大小。此操作並不會刪除掉您儲存的頁面。";
 "settings-clear-cache-are-you-sure-title" = "清除快取資料？";

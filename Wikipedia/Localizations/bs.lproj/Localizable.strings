@@ -312,6 +312,7 @@
 "search-recent-title" = "Nedavne pretrage";
 "search-result-redirected-from" = "Preusmjereno sa: $1";
 "search-title" = "Pretraga";
+// Fuzzy
 "settings-appearance" = "Izgled";
 "settings-clear-cache" = "Očisti keširane podatke";
 "settings-clear-cache-are-you-sure-message" = "Čišćenjem keširanih podataka oslobodit ćete oko $1 prostora. Ovim se neće obrisati Vaše sačuvane stranice.";

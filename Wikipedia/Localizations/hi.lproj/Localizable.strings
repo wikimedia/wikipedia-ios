@@ -341,6 +341,7 @@
 "search-recent-title" = "हाल ही में खोजा गया";
 "search-result-redirected-from" = "$1 से पुनर्निर्देशित";
 "search-title" = "खोजें";
+// Fuzzy
 "settings-appearance" = "दिखावट";
 "settings-clear-cache" = "कैश डेटा खाली करें";
 "settings-clear-cache-are-you-sure-message" = "कैश डेटा खाली करने से $1 स्पेस खाली होगी। इससे आपके सहेजे गए पेज नहीं डिलीट होंगे।";

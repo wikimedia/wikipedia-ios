@@ -341,7 +341,7 @@
 "search-recent-title" = "Pesquisado recentemente";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
-"settings-appearance" = "Aparência";
+"settings-appearance" = "Preferências de leitura";
 "settings-clear-cache" = "Limpar dados da cache";
 "settings-clear-cache-are-you-sure-message" = "Limpar os dados da cache libertará cerca de $1 de espaço. Não apaga as suas páginas guardadas.";
 "settings-clear-cache-are-you-sure-title" = "Limpar dados da cache?";
