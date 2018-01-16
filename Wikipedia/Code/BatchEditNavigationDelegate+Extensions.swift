@@ -16,7 +16,7 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
             }
         }
         
-        batchEditToolbarViewController.apply(theme: themeForBatchEditToolbar)
+        batchEditToolbarViewController.apply(theme: currentTheme)
         UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveLinear], animations: {
             if let tabBar = tabBar {
                 tabBar.alpha = isHidden ? 1 : 0

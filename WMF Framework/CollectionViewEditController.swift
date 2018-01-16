@@ -12,7 +12,7 @@ public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
-    var themeForBatchEditToolbar: Theme { get }
+    var currentTheme: Theme { get }
 }
 
 public protocol EditableCollection: NSObjectProtocol {
@@ -399,6 +399,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             } else {
                 cell.batchEditingTranslation = targetTranslation
                 cell.layoutIfNeeded()
+            }
+            if let themeableCell = cell as? Themeable, let navigationDelegate = navigationDelegate {
+                themeableCell.apply(theme: navigationDelegate.currentTheme)
             }
         }
         if !willOpen {

@@ -487,7 +487,7 @@ extension SavedArticlesViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedArticlesViewController: BatchEditNavigationDelegate {
-    var themeForBatchEditToolbar: Theme {
+    var currentTheme: Theme {
         return self.theme
     }
     

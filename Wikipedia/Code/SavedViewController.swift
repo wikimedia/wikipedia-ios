@@ -181,7 +181,7 @@ class SavedViewController: ViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
-    var themeForBatchEditToolbar: Theme {
+    var currentTheme: Theme {
         return self.theme
     }
     

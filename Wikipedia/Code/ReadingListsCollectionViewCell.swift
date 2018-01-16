@@ -21,14 +21,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab {
-        didSet {
-            guard displayType == .addArticlesToReadingList else {
-                return
-            }
-//            imageViewDimension = 40
-        }
-    }
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
     
     fileprivate var isDefault: Bool = false
     
@@ -133,6 +126,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
+        
+        if displayType == .addArticlesToReadingList {
+            configureForCompactList(at: index)
+        }
         
         articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
         titleLabel.text = name

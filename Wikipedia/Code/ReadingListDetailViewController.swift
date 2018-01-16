@@ -278,7 +278,7 @@ extension ReadingListDetailViewController: ActionDelegate {
 // MARK: - BatchEditNavigationDelegate
 
 extension ReadingListDetailViewController: BatchEditNavigationDelegate {
-    var themeForBatchEditToolbar: Theme {
+    var currentTheme: Theme {
         return self.theme
     }
     
