@@ -34,13 +34,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
-    // temporary hax
-    override func layoutMarginsDidChange() {
-        if displayType == .addArticlesToReadingList {
-            layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        }
-    }
-    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
@@ -112,7 +105,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         let separatorXPositon = layoutMargins.left - margins.left
         let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
-        print("height: \(height)")
+
         if (apply) {
             if (!bottomSeparator.isHidden) {
                 bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
@@ -136,7 +129,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override func configureForCompactList(at index: Int) {
-        layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        layoutMarginsAdditions.top += 5
+        layoutMarginsAdditions.bottom += 5
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
