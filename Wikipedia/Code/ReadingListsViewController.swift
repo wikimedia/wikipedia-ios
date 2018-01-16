@@ -4,10 +4,6 @@ enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList
 }
 
-protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
-    func didUpdateDefaultList()
-}
-
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
@@ -22,7 +18,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     fileprivate var readingLists: [ReadingList]? // the displayed reading lists
     fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
-    fileprivate var savedArticlesViewController: SavedArticlesViewController!
     
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
     
@@ -75,9 +70,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         editController.delegate = self
         editController.navigationDelegate = self
         
-        savedArticlesViewController = SavedArticlesViewController()
-        savedArticlesViewController.readingListsViewControllerDelegate = self
-        
         // Remove peek & pop for now
         unregisterForPreviewing()
         
@@ -87,6 +79,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateEmptyState()
+        updateArticleCountLabelForDefaultList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,6 +111,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     @objc func dismissCreateReadingListViewController() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func updateArticleCountLabelForDefaultList() {
+        let indexPath = IndexPath(item: 0, section: 0)
+        if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
     }
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -213,9 +213,10 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         }
         
         guard !readingList.isDefaultList else {
+            let savedArticlesViewController = SavedArticlesViewController()
             savedArticlesViewController.dataStore = dataStore
             savedArticlesViewController.apply(theme: theme)
-            wmf_push(savedArticlesViewController!, animated: true)
+            wmf_push(savedArticlesViewController, animated: true)
             return
         }
         
@@ -394,14 +395,5 @@ extension ReadingListsViewController {
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
-    }
-}
-
-extension ReadingListsViewController: ReadingListsViewControllerDelegate {
-    func didUpdateDefaultList() {
-        let indexPath = IndexPath(item: 0, section: 0)
-        if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
-        }
     }
 }
