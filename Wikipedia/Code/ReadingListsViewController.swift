@@ -157,14 +157,17 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         isEmpty = true
         for sectionIndex in 0..<sectionCount {
             let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
-            if numberOfItems > 0 {
+            if numberOfItems > 1 {
                 editController.hasDefaultCell = numberOfItems == 1
                 isEmpty = false
                 break
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme)
+            let cellHeight = cellLayoutEstimate?.height ?? 100
+            let emptyViewYPosition = navigationBar.visibleHeight + cellHeight
+                let emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: collectionView.bounds.height - emptyViewYPosition)
+                wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }

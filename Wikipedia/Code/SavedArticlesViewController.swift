@@ -104,7 +104,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme)
+            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }
