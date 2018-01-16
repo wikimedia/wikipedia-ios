@@ -65,14 +65,27 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
         }
-
-        if (displayType == .readingListsTab) && (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden) {
+        
+        if displayType == .addArticlesToReadingList {
+            if isDefault {
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+                origin.y += titleLabelFrame.layoutHeight(with: 0)
+                let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+                origin.y += descriptionLabelFrame.layoutHeight(with: 0)
+                descriptionLabel.isHidden = false
+            } else {
+                let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+                origin.y += titleLabelFrame.layoutHeight(with: 0)
+                descriptionLabel.isHidden = true
+            }
+        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = displayType == .addArticlesToReadingList && !isDefault
+            descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
                 origin.y += spacing
@@ -92,7 +105,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         let separatorXPositon = layoutMargins.left - margins.left
         let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
-        
+        print("height: \(height)")
         if (apply) {
             if (!bottomSeparator.isHidden) {
                 bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
