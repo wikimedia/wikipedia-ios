@@ -129,8 +129,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override func configureForCompactList(at index: Int) {
-        layoutMarginsAdditions.top += 5
-        layoutMarginsAdditions.bottom += 5
+        layoutMarginsAdditions.top = 5
+        layoutMarginsAdditions.bottom = 5
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
