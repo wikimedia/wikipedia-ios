@@ -130,7 +130,7 @@ GEM
       unicode-display_width (~> 1.1, >= 1.1.1)
     tty-cursor (0.5.0)
     tty-screen (0.6.4)
-    tty-spinner (0.7.0)
+    tty-spinner (0.8.0)
       tty-cursor (>= 0.5.0)
     uber (0.1.0)
     unf (0.1.4)
