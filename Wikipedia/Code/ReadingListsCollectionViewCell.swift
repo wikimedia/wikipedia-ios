@@ -66,7 +66,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
         }
 
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
+        if (displayType == .readingListsTab) && (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
@@ -115,6 +115,15 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
+    override func configureForCompactList(at index: Int) {
+        layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        titleTextStyle = .subheadline
+        descriptionTextStyle = .footnote
+        updateFonts(with: traitCollection)
+        imageViewDimension = 40
+        isSaveButtonHidden = true
+    }
+    
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
     }
@@ -126,10 +135,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
-        
-        if displayType == .addArticlesToReadingList {
-            configureForCompactList(at: index)
-        }
         
         articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
         titleLabel.text = name
@@ -143,6 +148,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         } else {
             isImageViewHidden = true
+        }
+        
+        if displayType == .addArticlesToReadingList {
+            configureForCompactList(at: index)
         }
         
         if shouldShowSeparators {
