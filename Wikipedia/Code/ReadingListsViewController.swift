@@ -308,7 +308,7 @@ extension ReadingListsViewController: ActionDelegate {
             return true
         case .delete:
             let title = "Delete reading lists and all of their saved articles?"
-            let message = "Your \(readingLists.count) lists and \(articlesCount) articles will be deleted"
+            let message = "Your \(readingLists.count) \(readingLists.count > 1 ? "lists" : "list") and \(articlesCount) articles will be deleted"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                 alert.dismiss(animated: true, completion: nil)
