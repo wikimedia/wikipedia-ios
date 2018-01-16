@@ -69,18 +69,24 @@ class SavedViewController: ViewController {
                 addChild(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesViewController
-                navigationItem.leftBarButtonItem = nil
+                isAddButtonHidden = true
                 isSearchBarHidden = savedArticlesViewController.isEmpty
                 scrollView = savedArticlesViewController.collectionView
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
-                navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+                isAddButtonHidden = false
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
             }
+        }
+    }
+    
+    fileprivate var isAddButtonHidden: Bool = true {
+        didSet {
+            navigationItem.leftBarButtonItem = isAddButtonHidden ? nil : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
     
