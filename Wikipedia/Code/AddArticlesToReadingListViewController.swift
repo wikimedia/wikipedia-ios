@@ -85,7 +85,6 @@ extension AddArticlesToReadingListViewController: Themeable {
         navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         view.backgroundColor = theme.colors.chromeBackground
         readingListsViewController?.apply(theme: theme)
-        containerView.backgroundColor = UIColor.red
         addButton?.tintColor = theme.colors.link
     }
 }
