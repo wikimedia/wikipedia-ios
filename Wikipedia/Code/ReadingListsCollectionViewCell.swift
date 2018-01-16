@@ -34,6 +34,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
+    // temporary hax
+    override func layoutMarginsDidChange() {
+        if displayType == .addArticlesToReadingList {
+            layoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        }
+    }
+    
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
