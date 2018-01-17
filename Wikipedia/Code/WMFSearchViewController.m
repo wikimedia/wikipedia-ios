@@ -191,8 +191,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
 
-    self.clearedAllRecentSearches = NO;
-
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
     }
@@ -208,6 +206,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    self.clearedAllRecentSearches = NO;
 
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
