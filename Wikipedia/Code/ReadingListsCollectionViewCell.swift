@@ -40,6 +40,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         outermostStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         imageGrid.layer.cornerRadius = 3
+        imageGrid.masksToBounds = true
         contentView.addSubview(imageGrid)
         
         super.setup()
