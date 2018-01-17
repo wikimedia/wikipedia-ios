@@ -159,7 +159,7 @@ class ReadingListHintViewController: UIViewController {
         button.titleLabel?.lineBreakMode = .byTruncatingTail
         button.verticalPadding = 5
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
         button.sizeToFit()
         button.translatesAutoresizingMaskIntoConstraints = false
         let centerConstraint = button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -176,7 +176,7 @@ class ReadingListHintViewController: UIViewController {
         button.setTitle("Add \(articleTitle) to reading list", for: .normal)
         button.setImage(UIImage(named: "add-to-list"), for: .normal)
         button.removeTarget(self, action: #selector(openReadingList), for: .touchUpInside)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -185,7 +185,7 @@ class ReadingListHintViewController: UIViewController {
     
     public weak var delegate: ReadingListHintViewControllerDelegate?
     
-    @objc fileprivate func buttonPressed() {
+    @objc fileprivate func addArticleToReadingList() {
         guard let article = article else {
             return
         }
