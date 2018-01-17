@@ -164,10 +164,17 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             }
         }
         if isEmpty {
-            let cellHeight = cellLayoutEstimate?.height ?? 100
-            let emptyViewYPosition = navigationBar.visibleHeight + cellHeight
-                let emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: collectionView.bounds.height - emptyViewYPosition)
-                wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
+            var emptyViewFrame = CGRect.zero
+            if displayType == .readingListsTab {
+                let cellHeight = cellLayoutEstimate?.height ?? 100
+                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height + cellHeight
+                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            } else {
+                let cellHeight = cellLayoutEstimate?.height ?? 70
+                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.frame.height + cellHeight
+                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            }
+            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
