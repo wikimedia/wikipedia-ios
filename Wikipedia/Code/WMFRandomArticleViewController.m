@@ -39,6 +39,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [self setupSecondToolbar];
     [self setupEmptyFadeView];
     [self applyTheme:self.theme];
+    self.isReadingListHintHidden = YES;
 }
 
 - (void)setupSecondToolbar {
@@ -152,7 +153,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     if (!self.viewHasAppeared) {
         return;
     }
-    
+
     if (!self.shouldRandomDiceRespondToScroll) {
         return;
     }
@@ -173,9 +174,9 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     } else {
         shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
-    
+
     [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
-    
+
     self.previousContentOffsetY = newContentOffsetY;
 }
 
