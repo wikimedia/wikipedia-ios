@@ -21,6 +21,7 @@
 // Author: Ontsed
 // Author: Peg60
 // Author: Redredsonia
+// Author: S4b1nuz E.656
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
@@ -68,8 +69,10 @@
 "action-read" = "Leggi";
 "action-save" = "Salva";
 "action-saved" = "Salvato";
+"action-saved-accessibility-notification" = "Voce salvata per dopo";
 "action-share" = "Condividi";
 "action-unsave" = "Annulla salvataggio";
+"action-unsaved-accessibility-notification" = "Voce non salvata";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -318,7 +321,7 @@
 "search-recent-title" = "Cercato recentemente";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "search-title" = "Ricerca";
-"settings-appearance" = "Aspetto";
+"settings-appearance" = "Preferenze di lettura";
 "settings-clear-cache-cancel" = "Annulla";
 "settings-clear-cache-ok" = "Pulisci cache";
 "settings-help-and-feedback" = "Aiuto e feedback";
@@ -392,8 +395,7 @@
 "wikitext-upload-save" = "Pubblicazione...";
 "wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
 "wikitext-upload-save-sign-in" = "Accedi";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Pubblicando le modifiche, accetti le nostre $1, e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Pubblicando le modifiche, accetti le nostre $1 e accetti di rilasciare il tuo contributo in base alle licenze $2 e $3.";
 "wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";

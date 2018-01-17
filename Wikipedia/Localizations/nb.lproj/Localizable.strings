@@ -339,6 +339,7 @@
 "search-recent-title" = "Siste søk";
 "search-result-redirected-from" = "Omdirigert fra: $1";
 "search-title" = "Søk";
+// Fuzzy
 "settings-appearance" = "Utseende";
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";

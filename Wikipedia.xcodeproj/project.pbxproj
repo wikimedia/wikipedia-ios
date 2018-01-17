@@ -118,11 +118,11 @@
 		7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0161E31FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0161E41FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
-		7A203F0B1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
-		7A203F0C1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
-		7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
-		7A203F0E1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
-		7A203F0F1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */; };
+		7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
+		7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
+		7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
+		7A203F0E1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
+		7A203F0F1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
 		7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
 		7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */; };
@@ -160,16 +160,17 @@
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
+		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABE1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABF1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
-		7A998AC11FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */; };
-		7A998AC21FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */; };
-		7A998AC31FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */; };
-		7A998AC41FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */; };
-		7A998AC51FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */; };
+		7A998AC11FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */; };
+		7A998AC21FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */; };
+		7A998AC31FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */; };
+		7A998AC41FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */; };
+		7A998AC51FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */; };
 		7ADB2A0E1FD1E96300B84818 /* BatchEditSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */; };
 		7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
 		7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
@@ -3144,7 +3145,7 @@
 		7A0091D71FE8212300745F04 /* ReadingListsController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListsController+Extensions.swift"; sourceTree = "<group>"; };
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
-		7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticleToReadingListToolbarViewController.swift; sourceTree = "<group>"; };
+		7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintController.swift; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
@@ -3153,8 +3154,9 @@
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
+		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
-		7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbar.swift; sourceTree = "<group>"; };
+		7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BatchEditNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
 		7ADEAB021FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddArticlesToReadingListViewController.xib; sourceTree = "<group>"; };
@@ -7210,6 +7212,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */,
 				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B1668A1FD97FE000097D8B /* WMFViewController.h */,
 				D8B1668B1FD97FE000097D8B /* WMFViewController.m */,
@@ -7239,7 +7242,7 @@
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
 				7ADEAB021FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib */,
-				7A203F091FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift */,
+				7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7297,7 +7300,7 @@
 				7AE1D3321FCD057200393471 /* Saved.storyboard */,
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
-				7A998AC01FE20F3B007FE06E /* BatchEditToolbar.swift */,
+				7A998AC01FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D82E95001F0FD2DA007BD960 /* Table View Cells */,
 				D83F5C061F0E511C006130FF /* Collection View Cells */,
@@ -9919,7 +9922,7 @@
 				B0E8037B1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift in Sources */,
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
-				7A998AC11FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */,
+				7A998AC11FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */,
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
 				D818D38B1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
@@ -9951,7 +9954,7 @@
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
-				7A203F0B1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
+				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
 				B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */,
@@ -10050,7 +10053,7 @@
 				D80ED2C81EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D80ED2CA1EE57F4800CE8C50 /* SavedPagesFunnel.m in Sources */,
 				D80ED2CB1EE57F4800CE8C50 /* AssetsFileFetcher.m in Sources */,
-				7A203F0F1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
+				7A203F0F1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D80ED2CC1EE57F4800CE8C50 /* WMFChange.m in Sources */,
 				D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */,
 				D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -10185,7 +10188,7 @@
 				D80ED3621EE57F4800CE8C50 /* UIView+RemoveConstraints.m in Sources */,
 				D80ED3631EE57F4800CE8C50 /* SectionEditorViewController.m in Sources */,
 				B0370E1A1FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
-				7A998AC51FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */,
+				7A998AC51FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */,
 				D80ED3651EE57F4800CE8C50 /* UIView+IBExtras.swift in Sources */,
 				7A0161B81FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				B08624351F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
@@ -10339,6 +10342,7 @@
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
+				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
 				D84C35FF1F323E0900895FA1 /* WMFColumnarCollectionViewLayout.m in Sources */,
@@ -10849,7 +10853,7 @@
 				D8A42B741E815A9C00D8E281 /* WMFTableOfContentsItem.swift in Sources */,
 				D8A42B751E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				D8A42B771E815A9C00D8E281 /* WMFSearchViewController.m in Sources */,
-				7A998AC41FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */,
+				7A998AC41FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */,
 				D8A42B781E815A9C00D8E281 /* UIApplication+SystemSettings.swift in Sources */,
 				D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */,
 				D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */,
@@ -10881,7 +10885,7 @@
 				D8533ED81ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				B0CD9DEC1F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
-				7A203F0E1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
+				7A203F0E1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				D8A42B971E815A9C00D8E281 /* WikiTextSectionFetcher.m in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
@@ -10981,7 +10985,7 @@
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
-				7A203F0C1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
+				7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */,
 				D8CE25381E698E2400DAE2E0 /* AssetsFileFetcher.m in Sources */,
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
@@ -11115,7 +11119,7 @@
 				D8CE25C71E698E2400DAE2E0 /* WMFRevisionQueryResults.m in Sources */,
 				B0CD9DE21F70997400051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
 				B0370E171FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
-				7A998AC21FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */,
+				7A998AC21FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */,
 				D8CE25C81E698E2400DAE2E0 /* WMFAppViewController.m in Sources */,
 				7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				B08624311F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
@@ -11292,7 +11296,7 @@
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */,
-				7A203F0D1FDEDCDD00A229EC /* AddArticleToReadingListToolbarViewController.swift in Sources */,
+				7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8EC3E2F1E9BDA35006712EB /* AssetsFileFetcher.m in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
@@ -11426,7 +11430,7 @@
 				B08624321F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				D8EC3EC41E9BDA35006712EB /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				B0370E181FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
-				7A998AC31FE20F3B007FE06E /* BatchEditToolbar.swift in Sources */,
+				7A998AC31FE20F3B007FE06E /* BatchEditNavigationDelegate+Extensions.swift in Sources */,
 				D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */,
 				7A0161B61FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
 				D8EC3EC61E9BDA35006712EB /* WMFAppViewController.m in Sources */,
@@ -12116,7 +12120,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12417,7 +12421,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12450,7 +12454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12483,7 +12487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12516,7 +12520,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12549,7 +12553,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12582,7 +12586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12615,7 +12619,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12656,7 +12660,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12689,7 +12693,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12722,7 +12726,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12755,7 +12759,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12788,7 +12792,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12821,7 +12825,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12936,7 +12940,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -12969,7 +12973,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13002,7 +13006,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13034,7 +13038,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13067,7 +13071,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13232,10 +13236,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -13357,7 +13361,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13390,7 +13394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13423,7 +13427,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13455,7 +13459,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13488,7 +13492,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13639,10 +13643,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -13767,7 +13771,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -13932,10 +13936,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14309,10 +14313,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14344,10 +14348,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14380,10 +14384,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14807,7 +14811,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -14934,10 +14938,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15044,7 +15048,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -15187,10 +15191,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16009,7 +16013,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16042,7 +16046,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16075,7 +16079,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16107,7 +16111,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16140,7 +16144,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16388,10 +16392,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16514,7 +16518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16547,7 +16551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16698,10 +16702,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16808,7 +16812,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -16841,7 +16845,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17006,10 +17010,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17040,7 +17044,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17072,7 +17076,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17104,7 +17108,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17136,7 +17140,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17176,7 +17180,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17208,7 +17212,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17240,7 +17244,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17272,7 +17276,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17304,7 +17308,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17415,7 +17419,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17448,7 +17452,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17480,7 +17484,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17631,10 +17635,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17740,7 +17744,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17773,7 +17777,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17805,7 +17809,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -17970,10 +17974,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18005,7 +18009,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18038,7 +18042,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18071,7 +18075,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18112,7 +18116,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18145,7 +18149,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18178,7 +18182,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18290,7 +18294,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18323,7 +18327,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18474,10 +18478,10 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1311;
+				DYLIB_CURRENT_VERSION = 1317;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18510,7 +18514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18543,7 +18547,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18576,7 +18580,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18609,7 +18613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18642,7 +18646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18683,7 +18687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18716,7 +18720,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18749,7 +18753,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18782,7 +18786,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18815,7 +18819,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -18848,7 +18852,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1311;
+				CURRENT_PROJECT_VERSION = 1317;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (

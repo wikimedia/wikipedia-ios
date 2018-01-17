@@ -325,6 +325,7 @@
 "search-recent-title" = "Pamaluruhan kiwari";
 "search-result-redirected-from" = "Dipindahkeun ti: $1";
 "search-title" = "Paluruh";
+// Fuzzy
 "settings-appearance" = "Pidangan";
 "settings-clear-cache" = "Bersihkeun data telih";
 "settings-clear-cache-are-you-sure-message" = "Mersihan data telih bakal ngosongkeun kirana $1 tina rohangan. Ieu moal bakalan ngahapus kaca kasimpen anjeun.";

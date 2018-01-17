@@ -37,14 +37,13 @@ class AddArticlesToReadingListViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed() {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
-        createReadingListViewController.delegate = readingListsViewController
-        present(createReadingListViewController, animated: true, completion: nil)
+        readingListsViewController?.presentCreateReadingListViewController()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ articles to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articles.count)")
+        let articlesString = articles.count > 1 ? "articles" : "article"
+        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ %2$@ to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(articles.count)", "\(articlesString)")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         
         readingListsViewController = ReadingListsViewController.init(with: dataStore, articles: articles)
@@ -86,7 +85,6 @@ extension AddArticlesToReadingListViewController: Themeable {
         navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         view.backgroundColor = theme.colors.chromeBackground
         readingListsViewController?.apply(theme: theme)
-        containerView.backgroundColor = UIColor.red
         addButton?.tintColor = theme.colors.link
     }
 }

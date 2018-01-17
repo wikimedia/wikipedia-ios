@@ -328,6 +328,7 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
+// Fuzzy
 "settings-appearance" = "Giao diện";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";

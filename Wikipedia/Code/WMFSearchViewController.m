@@ -415,7 +415,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self.fakeProgressController stop];
             @strongify(self);
             if ([searchTerm isEqualToString:self.searchField.text]) {
-                [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
+                [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme frame:self.resultsListController.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 DDLogError(@"Encountered search error: %@", error);
             }
@@ -431,7 +431,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                 if (results.results.count == 0) {
                     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
                         //Without the delay there is a weird animation due to the table also reloading simultaneously
-                        [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme];
+                        [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme frame:self.resultsListController.view.bounds];
                     });
                 }
                 self.resultsListController.results = results.results;

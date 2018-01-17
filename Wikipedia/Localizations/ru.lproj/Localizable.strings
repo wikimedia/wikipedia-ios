@@ -347,7 +347,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
-"settings-appearance" = "Оформление";
+"settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
 "settings-clear-cache-are-you-sure-title" = "Очистить кэш?";

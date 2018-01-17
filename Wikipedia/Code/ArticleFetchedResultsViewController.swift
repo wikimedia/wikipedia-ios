@@ -59,7 +59,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme)
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }

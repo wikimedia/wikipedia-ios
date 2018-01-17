@@ -47,7 +47,7 @@
 "action-share" = "Share";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
-"add-articles-to-reading-list" = "Add $1 articles to reading list";
+"add-articles-to-reading-list" = "Add $1 $2 to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -300,12 +300,12 @@
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
-"reading-list-exists-with-same-name" = "A reading list already exists with the name ‟$1”";
+"reading-list-exists-with-same-name" = "A reading list already exists with the name $1";
 "reading-list-unable-to-add-entry" = "An unexpected error occured while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occured while creating your reading list. Please try again later.";
 "reading-list-unable-to-delete" = "An unexpected error occured while deleting your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occured while updating your reading list. Please try again later.";
-"reading-list-with-provided-name-not-found" = "A reading list with the name ‟$1” was not found. Please make sure you have the correct name.";
+"reading-list-with-provided-name-not-found" = "A reading list with the name $1 was not found. Please make sure you have the correct name.";
 "reading-lists-default-list-description" = "Default saved pages list";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";

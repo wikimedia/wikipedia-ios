@@ -6,14 +6,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateReadingListViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="closeButton" destination="93B-kH-3f4" id="KbF-Q9-XfU"/>
                 <outlet property="createReadingListButton" destination="UtA-Zm-L74" id="fqQ-pX-Ptg"/>
                 <outlet property="descriptionLabel" destination="lCo-6s-4Lk" id="GEK-dQ-mTM"/>
                 <outlet property="descriptionTextField" destination="9bd-dM-Z1B" id="Mb2-vc-7rl"/>
@@ -40,13 +38,6 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93B-kH-3f4">
-                                    <rect key="frame" x="262" y="30" width="18" height="22"/>
-                                    <state key="normal" image="close"/>
-                                    <connections>
-                                        <action selector="closeButtonPressed:" destination="-1" eventType="touchUpInside" id="bid-pp-SZL"/>
-                                    </connections>
-                                </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Nyk-1i-Eum">
                                     <rect key="frame" x="0.0" y="80.5" width="288" height="124"/>
                                     <subviews>
@@ -134,9 +125,6 @@
                                 </constraint>
                                 <constraint firstItem="Rae-vX-ya2" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="T6d-BJ-pTr"/>
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="centerX" secondItem="Nyk-1i-Eum" secondAttribute="centerX" id="Uhw-eR-mrr"/>
-                                <constraint firstAttribute="trailingMargin" secondItem="93B-kH-3f4" secondAttribute="trailingMargin" constant="8" id="XMD-Oq-X8d"/>
-                                <constraint firstItem="93B-kH-3f4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rae-vX-ya2" secondAttribute="trailing" constant="8" id="g7a-Ps-bNY"/>
-                                <constraint firstItem="93B-kH-3f4" firstAttribute="centerY" secondItem="Rae-vX-ya2" secondAttribute="centerY" id="jkh-7x-Hfx"/>
                                 <constraint firstItem="Nyk-1i-Eum" firstAttribute="top" secondItem="Rae-vX-ya2" secondAttribute="bottom" constant="30" id="seb-q4-Ra9"/>
                                 <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="zDF-Av-3Tt"/>
                             </constraints>
@@ -161,7 +149,4 @@
             <point key="canvasLocation" x="35.5" y="53.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="close" width="18" height="18"/>
-    </resources>
 </document>

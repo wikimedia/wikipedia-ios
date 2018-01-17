@@ -7,6 +7,8 @@ enum ReadingListsDisplayType {
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
+    fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
+    
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
@@ -15,9 +17,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     var editController: CollectionViewEditController!
     fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     fileprivate var readingLists: [ReadingList]? // the displayed reading lists
-    
-    fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
-
     fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
     
     public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
@@ -74,6 +73,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        editController.navigationDelegate = self
+        
         // Remove peek & pop for now
         unregisterForPreviewing()
         
@@ -83,6 +84,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateEmptyState()
+        updateDefaultListCell()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,7 +109,20 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     @objc func presentCreateReadingListViewController() {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
         createReadingListViewController.delegate = self
-        present(createReadingListViewController, animated: true, completion: nil)
+        let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
+        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        present(navigationController, animated: true, completion: nil)
+    }
+    
+    @objc func dismissCreateReadingListViewController() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func updateDefaultListCell() {
+        let indexPath = IndexPath(item: 0, section: 0)
+        if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
     }
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -147,14 +162,24 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         isEmpty = true
         for sectionIndex in 0..<sectionCount {
             let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
-            if numberOfItems > 0 {
+            if numberOfItems > 1 {
                 editController.hasDefaultCell = numberOfItems == 1
                 isEmpty = false
                 break
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme)
+            var emptyViewFrame = CGRect.zero
+            if displayType == .readingListsTab {
+                let cellHeight = cellLayoutEstimate?.height ?? 100
+                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height + cellHeight
+                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            } else {
+                let cellHeight = cellLayoutEstimate?.height ?? 70
+                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.frame.height + cellHeight
+                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            }
+            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
@@ -221,6 +246,10 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
         return [updateItem, deleteItem]
     }()
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        editController.transformBatchEditPaneOnScroll()
+    }
     
 }
 
@@ -295,7 +324,7 @@ extension ReadingListsViewController: ActionDelegate {
             return true
         case .delete:
             let title = "Delete reading lists and all of their saved articles?"
-            let message = "Your \(readingLists.count) lists and \(articlesCount) articles will be deleted"
+            let message = "Your \(readingLists.count) \(readingLists.count > 1 ? "lists" : "list") and \(articlesCount) articles will be deleted"
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                 alert.dismiss(animated: true, completion: nil)
@@ -344,6 +373,16 @@ extension ReadingListsViewController: ActionDelegate {
         return [ActionType.delete.action(with: self, indexPath: indexPath)]
     }
 
+}
+
+extension ReadingListsViewController: BatchEditNavigationDelegate {
+    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+        //
+    }
+    
+    var currentTheme: Theme {
+        return self.theme
+    }
 }
 
 // MARK: - WMFColumnarCollectionViewLayoutDelegate

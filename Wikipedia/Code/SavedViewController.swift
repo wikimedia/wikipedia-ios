@@ -69,18 +69,24 @@ class SavedViewController: ViewController {
                 addChild(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
                 savedDelegate = savedArticlesViewController
-                navigationItem.leftBarButtonItem = nil
+                isAddButtonHidden = true
                 isSearchBarHidden = savedArticlesViewController.isEmpty
                 scrollView = savedArticlesViewController.collectionView
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
-                navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+                isAddButtonHidden = false
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
             }
+        }
+    }
+    
+    fileprivate var isAddButtonHidden: Bool = true {
+        didSet {
+            navigationItem.leftBarButtonItem = isAddButtonHidden ? nil : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
     
@@ -162,9 +168,6 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        batchEditToolbar.barTintColor = theme.colors.midBackground
-        batchEditToolbar.tintColor = theme.colors.link
-        
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
@@ -179,25 +182,13 @@ class SavedViewController: ViewController {
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
     }
-    
-    // MARK: - Batch edit toolbar
-    
-    internal lazy var batchEditToolbar: UIToolbar = {
-        return BatchEditToolbar(for: view).toolbar
-    }()
 }
 
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedViewController: BatchEditNavigationDelegate {
-    
-    func setToolbarButtons(enabled: Bool) {
-        guard let items = batchEditToolbar.items else {
-            return
-        }
-        for (index, item) in items.enumerated() where index != 0 {
-            item.isEnabled = enabled
-        }
+    var currentTheme: Theme {
+        return self.theme
     }
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
@@ -206,15 +197,6 @@ extension SavedViewController: BatchEditNavigationDelegate {
         sortButton.isEnabled = editingState == .cancelled || editingState == .none
         if editingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
-        }
-    }
-    
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
-        if visible {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
-        } else {
-            batchEditToolbar.removeFromSuperview()
         }
     }
     

@@ -5,9 +5,7 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
 }
 
 class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet weak var closeButton: UIButton!
-    
+        
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -32,7 +30,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         createReadingListButton.isEnabled = false
     }
     
-    @IBAction func closeButtonPressed(_ sender: Any) {
+    @objc func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
     

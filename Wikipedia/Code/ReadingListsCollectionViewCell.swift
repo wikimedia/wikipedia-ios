@@ -21,14 +21,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab {
-        didSet {
-            guard displayType == .addArticlesToReadingList else {
-                return
-            }
-            imageViewDimension = 40
-        }
-    }
+    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
     
     fileprivate var isDefault: Bool = false
     
@@ -72,14 +65,27 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
         }
-
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
+        
+        if displayType == .addArticlesToReadingList {
+            if isDefault {
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+                origin.y += titleLabelFrame.layoutHeight(with: 0)
+                let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+                origin.y += descriptionLabelFrame.layoutHeight(with: 0)
+                descriptionLabel.isHidden = false
+            } else {
+                let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+                origin.y += titleLabelFrame.layoutHeight(with: 0)
+                descriptionLabel.isHidden = true
+            }
+        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = displayType == .addArticlesToReadingList && !isDefault
+            descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
                 origin.y += spacing
@@ -96,11 +102,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
-        print("height: \(height)")
         
         let separatorXPositon = layoutMargins.left - margins.left
         let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
-        
+
         if (apply) {
             if (!bottomSeparator.isHidden) {
                 bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
@@ -121,6 +126,16 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
                 
         return CGSize(width: size.width, height: height)
+    }
+    
+    override func configureForCompactList(at index: Int) {
+        layoutMarginsAdditions.top = 5
+        layoutMarginsAdditions.bottom = 5
+        titleTextStyle = .subheadline
+        descriptionTextStyle = .footnote
+        updateFonts(with: traitCollection)
+        imageViewDimension = 40
+        isSaveButtonHidden = true
     }
     
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
@@ -147,6 +162,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         } else {
             isImageViewHidden = true
+        }
+        
+        if displayType == .addArticlesToReadingList {
+            configureForCompactList(at: index)
         }
         
         if shouldShowSeparators {

@@ -61,7 +61,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
-@property (nonatomic, strong) WMFAddArticleToReadingListToolbarController *readingListsToolbarController;
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -77,7 +77,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     _userStore = userStore;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
-    self.readingListsToolbarController = [[WMFAddArticleToReadingListToolbarController alloc] initWithDataStore:self.userStore owner:self];
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
 }
 
 - (void)dealloc {
@@ -540,7 +540,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
 
         [self.refreshControl endRefreshing];
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme frame:self.view.bounds];
     }
 }
 
@@ -1577,7 +1577,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
-    [self.readingListsToolbarController didSave:didSave articleURL:articleURL theme:self.theme];
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -2012,7 +2012,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
-    [self.readingListsToolbarController didSave:didSave article:article theme:self.theme];
+    [self.readingListHintController didSave:didSave article:article theme:self.theme];
 }
 
 #if DEBUG && DEBUG_CHAOS

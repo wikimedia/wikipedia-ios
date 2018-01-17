@@ -128,6 +128,11 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
             assertionFailure("No indexPath known for TOC item \(item)")
             return
         }
+
+        guard indexPath.section < tableView.numberOfSections && indexPath.row < tableView.numberOfRows(inSection: indexPath.section) else {
+            assertionFailure("Attempted to select out of range item \(item)")
+            return
+        }
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             if selectedIndexPath != indexPath {

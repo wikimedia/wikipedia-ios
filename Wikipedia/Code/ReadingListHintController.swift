@@ -1,92 +1,92 @@
 import UIKit
 
-@objc public protocol ReadingListHintProvider: NSObjectProtocol {
-    var addArticleToReadingListToolbarController: AddArticleToReadingListToolbarController? { get set }
+@objc public protocol ReadingListHintPresenter: NSObjectProtocol {
+    var readingListHintController: ReadingListHintController? { get set }
 }
 
-protocol AddArticleToReadingListToolbarViewControllerDelegate: NSObjectProtocol {
+protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
     func viewControllerWillBeDismissed()
     func addedArticleToReadingList()
 }
 
-@objc(WMFAddArticleToReadingListToolbarController)
-public class AddArticleToReadingListToolbarController: NSObject, AddArticleToReadingListToolbarViewControllerDelegate {
+@objc(WMFReadingListHintController)
+public class ReadingListHintController: NSObject, ReadingListHintViewControllerDelegate {
 
     fileprivate let dataStore: MWKDataStore
-    fileprivate let owner: UIViewController
-    fileprivate let toolbar: AddArticleToReadingListToolbarViewController
-    fileprivate let toolbarHeight: CGFloat = 50
+    fileprivate let presenter: UIViewController
+    fileprivate let hint: ReadingListHintViewController
+    fileprivate let hintHeight: CGFloat = 50
     fileprivate var theme: Theme = Theme.standard
     
-    fileprivate var isToolbarVisible = false {
+    fileprivate var isHintHidden = true {
         didSet {
-            guard isToolbarVisible != oldValue else {
+            guard isHintHidden != oldValue else {
                 return
             }
-            if isToolbarVisible {
-                addToolbar()
-                dismissToolbar()
+            if isHintHidden {
+                removeHint()
             } else {
-                removeToolbar()
+                addHint()
+                dismissHint()
             }
         }
     }
     
-    @objc init(dataStore: MWKDataStore, owner: UIViewController) {
+    @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
-        self.owner = owner
-        self.toolbar = AddArticleToReadingListToolbarViewController(dataStore: dataStore)
+        self.presenter = presenter
+        self.hint = ReadingListHintViewController(dataStore: dataStore)
         super.init()
-        self.toolbar.delegate = self
+        self.hint.delegate = self
     }
     
-    func removeToolbar() {
-        toolbar.willMove(toParentViewController: nil)
-        toolbar.view.removeFromSuperview()
-        toolbar.removeFromParentViewController()
-        toolbar.reset()
+    func removeHint() {
+        hint.willMove(toParentViewController: nil)
+        hint.view.removeFromSuperview()
+        hint.removeFromParentViewController()
+        hint.reset()
     }
     
-    func addToolbar() {
-        toolbar.apply(theme: theme)
-        owner.addChildViewController(toolbar)
-        toolbar.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        owner.view.addSubview(toolbar.view)
-        toolbar.didMove(toParentViewController: owner)
+    func addHint() {
+        hint.apply(theme: theme)
+        presenter.addChildViewController(hint)
+        hint.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        presenter.view.addSubview(hint.view)
+        hint.didMove(toParentViewController: presenter)
     }
     
-    func dismissToolbar() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setToolbar(visible:)), object: false)
-        perform(#selector(setToolbar(visible:)), with: false, afterDelay: 8)
+    func dismissHint() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHintHidden), object: 1)
+        perform(#selector(setHintHidden), with: 1, afterDelay: 8)
     }
     
-    @objc func setToolbar(visible: Bool) {
-        let frame = visible ? toolbarFrame.visible : toolbarFrame.hidden
-            if visible {
-                // add toolbar before animation starts
-                isToolbarVisible = visible
-                // set initial frame
-                if toolbar.view.frame.origin.y == 0 {
-                    toolbar.view.frame = toolbarFrame.hidden
-                }
+    @objc func setHintHidden(_ hintHidden: Bool) {
+        let frame = hintHidden ? hintFrame.hidden : hintFrame.visible
+        if !hintHidden {
+            // add hint before animation starts
+            isHintHidden = hintHidden
+            // set initial frame
+            if hint.view.frame.origin.y == 0 {
+                hint.view.frame = hintFrame.hidden
             }
-            if let articleNavigationController = owner.navigationController as? WMFArticleNavigationController {
-                articleNavigationController.setSecondToolbarHidden(visible, animated: true)
-            }
-            UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-                self.toolbar.view.frame = frame
-                self.owner.view.setNeedsLayout()
-            }, completion: { (_) in
-                if !visible {
-                    // remove toolbar after animation is completed
-                    self.isToolbarVisible = visible
-                }
-            })
+        }
+        
+        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
+            randomArticleViewController.isReadingListHintHidden = hintHidden
+        }
+
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
+            self.hint.view.frame = frame
+            self.hint.view.setNeedsLayout()
+        }, completion: { (_) in
+            // remove hint after animation is completed
+            self.isHintHidden = hintHidden
+        })
     }
     
-    fileprivate lazy var toolbarFrame: (visible: CGRect, hidden: CGRect) = {
-        let visible = CGRect(x: 0, y: owner.view.bounds.height - toolbarHeight - owner.bottomLayoutGuide.length, width: owner.view.bounds.size.width, height: toolbarHeight)
-        let hidden = CGRect(x: 0, y: owner.view.bounds.height + toolbarHeight - owner.bottomLayoutGuide.length, width: owner.view.bounds.size.width, height: toolbarHeight)
+    fileprivate lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
+        let visible = CGRect(x: 0, y: presenter.view.bounds.height - hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
+        let hidden = CGRect(x: 0, y: presenter.view.bounds.height + hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
         return (visible: visible, hidden: hidden)
     }()
     
@@ -94,22 +94,22 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         
         self.theme = theme
         
-        let didSaveOtherArticle = didSave && isToolbarVisible && article != toolbar.article
-        let didUnsaveOtherArticle = !didSave && isToolbarVisible && article != toolbar.article
+        let didSaveOtherArticle = didSave && !isHintHidden && article != hint.article
+        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != hint.article
         
         guard !didUnsaveOtherArticle else {
             return
         }
         
         guard !didSaveOtherArticle else {
-            toolbar.reset()
-            dismissToolbar()
-            toolbar.article = article
+            hint.reset()
+            dismissHint()
+            hint.article = article
             return
         }
         
-        toolbar.article = article
-        setToolbar(visible: didSave)
+        hint.article = article
+        setHintHidden(!didSave)
     }
     
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
@@ -119,19 +119,18 @@ public class AddArticleToReadingListToolbarController: NSObject, AddArticleToRea
         didSave(saved, article: article, theme: theme)
     }
     
-    // MARK: - AddArticleToReadingListToolbarViewControllerDelegate
+    // MARK: - ReadingListHintViewControllerDelegate
     
     func viewControllerWillBeDismissed() {
-        self.setToolbar(visible: false)
+        setHintHidden(true)
     }
     
     func addedArticleToReadingList() {
-        self.setToolbar(visible: true)
+        setHintHidden(false)
     }
 }
 
-@objc(WMFAddArticleToReadingListToolbarViewController)
-class AddArticleToReadingListToolbarViewController: UIViewController {
+class ReadingListHintViewController: UIViewController {
     
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme = Theme.standard
@@ -184,7 +183,7 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
         button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
-    public weak var delegate: AddArticleToReadingListToolbarViewControllerDelegate?
+    public weak var delegate: ReadingListHintViewControllerDelegate?
     
     @objc fileprivate func buttonPressed() {
         guard let article = article else {
@@ -196,28 +195,31 @@ class AddArticleToReadingListToolbarViewController: UIViewController {
     }
     
     fileprivate var readingList: ReadingList?
+    fileprivate var themeableNavigationController: WMFThemeableNavigationController?
     
     @objc fileprivate func openReadingList() {
         guard let readingList = readingList else {
             return
         }
         
-        if readingList.isDefaultList {
-           let viewController = SavedArticlesViewController()
-            viewController.dataStore = dataStore
-            viewController.apply(theme: theme)
-            wmf_push(viewController, animated: true)
-        } else {
-            let viewController = ReadingListDetailViewController(for: readingList, with: dataStore)
-            viewController.apply(theme: theme)
-            wmf_push(viewController, animated: true)
+        let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
+        (viewController as? SavedArticlesViewController)?.dataStore = dataStore
+        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
+        viewController.apply(theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
+        themeableNavigationController = navigationController
+        present(navigationController, animated: true) {
+            self.delegate?.viewControllerWillBeDismissed()
         }
-        delegate?.viewControllerWillBeDismissed()
+    }
+    
+    @objc private func dismissReadingListDetailViewController() {
+        themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
     }
 
 }
 
-extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingListDelegate {
+extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
         delegate?.viewControllerWillBeDismissed()
     }
@@ -235,7 +237,7 @@ extension AddArticleToReadingListToolbarViewController: AddArticlesToReadingList
     }
 }
 
-extension AddArticleToReadingListToolbarViewController: Themeable {
+extension ReadingListHintViewController: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {

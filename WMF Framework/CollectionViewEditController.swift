@@ -10,11 +10,13 @@ enum CollectionViewCellState {
 
 public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
-    func didSetBatchEditToolbarVisible(_ isVisible: Bool)
-    var batchEditToolbar: UIToolbar { get }
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool)
-    func setToolbarButtons(enabled: Bool) // same implementation
+    func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
+    var currentTheme: Theme { get }
+}
+
+public protocol EditableCollection: NSObjectProtocol {
+    var editController: CollectionViewEditController! { get set }
 }
 
 public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {
@@ -196,6 +198,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return false
     }
     
+    fileprivate lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
+       let batchEditToolbarViewController = BatchEditToolbarViewController()
+        batchEditToolbarViewController.items = self.batchEditToolbarItems
+        return batchEditToolbarViewController
+    }()
+    
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         guard let indexPath = activeIndexPath, let cell = activeCell else {
             return
@@ -326,6 +334,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     // MARK: - Batch editing
     
     public weak var navigationDelegate: BatchEditNavigationDelegate? {
+        willSet {
+            batchEditToolbarViewController.remove()
+        }
         didSet {
             batchEditingState = .none
         }
@@ -352,7 +363,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
             
             guard !isCollectionViewEmpty && !hasDefaultCell else {
-                isBatchEditToolbarVisible = false
+                isBatchEditToolbarHidden = true
                 enabled = false
                 return
             }
@@ -364,29 +375,38 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             case .none:
                 break
             case .cancelled:
-                animateBatchEditPane(for: batchEditingState)
+                transformBatchEditPane(for: batchEditingState)
             case .open:
                 barButtonSystemItem = UIBarButtonSystemItem.cancel
                 tag = 1
-                animateBatchEditPane(for: batchEditingState)
+                transformBatchEditPane(for: batchEditingState)
             }
         }
     }
     
-    fileprivate func animateBatchEditPane(for state: BatchEditingState) {
+    fileprivate func transformBatchEditPane(for state: BatchEditingState, animated: Bool = true) {
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
-        isBatchEditToolbarVisible = willOpen
+        isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
             let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
-            UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
+            if animated {
+                UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
+                    cell.batchEditingTranslation = targetTranslation
+                    cell.layoutIfNeeded()
+                })
+            } else {
                 cell.batchEditingTranslation = targetTranslation
                 cell.layoutIfNeeded()
-            })
+            }
+            if let themeableCell = cell as? Themeable, let navigationDelegate = navigationDelegate {
+                themeableCell.apply(theme: navigationDelegate.currentTheme)
+            }
         }
         if !willOpen {
             selectedIndexPaths.forEach({ collectionView.deselectItem(at: $0, animated: true) })
+            batchEditToolbarViewController.setItemsEnabled(false)
         }
     }
     
@@ -428,22 +448,25 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isClosed: Bool {
         let isClosed = batchEditingState != .open
         if !isClosed {
-            navigationDelegate?.setToolbarButtons(enabled: !selectedIndexPaths.isEmpty)
+            batchEditToolbarViewController.setItemsEnabled(!selectedIndexPaths.isEmpty)
         }
         return isClosed
+    }
+    
+    public func transformBatchEditPaneOnScroll() {
+        transformBatchEditPane(for: batchEditingState, animated: false)
     }
     
     fileprivate var selectedIndexPaths: [IndexPath] {
         return collectionView.indexPathsForSelectedItems ?? []
     }
     
-    fileprivate var isBatchEditToolbarVisible: Bool = false {
+    fileprivate var isBatchEditToolbarHidden: Bool = true {
         didSet {
             guard collectionView.window != nil else {
                 return
             }
-            self.navigationDelegate?.createBatchEditToolbar(with: self.batchEditToolbarItems, setVisible: self.isBatchEditToolbarVisible)
-            self.navigationDelegate?.didSetBatchEditToolbarVisible(self.isBatchEditToolbarVisible)
+            self.navigationDelegate?.didSetBatchEditToolbarHidden(batchEditToolbarViewController, isHidden: self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
         }
     }
     
@@ -461,19 +484,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate lazy var batchEditToolbarItems: [UIBarButtonItem] = {
+    fileprivate lazy var batchEditToolbarItems: [UIButton] = {
         
-        var buttons: [UIBarButtonItem] = []
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        var buttons: [UIButton] = []
         
         for (index, action) in batchEditToolbarActions.enumerated() {
-            if index != 0 {
-                buttons.append(flexibleSpace)
-            }
             let button = action.button
-            button.target = self
-            button.action = #selector(didPerformBatchEditToolbarAction(with:))
+            button.addTarget(self, action: #selector(didPerformBatchEditToolbarAction(with:)), for: .touchUpInside)
             button.tag = index
+            button.setTitle(action.title, for: UIControlState.normal)
             buttons.append(button)
             button.isEnabled = false
         }

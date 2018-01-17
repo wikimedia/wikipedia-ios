@@ -102,7 +102,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme)
+            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }
@@ -200,8 +200,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
-        batchEditToolbar.barTintColor = theme.colors.midBackground
-        batchEditToolbar.tintColor = theme.colors.link
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -213,14 +211,11 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return [updateItem, addToListItem, unsaveItem]
     }()
     
-    internal lazy var batchEditToolbar: UIToolbar = {
-        return BatchEditToolbar(for: view).toolbar
-    }()
-    
     // MARK: - Hiding extended view
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)
+        editController.transformBatchEditPaneOnScroll()
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -489,33 +484,13 @@ extension SavedArticlesViewController {
 // MARK: - BatchEditNavigationDelegate
 
 extension SavedArticlesViewController: BatchEditNavigationDelegate {
-    func emptyStateDidChange(_ empty: Bool) {
-        //
-    }
-    
-    func setToolbarButtons(enabled: Bool) {
-        guard let items = batchEditToolbar.items else {
-            return
-        }
-        for (index, item) in items.enumerated() where index != 0 {
-            item.isEnabled = enabled
-        }
+    var currentTheme: Theme {
+        return self.theme
     }
     
     func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
-    }
-    
-    func createBatchEditToolbar(with items: [UIBarButtonItem], setVisible visible: Bool) {
-        if visible {
-            batchEditToolbar.items = items
-            view.addSubview(batchEditToolbar)
-            let bottomConstraint = view.bottomAnchor.constraint(equalTo: batchEditToolbar.bottomAnchor)
-            view.addConstraint(bottomConstraint)
-        } else {
-            batchEditToolbar.removeFromSuperview()
-        }
     }
 }
 

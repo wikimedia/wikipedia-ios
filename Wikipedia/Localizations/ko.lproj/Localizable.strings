@@ -340,7 +340,7 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
-"settings-appearance" = "보이기";
+"settings-appearance" = "읽기 환경 설정";
 "settings-clear-cache" = "캐시된 데이터 지우기";
 "settings-clear-cache-are-you-sure-message" = "캐시된 데이터를 지우면 약 $1의 공간을 확보할 것입니다. 당신이 저장한 문서를 삭제하지는 않습니다.";
 "settings-clear-cache-are-you-sure-title" = "캐시된 데이터를 지우시겠습니까?";

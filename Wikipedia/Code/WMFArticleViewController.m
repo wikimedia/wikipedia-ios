@@ -145,7 +145,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
-@property (nonatomic, strong) WMFAddArticleToReadingListToolbarController *readingListsToolbarController;
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 
 @end
 
@@ -169,7 +169,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.savingOpenArticleTitleEnabled = YES;
         self.articleURL = url;
         self.dataStore = dataStore;
-        self.readingListsToolbarController = [[WMFAddArticleToReadingListToolbarController alloc] initWithDataStore:dataStore owner:self];
+        self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
@@ -1168,7 +1168,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                                                                                   tapCallBack:NULL];
                                                                                          }
                                                                                      } else {
-                                                                                         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme];
+                                                                                         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
                                                                                          [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                                                                                                    sticky:NO
                                                                                                                     dismissPreviousAlerts:NO
@@ -1267,7 +1267,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
-    [self.readingListsToolbarController didSave:isSaved articleURL:self.articleURL theme:self.theme];
+    [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
