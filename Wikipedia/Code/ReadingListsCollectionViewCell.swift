@@ -75,7 +75,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
-        if !isImageGridHidden {
+        if !isImageGridHidden || !isImageViewHidden {
             widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
         }
         
@@ -103,7 +103,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
                 descriptionLabel.isHidden = true
             }
-        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden) {
+        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
@@ -148,6 +148,15 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
+        
+        if (apply && !isImageViewHidden) {
+            let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
+            var x = layoutMargins.right
+            if !isRTL {
+                x = size.width - x - imageViewDimension
+            }
+            imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
                 
         return CGSize(width: size.width, height: height)
     }
@@ -188,12 +197,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let imageWidthToRequest = traitCollection.wmf_nearbyThumbnailWidth
         let imageURLs = firstFourArticles.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
         
-        if !layoutOnly {
+        isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
+        isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display
+        
+        if !layoutOnly && !isImageGridHidden {
             let _ = zip(gridImageViews, imageURLs).flatMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
         }
-        
-        isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
-        isImageViewHidden = isImageGridHidden && imageURLs.count >= 1 // we need at least one image to display
         
         if isImageGridHidden, let imageURL = imageURLs.first {
             if !layoutOnly {
