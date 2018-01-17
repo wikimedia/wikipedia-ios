@@ -3,6 +3,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var topSeparator = UIView()
     fileprivate var articleCountLabel = UILabel()
     var articleCount: Int = 0
+    private let imageGrid = UIView()
+    private var gridImageViews: [UIImageView] = []
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
@@ -18,7 +20,32 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
         contentView.addSubview(articleCountLabel)
+        
+        let imageViews = (topLeft: UIImageView(), topRight: UIImageView(), bottomLeft: UIImageView(), bottomRight: UIImageView())
+        let topRow = UIStackView(arrangedSubviews: [imageViews.topLeft, imageViews.topRight])
+        topRow.axis = UILayoutConstraintAxis.horizontal
+        topRow.distribution = UIStackViewDistribution.fillEqually
+        
+        let bottomRow = UIStackView(arrangedSubviews: [imageViews.bottomLeft, imageViews.bottomRight])
+        bottomRow.axis = UILayoutConstraintAxis.horizontal
+        bottomRow.distribution = UIStackViewDistribution.fillEqually
+        
+        gridImageViews.append(contentsOf: [imageViews.topLeft, imageViews.topRight, imageViews.bottomLeft, imageViews.bottomRight])
+        
+        let outermostStackView = UIStackView(arrangedSubviews: [topRow, bottomRow])
+        outermostStackView.axis = UILayoutConstraintAxis.vertical
+        outermostStackView.distribution = UIStackViewDistribution.fillEqually
+        
+        imageGrid.addSubview(outermostStackView)
+        outermostStackView.frame = imageGrid.frame
+        outermostStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        imageGrid.layer.cornerRadius = 3
+        contentView.addSubview(imageGrid)
+        
         super.setup()
+        
+        imageView.removeFromSuperview()
     }
     
     fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
@@ -122,7 +149,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             if !isRTL {
                 x = size.width - x - imageViewDimension
             }
-            imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageGrid.backgroundColor = UIColor.yellow
         }
                 
         return CGSize(width: size.width, height: height)
@@ -158,7 +186,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if let imageURL = firstFourArticles.first?.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
-                imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                for imageView in gridImageViews {
+                    imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+                }
             }
         } else {
             isImageViewHidden = true
