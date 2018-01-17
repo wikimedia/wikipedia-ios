@@ -36,6 +36,15 @@ struct APIReadingListEntry: Codable {
     let updated: String
 }
 
+extension APIReadingListEntry {
+    var articleURL: URL? {
+        guard let site = URL(string: project) else {
+            return nil
+        }
+        return site.wmf_URL(withTitle: title)
+    }
+}
+
 class ReadingListsAPIController: NSObject {
     fileprivate let session = Session.shared
     fileprivate lazy var tokenFetcher: WMFAuthTokenFetcher = {
@@ -126,13 +135,33 @@ class ReadingListsAPIController: NSObject {
         - error: Any error preventing entry creation
      */
     func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let bodyParams = ["project": project, "title": title]
+        let bodyParams = ["project": project.precomposedStringWithCanonicalMapping, "title": title.precomposedStringWithCanonicalMapping]
         post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let id = result["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToAddEntry)
                 return
             }
             completion(id, nil)
+        }
+    }
+    
+    
+    /**
+     Remove entry from reading list using the reading list API
+     - parameters:
+         - listID: The list ID of the list that will have an entry removed
+         - entryID: The entry ID to remove from the list
+         - completion: Called after the request completes
+         - error: Any error preventing entry deletion
+     */
+    func removeEntry(withEntryID entryID: Int64, fromListWithListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
+
+        delete(path: "\(listID)/entries/\(entryID)") { (result, response, error) in
+            guard error == nil else {
+                completion(error ?? ReadingListError.unableToRemoveEntry)
+                return
+            }
+            completion(nil)
         }
     }
     
