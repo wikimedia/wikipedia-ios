@@ -30,6 +30,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         bottomRow.distribution = UIStackViewDistribution.fillEqually
         
         gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).flatMap { $0 as? UIImageView }
+        if #available(iOS 11.0, *) {
+            gridImageViews.forEach { $0.accessibilityIgnoresInvertColors = true }
+        }
         
         let outermostStackView = UIStackView(arrangedSubviews: [topRow, bottomRow])
         outermostStackView.axis = UILayoutConstraintAxis.vertical
