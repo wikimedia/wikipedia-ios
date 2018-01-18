@@ -68,8 +68,10 @@
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
 "appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-reading-themes" = "Lukuteemat";
 "appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
 "appearance-settings-theme-options" = "Teeman asetukset";
+"appearance-settings-title" = "Lukuteemat";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
 "article-deleted-accessibility-notification" = "Artikkeli poistettu";
@@ -119,6 +121,7 @@
 "explore-another-random" = "Toinen satunnainen sivu";
 "explore-because-you-read" = "Koska luit";
 "explore-continue-reading-heading" = "Jatka lukemista";
+"explore-enable-location-title" = "Tutki artikkeleita lähellä nykyistä sijaintisi";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
@@ -182,6 +185,7 @@
 "hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
 "home-button-history-accessibility-label" = "Wikipedia, palaa Historia-sivulle";
+"home-button-popover-description" = "Napauta 'W' kuvaketta palataksesi Tutki-syötteeseen";
 "home-button-popover-title" = "Napauta mennäksesi takaisin";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
 "home-hide-suggestion-cancel" = "Peruuta";
@@ -245,6 +249,7 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
+"on-this-day-detail-header-date-range" = "$1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-title" = "Tänä päivänä";
@@ -383,6 +388,7 @@
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
 "welcome-exploration-on-this-day-title" = "Tänä päivänä";
 "welcome-exploration-places-description" = "Löydä maamerkkejä lähellä sivua tai etsi paikkoja ympäri maailmaa";
+"welcome-exploration-places-title" = "Paikat-välilehti";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
