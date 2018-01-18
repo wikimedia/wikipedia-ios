@@ -5,6 +5,16 @@ protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
 }
 
+extension AddArticlesToReadingListDelegate where Self: EditableCollection {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
+        editController.close()
+    }
+    
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
+        editController.close()
+    }
+}
+
 class AddArticlesToReadingListViewController: UIViewController {
     
     private let dataStore: MWKDataStore

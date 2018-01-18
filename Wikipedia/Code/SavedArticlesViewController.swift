@@ -1,6 +1,6 @@
 
 @objc(WMFSavedArticlesViewController)
-class SavedArticlesViewController: ColumnarCollectionViewController {
+class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection {
     private let reuseIdentifier = "SavedArticlesCollectionViewCell"
     
     private var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
@@ -447,16 +447,8 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
 }
 
 // MARK: - AddArticlesToReadingListDelegate
-
-extension SavedArticlesViewController: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        editController.close()
-    }
-    
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
-        editController.close()
-    }
-}
+// default implementation for types conforming to EditableCollection defined in AddArticlesToReadingListViewController
+extension SavedArticlesViewController: AddArticlesToReadingListDelegate {}
 
 // MARK: - UIViewControllerPreviewingDelegate
 

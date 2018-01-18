@@ -1,6 +1,6 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
     
     private let dataStore: MWKDataStore
     private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
@@ -289,16 +289,8 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
 }
 
 // MARK: - AddArticlesToReadingListViewControllerDelegate
-
-extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        //
-    }
-    
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
-        editController.close()
-    }
-}
+// default implementation for types conforming to EditableCollection defined in AddArticlesToReadingListViewController
+extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {}
 
 // MARK: - CollectionViewUpdaterDelegate
 
