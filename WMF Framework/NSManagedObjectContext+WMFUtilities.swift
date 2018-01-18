@@ -16,7 +16,7 @@ public extension NSManagedObjectContext {
     
     func wmf_fetch<T: NSManagedObject>(objectForEntityName entityName: String, withValue value: Any, forKey key: String) -> T? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "%@ == %@", argumentArray: [key, value])
+        fetchRequest.predicate = NSPredicate(format: "\(key) == %@", argumentArray: [value])
         fetchRequest.fetchLimit = 1
         var results: [T] = []
         do {
@@ -34,7 +34,7 @@ public extension NSManagedObjectContext {
     
     func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) -> [T]? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "%@ IN %@", argumentArray: [key, values])
+        fetchRequest.predicate = NSPredicate(format: "\(key) IN %@", argumentArray: [values])
         fetchRequest.fetchLimit = values.count
         var results: [T] = []
         do {
