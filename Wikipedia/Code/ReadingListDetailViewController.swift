@@ -1,13 +1,13 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
     
-    fileprivate let dataStore: MWKDataStore
-    fileprivate var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    fileprivate let readingList: ReadingList
-    fileprivate var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
-    fileprivate var cellLayoutEstimate: WMFLayoutEstimate?
-    fileprivate let reuseIdentifier = "ReadingListDetailCollectionViewCell"
+    private let dataStore: MWKDataStore
+    private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
+    private let readingList: ReadingList
+    private var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    private var cellLayoutEstimate: WMFLayoutEstimate?
+    private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
 
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
@@ -66,7 +66,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         cellLayoutEstimate = nil
     }
     
-    fileprivate func entry(at indexPath: IndexPath) -> ReadingListEntry? {
+    private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
@@ -75,7 +75,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
+    private func articleURL(at indexPath: IndexPath) -> URL? {
         guard let entry = entry(at: indexPath), let key = entry.article?.key else {
             assertionFailure("Can't get articleURL")
             return nil
@@ -83,7 +83,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
         return URL(string: key)
     }
     
-    fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
+    private func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let entry = entry(at: indexPath), let key = entry.article?.key, let article = dataStore.fetchArticle(withKey: key) else {
             return nil
         }
@@ -92,13 +92,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
     
     // MARK: - Empty state
     
-    fileprivate var isEmpty = true {
+    private var isEmpty = true {
         didSet {
             editController.isCollectionViewEmpty = isEmpty
         }
     }
     
-    fileprivate final func updateEmptyState() {
+    private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -184,7 +184,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         return false
     }
     
-    fileprivate func delete(at indexPath: IndexPath) {
+    private func delete(at indexPath: IndexPath) {
         guard let entry = entry(at: indexPath) else {
             return
         }
@@ -195,7 +195,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         }
     }
     
-    fileprivate func delete(_ entries: [ReadingListEntry]) {
+    private func delete(_ entries: [ReadingListEntry]) {
         do {
             try dataStore.readingListsController.remove(entries: entries)
         } catch let err {
@@ -249,7 +249,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         return false
     }
     
-    fileprivate func canSave(at indexPath: IndexPath) -> Bool {
+    private func canSave(at indexPath: IndexPath) -> Bool {
         guard let articleURL = articleURL(at: indexPath) else {
             return false
         }
@@ -289,16 +289,8 @@ extension ReadingListDetailViewController: BatchEditNavigationDelegate {
 }
 
 // MARK: - AddArticlesToReadingListViewControllerDelegate
-
-extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {
-    func addedArticle(to readingList: ReadingList) {
-        //
-    }
-    
-    func viewControllerWillBeDismissed() {
-        editController.close()
-    }
-}
+// default implementation for types conforming to EditableCollection defined in AddArticlesToReadingListViewController
+extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {}
 
 // MARK: - CollectionViewUpdaterDelegate
 
@@ -367,7 +359,7 @@ extension ReadingListDetailViewController {
         return cell
     }
     
-    fileprivate func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
         
         guard let entry = entry(at: indexPath), let articleKey = entry.article?.key else {

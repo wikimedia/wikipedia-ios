@@ -387,13 +387,9 @@ public class ReadingListsController: NSObject {
         guard !readingList.isDefaultList else {
             return
         }
-        
         assert(Thread.isMainThread)
-
         let moc = dataStore.viewContext
-        
         let existingKeys = Set(readingList.articleKeys)
-        
         for article in articles {
             guard let key = article.key, !existingKeys.contains(key) else {
                 continue
@@ -523,6 +519,22 @@ public class ReadingListsController: NSObject {
         }
     }
 
+
+    /// Fetches n articles with lead images for a given reading list.
+    ///
+    /// - Parameters:
+    ///   - readingList: reading list that the articles belong to.
+    ///   - limit: number of articles with lead images to fetch.
+    /// - Returns: array of articles with lead images.
+    public func articlesWithLeadImages(for readingList: ReadingList, limit: Int) throws -> [WMFArticle] {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        request.predicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES && article.imageURLString != NULL", readingList)
+        request.fetchLimit = limit
+        return (try moc.fetch(request)).flatMap { $0.article }
+    }
+    
 }
 
 

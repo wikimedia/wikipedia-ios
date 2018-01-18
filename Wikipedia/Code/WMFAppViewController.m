@@ -1596,7 +1596,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self dismissPresentedViewControllers];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    vc.permaRandomMode = YES;
+    vc.permaRandomMode = NO;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }

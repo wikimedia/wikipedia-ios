@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateReadingListDelegate: NSObjectProtocol {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?)
+    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
 }
 
 class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
@@ -15,6 +15,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var createReadingListButton: WMFAuthButton!
     
     fileprivate var theme: Theme = Theme.standard
+    fileprivate let articles: [WMFArticle]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,17 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         createReadingListButton.isEnabled = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        view.endEditing(false)
+    }
+    
     @objc func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
     
-    init(theme: Theme) {
+    init(theme: Theme, articles: [WMFArticle]) {
         self.theme = theme
+        self.articles = articles
         super.init(nibName: "CreateReadingListViewController", bundle: nil)
     }
     
@@ -49,7 +55,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         guard let name = readingListNameTextField.text, !name.isEmpty else {
             return
         }
-        delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextField.text)
+        delegate?.createReadingList(self, shouldCreateReadingList: true, with: name, description: descriptionTextField.text, articles: articles)
     }
     
     // MARK: - UITextFieldDelegate

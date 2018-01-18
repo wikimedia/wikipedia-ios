@@ -3,6 +3,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var topSeparator = UIView()
     fileprivate var articleCountLabel = UILabel()
     var articleCount: Int = 0
+    private let imageGrid = UIView()
+    private var gridImageViews: [UIImageView] = []
     
     fileprivate var singlePixelDimension: CGFloat = 0.5
     
@@ -18,6 +20,32 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
         contentView.addSubview(articleCountLabel)
+        
+        let topRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
+        topRow.axis = UILayoutConstraintAxis.horizontal
+        topRow.distribution = UIStackViewDistribution.fillEqually
+        
+        let bottomRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
+        bottomRow.axis = UILayoutConstraintAxis.horizontal
+        bottomRow.distribution = UIStackViewDistribution.fillEqually
+        
+        gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).flatMap { $0 as? UIImageView }
+        if #available(iOS 11.0, *) {
+            gridImageViews.forEach { $0.accessibilityIgnoresInvertColors = true }
+        }
+        
+        let outermostStackView = UIStackView(arrangedSubviews: [topRow, bottomRow])
+        outermostStackView.axis = UILayoutConstraintAxis.vertical
+        outermostStackView.distribution = UIStackViewDistribution.fillEqually
+        
+        imageGrid.addSubview(outermostStackView)
+        outermostStackView.frame = imageGrid.frame
+        outermostStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        imageGrid.layer.cornerRadius = 3
+        imageGrid.masksToBounds = true
+        contentView.addSubview(imageGrid)
+        
         super.setup()
     }
     
@@ -51,7 +79,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
-        if !isImageViewHidden {
+        if !isImageGridHidden || !isImageViewHidden {
             widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
         }
         
@@ -79,7 +107,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
                 descriptionLabel.isHidden = true
             }
-        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden) {
+        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
@@ -116,6 +144,15 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         }
         
+        if (apply && !isImageGridHidden) {
+            let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
+            var x = layoutMargins.right
+            if !isRTL {
+                x = size.width - x - imageViewDimension
+            }
+            imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
+        
         if (apply && !isImageViewHidden) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
@@ -138,11 +175,18 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
-        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
+    fileprivate var isImageGridHidden: Bool = false {
+        didSet {
+            imageGrid.isHidden = isImageGridHidden
+            setNeedsLayout()
+        }
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+    }
+    
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
         imageViewDimension = 80
 
@@ -154,9 +198,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         titleLabel.text = name
         descriptionLabel.text = description
         
-        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
-        if let imageURL = firstFourArticles.first?.imageURL(forWidth: imageWidthToRequest) {
-            isImageViewHidden = false
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
+        let imageURLs = lastFourArticlesWithLeadImages.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
+        
+        isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
+        isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display
+        
+        if !layoutOnly && !isImageGridHidden {
+            let _ = zip(gridImageViews, imageURLs).flatMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
+        }
+        
+        if isImageGridHidden, let imageURL = imageURLs.first {
             if !layoutOnly {
                 imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
             }

@@ -4,10 +4,14 @@ enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList
 }
 
+protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
+    func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+}
+
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
-    fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
+    private let reuseIdentifier = "ReadingListsViewControllerCell"
     
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
@@ -15,11 +19,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
-    fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
-    fileprivate var readingLists: [ReadingList]? // the displayed reading lists
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
+    private var readingLists: [ReadingList]? // the displayed reading lists
+    private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
+    public weak var delegate: ReadingListsViewControllerDelegate?
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -106,19 +110,23 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    @objc func presentCreateReadingListViewController() {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
+    @objc func createReadingList(with articles: [WMFArticle] = []) {
+        let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
         createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
     
+    @objc func presentCreateReadingListViewController() {
+        createReadingList(with: [])
+    }
+    
     @objc func dismissCreateReadingListViewController() {
         dismiss(animated: true, completion: nil)
     }
     
-    fileprivate func updateDefaultListCell() {
+    private func updateDefaultListCell() {
         let indexPath = IndexPath(item: 0, section: 0)
         if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
@@ -130,17 +138,18 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
+            let lastFourArticlesWithLeadImages = dataStore.savedPageList.entries(withLeadImages: 4) ?? []
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        let articleKeys = readingList.articleKeys
-        let articleCount = articleKeys.count
-        let firstFourArticles = articleKeys.prefix(3).flatMap { dataStore.fetchArticle(withKey: $0) }
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
+
+        let articleCount = readingList.articleKeys.count
+        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
+        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
         guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
@@ -151,13 +160,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     // MARK: - Empty state
     
-    fileprivate var isEmpty = true {
+    private var isEmpty = true {
         didSet {
             editController.isCollectionViewEmpty = isEmpty
         }
     }
     
-    fileprivate final func updateEmptyState() {
+    private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -215,12 +224,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard displayType == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
-                addArticlesToReadingListDelegate?.addedArticle(to: readingList)
+                delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             } catch let error {
                 readingListsController.handle(error)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                self.dismiss(animated: true, completion: nil)
             }
             return
         }
@@ -257,10 +263,14 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
+    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle]) {
+        guard shouldCreateReadingList else {
+            return
+        }
         do {
-            let _ = try readingListsController.createReadingList(named: name, description: description)
-            controller.dismiss(animated: true, completion: nil)
+            let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
+            delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
+            createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
             readingListsController.handle(error)
         }

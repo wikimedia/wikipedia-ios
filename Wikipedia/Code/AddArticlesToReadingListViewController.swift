@@ -1,24 +1,34 @@
 import UIKit
 
-public protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
-    func viewControllerWillBeDismissed()
-    func addedArticle(to readingList: ReadingList)
+protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool)
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+}
+
+extension AddArticlesToReadingListDelegate where Self: EditableCollection {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
+        editController.close()
+    }
+    
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
+        editController.close()
+    }
 }
 
 class AddArticlesToReadingListViewController: UIViewController {
     
-    fileprivate let dataStore: MWKDataStore
-    fileprivate let articles: [WMFArticle]
+    private let dataStore: MWKDataStore
+    private let articles: [WMFArticle]
     
     @IBOutlet weak var navigationBar: UINavigationBar?
     @IBOutlet weak var addButton: UIBarButtonItem?
     @IBOutlet weak var closeButton: UIBarButtonItem?
     
-    fileprivate var readingListsViewController: ReadingListsViewController?
+    private var readingListsViewController: ReadingListsViewController?
     @IBOutlet weak var containerView: UIView!
     public weak var delegate: AddArticlesToReadingListDelegate?
 
-    fileprivate var theme: Theme
+    private var theme: Theme
     
     init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
         self.dataStore = dataStore
@@ -33,11 +43,11 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     @IBAction func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
-        delegate?.viewControllerWillBeDismissed()
+        delegate?.addArticlesToReadingList(self, willBeDismissed: true)
     }
     
     @IBAction func addButtonPressed() {
-        readingListsViewController?.presentCreateReadingListViewController()
+        readingListsViewController?.createReadingList(with: articles)
     }
     
     override func viewDidLoad() {
@@ -56,18 +66,17 @@ class AddArticlesToReadingListViewController: UIViewController {
         containerView.addSubview(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
         readingListsViewController.areScrollViewInsetsDeterminedByVisibleHeight = false
-        readingListsViewController.addArticlesToReadingListDelegate = self
+        readingListsViewController.delegate = self
         apply(theme: theme)
     }
 }
 
-extension AddArticlesToReadingListViewController: AddArticlesToReadingListDelegate {
-    func viewControllerWillBeDismissed() {
-        delegate?.viewControllerWillBeDismissed()
-    }
-    
-    func addedArticle(to readingList: ReadingList) {
-        delegate?.addedArticle(to: readingList)
+extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
+    func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
+        delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 

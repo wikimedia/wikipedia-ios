@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListHintViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="confirmationButton" destination="rVc-9B-yHX" id="FFt-IR-CbT"/>
+                <outlet property="confirmationChevron" destination="wCS-DM-ckl" id="hit-xc-Gyl"/>
+                <outlet property="confirmationImageView" destination="Q55-Ot-WJE" id="gaq-NA-3pq"/>
+                <outlet property="confirmationView" destination="9Mi-lB-pMN" id="Kbc-xo-QXg"/>
+                <outlet property="hintButton" destination="cDy-Kw-ATH" id="qxv-Yr-lUx"/>
+                <outlet property="hintView" destination="f2T-xz-pPZ" id="X0h-wu-gdZ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-xz-pPZ" userLabel="Hint View">
+                    <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Kw-ATH" customClass="WMFAlignedImageButton">
+                            <rect key="frame" x="12" y="15.5" width="78" height="78"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <state key="normal" image="add-to-list"/>
+                            <connections>
+                                <action selector="addArticleToReadingList:" destination="-1" eventType="touchUpInside" id="ecI-Nw-uUP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="cDy-Kw-ATH" firstAttribute="leading" secondItem="f2T-xz-pPZ" secondAttribute="leading" constant="12" id="63q-oq-wI0"/>
+                        <constraint firstItem="cDy-Kw-ATH" firstAttribute="centerY" secondItem="f2T-xz-pPZ" secondAttribute="centerY" id="Btc-d4-WOK"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cDy-Kw-ATH" secondAttribute="trailing" constant="12" id="yRl-B4-i4c"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="sA1-Du-pXz"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
+                    <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q55-Ot-WJE">
+                            <rect key="frame" x="12" y="34" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="8fF-21-JIz"/>
+                                <constraint firstAttribute="width" constant="40" id="sKL-mj-ebh"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVc-9B-yHX">
+                            <rect key="frame" x="64" y="37.5" width="30" height="33"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <connections>
+                                <action selector="openReadingList" destination="-1" eventType="touchUpInside" id="X7R-ds-Yeo"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCS-DM-ckl" userLabel="Chevron Button">
+                            <rect key="frame" x="505" y="43" width="12" height="22"/>
+                            <state key="normal" image="chevron-right"/>
+                            <connections>
+                                <action selector="openReadingList" destination="-1" eventType="touchUpInside" id="k5I-NY-Sad"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="rVc-9B-yHX" firstAttribute="leading" secondItem="Q55-Ot-WJE" secondAttribute="trailing" constant="12" placeholder="YES" id="1RW-7g-g8G"/>
+                        <constraint firstItem="zkX-4T-Nfr" firstAttribute="trailing" secondItem="wCS-DM-ckl" secondAttribute="trailing" constant="12" id="7S1-d7-lM6"/>
+                        <constraint firstItem="wCS-DM-ckl" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rVc-9B-yHX" secondAttribute="trailing" constant="12" id="7c2-4c-oQZ"/>
+                        <constraint firstItem="Q55-Ot-WJE" firstAttribute="leading" secondItem="9Mi-lB-pMN" secondAttribute="leading" constant="12" id="VYm-vs-rRQ"/>
+                        <constraint firstItem="rVc-9B-yHX" firstAttribute="centerY" secondItem="9Mi-lB-pMN" secondAttribute="centerY" id="iHs-rt-8pc"/>
+                        <constraint firstItem="wCS-DM-ckl" firstAttribute="centerY" secondItem="9Mi-lB-pMN" secondAttribute="centerY" id="nwh-ZC-ZfW"/>
+                        <constraint firstItem="Q55-Ot-WJE" firstAttribute="centerY" secondItem="9Mi-lB-pMN" secondAttribute="centerY" id="stQ-gW-y4c"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="zkX-4T-Nfr"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="f2T-xz-pPZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1eh-WB-uCT"/>
+                <constraint firstAttribute="bottom" secondItem="f2T-xz-pPZ" secondAttribute="bottom" id="CnK-va-xVo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="f2T-xz-pPZ" secondAttribute="trailing" id="E4W-is-ubF"/>
+                <constraint firstAttribute="bottom" secondItem="9Mi-lB-pMN" secondAttribute="bottom" id="QUN-cv-K6l"/>
+                <constraint firstItem="f2T-xz-pPZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="RPH-lV-PrV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Mi-lB-pMN" secondAttribute="trailing" id="dUe-s0-yAS"/>
+                <constraint firstItem="9Mi-lB-pMN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jnG-HS-pMS"/>
+                <constraint firstItem="9Mi-lB-pMN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zk2-38-fqs"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="112.5" y="-224.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="add-to-list" width="78" height="78"/>
+        <image name="chevron-right" width="12" height="21"/>
+    </resources>
+</document>
