@@ -67,32 +67,6 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
         super.init()
     }
     
-    func syncEntriesForReadingList(_ readingList: ReadingList, completion: @escaping (Error?) -> Void) {
-        guard let moc = readingList.managedObjectContext, let readingListID = readingList.readingListID?.int64Value else {
-            completion(nil)
-            return
-        }
-        
-        do {
-            let taskGroup = WMFTaskGroup()
-            taskGroup.enter()
-            apiController.getAllEntriesForReadingListWithID(readingListID: readingListID, completion: { (entries, error) in
-                
-                taskGroup.leave()
-            })
-            let fetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "list == %@", readingList)
-            fetchRequest.relationshipKeyPathsForPrefetching = ["article"]
-            let results = try moc.fetch(fetchRequest)
-            taskGroup.waitInBackground {
-                completion(nil)
-            }
-            
-        } catch let error {
-            completion(error)
-        }
-    }
-    
     override func execute() {
         readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
             if let error = getAllAPIReadingListsError {
