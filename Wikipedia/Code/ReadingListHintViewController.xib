@@ -31,7 +31,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Kw-ATH" customClass="WMFAlignedImageButton">
                             <rect key="frame" x="12" y="15.5" width="78" height="78"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" image="add-to-list"/>
                             <connections>
                                 <action selector="addArticleToReadingList:" destination="-1" eventType="touchUpInside" id="ecI-Nw-uUP"/>
@@ -56,8 +56,8 @@
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVc-9B-yHX">
-                            <rect key="frame" x="64" y="39" width="30" height="30"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <rect key="frame" x="64" y="37.5" width="30" height="33"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                             <connections>
                                 <action selector="openReadingList" destination="-1" eventType="touchUpInside" id="X7R-ds-Yeo"/>
                             </connections>
