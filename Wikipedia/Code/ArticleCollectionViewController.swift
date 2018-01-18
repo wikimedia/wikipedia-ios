@@ -4,7 +4,7 @@ fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
 }
 
 @objc(WMFArticleCollectionViewController)
@@ -13,7 +13,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController {
     var cellLayoutEstimate: WMFLayoutEstimate?
     var swipeToEditController: CollectionViewSwipeToEditController!
     
-    weak var delegate: ArticleCollectionViewControllerDelegate?
+    @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +114,7 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
+        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 }
