@@ -104,9 +104,10 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
             var remoteReadingListsByID: [Int64: APIReadingList] = [:]
             var remoteReadingListsToCreateLocally: [Int64: APIReadingList] = [:]
             var remoteReadingListsByName: [String: APIReadingList] = [:]
+            var remoteDefaultReadingList: APIReadingList?
             for apiReadingList in allAPIReadingLists {
-                guard !apiReadingList.isDefault else {
-                    continue
+                if apiReadingList.isDefault {
+                    remoteDefaultReadingList = apiReadingList
                 }
                 remoteReadingListsByID[apiReadingList.id] = apiReadingList
                 remoteReadingListsToCreateLocally[apiReadingList.id] = apiReadingList
@@ -116,15 +117,25 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                 self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
                     let group = WMFTaskGroup()
                     let localReadingListsFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-                    localReadingListsFetchRequest.predicate = NSPredicate(format: "isDefault == NO")
                     do {
                         let localReadingLists = try moc.fetch(localReadingListsFetchRequest)
                         var localReadingListsToDelete: [Int64: ReadingList] = [:]
                         var localReadingListsToSync: [Int64: ReadingList] = [:]
-
                         var localReadingListsIdsToMarkLocallyUpdatedFalse: Set<Int64> = []
-                        
+                        var localDefaultReadingList: ReadingList? = nil
                         for localReadingList in localReadingLists {
+                            guard !(localReadingList.isDefault?.boolValue ?? false) else {
+                                if localDefaultReadingList != nil {
+                                    moc.delete(localReadingList)
+                                } else{
+                                    localDefaultReadingList = localReadingList
+                                    if let defaultReadingListID = remoteDefaultReadingList?.id {
+                                        localReadingListsToSync[defaultReadingListID] = localReadingList
+                                        remoteReadingListsToCreateLocally.removeValue(forKey: defaultReadingListID)
+                                    }
+                                }
+                                continue
+                            }
                             guard let readingListID = localReadingList.readingListID?.int64Value else {
                                 let name = localReadingList.name ?? ""
                                 if let remoteReadingListWithTheSameName = remoteReadingListsByName[name.precomposedStringWithCanonicalMapping] {
@@ -226,7 +237,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 continue
                             }
                             let remoteEntries = entriesByReadingListID[readingListID] ?? []
-                            print("List \(readingList.name) has remote entries: \(remoteEntries)")
+                            //print("List \(readingList.name) has remote entries: \(remoteEntries)")
                             for entry in remoteEntries {
                                 remoteEntriesToCreateLocally[entry.id] = (entry, readingList)
                             }
@@ -310,6 +321,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                             entry.article = article
                             entry.displayTitle = article.displayTitle
                             article.savedDate = DateFormatter.wmf_iso8601().date(from: remoteEntry.created)
+                            article.addToDefaultReadingList()
                         }
 
                         for (entryID, entry) in localEntriesToSync {
@@ -351,8 +363,6 @@ public class ReadingListsController: NSObject {
         operationQueue.maxConcurrentOperationCount = 1
         super.init()
     }
-    
-    
     
     // User-facing actions. Everything is performed on the main context
     
@@ -424,7 +434,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-
+        sync()
     }
     
     @objc public func setupReadingLists() {
@@ -443,20 +453,141 @@ public class ReadingListsController: NSObject {
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list == %@ && article IN %@", readingList, articles)
         let entriesToDelete = try moc.fetch(entriesRequest)
-        
-        entriesToDelete.forEach({ moc.delete($0) })
+        for entry in entriesToDelete {
+            entry.isDeletedLocally = true
+        }
         if moc.hasChanges {
             try moc.save()
         }
+        sync()
     }
     
     public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        entries.forEach({ moc.delete($0) })
+        for entry in entries {
+            entry.isDeletedLocally = true
+        }
         if moc.hasChanges {
             try moc.save()
         }
+        sync()
     }
     
+    @objc public func addArticleToDefaultReadingList(_ article: WMFArticle) {
+        assert(Thread.isMainThread)
+        do {
+            let moc = dataStore.viewContext
+            article.savedDate = Date()
+            article.addToDefaultReadingList()
+            if moc.hasChanges {
+                try moc.save()
+            }
+            sync()
+        } catch let error {
+            DDLogError("Error adding article to default list: \(error)")
+        }
+    }
+    
+    @objc public func removeArticleFromDefaultReadingList(_ article: WMFArticle) {
+        assert(Thread.isMainThread)
+        do {
+            let moc = dataStore.viewContext
+            article.savedDate = nil
+            article.removeFromDefaultReadingList()
+            if moc.hasChanges {
+                try moc.save()
+            }
+            sync()
+        } catch let error {
+            DDLogError("Error removing article from default list: \(error)")
+        }
+    }
+    
+    
+    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLS: [URL]) {
+        assert(Thread.isMainThread)
+        do {
+            let moc = dataStore.viewContext
+            for url in articleURLS {
+                guard let article = dataStore.fetchArticle(with: url) else {
+                    continue
+                }
+                article.savedDate = nil
+                article.removeFromDefaultReadingList()
+            }
+            if moc.hasChanges {
+                try moc.save()
+            }
+            sync()
+        } catch let error {
+            DDLogError("Error removing all articles from default list: \(error)")
+        }
+    }
+    
+    @objc public func removeAllArticlesFromDefaultReadingList()  {
+        assert(Thread.isMainThread)
+        do {
+            let moc = dataStore.viewContext
+            let defaultList = moc.wmf_defaultReadingList
+            for entry in defaultList.entries ?? [] {
+                guard let entry = entry as? ReadingListEntry else {
+                    continue
+                }
+                entry.article?.savedDate = nil
+                entry.isDeletedLocally = true
+            }
+            if moc.hasChanges {
+                try moc.save()
+            }
+            sync()
+        } catch let error {
+            DDLogError("Error removing all articles from default list: \(error)")
+        }
+    }
+
 }
+
+
+fileprivate extension NSManagedObjectContext {
+    var wmf_defaultReadingList: ReadingList {
+        guard let defaultReadingList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList else {
+            DDLogError("Missing default reading list")
+            assert(false)
+            return wmf_create(entityNamed: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as! ReadingList
+        }
+        return defaultReadingList
+    }
+}
+
+
+fileprivate extension WMFArticle {
+    
+    func fetchDefaultListEntry() -> ReadingListEntry? {
+        return readingListEntries?.first(where: { (entry) -> Bool in
+            return entry.list?.isDefault?.boolValue ?? false
+        })
+    }
+    
+    func addToDefaultReadingList() {
+        guard let moc = self.managedObjectContext else {
+            return
+        }
+        
+        guard fetchDefaultListEntry() == nil else {
+            return
+        }
+        
+        let defaultReadingList = moc.wmf_defaultReadingList
+        let defaultListEntry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry
+        defaultListEntry?.article = self
+        defaultListEntry?.list = defaultReadingList
+        defaultListEntry?.displayTitle = displayTitle
+    }
+    
+    func removeFromDefaultReadingList() {
+        let defaultListEntry = fetchDefaultListEntry()
+        defaultListEntry?.isDeletedLocally = true
+    }
+}
+

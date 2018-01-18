@@ -18,7 +18,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController {
     
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        request.predicate = NSPredicate(format: "list == %@", readingList)
+        request.predicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
         request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
