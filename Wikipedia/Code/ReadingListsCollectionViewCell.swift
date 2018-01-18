@@ -182,11 +182,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
-        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, firstFourArticles: [WMFArticle], layoutOnly: Bool) {
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
         imageViewDimension = 80
 
@@ -198,8 +198,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         titleLabel.text = name
         descriptionLabel.text = description
         
-        let imageWidthToRequest = traitCollection.wmf_nearbyThumbnailWidth
-        let imageURLs = firstFourArticles.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
+        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
+        let imageURLs = lastFourArticlesWithLeadImages.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
         
         isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
         isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display

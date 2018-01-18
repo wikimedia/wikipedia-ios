@@ -125,7 +125,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), firstFourArticles: dataStore.savedPageList.recentEntries(4) ?? [], layoutOnly: layoutOnly)
+            let lastFourArticlesWithLeadImages = dataStore.savedPageList.entries(withLeadImages: 4) ?? []
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
@@ -133,8 +134,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         let articleCount = readingList.articleKeys.count
-        let firstFourArticles = (readingList.entries)?.suffix(4).flatMap { ($0 as? ReadingListEntry)?.article } ?? []
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
+        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
+        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
         guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
