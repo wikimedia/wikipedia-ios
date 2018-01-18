@@ -534,6 +534,7 @@ public class ReadingListsController: NSObject {
                 guard let entry = entry as? ReadingListEntry else {
                     continue
                 }
+                entry.article?.removeFromDefaultReadingList()
                 entry.article?.savedDate = nil
                 entry.isDeletedLocally = true
             }
@@ -586,8 +587,9 @@ fileprivate extension WMFArticle {
     }
     
     func removeFromDefaultReadingList() {
-        let defaultListEntry = fetchDefaultListEntry()
-        defaultListEntry?.isDeletedLocally = true
+        for entry in readingListEntries ?? [] {
+            entry.isDeletedLocally = true
+        }
     }
 }
 
