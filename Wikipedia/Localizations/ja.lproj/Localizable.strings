@@ -60,7 +60,7 @@
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
-"account-creation-captcha-cannot-see-image" = "画像が見られませんか？ $1";
+"account-creation-captcha-cannot-see-image" = "画像が表示できませんか？ $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "リクエストアカウント。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
@@ -422,7 +422,7 @@
 "welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、およそ300の言語で4,000万以上の記事から成ります。";
 "welcome-intro-free-encyclopedia-more" = "ウィキペディアについての詳細";
 "welcome-intro-free-encyclopedia-more-about" = "ウィキペディアについて";
-"welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは、世界のすべての言語でフリー百科事典を構成する世界的なプロジェクトです。インターネットにアクセスできる方なら誰でも、引用付きで寄稿することで自由に参加することができます。";
+"welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは世界中のすべての言語でフリー百科事典を構築する世界的なプロジェクトです。インターネットにアクセスできる方ならほとんど誰でも、中立で、出典付きの情報を自由に寄稿して参加することができます。";
 "welcome-intro-free-encyclopedia-title" = "フリー百科事典";
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";

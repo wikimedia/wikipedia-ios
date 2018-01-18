@@ -64,8 +64,6 @@
 "history-clear-cancel" = "Nuligi";
 "history-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn lastajn erojn?";
 "history-clear-delete-all" = "Jes, forigi ĉion";
-"history-section-today" = "Hodiaŭ";
-"history-section-yesterday" = "Hieraŭ";
 "history-title" = "Historio";
 "hockeyapp-alert-always-send" = "Ĉiam sendi";
 "hockeyapp-alert-do-not-send" = "Ne sendi";
@@ -140,10 +138,6 @@
 "settings-support" = "Subteni Vikipedion";
 "settings-title" = "Agordoj";
 "share-article-name-on-wikipedia" = "\"$1\" ĉe @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" ĉe @Wikipedia: \"$2\"";
-"share-as-image" = "Kundividi kiel bildo";
-"share-as-text" = "Kundividi kiel teksto";
-"share-cancel" = "Nuligi";
 // Fuzzy
 "share-custom-menu-item" = "Kundividi";
 "share-on-twitter-sign-off" = "per @Wikipedia";
@@ -156,8 +150,6 @@
 "top-read-header-generic" = "Vikipedio";
 "top-read-header-with-language" = "$1 Vikipedio";
 "welcome-languages-add-button" = "Aldoni alian lingvon";
-"welcome-languages-title" = "Lingvoj";
-"welcome-volunteer-thanks" = "$1 Dankon!";
 "wikitext-download-failed" = "Ne eblas ricevi lastan revizion.";
 "wikitext-download-success" = "Enhavo ŝarĝita.";
 "wikitext-downloading" = "Ŝarĝante enhavon...";
