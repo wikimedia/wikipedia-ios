@@ -34,7 +34,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
         self.presenter = presenter
-        self.hint = ReadingListHintViewController(dataStore: dataStore)
+        self.hint = ReadingListHintViewController()
+        self.hint.dataStore = dataStore
         super.init()
         self.hint.delegate = self
     }

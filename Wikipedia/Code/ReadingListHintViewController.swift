@@ -1,60 +1,38 @@
 class ReadingListHintViewController: UIViewController {
     
-    fileprivate let dataStore: MWKDataStore
+    var dataStore: MWKDataStore?
     fileprivate var theme: Theme = Theme.standard
     
-    var article: WMFArticle? {
-        didSet {
-            let articleTitle = article?.displayTitle ?? "article"
-            button.setTitle("Add \(articleTitle) to reading list", for: .normal)
-        }
-    }
+    var article: WMFArticle?
     
-    public init(dataStore: MWKDataStore) {
-        self.dataStore = dataStore
-        super.init(nibName: "ReadingListHintViewController", bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    fileprivate var button: AlignedImageButton = AlignedImageButton()
+    @IBOutlet weak var hintView: UIView!
+    @IBOutlet weak var hintButton: AlignedImageButton!
+    @IBOutlet weak var confirmationView: UIView!
+    @IBOutlet weak var confirmationImageView: UIImageView!
+    @IBOutlet weak var confirmationButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(button)
-        button.titleLabel?.lineBreakMode = .byTruncatingTail
-        button.verticalPadding = 5
-        button.setImage(UIImage(named: "add-to-list"), for: .normal)
-        button.addTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
-        button.sizeToFit()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let centerConstraint = button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        let leadingConstraint = button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
-        let trailingConstraint = view.trailingAnchor.constraint(greaterThanOrEqualTo: button.trailingAnchor, constant: 12)
-        centerConstraint.isActive = true
-        leadingConstraint.isActive = true
-        trailingConstraint.isActive = true
+        confirmationView.isHidden = true
+        hintButton.verticalPadding = 5
+        let articleTitle = article?.displayTitle ?? "article"
+        hintButton.setTitle("Add \(articleTitle) to reading list", for: .normal)
         apply(theme: theme)
     }
     
     func reset() {
-        let articleTitle = article?.displayTitle ?? "article"
-        button.setTitle("Add \(articleTitle) to reading list", for: .normal)
-        button.setImage(UIImage(named: "add-to-list"), for: .normal)
-        button.removeTarget(self, action: #selector(openReadingList), for: .touchUpInside)
-        button.addTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
+        hintView.isHidden = false
+        confirmationView.isHidden = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        button.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        hintButton.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?
     
-    @objc fileprivate func addArticleToReadingList() {
-        guard let article = article else {
+    @IBAction func addArticleToReadingList(_ sender: Any) {
+        guard let article = article, let dataStore = dataStore else {
             return
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
@@ -65,11 +43,10 @@ class ReadingListHintViewController: UIViewController {
     fileprivate var readingList: ReadingList?
     fileprivate var themeableNavigationController: WMFThemeableNavigationController?
     
-    @objc fileprivate func openReadingList() {
-        guard let readingList = readingList else {
+    @IBAction func openReadingList() {
+        guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        
         let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
         (viewController as? SavedArticlesViewController)?.dataStore = dataStore
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
@@ -93,10 +70,9 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
             return
         }
         self.readingList = readingList
-        button.setTitle("Article added to \(name)", for: .normal)
-        button.setImage(nil, for: .normal)
-        button.removeTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
-        button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
+        hintView.isHidden = true
+        confirmationView.isHidden = false
+        confirmationButton.setTitle("Article added to \(name)", for: .normal)
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
@@ -112,6 +88,7 @@ extension ReadingListHintViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.disabledLink
-        button.setTitleColor(theme.colors.link, for: .normal)
+        hintButton.setTitleColor(theme.colors.link, for: .normal)
+        confirmationButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }
