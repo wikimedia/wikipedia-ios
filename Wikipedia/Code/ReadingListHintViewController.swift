@@ -32,9 +32,16 @@ class ReadingListHintViewController: UIViewController {
         }
     }
     
+    private var isHintViewHidden: Bool = false {
+        didSet {
+            hintView.isHidden = isHintViewHidden
+            confirmationView.isHidden = !isHintViewHidden
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        confirmationView.isHidden = true
+        isHintViewHidden = false
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
         confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
@@ -45,8 +52,7 @@ class ReadingListHintViewController: UIViewController {
     }
     
     func reset() {
-        hintView.isHidden = false
-        confirmationView.isHidden = true
+        isHintViewHidden = false
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -100,8 +106,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
             isConfirmationImageViewHidden = true
         }
         self.readingList = readingList
-        hintView.isHidden = true
-        confirmationView.isHidden = false
+        isHintViewHidden = true
         confirmationButton.setTitle("Article added to \(name)", for: .normal)
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
