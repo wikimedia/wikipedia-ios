@@ -315,40 +315,88 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
 // MARK: - ActionDelegate
 extension ReadingListsViewController: ActionDelegate {
     
+    func shouldPerformAction(_ action: Action) -> Bool {
+        guard let readingList = readingList(at: action.indexPath) else {
+            return false
+        }
+        guard action.type == .delete, shouldPresentDeletionAlert(for: [readingList]) else {
+            return self.editController.didPerformAction(action)
+        }
+        let alert = createDeletionAlert(for: [readingList])
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (cancel) in
+            self.editController.close()
+            alert.dismiss(animated: true, completion: nil)
+        })
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (delete) in
+            let _ = self.editController.didPerformAction(action)
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        present(alert, animated: true)
+        return true
+    }
+    
+    private func deleteReadingLists(_ readingLists: [ReadingList]) {
+        do {
+            try self.readingListsController.delete(readingLists: readingLists)
+            self.editController.close()
+        } catch let error {
+            self.readingListsController.handle(error)
+        }
+    }
+    
+    func shouldPresentDeletionAlert(for readingLists: [ReadingList]) -> Bool {
+        return entriesCount(for: readingLists) > 0
+    }
+    
+    private func entriesCount(for readingLists: [ReadingList]) -> Int {
+        return readingLists.flatMap({ $0.entries?.count }).reduce( 0, + )
+    }
+    
+    func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
+        let articlesCount = entriesCount(for: readingLists)
+        let manyArticles = articlesCount > 1
+        let manyReadingLists = readingLists.count > 1
+        let readingListString = manyReadingLists ? "reading lists" : "reading list"
+        let articleString = manyArticles ? "articles" : "article"
+        let title = "Delete \(readingListString) and all of \(manyReadingLists ? "their" : "its") saved articles?"
+        let message = "Your \(readingLists.count) \(readingListString) and \(articlesCount) \(articleString) will be deleted"
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        return alert
+    }
+    
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
             return false
         }
         
         let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
-        let articlesCount = readingLists.flatMap({ $0.entries?.count }).reduce( 0, + )
         
         switch action.type {
         case .update:
             print("Update")
             return true
         case .delete:
-            let title = "Delete reading lists and all of their saved articles?"
-            let message = "Your \(readingLists.count) \(readingLists.count > 1 ? "lists" : "list") and \(articlesCount) articles will be deleted"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-                alert.dismiss(animated: true, completion: nil)
-            })
-            var didPerform = false
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
-                do {
-                    try self.readingListsController.delete(readingLists: readingLists)
-                    self.editController.close()
-                } catch let error {
-                    self.readingListsController.handle(error)
-                }
-            })
-            alert.addAction(cancelAction)
-            alert.addAction(deleteAction)
-            present(alert, animated: true, completion: {
-                didPerform = true
-            })
-            return didPerform
+            if shouldPresentDeletionAlert(for: readingLists) {
+                let alert = createDeletionAlert(for: readingLists)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                    self.deleteReadingLists(readingLists)
+                })
+                alert.addAction(cancelAction)
+                alert.addAction(deleteAction)
+                var didPerform = false
+                present(alert, animated: true, completion: {
+                    didPerform = true
+                })
+                return didPerform
+            } else {
+                self.deleteReadingLists(readingLists)
+                return true
+            }
         default:
             break
         }
@@ -362,11 +410,7 @@ extension ReadingListsViewController: ActionDelegate {
         }
         switch action.type {
         case .delete:
-            do {
-            try readingListsController.delete(readingLists: [readingList])
-            } catch let error {
-                readingListsController.handle(error)
-            }
+            self.deleteReadingLists([readingList])
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
             return true
         default:

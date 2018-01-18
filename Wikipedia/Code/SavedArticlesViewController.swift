@@ -333,7 +333,7 @@ extension SavedArticlesViewController {
 // MARK: - ActionDelegate
 
 extension SavedArticlesViewController: ActionDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.isClosed else {
             return
