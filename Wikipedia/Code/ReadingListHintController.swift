@@ -5,8 +5,7 @@ import UIKit
 }
 
 protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
-    func viewControllerWillBeDismissed()
-    func addedArticleToReadingList()
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
 }
 
 @objc(WMFReadingListHintController)
@@ -121,12 +120,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     // MARK: - ReadingListHintViewControllerDelegate
     
-    func viewControllerWillBeDismissed() {
-        setHintHidden(true)
-    }
-    
-    func addedArticleToReadingList() {
-        setHintHidden(false)
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool) {
+        setHintHidden(shouldBeHidden)
     }
 }
 
@@ -209,7 +204,7 @@ class ReadingListHintViewController: UIViewController {
         let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
-            self.delegate?.viewControllerWillBeDismissed()
+            self.delegate?.readingListHint(self, shouldBeHidden: true)
         }
     }
     
@@ -221,7 +216,7 @@ class ReadingListHintViewController: UIViewController {
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func viewControllerWillBeDismissed() {
-        delegate?.viewControllerWillBeDismissed()
+        delegate?.readingListHint(self, shouldBeHidden: true)
     }
     
     func addedArticle(to readingList: ReadingList) {
@@ -233,7 +228,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         button.setImage(nil, for: .normal)
         button.removeTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
         button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
-        delegate?.addedArticleToReadingList()
+        delegate?.readingListHint(self, shouldBeHidden: false)
     }
 }
 
