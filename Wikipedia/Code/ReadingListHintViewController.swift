@@ -14,6 +14,8 @@ class ReadingListHintViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmationView.isHidden = true
+        confirmationImageView.layer.cornerRadius = 3
+        confirmationImageView.clipsToBounds = true
         hintButton.verticalPadding = 5
         let articleTitle = article?.displayTitle ?? "article"
         hintButton.setTitle("Add \(articleTitle) to reading list", for: .normal)
@@ -68,6 +70,11 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
             return
+        }
+        if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
+            confirmationImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+        } else {
+            confirmationImageView.isHidden = true
         }
         self.readingList = readingList
         hintView.isHidden = true
