@@ -101,12 +101,16 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    @objc func presentCreateReadingListViewController() {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme)
+    @objc func createReadingList(with articles: [WMFArticle] = []) {
+        let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
         createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    @objc func presentCreateReadingListViewController() {
+        createReadingList(with: [])
     }
     
     @objc func dismissCreateReadingListViewController() {
@@ -252,9 +256,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?) {
+    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?, articles: [WMFArticle]) {
         do {
-            let _ = try readingListsController.createReadingList(named: name, description: description)
+            let _ = try readingListsController.createReadingList(named: name, description: description, with: articles)
             controller.dismiss(animated: true, completion: nil)
         } catch let error {
             readingListsController.handle(error)

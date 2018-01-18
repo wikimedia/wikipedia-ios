@@ -37,7 +37,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed() {
-        readingListsViewController?.presentCreateReadingListViewController()
+        readingListsViewController?.createReadingList(with: articles)
     }
     
     override func viewDidLoad() {
