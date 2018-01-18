@@ -137,8 +137,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        let articleCount = readingList.articleKeys.count
-        let firstFourArticles = (readingList.entries)?.prefix(3).flatMap { ($0 as? ReadingListEntry)?.article } ?? []
+        let articleKeys = readingList.articleKeys
+        let articleCount = articleKeys.count
+        let firstFourArticles = articleKeys.prefix(3).flatMap { dataStore.fetchArticle(withKey: $0) }
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, firstFourArticles: firstFourArticles, layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
