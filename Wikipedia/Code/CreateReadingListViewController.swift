@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateReadingListDelegate: NSObjectProtocol {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?, articles: [WMFArticle])
+    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
 }
 
 class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
@@ -31,6 +31,10 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         createReadingListButton.isEnabled = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        view.endEditing(false)
+    }
+    
     @objc func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
@@ -51,7 +55,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         guard let name = readingListNameTextField.text, !name.isEmpty else {
             return
         }
-        delegate?.createdNewReadingList(in: self, with: name, description: descriptionTextField.text, articles: articles)
+        delegate?.createReadingList(self, shouldCreateReadingList: true, with: name, description: descriptionTextField.text, articles: articles)
     }
     
     // MARK: - UITextFieldDelegate

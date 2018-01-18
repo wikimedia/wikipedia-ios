@@ -222,9 +222,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             } catch let error {
                 readingListsController.handle(error)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                self.dismiss(animated: true, completion: nil)
-            }
             return
         }
         
@@ -260,10 +257,14 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createdNewReadingList(in controller: CreateReadingListViewController, with name: String, description: String?, articles: [WMFArticle]) {
+    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle]) {
+        guard shouldCreateReadingList else {
+            return
+        }
         do {
-            let _ = try readingListsController.createReadingList(named: name, description: description, with: articles)
-            controller.dismiss(animated: true, completion: nil)
+            let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
+            delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
+            createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
             readingListsController.handle(error)
         }

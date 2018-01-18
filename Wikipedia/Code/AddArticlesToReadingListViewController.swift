@@ -74,6 +74,9 @@ class AddArticlesToReadingListViewController: UIViewController {
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
