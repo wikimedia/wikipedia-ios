@@ -521,39 +521,42 @@ static uint64_t bundleHash() {
             dispatch_async(dispatch_get_main_queue(), completion);
         };
         if (currentLibraryVersion < 3) {
+            NSError *migrationSaveError = nil;
             if (currentLibraryVersion < 1) {
                 if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
                     [moc wmf_setValue:@(1) forKey:key];
-                    [moc save:nil];
+                    if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                        DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                        done();
+                        return;
+                    }
                 }
             }
 
-            NSFetchRequest<ReadingList *> *defaultListRequest = [ReadingList fetchRequest];
-            defaultListRequest.predicate = [NSPredicate predicateWithFormat:@"isDefault == YES"];
-            NSError *migrationFetchError = nil;
-            NSArray<ReadingList *> *defaultListResults = [moc executeFetchRequest:defaultListRequest error:&migrationFetchError];
-            if (migrationFetchError) {
-                DDLogError(@"Error fetching default list: %@", migrationFetchError);
-                done();
-                return;
+            ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
+            if (!defaultReadingList) {
+                defaultReadingList = [[ReadingList alloc] initWithContext:moc];
+                defaultReadingList.isDefault = @(YES);
             }
 
-            ReadingList *defaultReadingList = [defaultListResults firstObject];
-            if (!defaultReadingList) {
-                defaultReadingList = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingList" inManagedObjectContext:moc];
-                defaultReadingList.isDefault = @(YES);
+            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                done();
+                return;
             }
 
             NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
             request.fetchLimit = 500;
             request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && SUBQUERY(readingListEntries, $x, $x.list == %@).@count == 0", defaultReadingList];
 
+            NSError *migrationFetchError = nil;
             NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:&migrationFetchError];
             if (migrationFetchError) {
                 DDLogError(@"Error fetching unmigrated saved articles: %@", migrationFetchError);
                 done();
                 return;
             }
+
             while (results.count > 0) {
                 for (WMFArticle *article in results) {
                     ReadingListEntry *entry = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingListEntry" inManagedObjectContext:moc];
@@ -561,16 +564,26 @@ static uint64_t bundleHash() {
                     entry.displayTitle = article.displayTitle;
                     entry.list = defaultReadingList;
                 }
-                NSError *migrationSaveError = nil;
                 if (![moc save:&migrationSaveError]) {
                     DDLogError(@"Error saving during migration: %@", migrationSaveError);
                     done();
                     return;
                 }
+                [moc reset];
+                defaultReadingList = [moc wmf_fetchDefaultReadingList]; // needs to re-fetch after reset
                 results = [moc executeFetchRequest:request error:&migrationFetchError];
+                if (!defaultReadingList || migrationFetchError) {
+                    DDLogError(@"Error fetching during migration: %@ %@", defaultReadingList, migrationFetchError);
+                    done();
+                    return;
+                }
             }
+
             [moc wmf_setValue:@(3) forKey:key];
-            [moc save:nil];
+
+            if (![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+            }
         }
         done();
     }];

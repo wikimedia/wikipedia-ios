@@ -561,6 +561,11 @@ fileprivate extension NSManagedObjectContext {
     }
 }
 
+public extension NSManagedObjectContext {
+    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
+        return  wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+    }
+}
 
 fileprivate extension WMFArticle {
     
