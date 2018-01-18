@@ -123,7 +123,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme diceButtonItem:self.diceButtonItem];
 #if WMF_TWEAKS_ENABLED
-            randomArticleVC.permaRandomMode = YES;
+            randomArticleVC.permaRandomMode = NO;
 #endif
             [self wmf_pushArticleViewController:randomArticleVC
                                        animated:YES];
