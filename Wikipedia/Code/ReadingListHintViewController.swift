@@ -3,10 +3,21 @@ class ReadingListHintViewController: UIViewController {
     var dataStore: MWKDataStore?
     fileprivate var theme: Theme = Theme.standard
     
-    var article: WMFArticle?
+    var article: WMFArticle? {
+        didSet {
+            guard article != oldValue else {
+                return
+            }
+            hintButton?.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        }
+    }
+    
+    private var articleTitle: String {
+        return article?.displayTitle ?? "article"
+    }
     
     @IBOutlet weak var hintView: UIView!
-    @IBOutlet weak var hintButton: AlignedImageButton!
+    @IBOutlet weak var hintButton: AlignedImageButton?
     @IBOutlet weak var confirmationView: UIView!
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationButton: UIButton!
@@ -16,9 +27,8 @@ class ReadingListHintViewController: UIViewController {
         confirmationView.isHidden = true
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
-        hintButton.verticalPadding = 5
-        let articleTitle = article?.displayTitle ?? "article"
-        hintButton.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        hintButton?.verticalPadding = 5
+        hintButton?.setTitle("Add \(articleTitle) to reading list", for: .normal)
         apply(theme: theme)
     }
     
@@ -28,7 +38,7 @@ class ReadingListHintViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        hintButton.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        hintButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?
@@ -95,7 +105,7 @@ extension ReadingListHintViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.disabledLink
-        hintButton.setTitleColor(theme.colors.link, for: .normal)
+        hintButton?.setTitleColor(theme.colors.link, for: .normal)
         confirmationButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }
