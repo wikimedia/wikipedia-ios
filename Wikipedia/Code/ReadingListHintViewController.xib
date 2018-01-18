@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListHintViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-xz-pPZ" userLabel="Hint View">
+                    <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Kw-ATH" customClass="WMFAlignedImageButton">
+                            <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="cDy-Kw-ATH" firstAttribute="leading" secondItem="sA1-Du-pXz" secondAttribute="leading" id="63q-oq-wI0"/>
+                        <constraint firstItem="cDy-Kw-ATH" firstAttribute="top" secondItem="sA1-Du-pXz" secondAttribute="top" id="Lcs-Ja-VJL"/>
+                        <constraint firstItem="sA1-Du-pXz" firstAttribute="bottom" secondItem="cDy-Kw-ATH" secondAttribute="bottom" id="Rh4-0u-0oI"/>
+                        <constraint firstItem="sA1-Du-pXz" firstAttribute="trailing" secondItem="cDy-Kw-ATH" secondAttribute="trailing" id="yRl-B4-i4c"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="sA1-Du-pXz"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
+                    <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
+                    <viewLayoutGuide key="safeArea" id="zkX-4T-Nfr"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="f2T-xz-pPZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1eh-WB-uCT"/>
+                <constraint firstAttribute="bottom" secondItem="f2T-xz-pPZ" secondAttribute="bottom" id="CnK-va-xVo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="f2T-xz-pPZ" secondAttribute="trailing" id="E4W-is-ubF"/>
+                <constraint firstAttribute="bottom" secondItem="9Mi-lB-pMN" secondAttribute="bottom" id="QUN-cv-K6l"/>
+                <constraint firstItem="f2T-xz-pPZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="RPH-lV-PrV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Mi-lB-pMN" secondAttribute="trailing" id="dUe-s0-yAS"/>
+                <constraint firstItem="9Mi-lB-pMN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jnG-HS-pMS"/>
+                <constraint firstItem="9Mi-lB-pMN" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zk2-38-fqs"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="112.5" y="-224.5"/>
+        </view>
+    </objects>
+</document>
