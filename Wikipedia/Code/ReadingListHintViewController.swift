@@ -21,6 +21,7 @@ class ReadingListHintViewController: UIViewController {
     @IBOutlet weak var confirmationView: UIView!
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationButton: UIButton!
+    @IBOutlet weak var confirmationChevron: UIButton!
     private var confirmationButtonLeadingConstraint: (toImageView: NSLayoutConstraint?, toView: NSLayoutConstraint?)
     
     private var isConfirmationImageViewHidden: Bool = false {
@@ -125,5 +126,6 @@ extension ReadingListHintViewController: Themeable {
         view.backgroundColor = theme.colors.disabledLink
         hintButton?.setTitleColor(theme.colors.link, for: .normal)
         confirmationButton.setTitleColor(theme.colors.link, for: .normal)
+        confirmationChevron.tintColor = theme.colors.link
     }
 }
