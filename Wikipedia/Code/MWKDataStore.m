@@ -507,7 +507,7 @@ static uint64_t bundleHash() {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     static NSString *key = @"WMFLibraryVersion";
-    static const NSInteger libraryVersion = 2;
+    static const NSInteger libraryVersion = 3;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -517,19 +517,62 @@ static uint64_t bundleHash() {
         return;
     }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        if (currentLibraryVersion < 2) {
+        dispatch_block_t done = ^{
+            dispatch_async(dispatch_get_main_queue(), completion);
+        };
+        if (currentLibraryVersion < 3) {
             if (currentLibraryVersion < 1) {
                 if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
                     [moc wmf_setValue:@(1) forKey:key];
                     [moc save:nil];
                 }
             }
-            ReadingList *readingList = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingList" inManagedObjectContext:moc];
-            readingList.isDefault = @(YES);
-            [moc wmf_setValue:@(2) forKey:key];
+
+            NSFetchRequest<ReadingList *> *defaultListRequest = [ReadingList fetchRequest];
+            defaultListRequest.predicate = [NSPredicate predicateWithFormat:@"isDefault == YES"];
+            NSError *migrationFetchError = nil;
+            NSArray<ReadingList *> *defaultListResults = [moc executeFetchRequest:defaultListRequest error:&migrationFetchError];
+            if (migrationFetchError) {
+                DDLogError(@"Error fetching default list: %@", migrationFetchError);
+                done();
+                return;
+            }
+
+            ReadingList *defaultReadingList = [defaultListResults firstObject];
+            if (!defaultReadingList) {
+                defaultReadingList = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingList" inManagedObjectContext:moc];
+                defaultReadingList.isDefault = @(YES);
+            }
+
+            NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
+            request.fetchLimit = 500;
+            request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && SUBQUERY(readingListEntries, $x, $x.list == %@).@count == 0", defaultReadingList];
+
+            NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:&migrationFetchError];
+            if (migrationFetchError) {
+                DDLogError(@"Error fetching unmigrated saved articles: %@", migrationFetchError);
+                done();
+                return;
+            }
+            while (results.count > 0) {
+                for (WMFArticle *article in results) {
+                    ReadingListEntry *entry = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingListEntry" inManagedObjectContext:moc];
+                    entry.article = article;
+                    entry.displayTitle = article.displayTitle;
+                    entry.list = defaultReadingList;
+                }
+                NSError *migrationSaveError = nil;
+                if (![moc save:&migrationSaveError]) {
+                    DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                    done();
+                    return;
+                }
+                results = [moc executeFetchRequest:request error:&migrationFetchError];
+            }
+            [moc wmf_setValue:@(3) forKey:key];
             [moc save:nil];
         }
-        dispatch_async(dispatch_get_main_queue(), completion);
+        done();
     }];
 }
 
