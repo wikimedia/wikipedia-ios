@@ -84,8 +84,6 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
             fetchRequest.predicate = NSPredicate(format: "list == %@", readingList)
             fetchRequest.relationshipKeyPathsForPrefetching = ["article"]
             let results = try moc.fetch(fetchRequest)
-            print("list: \(readingList) results: \(results)")
-            
             taskGroup.waitInBackground {
                 completion(nil)
             }
@@ -266,10 +264,14 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 
                                 group.enter()
                                 self.apiController.removeEntry(withEntryID: entryID, fromListWithListID: readingListID, completion: { (error) in
-                                    if error == nil {
-                                        localEntriesToDelete.append(localEntry)
+                                    defer {
+                                        group.leave()
                                     }
-                                    group.leave()
+                                    guard error == nil else {
+                                        DDLogError("Error deleting entry withEntryID: \(entryID) fromListWithListID: \(readingListID) error: \(String(describing: error))")
+                                        return
+                                    }
+                                    localEntriesToDelete.append(localEntry)
                                 })
                             }
                         }
@@ -340,7 +342,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         try moc.save()
                         
                     } catch let error {
-                        DDLogError("Error fetching: \(error)")
+                        DDLogError("Error during reading list sync: \(error)")
                     }
                     self.finish()
                 })
