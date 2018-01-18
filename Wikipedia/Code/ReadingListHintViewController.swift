@@ -23,6 +23,15 @@ class ReadingListHintViewController: UIViewController {
     @IBOutlet weak var confirmationButton: UIButton!
     private var confirmationButtonLeadingConstraint: (toImageView: NSLayoutConstraint?, toView: NSLayoutConstraint?)
     
+    private var isConfirmationImageViewHidden: Bool = false {
+        didSet {
+            confirmationImageView.isHidden = isConfirmationImageViewHidden
+            confirmationButtonLeadingConstraint.toImageView?.isActive = !isConfirmationImageViewHidden
+            confirmationButtonLeadingConstraint.toView?.isActive = isConfirmationImageViewHidden
+            view.setNeedsLayout()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         confirmationView.isHidden = true
@@ -85,13 +94,10 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
             return
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
-            confirmationButtonLeadingConstraint.toImageView?.isActive = true
-            confirmationButtonLeadingConstraint.toView?.isActive = false
+            isConfirmationImageViewHidden = false
             confirmationImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
         } else {
-            confirmationImageView.isHidden = true
-            confirmationButtonLeadingConstraint.toImageView?.isActive = false
-            confirmationButtonLeadingConstraint.toView?.isActive = true
+            isConfirmationImageViewHidden = true
         }
         self.readingList = readingList
         hintView.isHidden = true
