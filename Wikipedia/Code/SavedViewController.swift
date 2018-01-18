@@ -1,15 +1,15 @@
 import UIKit
 
-public protocol SavedViewControllerDelegate: NSObjectProtocol {
-    func didPressSortButton()
+protocol SavedViewControllerDelegate: NSObjectProtocol {
+    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool)
 }
 
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
-    fileprivate var savedArticlesViewController: SavedArticlesViewController!
+    private var savedArticlesViewController: SavedArticlesViewController!
     
-    fileprivate lazy var readingListsViewController: ReadingListsViewController? = {
+    private lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
             assertionFailure("dataStore is nil")
             return nil
@@ -50,7 +50,7 @@ class SavedViewController: ViewController {
     
     // MARK: - Toggling views
     
-    fileprivate enum View: Int {
+    private enum View: Int {
         case savedArticles, readingLists
     }
     
@@ -60,7 +60,7 @@ class SavedViewController: ViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
-    fileprivate var currentView: View = .savedArticles {
+    private var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
             switch currentView {
@@ -83,14 +83,14 @@ class SavedViewController: ViewController {
         }
     }
     
-    fileprivate var isAddButtonHidden: Bool = true {
+    private var isAddButtonHidden: Bool = true {
         didSet {
             navigationItem.leftBarButtonItem = isAddButtonHidden ? nil : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
     
-    fileprivate var isSearchBarHidden: Bool = false {
+    private var isSearchBarHidden: Bool = false {
         didSet {
             extendedNavBarView.isHidden = isSearchBarHidden
             if isSearchBarHidden {
@@ -107,7 +107,7 @@ class SavedViewController: ViewController {
         }
     }
     
-    fileprivate func addChild(_ vc: UIViewController?) {
+    private func addChild(_ vc: UIViewController?) {
         guard let vc = vc else {
             return
         }
@@ -116,7 +116,7 @@ class SavedViewController: ViewController {
         vc.didMove(toParentViewController: self)
     }
     
-    fileprivate func removeChild(_ vc: UIViewController?) {
+    private func removeChild(_ vc: UIViewController?) {
         guard let vc = vc else {
             return
         }
@@ -148,7 +148,7 @@ class SavedViewController: ViewController {
     public weak var savedDelegate: SavedViewControllerDelegate?
     
     @IBAction func sortButonPressed() {
-        savedDelegate?.didPressSortButton()
+        savedDelegate?.saved(self, shouldShowSortAlert: true)
     }
     
     // MARK: - Themeable

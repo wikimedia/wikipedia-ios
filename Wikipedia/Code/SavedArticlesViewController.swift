@@ -1,16 +1,16 @@
 
 @objc(WMFSavedArticlesViewController)
 class SavedArticlesViewController: ColumnarCollectionViewController {
-    fileprivate let reuseIdentifier = "SavedArticlesCollectionViewCell"
+    private let reuseIdentifier = "SavedArticlesCollectionViewCell"
     
-    fileprivate var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
-    fileprivate var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
-    fileprivate var cellLayoutEstimate: WMFLayoutEstimate?
+    private var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
+    private var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
+    private var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     
     var dataStore: MWKDataStore!
     
-    fileprivate func setupFetchedResultsController(with dataStore: MWKDataStore) {
+    private func setupFetchedResultsController(with dataStore: MWKDataStore) {
         // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
         let checkedKey = "checked"
         sortActions.title.setValue(false, forKey: checkedKey)
@@ -50,7 +50,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         _ = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
     }
     
-    fileprivate var isFirstAppearance = true
+    private var isFirstAppearance = true
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard isFirstAppearance else {
@@ -91,7 +91,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         }
     }
     
-    fileprivate final func updateEmptyState() {
+    private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -110,7 +110,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     // MARK: - Sorting
     
-    fileprivate var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil) {
+    private var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil) {
         didSet {
             guard sort.descriptor != oldValue.descriptor else {
                 return
@@ -119,7 +119,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         }
     }
     
-    fileprivate func setupCollectionViewUpdaterAndFetch() {
+    private func setupCollectionViewUpdaterAndFetch() {
         setupFetchedResultsController(with: dataStore)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater.delegate = self
@@ -131,7 +131,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         collectionView.reloadData()
     }
     
-    fileprivate lazy var sortActions: (title: UIAlertAction, recentlyAdded: UIAlertAction) = {
+    private lazy var sortActions: (title: UIAlertAction, recentlyAdded: UIAlertAction) = {
         let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
             self.sort = (descriptor: NSSortDescriptor(key: "displayTitle", ascending: true), action: action)
         }
@@ -141,7 +141,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return (title: titleAction, recentlyAdded: recentlyAddedAction)
     }()
     
-    fileprivate lazy var sortAlert: UIAlertController = {
+    private lazy var sortAlert: UIAlertController = {
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         alert.addAction(sortActions.recentlyAdded)
         alert.addAction(sortActions.title)
@@ -158,7 +158,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
     
     // MARK: - Filtering
     
-    fileprivate var searchString: String? {
+    private var searchString: String? {
         didSet {
             guard searchString != oldValue else {
                 return
@@ -168,11 +168,11 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         }
     }
     
-    fileprivate func articleURL(at indexPath: IndexPath) -> URL? {
+    private func articleURL(at indexPath: IndexPath) -> URL? {
         return article(at: indexPath)?.url
     }
     
-    fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
+    private func article(at indexPath: IndexPath) -> WMFArticle? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
@@ -181,12 +181,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    fileprivate func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
+    private func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
         // different order every time cause set
         return article(at: indexPath)?.readingListEntries?.flatMap { $0.list } ?? []
     }
     
-    fileprivate func delete(at indexPath: IndexPath) {
+    private func delete(at indexPath: IndexPath) {
         guard let articleURL = self.articleURL(at: indexPath) else {
             return
         }
@@ -307,7 +307,7 @@ extension SavedArticlesViewController {
         return cell
     }
     
-    fileprivate func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+    private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditable = true
         
         guard let article = article(at: indexPath) else {
@@ -437,19 +437,23 @@ extension SavedArticlesViewController: ActionDelegate {
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    func didPressSortButton() {
+    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool) {
+        guard shouldShowSortAlert else {
+            return
+        }
         present(sortAlert, animated: true, completion: nil)
+        
     }
 }
 
 // MARK: - AddArticlesToReadingListDelegate
 
 extension SavedArticlesViewController: AddArticlesToReadingListDelegate {
-    func addedArticle(to readingList: ReadingList) {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         editController.close()
     }
     
-    func viewControllerWillBeDismissed() {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
         editController.close()
     }
 }
@@ -507,7 +511,7 @@ extension SavedArticlesViewController: UISearchBarDelegate {
     }
     
     // Calling .resignFirstResponder() directly is not enough. https://stackoverflow.com/a/2823182/4574147
-    @objc fileprivate func dismisKeyboard(for searchBar: UISearchBar) {
+    @objc private func dismisKeyboard(for searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     

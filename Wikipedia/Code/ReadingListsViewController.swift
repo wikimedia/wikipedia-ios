@@ -4,10 +4,14 @@ enum ReadingListsDisplayType {
     case readingListsTab, addArticlesToReadingList
 }
 
+protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
+    func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+}
+
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController {
     
-    fileprivate let reuseIdentifier = "ReadingListsViewControllerCell"
+    private let reuseIdentifier = "ReadingListsViewControllerCell"
     
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
@@ -15,11 +19,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
-    fileprivate var articles: [WMFArticle] = [] // the articles that will be added to a reading list
-    fileprivate var readingLists: [ReadingList]? // the displayed reading lists
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
+    private var readingLists: [ReadingList]? // the displayed reading lists
+    private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    public weak var addArticlesToReadingListDelegate: AddArticlesToReadingListDelegate?
+    public weak var delegate: ReadingListsViewControllerDelegate?
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -117,7 +121,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    fileprivate func updateDefaultListCell() {
+    private func updateDefaultListCell() {
         let indexPath = IndexPath(item: 0, section: 0)
         if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
@@ -150,13 +154,13 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     // MARK: - Empty state
     
-    fileprivate var isEmpty = true {
+    private var isEmpty = true {
         didSet {
             editController.isCollectionViewEmpty = isEmpty
         }
     }
     
-    fileprivate final func updateEmptyState() {
+    private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
         isEmpty = true
@@ -214,7 +218,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         guard displayType == .readingListsTab else {
             do {
                 try readingListsController.add(articles: articles, to: readingList)
-                addArticlesToReadingListDelegate?.addedArticle(to: readingList)
+                delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             } catch let error {
                 readingListsController.handle(error)
             }

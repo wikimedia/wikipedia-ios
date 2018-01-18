@@ -198,7 +198,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return false
     }
     
-    fileprivate lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
+    private lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
        let batchEditToolbarViewController = BatchEditToolbarViewController()
         batchEditToolbarViewController.items = self.batchEditToolbarItems
         return batchEditToolbarViewController
@@ -342,14 +342,14 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate var editableCells: [BatchEditableCell] {
+    private var editableCells: [BatchEditableCell] {
         guard let editableCells = collectionView.visibleCells as? [BatchEditableCell] else {
             return []
         }
         return editableCells
     }
     
-    fileprivate var batchEditingState: BatchEditingState = .none {
+    private var batchEditingState: BatchEditingState = .none {
         didSet {
             var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
             var enabled = true
@@ -384,7 +384,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate func transformBatchEditPane(for state: BatchEditingState, animated: Bool = true) {
+    private func transformBatchEditPane(for state: BatchEditingState, animated: Bool = true) {
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -431,7 +431,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    @objc fileprivate func batchEdit(_ sender: UIBarButtonItem) {
+    @objc private func batchEdit(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case -1:
             closeActionPane()
@@ -457,11 +457,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         transformBatchEditPane(for: batchEditingState, animated: false)
     }
     
-    fileprivate var selectedIndexPaths: [IndexPath] {
+    private var selectedIndexPaths: [IndexPath] {
         return collectionView.indexPathsForSelectedItems ?? []
     }
     
-    fileprivate var isBatchEditToolbarHidden: Bool = true {
+    private var isBatchEditToolbarHidden: Bool = true {
         didSet {
             guard collectionView.window != nil else {
                 return
@@ -470,7 +470,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate var batchEditToolbarActions: [BatchEditToolbarAction] {
+    private var batchEditToolbarActions: [BatchEditToolbarAction] {
         guard let delegate = delegate, let actions = delegate.availableBatchEditToolbarActions else {
             return []
         }
@@ -484,7 +484,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    fileprivate lazy var batchEditToolbarItems: [UIButton] = {
+    private lazy var batchEditToolbarItems: [UIButton] = {
         
         var buttons: [UIButton] = []
         

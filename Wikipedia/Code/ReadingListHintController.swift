@@ -215,11 +215,7 @@ class ReadingListHintViewController: UIViewController {
 }
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
-    func viewControllerWillBeDismissed() {
-        delegate?.readingListHint(self, shouldBeHidden: true)
-    }
-    
-    func addedArticle(to readingList: ReadingList) {
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
             return
         }
@@ -229,6 +225,10 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         button.removeTarget(self, action: #selector(addArticleToReadingList), for: .touchUpInside)
         button.addTarget(self, action: #selector(openReadingList), for: .touchUpInside)
         delegate?.readingListHint(self, shouldBeHidden: false)
+    }
+    
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
+        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed)
     }
 }
 
