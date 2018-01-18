@@ -30,9 +30,11 @@ public enum ReadingListError: Error, Equatable {
 public class ReadingListsController: NSObject {
     fileprivate weak var dataStore: MWKDataStore!
     fileprivate let apiController = ReadingListsAPIController()
+    fileprivate let moc: NSManagedObjectContext
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
+        self.moc = dataStore.viewContext
         super.init()
     }
     
@@ -40,7 +42,6 @@ public class ReadingListsController: NSObject {
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         existingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
         existingListRequest.fetchLimit = 1
@@ -63,13 +64,9 @@ public class ReadingListsController: NSObject {
     }
     
     public func delete(readingLists: [ReadingList]) throws {
-        
-        let moc = dataStore.viewContext
         let readingListsToDeleteRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        
         let names = readingLists.flatMap({ $0.name })
         readingListsToDeleteRequest.predicate = NSPredicate(format: "name IN %@", names)
-        
         let readingListsToDelete = try moc.fetch(readingListsToDeleteRequest)
         
         for readingList in readingListsToDelete {
@@ -85,13 +82,8 @@ public class ReadingListsController: NSObject {
         guard !readingList.isDefaultList else {
             return
         }
-        
         assert(Thread.isMainThread)
-
-        let moc = dataStore.viewContext
-        
         let existingKeys = Set(readingList.articleKeys)
-        
         for article in articles {
             guard let key = article.key, !existingKeys.contains(key) else {
                 continue
@@ -113,7 +105,6 @@ public class ReadingListsController: NSObject {
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
         assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
         let _ = try fetch(readingList: readingList)
         
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
@@ -128,7 +119,6 @@ public class ReadingListsController: NSObject {
     
     public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
         entries.forEach({ moc.delete($0) })
         if moc.hasChanges {
             try moc.save()
@@ -140,7 +130,6 @@ public class ReadingListsController: NSObject {
         guard let name = readingList.name else {
             return nil
         }
-        let moc = dataStore.viewContext
         let readingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         readingListRequest.predicate = NSPredicate(format: "name MATCHES[c] %@", name)
         readingListRequest.fetchLimit = 1
@@ -148,6 +137,21 @@ public class ReadingListsController: NSObject {
             throw ReadingListError.listWithProvidedNameNotFound(name: name)
         }
         return readingList
+    }
+    
+    
+    /// Fetches n articles with lead images for a given reading list.
+    ///
+    /// - Parameters:
+    ///   - readingList: reading list that the articles belong to.
+    ///   - limit: number of articles with lead images to fetch.
+    /// - Returns: array of articles with lead images.
+    public func articlesWithLeadImages(for readingList: ReadingList, limit: Int) throws -> [WMFArticle] {
+        assert(Thread.isMainThread)
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        request.predicate = NSPredicate(format: "list == %@ && article.imageURLString != NULL", readingList)
+        request.fetchLimit = limit
+        return (try moc.fetch(request)).flatMap { $0.article }
     }
     
 }
