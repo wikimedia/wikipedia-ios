@@ -4319,6 +4319,9 @@
 		D8C4D3D01FD5D9250089CEC2 /* TUSafariActivity.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TUSafariActivity.bundle; sourceTree = "<group>"; };
 		D8C4D3D11FD5D9250089CEC2 /* TUSafariActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUSafariActivity.h; sourceTree = "<group>"; };
 		D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUSafariActivity.m; sourceTree = "<group>"; };
+		D8C8C21F20113E6200B3317B /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sq; path = sq.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D8C8C22020113EA000B3317B /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = is; path = is.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D8C8C22120113F0500B3317B /* ps */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ps; path = ps.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -11685,6 +11688,9 @@
 				D84E2A9C1FFBCBBB00878968 /* lv */,
 				D84E2A9D1FFBCBE900878968 /* vi */,
 				D84E2A9E1FFBCC0500878968 /* ne */,
+				D8C8C21F20113E6200B3317B /* sq */,
+				D8C8C22020113EA000B3317B /* is */,
+				D8C8C22120113F0500B3317B /* ps */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
