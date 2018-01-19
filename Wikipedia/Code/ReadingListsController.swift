@@ -219,6 +219,27 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                     continue
                                 }
                                 
+                                guard !localEntry.isDeletedLocally else {
+                                    // the entry has been deleted locally
+                                    guard let entryID = localEntry.readingListEntryID?.int64Value else {
+                                        localEntriesToDelete.append(localEntry)  // the entry has been deleted locally but doesn't have an entry ID, so just delete it
+                                        continue
+                                    }
+                                    
+                                    group.enter()
+                                    self.apiController.removeEntry(withEntryID: entryID, fromListWithListID: readingListID, completion: { (error) in
+                                        defer {
+                                            group.leave()
+                                        }
+                                        guard error == nil else {
+                                            DDLogError("Error deleting entry withEntryID: \(entryID) fromListWithListID: \(readingListID) error: \(String(describing: error))")
+                                            return
+                                        }
+                                        localEntriesToDelete.append(localEntry)
+                                    })
+                                    continue
+                                }
+
                                 guard let entryID = localEntry.readingListEntryID?.int64Value else {
                                     group.enter()
                                     self.apiController.addEntryToList(withListID: readingListID, project: articleSite.absoluteString, title: articleTitle, completion: { (entryID, error) in
@@ -231,22 +252,6 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 }
                                 
                                 remoteEntriesToCreateLocally.removeValue(forKey: entryID)
-                                
-                                guard localEntry.isDeletedLocally else {
-                                    continue
-                                }
-                                
-                                group.enter()
-                                self.apiController.removeEntry(withEntryID: entryID, fromListWithListID: readingListID, completion: { (error) in
-                                    defer {
-                                        group.leave()
-                                    }
-                                    guard error == nil else {
-                                        DDLogError("Error deleting entry withEntryID: \(entryID) fromListWithListID: \(readingListID) error: \(String(describing: error))")
-                                        return
-                                    }
-                                    localEntriesToDelete.append(localEntry)
-                                })
                             }
                         }
                         
@@ -559,7 +564,7 @@ fileprivate extension WMFArticle {
     
     func fetchDefaultListEntry() -> ReadingListEntry? {
         return readingListEntries?.first(where: { (entry) -> Bool in
-            return entry.list?.isDefault?.boolValue ?? false
+            return (entry.list?.isDefault?.boolValue ?? false) && !entry.isDeletedLocally
         })
     }
     
