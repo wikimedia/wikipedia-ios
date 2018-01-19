@@ -188,7 +188,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         guard let article = article(at: indexPath), let entries = article.readingListEntries else {
             return []
         }
-        return entries.filter { $0.list?.isDefaultList == false && $0.isDeletedLocally == false }.flatMap { $0.list }
+        let readingLists = entries.filter { $0.list?.isDefaultList == false && $0.list?.isDeletedLocally == false }.flatMap { $0.list }
+        return readingLists
     }
     
     private func delete(at indexPath: IndexPath) {
