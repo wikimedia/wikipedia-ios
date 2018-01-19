@@ -88,7 +88,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateEmptyState()
-        updateDefaultListCell()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -124,13 +123,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     @objc func dismissCreateReadingListViewController() {
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func updateDefaultListCell() {
-        let indexPath = IndexPath(item: 0, section: 0)
-        if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
-        }
     }
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
