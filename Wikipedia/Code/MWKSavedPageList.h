@@ -16,15 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)mostRecentEntry;
 
-/**
- * Get n last entries that have lead images.
- *
- * @param limit to specify the number of returned articles.
- * @return array or n articles with lead images.
- */
-
-- (nullable NSArray<WMFArticle *> *)entriesWithLeadImages:(NSInteger)limit;
-
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
