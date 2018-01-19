@@ -418,9 +418,16 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    fileprivate func sync() {
+    
+    @objc func _sync() {
         let op = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(op)
+    }
+    
+    fileprivate func sync() {
+        assert(Thread.isMainThread)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
+        perform(#selector(_sync), with: nil, afterDelay: 0.5)
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
