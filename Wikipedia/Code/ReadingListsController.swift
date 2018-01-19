@@ -205,7 +205,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         var remoteEntriesToCreateLocally: [Int64: (APIReadingListEntry, ReadingList)] = [:]
 
                         for (readingListID, readingList) in localReadingListsToSync {
-                            guard let localEntries = readingList.entries as? Set<ReadingListEntry> else {
+                            guard let localEntries = readingList.entries else {
                                 continue
                             }
                             let remoteEntries = entriesByReadingListID[readingListID] ?? []
@@ -412,6 +412,8 @@ public class ReadingListsController: NSObject {
             entry.list = readingList
         }
         
+        readingList.updateCountOfEntries()
+        
         if moc.hasChanges {
             try moc.save()
         }
@@ -444,6 +446,9 @@ public class ReadingListsController: NSObject {
         for entry in entriesToDelete {
             entry.isDeletedLocally = true
         }
+        
+        readingList.updateCountOfEntries()
+
         if moc.hasChanges {
             try moc.save()
         }
@@ -519,9 +524,6 @@ public class ReadingListsController: NSObject {
             let moc = dataStore.viewContext
             let defaultList = moc.wmf_defaultReadingList
             for entry in defaultList.entries ?? [] {
-                guard let entry = entry as? ReadingListEntry else {
-                    continue
-                }
                 entry.article?.removeFromDefaultReadingList()
                 entry.article?.savedDate = nil
                 entry.isDeletedLocally = true
@@ -593,12 +595,18 @@ fileprivate extension WMFArticle {
         defaultListEntry?.article = self
         defaultListEntry?.list = defaultReadingList
         defaultListEntry?.displayTitle = displayTitle
+        defaultReadingList.updateCountOfEntries()
     }
     
     func removeFromDefaultReadingList() {
+        guard let moc = self.managedObjectContext else {
+            return
+        }
         for entry in readingListEntries ?? [] {
             entry.isDeletedLocally = true
         }
+        let defaultReadingList = moc.wmf_defaultReadingList
+        defaultReadingList.updateCountOfEntries()
     }
 }
 

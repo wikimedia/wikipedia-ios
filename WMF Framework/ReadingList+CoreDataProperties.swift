@@ -13,11 +13,12 @@ extension ReadingList {
     @NSManaged public var readingListDescription: String?
     @NSManaged public var canonicalName: String?
     @NSManaged public var order: Int64
+    @NSManaged public var countOfEntries: Int64
     @NSManaged public var updatedDate: NSDate?
     @NSManaged public var color: String?
     @NSManaged public var imageName: String?
     @NSManaged public var iconName: String?
-    @NSManaged public var entries: NSSet?
+    @NSManaged public var entries: Set<ReadingListEntry>?
     @NSManaged public var isDefault: NSNumber?
     
     

@@ -2,7 +2,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     fileprivate var bottomSeparator = UIView()
     fileprivate var topSeparator = UIView()
     fileprivate var articleCountLabel = UILabel()
-    var articleCount: Int = 0
+    var articleCount: Int64 = 0
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
     
@@ -182,19 +182,19 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
         imageViewDimension = 80
 
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
-        
-        articleCountLabel.text = articleCount > 1 ? "\(articleCount) articles" : "\(articleCount) article"
+    
+        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
         titleLabel.text = name
         descriptionLabel.text = description
         

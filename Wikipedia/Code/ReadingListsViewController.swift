@@ -130,7 +130,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        let articleCount = readingList.articleKeys.count
+        let articleCount = readingList.countOfEntries
         let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
         
         guard !readingList.isDefaultList else {
