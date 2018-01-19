@@ -88,7 +88,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateEmptyState()
-        updateDefaultListCell()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -126,29 +125,21 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func updateDefaultListCell() {
-        let indexPath = IndexPath(item: 0, section: 0)
-        if let cell = collectionView.cellForItem(at: indexPath) as? ReadingListsCollectionViewCell {
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
-        }
-    }
-    
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let readingList = readingList(at: indexPath) else {
             return
         }
+        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        let articleCount = readingList.articleKeys.count
+        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
+        
         guard !readingList.isDefaultList else {
-            let lastFourArticlesWithLeadImages = dataStore.savedPageList.entries(withLeadImages: 4) ?? []
-            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: dataStore.savedPageList.numberOfItems(), shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: dataStore.savedPageList.numberOfItems(), lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+            cell.configure(with: CommonStrings.shortSavedTitle, description: WMFLocalizedString("reading-lists-default-list-description", value: "Default saved pages list", comment: "The description of the default saved pages list"), isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-
-        let articleCount = readingList.articleKeys.count
-        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
@@ -228,14 +219,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             } catch let error {
                 readingListsController.handle(error)
             }
-            return
-        }
-        
-        guard !readingList.isDefaultList else {
-            let savedArticlesViewController = SavedArticlesViewController()
-            savedArticlesViewController.dataStore = dataStore
-            savedArticlesViewController.apply(theme: theme)
-            wmf_push(savedArticlesViewController, animated: true)
             return
         }
         

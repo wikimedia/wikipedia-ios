@@ -94,13 +94,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     return [[self.dataStore.viewContext executeFetchRequest:request error:nil] firstObject];
 }
 
-- (nullable NSArray<WMFArticle *> *)entriesWithLeadImages:(NSInteger)limit {
-    NSFetchRequest *request = self.savedPageListFetchRequest;
-    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && imageURLString != NULL"];
-    request.fetchLimit = limit;
-    return [self.dataStore.viewContext executeFetchRequest:request error:nil];
-}
-
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
     NSString *key = [url wmf_articleDatabaseKey];
     if (!key) {
