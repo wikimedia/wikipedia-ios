@@ -26,6 +26,5 @@ public class ReadingList: NSManagedObject {
         countOfEntries = Int64(entries.filter({ (entry) -> Bool in
             return !entry.isDeletedLocally
         }).count)
-        
     }
 }
