@@ -102,7 +102,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: view.bounds)
+            let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height
+            let emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
