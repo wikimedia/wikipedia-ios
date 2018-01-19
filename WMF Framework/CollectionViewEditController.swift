@@ -111,6 +111,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return true
     }
     
+    public func shouldPerformAction(_ action: Action) -> Bool {
+        guard let shouldPerformAction = delegate?.shouldPerformAction?(action) else {
+            return didPerformAction(action)
+        }
+        return shouldPerformAction
+    }
+    
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         var shouldBegin = false
         defer {
