@@ -259,10 +259,12 @@ extension ReadingListDetailViewController: ActionDelegate {
     func availableActions(at indexPath: IndexPath) -> [Action] {
         var actions: [Action] = []
         
-        if canSave(at: indexPath) {
-            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
-        } else {
-            actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
+        if !readingList.isDefaultList {
+            if canSave(at: indexPath) {
+                actions.append(ActionType.save.action(with: self, indexPath: indexPath))
+            } else {
+                actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
+            }
         }
         
         if articleURL(at: indexPath) != nil {
