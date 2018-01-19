@@ -185,7 +185,10 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     private func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
         // different order every time cause set
-        return article(at: indexPath)?.readingListEntries?.flatMap { $0.list?.isDefault?.boolValue ?? false ? nil : $0.list } ?? []
+        guard let article = article(at: indexPath), let entries = article.readingListEntries else {
+            return []
+        }
+        return entries.filter { $0.list?.isDefaultList == false && $0.isDeletedLocally == false }.flatMap { $0.list }
     }
     
     private func delete(at indexPath: IndexPath) {

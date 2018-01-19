@@ -185,7 +185,11 @@ extension ReadingListDetailViewController: ActionDelegate {
     }
     
     private func delete(at indexPath: IndexPath) {
-        guard let entry = entry(at: indexPath) else {
+        guard let entry = entry(at: indexPath), let article = entry.article else {
+            return
+        }
+        guard !readingList.isDefaultList else {
+            dataStore.readingListsController.removeArticleFromDefaultReadingList(article)
             return
         }
         do {
