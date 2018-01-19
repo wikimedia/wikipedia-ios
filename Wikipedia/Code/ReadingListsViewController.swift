@@ -27,10 +27,15 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        let basePredicate = NSPredicate(format: "isDeletedLocally == NO")
+        
         if let names = readingLists?.flatMap({ $0.name }) {
-            request.predicate = NSPredicate(format: "name IN %@", names)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"name IN %@", names)])
+        } else {
+            request.predicate = basePredicate
         }
-        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "name", ascending: true)]
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "canonicalName", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
@@ -141,6 +146,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+
         let articleCount = readingList.articleKeys.count
         let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
         cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)

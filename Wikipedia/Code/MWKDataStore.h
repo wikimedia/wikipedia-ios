@@ -55,6 +55,9 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+
+- (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
+
 @property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
 - (void)teardownFeedImportContext;

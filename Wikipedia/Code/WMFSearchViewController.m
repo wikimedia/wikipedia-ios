@@ -264,7 +264,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[WMFSearchLanguagesBarViewController class]]) {
         self.searchLanguagesBarViewController = (WMFSearchLanguagesBarViewController *)segue.destinationViewController;
         self.searchLanguagesBarViewController.delegate = self;
-
+        
         // Allow size of contained VC's view to control container size: http://stackoverflow.com/a/34279613
         self.searchLanguagesBarViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -311,10 +311,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
-
+    
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         DDLogDebug(@"Search field text changed to: %@", query);
-
+        
         /**
          *  This check must performed before checking isEmpty and calling didCancelSearch
          *  This is to work around a "feature" of Siri which sets the textfield.text to nil
@@ -335,9 +335,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
             return;
         }
-
+        
         BOOL isFieldEmpty = [query wmf_trim].length == 0;
-
+        
         /**
          * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
          * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
@@ -350,16 +350,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
             return;
         }
-
+        
         [self setSeparatorViewHidden:isFieldEmpty animated:YES];
-
+        
         if (isFieldEmpty) {
             [self didCancelSearch];
             return;
         }
-
+        
         [self setRecentSearchesHidden:YES animated:YES];
-
+        
         DDLogDebug(@"Searching for %@ after delay.", query);
         [self searchForSearchTerm:query];
     });
@@ -408,10 +408,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     @weakify(self);
-
+    
     [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
     [self.fakeProgressController start];
-
+    
     WMFErrorHandler failure = ^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
@@ -424,7 +424,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             }
         });
     };
-
+    
     WMFSuccessIdHandler success = ^(WMFSearchResults *results) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
@@ -442,16 +442,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self updateUIWithResults:results];
         });
     };
-
+    
     [self.resultsListController wmf_hideEmptyView];
     NSURL *url = [self currentlySelectedSearchURL];
-
+    
     if ([self.resultsListController isDisplayingResultsForSearchTerm:searchTerm fromSiteURL:url]) {
         DDLogDebug(@"Bailing out from running search for term because we're already showing results for this search term and search site.");
         [self.fakeProgressController finish];
         return;
     }
-
+    
     [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                      siteURL:url
                                  resultLimit:WMFMaxSearchResultLimit
@@ -463,14 +463,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  failure([NSError wmf_cancelledError]);
                                                  return;
                                              }
-
+                                             
                                              self.resultsListController.resultsInfo = results;
                                              self.resultsListController.searchSiteURL = url;
                                              self.resultsListController.results = results.results;
-
+                                             
                                              [self updateUIWithResults:results];
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
-
+                                             
                                              if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
                                                  [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                                                                   siteURL:url
@@ -481,7 +481,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                                                   success:success];
                                                  return;
                                              }
-
+                                             
                                              success(results);
                                          });
                                      }];
@@ -494,7 +494,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateSearchSuggestion:(NSString *)searchSuggestion {
     NSAttributedString *title =
-        [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
+    [searchSuggestion length] ? [self getAttributedStringForSuggestion:searchSuggestion] : nil;
     [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
     [self.viewIfLoaded setNeedsUpdateConstraints];
     [self.viewIfLoaded layoutIfNeeded];
@@ -506,20 +506,20 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-
+    
     self.searchFieldHeight.constant = [self searchFieldHeightForCurrentTraitCollection];
-
+    
     self.contentViewTop.constant = self.searchFieldHeight.constant;
-
+    
     self.suggestionButtonHeightConstraint.constant =
-        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0 ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
+    [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0 ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
 }
 
 - (NSAttributedString *)getAttributedStringForSuggestion:(NSString *)suggestion {
     return [WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
-        attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
-                   substitutionStrings:@[suggestion]
-                substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
+            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
+            substitutionStrings:@[suggestion]
+            substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
 
 #pragma mark - WMFArticleCollectionViewControllerDelegate
@@ -549,9 +549,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (IBAction)clearRecentSearches:(id)sender {
     UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
-
+    
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
-
+    
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
@@ -561,7 +561,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                                  [self updateRecentSearches];
                                                  [self updateRecentSearchesVisibility:YES];
                                              }]];
-
+    
     [self presentViewController:dialog animated:YES completion:NULL];
 }
 
@@ -609,16 +609,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchField.isUnderlined = false;
     [self.searchField applyTheme:theme];
     self.searchField.backgroundColor = theme.colors.chromeBackground;
-
+    
     self.separatorView.backgroundColor = theme.colors.tertiaryText;
     self.searchFieldContainer.backgroundColor = theme.colors.chromeBackground;
-
+    
     self.closeButton.tintColor = theme.colors.chromeText;
     self.searchSuggestionButton.backgroundColor = theme.colors.paperBackground;
     self.searchBottomSeparatorView.backgroundColor = theme.colors.midBackground;
     self.searchIconView.tintColor = theme.colors.chromeText;
     self.view.tintColor = theme.colors.link;
-
+    
     self.recentSearchesHeader.backgroundColor = theme.colors.midBackground;
     self.recentSearchesHeaderLabel.textColor = theme.colors.secondaryText;
     self.clearRecentSearchesButton.tintColor = theme.colors.secondaryText;

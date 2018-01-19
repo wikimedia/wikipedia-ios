@@ -62,6 +62,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         }
 
         WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:obj.url];
+        // Don't add to the defaut list here, that is handled by a later migration
         article.savedDate = obj.date;
     }];
 
@@ -150,18 +151,16 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
     WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
     if (article.savedDate == nil) {
-        article.savedDate = [NSDate date];
+        [self.dataStore.readingListsController addArticleToDefaultReadingList:article];
     } else {
-        article.savedDate = nil;
+        [self.dataStore.readingListsController removeArticleFromDefaultReadingList:article];
     }
-    [self.dataStore save:nil];
     return article.savedDate != nil;
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
-    article.savedDate = [NSDate date];
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController addArticleToDefaultReadingList:article];
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {
@@ -169,26 +168,15 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!article) {
         return;
     }
-    article.savedDate = nil;
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController removeArticleFromDefaultReadingList:article];
 }
 
 - (void)removeAllEntries {
-    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
-        entry.savedDate = nil;
-    }];
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController removeAllArticlesFromDefaultReadingList];
 }
 
 - (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
-    WMFArticle *article;
-    for (NSURL *url in urls) {
-        article = [self.dataStore fetchArticleWithURL:url];
-        if (article) {
-            article.savedDate = nil;
-        }
-    }
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
 }
 
 #pragma mark - Legacy Schema Migration

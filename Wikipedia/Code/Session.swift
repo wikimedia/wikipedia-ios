@@ -6,6 +6,7 @@ public class Session {
             case get
             case post
             case put
+            case delete
 
             var stringValue: String {
                 switch self {
@@ -13,6 +14,8 @@ public class Session {
                     return "POST"
                 case .put:
                     return "PUT"
+                case .delete:
+                    return "DELETE"
                 case .get:
                     fallthrough
                 default:
@@ -36,31 +39,29 @@ public class Session {
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
     }
 
-
-    public func jsonDictionaryTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-
+    public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
         var components = URLComponents()
         components.host = host
         components.scheme = scheme
         components.path = path
-
+        
         if let queryParameters = queryParameters {
             var query = ""
             for (name, value) in queryParameters {
                 guard
                     let encodedName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed),
                     let encodedValue = String(describing: value).addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed) else {
-                    continue
+                        continue
                 }
                 if query != "" {
                     query.append("&")
                 }
-
+                
                 query.append("\(encodedName)=\(encodedValue)")
             }
             components.percentEncodedQuery = query
         }
-
+        
         guard let requestURL = components.url else {
             return nil
         }
@@ -89,12 +90,43 @@ public class Session {
                         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
                     }
                 }
-
+                
             }
-
+            
+        }
+        
+        return request
+    }
+    
+    public func jsonDictionaryTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+            return nil
         }
         return session.wmf_jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
             completionHandler(result, response as? HTTPURLResponse, error)
+        })
+    }
+    
+    public func dataTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+            return nil
+        }
+        return session.dataTask(with: request, completionHandler: completionHandler)
+    }
+    
+    public func jsonCodableTask<T>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable {
+        return dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, response, error)
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let result: T = try decoder.decode(T.self, from: data)
+                completionHandler(result, response, error)
+            } catch let error {
+                completionHandler(nil, response, error)
+            }
         })
     }
 }
