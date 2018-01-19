@@ -135,10 +135,27 @@ class ReadingListsAPIController: NSObject {
         - error: Any error preventing entry creation
      */
     func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let bodyParams = ["project": project.precomposedStringWithCanonicalMapping, "title": title.precomposedStringWithCanonicalMapping]
+        let title = title.precomposedStringWithCanonicalMapping
+        let project = project.precomposedStringWithCanonicalMapping
+        let bodyParams = ["project": project, "title": title]
         post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let id = result["id"] as? Int64 else {
+            guard let result = result else {
                 completion(nil, error ?? ReadingListError.unableToAddEntry)
+                return
+            }
+            guard let id = result["id"] as? Int64 else {
+                if let errorType = result["title"] as? String, errorType == "readinglists-db-error-duplicate-page" {
+                    // TODO: Remove when error response returns ID
+                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
+                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
+                            completion(nil, error ?? ReadingListError.unableToAddEntry)
+                            return
+                        }
+                        completion(entry.id, nil)
+                    })
+                } else {
+                    completion(nil, error ?? ReadingListError.unableToAddEntry)
+                }
                 return
             }
             completion(id, nil)

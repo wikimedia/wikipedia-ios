@@ -226,6 +226,8 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                         continue
                                     }
                                     
+                                    remoteEntriesToCreateLocally.removeValue(forKey: entryID)
+                                    
                                     group.enter()
                                     self.apiController.removeEntry(withEntryID: entryID, fromListWithListID: readingListID, completion: { (error) in
                                         defer {
@@ -245,6 +247,8 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                     self.apiController.addEntryToList(withListID: readingListID, project: articleSite.absoluteString, title: articleTitle, completion: { (entryID, error) in
                                         if let entryID = entryID {
                                             localEntriesToSync[entryID] = localEntry
+                                        } else {
+                                            DDLogError("Missing entryID for entry: \(articleSite) \(articleTitle) in list: \(readingListID)")
                                         }
                                         group.leave()
                                     })
