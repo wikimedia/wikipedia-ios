@@ -6,6 +6,7 @@
 // Author: Hugo.arg
 // Author: Macofe
 // Author: Mantak111
+// Author: Manvydasz
 // Author: Nemo bis
 // Author: Nersip
 // Author: Pofka
@@ -19,7 +20,7 @@
 "about-libraries-complete-list" = "Pilnas sąrašas";
 "about-libraries-license" = "Licencija";
 "about-libraries-licenses-title" = "Mes mylime atviro kodo programinę įrangą $1";
-"about-product-of" = "Sukurta $1, su pagalba iš savanorių kaip jūs";
+"about-product-of" = "Sukurta $1, su savanorių pagalba, tokių kaip jūs";
 "about-repositories" = "Duomenų saugyklos";
 "about-repositories-app-source-license-mit" = "MIT licencija";
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
@@ -29,13 +30,13 @@
 "about-translators-details" = "Išversta savanorių $1";
 "about-wikimedia-foundation" = "Vikimedijos fondas";
 "about-wikipedia" = "Vikipedija";
-"abuse-filter-disallow-heading" = "Jūs negalite publikuoti šio pakeitimo. Prašome grįžti ir jį pakeisti.";
-"abuse-filter-warning-caps" = "Rašyti didžiosiomis";
-"abuse-filter-warning-heading" = "Tai atrodo kaip nekonstruktyvus pakeitimas, ar tikrai norite jį publikuoti?";
+"abuse-filter-disallow-heading" = "Jūs negalite paskelbti šio pakeitimo. Prašome grįžti ir jį pakeisti.";
+"abuse-filter-warning-caps" = "Rašyti DIDŽIOSIOMIS RAIDĖMIS";
+"abuse-filter-warning-heading" = "Panašu, kad šis pakeitimas nekonstruktyvus. Ar tikrai norite jį paskelbti?";
 "abuse-filter-warning-repeat" = "Pasikaaaartojantys simboliai";
 "abuse-filter-warning-subheading" = "Jūsų keitimas gali turėti vieną ar daugiau iš šių:";
 "account-creation-captcha-obtaining" = "Gaunamas naujas CAPTCHA...";
-"account-creation-captcha-request-account" = "Prašyti paskyros";
+"account-creation-captcha-request-account" = "Prašyti paskyros.";
 "account-creation-create-account" = "Sukurkite savo paskyrą";
 "account-creation-have-account" = "Jau turite paskyrą? $1";
 "account-creation-log-in" = "Prisijungti.";
@@ -44,7 +45,7 @@
 "account-creation-saving" = "Įrašoma...";
 "account-creation-title" = "Kurti naują paskyrą";
 "action-saved" = "Išsaugota";
-"alert-no-internet" = "Ten nėra interneto ryšio";
+"alert-no-internet" = "Nėra interneto ryšio";
 "article-about-title" = "Apie šį straipsnį";
 "article-languages-filter-placeholder" = "Rasti kalbą";
 "article-languages-label" = "Pasirinkite kalbą";
@@ -106,9 +107,9 @@
 "field-email-placeholder" = "pavyzdys@pavyzdys.org";
 "field-email-title" = "El. paštas";
 "field-email-title-optional" = "El. paštas (neprivaloma)";
-"field-new-password-confirm-placeholder" = "įveskite naują slaptažodį";
+"field-new-password-confirm-placeholder" = "pakartokite naują slaptažodį";
 "field-new-password-confirm-title" = "Patvirtinkite naują slaptažodį";
-"field-new-password-placeholder" = "Įveskite naują slaptažodį";
+"field-new-password-placeholder" = "įveskite naują slaptažodį";
 "field-new-password-title" = "Naujas slaptažodis";
 "field-password-confirm-placeholder" = "pakartokite slaptažodį";
 "field-password-confirm-title" = "Patvirtinkite slaptažodį";
@@ -138,18 +139,16 @@
 "home-nearby-location-footer" = "Daugiau netoliese $1";
 "home-title" = "Naršyti";
 "icon-shortcut-continue-reading-title" = "Skaityti toliau";
-"icon-shortcut-nearby-title" = "Straipsniai netoliese";
+"icon-shortcut-nearby-title" = "Netoli esančių objektų straipsniai";
 "icon-shortcut-random-title" = "Atsitiktinis straipsnis";
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
 "in-the-news-notification-share-action-title" = "Dalintis...";
-"in-the-news-title" = "Naujienose";
+"in-the-news-title" = "Naujienos";
 "info-box-close-text" = "Uždaryti";
-// Fuzzy
 "info-box-title" = "Trumpi faktai";
 "languages-title" = "Keisti kalbą";
 "license-footer-name" = "CC BY-SA 3.0";
-// Fuzzy
-"license-footer-text" = "Turinys prieinamas pagal $1";
+"license-footer-text" = "Turinys pateikiamas pagal $1, jei nėra nurodyta kitaip.";
 "login-join-wikipedia" = "Prisijunkite prie Vikipedijos.";
 "login-title" = "Prisijunkite prie savo paskyros";
 "main-menu-about" = "Apie programėlę";
@@ -163,7 +162,7 @@
 "main-menu-heading-debug" = "Derinti";
 "main-menu-heading-legal" = "Privatumas ir sąlygos";
 "main-menu-heading-zero" = "Vikipedija Zero";
-"main-menu-nearby" = "Šalia";
+"main-menu-nearby" = "Netoliese";
 "main-menu-privacy-policy" = "Privatumo politika";
 "main-menu-rate-app" = "Įvertinti programėlę";
 "main-menu-terms-of-use" = "Naudojimo sąlygos";
@@ -178,7 +177,7 @@
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
 "number-thousands" = "$1 tūkst.";
-"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai}}";
+"on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "onboarding-wikipedia" = "Vikipedija";
 "open-link-cancel" = "Atšaukti";
 "page-edit-history" = "Pilna keitimų istorija";
@@ -186,8 +185,8 @@
 "page-issues" = "Puslapio klausimai";
 "page-last-edited" = "Redaguota prieš $1 dienų";
 "page-location" = "Žiūrėti žemėlapyje";
-"page-protected-can-not-edit-title" = "Šis puslapis apsaugotas";
-"page-protected-sysop" = "Šis puslapis buvo visiškai apsaugotas.";
+"page-protected-can-not-edit-title" = "Šis puslapis užrakintas";
+"page-protected-sysop" = "Šis puslapis buvo pilnai užrakintas.";
 "page-read-in-other-languages" = "Prieinama $1 kitų kalbų";
 "page-similar-titles" = "Panašūs puslapiai";
 "places-accessibility-close-search" = "Uždaryti paiešką";
@@ -209,7 +208,7 @@
 "saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus puslapius?";
 "saved-pages-clear-delete-all" = "Taip, ištrinti viską";
 "saved-title" = "Išsaugota";
-"search-did-you-mean" = "Galbūt norėjote $1?";
+"search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";
 "search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";
@@ -224,12 +223,11 @@
 "settings-notifications" = "Pranešimai";
 "settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
 "settings-notifications-push-notifications" = "Push pranešimai";
-"settings-notifications-system-turn-on" = "Įjungti Pranešimus";
+"settings-notifications-system-turn-on" = "Įjungti pranešimus";
 "settings-primary-language" = "Pagrindinis";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Dalintis faktu";
+"share-a-fact-share-menu-item" = "Dalintis faktu…";
 "share-custom-menu-item" = "Dalintis...";
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";
@@ -264,7 +262,7 @@
 "welcome-send-data-helps-title" = "Padėkite patobulinti programėlę";
 "welcome-send-data-learn-more" = "Sužinoti daugiau apie duomenų rinkimą";
 "welcome-volunteer-send-usage-reports" = "Siųsti naudojimo ataskaitas";
-"wikitext-download-failed" = "Nepavyko gauti naujausios redakcijos.";
+"wikitext-download-failed" = "Nepavyko gauti naujausios versijos.";
 "wikitext-download-success" = "Turinys įkeltas.";
 "wikitext-downloading" = "Įkeliamas turinys...";
 "wikitext-upload-captcha-error" = "Saugos kodo tikrinimo klaida.";
