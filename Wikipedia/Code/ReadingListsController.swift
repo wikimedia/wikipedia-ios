@@ -416,15 +416,13 @@ public class ReadingListsController: NSObject {
         let moc = dataStore.viewContext
         let existingKeys = Set(readingList.articleKeys)
         for article in articles {
+            article.removeFromDefaultReadingList()
             guard let key = article.key, !existingKeys.contains(key) else {
                 continue
             }
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: article, forKey: "article") as? ReadingListEntry else {
                 return
             }
-
-            article.removeFromDefaultReadingList()
-
             let url = URL(string: key)
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
