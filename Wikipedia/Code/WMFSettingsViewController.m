@@ -178,6 +178,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
+        case WMFSettingsMenuItemType_StorageAndSyncing:
+            self.dataStore.readingListsController.isSyncEnabled = isOn;
+            break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
@@ -434,7 +437,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (WMFSettingsTableViewSection *)section_1 {
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]
     ]
                                                                                   headerTitle:nil
                                                                                    footerText:nil];

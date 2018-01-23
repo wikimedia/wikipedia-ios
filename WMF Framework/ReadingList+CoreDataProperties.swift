@@ -42,9 +42,9 @@ extension ReadingList {
     @NSManaged public func removeFromEntries(_ value: ReadingListEntry)
 
     @objc(addEntries:)
-    @NSManaged public func addToEntries(_ values: NSOrderedSet)
+    @NSManaged public func addToEntries(_ values: Set<ReadingListEntry>)
 
     @objc(removeEntries:)
-    @NSManaged public func removeFromEntries(_ values: NSOrderedSet)
+    @NSManaged public func removeFromEntries(_ values: Set<ReadingListEntry>)
 
 }

@@ -37,7 +37,7 @@ extension URLSession {
                 return
             }
             do {
-                guard let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                     completionHandler(nil, response, nil)
                     return
                 }

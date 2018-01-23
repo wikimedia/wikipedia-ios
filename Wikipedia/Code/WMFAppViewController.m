@@ -186,8 +186,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
-    
-    [self.dataStore.readingListsController setupReadingLists];
 }
 
 - (void)configureTabController {

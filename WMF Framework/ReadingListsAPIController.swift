@@ -91,15 +91,15 @@ class ReadingListsAPIController: NSObject {
         requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
     }
     
-    @objc func setupReadingLists() {
+    @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {
         post(path: "setup") { (result, response, error) in
-            
+            completion(error)
         }
     }
     
-    @objc func teardownReadingLists() {
+    @objc func teardownReadingLists(completion: @escaping (Error?) -> Void) {
         post(path: "teardown") { (result, response, error) in
-            
+            completion(error)
         }
     }
     

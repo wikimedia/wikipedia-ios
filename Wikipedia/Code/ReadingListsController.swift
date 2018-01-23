@@ -92,7 +92,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                     do {
                         let localReadingLists = try moc.fetch(localReadingListsFetchRequest)
                         var localReadingListsToDelete: [Int64: ReadingList] = [:]
-                        var localReadingListsToSync: [Int64: ReadingList] = [:]
+                        var localReadingListsToSync: [Int64: [ReadingList]] = [:]
                         var localReadingListsIdsToMarkLocallyUpdatedFalse: Set<Int64> = []
                         var localDefaultReadingList: ReadingList? = nil
                         for localReadingList in localReadingLists {
@@ -102,7 +102,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 } else{
                                     localDefaultReadingList = localReadingList
                                     if let defaultReadingListID = remoteDefaultReadingList?.id {
-                                        localReadingListsToSync[defaultReadingListID] = localReadingList
+                                        localReadingListsToSync[defaultReadingListID, default: []].append(localReadingList)
                                         remoteReadingListsToCreateLocally.removeValue(forKey: defaultReadingListID)
                                     }
                                 }
@@ -111,12 +111,12 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                             guard let readingListID = localReadingList.readingListID?.int64Value else {
                                 let name = localReadingList.name ?? ""
                                 if let remoteReadingListWithTheSameName = remoteReadingListsByName[name.precomposedStringWithCanonicalMapping] {
-                                    localReadingListsToSync[remoteReadingListWithTheSameName.id] = localReadingList
+                                    localReadingListsToSync[remoteReadingListWithTheSameName.id, default: []].append(localReadingList)
                                 } else {
                                     group.enter()
                                     self.apiController.createList(name: name, description: localReadingList.readingListDescription ?? "", completion: { (listID, error) in
                                         if let listID = listID {
-                                            localReadingListsToSync[listID] = localReadingList
+                                            localReadingListsToSync[listID, default: []].append(localReadingList)
                                         }
                                         group.leave()
                                     })
@@ -130,7 +130,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 continue
                             }
                             
-                            localReadingListsToSync[readingListID] = localReadingList
+                            localReadingListsToSync[readingListID, default: []].append(localReadingList)
                             remoteReadingListsToCreateLocally.removeValue(forKey: readingListID)
                             
                             guard !localReadingList.isDeletedLocally else {
@@ -170,7 +170,7 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 continue
                             }
                             localList.update(with: list)
-                            localReadingListsToSync[list.id] = localList
+                            localReadingListsToSync[list.id, default: []].append(localList)
                         }
                         
                         for (_, list) in localReadingListsToDelete {
@@ -180,7 +180,10 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         
                         var entriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
                         
-                        for (readingListID, readingList) in localReadingListsToSync {
+                        for (readingListID, readingLists) in localReadingListsToSync {
+                            guard let readingList = readingLists.first else {
+                                continue
+                            }
                             if readingList.readingListID == nil {
                                 readingList.readingListID = NSNumber(value: readingListID)
                             }
@@ -188,7 +191,14 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                             if localReadingListsIdsToMarkLocallyUpdatedFalse.contains(readingListID) {
                                 readingList.isUpdatedLocally = false
                             }
-                            
+
+                            for duplicateReadingList in readingLists[1..<readingLists.count] {
+                                if let entries = duplicateReadingList.entries {
+                                    readingList.addToEntries(entries)
+                                }
+                                moc.delete(duplicateReadingList)
+                            }
+
                             group.enter()
                             self.apiController.getAllEntriesForReadingListWithID(readingListID: readingListID, completion: { (entries, error) in
                                 if error == nil {
@@ -204,7 +214,10 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                         var localEntriesToDelete: [ReadingListEntry] = []
                         var remoteEntriesToCreateLocally: [Int64: (APIReadingListEntry, ReadingList)] = [:]
 
-                        for (readingListID, readingList) in localReadingListsToSync {
+                        for (readingListID, readingLists) in localReadingListsToSync {
+                            guard let readingList = readingLists.first else {
+                                continue
+                            }
                             guard let localEntries = readingList.entries else {
                                 continue
                             }
@@ -396,6 +409,9 @@ public class ReadingListsController: NSObject {
         guard !readingList.isDefaultList else {
             return
         }
+        guard articles.count > 0 else {
+            return
+        }
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let existingKeys = Set(readingList.articleKeys)
@@ -406,7 +422,9 @@ public class ReadingListsController: NSObject {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: article, forKey: "article") as? ReadingListEntry else {
                 return
             }
-            
+
+            article.removeFromDefaultReadingList()
+
             let url = URL(string: key)
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
@@ -419,9 +437,39 @@ public class ReadingListsController: NSObject {
         }
         sync()
     }
-    
-    @objc public func setupReadingLists() {
-        sync()
+
+    fileprivate let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
+
+    @objc var isSyncEnabled: Bool {
+        get {
+            assert(Thread.isMainThread)
+            return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+        }
+        set {
+            assert(Thread.isMainThread)
+            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: isSyncEnabledKey)
+            if newValue {
+                apiController.setupReadingLists(completion: { (error) in
+                    if let error = error {
+                        DDLogError("Error enabling sync: \(error)")
+                        DispatchQueue.main.async {
+                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: false), forKey: self.isSyncEnabledKey)
+                        }
+                        return
+                    }
+                })
+            } else {
+                apiController.teardownReadingLists(completion: { (error) in
+                    if let error = error {
+                        DDLogError("Error disabling sync: \(error)")
+                        DispatchQueue.main.async {
+                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
+                        }
+                        return
+                    }
+                })
+            }
+        }
     }
     
     
@@ -460,6 +508,7 @@ public class ReadingListsController: NSObject {
         let moc = dataStore.viewContext
         for entry in entries {
             entry.isDeletedLocally = true
+            entry.article = nil
         }
         if moc.hasChanges {
             try moc.save()
@@ -467,7 +516,7 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    @objc public func addArticleToDefaultReadingList(_ article: WMFArticle) {
+    @objc public func save(_ article: WMFArticle) {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
@@ -482,12 +531,15 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    @objc public func removeArticleFromDefaultReadingList(_ article: WMFArticle) {
+    @objc public func unsave(_ article: WMFArticle) {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
             article.savedDate = nil
-            article.removeFromDefaultReadingList()
+            for entry in article.readingListEntries ?? [] {
+                entry.isDeletedLocally = true
+                entry.list?.updateCountOfEntries()
+            }
             if moc.hasChanges {
                 try moc.save()
             }
@@ -599,14 +651,13 @@ fileprivate extension WMFArticle {
     }
     
     func removeFromDefaultReadingList() {
-        guard let moc = self.managedObjectContext else {
-            return
-        }
         for entry in readingListEntries ?? [] {
+            guard entry.list?.isDefaultList ?? true else {
+                return
+            }
             entry.isDeletedLocally = true
+            entry.list?.updateCountOfEntries()
         }
-        let defaultReadingList = moc.wmf_defaultReadingList
-        defaultReadingList.updateCountOfEntries()
     }
 }
 

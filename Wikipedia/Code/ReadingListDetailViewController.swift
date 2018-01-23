@@ -185,11 +185,7 @@ extension ReadingListDetailViewController: ActionDelegate {
     }
     
     private func delete(at indexPath: IndexPath) {
-        guard let entry = entry(at: indexPath), let article = entry.article else {
-            return
-        }
-        guard !readingList.isDefaultList else {
-            dataStore.readingListsController.removeArticleFromDefaultReadingList(article)
+        guard let entry = entry(at: indexPath) else {
             return
         }
         do {
@@ -263,12 +259,10 @@ extension ReadingListDetailViewController: ActionDelegate {
     func availableActions(at indexPath: IndexPath) -> [Action] {
         var actions: [Action] = []
         
-        if !readingList.isDefaultList {
-            if canSave(at: indexPath) {
-                actions.append(ActionType.save.action(with: self, indexPath: indexPath))
-            } else {
-                actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
-            }
+        if canSave(at: indexPath) {
+            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
+        } else {
+            actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
         }
         
         if articleURL(at: indexPath) != nil {

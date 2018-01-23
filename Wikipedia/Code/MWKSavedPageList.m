@@ -144,16 +144,16 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     }
     WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
     if (article.savedDate == nil) {
-        [self.dataStore.readingListsController addArticleToDefaultReadingList:article];
+        [self.dataStore.readingListsController save:article];
     } else {
-        [self.dataStore.readingListsController removeArticleFromDefaultReadingList:article];
+        [self.dataStore.readingListsController unsave:article];
     }
     return article.savedDate != nil;
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
-    [self.dataStore.readingListsController addArticleToDefaultReadingList:article];
+    [self.dataStore.readingListsController save:article];
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {
@@ -161,7 +161,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!article) {
         return;
     }
-    [self.dataStore.readingListsController removeArticleFromDefaultReadingList:article];
+    [self.dataStore.readingListsController unsave:article];
 }
 
 - (void)removeAllEntries {

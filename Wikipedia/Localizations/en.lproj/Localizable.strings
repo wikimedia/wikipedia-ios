@@ -301,6 +301,7 @@
 "readers-accessibility-label" = "$1 readers";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-exists-with-same-name" = "A reading list already exists with the name $1";
+"reading-list-sync-setting" = "Reading list sync";
 "reading-list-unable-to-add-entry" = "An unexpected error occured while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occured while creating your reading list. Please try again later.";
 "reading-list-unable-to-delete" = "An unexpected error occured while deleting your reading list. Please try again later.";
