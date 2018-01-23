@@ -227,20 +227,15 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                 remoteEntriesToCreateLocally[entry.id] = (entry, readingList)
                             }
                             for localEntry in localEntries {
-                                guard let article = localEntry.article, let articleURL = article.url, let articleSite = articleURL.wmf_site, let articleTitle = articleURL.wmf_title else {
-                                    moc.delete(localEntry)
-                                    continue
-                                }
-                                
                                 guard !localEntry.isDeletedLocally else {
                                     // the entry has been deleted locally
                                     guard let entryID = localEntry.readingListEntryID?.int64Value else {
                                         localEntriesToDelete.append(localEntry)  // the entry has been deleted locally but doesn't have an entry ID, so just delete it
                                         continue
                                     }
-                                    
+
                                     remoteEntriesToCreateLocally.removeValue(forKey: entryID)
-                                    
+
                                     group.enter()
                                     self.apiController.removeEntry(withEntryID: entryID, fromListWithListID: readingListID, completion: { (error) in
                                         defer {
@@ -255,6 +250,11 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                     continue
                                 }
 
+                                guard let article = localEntry.article, let articleURL = article.url, let articleSite = articleURL.wmf_site, let articleTitle = articleURL.wmf_title else {
+                                    moc.delete(localEntry)
+                                    continue
+                                }
+                                
                                 guard let entryID = localEntry.readingListEntryID?.int64Value else {
                                     group.enter()
                                     self.apiController.addEntryToList(withListID: readingListID, project: articleSite.absoluteString, title: articleTitle, completion: { (entryID, error) in
@@ -396,6 +396,11 @@ public class ReadingListsController: NSObject {
         
         for readingList in readingLists {
             readingList.isDeletedLocally = true
+            for entry in readingList.entries ?? [] {
+                entry.isDeletedLocally = true
+                entry.article?.updateReadingListEntries()
+                entry.article = nil
+            }
         }
         
         if moc.hasChanges {
@@ -506,7 +511,9 @@ public class ReadingListsController: NSObject {
         let moc = dataStore.viewContext
         for entry in entries {
             entry.isDeletedLocally = true
+            entry.article?.updateReadingListEntries()
             entry.article = nil
+            entry.list?.updateCountOfEntries()
         }
         if moc.hasChanges {
             try moc.save()
@@ -629,6 +636,16 @@ fileprivate extension WMFArticle {
         return readingListEntries?.first(where: { (entry) -> Bool in
             return (entry.list?.isDefault?.boolValue ?? false) && !entry.isDeletedLocally
         })
+    }
+
+    func updateReadingListEntries() {
+        guard let articleEntries = readingListEntries else {
+            savedDate = nil
+            return
+        }
+        if articleEntries.filter({ !$0.isDeletedLocally }).count == 0 {
+            savedDate = nil
+        }
     }
     
     func addToDefaultReadingList() {
