@@ -405,8 +405,10 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
+"welcome-intro-free-encyclopedia-description" = "Википедия написана общими усилиями добровольцев и состоит из более чем 40 миллионов статей на почти 300 языках.";
 "welcome-intro-free-encyclopedia-more" = "Узнать подробнее о Википедии";
 "welcome-intro-free-encyclopedia-more-about" = "О Википедии";
+"welcome-intro-free-encyclopedia-more-description" = "Википедия — это глобальный проект по созданию бесплатных энциклопедий на всех языках мира. Практически любой человек, имеющий доступ к Интернету, может свободно участвовать, предоставляя нейтральную, подкреплённую источниками информацию.";
 "welcome-intro-free-encyclopedia-title" = "Свободная энциклопедия";
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";

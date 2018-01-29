@@ -324,7 +324,7 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Há $1 hora|Há $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Há $1 minuto|Há $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|No ano passado|Há $1 anos}}";
-"request-feedback-on-error" = "O aplicativo encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um e-mail com os detalhes do erro.";
+"request-feedback-on-error" = "A aplicação encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-confirmation-heading" = "Tem a certeza de que pretende eliminar todas as páginas guardadas?";
