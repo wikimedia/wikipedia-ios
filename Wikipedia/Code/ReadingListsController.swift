@@ -41,20 +41,7 @@ public enum ReadingListError: Error, Equatable {
 }
 
 
-fileprivate class ReadingListSyncOperation: AsyncOperation {
-    weak var readingListsController: ReadingListsController!
-    let readingListID: Int64
-    
-    init(readingListsController: ReadingListsController, readingListID: Int64) {
-        self.readingListsController = readingListsController
-        self.readingListID = readingListID
-        super.init()
-    }
-    
-    
-}
-    
-fileprivate class ReadingListsSyncOperation: AsyncOperation {
+fileprivate class ReadingListsOperation: AsyncOperation {
     weak var readingListsController: ReadingListsController!
     
     var apiController: ReadingListsAPIController {
@@ -69,7 +56,41 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
         self.readingListsController = readingListsController
         super.init()
     }
+}
+
+fileprivate class ReadingListsUpdateOperation: ReadingListsOperation {
+    override func execute() {
+        DispatchQueue.main.async {
+            self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
+
+                do {
+                    let newestListUpdatedDateRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                    newestListUpdatedDateRequest.fetchLimit = 1
+                    newestListUpdatedDateRequest.predicate = NSPredicate(format: "updatedDate != NULL")
+                    newestListUpdatedDateRequest.sortDescriptors = [NSSortDescriptor(key: "updatedDate", ascending: false)]
+                    let newestListUpdatedDate = try moc.fetch(newestListUpdatedDateRequest).first?.updatedDate
+                    
+                    let newestEntryUpdatedDateRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+                    newestEntryUpdatedDateRequest.fetchLimit = 1
+                    newestEntryUpdatedDateRequest.predicate = NSPredicate(format: "updatedDate != NULL")
+                    newestEntryUpdatedDateRequest.sortDescriptors = [NSSortDescriptor(key: "updatedDate", ascending: false)]
+                    newestEntryUpdatedDateRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+                    let newestEntryUpdatedDate = try moc.fetch(newestEntryUpdatedDateRequest).first?.updatedDate
+                    
+                    print("\(String(describing: newestListUpdatedDate)) \(String(describing: newestEntryUpdatedDate))")
+                    self.finish()
+                } catch let error {
+                    DDLogError("Error fetching updated date for reading list sync: \(error)")
+                    self.finish(with: error)
+                }
+                
+            })
+        }
+    }
     
+}
+    
+fileprivate class ReadingListsSyncOperation: ReadingListsOperation {
     override func execute() {
         readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
             if let error = getAllAPIReadingListsError {
@@ -187,6 +208,13 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                             guard let readingList = readingLists.first else {
                                 continue
                             }
+                            
+                            guard let remoteList = remoteReadingListsByID[readingListID] else {
+                                continue
+                            }
+                            
+                            readingList.update(with: remoteList)
+                            
                             if readingList.readingListID == nil {
                                 readingList.readingListID = NSNumber(value: readingListID)
                             }
@@ -270,7 +298,6 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                                     })
                                     continue
                                 }
-                                
                                 remoteEntriesToCreateLocally.removeValue(forKey: entryID)
                             }
                         }
@@ -310,19 +337,18 @@ fileprivate class ReadingListsSyncOperation: AsyncOperation {
                             articlesByKey[articleKey] = article
                         }
                         
-                        for (entryID, (remoteEntry, readingList)) in remoteEntriesToCreateLocally {
+                        for (_, (remoteEntry, readingList)) in remoteEntriesToCreateLocally {
                             guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey] else {
                                 continue
                             }
                             guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
                                 continue
                             }
-                            entry.readingListEntryID = NSNumber(value: entryID)
+                            entry.update(with: remoteEntry)
                             entry.list = readingList
                             entry.article = article
                             entry.displayTitle = article.displayTitle
-                            article.savedDate = DateFormatter.wmf_iso8601().date(from: remoteEntry.created)
-                            article.addToDefaultReadingList()
+                            article.savedDate = entry.createdDate as Date?
                         }
 
                         for (entryID, entry) in localEntriesToSync {
@@ -480,8 +506,10 @@ public class ReadingListsController: NSObject {
     
     
     @objc func _sync() {
-        let op = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(op)
+        let sync = ReadingListsSyncOperation(readingListsController: self)
+        operationQueue.addOperation(sync)
+        let update = ReadingListsUpdateOperation(readingListsController: self)
+        operationQueue.addOperation(update)
     }
     
     fileprivate func sync() {
