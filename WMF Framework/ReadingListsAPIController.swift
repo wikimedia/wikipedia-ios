@@ -36,6 +36,12 @@ struct APIReadingListEntry: Codable {
     let updated: String
 }
 
+struct APIReadingListChanges: Codable {
+    let lists: [APIReadingList]?
+    let entries: [APIReadingListEntry]?
+    let next: String?
+}
+
 extension APIReadingListEntry {
     var articleURL: URL? {
         guard let site = URL(string: project) else {
@@ -215,6 +221,45 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             completion(nil)
+        }
+    }
+    
+    
+    /**
+     Gets updated lists and entries list API
+     - parameters:
+        - since: The date to check (use a date from the server, preferably the most recent updatedDate)
+        - next: Optional continuation token
+        - lists: Lists to append to the results
+        - entries: Entries to append to the results
+        - lists: All updated lists
+        - entries: All updated entries
+        - error: Any error preventing list update
+     */
+    func updatedListsAndEntries(since: Date, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ error: Error?) -> Swift.Void ) {
+        let iso8601DateString = DateFormatter.wmf_iso8601().string(from:since)
+        var queryParameters: [String: Any]? = nil
+        if let next = next {
+            queryParameters = ["next": next]
+        }
+        get(path: "/changes/since/\(iso8601DateString)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
+            guard let result = result, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completion([], [], error ?? ReadingListError.generic)
+                return
+            }
+            var combinedLists = lists
+            if let lists = result.lists {
+                combinedLists.append(contentsOf: lists)
+            }
+            var combinedEntries = entries
+            if let entries = result.entries {
+                combinedEntries.append(contentsOf: entries)
+            }
+            if let next = result.next {
+                self.updatedListsAndEntries(since: since, next: next, lists: combinedLists, entries: combinedEntries, completion: completion)
+            } else {
+                completion(combinedLists, combinedEntries, nil)
+            }
         }
     }
     

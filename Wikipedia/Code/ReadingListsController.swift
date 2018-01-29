@@ -4,6 +4,7 @@ import Foundation
 public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
     case unableToCreateList
+    case generic
     case unableToDeleteList
     case unableToUpdateList
     case unableToAddEntry
@@ -13,6 +14,8 @@ public enum ReadingListError: Error, Equatable {
     public var localizedDescription: String {
         switch self {
         // TODO: WMFAlertManager can't display this string
+        case .generic:
+            return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
         case .listExistsWithTheSameName(let name):
             let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name %1$@", comment: "Informs the user that a reading list exists with the same name.")
             return String.localizedStringWithFormat(format, name)
