@@ -1,11 +1,11 @@
-class ReadingListsOperation: AsyncOperation {
-    weak var readingListsController: ReadingListsController!
+internal class ReadingListsOperation: AsyncOperation {
+    internal weak var readingListsController: ReadingListsController!
     
-    var apiController: ReadingListsAPIController {
+    internal var apiController: ReadingListsAPIController {
         return readingListsController.apiController
     }
     
-    var dataStore: MWKDataStore {
+    internal var dataStore: MWKDataStore {
         return readingListsController.dataStore
     }
     

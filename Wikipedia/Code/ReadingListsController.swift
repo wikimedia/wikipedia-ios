@@ -1,6 +1,6 @@
 import Foundation
 
-public let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
+internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
 public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
@@ -43,9 +43,9 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
-    weak var dataStore: MWKDataStore!
-    let apiController = ReadingListsAPIController()
-    fileprivate let operationQueue = OperationQueue()
+    internal weak var dataStore: MWKDataStore!
+    internal let apiController = ReadingListsAPIController()
+    private let operationQueue = OperationQueue()
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -132,7 +132,7 @@ public class ReadingListsController: NSObject {
         sync()
     }
 
-    fileprivate let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
+    private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
     @objc var isSyncEnabled: Bool {
         get {
@@ -174,7 +174,7 @@ public class ReadingListsController: NSObject {
         operationQueue.addOperation(update)
     }
     
-    fileprivate func sync() {
+    private func sync() {
         assert(Thread.isMainThread)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
         perform(#selector(_sync), with: nil, afterDelay: 0.5)

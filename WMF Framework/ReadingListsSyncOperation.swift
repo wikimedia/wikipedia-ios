@@ -1,4 +1,4 @@
-class ReadingListsSyncOperation: ReadingListsOperation {
+internal class ReadingListsSyncOperation: ReadingListsOperation {
     override func execute() {
         readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
             if let error = getAllAPIReadingListsError {
@@ -296,6 +296,4 @@ class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
     }
-    
-    
 }

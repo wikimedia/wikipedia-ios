@@ -1,4 +1,4 @@
-class ReadingListsUpdateOperation: ReadingListsOperation {
+internal class ReadingListsUpdateOperation: ReadingListsOperation {
     override func execute() {
         DispatchQueue.main.async {
             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
