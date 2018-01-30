@@ -1,5 +1,6 @@
 // Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 // Exported from translatewiki.net
+// Author: Acamicamacaraca
 // Author: Aktron
 // Author: Fendo99
 // Author: Mhurd
@@ -57,8 +58,7 @@
 "action-saved" = "Сачувано";
 "action-share" = "Дели";
 "alert-no-internet" = "Нема интернет везе";
-// Fuzzy
-"announcements-dismiss" = "Не, хвала";
+"announcements-dismiss" = "Одбаци";
 "article-about-title" = "О чланку";
 "article-delete" = "Обриши";
 "article-languages-filter-placeholder" = "Пронађи језик";
@@ -80,6 +80,7 @@
 "button-save-for-later" = "Сачувај за касније";
 "button-saved-for-later" = "Сачувано за касније";
 "button-saved-remove" = "Уклони из спремљених";
+"cancel" = "Откажи";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
 "compass-direction" = "у $1 ч.";
@@ -123,8 +124,7 @@
 "explore-random-article-heading" = "Случајни чланак";
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
-// Fuzzy
-"feed-news-notification-text" = "Сада можете примати обавештења о чланцима на Википедији који су најчитанији на вестима.";
+"feed-news-notification-text" = "Омогућите обавештења да будете обавештени од Википедије када чланак буде у трендинг у новостима";
 "field-alert-captcha-invalid" = "Невалидна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
 "field-alert-password-invalid" = "Невалидна лозинка";
@@ -314,8 +314,7 @@
 "settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације. Ако га промените, променићете и дневни садржај (нпр. Изабрани чланак) који се приказује у одељку „Истражи“.";
 "settings-support" = "Подржи Википедију";
 "settings-title" = "Подешавања";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Дели чињеницу";
+"share-a-fact-share-menu-item" = "Подели чињеницу...";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-custom-menu-item" = "Дели...";
 "share-get-directions-in-maps" = "Преузми упутства";

@@ -99,8 +99,7 @@
 "main-menu-about" = "Пра праграму";
 "main-menu-account-login" = "Увайсьці";
 "main-menu-account-logout" = "Выйсьці";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Увайшлі як: $1";
+"main-menu-account-title-logged-in" = "Увайшлі як $1";
 "main-menu-debug-crash" = "Збой";
 "main-menu-debug-tweaks" = "Налады для распрацоўнікаў";
 "main-menu-heading-debug" = "Наладка";
@@ -108,9 +107,7 @@
 "main-menu-heading-zero" = "Вікіпэдыя Zero";
 "main-menu-nearby" = "Паблізу";
 "main-menu-privacy-policy" = "Правілы адносна прыватнасьці";
-// Fuzzy
-"main-menu-rate-app" = "Ацаніць дастасаваньне";
-// Fuzzy
+"main-menu-rate-app" = "Ацаніць праграму";
 "main-menu-terms-of-use" = "Умовы выкарыстаньня";
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
@@ -136,8 +133,7 @@
 "page-similar-titles" = "Падобныя старонкі";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Дазволіць Вікімэдыя зьбіраць інфармацыю пра тое, як Вы выкарыстоўваеце праграму, каб палепшыць яе";
+"preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
 "preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-clear-cancel" = "Скасаваць";
 // Fuzzy

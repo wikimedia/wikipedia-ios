@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>on-this-day-detail-header-title</key>
+	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d istorinis įvykis</string>
+			<string>%1$d ليکنې</string>
 			<key>other</key>
-			<string>%1$d istorinių įvykių</string>
+			<string>%1$d ليکنې</string>
 		</dict>
 	</dict>
 </dict>

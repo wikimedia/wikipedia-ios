@@ -334,7 +334,7 @@
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";
-"settings-appearance" = "Erscheinung";
+"settings-appearance" = "Leseeinstellungen";
 "settings-clear-cache" = "Gecachte Daten löschen";
 "settings-clear-cache-are-you-sure-message" = "Das Löschen gecachter Daten kann bis zu $1 Speicherplatz freigeben. Es löscht nicht deine gespeicherten Seiten.";
 "settings-clear-cache-are-you-sure-title" = "Gecachte Daten löschen?";

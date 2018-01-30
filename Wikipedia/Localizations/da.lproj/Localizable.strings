@@ -337,7 +337,7 @@
 "search-recent-title" = "Seneste søgte";
 "search-result-redirected-from" = "Omdirigeret fra: $1";
 "search-title" = "Søg";
-"settings-appearance" = "Udseende";
+"settings-appearance" = "Læsepræferencer";
 "settings-clear-cache" = "Ryd cachede data";
 "settings-clear-cache-are-you-sure-message" = "Rydning af cachede data vil frigøre omkring $1 plads. Det vil ikke slette dine gemte sider.";
 "settings-clear-cache-are-you-sure-title" = "Ryd cachede data?";

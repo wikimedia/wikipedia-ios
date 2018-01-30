@@ -9,6 +9,7 @@
 // Author: Hzy980512
 // Author: Iwai.masaharu
 // Author: Kanon und wikipedia
+// Author: Kkairri
 // Author: Los688
 // Author: Macofe
 // Author: Nemo bis
@@ -59,7 +60,7 @@
 "abuse-filter-warning-irrelevant" = "不適切な外部リンクや画像";
 "abuse-filter-warning-repeat" = "文字の無意味な繰り返し";
 "abuse-filter-warning-subheading" = "あなたの編集は以下に該当しているかもしれません。";
-"account-creation-captcha-cannot-see-image" = "画像が見れませんか？ $1";
+"account-creation-captcha-cannot-see-image" = "画像が表示できませんか？ $1";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得しています";
 "account-creation-captcha-request-account" = "リクエストアカウント。";
 "account-creation-captcha-title" = "CAPTCHAセキュリティチェック";
@@ -78,6 +79,7 @@
 "action-saved-accessibility-notification" = "後で保存された記事";
 "action-share" = "共有";
 "action-unsave" = "保存しない";
+"action-unsaved-accessibility-notification" = "ページを保存できませんでした";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整する";
@@ -85,6 +87,7 @@
 "appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべてのテーブルをデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "テーマを読み込む";
+"appearance-settings-set-automatic-table-opening" = "表の書式設定";
 "appearance-settings-text-sizing-example-text" = "上記のスライダをドラッグして記事のテキストサイズを変更します。システムのテキストサイズを利用して、アプリ内の他のテキスト領域のサイズを変更します。";
 "appearance-settings-theme-options" = "テーマオプション";
 "appearance-settings-title" = "テーマを読み込む";
@@ -290,7 +293,7 @@
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
 "places-accessibility-close-search" = "検索を閉じる";
 "places-accessibility-group" = "$1記事";
-"places-accessibility-recenter-map-on-user-location" = "あなたいる場所を訪れる";
+"places-accessibility-recenter-map-on-user-location" = "あなたの現在地に中心を戻す";
 "places-accessibility-show-as-list" = "リストとして表示";
 "places-accessibility-show-as-map" = "マップとして表示";
 "places-accessibility-show-more" = "さらに記事を見る";
@@ -326,6 +329,7 @@
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
+"reading-themes-controls-accessibility-black-theme-button" = "黒のテーマ";
 "reading-themes-controls-accessibility-brightness-slider" = "輝度調節スライダ";
 "reading-themes-controls-accessibility-dark-theme-button" = "ダークモード";
 "reading-themes-controls-accessibility-light-theme-button" = "ライトテーマ";
@@ -353,7 +357,7 @@
 "search-recent-title" = "最近の検索";
 "search-result-redirected-from" = "$1 から転送されました";
 "search-title" = "検索";
-"settings-appearance" = "表示";
+"settings-appearance" = "閲覧設定";
 "settings-clear-cache" = "キャッシュを消去";
 "settings-clear-cache-are-you-sure-message" = "キャッシュを消去すると約 $1 の容量が解放されます。この操作によってあなたが保存したページが削除されることはありません。";
 "settings-clear-cache-are-you-sure-title" = "キャッシュを消去しますか？";
@@ -418,7 +422,7 @@
 "welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、およそ300の言語で4,000万以上の記事から成ります。";
 "welcome-intro-free-encyclopedia-more" = "ウィキペディアについての詳細";
 "welcome-intro-free-encyclopedia-more-about" = "ウィキペディアについて";
-"welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは、世界のすべての言語でフリー百科事典を構成する世界的なプロジェクトです。インターネットにアクセスできる方なら誰でも、引用付きで寄稿することで自由に参加することができます。";
+"welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは世界中のすべての言語でフリー百科事典を構築する世界的なプロジェクトです。インターネットにアクセスできる方ならほとんど誰でも、中立で、出典付きの情報を自由に寄稿して参加することができます。";
 "welcome-intro-free-encyclopedia-title" = "フリー百科事典";
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";

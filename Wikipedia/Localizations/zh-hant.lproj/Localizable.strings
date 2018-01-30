@@ -199,7 +199,7 @@
 "home-hide-suggestion-prompt" = "隱藏此建議";
 "home-more-like-footer" = "更像 $1";
 "home-nearby-footer" = "更多您所在位置周遭的事物";
-"home-nearby-location-footer" = "$1 附近更多";
+"home-nearby-location-footer" = "更多$1附近";
 "home-news-footer" = "更多的新聞";
 "home-themes-action-title" = "管理偏好設定";
 "home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定，以獲得更舒適的閱讀體驗。";
@@ -344,7 +344,7 @@
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自: $1";
 "search-title" = "搜尋";
-"settings-appearance" = "外觀";
+"settings-appearance" = "讀取偏好設定";
 "settings-clear-cache" = "清除快取資料";
 "settings-clear-cache-are-you-sure-message" = "清除快取資料將會釋放出 $1 空間大小。此操作並不會刪除掉您儲存的頁面。";
 "settings-clear-cache-are-you-sure-title" = "清除快取資料？";

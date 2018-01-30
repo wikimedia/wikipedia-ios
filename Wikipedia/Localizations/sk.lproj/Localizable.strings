@@ -281,6 +281,7 @@
 "search-recent-title" = "Nedávno hľadané výrazy";
 "search-result-redirected-from" = "Presmerované z: $1";
 "search-title" = "Hľadať";
+// Fuzzy
 "settings-appearance" = "Vzhľad";
 "settings-clear-cache" = "Vyčistiť údaje vo vyrovnávacej pamäti";
 "settings-clear-cache-are-you-sure-message" = "Vyčistenie údajov vo vyrovnávacej pamäti uvoľní $1 miesta. Vaše uložené stránky sa neodstránia.";

@@ -190,6 +190,7 @@
 "search-recent-title" = "Recercats recentament";
 "search-result-redirected-from" = "Redirigit dempuèi : $1";
 "search-title" = "Recercar";
+// Fuzzy
 "settings-appearance" = "Aparéncia";
 "settings-clear-cache-cancel" = "Anullar";
 "settings-help-and-feedback" = "Ajuda e comentaris";

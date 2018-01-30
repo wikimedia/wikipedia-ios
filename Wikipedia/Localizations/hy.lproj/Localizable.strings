@@ -1,233 +1,156 @@
 // Messages for Armenian (Հայերեն)
 // Exported from translatewiki.net
+// Author: 23artashes
 // Author: Aram1985
 // Author: Kareyac
+// Author: Nemo bis
 // Author: Vahe Gharakhanyan
 // Author: Xelgen
 // Author: Աշոտ1997
+// Author: Դավիթ Սարոյան
 
 // Fuzzy
-"languages-title" = "Լեզուներ";
-"article-languages-label" = "Ընտրեք լեզուն";
-"article-languages-cancel" = "Չեղարկել";
-"article-languages-downloading" = "Հոդվածի լեզուների բեռնում...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Գտնել լեզուն";
-"article-read-more-title" = "Կարդալ ավելին";
-"article-about-title" = "Այս հոդվածի մասին";
-"article-related-articles-title" = "Առնչվող հոդվածներ";
-"article-languages-yours" = "Ձեր լեզուն";
-"article-languages-others" = "Այլ լեզուներ";
-"info-box-title" = "Համառոտ փաստեր";
-"info-box-close-text" = "Փակել";
-"table-title-other" = "Մանրամասն տեղեկատվություն";
-"saved-clear-all" = "Մաքրել";
-"history-clear-all" = "Մաքրել";
-"history-label" = "Վերջին";
-"history-section-today" = "Այսօր";
-"history-section-yesterday" = "Երեկ";
-"history-section-lastweek" = "Անցյալ շաբաթ";
-"history-section-lastmonth" = "Անցյալ ամիս";
-"history-clear-cancel" = "Չեղարկել";
-"history-clear-delete-all" = "Այո, ջնջել ամբողջը";
-"history-none" = "Վերջերս դիտված էջեր չկան";
-"zero-charged-verbiage" = "Վիքիպեդիա Զրոն անջատված է";
-"zero-interstitial-title" = "Դուրս ենք գալիս Վիքիպեդիա Զրոյից";
-"zero-interstitial-continue" = "Լքել";
-"zero-interstitial-cancel" = "Մնալ";
-"zero-learn-more-learn-more" = "Կարդալ ավելին";
-"zero-learn-more-no-thanks" = "Փակել";
-"zero-wikipedia-zero-heading" = "Վիքիպեդիա Զրո";
-"zero-warn-when-leaving" = "Զգուշացնել Զրոն լքելիս";
-"account-creation-logging-in" = "Մուտք համակարգ...";
-"account-creation-saving" = "Պահպանվում է...";
-"account-creation-login" = "Դուք արդեն գրանցվա՞ծ եք։ Մուտք գործել:";
-"account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, գաղտնաբառ և գաղտնաբառի հաստատում մասնակցային հաշիվ ստեղծելու համար";
-// Fuzzy
-"login-name-not-found" = "Մուտք գործելու համար պահանջվում է մասնակցային անունը:";
-// Fuzzy
-"login-name-illegal" = "Դուք նշել եք անթույլատրելի մասնակցային անունը:";
-// Fuzzy
-"login-name-does-not-exist" = "Ձեր նշած մասնակցային անունը գոյություն չունի:";
-"login-password-empty" = "Մուտք գործելու համար պահանջվում է գաղտնաբառ:";
-"login-password-wrong" = "Դուք նշել եք սխալ գաղտնաբառ:";
-"login-throttled" = "Դուք կարճ ժամանակահատվածում չափից շատ մուտքի փորձ եք արել։";
-"login-user-blocked" = "Մասնակիցը արգելափակված է:";
-"login-account-creation" = "Հաշիվ չունե՞ք։ Միացեք Վիքիպեդիա նախագծին:";
-// Fuzzy
-"login-username-placeholder-text" = "Մասնակցային անուն";
-"login-password-placeholder-text" = "Գաղտնաբառ";
-"wikitext-downloading" = "Բովանդակության բեռնում...";
-"wikitext-download-failed" = "Չի հաջողվում ստանալ վերջին տարբերակը:";
-"wikitext-download-success" = "Բովանդակությունը բեռնված է:";
-// Fuzzy
-"wikitext-upload-save" = "Պահպանվում է...";
-"wikitext-upload-save-sign-in" = "Մուտք գործել";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
-"open-link-title" = "Բացել հղումը";
-"open-link-cancel" = "Չեղարկել";
-"search-searching" = "Որոնում...";
-"search-field-placeholder-text" = "Որոնել Վիքիպեդիայում";
-"search-field-placeholder-text-zero" = "Որոնել Վիքիպեդիա Զրոյում";
-"search-cancel" = "Չեղարկել";
-"search-titles" = "Վերնագրերում";
-"search-within-articles" = "Հոդվածների ներսում";
-"search-recent-title" = "Վերջին որոնումները";
-"search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
-"search-recent-clear-cancel" = "Չեղարկել";
-"search-recent-clear-delete-all" = "Ջնջել ամբողջը";
-"settings-notifications" = "Ծանուցումներ";
-"settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";
-"settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
-"main-menu-title" = "Ավելին";
-"main-menu-heading-about" = "Ծրագրի մասին";
-"main-menu-language-title" = "Որոնել $1 Վիքիպեդիայում";
-// Fuzzy
-"main-menu-faq" = "FAQ";
-"main-menu-language-toggle-show" = "Ցույց տալ լեզուները";
-"main-menu-language-toggle-hide" = "Թաքցնել լեզուները";
-"main-menu-account-title-logged-out" = "Հաշիվ";
-// Fuzzy
-"main-menu-account-login" = "Մուտք գործել Վիքիպեդիա";
-"main-menu-account-logout" = "Դուրս գալ";
-"main-menu-show-title" = "Ցույց տալ ինձ...";
-"main-menu-show-history" = "Վերջին";
-"main-menu-show-saved" = "Պահպանված էջեր";
-"main-menu-current-article-save" = "Պահպանել $1 անցանց կարդալու համար";
-"main-menu-random" = "Պատահական";
-"main-menu-feedback-heading" = "Հետադարձ կապ";
-// Fuzzy
-"main-menu-send-feedback" = "Արձագանք թողնել ծրագրի մասին";
-"main-menu-credits" = "Հեղինակներ";
-// Fuzzy
-"main-menu-about" = "«Վիքիպեդիա» ծրագրի մասին";
-"main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
-"main-menu-privacy-policy" = "Գաղտնիության քաղաքականություն";
-// Fuzzy
-"main-menu-terms-of-use" = "Օգտագործման պայմաններ";
-// Fuzzy
-"main-menu-rate-app" = "Գնահատել ծրագիրը";
-"main-menu-heading-zero" = "Վիքիպեդիա Զրո";
-"main-menu-heading-legal" = "Գաղտնիություն և պայմաններ";
-"main-menu-show-today" = "Այսօր";
-"main-menu-nearby" = "Մոտակայքում";
-"main-menu-more" = "Ավելին...";
-"saved-pages-title" = "Պահպանված էջեր";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր պահպանված տարրերը ։";
-"saved-pages-clear-cancel" = "Չեղարկել";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Ջնջել ամբողջը";
-"saved-pages-refresh-cancel-alert-title" = "Թարմացումը չեղյալ է հայտարարվել";
-"saved-pages-refresh-cancel-alert-button" = "Հասկանալի է";
-"page-history-title" = "Էջի պատմություն";
-"page-history-downloading" = "Էջի պատմության բեռնում...";
-"navbar-title-mode-edit-wikitext" = "Խմբագրում";
-"navbar-title-mode-login" = "Մուտք գործել";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Մուտք գործել և պահպանել";
-"navbar-title-mode-create-account" = "Ստեղծել մասնակցային հաշիվ";
-// Fuzzy
-"navbar-title-mode-create-account-and-save" = "Ստեղծել մասնակցային հաշիվ և պահպանել";
-"navbar-title-mode-edit-wikitext-warning" = "Խմբագրման հետ խնդիր կա";
-"navbar-title-mode-edit-wikitext-disallow" = "Խմբագրման հետ խնդիր կա";
-"navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
-"navbar-title-mode-edit-wikitext-captcha" = "Անհրաժեշտ է արագ ստուգում";
-"navbar-title-mode-edit-wikitext-summary" = "Նկարագրեք ձեր խմբագրումը";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Հիշել";
-"edit-summary-choice-linked-words" = "Ավելացվել են հղումներ";
-"edit-summary-choice-added-category" = "Ավելացվել է կատեգորիա";
-"edit-summary-choice-added-missing-info" = "Ավելացվել է պակասող տեղեկություն";
-"edit-summary-choice-added-clarification" = "Ավելացվել է պարզաբանում";
-"edit-summary-choice-other" = "Այլ";
-"credits-gerrit-repo" = "Հիմնական (Gerrit)";
-"credits-github-mirror" = "Հայելի (GitHub)";
-"about-title" = "Ծրագրի մասին";
-"about-wikipedia" = "Վիքիպեդիա";
-// Fuzzy
 "about-contributors" = "հեղինակներ";
+"about-libraries-license" = "Թույլատրագիր";
 // Fuzzy
 "about-testers" = "փարձարկողներ";
+"about-title" = "Ծրագրի մասին";
 // Fuzzy
 "about-translators" = "թարգմանիչներ";
-"about-libraries-license" = "Թույլատրագիր";
 "about-wikimedia-foundation" = "Վիքիմեդիա Հիմնադրամ";
-"share-menu-save-page" = "Հիշել էջը";
-"share-menu-page-saved" = "Պահպանվել է անցանց ընթերցման համար";
-"share-custom-menu-item" = "Կիսվել";
-"share-as-image" = "Կիսվել որպես պատկեր";
-"share-as-text" = "Կիսվել որպես տեքստ";
-"share-cancel" = "Չեղարկել";
-"timestamp-just-now" = "մի փոքր առաջ";
-"timestamp-minutes" = "%d րոպե առաջ";
-"timestamp-hours" = "% ժամ առաջ";
-"timestamp-days" = "% օր առաջ";
-"timestamp-months" = "% ամիս առաջ";
-"timestamp-years" = "% տարի առաջ";
-"button-next" = "Հաջորդ";
-"button-done" = "Արված է";
-"button-save" = "Հիշել";
-"onboarding-create-account" = "Ստեղծել մասնակցային հաշիվ";
-"onboarding-login" = "Մուտք գործել";
-"onboarding-already-have-account" = "Դուք արդեն գրանցվա՞ծ եք: $1";
-"onboarding-skip" = "Բաց թողնել";
-"onboarding-wikipedia" = "Վիքիպեդիա";
-"onboarding-free-encyclopedia" = "Ազատ հանրագիտարան";
-"preference-title-eventlogging-opt-in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
-"page-protected-autoconfirmed" = "Այս էջը մասամբ պաշտպանված է:";
-"page-protected-sysop" = "Այս էջն ամբողջությամբ պաշտպանված է։";
-"page-protected-can-not-edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
-"page-protected-can-not-edit-title" = "Այս էջը պաշտպանված է";
-// Fuzzy
-"license-footer-text" = "Բովանդակությունը հասանելի է";
-"license-footer-name" = "CC BY-SA 3.0";
-"table-of-contents-heading" = "Բովանդակություն";
-// Fuzzy
-"abuse-filter-warning-heading" = "Այս խմբագրոմը ապակառուցողական է երևում։ Ցանկանո՞մ եք շարունակել:";
-"abuse-filter-warning-subheading" = "Ձեր խմբագրումը պարունակում է նշվածներից մեկը կամ մի քանիսը";
-"abuse-filter-warning-caps" = "ՄԵԾԱՏԱՌԵՐՈՎ հավաքած տեքստ";
-"abuse-filter-warning-blanking" = "Հոդվածի դատարկում կամ գովազդ";
-"abuse-filter-warning-irrelevant" = "Ոչ տեղին արտաքին հղումներ կամ նկարներ";
-"abuse-filter-warning-repeat" = "Կրկնվոոոոող նշաններ";
+"about-wikipedia" = "Վիքիպեդիա";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Դուք չեք կարող պահպանել ձեր խմբագրումը: Խնդրում ենք վերադառնալ և փոխել այն:";
-"menu-edit-accessibility-label" = "Խմբագրել";
-"menu-close-accessibility-label" = "Փակել";
-"menu-preview-accessibility-label" = "Նախադիտել";
-"menu-back-accessibility-label" = "Հետ";
-"menu-forward-accessibility-label" = "Առաջ";
-"menu-w-accessibility-label" = "Ընտրացանկ";
-"menu-toc-accessibility-label" = "Բովանդակություն";
-"menu-search-accessibility-label" = "Որոնել";
-"menu-cancel-accessibility-label" = "Չեղարկել";
-"menu-share-accessibility-label" = "Կիսվել";
-"menu-more-accessibility-label" = "Այլ կարգավորումներ";
-"menu-trash-accessibility-label" = "Ջնջել";
-"menu-language-accessibility-label" = "Լեզուներ";
-"nearby-title" = "Մոտակայքում";
-"nearby-distance-label-meters" = "$1 մ";
-"nearby-distance-label-km" = "$1 կմ";
-"nearby-distance-label-feet" = "$1 ֆուտ";
-"nearby-distance-label-miles" = "$1 մղոն";
-"nearby-pull-to-refresh-is-refreshing" = "Թարմացվում է";
-"nearby-cancel" = "Չեղարկել";
-"migration-skip-button-title" = "Ջնջել դրանք";
-"image-gallery-fetch-image-info-error-ok" = "Լավ";
+"abuse-filter-warning-blanking" = "Հոդվածի դատարկում կամ գովազդ";
+"abuse-filter-warning-caps" = "ՄԵԾԱՏԱՌԵՐՈՎ հավաքած տեքստ";
+// Fuzzy
+"abuse-filter-warning-heading" = "Այս խմբագրոմը ապակառուցողական է երևում։ Ցանկանո՞մ եք շարունակել:";
+"abuse-filter-warning-irrelevant" = "Ոչ տեղին արտաքին հղումներ կամ նկարներ";
+"abuse-filter-warning-repeat" = "Կրկնվոոոոող նշաններ";
+"abuse-filter-warning-subheading" = "Ձեր խմբագրումը պարունակում է նշվածներից մեկը կամ մի քանիսը";
+"account-creation-logging-in" = "Մուտք համակարգ...";
+"account-creation-missing-fields" = "Դուք պետք է մուտքագրեք մասնակցային անուն, գաղտնաբառ և գաղտնաբառի հաստատում մասնակցային հաշիվ ստեղծելու համար";
+"account-creation-saving" = "Պահպանվում է...";
+"article-about-title" = "Այս հոդվածի մասին";
+"article-delete" = "Ջնջել";
+"article-deleted-accessibility-notification" = "Հոդվածը ջնջվել է";
+// Fuzzy
+"article-languages-filter-placeholder" = "Գտնել լեզուն";
+"article-languages-label" = "Ընտրեք լեզուն";
+"article-languages-others" = "Այլ լեզուներ";
+"article-languages-yours" = "Ձեր լեզուն";
+"article-read-more-title" = "Կարդալ ավելին";
+"back" = "Հետ";
+"back-button-accessibility-label" = "Հետ";
+"button-done" = "Արված է";
+"button-next" = "Հաջորդ";
+"button-ok" = "Լավ";
+"button-publish" = "Հրապարակել";
+"button-read-now" = "Կարդալ այժմ";
+"button-report-a-bug" = "Հայտնել խնդիր";
+"button-skip" = "Բաց թողնել";
+"cancel" = "Չեղարկել";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
+"close-button-accessibility-label" = "Փակել";
+"compass-direction" = "Ժամը $1";
+"edit-summary-choice-linked-words" = "Ավելացվել են հղումներ";
+"edit-summary-choice-other" = "Այլ";
+"explore-nearby-heading" = "Վայրեր մոտակայքում";
+"explore-nearby-placeholder-cancel" = "Չեղարկել";
+"explore-nearby-placeholder-heading" = "Վայրեր";
+"forgot-password-username-or-email-title" = "Կամ";
+"gfdl" = "GFDL";
+"history-clear-all" = "Մաքրել";
+"history-clear-cancel" = "Չեղարկել";
+"history-clear-delete-all" = "Այո, ջնջել ամբողջը";
+"history-title" = "Պատմություն";
 "hockeyapp-alert-always-send" = "Միշտ ուղարկել";
 "hockeyapp-alert-do-not-send" = "Չուղարկել";
 "hockeyapp-alert-privacy" = "$1 գաղտնիության քաղաքականություն";
-"page-issues" = "Էջի խնդիրներ";
-"page-similar-titles" = "Նմանատիպ էջեր";
-"home-hide-suggestion-cancel" = "Չեղարկել";
+"home-button-history-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պատմության";
 "home-button-saved-accessibility-label" = "Վիքիպեդիա, վերադառնալ Պահված";
-"home-button-history-accessibility-label" = "Վիքիփեդիա, վերադառնալ Պատմության";
-"welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
-"welcome-send-data-title" = "Ուղարկել անանուն տվյալներ";
-"readers-accessibility-label" = "$1 ընթերցողներ";
-"rank-accessibility-label" = "Քանակ $1";
+"home-hide-suggestion-cancel" = "Չեղարկել";
 "in-the-news-notification-share-action-title" = "Կիսվել...";
 "in-the-news-title" = "Նորություններում";
-"in-the-news-title-for-date" = "Լուրեր $1";
-"back" = "Հետ";
-"save-action" = "Հիշել";
+"info-box-close-text" = "Փակել";
+// Fuzzy
+"info-box-title" = "Համառոտ փաստեր";
+// Fuzzy
+"languages-title" = "Լեզուներ";
+"languages-wikipedia" = "Վիքիպեդիայի լեզուներ";
+"license-footer-name" = "CC BY-SA 3.0";
+// Fuzzy
+"license-footer-text" = "Բովանդակությունը հասանելի է";
+// Fuzzy
+"main-menu-about" = "«Վիքիպեդիա» ծրագրի մասին";
+// Fuzzy
+"main-menu-account-login" = "Մուտք գործել Վիքիպեդիա";
+"main-menu-account-logout" = "Դուրս գալ";
+"main-menu-account-logout-cancel" = "Չեղարկել";
+"main-menu-heading-legal" = "Գաղտնիություն և պայմաններ";
+"main-menu-heading-zero" = "Վիքիպեդիա Զրո";
+"main-menu-nearby" = "Մոտակայքում";
+"main-menu-privacy-policy" = "Գաղտնիության քաղաքականություն";
+// Fuzzy
+"main-menu-rate-app" = "Գնահատել ծրագիրը";
+// Fuzzy
+"main-menu-terms-of-use" = "Օգտագործման պայմաններ";
+"main-menu-title" = "Ավելին";
+"main-menu-zero-faq" = "Վիքիպեդիա Զրո ՀՏՀ";
+"menu-cancel-accessibility-label" = "Չեղարկել";
+"menu-trash-accessibility-label" = "Ջնջել";
+"more-languages-tooltip-title" = "Ավելացնել լեզուներ";
+"navbar-title-mode-edit-wikitext-preview" = "Նախադիտում";
+"nearby-distance-label-feet" = "$1 ֆուտ";
+"nearby-distance-label-km" = "$1 կմ";
+"nearby-distance-label-meters" = "$1 մ";
+"nearby-distance-label-miles" = "$1 մղոն";
+"onboarding-wikipedia" = "Վիքիպեդիա";
+"open-link-cancel" = "Չեղարկել";
+"page-history-title" = "Էջի պատմություն";
+"page-issues" = "Էջի խնդիրներ";
+"page-protected-autoconfirmed" = "Այս էջը մասամբ պաշտպանված է:";
+"page-protected-can-not-edit" = "Դուք իրավունք չունեք խմբագրել այս էջը:";
+"page-protected-can-not-edit-title" = "Այս էջը պաշտպանված է";
+"page-protected-sysop" = "Այս էջն ամբողջությամբ պաշտպանված է։";
+"page-similar-titles" = "Նմանատիպ էջեր";
+// Fuzzy
+"places-search-default-text" = "Որոնել";
+"preference-title-eventlogging-opt-in" = "Ուղարկել օգտագործման մասին տեղեկություններ";
+"rank-accessibility-label" = "Քանակ $1";
+"readers-accessibility-label" = "$1 ընթերցողներ";
+"saved-clear-all" = "Մաքրել";
+"saved-pages-clear-cancel" = "Չեղարկել";
+// Fuzzy
+"saved-pages-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր պահպանված տարրերը ։";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Ջնջել ամբողջը";
+"search-field-placeholder-text" = "Որոնել Վիքիպեդիայում";
+"search-recent-clear-cancel" = "Չեղարկել";
+"search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
+"search-recent-clear-delete-all" = "Ջնջել ամբողջը";
+"search-recent-title" = "Վերջին որոնումները";
+"settings-clear-cache-cancel" = "Չեղարկել";
+"settings-notifications" = "Ծանուցումներ";
+"settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
+"settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";
+"share-custom-menu-item" = "Կիսվել";
+"table-of-contents-heading" = "Բովանդակություն";
+"table-title-other" = "Մանրամասն տեղեկատվություն";
+"theme-black-display-name" = "Սև";
+"welcome-explore-new-ways-title" = "Ուսումնասիրելու նոր եղանակներ";
+"welcome-intro-free-encyclopedia-more-about" = "Վիքիպեդիայի մասին";
+"wikitext-download-failed" = "Չի հաջողվում ստանալ վերջին տարբերակը:";
+"wikitext-download-success" = "Բովանդակությունը բեռնված է:";
+"wikitext-downloading" = "Բովանդակության բեռնում...";
+// Fuzzy
+"wikitext-upload-save" = "Պահպանվում է...";
+"wikitext-upload-save-sign-in" = "Մուտք գործել";
+"wikitext-upload-save-terms-name" = "Օգտագործման պայմաններ";
+"zero-charged-verbiage" = "Վիքիպեդիա Զրոն անջատված է";
+"zero-interstitial-cancel" = "Մնալ";
+"zero-interstitial-continue" = "Լքել";
+"zero-interstitial-title" = "Դուրս ենք գալիս Վիքիպեդիա Զրոյից";
+"zero-learn-more-learn-more" = "Կարդալ ավելին";
+"zero-learn-more-no-thanks" = "Փակել";
+"zero-warn-when-leaving" = "Զգուշացնել Զրոն լքելիս";

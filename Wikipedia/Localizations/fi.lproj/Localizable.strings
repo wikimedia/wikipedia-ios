@@ -68,7 +68,10 @@
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
 "appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-reading-themes" = "Lukuteemat";
+"appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
 "appearance-settings-theme-options" = "Teeman asetukset";
+"appearance-settings-title" = "Lukuteemat";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
 "article-deleted-accessibility-notification" = "Artikkeli poistettu";
@@ -98,6 +101,7 @@
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
+"dim-images" = "Dim kuvat";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
@@ -117,6 +121,7 @@
 "explore-another-random" = "Toinen satunnainen sivu";
 "explore-because-you-read" = "Koska luit";
 "explore-continue-reading-heading" = "Jatka lukemista";
+"explore-enable-location-title" = "Tutki artikkeleita lähellä nykyistä sijaintisi";
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
@@ -180,6 +185,8 @@
 "hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "home-button-explore-accessibility-label" = "Wikipedia, palaa Tutki-sivulle";
 "home-button-history-accessibility-label" = "Wikipedia, palaa Historia-sivulle";
+"home-button-popover-description" = "Napauta 'W' kuvaketta palataksesi Tutki-syötteeseen";
+"home-button-popover-title" = "Napauta mennäksesi takaisin";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
 "home-hide-suggestion-cancel" = "Peruuta";
 "home-hide-suggestion-prompt" = "Piilota tämä ehdotus";
@@ -242,6 +249,7 @@
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
+"on-this-day-detail-header-date-range" = "$1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-title" = "Tänä päivänä";
@@ -260,6 +268,7 @@
 "page-read-in-other-languages" = "Saatavilla $1 muulla kielellä";
 "page-similar-titles" = "Samankaltaiset sivut";
 "page-talk-page" = "Tarkastele keskustelusivua";
+"pictured" = "kuvassa";
 "places-accessibility-clear-saved-searches" = "Tyhjennä tallennetut haut";
 "places-accessibility-close-search" = "Sulje haku";
 "places-accessibility-group" = "$1 artikkelia";
@@ -271,6 +280,7 @@
 "places-empty-search-description" = "Tutki kaupunkeja, maita, mantereita, luontokohteita, historiallisia tapahtumia, rakennuksia ja paljon muuta.";
 "places-empty-search-title" = "Etsi Wikipedia artikkeleita maantieteellisillä paikoilla";
 "places-enable-location-action-button-title" = "Ota sijainti käyttöön";
+"places-enable-location-description" = "Käyttömahdollisuus sijaintiisi on käytettävissä vain, kun sovellus tai jokin sen ominaisuuksista on näkyvissä näytölläsi.";
 "places-enable-location-title" = "Tutki artikkeleita jotka ovat lähellä sijaintiasi ottamalla Sijainti toiminto käyttöön";
 "places-filter-list-title" = "Hakusuodattimet";
 "places-filter-no-saved-places" = "Sinulla ei ole tallennettuja paikkoja";
@@ -326,7 +336,7 @@
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
-"settings-appearance" = "Ulkoasu";
+"settings-appearance" = "Lukemisasetukset";
 "settings-clear-cache" = "Tyhjennä välimuisti";
 "settings-clear-cache-are-you-sure-message" = "Välimuistin tyhjentäminen vapauttaa $1 tilaa. Tallennetut sivut säilytetään.";
 "settings-clear-cache-are-you-sure-title" = "Tyhjennä välimuisti?";
@@ -351,6 +361,7 @@
 "share-custom-menu-item" = "Jaa...";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
 "share-menu-item" = "Jaa…";
+"share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Mapsissa";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
@@ -377,6 +388,7 @@
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
 "welcome-exploration-on-this-day-title" = "Tänä päivänä";
 "welcome-exploration-places-description" = "Löydä maamerkkejä lähellä sivua tai etsi paikkoja ympäri maailmaa";
+"welcome-exploration-places-title" = "Paikat-välilehti";
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";

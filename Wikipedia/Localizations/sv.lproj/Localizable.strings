@@ -344,7 +344,7 @@
 "search-recent-title" = "Senaste sökningar";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "search-title" = "Sök";
-"settings-appearance" = "Utseende";
+"settings-appearance" = "Läsinställningar";
 "settings-clear-cache" = "Rensa cachedata";
 "settings-clear-cache-are-you-sure-message" = "Upp till $1 utrymme frigörs om cachedata rensas. Dina sparade sidor kommer inte att raderas.";
 "settings-clear-cache-are-you-sure-title" = "Rensa cachedata?";

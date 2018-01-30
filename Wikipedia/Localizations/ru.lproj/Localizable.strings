@@ -320,6 +320,7 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
 "reading-themes-controls-accessibility-light-theme-button" = "Светлая тема";
@@ -347,7 +348,7 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
-"settings-appearance" = "Оформление";
+"settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
 "settings-clear-cache-are-you-sure-message" = "Очистка кэша освободит около $1 места на вашем устройстве. Это не удалит ваши сохранённые страницы.";
 "settings-clear-cache-are-you-sure-title" = "Очистить кэш?";

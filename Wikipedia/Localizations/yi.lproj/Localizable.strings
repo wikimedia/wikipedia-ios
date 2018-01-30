@@ -7,6 +7,7 @@
 
 "about-contributors" = "בײַשטײַערער";
 "about-libraries" = "געניצטע ביבליאטעקן";
+"about-libraries-complete-list" = "פֿולשטענדיקע רשימה";
 "about-libraries-license" = "ליצענץ";
 "about-product-of" = "געמאכט דורך $1 מיטן הילף פון וואלונטערן ווי איר";
 "about-repositories" = "רעפאזיטאריעס";
@@ -16,16 +17,23 @@
 "about-wikimedia-foundation" = "די וויקימעדיע פֿונדאַציע";
 "about-wikipedia" = "וויקיפעדיע";
 "account-creation-captcha-request-account" = "בעטן קאנטע.";
+"account-creation-create-account" = "שאפֿט אײַער קאנטע";
+"account-creation-log-in" = "אַרײנלאגירן.";
 "account-creation-logging-in" = "ארײנלאגנדיק…";
 "account-creation-passwords-mismatched" = "פאסווארט פעלדער שטימען נישט.";
 "account-creation-saving" = "אויפהיטנדיק…";
+"action-read" = "לייענען";
+"action-save" = "אויפֿהיטן";
+"action-saved" = "אויפֿגעהיטן";
 "announcements-dismiss" = "צומאַכן";
 "article-about-title" = "וועגן דעם ארטיקל";
+"article-delete" = "אויסמעקן";
 "article-languages-filter-placeholder" = "טרעפן שפראך";
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-others" = "אַנדערע שפראַכן";
 "article-languages-yours" = "אײערע שפראכן";
 "article-read-more-title" = "לייענט ווײטער";
+"back" = "צוריק";
 "back-button-accessibility-label" = "צוריק";
 "button-done" = "ערליידיקט";
 "button-next" = "נעקסט";
@@ -34,7 +42,6 @@
 "button-read-now" = "לייענען אצינד";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "פארמאכן";
-"dark-theme-display-name" = "טונקל";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-other" = "אַנדער";
@@ -117,7 +124,7 @@
 "search-recent-title" = "לעצטנס געזוכט";
 "search-result-redirected-from" = "אַריבערגעפֿירט פון $1";
 "search-title" = "זוכן";
-"settings-appearance" = "אויסזען";
+"settings-appearance" = "ליינען פרעפֿערענצן";
 "settings-clear-cache-cancel" = "אַנולירן";
 "settings-help-and-feedback" = "הילף און פֿידבעק";
 "settings-language-bar" = "ווייזן שפראכן ביים זוך";
@@ -134,7 +141,6 @@
 "theme-default-display-name" = "גרונטלעך";
 "top-read-header-generic" = "וויקיפעדיע";
 "top-read-header-with-language" = "$1 וויקיפעדיע";
-"welcome-languages-title" = "שפראַכן";
 "wikitext-download-success" = "אינהאלט געלאדן.";
 "wikitext-downloading" = "אנלאדן אינהאלט…";
 "wikitext-preview-changes" = "רופן פאראויסקוק פון אייערע ענדערונגען…";

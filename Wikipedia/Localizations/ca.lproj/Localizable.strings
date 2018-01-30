@@ -344,7 +344,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
-"settings-appearance" = "Aparença";
+"settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
 "settings-clear-cache-are-you-sure-message" = "En netejar la memòria cau s'alliberaran fins a $1 d'espai. No s'eliminaran les pàgines que heu desat.";
 "settings-clear-cache-are-you-sure-title" = "Voleu netejar les dades en cau?";
