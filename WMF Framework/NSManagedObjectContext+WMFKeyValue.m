@@ -22,7 +22,7 @@
     return results.firstObject;
 }
 
-- (nullable NSNumber *)wmf_valueOfClass:(Class) class forKey:(NSString *)key {
+- (nullable id)wmf_valueOfClass:(Class) class forKey:(NSString *)key {
     WMFKeyValue *keyValue = [self wmf_keyValueForKey:key];
     id value = keyValue.value;
     if ([value isKindOfClass:class]) {
@@ -32,8 +32,12 @@
     }
 }
 
-    - (nullable NSNumber *)wmf_numberValueForKey : (NSString *)key {
+- (nullable NSNumber *)wmf_numberValueForKey:(NSString *)key {
     return [self wmf_valueOfClass:[NSNumber class] forKey:key];
+}
+
+- (nullable NSString *)wmf_stringValueForKey:(NSString *)key {
+    return [self wmf_valueOfClass:[NSString class] forKey:key];
 }
 
 - (WMFKeyValue *)wmf_setValue:(id<NSCoding>)value forKey:(NSString *)key {
