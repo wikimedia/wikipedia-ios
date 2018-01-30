@@ -120,6 +120,10 @@ public class Session {
                 completionHandler(nil, response, error)
                 return
             }
+            #if DEBUG
+                let stringData = String(data: data, encoding: .utf8)
+                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
+            #endif
             let decoder = JSONDecoder()
             do {
                 let result: T = try decoder.decode(T.self, from: data)
