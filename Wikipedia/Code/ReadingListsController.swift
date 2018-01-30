@@ -62,28 +62,15 @@ fileprivate class ReadingListsUpdateOperation: ReadingListsOperation {
     override func execute() {
         DispatchQueue.main.async {
             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
-
-                do {
-                    let newestListUpdatedDateRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-                    newestListUpdatedDateRequest.fetchLimit = 1
-                    newestListUpdatedDateRequest.predicate = NSPredicate(format: "updatedDate != NULL")
-                    newestListUpdatedDateRequest.sortDescriptors = [NSSortDescriptor(key: "updatedDate", ascending: false)]
-                    let newestListUpdatedDate = try moc.fetch(newestListUpdatedDateRequest).first?.updatedDate
-                    
-                    let newestEntryUpdatedDateRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-                    newestEntryUpdatedDateRequest.fetchLimit = 1
-                    newestEntryUpdatedDateRequest.predicate = NSPredicate(format: "updatedDate != NULL")
-                    newestEntryUpdatedDateRequest.sortDescriptors = [NSSortDescriptor(key: "updatedDate", ascending: false)]
-                    newestEntryUpdatedDateRequest.resultType = NSFetchRequestResultType.dictionaryResultType
-                    let newestEntryUpdatedDate = try moc.fetch(newestEntryUpdatedDateRequest).first?.updatedDate
-                    
-                    print("\(String(describing: newestListUpdatedDate)) \(String(describing: newestEntryUpdatedDate))")
+                guard let since = moc.wmf_stringValue(forKey: "WMFReadingListUpdateKey") else {
                     self.finish()
-                } catch let error {
-                    DDLogError("Error fetching updated date for reading list sync: \(error)")
-                    self.finish(with: error)
+                    return
                 }
                 
+                self.apiController.updatedListsAndEntries(since: since, completion: { (updatedLists, updatedEntries, error) in
+                    print("\(String(describing: updatedLists)) \(String(describing: updatedEntries))")
+                    self.finish()
+                })
             })
         }
     }

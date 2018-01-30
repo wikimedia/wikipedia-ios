@@ -228,7 +228,7 @@ class ReadingListsAPIController: NSObject {
     /**
      Gets updated lists and entries list API
      - parameters:
-        - since: The date to check (use a date from the server, preferably the most recent updatedDate)
+        - since: The continuation token. Lets the server know the current state of the device. Currently an ISO 8601 date string
         - next: Optional continuation token
         - lists: Lists to append to the results
         - entries: Entries to append to the results
@@ -236,13 +236,12 @@ class ReadingListsAPIController: NSObject {
         - entries: All updated entries
         - error: Any error preventing list update
      */
-    func updatedListsAndEntries(since: Date, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ error: Error?) -> Swift.Void ) {
-        let iso8601DateString = DateFormatter.wmf_iso8601().string(from:since)
+    func updatedListsAndEntries(since: String, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ error: Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
-        get(path: "/changes/since/\(iso8601DateString)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
+        get(path: "changes/since/\(since)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
             guard let result = result, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion([], [], error ?? ReadingListError.generic)
                 return
