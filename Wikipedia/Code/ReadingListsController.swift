@@ -58,18 +58,50 @@ fileprivate class ReadingListsOperation: AsyncOperation {
     }
 }
 
+fileprivate let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
+
 fileprivate class ReadingListsUpdateOperation: ReadingListsOperation {
     override func execute() {
         DispatchQueue.main.async {
             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
-                guard let since = moc.wmf_stringValue(forKey: "WMFReadingListUpdateKey") else {
+                guard let since = moc.wmf_stringValue(forKey: WMFReadingListUpdateKey) else {
                     self.finish()
                     return
                 }
                 
                 self.apiController.updatedListsAndEntries(since: since, completion: { (updatedLists, updatedEntries, error) in
-                    print("\(String(describing: updatedLists)) \(String(describing: updatedEntries))")
-                    self.finish()
+                    DispatchQueue.main.async {
+                        self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
+                            defer {
+                                self.finish()
+                            }
+                            do {
+                                var sinceDate: Date = Date.distantPast
+                                for list in updatedLists {
+                                    if let date = DateFormatter.wmf_iso8601().date(from: list.updated),
+                                        date.compare(sinceDate) == .orderedDescending {
+                                        sinceDate = date
+                                    }
+                                }
+                                for entry in updatedEntries {
+                                    if let date = DateFormatter.wmf_iso8601().date(from: entry.updated),
+                                        date.compare(sinceDate) == .orderedDescending {
+                                        sinceDate = date
+                                    }
+                                }
+                                if sinceDate.compare(Date.distantPast) != .orderedSame {
+                                    let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
+                                    moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
+                                }
+                                guard moc.hasChanges else {
+                                    return
+                                }
+                                try moc.save()
+                            } catch let error {
+                                DDLogError("Error updating reading lists: \(error)")
+                            }
+                        })
+                    }
                 })
             })
         }
@@ -84,6 +116,7 @@ fileprivate class ReadingListsSyncOperation: ReadingListsOperation {
                 self.finish(with: error)
                 return
             }
+            var sinceDate: Date = Date.distantPast
             var remoteReadingListsByID: [Int64: APIReadingList] = [:]
             var remoteReadingListsToCreateLocally: [Int64: APIReadingList] = [:]
             var remoteReadingListsByName: [String: APIReadingList] = [:]
@@ -95,6 +128,10 @@ fileprivate class ReadingListsSyncOperation: ReadingListsOperation {
                 remoteReadingListsByID[apiReadingList.id] = apiReadingList
                 remoteReadingListsToCreateLocally[apiReadingList.id] = apiReadingList
                 remoteReadingListsByName[apiReadingList.name.precomposedStringWithCanonicalMapping] = apiReadingList
+                if let date = DateFormatter.wmf_iso8601().date(from: apiReadingList.updated),
+                    date.compare(sinceDate) == .orderedDescending {
+                    sinceDate = date
+                }
             }
             DispatchQueue.main.async {
                 self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
@@ -243,6 +280,10 @@ fileprivate class ReadingListsSyncOperation: ReadingListsOperation {
                             //print("List \(readingList.name) has remote entries: \(remoteEntries)")
                             for entry in remoteEntries {
                                 remoteEntriesToCreateLocally[entry.id] = (entry, readingList)
+                                if let date = DateFormatter.wmf_iso8601().date(from: entry.updated),
+                                    date.compare(sinceDate) == .orderedDescending {
+                                    sinceDate = date
+                                }
                             }
                             for localEntry in localEntries {
                                 guard !localEntry.isDeletedLocally else {
@@ -346,6 +387,11 @@ fileprivate class ReadingListsSyncOperation: ReadingListsOperation {
                         
                         for entry in localEntriesToDelete {
                             moc.delete(entry)
+                        }
+                        
+                        if sinceDate.compare(Date.distantPast) != .orderedSame {
+                            let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
+                            moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
                         }
                         
                         guard moc.hasChanges else {
