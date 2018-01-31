@@ -84,9 +84,7 @@ public class ReadingListsController: NSObject {
         return list
     }
     
-    public func delete(readingLists: [ReadingList]) throws {
-        let moc = dataStore.viewContext
-        
+    internal func locallyDelete(readingLists: [ReadingList], from managedObjectContext: NSManagedObjectContext) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
@@ -97,6 +95,12 @@ public class ReadingListsController: NSObject {
                 entry.article = nil
             }
         }
+    }
+    
+    public func delete(readingLists: [ReadingList]) throws {
+        let moc = dataStore.viewContext
+        
+        try locallyDelete(readingLists: readingLists, from: moc)
         
         if moc.hasChanges {
             try moc.save()
@@ -136,6 +140,7 @@ public class ReadingListsController: NSObject {
         }
         sync()
     }
+
 
     private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
@@ -310,6 +315,72 @@ public class ReadingListsController: NSObject {
         request.predicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES && article.imageURLString != NULL", readingList)
         request.fetchLimit = limit
         return (try moc.fetch(request)).flatMap { $0.article }
+    }
+    
+    
+    internal func createOrUpdate(remoteReadingLists: [APIReadingList], inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
+        var sinceDate: Date = Date.distantPast
+
+        // Arrange remote lists by ID and name for merging with local lists
+        var remoteReadingListsByID: [Int64: APIReadingList] = [:]
+        var remoteReadingListsByName: [String: APIReadingList] = [:]
+        for remoteReadingList in remoteReadingLists {
+            if let date = DateFormatter.wmf_iso8601().date(from: remoteReadingList.updated),
+                date.compare(sinceDate) == .orderedDescending {
+                sinceDate = date
+            }
+            remoteReadingListsByID[remoteReadingList.id] = remoteReadingList
+            remoteReadingListsByName[remoteReadingList.name.precomposedStringWithCanonicalMapping] = remoteReadingList
+        }
+        
+        let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@ || readingListName IN %@", Array(remoteReadingListsByID.keys), Array(remoteReadingListsByName.keys))
+        let localReadingLists = try moc.fetch(localReadingListsFetch)
+        for localReadingList in localReadingLists {
+            var remoteReadingList: APIReadingList?
+            if let localReadingListID = localReadingList.readingListID?.int64Value {
+                // remove from the dictionary because we will create any lists left in the dictionary
+                remoteReadingList = remoteReadingListsByID.removeValue(forKey: localReadingListID)
+                if let remoteReadingListName = remoteReadingList?.name {
+                    remoteReadingListsByName.removeValue(forKey: remoteReadingListName)
+                }
+            }
+            
+            if remoteReadingList == nil {
+                if let localReadingListName = localReadingList.name?.precomposedStringWithCanonicalMapping {
+                    remoteReadingList = remoteReadingListsByName.removeValue(forKey: localReadingListName)
+                    if let remoteReadingListID = remoteReadingList?.id {
+                        // remove from the dictionary because we will create any lists left in this dictionary
+                        remoteReadingListsByID.removeValue(forKey: remoteReadingListID)
+                    }
+                }
+            }
+
+            guard let remoteReadingListForUpdate = remoteReadingList else {
+                DDLogError("Fetch produced a list without a matching id or name: \(localReadingList)")
+                assert(false)
+                continue
+            }
+            
+            let isDeleted = remoteReadingListForUpdate.deleted ?? false
+            if isDeleted {
+                try locallyDelete(readingLists: [localReadingList], from: moc)
+                moc.delete(localReadingList) // object can be removed since we have the server-side update
+            } else {
+                localReadingList.update(with: remoteReadingListForUpdate)
+            }
+        }
+        
+        
+        // create any list that wasn't matched by ID or name
+        for (_, remoteReadingList) in remoteReadingListsByID {
+            guard let localList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
+                continue
+            }
+            localList.update(with: remoteReadingList)
+        }
+        
+        return sinceDate
     }
     
 }

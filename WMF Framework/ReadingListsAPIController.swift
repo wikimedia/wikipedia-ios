@@ -12,6 +12,7 @@ struct APIReadingList: Codable {
         case description
         case created
         case updated
+        case deleted
         case isDefault = "default"
     }
     
@@ -20,6 +21,7 @@ struct APIReadingList: Codable {
     let description: String
     let created: String
     let updated: String
+    let deleted: Bool?
     let isDefault: Bool
 }
 
