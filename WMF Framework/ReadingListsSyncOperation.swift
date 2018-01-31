@@ -267,6 +267,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             entry.displayTitle = article.displayTitle
                             article.savedDate = entry.createdDate as Date?
                             readingList.addToArticles(article)
+                            readingList.updateCountOfEntries()
                         }
                         
                         for (entryID, entry) in localEntriesToSync {
