@@ -267,6 +267,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             entry.displayTitle = article.displayTitle
                             article.savedDate = entry.createdDate as Date?
                             readingList.addToArticles(article)
+                            article.readingListsDidChange()
                             readingList.updateCountOfEntries()
                         }
                         

@@ -92,7 +92,11 @@ public class ReadingListsController: NSObject {
                 entry.isDeletedLocally = true
                 entry.isUpdatedLocally = true
             }
+            let articles = readingList.articles ?? []
             readingList.articles = []
+            for article in articles {
+                article.readingListsDidChange()
+            }
         }
     }
     
@@ -131,6 +135,7 @@ public class ReadingListsController: NSObject {
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
             readingList.addToArticles(article)
+            article.readingListsDidChange()
         }
         
         readingList.updateCountOfEntries()
@@ -196,7 +201,8 @@ public class ReadingListsController: NSObject {
         
         let articleKeys = articles.flatMap { $0.key }
         for article in articles {
-            article.removeReadingListsObject(readingList)
+            readingList.removeFromArticles(article)
+            article.readingListsDidChange()
         }
         
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
@@ -222,7 +228,8 @@ public class ReadingListsController: NSObject {
             entry.isDeletedLocally = true
             entry.isUpdatedLocally = true
             if let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key, in: moc), let list = entry.list {
-                article.removeReadingListsObject(list)
+                list.removeFromArticles(article)
+                article.readingListsDidChange()
             }
             entry.list?.updateCountOfEntries()
         }
@@ -481,7 +488,7 @@ public extension NSManagedObjectContext {
     }
 }
 
-fileprivate extension WMFArticle {
+internal extension WMFArticle {
     func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
@@ -514,6 +521,7 @@ fileprivate extension WMFArticle {
         defaultListEntry?.displayTitle = displayTitle
         defaultReadingList.addToArticles(self)
         defaultReadingList.updateCountOfEntries()
+        readingListsDidChange()
     }
     
     func removeFromDefaultReadingList() throws {
@@ -526,6 +534,16 @@ fileprivate extension WMFArticle {
             entry.isUpdatedLocally = true
             entry.list?.updateCountOfEntries()
             list.removeFromArticles(self)
+            readingListsDidChange()
+        }
+    }
+    
+    func readingListsDidChange() {
+        let readingLists = self.readingLists ?? []
+        if readingLists.count == 0 && savedDate != nil {
+            savedDate = nil
+        } else if readingLists.count > 0 && savedDate == nil {
+            savedDate = Date()
         }
     }
 }
