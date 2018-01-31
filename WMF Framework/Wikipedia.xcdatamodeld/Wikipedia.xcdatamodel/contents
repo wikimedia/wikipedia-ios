@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,13 +21,11 @@
         <fetchIndex name="byCreatedDateIndex">
             <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
-        <fetchIndex name="byUpdatedDateIndex">
-            <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
-        </fetchIndex>
-        <fetchIndex name="byPropertyIndex">
-            <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
-            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+        <fetchIndex name="byUpdatedLocallyIndex">
             <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDeletedLocallyIndex">
+            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
@@ -42,11 +40,15 @@
         <fetchIndex name="byCreatedDateIndex">
             <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
-        <fetchIndex name="byUpdatedDateIndex">
-            <fetchIndexElement property="updatedDate" type="Binary" order="ascending"/>
-        </fetchIndex>
-        <fetchIndex name="byPropertyIndex">
+        <fetchIndex name="byDisplayTitleIndex">
             <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUpdatedLocallyIndex">
+            <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byListAndDeletedLocallyIndex">
+            <fetchIndexElement property="list" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
