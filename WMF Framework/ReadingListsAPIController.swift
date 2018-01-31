@@ -53,6 +53,10 @@ extension APIReadingListEntry {
         }
         return site.wmf_URL(withTitle: title)
     }
+    
+    var articleKey: String? {
+        return articleURL?.wmf_articleDatabaseKey
+    }
 }
 
 class ReadingListsAPIController: NSObject {
