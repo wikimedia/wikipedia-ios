@@ -30,6 +30,6 @@
 @dynamic viewedScrollPosition;
 @dynamic wasSignificantlyViewed;
 @dynamic wikidataDescription;
-@dynamic readingListEntries;
+@dynamic readingLists;
 
 @end

@@ -1,6 +1,6 @@
 #import "WMFArticle+CoreDataClass.h"
 
-@class ReadingListEntry;
+@class ReadingList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,16 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double viewedScrollPosition;
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
-@property (nullable, nonatomic, retain) NSSet<ReadingListEntry *> *readingListEntries;
+@property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 
 @end
 
 @interface WMFArticle (CoreDataGeneratedAccessors)
 
-- (void)addReadingListEntriesObject:(ReadingListEntry *)value;
-- (void)removeReadingListEntriesObject:(ReadingListEntry *)value;
-- (void)addReadingListEntries:(NSSet<ReadingListEntry *> *)values;
-- (void)removeReadingListEntries:(NSSet<ReadingListEntry *> *)values;
+- (void)addReadingListsObject:(ReadingList *)value;
+- (void)removeReadingListsObject:(ReadingList *)value;
+- (void)addReadingLists:(NSSet<ReadingList *> *)values;
+- (void)removeReadingLists:(NSSet<ReadingList *> *)values;
 
 @end
 

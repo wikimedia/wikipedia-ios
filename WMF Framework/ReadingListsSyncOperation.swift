@@ -198,7 +198,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                                     continue
                                 }
                                 
-                                guard let article = localEntry.article, let articleURL = article.url, let articleSite = articleURL.wmf_site, let articleTitle = articleURL.wmf_title else {
+                                guard let articleURL = localEntry.articleURL, let articleSite = articleURL.wmf_site, let articleTitle = articleURL.wmf_title else {
                                     moc.delete(localEntry)
                                     continue
                                 }
@@ -263,9 +263,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             }
                             entry.update(with: remoteEntry)
                             entry.list = readingList
-                            entry.article = article
+                            entry.articleKey = article.key
                             entry.displayTitle = article.displayTitle
                             article.savedDate = entry.createdDate as Date?
+                            readingList.addToArticles(article)
                         }
                         
                         for (entryID, entry) in localEntriesToSync {

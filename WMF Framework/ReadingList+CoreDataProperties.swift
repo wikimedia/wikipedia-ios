@@ -19,6 +19,7 @@ extension ReadingList {
     @NSManaged public var imageName: String?
     @NSManaged public var iconName: String?
     @NSManaged public var entries: Set<ReadingListEntry>?
+    @NSManaged public var articles: Set<WMFArticle>?
     @NSManaged public var isDefault: NSNumber?
     
     
@@ -47,4 +48,21 @@ extension ReadingList {
     @objc(removeEntries:)
     @NSManaged public func removeFromEntries(_ values: Set<ReadingListEntry>)
 
+}
+
+// MARK: Generated accessors for articles
+extension ReadingList {
+    
+    @objc(addArticlesObject:)
+    @NSManaged public func addToArticles(_ value: WMFArticle)
+    
+    @objc(removeArticlesObject:)
+    @NSManaged public func removeFromArticles(_ value: WMFArticle)
+    
+    @objc(addArticles:)
+    @NSManaged public func addToArticles(_ values: Set<WMFArticle>)
+    
+    @objc(removeArticles:)
+    @NSManaged public func removeFromArticles(_ values: Set<WMFArticle>)
+    
 }

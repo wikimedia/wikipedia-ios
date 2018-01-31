@@ -9,7 +9,7 @@ public class ReadingList: NSManagedObject {
             guard entry.isDeletedLocally == false else {
                 return nil
             }
-            return entry.article?.key
+            return entry.articleKey
         }
         return existingKeys
     }

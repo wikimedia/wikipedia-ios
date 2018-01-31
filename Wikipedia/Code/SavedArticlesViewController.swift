@@ -184,12 +184,21 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     private func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
-        // different order every time cause set
-        guard let article = article(at: indexPath), let entries = article.readingListEntries else {
+        guard let article = article(at: indexPath), let moc = article.managedObjectContext else {
             return []
         }
-        let readingLists = entries.filter { $0.list?.isDefaultList == false && $0.list?.isDeletedLocally == false }.flatMap { $0.list }
-        return readingLists
+        
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format:"ANY articles == %@ && isDefault == NO", article)
+        request.sortDescriptors = [NSSortDescriptor(key: "canonicalName", ascending: true)]
+        request.fetchLimit = 4
+        
+        do {
+            return try moc.fetch(request)
+        } catch let error {
+            DDLogError("Error fetching lists: \(error)")
+            return []
+        }
     }
     
     private func delete(at indexPath: IndexPath) {

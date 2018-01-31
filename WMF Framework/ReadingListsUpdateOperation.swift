@@ -20,17 +20,29 @@ internal class ReadingListsUpdateOperation: ReadingListsOperation {
                                         date.compare(sinceDate) == .orderedDescending {
                                         sinceDate = date
                                     }
+                                    
                                 }
+                                
                                 for entry in updatedEntries {
                                     if let date = DateFormatter.wmf_iso8601().date(from: entry.updated),
                                         date.compare(sinceDate) == .orderedDescending {
                                         sinceDate = date
                                     }
                                 }
+                                
                                 if sinceDate.compare(Date.distantPast) != .orderedSame {
                                     let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
                                     moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
                                 }
+                                
+//                                let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+//                                listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
+//                                let listsToCreateOrUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
+//
+//                                let entriesToCreateOrUpdateFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+//                                entriesToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
+//                                let entriesToCreateOrUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
+//
                                 guard moc.hasChanges else {
                                     return
                                 }

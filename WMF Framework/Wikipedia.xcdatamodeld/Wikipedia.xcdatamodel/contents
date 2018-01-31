@@ -13,6 +13,7 @@
         <attribute name="readingListDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readingListID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingLists" inverseEntity="WMFArticle" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ReadingListEntry" inverseName="list" inverseEntity="ReadingListEntry" syncable="YES"/>
         <fetchIndex name="byNameIndex">
             <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
@@ -29,13 +30,13 @@
         </fetchIndex>
     </entity>
     <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
+        <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingListEntries" inverseEntity="WMFArticle" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="entries" inverseEntity="ReadingList" syncable="YES"/>
         <fetchIndex name="byCreatedDateIndex">
             <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
@@ -76,7 +77,7 @@
         <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="readingListEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingListEntry" inverseName="article" inverseEntity="ReadingListEntry" syncable="YES"/>
+        <relationship name="readingLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="articles" inverseEntity="ReadingList" syncable="YES"/>
         <fetchIndex name="byKeyIndex">
             <fetchIndexElement property="key" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -96,6 +97,11 @@
         <fetchIndex name="compoundIndex2">
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex3">
+            <fetchIndexElement property="readingLists" type="Binary" order="ascending"/>
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="imageURLString" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
@@ -148,7 +154,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="240"/>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="255"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="165"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="420"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
