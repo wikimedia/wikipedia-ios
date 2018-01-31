@@ -1022,9 +1022,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:(NSInteger)index {
-    footer.titleLabel.text = [EnableLocationViewController localizedEnableLocationExploreTitle];
-    footer.descriptionLabel.text = [EnableLocationViewController localizedEnableLocationDescription];
-    [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
+    footer.titleLabel.text = [WMFCommonStrings localizedEnableLocationExploreTitle];
+    footer.descriptionLabel.text = [WMFCommonStrings localizedEnableLocationDescription];
+    [footer.enableLocationButton setTitle:[WMFCommonStrings localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
     [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
     footer.enableLocationButton.tag = index;
     [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
