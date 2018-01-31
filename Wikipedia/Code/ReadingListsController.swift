@@ -71,6 +71,8 @@ public class ReadingListsController: NSObject {
             throw ReadingListError.unableToCreateList
         }
         
+        list.isUpdatedLocally = true
+        
         try add(articles: articles, to: list)
         
         if moc.hasChanges {
@@ -87,8 +89,10 @@ public class ReadingListsController: NSObject {
         
         for readingList in readingLists {
             readingList.isDeletedLocally = true
+            readingList.isUpdatedLocally = true
             for entry in readingList.entries ?? [] {
                 entry.isDeletedLocally = true
+                entry.isUpdatedLocally = true
                 entry.article?.updateReadingListEntries()
                 entry.article = nil
             }
@@ -119,6 +123,7 @@ public class ReadingListsController: NSObject {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: article, forKey: "article") as? ReadingListEntry else {
                 return
             }
+            entry.isUpdatedLocally = true
             let url = URL(string: key)
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
@@ -189,6 +194,7 @@ public class ReadingListsController: NSObject {
         let entriesToDelete = try moc.fetch(entriesRequest)
         for entry in entriesToDelete {
             entry.isDeletedLocally = true
+            entry.isUpdatedLocally = true
         }
         
         readingList.updateCountOfEntries()
@@ -204,6 +210,7 @@ public class ReadingListsController: NSObject {
         let moc = dataStore.viewContext
         for entry in entries {
             entry.isDeletedLocally = true
+            entry.isUpdatedLocally = true
             entry.article?.updateReadingListEntries()
             entry.article = nil
             entry.list?.updateCountOfEntries()
@@ -236,6 +243,7 @@ public class ReadingListsController: NSObject {
             article.savedDate = nil
             for entry in article.readingListEntries ?? [] {
                 entry.isDeletedLocally = true
+                entry.isUpdatedLocally = true
                 entry.list?.updateCountOfEntries()
             }
             if moc.hasChanges {
@@ -277,6 +285,7 @@ public class ReadingListsController: NSObject {
                 entry.article?.removeFromDefaultReadingList()
                 entry.article?.savedDate = nil
                 entry.isDeletedLocally = true
+                entry.isUpdatedLocally = true
             }
             if moc.hasChanges {
                 try moc.save()
@@ -364,6 +373,7 @@ fileprivate extension WMFArticle {
                 return
             }
             entry.isDeletedLocally = true
+            entry.isUpdatedLocally = true
             entry.list?.updateCountOfEntries()
         }
     }
