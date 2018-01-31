@@ -36,6 +36,8 @@ struct APIReadingListEntry: Codable {
     let title: String
     let created: String
     let updated: String
+    let listId: Int64?
+    let deleted: Bool?
 }
 
 struct APIReadingListChanges: Codable {
