@@ -234,7 +234,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView)
+        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
         super.scrollViewWillBeginDragging(scrollView)
     }
     
