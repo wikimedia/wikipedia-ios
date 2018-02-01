@@ -84,7 +84,11 @@ public class ReadingListsController: NSObject {
         return list
     }
     
-    internal func locallyDelete(readingLists: [ReadingList], from managedObjectContext: NSManagedObjectContext) throws {
+    /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
+    ///
+    /// - Parameters:
+    ///   - readingLists: the reading lists to delete
+    internal func markLocalDeletion(for readingLists: [ReadingList]) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
@@ -100,10 +104,26 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
+    ///
+    /// - Parameters:
+    ///   - readingLists: the reading lists to delete
+    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
+        for entry in readingListEntries {
+            entry.isDeletedLocally = true
+            entry.isUpdatedLocally = true
+            if let moc = entry.managedObjectContext, let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key, in: moc), let list = entry.list {
+                list.removeFromArticles(article)
+                article.readingListsDidChange()
+            }
+            entry.list?.updateCountOfEntries()
+        }
+    }
+    
     public func delete(readingLists: [ReadingList]) throws {
         let moc = dataStore.viewContext
         
-        try locallyDelete(readingLists: readingLists, from: moc)
+        try markLocalDeletion(for: readingLists)
         
         if moc.hasChanges {
             try moc.save()
@@ -224,15 +244,7 @@ public class ReadingListsController: NSObject {
     public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        for entry in entries {
-            entry.isDeletedLocally = true
-            entry.isUpdatedLocally = true
-            if let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key, in: moc), let list = entry.list {
-                list.removeFromArticles(article)
-                article.readingListsDidChange()
-            }
-            entry.list?.updateCountOfEntries()
-        }
+        try markLocalDeletion(for: entries)
         if moc.hasChanges {
             try moc.save()
         }
@@ -377,7 +389,7 @@ public class ReadingListsController: NSObject {
             
             let isDeleted = remoteReadingListForUpdate.deleted ?? false
             if isDeleted {
-                try locallyDelete(readingLists: [localReadingList], from: moc)
+                try markLocalDeletion(for: [localReadingList])
                 moc.delete(localReadingList) // object can be removed since we have the server-side update
             } else {
                 localReadingList.update(with: remoteReadingListForUpdate)
