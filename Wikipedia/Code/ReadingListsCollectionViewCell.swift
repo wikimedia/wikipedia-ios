@@ -1,10 +1,14 @@
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
+    
     private var articleCountLabel = UILabel()
     var articleCount: Int64 = 0
+    
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
+    
+    private let defaultListTag = UILabel() // explains that the default list cannot be deleted
     
     private var singlePixelDimension: CGFloat = 0.5
     
@@ -15,11 +19,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override func setup() {
         imageView.layer.cornerRadius = 3
+        
         bottomSeparator.isOpaque = true
         contentView.addSubview(bottomSeparator)
         topSeparator.isOpaque = true
         contentView.addSubview(topSeparator)
+        
         contentView.addSubview(articleCountLabel)
+        contentView.addSubview(defaultListTag)
         
         let topRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
         topRow.axis = UILayoutConstraintAxis.horizontal
@@ -71,6 +78,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
+        defaultListTag.setFont(with: .systemItalic, style: .caption2, traitCollection: traitCollection)
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -98,6 +106,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if apply && displayType == .readingListsTab && articleCount > 0 {
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
+            articleCountLabel.isHidden = false
+        } else {
+            articleCountLabel.isHidden = true
         }
         
         if displayType == .addArticlesToReadingList {
@@ -136,6 +147,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
+        
+        if displayType == .readingListsTab && isDefault {
+            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: origin, fitting: defaultListTag.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += defaultListTagFrame.layoutHeight(with: 0)
+            defaultListTag.isHidden = false
+        } else {
+            defaultListTag.isHidden = true
+        }
         
         let separatorXPositon = layoutMargins.left - margins.left
         let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
@@ -201,6 +220,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.articleCount = articleCount
     
         articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
+        defaultListTag.text = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
         titleLabel.text = name
         descriptionLabel.text = description
         
@@ -246,6 +266,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
         articleCountLabel.textColor = theme.colors.secondaryText
+        defaultListTag.textColor = theme.colors.secondaryText
     }
 }
 
