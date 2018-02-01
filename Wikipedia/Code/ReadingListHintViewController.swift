@@ -8,12 +8,13 @@ class ReadingListHintViewController: UIViewController {
             guard article != oldValue else {
                 return
             }
-            hintButton?.setTitle("Add \(articleTitle) to reading list", for: .normal)
+            setHintButtonTitle()
         }
     }
     
-    private var articleTitle: String {
-        return article?.displayTitle ?? "article"
+    private var hintButtonTitle: String {
+        let articleTitle = article?.displayTitle ?? "article"
+        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Move %1$@ to reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
     @IBOutlet weak var hintView: UIView!
@@ -48,12 +49,16 @@ class ReadingListHintViewController: UIViewController {
         confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
         confirmationButtonLeadingConstraint.toView = confirmationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
         hintButton?.verticalPadding = 5
-        hintButton?.setTitle("Add \(articleTitle) to reading list", for: .normal)
+        setHintButtonTitle()
         apply(theme: theme)
     }
     
     func reset() {
         isHintViewHidden = false
+    }
+    
+    private func setHintButtonTitle() {
+        hintButton?.setTitle(hintButtonTitle, for: .normal)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -302,6 +302,7 @@
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
+"reading-list-hint-title" = "Title of the reading list hint that appears after an article is saved";
 "reading-list-sync-setting" = "Main menu option to enable or disable reading list sync";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
