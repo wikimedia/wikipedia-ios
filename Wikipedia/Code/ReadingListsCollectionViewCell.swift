@@ -1,12 +1,12 @@
 class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
-    fileprivate var bottomSeparator = UIView()
-    fileprivate var topSeparator = UIView()
-    fileprivate var articleCountLabel = UILabel()
+    private var bottomSeparator = UIView()
+    private var topSeparator = UIView()
+    private var articleCountLabel = UILabel()
     var articleCount: Int64 = 0
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
     
-    fileprivate var singlePixelDimension: CGFloat = 0.5
+    private var singlePixelDimension: CGFloat = 0.5
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -55,9 +55,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
-    fileprivate var displayType: ReadingListsDisplayType = .readingListsTab
+    private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    fileprivate var isDefault: Bool = false
+    private var isDefault: Bool = false
     
     open override func reset() {
         super.reset()
@@ -181,7 +181,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
     }
     
-    fileprivate var isImageGridHidden: Bool = false {
+    private var isImageGridHidden: Bool = false {
         didSet {
             imageGrid.isHidden = isImageGridHidden
             setNeedsLayout()
