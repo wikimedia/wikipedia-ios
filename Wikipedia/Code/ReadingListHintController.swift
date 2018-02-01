@@ -11,13 +11,14 @@ protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
 @objc(WMFReadingListHintController)
 public class ReadingListHintController: NSObject, ReadingListHintViewControllerDelegate {
 
-    fileprivate let dataStore: MWKDataStore
-    fileprivate let presenter: UIViewController
-    fileprivate let hint: ReadingListHintViewController
-    fileprivate let hintHeight: CGFloat = 50
-    fileprivate var theme: Theme = Theme.standard
+    private let dataStore: MWKDataStore
+    private let presenter: UIViewController
+    private let hint: ReadingListHintViewController
+    private let hintHeight: CGFloat = 50
+    private var theme: Theme = Theme.standard
+    private var didSaveArticle: Bool = false
     
-    fileprivate var isHintHidden = true {
+    private var isHintHidden = true {
         didSet {
             guard isHintHidden != oldValue else {
                 return
@@ -44,7 +45,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hint.willMove(toParentViewController: nil)
         hint.view.removeFromSuperview()
         hint.removeFromParentViewController()
-        hint.reset()
+        resetHint()
     }
     
     func addHint() {
@@ -55,9 +56,18 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hint.didMove(toParentViewController: presenter)
     }
     
+    var hintVisibilityTime: TimeInterval = 13 {
+        didSet {
+            guard hintVisibilityTime != oldValue else {
+                return
+            }
+            dismissHint()
+        }
+    }
+    
     func dismissHint() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHintHidden), object: 1)
-        perform(#selector(setHintHidden), with: 1, afterDelay: 13)
+        perform(#selector(setHintHidden), with: 1, afterDelay: hintVisibilityTime)
     }
     
     @objc func setHintHidden(_ hintHidden: Bool) {
@@ -84,13 +94,14 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         })
     }
     
-    fileprivate lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
+    private lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
         let visible = CGRect(x: 0, y: presenter.view.bounds.height - hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
         let hidden = CGRect(x: 0, y: presenter.view.bounds.height + hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
         return (visible: visible, hidden: hidden)
     }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+        didSaveArticle = true
         
         self.theme = theme
         
@@ -102,7 +113,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }
         
         guard !didSaveOtherArticle else {
-            hint.reset()
+            resetHint()
             dismissHint()
             hint.article = article
             return
@@ -112,11 +123,24 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         setHintHidden(!didSave)
     }
     
+    private func resetHint() {
+        didSaveArticle = false
+        hintVisibilityTime = 13
+        hint.reset()
+    }
+    
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             return
         }
         didSave(saved, article: article, theme: theme)
+    }
+    
+    @objc func scrollViewWillBeginDragging() {
+        guard didSaveArticle else {
+            return
+        }
+        hintVisibilityTime = 5
     }
     
     // MARK: - ReadingListHintViewControllerDelegate
