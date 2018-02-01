@@ -310,6 +310,7 @@
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
 "reading-lists-default-list-description" = "The description of the default saved pages list";
+"reading-lists-default-list-title" = "The title of the default saved pages list";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
