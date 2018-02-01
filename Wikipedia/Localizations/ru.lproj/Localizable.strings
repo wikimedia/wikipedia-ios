@@ -18,6 +18,7 @@
 // Author: Mailman
 // Author: Mariya
 // Author: MaxBioHazard
+// Author: Movses
 // Author: Nemo bis
 // Author: Nitch
 // Author: Oashnic
@@ -82,8 +83,14 @@
 "alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
 "appearance-settings-adjust-text-sizing" = "Регулирует размер текста статьи";
+"appearance-settings-expand-tables" = "Расширить таблицы";
+"appearance-settings-expand-tables-footer" = "Раскрывать по умолчанию все разделы, включая \"Краткие факты\", \"Примечания\", \"Комментарии\", \"Внешние ссылки\".";
 "appearance-settings-image-dimming-footer" = "Уменьшает непрозрачность изображений в тёмной теме";
-"appearance-settings-theme-options" = "Настройки темы";
+"appearance-settings-reading-themes" = "Темы для чтения";
+"appearance-settings-set-automatic-table-opening" = "Настройки таблиц";
+"appearance-settings-text-sizing-example-text" = "Подвигайте ползунок, изменяя размер системного шрифта. Это приведёт к изменению размеров текстовых блоков приложения.";
+"appearance-settings-theme-options" = "Настройки темы оформления";
+"appearance-settings-title" = "Темы оформления для чтения";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
 "article-deleted-accessibility-notification" = "Статья удалена";
@@ -93,6 +100,7 @@
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
 "article-share" = "Поделиться";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back" = "Назад";
@@ -207,6 +215,7 @@
 "home-nearby-location-footer" = "Ещё поблизости от $1";
 "home-news-footer" = "Больше в новостях";
 "home-themes-action-title" = "Управление настройками";
+"home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших настройках пользователя.";
 "home-title" = "Исследуйте!";
 "home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
 "icon-shortcut-continue-reading-title" = "Продолжить чтение";
@@ -289,7 +298,7 @@
 "places-accessibility-show-as-map" = "Показать как карту";
 "places-accessibility-show-more" = "Показать больше статей";
 "places-dismiss-filter-list-accessibility-label" = "Отказаться от поисковых фильтров";
-"places-empty-search-description" = "Искать города, страны, континенты, природные достопримечательности, исторические события, сооружения и многое другое";
+"places-empty-search-description" = "Искать города, страны, континенты, природные достопримечательности, исторические события, сооружения и многое другое.";
 "places-empty-search-title" = "Искать статью по местоположению";
 "places-enable-location-action-button-title" = "Включить поиск расположения";
 "places-enable-location-description" = "Доступ к вашему местоположению доступен только тогда, когда приложение или один из его компонентов отображается на вашем экране.";
@@ -370,6 +379,7 @@
 "share-a-fact-made-with" = "Создано с помощью Википедии";
 "share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
+"share-building" = "Сформировать карточку \"Поделись фактом\"...";
 "share-custom-menu-item" = "Поделиться...";
 "share-default-format" = "«$1» из «$2»: $3";
 "share-email-format" = "«$1»\n\nиз «$2»\n\n$3";
@@ -377,7 +387,7 @@
 "share-menu-item" = "Поделиться…";
 "share-message-format" = "«$1» $2";
 "share-on-twitter-sign-off" = "через @Wikipedia";
-"share-open-in-maps" = "Открыть на Картах";
+"share-open-in-maps" = "Открыть в Картах";
 "share-social-format" = "«$1» в Википедии: $2";
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "status-saved-for-later" = "Сохранено на потом";
@@ -400,13 +410,19 @@
 "two-factor-login-with-backup-code" = "Использовать одну из резервных копий кодов";
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
+"welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
+"welcome-exploration-explore-feed-title" = "Лента исследований";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
 "welcome-exploration-on-this-day-title" = "В этот день…";
+"welcome-exploration-places-description" = "Исследовать достопримечательности вблизи или искать места по всему миру";
+"welcome-exploration-places-title" = "Вкладка \"Места\"";
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
+"welcome-intro-free-encyclopedia-description" = "Википедия написана общими усилиями добровольцев и состоит из более чем 40 миллионов статей на почти 300 языках.";
 "welcome-intro-free-encyclopedia-more" = "Узнать подробнее о Википедии";
 "welcome-intro-free-encyclopedia-more-about" = "О Википедии";
+"welcome-intro-free-encyclopedia-more-description" = "Википедия — это глобальный проект по созданию бесплатных энциклопедий на всех языках мира. Практически любой человек, имеющий доступ к Интернету, может свободно участвовать, предоставляя нейтральную, подкреплённую источниками информацию.";
 "welcome-intro-free-encyclopedia-title" = "Свободная энциклопедия";
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";

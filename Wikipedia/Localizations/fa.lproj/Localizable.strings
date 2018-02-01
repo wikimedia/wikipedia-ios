@@ -78,6 +78,7 @@
 "announcements-dismiss" = "پنهان‌سازی";
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
 "appearance-settings-expand-tables" = "گسترش جدول";
+"appearance-settings-expand-tables-footer" = "تنظیم همهٔ زبانه‌ها در همهٔ مقالات که به صورت پیش‌فرض باز باشند، همراه با منابع، پانویس‌ها و پیوند به بیرون‌ها";
 "appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تاریک";
 "appearance-settings-reading-themes" = "پوستهٔ خواندن";
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
@@ -350,8 +351,7 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
-// Fuzzy
-"settings-appearance" = "ظاهر";
+"settings-appearance" = "تنظیمات خواندن";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما را حذف نمی‌کند.";
 "settings-clear-cache-are-you-sure-title" = "داده‌‌های گرفته‌شده پاک‌شوند؟";

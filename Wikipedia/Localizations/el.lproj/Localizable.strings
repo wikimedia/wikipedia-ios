@@ -23,8 +23,11 @@
 "about-product-of" = "Δημιουργήθηκε από την $1 με τη βοήθεια εθελοντών όπως εσείς";
 "about-repositories-app-source-license-mit" = "Άδεια MIT";
 "about-title" = "Σχετικά";
+"about-translators" = "Μεταφραστές";
+"about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
+"abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";
 "account-creation-create-account" = "Δημιουργία λογαριασμού χρήστη";
 "account-creation-log-in" = "Σύνδεση.";

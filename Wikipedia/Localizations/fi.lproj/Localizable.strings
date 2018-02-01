@@ -359,11 +359,14 @@
 "share-a-fact-share-menu-item" = "Jaa fakta…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-custom-menu-item" = "Jaa...";
+"share-default-format" = "“$1” artikkelista “$2”: $3";
+"share-email-format" = "“$1”\n\nartikkelista “$2”\n\n$3";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
 "share-menu-item" = "Jaa…";
 "share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Mapsissa";
+"share-social-format" = "“$1” Wikipedian kautta: $2";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
 "status-saving-for-later" = "Tallennetaan myöhempää varten...";
 "table-of-contents-button-label" = "Sisällysluettelo";

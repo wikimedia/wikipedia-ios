@@ -125,10 +125,10 @@
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
 "feed-news-notification-text" = "Омогућите обавештења да будете обавештени од Википедије када чланак буде у трендинг у новостима";
-"field-alert-captcha-invalid" = "Невалидна CAPTCHA";
+"field-alert-captcha-invalid" = "Неисправна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
-"field-alert-password-invalid" = "Невалидна лозинка";
-"field-alert-token-invalid" = "Невалидан код";
+"field-alert-password-invalid" = "Неисправна лозинка";
+"field-alert-token-invalid" = "Неисправан код";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни код";
 "field-captcha-placeholder" = "Текст CAPTCHA";
