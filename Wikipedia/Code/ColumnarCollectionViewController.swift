@@ -152,6 +152,13 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
+        }
+        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
+    }
+    
     // MARK: - Themeable
     
     override func apply(theme: Theme) {
@@ -219,9 +226,11 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        if let hintPresenter = self as? ReadingListHintPresenter {
-            hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
         }
+        hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        
     }
     
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {

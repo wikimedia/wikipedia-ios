@@ -233,8 +233,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         editController.transformBatchEditPaneOnScroll()
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewWillBeginDragging(scrollView)
+        super.scrollViewWillBeginDragging(scrollView)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
