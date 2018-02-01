@@ -57,7 +57,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func dismissHint() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHintHidden), object: 1)
-        perform(#selector(setHintHidden), with: 1, afterDelay: 8)
+        perform(#selector(setHintHidden), with: 1, afterDelay: 13)
     }
     
     @objc func setHintHidden(_ hintHidden: Bool) {
