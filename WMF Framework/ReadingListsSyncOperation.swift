@@ -157,8 +157,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         
                         var localEntriesToSync: [Int64: ReadingListEntry] = [:]
                         var localEntriesToDelete: [ReadingListEntry] = []
-                        var remoteEntriesToCreateLocally: [Int64: (APIReadingListEntry, ReadingList)] = [:]
-                        
+                        var remoteEntriesToCreateLocally: [Int64: APIReadingListEntry] = [:]
+                        var readingListsByEntryID: [Int64: ReadingList] = [:]
                         for (readingListID, readingLists) in localReadingListsToSync {
                             guard let readingList = readingLists.first else {
                                 continue
@@ -169,7 +169,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             let remoteEntries = entriesByReadingListID[readingListID] ?? []
                             //print("List \(readingList.name) has remote entries: \(remoteEntries)")
                             for entry in remoteEntries {
-                                remoteEntriesToCreateLocally[entry.id] = (entry, readingList)
+                                remoteEntriesToCreateLocally[entry.id] = entry
+                                readingListsByEntryID[entry.id] = readingList
                                 if let date = DateFormatter.wmf_iso8601().date(from: entry.updated),
                                     date.compare(sinceDate) == .orderedDescending {
                                     sinceDate = date
@@ -220,57 +221,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             }
                         }
                         
-                        var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
-                        var requestedArticleKeys: Set<String> = []
-                        var articleSummariesByArticleKey: [String: [String: Any]] = [:]
-                        for (_, (remoteEntry, _)) in remoteEntriesToCreateLocally {
-                            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey else {
-                                continue
-                            }
-                            remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry
-                            guard !requestedArticleKeys.contains(articleKey) else {
-                                continue
-                            }
-                            requestedArticleKeys.insert(articleKey)
-                            group.enter()
-                            URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
-                                guard let result = result else {
-                                    group.leave()
-                                    return
-                                }
-                                articleSummariesByArticleKey[articleKey] = result
-                                group.leave()
-                            })
-                        }
-                        
-                        group.wait()
-                        
-                        
-                        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
-                        var articlesByKey: [String: WMFArticle] = [:]
-                        for article in articles {
-                            guard let articleKey = article.key else {
-                                continue
-                            }
-                            articlesByKey[articleKey] = article
-                        }
-                        
-                        for (_, (remoteEntry, readingList)) in remoteEntriesToCreateLocally {
-                            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey] else {
-                                continue
-                            }
-                            guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
-                                continue
-                            }
-                            entry.update(with: remoteEntry)
-                            entry.list = readingList
-                            entry.articleKey = article.key
-                            entry.displayTitle = article.displayTitle
-                            article.savedDate = entry.createdDate as Date?
-                            readingList.addToArticles(article)
-                            article.readingListsDidChange()
-                            readingList.updateCountOfEntries()
-                        }
+                        try self.readingListsController.locallyCreate(Array(remoteEntriesToCreateLocally.values), with: readingListsByEntryID, in: moc)
                         
                         for (entryID, entry) in localEntriesToSync {
                             if entry.readingListEntryID == nil {
