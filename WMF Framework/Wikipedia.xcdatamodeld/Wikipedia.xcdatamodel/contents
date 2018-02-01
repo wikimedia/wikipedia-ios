@@ -100,8 +100,8 @@
         </fetchIndex>
         <fetchIndex name="compoundIndex3">
             <fetchIndexElement property="readingLists" type="Binary" order="ascending"/>
-            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
             <fetchIndexElement property="imageURLString" type="Binary" order="ascending"/>
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
