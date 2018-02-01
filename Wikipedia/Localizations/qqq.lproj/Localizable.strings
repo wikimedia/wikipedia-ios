@@ -322,11 +322,13 @@
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
+"saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
+"saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "tbd";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";

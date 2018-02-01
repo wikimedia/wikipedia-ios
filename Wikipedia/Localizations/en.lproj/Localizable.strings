@@ -322,11 +322,13 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|Last year|$1 years ago}}";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
+"saved-all-articles-title" = "All articles";
 "saved-clear-all" = "Clear";
 "saved-pages-clear-cancel" = "Cancel";
 "saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
+"saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search ";
 "saved-title" = "Saved";
 "search-button-accessibility-label" = "Search Wikipedia";

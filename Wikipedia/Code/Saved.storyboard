@@ -35,8 +35,10 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="moe-WC-1c5"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="eby-nN-6Yg" id="VN4-EM-xv8"/>
+                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
                         <outlet property="separatorView" destination="YHx-oI-zV4" id="I7m-6y-sIv"/>
                         <outlet property="sortButton" destination="269-0y-zMz" id="2EB-vW-bIH"/>
@@ -59,7 +61,7 @@
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
                                     <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                    <state key="normal" title="Saved articles">
+                                    <state key="normal" title="All articles">
                                         <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
