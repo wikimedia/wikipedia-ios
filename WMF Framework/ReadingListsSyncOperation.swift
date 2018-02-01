@@ -110,7 +110,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             localReadingListsToSync[list.id, default: []].append(localList)
                         }
                         
-                        try self.readingListsController.markLocalDeletion(for: localReadingListsToDelete)
+                        try self.readingListsController.markLocalDeletion(for: Array(localReadingListsToDelete.values))
                         for (_, list) in localReadingListsToDelete {
                             moc.delete(list)
                         }
