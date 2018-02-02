@@ -220,7 +220,7 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let article = self.article(at: indexPath) {
                 shareActivityController = ShareActivityController(article: article, context: self)
             } else if let articleURL =  self.articleURL(at: indexPath) {
-                shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
+                shareActivityController = ShareActivityController(articleURL: articleURL, dataStore: dataStore, context: self)
             } else {
                 shareActivityController = nil
             }
