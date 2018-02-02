@@ -488,7 +488,7 @@ public class ReadingListsController: NSObject {
         return sinceDate
     }
     
-    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64?, inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
+    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
         var sinceDate: Date = Date.distantPast
 
         // Arrange remote list entries by ID and key for merging with local lists
