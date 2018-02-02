@@ -439,7 +439,8 @@ public class ReadingListsController: NSObject {
         }
         
         let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@ || readingListName IN %@", Array(remoteReadingListsByID.keys), Array(remoteReadingListsByName.keys))
+        let canonicalNames = Array(remoteReadingListsByName.keys).map { $0.precomposedStringWithCanonicalMapping }
+        localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@ || canonicalName IN %@", Array(remoteReadingListsByID.keys), canonicalNames)
         let localReadingLists = try moc.fetch(localReadingListsFetch)
         for localReadingList in localReadingLists {
             var remoteReadingList: APIReadingList?
