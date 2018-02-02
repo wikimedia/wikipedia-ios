@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EducationPanelViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="closeButton" destination="BAe-h0-y6b" id="eXa-fB-phT"/>
+                <outlet property="descriptionLabel" destination="NCF-lS-nEw" id="Cpg-ot-4y5"/>
+                <outlet property="imageView" destination="rFJ-kb-kte" id="Dmh-26-vvR"/>
+                <outlet property="primaryButton" destination="cUm-ox-sR8" id="YUn-nC-fRX"/>
+                <outlet property="scrollViewContainer" destination="BhM-b3-oKp" id="ynz-78-85I"/>
+                <outlet property="secondaryButton" destination="hB2-ah-QwX" id="WJa-gl-cPm"/>
+                <outlet property="subtitleLabel" destination="Ka1-Ou-kwY" id="OLQ-hq-5Wx"/>
+                <outlet property="titleLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="529"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="529"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="492"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
+                                    <rect key="frame" x="16" y="30" width="268" height="440"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
+                                            <rect key="frame" x="0.0" y="0.0" width="268" height="95"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="999" constant="95" id="jWo-IS-JDh"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
+                                            <rect key="frame" x="0.0" y="109" width="268" height="64.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ka1-Ou-kwY">
+                                            <rect key="frame" x="0.0" y="187.5" width="268" height="98.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8">
+                                            <rect key="frame" x="0.0" y="300" width="268" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="999" constant="40" id="C08-Su-Zrl"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="14" maxY="0.0"/>
+                                            <state key="normal" title="Sample PRIMARY button title"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="primaryButtonTapped:" destination="-1" eventType="touchUpInside" id="uCd-V8-oNv"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX">
+                                            <rect key="frame" x="0.0" y="354" width="268" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="999" constant="20" id="85p-VQ-b8x"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <state key="normal" title="Sample SECONDARY button title"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="secondaryButtonTapped:" destination="-1" eventType="touchUpInside" id="TWe-gh-Z12"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCF-lS-nEw">
+                                            <rect key="frame" x="0.0" y="388" width="268" height="52"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="268" placeholder="YES" id="7rR-Pt-URc"/>
+                                        <constraint firstAttribute="height" constant="440" placeholder="YES" id="Iui-OH-aA5"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="zdf-Q2-cLc" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" constant="16" id="7CU-RZ-a8R"/>
+                                <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="30" id="WBN-Oz-gDa"/>
+                                <constraint firstAttribute="trailing" secondItem="zdf-Q2-cLc" secondAttribute="trailing" constant="16" id="crP-8H-B4A"/>
+                                <constraint firstAttribute="bottom" secondItem="zdf-Q2-cLc" secondAttribute="bottom" constant="22" id="rCR-qx-yj8"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="BhM-b3-oKp" secondAttribute="trailing" id="2vY-Ic-IWb"/>
+                        <constraint firstAttribute="bottom" secondItem="BhM-b3-oKp" secondAttribute="bottom" id="6p4-BF-xCY"/>
+                        <constraint firstItem="BhM-b3-oKp" firstAttribute="leading" secondItem="e3o-Ht-LDd" secondAttribute="leading" id="HtD-Bv-yUE"/>
+                        <constraint firstItem="BhM-b3-oKp" firstAttribute="top" secondItem="e3o-Ht-LDd" secondAttribute="top" id="Nh9-XG-8wy"/>
+                        <constraint firstItem="BhM-b3-oKp" firstAttribute="width" secondItem="e3o-Ht-LDd" secondAttribute="width" id="ifG-6r-GQz"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                    <rect key="frame" x="250" y="0.0" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Sdf-yO-Ff8"/>
+                        <constraint firstAttribute="width" constant="50" id="ZN1-B8-whI"/>
+                    </constraints>
+                    <state key="normal" image="places-auth-close"/>
+                    <connections>
+                        <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TVf-Ig-SJ2"/>
+                <constraint firstAttribute="trailing" secondItem="BAe-h0-y6b" secondAttribute="trailing" id="U7J-yB-Jjh"/>
+                <constraint firstItem="e3o-Ht-LDd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UeS-iT-rjM"/>
+                <constraint firstItem="BAe-h0-y6b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YNu-4c-tO5"/>
+                <constraint firstAttribute="bottom" secondItem="e3o-Ht-LDd" secondAttribute="bottom" id="hq6-cj-fb0"/>
+                <constraint firstItem="e3o-Ht-LDd" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lT0-Lh-2h2"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="77" y="248.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="places-auth-arrow" width="193" height="193"/>
+        <image name="places-auth-close" width="11" height="11"/>
+    </resources>
+</document>
