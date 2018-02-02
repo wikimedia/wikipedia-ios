@@ -2,6 +2,9 @@ import Foundation
 
 extension ReadingList {
     func update(with remoteList: APIReadingList) {
+        guard !isUpdatedLocally else {
+            return
+        }
         self.readingListID = NSNumber(value: remoteList.id)
         self.name = remoteList.name
         self.readingListDescription = remoteList.description
