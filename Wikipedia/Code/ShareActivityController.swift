@@ -4,7 +4,7 @@ class CustomShareActivity: UIActivity {
     let imageName: String
     let action: () -> Void
     
-    @objc required public init(title: String, imageName: String, action: @escaping () -> Void) {
+    @objc public init(title: String, imageName: String, action: @escaping () -> Void) {
         self.title = title
         self.imageName = imageName
         self.action = action
@@ -28,11 +28,38 @@ class CustomShareActivity: UIActivity {
     
 }
 
+@objc(WMFAddToReadingListActivity)
+class AddToReadingListActivity: UIActivity {
+    private let action: () -> Void
+    
+    @objc init(action: @escaping () -> Void) {
+        self.action = action
+    }
+    
+    override var activityTitle: String? {
+        return WMFLocalizedString("share-activity-save-to-reading-list", value: "Save to a reading list", comment: "Title of the custom share activity that allows saving an article to a reading list")
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(named: "add-to-reading-list")
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func perform() {
+        action()
+    }
+}
+
 @objc(WMFShareActivityController)
 class ShareActivityController: UIActivityViewController {
     
-    @objc init(articleURL: URL, userDataStore: MWKDataStore, context: AnalyticsContextProviding) {
-        let article = userDataStore.fetchArticle(with: articleURL)
+    private var articleApplicationActivities: [UIActivity] = [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()]
+    
+    init(articleURL: URL, dataStore: MWKDataStore, context: AnalyticsContextProviding) {
+        let article = dataStore.fetchArticle(with: articleURL)
         var items = [Any]()
         
         if let article = article {
@@ -50,7 +77,7 @@ class ShareActivityController: UIActivityViewController {
             items.append(mapItem)
         }
         
-        super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
     @objc init(article: WMFArticle, context: AnalyticsContextProviding) {
@@ -72,10 +99,10 @@ class ShareActivityController: UIActivityViewController {
             items.append(mapItem)
         }
         
-        super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource, customActivity: UIActivity) {
         var items = [Any]()
         items.append(textActivitySource)
         
@@ -87,21 +114,8 @@ class ShareActivityController: UIActivityViewController {
             items.append(mapItem)
         }
         
-        super.init(activityItems: items, applicationActivities: [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
-    }
-    
-    @objc init(article: MWKArticle, customShareActivity: CustomShareActivity) {
-        var items = [Any]()
-        
-        if let shareURL = article.url?.wmf_URLForTextSharing {
-            items.append(shareURL)
-        }
-        
-        if let mapItem = article.mapItem {
-            items.append(mapItem)
-        }
-        
-        super.init(activityItems: items, applicationActivities: [customShareActivity, TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()])
+        articleApplicationActivities.append(customActivity)
+        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
     @objc init(article: MWKArticle, image: UIImage?, title: String) {

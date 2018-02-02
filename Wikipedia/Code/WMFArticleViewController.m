@@ -49,7 +49,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
                                                                          fromButton:(UIBarButtonItem *)button
                                                                         shareFunnel:(nullable WMFShareFunnel *)shareFunnel
-                                                                     customActivity:(nullable WMFCustomShareActivity *)customActivity;
+                                                                     customActivity:(nullable UIActivity *)customActivity;
 @end
 
 @implementation MWKArticle (WMFSharingActivityViewController)
@@ -57,7 +57,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIActivityViewController *)sharingActivityViewControllerWithTextSnippet:(nullable NSString *)text
                                                                          fromButton:(UIBarButtonItem *)button
                                                                         shareFunnel:(nullable WMFShareFunnel *)shareFunnel
-                                                                     customActivity:(nullable WMFCustomShareActivity *)customActivity {
+                                                                     customActivity:(nullable UIActivity *)customActivity {
     NSParameterAssert(button);
     if (!button) {
         //If we get no button, we will crash below on iPad
@@ -67,12 +67,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
 
-    WMFShareActivityController *vc = nil;
-    if (customActivity) {
-        vc = [[WMFShareActivityController alloc] initWithArticle:self customShareActivity:customActivity];
-    } else {
-        vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
-    }
+    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text] customActivity:customActivity];
 
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
@@ -1239,12 +1234,26 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             }
             return;
         } else {
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
+            WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
+                [self addToReadingList];
+            }];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:addToReadingListActivity];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
             }
         }
     }];
+}
+
+- (void)addToReadingList {
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    if (!article) {
+        return;
+    }
+    
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
+    
 }
 
 - (void)shareArticleWhenReady {

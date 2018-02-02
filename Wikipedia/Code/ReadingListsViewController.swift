@@ -31,17 +31,21 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         
         if let names = readingLists?.flatMap({ $0.name }) {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"name IN %@", names)])
+        } else if displayType == .addArticlesToReadingList {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"articles == %@", articles)]) // to-many key not allowed here
         } else {
             request.predicate = basePredicate
         }
         
         request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "canonicalName", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        
         do {
             try fetchedResultsController.performFetch()
         } catch let error {
             DDLogError("Error fetching reading lists: \(error)")
         }
+        
         collectionView.reloadData()
     }
     
