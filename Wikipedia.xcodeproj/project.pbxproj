@@ -437,6 +437,11 @@
 		B0BCF0AD2023AC7700986F72 /* EducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* EducationPanelViewController.swift */; };
 		B0BCF0AE2023AC7700986F72 /* EducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* EducationPanelViewController.swift */; };
 		B0BCF0AF2023AC7700986F72 /* EducationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0AA2023AC7700986F72 /* EducationPanelViewController.swift */; };
+		B0BCF0B9202537D800986F72 /* ReadingListEducationPanels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */; };
+		B0BCF0BA202537D800986F72 /* ReadingListEducationPanels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */; };
+		B0BCF0BB202537D800986F72 /* ReadingListEducationPanels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */; };
+		B0BCF0BC202537D800986F72 /* ReadingListEducationPanels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */; };
+		B0BCF0BD202537D800986F72 /* ReadingListEducationPanels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
@@ -3342,6 +3347,7 @@
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
 		B0BCF0AA2023AC7700986F72 /* EducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EducationPanelViewController.swift; sourceTree = "<group>"; };
+		B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEducationPanels.swift; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -5981,6 +5987,14 @@
 			name = Popover;
 			sourceTree = "<group>";
 		};
+		B0BCF0B72025375D00986F72 /* Reading Lists */ = {
+			isa = PBXGroup;
+			children = (
+				B0BCF0B8202537D800986F72 /* ReadingListEducationPanels.swift */,
+			);
+			name = "Reading Lists";
+			sourceTree = "<group>";
+		};
 		B0C6BE4D1E45255D0033BD6E /* Change Password */ = {
 			isa = PBXGroup;
 			children = (
@@ -6526,6 +6540,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				B0BCF0B72025375D00986F72 /* Reading Lists */,
 				D87233FC1E1FF05800751E83 /* Places */,
 				0EFB48071B3BAFE900381F99 /* Article */,
 				0E98805F1DA2A0C00058D7F2 /* Feed */,
@@ -9880,6 +9895,7 @@
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				B0BCF0B9202537D800986F72 /* ReadingListEducationPanels.swift in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
@@ -10301,6 +10317,7 @@
 				D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DF81F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D80ED38D1EE57F4800CE8C50 /* WMFSearchViewController.m in Sources */,
+				B0BCF0BD202537D800986F72 /* ReadingListEducationPanels.swift in Sources */,
 				D80ED38E1EE57F4800CE8C50 /* UIApplication+SystemSettings.swift in Sources */,
 				B0BCF0AF2023AC7700986F72 /* EducationPanelViewController.swift in Sources */,
 				B0B4236C1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
@@ -10821,6 +10838,7 @@
 				B0370E191FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8A42AFE1E815A9C00D8E281 /* WMFRandomArticleViewController.m in Sources */,
+				B0BCF0BC202537D800986F72 /* ReadingListEducationPanels.swift in Sources */,
 				D8A42B001E815A9C00D8E281 /* WMFArticleViewController.m in Sources */,
 				D8E27BA91F82B38700F9D2B3 /* RMessage.m in Sources */,
 				D8A42B021E815A9C00D8E281 /* NSAttributedString+WMFTrim.m in Sources */,
@@ -11242,6 +11260,7 @@
 				D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				D8CE25FA1E698E2400DAE2E0 /* WMFSearchViewController.m in Sources */,
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				B0BCF0BA202537D800986F72 /* ReadingListEducationPanels.swift in Sources */,
 				D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */,
 				B0BCF0AC2023AC7700986F72 /* EducationPanelViewController.swift in Sources */,
 				B0B423691EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
@@ -11556,6 +11575,7 @@
 				B0CD9DEA1F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D8EC3EF91E9BDA35006712EB /* WMFSearchViewController.m in Sources */,
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
+				B0BCF0BB202537D800986F72 /* ReadingListEducationPanels.swift in Sources */,
 				D8EC3EFD1E9BDA35006712EB /* WMFArticleRevision.m in Sources */,
 				B0BCF0AD2023AC7700986F72 /* EducationPanelViewController.swift in Sources */,
 				D8EC3EFE1E9BDA35006712EB /* ArticlePlaceView.swift in Sources */,
