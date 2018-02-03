@@ -67,7 +67,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [shareFunnel logShareButtonTappedResultingInSelection:text];
 
-    WMFShareActivityController *vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text] customActivity:customActivity];
+    WMFShareActivityController *vc = nil;
+    if (customActivity) {
+        vc = [[WMFShareActivityController alloc] initWithCustomActivity:customActivity article:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    } else {
+        vc = [[WMFShareActivityController alloc] initWithArticle:self textActivitySource:[[WMFArticleTextActivitySource alloc] initWithArticle:self shareText:text]];
+    }
 
     UIPopoverPresentationController *presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
@@ -1234,10 +1239,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             }
             return;
         } else {
-            WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
-                [self addToReadingList];
-            }];
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:addToReadingListActivity];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
             }
@@ -1245,15 +1247,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (void)addToReadingList {
+- (nullable UIActivity *)addToReadingListActivity {
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     if (!article) {
-        return;
+        return nil;
     }
     
-    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
+    WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
+        WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+        [self presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];;
+    }];
     
+    return addToReadingListActivity;
 }
 
 - (void)shareArticleWhenReady {
@@ -1810,7 +1815,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                style:UIPreviewActionStyleDefault
                              handler:^(UIPreviewAction *_Nonnull action,
                                        UIViewController *_Nonnull previewViewController) {
-                                 UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
+                                 UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
                                  if (shareActivityController) {
                                      NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                      [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
@@ -1825,7 +1830,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:nil];
+                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
                                      if (shareActivityController) {
                                          NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                          [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];

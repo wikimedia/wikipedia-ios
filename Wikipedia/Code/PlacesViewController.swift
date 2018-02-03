@@ -1771,14 +1771,18 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             break
         case .share:
-            let activityVC = ShareActivityController(article: article, context: context)
-            activityVC.popoverPresentationController?.sourceView = view
+            let addToReadingListActivity = AddToReadingListActivity {
+                let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            }
+            let shareActivityController = ShareActivityController(article: article, context: context, customActivity: addToReadingListActivity)
+            shareActivityController.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
                 sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
             }
-            activityVC.popoverPresentationController?.sourceRect = sourceRect
-            present(activityVC, animated: true, completion: nil)
+            shareActivityController.popoverPresentationController?.sourceRect = sourceRect
+            present(shareActivityController, animated: true, completion: nil)
             break
         case .none:
             fallthrough

@@ -28,6 +28,36 @@ class CustomShareActivity: UIActivity {
     
 }
 
+protocol ShareableArticlesProvider: NSObjectProtocol {
+    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool
+}
+
+extension ShareableArticlesProvider where Self: ColumnarCollectionViewController & AnalyticsContextProviding {
+    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+        if let article = article {
+            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
+        } else if let articleURL = articleURL, let article = dataStore.fetchArticle(with: articleURL)  {
+            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
+        }
+        return false
+    }
+    
+    private func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+        let addToReadingListActivity = AddToReadingListActivity {
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+            self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+        }
+        let shareActivityController = ShareActivityController(article: article, context: self, customActivity: addToReadingListActivity)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let cell = collectionView.cellForItem(at: indexPath)
+            shareActivityController.popoverPresentationController?.sourceView = cell ?? view
+            shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+        }
+        present(shareActivityController, animated: true, completion: nil)
+        return true
+    }
+}
+
 @objc(WMFAddToReadingListActivity)
 class AddToReadingListActivity: UIActivity {
     private let action: () -> Void
@@ -80,7 +110,7 @@ class ShareActivityController: UIActivityViewController {
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(article: WMFArticle, context: AnalyticsContextProviding) {
+    @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivity: UIActivity) {
         let tracker = PiwikTracker.sharedInstance()
         tracker?.wmf_logActionShare(inContext: context, contentType: article)
         
@@ -99,10 +129,11 @@ class ShareActivityController: UIActivityViewController {
             items.append(mapItem)
         }
         
+        articleApplicationActivities.append(customActivity)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
-    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource, customActivity: UIActivity) {
+    @objc init(customActivity: UIActivity, article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
         
@@ -115,6 +146,21 @@ class ShareActivityController: UIActivityViewController {
         }
         
         articleApplicationActivities.append(customActivity)
+        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
+    }
+    
+    @objc init(article: MWKArticle, textActivitySource: WMFArticleTextActivitySource) {
+        var items = [Any]()
+        items.append(textActivitySource)
+        
+        if let shareURL = article.url?.wmf_URLForTextSharing {
+            items.append(shareURL)
+        }
+        
+        if let mapItem = article.mapItem {
+            items.append(mapItem)
+        }
+        
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
