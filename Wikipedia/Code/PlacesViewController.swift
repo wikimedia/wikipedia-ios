@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
 
     fileprivate var mapView: MapView!
     @IBOutlet weak var navigationBar: NavigationBar!
@@ -1322,19 +1322,29 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - Location Access
     
     func promptForLocationAccess() {
-        let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
-        enableLocationVC.apply(theme: theme)
-        enableLocationVC.modalPresentationStyle = .popover
-        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
-        enableLocationVC.popoverPresentationController?.delegate = self
-        enableLocationVC.popoverPresentationController?.sourceView = view
-        enableLocationVC.popoverPresentationController?.canOverlapSourceViewRect = true
-        enableLocationVC.popoverPresentationController?.sourceRect = view.bounds
-        enableLocationVC.popoverPresentationController?.permittedArrowDirections = []
-        enableLocationVC.delegate = self
-        present(enableLocationVC, animated: true, completion: {
-            
-        })
+        var skipSearchInDismissEnableLocationPanelHandler = false
+        
+        let enableLocationButtonTapHandler: EducationPanelButtonTapHandler = { sender in
+            skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
+            sender.dismiss(animated: true, completion: {
+                guard WMFLocationManager.isAuthorizationNotDetermined() else {
+                    UIApplication.shared.wmf_openAppSpecificSystemSettings()
+                    return
+                }
+                self.locationManager.startMonitoringLocation()
+            })
+        }
+        
+        let dismissEnableLocationPanelHandler: EducationPanelDismissHandler = { _ in
+            if (!skipSearchInDismissEnableLocationPanelHandler) {
+                self.performDefaultSearchIfNecessary(withRegion: nil)
+            }
+        }
+        
+        let enableLocationPanelVC = EnableLocationPanelViewController(sourceView: view, showCloseButton: true, dismissOnTapOutside: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
+        
+        enableLocationPanelVC.apply(theme: theme)
+        present(enableLocationPanelVC, animated: true, completion: nil)
     }
 
     
@@ -2427,21 +2437,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let center = CGPoint(x: view.pointee.bounds.midX, y: view.pointee.bounds.midY)
         let newOrigin = CGPoint(x: center.x - 0.5*oldRect.width, y: center.y - 0.5*oldRect.height)
         rect.pointee = CGRect(origin: newOrigin, size: oldRect.size)
-    }
-    
-    
-    // MARK: - EnableLocationViewControllerDelegate
-    
-    func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
-        guard shouldPromptForLocationAccess else {
-            performDefaultSearchIfNecessary(withRegion: nil)
-            return
-        }
-        guard WMFLocationManager.isAuthorizationNotDetermined() else {
-            UIApplication.shared.wmf_openAppSpecificSystemSettings()
-            return
-        }
-        locationManager.startMonitoringLocation()
     }
     
     // MARK: - ArticlePlaceViewDelegate
