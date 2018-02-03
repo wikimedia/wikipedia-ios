@@ -1,6 +1,7 @@
 import UIKit
 
 typealias EducationPanelButtonTapHandler = ((_ sender: EducationPanelViewController) -> ())
+typealias EducationPanelDismissHandler = ((_ sender: EducationPanelViewController) -> ())
 
 /*
  Education panels typically have the following items, from top to bottom:
@@ -39,10 +40,10 @@ class EducationPanelViewController: UIViewController, Themeable {
     
     var primaryButtonTapHandler: EducationPanelButtonTapHandler?
     var secondaryButtonTapHandler: EducationPanelButtonTapHandler?
-    var dismissHandler: EducationPanelButtonTapHandler?
+    var dismissHandler: EducationPanelDismissHandler?
     var showCloseButton = true
     
-    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelButtonTapHandler?) {
+    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
         super.init(nibName: "EducationPanelView", bundle: nil)
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
@@ -142,7 +143,7 @@ class EducationPanelViewController: UIViewController, Themeable {
 class EducationPopoverPanelViewController: EducationPanelViewController, UIPopoverPresentationControllerDelegate {
     var dismissOnTapOutside = false
     // Note: 'sourceView' is simply used to set 'popoverPresentationController.sourceView'.
-    init(sourceView: UIView, showCloseButton: Bool, dismissOnTapOutside: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelButtonTapHandler?) {
+    init(sourceView: UIView, showCloseButton: Bool, dismissOnTapOutside: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
         super.init(sourceView: sourceView, showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler)
 
         self.dismissOnTapOutside = dismissOnTapOutside
