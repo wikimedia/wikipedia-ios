@@ -251,6 +251,16 @@ public class NavigationBar: SetupView {
         underBarViewHeightConstraint.isActive = false
         underBarView.wmf_addSubviewWithConstraintsToEdges(view)
     }
+    
+    @objc public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard let hitView = super.hitTest(point, with: event) else {
+            return nil
+        }
+        guard hitView.isDescendant(of: self) else {
+            return hitView
+        }
+        return point.y <= visibleHeight ? hitView : nil
+    }
 }
 
 extension NavigationBar: Themeable {
