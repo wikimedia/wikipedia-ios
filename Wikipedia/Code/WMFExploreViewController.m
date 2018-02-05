@@ -2024,7 +2024,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)willUnsaveArticle:(WMFArticle * _Nonnull)article {
     [self.readingListHintController hideHintImmediately];
-    [self.readingListActionSheetController showActionSheetFor:article];
+    [self.readingListActionSheetController showActionSheetFor:article with:self.theme];
 }
 
 #pragma mark - WMFReadingListActionSheetControllerDelegate

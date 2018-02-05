@@ -48,7 +48,7 @@
 "action-share" = "Share";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
-"add-articles-to-reading-list" = "Add $1 $2 to reading list";
+"add-articles-to-reading-list" = "Add $1 to reading list";
 "add-to-reading-list" = "Add to a reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
