@@ -344,7 +344,7 @@ extension ReadingListsViewController: ActionDelegate {
     }
     
     private func entriesCount(for readingLists: [ReadingList]) -> Int {
-        return readingLists.flatMap({ $0.entries?.count }).reduce(0, +)
+        return Int(readingLists.flatMap({ $0.countOfEntries }).reduce(0, +))
     }
     
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
