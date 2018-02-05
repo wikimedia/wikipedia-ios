@@ -213,15 +213,13 @@ public class ReadingListsController: NSObject {
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
-        guard !readingList.isDefaultList else {
-            return
-        }
         guard articles.count > 0 else {
             return
         }
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let existingKeys = Set(readingList.articleKeys)
+        
         for article in articles {
             try article.removeFromDefaultReadingList()
             guard let key = article.key, !existingKeys.contains(key) else {
