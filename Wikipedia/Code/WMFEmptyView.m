@@ -136,8 +136,8 @@
     self.theme = theme;
     self.imageView.tintColor = theme.colors.tertiaryText;
     self.titleLabel.textColor = theme.colors.primaryText;
-    self.messageLabel.textColor = theme.colors.tertiaryText;
-    self.actionLabel.textColor = theme.colors.tertiaryText;
+    self.messageLabel.textColor = theme.colors.secondaryText;
+    self.actionLabel.textColor = theme.colors.secondaryText;
     self.backgroundColor = theme.colors.baseBackground;
     [self setNeedsLayout];
 }
