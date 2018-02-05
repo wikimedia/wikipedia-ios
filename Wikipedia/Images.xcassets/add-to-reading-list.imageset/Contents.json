@@ -2,11 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "group16.png"
-    },
-    {
-      "idiom" : "ipad",
-      "filename" : "group16@2x.png"
+      "filename" : "group16.pdf"
     }
   ],
   "info" : {
