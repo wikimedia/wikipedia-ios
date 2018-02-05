@@ -157,11 +157,11 @@ public class ReadingListsController: NSObject {
             articlesByKey[articleKey] = article
         }
         
-        var readingLists: [Int64: ReadingList]
+        var finalReadingListsByEntryID: [Int64: ReadingList]
         if let readingListsByEntryID = readingListsByEntryID {
-            readingLists = readingListsByEntryID
+            finalReadingListsByEntryID = readingListsByEntryID
         } else {
-            readingLists = [:]
+            finalReadingListsByEntryID = [:]
             var readingListsByReadingListID: [Int64: ReadingList] = [:]
             let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
             localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@", readingListEntries.flatMap { $0.listId } )
@@ -170,7 +170,7 @@ public class ReadingListsController: NSObject {
                 guard let localReadingListID = localReadingList.readingListID?.int64Value else {
                     continue
                 }
-                readingLists[localReadingListID] = localReadingList
+                readingListsByReadingListID[localReadingListID] = localReadingList
             }
             for readingListEntry in readingListEntries {
                 guard let listId = readingListEntry.listId, let readingList = readingListsByReadingListID[listId] else {
@@ -178,12 +178,12 @@ public class ReadingListsController: NSObject {
                     assert(false)
                     continue
                 }
-                readingLists[readingListEntry.id] = readingList
+                finalReadingListsByEntryID[readingListEntry.id] = readingList
             }
         }
         
         for remoteEntry in readingListEntries {
-            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey], let readingList = readingLists[remoteEntry.id] else {
+            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey], let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
                 continue
             }
             guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
@@ -519,18 +519,21 @@ public class ReadingListsController: NSObject {
             var remoteReadingListEntry: APIReadingListEntry?
             if let localReadingListEntryID = localReadingListEntry.readingListEntryID?.int64Value {
                 remoteReadingListEntry = remoteReadingListEntriesByID.removeValue(forKey: localReadingListEntryID)
-                if let remoteReadingListKey = remoteReadingListEntry?.articleKey {
-                    let remoteReadingListEntryForListAndKey = remoteReadingListEntriesByListIDAndArticleKey[localReadingListEntryID]?.removeValue(forKey: remoteReadingListKey)
-                    if let remoteReadingListID = remoteReadingListEntryForListAndKey?.id, remoteReadingListEntry == nil {
-                        remoteReadingListEntry = remoteReadingListEntryForListAndKey
-                        remoteReadingListEntriesByID.removeValue(forKey: remoteReadingListID)
-                    }
+                if let remoteReadingListKey = remoteReadingListEntry?.articleKey, let remoteReadingListID = remoteReadingListEntry?.listId {
+                    remoteReadingListEntriesByListIDAndArticleKey[remoteReadingListID]?.removeValue(forKey: remoteReadingListKey)
+                }
+            }
+            
+            if let localReadingListEntryArticleKey = localReadingListEntry.articleKey, let localReadingListEntryListID = localReadingListEntry.list?.readingListID?.int64Value {
+                let remoteReadingListEntryForListAndKey = remoteReadingListEntriesByListIDAndArticleKey[localReadingListEntryListID]?.removeValue(forKey: localReadingListEntryArticleKey)
+                if let remoteReadingListID = remoteReadingListEntryForListAndKey?.id, remoteReadingListEntry == nil {
+                    remoteReadingListEntry = remoteReadingListEntryForListAndKey
+                    remoteReadingListEntriesByID.removeValue(forKey: remoteReadingListID)
                 }
             }
             
             guard let remoteReadingListEntryForUpdate = remoteReadingListEntry else {
                 DDLogError("Fetch produced a list entry without a matching id or name: \(localReadingListEntry)")
-                assert(false)
                 continue
             }
             
