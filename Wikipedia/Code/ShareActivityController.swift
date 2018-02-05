@@ -59,6 +59,7 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
             shareActivityController.popoverPresentationController?.sourceView = cell ?? view
             shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
         }
+        shareActivityController.excludedActivityTypes = [.addToReadingList]
         present(shareActivityController, animated: true, completion: nil)
         return true
     }
