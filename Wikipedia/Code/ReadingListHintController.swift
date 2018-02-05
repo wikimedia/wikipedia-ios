@@ -129,6 +129,10 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hint.reset()
     }
     
+    @objc func hideHintImmediately() {
+        isHintHidden = true
+    }
+    
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             return

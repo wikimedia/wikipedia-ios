@@ -147,7 +147,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         alert.addAction(sortActions.recentlyAdded)
         alert.addAction(sortActions.title)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { (actions) in
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(cancel)
@@ -417,23 +417,6 @@ extension SavedArticlesViewController: ActionDelegate {
             }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
-//            let shareActivityController: ShareActivityController?
-//            if let article = article(at: indexPath) {
-//                shareActivityController = ShareActivityController(article: article, context: self)
-//            } else if let articleURL =  self.articleURL(at: indexPath) {
-//                shareActivityController = ShareActivityController(articleURL: articleURL, dataStore: dataStore, context: self)
-//            } else {
-//                shareActivityController = nil
-//            }
-//            if let viewController = shareActivityController {
-//                if UIDevice.current.userInterfaceIdiom == .pad {
-//                    let cell = collectionView.cellForItem(at: indexPath)
-//                    viewController.popoverPresentationController?.sourceView = cell ?? view
-//                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
-//                }
-//                present(viewController, animated: true, completion: nil)
-//                return true
-//            }
         }
         return false
     }

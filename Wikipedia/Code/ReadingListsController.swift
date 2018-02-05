@@ -631,3 +631,11 @@ internal extension WMFArticle {
     }
 }
 
+extension WMFArticle {
+    public var isInDefaultList: Bool {
+        guard let readingList = self.readingLists?.first else {
+            return false
+        }
+        return readingList.isDefaultList
+    }
+}

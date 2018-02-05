@@ -2,6 +2,7 @@ import UIKit
 
 @objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
     func didSaveArticle(_ didSave: Bool, article: WMFArticle)
+    func willUnsaveArticle(_ article: WMFArticle)
 }
 
 @objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
@@ -10,6 +11,8 @@ import UIKit
     var visibleArticleKeys = [Int: String]()
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
+    var activeSender: SaveButton?
+    var activeKey: String?
     
     @objc required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -71,6 +74,23 @@ import UIKit
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
+        
+        self.activeKey = key
+        self.activeSender = sender
+        
+        if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
+            delegate?.willUnsaveArticle(articleToUnsave)
+            return // don't unsave immediately, wait for a callback
+        }
+        
+        updateSavedState()
+    }
+    
+    @objc func updateSavedState() {
+        guard let key = activeKey, let sender = activeSender else {
+            return
+        }
+        
         let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
         
         if isSaved {
@@ -81,7 +101,7 @@ import UIKit
             savedPagesFunnel.logDelete()
         }
         if let article = updatedArticle {
-        delegate?.didSaveArticle(isSaved, article: article)
+            delegate?.didSaveArticle(isSaved, article: article)
         }
     }
 }
