@@ -1556,14 +1556,14 @@ static uint64_t bundleHash() {
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
-    if (moc == self.viewContext) {
+    if (moc == _viewContext) { // use ivar to avoid main thread check
         article = [self.articlePreviewCache objectForKey:key];
         if (article) {
             return article;
         }
     }
     article = [moc fetchArticleWithKey:key];
-    if (article && moc == self.viewContext) {
+    if (article && moc == _viewContext) { // use ivar to avoid main thread check
         [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;
