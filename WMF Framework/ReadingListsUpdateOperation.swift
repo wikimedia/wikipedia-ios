@@ -14,22 +14,10 @@ internal class ReadingListsUpdateOperation: ReadingListsOperation {
                                 self.finish()
                             }
                             do {
-                                var sinceDate: Date = Date.distantPast
-                                for list in updatedLists {
-                                    if let date = DateFormatter.wmf_iso8601().date(from: list.updated),
-                                        date.compare(sinceDate) == .orderedDescending {
-                                        sinceDate = date
-                                    }
-                                    
-                                }
-                                
-                                for entry in updatedEntries {
-                                    if let date = DateFormatter.wmf_iso8601().date(from: entry.updated),
-                                        date.compare(sinceDate) == .orderedDescending {
-                                        sinceDate = date
-                                    }
-                                }
-                                
+                                let listSinceDate = try self.readingListsController.createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
+                                let entrySinceDate = try self.readingListsController.createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
+                                let sinceDate: Date = listSinceDate.compare(entrySinceDate) == .orderedAscending ? listSinceDate : entrySinceDate
+
                                 if sinceDate.compare(Date.distantPast) != .orderedSame {
                                     let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
                                     moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
