@@ -147,7 +147,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
         alert.addAction(sortActions.recentlyAdded)
         alert.addAction(sortActions.title)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (actions) in
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { (actions) in
             self.dismiss(animated: true, completion: nil)
         }
         alert.addAction(cancel)

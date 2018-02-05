@@ -39,6 +39,7 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
+"action-cancel" = "Cancel";
 "action-read" = "Read";
 "action-save" = "Save";
 "action-saved" = "Saved";
@@ -48,6 +49,7 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "add-articles-to-reading-list" = "Add $1 $2 to reading list";
+"add-to-reading-list" = "Add to a reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -229,6 +231,7 @@
 "menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
+"move-to-reading-list" = "Move to a reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";
@@ -318,6 +321,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
+"reasing-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
@@ -397,6 +401,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
+"unsave-article" = "Unsave article";
+"unsave-article-and-remove-from-reading-lists" = "Unsave and remove from $1";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";

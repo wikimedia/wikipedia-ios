@@ -39,6 +39,7 @@
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
+"action-cancel" = "Title of the cancel action.";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
@@ -48,6 +49,7 @@
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
+"add-to-reading-list" = "Title of the action that adds a selected article to a reading list";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
@@ -229,6 +231,7 @@
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
+"move-to-reading-list" = "Title of the action that moves a selected article to a reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
@@ -318,6 +321,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Accessibility label for the light theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
+"reasing-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
@@ -397,6 +401,8 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
+"unsave-article" = "Title of the action that unsaves a selected article";
+"unsave-article-and-remove-from-reading-lists" = "Title of the action that unsaves a selected article and removes it from all reading lists";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
 "welcome-exploration-explore-feed-title" = "Title for Explore feed";
