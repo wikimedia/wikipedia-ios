@@ -36,7 +36,7 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
     func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
-        } else if let articleURL = articleURL, let article = dataStore.fetchArticle(with: articleURL)  {
+        } else if let articleURL = articleURL, let article = dataStore.fetchOrCreateArticle(with: articleURL)  {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
         }
         return false
@@ -88,27 +88,27 @@ class ShareActivityController: UIActivityViewController {
     
     private var articleApplicationActivities: [UIActivity] = [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()]
     
-    init(articleURL: URL, dataStore: MWKDataStore, context: AnalyticsContextProviding) {
-        let article = dataStore.fetchArticle(with: articleURL)
-        var items = [Any]()
-        
-        if let article = article {
-            if let title = article.displayTitle {
-                let text = "\"\(title)\" on @Wikipedia"
-                items.append(text)
-            }
-            let tracker = PiwikTracker.sharedInstance()
-            tracker?.wmf_logActionShare(inContext: context, contentType: article)
-        }
-        
-        items.append(articleURL.wmf_URLForTextSharing)
-        
-        if let mapItem = article?.mapItem {
-            items.append(mapItem)
-        }
-        
-        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
-    }
+//    init(articleURL: URL, dataStore: MWKDataStore, context: AnalyticsContextProviding) {
+//        let article = dataStore.fetchArticle(with: articleURL)
+//        var items = [Any]()
+//
+//        if let article = article {
+//            if let title = article.displayTitle {
+//                let text = "\"\(title)\" on @Wikipedia"
+//                items.append(text)
+//            }
+//            let tracker = PiwikTracker.sharedInstance()
+//            tracker?.wmf_logActionShare(inContext: context, contentType: article)
+//        }
+//
+//        items.append(articleURL.wmf_URLForTextSharing)
+//
+//        if let mapItem = article?.mapItem {
+//            items.append(mapItem)
+//        }
+//
+//        super.init(activityItems: items, applicationActivities: articleApplicationActivities)
+//    }
     
     @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivity: UIActivity) {
         let tracker = PiwikTracker.sharedInstance()
