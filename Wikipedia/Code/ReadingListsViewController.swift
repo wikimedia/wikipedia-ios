@@ -31,8 +31,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         
         if let names = readingLists?.flatMap({ $0.name }) {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"name IN %@", names)])
-        } else if articles.count == 1, displayType == .addArticlesToReadingList, let article = articles.first {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"SUBQUERY(articles, $a, $a == %@).@count == 0", article)])
+        } else if displayType == .addArticlesToReadingList {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"isDefault == NO")])
+            if articles.count == 1, let article = articles.first {
+              request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"SUBQUERY(articles, $a, $a == %@).@count == 0", article)])
+            }
         } else {
             request.predicate = basePredicate
         }
