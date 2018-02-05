@@ -91,6 +91,8 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"delete-reading-list-alert-message" = "Your $1 and $2 will be deleted";
+"delete-reading-list-alert-title" = "Delete $1 and all of $2 saved articles?";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -206,6 +208,7 @@
 "languages-wikipedia" = "Wikipedia languages";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
+"lists-count" = "{{PLURAL:$1|$1 list|$1 lists}}";
 "login-forgot-password" = "Forgot your password?";
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
@@ -296,6 +299,7 @@
 "places-show-filter-list-accessibility-label" = "Show search filters";
 "places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
+"possesive-determiner" = "{{PLURAL:$1|its|their}}";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
@@ -313,15 +317,16 @@
 "reading-list-unable-to-remove-entry" = "An unexpected error occured while removing an entry from your reading list. Please try again later.";
 "reading-list-unable-to-update" = "An unexpected error occured while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name $1 was not found. Please make sure you have the correct name.";
+"reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for saved articles";
 "reading-lists-default-list-title" = "Bookmarks";
+"reading-lists-format" = "{{PLURAL:$1|reading list|reading lists}}";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
 "reading-themes-controls-accessibility-light-theme-button" = "Light theme";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia theme";
 "reading-themes-controls-accessibility-text-size-slider" = "Text size slider";
-"reasing-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reference-title" = "Reference $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|Yesterday|$1 days ago}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";

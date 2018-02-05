@@ -348,15 +348,22 @@ extension ReadingListsViewController: ActionDelegate {
     }
     
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
+        let readingListsCount = readingLists.count
         let articlesCount = entriesCount(for: readingLists)
-        let manyArticles = articlesCount > 1
-        let manyReadingLists = readingLists.count > 1
-        let readingListString = manyReadingLists ? "reading lists" : "reading list"
-        let articleString = manyArticles ? "articles" : "article"
-        let title = "Delete \(readingListString) and all of \(manyReadingLists ? "their" : "its") saved articles?"
-        let message = "Your \(readingLists.count) \(readingListString) and \(articlesCount) \(articleString) will be deleted"
         
+        let readingListFormat = WMFLocalizedString("reading-lists-format", value:"{{PLURAL:%1$d|reading list|reading lists}}", comment: "Describes the number of reading lists")
+        let listCountFormat = WMFLocalizedString("lists-count", value:"{{PLURAL:%1$d|%1$d list|%1$d lists}}", comment: "Describes the number of lists - %1$d is replaced with the number of reading lists")
+        let possesiveDeterminerFormat = WMFLocalizedString("possesive-determiner", value:"{{PLURAL:%1$d|its|their}}", comment: "Expresses possession or belonging, e.g., 'reading list and its articles'")
+        
+        let readingListString = String.localizedStringWithFormat(readingListFormat, readingListsCount)
+        let listCountString = String.localizedStringWithFormat(listCountFormat, readingListsCount)
+        let articleCountString = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articlesCount)
+        let possesiveDeterminer = String.localizedStringWithFormat(possesiveDeterminerFormat, readingListsCount)
+        
+        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete %1$@ and all of %2$@ saved articles?", comment: "Title of the altert shown before deleting selected reading lists."), "\(readingListString)", "\(possesiveDeterminer)")
+        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Your %1$@ and %2$@ will be deleted", comment: "Title of the altert shown before deleting selected reading lists."), "\(listCountString)", "\(articleCountString)")
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         return alert
     }
     
@@ -374,10 +381,10 @@ extension ReadingListsViewController: ActionDelegate {
         case .delete:
             if shouldPresentDeletionAlert(for: readingLists) {
                 let alert = createDeletionAlert(for: readingLists)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (action) in
                     alert.dismiss(animated: true, completion: nil)
                 })
-                let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive, handler: { (action) in
                     self.deleteReadingLists(readingLists)
                 })
                 alert.addAction(cancelAction)
