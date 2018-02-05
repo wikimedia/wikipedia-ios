@@ -80,7 +80,7 @@ import UIKit
         
         if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
             delegate?.willUnsaveArticle(articleToUnsave)
-            return // don't unsave immediately, wait for a callback
+            return // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
         }
         
         updateSavedState()
