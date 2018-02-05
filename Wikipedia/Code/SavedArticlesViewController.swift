@@ -42,12 +42,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
         editController.navigationDelegate = self
-        
-        // Keep until we decide whether we need these translations.
-        _ = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
-        _ = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
-        _ = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
-        _ = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
     }
     
     private var isFirstAppearance = true
@@ -253,6 +247,20 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
+    }
+    
+    // MARK: - Clear Saved Articles
+    
+    @objc func clear() {
+        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
+        let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
+        let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
+        let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: clearConfirm, style: .destructive, handler: { (action) in
+            self.dataStore.readingListsController.unsaveAllArticles()
+        }))
+        present(sheet, animated: true, completion: nil)
     }
 }
 

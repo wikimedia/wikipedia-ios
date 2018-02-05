@@ -87,7 +87,9 @@ class SavedViewController: ViewController {
     
     private var isAddButtonHidden: Bool = true {
         didSet {
-            navigationItem.leftBarButtonItem = isAddButtonHidden ? nil : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+            let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
+            let clearButton = UIBarButtonItem(title: clearButtonTitle, style: .plain, target: savedArticlesViewController.self, action: #selector(savedArticlesViewController?.clear))
+            navigationItem.leftBarButtonItem = isAddButtonHidden ? clearButton : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
