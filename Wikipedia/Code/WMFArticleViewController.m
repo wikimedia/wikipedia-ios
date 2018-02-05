@@ -87,7 +87,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingThemesControlsViewControllerDelegate,
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
-                                        WMFArticlePreviewingActionsDelegate>
+                                        WMFArticlePreviewingActionsDelegate,
+                                        WMFReadingListActionSheetControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -146,6 +147,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFReadingListActionSheetController *readingListActionSheetController;
 
 @end
 
@@ -170,6 +172,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleURL = url;
         self.dataStore = dataStore;
         self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
+        self.readingListActionSheetController = [[WMFReadingListActionSheetController alloc] initWithDataStore:dataStore presenter:self];
+        self.readingListActionSheetController.delegate = self;
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
@@ -1276,16 +1280,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UITouch *touch = [event.allTouches.allObjects objectAtIndex:0];
     if (touch.tapCount == 1) {
         [self dismissReadingThemesPopoverIfActive];
-        BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
-        if (isSaved) {
-            [self.savedPagesFunnel logSaveNew];
-            [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
-        } else {
-            [self.savedPagesFunnel logDelete];
-            [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+        WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
+        if (articleToUnsave) {
+            [self.readingListActionSheetController showActionSheetFor:articleToUnsave with:self.theme];
+            return; // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
         }
-        [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
+        [self updateSavedState];
+        [self.readingListHintController didSave:YES articleURL:self.articleURL theme:self.theme];
     } else if (touch.tapCount == 0) {
+        [self.readingListHintController hideHintImmediately];
         WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
         WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
         [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
@@ -1299,6 +1302,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         self.saveToolbarItem.image = [UIImage imageNamed:@"save"];
     }
+}
+
+- (void)updateSavedState {
+    BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
+    if (isSaved) {
+        [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+    } else {
+        [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+    }
+}
+
+#pragma mark - WMFReadingListActionSheetControllerDelegate
+
+- (void)shouldUnsaveWithArticle:(WMFArticle * _Nonnull)article {
+    [self updateSavedState];
 }
 
 #pragma mark - Reading Themes Controls
