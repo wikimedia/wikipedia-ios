@@ -252,14 +252,8 @@ public class NavigationBar: SetupView {
         underBarView.wmf_addSubviewWithConstraintsToEdges(view)
     }
     
-    @objc public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard let hitView = super.hitTest(point, with: event) else {
-            return nil
-        }
-        guard hitView.isDescendant(of: self) else {
-            return hitView
-        }
-        return point.y <= visibleHeight ? hitView : nil
+    @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return point.y <= visibleHeight
     }
 }
 
