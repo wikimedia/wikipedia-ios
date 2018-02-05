@@ -156,8 +156,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             defaultListTag.isHidden = true
         }
         
-        let separatorXPositon = layoutMargins.left - margins.left
-        let separatorWidth = size.width - imageViewDimension * 1.5 - separatorXPositon // size.width when isImageViewHidden?
+        let separatorXPositon: CGFloat = 0
+        let separatorWidth = size.width
 
         if (apply) {
             if (!bottomSeparator.isHidden) {

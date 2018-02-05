@@ -55,11 +55,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
+                            <rect key="frame" x="28" y="6" width="319" height="32"/>
                             <subviews>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="151.5" height="32"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <state key="normal" title="All articles">
                                         <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +75,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
-                                    <rect key="frame" x="187.5" y="0.0" width="187.5" height="44"/>
+                                    <rect key="frame" x="167.5" y="0.0" width="151.5" height="32"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <state key="normal" title="Reading lists">
                                         <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,10 +94,10 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="Oco-6Z-eRG" secondAttribute="bottom" id="Fjx-oT-Be2"/>
-                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" id="Spm-sh-QSJ"/>
-                        <constraint firstAttribute="trailing" secondItem="Oco-6Z-eRG" secondAttribute="trailing" id="UCv-Jz-Qr4"/>
-                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leading" id="vTy-ss-cx0"/>
+                        <constraint firstAttribute="bottom" secondItem="Oco-6Z-eRG" secondAttribute="bottom" constant="6" id="Fjx-oT-Be2"/>
+                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="top" secondItem="MOy-Ht-6zp" secondAttribute="top" constant="6" id="Spm-sh-QSJ"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="Oco-6Z-eRG" secondAttribute="trailing" constant="12" id="UCv-Jz-Qr4"/>
+                        <constraint firstItem="Oco-6Z-eRG" firstAttribute="leading" secondItem="MOy-Ht-6zp" secondAttribute="leadingMargin" constant="12" id="vTy-ss-cx0"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="anm-PF-eyE"/>
                 </view>

@@ -116,8 +116,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
-        let separatorXPositon = layoutMargins.left - margins.left
-        let separatorWidth = (size.width - imageViewDimension * 1.5) - separatorXPositon
+        let separatorXPositon: CGFloat = 0
+        let separatorWidth = size.width
         
         if (apply) {
             if (!bottomSeparator.isHidden) {
