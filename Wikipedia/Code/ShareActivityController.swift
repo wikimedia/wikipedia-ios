@@ -36,8 +36,14 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
     func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
-        } else if let articleURL = articleURL, let article = dataStore.fetchOrCreateArticle(with: articleURL)  {
-            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
+        } else if let articleURL = articleURL {
+            dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (articles) in
+                guard let first = articles.first else {
+                    return
+                }
+                let _ = self.createAndPresentShareActivityController(for: first, at: indexPath, dataStore: dataStore, theme: theme)
+            })
+            return true
         }
         return false
     }
