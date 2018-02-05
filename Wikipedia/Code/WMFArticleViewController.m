@@ -1244,6 +1244,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return;
         } else {
             UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+            vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
             }
@@ -1844,6 +1845,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
                                      UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+                                     shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                      if (shareActivityController) {
                                          NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                          [self.articlePreviewingActionsDelegate shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController
@@ -1859,6 +1861,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
                                          UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+                                         shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                          if (shareActivityController) {
                                              NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
                                              [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
