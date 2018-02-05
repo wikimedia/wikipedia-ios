@@ -15,6 +15,7 @@ extension AddArticlesToReadingListDelegate where Self: EditableCollection {
     }
 }
 
+@objc(WMFAddArticlesToReadingListViewController)
 class AddArticlesToReadingListViewController: UIViewController {
     
     private let dataStore: MWKDataStore
@@ -30,7 +31,7 @@ class AddArticlesToReadingListViewController: UIViewController {
 
     private var theme: Theme
     
-    init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
+    @objc public init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
         self.dataStore = dataStore
         self.articles = articles
         self.theme = theme

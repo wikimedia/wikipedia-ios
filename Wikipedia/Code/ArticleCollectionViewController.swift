@@ -216,23 +216,24 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            let shareActivityController: ShareActivityController?
-            if let article = self.article(at: indexPath) {
-                shareActivityController = ShareActivityController(article: article, context: self)
-            } else if let articleURL =  self.articleURL(at: indexPath) {
-                shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
-            } else {
-                shareActivityController = nil
-            }
-            if let viewController = shareActivityController {
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    let cell = collectionView.cellForItem(at: indexPath)
-                    viewController.popoverPresentationController?.sourceView = cell ?? view
-                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
-                }
-                present(viewController, animated: true, completion: nil)
-                return true
-            }
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+//            let shareActivityController: ShareActivityController?
+//            if let article = self.article(at: indexPath) {
+//                shareActivityController = ShareActivityController(article: article, context: self)
+//            } else if let articleURL =  self.articleURL(at: indexPath) {
+//                shareActivityController = ShareActivityController(articleURL: articleURL, dataStore: dataStore, context: self)
+//            } else {
+//                shareActivityController = nil
+//            }
+//            if let viewController = shareActivityController {
+//                if UIDevice.current.userInterfaceIdiom == .pad {
+//                    let cell = collectionView.cellForItem(at: indexPath)
+//                    viewController.popoverPresentationController?.sourceView = cell ?? view
+//                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+//                }
+//                present(viewController, animated: true, completion: nil)
+//                return true
+//            }
         }
         return false
     }
@@ -266,3 +267,5 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
     }
 }
+
+extension ArticleCollectionViewController: ShareableArticlesProvider {}

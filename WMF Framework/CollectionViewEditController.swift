@@ -80,6 +80,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         longPressGestureRecognizer.require(toFail: panGestureRecognizer)
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(close), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
