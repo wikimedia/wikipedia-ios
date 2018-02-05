@@ -126,8 +126,8 @@ class ReadingListsAPIController: NSObject {
         - listID: The list ID if it was created
         - error: Any error preventing list creation
     */
-    func createList(name: String, description: String, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description]
+    func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let id = result["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
@@ -222,8 +222,8 @@ class ReadingListsAPIController: NSObject {
         - completion: Called after the request completes
         - error: Any error preventing list update
      */
-    func updateList(withListID listID: Int64, name: String, description: String, completion: @escaping (_ error: Error?) -> Swift.Void ) {
-        put(path: "\(listID)", bodyParameters: ["name": name, "description": description]) { (result, response, error) in
+    func updateList(withListID listID: Int64, name: String, description: String?, completion: @escaping (_ error: Error?) -> Swift.Void ) {
+        put(path: "\(listID)", bodyParameters: ["name": name, "description": description ?? ""]) { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return

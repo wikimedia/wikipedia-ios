@@ -23,14 +23,77 @@ internal class ReadingListsUpdateOperation: ReadingListsOperation {
                                     moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
                                 }
                                 
-//                                let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-//                                listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
-//                                let listsToCreateOrUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
-//
+                                let taskGroup = WMFTaskGroup()
+                                let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                                listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
+                                let listsToCreateOrUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
+                                var createdReadingLists: [Int64: ReadingList] = [:]
+                                var updatedReadingLists: [Int64: ReadingList] = [:]
+                                var deletedReadingLists: [Int64: ReadingList] = [:]
+                                for localReadingList in listsToCreateOrUpdate {
+                                    guard let readingListName = localReadingList.name else {
+                                        moc.delete(localReadingList)
+                                        continue
+                                    }
+                                    guard let readingListID = localReadingList.readingListID?.int64Value else {
+                                        taskGroup.enter()
+                                        self.apiController.createList(name: readingListName, description: localReadingList.readingListDescription, completion: { (readingListID, creationError) in
+                                            defer {
+                                                taskGroup.leave()
+                                            }
+                                            guard let readingListID = readingListID else {
+                                                DDLogError("Error creating reading list: \(String(describing: creationError))")
+                                                return
+                                            }
+                                            createdReadingLists[readingListID] = localReadingList
+                                        })
+                                        continue
+                                    }
+                                    if localReadingList.isDeletedLocally {
+                                        taskGroup.enter()
+                                        self.apiController.deleteList(withListID: readingListID, completion: { (deleteError) in
+                                            defer {
+                                                taskGroup.leave()
+                                            }
+                                            guard error == nil else {
+                                                DDLogError("Error deleting reading list: \(String(describing: deleteError))")
+                                                return
+                                            }
+                                            deletedReadingLists[readingListID] = localReadingList
+                                        })
+                                    } else {
+                                        taskGroup.enter()
+                                        self.apiController.updateList(withListID: readingListID, name: readingListName, description: localReadingList.readingListDescription, completion: { (updateError) in
+                                            defer {
+                                                taskGroup.leave()
+                                            }
+                                            guard error == nil else {
+                                                DDLogError("Error deleting reading list: \(String(describing: updateError))")
+                                                return
+                                            }
+                                            updatedReadingLists[readingListID] = localReadingList
+                                        })
+                                    }
+                                }
+                                
+                                taskGroup.wait()
+                                
+                                for (readingListID, localReadingList) in createdReadingLists {
+                                    localReadingList.readingListID = NSNumber(value: readingListID)
+                                    localReadingList.isUpdatedLocally = false
+                                }
+                                
+                                for (_, localReadingList) in updatedReadingLists {
+                                    localReadingList.isUpdatedLocally = false
+                                }
+                                
+                                for (_, localReadingList) in deletedReadingLists {
+                                    moc.delete(localReadingList)
+                                }
 //                                let entriesToCreateOrUpdateFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
 //                                entriesToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
 //                                let entriesToCreateOrUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
-//
+
                                 guard moc.hasChanges else {
                                     return
                                 }
