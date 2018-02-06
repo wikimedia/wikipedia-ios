@@ -37,9 +37,8 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
+            isShowingDefaultList = commonReadingLists.filter { $0.isDefaultList }.count == 0
             subpredicates.append(basePredicate)
-            isShowingDefaultList = false
-            subpredicates.append(NSPredicate(format:"isDefault == NO"))
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
             isShowingDefaultList = true

@@ -221,7 +221,7 @@ public class ReadingListsController: NSObject {
         let existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
-            try article.removeFromDefaultReadingList()
+            //try article.removeFromDefaultReadingList()
             guard let key = article.key, !existingKeys.contains(key) else {
                 continue
             }

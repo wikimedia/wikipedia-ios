@@ -14,7 +14,7 @@ class ReadingListHintViewController: UIViewController {
     
     private var hintButtonTitle: String {
         let articleTitle = article?.displayTitle ?? "article"
-        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Move %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
+        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Add %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
     @IBOutlet weak var hintView: UIView!
