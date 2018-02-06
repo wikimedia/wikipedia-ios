@@ -193,7 +193,9 @@ public class ReadingListsController: NSObject {
             entry.list = readingList
             entry.articleKey = article.key
             entry.displayTitle = article.displayTitle
-            article.savedDate = entry.createdDate as Date?
+            if article.savedDate == nil {
+                article.savedDate = entry.createdDate as Date?
+            }
             readingList.addToArticles(article)
             article.readingListsDidChange()
             readingList.updateCountOfEntries()
@@ -348,7 +350,9 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            article.savedDate = Date()
+            if article.savedDate == nil {
+                article.savedDate = Date()
+            }
             try article.addToDefaultReadingList()
             if moc.hasChanges {
                 try moc.save()
