@@ -359,6 +359,10 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    @objc public func addArticleToDefaultReadingList(_ article: WMFArticle) throws {
+        try article.addToDefaultReadingList()
+    }
+    
     @objc public func unsave(_ article: WMFArticle) {
         assert(Thread.isMainThread)
         do {
