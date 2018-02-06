@@ -44,7 +44,7 @@ class EducationPanelViewController: UIViewController, Themeable {
     var dismissHandler: EducationPanelDismissHandler?
     var showCloseButton = true
     
-    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
         super.init(nibName: "EducationPanelView", bundle: nil)
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
@@ -159,8 +159,8 @@ class EducationPanelViewController: UIViewController, Themeable {
 class EducationPopoverPanelViewController: EducationPanelViewController, UIPopoverPresentationControllerDelegate {
     var dismissOnTapOutside = false
     // Note: 'sourceView' is simply used to set 'popoverPresentationController.sourceView'.
-    override init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
-        super.init(sourceView: sourceView, showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler)
+    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
+        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler)
 
         self.dismissOnTapOutside = showCloseButton // Always enable 'dismissOnTapOutside' if we have a close button.
         self.modalPresentationStyle = .popover
