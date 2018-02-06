@@ -30,7 +30,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDy-Kw-ATH" customClass="WMFAlignedImageButton">
-                            <rect key="frame" x="12" y="15.5" width="78" height="78"/>
+                            <rect key="frame" x="12" y="41.5" width="26" height="26"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" image="add-to-list"/>
                             <connections>
@@ -48,7 +48,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
                     <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q55-Ot-WJE">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q55-Ot-WJE">
                             <rect key="frame" x="12" y="34" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="8fF-21-JIz"/>
@@ -98,7 +98,7 @@
         </view>
     </objects>
     <resources>
-        <image name="add-to-list" width="78" height="78"/>
+        <image name="add-to-list" width="26" height="26"/>
         <image name="chevron-right" width="12" height="21"/>
     </resources>
 </document>
