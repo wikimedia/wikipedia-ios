@@ -6,7 +6,7 @@ import UIKit
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
 
-@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
+@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, LongPressButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
@@ -14,13 +14,10 @@ import UIKit
     let savedPagesFunnel = SavedPagesFunnel()
     var activeSender: SaveButton?
     var activeKey: String?
-    let longPressGestureRecognizer: UILongPressGestureRecognizer
     
     @objc required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        longPressGestureRecognizer = UILongPressGestureRecognizer()
         super.init()
-        self.longPressGestureRecognizer.addTarget(self, action: #selector(saveButtonLongPress(sender:)))
         NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
@@ -37,7 +34,7 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
-        saveButton.addGestureRecognizer(longPressGestureRecognizer)
+        saveButton.longPressDelegate = self
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
@@ -51,7 +48,6 @@ import UIKit
         }
         let tag = key.hash
         saveButton.removeTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
-        saveButton.removeGestureRecognizer(longPressGestureRecognizer)
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.remove(saveButton)
         if saveButtons.count == 0 {
@@ -62,8 +58,9 @@ import UIKit
         }
     }
     
-    @objc func saveButtonLongPress(sender: UILongPressGestureRecognizer) {
-        guard let button = sender.view as? UIButton, let key = visibleArticleKeys[button.tag], let article = dataStore.fetchArticle(withKey: key) else {
+    
+    func longPressButtonDidReceiveLongPress(_ longPressButton: LongPressButton) {
+        guard let key = visibleArticleKeys[longPressButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
             return
         }
         delegate?.showAddArticlesToReadingListViewController(for: article)
