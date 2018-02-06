@@ -37,7 +37,8 @@ class EducationPanelViewController: UIViewController, Themeable {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var scrollViewContainer: UIView!
-    
+    @IBOutlet weak var stackView: UIStackView!
+
     var primaryButtonTapHandler: EducationPanelButtonTapHandler?
     var secondaryButtonTapHandler: EducationPanelButtonTapHandler?
     var dismissHandler: EducationPanelDismissHandler?
@@ -65,6 +66,8 @@ class EducationPanelViewController: UIViewController, Themeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
+        
         reset()
         configureButtonToAutoAdjustFontSize(button: primaryButton)
         configureButtonToAutoAdjustFontSize(button: secondaryButton)
