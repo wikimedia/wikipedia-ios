@@ -32,7 +32,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             isShowingDefaultList = readingLists.filter { $0.isDefaultList }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
-            let commonReadingLists = articles.reduce(Set<ReadingList>()) { $0.intersection($1.readingLists ?? []) }
+            let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
             var subpredicates: [NSPredicate] = []
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
