@@ -335,6 +335,7 @@
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "saved-all-articles-title" = "All articles";
 "saved-clear-all" = "Clear";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Are you sure you want to unsave this article and remove it from {{PLURAL:$1|$1 reading list|$1 reading lists}}?";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-clear-cancel" = "Cancel";
 "saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
@@ -406,8 +407,7 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
-"unsave-article" = "Unsave article";
-"unsave-article-and-remove-from-reading-lists" = "Unsave and remove from $1";
+"unsave-article-and-remove-from-reading-lists" = "Unsave and remove from {{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
