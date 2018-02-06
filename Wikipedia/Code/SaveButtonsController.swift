@@ -58,6 +58,7 @@ import UIKit
         }
     }
     
+
     
     func longPressButtonDidReceiveLongPress(_ longPressButton: LongPressButton) {
         guard let key = visibleArticleKeys[longPressButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
