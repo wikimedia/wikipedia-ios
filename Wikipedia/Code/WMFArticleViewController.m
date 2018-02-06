@@ -1282,7 +1282,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (touch.tapCount == 1) {
         [self dismissReadingThemesPopoverIfActive];
         WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
-        if (articleToUnsave) {
+        if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList) {
             [self.readingListActionSheetController showActionSheetFor:articleToUnsave with:self.theme];
             return; // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
         }
