@@ -12,7 +12,7 @@ protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
 public class ReadingListHintController: NSObject, ReadingListHintViewControllerDelegate {
 
     private let dataStore: MWKDataStore
-    private let presenter: UIViewController
+    private weak var presenter: UIViewController?
     private let hint: ReadingListHintViewController
     private let hintHeight: CGFloat = 50
     private var theme: Theme = Theme.standard
@@ -50,9 +50,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func addHint() {
         hint.apply(theme: theme)
-        presenter.addChildViewController(hint)
+        presenter?.addChildViewController(hint)
         hint.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        presenter.view.addSubview(hint.view)
+        presenter?.view.addSubview(hint.view)
         hint.didMove(toParentViewController: presenter)
     }
     
@@ -95,6 +95,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     private lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
+        guard let presenter = presenter else {
+            return (.zero, .zero)
+        }
         let visible = CGRect(x: 0, y: presenter.view.bounds.height - hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
         let hidden = CGRect(x: 0, y: presenter.view.bounds.height + hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
         return (visible: visible, hidden: hidden)
