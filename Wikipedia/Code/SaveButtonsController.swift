@@ -3,9 +3,10 @@ import UIKit
 @objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
     func didSaveArticle(_ didSave: Bool, article: WMFArticle)
     func willUnsaveArticle(_ article: WMFArticle)
+    func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
 
-@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
+@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, LongPressButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
@@ -33,6 +34,7 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
+        saveButton.longPressDelegate = self
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
@@ -54,6 +56,15 @@ import UIKit
         } else {
             visibleSaveButtons[tag] = saveButtons
         }
+    }
+    
+
+    
+    func longPressButtonDidReceiveLongPress(_ longPressButton: LongPressButton) {
+        guard let key = visibleArticleKeys[longPressButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
+            return
+        }
+        delegate?.showAddArticlesToReadingListViewController(for: article)
     }
     
     fileprivate var updatedArticle: WMFArticle?

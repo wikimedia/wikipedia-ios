@@ -540,7 +540,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIBarButtonItem *)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleSave:event:)];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, 25, 25);
+        [button setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(toggleSave:event:) forControlEvents:UIControlEventTouchUpInside];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleSaveButtonLongPressGestureRecognizer:)];
+        [button addGestureRecognizer:longPress];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
     return _saveToolbarItem;
 }
@@ -1278,30 +1284,25 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Save
 
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
-    UITouch *touch = [event.allTouches.allObjects objectAtIndex:0];
-    if (touch.tapCount == 1) {
-        [self dismissReadingThemesPopoverIfActive];
-        WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
-        if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList) {
-            [self.readingListActionSheetController showActionSheetFor:articleToUnsave with:self.theme];
-            return; // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
-        }
-        [self updateSavedState];
-        [self.readingListHintController didSave:YES articleURL:self.articleURL theme:self.theme];
-    } else if (touch.tapCount == 0) {
-        [self.readingListHintController hideHintImmediately];
-        WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
-        WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
-        [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+    [self dismissReadingThemesPopoverIfActive];
+    WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
+    if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList) {
+        [self.readingListActionSheetController showActionSheetFor:articleToUnsave with:self.theme];
+        return; // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
     }
+    [self updateSavedState];
+    [self.readingListHintController didSave:YES articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
     self.saveToolbarItem.accessibilityLabel = isSaved ? [WMFCommonStrings accessibilitySavedTitle] : [WMFCommonStrings saveTitle];
-    if (isSaved) {
-        self.saveToolbarItem.image = [UIImage imageNamed:@"save-filled"];
-    } else {
-        self.saveToolbarItem.image = [UIImage imageNamed:@"save"];
+    if ([self.saveToolbarItem.customView isKindOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)self.saveToolbarItem.customView;
+        if (isSaved) {
+            [button setImage:[UIImage imageNamed:@"save-filled"] forState:UIControlStateNormal];
+        } else {
+            [button setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -1316,9 +1317,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
+    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    [self.readingListHintController hideHintImmediately];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+}
+
 #pragma mark - WMFReadingListActionSheetControllerDelegate
 
-- (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle * _Nonnull)article {
+- (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self updateSavedState];
 }
 

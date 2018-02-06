@@ -2031,6 +2031,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+- (void)showAddArticlesToReadingListViewControllerFor:(WMFArticle * _Nonnull)article {
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.userStore articles:@[article] theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+}
+
 #pragma mark - WMFReadingListActionSheetControllerDelegate
 
 - (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle * _Nonnull)article {
