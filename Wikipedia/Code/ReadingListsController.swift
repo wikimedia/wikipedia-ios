@@ -291,6 +291,21 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
 //        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
 //        perform(#selector(_sync), with: nil, afterDelay: 0.5)
+
+        do {
+            // For users without syncing enabled, we should immediately delete locally deleted items
+            let listsToDeleteFetchRequest: NSFetchRequest<NSFetchRequestResult> = ReadingList.fetchRequest()
+            listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
+            let listBatchDeleteRequest: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: listsToDeleteFetchRequest)
+            try dataStore.viewContext.execute(listBatchDeleteRequest)
+            
+            let entriesToDeleteFetchRequest: NSFetchRequest<NSFetchRequestResult> = ReadingListEntry.fetchRequest()
+            entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
+            let entryBatchDeleteRequest: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: entriesToDeleteFetchRequest)
+            try dataStore.viewContext.execute(entryBatchDeleteRequest)
+        } catch let error {
+            DDLogError("Error on batch delete \(error)")
+        }
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
