@@ -335,6 +335,7 @@
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -406,7 +407,6 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
-"unsave-article" = "Title of the action that unsaves a selected article";
 "unsave-article-and-remove-from-reading-lists" = "Title of the action that unsaves a selected article and removes it from all reading lists";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";

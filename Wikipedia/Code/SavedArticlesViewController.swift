@@ -196,10 +196,32 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     private func delete(at indexPath: IndexPath) {
-        guard let articleURL = self.articleURL(at: indexPath) else {
+        guard let article = article(at: indexPath) else {
             return
         }
-        dataStore.savedPageList.removeEntry(with: articleURL)
+        
+        let unsaveAction = { (article: WMFArticle) in
+            self.dataStore.readingListsController.unsave(article)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("article-deleted-accessibility-notification", value: "Article deleted", comment: "Notification spoken after user deletes an article from the list."))
+        }
+        guard article.isOnlyInDefaultList else {
+            let title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
+            let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+            let articleKey = article.key
+            alertController.addAction(UIAlertAction(title: CommonStrings.shortUnsaveTitle, style: .destructive, handler: { (alertAction) in
+                // Re-fetch article to ensure it wasn't deleted or modified since the user performed the action and the sheet was shown
+                guard let articleKey = articleKey, let article = self.dataStore.fetchArticle(withKey: articleKey) else {
+                    return
+                }
+                unsaveAction(article)
+            }))
+            alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (cancelAction) in
+                self.collectionView.reloadData()
+            }))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        unsaveAction(article)
     }
     
     // MARK: - Themeable
@@ -382,7 +404,6 @@ extension SavedArticlesViewController: ActionDelegate {
         
         switch action.type {
         case .update:
-            print("Update")
             return false
         case .addToList:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
@@ -409,7 +430,6 @@ extension SavedArticlesViewController: ActionDelegate {
         switch action.type {
         case .delete:
             delete(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("article-deleted-accessibility-notification", value: "Article deleted", comment: "Notification spoken after user deletes an article from the list."))
             return true
         case .save:
             if let articleURL = articleURL(at: indexPath) {

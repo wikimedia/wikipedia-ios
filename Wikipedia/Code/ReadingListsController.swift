@@ -651,4 +651,8 @@ extension WMFArticle {
         }
         return readingLists.filter { $0.isDefaultList }.count > 0
     }
+    
+    public var isOnlyInDefaultList: Bool {
+        return (readingLists ?? []).count == 1 && isInDefaultList
+    }
 }

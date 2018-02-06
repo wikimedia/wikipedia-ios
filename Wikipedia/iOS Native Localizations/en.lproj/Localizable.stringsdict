@@ -186,5 +186,37 @@
 			<string>This year</string>
 		</dict>
 	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Are you sure you want to unsave this article and remove it from %1$d reading list?</string>
+			<key>other</key>
+			<string>Are you sure you want to unsave this article and remove it from %1$d reading lists?</string>
+		</dict>
+	</dict>
+	<key>unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Unsave and remove from %1$d reading list</string>
+			<key>other</key>
+			<string>Unsave and remove from %1$d reading lists</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
