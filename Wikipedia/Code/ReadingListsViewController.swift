@@ -22,21 +22,27 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
     private var displayType: ReadingListsDisplayType = .readingListsTab
-    
+    var isShowingDefaultList = false
     public weak var delegate: ReadingListsViewControllerDelegate?
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         let basePredicate = NSPredicate(format: "isDeletedLocally == NO")
-        
-        if let names = readingLists?.flatMap({ $0.name }) {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"name IN %@", names)])
+        if let readingLists = readingLists, readingLists.count > 0 {
+            isShowingDefaultList = readingLists.filter { $0.isDefaultList }.count > 0
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"isDefault == NO")])
-            if articles.count == 1, let article = articles.first {
-              request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"SUBQUERY(articles, $a, $a == %@).@count == 0", article)])
+            let commonReadingLists = articles.reduce(Set<ReadingList>()) { $0.union($1.readingLists ?? []) }
+            var subpredicates: [NSPredicate] = []
+            if commonReadingLists.count > 0 {
+                subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
+            subpredicates.append(basePredicate)
+            isShowingDefaultList = false
+            subpredicates.append(NSPredicate(format:"isDefault == NO"))
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
+            isShowingDefaultList = true
             request.predicate = basePredicate
         }
         
@@ -171,7 +177,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         isEmpty = true
         for sectionIndex in 0..<sectionCount {
             let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
-            if numberOfItems > 1 {
+            if numberOfItems > (isShowingDefaultList ? 1 : 0) {
                 editController.hasDefaultCell = numberOfItems == 1
                 isEmpty = false
                 break

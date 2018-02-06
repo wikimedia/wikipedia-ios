@@ -16,7 +16,6 @@
         <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingLists" inverseEntity="WMFArticle" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ReadingListEntry" inverseName="list" inverseEntity="ReadingListEntry" syncable="YES"/>
         <fetchIndex name="byNameIndex">
-            <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
             <fetchIndexElement property="canonicalName" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byCreatedDateIndex">
@@ -27,6 +26,10 @@
         </fetchIndex>
         <fetchIndex name="byDeletedLocallyIndex">
             <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byReadingListID">
+            <fetchIndexElement property="readingListID" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
@@ -50,6 +53,9 @@
         <fetchIndex name="byListAndDeletedLocallyIndex">
             <fetchIndexElement property="list" type="Binary" order="ascending"/>
             <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byReadingListEntryID">
+            <fetchIndexElement property="readingListEntryID" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
