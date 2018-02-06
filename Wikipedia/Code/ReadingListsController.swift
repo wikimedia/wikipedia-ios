@@ -223,7 +223,6 @@ public class ReadingListsController: NSObject {
         let existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
-            try article.removeFromDefaultReadingList()
             guard let key = article.key, !existingKeys.contains(key) else {
                 continue
             }
@@ -235,6 +234,7 @@ public class ReadingListsController: NSObject {
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
             readingList.addToArticles(article)
+            try article.removeFromDefaultReadingList()
             article.readingListsDidChange()
         }
         
