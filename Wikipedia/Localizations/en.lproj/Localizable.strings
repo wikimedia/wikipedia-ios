@@ -336,9 +336,10 @@
 "saved-all-articles-title" = "All articles";
 "saved-clear-all" = "Clear";
 "saved-confirm-unsave-article-and-remove-from-reading-lists" = "Are you sure you want to unsave this article and remove it from {{PLURAL:$1|$1 reading list|$1 reading lists}}?";
+"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "Are you sure you want to unsave these articles and remove them from all reading lists?";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
+"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved articles and remove them from all reading lists?";
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-reading-lists-title" = "Reading lists";

@@ -336,6 +336,7 @@
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
 "saved-confirm-unsave-article-and-remove-from-reading-lists" = "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists";
+"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
