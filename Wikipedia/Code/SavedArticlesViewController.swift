@@ -200,7 +200,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return
         }
         
-        delete([article])
+        delete(articles: [article])
     }
     
     private func delete(articles: [WMFArticle]) {
