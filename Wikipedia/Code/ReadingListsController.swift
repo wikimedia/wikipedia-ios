@@ -646,9 +646,9 @@ internal extension WMFArticle {
 
 extension WMFArticle {
     public var isInDefaultList: Bool {
-        guard let readingList = self.readingLists?.first else {
+        guard let readingLists = self.readingLists else {
             return false
         }
-        return readingList.isDefaultList
+        return readingLists.filter { $0.isDefaultList }.count > 0
     }
 }
