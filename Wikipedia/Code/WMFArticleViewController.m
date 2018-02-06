@@ -477,13 +477,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return articleToolbarItems;
 }
 
-- (void)saveButtonLongPressed {
-    [self.readingListHintController hideHintImmediately];
-    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
-    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
-}
-
 - (UIBarButtonItem *)tableOfContentsToolbarItem {
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineVisible:
@@ -1322,6 +1315,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
+}
+
+- (void)saveButtonLongPressed {
+    [self.readingListHintController hideHintImmediately];
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
 #pragma mark - WMFReadingListActionSheetControllerDelegate

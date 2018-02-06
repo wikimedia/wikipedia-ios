@@ -653,14 +653,14 @@ internal extension WMFArticle {
 }
 
 extension WMFArticle {
-    public var isInDefaultList: Bool {
+    @objc public var isInDefaultList: Bool {
         guard let readingLists = self.readingLists else {
             return false
         }
         return readingLists.filter { $0.isDefaultList }.count > 0
     }
     
-    public var isOnlyInDefaultList: Bool {
+    @objc public var isOnlyInDefaultList: Bool {
         return (readingLists ?? []).count == 1 && isInDefaultList
     }
 }
