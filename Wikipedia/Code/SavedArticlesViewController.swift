@@ -200,20 +200,32 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return
         }
         
-        let unsaveAction = { (article: WMFArticle) in
-            self.dataStore.readingListsController.unsave(article)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("article-deleted-accessibility-notification", value: "Article deleted", comment: "Notification spoken after user deletes an article from the list."))
+        delete([article])
+    }
+    
+    private func delete(articles: [WMFArticle]) {
+        let unsaveAction = { (articles: [WMFArticle]) in
+            for article in articles {
+                self.dataStore.readingListsController.unsave(article)
+            }
+            let accessibilityNotification = String.localizedStringWithFormat(WMFLocalizedString("article-deleted-accessibility-notification", value: "{{PLURAL:%1$d|artice|articles}} deleted", comment: "Notification spoken after user deletes an article from the list."),  articles.count)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, accessibilityNotification)
         }
-        guard article.isOnlyInDefaultList else {
-            let title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
+        
+        let allArticlesAreOnlyInTheDefaultList = articles.filter { $0.isOnlyInDefaultList }.count == articles.count
+        guard allArticlesAreOnlyInTheDefaultList else {
+            let title: String
+            if articles.count == 1, let article = articles.first {
+                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
+            } else {
+                title = WMFLocalizedString("saved-confirm-unsave-articles-and-remove-from-reading-lists", value: "Are you sure you want to unsave these articles and remove them from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists")
+            }
             let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-            let articleKey = article.key
+            let articleKeys = articles.flatMap { $0.key }
             alertController.addAction(UIAlertAction(title: CommonStrings.shortUnsaveTitle, style: .destructive, handler: { (alertAction) in
-                // Re-fetch article to ensure it wasn't deleted or modified since the user performed the action and the sheet was shown
-                guard let articleKey = articleKey, let article = self.dataStore.fetchArticle(withKey: articleKey) else {
-                    return
-                }
-                unsaveAction(article)
+                // Re-fetch articles to ensure they weren't deleted or modified since the user performed the action and the sheet was shown
+                let articles = articleKeys.flatMap { self.dataStore.fetchArticle(withKey: $0) }
+                unsaveAction(articles)
             }))
             alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (cancelAction) in
                 self.collectionView.reloadData()
@@ -221,8 +233,10 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             present(alertController, animated: true, completion: nil)
             return
         }
-        unsaveAction(article)
+        unsaveAction(articles)
     }
+    
+    
     
     // MARK: - Themeable
     
@@ -274,7 +288,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Clear Saved Articles
     
     @objc func clear() {
-        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved pages?", comment: "Heading text of delete all confirmation dialog")
+        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved articles and remove them from all reading lists?", comment: "Heading text of delete all confirmation dialog")
         let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
         let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
         let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
@@ -399,7 +413,6 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         }
         
-        let articleURLs = selectedIndexPaths.flatMap({ articleURL(at: $0) })
         let articles = selectedIndexPaths.flatMap({ article(at: $0) })
         
         switch action.type {
@@ -411,8 +424,7 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            dataStore.savedPageList.removeEntries(with: articleURLs)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+            delete(articles: articles)
             return true
         default:
             break
