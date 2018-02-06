@@ -31,25 +31,35 @@
                     <rect key="frame" x="0.0" y="0.0" width="298" height="529"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                            <rect key="frame" x="0.0" y="0.0" width="298" height="492"/>
+                            <rect key="frame" x="0.0" y="0.0" width="298" height="474"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                    <rect key="frame" x="15" y="30" width="268" height="440"/>
+                                    <rect key="frame" x="15" y="16" width="268" height="440"/>
                                     <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                                            <rect key="frame" x="0.0" y="0.0" width="268" height="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="15" id="Zfm-Kv-h00"/>
+                                            </constraints>
+                                            <state key="normal" image="places-auth-close"/>
+                                            <connections>
+                                                <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
+                                            </connections>
+                                        </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
-                                            <rect key="frame" x="0.0" y="0.0" width="268" height="95"/>
+                                            <rect key="frame" x="0.0" y="29" width="268" height="95"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="999" constant="95" id="jWo-IS-JDh"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                                            <rect key="frame" x="0.0" y="109" width="268" height="64.5"/>
+                                            <rect key="frame" x="0.0" y="138" width="268" height="64.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ka1-Ou-kwY">
-                                            <rect key="frame" x="0.0" y="187.5" width="268" height="100.5"/>
+                                            <rect key="frame" x="0.0" y="216.5" width="268" height="71.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -111,9 +121,9 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="zdf-Q2-cLc" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" constant="15" id="7CU-RZ-a8R"/>
-                                <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="30" id="WBN-Oz-gDa"/>
+                                <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="16" id="WBN-Oz-gDa"/>
                                 <constraint firstAttribute="trailing" secondItem="zdf-Q2-cLc" secondAttribute="trailing" constant="15" id="crP-8H-B4A"/>
-                                <constraint firstAttribute="bottom" secondItem="zdf-Q2-cLc" secondAttribute="bottom" constant="22" id="rCR-qx-yj8"/>
+                                <constraint firstAttribute="bottom" secondItem="zdf-Q2-cLc" secondAttribute="bottom" constant="18" id="rCR-qx-yj8"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -135,23 +145,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                    <rect key="frame" x="248" y="0.0" width="50" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Sdf-yO-Ff8"/>
-                        <constraint firstAttribute="width" constant="50" id="ZN1-B8-whI"/>
-                    </constraints>
-                    <state key="normal" image="places-auth-close"/>
-                    <connections>
-                        <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="TVf-Ig-SJ2"/>
-                <constraint firstAttribute="trailing" secondItem="BAe-h0-y6b" secondAttribute="trailing" id="U7J-yB-Jjh"/>
                 <constraint firstItem="e3o-Ht-LDd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UeS-iT-rjM"/>
-                <constraint firstItem="BAe-h0-y6b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YNu-4c-tO5"/>
                 <constraint firstAttribute="bottom" secondItem="e3o-Ht-LDd" secondAttribute="bottom" id="hq6-cj-fb0"/>
                 <constraint firstItem="e3o-Ht-LDd" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="lT0-Lh-2h2"/>
             </constraints>

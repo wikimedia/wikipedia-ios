@@ -96,9 +96,22 @@ class EducationPanelViewController: UIViewController, Themeable {
         super.viewWillAppear(animated)
     }
     
-    fileprivate func adjustStackViewSubviewsVisibility() {
-        // Collapse stack view cell for image if no image.
-        imageView.isHidden = (imageView.image == nil)
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        adjustImageViewVisibility(for: newCollection.verticalSizeClass)
+        // Calls to 'setNeedsLayout' and 'layoutIfNeeded' required to ensure changes made in 'adjustImageViewVisibility' are
+        // reflected correctly on rotation.
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+    }
+    
+    func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
+        imageView.isHidden = (imageView.image == nil || verticalSizeClass == .compact)
+    }
+    
+    func adjustStackViewSubviewsVisibility() {
+        // Collapse stack view cell for image if no image or compact vertical size class.
+        adjustImageViewVisibility(for: traitCollection.verticalSizeClass)
         // Collapse stack view cells for labels/buttons if no text.
         titleLabel.isHidden = !titleLabel.wmf_hasAnyNonWhitespaceText
         subtitleLabel.isHidden = !subtitleLabel.wmf_hasAnyNonWhitespaceText
