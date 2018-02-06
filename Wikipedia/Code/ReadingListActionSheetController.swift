@@ -5,7 +5,7 @@
 @objc (WMFReadingListActionSheetController)
 public class ReadingListActionSheetController: NSObject {
     private let dataStore: MWKDataStore
-    private let presenter: UIViewController
+    private weak var presenter: UIViewController?
     @objc public weak var delegate: WMFReadingListActionSheetControllerDelegate?
     
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
@@ -21,17 +21,15 @@ public class ReadingListActionSheetController: NSObject {
         
         let readingListAction = UIAlertAction(title: readingListActionTitle, style: .default) { (action) in
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: theme)
-            self.presenter.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            self.presenter?.present(addArticlesToReadingListViewController, animated: true, completion: nil)
         }
         let unsaveAction = UIAlertAction(title: unsaveActionTitle, style: .destructive) { (actions) in
             self.delegate?.shouldUnsave(article: article)
         }
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { (actions) in
-            self.presenter.dismiss(animated: true, completion: nil)
-        }
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alert.addAction(readingListAction)
         alert.addAction(unsaveAction)
         alert.addAction(cancel)
-        presenter.present(alert, animated: true, completion: nil)
+        presenter?.present(alert, animated: true, completion: nil)
     }
 }
