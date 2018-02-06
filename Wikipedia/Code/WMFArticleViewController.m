@@ -1318,7 +1318,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFReadingListActionSheetControllerDelegate
 
-- (void)shouldUnsaveWithArticle:(WMFArticle * _Nonnull)article {
+- (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle * _Nonnull)article {
     [self updateSavedState];
 }
 

@@ -1,5 +1,5 @@
 @objc public protocol WMFReadingListActionSheetControllerDelegate: NSObjectProtocol {
-    func shouldUnsave(article: WMFArticle)
+    func readingListActionSheetController(_ readingListActionSheetController: ReadingListActionSheetController, didSelectUnsaveForArticle: WMFArticle)
 }
 
 @objc (WMFReadingListActionSheetController)
@@ -24,7 +24,7 @@ public class ReadingListActionSheetController: NSObject {
             self.presenter?.present(addArticlesToReadingListViewController, animated: true, completion: nil)
         }
         let unsaveAction = UIAlertAction(title: unsaveActionTitle, style: .destructive) { (actions) in
-            self.delegate?.shouldUnsave(article: article)
+            self.delegate?.readingListActionSheetController(self, didSelectUnsaveForArticle: article)
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alert.addAction(readingListAction)
