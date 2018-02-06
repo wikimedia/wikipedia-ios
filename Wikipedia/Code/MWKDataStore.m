@@ -557,12 +557,16 @@ static uint64_t bundleHash() {
                 return;
             }
 
+            NSError *addError = nil;
             while (results.count > 0) {
                 for (WMFArticle *article in results) {
-                    ReadingListEntry *entry = [NSEntityDescription insertNewObjectForEntityForName:@"ReadingListEntry" inManagedObjectContext:moc];
-                    entry.articleKey = article.key;
-                    entry.displayTitle = article.displayTitle;
-                    entry.list = defaultReadingList;
+                    [self.readingListsController addArticleToDefaultReadingList:article error:&addError];
+                    if (addError) {
+                        break;
+                    }
+                }
+                if (addError) {
+                    break;
                 }
                 if (![moc save:&migrationSaveError]) {
                     DDLogError(@"Error saving during migration: %@", migrationSaveError);
@@ -579,7 +583,11 @@ static uint64_t bundleHash() {
                 }
             }
 
-            [moc wmf_setValue:@(3) forKey:key];
+            if (addError) {
+                DDLogError(@"Error adding to default reading list: %@", addError);
+            } else {
+                [moc wmf_setValue:@(3) forKey:key];
+            }
 
             if (![moc save:&migrationSaveError]) {
                 DDLogError(@"Error saving during migration: %@", migrationSaveError);
