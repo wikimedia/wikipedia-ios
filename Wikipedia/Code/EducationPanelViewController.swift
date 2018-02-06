@@ -156,10 +156,10 @@ class EducationPanelViewController: UIViewController, Themeable {
 class EducationPopoverPanelViewController: EducationPanelViewController, UIPopoverPresentationControllerDelegate {
     var dismissOnTapOutside = false
     // Note: 'sourceView' is simply used to set 'popoverPresentationController.sourceView'.
-    init(sourceView: UIView, showCloseButton: Bool, dismissOnTapOutside: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
+    override init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
         super.init(sourceView: sourceView, showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler)
 
-        self.dismissOnTapOutside = dismissOnTapOutside
+        self.dismissOnTapOutside = showCloseButton // Always enable 'dismissOnTapOutside' if we have a close button.
         self.modalPresentationStyle = .popover
         self.popoverPresentationController?.delegate = self
         self.popoverPresentationController?.sourceView = sourceView

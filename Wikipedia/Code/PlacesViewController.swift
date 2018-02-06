@@ -1341,7 +1341,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
         
-        let enableLocationPanelVC = EnableLocationPanelViewController(sourceView: view, showCloseButton: true, dismissOnTapOutside: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
+        let enableLocationPanelVC = EnableLocationPanelViewController(sourceView: view, showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
         
         enableLocationPanelVC.apply(theme: theme)
         present(enableLocationPanelVC, animated: true, completion: nil)
