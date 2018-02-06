@@ -544,7 +544,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         button.frame = CGRectMake(0, 0, 25, 25);
         [button setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(toggleSave:event:) forControlEvents:UIControlEventTouchUpInside];
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(saveButtonLongPressed)];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleSaveButtonLongPressGestureRecognizer:)];
         [button addGestureRecognizer:longPress];
         _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     }
@@ -1317,7 +1317,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
-- (void)saveButtonLongPressed {
+- (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {
+    if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
     [self.readingListHintController hideHintImmediately];
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
