@@ -404,23 +404,26 @@ public class ReadingListsController: NSObject {
             dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: isSyncEnabledKey)
             if newValue {
                 apiController.setupReadingLists(completion: { (error) in
-                    if let error = error {
-                        DDLogError("Error enabling sync: \(error)")
-                        DispatchQueue.main.async {
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            DDLogError("Error enabling sync: \(error)")
                             self.dataStore.viewContext.wmf_setValue(NSNumber(value: false), forKey: self.isSyncEnabledKey)
+                        } else {
+                            self.sync()
                         }
-                        return
                     }
                 })
             } else {
                 apiController.teardownReadingLists(completion: { (error) in
-                    if let error = error {
-                        DDLogError("Error disabling sync: \(error)")
                         DispatchQueue.main.async {
-                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
+                            if let error = error {
+                                DDLogError("Error disabling sync: \(error)")
+                                self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
+                                
+                            } else {
+                                self.sync()
+                            }
                         }
-                        return
-                    }
                 })
             }
         }
