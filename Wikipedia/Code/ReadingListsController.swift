@@ -267,6 +267,10 @@ public class ReadingListsController: NSObject {
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
         for remoteEntry in readingListEntries {
+            let isDeleted = remoteEntry.deleted ?? false
+            guard !isDeleted else {
+                continue
+            }
             guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey else {
                 continue
             }
@@ -467,7 +471,7 @@ public class ReadingListsController: NSObject {
     @objc private func update() {
         assert(Thread.isMainThread)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
-        perform(#selector(_update), with: nil, afterDelay: 5)
+        perform(#selector(_update), with: nil, afterDelay: 0.5)
     }
     
     @objc private func _sync() {
@@ -483,7 +487,7 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-        perform(#selector(_sync), with: nil, afterDelay: 5)
+        perform(#selector(_sync), with: nil, afterDelay: 0.5)
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
@@ -677,6 +681,10 @@ public class ReadingListsController: NSObject {
         
         // create any list that wasn't matched by ID or name
         for (_, remoteReadingList) in remoteReadingListsByID {
+            let isDeleted = remoteReadingList.deleted ?? false
+            guard !isDeleted else {
+                continue
+            }
             guard let localList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
                 continue
             }
@@ -703,7 +711,7 @@ public class ReadingListsController: NSObject {
                 assert(false)
                 continue
             }
-            
+
             remoteReadingListEntriesByID[remoteReadingListEntry.id] = remoteReadingListEntry
             allArticleKeys.insert(articleKey)
             remoteReadingListEntriesByListIDAndArticleKey[listID, default: [:]][articleKey] = remoteReadingListEntry
