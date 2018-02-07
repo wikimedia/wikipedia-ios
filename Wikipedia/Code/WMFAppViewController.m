@@ -562,9 +562,11 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+        [self.dataStore.readingListsController start];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+            [self.dataStore.readingListsController start];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
@@ -637,6 +639,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    [self.dataStore.readingListsController stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];

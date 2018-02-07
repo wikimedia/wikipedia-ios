@@ -46,6 +46,7 @@ public class ReadingListsController: NSObject {
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     private let operationQueue = OperationQueue()
+    private var updateTimer: Timer?
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -79,7 +80,7 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
-        sync()
+        update()
         
         return list
     }
@@ -351,7 +352,7 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
-        sync()
+        update()
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
@@ -383,7 +384,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        sync()
+        update()
     }
 
 
@@ -421,16 +422,36 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    
-    @objc func _sync() {
-//        let sync = ReadingListsSyncOperation(readingListsController: self)
-//        operationQueue.addOperation(sync)
-        //        let update = ReadingListsUpdateOperation(readingListsController: self)
-        //        operationQueue.addOperation(update)
+    @objc public func start() {
+        assert(Thread.isMainThread)
+        updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        sync()
     }
     
-    private func sync() {
+    @objc public func stop() {
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+    
+    @objc private func _update() {
+//        let update = ReadingListsUpdateOperation(readingListsController: self)
+//        operationQueue.addOperation(update)
+    }
+    
+    @objc private func update() {
         assert(Thread.isMainThread)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
+        perform(#selector(_update), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc private func _sync() {
+//        let sync = ReadingListsSyncOperation(readingListsController: self)
+//        operationQueue.addOperation(sync)
+    }
+    
+    @objc private func sync() {
+        assert(Thread.isMainThread)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
         perform(#selector(_sync), with: nil, afterDelay: 0.5)
     }
@@ -458,7 +479,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        sync()
+        update()
     }
     
     public func remove(entries: [ReadingListEntry]) throws {
@@ -468,7 +489,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        sync()
+        update()
     }
     
     @objc public func save(_ article: WMFArticle) {
@@ -482,7 +503,7 @@ public class ReadingListsController: NSObject {
             if moc.hasChanges {
                 try moc.save()
             }
-            sync()
+            update()
         } catch let error {
             DDLogError("Error adding article to default list: \(error)")
         }
@@ -523,7 +544,7 @@ public class ReadingListsController: NSObject {
             if moc.hasChanges {
                 try moc.save()
             }
-            sync()
+            update()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
         }
@@ -546,7 +567,7 @@ public class ReadingListsController: NSObject {
                 }
                 savedArticles = try moc.fetch(savedArticlesFetchRequest)
             }
-            sync()
+            update()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
         }

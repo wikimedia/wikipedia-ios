@@ -16,7 +16,7 @@ internal class ReadingListsUpdateOperation: ReadingListsOperation {
                             do {
                                 let listSinceDate = try self.readingListsController.createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
                                 let entrySinceDate = try self.readingListsController.createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
-                                let sinceDate: Date = listSinceDate.compare(entrySinceDate) == .orderedAscending ? listSinceDate : entrySinceDate
+                                let sinceDate: Date = listSinceDate.compare(entrySinceDate) == .orderedDescending ? listSinceDate : entrySinceDate
 
                                 if sinceDate.compare(Date.distantPast) != .orderedSame {
                                     let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
