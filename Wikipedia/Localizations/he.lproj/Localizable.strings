@@ -311,6 +311,7 @@
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
 "rank-accessibility-label" = "מספר $1";
 "readers-accessibility-label" = "$1 קוראים";
+"reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";
 "reading-themes-controls-accessibility-light-theme-button" = "ערכת נושא בהירה";
@@ -338,8 +339,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
-// Fuzzy
-"settings-appearance" = "מראה";
+"settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
@@ -379,6 +379,7 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
 "theme-sepia-display-name" = "ספיה";

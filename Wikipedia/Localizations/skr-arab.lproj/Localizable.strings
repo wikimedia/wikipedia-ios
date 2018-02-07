@@ -24,6 +24,7 @@
 "announcements-dismiss" = "مکاؤ";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";
 "article-delete" = "مٹاؤ";
+"article-deleted-accessibility-notification" = "مضمون مٹ ڳیا";
 "article-languages-filter-placeholder" = "زبان ڳولو";
 "article-languages-label" = "زبان چݨو";
 "article-languages-others" = "ٻیاں زباناں";
@@ -85,8 +86,12 @@
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";
 "in-the-news-notification-read-now-action-title" = "ہُݨ پڑھو";
 "in-the-news-notification-share-action-title" = "شیئر";
+"in-the-news-title" = "خبراں وچ";
 "info-box-close-text" = "بند کرو";
 "languages-title" = "زبان وٹاؤ";
+"license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
+"login-join-wikipedia" = "وکی پیڈیا جائن کرو۔";
+"login-no-account" = "تہاݙا کھاتہ کائنی؟$1";
 "main-menu-account-login" = "لاگ ان تھیوو";
 "main-menu-account-logout" = "لاگ آؤٹ";
 "main-menu-account-logout-cancel" = "منسوخ";
@@ -108,6 +113,7 @@
 "on-this-day-title" = "ایں ݙینہ کوں";
 "onboarding-wikipedia" = "وکیپیڈیا";
 "open-link-cancel" = "منسوخ";
+"places-accessibility-group" = "$1 مضمون";
 "places-search-saved-articles" = "سارے محفوظ مضمون";
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";

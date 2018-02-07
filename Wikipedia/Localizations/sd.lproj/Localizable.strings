@@ -42,7 +42,7 @@
 "account-creation-have-account" = "اڳ ئي کاتو رکو ٿا؟ $1";
 "account-creation-log-in" = "داخل ٿيو.";
 "account-creation-logging-in" = "داخل ٿيندي...";
-"account-creation-missing-fields" = "توھان کي کاتو کولڻ لاءِ ھڪ يوزرنانءُ، ڳجھولفظ، ۽ ڳجھي لفظ جي پڪ ضرور هجڻ گھرجي.";
+"account-creation-missing-fields" = "توھان کي کاتو کولڻ لاءِ ھڪ واپرائيندڙ-نانءُ، ڳجھولفظ، ۽ ڳجھي-لفظ جي پڪ ضرور هجڻ گھرجي.";
 "account-creation-passwords-mismatched" = "ڳجھي لفظ جون جڳھون مشابھت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-title" = "نئون کاتو کوليو";

@@ -12,15 +12,22 @@
 // Author: Protnet
 // Author: Stam.nikos
 
+"about-content-license" = "Άδεια περιεχομένου";
+"about-content-license-details" = "Όλα τα κείμενα είναι διαθέσιμα υπό την $1· μπορεί να ισχύουν και πρόσθετοι όροι";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-contributors" = "Συνεισφέροντες";
 "about-libraries" = "Βιβλιοθήκες που χρησιμοποιούνται";
 "about-libraries-complete-list" = "Ολοκληρωμένη λίστα";
 "about-libraries-license" = "Άδεια";
 "about-libraries-licenses-title" = "Αγαπάμε το λογισμικό ανοιχτής πηγής $1";
+"about-product-of" = "Δημιουργήθηκε από την $1 με τη βοήθεια εθελοντών όπως εσείς";
 "about-repositories-app-source-license-mit" = "Άδεια MIT";
 "about-title" = "Σχετικά";
+"about-translators" = "Μεταφραστές";
+"about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
 "about-wikimedia-foundation" = "Ίδρυμα Wikimedia";
 "about-wikipedia" = "Βικιπαίδεια";
+"abuse-filter-disallow-heading" = "Δεν μπορείτε να αποθηκεύσετε αυτή την επεξεργασία. Παρακαλούμε πηγαίνετε πίσω και αλλάξτε την.";
 "account-creation-captcha-request-account" = "Αίτημα λογαριασμού.";
 "account-creation-create-account" = "Δημιουργία λογαριασμού χρήστη";
 "account-creation-log-in" = "Σύνδεση.";
@@ -34,6 +41,8 @@
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
+"alert-no-internet" = "Δεν υπάρχει σύνδεση στο διαδίκτυο";
+"announcements-dismiss" = "Απόρριψη";
 "article-about-title" = "Σχετικά με αυτό το άρθρο";
 "article-delete" = "Διαγραφή";
 "article-deleted-accessibility-notification" = "Το άρθρο διαγράφηκε";
@@ -87,8 +96,7 @@
 "history-title" = "Ιστορικό";
 "hockeyapp-alert-privacy" = "Απόρρητο $1";
 "info-box-close-text" = "Κλείσιμο";
-// Fuzzy
-"info-box-title" = "Γρήγορες πληροφορίες";
+"info-box-title" = "Γρήγορες Πληροφορίες";
 "languages-title" = "Αλλαγή γλώσσας";
 "license-footer-name" = "CC BY-SA 3.0";
 "login-forgot-password" = "Ξεχάσατε τον κωδικό σας;";
@@ -125,14 +133,11 @@
 "search-title" = "Αναζήτηση";
 "settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
-// Fuzzy
-"share-custom-menu-item" = "Κοινοποίηση";
+"share-custom-menu-item" = "Κοινοποίηση...";
 "share-on-twitter-sign-off" = "μέσω @Wikipedia";
-// Fuzzy
-"table-of-contents-button-label" = "Πίνακας Περιεχομένων";
+"table-of-contents-button-label" = "Πίνακας περιεχομένων";
 "table-of-contents-close-accessibility-hint" = "Κλείσιμο";
-// Fuzzy
-"table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα Περιεχομένων";
+"table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα περιεχομένων";
 "table-of-contents-heading" = "Περιεχόμενα";
 "table-title-other" = "Περισσότερες πληροφορίες";
 "two-factor-login-with-regular-code" = "Χρησιμοποίησε κωδικό επαλήθευσης";
