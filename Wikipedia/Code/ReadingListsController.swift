@@ -422,9 +422,31 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    private func processUpdatesForUserWithSyncDisabled() {
+        do {
+            let moc = dataStore.viewContext
+            // For users without syncing enabled, we should immediately delete locally deleted items
+            let listsToDeleteFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+            listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
+            let listsToDelete = try moc.fetch(listsToDeleteFetchRequest)
+            for list in listsToDelete {
+                moc.delete(list)
+            }
+            
+            let entriesToDeleteFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+            entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
+            let entriesToDelete = try moc.fetch(entriesToDeleteFetchRequest)
+            for entry in entriesToDelete {
+                moc.delete(entry)
+            }
+        } catch let error {
+            DDLogError("Error on batch delete \(error)")
+        }
+    }
+    
     @objc public func start() {
         assert(Thread.isMainThread)
-        updateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         sync()
     }
     
@@ -434,26 +456,34 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _update() {
-        let update = ReadingListsUpdateOperation(readingListsController: self)
-        operationQueue.addOperation(update)
+        if isSyncEnabled {
+            let update = ReadingListsUpdateOperation(readingListsController: self)
+            operationQueue.addOperation(update)
+        } else {
+            processUpdatesForUserWithSyncDisabled()
+        }
     }
     
     @objc private func update() {
         assert(Thread.isMainThread)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
-        perform(#selector(_update), with: nil, afterDelay: 0.5)
+        perform(#selector(_update), with: nil, afterDelay: 5)
     }
     
     @objc private func _sync() {
-        let sync = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(sync)
+        if isSyncEnabled {
+            let sync = ReadingListsSyncOperation(readingListsController: self)
+            operationQueue.addOperation(sync)
+        } else {
+            processUpdatesForUserWithSyncDisabled()
+        }
     }
     
     @objc private func sync() {
         assert(Thread.isMainThread)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-        perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        perform(#selector(_sync), with: nil, afterDelay: 5)
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
