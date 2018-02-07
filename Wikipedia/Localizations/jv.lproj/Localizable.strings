@@ -323,8 +323,7 @@
 "search-recent-title" = "Mentas digolèki";
 "search-result-redirected-from" = "Dilih saka: $1";
 "search-title" = "Golèk";
-// Fuzzy
-"settings-appearance" = "Cakrik";
+"settings-appearance" = "Pepilihaning wewacan";
 "settings-clear-cache" = "Resiki dhata ing telih";
 "settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké $1 ruwang. Tumindak iki ora bakal mbusak kaca simpenané panjenengan.";
 "settings-clear-cache-are-you-sure-title" = "Resiki dhata ing telih?";
@@ -390,8 +389,7 @@
 "welcome-notifications-tell-me-more-storage" = "Pilalan wara-wara disimpen ing piranti lan ora adhedhasar katerangan utawa kagiyatan priangga.";
 "welcome-notifications-tell-me-more-title" = "Candhaké ngenani wara-wara";
 "welcome-send-data-helps-title" = "Éwangi supaya aplikasiné dadi luwih becik";
-// Fuzzy
-"welcome-send-data-sub-title" = "Éwangi Yeyasan Wikimedia ngapiki aplikasiné kanthi ngolèhaké awak dhéwé ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
+"welcome-send-data-sub-title" = "Éwangi ngapiki aplikasiné kanthi ngolèhaké Yeyasan Wikimedia ngertèni olèhé panjenengan nganggo aplikasiné. Dhata sing kalumpukaké bakal anonim.";
 "welcome-volunteer-send-usage-reports" = "Ngirim laporan panggunan";
 "wikitext-download-failed" = "Iso diwenehi vèrsi.";
 "wikitext-download-success" = "Isi dimot.";

@@ -108,7 +108,6 @@
 "main-menu-nearby" = "Паблізу";
 "main-menu-privacy-policy" = "Правілы адносна прыватнасьці";
 "main-menu-rate-app" = "Ацаніць праграму";
-// Fuzzy
 "main-menu-terms-of-use" = "Умовы выкарыстаньня";
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
@@ -134,12 +133,10 @@
 "page-similar-titles" = "Падобныя старонкі";
 "potd-description-prefix" = "Выява дня за $1";
 "potd-empty-error-description" = "Выява дня за $1 не была атрыманая";
-// Fuzzy
-"preference-summary-eventlogging-opt-in" = "Дазволіць Вікімэдыя зьбіраць інфармацыю пра тое, як Вы выкарыстоўваеце праграму, каб палепшыць яе";
+"preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
 "preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-clear-cancel" = "Скасаваць";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Выдаліць усе захаваныя элемэнты?";
+"saved-pages-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя захаваныя старонкі?";
 // Fuzzy
 "saved-pages-clear-delete-all" = "Выдаліць усе";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
