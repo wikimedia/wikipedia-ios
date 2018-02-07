@@ -117,7 +117,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
 
-            let actionsViewWidth = abs(swipeTranslation)
+            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
