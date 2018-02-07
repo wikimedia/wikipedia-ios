@@ -434,8 +434,8 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _update() {
-//        let update = ReadingListsUpdateOperation(readingListsController: self)
-//        operationQueue.addOperation(update)
+        let update = ReadingListsUpdateOperation(readingListsController: self)
+        operationQueue.addOperation(update)
     }
     
     @objc private func update() {
@@ -445,8 +445,8 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _sync() {
-//        let sync = ReadingListsSyncOperation(readingListsController: self)
-//        operationQueue.addOperation(sync)
+        let sync = ReadingListsSyncOperation(readingListsController: self)
+        operationQueue.addOperation(sync)
     }
     
     @objc private func sync() {
