@@ -26,6 +26,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             })
                         }
                         
+                        group.wait()
+                        
                         var entrySinceDate = Date.distantPast
                         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
                             let listEntrySinceDate = try self.readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, inManagedObjectContext: moc)
