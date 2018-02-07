@@ -507,7 +507,7 @@ static uint64_t bundleHash() {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     static NSString *key = @"WMFLibraryVersion";
-    static const NSInteger libraryVersion = 3;
+    static const NSInteger libraryVersion = 4;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -520,7 +520,7 @@ static uint64_t bundleHash() {
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), completion);
         };
-        if (currentLibraryVersion < 3) {
+        if (currentLibraryVersion < libraryVersion) {
             NSError *migrationSaveError = nil;
             if (currentLibraryVersion < 1) {
                 if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
@@ -537,6 +537,10 @@ static uint64_t bundleHash() {
             if (!defaultReadingList) {
                 defaultReadingList = [[ReadingList alloc] initWithContext:moc];
                 defaultReadingList.isDefault = @(YES);
+            }
+
+            for (ReadingListEntry *entry in defaultReadingList.entries) {
+                entry.isUpdatedLocally = YES;
             }
 
             if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
@@ -586,7 +590,7 @@ static uint64_t bundleHash() {
             if (addError) {
                 DDLogError(@"Error adding to default reading list: %@", addError);
             } else {
-                [moc wmf_setValue:@(3) forKey:key];
+                [moc wmf_setValue:@(libraryVersion) forKey:key];
             }
 
             if (![moc save:&migrationSaveError]) {
