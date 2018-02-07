@@ -15,6 +15,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     let group = WMFTaskGroup()
                     do {
                         let readingListSinceDate = try self.readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, inManagedObjectContext: moc)
+                        
+                        // Delete missing reading lists
+                        let remoteReadingListIDs = allAPIReadingLists.flatMap { $0.id }
+                        let fetchForDeletedRemoteLists: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                        fetchForDeletedRemoteLists.predicate = NSPredicate(format: "readingListID != NULL && !(readingListID IN %@)", remoteReadingListIDs)
+                        let localReadingListsToDelete = try moc.fetch(fetchForDeletedRemoteLists)
+                        try self.readingListsController.markLocalDeletion(for: localReadingListsToDelete)
+                        for readingList in localReadingListsToDelete {
+                            moc.delete(readingList)
+                        }
+                        
+                        // Get all entries
                         var remoteEntriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
                         for remoteReadingList in allAPIReadingLists {
                             group.enter()
@@ -29,10 +41,20 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         group.wait()
                         
                         var entrySinceDate = Date.distantPast
+                        
                         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
                             let listEntrySinceDate = try self.readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, inManagedObjectContext: moc)
                             if listEntrySinceDate.compare(entrySinceDate) == .orderedDescending {
                                 entrySinceDate = listEntrySinceDate
+                            }
+                            // Delete missing entries
+                            let readingListEntryIDs = remoteReadingListEntries.map { $0.id }
+                            let fetchForDeletedRemoteEntries: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+                            fetchForDeletedRemoteEntries.predicate = NSPredicate(format: "list.readingListID == %d && readingListEntryID != NULL && !(readingListEntryID IN %@)", readingListID, readingListEntryIDs)
+                            let localReadingListEntriesToDelete = try moc.fetch(fetchForDeletedRemoteEntries)
+                            try self.readingListsController.markLocalDeletion(for: localReadingListEntriesToDelete)
+                            for readingListEntry in localReadingListEntriesToDelete {
+                                moc.delete(readingListEntry)
                             }
                         }
                         
