@@ -570,6 +570,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+            [self.dataStore.readingListsController start];
+
         }];
 
     [self.dataStore.feedContentController startContentSources];
@@ -639,7 +641,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (![self uiIsLoaded]) {
         return;
     }
-    
+
     [self.dataStore.readingListsController stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
