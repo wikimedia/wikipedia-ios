@@ -507,7 +507,7 @@ static uint64_t bundleHash() {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     static NSString *key = @"WMFLibraryVersion";
-    static const NSInteger libraryVersion = 4;
+    static const NSInteger libraryVersion = 5;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
