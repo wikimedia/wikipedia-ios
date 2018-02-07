@@ -295,16 +295,21 @@ public class ReadingListsController: NSObject {
 //        perform(#selector(_sync), with: nil, afterDelay: 0.5)
 
         do {
+            let moc = dataStore.viewContext
             // For users without syncing enabled, we should immediately delete locally deleted items
-            let listsToDeleteFetchRequest: NSFetchRequest<NSFetchRequestResult> = ReadingList.fetchRequest()
+            let listsToDeleteFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
             listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let listBatchDeleteRequest: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: listsToDeleteFetchRequest)
-            try dataStore.viewContext.execute(listBatchDeleteRequest)
-            
-            let entriesToDeleteFetchRequest: NSFetchRequest<NSFetchRequestResult> = ReadingListEntry.fetchRequest()
+            let listsToDelete = try moc.fetch(listsToDeleteFetchRequest)
+            for list in listsToDelete {
+                moc.delete(list)
+            }
+
+            let entriesToDeleteFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let entryBatchDeleteRequest: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: entriesToDeleteFetchRequest)
-            try dataStore.viewContext.execute(entryBatchDeleteRequest)
+            let entriesToDelete = try moc.fetch(entriesToDeleteFetchRequest)
+            for entry in entriesToDelete {
+                moc.delete(entry)
+            }
         } catch let error {
             DDLogError("Error on batch delete \(error)")
         }
@@ -579,7 +584,9 @@ fileprivate extension NSManagedObjectContext {
     var wmf_defaultReadingList: ReadingList {
         guard let defaultReadingList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList else {
             DDLogError("Missing default reading list")
+            #if DEBUG //allow this to pass on test 
             assert(false)
+            #endif
             return wmf_create(entityNamed: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as! ReadingList
         }
         return defaultReadingList
