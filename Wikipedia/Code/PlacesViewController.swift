@@ -1324,7 +1324,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     func promptForLocationAccess() {
         var skipSearchInDismissEnableLocationPanelHandler = false
         
-        let enableLocationButtonTapHandler: EducationPanelButtonTapHandler = { sender in
+        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
             skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
             sender.dismiss(animated: true, completion: {
                 guard WMFLocationManager.isAuthorizationNotDetermined() else {
@@ -1335,7 +1335,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             })
         }
         
-        let dismissEnableLocationPanelHandler: EducationPanelDismissHandler = { _ in
+        let dismissEnableLocationPanelHandler: ScrollableEducationPanelDismissHandler = { _ in
             if (!skipSearchInDismissEnableLocationPanelHandler) {
                 self.performDefaultSearchIfNecessary(withRegion: nil)
             }

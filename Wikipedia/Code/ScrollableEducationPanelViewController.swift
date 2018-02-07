@@ -1,51 +1,112 @@
 import UIKit
 
-typealias EducationPanelButtonTapHandler = ((_ sender: EducationPanelViewController) -> ())
-typealias EducationPanelDismissHandler = ((_ sender: EducationPanelViewController) -> ())
+typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: ScrollableEducationPanelViewController) -> ())
+typealias ScrollableEducationPanelDismissHandler = ((_ sender: ScrollableEducationPanelViewController) -> ())
 
 /*
  Education panels typically have the following items, from top to bottom:
     == Close button ==
     == Image ==
-    == Title text ==
-    == Subtitle text ==
+    == Heading text ==
+    == Subheading text ==
     == Primary button ==
     == Secondary button ==
-    == Description text ==
+    == Footer text ==
  
  This class pairs with a xib with roughly the following structure:
     view
         scroll view
-            close button
             stack view
+                close button
                 image view
-                title label
-                subtitle label
+                heading label
+                subheading label
                 primary button
                 secondary button
-                description label
+                footer label
  
  - Stackview management of its subviews makes it easy to collapse space for unneeded items.
  - Scrollview containment makes long translations or landscape on small phones scrollable when needed.
 */
-class EducationPanelViewController: UIViewController, Themeable {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var primaryButton: UIButton!
-    @IBOutlet weak var secondaryButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var scrollViewContainer: UIView!
-    @IBOutlet weak var stackView: UIStackView!
+class ScrollableEducationPanelViewController: UIViewController, Themeable {
+    @IBOutlet fileprivate weak var closeButton: UIButton!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var headingLabel: UILabel!
+    @IBOutlet fileprivate weak var subheadingLabel: UILabel!
+    @IBOutlet fileprivate weak var primaryButton: UIButton!
+    @IBOutlet fileprivate weak var secondaryButton: UIButton!
+    @IBOutlet fileprivate weak var footerLabel: UILabel!
 
-    var primaryButtonTapHandler: EducationPanelButtonTapHandler?
-    var secondaryButtonTapHandler: EducationPanelButtonTapHandler?
-    var dismissHandler: EducationPanelDismissHandler?
-    var showCloseButton = true
+    @IBOutlet fileprivate weak var scrollViewContainer: UIView!
+    @IBOutlet fileprivate weak var stackView: UIStackView!
+
+    fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+    fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
+    fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
+    fileprivate var showCloseButton = true
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
-        super.init(nibName: "EducationPanelView", bundle: nil)
+    var image:UIImage? {
+        get {
+            return imageView.image
+        }
+        set {
+            imageView.image = newValue
+            view.setNeedsLayout() // Ensures stackview will collapse if image is set to nil.
+        }
+    }
+
+    var heading:String? {
+        get {
+            return headingLabel.text
+        }
+        set {
+            headingLabel.text = newValue
+            view.setNeedsLayout()
+        }
+    }
+
+    var subheading:String? {
+        get {
+            return subheadingLabel.text
+        }
+        set {
+            subheadingLabel.text = newValue
+            view.setNeedsLayout()
+        }
+    }
+
+    var primaryButtonTitle:String? {
+        get {
+            return primaryButton.title(for: .normal)
+        }
+        set {
+            primaryButton.setTitle(newValue, for: .normal)
+            view.setNeedsLayout()
+        }
+    }
+
+    var secondaryButtonTitle:String? {
+        get {
+            return secondaryButton.title(for: .normal)
+        }
+        set {
+            secondaryButton.setTitle(newValue, for: .normal)
+            view.setNeedsLayout()
+        }
+    }
+
+    var footer:String? {
+        get {
+            return footerLabel.text
+        }
+        set {
+            footerLabel.text = newValue
+            view.setNeedsLayout()
+        }
+    }
+    
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?) {
+        super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
@@ -75,7 +136,7 @@ class EducationPanelViewController: UIViewController, Themeable {
     }
     
     // Configure button so its text will shrink if the translation is crazy long.
-    func configureButtonToAutoAdjustFontSize(button: UIButton) {
+    fileprivate func configureButtonToAutoAdjustFontSize(button: UIButton) {
         guard let label = primaryButton.titleLabel else {
             return
         }
@@ -87,11 +148,11 @@ class EducationPanelViewController: UIViewController, Themeable {
     // Clear out xib defaults. Needed because we check these for nil to conditionally collapse stackview subviews.
     fileprivate func reset() {
         imageView.image = nil
-        titleLabel.text = nil
-        subtitleLabel.text = nil
+        headingLabel.text = nil
+        subheadingLabel.text = nil
         primaryButton.setTitle(nil, for: .normal)
         secondaryButton.setTitle(nil, for: .normal)
-        descriptionLabel.text = nil
+        footerLabel.text = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,32 +163,31 @@ class EducationPanelViewController: UIViewController, Themeable {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         adjustImageViewVisibility(for: newCollection.verticalSizeClass)
-        // Calls to 'setNeedsLayout' and 'layoutIfNeeded' required to ensure changes made in 'adjustImageViewVisibility' are
+        // Call to 'layoutIfNeeded' is required to ensure changes made in 'adjustImageViewVisibility' are
         // reflected correctly on rotation.
-        view.setNeedsLayout()
         view.layoutIfNeeded()
     }
     
-    func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
+    fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
         imageView.isHidden = (imageView.image == nil || verticalSizeClass == .compact)
     }
     
-    func adjustStackViewSubviewsVisibility() {
+    fileprivate func adjustStackViewSubviewsVisibility() {
         // Collapse stack view cell for image if no image or compact vertical size class.
         adjustImageViewVisibility(for: traitCollection.verticalSizeClass)
         // Collapse stack view cells for labels/buttons if no text.
-        titleLabel.isHidden = !titleLabel.wmf_hasAnyNonWhitespaceText
-        subtitleLabel.isHidden = !subtitleLabel.wmf_hasAnyNonWhitespaceText
-        descriptionLabel.isHidden = !descriptionLabel.wmf_hasAnyNonWhitespaceText
+        headingLabel.isHidden = !headingLabel.wmf_hasAnyNonWhitespaceText
+        subheadingLabel.isHidden = !subheadingLabel.wmf_hasAnyNonWhitespaceText
+        footerLabel.isHidden = !footerLabel.wmf_hasAnyNonWhitespaceText
         primaryButton.isHidden = !primaryButton.wmf_hasAnyNonWhitespaceText
         secondaryButton.isHidden = !secondaryButton.wmf_hasAnyNonWhitespaceText
     }
     
-    @IBAction func close(_ sender: Any) {
+    @IBAction fileprivate func close(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func primaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func primaryButtonTapped(_ sender: Any) {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
@@ -135,7 +195,7 @@ class EducationPanelViewController: UIViewController, Themeable {
 
     }
 
-    @IBAction func secondaryButtonTapped(_ sender: Any) {
+    @IBAction fileprivate func secondaryButtonTapped(_ sender: Any) {
         guard let secondaryButtonTapHandler = secondaryButtonTapHandler else {
             return
         }
@@ -156,10 +216,10 @@ class EducationPanelViewController: UIViewController, Themeable {
 }
 
 // Convenience class containerizing EducationPanelViewController for easy popover presentation.
-class EducationPopoverPanelViewController: EducationPanelViewController, UIPopoverPresentationControllerDelegate {
+class EducationPopoverPanelViewController: ScrollableEducationPanelViewController, UIPopoverPresentationControllerDelegate {
     var dismissOnTapOutside = false
     // Note: 'sourceView' is simply used to set 'popoverPresentationController.sourceView'.
-    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: EducationPanelButtonTapHandler?, secondaryButtonTapHandler: EducationPanelButtonTapHandler?, dismissHandler: EducationPanelDismissHandler?) {
+    init(sourceView: UIView, showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?) {
         super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler)
 
         self.dismissOnTapOutside = showCloseButton // Always enable 'dismissOnTapOutside' if we have a close button.
