@@ -112,14 +112,14 @@
                             </constraints>
                         </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="nj7-Fx-dME">
-                            <rect key="frame" x="24" y="8" width="282" height="36"/>
+                            <rect key="frame" x="20" y="8" width="281" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="cRy-oU-bgr"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz">
-                            <rect key="frame" x="322" y="11" width="30" height="30"/>
+                            <rect key="frame" x="317" y="11" width="30" height="30"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
                             <connections>
@@ -130,8 +130,8 @@
                     <constraints>
                         <constraint firstItem="269-0y-zMz" firstAttribute="leading" secondItem="nj7-Fx-dME" secondAttribute="trailing" constant="16" id="6I6-rJ-tqQ"/>
                         <constraint firstItem="nj7-Fx-dME" firstAttribute="top" secondItem="eby-nN-6Yg" secondAttribute="topMargin" constant="8" id="7kR-eh-tKa"/>
-                        <constraint firstItem="nj7-Fx-dME" firstAttribute="leading" secondItem="eby-nN-6Yg" secondAttribute="leadingMargin" constant="8" id="E0A-Ao-hGa"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="269-0y-zMz" secondAttribute="trailingMargin" constant="15" id="PXp-EW-wg3"/>
+                        <constraint firstItem="nj7-Fx-dME" firstAttribute="leading" secondItem="eby-nN-6Yg" secondAttribute="leadingMargin" constant="4" id="E0A-Ao-hGa"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="269-0y-zMz" secondAttribute="trailing" constant="12" id="PXp-EW-wg3"/>
                         <constraint firstItem="YHx-oI-zV4" firstAttribute="leading" secondItem="eby-nN-6Yg" secondAttribute="leading" id="Vds-kL-RUg"/>
                         <constraint firstAttribute="trailing" secondItem="YHx-oI-zV4" secondAttribute="trailing" id="ePJ-X2-gvi"/>
                         <constraint firstItem="269-0y-zMz" firstAttribute="centerY" secondItem="nj7-Fx-dME" secondAttribute="centerY" id="jlo-bf-sL9"/>
