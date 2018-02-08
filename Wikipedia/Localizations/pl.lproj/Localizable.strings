@@ -221,7 +221,7 @@
 "page-similar-titles" = "Podobne strony";
 "pictured" = "z obrazkiem";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
-"places-accessibility-group" = "%s artykułów";
+"places-accessibility-group" = "$1 artykułów";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
