@@ -144,18 +144,18 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             descriptionLabel.isHidden = true
         }
-        
-        origin.y += layoutMargins.bottom
-        let height = max(origin.y, minHeight)
-        
+
         if displayType == .readingListsTab && isDefault {
+            origin.y += spacing
             let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: origin, fitting: defaultListTag.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += defaultListTagFrame.layoutHeight(with: 0)
             defaultListTag.isHidden = false
         } else {
             defaultListTag.isHidden = true
         }
-        
+
+        origin.y += layoutMargins.bottom
+        let height = max(origin.y, minHeight)
         let separatorXPositon: CGFloat = 0
         let separatorWidth = size.width
 
