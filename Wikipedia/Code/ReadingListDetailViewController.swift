@@ -36,7 +36,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let name = readingList.name {
+        if readingList.isDefaultList {
+            title = CommonStrings.readingListsDefaultListTitle
+        } else if let name = readingList.name {
             title = name
         }
         
