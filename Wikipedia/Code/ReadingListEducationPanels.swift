@@ -9,6 +9,22 @@ class EnableReadingListSyncPanelViewController : EducationPopoverPanelViewContro
     }
 }
 
+extension UIViewController {
+    @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() else {
+            return
+        }
+        let panelVC = EnableReadingListSyncPanelViewController(sourceView: view, showCloseButton: true, primaryButtonTapHandler: { sender in
+            SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
+            sender.dismiss(animated: true, completion: nil)
+        }, secondaryButtonTapHandler: nil, dismissHandler:nil)
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
+        })
+    }
+}
+
 class AddSavedArticlesToReadingListPanelViewController : EducationPopoverPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()

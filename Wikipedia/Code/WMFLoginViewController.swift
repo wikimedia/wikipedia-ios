@@ -144,8 +144,10 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.setViewControllerUserInteraction(enabled: true)
-
-            self.dismiss(animated: true, completion: nil)
+            let presenter = self.presentingViewController
+            self.dismiss(animated: true, completion: {
+                presenter?.wmf_showEnableReadingListSyncPanelOnce(theme: self.theme)
+            })
             self.funnel?.logSuccess()
         
         }, failure: { error in

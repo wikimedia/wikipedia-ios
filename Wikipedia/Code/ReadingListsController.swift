@@ -394,7 +394,7 @@ public class ReadingListsController: NSObject {
 
     private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
-    @objc var isSyncEnabled: Bool {
+    @objc public var isSyncEnabled: Bool {
         get {
             assert(Thread.isMainThread)
             return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false

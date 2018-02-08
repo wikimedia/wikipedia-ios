@@ -24,6 +24,7 @@ let WMFAppThemeName = "WMFAppThemeName"
 let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
 let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
+let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -437,5 +438,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_didShowNewsNotificationCardInFeed() -> Bool {
         return self.bool(forKey: WMFDidShowNewsNotificatonInFeedKey)
+    }
+
+    @objc public func wmf_setDidShowEnableReadingListSyncPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowEnableReadingListSyncPanelKey)
+        self.synchronize()
+    }
+    
+    @objc public func wmf_didShowEnableReadingListSyncPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowEnableReadingListSyncPanelKey)
     }
 }
