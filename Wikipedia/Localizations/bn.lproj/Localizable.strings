@@ -65,10 +65,12 @@
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
 "announcements-dismiss" = "খারিজ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
+"appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-delete" = "অপসারণ";
+"article-deleted-accessibility-notification" = "নিবন্ধ অপসারিত হয়েছে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
@@ -185,6 +187,7 @@
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি অবস্থান থেকে আরও";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
+"home-news-footer" = "সংবাদে আরো";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
 "icon-shortcut-continue-reading-title" = "পড়া অব্যাহত রাখুন";
@@ -305,6 +308,7 @@
 "saved-pages-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
 "saved-title" = "সংরক্ষিত";
+"search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
 "search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
 "search-recent-clear-cancel" = "বাতিল";
@@ -365,6 +369,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
 "welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
+"welcome-languages-search-title" = "প্রায় ৩০০টি ভাষায় অন্বেষণ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
@@ -372,6 +377,7 @@
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-changes-none" = "প্রাকদর্শন করার মত কোন পরিবর্তন করা হয়নি।";
+"wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-upload-captcha-error" = "ক্যাপচা যাচাইকরণ ত্রুটি।";
 "wikitext-upload-captcha-needed" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";

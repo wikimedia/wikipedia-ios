@@ -50,6 +50,7 @@
 "action-read" = "Čítať";
 "action-save" = "Uložiť";
 "action-saved" = "Uložené";
+"action-saved-accessibility-notification" = "Článok bol uložený na neskôr";
 "action-share" = "Zdieľať";
 "action-unsave" = "Zrušiť uloženie";
 "alert-no-internet" = "Žiadne pripojenie na internet";
@@ -57,6 +58,7 @@
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
 "article-delete" = "Vymazať";
+"article-deleted-accessibility-notification" = "Článok bol odstránený";
 "article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-others" = "Ostatné jazyky";
@@ -82,6 +84,7 @@
 "close-button-accessibility-label" = "Zavrieť";
 "compass-direction" = "na $1. hodine";
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
+"dim-images" = "Stmavenie obrázkov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
@@ -171,6 +174,7 @@
 "info-box-close-text" = "Zavrieť";
 "info-box-title" = "Rýchle fakty";
 "languages-title" = "Zmeniť jazyk";
+"languages-wikipedia" = "Jazyky Wikipédie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Pokiaľ nie je uvedené inak, je obsah dostupný v rámci licencie $1.";
 "login-forgot-password" = "Zabudli ste heslo?";
@@ -196,6 +200,7 @@
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "menu-cancel-accessibility-label" = "Zrušiť";
 "menu-trash-accessibility-label" = "Vymazať";
+"more-languages-tooltip-title" = "Pridať jazyky";
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
 "nearby-distance-label-km" = "$1 km";
@@ -239,6 +244,7 @@
 "places-filter-saved-articles" = "Uložené články";
 "places-filter-top-articles" = "Najčítanejšie články";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 článok|$1 články|$1 článkov}}";
+"places-no-saved-articles-have-location" = "Žiadny z vašich uložených článkov nemá údaje o polohe";
 "places-search-default-text" = "Vyhľadať miesta";
 "places-search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "places-search-recently-searched-header" = "Nedávno hľadané výrazy";
@@ -257,6 +263,7 @@
 "preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
 "rank-accessibility-label" = "Číslo $1";
 "readers-accessibility-label" = "$1 čitateľov";
+"reading-themes-controls-accessibility-black-theme-button" = "Čierna téma vzhľadu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tmavá téma vzhľadu";
 "reading-themes-controls-accessibility-light-theme-button" = "Svetlá téma vzhľadu";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sépia";
@@ -272,6 +279,7 @@
 "saved-pages-clear-delete-all" = "Áno, vymazať všetko";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
 "saved-title" = "Uložené";
+"search-button-accessibility-label" = "Hľadať";
 "search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-field-placeholder-text" = "Hľadať";
 "search-recent-clear-cancel" = "Zrušiť";
@@ -301,6 +309,8 @@
 "share-custom-menu-item" = "Zdieľať...";
 "share-get-directions-in-maps" = "Nájsť trasu";
 "share-menu-item" = "Zdieľať…";
+"share-message-format" = "“$1” $2";
+"share-on-twitter-sign-off" = "prostredníctvom @Wikipedia";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";
 "status-saved-for-later" = "Uložené na neskôr";
 "status-saving-for-later" = "Ukladanie na neskôr...";
@@ -317,6 +327,7 @@
 "two-factor-login-with-backup-code" = "Použite jeden z vašich záložných kódov";
 "two-factor-login-with-regular-code" = "Použite overovací kód";
 "view-in-browser-footer-link" = "Zobraziť článok v prehliadači";
+"welcome-exploration-on-this-day-title" = "V tento deň";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
 "welcome-intro-free-encyclopedia-more" = "Ďalšie informácie o Wikipédii";
