@@ -56,3 +56,13 @@ class KeepSavedArticlesOnDevicePanelViewController : EducationPopoverPanelViewCo
         secondaryButtonTitle = WMFLocalizedString("reading-list-keep-button-subtitle", value:"No, delete articles from device", comment:"Title for button to remove saved articles from device.")
     }
 }
+
+class EnableLocationPanelViewController : EducationPopoverPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage.init(named: "places-auth-arrow")
+        heading = CommonStrings.localizedEnableLocationTitle
+        primaryButtonTitle = CommonStrings.localizedEnableLocationButtonTitle
+        footer = CommonStrings.localizedEnableLocationDescription
+    }
+}
