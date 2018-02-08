@@ -383,7 +383,6 @@ extension ReadingListsViewController: ActionDelegate {
         
         switch action.type {
         case .update:
-            print("Update")
             return true
         case .delete:
             if shouldPresentDeletionAlert(for: readingLists) {

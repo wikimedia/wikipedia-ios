@@ -169,7 +169,6 @@ extension ReadingListDetailViewController: ActionDelegate {
         
         switch action.type {
         case .update:
-            print("Update")
             return true
         case .addToList:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
