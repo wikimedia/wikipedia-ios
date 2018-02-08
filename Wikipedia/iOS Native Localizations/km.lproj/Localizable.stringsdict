@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ</string>
+			<key>other</key>
+			<string>%1$d ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ</string>
+		</dict>
+	</dict>
+	<key>places-filter-saved-articles-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>រកឃើញ%1$d ១កន្លែង</string>
+			<key>other</key>
+			<string>រកឃើញ%1$d កន្លែង</string>
+		</dict>
+	</dict>
+	<key>places-filter-top-articles-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ១អត្ថបទ</string>
+			<key>other</key>
+			<string>%1$d អត្ថបទ</string>
+		</dict>
+	</dict>
+	<key>relative-date-days-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ម្សិលមិញ</string>
+			<key>other</key>
+			<string>%1$d ថ្ងៃមុន</string>
+			<key>zero</key>
+			<string>ថ្ងៃនេះ</string>
+		</dict>
+	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ១ម៉ោងមុន</string>
+			<key>other</key>
+			<string>%1$d ម៉ោងមុន</string>
+			<key>zero</key>
+			<string>ថ្មីៗនេះ</string>
+		</dict>
+	</dict>
+	<key>relative-date-minutes-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d ១នាទីមុន</string>
+			<key>other</key>
+			<string>%1$d នាទីមុន</string>
+			<key>zero</key>
+			<string>អម្បាញ់មិញ</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ឆ្នាំមុន</string>
+			<key>other</key>
+			<string>%1$d ឆ្នាំមុន</string>
+			<key>zero</key>
+			<string>ឆ្នាំនេះ</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
