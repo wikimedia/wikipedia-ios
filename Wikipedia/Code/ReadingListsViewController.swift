@@ -9,7 +9,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController {
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection {
     
     private let reuseIdentifier = "ReadingListsViewControllerCell"
     
@@ -87,9 +87,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
         
         // Remove peek & pop for now
         unregisterForPreviewing()
@@ -449,7 +447,7 @@ extension ReadingListsViewController {
         if let estimate = cellLayoutEstimate {
             return estimate
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 80)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }

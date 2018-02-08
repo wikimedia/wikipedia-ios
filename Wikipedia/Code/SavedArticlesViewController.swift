@@ -39,9 +39,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
     }
     
     private var isFirstAppearance = true
