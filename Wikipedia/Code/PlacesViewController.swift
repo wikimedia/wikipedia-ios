@@ -683,9 +683,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(
-                            WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
-                            , sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     }
                     return
                 }
@@ -1773,14 +1771,19 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             break
         case .share:
-            let activityVC = ShareActivityController(article: article, context: context)
-            activityVC.popoverPresentationController?.sourceView = view
+            let addToReadingListActivity = AddToReadingListActivity {
+                let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            }
+            let shareActivityController = ShareActivityController(article: article, context: context, customActivity: addToReadingListActivity)
+            shareActivityController.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
                 sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
             }
-            activityVC.popoverPresentationController?.sourceRect = sourceRect
-            present(activityVC, animated: true, completion: nil)
+            shareActivityController.popoverPresentationController?.sourceRect = sourceRect
+            shareActivityController.excludedActivityTypes = [.addToReadingList]
+            present(shareActivityController, animated: true, completion: nil)
             break
         case .none:
             fallthrough

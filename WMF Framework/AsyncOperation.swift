@@ -15,6 +15,8 @@ import Foundation
         case finished
     }
     
+    public var error: Error?
+    
     fileprivate var _state = AsyncOperation.State.ready
     
     fileprivate var state: AsyncOperation.State {
@@ -86,6 +88,11 @@ import Foundation
     // MARK: - Custom behavior
     
     @objc open func finish() {
+        state = .finished
+    }
+    
+    @objc open func finish(with error: Error) {
+        self.error = error
         state = .finished
     }
     

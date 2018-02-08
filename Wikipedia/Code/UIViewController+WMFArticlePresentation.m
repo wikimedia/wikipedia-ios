@@ -37,9 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
-        [presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
-        }];
+        [presentingViewController dismissViewControllerAnimated:YES
+                                                     completion:^{
+                                                         [presentingViewController wmf_pushArticleViewController:viewController animated:animated];
+                                                     }];
     } else if (self.navigationController != nil) {
         [self.navigationController pushViewController:viewController animated:animated];
     } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
@@ -61,9 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
         [nav pushViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
-        [presentingViewController dismissViewControllerAnimated:YES completion:^{
-            [presentingViewController wmf_pushViewController:viewController animated:animated];
-        }];
+        [presentingViewController dismissViewControllerAnimated:YES
+                                                     completion:^{
+                                                         [presentingViewController wmf_pushViewController:viewController animated:animated];
+                                                     }];
     } else if (self.parentViewController != nil) {
         [self.parentViewController wmf_pushViewController:viewController animated:animated];
     } else {

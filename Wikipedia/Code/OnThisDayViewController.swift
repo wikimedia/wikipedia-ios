@@ -1,10 +1,11 @@
 import WMF;
 
 @objc(WMFOnThisDayViewController)
-class OnThisDayViewController: ColumnarCollectionViewController {
+class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
+    var readingListHintController: ReadingListHintController?
     
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
@@ -53,6 +54,7 @@ class OnThisDayViewController: ColumnarCollectionViewController {
         register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
         register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
+        readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
 }
 

@@ -10,5 +10,5 @@
 
 @interface WMFObjectChange : WMFChange
 @property (nullable, nonatomic, strong) NSIndexPath *fromIndexPath;
-@property (nullable,nonatomic, strong) NSIndexPath *toIndexPath;
+@property (nullable, nonatomic, strong) NSIndexPath *toIndexPath;
 @end

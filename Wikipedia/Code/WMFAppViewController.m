@@ -69,7 +69,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) WMFSavedViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
@@ -182,7 +182,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
-    [self configureArticleListController:self.savedArticlesViewController];
+    [self configureSavedViewController];
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
@@ -224,8 +224,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.placesViewController.dataStore = self.dataStore;
 }
 
-- (void)configureArticleListController:(WMFSavedViewController *)controller {
-    controller.dataStore = self.dataStore;
+- (void)configureSavedViewController {
+    self.savedViewController.dataStore = self.dataStore;
+    [self.savedViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
@@ -561,12 +562,16 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+        [self.dataStore.readingListsController start];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+            [self.dataStore.readingListsController start];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+            [self.dataStore.readingListsController start];
+
         }];
 
     [self.dataStore.feedContentController startContentSources];
@@ -636,6 +641,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (![self uiIsLoaded]) {
         return;
     }
+
+    [self.dataStore.readingListsController stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
@@ -1022,7 +1029,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
-- (WMFSavedViewController *)savedArticlesViewController {
+- (WMFSavedViewController *)savedViewController {
     return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
@@ -1267,7 +1274,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && ![viewController isKindOfClass:[WMFSavedViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
         if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
@@ -1593,7 +1600,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self dismissPresentedViewControllers];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    vc.permaRandomMode = YES;
+    vc.permaRandomMode = NO;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }

@@ -12,6 +12,7 @@
 @class MWKImageList;
 @class WMFArticle;
 @class WMFExploreFeedContentController;
+@class WMFReadingListsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,9 +51,13 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+
+- (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
+
 @property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
 - (void)teardownFeedImportContext;

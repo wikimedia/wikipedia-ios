@@ -10,6 +10,7 @@ class ColumnarCollectionViewController: ViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
+        scrollView = cv
         return cv
     }()
 
@@ -24,10 +25,6 @@ class ColumnarCollectionViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
-    }
-    
-    override var scrollView: UIScrollView? {
-        return collectionView
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
@@ -149,6 +146,21 @@ class ColumnarCollectionViewController: ViewController {
         }
     }
     
+    // MARK: - Scroll
+    
+    internal override func scrollToTop() {
+        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
+        }
+        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
+    }
+    
+    // MARK: - Themeable
+    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -211,7 +223,16 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     }
 }
 
+// MARK: - WMFArticlePreviewingActionsDelegate
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
+        }
+        hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        
+    }
+    
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)

@@ -8,18 +8,25 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController {
-    @objc var dataStore: MWKDataStore!
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
+    
+    @objc var dataStore: MWKDataStore! {
+        didSet {
+            readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
+        }
+    }
     var cellLayoutEstimate: WMFLayoutEstimate?
-    var swipeToEditController: CollectionViewSwipeToEditController!
+    var editController: CollectionViewEditController!
+    var readingListHintController: ReadingListHintController?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        swipeToEditController = CollectionViewSwipeToEditController(collectionView: collectionView)
-        swipeToEditController.delegate = self
+
+        editController = CollectionViewEditController(collectionView: collectionView)
+        editController.delegate = self
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -97,7 +104,7 @@ extension ArticleCollectionViewController {
     }
     
     // Override configure(cell: instead to ensure height calculations are accurate
-    override final func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
@@ -122,7 +129,7 @@ extension ArticleCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard !swipeToEditController.isActive else {
+        guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
         guard let indexPath = collectionView.indexPathForItem(at: location),
@@ -172,6 +179,12 @@ extension ArticleCollectionViewController {
 
 
 extension ArticleCollectionViewController: ActionDelegate {
+    
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+        assert(false, "Subclassers should override this function")
+        return false
+    }
+    
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
@@ -188,32 +201,22 @@ extension ArticleCollectionViewController: ActionDelegate {
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
+                if let article = article(at: indexPath) {
+                    readingListHintController?.didSave(true, article: article, theme: theme)
+                }
                 return true
             }
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+                if let article = article(at: indexPath) {
+                    readingListHintController?.didSave(false, article: article, theme: theme)
+                }
                 return true
             }
         case .share:
-            let shareActivityController: ShareActivityController?
-            if let article = self.article(at: indexPath) {
-                shareActivityController = ShareActivityController(article: article, context: self)
-            } else if let articleURL =  self.articleURL(at: indexPath) {
-                shareActivityController = ShareActivityController(articleURL: articleURL, userDataStore: dataStore, context: self)
-            } else {
-                shareActivityController = nil
-            }
-            if let viewController = shareActivityController {
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    let cell = collectionView.cellForItem(at: indexPath)
-                    viewController.popoverPresentationController?.sourceView = cell ?? view
-                    viewController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
-                }
-                present(viewController, animated: true, completion: nil)
-                return true
-            }
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
         }
         return false
     }
@@ -248,4 +251,4 @@ extension ArticleCollectionViewController: ActionDelegate {
     }
 }
 
-
+extension ArticleCollectionViewController: ShareableArticlesProvider {}

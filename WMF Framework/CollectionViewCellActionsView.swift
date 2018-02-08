@@ -17,6 +17,9 @@ public class Action: UIAccessibilityCustomAction {
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
     @objc func didPerformAction(_ action: Action) -> Bool
+    @objc optional func willPerformAction(_ action: Action)
+    @objc optional func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
+    @objc optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
 }
 
 public enum ActionType {
@@ -25,13 +28,13 @@ public enum ActionType {
     public func action(with target: Any?, indexPath: IndexPath) -> Action {
         switch self {
         case .delete:
-            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .save:
-            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .unsave:
-            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .share:
-            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.didPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         }
     }
 }
@@ -133,7 +136,8 @@ public class ActionsView: SizeThatFitsView, Themeable {
             case .unsave:
                 button.backgroundColor = theme.colors.link
             }
-            button.addTarget(self, action: #selector(didPerformAction(_:)), for: .touchUpInside)
+            button.imageView?.tintColor = .white
+            button.addTarget(self, action: #selector(willPerformAction(_:)), for: .touchUpInside)
             maxButtonWidth = max(maxButtonWidth, button.intrinsicContentSize.width)
             insertSubview(button, at: 0)
             buttons.append(button)
@@ -147,15 +151,15 @@ public class ActionsView: SizeThatFitsView, Themeable {
 
     public weak var delegate: ActionDelegate?
     
-    @objc func didPerformAction(_ sender: UIButton) {
+    @objc func willPerformAction(_ sender: UIButton) {
         let action = actions[sender.tag]
         if let image = action.confirmationIcon {
             sender.setImage(image, for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = self.delegate?.didPerformAction(action)
+                let _ = self.delegate?.willPerformAction?(action)
             }
         } else {
-            let _ = delegate?.didPerformAction(action)
+            let _ = delegate?.willPerformAction?(action)
         }
     }
     

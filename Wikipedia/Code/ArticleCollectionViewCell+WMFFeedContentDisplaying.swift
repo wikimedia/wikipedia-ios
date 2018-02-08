@@ -1,7 +1,7 @@
 import Foundation
 
 public extension ArticleCollectionViewCell {
-    fileprivate func adjustMargins(for index: Int, count: Int) {
+    func adjustMargins(for index: Int, count: Int) {
         var newMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
         let maxIndex = count - 1
         if index < maxIndex {

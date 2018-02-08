@@ -59,7 +59,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             }
         }
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme)
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
         } else {
             wmf_hideEmptyView()
         }
@@ -127,21 +127,21 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         updateDeleteButton()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        swipeToEditController.closeActionPane()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        editController.close()
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        guard !layoutOnly, let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
             return
         }
         cell.swipeTranslation = translation
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        guard let translation = swipeToEditController.swipeTranslationForItem(at: indexPath) else {
+        guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
             return true
         }
         return translation == 0
