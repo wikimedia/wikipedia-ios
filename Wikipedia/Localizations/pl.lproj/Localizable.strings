@@ -52,7 +52,6 @@
 "abuse-filter-warning-subheading" = "Twoja edycja może zawierać jedną lub wiele z następujących czynności:";
 "account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
-// Fuzzy
 "account-creation-captcha-request-account" = "Wniosek o założenie konta.";
 "account-creation-create-account" = "Utwórz konto";
 "account-creation-have-account" = "Masz już konto? $1";
@@ -68,6 +67,7 @@
 "announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
+"article-deleted-accessibility-notification" = "Artykuł został usunięty";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
@@ -98,8 +98,10 @@
 "empty-no-history-title" = "Nie ma historii do pokazania";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-search-results-message" = "Nie znaleziono";
+"error-unknown" = "Wystąpił nieznany błąd";
 "explore-another-random" = "Inny losowy artykuł";
 "explore-continue-reading-heading" = "Czytaj dalej";
+"explore-featured-article-heading" = "Wyróżniony artykuł";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-nearby-heading" = "Miejsca w pobliżu";
@@ -219,6 +221,7 @@
 "page-similar-titles" = "Podobne strony";
 "pictured" = "z obrazkiem";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
+"places-accessibility-group" = "$1 artykułów";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
@@ -229,6 +232,7 @@
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 // Fuzzy
 "places-search-default-text" = "Szukaj";
+"places-search-did-you-mean" = "Czy chodziło Ci o $1?";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
 "places-search-top-articles-that-match-scope" = "W pobliżu";
@@ -240,11 +244,14 @@
 "readers-accessibility-label" = "$1 czytelników";
 "reference-title" = "Przypis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
+"relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
 "saved-clear-all" = "Wyczyść";
 "saved-pages-clear-cancel" = "Anuluj";
 "saved-pages-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje zapisane strony?";
 "saved-pages-clear-delete-all" = "Tak, usuń wszystko";
 "saved-title" = "Zapisane";
+"search-button-accessibility-label" = "Szukaj w Wikipedii";
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-recent-clear-cancel" = "Anuluj";
@@ -253,6 +260,7 @@
 "search-recent-clear-delete-all" = "Usuń wszystko";
 "search-recent-title" = "Ostatnio wyszukiwane";
 "search-result-redirected-from" = "Przekierowanie z: $1";
+"search-title" = "Wyszukiwanie";
 "settings-clear-cache-cancel" = "Anuluj";
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";

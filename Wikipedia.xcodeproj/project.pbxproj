@@ -4536,6 +4536,7 @@
 		D8FB46A11E26BC6600F2620F /* QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuadKey.swift; path = ../Wikipedia/Code/QuadKey.swift; sourceTree = "<group>"; };
 		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
+		D8FFF63F202C7A9400A028E0 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = km; path = km.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -11969,6 +11970,7 @@
 				D8C8C21F20113E6200B3317B /* sq */,
 				D8C8C22020113EA000B3317B /* is */,
 				D8C8C22120113F0500B3317B /* ps */,
+				D8FFF63F202C7A9400A028E0 /* km */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

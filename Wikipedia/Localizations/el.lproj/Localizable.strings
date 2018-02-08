@@ -11,6 +11,7 @@
 // Author: Nikosgranturismogt
 // Author: Protnet
 // Author: Stam.nikos
+// Author: SucreRouge
 
 "about-content-license" = "Άδεια περιεχομένου";
 "about-content-license-details" = "Όλα τα κείμενα είναι διαθέσιμα υπό την $1· μπορεί να ισχύουν και πρόσθετοι όροι";
@@ -21,7 +22,9 @@
 "about-libraries-license" = "Άδεια";
 "about-libraries-licenses-title" = "Αγαπάμε το λογισμικό ανοιχτής πηγής $1";
 "about-product-of" = "Δημιουργήθηκε από την $1 με τη βοήθεια εθελοντών όπως εσείς";
+"about-repositories" = "Αποθηκευτήρια";
 "about-repositories-app-source-license-mit" = "Άδεια MIT";
+"about-testers" = "Δοκιμαστές";
 "about-title" = "Σχετικά";
 "about-translators" = "Μεταφραστές";
 "about-translators-details" = "Μεταφράζεται από εθελοντές στο $1";
@@ -131,6 +134,7 @@
 "search-recent-clear-delete-all" = "Διαγραφή Όλων";
 "search-recent-title" = "Πρόσφατες αναζητήσεις";
 "search-title" = "Αναζήτηση";
+"settings-appearance" = "Προτιμήσεις ανάγνωσης";
 "settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
 "share-custom-menu-item" = "Κοινοποίηση...";
