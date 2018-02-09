@@ -1,5 +1,5 @@
 
-class EnableReadingListSyncPanelViewController : EducationPopoverPanelViewController {
+class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-syncing")
@@ -14,7 +14,7 @@ extension UIViewController {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() else {
             return
         }
-        let panelVC = EnableReadingListSyncPanelViewController(sourceView: view, showCloseButton: true, primaryButtonTapHandler: { sender in
+        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
             sender.dismiss(animated: true, completion: nil)
         }, secondaryButtonTapHandler: nil, dismissHandler:nil)
@@ -25,7 +25,7 @@ extension UIViewController {
     }
 }
 
-class AddSavedArticlesToReadingListPanelViewController : EducationPopoverPanelViewController {
+class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-saved")
@@ -36,7 +36,7 @@ class AddSavedArticlesToReadingListPanelViewController : EducationPopoverPanelVi
     }
 }
 
-class LoginToSyncSavedArticlesToReadingListPanelViewController : EducationPopoverPanelViewController {
+class LoginToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-login")
@@ -46,7 +46,7 @@ class LoginToSyncSavedArticlesToReadingListPanelViewController : EducationPopove
     }
 }
 
-class KeepSavedArticlesOnDevicePanelViewController : EducationPopoverPanelViewController {
+class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-saved")
@@ -57,7 +57,7 @@ class KeepSavedArticlesOnDevicePanelViewController : EducationPopoverPanelViewCo
     }
 }
 
-class EnableLocationPanelViewController : EducationPopoverPanelViewController {
+class EnableLocationPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "places-auth-arrow")
