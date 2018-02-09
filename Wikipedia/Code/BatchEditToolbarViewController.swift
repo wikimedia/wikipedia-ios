@@ -6,8 +6,7 @@ public final class BatchEditToolbarViewController: UIViewController {
     fileprivate var theme: Theme = Theme.standard
     
     public func setItemsEnabled(_ enabled: Bool) {
-        // do not enable the "Update" button for now
-        for item in items where item.tag != 0 {
+        for item in items {
             item.isEnabled = enabled
         }
     }

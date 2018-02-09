@@ -20,6 +20,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
+    public let moveFromReadingList: ReadingList?
     
     @IBOutlet weak var navigationBar: UINavigationBar?
     @IBOutlet weak var addButton: UIBarButtonItem?
@@ -31,10 +32,11 @@ class AddArticlesToReadingListViewController: UIViewController {
 
     private var theme: Theme
     
-    @objc public init(with dataStore: MWKDataStore, articles: [WMFArticle], theme: Theme) {
+    @objc public init(with dataStore: MWKDataStore, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, theme: Theme) {
         self.dataStore = dataStore
         self.articles = articles
         self.theme = theme
+        self.moveFromReadingList = moveFromReadingList
         super.init(nibName: "AddArticlesToReadingListViewController", bundle: nil)
     }
     
@@ -48,7 +50,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed() {
-        readingListsViewController?.createReadingList(with: articles)
+        readingListsViewController?.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
     }
     
     override func viewDidLoad() {
@@ -73,6 +75,13 @@ class AddArticlesToReadingListViewController: UIViewController {
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
+        if let moveFromReadingList = moveFromReadingList {
+            do {
+                try dataStore.readingListsController.remove(articles: articles, readingList: moveFromReadingList)
+            } catch let error {
+                DDLogError("Error removing articles after move: \(error)")
+            }
+        }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             self.dismiss(animated: true, completion: nil)

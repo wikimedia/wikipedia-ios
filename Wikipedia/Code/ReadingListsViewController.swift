@@ -9,7 +9,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController {
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection {
     
     private let reuseIdentifier = "ReadingListsViewControllerCell"
     
@@ -17,7 +17,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
-    var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
@@ -87,14 +86,20 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
         
         // Remove peek & pop for now
         unregisterForPreviewing()
         
         areScrollViewInsetsDeterminedByVisibleHeight = false
+        
+        isRefreshControlEnabled = true
+    }
+    
+    override func refresh() {
+        dataStore.readingListsController.backgroundUpdate {
+            self.endRefreshing()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,11 +112,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         editController.close()
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        cellLayoutEstimate = nil
-    }
-    
     func readingList(at indexPath: IndexPath) -> ReadingList? {
         guard let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
@@ -121,7 +121,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    @objc func createReadingList(with articles: [WMFArticle] = []) {
+    @objc func createReadingList(with articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil) {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
@@ -169,6 +169,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateEmptyState()
+    }
+    
     private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -182,19 +187,19 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             }
         }
         if isEmpty {
-            var emptyViewFrame = CGRect.zero
-            if displayType == .readingListsTab {
-                let cellHeight = cellLayoutEstimate?.height ?? 100
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height + cellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            if isShowingDefaultList {
+                collectionView.isHidden = true
+            }
+            let emptyViewFrame: CGRect
+            if traitCollection.verticalSizeClass == .compact {
+                emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y + navigationBar.underBarView.frame.height), size: view.bounds.size)
             } else {
-                let cellHeight = cellLayoutEstimate?.height ?? 70
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.frame.height + cellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+                emptyViewFrame = view.bounds
             }
             wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
+            collectionView.isHidden = false
         }
     }
     
@@ -244,9 +249,9 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let updateItem = BatchEditToolbarActionType.update.action(with: self)
+        //let updateItem = BatchEditToolbarActionType.update.action(with: self)
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
-        return [updateItem, deleteItem]
+        return [deleteItem]
     }()
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -264,6 +269,9 @@ extension ReadingListsViewController: CreateReadingListDelegate {
         }
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
+            if let moveFromReadingList = createReadingList.moveFromReadingList {
+                try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
+            }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
@@ -356,21 +364,9 @@ extension ReadingListsViewController: ActionDelegate {
     
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
         let readingListsCount = readingLists.count
-        let articlesCount = entriesCount(for: readingLists)
-        
-        let readingListFormat = WMFLocalizedString("reading-lists-format", value:"{{PLURAL:%1$d|reading list|reading lists}}", comment: "Describes the number of reading lists")
-        let listCountFormat = WMFLocalizedString("lists-count", value:"{{PLURAL:%1$d|%1$d list|%1$d lists}}", comment: "Describes the number of lists - %1$d is replaced with the number of reading lists")
-        let possesiveDeterminerFormat = WMFLocalizedString("possesive-determiner", value:"{{PLURAL:%1$d|its|their}}", comment: "Expresses possession or belonging, e.g., 'reading list and its articles'")
-        
-        let readingListString = String.localizedStringWithFormat(readingListFormat, readingListsCount)
-        let listCountString = String.localizedStringWithFormat(listCountFormat, readingListsCount)
-        let articleCountString = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articlesCount)
-        let possesiveDeterminer = String.localizedStringWithFormat(possesiveDeterminerFormat, readingListsCount)
-        
-        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete %1$@ and all of %2$@ saved articles?", comment: "Title of the altert shown before deleting selected reading lists."), "\(readingListString)", "\(possesiveDeterminer)")
-        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Your %1$@ and %2$@ will be deleted", comment: "Title of the altert shown before deleting selected reading lists."), "\(listCountString)", "\(articleCountString)")
+        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Are you sure you'd like to delete {{PLURAL:%1$d|this list|these %1$d lists}}?", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
+        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles in {{PLURAL:%1$d|this list|these lists}} will be unsaved if they are not in another reading list.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         return alert
     }
     
@@ -444,12 +440,7 @@ extension ReadingListsViewController: BatchEditNavigationDelegate {
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension ReadingListsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 80)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
@@ -457,7 +448,6 @@ extension ReadingListsViewController {
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        cellLayoutEstimate = estimate
         return estimate
     }
     

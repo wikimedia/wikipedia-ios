@@ -45,8 +45,21 @@ public class CommonStrings: NSObject {
     
     @objc public static let textSizeSliderAccessibilityLabel = WMFLocalizedString("reading-themes-controls-accessibility-text-size-slider", value: "Text size slider", comment: "Accessibility label for the text size slider that adjusts article text size.")
     
-    @objc public static let deleteActionTitle = WMFLocalizedStringWithDefaultValue("article-delete", nil, nil, "Delete", "Text of the article list row action shown on swipe which deletes the article")
+    @objc public static let deleteActionTitle = WMFLocalizedStringWithDefaultValue("article-delete", nil, nil, "Delete", "Title of the action that deletes the selected articles article.")
+    
+    @objc public static let removeActionTitle = WMFLocalizedStringWithDefaultValue("action-remove", nil, nil, "Remove", "Title of the action that removes the selection from the current context.")
+    
+    @objc public static let moveToReadingListActionTitle = WMFLocalizedString("action-move-to-reading-list", value: "Move to reading list", comment: "Title of the action that moves the selected articles to another reading list")
+    
+    @objc public static let addToReadingListActionTitle = WMFLocalizedString("action-add-to-reading-list", value: "Add to reading list", comment: "Title of the action that adds a selected articles to a reading list")
+    
+    @objc public static let moveToActionTitle = WMFLocalizedString("action-move-to", value: "Move to…", comment: "Title of the action that moves the selection elsewhere.")
+    
+    @objc public static let addToActionTitle = WMFLocalizedString("action-add-to", value: "Add to…", comment: "Title of the action that adds the selection to something else.")
+    
     @objc public static let shareActionTitle = WMFLocalizedStringWithDefaultValue("article-share", nil, nil, "Share", "Text of the article list row action shown on swipe which allows the user to choose the sharing option")
+
+    @objc public static let updateActionTitle = WMFLocalizedStringWithDefaultValue("action-update", nil, nil, "Update", "Title of the update action.")
 
     @objc public static let cancelActionTitle = WMFLocalizedStringWithDefaultValue("action-cancel", nil, nil, "Cancel", "Title of the cancel action.")
 

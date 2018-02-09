@@ -39,8 +39,13 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
+"action-add-to" = "Add to…";
+"action-add-to-reading-list" = "Add to reading list";
 "action-cancel" = "Cancel";
+"action-move-to" = "Move to…";
+"action-move-to-reading-list" = "Move to reading list";
 "action-read" = "Read";
+"action-remove" = "Remove";
 "action-save" = "Save";
 "action-saved" = "Saved";
 "action-saved-accessibility" = "Saved. Activate to unsave.";
@@ -48,8 +53,8 @@
 "action-share" = "Share";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
+"action-update" = "Update";
 "add-articles-to-reading-list" = "Add $1 to reading list";
-"add-to-reading-list" = "Add to a reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -91,8 +96,8 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"delete-reading-list-alert-message" = "Your $1 and $2 will be deleted";
-"delete-reading-list-alert-title" = "Delete $1 and all of $2 saved articles?";
+"delete-reading-list-alert-message" = "Any articles in {{PLURAL:$1|this list|these lists}} will be unsaved if they are not in another reading list.";
+"delete-reading-list-alert-title" = "Are you sure you'd like to delete {{PLURAL:$1|this list|these $1 lists}}?";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -208,7 +213,6 @@
 "languages-wikipedia" = "Wikipedia languages";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
-"lists-count" = "{{PLURAL:$1|$1 list|$1 lists}}";
 "login-forgot-password" = "Forgot your password?";
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
@@ -234,7 +238,6 @@
 "menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
-"move-to-reading-list" = "Move to a reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";
@@ -299,7 +302,6 @@
 "places-show-filter-list-accessibility-label" = "Show search filters";
 "places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
-"possesive-determiner" = "{{PLURAL:$1|its|their}}";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
@@ -309,7 +311,7 @@
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-exists-with-same-name" = "A reading list already exists with the name $1";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
-"reading-list-hint-title" = "Add $1 to a reading list?";
+"reading-list-hint-title" = "Move $1 to a reading list?";
 "reading-list-sync-setting" = "Reading list sync";
 "reading-list-unable-to-add-entry" = "An unexpected error occured while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occured while creating your reading list. Please try again later.";
@@ -320,7 +322,6 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for saved articles";
 "reading-lists-default-list-title" = "Bookmarks";
-"reading-lists-format" = "{{PLURAL:$1|reading list|reading lists}}";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
@@ -376,7 +377,6 @@
 "settings-title" = "Settings";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
 "share-a-fact-share-menu-item" = "Share-a-fact…";
-"share-activity-save-to-reading-list" = "Save to a reading list";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-building" = "Building Share-a-fact card…";
 "share-custom-menu-item" = "Share...";

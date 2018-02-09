@@ -39,9 +39,15 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
+        
+        isRefreshControlEnabled = true
+    }
+    
+    override func refresh() {
+        dataStore.readingListsController.backgroundUpdate {
+            self.endRefreshing()
+        }
     }
     
     private var isFirstAppearance = true
@@ -216,7 +222,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         guard allArticlesAreOnlyInTheDefaultList else {
             let title: String
             if articles.count == 1, let article = articles.first {
-                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
+                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.filter { !$0.isDefaultList }.count ?? 0)
             } else {
                 title = WMFLocalizedString("saved-confirm-unsave-articles-and-remove-from-reading-lists", value: "Are you sure you want to unsave these articles and remove them from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists")
             }
@@ -250,10 +256,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Batch editing (parts that cannot be in an extension)
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let updateItem = BatchEditToolbarActionType.update.action(with: self)
-        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
-        return [updateItem, addToListItem, unsaveItem]
+        return [addToListItem, unsaveItem]
     }()
     
     // MARK: - Hiding extended view
@@ -418,7 +423,7 @@ extension SavedArticlesViewController: ActionDelegate {
         switch action.type {
         case .update:
             return false
-        case .addToList:
+        case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)

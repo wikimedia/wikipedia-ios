@@ -159,6 +159,40 @@ class ColumnarCollectionViewController: ViewController {
         hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
     }
     
+    // MARK: - Refresh Control
+    
+    final var isRefreshControlEnabled: Bool = false {
+        didSet {
+            if isRefreshControlEnabled {
+                let refreshControl = UIRefreshControl()
+                refreshControl.layer.zPosition = -100
+                refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
+                collectionView.refreshControl = refreshControl
+            } else {
+                collectionView.refreshControl = nil
+            }
+        }
+    }
+    
+    var refreshStart: Date = Date()
+    @objc func refreshControlActivated() {
+        refreshStart = Date()
+        self.refresh()
+    }
+    
+    open func refresh() {
+        assert(false, "default implementation shouldn't be called")
+        self.endRefreshing()
+    }
+    
+    open func endRefreshing() {
+        let now = Date()
+        let timeInterval = 0.5 - now.timeIntervalSince(refreshStart)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeInterval, execute: {
+            self.collectionView.refreshControl?.endRefreshing()
+        })
+    }
+    
     // MARK: - Themeable
     
     override func apply(theme: Theme) {

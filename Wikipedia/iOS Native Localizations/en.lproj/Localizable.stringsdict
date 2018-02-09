@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>lists-count</key>
+	<key>delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -13,9 +13,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d list</string>
+			<string>Any articles in this list will be unsaved if they are not in another reading list.</string>
 			<key>other</key>
-			<string>%1$d lists</string>
+			<string>Any articles in these lists will be unsaved if they are not in another reading list.</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Are you sure you'd like to delete this list?</string>
+			<key>other</key>
+			<string>Are you sure you'd like to delete these %1$d lists?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -66,22 +82,6 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
-	<key>possesive-determiner</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>its</string>
-			<key>other</key>
-			<string>their</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,22 +96,6 @@
 			<string>%1$d reading list</string>
 			<key>other</key>
 			<string>%1$d reading lists</string>
-		</dict>
-	</dict>
-	<key>reading-lists-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>reading list</string>
-			<key>other</key>
-			<string>reading lists</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

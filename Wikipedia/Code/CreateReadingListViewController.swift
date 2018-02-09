@@ -16,6 +16,7 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate var theme: Theme = Theme.standard
     fileprivate let articles: [WMFArticle]
+    public let moveFromReadingList: ReadingList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +40,10 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    init(theme: Theme, articles: [WMFArticle]) {
+    init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
         self.theme = theme
         self.articles = articles
+        self.moveFromReadingList = moveFromReadingList
         super.init(nibName: "CreateReadingListViewController", bundle: nil)
     }
     
@@ -71,6 +73,11 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     @IBAction func textFieldDidChange(_ textField: UITextField) {
         createReadingListButton.isEnabled = !isReadingListFieldEmpty
         showDoneReturnKeyIfNecessary()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        readingListNameTextField.becomeFirstResponder()
     }
     
     func showDoneReturnKeyIfNecessary() {
