@@ -222,7 +222,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         guard allArticlesAreOnlyInTheDefaultList else {
             let title: String
             if articles.count == 1, let article = articles.first {
-                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
+                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.filter { !$0.isDefaultList }.count ?? 0)
             } else {
                 title = WMFLocalizedString("saved-confirm-unsave-articles-and-remove-from-reading-lists", value: "Are you sure you want to unsave these articles and remove them from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists")
             }
