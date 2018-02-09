@@ -95,6 +95,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
+@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
 
@@ -237,6 +238,10 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
+    
+    if (self.isResumeComplete) {
+        [self.dataStore.readingListsController start];
+    }
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -557,21 +562,27 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }
 }
 
+- (void)didAttemptLogin {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.dataStore.readingListsController start];
+        self.resumeComplete = YES;
+    });
+}
+
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-        [self.dataStore.readingListsController start];
+        [self didAttemptLogin];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-            [self.dataStore.readingListsController start];
+            [self didAttemptLogin];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-            [self.dataStore.readingListsController start];
-
+            [self didAttemptLogin];
         }];
 
     [self.dataStore.feedContentController startContentSources];
