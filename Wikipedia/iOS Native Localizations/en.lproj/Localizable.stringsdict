@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Any articles in this list will be unsaved if they are not in another reading list.</string>
+			<string>Any articles that are saved only to this list will be unsaved when this list is deleted.</string>
 			<key>other</key>
-			<string>Any articles in these lists will be unsaved if they are not in another reading list.</string>
+			<string>Any articles that are saved only to these lists will be unsaved when these lists are deleted.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Are you sure you'd like to delete this list?</string>
+			<string>Delete list?</string>
 			<key>other</key>
-			<string>Are you sure you'd like to delete these %1$d lists?</string>
+			<string>Delete lists?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
