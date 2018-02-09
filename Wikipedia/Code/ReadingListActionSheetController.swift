@@ -16,9 +16,9 @@ public class ReadingListActionSheetController: NSObject {
     @objc  func showActionSheet(for article: WMFArticle, moveFromReadingList: ReadingList? = nil, with theme: Theme) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let moveToReadingListActionTitle = WMFLocalizedString("move-to-reading-list", value: "Move to a reading list", comment: "Title of the action that moves the selected articles to another reading list")
+        let moveToReadingListActionTitle = CommonStrings.moveToReadingListActionTitle
         
-        let addToReadingListActionTitle = WMFLocalizedString("add-to-reading-list", value: "Add to a reading list", comment: "Title of the action that adds a selected articles to a reading list")
+        let addToReadingListActionTitle = CommonStrings.addToReadingListActionTitle
         
         let unsaveActionTitle = article.isOnlyInDefaultList ? CommonStrings.shortUnsaveTitle : String.localizedStringWithFormat(WMFLocalizedString("unsave-article-and-remove-from-reading-lists", value: "Unsave and remove from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}", comment: "Title of the action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.count ?? 0)
         

@@ -39,8 +39,13 @@
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
+"action-add-to" = "Add to…";
+"action-add-to-reading-list" = "Add to reading list";
 "action-cancel" = "Cancel";
+"action-move-to" = "Move to…";
+"action-move-to-reading-list" = "Move to reading list";
 "action-read" = "Read";
+"action-remove" = "Remove";
 "action-save" = "Save";
 "action-saved" = "Saved";
 "action-saved-accessibility" = "Saved. Activate to unsave.";
@@ -48,8 +53,8 @@
 "action-share" = "Share";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
+"action-update" = "Update";
 "add-articles-to-reading-list" = "Add $1 to reading list";
-"add-to-reading-list" = "Add to a reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -234,7 +239,6 @@
 "menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
-"move-to-reading-list" = "Move to a reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";

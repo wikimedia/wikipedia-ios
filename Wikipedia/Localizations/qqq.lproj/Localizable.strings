@@ -39,8 +39,13 @@
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
+"action-add-to" = "Title of the action that adds the selection to something else.";
+"action-add-to-reading-list" = "Title of the action that adds a selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
+"action-move-to" = "Title of the action that moves the selection elsewhere.";
+"action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
+"action-remove" = "Title of the action that removes the selection from the current context.";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
@@ -48,8 +53,8 @@
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
+"action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
-"add-to-reading-list" = "Title of the action that adds a selected articles to a reading list";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
@@ -62,7 +67,7 @@
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
-"article-delete" = "Text of the article list row action shown on swipe which deletes the article";
+"article-delete" = "Title of the action that deletes the selected articles article.";
 "article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
@@ -234,7 +239,6 @@
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
-"move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";

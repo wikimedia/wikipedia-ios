@@ -256,10 +256,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Batch editing (parts that cannot be in an extension)
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let updateItem = BatchEditToolbarActionType.update.action(with: self)
-        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
-        return [updateItem, addToListItem, unsaveItem]
+        return [addToListItem, unsaveItem]
     }()
     
     // MARK: - Hiding extended view
@@ -424,7 +423,7 @@ extension SavedArticlesViewController: ActionDelegate {
         switch action.type {
         case .update:
             return false
-        case .addToList:
+        case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
