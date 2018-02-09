@@ -75,6 +75,11 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         showDoneReturnKeyIfNecessary()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        readingListNameTextField.becomeFirstResponder()
+    }
+    
     func showDoneReturnKeyIfNecessary() {
         if !isReadingListFieldEmpty && !isDescriptionFieldEmpty {
             descriptionTextField.returnKeyType = .done
