@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Articles in this list will be unsaved if they are not in another reading list.</string>
+			<string>Any articles in this list will be unsaved if they are not in another reading list.</string>
 			<key>other</key>
-			<string>Articles in these lists will be unsaved if they are not in another reading list.</string>
+			<string>Any articles in these lists will be unsaved if they are not in another reading list.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>

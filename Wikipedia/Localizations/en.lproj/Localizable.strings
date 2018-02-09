@@ -96,7 +96,7 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"delete-reading-list-alert-message" = "Articles in {{PLURAL:$1|this list|these lists}} will be unsaved if they are not in another reading list.";
+"delete-reading-list-alert-message" = "Any articles in {{PLURAL:$1|this list|these lists}} will be unsaved if they are not in another reading list.";
 "delete-reading-list-alert-title" = "Are you sure you'd like to delete {{PLURAL:$1|this list|these $1 lists}}?";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
