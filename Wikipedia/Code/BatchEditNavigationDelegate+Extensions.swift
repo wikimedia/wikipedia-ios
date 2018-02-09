@@ -24,6 +24,12 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
                 batchEditToolbarViewController.view.alpha = isHidden ? 0 : 1
             }
         }, completion: nil)
+        
+        if isHidden {
+            batchEditToolbarViewController.view.removeFromSuperview()
+            batchEditToolbarViewController.willMove(toParentViewController: nil)
+            batchEditToolbarViewController.removeFromParentViewController()
+        }
     }
     
     func emptyStateDidChange(_ empty: Bool) {

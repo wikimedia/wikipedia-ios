@@ -161,15 +161,10 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
     }
     
-    var firstCellHeight: CGFloat {
-        guard let cellRect = collectionView.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame else {
-            return 0
-        }
-        
-        return collectionView.convert(cellRect, to: collectionView.superview).height
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateEmptyState()
     }
-    
-    var cellHeightEstimate: CGFloat = 0
     
     private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
@@ -184,17 +179,19 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             }
         }
         if isEmpty {
-            var emptyViewFrame = CGRect.zero
-            if displayType == .readingListsTab {
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height + firstCellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            if isShowingDefaultList {
+                collectionView.isHidden = true
+            }
+            let emptyViewFrame: CGRect
+            if traitCollection.verticalSizeClass == .compact {
+                emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y + navigationBar.underBarView.frame.height), size: view.bounds.size)
             } else {
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.frame.height + firstCellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+                emptyViewFrame = view.bounds
             }
             wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
+            collectionView.isHidden = false
         }
     }
     
