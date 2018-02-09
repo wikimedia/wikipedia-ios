@@ -96,8 +96,8 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"delete-reading-list-alert-message" = "Your $1 and $2 will be deleted";
-"delete-reading-list-alert-title" = "Delete $1 and all of $2 saved articles?";
+"delete-reading-list-alert-message" = "Articles in {{PLURAL:$1|this list|these lists}} will be unsaved if they are not in another reading list.";
+"delete-reading-list-alert-title" = "Are you sure you'd like to delete {{PLURAL:$1|this list|these $1 lists}}?";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -213,7 +213,6 @@
 "languages-wikipedia" = "Wikipedia languages";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Content is available under $1 unless otherwise noted.";
-"lists-count" = "{{PLURAL:$1|$1 list|$1 lists}}";
 "login-forgot-password" = "Forgot your password?";
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
@@ -303,7 +302,6 @@
 "places-show-filter-list-accessibility-label" = "Show search filters";
 "places-title" = "Places";
 "places-unknown-distance" = "unknown distance";
-"possesive-determiner" = "{{PLURAL:$1|its|their}}";
 "potd-description-prefix" = "Picture of the day for $1";
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
@@ -324,7 +322,6 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for saved articles";
 "reading-lists-default-list-title" = "Bookmarks";
-"reading-lists-format" = "{{PLURAL:$1|reading list|reading lists}}";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";

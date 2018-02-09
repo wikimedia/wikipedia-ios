@@ -364,21 +364,9 @@ extension ReadingListsViewController: ActionDelegate {
     
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
         let readingListsCount = readingLists.count
-        let articlesCount = entriesCount(for: readingLists)
-        
-        let readingListFormat = WMFLocalizedString("reading-lists-format", value:"{{PLURAL:%1$d|reading list|reading lists}}", comment: "Describes the number of reading lists")
-        let listCountFormat = WMFLocalizedString("lists-count", value:"{{PLURAL:%1$d|%1$d list|%1$d lists}}", comment: "Describes the number of lists - %1$d is replaced with the number of reading lists")
-        let possesiveDeterminerFormat = WMFLocalizedString("possesive-determiner", value:"{{PLURAL:%1$d|its|their}}", comment: "Expresses possession or belonging, e.g., 'reading list and its articles'")
-        
-        let readingListString = String.localizedStringWithFormat(readingListFormat, readingListsCount)
-        let listCountString = String.localizedStringWithFormat(listCountFormat, readingListsCount)
-        let articleCountString = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articlesCount)
-        let possesiveDeterminer = String.localizedStringWithFormat(possesiveDeterminerFormat, readingListsCount)
-        
-        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete %1$@ and all of %2$@ saved articles?", comment: "Title of the altert shown before deleting selected reading lists."), "\(readingListString)", "\(possesiveDeterminer)")
-        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Your %1$@ and %2$@ will be deleted", comment: "Title of the altert shown before deleting selected reading lists."), "\(listCountString)", "\(articleCountString)")
+        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Are you sure you'd like to delete {{PLURAL:%1$d|this list|these %1$d lists}}?", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
+        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles in {{PLURAL:%1$d|this list|these lists}} will be unsaved if they are not in another reading list.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
         return alert
     }
     
