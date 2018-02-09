@@ -92,6 +92,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         unregisterForPreviewing()
         
         areScrollViewInsetsDeterminedByVisibleHeight = false
+        
+        isRefreshControlEnabled = true
+    }
+    
+    override func refresh() {
+        dataStore.readingListsController.backgroundUpdate {
+            self.endRefreshing()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -40,6 +40,14 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         collectionViewUpdater?.delegate = self
         
         setupEditController(with: collectionView)
+        
+        isRefreshControlEnabled = true
+    }
+    
+    override func refresh() {
+        dataStore.readingListsController.backgroundUpdate {
+            self.endRefreshing()
+        }
     }
     
     private var isFirstAppearance = true
