@@ -85,7 +85,7 @@ class AddToReadingListActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return WMFLocalizedString("share-activity-save-to-reading-list", value: "Save to a reading list", comment: "Title of the custom share activity that allows saving an article to a reading list")
+        return CommonStrings.addToReadingListActionTitle
     }
     
     override var activityImage: UIImage? {
@@ -110,7 +110,7 @@ class MoveToReadingListActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return WMFLocalizedString("share-activity-move-to-reading-list", value: "Move to a reading list", comment: "Title of the custom share activity that allows moving articles to another reading list")
+        return CommonStrings.moveToReadingListActionTitle
     }
     
     override var activityImage: UIImage? {
