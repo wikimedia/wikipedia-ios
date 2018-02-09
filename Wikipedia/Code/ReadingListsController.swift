@@ -466,6 +466,16 @@ public class ReadingListsController: NSObject {
         updateTimer = nil
     }
     
+    @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
+        if isSyncEnabled {
+            let update = ReadingListsUpdateOperation(readingListsController: self)
+            operationQueue.addOperation(update)
+            operationQueue.addOperation(completion)
+        } else {
+            completion()
+        }
+    }
+    
     @objc private func _update() {
         if isSyncEnabled {
             let update = ReadingListsUpdateOperation(readingListsController: self)
