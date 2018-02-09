@@ -48,9 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {

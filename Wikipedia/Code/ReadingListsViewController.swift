@@ -9,7 +9,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController {
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection {
     
     private let reuseIdentifier = "ReadingListsViewControllerCell"
     
@@ -17,7 +17,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
     var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
-    var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
@@ -87,9 +86,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
 
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
         
         // Remove peek & pop for now
         unregisterForPreviewing()
@@ -105,11 +102,6 @@ class ReadingListsViewController: ColumnarCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        cellLayoutEstimate = nil
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -169,6 +161,11 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateEmptyState()
+    }
+    
     private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -182,19 +179,19 @@ class ReadingListsViewController: ColumnarCollectionViewController {
             }
         }
         if isEmpty {
-            var emptyViewFrame = CGRect.zero
-            if displayType == .readingListsTab {
-                let cellHeight = cellLayoutEstimate?.height ?? 100
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height + cellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+            if isShowingDefaultList {
+                collectionView.isHidden = true
+            }
+            let emptyViewFrame: CGRect
+            if traitCollection.verticalSizeClass == .compact {
+                emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y + navigationBar.underBarView.frame.height), size: view.bounds.size)
             } else {
-                let cellHeight = cellLayoutEstimate?.height ?? 70
-                let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.frame.height + cellHeight
-                emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
+                emptyViewFrame = view.bounds
             }
             wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
+            collectionView.isHidden = false
         }
     }
     
@@ -447,12 +444,7 @@ extension ReadingListsViewController: BatchEditNavigationDelegate {
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension ReadingListsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 80)
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
         guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
@@ -460,7 +452,6 @@ extension ReadingListsViewController {
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        cellLayoutEstimate = estimate
         return estimate
     }
     
