@@ -2025,14 +2025,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)willUnsaveArticle:(WMFArticle * _Nonnull)article {
     [self.readingListHintController hideHintImmediately];
     if (!article.isOnlyInDefaultList) {
-        [self.readingListActionSheetController showActionSheetFor:article with:self.theme];
+        [self.readingListActionSheetController showActionSheetFor:article moveFromReadingList:nil with:self.theme];
     } else {
         [self.saveButtonsController updateSavedState];
     }
 }
 
 - (void)showAddArticlesToReadingListViewControllerFor:(WMFArticle * _Nonnull)article {
-    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.userStore articles:@[article] theme:self.theme];
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.userStore articles:@[article] moveFromReadingList:nil theme:self.theme];
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 

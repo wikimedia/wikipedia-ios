@@ -4,7 +4,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     private let dataStore: MWKDataStore
     private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    private let readingList: ReadingList
+    internal let readingList: ReadingList
     private var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"

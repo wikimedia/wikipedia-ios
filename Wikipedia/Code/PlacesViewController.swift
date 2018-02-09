@@ -1775,7 +1775,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
                 self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
             }
-            let shareActivityController = ShareActivityController(article: article, context: context, customActivity: addToReadingListActivity)
+            let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])
             shareActivityController.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {

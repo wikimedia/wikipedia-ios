@@ -121,7 +121,7 @@ class ReadingListsViewController: ColumnarCollectionViewController {
         return fetchedResultsController.object(at: indexPath)
     }
     
-    @objc func createReadingList(with articles: [WMFArticle] = []) {
+    @objc func createReadingList(with articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil) {
         let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
@@ -264,6 +264,9 @@ extension ReadingListsViewController: CreateReadingListDelegate {
         }
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
+            if let moveFromReadingList = createReadingList.moveFromReadingList {
+                try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
+            }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
