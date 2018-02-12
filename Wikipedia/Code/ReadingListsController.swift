@@ -403,7 +403,7 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: isSyncEnabledKey)
         if isSyncEnabled {
-            let op = ReadingListsEnableSyncOperation(readingListsController: self)
+            let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
             operationQueue.addOperation(op)
         } else {
             let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
@@ -589,19 +589,9 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            let savedArticlesFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            savedArticlesFetchRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            savedArticlesFetchRequest.fetchLimit = 500
-            var savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            while savedArticles.count > 0 {
-                for article in savedArticles {
-                    unsave(article)
-                }
-                if moc.hasChanges {
-                    try moc.save()
-                }
-                savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            }
+            try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
+                unsave(article)
+            })
             update()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
