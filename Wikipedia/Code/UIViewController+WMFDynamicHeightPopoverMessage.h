@@ -8,9 +8,9 @@
                                                                 width:(CGFloat)width
                                                              duration:(NSTimeInterval)duration;
 
-- (UIViewController *)wmf_presentDynamicHeightPopoverViewControllerForSourceRect:(CGRect)sourceRect
-                                                                       withTitle:(NSString *)title
-                                                                         message:(NSString *)message
-                                                                           width:(CGFloat)width
-                                                                        duration:(NSTimeInterval)duration;
+- (void)wmf_presentDynamicHeightPopoverViewControllerForSourceRect:(CGRect)sourceRect
+                                                         withTitle:(NSString *)title
+                                                           message:(NSString *)message
+                                                             width:(CGFloat)width
+                                                          duration:(NSTimeInterval)duration;
 @end
