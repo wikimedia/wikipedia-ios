@@ -323,6 +323,7 @@
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "saved-clear-all" = "Slet";
 "saved-pages-clear-cancel" = "Annuller";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Vil du slette alle dine gemte sider?";
 "saved-pages-clear-delete-all" = "Ja, slet alt";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";

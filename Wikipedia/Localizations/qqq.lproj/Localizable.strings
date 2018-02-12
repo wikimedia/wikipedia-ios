@@ -39,8 +39,13 @@
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
+"action-add-to" = "Title of the action that adds the selection to something else.";
+"action-add-to-reading-list" = "Title of the action that adds a selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
+"action-move-to" = "Title of the action that moves the selection elsewhere.";
+"action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
+"action-remove" = "Title of the action that removes the selection from the current context.";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
@@ -48,8 +53,8 @@
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
+"action-update" = "Title of the update action.";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
-"add-to-reading-list" = "Title of the action that adds a selected article to a reading list";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
@@ -62,7 +67,7 @@
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "appearance-settings-title" = "Title of the Appearance view in Settings.";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
-"article-delete" = "Text of the article list row action shown on swipe which deletes the article";
+"article-delete" = "Title of the action that deletes the selected articles article.";
 "article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
@@ -92,7 +97,7 @@
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
 "delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
-"delete-reading-list-alert-title" = "Title of the altert shown before deleting selected reading lists.";
+"delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
@@ -208,7 +213,6 @@
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "license-footer-text" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
-"lists-count" = "Describes the number of lists - $1 is replaced with the number of reading lists";
 "login-forgot-password" = "Button text for loading the password reminder interface";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
@@ -234,7 +238,6 @@
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
-"move-to-reading-list" = "Title of the action that moves a selected article to a reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
@@ -299,7 +302,6 @@
 "places-show-filter-list-accessibility-label" = "Accessibility title for the button that shows search filters";
 "places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
-"possesive-determiner" = "Expresses possession or belonging, e.g., 'reading list and its articles'";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
@@ -331,10 +333,10 @@
 "reading-list-unable-to-remove-entry" = "Informs the user that an error occurred while removing an entry from their reading list.";
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
+"reading-lists-article-moved-confirmation" = "Confirmation shown after the user moves an article to a list";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list";
 "reading-lists-default-list-title" = "The title of the default saved pages list";
-"reading-lists-format" = "Describes the number of reading lists";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
@@ -390,7 +392,6 @@
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-a-fact-share-menu-item" = "Button label for creating a Share-a-fact card from the current text selection";
-"share-activity-save-to-reading-list" = "Title of the custom share activity that allows saving an article to a reading list";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
 "share-custom-menu-item" = "Button label for text selection Share\n{{Identical|Share}}";

@@ -452,14 +452,28 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func start() {
+        guard updateTimer == nil else {
+            return
+        }
         assert(Thread.isMainThread)
         updateTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         sync()
     }
     
     @objc public func stop() {
+        assert(Thread.isMainThread)
         updateTimer?.invalidate()
         updateTimer = nil
+    }
+    
+    @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
+        if isSyncEnabled {
+            let update = ReadingListsUpdateOperation(readingListsController: self)
+            operationQueue.addOperation(update)
+            operationQueue.addOperation(completion)
+        } else {
+            completion()
+        }
     }
     
     @objc private func _update() {

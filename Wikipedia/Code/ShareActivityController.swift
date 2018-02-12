@@ -48,12 +48,23 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
         return false
     }
     
-    private func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+        var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
             self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
         }
-        let shareActivityController = ShareActivityController(article: article, context: self, customActivity: addToReadingListActivity)
+        customActivities.append(addToReadingListActivity)
+        
+        if let readingListDetailVC = self as? ReadingListDetailViewController {
+            let moveToReadingListActivity = MoveToReadingListActivity {
+                let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: readingListDetailVC.readingList, theme: theme)
+                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            }
+            customActivities.append(moveToReadingListActivity)
+        }
+        
+        let shareActivityController = ShareActivityController(article: article, context: self, customActivities: customActivities)
         if UIDevice.current.userInterfaceIdiom == .pad {
             let cell = collectionView.cellForItem(at: indexPath)
             shareActivityController.popoverPresentationController?.sourceView = cell ?? view
@@ -74,11 +85,36 @@ class AddToReadingListActivity: UIActivity {
     }
     
     override var activityTitle: String? {
-        return WMFLocalizedString("share-activity-save-to-reading-list", value: "Save to a reading list", comment: "Title of the custom share activity that allows saving an article to a reading list")
+        return CommonStrings.addToReadingListActionTitle
     }
     
     override var activityImage: UIImage? {
         return UIImage(named: "add-to-reading-list")
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func perform() {
+        action()
+    }
+}
+
+@objc(WMFMoveToReadingListActivity)
+class MoveToReadingListActivity: UIActivity {
+    private let action: () -> Void
+    
+    @objc init(action: @escaping () -> Void) {
+        self.action = action
+    }
+    
+    override var activityTitle: String? {
+        return CommonStrings.moveToReadingListActionTitle
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(named: "move-to-reading-list")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
@@ -95,7 +131,7 @@ class ShareActivityController: UIActivityViewController {
     
     private var articleApplicationActivities: [UIActivity] = [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()]
     
-    @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivity: UIActivity) {
+    @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivities: [UIActivity]) {
         let tracker = PiwikTracker.sharedInstance()
         tracker?.wmf_logActionShare(inContext: context, contentType: article)
         
@@ -114,7 +150,7 @@ class ShareActivityController: UIActivityViewController {
             items.append(mapItem)
         }
         
-        articleApplicationActivities.append(customActivity)
+        articleApplicationActivities.append(contentsOf: customActivities)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     

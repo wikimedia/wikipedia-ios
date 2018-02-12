@@ -4,7 +4,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     private let dataStore: MWKDataStore
     private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    private let readingList: ReadingList
+    internal let readingList: ReadingList
     private var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
@@ -48,9 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
-        editController = CollectionViewEditController(collectionView: collectionView)
-        editController.delegate = self
-        editController.navigationDelegate = self
+        setupEditController(with: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,10 +127,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     // MARK: - Batch editing (parts that cannot be in an extension)
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let updateItem = BatchEditToolbarActionType.update.action(with: self)
-        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
-        let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
-        return [updateItem, addToListItem, unsaveItem]
+        let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
+        let moveToListItem = BatchEditToolbarActionType.moveTo.action(with: self)
+        let removeItem = BatchEditToolbarActionType.remove.action(with: self)
+        return [addToListItem, moveToListItem, removeItem]
     }()
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -168,18 +166,22 @@ extension ReadingListDetailViewController: ActionDelegate {
         let articles = selectedIndexPaths.flatMap({ article(at: $0) })
         
         switch action.type {
-        case .update:
-            return true
-        case .addToList:
+        case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
-        case .unsave:
+        case .remove:
             delete(entries)
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
+        case .moveTo:
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList:readingList, theme: theme)
+            addArticlesToReadingListViewController.delegate = self
+            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            return true
         default:
+            assert(false, "Unhandled action type")
             break
         }
         return false

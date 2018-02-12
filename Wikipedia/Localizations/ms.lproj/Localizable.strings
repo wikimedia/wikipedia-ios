@@ -320,6 +320,7 @@
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "saved-clear-all" = "Padamkan";
 "saved-pages-clear-cancel" = "Batalkan";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua laman tersimpan anda?";
 "saved-pages-clear-delete-all" = "Ya, padamkan semua";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";

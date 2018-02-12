@@ -331,6 +331,7 @@
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "saved-clear-all" = "Kosongkan";
 "saved-pages-clear-cancel" = "Batal";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua halaman tersimpan Anda?";
 "saved-pages-clear-delete-all" = "Ya, hapus semua";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";

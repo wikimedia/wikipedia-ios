@@ -14,7 +14,7 @@ class ReadingListHintViewController: UIViewController {
     
     private var hintButtonTitle: String {
         let articleTitle = article?.displayTitle ?? "article"
-        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Add %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
+        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Move %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
     @IBOutlet weak var hintView: UIView!
@@ -71,7 +71,7 @@ class ReadingListHintViewController: UIViewController {
         guard let article = article, let dataStore = dataStore else {
             return
         }
-        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: dataStore.viewContext.wmf_fetchDefaultReadingList(), theme: theme)
         addArticlesToReadingListViewController.delegate = self
         present(addArticlesToReadingListViewController, animated: true, completion: nil)
     }
@@ -113,7 +113,8 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         }
         self.readingList = readingList
         isHintViewHidden = true
-        confirmationButton.setTitle("Article added to \(name)", for: .normal)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-moved-confirmation", value: "Article moved to “%1$@”", comment: "Confirmation shown after the user moves an article to a list"), name)
+        confirmationButton.setTitle(title, for: .normal)
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     

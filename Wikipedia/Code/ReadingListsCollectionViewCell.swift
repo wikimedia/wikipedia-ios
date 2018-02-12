@@ -103,7 +103,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if apply && displayType == .readingListsTab && articleCount > 0 {
+        if displayType == .readingListsTab && articleCount > 0 {
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
             articleCountLabel.isHidden = false
@@ -186,7 +186,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
-                
+
         return CGSize(width: size.width, height: height)
     }
     

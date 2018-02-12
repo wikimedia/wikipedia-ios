@@ -319,6 +319,7 @@
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-clear-all" = "Llimpiar";
 "saved-pages-clear-cancel" = "Encaboxar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "¿Seguro que quies desaniciar toles páxines guardaes?";
 "saved-pages-clear-delete-all" = "Si, desaniciar too";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";

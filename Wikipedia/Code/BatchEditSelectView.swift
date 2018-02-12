@@ -68,21 +68,27 @@ public enum BatchEditingState {
 }
 
 public enum BatchEditToolbarActionType {
-    case update, addToList, unsave, delete
+    case update, addTo, moveTo, unsave, remove, delete
         
     public func action(with target: Any?) -> BatchEditToolbarAction {
-        var title: String = "Update"
+        var title: String = CommonStrings.updateActionTitle
         var type: BatchEditToolbarActionType = .update
         switch self {
-        case .addToList:
-            title = "Add to list"
-            type = .addToList
+        case .moveTo:
+            title = CommonStrings.moveToActionTitle
+            type = .moveTo
+        case .addTo:
+            title = CommonStrings.addToActionTitle
+            type = .addTo
         case .unsave:
-            title = "Un-save"
+            title = CommonStrings.shortUnsaveTitle
             type = .unsave
         case .delete:
-            title = "Delete"
+            title = CommonStrings.deleteActionTitle
             type = .delete
+        case .remove:
+            title = CommonStrings.removeActionTitle
+            type = .remove
         default:
             break
         }

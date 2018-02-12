@@ -15,10 +15,6 @@ public protocol BatchEditNavigationDelegate: NSObjectProtocol {
     var currentTheme: Theme { get }
 }
 
-public protocol EditableCollection: NSObjectProtocol {
-    var editController: CollectionViewEditController! { get set }
-}
-
 public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate, ActionDelegate {
     
     let collectionView: UICollectionView

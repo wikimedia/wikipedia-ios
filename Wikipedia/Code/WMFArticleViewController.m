@@ -1170,7 +1170,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
                 if (specialPageActivity) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popViewControllerAnimated:NO];
+                    return;
                 } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
@@ -1265,7 +1266,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 
     WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
-        WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+        WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
         [self presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
         ;
     }];
@@ -1287,7 +1288,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList) {
-        [self.readingListActionSheetController showActionSheetFor:articleToUnsave with:self.theme];
+        [self.readingListActionSheetController showActionSheetFor:articleToUnsave moveFromReadingList:nil with:self.theme];
         return; // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
     }
     [self updateSavedState];
@@ -1323,7 +1324,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [self.readingListHintController hideHintImmediately];
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
-    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] theme:self.theme];
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
