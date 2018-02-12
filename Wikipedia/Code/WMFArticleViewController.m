@@ -1170,7 +1170,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
                 if (specialPageActivity) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popViewControllerAnimated:NO];
+                    return;
                 } else {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
