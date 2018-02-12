@@ -149,6 +149,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFReadingListActionSheetController *readingListActionSheetController;
 
+@property (nonatomic, strong) UIViewController *WIconPopover;
+
 @end
 
 @implementation WMFArticleViewController
@@ -1941,12 +1943,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - One-time toolbar item popover tips
 
 - (BOOL)shouldShowWIconPopover {
-    return NO;
-    //    if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
-    //        return NO;
-    //    } else {
-    //        return YES;
-    //    }
+        if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
+            return NO;
+        } else {
+            return YES;
+        }
 }
 
 - (void)showWIconPopoverIfNecessary {
@@ -1958,11 +1959,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)cancelWIconPopoverDisplay {
+    [self.WIconPopover dismissViewControllerAnimated:YES completion:nil];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showWIconPopover) object:nil];
 }
 
 - (void)showWIconPopover {
-    [self wmf_presentDynamicHeightPopoverViewControllerForSourceRect:[self.titleButton convertRect:self.titleButton.bounds toView:self.view]
+    self.WIconPopover = [self wmf_presentDynamicHeightPopoverViewControllerForSourceRect:[self.titleButton convertRect:self.titleButton.bounds toView:self.view]
                                                            withTitle:WMFLocalizedStringWithDefaultValue(@"home-button-popover-title", nil, nil, @"Tap to go home", @"Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
                                                              message:WMFLocalizedStringWithDefaultValue(@"home-button-popover-description", nil, nil, @"Tap on the 'W' to return to the Explore feed", @"Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
                                                                width:230.0f

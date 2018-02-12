@@ -22,13 +22,13 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
                                  }];
 }
 
-- (void)wmf_presentDynamicHeightPopoverViewControllerForSourceRect:(CGRect)sourceRect
+- (UIViewController *)wmf_presentDynamicHeightPopoverViewControllerForSourceRect:(CGRect)sourceRect
                                                          withTitle:(NSString *)title
                                                            message:(NSString *)message
                                                              width:(CGFloat)width
                                                           duration:(NSTimeInterval)duration {
 
-    [self wmf_presentDynamicHeightPopoverViewControllerWithTitle:title
+    return [self wmf_presentDynamicHeightPopoverViewControllerWithTitle:title
                                                          message:message
                                                            width:width
                                                         duration:duration
@@ -38,7 +38,7 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
                                  }];
 }
 
-- (void)wmf_presentDynamicHeightPopoverViewControllerWithTitle:(NSString *)title
+- (UIViewController *)wmf_presentDynamicHeightPopoverViewControllerWithTitle:(NSString *)title
                                                        message:(NSString *)message
                                                          width:(CGFloat)width
                                                       duration:(NSTimeInterval)duration
@@ -55,6 +55,8 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
                              [self performSelector:@selector(dismissPopover:) withObject:popoverVC afterDelay:duration];
                          }
                      }];
+    
+    return popoverVC;
 }
 
 - (void)dismissPopover:(UIViewController *)popoverVC {
