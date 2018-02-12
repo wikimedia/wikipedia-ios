@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>在此清單裡的任何條目若不在其它閱讀清單裡，將會取消儲存。</string>
+			<key>other</key>
+			<string>在這些清單裡的任何條目若不在其它閱讀清單裡，將會取消儲存。</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>您確定要刪除此清單嗎？</string>
+			<key>other</key>
+			<string>您確定要刪除這 %1$d 個清單嗎？</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +80,22 @@
 			<string>%1$d個條目</string>
 			<key>other</key>
 			<string>%1$d個條目</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d 個閱讀清單</string>
+			<key>other</key>
+			<string>%1$d 個閱讀清單</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -120,6 +168,38 @@
 			<string>%1$d 年前</string>
 			<key>zero</key>
 			<string>今年</string>
+		</dict>
+	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
+			<key>other</key>
+			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
+		</dict>
+	</dict>
+	<key>unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>取消儲存並從 %1$d 個閱讀清單移除</string>
+			<key>other</key>
+			<string>取消儲存並從 %1$d 個閱讀清單移除</string>
 		</dict>
 	</dict>
 </dict>

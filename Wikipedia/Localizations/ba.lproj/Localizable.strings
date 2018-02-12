@@ -169,6 +169,7 @@
 "preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәреү";
 "saved-clear-all" = "Таҙартыу";
 "saved-pages-clear-cancel" = "Кире алырға";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Һеҙ ысынлап та һаҡланған бөтә элементтарҙы юйырға теләйһегеҙме?";
 "saved-pages-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "saved-pages-image-download-error" = "Был һаҡланған бит өсөн һүрәтен күсереп булманы";

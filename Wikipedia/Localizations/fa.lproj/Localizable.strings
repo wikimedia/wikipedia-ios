@@ -337,6 +337,7 @@
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "saved-clear-all" = "پاک‌کردن";
 "saved-pages-clear-cancel" = "لغو";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که همه موارد ذخیره‌شده را حذف کنید؟";
 "saved-pages-clear-delete-all" = "بله، حذف همه";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";

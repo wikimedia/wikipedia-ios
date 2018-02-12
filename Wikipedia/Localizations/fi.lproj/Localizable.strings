@@ -322,6 +322,7 @@
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "saved-clear-all" = "Tyhjennä";
 "saved-pages-clear-cancel" = "Peruuta";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tallennetut sivusi?";
 "saved-pages-clear-delete-all" = "Kyllä, poista kaikki";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";

@@ -341,9 +341,10 @@ func importLocalizationsFromTWN(_ path: String) {
     let fm = FileManager.default
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
-        
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
+        var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
+        var englishPluralDictionary: NSMutableDictionary?
         for filename in contents {
             guard let locale = filename.components(separatedBy: ".").first?.lowercased(), localeIsAvailable(locale) else {
                 continue
@@ -381,18 +382,22 @@ func importLocalizationsFromTWN(_ path: String) {
                         try fm.removeItem(atPath: stringsFilePath)
                     } catch { }
                 }
+            } else {
+                englishPluralDictionary = stringsDict
             }
 
-            let stringsdictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
+            let stringsDictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
             
             if stringsDict.count > 0 {
-                stringsDict.write(toFile: stringsdictFilePath, atomically: true)
+                stringsDict.write(toFile: stringsDictFilePath, atomically: true)
             } else {
-                do {
-                    try fm.removeItem(atPath: stringsdictFilePath)
-                } catch { }
+                pathsForEnglishPlurals.append(stringsDictFilePath)
             }
             
+        }
+
+        for stringsDictFilePath in pathsForEnglishPlurals {
+            englishPluralDictionary?.write(toFile: stringsDictFilePath, atomically: true)
         }
         
     } catch let error {
