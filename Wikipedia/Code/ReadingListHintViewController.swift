@@ -113,7 +113,8 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         }
         self.readingList = readingList
         isHintViewHidden = true
-        confirmationButton.setTitle("Article added to \(name)", for: .normal)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-moved-confirmation", value: "Article moved to “%1$@”", comment: "Confirmation shown after the user moves an article to a list"), name)
+        confirmationButton.setTitle(title, for: .normal)
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
