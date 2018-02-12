@@ -364,8 +364,8 @@ extension ReadingListsViewController: ActionDelegate {
     
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
         let readingListsCount = readingLists.count
-        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Are you sure you'd like to delete {{PLURAL:%1$d|this list|these %1$d lists}}?", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
-        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles in {{PLURAL:%1$d|this list|these lists}} will be unsaved if they are not in another reading list.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists."), readingListsCount)
+        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles saved only to {{PLURAL:%1$d|this list will be unsaved when it is deleted|these lists will be unsaved when they are deleted}}.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         return alert
     }
