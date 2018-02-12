@@ -6,6 +6,7 @@ import UIKit
     case systemMedium
     case systemBold
     case systemHeavy
+    case systemItalic
     case georgia
 }
 
@@ -145,6 +146,22 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 14
             ]
         ],
+        .systemItalic: [
+            UIFontTextStyle.caption2: [
+                .accessibilityExtraExtraExtraLarge: 20,
+                .accessibilityExtraExtraLarge: 20,
+                .accessibilityExtraLarge: 20,
+                .accessibilityLarge: 20,
+                .accessibilityMedium: 20,
+                .extraExtraExtraLarge: 20,
+                .extraExtraLarge: 18,
+                .extraLarge: 16,
+                .large: 14,
+                .medium: 13,
+                .small: 12,
+                .extraSmall: 12
+            ]
+        ],
         .systemMedium: [
             UIFontTextStyle.subheadline: [ // Save for later button
                 .accessibilityExtraExtraExtraLarge: 21,
@@ -229,11 +246,21 @@ public extension UIFont {
             font = UIFont.boldSystemFont(ofSize: size)
         case .systemHeavy:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
+        case .systemItalic:
+            font = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).with(traits: [.traitItalic])
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             font = UIFont.systemFont(ofSize: 17)
         }
         fontCache[cacheKey] = font
         return font
+    }
+    
+    func with(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+        guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
+            return self
+        }
+        
+        return UIFont(descriptor: descriptor, size: 0)
     }
 }

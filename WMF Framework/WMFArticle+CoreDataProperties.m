@@ -3,32 +3,33 @@
 @implementation WMFArticle (CoreDataProperties)
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest {
-    return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
+	return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
-@dynamic isExcludedFromFeed;
-@dynamic isDownloaded;
-@dynamic key;
-@dynamic viewedDate;
-@dynamic viewedFragment;
-@dynamic viewedScrollPosition;
-@dynamic newsNotificationDate;
-@dynamic savedDate;
-@dynamic wasSignificantlyViewed;
-@dynamic viewedDateWithoutTime;
 @dynamic displayTitle;
-@dynamic wikidataDescription;
-@dynamic snippet;
-@dynamic thumbnailURLString;
-@dynamic imageURLString;
-@dynamic imageWidth;
-@dynamic imageHeight;
-@dynamic latitude;
-@dynamic longitude;
-@dynamic pageViews;
-@dynamic signedQuadKey;
 @dynamic geoDimensionNumber;
 @dynamic geoTypeNumber;
+@dynamic imageHeight;
+@dynamic imageURLString;
+@dynamic imageWidth;
+@dynamic isDownloaded;
+@dynamic isExcludedFromFeed;
+@dynamic key;
+@dynamic latitude;
+@dynamic longitude;
+@dynamic newsNotificationDate;
+@dynamic pageViews;
 @dynamic placesSortOrder;
+@dynamic savedDate;
+@dynamic signedQuadKey;
+@dynamic snippet;
+@dynamic thumbnailURLString;
+@dynamic viewedDate;
+@dynamic viewedDateWithoutTime;
+@dynamic viewedFragment;
+@dynamic viewedScrollPosition;
+@dynamic wasSignificantlyViewed;
+@dynamic wikidataDescription;
+@dynamic readingLists;
 
 @end

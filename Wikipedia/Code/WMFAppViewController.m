@@ -69,7 +69,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
-@property (nonatomic, strong, readonly) WMFSavedViewController *savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
@@ -95,6 +95,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
+@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
 
@@ -182,7 +183,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self configureTabController];
     [self configureExploreViewController];
     [self configurePlacesViewController];
-    [self configureArticleListController:self.savedArticlesViewController];
+    [self configureSavedViewController];
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
@@ -224,8 +225,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.placesViewController.dataStore = self.dataStore;
 }
 
-- (void)configureArticleListController:(WMFSavedViewController *)controller {
-    controller.dataStore = self.dataStore;
+- (void)configureSavedViewController {
+    self.savedViewController.dataStore = self.dataStore;
+    [self.savedViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
@@ -236,6 +238,10 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
+    
+    if (self.isResumeComplete) {
+        [self.dataStore.readingListsController start];
+    }
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -293,7 +299,14 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
+        
+        [self attemptLogin:^{
+            [self.dataStore.readingListsController backgroundUpdate:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
+                });
+            }];
+        }];
     });
 }
 
@@ -556,19 +569,29 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }
 }
 
-- (void)finishResumingApp {
-    [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
+- (void)attemptLogin:(dispatch_block_t)completion {
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+        dispatch_async(dispatch_get_main_queue(), completion);
     }
-        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-        }
-        failure:^(NSError *_Nonnull error) {
-            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-        }];
+                                                         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+                                                             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+                                                             dispatch_async(dispatch_get_main_queue(), completion);
+                                                         }
+                                                                            failure:^(NSError *_Nonnull error) {
+                                                                                DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+                                                                                dispatch_async(dispatch_get_main_queue(), completion);
+                                                                            }];
+}
 
+- (void)finishResumingApp {
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+    
+    [self attemptLogin:^{
+        [self.dataStore.readingListsController start];
+        self.resumeComplete = YES;
+    }];
+    
     [self.dataStore.feedContentController startContentSources];
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
@@ -636,6 +659,8 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (![self uiIsLoaded]) {
         return;
     }
+
+    [self.dataStore.readingListsController stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
@@ -1022,7 +1047,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
 }
 
-- (WMFSavedViewController *)savedArticlesViewController {
+- (WMFSavedViewController *)savedViewController {
     return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
@@ -1267,7 +1292,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
-    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
+    if (![viewController isKindOfClass:[WMFPlacesViewController class]] && ![viewController isKindOfClass:[WMFSavedViewController class]] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
         if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
@@ -1593,7 +1618,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self dismissPresentedViewControllers];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    vc.permaRandomMode = YES;
+    vc.permaRandomMode = NO;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [exploreNavController pushViewController:vc animated:YES];
 }

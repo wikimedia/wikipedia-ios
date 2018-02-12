@@ -1,11 +1,19 @@
 import UIKit
 
-@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject {
+@objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
+    func didSaveArticle(_ didSave: Bool, article: WMFArticle)
+    func willUnsaveArticle(_ article: WMFArticle)
+    func showAddArticlesToReadingListViewController(for article: WMFArticle)
+}
+
+@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, LongPressButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
+    var activeSender: SaveButton?
+    var activeKey: String?
     
     @objc required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -26,6 +34,7 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
+        saveButton.longPressDelegate = self
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
@@ -49,6 +58,17 @@ import UIKit
         }
     }
     
+
+    
+    func longPressButtonDidReceiveLongPress(_ longPressButton: LongPressButton) {
+        guard let key = visibleArticleKeys[longPressButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
+            return
+        }
+        delegate?.showAddArticlesToReadingListViewController(for: article)
+    }
+    
+    fileprivate var updatedArticle: WMFArticle?
+    
     @objc func articleUpdated(notification: Notification) {
         guard let article = notification.object as? WMFArticle, let key = article.key, let saveButtons = visibleSaveButtons[key.hash] else {
             return
@@ -56,12 +76,32 @@ import UIKit
         for saveButton in saveButtons {
             saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         }
+        updatedArticle = article
     }
+    
+    @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
     
     @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
+        
+        self.activeKey = key
+        self.activeSender = sender
+        
+        if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
+            delegate?.willUnsaveArticle(articleToUnsave)
+            return // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
+        }
+        
+        updateSavedState()
+    }
+    
+    @objc func updateSavedState() {
+        guard let key = activeKey, let sender = activeSender else {
+            return
+        }
+        
         let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
         
         if isSaved {
@@ -70,6 +110,9 @@ import UIKit
         } else {
             PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
             savedPagesFunnel.logDelete()
+        }
+        if let article = updatedArticle {
+            delegate?.didSaveArticle(isSaved, article: article)
         }
     }
 }

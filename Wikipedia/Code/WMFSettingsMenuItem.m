@@ -126,6 +126,16 @@
                                            disclosureText:nil
                                                isSwitchOn:[SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving];
         }
+        case WMFSettingsMenuItemType_StorageAndSyncing: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:WMFLocalizedStringWithDefaultValue(@"reading-list-sync-setting", nil, nil, @"Reading list sync", @"Main menu option to enable or disable reading list sync")
+                                             iconName:@"settings-zero"
+                                            iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                       disclosureText:nil
+                                           isSwitchOn:[SessionSingleton sharedInstance].dataStore.readingListsController.isSyncEnabled];
+        }
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

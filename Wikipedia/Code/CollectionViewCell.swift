@@ -41,7 +41,7 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
+    public func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
         backgroundView?.backgroundColor = deselected
         selectedBackgroundView?.backgroundColor = selected
         let newColor = isSelectedOrHighlighted ? selected : deselected

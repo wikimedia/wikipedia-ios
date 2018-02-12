@@ -55,7 +55,7 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
         
         if (indexPath.row == 0) {
             myCell.titleLabel.text = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
-            myCell.subtitleLabel.text = String.localizedStringWithFormat(WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles"), delegate.placeSearchFilterListController(self, countForFilterType: .top))
+            myCell.subtitleLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, delegate.placeSearchFilterListController(self, countForFilterType: .top))
             myCell.iconImageView?.image = #imageLiteral(resourceName: "places-filter-top")
             myCell.iconImageView?.tintColor = theme.colors.accent
         } else if (indexPath.row == 1) {

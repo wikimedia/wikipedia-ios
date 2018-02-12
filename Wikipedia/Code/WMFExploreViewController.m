@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListActionSheetControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -61,6 +61,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFReadingListActionSheetController *readingListActionSheetController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -75,6 +77,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     _userStore = userStore;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
+    self.saveButtonsController.delegate = self;
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
+    self.readingListActionSheetController = [[WMFReadingListActionSheetController alloc] initWithDataStore:self.userStore presenter:self];
+    self.readingListActionSheetController.delegate = self;
 }
 
 - (void)dealloc {
@@ -110,13 +116,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         _refreshControl = [[UIRefreshControl alloc] init];
         [_refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
         _refreshControl.layer.zPosition = -100;
-        if ([self.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
-            self.collectionView.refreshControl = _refreshControl;
-        } else {
-            [self.collectionView addSubview:_refreshControl];
-        }
+        self.collectionView.refreshControl = _refreshControl;
     }
 }
+
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -369,7 +372,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerCellsAndViews];
     [self setupRefreshControl];
 
-    [super viewDidLoad];  // intentionally at the bottom of the method for theme application
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
@@ -537,7 +540,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
 
         [self.refreshControl endRefreshing];
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme frame:self.view.bounds];
     }
 }
 
@@ -1573,6 +1576,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
+- (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+}
+
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [articleController wmf_removePeekableChildViewControllers];
@@ -1929,6 +1936,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -1989,7 +1997,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }];
 
     self.searchBar.searchTextPositionAdjustment = UIOffsetMake(7, 0);
-
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
     self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
@@ -2003,6 +2010,32 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
+}
+
+#pragma mark - WMFSaveButtonsControllerDelegate
+
+- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
+    [self.readingListHintController didSave:didSave article:article theme:self.theme];
+}
+
+- (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
+    [self.readingListHintController hideHintImmediately];
+    if (!article.isOnlyInDefaultList) {
+        [self.readingListActionSheetController showActionSheetFor:article moveFromReadingList:nil with:self.theme];
+    } else {
+        [self.saveButtonsController updateSavedState];
+    }
+}
+
+- (void)showAddArticlesToReadingListViewControllerFor:(WMFArticle *_Nonnull)article {
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.userStore articles:@[article] moveFromReadingList:nil theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+}
+
+#pragma mark - WMFReadingListActionSheetControllerDelegate
+
+- (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+    [self.saveButtonsController updateSavedState];
 }
 
 #if DEBUG && DEBUG_CHAOS

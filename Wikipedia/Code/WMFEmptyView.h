@@ -8,6 +8,7 @@
 + (instancetype)noArticleEmptyView;
 + (instancetype)noSearchResultsEmptyView;
 + (instancetype)noSavedPagesEmptyView;
++ (instancetype)noReadingListsEmptyView;
 + (instancetype)noHistoryEmptyView;
 
 @end

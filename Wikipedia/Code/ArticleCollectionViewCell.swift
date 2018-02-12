@@ -3,10 +3,11 @@ import UIKit
 
 
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
+open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    public var layoutMarginsAdditions: UIEdgeInsets = .zero
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -72,6 +73,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
+        resetBatchEdit()
         updateFonts(with: traitCollection)
     }
 
@@ -109,9 +111,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
+            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            batchEditSelectView?.layoutIfNeeded()
+            
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
-            let actionsViewWidth = abs(swipeTranslation)
+
+            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
@@ -224,7 +230,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     var swipeState: SwipeState = .closed {
         didSet {
             if swipeState != .closed && actionsView.superview == nil {
-                insertSubview(actionsView, belowSubview: contentView)
+                contentView.addSubview(actionsView)
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
             } else if swipeState == .closed && actionsView.superview != nil {
@@ -238,6 +244,20 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
+            layoutMarginsAdditions.right = 0 - swipeTranslation
+            layoutMarginsAdditions.left = swipeTranslation
+            setNeedsLayout()
+        }
+    }
+
+    public var batchEditingTranslation: CGFloat = 0 {
+        didSet {
+            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
+            let isOpen = batchEditingTranslation > 0
+            if isOpen, let batchEditSelectView = batchEditSelectView {
+                contentView.addSubview(batchEditSelectView)
+                batchEditSelectView.clipsToBounds = true
+            }
             setNeedsLayout()
         }
     }
@@ -247,20 +267,32 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
         return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
     }
-    
-    func showActionsView(with swipeType: CollectionViewCellSwipeType) {
-        // We don't need to do this if the view is already visible.
-        guard actionsView.superview == nil else { return }
-        
-        insertSubview(actionsView, belowSubview: contentView)
-        layoutSubviews()
-        actionsView.layoutIfNeeded()
-    }
 
     // MARK: Prepare for reuse
     
     func resetSwipeable() {
         swipeTranslation = 0
         swipeState = .closed
+    }
+    
+    // MARK: - BatchEditableCell
+    
+    public var batchEditSelectView: BatchEditSelectView?
+    
+    func resetBatchEdit() {
+        batchEditingTranslation = 0
+        batchEditSelectView?.removeFromSuperview()
+    }
+    
+    public var isBatchEditable: Bool = false {
+        didSet {
+            batchEditSelectView = BatchEditSelectView()
+        }
+    }
+    
+    override open var isSelected: Bool {
+        didSet {
+            batchEditSelectView?.isSelected = isSelected
+        }
     }
 }

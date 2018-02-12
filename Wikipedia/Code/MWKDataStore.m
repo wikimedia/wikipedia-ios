@@ -24,6 +24,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
+@property (nonatomic, strong) WMFReadingListsController *readingListsController;
+
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
@@ -505,7 +507,7 @@ static uint64_t bundleHash() {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
     static NSString *key = @"WMFLibraryVersion";
-    static const NSInteger libraryVersion = 1;
+    static const NSInteger libraryVersion = 5;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -515,13 +517,87 @@ static uint64_t bundleHash() {
         return;
     }
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
-        if (currentLibraryVersion < 1) {
-            if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
-                [moc wmf_setValue:@(1) forKey:key];
-                [moc save:nil];
+        dispatch_block_t done = ^{
+            dispatch_async(dispatch_get_main_queue(), completion);
+        };
+        if (currentLibraryVersion < libraryVersion) {
+            NSError *migrationSaveError = nil;
+            if (currentLibraryVersion < 1) {
+                if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
+                    [moc wmf_setValue:@(1) forKey:key];
+                    if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                        DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                        done();
+                        return;
+                    }
+                }
+            }
+
+            ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
+            if (!defaultReadingList) {
+                defaultReadingList = [[ReadingList alloc] initWithContext:moc];
+                defaultReadingList.isDefault = @(YES);
+            }
+
+            for (ReadingListEntry *entry in defaultReadingList.entries) {
+                entry.isUpdatedLocally = YES;
+            }
+
+            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                done();
+                return;
+            }
+
+            NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
+            request.fetchLimit = 500;
+            request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && readingLists.@count == 0", defaultReadingList];
+
+            NSError *migrationFetchError = nil;
+            NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:&migrationFetchError];
+            if (migrationFetchError) {
+                DDLogError(@"Error fetching unmigrated saved articles: %@", migrationFetchError);
+                done();
+                return;
+            }
+
+            NSError *addError = nil;
+            while (results.count > 0) {
+                for (WMFArticle *article in results) {
+                    [self.readingListsController addArticleToDefaultReadingList:article error:&addError];
+                    if (addError) {
+                        break;
+                    }
+                }
+                if (addError) {
+                    break;
+                }
+                if (![moc save:&migrationSaveError]) {
+                    DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                    done();
+                    return;
+                }
+                [moc reset];
+                defaultReadingList = [moc wmf_fetchDefaultReadingList]; // needs to re-fetch after reset
+                results = [moc executeFetchRequest:request error:&migrationFetchError];
+                if (!defaultReadingList || migrationFetchError) {
+                    DDLogError(@"Error fetching during migration: %@ %@", defaultReadingList, migrationFetchError);
+                    done();
+                    return;
+                }
+            }
+
+            if (addError) {
+                DDLogError(@"Error adding to default reading list: %@", addError);
+            } else {
+                [moc wmf_setValue:@(libraryVersion) forKey:key];
+            }
+
+            if (![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
             }
         }
-        dispatch_async(dispatch_get_main_queue(), completion);
+        done();
     }];
 }
 
@@ -538,8 +614,7 @@ static uint64_t bundleHash() {
         }
         return false;
     }
-    
-    
+
     while (contentGroups.count > 0) {
         @autoreleasepool {
             NSMutableArray *toDelete = [NSMutableArray arrayWithCapacity:1];
@@ -562,7 +637,7 @@ static uint64_t bundleHash() {
             for (WMFContentGroup *group in toDelete) {
                 [moc deleteObject:group];
             }
-            
+
             if ([moc hasChanges]) {
                 NSError *saveError = nil;
                 [moc save:&saveError];
@@ -576,7 +651,7 @@ static uint64_t bundleHash() {
                 [moc reset];
             }
         }
-        
+
         contentGroups = [moc executeFetchRequest:request error:&fetchError];
         if (fetchError) {
             DDLogError(@"Error fetching content groups: %@", fetchError);
@@ -824,6 +899,7 @@ static uint64_t bundleHash() {
     [self.historyList migrateLegacyDataIfNeeded];
     self.savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self];
     [self.savedPageList migrateLegacyDataIfNeeded];
+    self.readingListsController = [[WMFReadingListsController alloc] initWithDataStore:self];
 }
 
 #pragma mark - Legacy DataStore
@@ -1492,14 +1568,14 @@ static uint64_t bundleHash() {
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
-    if (moc == self.viewContext) {
+    if (moc == _viewContext) { // use ivar to avoid main thread check
         article = [self.articlePreviewCache objectForKey:key];
         if (article) {
             return article;
         }
     }
     article = [moc fetchArticleWithKey:key];
-    if (article && moc == self.viewContext) {
+    if (article && moc == _viewContext) { // use ivar to avoid main thread check
         [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;

@@ -4,6 +4,10 @@ extension CharacterSet {
     static var wmf_urlPathComponentAllowed: CharacterSet {
         return NSCharacterSet.wmf_URLPathComponentAllowed()
     }
+
+    static var wmf_urlQueryAllowed: CharacterSet {
+        return NSCharacterSet.wmf_URLQueryAllowed()
+    }
 }
 
 extension URL {

@@ -11,7 +11,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
-- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme {
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame {
     [self wmf_hideEmptyView];
 
     WMFEmptyView *view = nil;
@@ -34,13 +34,16 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeNoHistory:
             view = [WMFEmptyView noHistoryEmptyView];
             break;
+        case WMFEmptyViewTypeNoReadingLists:
+            view = [WMFEmptyView noReadingListsEmptyView];
+            break;
         default:
             return;
     }
     [view applyTheme:theme];
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    view.frame = self.view.bounds;
+    view.frame = frame;
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView *)self.view setScrollEnabled:NO];
