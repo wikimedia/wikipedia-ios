@@ -169,11 +169,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateEmptyState()
-    }
-    
     private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -190,12 +185,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if isShowingDefaultList {
                 collectionView.isHidden = true
             }
-            let emptyViewFrame: CGRect
-            if traitCollection.verticalSizeClass == .compact {
-                emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y + navigationBar.underBarView.frame.height), size: view.bounds.size)
+            let yPosition: CGFloat
+            if let navigationController = navigationController {
+                yPosition = navigationController.navigationBar.frame.size.height + navigationBar.statusBarHeight
             } else {
-                emptyViewFrame = view.bounds
+                yPosition = view.bounds.origin.y
             }
+            let emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: yPosition), size: view.bounds.size)
             wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
