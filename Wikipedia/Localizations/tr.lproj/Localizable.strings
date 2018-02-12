@@ -340,6 +340,7 @@
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "saved-clear-all" = "Temizle";
 "saved-pages-clear-cancel" = "İptal";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Kayıtlı tüm sayfaları silmek istediğinizden emin misiniz?";
 "saved-pages-clear-delete-all" = "Evet, tümünü sil";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";

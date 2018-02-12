@@ -311,6 +311,7 @@
 "request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-clear-all" = "Bersihkeun";
 "saved-pages-clear-cancel" = "Bolay";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh kaca kasimpen anjeun?";
 "saved-pages-clear-delete-all" = "Nya, hapus sadayana";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";

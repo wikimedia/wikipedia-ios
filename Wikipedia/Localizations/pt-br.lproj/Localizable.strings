@@ -340,6 +340,7 @@
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Tem certeza que deseja apagar todas as suas páginas salvas?";
 "saved-pages-clear-delete-all" = "Sim, apagar tudo";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";

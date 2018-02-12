@@ -335,6 +335,7 @@
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "saved-clear-all" = "Effacer";
 "saved-pages-clear-cancel" = "Annuler";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos éléments enregistrés ?";
 "saved-pages-clear-delete-all" = "Oui, supprimer tout";
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
