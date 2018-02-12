@@ -315,6 +315,7 @@
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "saved-clear-all" = "Xóa sạch";
 "saved-pages-clear-cancel" = "Hủy bỏ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
 "saved-pages-clear-delete-all" = "Có, xóa toàn bộ";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";

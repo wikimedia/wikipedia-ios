@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Jakékoli články v tomto seznamu nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
+			<key>other</key>
+			<string>Jakékoli články v těchto seznamech nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,54 @@
 			<string>%1$d historická událost</string>
 			<key>other</key>
 			<string>%1$d historické události</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d seznam čtení</string>
+			<key>other</key>
+			<string>%1$d seznamů čtení</string>
+		</dict>
+	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze %1$d seznamu čtení?</string>
+			<key>other</key>
+			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze %1$d seznamů čtení?</string>
+		</dict>
+	</dict>
+	<key>unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neuložit a odstranit z %1$d seznamu čtení</string>
+			<key>other</key>
+			<string>Neuložit a odstranit z %1$d seznamů čtení</string>
 		</dict>
 	</dict>
 </dict>

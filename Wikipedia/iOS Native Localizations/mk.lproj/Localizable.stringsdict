@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Сите статии на овој список ќе бидат одзачувани ако не се на друг список за читање.</string>
+			<key>other</key>
+			<string>Сите статии на овие списоци ќе бидат одзачувани ако не се на друг список за читање.</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Дали сте сигурни дека сакате да го избришете списоков?</string>
+			<key>other</key>
+			<string>Дали сте сигурни дека сакате да ги избришете овие %1$d списоци?</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +80,22 @@
 			<string>%1$d статија</string>
 			<key>other</key>
 			<string>%1$d статии</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d список за читање</string>
+			<key>other</key>
+			<string>%1$d списоци за читање</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -120,6 +168,38 @@
 			<string>Пред %1$d години</string>
 			<key>zero</key>
 			<string>Годинава</string>
+		</dict>
+	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d список за читање?</string>
+			<key>other</key>
+			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d списоци за читање?</string>
+		</dict>
+	</dict>
+	<key>unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Одзачувај и отстрани од %1$d список за читање</string>
+			<key>other</key>
+			<string>Одзачувај и отстрани од %1$d списоци за читање</string>
 		</dict>
 	</dict>
 </dict>

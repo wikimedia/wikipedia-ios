@@ -275,6 +275,7 @@
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "saved-clear-all" = "Vyčistiť";
 "saved-pages-clear-cancel" = "Zrušiť";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Naozaj chcete vymazať všetky uložené stránky?";
 "saved-pages-clear-delete-all" = "Áno, vymazať všetko";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
