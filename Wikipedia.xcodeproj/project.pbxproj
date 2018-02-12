@@ -4542,6 +4542,7 @@
 		D8FEECCB1DE3729400B883F0 /* WMFChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFChange.h; sourceTree = "<group>"; };
 		D8FEECCC1DE3729400B883F0 /* WMFChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFChange.m; sourceTree = "<group>"; };
 		D8FFF63F202C7A9400A028E0 /* km */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = km; path = km.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D8FFF6552031CAB800A028E0 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = el; path = el.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -11989,6 +11990,7 @@
 				D8C8C22020113EA000B3317B /* is */,
 				D8C8C22120113F0500B3317B /* ps */,
 				D8FFF63F202C7A9400A028E0 /* km */,
+				D8FFF6552031CAB800A028E0 /* el */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
