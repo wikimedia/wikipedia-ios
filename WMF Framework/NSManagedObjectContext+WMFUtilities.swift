@@ -57,5 +57,23 @@ public extension NSManagedObjectContext {
         }
         return results
     }
+    
+    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate, resetAfterSave: Bool = false, handler: (T) -> Void) throws {
+        let fetchRequest = T.fetchRequest()
+        fetchRequest.predicate = matchingPredicate
+        fetchRequest.fetchLimit = 500
+        var results: [T] = try fetch(fetchRequest) as? [T] ?? []
+        while results.count > 0 {
+            results.forEach(handler)
+            if hasChanges {
+                try save()
+            }
+            if resetAfterSave {
+                reset()
+            }
+            fetchRequest.fetchOffset += results.count
+            results = try fetch(fetchRequest) as? [T] ?? []
+        }
+    }
 }
 

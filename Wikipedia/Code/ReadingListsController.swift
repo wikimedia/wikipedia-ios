@@ -392,41 +392,24 @@ public class ReadingListsController: NSObject {
     }
 
 
-    private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
+    internal let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
-    @objc var isSyncEnabled: Bool {
-        get {
-            assert(Thread.isMainThread)
-            return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+    @objc public var isSyncEnabled: Bool {
+        assert(Thread.isMainThread)
+        return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+    }
+    
+    @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
+        assert(Thread.isMainThread)
+        dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: isSyncEnabledKey)
+        if isSyncEnabled {
+            let op = ReadingListsEnableSyncOperation(readingListsController: self)
+            operationQueue.addOperation(op)
+        } else {
+            let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+            operationQueue.addOperation(op)
         }
-        set {
-            assert(Thread.isMainThread)
-            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: isSyncEnabledKey)
-            if newValue {
-                apiController.setupReadingLists(completion: { (error) in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            DDLogError("Error enabling sync: \(error)")
-                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: false), forKey: self.isSyncEnabledKey)
-                        } else {
-                            self.sync()
-                        }
-                    }
-                })
-            } else {
-                apiController.teardownReadingLists(completion: { (error) in
-                        DispatchQueue.main.async {
-                            if let error = error {
-                                DDLogError("Error disabling sync: \(error)")
-                                self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
-                                
-                            } else {
-                                self.sync()
-                            }
-                        }
-                })
-            }
-        }
+        sync()
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
@@ -565,9 +548,10 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func unsave(_ article: WMFArticle) {
-        assert(Thread.isMainThread)
         do {
-            let moc = dataStore.viewContext
+            guard let moc = article.managedObjectContext else {
+                return
+            }
             article.savedDate = nil
             guard let key = article.key else {
                 return
@@ -575,7 +559,7 @@ public class ReadingListsController: NSObject {
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
             let entries = try moc.fetch(entryFetchRequest)
-            try remove(entries: entries)
+            try markLocalDeletion(for: entries)
         } catch let error {
             DDLogError("Error removing article from default list: \(error)")
         }
