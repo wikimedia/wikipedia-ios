@@ -319,6 +319,7 @@
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "saved-clear-all" = "Hreinsa";
 "saved-pages-clear-cancel" = "Hætta við";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "saved-pages-clear-delete-all" = "Eyða öllu";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";

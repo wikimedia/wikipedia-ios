@@ -326,6 +326,7 @@
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "saved-clear-all" = "지우기";
 "saved-pages-clear-cancel" = "취소";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하겠습니까?";
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";

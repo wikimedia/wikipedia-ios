@@ -325,6 +325,7 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "saved-clear-all" = "ניקוי";
 "saved-pages-clear-cancel" = "ביטול";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "האם באמת למחוק את כל הדפים השמורים שלך?";
 "saved-pages-clear-delete-all" = "כן, למחוק הכול";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";

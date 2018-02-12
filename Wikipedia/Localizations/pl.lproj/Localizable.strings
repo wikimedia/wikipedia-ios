@@ -8,6 +8,7 @@
 // Author: Devwebtel
 // Author: InternerowyGołąb
 // Author: Jacenty359
+// Author: JoeWalshWMF
 // Author: Krottyianock
 // Author: Macofe
 // Author: Mazab IZW
@@ -248,6 +249,7 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
 "saved-clear-all" = "Wyczyść";
 "saved-pages-clear-cancel" = "Anuluj";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje zapisane strony?";
 "saved-pages-clear-delete-all" = "Tak, usuń wszystko";
 "saved-title" = "Zapisane";
