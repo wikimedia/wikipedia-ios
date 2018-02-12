@@ -321,6 +321,7 @@
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-clear-all" = "Garbitu";
 "saved-pages-clear-cancel" = "Utzi";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako orrialde guztiak ezabatu nahi dituzula?";
 "saved-pages-clear-delete-all" = "Bai, dena ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";

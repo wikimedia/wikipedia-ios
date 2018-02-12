@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Alle Artikel in dieser Liste werden gelöscht, falls sie nicht in anderen Leselisten vorhanden sind.</string>
+			<key>other</key>
+			<string>Alle Artikel in diesen Listen werden gelöscht, falls sie nicht in anderen Leselisten vorhanden sind.</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bist du sicher, dass du diese Liste löschen möchtest?</string>
+			<key>other</key>
+			<string>Bist du sicher, dass du diese %1$d Listen löschen möchtest?</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +80,22 @@
 			<string>Ein Artikel</string>
 			<key>other</key>
 			<string>%1$d Artikel</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Eine Leseliste</string>
+			<key>other</key>
+			<string>%1$d Leselisten</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -120,6 +168,38 @@
 			<string>Vor %1$d Jahren</string>
 			<key>zero</key>
 			<string>Dieses Jahr</string>
+		</dict>
+	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bist du sicher, dass du diesen Artikel löschen und ihn aus einer Leseliste entfernen möchtest?</string>
+			<key>other</key>
+			<string>Bist du sicher, dass du diesen Artikel löschen und ihn aus %1$d Leselisten entfernen möchtest?</string>
+		</dict>
+	</dict>
+	<key>unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Von einer Leseliste löschen und entfernen</string>
+			<key>other</key>
+			<string>Von %1$d Leselisten löschen und entfernen</string>
 		</dict>
 	</dict>
 </dict>

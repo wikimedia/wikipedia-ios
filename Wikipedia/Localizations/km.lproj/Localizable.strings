@@ -301,6 +301,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ឆ្នាំនេះ|ឆ្នាំមុន|$1 ឆ្នាំមុន}}";
 "saved-clear-all" = "សម្អាត";
 "saved-pages-clear-cancel" = "បោះបង់";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "តើអ្នកពិតជាចង់លុបចោលទំព័រដែលបានរក្សាទុកទាំងអស់ឬ?";
 "saved-pages-clear-delete-all" = "លុបចោលទាំងអស់";
 "saved-pages-image-download-error" = "ទាញយករូបភាពរបស់ទំព័រដែលបានរក្សាទុកនេះមិនបានសម្រេចទេ។";

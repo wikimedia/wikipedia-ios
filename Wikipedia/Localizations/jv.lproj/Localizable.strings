@@ -309,6 +309,7 @@
 "request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
 "saved-clear-all" = "Busak";
 "saved-pages-clear-cancel" = "Wurung";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh kaca simpenané panjenengan?";
 "saved-pages-clear-delete-all" = "Ya, busak kabèh";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";

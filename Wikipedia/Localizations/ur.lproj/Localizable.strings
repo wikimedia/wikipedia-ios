@@ -171,6 +171,7 @@
 "request-feedback-on-error" = "ایپ کو ایک مسئلہ کا سامناہےجس کے بارے میں ہمارے تخلیق کار مزید جاننا پسند کریں گے۔ براہ مہربانی ہمیں مسئلہ کی تفصیلات کے ساتھ ایمیل بھیجنے کے لیے یہاں چھوئیں۔";
 "saved-clear-all" = "صاف";
 "saved-pages-clear-cancel" = "منسوخ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "کیا آپ اپنے تمام محفوظ صفحات کو حذف کرنا چاہتے ہیں؟";
 "saved-pages-clear-delete-all" = "ہاں، تمام حذف کریں";
 "saved-pages-image-download-error" = "محفوظ صفحات کے لیے تصاویر کو کامیابی سے ڈاؤنلوڈ نہیں کیا جاسکا۔";
