@@ -179,7 +179,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_StorageAndSyncing:
-            [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:NO];
+            [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];

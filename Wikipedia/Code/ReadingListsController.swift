@@ -400,16 +400,20 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
-        assert(Thread.isMainThread)
-        dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: isSyncEnabledKey)
-        if isSyncEnabled {
-            let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-            operationQueue.addOperation(op)
-        } else {
-            let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-            operationQueue.addOperation(op)
+        DispatchQueue.main.async {
+            guard isSyncEnabled != self.isSyncEnabled else {
+                return
+            }
+            self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
+            if isSyncEnabled {
+                let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+                self.operationQueue.addOperation(op)
+            } else {
+                let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+                self.operationQueue.addOperation(op)
+            }
+            self.sync()
         }
-        sync()
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
@@ -475,12 +479,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _sync() {
-        if isSyncEnabled {
+ //       if isSyncEnabled {
             let sync = ReadingListsSyncOperation(readingListsController: self)
             operationQueue.addOperation(sync)
-        } else {
-            processUpdatesForUserWithSyncDisabled()
-        }
+//        } else {
+//            processUpdatesForUserWithSyncDisabled()
+//        }
     }
     
     @objc private func sync() {
