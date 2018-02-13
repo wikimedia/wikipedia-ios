@@ -14,14 +14,14 @@ class ReadingListsDisableSyncOperation: ReadingListsOperation {
             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
                 do {
                     if self.shouldDeleteLocalLists {
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
+                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), resetAfterSave: true, handler: { (article: WMFArticle) in
                             self.readingListsController.unsave(article)
                         })
                     } else {
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListID != NULL"), handler: { (readingList: ReadingList) in
+                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListID != NULL"), resetAfterSave: true, handler: { (readingList: ReadingList) in
                             readingList.readingListID = nil
                         })
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListEntryID != NULL"), handler: { (readingListEntry: ReadingListEntry) in
+                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListEntryID != NULL"), resetAfterSave: true, handler: { (readingListEntry: ReadingListEntry) in
                             readingListEntry.readingListEntryID = nil
                         })
                     }

@@ -417,25 +417,9 @@ public class ReadingListsController: NSObject {
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
-        do {
-            let moc = dataStore.viewContext
-            // For users without syncing enabled, we should immediately delete locally deleted items
-            let listsToDeleteFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let listsToDelete = try moc.fetch(listsToDeleteFetchRequest)
-            for list in listsToDelete {
-                moc.delete(list)
-            }
-            
-            let entriesToDeleteFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let entriesToDelete = try moc.fetch(entriesToDeleteFetchRequest)
-            for entry in entriesToDelete {
-                moc.delete(entry)
-            }
-        } catch let error {
-            DDLogError("Error on batch delete \(error)")
-        }
+        assert(Thread.isMainThread)
+        let op = ReadingListsLocalOnlySyncOperation(readingListsController: self)
+        operationQueue.addOperation(op)
     }
     
     @objc public func start() {
@@ -479,12 +463,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _sync() {
- //       if isSyncEnabled {
+        if isSyncEnabled {
             let sync = ReadingListsSyncOperation(readingListsController: self)
             operationQueue.addOperation(sync)
-//        } else {
-//            processUpdatesForUserWithSyncDisabled()
-//        }
+        } else {
+            processUpdatesForUserWithSyncDisabled()
+        }
     }
     
     @objc private func sync() {
@@ -594,6 +578,7 @@ public class ReadingListsController: NSObject {
         do {
             let moc = dataStore.viewContext
             try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
+                print("unsaving \(article.key!)")
                 unsave(article)
             })
             update()
