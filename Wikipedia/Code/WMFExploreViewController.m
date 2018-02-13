@@ -79,7 +79,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
-    self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithDataStore:self.userStore presenter:self];
+    self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithPresenter:self];
     self.readingListAlertController.delegate = self;
 }
 

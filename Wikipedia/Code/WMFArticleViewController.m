@@ -172,7 +172,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleURL = url;
         self.dataStore = dataStore;
         self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
-        self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithDataStore:dataStore presenter:self];
+        self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithPresenter:self];
         self.readingListAlertController.delegate = self;
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
