@@ -238,7 +238,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
-    
+
     if (self.isResumeComplete) {
         [self.dataStore.readingListsController start];
     }
@@ -299,7 +299,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        
+
         [self attemptLogin:^{
             [self.dataStore.readingListsController backgroundUpdate:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -573,25 +573,27 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
         dispatch_async(dispatch_get_main_queue(), completion);
+        [self wmf_showEnableReadingListSyncPanelOnceWithTheme:self.theme];
     }
-                                                         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-                                                             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-                                                             dispatch_async(dispatch_get_main_queue(), completion);
-                                                         }
-                                                                            failure:^(NSError *_Nonnull error) {
-                                                                                DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-                                                                                dispatch_async(dispatch_get_main_queue(), completion);
-                                                                            }];
+        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+            dispatch_async(dispatch_get_main_queue(), completion);
+            [self wmf_showEnableReadingListSyncPanelOnceWithTheme:self.theme];
+        }
+        failure:^(NSError *_Nonnull error) {
+            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+            dispatch_async(dispatch_get_main_queue(), completion);
+        }];
 }
 
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-    
+
     [self attemptLogin:^{
         [self.dataStore.readingListsController start];
         self.resumeComplete = YES;
     }];
-    
+
     [self.dataStore.feedContentController startContentSources];
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
