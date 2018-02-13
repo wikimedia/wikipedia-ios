@@ -33,14 +33,37 @@ extension UIViewController {
             return
         }
         let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
-            SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
-            sender.dismiss(animated: true, completion: nil)
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+
+                guard self.hasSavedArticles() else {
+
+SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    
+                    return
+                }
+                presenter?.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
+            })
         }, secondaryButtonTapHandler: nil, dismissHandler:nil)
         panelVC.apply(theme: theme)
         present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
+    
+    fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
+        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, secondaryButtonTapHandler: { sender in
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, dismissHandler: nil)
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: nil)
+    }
+
 }
 
 class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
