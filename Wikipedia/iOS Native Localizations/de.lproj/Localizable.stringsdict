@@ -186,21 +186,5 @@
 			<string>Bist du sicher, dass du diesen Artikel löschen und ihn aus %1$d Leselisten entfernen möchtest?</string>
 		</dict>
 	</dict>
-	<key>unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Von einer Leseliste löschen und entfernen</string>
-			<key>other</key>
-			<string>Von %1$d Leselisten löschen und entfernen</string>
-		</dict>
-	</dict>
 </dict>
 </plist>
