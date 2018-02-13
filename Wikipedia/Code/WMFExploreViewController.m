@@ -62,7 +62,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
-@property (nonatomic, strong) WMFReadingListAlertController *readingListAlertController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -79,8 +78,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
-    self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithPresenter:self];
-    self.readingListAlertController.delegate = self;
 }
 
 - (void)dealloc {
@@ -2021,7 +2018,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
     [self.readingListHintController hideHintImmediately];
     if (!article.isOnlyInDefaultList && article.readingListsCount > 1) {
-        [self.readingListAlertController showAlertFor:article];
+        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
+        [readingListAlertController showAlertWithPresenter:self article:article];
     } else {
         [self.saveButtonsController updateSavedState];
     }

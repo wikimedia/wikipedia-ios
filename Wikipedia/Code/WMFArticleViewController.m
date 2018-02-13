@@ -147,7 +147,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
-@property (nonatomic, strong) WMFReadingListAlertController *readingListAlertController;
 
 @end
 
@@ -172,8 +171,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.articleURL = url;
         self.dataStore = dataStore;
         self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
-        self.readingListAlertController = [[WMFReadingListAlertController alloc] initWithPresenter:self];
-        self.readingListAlertController.delegate = self;
+
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
@@ -1288,7 +1286,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList && articleToUnsave.readingListsCount > 1) {
-        [self.readingListAlertController showAlertFor:articleToUnsave];
+        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
+        [readingListAlertController showAlertWithPresenter:self article:articleToUnsave];
         return; // don't unsave immediately, wait for a callback from WMFReadingListAlertControllerDelegate
     }
     [self updateSavedState];
