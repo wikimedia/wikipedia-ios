@@ -643,7 +643,8 @@ public class ReadingListsController: NSObject {
 
             guard let remoteReadingListForUpdate = remoteReadingList else {
                 DDLogError("Fetch produced a list without a matching id or name: \(localReadingList)")
-                assert(false)
+                try markLocalDeletion(for: [localReadingList])
+                moc.delete(localReadingList) // object can be removed since it appears to be a duplicate
                 continue
             }
             
@@ -696,7 +697,7 @@ public class ReadingListsController: NSObject {
         }
 
         let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        localReadingListEntryFetch.predicate = NSPredicate(format: "readingListEntryID IN %@ || (list.readingListID IN %@ && articleKey IN %@)", Array(remoteReadingListEntriesByID.keys), Array(remoteReadingListEntriesByListIDAndArticleKey.keys), allArticleKeys)
+        localReadingListEntryFetch.predicate = NSPredicate(format: "readingListEntryID IN %@ || articleKey IN %@", Array(remoteReadingListEntriesByID.keys),  allArticleKeys)
         let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
         for localReadingListEntry in localReadingListEntries {
             var remoteReadingListEntry: APIReadingListEntry?
@@ -716,7 +717,7 @@ public class ReadingListsController: NSObject {
             }
             
             guard let remoteReadingListEntryForUpdate = remoteReadingListEntry else {
-                DDLogError("Fetch produced a list entry without a matching id or name: \(localReadingListEntry)")
+                DDLogWarn("Fetch produced a list entry without a matching id or name: \(localReadingListEntry)")
                 continue
             }
             
