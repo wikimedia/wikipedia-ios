@@ -35,7 +35,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         for remoteReadingList in allAPIReadingLists {
                             group.enter()
                             self.apiController.getAllEntriesForReadingListWithID(readingListID: remoteReadingList.id, completion: { (entries, error) in
-                                if error == nil {
+                                if let error = error {
+                                    DDLogError("Error fetching entries for reading list with ID \(remoteReadingList.id): \(error)")
+                                } else {
                                     remoteEntriesByReadingListID[remoteReadingList.id] = entries
                                 }
                                 group.leave()
