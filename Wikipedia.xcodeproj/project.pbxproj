@@ -316,6 +316,8 @@
 		83E52BC21F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
 		83E52BC31F682E3E0045E776 /* LicenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BBE1F682E3E0045E776 /* LicenseView.swift */; };
 		83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */; };
+		83EC768C20320E10004804E4 /* ReadingListsDisableSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC768B20320E10004804E4 /* ReadingListsDisableSyncOperation.swift */; };
+		83EC768E2032105E004804E4 /* ReadingListsEnableSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC768D2032105E004804E4 /* ReadingListsEnableSyncOperation.swift */; };
 		83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
 		83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
 		83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */; };
@@ -1184,7 +1186,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D8171F49202A5CA30005804D /* LongPressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8171F48202A5CA30005804D /* LongPressButton.swift */; };
 		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
 		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
@@ -1523,6 +1524,7 @@
 		D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */; };
 		D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */; };
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
+		D8650B782033372E0044DFFA /* ReadingListsLocalOnlySyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8650B772033372E0044DFFA /* ReadingListsLocalOnlySyncOperation.swift */; };
 		D86706BE1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */; };
 		D87021631EBA63EF000D02D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021621EBA63EF000D02D6 /* main.swift */; };
 		D87021711EBA6400000D02D6 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87021701EBA6400000D02D6 /* localization.swift */; };
@@ -3221,6 +3223,8 @@
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
 		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
+		83EC768B20320E10004804E4 /* ReadingListsDisableSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsDisableSyncOperation.swift; sourceTree = "<group>"; };
+		83EC768D2032105E004804E4 /* ReadingListsEnableSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsEnableSyncOperation.swift; sourceTree = "<group>"; };
 		83FBE96E1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityTextItemProvider.swift; sourceTree = "<group>"; };
 		83FBE9741F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactActivityImageItemProvider.swift; sourceTree = "<group>"; };
 		B00050131C52D73800515F70 /* UIApplication+RTL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+RTL.swift"; sourceTree = "<group>"; };
@@ -4197,7 +4201,6 @@
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Description.swift"; sourceTree = "<group>"; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
 		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = ../Wikipedia/Code/Analytics.swift; sourceTree = "<group>"; };
-		D8171F48202A5CA30005804D /* LongPressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressButton.swift; sourceTree = "<group>"; };
 		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
@@ -4378,6 +4381,7 @@
 		D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
 		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
+		D8650B772033372E0044DFFA /* ReadingListsLocalOnlySyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsLocalOnlySyncOperation.swift; sourceTree = "<group>"; };
 		D86706BC1D3D4566003AB2FC /* WMFExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreCollectionViewCell.h; path = Wikipedia/Code/WMFExploreCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		D86706BD1D3D4566003AB2FC /* WMFExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreCollectionViewCell.m; path = Wikipedia/Code/WMFExploreCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D86706C11D3D4AF3003AB2FC /* WMFColumnarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFColumnarCollectionViewLayout.h; path = Wikipedia/Code/WMFColumnarCollectionViewLayout.h; sourceTree = SOURCE_ROOT; };
@@ -7876,6 +7880,9 @@
 				D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */,
 				D82CA3302020E8C2005C2D5C /* ReadingListsUpdateOperation.swift */,
 				D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */,
+				83EC768B20320E10004804E4 /* ReadingListsDisableSyncOperation.swift */,
+				83EC768D2032105E004804E4 /* ReadingListsEnableSyncOperation.swift */,
+				D8650B772033372E0044DFFA /* ReadingListsLocalOnlySyncOperation.swift */,
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
@@ -8035,7 +8042,6 @@
 				D84C36211F32410A00895FA1 /* Table View Cells */,
 				D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */,
 				D87721FC1EC0DCA30005E634 /* SaveButton.swift */,
-				D8171F48202A5CA30005804D /* LongPressButton.swift */,
 				D82E951B1F101D90007BD960 /* UILabel+FontFamily.swift */,
 				D803F8951DC53B0C00656F20 /* GroupedAccessibilityView.swift */,
 				B0E8051D1C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.h */,
@@ -10461,7 +10467,6 @@
 				D8EBD1BA1FBB16F700AA7DA9 /* Dictionary+JSON.swift in Sources */,
 				0E728D2E1DAEE8FF0074EB4B /* WMFMainPageContentSource.m in Sources */,
 				D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */,
-				D8171F49202A5CA30005804D /* LongPressButton.swift in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */,
@@ -10540,6 +10545,7 @@
 				D89845221ECB3F6C00849DA4 /* CGRect+Layout.swift in Sources */,
 				D8DC16EF1D6F6DEC00D6D9FB /* MWKTitle.m in Sources */,
 				D844485B1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m in Sources */,
+				83EC768C20320E10004804E4 /* ReadingListsDisableSyncOperation.swift in Sources */,
 				D8FA18F51E1BDA3C009675C3 /* WMFSparklineView.swift in Sources */,
 				D844D9F41D6CC0220042D692 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				B0B4234D1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.m in Sources */,
@@ -10568,6 +10574,7 @@
 				D844D9981D6CB5CD0042D692 /* WikipediaAppUtils.m in Sources */,
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
 				D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */,
+				D8650B782033372E0044DFFA /* ReadingListsLocalOnlySyncOperation.swift in Sources */,
 				D84C361B1F32403D00895FA1 /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */,
 				D8FA18E01E1BD8A3009675C3 /* NSDictionary+WMFExtensions.m in Sources */,
@@ -10638,6 +10645,7 @@
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,
 				0E728D461DAEEE880074EB4B /* NSString+WMFDistance.m in Sources */,
 				D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */,
+				83EC768E2032105E004804E4 /* ReadingListsEnableSyncOperation.swift in Sources */,
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,

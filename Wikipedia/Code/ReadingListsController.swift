@@ -392,63 +392,34 @@ public class ReadingListsController: NSObject {
     }
 
 
-    private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
+    internal let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
-    @objc var isSyncEnabled: Bool {
-        get {
-            assert(Thread.isMainThread)
-            return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
-        }
-        set {
-            assert(Thread.isMainThread)
-            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: isSyncEnabledKey)
-            if newValue {
-                apiController.setupReadingLists(completion: { (error) in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            DDLogError("Error enabling sync: \(error)")
-                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: false), forKey: self.isSyncEnabledKey)
-                        } else {
-                            self.sync()
-                        }
-                    }
-                })
-            } else {
-                apiController.teardownReadingLists(completion: { (error) in
-                        DispatchQueue.main.async {
-                            if let error = error {
-                                DDLogError("Error disabling sync: \(error)")
-                                self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
-                                
-                            } else {
-                                self.sync()
-                            }
-                        }
-                })
+    @objc public var isSyncEnabled: Bool {
+        assert(Thread.isMainThread)
+        return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+    }
+    
+    @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
+        DispatchQueue.main.async {
+            guard isSyncEnabled != self.isSyncEnabled else {
+                return
             }
+            self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
+            if isSyncEnabled {
+                let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+                self.operationQueue.addOperation(op)
+            } else {
+                let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+                self.operationQueue.addOperation(op)
+            }
+            self.sync()
         }
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
-        do {
-            let moc = dataStore.viewContext
-            // For users without syncing enabled, we should immediately delete locally deleted items
-            let listsToDeleteFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let listsToDelete = try moc.fetch(listsToDeleteFetchRequest)
-            for list in listsToDelete {
-                moc.delete(list)
-            }
-            
-            let entriesToDeleteFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let entriesToDelete = try moc.fetch(entriesToDeleteFetchRequest)
-            for entry in entriesToDelete {
-                moc.delete(entry)
-            }
-        } catch let error {
-            DDLogError("Error on batch delete \(error)")
-        }
+        assert(Thread.isMainThread)
+        let op = ReadingListsLocalOnlySyncOperation(readingListsController: self)
+        operationQueue.addOperation(op)
     }
     
     @objc public func start() {
@@ -565,9 +536,10 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func unsave(_ article: WMFArticle) {
-        assert(Thread.isMainThread)
         do {
-            let moc = dataStore.viewContext
+            guard let moc = article.managedObjectContext else {
+                return
+            }
             article.savedDate = nil
             guard let key = article.key else {
                 return
@@ -575,7 +547,7 @@ public class ReadingListsController: NSObject {
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
             let entries = try moc.fetch(entryFetchRequest)
-            try remove(entries: entries)
+            try markLocalDeletion(for: entries)
         } catch let error {
             DDLogError("Error removing article from default list: \(error)")
         }
@@ -605,19 +577,10 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            let savedArticlesFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            savedArticlesFetchRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            savedArticlesFetchRequest.fetchLimit = 500
-            var savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            while savedArticles.count > 0 {
-                for article in savedArticles {
-                    unsave(article)
-                }
-                if moc.hasChanges {
-                    try moc.save()
-                }
-                savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            }
+            try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
+                print("unsaving \(article.key!)")
+                unsave(article)
+            })
             update()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
