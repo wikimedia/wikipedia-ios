@@ -385,7 +385,7 @@ extension ReadingListsViewController: ActionDelegate {
                 }
                 return didPerform
             } else {
-                self.deleteReadingLists(readingLists)
+                deleteReadingLists(readingLists)
                 return true
             }
         default:
