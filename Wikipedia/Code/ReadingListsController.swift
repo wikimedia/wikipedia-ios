@@ -833,4 +833,12 @@ extension WMFArticle {
     @objc public var readingListsCount: Int {
         return (readingLists ?? []).count
     }
+    
+    @objc public var userCreatedReadingLists: [ReadingList] {
+        return (readingLists ?? []).filter { !$0.isDefaultList }
+    }
+    
+    @objc public var userCreatedReadingListsCount: Int {
+        return userCreatedReadingLists.count
+    }
 }

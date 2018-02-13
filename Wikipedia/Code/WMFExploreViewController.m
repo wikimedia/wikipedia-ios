@@ -2017,7 +2017,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
     [self.readingListHintController hideHintImmediately];
-    if (!article.isOnlyInDefaultList && article.readingListsCount > 1) {
+    if (article && article.userCreatedReadingListsCount > 0) {
         WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
         [readingListAlertController showAlertWithPresenter:self article:article];
     } else {

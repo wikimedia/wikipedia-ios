@@ -1285,7 +1285,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)toggleSave:(id)sender event:(UIEvent *)event {
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
-    if (articleToUnsave && !articleToUnsave.isOnlyInDefaultList && articleToUnsave.readingListsCount > 1) {
+    if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
         WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
         [readingListAlertController showAlertWithPresenter:self article:articleToUnsave];
         return; // don't unsave immediately, wait for a callback from WMFReadingListAlertControllerDelegate
