@@ -68,8 +68,7 @@
 "appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
-"article-deleted-accessibility-notification" = "Article deleted";
-"article-deleted-notification" = "{{PLURAL:$1|artice|articles}} deleted";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|articles}} deleted";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
