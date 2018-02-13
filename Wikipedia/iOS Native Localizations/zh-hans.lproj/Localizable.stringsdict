@@ -172,19 +172,5 @@
 			<string>您确定要取消保存此条目，并将其从%1$d个阅读列表中移除么？</string>
 		</dict>
 	</dict>
-	<key>unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>取消保存并从%1$d个阅读列表移除</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

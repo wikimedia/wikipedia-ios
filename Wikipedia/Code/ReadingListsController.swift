@@ -830,4 +830,8 @@ extension WMFArticle {
     @objc public var isOnlyInDefaultList: Bool {
         return (readingLists ?? []).count == 1 && isInDefaultList
     }
+    
+    @objc public var readingListsCount: Int {
+        return (readingLists ?? []).count
+    }
 }

@@ -328,17 +328,14 @@ extension ReadingListsViewController: ActionDelegate {
             let _ = self.editController.didPerformAction(action)
             return
         }
-        let alert = createDeletionAlert(for: [readingList])
-        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (cancel) in
+        let alertController = ReadingListAlertController(presenter: self)
+        let cancel = ReadingListAlertActionType.cancel.action {
             self.editController.close()
-            alert.dismiss(animated: true, completion: nil)
-        })
-        let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive, handler: { (delete) in
+        }
+        let delete = ReadingListAlertActionType.delete.action {
             let _ = self.editController.didPerformAction(action)
-        })
-        alert.addAction(cancelAction)
-        alert.addAction(deleteAction)
-        present(alert, animated: true)
+        }
+        alertController.showAlert(for: [readingList], with: [cancel, delete])
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -378,19 +375,14 @@ extension ReadingListsViewController: ActionDelegate {
             return true
         case .delete:
             if shouldPresentDeletionAlert(for: readingLists) {
-                let alert = createDeletionAlert(for: readingLists)
-                let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (action) in
-                    alert.dismiss(animated: true, completion: nil)
-                })
-                let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive, handler: { (action) in
+                let alertController = ReadingListAlertController(presenter: self)
+                let delete = ReadingListAlertActionType.delete.action {
                     self.deleteReadingLists(readingLists)
-                })
-                alert.addAction(cancelAction)
-                alert.addAction(deleteAction)
+                }
                 var didPerform = false
-                present(alert, animated: true, completion: {
+                alertController.showAlert(for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete]) {
                     didPerform = true
-                })
+                }
                 return didPerform
             } else {
                 self.deleteReadingLists(readingLists)
