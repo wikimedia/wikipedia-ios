@@ -9610,7 +9610,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"";
+			shellScript = "rm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/qqq.lproj\"\nrm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/be-tarask.lproj\"\nrm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/bik.lproj\"\nrm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/nah.lproj\"\nrm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/xmf.lproj\"\nrm -rf \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/zza.lproj\"";
 		};
 		D8EC3FA61E9BDA35006712EB /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
