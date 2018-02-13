@@ -313,10 +313,10 @@
 "reading-list-add-saved-title" = "Saved articles found";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-add-saved-button-title" = "No, delete articles saved on the app";
+"reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-exists-with-same-name" = "A reading list already exists with the name $1";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-hint-title" = "Move $1 to a reading list?";
-"reading-list-keep-button-subtitle" = "No, delete articles from device";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
 "reading-list-keep-title" = "Keep saved articles on device?";

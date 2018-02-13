@@ -53,7 +53,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
         heading = WMFLocalizedString("reading-list-keep-title", value:"Keep saved articles on device?", comment:"Title for keeping save articles on device.")
         subheading = WMFLocalizedString("reading-list-keep-subtitle", value:"There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?", comment:"Subtitle asking if synced articles should be kept on device after logout.")
         primaryButtonTitle = WMFLocalizedString("reading-list-keep-button-title", value:"Yes, keep articles on device", comment:"Title for button to keep synced articles on device.")
-        secondaryButtonTitle = WMFLocalizedString("reading-list-keep-button-subtitle", value:"No, delete articles from device", comment:"Title for button to remove saved articles from device.")
+        secondaryButtonTitle = WMFLocalizedString("reading-list-do-not-keep-button-title", value:"No, delete articles from device", comment:"Title for button to remove saved articles from device.")
     }
 }
 

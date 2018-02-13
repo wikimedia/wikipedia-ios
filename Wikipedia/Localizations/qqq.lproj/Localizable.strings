@@ -313,10 +313,10 @@
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-add-saved-button-title" = "Title for button to not add saved articles to reading lists.";
+"reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-hint-title" = "Title of the reading list hint that appears after an article is saved";
-"reading-list-keep-button-subtitle" = "Title for button to remove saved articles from device.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
