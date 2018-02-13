@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Any articles saved only to this list will be unsaved when it is deleted.</string>
+			<string>Any articles saved only to this list will be unsaved when this list is deleted.</string>
 			<key>other</key>
-			<string>Any articles saved only to these lists will be unsaved when they are deleted.</string>
+			<string>Any articles saved only to these lists will be unsaved when these lists are deleted.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
