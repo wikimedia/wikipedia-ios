@@ -18,11 +18,11 @@ class ReadingListsDisableSyncOperation: ReadingListsOperation {
                             self.readingListsController.unsave(article)
                         })
                     } else {
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListID != NULL"), resetAfterSave: true, handler: { (readingList: ReadingList) in
+                        try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingList: ReadingList) in
                             readingList.readingListID = nil
                             readingList.isUpdatedLocally = true
                         })
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "readingListEntryID != NULL"), resetAfterSave: true, handler: { (readingListEntry: ReadingListEntry) in
+                        try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingListEntry: ReadingListEntry) in
                             readingListEntry.readingListEntryID = nil
                             readingListEntry.isUpdatedLocally = true
                         })

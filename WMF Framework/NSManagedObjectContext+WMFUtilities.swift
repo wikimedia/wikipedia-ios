@@ -58,7 +58,7 @@ public extension NSManagedObjectContext {
         return results
     }
     
-    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate, resetAfterSave: Bool = false, handler: (T) -> Void) throws {
+    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: (T) -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
         fetchRequest.predicate = matchingPredicate
