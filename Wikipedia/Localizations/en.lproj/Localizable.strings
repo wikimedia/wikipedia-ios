@@ -409,7 +409,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
-"unsave-article-and-remove-from-reading-lists" = "Unsave and remove from {{PLURAL:$1|$1 reading list|$1 reading lists}}";
+"unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from $1 reading lists";
+"unsave-article-and-remove-from-reading-lists-title" = "Unsave article and remove it from lists?";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";
