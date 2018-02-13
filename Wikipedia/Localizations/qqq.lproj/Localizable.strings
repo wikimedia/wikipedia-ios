@@ -216,10 +216,6 @@
 "login-forgot-password" = "Button text for loading the password reminder interface";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
-"login-session-expired-retry-button-title" = "Title for button to let user attempt to log in again.";
-"login-session-expired-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
-"login-session-expired-subtitle" = "Subtitle for letting user know they are no longer logged in.";
-"login-session-expired-title" = "Title for letting user know they are no longer logged in.";
 "login-title" = "Title for log in interface";
 "main-menu-about" = "Button for showing information about the app.";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
@@ -352,6 +348,10 @@
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
+"relogin-failed-retry-login-button-title" = "Title for button to let user attempt to log in again.";
+"relogin-failed-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
+"relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
+"relogin-failed-title" = "Title for letting user know they are no longer logged in.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";

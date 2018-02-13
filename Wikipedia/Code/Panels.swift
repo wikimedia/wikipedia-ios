@@ -67,13 +67,38 @@ class EnableLocationPanelViewController : ScrollableEducationPanelViewController
     }
 }
 
-class LoginSessionExpiredPanelViewController : ScrollableEducationPanelViewController {
+class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-saved") // TODO: get image from Carolyn
-        heading = WMFLocalizedString("login-session-expired-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
-        subheading = WMFLocalizedString("login-session-expired-subtitle", value:"Your log in session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
-        primaryButtonTitle = WMFLocalizedString("login-session-expired-retry-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
-        secondaryButtonTitle = WMFLocalizedString("login-session-expired-stay-logged-out-button-title", value:"Keep me logged out", comment:"Title for button for user to choose to remain logged out.")
+        heading = WMFLocalizedString("relogin-failed-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
+        subheading = WMFLocalizedString("relogin-failed-subtitle", value:"Your log in session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
+        primaryButtonTitle = WMFLocalizedString("relogin-failed-retry-login-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
+        secondaryButtonTitle = WMFLocalizedString("relogin-failed-stay-logged-out-button-title", value:"Keep me logged out", comment:"Title for button for user to choose to remain logged out.")
+    }
+}
+
+extension UIViewController {
+    @objc func wmf_showReloginFailedPanel(theme: Theme) {
+        var skipClearCredentialsInDismissPanelHandler = false
+        let panelVC = ReLoginFailedPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
+            skipClearCredentialsInDismissPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to clear credentials if the primary button was not tapped.
+            print("TRY LOGIN AGAIN")
+            // TODO: open settings and present login VC
+            sender.dismiss(animated: true, completion: nil)
+        }, secondaryButtonTapHandler: { sender in
+            print("KEEP LOGGED OUT")
+            // TODO: nothing - panel will be dismissed when this is tapped and the dismissHandler will clear credentials
+            sender.dismiss(animated: true, completion: nil)
+        }, dismissHandler: { sender in
+            if (!skipClearCredentialsInDismissPanelHandler) {
+                // TODO: clear save credential info
+                print("CLEAR SAVED CREDENTIALS (called even if user dismisses by tap outside of panel)")
+            }
+        })
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: {
+
+        })
     }
 }
