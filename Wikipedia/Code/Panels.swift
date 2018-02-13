@@ -66,3 +66,14 @@ class EnableLocationPanelViewController : ScrollableEducationPanelViewController
         footer = CommonStrings.localizedEnableLocationDescription
     }
 }
+
+class LoginSessionExpiredPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage.init(named: "reading-list-saved") // TODO: get image from Carolyn
+        heading = WMFLocalizedString("login-session-expired-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
+        subheading = WMFLocalizedString("login-session-expired-subtitle", value:"Your log in session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
+        primaryButtonTitle = WMFLocalizedString("login-session-expired-retry-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
+        secondaryButtonTitle = WMFLocalizedString("login-session-expired-stay-logged-out-button-title", value:"Keep me logged out", comment:"Title for button for user to choose to remain logged out.")
+    }
+}

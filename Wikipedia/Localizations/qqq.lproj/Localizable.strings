@@ -216,6 +216,10 @@
 "login-forgot-password" = "Button text for loading the password reminder interface";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";
+"login-session-expired-retry-button-title" = "Title for button to let user attempt to log in again.";
+"login-session-expired-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
+"login-session-expired-subtitle" = "Subtitle for letting user know they are no longer logged in.";
+"login-session-expired-title" = "Title for letting user know they are no longer logged in.";
 "login-title" = "Title for log in interface";
 "main-menu-about" = "Button for showing information about the app.";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";

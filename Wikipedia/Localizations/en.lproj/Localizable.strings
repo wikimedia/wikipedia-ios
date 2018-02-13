@@ -216,6 +216,10 @@
 "login-forgot-password" = "Forgot your password?";
 "login-join-wikipedia" = "Join Wikipedia.";
 "login-no-account" = "Don't have an account? $1";
+"login-session-expired-retry-button-title" = "Try to log in again";
+"login-session-expired-stay-logged-out-button-title" = "Keep me logged out";
+"login-session-expired-subtitle" = "Your log in session may have expired or previous log in credentials are no longer valid.";
+"login-session-expired-title" = "Unable to re-establish log in";
 "login-title" = "Log in to your account";
 "main-menu-about" = "About the app";
 "main-menu-account-login" = "Log in";
