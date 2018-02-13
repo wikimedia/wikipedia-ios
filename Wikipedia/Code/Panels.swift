@@ -11,7 +11,7 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
 
 extension UIViewController {
     @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() else {
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
         }
         let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
