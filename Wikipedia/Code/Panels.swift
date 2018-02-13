@@ -79,21 +79,28 @@ class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController 
 }
 
 extension UIViewController {
-    @objc func wmf_showReloginFailedPanel(theme: Theme) {
-        var skipClearCredentialsInDismissPanelHandler = false
+    @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
+        guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
+            return
+        }
+        var skipClearKeychainCredentialsInDismissPanelHandler = false
         let panelVC = ReLoginFailedPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
-            skipClearCredentialsInDismissPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to clear credentials if the primary button was not tapped.
-            print("TRY LOGIN AGAIN")
-            // TODO: open settings and present login VC
-            sender.dismiss(animated: true, completion: nil)
+            skipClearKeychainCredentialsInDismissPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to clear credentials if the primary button was not tapped.
+            
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+                guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    assertionFailure("Expected view controller(s) not found")
+                    return
+                }
+                presenter?.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+            })
         }, secondaryButtonTapHandler: { sender in
-            print("KEEP LOGGED OUT")
-            // TODO: nothing - panel will be dismissed when this is tapped and the dismissHandler will clear credentials
+            // Nothing needs to happen here beyond invoking 'dismiss' - the dismissHandler will clear keychain credentials.
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: { sender in
-            if (!skipClearCredentialsInDismissPanelHandler) {
-                // TODO: clear save credential info
-                print("CLEAR SAVED CREDENTIALS (called even if user dismisses by tap outside of panel)")
+            if (!skipClearKeychainCredentialsInDismissPanelHandler) {
+                WMFAuthenticationManager.sharedInstance.clearKeychainCredentials()
             }
         })
         panelVC.apply(theme: theme)

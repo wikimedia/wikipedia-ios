@@ -583,6 +583,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
             dispatch_async(dispatch_get_main_queue(), completion);
+            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
         }];
 }
 
