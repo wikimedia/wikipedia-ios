@@ -4,7 +4,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             if let error = getAllAPIReadingListsError {
                 DDLogError("Error from all lists response: \(error)")
                 if let readingListError = error as? ReadingListAPIError, readingListError == .notSetup {
-                    self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    DispatchQueue.main.async {
+                        self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    }
                 }
                 self.finish(with: error)
                 return
@@ -35,7 +37,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         for remoteReadingList in allAPIReadingLists {
                             group.enter()
                             self.apiController.getAllEntriesForReadingListWithID(readingListID: remoteReadingList.id, completion: { (entries, error) in
-                                if error == nil {
+                                if let error = error {
+                                    DDLogError("Error fetching entries for reading list with ID \(remoteReadingList.id): \(error)")
+                                } else {
                                     remoteEntriesByReadingListID[remoteReadingList.id] = entries
                                 }
                                 group.leave()
