@@ -17,6 +17,18 @@ class WMFAuthenticationManager: NSObject {
         return (loggedInUsername != nil)
     }
 
+    @objc public var hasKeychainCredentials: Bool {
+        guard
+            let userName = keychainCredentials.userName,
+            userName.count > 0,
+            let password = keychainCredentials.password,
+            password.count > 0
+            else {
+                return false
+        }
+        return true
+    }
+
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     private let tokenFetcher = WMFAuthTokenFetcher()
     private let accountLogin = WMFAccountLogin()
@@ -93,11 +105,9 @@ class WMFAuthenticationManager: NSObject {
      */
     @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
-        guard
+        guard hasKeychainCredentials,
             let userName = keychainCredentials.userName,
-            userName.count > 0,
-            let password = keychainCredentials.password,
-            password.count > 0
+            let password = keychainCredentials.password
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return
