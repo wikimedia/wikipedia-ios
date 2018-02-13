@@ -29,6 +29,11 @@ class WMFAuthenticationManager: NSObject {
         return true
     }
 
+    @objc public func clearKeychainCredentials() {
+        self.keychainCredentials.userName = nil
+        self.keychainCredentials.password = nil
+    }
+    
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     private let tokenFetcher = WMFAuthTokenFetcher()
     private let accountLogin = WMFAccountLogin()
@@ -142,8 +147,7 @@ class WMFAuthenticationManager: NSObject {
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
             
-            self.keychainCredentials.userName = nil
-            self.keychainCredentials.password = nil
+            self.clearKeychainCredentials()
             self.loggedInUsername = nil
             // Cookie reminders: 
             //  - Call "action=logout" API *before* clearing app cookies.
