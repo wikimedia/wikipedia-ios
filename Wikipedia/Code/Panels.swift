@@ -10,6 +10,24 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
 }
 
 extension UIViewController {
+    
+    fileprivate func hasSavedArticles() -> Bool {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.fetchLimit = 1
+        articleRequest.sortDescriptors = []
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: SessionSingleton.sharedInstance().dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+            return false
+        }
+        guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
+            return false
+        }
+        return fetchedObjects.count > 0
+    }
+    
     @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
