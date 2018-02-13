@@ -350,7 +350,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=This year|Last year|$1 years ago}}";
 "relogin-failed-retry-login-button-title" = "Try to log in again";
 "relogin-failed-stay-logged-out-button-title" = "Keep me logged out";
-"relogin-failed-subtitle" = "Your log in session may have expired or previous log in credentials are no longer valid.";
+"relogin-failed-subtitle" = "Your session may have expired or previous log in credentials are no longer valid.";
 "relogin-failed-title" = "Unable to re-establish log in";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "saved-all-articles-title" = "All articles";

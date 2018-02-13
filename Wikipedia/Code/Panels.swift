@@ -72,7 +72,7 @@ class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController 
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-saved") // TODO: get image from Carolyn
         heading = WMFLocalizedString("relogin-failed-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
-        subheading = WMFLocalizedString("relogin-failed-subtitle", value:"Your log in session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
+        subheading = WMFLocalizedString("relogin-failed-subtitle", value:"Your session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
         primaryButtonTitle = WMFLocalizedString("relogin-failed-retry-login-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
         secondaryButtonTitle = WMFLocalizedString("relogin-failed-stay-logged-out-button-title", value:"Keep me logged out", comment:"Title for button for user to choose to remain logged out.")
     }
@@ -83,10 +83,7 @@ extension UIViewController {
         guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
             return
         }
-        var skipClearKeychainCredentialsInDismissPanelHandler = false
-        let panelVC = ReLoginFailedPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
-            skipClearKeychainCredentialsInDismissPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to clear credentials if the primary button was not tapped.
-            
+        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
             let presenter = sender.presentingViewController
             sender.dismiss(animated: true, completion: {
                 guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
@@ -96,13 +93,9 @@ extension UIViewController {
                 presenter?.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
             })
         }, secondaryButtonTapHandler: { sender in
-            // Nothing needs to happen here beyond invoking 'dismiss' - the dismissHandler will clear keychain credentials.
+            WMFAuthenticationManager.sharedInstance.clearKeychainCredentials()
             sender.dismiss(animated: true, completion: nil)
-        }, dismissHandler: { sender in
-            if (!skipClearKeychainCredentialsInDismissPanelHandler) {
-                WMFAuthenticationManager.sharedInstance.clearKeychainCredentials()
-            }
-        })
+        }, dismissHandler: nil)
         panelVC.apply(theme: theme)
         present(panelVC, animated: true, completion: {
 
