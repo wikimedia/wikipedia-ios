@@ -400,20 +400,18 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
-        DispatchQueue.main.async {
-            guard isSyncEnabled != self.isSyncEnabled else {
-                return
-            }
-            self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
-            if isSyncEnabled {
-                let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-                self.operationQueue.addOperation(op)
-            } else {
-                let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-                self.operationQueue.addOperation(op)
-            }
-            self.sync()
+        guard isSyncEnabled != self.isSyncEnabled else {
+            return
         }
+        self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
+        if isSyncEnabled {
+            let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+            self.operationQueue.addOperation(op)
+        } else {
+            let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+            self.operationQueue.addOperation(op)
+        }
+        self.sync()
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
