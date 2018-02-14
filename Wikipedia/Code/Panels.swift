@@ -82,7 +82,7 @@ class LoginToSyncSavedArticlesToReadingListPanelViewController : ScrollableEduca
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-login")
         heading = WMFLocalizedString("reading-list-login-title", value:"Sync your saved articles?", comment:"Title for syncing save articles.")
-        subheading = WMFLocalizedString("reading-list-login-subtitle", value:"Log in or create an account to allow your saved articles and reading lists to be synced across devices and saved to your user preferences.", comment:"Subtitle explaining that saved articles and reading lists can be synced across devices.")
+        subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-button-title", value:"Log in to sync your saved articles", comment:"Title for button to login to sync saved articles and reading lists.")
     }
 }
@@ -143,3 +143,4 @@ extension UIViewController {
         })
     }
 }
+
