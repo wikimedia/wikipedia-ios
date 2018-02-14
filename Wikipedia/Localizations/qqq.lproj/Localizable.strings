@@ -312,7 +312,6 @@
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
-"reading-list-do-not-add-saved-button-title" = "Title for button to not add saved articles to reading lists.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";

@@ -312,7 +312,6 @@
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
 "reading-list-add-saved-title" = "Saved articles found";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
-"reading-list-do-not-add-saved-button-title" = "No, delete articles saved on the app";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-exists-with-same-name" = "A reading list already exists with the name $1";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";

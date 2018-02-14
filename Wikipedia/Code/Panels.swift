@@ -16,7 +16,7 @@ class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPane
         heading = WMFLocalizedString("reading-list-add-saved-title", value:"Saved articles found", comment:"Title explaining saved articles were found.")
         subheading = WMFLocalizedString("reading-list-add-saved-subtitle", value:"There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?", comment:"Subtitle explaining that saved articles can be added to reading lists.")
         primaryButtonTitle = WMFLocalizedString("reading-list-add-saved-button-title", value:"Yes, add them to my reading lists", comment:"Title for button to add saved articles to reading list.")
-        secondaryButtonTitle = WMFLocalizedString("reading-list-do-not-add-saved-button-title", value:"No, delete articles saved on the app", comment:"Title for button to not add saved articles to reading lists.")
+        secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
     }
 }
 
@@ -37,7 +37,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
         heading = WMFLocalizedString("reading-list-keep-title", value:"Keep saved articles on device?", comment:"Title for keeping save articles on device.")
         subheading = WMFLocalizedString("reading-list-keep-subtitle", value:"There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?", comment:"Subtitle asking if synced articles should be kept on device after logout.")
         primaryButtonTitle = WMFLocalizedString("reading-list-keep-button-title", value:"Yes, keep articles on device", comment:"Title for button to keep synced articles on device.")
-        secondaryButtonTitle = WMFLocalizedString("reading-list-do-not-keep-button-title", value:"No, delete articles from device", comment:"Title for button to remove saved articles from device.")
+        secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
     }
 }
 
