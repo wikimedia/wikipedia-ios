@@ -408,8 +408,8 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Unsaving this article will also remove it from “$1”";
-"unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from all reading lists";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "Unsaving this article will also remove it from the reading list “$1”.";
+"unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from all reading lists.";
 "unsave-article-and-remove-from-reading-lists-title" = "Unsave article?";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
