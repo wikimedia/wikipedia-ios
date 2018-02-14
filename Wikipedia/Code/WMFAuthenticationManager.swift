@@ -3,7 +3,7 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 class WMFAuthenticationManager: NSObject {    
-    private var keychainCredentials:WMFKeychainCredentials
+    fileprivate var keychainCredentials:WMFKeychainCredentials
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -29,10 +29,10 @@ class WMFAuthenticationManager: NSObject {
         return true
     }
     
-    private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    private let tokenFetcher = WMFAuthTokenFetcher()
-    private let accountLogin = WMFAccountLogin()
-    private let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
+    fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
+    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
+    fileprivate let accountLogin = WMFAccountLogin()
+    fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     
     /**
      *  Get the shared instance of this class
@@ -165,7 +165,7 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
-    func cloneSessionCookies() {
+    fileprivate func cloneSessionCookies() {
         // Make the session cookies expire at same time user cookies. Just remember they still can't be
         // necessarily assumed to be valid as the server may expire them, but at least make them last as
         // long as we can to lessen number of server requests. Uses user tokens as templates for copying
