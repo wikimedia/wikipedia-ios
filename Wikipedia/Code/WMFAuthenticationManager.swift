@@ -144,6 +144,8 @@ class WMFAuthenticationManager: NSObject {
         }
         SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
         
+        SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        
         UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
     }
     
