@@ -91,6 +91,11 @@ extension UIViewController {
         return fetchedObjects.count > 0
     }
     
+    fileprivate func present<T: UIViewController & Themeable>(_ viewControllerToPresent: T, with theme: Theme, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
+        viewControllerToPresent.apply(theme: theme)
+        present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
     @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
@@ -109,8 +114,7 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
                 presenter?.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
             })
         }, secondaryButtonTapHandler: nil, dismissHandler:nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: {
+        present(panelVC, with: theme, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
@@ -123,8 +127,7 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
 //SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: nil)
+        present(panelVC, with: theme, animated: true, completion: nil)
     }
     
     fileprivate func showLoginViewController(theme: Theme) {
@@ -148,8 +151,7 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
             WMFAuthenticationManager.sharedInstance.clearKeychainCredentials()
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: nil)
+        present(panelVC, with: theme, animated: true, completion: nil)
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
@@ -159,7 +161,6 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
                 presenter?.showLoginViewController(theme: theme)
             })
         }, secondaryButtonTapHandler: nil, dismissHandler: nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: nil)
+        present(panelVC, with: theme, animated: true, completion: nil)
     }
 }
