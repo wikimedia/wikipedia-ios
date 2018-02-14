@@ -131,7 +131,7 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
-    private var logoutManager:AFHTTPSessionManager?
+    fileprivate var logoutManager:AFHTTPSessionManager?
     
     fileprivate func resetLocalUserLoginSettings() {
         self.keychainCredentials.userName = nil
