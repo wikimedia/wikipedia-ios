@@ -9,10 +9,12 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
+    private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
 
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
+        self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
         super.init()
     }
     
@@ -49,10 +51,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
         setupEditController(with: collectionView)
+        
+        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        readingListDetailExtendedViewController.updateArticleCount(readingList.countOfEntries)
         updateEmptyState()
     }
     
@@ -95,6 +100,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var isEmpty = true {
         didSet {
             editController.isCollectionViewEmpty = isEmpty
+            readingListDetailExtendedViewController.isHidden = isEmpty
+            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isEmpty ? 1 : 0, animated: false)
+            updateScrollViewInsets()
         }
     }
     
@@ -119,6 +127,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        readingListDetailExtendedViewController.apply(theme: theme)
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
@@ -133,8 +142,33 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return [addToListItem, moveToListItem, removeItem]
     }()
     
+    // MARK: - Hiding extended view
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
+        super.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        navigationBarHider.scrollViewWillScrollToTop(scrollView)
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
 
 }
@@ -286,6 +320,7 @@ extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
+        readingListDetailExtendedViewController.updateArticleCount(readingList.countOfEntries)
         collectionView.setNeedsLayout()
     }
 }
