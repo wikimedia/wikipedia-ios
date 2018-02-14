@@ -1,5 +1,6 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String)
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -25,6 +26,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleTextField.isUnderlined = false
         titleTextField.returnKeyType = .done
         titleTextField.enablesReturnKeyAutomatically = true
@@ -33,12 +35,17 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.enablesReturnKeyAutomatically = true
         titleTextField.delegate = self
         descriptionTextField.delegate = self
+        
         updateButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
         updateButton.masksToBounds = true
         updateButton.cornerRadius = 18
+        
         sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
+        
         searchBar.returnKeyType = .search
         searchBar.placeholder = WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
+        searchBar.delegate = self
+        
         apply(theme: theme)
     }
     
@@ -77,11 +84,26 @@ class ReadingListDetailExtendedViewController: UIViewController {
     }
     
 }
+
 extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension ReadingListDetailExtendedViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        delegate?.extendedViewController(self, searchTextDidChange: searchText)
+        
+        if searchText.isEmpty {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

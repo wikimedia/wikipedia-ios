@@ -19,10 +19,17 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         self.readingListDetailExtendedViewController.delegate = self
     }
     
-    func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
+    func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        request.predicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
+        
+        let basePredicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
+        request.predicate = basePredicate
+        if let searchString = searchString {
+            let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')") // ReadingListEntry has no snippet
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+        }
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "displayTitle", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
@@ -41,7 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         title = readingList.name
         
-        setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
+        setupFetchedResultsController()
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
         
@@ -166,6 +173,30 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
+    }
+    
+    // MARK: - Filtering
+    
+    private var searchString: String? {
+        didSet {
+            guard searchString != oldValue else {
+                return
+            }
+            editController.close()
+            setupCollectionViewUpdaterAndFetch()
+        }
+    }
+    
+    private func setupCollectionViewUpdaterAndFetch() {
+        setupFetchedResultsController()
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let err {
+            //
+        }
+        collectionView.reloadData()
     }
 
 }
@@ -431,6 +462,10 @@ extension ReadingListDetailViewController {
 extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
+    }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {
+        searchString = searchText.isEmpty ? nil : searchText
     }
 }
 
