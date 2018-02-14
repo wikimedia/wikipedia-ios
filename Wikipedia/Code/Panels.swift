@@ -9,63 +9,6 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
     }
 }
 
-extension UIViewController {
-    
-    fileprivate func hasSavedArticles() -> Bool {
-        let articleRequest = WMFArticle.fetchRequest()
-        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.fetchLimit = 1
-        articleRequest.sortDescriptors = []
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: SessionSingleton.sharedInstance().dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch _ {
-            return false
-        }
-        guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
-            return false
-        }
-        return fetchedObjects.count > 0
-    }
-    
-    @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
-            return
-        }
-        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
-            let presenter = sender.presentingViewController
-            sender.dismiss(animated: true, completion: {
-
-                guard self.hasSavedArticles() else {
-
-SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                    
-                    return
-                }
-                presenter?.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
-            })
-        }, secondaryButtonTapHandler: nil, dismissHandler:nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
-        })
-    }
-    
-    fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
-        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-            sender.dismiss(animated: true, completion: nil)
-        }, secondaryButtonTapHandler: { sender in
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
-            sender.dismiss(animated: true, completion: nil)
-        }, dismissHandler: nil)
-        panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: nil)
-    }
-
-}
-
 class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +62,71 @@ class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController 
     }
 }
 
+class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage.init(named: "reading-list-user")
+        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing save articles.")
+        subheading = CommonStrings.readingListLoginSubtitle
+        primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
+    }
+}
+
 extension UIViewController {
+    
+    fileprivate func hasSavedArticles() -> Bool {
+        let articleRequest = WMFArticle.fetchRequest()
+        articleRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        articleRequest.fetchLimit = 1
+        articleRequest.sortDescriptors = []
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: SessionSingleton.sharedInstance().dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
+            return false
+        }
+        guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
+            return false
+        }
+        return fetchedObjects.count > 0
+    }
+    
+    @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
+            return
+        }
+        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+                
+                guard self.hasSavedArticles() else {
+                    
+SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    
+                    return
+                }
+                presenter?.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
+            })
+        }, secondaryButtonTapHandler: nil, dismissHandler:nil)
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
+        })
+    }
+    
+    fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
+        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, secondaryButtonTapHandler: { sender in
+//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, dismissHandler: nil)
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: nil)
+    }
+    
     @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
         guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
             return
@@ -138,23 +145,9 @@ extension UIViewController {
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: nil)
         panelVC.apply(theme: theme)
-        present(panelVC, animated: true, completion: {
-
-        })
+        present(panelVC, animated: true, completion: nil)
     }
-}
 
-class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-user")
-        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing save articles.")
-        subheading = CommonStrings.readingListLoginSubtitle
-        primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
-    }
-}
-
-extension UIViewController {
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
             let presenter = sender.presentingViewController
