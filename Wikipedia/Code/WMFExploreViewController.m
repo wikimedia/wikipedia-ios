@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListActionSheetControllerDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListAlertControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -62,7 +62,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
-@property (nonatomic, strong) WMFReadingListActionSheetController *readingListActionSheetController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -79,8 +78,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
-    self.readingListActionSheetController = [[WMFReadingListActionSheetController alloc] initWithDataStore:self.userStore presenter:self];
-    self.readingListActionSheetController.delegate = self;
 }
 
 - (void)dealloc {
@@ -2020,8 +2017,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
     [self.readingListHintController hideHintImmediately];
-    if (!article.isOnlyInDefaultList) {
-        [self.readingListActionSheetController showActionSheetFor:article moveFromReadingList:nil with:self.theme];
+    if (article && article.userCreatedReadingListsCount > 0) {
+        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
+        [readingListAlertController showAlertWithPresenter:self article:article];
     } else {
         [self.saveButtonsController updateSavedState];
     }
@@ -2032,9 +2030,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
-#pragma mark - WMFReadingListActionSheetControllerDelegate
+#pragma mark - WMFReadingListAlertControllerDelegate
 
-- (void)readingListActionSheetController:(WMFReadingListActionSheetController *)readingListActionSheetController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self.saveButtonsController updateSavedState];
 }
 

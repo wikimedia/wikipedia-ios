@@ -392,63 +392,32 @@ public class ReadingListsController: NSObject {
     }
 
 
-    private let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
+    internal let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
-    @objc var isSyncEnabled: Bool {
-        get {
-            assert(Thread.isMainThread)
-            return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+    @objc public var isSyncEnabled: Bool {
+        assert(Thread.isMainThread)
+        return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+    }
+    
+    @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
+        guard isSyncEnabled != self.isSyncEnabled else {
+            return
         }
-        set {
-            assert(Thread.isMainThread)
-            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: isSyncEnabledKey)
-            if newValue {
-                apiController.setupReadingLists(completion: { (error) in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            DDLogError("Error enabling sync: \(error)")
-                            self.dataStore.viewContext.wmf_setValue(NSNumber(value: false), forKey: self.isSyncEnabledKey)
-                        } else {
-                            self.sync()
-                        }
-                    }
-                })
-            } else {
-                apiController.teardownReadingLists(completion: { (error) in
-                        DispatchQueue.main.async {
-                            if let error = error {
-                                DDLogError("Error disabling sync: \(error)")
-                                self.dataStore.viewContext.wmf_setValue(NSNumber(value: true), forKey: self.isSyncEnabledKey)
-                                
-                            } else {
-                                self.sync()
-                            }
-                        }
-                })
-            }
+        self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
+        if isSyncEnabled {
+            let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+            self.operationQueue.addOperation(op)
+        } else {
+            let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
+            self.operationQueue.addOperation(op)
         }
+        self.sync()
     }
     
     private func processUpdatesForUserWithSyncDisabled() {
-        do {
-            let moc = dataStore.viewContext
-            // For users without syncing enabled, we should immediately delete locally deleted items
-            let listsToDeleteFetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            listsToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let listsToDelete = try moc.fetch(listsToDeleteFetchRequest)
-            for list in listsToDelete {
-                moc.delete(list)
-            }
-            
-            let entriesToDeleteFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            entriesToDeleteFetchRequest.predicate = NSPredicate(format: "isDeletedLocally == YES")
-            let entriesToDelete = try moc.fetch(entriesToDeleteFetchRequest)
-            for entry in entriesToDelete {
-                moc.delete(entry)
-            }
-        } catch let error {
-            DDLogError("Error on batch delete \(error)")
-        }
+        assert(Thread.isMainThread)
+        let op = ReadingListsLocalOnlySyncOperation(readingListsController: self)
+        operationQueue.addOperation(op)
     }
     
     @objc public func start() {
@@ -565,9 +534,10 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func unsave(_ article: WMFArticle) {
-        assert(Thread.isMainThread)
         do {
-            let moc = dataStore.viewContext
+            guard let moc = article.managedObjectContext else {
+                return
+            }
             article.savedDate = nil
             guard let key = article.key else {
                 return
@@ -575,7 +545,7 @@ public class ReadingListsController: NSObject {
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
             let entries = try moc.fetch(entryFetchRequest)
-            try remove(entries: entries)
+            try markLocalDeletion(for: entries)
         } catch let error {
             DDLogError("Error removing article from default list: \(error)")
         }
@@ -605,19 +575,10 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            let savedArticlesFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            savedArticlesFetchRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            savedArticlesFetchRequest.fetchLimit = 500
-            var savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            while savedArticles.count > 0 {
-                for article in savedArticles {
-                    unsave(article)
-                }
-                if moc.hasChanges {
-                    try moc.save()
-                }
-                savedArticles = try moc.fetch(savedArticlesFetchRequest)
-            }
+            try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
+                print("unsaving \(article.key!)")
+                unsave(article)
+            })
             update()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
@@ -682,7 +643,8 @@ public class ReadingListsController: NSObject {
 
             guard let remoteReadingListForUpdate = remoteReadingList else {
                 DDLogError("Fetch produced a list without a matching id or name: \(localReadingList)")
-                assert(false)
+                try markLocalDeletion(for: [localReadingList])
+                moc.delete(localReadingList) // object can be removed since it appears to be a duplicate
                 continue
             }
             
@@ -735,7 +697,7 @@ public class ReadingListsController: NSObject {
         }
 
         let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        localReadingListEntryFetch.predicate = NSPredicate(format: "readingListEntryID IN %@ || (list.readingListID IN %@ && articleKey IN %@)", Array(remoteReadingListEntriesByID.keys), Array(remoteReadingListEntriesByListIDAndArticleKey.keys), allArticleKeys)
+        localReadingListEntryFetch.predicate = NSPredicate(format: "readingListEntryID IN %@ || articleKey IN %@", Array(remoteReadingListEntriesByID.keys),  allArticleKeys)
         let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
         for localReadingListEntry in localReadingListEntries {
             var remoteReadingListEntry: APIReadingListEntry?
@@ -755,7 +717,7 @@ public class ReadingListsController: NSObject {
             }
             
             guard let remoteReadingListEntryForUpdate = remoteReadingListEntry else {
-                DDLogError("Fetch produced a list entry without a matching id or name: \(localReadingListEntry)")
+                DDLogWarn("Fetch produced a list entry without a matching id or name: \(localReadingListEntry)")
                 continue
             }
             
@@ -866,5 +828,17 @@ extension WMFArticle {
     
     @objc public var isOnlyInDefaultList: Bool {
         return (readingLists ?? []).count == 1 && isInDefaultList
+    }
+    
+    @objc public var readingListsCount: Int {
+        return (readingLists ?? []).count
+    }
+    
+    @objc public var userCreatedReadingLists: [ReadingList] {
+        return (readingLists ?? []).filter { !$0.isDefaultList }
+    }
+    
+    @objc public var userCreatedReadingListsCount: Int {
+        return userCreatedReadingLists.count
     }
 }
