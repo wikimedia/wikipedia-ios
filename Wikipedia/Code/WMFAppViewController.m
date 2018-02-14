@@ -142,6 +142,11 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                                              selector:@selector(articleFontSizeWasUpdated:)
                                                  name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleWasUpdated:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -1531,6 +1536,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
+    }
+}
+
+#pragma mark - Article saved state changed
+
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = [note object];
+    id changedSavedDate = [article.changedValues objectForKey:@"savedDate"];
+    BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
+    if (articleWasSaved) {
+        [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
 }
 
