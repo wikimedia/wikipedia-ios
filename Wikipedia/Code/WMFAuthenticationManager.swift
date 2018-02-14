@@ -28,11 +28,6 @@ class WMFAuthenticationManager: NSObject {
         }
         return true
     }
-
-    @objc public func clearKeychainCredentials() {
-        self.keychainCredentials.userName = nil
-        self.keychainCredentials.password = nil
-    }
     
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     private let tokenFetcher = WMFAuthTokenFetcher()
@@ -138,6 +133,18 @@ class WMFAuthenticationManager: NSObject {
     
     private var logoutManager:AFHTTPSessionManager?
     
+    fileprivate func resetLocalUserLoginSettings() {
+        self.keychainCredentials.userName = nil
+        self.keychainCredentials.password = nil
+        self.loggedInUsername = nil
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        HTTPCookieStorage.shared.cookies?.forEach { cookie in
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
+        SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+    }
+    
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
@@ -145,20 +152,13 @@ class WMFAuthenticationManager: NSObject {
         let outerSuccess = success
         let outerFailure = failure
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
+        // Try to call "action=logout" API *before* clearing local login settings.
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
-            
-            self.clearKeychainCredentials()
-            self.loggedInUsername = nil
-            // Cookie reminders: 
-            //  - Call "action=logout" API *before* clearing app cookies.
-            //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
-            HTTPCookieStorage.shared.cookies?.forEach { cookie in
-                HTTPCookieStorage.shared.deleteCookie(cookie)
-            }
-            SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-            
+            self.resetLocalUserLoginSettings()
             outerSuccess()
         }, failure: { (_, error) in
+            // If "action=logout" failed we still want to clear local login settings.
+            self.resetLocalUserLoginSettings()
             outerFailure(error)
         })
     }
