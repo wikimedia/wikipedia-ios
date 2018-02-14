@@ -15,6 +15,16 @@ internal class ReadingListsUpdateOperation: ReadingListsOperation {
                     }
                     
                     self.apiController.updatedListsAndEntries(since: since, completion: { (updatedLists, updatedEntries, error) in
+                        if let error = error {
+                            if let readingListError = error as? ReadingListAPIError, readingListError == .notSetup {
+                                DispatchQueue.main.async {
+                                    self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                                }
+                            }
+                            DDLogError("Error from since response: \(error)")
+                            self.finish(with: error)
+                            return
+                        }
                         DispatchQueue.main.async {
                             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
                                 defer {

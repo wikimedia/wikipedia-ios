@@ -169,11 +169,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateEmptyState()
-    }
-    
     private final func updateEmptyState() {
         let sectionCount = numberOfSections(in: collectionView)
         
@@ -190,12 +185,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if isShowingDefaultList {
                 collectionView.isHidden = true
             }
-            let emptyViewFrame: CGRect
-            if traitCollection.verticalSizeClass == .compact {
-                emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: view.bounds.origin.y + navigationBar.underBarView.frame.height), size: view.bounds.size)
+            let yPosition: CGFloat
+            if let navigationController = navigationController {
+                yPosition = navigationController.navigationBar.frame.size.height + navigationBar.statusBarHeight
             } else {
-                emptyViewFrame = view.bounds
+                yPosition = view.bounds.origin.y
             }
+            let emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: yPosition), size: view.bounds.size)
             wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
@@ -332,17 +328,14 @@ extension ReadingListsViewController: ActionDelegate {
             let _ = self.editController.didPerformAction(action)
             return
         }
-        let alert = createDeletionAlert(for: [readingList])
-        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (cancel) in
+        let alertController = ReadingListAlertController()
+        let cancel = ReadingListAlertActionType.cancel.action {
             self.editController.close()
-            alert.dismiss(animated: true, completion: nil)
-        })
-        let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive, handler: { (delete) in
+        }
+        let delete = ReadingListAlertActionType.delete.action {
             let _ = self.editController.didPerformAction(action)
-        })
-        alert.addAction(cancelAction)
-        alert.addAction(deleteAction)
-        present(alert, animated: true)
+        }
+        alertController.showAlert(presenter: self, readingLists: [readingList], actions: [cancel, delete])
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -365,7 +358,7 @@ extension ReadingListsViewController: ActionDelegate {
     func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
         let readingListsCount = readingLists.count
         let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists."), readingListsCount)
-        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles saved only to {{PLURAL:%1$d|this list will be unsaved when it is deleted|these lists will be unsaved when they are deleted}}.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
+        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles saved only to {{PLURAL:%1$d|this list will be unsaved when this list is deleted|these lists will be unsaved when these lists are deleted}}.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         return alert
     }
@@ -382,22 +375,17 @@ extension ReadingListsViewController: ActionDelegate {
             return true
         case .delete:
             if shouldPresentDeletionAlert(for: readingLists) {
-                let alert = createDeletionAlert(for: readingLists)
-                let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (action) in
-                    alert.dismiss(animated: true, completion: nil)
-                })
-                let deleteAction = UIAlertAction(title: CommonStrings.deleteActionTitle, style: .destructive, handler: { (action) in
+                let alertController = ReadingListAlertController()
+                let delete = ReadingListAlertActionType.delete.action {
                     self.deleteReadingLists(readingLists)
-                })
-                alert.addAction(cancelAction)
-                alert.addAction(deleteAction)
+                }
                 var didPerform = false
-                present(alert, animated: true, completion: {
+                alertController.showAlert(presenter: self, readingLists: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete]) {
                     didPerform = true
-                })
+                }
                 return didPerform
             } else {
-                self.deleteReadingLists(readingLists)
+                deleteReadingLists(readingLists)
                 return true
             }
         default:

@@ -117,12 +117,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
                 let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-                descriptionLabel.isHidden = false
             } else {
                 let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
                 let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
-                descriptionLabel.isHidden = true
             }
         } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -130,20 +128,20 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing - saveButton.verticalPadding
+                origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - saveButton.verticalPadding
+                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = true
         }
+        
+        descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
 
         if displayType == .readingListsTab && isDefault {
             origin.y += spacing

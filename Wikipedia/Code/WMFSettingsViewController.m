@@ -182,7 +182,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled){
                 [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme: self.theme];
             } else {
-                self.dataStore.readingListsController.isSyncEnabled = isOn;
+                [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
             }
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:

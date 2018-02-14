@@ -114,22 +114,52 @@ public class Session {
         return session.dataTask(with: request, completionHandler: completionHandler)
     }
     
-    public func jsonCodableTask<T>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable {
+    
+    /**
+     Creates a URLSessionTask that will handle the response by decoding it to the codable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
+     - parameters:
+         - host: The host for the request
+         - scheme: The scheme for the request
+         - method: The HTTP method for the request
+         - path: The path for the request
+         - queryParameters: The query parameters for the request
+         - bodyParameters: The body parameters for the request
+         - bodyEncoding: The body encoding for the request body parameters
+         - completionHandler: Called after the request completes
+         - result: The result object decoded from JSON
+         - errorResult: The error result object decoded from JSON
+         - response: The URLResponse
+         - error: Any network or parsing error
+     */
+    public func jsonCodableTask<T, E>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
         return dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             guard let data = data else {
-                completionHandler(nil, response, error)
+                completionHandler(nil, nil, response, error)
+                return
+            }
+            let decoder = JSONDecoder()
+            let handleErrorResponse = {
+                do {
+                    let errorResult: E = try decoder.decode(E.self, from: data)
+                    completionHandler(nil, errorResult, response, nil)
+                } catch let errorResultParsingError {
+                    completionHandler(nil, nil, response, errorResultParsingError)
+                }
+            }
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                handleErrorResponse()
                 return
             }
             #if DEBUG
                 let stringData = String(data: data, encoding: .utf8)
                 DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
             #endif
-            let decoder = JSONDecoder()
             do {
                 let result: T = try decoder.decode(T.self, from: data)
-                completionHandler(result, response, error)
-            } catch let error {
-                completionHandler(nil, response, error)
+                completionHandler(result, nil, response, error)
+            } catch let resultParsingError {
+                DDLogError("Error parsing codable response: \(resultParsingError)")
+                handleErrorResponse()
             }
         })
     }

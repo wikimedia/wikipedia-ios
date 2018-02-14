@@ -105,10 +105,7 @@ extension UIViewController {
             sender.dismiss(animated: true, completion: {
                 
                 guard self.hasSavedArticles() else {
-                    
-SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled = true
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                    
+                    SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                     return
                 }
                 presenter?.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
@@ -121,10 +118,10 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
         let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             sender.dismiss(animated: true, completion: nil)
         }, secondaryButtonTapHandler: { sender in
-//SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: nil)
         present(panelVC, with: theme, animated: true, completion: nil)

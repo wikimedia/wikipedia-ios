@@ -66,21 +66,5 @@
 			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze %1$d seznamů čtení?</string>
 		</dict>
 	</dict>
-	<key>unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Neuložit a odstranit z %1$d seznamu čtení</string>
-			<key>other</key>
-			<string>Neuložit a odstranit z %1$d seznamů čtení</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

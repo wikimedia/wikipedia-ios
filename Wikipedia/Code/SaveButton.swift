@@ -1,6 +1,11 @@
 import UIKit
 
-@objc(WMFSaveButton) public class SaveButton: LongPressButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+@objc(WMFSaveButtonDelegate) public protocol SaveButtonDelegate {
+    func saveButtonDidReceiveLongPress(_ saveButton: SaveButton)
+    func saveButtonDidReceiveAddToReadingListAction(_ saveButton: SaveButton) -> Bool
+}
+
+@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
     @objc(WMFSaveButtonState)
     public enum State: Int {
         case shortSaved
@@ -39,11 +44,37 @@ import UIKit
                 saveImage = SaveButton.saveImage
                 accessibilityLabel = CommonStrings.saveTitle
             }
+            let addToReadingListAction = UIAccessibilityCustomAction(name: CommonStrings.addToReadingListActionTitle, target: self, selector: #selector(addToReadingList(_:)))
+            accessibilityCustomActions = [addToReadingListAction]
             UIView.performWithoutAnimation {
                 setTitle(saveTitle, for: .normal)
                 setImage(saveImage, for: .normal)
                 layoutIfNeeded()
             }
         }
+    }
+    
+    @objc func addToReadingList(_ sender: UIControl) -> Bool {
+        return saveButtonDelegate?.saveButtonDidReceiveAddToReadingListAction(self) ?? false
+    }
+    
+    var longPressGestureRecognizer: UILongPressGestureRecognizer?
+    public weak var saveButtonDelegate: SaveButtonDelegate?  {
+        didSet {
+            if let lpgr = longPressGestureRecognizer, saveButtonDelegate == nil {
+                removeGestureRecognizer(lpgr)
+            } else if saveButtonDelegate != nil && longPressGestureRecognizer == nil {
+                let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureRecognizer(_:)))
+                addGestureRecognizer(lpgr)
+                longPressGestureRecognizer = lpgr
+            }
+        }
+    }
+    
+    @objc public func handleLongPressGestureRecognizer(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        guard longPressGestureRecognizer.state == .began else {
+            return
+        }
+        saveButtonDelegate?.saveButtonDidReceiveLongPress(self)
     }
 }
