@@ -127,6 +127,14 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         present(panelVC, animated: true, completion: nil)
     }
     
+    fileprivate func showLoginViewController(theme: Theme) {
+        guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+            assertionFailure("Expected view controller(s) not found")
+            return
+        }
+        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+    }
+    
     @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
         guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
             return
@@ -134,11 +142,7 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
             let presenter = sender.presentingViewController
             sender.dismiss(animated: true, completion: {
-                guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                    assertionFailure("Expected view controller(s) not found")
-                    return
-                }
-                presenter?.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+                presenter?.showLoginViewController(theme: theme)
             })
         }, secondaryButtonTapHandler: { sender in
             WMFAuthenticationManager.sharedInstance.clearKeychainCredentials()
@@ -152,11 +156,7 @@ SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
             let presenter = sender.presentingViewController
             sender.dismiss(animated: true, completion: {
-                guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                    assertionFailure("Expected view controller(s) not found")
-                    return
-                }
-                presenter?.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+                presenter?.showLoginViewController(theme: theme)
             })
         }, secondaryButtonTapHandler: nil, dismissHandler: nil)
         panelVC.apply(theme: theme)
