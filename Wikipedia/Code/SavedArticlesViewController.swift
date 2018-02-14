@@ -201,49 +201,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         }
     }
     
-    private func delete(at indexPath: IndexPath) {
-        guard let article = article(at: indexPath) else {
-            return
-        }
-        
-        delete(articles: [article])
-    }
-    
-    private func delete(articles: [WMFArticle]) {
-        let unsaveAction = { (articles: [WMFArticle]) in
-            for article in articles {
-                self.dataStore.readingListsController.unsave(article)
-            }
-            let accessibilityNotification = String.localizedStringWithFormat(WMFLocalizedString("article-deleted-accessibility-notification", value: "{{PLURAL:%1$d|artice|articles}} deleted", comment: "Notification spoken after user deletes an article from the list."),  articles.count)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, accessibilityNotification)
-        }
-        
-        let allArticlesAreOnlyInTheDefaultList = articles.filter { $0.isOnlyInDefaultList }.count == articles.count
-        guard allArticlesAreOnlyInTheDefaultList else {
-            let title: String
-            if articles.count == 1, let article = articles.first {
-                title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.filter { !$0.isDefaultList }.count ?? 0)
-            } else {
-                title = WMFLocalizedString("saved-confirm-unsave-articles-and-remove-from-reading-lists", value: "Are you sure you want to unsave these articles and remove them from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists")
-            }
-            let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-            let articleKeys = articles.flatMap { $0.key }
-            alertController.addAction(UIAlertAction(title: CommonStrings.shortUnsaveTitle, style: .destructive, handler: { (alertAction) in
-                // Re-fetch articles to ensure they weren't deleted or modified since the user performed the action and the sheet was shown
-                let articles = articleKeys.flatMap { self.dataStore.fetchArticle(withKey: $0) }
-                unsaveAction(articles)
-            }))
-            alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (cancelAction) in
-                self.collectionView.reloadData()
-            }))
-            present(alertController, animated: true, completion: nil)
-            return
-        }
-        unsaveAction(articles)
-    }
-    
-    
-    
     // MARK: - Themeable
     
     override func apply(theme: Theme) {
@@ -253,7 +210,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         }
     }
     
-    // MARK: - Batch editing (parts that cannot be in an extension)
+    // MARK: - Editing
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
         let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
@@ -429,12 +386,55 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            delete(articles: articles)
-            return true
+            if shouldPresentDeletionAlert(for: articles) {
+                let alertController = ReadingListAlertController()
+                let unsave = ReadingListAlertActionType.unsave.action {
+                    self.delete(articles: articles)
+                }
+                let cancel = ReadingListAlertActionType.cancel.action {
+                    self.editController.close()
+                }
+                var didPerform = false
+                alertController.showAlert(presenter: self, articles: articles, actions: [cancel, unsave]) {
+                    didPerform = true
+                }
+                return didPerform
+                
+            } else {
+                delete(articles: articles)
+                return true
+            }
         default:
             break
         }
         return false
+    }
+    
+    private func delete(articles: [WMFArticle]) {
+        articles.forEach { self.dataStore.readingListsController.unsave($0) }
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
+    }
+    
+    func willPerformAction(_ action: Action) {
+        guard let article = article(at: action.indexPath) else {
+            return
+        }
+        guard action.type == .delete, shouldPresentDeletionAlert(for: [article]) else {
+            let _ = self.editController.didPerformAction(action)
+            return
+        }
+        let alertController = ReadingListAlertController()
+        let unsave = ReadingListAlertActionType.unsave.action {
+            let _ = self.editController.didPerformAction(action)
+        }
+        let cancel = ReadingListAlertActionType.cancel.action {
+            self.editController.close()
+        }
+        alertController.showAlert(presenter: self, articles: [article], actions: [cancel, unsave])
+    }
+    
+    func shouldPresentDeletionAlert(for articles: [WMFArticle]) -> Bool {
+        return articles.filter { $0.isOnlyInDefaultList }.count != articles.count
     }
     
     func didPerformAction(_ action: Action) -> Bool {
@@ -446,7 +446,9 @@ extension SavedArticlesViewController: ActionDelegate {
         }
         switch action.type {
         case .delete:
-            delete(at: indexPath)
+            if let article = article(at: indexPath) {
+                delete(articles: [article])
+            }
             return true
         case .save:
             if let articleURL = articleURL(at: indexPath) {

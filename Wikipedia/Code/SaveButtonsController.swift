@@ -6,7 +6,7 @@ import UIKit
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
 
-@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, LongPressButtonDelegate {
+@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, SaveButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
@@ -34,7 +34,7 @@ import UIKit
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
-        saveButton.longPressDelegate = self
+        saveButton.saveButtonDelegate = self
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
@@ -60,13 +60,18 @@ import UIKit
     
 
     
-    func longPressButtonDidReceiveLongPress(_ longPressButton: LongPressButton) {
-        guard let key = visibleArticleKeys[longPressButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
-            return
-        }
-        delegate?.showAddArticlesToReadingListViewController(for: article)
+    func saveButtonDidReceiveLongPress(_ saveButton: SaveButton) {
+        _ = saveButtonDidReceiveAddToReadingListAction(saveButton)
     }
     
+    func saveButtonDidReceiveAddToReadingListAction(_ saveButton: SaveButton) -> Bool {
+        guard let key = visibleArticleKeys[saveButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
+            return false
+        }
+        delegate?.showAddArticlesToReadingListViewController(for: article)
+        return true
+    }
+
     fileprivate var updatedArticle: WMFArticle?
     
     @objc func articleUpdated(notification: Notification) {
