@@ -16,6 +16,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         self.dataStore = dataStore
         self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
         super.init()
+        self.readingListDetailExtendedViewController.delegate = self
     }
     
     func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
@@ -38,11 +39,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if readingList.isDefaultList {
-            title = CommonStrings.readingListsDefaultListTitle
-        } else if let name = readingList.name {
-            title = name
-        }
+        title = readingList.name
         
         setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
@@ -57,7 +54,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.updateArticleCount(readingList.countOfEntries)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries)
         updateEmptyState()
     }
     
@@ -426,6 +423,17 @@ extension ReadingListDetailViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - Analytics
+extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditName name: String) {
+        dataStore.readingListsController.updateName(for: readingList, with: name)
+    }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditDescription description: String?) {
+        dataStore.readingListsController.updateDescription(for: readingList, with: description)
     }
 }
 

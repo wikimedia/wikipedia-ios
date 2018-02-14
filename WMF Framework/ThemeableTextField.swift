@@ -3,7 +3,7 @@ import UIKit
 @objc(WMFThemeableTextField)
 open class ThemeableTextField: UITextField, Themeable {
     var theme = Theme.standard
-    @objc var isUnderlined = true
+    @objc public var isUnderlined = true
     
     func setup() {
         let image = #imageLiteral(resourceName: "clear-mini")
@@ -80,3 +80,5 @@ open class ThemeableTextField: UITextField, Themeable {
 
     }
 }
+
+

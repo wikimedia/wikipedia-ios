@@ -13,6 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailExtendedViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="articleCountLabel" destination="uC9-Ji-QqS" id="NxD-BR-emx"/>
+                <outlet property="descriptionTextField" destination="VeG-7e-nxd" id="TZe-4K-8HF"/>
+                <outlet property="titleTextField" destination="vBx-C3-qBc" id="Ts3-3W-3YI"/>
+                <outlet property="updateButton" destination="Oeb-GS-Le1" id="6Z3-Po-n5T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="constraints" destination="y3q-WA-OGa" collectionClass="NSMutableArray" id="usZ-ur-TNu"/>
             </connections>
@@ -31,10 +34,34 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-C3-qBc" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="15" y="44" width="345" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VeG-7e-nxd" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="15" y="82" width="345" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oeb-GS-Le1">
+                            <rect key="frame" x="15" y="132" width="46" height="30"/>
+                            <state key="normal" title="Button"/>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="vBx-C3-qBc" firstAttribute="leading" secondItem="uC9-Ji-QqS" secondAttribute="leading" id="DuK-gw-IGU"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="top" secondItem="HcV-tM-qMa" secondAttribute="top" constant="15" id="HH5-kv-Cum"/>
+                        <constraint firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" constant="15" id="P8q-hO-E0G"/>
+                        <constraint firstAttribute="trailing" secondItem="vBx-C3-qBc" secondAttribute="trailing" constant="15" id="PDo-oz-lDu"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uC9-Ji-QqS" secondAttribute="trailing" constant="15" id="Tge-bZ-2fn"/>
+                        <constraint firstItem="VeG-7e-nxd" firstAttribute="leading" secondItem="vBx-C3-qBc" secondAttribute="leading" id="WCE-lf-luw"/>
+                        <constraint firstItem="Oeb-GS-Le1" firstAttribute="top" secondItem="VeG-7e-nxd" secondAttribute="bottom" constant="20" id="fg7-CK-rl9"/>
+                        <constraint firstItem="vBx-C3-qBc" firstAttribute="top" secondItem="uC9-Ji-QqS" secondAttribute="bottom" constant="8" id="iMX-J6-djU"/>
+                        <constraint firstItem="VeG-7e-nxd" firstAttribute="top" secondItem="vBx-C3-qBc" secondAttribute="bottom" constant="8" id="j46-bO-PEe"/>
+                        <constraint firstItem="Oeb-GS-Le1" firstAttribute="leading" secondItem="VeG-7e-nxd" secondAttribute="leading" id="tHZ-GU-QDI"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
                         <constraint firstAttribute="height" constant="175" id="y3q-WA-OGa"/>
                     </constraints>

@@ -85,11 +85,37 @@ public class ReadingListsController: NSObject {
         return list
     }
     
+    public func updateName(for readingList: ReadingList, with newName: String) {
+        let moc = dataStore.viewContext
+        readingList.name = newName
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error updating name for reading list: \(error)")
+            }
+        }
+        update()
+    }
+    
+    public func updateDescription(for readingList: ReadingList, with newDescription: String?) {
+        let moc = dataStore.viewContext
+        readingList.readingListDescription = newDescription
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error updating description for reading list: \(error)")
+            }
+        }
+        update()
+    }
+    
     /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
     ///
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
-    internal func markLocalDeletion(for readingLists: [ReadingList]) throws {
+    func markLocalDeletion(for readingLists: [ReadingList]) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
@@ -109,7 +135,7 @@ public class ReadingListsController: NSObject {
     ///
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
-    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
+    func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
         for entry in readingListEntries {
             entry.isDeletedLocally = true
             entry.isUpdatedLocally = true
@@ -121,7 +147,7 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    internal func processLocalUpdates(in moc: NSManagedObjectContext) throws {
+    func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
         let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")

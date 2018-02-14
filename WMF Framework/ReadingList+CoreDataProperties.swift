@@ -28,7 +28,7 @@ extension ReadingList {
             canonicalName = newValue?.precomposedStringWithCanonicalMapping
         }
         get {
-            return canonicalName
+            return isDefaultList ? CommonStrings.readingListsDefaultListTitle : canonicalName
         }
     }
 }
