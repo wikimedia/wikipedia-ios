@@ -42,10 +42,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
+        contentView.addSubview(saveButton)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(saveButton)
 
         saveButton.verticalPadding = 16
         saveButton.horizontalPadding = 16
@@ -180,6 +180,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         get {
             return _effectiveArticleSemanticContentAttribute
         }
+    }
+
+    // for items like the Save Button that are localized and should match the UI direction
+    public var userInterfaceSemanticContentAttribute: UISemanticContentAttribute {
+        return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
     }
     
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
