@@ -1,6 +1,5 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
-
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -31,16 +30,21 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.enablesReturnKeyAutomatically = true
         titleTextField.delegate = self
         descriptionTextField.delegate = self
+        updateButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+        updateButton.masksToBounds = true
+        updateButton.cornerRadius = 18
         apply(theme: theme)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         articleCountLabel.setFont(with: .systemBold, style: .footnote, traitCollection: traitCollection)
-        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .headline, compatibleWithTraitCollection: traitCollection)
-        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
+        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
+        updateButton.titleLabel?.setFont(with: .systemBold, style: .subheadline, traitCollection: traitCollection)
     }
     
+    // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
     var articleCount: Int64 = 0 {
         didSet {
             guard viewIfLoaded != nil else {
@@ -84,5 +88,8 @@ extension ReadingListDetailExtendedViewController: Themeable {
         articleCountLabel.textColor = theme.colors.secondaryText
         titleTextField.apply(theme: theme)
         descriptionTextField.apply(theme: theme)
+        descriptionTextField.textColor = theme.colors.secondaryText
+        updateButton.backgroundColor = theme.colors.accent
+        updateButton.setTitleColor(theme.colors.paperBackground, for: .normal)
     }
 }
