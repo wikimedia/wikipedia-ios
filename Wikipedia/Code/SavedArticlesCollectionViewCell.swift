@@ -98,7 +98,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = false
             
             if !isSaveButtonHidden {
                 origin.y += spacing
@@ -110,9 +109,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
-            descriptionLabel.isHidden = true
         }
         
+        descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
+
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
