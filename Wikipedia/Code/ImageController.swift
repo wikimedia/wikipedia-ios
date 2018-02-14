@@ -271,8 +271,6 @@ open class ImageController : NSObject {
                 } catch let error as NSError {
                     if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
                         createItem = true
-                    } else {
-                        DDLogError("Error moving cached file: \(error)")
                     }
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
@@ -576,8 +574,6 @@ open class ImageController : NSObject {
                 } catch let error as NSError {
                     if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
                         createItem = true
-                    } else {
-                        DDLogError("Error moving cached file: \(error)")
                     }
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
