@@ -146,7 +146,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             self.setViewControllerUserInteraction(enabled: true)
             let presenter = self.presentingViewController
             self.dismiss(animated: true, completion: {
-                presenter?.wmf_showEnableReadingListSyncPanelOnce(theme: self.theme)
+                presenter?.wmf_showEnableReadingListSyncPanelOncePerLogin(theme: self.theme)
             })
             self.funnel?.logSuccess()
         

@@ -278,7 +278,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                     WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     let presenter = self.presentingViewController
                     self.dismiss(animated: true, completion: {
-                        presenter?.wmf_showEnableReadingListSyncPanelOnce(theme: self.theme)
+                        presenter?.wmf_showEnableReadingListSyncPanelOncePerLogin(theme: self.theme)
                     })
                     self.funnel?.logSuccess()
             }, failure: { error in

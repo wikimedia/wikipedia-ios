@@ -96,7 +96,7 @@ extension UIViewController {
         present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
-    @objc func wmf_showEnableReadingListSyncPanelOnce(theme: Theme) {
+    @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
         }

@@ -573,12 +573,12 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
         dispatch_async(dispatch_get_main_queue(), completion);
-        [self wmf_showEnableReadingListSyncPanelOnceWithTheme:self.theme];
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
             dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showEnableReadingListSyncPanelOnceWithTheme:self.theme];
+            [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
