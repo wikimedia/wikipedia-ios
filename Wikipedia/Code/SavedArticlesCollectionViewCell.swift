@@ -102,9 +102,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing - saveButton.verticalPadding
+                origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - saveButton.verticalPadding
+                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
