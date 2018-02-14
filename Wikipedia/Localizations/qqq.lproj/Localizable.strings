@@ -51,6 +51,7 @@
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
+"action-sort" = "Title of the sort action.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
 "action-update" = "Title of the update action.";
@@ -345,11 +346,12 @@
 "saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
-"saved-search-default-text" = "tbd";
+"saved-search-default-text" = "Placeholder text for the search bar in Saved";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
+"search-reading-list-placeholder-text" = "Placeholder text for the search bar in reading list detail view.";
 "search-recent-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";

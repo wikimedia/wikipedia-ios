@@ -7,6 +7,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var titleTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     @IBOutlet weak var updateButton: UIButton!
+    @IBOutlet weak var separatorView: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var sortButton: UIButton!
     @IBOutlet var constraints: [NSLayoutConstraint] = []
     
     public weak var delegate: ReadingListDetailExtendedViewControllerDelegate?
@@ -33,6 +36,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
         updateButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
         updateButton.masksToBounds = true
         updateButton.cornerRadius = 18
+        sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
+        searchBar.returnKeyType = .search
+        searchBar.placeholder = WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
         apply(theme: theme)
     }
     
@@ -42,6 +48,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
         updateButton.titleLabel?.setFont(with: .systemBold, style: .subheadline, traitCollection: traitCollection)
+        sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
@@ -91,5 +98,6 @@ extension ReadingListDetailExtendedViewController: Themeable {
         descriptionTextField.textColor = theme.colors.secondaryText
         updateButton.backgroundColor = theme.colors.accent
         updateButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+        separatorView.backgroundColor = theme.colors.border
     }
 }
