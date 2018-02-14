@@ -1,7 +1,11 @@
 import Foundation
 
 public enum ReadingListAPIError: String, Error, Equatable {
+    case generic = "readinglists-client-error-generic"
     case notSetup = "readinglists-db-error-not-set-up"
+    case listLimit = "readinglists-db-error-list-limit"
+    case entryLimit = "readinglists-db-error-entry-limit"
+    case duplicateEntry = "readinglists-db-error-duplicate-page"
 }
 
 struct APIReadingLists: Codable {
@@ -86,13 +90,18 @@ class ReadingListsAPIController: NSObject {
         guard
             let siteURL = components.url
             else {
+                completion(nil, nil, ReadingListAPIError.generic)
                 return
         }
         
         let fullPath = basePath.appending(path)
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.session.jsonDictionaryTask(host: self.host, method: method, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
-                completion(result, response, error)
+                if let apiErrorType = result?["title"] as? String, let apiError = ReadingListAPIError(rawValue: apiErrorType) {
+                    completion(result, nil, apiError)
+                } else {
+                    completion(result, response, error)
+                }
                 }?.resume()
         }) { (failure) in
             completion(nil, nil, failure)
@@ -170,12 +179,9 @@ class ReadingListsAPIController: NSObject {
         let project = project.precomposedStringWithCanonicalMapping
         let bodyParams = ["project": project, "title": title]
         post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result else {
-                completion(nil, error ?? ReadingListError.unableToAddEntry)
-                return
-            }
-            guard let id = result["id"] as? Int64 else {
-                if let errorType = result["title"] as? String, errorType == "readinglists-db-error-duplicate-page" {
+            if let apiError = error as? ReadingListAPIError {
+                switch apiError {
+                case .duplicateEntry:
                     // TODO: Remove when error response returns ID
                     self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
                         guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
@@ -184,11 +190,25 @@ class ReadingListsAPIController: NSObject {
                         }
                         completion(entry.id, nil)
                     })
-                } else {
-                    completion(nil, error ?? ReadingListError.unableToAddEntry)
+                default:
+                    completion(nil, apiError)
                 }
                 return
+            } else if let error = error {
+                completion(nil, error)
+                return
             }
+
+            guard let result = result else {
+                completion(nil, error ?? ReadingListError.unableToAddEntry)
+                return
+            }
+            
+            guard let id = result["id"] as? Int64 else {
+                completion(nil, ReadingListError.unableToAddEntry)
+                return
+            }
+            
             completion(id, nil)
         }
     }
