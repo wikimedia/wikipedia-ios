@@ -160,4 +160,23 @@ extension UIViewController {
         }, secondaryButtonTapHandler: nil, dismissHandler: nil)
         present(panelVC, with: theme, animated: true, completion: nil)
     }
+    
+    @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
+        guard
+            WMFAuthenticationManager.sharedInstance.loggedInUsername == nil &&
+            !UserDefaults.wmf_userDefaults().wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
+            !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
+        else {
+            return
+        }
+        let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+                presenter?.showLoginViewController(theme: theme)
+            })
+        }, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        present(panelVC, with: theme, animated: true, completion: {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
+        })
+    }
 }

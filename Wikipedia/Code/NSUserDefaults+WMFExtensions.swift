@@ -25,6 +25,7 @@ let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
 let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
+let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -447,5 +448,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_didShowEnableReadingListSyncPanel() -> Bool {
         return self.bool(forKey: WMFDidShowEnableReadingListSyncPanelKey)
+    }
+    
+    @objc public func wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
+        self.synchronize()
+    }
+    
+    @objc public func wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
     }
 }
