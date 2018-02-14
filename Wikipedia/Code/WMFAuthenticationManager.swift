@@ -143,6 +143,8 @@ class WMFAuthenticationManager: NSObject {
             HTTPCookieStorage.shared.deleteCookie(cookie)
         }
         SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+        
+        UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
     }
     
     /**
