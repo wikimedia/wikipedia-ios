@@ -48,8 +48,8 @@
             @"titles": articleURL.wmf_title,
             @"rvlimit": @(numberOfResults),
             @"rvendid": @(revisionId),
-            @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]),
-            @"pilicense": @"any"
+            @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"])//,
+            //@"pilicense": @"any"
         }
         retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
 
