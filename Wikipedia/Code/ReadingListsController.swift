@@ -85,27 +85,17 @@ public class ReadingListsController: NSObject {
         return list
     }
     
-    public func updateName(for readingList: ReadingList, with newName: String) {
+    public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
         let moc = dataStore.viewContext
-        readingList.name = newName
-        if moc.hasChanges {
-            do {
-                try moc.save()
-            } catch let error {
-                DDLogError("Error updating name for reading list: \(error)")
-            }
+        if let newName = newName, !newName.isEmpty {
+            readingList.name = newName
         }
-        update()
-    }
-    
-    public func updateDescription(for readingList: ReadingList, with newDescription: String?) {
-        let moc = dataStore.viewContext
         readingList.readingListDescription = newDescription
         if moc.hasChanges {
             do {
                 try moc.save()
             } catch let error {
-                DDLogError("Error updating description for reading list: \(error)")
+                DDLogError("Error updating name or description for reading list: \(error)")
             }
         }
         update()

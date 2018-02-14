@@ -426,14 +426,11 @@ extension ReadingListDetailViewController {
     }
 }
 
-// MARK: - Analytics
+// MARK: - ReadingListDetailExtendedViewControllerDelegate
+
 extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditName name: String) {
-        dataStore.readingListsController.updateName(for: readingList, with: name)
-    }
-    
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditDescription description: String?) {
-        dataStore.readingListsController.updateDescription(for: readingList, with: description)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
+        dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
     }
 }
 

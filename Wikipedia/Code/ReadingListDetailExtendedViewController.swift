@@ -1,6 +1,5 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditName name: String)
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEditDescription description: String?)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
 
 }
 
@@ -42,7 +41,15 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
     }
     
-    var articleCount: Int64 = 0
+    var articleCount: Int64 = 0 {
+        didSet {
+            guard viewIfLoaded != nil else {
+                return
+            }
+            articleCountLabel.text = articleCountString.uppercased()
+            updateButton.setTitle(String.localizedStringWithFormat(WMFLocalizedString("update-articles-button", value: "Update %1$@", comment: "Title of the button that updates articles in a list."), articleCountString), for: .normal)
+        }
+    }
     
     var articleCountString: String {
         return String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
@@ -50,28 +57,19 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     public func updateArticleCount(_ count: Int64) {
         articleCount = count
-        articleCountLabel.text = articleCountString.uppercased()
     }
     
     public func setup(title: String?, description: String?, articleCount: Int64) {
         titleTextField.text = title
         descriptionTextField.text = description
         updateArticleCount(articleCount)
-        updateButton.setTitle(String.localizedStringWithFormat(WMFLocalizedString("update-articles-button", value: "Update %1$@", comment: "Title of the button that updates articles in a list."), articleCountString), for: .normal)
     }
     
 }
 extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = textField.text, titleTextField.isFirstResponder {
-            delegate?.extendedViewController(self, didEditName: text)
-            titleTextField.resignFirstResponder()
-            return true
-        } else if descriptionTextField.isFirstResponder {
-            delegate?.extendedViewController(self, didEditDescription: textField.text)
-            descriptionTextField.resignFirstResponder()
-            return true
-        }
+        delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
+        textField.resignFirstResponder()
         return true
     }
 }
