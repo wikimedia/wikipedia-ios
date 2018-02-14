@@ -3,7 +3,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         readingListsController.apiController.getAllReadingLists { (allAPIReadingLists, getAllAPIReadingListsError) in
             if let error = getAllAPIReadingListsError {
                 DDLogError("Error from all lists response: \(error)")
-                if let readingListError = error as? ReadingListAPIError, readingListError == .notSetup {
+                if let readingListError = error as? APIReadingListError, readingListError == .notSetup {
                     DispatchQueue.main.async {
                         self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                     }

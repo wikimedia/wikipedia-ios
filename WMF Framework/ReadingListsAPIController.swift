@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ReadingListAPIError: String, Error, Equatable {
+public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
     case notSetup = "readinglists-db-error-not-set-up"
     case listLimit = "readinglists-db-error-list-limit"
@@ -54,7 +54,7 @@ struct APIReadingListChanges: Codable {
     let next: String?
     }
 
-struct APIReadingListError: Codable {
+struct APIReadingListErrorResponse: Codable {
     let type: String?
     let title: String
     let method: String?
@@ -90,14 +90,14 @@ class ReadingListsAPIController: NSObject {
         guard
             let siteURL = components.url
             else {
-                completion(nil, nil, ReadingListAPIError.generic)
+                completion(nil, nil, APIReadingListError.generic)
                 return
         }
         
         let fullPath = basePath.appending(path)
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.session.jsonDictionaryTask(host: self.host, method: method, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
-                if let apiErrorType = result?["title"] as? String, let apiError = ReadingListAPIError(rawValue: apiErrorType) {
+                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
                     completion(result, nil, apiError)
                 } else {
                     completion(result, response, error)
@@ -114,8 +114,8 @@ class ReadingListsAPIController: NSObject {
     
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let fullPath = basePath.appending(path)
-        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListError?, response, error) in
-            if let errorResult = errorResult, let error = ReadingListAPIError(rawValue: errorResult.title) {
+        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+            if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
@@ -179,7 +179,7 @@ class ReadingListsAPIController: NSObject {
         let project = project.precomposedStringWithCanonicalMapping
         let bodyParams = ["project": project, "title": title]
         post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
-            if let apiError = error as? ReadingListAPIError {
+            if let apiError = error as? APIReadingListError {
                 switch apiError {
                 case .duplicateEntry:
                     // TODO: Remove when error response returns ID
