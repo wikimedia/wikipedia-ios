@@ -321,6 +321,8 @@
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
 "reading-list-keep-title" = "Keep saved articles on device?";
 "reading-list-login-button-title" = "Log in to sync your saved articles";
+"reading-list-login-or-create-account-button-title" = "Log in or create account";
+"reading-list-login-or-create-account-title" = "Log in to sync saved articles";
 "reading-list-login-subtitle" = "Log in or create an account to allow your saved articles and reading lists to be synced across devices and saved to your user preferences.";
 "reading-list-login-title" = "Sync your saved articles?";
 "reading-list-sync-enable-button-title" = "Enable syncing";

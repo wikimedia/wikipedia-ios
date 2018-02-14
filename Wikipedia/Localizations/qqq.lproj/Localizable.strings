@@ -321,6 +321,8 @@
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
 "reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
+"reading-list-login-or-create-account-button-title" = "Title for button to login or create account to sync saved articles and reading lists.";
+"reading-list-login-or-create-account-title" = "Title for syncing save articles.";
 "reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across devices.";
 "reading-list-login-title" = "Title for syncing save articles.";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
