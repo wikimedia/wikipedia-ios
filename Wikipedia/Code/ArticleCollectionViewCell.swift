@@ -189,9 +189,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         } else {
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
         }
+        let alignment = _effectiveArticleSemanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        titleLabel.textAlignment = alignment
         titleLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
         descriptionLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        descriptionLabel.textAlignment = alignment
         extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        extractLabel?.textAlignment = alignment
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
