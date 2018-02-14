@@ -154,3 +154,19 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
     }
 }
 
+extension UIViewController {
+    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
+        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { sender in
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+                guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                    assertionFailure("Expected view controller(s) not found")
+                    return
+                }
+                presenter?.present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+            })
+        }, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        panelVC.apply(theme: theme)
+        present(panelVC, animated: true, completion: nil)
+    }
+}

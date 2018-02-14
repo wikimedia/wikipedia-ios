@@ -179,7 +179,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_StorageAndSyncing:
-            self.dataStore.readingListsController.isSyncEnabled = isOn;
+            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled){
+                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme: self.theme];
+            } else {
+                self.dataStore.readingListsController.isSyncEnabled = isOn;
+            }
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
