@@ -158,6 +158,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 [group enter];
                 dispatch_async(self.accessQueue, ^{
                     [self fetchArticleURL:articleURL
+                                 priority:NSURLSessionTaskPriorityLow
                         failure:^(NSError *error) {
                             [group leave];
                         }
@@ -202,6 +203,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     for (NSURL *url in urls) {
         dispatch_async(self.accessQueue, ^{
             [self fetchArticleURL:url
+                         priority:NSURLSessionTaskPriorityLow
                 failure:^(NSError *error) {
                 }
                 success:^{
@@ -211,7 +213,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     }
 }
 
-- (void)fetchArticleURL:(NSURL *)articleURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)fetchArticleURL:(NSURL *)articleURL priority:(float)priority failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     if (!articleURL.wmf_title) {
         DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
         failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
@@ -243,6 +245,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.fetchOperationsByArticleTitle[articleURL] =
             [self.articleFetcher fetchArticleForURL:articleURL
                 saveToDisk:YES
+                priority:priority
                 progress:NULL
                 failure:^(NSError *_Nonnull error) {
                     dispatch_async(self.accessQueue, ^{
