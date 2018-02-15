@@ -32,16 +32,15 @@ public extension NSManagedObjectContext {
         return wmf_fetch(objectForEntityName: entityName, withValue: value, forKey: key) ?? wmf_create(entityNamed: entityName, withValue: value, forKey: key)
     }
     
-    func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) -> [T]? {
+    func wmf_fetch<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "\(key) IN %@", argumentArray: [values])
         fetchRequest.fetchLimit = values.count
-        var results: [T] = []
-        do {
-            results = try fetch(fetchRequest)
-        } catch let error {
-            DDLogError("Error fetching: \(error)")
-        }
+        return try fetch(fetchRequest)
+    }
+    
+    func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
+        var results = try wmf_fetch(objectsForEntityName: entityName, withValues: values, forKey: key) as? [T] ?? []
         var missingValues = Set(values)
         for result in results {
             guard let value = result.value(forKey: key) as? V else {

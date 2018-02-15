@@ -27,4 +27,21 @@ public class ReadingList: NSManagedObject {
             return !entry.isDeletedLocally
         }).count)
     }
+    
+    public func updateArticlesAndEntries() {
+        guard let entries = entries else {
+            countOfEntries = 0
+            articles = []
+            return
+        }
+        let validEntries = entries.filter { !$0.isDeletedLocally }
+        let validArticleKeys = validEntries.flatMap { $0.articleKey }
+        do {
+            let validArticles = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: validArticleKeys, forKey: "key") as? [WMFArticle] ?? []
+            countOfEntries = Int64(validEntries.count)
+            articles = Set<WMFArticle>(validArticles)
+        } catch let error {
+            DDLogError("error updating list: \(error)")
+        }
+    }
 }

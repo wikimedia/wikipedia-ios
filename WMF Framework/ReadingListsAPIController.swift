@@ -146,20 +146,23 @@ class ReadingListsAPIController: NSObject {
     /**
      Creates a new reading list using the reading list API
      - parameters:
-        - name: The name for the new list
-        - description: The description for the new list
+        - lists: The names and descriptions for the new lists
         - completion: Called after the request completes
-        - listID: The list ID if it was created
+        - listIDs: The list IDs if they were created
         - error: Any error preventing list creation
     */
-    func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
-        post(path: "", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let id = result["id"] as? Int64 else {
-                completion(nil, error ?? ReadingListError.unableToCreateList)
+    func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+        guard lists.count > 0 else {
+            completion([], nil)
+            return
+        }
+        let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
+        post(path: "batch/", bodyParameters: bodyParams) { (result, response, error) in
+            guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
+                completion(nil, ReadingListError.unableToCreateList)
                 return
             }
-            completion(id, nil)
+            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
         }
     }
     
@@ -168,28 +171,29 @@ class ReadingListsAPIController: NSObject {
      Adds a new entry to a reading list using the reading list API
      - parameters:
         - listID: The list ID of the list that is getting an entry
-        - project: The project name of the new entry
-        - title: The title of the new entry
+        - entries: The project and titles for each new entry
         - completion: Called after the request completes
-        - entryID: The entry ID if it was created
+        - entryIDs: The entry IDs if they were created
         - error: Any error preventing entry creation
      */
-    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
-        let title = title.precomposedStringWithCanonicalMapping
-        let project = project.precomposedStringWithCanonicalMapping
-        let bodyParams = ["project": project, "title": title]
-        post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
+    func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+        guard entries.count > 0 else {
+            completion([], nil)
+            return
+        }
+        let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
+        post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
                 switch apiError {
-                case .duplicateEntry:
-                    // TODO: Remove when error response returns ID
-                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
-                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
-                            completion(nil, error ?? ReadingListError.unableToAddEntry)
-                            return
-                        }
-                        completion(entry.id, nil)
-                    })
+//                case .duplicateEntry:
+//                    // TODO: Remove when error response returns ID
+//                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
+//                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
+//                            completion(nil, error ?? ReadingListError.unableToAddEntry)
+//                            return
+//                        }
+//                        completion(entry.id, nil)
+//                    })
                 default:
                     completion(nil, apiError)
                 }
@@ -204,12 +208,13 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             
-            guard let id = result["id"] as? Int64 else {
+            guard let batch = result["batch"] as? [[String: Any]] else {
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
             
-            completion(id, nil)
+            
+            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
         }
     }
     
