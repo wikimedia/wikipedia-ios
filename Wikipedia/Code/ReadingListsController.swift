@@ -121,10 +121,10 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
+    /// Marks that reading list entries were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
     ///
     /// - Parameters:
-    ///   - readingLists: the reading lists to delete
+    ///   - readingLists: the reading list entries to delete
     func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
         for entry in readingListEntries {
             entry.isDeletedLocally = true
