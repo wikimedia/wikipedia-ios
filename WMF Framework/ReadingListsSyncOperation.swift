@@ -59,13 +59,13 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         #endif
         
         if syncState.contains(.needsLocalReset) {
-            try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingList: ReadingList) in
-                readingList.readingListID = nil
-                readingList.isUpdatedLocally = true
-            })
-            try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingListEntry: ReadingListEntry) in
+            try moc.wmf_batchProcessObjects(handler: { (readingListEntry: ReadingListEntry) in
                 readingListEntry.readingListEntryID = nil
                 readingListEntry.isUpdatedLocally = true
+            })
+            try moc.wmf_batchProcessObjects(handler: { (readingList: ReadingList) in
+                readingList.readingListID = nil
+                readingList.isUpdatedLocally = true
             })
             syncState.remove(.needsLocalReset)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
@@ -74,7 +74,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if syncState.contains(.needsLocalArticleClear) {
-            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), resetAfterSave: true, handler: { (articles: [WMFArticle]) in
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
                 self.readingListsController.unsave(articles)
             })
         
@@ -84,7 +84,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if syncState.contains(.needsLocalListClear) {
-            try moc.wmf_batchProcess(resetAfterSave: true, handler: { (lists: [ReadingList]) in
+            try moc.wmf_batchProcess(handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
                 for list in lists {
                     moc.delete(list)
@@ -157,10 +157,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
 
     func executeLocalOnlySync(on moc: NSManagedObjectContext) throws {
-        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "isDeletedLocally == YES"), resetAfterSave: true, handler: { (list: ReadingList) in
+        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "isDeletedLocally == YES"), handler: { (list: ReadingList) in
             moc.delete(list)
         })
-        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "isDeletedLocally == YES"), resetAfterSave: true, handler: { (entry: ReadingListEntry) in
+        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "isDeletedLocally == YES"), handler: { (entry: ReadingListEntry) in
             moc.delete(entry)
         })
     }
