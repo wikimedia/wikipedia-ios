@@ -123,7 +123,7 @@ class WMFAuthenticationManager: NSObject {
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
-                        self.logout(success:WMFIgnoreSuccessHandler, failure:WMFIgnoreErrorHandler)
+                        self.logout()
                     }
                 }
                 failure(error)
@@ -152,18 +152,16 @@ class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
-        let outerSuccess = success
-        let outerFailure = failure
+    @objc public func logout(completion: @escaping () -> Void = {}){
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        // Try to call "action=logout" API *before* clearing local login settings.
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
+            // It's best to call "action=logout" API *before* clearing local login settings...
             self.resetLocalUserLoginSettings()
-            outerSuccess()
+            completion()
         }, failure: { (_, error) in
-            // If "action=logout" failed we still want to clear local login settings.
+            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
             self.resetLocalUserLoginSettings()
-            outerFailure(error)
+            completion()
         })
     }
     

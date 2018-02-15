@@ -332,10 +332,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler
-                                                         failure:^(NSError *error) {
-                                                             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                                                         }];
+    [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
 }
 
 #pragma mark - Languages

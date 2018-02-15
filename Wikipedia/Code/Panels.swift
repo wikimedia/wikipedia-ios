@@ -145,7 +145,7 @@ extension UIViewController {
                 presenter?.showLoginViewController(theme: theme)
             })
         }, secondaryButtonTapHandler: { sender in
-            WMFAuthenticationManager.sharedInstance.logout(success:WMFIgnoreSuccessHandler, failure:WMFIgnoreErrorHandler)
+            WMFAuthenticationManager.sharedInstance.logout()
             sender.dismiss(animated: true, completion: nil)
         }, dismissHandler: nil)
         present(panelVC, with: theme, animated: true, completion: nil)
