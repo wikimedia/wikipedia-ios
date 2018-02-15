@@ -77,9 +77,28 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         // local only sync
         guard syncState != [] else {
-            try executeLocalOnlySync(on: moc)
-            try moc.save()
-            finish()
+            
+            // make an update call to see if the user has enabled sync on another device
+            var updateError: Error? = nil
+            
+            taskGroup.enter()
+            let iso8601String = DateFormatter.wmf_iso8601().string(from: Date())
+            apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, error) in
+                updateError = error
+                taskGroup.leave()
+            })
+            taskGroup.wait()
+            
+            if updateError == nil {
+                DispatchQueue.main.async {
+                    self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    self.finish()
+                }
+            } else {
+                try executeLocalOnlySync(on: moc)
+                try moc.save()
+                finish()
+            }
             return
         }
         
@@ -262,7 +281,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         try moc.save()
     }
-    
     
     func populateReadingListsWithRandomArticles(in moc: NSManagedObjectContext) {
         //                        for readingList in allAPIReadingLists {
