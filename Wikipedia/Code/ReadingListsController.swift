@@ -1,6 +1,25 @@
 import Foundation
 
+internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
+
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
+
+struct ReadingListSyncState: OptionSet {
+    let rawValue: Int64
+    
+    static let needsRemoteEnable    = ReadingListSyncState(rawValue: 1 << 0)
+    static let needsSync  = ReadingListSyncState(rawValue: 1 << 1)
+    static let needsUpdate      = ReadingListSyncState(rawValue: 1 << 2)
+    static let needsRemoteDisable    = ReadingListSyncState(rawValue: 1 << 3)
+    
+    static let needsLocalReset    = ReadingListSyncState(rawValue: 1 << 4) // mark all as unsynced, remove remote IDs
+    static let needsLocalClear    = ReadingListSyncState(rawValue: 1 << 5) // remove all saved
+    
+    static let needsEnable: ReadingListSyncState = [.needsRemoteEnable, .needsSync]
+    static let needsClearAndEnable: ReadingListSyncState = [.needsLocalClear, .needsRemoteEnable, .needsSync]
+
+    static let needsDisable: ReadingListSyncState = [.needsRemoteDisable, .needsLocalReset]
+}
 
 public enum ReadingListError: Error, Equatable {
     case listExistsWithTheSameName(name: String)
@@ -80,7 +99,7 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
-        update()
+        sync()
         
         return list
     }
@@ -387,7 +406,7 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
-        update()
+        sync()
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
@@ -419,36 +438,59 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        update()
+        sync()
     }
 
 
-    internal let isSyncEnabledKey = "WMFIsReadingListSyncEnabled"
 
+    var syncState: ReadingListSyncState {
+        get {
+            assert(Thread.isMainThread)
+            let rawValue = dataStore.viewContext.wmf_numberValue(forKey: WMFReadingListSyncStateKey)?.int64Value ?? 0
+            return ReadingListSyncState(rawValue: rawValue)
+        }
+        set {
+            assert(Thread.isMainThread)
+            dataStore.viewContext.wmf_setValue(NSNumber(value: 0), forKey: WMFReadingListSyncStateKey)
+        }
+    }
+        
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)
-        return dataStore.viewContext.wmf_numberValue(forKey: isSyncEnabledKey)?.boolValue ?? false
+        let state = syncState
+        return state.contains(.needsSync) || state.contains(.needsUpdate)
     }
     
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
-        guard isSyncEnabled != self.isSyncEnabled else {
+        
+        var newSyncState = self.syncState
+        
+        if isSyncEnabled {
+            newSyncState.insert(.needsRemoteEnable)
+            if shouldDeleteLocalLists {
+                newSyncState.insert(.needsLocalClear)
+            } else {
+                newSyncState.insert(.needsLocalReset)
+            }
+            newSyncState.insert(.needsSync)
+            newSyncState.remove(.needsUpdate)
+            newSyncState.remove(.needsRemoteDisable)
+        } else {
+            newSyncState.insert(.needsLocalReset)
+            if shouldDeleteRemoteLists {
+                newSyncState.insert(.needsRemoteDisable)
+            }
+            newSyncState.remove(.needsSync)
+            newSyncState.remove(.needsUpdate)
+            newSyncState.remove(.needsRemoteEnable)
+        }
+        
+        guard newSyncState != self.syncState else {
             return
         }
-        self.dataStore.viewContext.wmf_setValue(NSNumber(value: isSyncEnabled), forKey: self.isSyncEnabledKey)
-        if isSyncEnabled {
-            let op = ReadingListsEnableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-            self.operationQueue.addOperation(op)
-        } else {
-            let op = ReadingListsDisableSyncOperation(readingListsController: self, shouldDeleteLocalLists: shouldDeleteLocalLists, shouldDeleteRemoteLists: shouldDeleteRemoteLists)
-            self.operationQueue.addOperation(op)
-        }
-        self.sync()
-    }
-    
-    private func processUpdatesForUserWithSyncDisabled() {
-        assert(Thread.isMainThread)
-        let op = ReadingListsLocalOnlySyncOperation(readingListsController: self)
-        operationQueue.addOperation(op)
+        
+        dataStore.viewContext.wmf_setValue(NSNumber(value: newSyncState.rawValue), forKey: WMFReadingListSyncStateKey)
+        sync()
     }
     
     @objc public func start() {
@@ -456,7 +498,7 @@ public class ReadingListsController: NSObject {
             return
         }
         assert(Thread.isMainThread)
-        updateTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        updateTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(sync), userInfo: nil, repeats: true)
         sync()
     }
     
@@ -467,42 +509,18 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
-        if isSyncEnabled {
-            let update = ReadingListsUpdateOperation(readingListsController: self)
-            operationQueue.addOperation(update)
-            operationQueue.addOperation(completion)
-        } else {
-            completion()
-        }
-    }
-    
-    @objc private func _update() {
-        if isSyncEnabled {
-            let update = ReadingListsUpdateOperation(readingListsController: self)
-            operationQueue.addOperation(update)
-        } else {
-            processUpdatesForUserWithSyncDisabled()
-        }
-    }
-    
-    @objc private func update() {
-        assert(Thread.isMainThread)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
-        perform(#selector(_update), with: nil, afterDelay: 0.5)
+        let sync = ReadingListsSyncOperation(readingListsController: self)
+        operationQueue.addOperation(sync)
+        operationQueue.addOperation(completion)
     }
     
     @objc private func _sync() {
-        if isSyncEnabled {
-            let sync = ReadingListsSyncOperation(readingListsController: self)
-            operationQueue.addOperation(sync)
-        } else {
-            processUpdatesForUserWithSyncDisabled()
-        }
+        let sync = ReadingListsSyncOperation(readingListsController: self)
+        operationQueue.addOperation(sync)
     }
     
-    @objc private func sync() {
+    @objc public func sync() {
         assert(Thread.isMainThread)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_update), object: nil)
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
         perform(#selector(_sync), with: nil, afterDelay: 0.5)
     }
@@ -530,7 +548,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        update()
+        sync()
     }
     
     public func remove(entries: [ReadingListEntry]) throws {
@@ -540,7 +558,7 @@ public class ReadingListsController: NSObject {
         if moc.hasChanges {
             try moc.save()
         }
-        update()
+        sync()
     }
     
     @objc public func save(_ article: WMFArticle) {
@@ -554,7 +572,7 @@ public class ReadingListsController: NSObject {
             if moc.hasChanges {
                 try moc.save()
             }
-            update()
+            sync()
         } catch let error {
             DDLogError("Error adding article to default list: \(error)")
         }
@@ -600,7 +618,7 @@ public class ReadingListsController: NSObject {
             if moc.hasChanges {
                 try moc.save()
             }
-            update()
+            sync()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
         }
@@ -613,7 +631,7 @@ public class ReadingListsController: NSObject {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
                 unsave(articles)
             })
-            update()
+            sync()
         } catch let error {
             DDLogError("Error removing all articles from default list: \(error)")
         }

@@ -88,6 +88,7 @@
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
+// Fuzzy
 "article-deleted-accessibility-notification" = "S'ha suprimit l'article";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";

@@ -30,6 +30,7 @@
 "announcements-dismiss" = "مکاؤ";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";
 "article-delete" = "مٹاؤ";
+// Fuzzy
 "article-deleted-accessibility-notification" = "مضمون مٹ ڳیا";
 "article-languages-filter-placeholder" = "زبان ڳولو";
 "article-languages-label" = "زبان چݨو";

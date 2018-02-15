@@ -71,6 +71,7 @@
 "appearance-settings-title" = "بەرگی خوێندنەوە";
 "article-about-title" = "دەربارەی ئەم وتارە";
 "article-delete" = "سڕینەوە";
+// Fuzzy
 "article-deleted-accessibility-notification" = "وتارەکە سڕدرایەوە";
 "article-languages-filter-placeholder" = "دۆزینەوەی زمان";
 "article-languages-label" = "ھەڵبژاردنی زمان";

@@ -86,8 +86,9 @@
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
-"delete-reading-list-alert-message" = "Jakékoli články v {{PLURAL:$1|tomto seznamu|těchto seznamech}} nebudou uloženy, pokud nejsou v jiném seznamu čtení.";
-"delete-reading-list-alert-title" = "Jste si {{GENDER:$2|jistý|jista}}, že chcete odstranit {{PLURAL:$1|tento seznam|tyto $1 seznamy|těchto $1 seznamů}}?";
+// Fuzzy
+"delete-reading-list-alert-message" = "Jakékoli články uložené jenom v {{PLURAL:$1|tomto seznamu|těchto seznamech}} nebudou uloženy, pokud nejsou v jiném seznamu čtení.";
+"delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|tento seznam|tyto $1 seznamy|těchto $1 seznamů}}?";
 "edit-summary-choice-fixed-grammar" = "Oprava gramatiky";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
@@ -100,8 +101,8 @@
 "empty-no-feed-title" = "Žádné připojení k internetu";
 "empty-no-history-message" = "Mějte přehled o tom, co jste zde četli";
 "empty-no-history-title" = "Žádná historie k zobrazení";
-"empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste {{GENDER:$1|vytvořil|vytvořila}} seznam míst, která by jste {{GENDER:$1|chtěl|chtěla}} navštívit, oblíbených témat a mnohem více";
-"empty-no-reading-lists-title" = "Organizovat uložené články se seznamy čtení";
+"empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste vytvořil(a) seznam míst, která byste chtěl(a) navštívit, oblíbených témat a mnohem více";
+"empty-no-reading-lists-title" = "Organizovat uložené články pomocí seznamů ke čtení";
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
 "empty-no-saved-pages-title" = "Žádné uložené stránky";
 "empty-no-search-results-message" = "Nenalezeny žádné výsledky";
@@ -193,14 +194,15 @@
 "reading-list-unable-to-remove-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-update" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-with-provided-name-not-found" = "Seznam čtení s názvem $1 nebyl nalezen. Ujistěte se prosím, že jste vyhledal správné jméno.";
+"reading-lists-article-moved-confirmation" = "Článek přejmenován na “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 seznam čtení|$1 seznamy čtení|$1 seznamů čtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam uložených článků";
 "reading-lists-default-list-title" = "Záložky";
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "saved-all-articles-title" = "Všechny články";
 "saved-clear-all" = "Vyprázdnit";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze {{PLURAL:$1|$1 seznamu čtení|$1 seznamů čtení}}?";
-"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "Jste si jist, že nechcete uložit tyto články a odstranit je ze všech seznamů čtení?";
+// Fuzzy
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit z {{PLURAL:$1|jednoho seznamu čtení|$1 seznamů čtení}}?";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
 "saved-pages-clear-cancel" = "Zrušit";
 "saved-pages-clear-confirmation-heading" = "Jste si jist, že chcete smazat všechny uložené články a odstranit je ze všech seznamů čtení?";
@@ -239,7 +241,6 @@
 "top-read-header-generic" = "Wikipedie";
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-see-more" = "Zobrazit další nejvíce čtené";
-"unsave-article-and-remove-from-reading-lists" = "Neuložit a odstranit z {{PLURAL:$1|$1 seznamu čtení|$1 seznamů čtení}}";
 "welcome-explore-continue-button" = "Začněte";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
 "welcome-languages-add-button" = "Přidat další jazyk";
