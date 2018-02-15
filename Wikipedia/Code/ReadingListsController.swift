@@ -607,7 +607,6 @@ public class ReadingListsController: NSObject {
         do {
             let moc = dataStore.viewContext
             try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
-                print("unsaving \(article.key!)")
                 unsave(article)
             })
             update()
