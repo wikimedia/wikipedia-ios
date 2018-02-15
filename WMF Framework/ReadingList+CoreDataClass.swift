@@ -36,12 +36,17 @@ public class ReadingList: NSManagedObject {
         }
         let validEntries = entries.filter { !$0.isDeletedLocally }
         let validArticleKeys = validEntries.flatMap { $0.articleKey }
-        do {
-            let validArticles = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: validArticleKeys, forKey: "key") as? [WMFArticle] ?? []
-            countOfEntries = Int64(validEntries.count)
-            articles = Set<WMFArticle>(validArticles)
-        } catch let error {
-            DDLogError("error updating list: \(error)")
+        if validArticleKeys.count > 0 {
+            do {
+                let validArticles = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: validArticleKeys, forKey: "key") as? [WMFArticle] ?? []
+                countOfEntries = Int64(validEntries.count)
+                articles = Set<WMFArticle>(validArticles)
+            } catch let error {
+                DDLogError("error updating list: \(error)")
+            }
+        } else {
+            countOfEntries = 0
+            articles = []
         }
     }
 }
