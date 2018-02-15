@@ -130,7 +130,11 @@ open class ImageController : NSObject {
         guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return url.absoluteString.precomposedStringWithCanonicalMapping
         }
-        return (host + "__" + imageName).precomposedStringWithCanonicalMapping
+        var key = (host + "__" + imageName).precomposedStringWithCanonicalMapping
+        if key.lengthOfBytes(using: .utf8) > 256 {
+            key = key.sha256
+        }
+        return key
     }
     
     fileprivate func variantForURL(_ url: URL) -> Int64 { // A return value of 0 indicates the original size
@@ -271,6 +275,8 @@ open class ImageController : NSObject {
                 } catch let error as NSError {
                     if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
                         createItem = true
+                    } else {
+                        DDLogError("Error moving cached file: \(error)")
                     }
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
