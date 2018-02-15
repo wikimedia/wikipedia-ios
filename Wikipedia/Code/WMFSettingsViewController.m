@@ -332,7 +332,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme: self.theme completion:^{
+        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
+    }];
 }
 
 #pragma mark - Languages

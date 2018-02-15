@@ -145,8 +145,12 @@ extension UIViewController {
                 presenter?.showLoginViewController(theme: theme)
             })
         }, secondaryButtonTapHandler: { sender in
-            WMFAuthenticationManager.sharedInstance.logout()
-            sender.dismiss(animated: true, completion: nil)
+            let presenter = sender.presentingViewController
+            sender.dismiss(animated: true, completion: {
+                presenter?.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(theme: theme, completion: {
+                    WMFAuthenticationManager.sharedInstance.logout()
+                })
+            })
         }, dismissHandler: nil)
         present(panelVC, with: theme, animated: true, completion: nil)
     }
