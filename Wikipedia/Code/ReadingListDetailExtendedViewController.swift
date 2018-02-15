@@ -1,6 +1,7 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton)
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -81,6 +82,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
         titleTextField.text = title
         descriptionTextField.text = description
         updateArticleCount(articleCount)
+    }
+    
+    @IBAction func didPressSortButton(_ sender: UIButton) {
+        delegate?.extendedViewController(self, didPressSortButton: sender)
     }
     
 }

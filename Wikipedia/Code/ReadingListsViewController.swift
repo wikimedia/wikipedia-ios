@@ -86,7 +86,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        setupEditController(with: collectionView)
+        setupEditController()
         
         // Remove peek & pop for now
         unregisterForPreviewing()

@@ -1,32 +1,33 @@
 
 @objc(WMFSavedArticlesViewController)
-class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection {
+class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     private let reuseIdentifier = "SavedArticlesCollectionViewCell"
-    
-    private var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
-    private var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
     private var cellLayoutEstimate: WMFLayoutEstimate?
+
+    typealias T = WMFArticle
+    let dataStore: MWKDataStore
+    var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
+    var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
     var editController: CollectionViewEditController!
     
-    var dataStore: MWKDataStore!
+    var basePredicate: NSPredicate {
+        return NSPredicate(format: "savedDate != NULL")
+    }
     
-    private func setupFetchedResultsController(with dataStore: MWKDataStore) {
-        // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
-        let checkedKey = "checked"
-        sortActions.title.setValue(false, forKey: checkedKey)
-        sortActions.recentlyAdded.setValue(false, forKey: checkedKey)
-        let checkedAction = sort.action ?? sortActions.recentlyAdded
-        checkedAction.setValue(true, forKey: checkedKey)
-        
-        let articleRequest = WMFArticle.fetchRequest()
-        let basePredicate = NSPredicate(format: "savedDate != NULL")
-        articleRequest.predicate = basePredicate
-        if let searchString = searchString {
-            let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
-            articleRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
+    var searchPredicate: NSPredicate? {
+        guard let searchString = searchString else {
+            return nil
         }
-        articleRequest.sortDescriptors = [sort.descriptor]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
+    }
+    
+    init(with dataStore: MWKDataStore) {
+        self.dataStore = dataStore
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) not supported")
     }
     
     // MARK - View lifecycle
@@ -35,11 +36,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         super.viewDidLoad()
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        setupFetchedResultsController(with: dataStore)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
-        
-        setupEditController(with: collectionView)
+        setupFetchedResultsController()
+        setupCollectionViewUpdater()
+        setupEditController()
         
         isRefreshControlEnabled = true
     }
@@ -57,12 +56,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return
         }
         isFirstAppearance = false
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching articles for \(self): \(error)")
-        }
-        collectionView.reloadData()
+        fetch()
         updateEmptyState()
         navigationBarHider.isNavigationBarHidingEnabled = false
     }
@@ -112,63 +106,23 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    private var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil) {
-        didSet {
-            guard sort.descriptor != oldValue.descriptor else {
-                return
-            }
-            setupCollectionViewUpdaterAndFetch()
-        }
-    }
-    
-    private func setupCollectionViewUpdaterAndFetch() {
-        setupFetchedResultsController(with: dataStore)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let err {
-            assertionFailure("Couldn't sort by \(sort.descriptor.key ?? "unknown key"): \(err)")
-        }
-        collectionView.reloadData()
-    }
-    
-    private lazy var sortActions: (title: UIAlertAction, recentlyAdded: UIAlertAction) = {
+    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil)
+
+    lazy var sortActions: [UIAlertAction] = {
         let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
-            self.sort = (descriptor: NSSortDescriptor(key: "displayTitle", ascending: true), action: action)
+            self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
-            self.sort = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: action)
+            self.updateSort(with: NSSortDescriptor(key: "savedDate", ascending: false), newAction: action)
         }
-        return (title: titleAction, recentlyAdded: recentlyAddedAction)
+        return [titleAction, recentlyAddedAction]
     }()
     
-    private lazy var sortAlert: UIAlertController = {
-        let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(sortActions.recentlyAdded)
-        alert.addAction(sortActions.title)
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { (actions) in
-            self.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(cancel)
-        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
-            popoverController.sourceView = first
-            popoverController.sourceRect = first.bounds
-        }
-        return alert
-    }()
+    lazy var sortAlert: UIAlertController = { return alert }()
     
     // MARK: - Filtering
     
-    private var searchString: String? {
-        didSet {
-            guard searchString != oldValue else {
-                return
-            }
-            editController.close()
-            setupCollectionViewUpdaterAndFetch()
-        }
-    }
+    var searchString: String?
     
     private func articleURL(at indexPath: IndexPath) -> URL? {
         return article(at: indexPath)?.url
@@ -491,7 +445,6 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
             return
         }
         present(sortAlert, animated: true, completion: nil)
-        
     }
 }
 
@@ -543,11 +496,10 @@ extension SavedArticlesViewController: BatchEditNavigationDelegate {
 
 extension SavedArticlesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchString(searchText)
+        
         if searchText.isEmpty {
-            searchString = nil
             searchBar.resignFirstResponder()
-        } else {
-            searchString = searchText
         }
     }
     

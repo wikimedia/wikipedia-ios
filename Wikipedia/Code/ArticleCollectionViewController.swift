@@ -9,7 +9,6 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 
 @objc(WMFArticleCollectionViewController)
 class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection {
-    
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
@@ -25,7 +24,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         super.viewDidLoad()
         register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
-        setupEditController(with: collectionView)
+        setupEditController()
     }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {

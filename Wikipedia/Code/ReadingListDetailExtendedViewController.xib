@@ -71,6 +71,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWH-3Z-bep">
                             <rect key="frame" x="309" y="193" width="46" height="30"/>
                             <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="C5R-0O-z7D"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

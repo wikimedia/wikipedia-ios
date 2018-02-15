@@ -41,13 +41,13 @@ class SavedViewController: ViewController {
                 return
             }
             title = CommonStrings.savedTabTitle
-            savedArticlesViewController.dataStore = newValue
+            savedArticlesViewController = SavedArticlesViewController(with: newValue)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        savedArticlesViewController = SavedArticlesViewController()
+        
     }
     
     // MARK: - Toggling views

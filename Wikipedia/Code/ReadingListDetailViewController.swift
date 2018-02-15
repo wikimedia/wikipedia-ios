@@ -1,11 +1,24 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+    let dataStore: MWKDataStore
+    let readingList: ReadingList
     
-    private let dataStore: MWKDataStore
-    private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    internal let readingList: ReadingList
-    private var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    typealias T = ReadingListEntry
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
+    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    
+    var basePredicate: NSPredicate {
+        return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
+    }
+    
+    var searchPredicate: NSPredicate? {
+        guard let searchString = searchString else {
+            return nil
+        }
+        return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')") // ReadingListEntry has no snippet
+    }
+    
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
@@ -19,26 +32,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         self.readingListDetailExtendedViewController.delegate = self
     }
     
-    func setupFetchedResultsController() {
-        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        
-        let basePredicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
-        request.predicate = basePredicate
-        if let searchString = searchString {
-            let searchPredicate = NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')") // ReadingListEntry has no snippet
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
-        }
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "displayTitle", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching reading list entries: \(error)")
-        }
-        collectionView.reloadData()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) not supported")
     }
@@ -49,12 +42,12 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         title = readingList.name
         
         setupFetchedResultsController()
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
+        fetch()
+        setupCollectionViewUpdater()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
-        setupEditController(with: collectionView)
+        setupEditController()
         
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
     }
@@ -177,28 +170,23 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Filtering
     
-    private var searchString: String? {
-        didSet {
-            guard searchString != oldValue else {
-                return
-            }
-            editController.close()
-            setupCollectionViewUpdaterAndFetch()
-        }
-    }
+    var searchString: String?
     
-    private func setupCollectionViewUpdaterAndFetch() {
-        setupFetchedResultsController()
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater.delegate = self
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let err {
-            //
+    // MARK: - Sorting
+    
+    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "displayTitle", ascending: false), action: nil)
+    
+    lazy var sortActions: [UIAlertAction] = {
+        let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
+            self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
         }
-        collectionView.reloadData()
-    }
-
+        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
+            self.updateSort(with: NSSortDescriptor(key: "createdDate", ascending: false), newAction: action)
+        }
+        return [titleAction, recentlyAddedAction]
+    }()
+    
+    lazy var sortAlert: UIAlertController = { return alert }()
 }
 
 // MARK: - ActionDelegate
@@ -465,7 +453,11 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
     }
     
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {
-        searchString = searchText.isEmpty ? nil : searchText
+        updateSearchString(searchText)
+    }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
+    present(sortAlert, animated: true)
     }
 }
 
