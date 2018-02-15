@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Сите статии на овој список ќе бидат одзачувани ако не се на друг список за читање.</string>
+			<string>Сите статии зачувани само на овој список ќе бидат одзачувани при бришењето.</string>
 			<key>other</key>
-			<string>Сите статии на овие списоци ќе бидат одзачувани ако не се на друг список за читање.</string>
+			<string>Сите статии зачувани само на овие списоци ќе бидат одзачувани при бришењето.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Дали сте сигурни дека сакате да го избришете списоков?</string>
+			<string>Да го избришам списокот?</string>
 			<key>other</key>
-			<string>Дали сте сигурни дека сакате да ги избришете овие %1$d списоци?</string>
+			<string>Да ги избришам списоците?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -184,22 +184,6 @@
 			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d список за читање?</string>
 			<key>other</key>
 			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d списоци за читање?</string>
-		</dict>
-	</dict>
-	<key>unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Одзачувај и отстрани од %1$d список за читање</string>
-			<key>other</key>
-			<string>Одзачувај и отстрани од %1$d списоци за читање</string>
 		</dict>
 	</dict>
 </dict>

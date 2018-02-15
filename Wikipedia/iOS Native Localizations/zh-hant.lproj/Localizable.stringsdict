@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>在此清單裡的任何條目若不在其它閱讀清單裡，將會取消儲存。</string>
+			<string>任何僅儲存至此清單的條目，會在此清單刪除時被取消儲存。</string>
 			<key>other</key>
-			<string>在這些清單裡的任何條目若不在其它閱讀清單裡，將會取消儲存。</string>
+			<string>任何僅儲存至這些清單的條目，會在這些清單刪除時被取消儲存。</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>您確定要刪除此清單嗎？</string>
+			<string>刪除  個清單嗎？</string>
 			<key>other</key>
-			<string>您確定要刪除這 %1$d 個清單嗎？</string>
+			<string>刪除  個清單嗎？</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -184,22 +184,6 @@
 			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
 			<key>other</key>
 			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
-		</dict>
-	</dict>
-	<key>unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>取消儲存並從 %1$d 個閱讀清單移除</string>
-			<key>other</key>
-			<string>取消儲存並從 %1$d 個閱讀清單移除</string>
 		</dict>
 	</dict>
 </dict>
