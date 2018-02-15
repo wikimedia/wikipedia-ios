@@ -73,6 +73,7 @@
 "appearance-settings-title" = "پڙھڻ جا نظارا";
 "article-about-title" = "هن مضمون بابت";
 "article-delete" = "ڊاھيو";
+// Fuzzy
 "article-deleted-accessibility-notification" = "مضمون ڊھجي ويو";
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-languages-label" = "ٻولي چونڊيو";

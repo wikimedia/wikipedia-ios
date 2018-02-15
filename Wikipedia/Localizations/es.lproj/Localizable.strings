@@ -93,6 +93,7 @@
 "appearance-settings-title" = "Temas de lecturas";
 "article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artículo eliminado";
 "article-languages-filter-placeholder" = "Seleccionar idioma";
 "article-languages-label" = "Elige un idioma";
@@ -121,6 +122,7 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
+// Fuzzy
 "delete-reading-list-alert-title" = "¿Confirmas que quieres eliminar {{PLURAL:$1|esta lista|estas $1 listas}}?";
 "dim-images" = "Atenuación de imágenes";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";

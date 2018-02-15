@@ -64,6 +64,7 @@
 "appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel kapupus";
 "article-languages-filter-placeholder" = "Panggihan basa";
 "article-languages-label" = "Pilih basa";

@@ -68,6 +68,7 @@
 "announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artykuł został usunięty";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";

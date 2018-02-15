@@ -49,7 +49,13 @@
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
 "account-creation-saving" = "Menyimpan...";
 "account-creation-title" = "Buka akaun baru";
+"action-add-to" = "Tambah ke...";
+"action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
+"action-cancel" = "Batalkan";
+"action-move-to" = "Pindah ke...";
+"action-move-to-reading-list" = "Pindahkan ke senarai bacaan";
 "action-read" = "Baca";
+"action-remove" = "Buang";
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk batal menyimpan.";
@@ -57,6 +63,8 @@
 "action-share" = "Kongsi";
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
+"action-update" = "Kemas kini";
+"add-articles-to-reading-list" = "Tambahkan $1 ke senarai bacaan";
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
 "appearance-settings-adjust-text-sizing" = "Laraskan saiz teks rencana";
@@ -70,6 +78,7 @@
 "appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai rencana ini";
 "article-delete" = "Hapuskan";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Rencana dipadamkan";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
@@ -98,6 +107,9 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "continue-reading-empty-title" = "Tiada rencana yang dibaca baru-baru ini";
+// Fuzzy
+"delete-reading-list-alert-message" = "Sebarang rencana yang disimpan hanya untuk {{PLURAL:$1|senarai ini akan tidak disimpan apabila ia dipadamkan|senarai ini akan tidak disimpan apabila ia dipadamkan}}.";
+"delete-reading-list-alert-title" = "Padamkan {{PLURAL:$1|senarai|senarai}}?";
 "dim-images" = "Samarkan imej";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
@@ -111,6 +123,8 @@
 "empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-history-message" = "Menjejaki apa yang anda telah membaca di sini";
 "empty-no-history-title" = "Tiada sejarah yang ditunjukkan";
+"empty-no-reading-lists-message" = "Ketuk butang biru ‘+’ untuk membuat senarai tempat untuk pergi ke, topik kegemaran dan banyak lagi";
+"empty-no-reading-lists-title" = "Atur rencana yang disimpan dengan senarai bacaan";
 "empty-no-saved-pages-message" = "Simpan halaman ke melihatnya kemudian, walaupun di luar talian";
 "empty-no-saved-pages-title" = "Tiada halaman tersimpan";
 "empty-no-search-results-message" = "Tiada hasil carian";
@@ -306,6 +320,21 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Nombor $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-list-deleted-accessibility-notification" = "Senarai bacaan dipadamkan";
+"reading-list-exists-with-same-name" = "Senarai bacaan sudah ada dengan nama $1";
+"reading-list-generic-error" = "Ralat yang tidak dijangka berlaku semasa mengemas kini senarai bacaan anda.";
+"reading-list-hint-title" = "Pindahkan $1 ke senarai bacaan?";
+"reading-list-sync-setting" = "Penyegerakan senarai bacaan";
+"reading-list-unable-to-add-entry" = "Ralat yang tidak dijangka berlaku semasa menambah entri ke senarai bacaan anda. Sila cuba sebentar lagi.";
+"reading-list-unable-to-create" = "Ralat yang tidak dijangka berlaku semasa membuat senarai bacaan anda. Sila cuba sebentar lagi.";
+"reading-list-unable-to-delete" = "Ralat yang tidak dijangka berlaku semasa memadam senarai bacaan anda. Sila cuba sebentar lagi.";
+"reading-list-unable-to-remove-entry" = "Ralat yang tidak dijangka berlaku semasa mengeluarkan entri dari senarai bacaan anda. Sila cuba sebentar lagi.";
+"reading-list-unable-to-update" = "Ralat yang tidak dijangka berlaku semasa mengemas kini senarai bacaan anda. Sila cuba sebentar lagi.";
+"reading-list-with-provided-name-not-found" = "Senarai bacaan dengan nama $1 tidak dijumpai. Sila pastikan anda mempunyai nama yang betul.";
+"reading-lists-article-moved-confirmation" = "Rencana dipindahkan ke “$1”";
+"reading-lists-count" = "{{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}}";
+"reading-lists-default-list-description" = "Senarai lalai untuk rencana yang disimpan";
+"reading-lists-default-list-title" = "Kegemaran";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
 "reading-themes-controls-accessibility-brightness-slider" = "Slider kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
@@ -318,12 +347,17 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Tadi|$1 minit yang lalu|$1 minit yang lalu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lepas|$1 tahun lepas}}";
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
+"saved-all-articles-title" = "Semua rencana";
 "saved-clear-all" = "Padamkan";
-"saved-pages-clear-cancel" = "Batalkan";
 // Fuzzy
-"saved-pages-clear-confirmation-heading" = "Adakah anda benar-benar ingin memadamkan semua laman tersimpan anda?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada {{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}}?";
+"saved-default-reading-list-tag" = "Senarai ini tidak dapat dipadamkan";
+"saved-pages-clear-cancel" = "Batalkan";
+"saved-pages-clear-confirmation-heading" = "Adakah anda pasti mahu memadamkan semua rencana anda yang disimpan dan membuangnya dari semua senarai bacaan?";
 "saved-pages-clear-delete-all" = "Ya, padamkan semua";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
+"saved-reading-lists-title" = "Senarai bacaan";
+"saved-search-default-text" = "Cari";
 "saved-title" = "Disimpan";
 "search-button-accessibility-label" = "Cari dalam Wikipedia";
 "search-did-you-mean" = "Maksud anda, $1?";

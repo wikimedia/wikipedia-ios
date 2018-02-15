@@ -90,6 +90,7 @@
 "appearance-settings-title" = "Okuma temaları";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Madde silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";

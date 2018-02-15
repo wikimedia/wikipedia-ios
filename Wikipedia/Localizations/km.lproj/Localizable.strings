@@ -15,6 +15,8 @@
 "about-repositories-app-source-license" = "កូដផ្ដល់ជូនក្រោម $1។";
 "about-repositories-app-source-license-mit" = "អាជ្ញាប័ណ្ណ MIT";
 "about-send-feedback" = "ផ្ញើមតិយោបល់អំពីកម្មវិធីនេះ";
+"about-testers" = "ឧបករណ៍ធ្វើតេស្ត";
+"about-testers-details" = "បានធ្វើតេស្តធានាគុណភាពដោយ $1";
 "about-title" = "អំពី";
 "about-translators" = "អ្នកបកប្រែ";
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
@@ -22,6 +24,8 @@
 "about-wikipedia" = "វិគីភីឌា";
 "abuse-filter-disallow-heading" = "អ្នកមិនអាចបោះផ្សាយការកែប្រែនេះបានទេ។ សូមត្រឡប់ក្រោយរួចកែតម្រួវវា។";
 "abuse-filter-disallow-notable" = "វិគីភីឌាជាសព្វវចនាធិប្បាយមួយដែលមានតែអត្ថបទដែលមានអព្យាក្រិតនិងគួរកត់សម្គាល់។";
+"abuse-filter-disallow-unconstructive" = "តម្រងស្វ័យប្រវត្តិបានសម្គាល់កំណែប្រែនេះថាជាទង្វើគ្មានការស្ថាបនាឬមានបំណងបំផ្លិចបំផ្លាញ។";
+"abuse-filter-warning-blanking" = "ការលុបខ្លឹមសារអត្ថបទឬដាក់ស្ប៉ាម";
 "abuse-filter-warning-caps" = "វាយបញ្ចូលជាអក្សរធំ";
 "abuse-filter-warning-heading" = "នេះប្រហែលជាការកែប្រែដែលគ្មានលក្ខណៈស្ថាបនាទេ។ តើអ្នកពិតជាចង់បោះផ្សាយវាមែនទេ?";
 "abuse-filter-warning-irrelevant" = "តំណភ្ជាប់ខាងក្រៅឬរូបភាពដែលមិនទាក់ទិន";
@@ -39,7 +43,13 @@
 "account-creation-passwords-mismatched" = "ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ។";
 "account-creation-saving" = "កំពុង​រក្សា​ទុក...";
 "account-creation-title" = "បង្កើតគណនីថ្មី";
+"action-add-to" = "បន្ថែមទៅ…";
+"action-add-to-reading-list" = "បន្ថែមទៅក្នុងបញ្ជីអំណាន";
+"action-cancel" = "បោះបង់";
+"action-move-to" = "ប្ដូរទៅតាំងទៅ…";
+"action-move-to-reading-list" = "ប្ដូរទៅតាំងទៅបញ្ជីអំណាន";
 "action-read" = "អាន";
+"action-remove" = "ដកចេញ";
 "action-save" = "រក្សា​ទុក​";
 "action-saved" = "​រក្សាទុករួច";
 "action-saved-accessibility" = "រក្សាទុករួច។ បើកសុពលភាពដើម្បីឈប់រក្សាទុកវិញ។";
@@ -47,6 +57,8 @@
 "action-share" = "ចែកចាយ";
 "action-unsave" = "ឈប់រក្សាទុក";
 "action-unsaved-accessibility-notification" = "អត្ថបទឈប់រក្សាទុករួច";
+"action-update" = "បន្ទាន់សម័យ";
+"add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
 "alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";
 "appearance-settings-adjust-text-sizing" = "កែតម្រូវទំហំតួអក្សរអត្ថបទ";
@@ -60,6 +72,7 @@
 "appearance-settings-title" = "រចនាបថអំណាន";
 "article-about-title" = "អំពីអត្ថបទនេះ";
 "article-delete" = "លុបចោល";
+// Fuzzy
 "article-deleted-accessibility-notification" = "អត្ថបទលុបចោលរួច";
 "article-languages-filter-placeholder" = "ស្វែងរក​ភាសា";
 "article-languages-label" = "ជ្រើសរើសភាសា";
@@ -69,6 +82,7 @@
 "article-share" = "ចែកចាយ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "ការកំណត់រចនាបថអំណាន";
 "article-unable-to-load-article" = "មិនអាចផ្ទុកអត្ថបទនេះបានទេ។";
+"article-unable-to-load-section" = "មិនអាចផ្ទុកផ្នែកអត្ថបទនេះទេ។ សូមសាកល្បងផ្ទុកអត្ថបទម្ដងទៀតក្រែងលោបញ្ហាដោះស្រាយហើយ។";
 "back" = "ត្រឡប់ក្រោយ";
 "back-button-accessibility-label" = "ត្រឡប់ក្រោយ";
 "button-done" = "រួចរាល់";

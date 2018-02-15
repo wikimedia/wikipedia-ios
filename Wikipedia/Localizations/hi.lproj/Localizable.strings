@@ -77,6 +77,7 @@
 "appearance-settings-title" = "विषय पढ़ रहा";
 "article-about-title" = "इस लेख के बारे में";
 "article-delete" = "हटाएँ";
+// Fuzzy
 "article-deleted-accessibility-notification" = "लेख डिलीट कर दिया गया";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-languages-label" = "भाषा चुनें";

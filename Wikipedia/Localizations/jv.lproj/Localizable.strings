@@ -62,6 +62,7 @@
 "appearance-settings-title" = "Cakrik wacan";
 "article-about-title" = "Ngenani artikel iki";
 "article-delete" = "Busak";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel wis dibusak";
 "article-languages-filter-placeholder" = "Golèk basa";
 "article-languages-label" = "Pilih basa";

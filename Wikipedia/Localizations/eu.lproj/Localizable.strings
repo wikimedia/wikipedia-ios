@@ -50,7 +50,13 @@
 "account-creation-passwords-mismatched" = "Pasahitza eremuak ez datoz bat.";
 "account-creation-saving" = "Gordetzen...";
 "account-creation-title" = "Kontu berria sortu";
+"action-add-to" = "Hona gehitu:";
+"action-add-to-reading-list" = "Gehitu irakurketa zerrendara";
+"action-cancel" = "Utzi";
+"action-move-to" = "Horra mugitu...";
+"action-move-to-reading-list" = "Irakurketa zerrendara mugitu";
 "action-read" = "Irakurri";
+"action-remove" = "Kendu";
 "action-save" = "Gorde";
 "action-saved" = "Gordeta";
 "action-saved-accessibility" = "Gordeta. Aktibatu ez gordetzeko.";
@@ -58,6 +64,8 @@
 "action-share" = "Partekatu";
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
+"action-update" = "Eguneratu";
+"add-articles-to-reading-list" = "Gehitu $1 irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
@@ -71,6 +79,7 @@
 "appearance-settings-title" = "Irakurketa gaiak";
 "article-about-title" = "Artikulu honi buruz";
 "article-delete" = "Ezabatu";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikulua ezabatu";
 "article-languages-filter-placeholder" = "Aurkitu hizkuntza";
 "article-languages-label" = "Hizkuntza aukeratu";
@@ -99,6 +108,9 @@
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
+// Fuzzy
+"delete-reading-list-alert-message" = "Bakarrik hemen {{PLURAL:$1|zerrenda hau ez da gordeko behin ezabatuta|errenda hauek ez dira gordeko behin ezabatuta}} gordetako edozein artikulu.";
+"delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrenda}}?";
 "dim-images" = "Irudiak arindu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
@@ -112,6 +124,8 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
+"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
+"empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
 "empty-no-saved-pages-message" = "Orrialdeak gorde gero ikusteko, nahiz eta konexiorik gabe egon";
 "empty-no-saved-pages-title" = "Oraindik gordetako orrialderik ez";
 "empty-no-search-results-message" = "Ez da emaitzarik aurkitu";
@@ -307,6 +321,21 @@
 "preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
 "rank-accessibility-label" = "$1 zenbakia";
 "readers-accessibility-label" = "$1 irakurle";
+"reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
+"reading-list-exists-with-same-name" = "1$ izena duen irakurketa zerrenda existitzen da jada";
+"reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
+"reading-list-hint-title" = "$1 mugitu irakurketa zerrenda batera?";
+"reading-list-sync-setting" = "Irakurketa zerrenda sinkronizatu";
+"reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
+"reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
+"reading-list-unable-to-delete" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
+"reading-list-unable-to-remove-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendatik sarrera bat ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
+"reading-list-unable-to-update" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda eguneratzen ari zen bitartean. Mesedez, saia ezazu geroago.";
+"reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jartzen duzula.";
+"reading-lists-article-moved-confirmation" = "\"$1\"-ra mugitu da artikulua";
+"reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}";
+"reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
+"reading-lists-default-list-title" = "Lastermarkak";
 "reading-themes-controls-accessibility-black-theme-button" = "Gai iluna";
 "reading-themes-controls-accessibility-brightness-slider" = "Argitasun sliderra";
 "reading-themes-controls-accessibility-dark-theme-button" = "Gai iluna";
@@ -319,12 +348,17 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
 "relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
+"saved-all-articles-title" = "Artikulu guztiak";
 "saved-clear-all" = "Garbitu";
-"saved-pages-clear-cancel" = "Utzi";
 // Fuzzy
-"saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako orrialde guztiak ezabatu nahi dituzula?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Ziur zaude artikulua ez duzula gorde nahi eta {PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}-rik ezabatu nahi duzula?";
+"saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
+"saved-pages-clear-cancel" = "Utzi";
+"saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako artikulu guztiak ezabatu nahi dituzula eta irakurketa zerrendetatik ezabatu nahi duzula?";
 "saved-pages-clear-delete-all" = "Bai, dena ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
+"saved-reading-lists-title" = "Irakurketa zerrendak";
+"saved-search-default-text" = "Bilatu";
 "saved-title" = "Gordea";
 "search-button-accessibility-label" = "Bilatu Wikipedian";
 "search-did-you-mean" = "$1 esan nahi zenuen?";
