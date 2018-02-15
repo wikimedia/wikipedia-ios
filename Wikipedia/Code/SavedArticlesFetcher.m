@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
 @property (nonatomic, getter=isUpdating) BOOL updating;
+@property (nonatomic, getter=isRunning) BOOL running;
 
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSURLSessionTask *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
@@ -83,11 +84,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Public
 
 - (void)start {
+    self.running = YES;
     [self observeSavedPages];
     [self update];
 }
 
 - (void)stop {
+    self.running = NO;
     [self unobserveSavedPages];
 }
 
@@ -95,7 +98,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)articleWasUpdated:(NSNotification *)note {
     WMFArticle *article = note.object;
-    
+
     if (article.savedDate != nil && !article.isDownloaded) {
         [self update];
     } else if (article.savedDate == nil) {
@@ -113,7 +116,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (void)_update {
-    if (self.isUpdating) {
+    if (self.isUpdating || !self.isRunning) {
         return;
     }
     self.updating = YES;
@@ -136,10 +139,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     if (article) {
         NSURL *articleURL = article.URL;
         if (articleURL) {
-            [self fetchArticleURL:articleURL priority:NSURLSessionTaskPriorityLow failure:^(NSError *error) { updateAgain(); } success:^{
-                              [self.spotlightManager addToIndexWithUrl:articleURL];
-                              updateAgain();
-                          }];
+            [self fetchArticleURL:articleURL
+                priority:NSURLSessionTaskPriorityLow
+                failure:^(NSError *error) {
+                    updateAgain();
+                }
+                success:^{
+                    [self.spotlightManager addToIndexWithUrl:articleURL];
+                    updateAgain();
+                }];
         } else {
             self.updating = NO;
         }
@@ -159,9 +167,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 return;
             }
             [self cancelFetchForArticleURL:articleURL];
-            [self removeArticleWithURL:articleURL completion:^{
-                updateAgain();
-            }];
+            [self removeArticleWithURL:articleURL
+                            completion:^{
+                                updateAgain();
+                            }];
         } else {
             self.updating = NO;
             [self notifyDelegateIfFinished];
@@ -197,56 +206,54 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
         return;
     }
-    
-         // NOTE: must check isCached to determine that all article data has been downloaded
-         MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
-         if (articleFromDisk.isCached) {
-             // only fetch images if article was cached
-             [self downloadImageDataForArticle:articleFromDisk
-                                       failure:^(NSError *_Nonnull error) {
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               [self didFetchArticle:articleFromDisk url:articleURL error:error];
-                                               failure(error);
-                                           });
-                                       }
-                                       success:^{
-                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                               [self didFetchArticle:articleFromDisk url:articleURL error:nil];
-                                               success();
-                                           });
-                                       }];
-         } else {
-             self.fetchOperationsByArticleTitle[articleURL] =
-             [self.articleFetcher fetchArticleForURL:articleURL
-                                          saveToDisk:YES
-                                            priority:priority
-                                            progress:NULL
-                                             failure:^(NSError *_Nonnull error) {
-                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                     [self didFetchArticle:nil url:articleURL error:error];
-                                                     failure(error);
-                                                 });
-                                             }
-                                             success:^(MWKArticle *_Nonnull article) {
-                                                 dispatch_async(self.accessQueue, ^{
-                                                     [self downloadImageDataForArticle:article
-                                                                               failure:^(NSError *error) {
-                                                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                       [self didFetchArticle:article url:articleURL error:error];
-                                                                                       failure(error);
-                                                                                   });
-                                                                               }
-                                                                               success:^{
-                                                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                       [self didFetchArticle:article url:articleURL error:nil];
-                                                                                       success();
-                                                                                   });
-                                                                               }];
-                                                 });
-                                             }];
-         }
 
-    
+    // NOTE: must check isCached to determine that all article data has been downloaded
+    MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
+    if (articleFromDisk.isCached) {
+        // only fetch images if article was cached
+        [self downloadImageDataForArticle:articleFromDisk
+            failure:^(NSError *_Nonnull error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self didFetchArticle:articleFromDisk url:articleURL error:error];
+                    failure(error);
+                });
+            }
+            success:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self didFetchArticle:articleFromDisk url:articleURL error:nil];
+                    success();
+                });
+            }];
+    } else {
+        self.fetchOperationsByArticleTitle[articleURL] =
+            [self.articleFetcher fetchArticleForURL:articleURL
+                saveToDisk:YES
+                priority:priority
+                progress:NULL
+                failure:^(NSError *_Nonnull error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self didFetchArticle:nil url:articleURL error:error];
+                        failure(error);
+                    });
+                }
+                success:^(MWKArticle *_Nonnull article) {
+                    dispatch_async(self.accessQueue, ^{
+                        [self downloadImageDataForArticle:article
+                            failure:^(NSError *error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self didFetchArticle:article url:articleURL error:error];
+                                    failure(error);
+                                });
+                            }
+                            success:^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self didFetchArticle:article url:articleURL error:nil];
+                                    success();
+                                });
+                            }];
+                    });
+                }];
+    }
 }
 
 - (void)downloadImageDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {

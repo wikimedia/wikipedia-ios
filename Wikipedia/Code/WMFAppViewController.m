@@ -241,6 +241,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     
     if (self.isResumeComplete) {
         [self.dataStore.readingListsController start];
+        [self.savedArticlesFetcher start];
     }
 }
 
@@ -588,6 +589,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     
     [self attemptLogin:^{
         [self.dataStore.readingListsController start];
+        [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
     }];
     
@@ -660,6 +662,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }
 
     [self.dataStore.readingListsController stop];
+    [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
@@ -676,7 +679,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.searchViewController = nil;
     self.settingsViewController = nil;
 
-    [self.savedArticlesFetcher stop];
     [self.dataStore.feedContentController stopContentSources];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
