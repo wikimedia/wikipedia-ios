@@ -200,7 +200,7 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingLists[readingListID] = localReadingList
                 })
-            } else {
+            } else if localReadingList.isUpdatedLocally {
                 taskGroup.enter()
                 self.apiController.updateList(withListID: readingListID, name: readingListName, description: localReadingList.readingListDescription, completion: { (updateError) in
                     defer {
