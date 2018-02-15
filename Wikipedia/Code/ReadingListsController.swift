@@ -13,9 +13,14 @@ struct ReadingListSyncState: OptionSet {
     static let needsRemoteDisable    = ReadingListSyncState(rawValue: 1 << 3)
     
     static let needsLocalReset    = ReadingListSyncState(rawValue: 1 << 4) // mark all as unsynced, remove remote IDs
-    static let needsLocalClear    = ReadingListSyncState(rawValue: 1 << 5) // remove all saved
+    static let needsLocalArticleClear    = ReadingListSyncState(rawValue: 1 << 5) // remove all saved articles
+    static let needsLocalListClear    = ReadingListSyncState(rawValue: 1 << 6) // remove all lists
+    
+    static let needsRandomLists = ReadingListSyncState(rawValue: 1 << 7) // for debugging, populate random lists
+    static let needsRandomEntries = ReadingListSyncState(rawValue: 1 << 8) // for debugging, populate with random entries
     
     static let needsEnable: ReadingListSyncState = [.needsRemoteEnable, .needsSync]
+    static let needsLocalClear: ReadingListSyncState = [.needsLocalArticleClear, .needsLocalListClear]
     static let needsClearAndEnable: ReadingListSyncState = [.needsLocalClear, .needsRemoteEnable, .needsSync]
 
     static let needsDisable: ReadingListSyncState = [.needsRemoteDisable, .needsLocalReset]
@@ -409,12 +414,11 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+    internal func add(articles: [WMFArticle], to readingList: ReadingList, in moc: NSManagedObjectContext) throws {
         guard articles.count > 0 else {
             return
         }
-        assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
+
         let existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
@@ -434,7 +438,12 @@ public class ReadingListsController: NSObject {
         }
         
         readingList.updateCountOfEntries()
-        
+    }
+    
+    public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
             try moc.save()
         }
