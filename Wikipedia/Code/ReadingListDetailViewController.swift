@@ -44,11 +44,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         setupFetchedResultsController()
         fetch()
         setupCollectionViewUpdater()
-        
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-
         setupEditController()
         
+        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
     }
     
@@ -176,17 +174,21 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "displayTitle", ascending: false), action: nil)
     
-    lazy var sortActions: [UIAlertAction] = {
+    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    
+    lazy var sortActions: [SortActionType: UIAlertAction] = {
         let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
             self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
             self.updateSort(with: NSSortDescriptor(key: "createdDate", ascending: false), newAction: action)
         }
-        return [titleAction, recentlyAddedAction]
+        return [.byTitle: titleAction, .byRecentlyAdded: recentlyAddedAction]
     }()
     
-    lazy var sortAlert: UIAlertController = { return alert }()
+    lazy var sortAlert: UIAlertController = {
+        return alert(title: "Sort saved articles", message: nil)
+    }()
 }
 
 // MARK: - ActionDelegate

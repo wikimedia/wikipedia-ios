@@ -50,10 +50,9 @@ extension UpdatableCollection where Self: SearchableCollection & SortableCollect
     func setupFetchedResultsController() {
         // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
         let checkedKey = "checked"
-        sortActions.forEach { $0.setValue(false, forKey: checkedKey) }
-        if let checkedAction = sort.action {
-            checkedAction.setValue(true, forKey: checkedKey)
-        }
+        sortActions.values.forEach { $0.setValue(false, forKey: checkedKey) }
+        let checkedAction = sort.action ?? defaultSortAction
+        checkedAction?.setValue(true, forKey: checkedKey)
 
         guard let request = T.fetchRequest() as? NSFetchRequest<T> else {
             assertionFailure("Can't set up NSFetchRequest")
@@ -89,17 +88,35 @@ extension SearchableCollection where Self: EditableCollection {
     }
 }
 
+enum SortActionType {
+    case byTitle, byRecentlyAdded
+    
+    func action(with sortDescriptor: NSSortDescriptor, handler: @escaping (NSSortDescriptor, UIAlertAction) -> ()) -> UIAlertAction {
+        let title: String
+        switch self {
+        case .byTitle:
+            title = "Title"
+        case .byRecentlyAdded:
+            title = "Recently added"
+        }
+        return UIAlertAction(title: title, style: .default) { (action) in
+            handler(sortDescriptor, action)
+        }
+    }
+}
+
 protocol SortableCollection: UpdatableCollection {
     var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) { get set }
-    var sortActions: [UIAlertAction] { get }
+    var sortActions: [SortActionType: UIAlertAction] { get }
+    var defaultSortAction: UIAlertAction? { get }
     var sortAlert: UIAlertController { get }
 }
 
 extension SortableCollection {
-    // Return in a lazy implementation of sortAlert.
-    var alert: UIAlertController {
-        let alert = UIAlertController(title: "Sort saved articles", message: nil, preferredStyle: .actionSheet)
-        sortActions.forEach { alert.addAction($0) }
+    
+    func alert(title: String, message: String?) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        sortActions.values.forEach { alert.addAction($0) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
         if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {

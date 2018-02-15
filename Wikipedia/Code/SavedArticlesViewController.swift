@@ -1,6 +1,7 @@
 
 @objc(WMFSavedArticlesViewController)
 class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+    
     private let reuseIdentifier = "SavedArticlesCollectionViewCell"
     private var cellLayoutEstimate: WMFLayoutEstimate?
 
@@ -107,18 +108,22 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Sorting
     
     var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil)
+    
+    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
-    lazy var sortActions: [UIAlertAction] = {
+    lazy var sortActions: [SortActionType: UIAlertAction] = {
         let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
             self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
         }
         let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
             self.updateSort(with: NSSortDescriptor(key: "savedDate", ascending: false), newAction: action)
         }
-        return [titleAction, recentlyAddedAction]
+        return [.byTitle: titleAction, .byRecentlyAdded: recentlyAddedAction]
     }()
     
-    lazy var sortAlert: UIAlertController = { return alert }()
+    lazy var sortAlert: UIAlertController = {
+        return alert(title: "Sort saved articles", message: nil)
+    }()
     
     // MARK: - Filtering
     
