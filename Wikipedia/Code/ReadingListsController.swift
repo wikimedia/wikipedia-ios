@@ -405,6 +405,7 @@ public class ReadingListsController: NSObject {
             }
         }
         
+        var updatedLists: Set<ReadingList> = []
         for remoteEntry in readingListEntries {
             guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey], let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
                 continue
@@ -421,6 +422,9 @@ public class ReadingListsController: NSObject {
             }
             readingList.addToArticles(article)
             article.readingListsDidChange()
+            updatedLists.insert(readingList)
+        }
+        for readingList in updatedLists {
             readingList.updateCountOfEntries()
         }
     }
