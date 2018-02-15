@@ -72,7 +72,9 @@
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
+"action-cancel" = "Отмена";
 "action-read" = "Читать";
+"action-remove" = "Удалить";
 "action-save" = "Сохранить";
 "action-saved" = "Сохранено";
 "action-saved-accessibility" = "Сохранено. Активируйте для удаления.";
@@ -80,6 +82,8 @@
 "action-share" = "Поделиться";
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
+"action-update" = "Обновить";
+"add-articles-to-reading-list" = "Добавить $1 в список для чтения";
 "alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
 "appearance-settings-adjust-text-sizing" = "Регулирует размер текста статьи";
@@ -93,6 +97,7 @@
 "appearance-settings-title" = "Темы оформления для чтения";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Статья удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
@@ -329,6 +334,7 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-lists-default-list-title" = "Закладки";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
@@ -341,12 +347,16 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=этот год|прошлый год|$1 года назад|$1 лет назад}}";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
+"saved-all-articles-title" = "Все статьи";
 "saved-clear-all" = "Очистить";
+"saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-clear-cancel" = "Отмена";
 // Fuzzy
 "saved-pages-clear-confirmation-heading" = "Вы уверены, что хотите удалить все сохранённые страницы?";
 "saved-pages-clear-delete-all" = "Да, удалить всё";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
+"saved-reading-lists-title" = "Списки для чтения";
+"saved-search-default-text" = "Найти";
 "saved-title" = "Сохранено";
 "search-button-accessibility-label" = "Поиск по Википедии";
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";

@@ -79,6 +79,7 @@
 "appearance-settings-title" = "Leesthema's";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
