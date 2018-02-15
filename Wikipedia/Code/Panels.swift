@@ -179,4 +179,21 @@ extension UIViewController {
             UserDefaults.wmf_userDefaults().wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
         })
     }
+    
+    @objc func wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(theme: Theme, completion: @escaping (() -> Swift.Void) = {}) {
+        guard self.hasSavedArticles() else {
+            completion()
+            return
+        }
+        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: { sender in
+            SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, secondaryButtonTapHandler: { sender in
+            SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            sender.dismiss(animated: true, completion: nil)
+        }, dismissHandler: { sender in
+            completion()
+        })
+        present(panelVC, with: theme, animated: true, completion: nil)
+    }
 }
