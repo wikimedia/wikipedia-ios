@@ -151,37 +151,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let readingListSinceDate = try readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, inManagedObjectContext: moc)
         
-        //                        for readingList in allAPIReadingLists {
-        //                            let randomArticleFetcher = WMFRandomArticleFetcher()
-        //                            guard let siteURL = URL(string: "https://en.wikipedia.org") else {
-        //                                return
-        //                            }
-        //                            for _ in 0...200 {
-        //                                let taskGroup = WMFTaskGroup()
-        //                                var listIsFull = false
-        //                                for _ in 0...5 {
-        //                                    taskGroup.enter()
-        //                                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
-        //                                        taskGroup.leave()
-        //                                    }, success: { (searchResult) in
-        //                                        let articleURL = searchResult.articleURL(forSiteURL: siteURL)
-        //                                        self.apiController.addEntryToList(withListID: readingList.id, project: siteURL.absoluteString, title: articleURL?.wmf_title ?? "", completion: { (entryID, error) in
-        //                                            print("\(String(describing: entryID))")
-        //                                            if let apiError = error as? APIReadingListError, apiError == .entryLimit {
-        //                                                listIsFull = true
-        //                                            }
-        //                                            taskGroup.leave()
-        //                                        })
-        //                                    })
-        //
-        //                                }
-        //                                taskGroup.wait()
-        //                                if listIsFull {
-        //                                    break
-        //                                }
-        //                            }
-        //                        }
-        
         // Delete missing reading lists
         let remoteReadingListIDs = Set<Int64>(allAPIReadingLists.flatMap { $0.id })
         let fetchForAllLocalLists: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -292,5 +261,39 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             return
         }
         try moc.save()
+    }
+    
+    
+    func populateReadingListsWithRandomArticles(in moc: NSManagedObjectContext) {
+        //                        for readingList in allAPIReadingLists {
+        //                            let randomArticleFetcher = WMFRandomArticleFetcher()
+        //                            guard let siteURL = URL(string: "https://en.wikipedia.org") else {
+        //                                return
+        //                            }
+        //                            for _ in 0...200 {
+        //                                let taskGroup = WMFTaskGroup()
+        //                                var listIsFull = false
+        //                                for _ in 0...5 {
+        //                                    taskGroup.enter()
+        //                                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
+        //                                        taskGroup.leave()
+        //                                    }, success: { (searchResult) in
+        //                                        let articleURL = searchResult.articleURL(forSiteURL: siteURL)
+        //                                        self.apiController.addEntryToList(withListID: readingList.id, project: siteURL.absoluteString, title: articleURL?.wmf_title ?? "", completion: { (entryID, error) in
+        //                                            print("\(String(describing: entryID))")
+        //                                            if let apiError = error as? APIReadingListError, apiError == .entryLimit {
+        //                                                listIsFull = true
+        //                                            }
+        //                                            taskGroup.leave()
+        //                                        })
+        //                                    })
+        //
+        //                                }
+        //                                taskGroup.wait()
+        //                                if listIsFull {
+        //                                    break
+        //                                }
+        //                            }
+        //                        }
     }
 }
