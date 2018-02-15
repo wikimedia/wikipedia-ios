@@ -564,17 +564,21 @@ public class ReadingListsController: NSObject {
         try article.addToDefaultReadingList()
     }
     
-    @objc public func unsave(_ article: WMFArticle) {
+    @objc public func unsaveArticle(_ article: WMFArticle) {
+        unsave([article])
+    }
+    
+    @objc public func unsave(_ articles: [WMFArticle]) {
         do {
-            guard let moc = article.managedObjectContext else {
+            guard let moc = articles.first?.managedObjectContext else {
                 return
             }
-            article.savedDate = nil
-            guard let key = article.key else {
-                return
+            for article in articles {
+                article.savedDate = nil
             }
+            let keys = articles.flatMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
+            entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
             let entries = try moc.fetch(entryFetchRequest)
             try markLocalDeletion(for: entries)
         } catch let error {
@@ -583,15 +587,15 @@ public class ReadingListsController: NSObject {
     }
     
     
-    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLS: [URL]) {
+    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLs: [URL]) {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            for url in articleURLS {
+            for url in articleURLs {
                 guard let article = dataStore.fetchArticle(with: url) else {
                     continue
                 }
-                unsave(article)
+                unsave([article])
             }
             if moc.hasChanges {
                 try moc.save()
@@ -606,8 +610,8 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
-                unsave(article)
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
+                unsave(articles)
             })
             update()
         } catch let error {

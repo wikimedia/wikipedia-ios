@@ -158,7 +158,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (article.savedDate == nil) {
         [self.dataStore.readingListsController save:article];
     } else {
-        [self.dataStore.readingListsController unsave:article];
+        [self.dataStore.readingListsController unsaveArticle:article];
     }
     return article.savedDate != nil;
 }
@@ -173,7 +173,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!article) {
         return;
     }
-    [self.dataStore.readingListsController unsave:article];
+    [self.dataStore.readingListsController unsaveArticle:article];
 }
 
 - (void)removeAllEntries {
