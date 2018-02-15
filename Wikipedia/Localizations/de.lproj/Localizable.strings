@@ -78,7 +78,7 @@
 "appearance-settings-title" = "Lese-Farbschemen";
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
-"article-deleted-accessibility-notification" = "Artikel gelöscht";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel}} gelöscht";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
@@ -106,8 +106,9 @@
 "compass-direction" = "nach $1 Uhr";
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
-"delete-reading-list-alert-message" = "Alle Artikel in {{PLURAL:$1|dieser Liste|diesen Listen}} werden gelöscht, falls sie nicht in anderen Leselisten vorhanden sind.";
-"delete-reading-list-alert-title" = "Bist du sicher, dass du diese {{PLURAL:$1|Liste|$1 Listen}} löschen möchtest?";
+// Fuzzy
+"delete-reading-list-alert-message" = "Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden entfernt, wenn die {{PLURAL:$1|Liste gelöscht wird|Listen gelöscht werden}}.";
+"delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
 "dim-images" = "Bilder dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
@@ -329,6 +330,7 @@
 "reading-list-unable-to-remove-entry" = "Beim Entfernen eines Eintrags aus deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-unable-to-update" = "Beim Aktualisieren deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-with-provided-name-not-found" = "Eine Leseliste mit dem Namen $1 wurde nicht gefunden. Bitte stelle sicher, dass du den richtigen Namen hast.";
+"reading-lists-article-moved-confirmation" = "Artikel nach „$1“ verschoben";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
 "reading-lists-default-list-description" = "Standardliste für gespeicherte Artikel";
 "reading-lists-default-list-title" = "Lesezeichen";
@@ -346,8 +348,8 @@
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "saved-all-articles-title" = "Alle Artikel";
 "saved-clear-all" = "Löschen";
+// Fuzzy
 "saved-confirm-unsave-article-and-remove-from-reading-lists" = "Bist du sicher, dass du diesen Artikel löschen und ihn aus {{PLURAL:$1|einer Leseliste|$1 Leselisten}} entfernen möchtest?";
-"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "Bist du sicher, dass du diese Artikel löschen und sie von allen Leselisten entfernen möchtest?";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-clear-cancel" = "Abbrechen";
 "saved-pages-clear-confirmation-heading" = "Bist du sicher, dass du all deine gespeicherten Artikel löschen und sie von allen Leselisten entfernen möchtest?";
@@ -418,7 +420,7 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
-"unsave-article-and-remove-from-reading-lists" = "Von {{PLURAL:$1|einer Leseliste|$1 Leselisten}} löschen und entfernen";
+"unsave-article-and-remove-from-reading-lists-title" = "Artikel löschen?";
 "view-in-browser-footer-link" = "Artikel im Browser ansehen";
 "welcome-exploration-explore-feed-description" = "Empfohlener Lesestoff und täglich wechselnde Artikel aus unserer Gemeinschaft";
 "welcome-exploration-explore-feed-title" = "Entdecken-Feed";

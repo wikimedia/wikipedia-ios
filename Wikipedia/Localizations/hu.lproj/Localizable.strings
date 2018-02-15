@@ -75,6 +75,7 @@
 "appearance-settings-title" = "Olvasási témák";
 "article-about-title" = "Erről a szócikkről";
 "article-delete" = "Törlés";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Szócikk törölve";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";

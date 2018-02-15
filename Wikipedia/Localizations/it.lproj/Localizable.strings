@@ -66,13 +66,21 @@
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
 "account-creation-title" = "Crea una nuova utenza";
+"action-add-to" = "Aggiungi a…";
+"action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
+"action-cancel" = "Annulla";
+"action-move-to" = "Sposta in…";
+"action-move-to-reading-list" = "Sposta nell'elenco di lettura";
 "action-read" = "Leggi";
+"action-remove" = "Rimuovi";
 "action-save" = "Salva";
 "action-saved" = "Salvato";
 "action-saved-accessibility-notification" = "Voce salvata per dopo";
 "action-share" = "Condividi";
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
+"action-update" = "Aggiorna";
+"add-articles-to-reading-list" = "Aggiungi $1 all'elenco di lettura";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -107,6 +115,7 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|l'elenco|gli elenchi}}?";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
@@ -119,6 +128,7 @@
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-history-message" = "Tieni traccia di quello che hai letto qui";
 "empty-no-history-title" = "Nessuna cronologia da mostrare";
+"empty-no-reading-lists-title" = "Organizza le voci salvate in elenchi di lettura";
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
@@ -297,6 +307,11 @@
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
+"reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
+"reading-list-hint-title" = "Spostare $1 nell'elenco di lettura?";
+"reading-list-sync-setting" = "Sincronizza elenco di lettura";
+"reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
+"reading-lists-default-list-title" = "Segnalibri";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";
@@ -306,12 +321,14 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
+"saved-all-articles-title" = "Tutte le voci";
 "saved-clear-all" = "Pulisci";
+"saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-clear-cancel" = "Annulla";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutte le pagine che hai salvato?";
+"saved-pages-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutte le voci che hai salvato e rimuoverle da tutti gli elenchi di lettura?";
 "saved-pages-clear-delete-all" = "Sì, cancella tutto";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
+"saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
 "search-did-you-mean" = "Forse cercavi $1?";
 "search-field-placeholder-text" = "Cerca su Wikipedia";

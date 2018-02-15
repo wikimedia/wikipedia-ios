@@ -47,6 +47,7 @@
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
+"action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
 "action-remove" = "Ewechhuelen";
 "action-save" = "Späicheren";
@@ -60,6 +61,7 @@
 "announcements-dismiss" = "Verwerfen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel geläscht";
 "article-languages-filter-placeholder" = "Sprooch fannen";
 "article-languages-label" = "Sprooch eraussichen";
@@ -290,6 +292,7 @@
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
 "reading-list-hint-title" = "$1 op eng Lieslëscht réckelen?";
 "reading-list-sync-setting" = "Lieschtlëscht-Synchronisatioun";
+"reading-lists-article-moved-confirmation" = "Artikel op \"$1\" geréckelt";
 "reading-lists-default-list-title" = "Lieszeechen";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";

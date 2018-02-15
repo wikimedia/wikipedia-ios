@@ -68,6 +68,7 @@
 "appearance-settings-title" = "ธีมการอ่าน";
 "article-about-title" = "เกี่ยวกับบทความนี้";
 "article-delete" = "ลบ";
+// Fuzzy
 "article-deleted-accessibility-notification" = "ลบบทความแล้ว";
 "article-languages-filter-placeholder" = "ค้นหาภาษา";
 "article-languages-label" = "เลือกภาษา";

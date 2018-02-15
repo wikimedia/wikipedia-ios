@@ -93,6 +93,7 @@
 "appearance-settings-title" = "テーマを読み込む";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
+// Fuzzy
 "article-deleted-accessibility-notification" = "記事を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
