@@ -19,31 +19,31 @@ extension NSAttributedString {
 
 extension UILabel {
     public var wmf_hasText: Bool {
-        guard let text = text, text.wmf_hasText else {
+        guard let text = text else {
             return false
         }
-        return true
+        return text.wmf_hasText
     }
 
     public var wmf_hasNonWhitespaceText: Bool {
-        guard let text = text, text.wmf_hasNonWhitespaceText else {
+        guard let text = text else {
             return false
         }
-        return true
+        return text.wmf_hasNonWhitespaceText
     }
 
     public var wmf_hasAttributedText: Bool {
-        guard let attributedText = attributedText, attributedText.wmf_hasText else {
+        guard let attributedText = attributedText else {
             return false
         }
-        return true
+        return attributedText.wmf_hasText
     }
 
     public var wmf_hasNonWhitespaceAttributedText: Bool {
-        guard let attributedText = attributedText, attributedText.wmf_hasNonWhitespaceText else {
+        guard let attributedText = attributedText else {
             return false
         }
-        return true
+        return attributedText.wmf_hasNonWhitespaceText
     }
     
     public var wmf_hasAnyText: Bool {
@@ -57,31 +57,31 @@ extension UILabel {
 
 extension UIButton {
     public var wmf_hasText: Bool {
-        guard let label = titleLabel, label.wmf_hasText else {
+        guard let label = titleLabel else {
             return false
         }
-        return true
+        return label.wmf_hasText
     }
     
     public var wmf_hasNonWhitespaceText: Bool {
-        guard let label = titleLabel, label.wmf_hasNonWhitespaceText else {
+        guard let label = titleLabel else {
             return false
         }
-        return true
+        return label.wmf_hasNonWhitespaceText
     }
     
     public var wmf_hasAttributedText: Bool {
-        guard let label = titleLabel, label.wmf_hasText else {
+        guard let label = titleLabel else {
             return false
         }
-        return true
+        return label.wmf_hasText
     }
     
     public var wmf_hasNonWhitespaceAttributedText: Bool {
-        guard let label = titleLabel, label.wmf_hasNonWhitespaceText else {
+        guard let label = titleLabel else {
             return false
         }
-        return true
+        return label.wmf_hasNonWhitespaceText
     }
     
     public var wmf_hasAnyText: Bool {
