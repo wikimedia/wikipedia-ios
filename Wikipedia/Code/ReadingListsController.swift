@@ -339,6 +339,7 @@ public class ReadingListsController: NSObject {
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
+        var entryCount = 0
         for remoteEntry in readingListEntries {
             let isDeleted = remoteEntry.deleted ?? false
             guard !isDeleted else {
@@ -361,6 +362,10 @@ public class ReadingListsController: NSObject {
                 articleSummariesByArticleKey[articleKey] = result
                 group.leave()
             })
+            entryCount += 1
+            if entryCount % 8 == 0 {
+                group.wait()
+            }
         }
         
         group.wait()
@@ -815,8 +820,18 @@ public class ReadingListsController: NSObject {
             }
         }
 
-        // create any list that wasn't matched by ID or name
-        try locallyCreate(Array(remoteReadingListEntriesByID.values), in: moc)
+        // create any entry that wasn't matched by ID or name
+        let batchSize = 500
+        var start = 0
+        var end = 0
+        let entries = Array(remoteReadingListEntriesByID.values)
+        while end < entries.count {
+            end = min(entries.count, start + batchSize)
+            try locallyCreate(Array(entries[start..<end]), in: moc)
+            start = end
+            try moc.save()
+            moc.reset()
+        }
 
         return sinceDate
     }
