@@ -524,6 +524,9 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _sync() {
+        guard operationQueue.operationCount == 0 else {
+            return
+        }
         let sync = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(sync)
     }
