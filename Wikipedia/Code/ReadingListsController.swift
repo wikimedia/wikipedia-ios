@@ -340,6 +340,7 @@ public class ReadingListsController: NSObject {
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
         var entryCount = 0
+        var articlesByKey: [String: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
             let isDeleted = remoteEntry.deleted ?? false
             guard !isDeleted else {
@@ -353,18 +354,22 @@ public class ReadingListsController: NSObject {
                 continue
             }
             requestedArticleKeys.insert(articleKey)
-            group.enter()
-            URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
-                guard let result = result else {
+            if let article = dataStore.fetchArticle(withKey: articleKey, in: moc) {
+                articlesByKey[articleKey] = article
+            } else {
+                group.enter()
+                URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
+                    guard let result = result else {
+                        group.leave()
+                        return
+                    }
+                    articleSummariesByArticleKey[articleKey] = result
                     group.leave()
-                    return
+                })
+                entryCount += 1
+                if entryCount % 8 == 0 {
+                    group.wait()
                 }
-                articleSummariesByArticleKey[articleKey] = result
-                group.leave()
-            })
-            entryCount += 1
-            if entryCount % 8 == 0 {
-                group.wait()
             }
         }
         
@@ -372,7 +377,6 @@ public class ReadingListsController: NSObject {
         
         
         let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
-        var articlesByKey: [String: WMFArticle] = [:]
         for article in articles {
             guard let articleKey = article.key else {
                 continue
