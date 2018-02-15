@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
 @property (nonatomic, strong) WMFSavedPageSpotlightManager *spotlightManager;
 
+@property (nonatomic, getter=isUpdating) BOOL updating;
+
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSURLSessionTask *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
@@ -82,6 +84,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)start {
     [self observeSavedPages];
+    [self update];
 }
 
 - (void)stop {
@@ -92,17 +95,13 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)articleWasUpdated:(NSNotification *)note {
     WMFArticle *article = note.object;
+    
     if (article.savedDate != nil && !article.isDownloaded) {
-        NSURL *articleURL = article.URL;
-        if (articleURL) {
-            [self fetchUncachedArticleURLs:@[articleURL]];
-        }
+        [self update];
     } else if (article.savedDate == nil) {
         NSURL *articleURL = article.URL;
         if (articleURL) {
-            [self cancelFetchForArticleURL:articleURL
-                                completion:^{
-                                }];
+            [self cancelFetchForArticleURL:articleURL];
             if (article.isDownloaded) {
                 [self removeArticleWithURL:articleURL
                                 completion:^{
@@ -111,6 +110,69 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             }
         }
     }
+}
+
+- (void)_update {
+    if (self.isUpdating) {
+        return;
+    }
+    self.updating = YES;
+    NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
+    request.fetchLimit = 1;
+    NSError *fetchError = nil;
+    WMFArticle *article = [[moc executeFetchRequest:request error:&fetchError] firstObject];
+    if (fetchError) {
+        DDLogError(@"Error fetching next article to download: %@", fetchError);
+    }
+    dispatch_block_t updateAgain = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.updating = NO;
+            [self update];
+        });
+    };
+    if (article) {
+        NSURL *articleURL = article.URL;
+        if (articleURL) {
+            [self fetchArticleURL:articleURL priority:NSURLSessionTaskPriorityLow failure:^(NSError *error) { updateAgain(); } success:^{
+                              [self.spotlightManager addToIndexWithUrl:articleURL];
+                              updateAgain();
+                          }];
+        } else {
+            self.updating = NO;
+        }
+    } else {
+        NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
+        downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
+        downloadedRequest.fetchLimit = 1;
+        NSError *downloadedFetchError = nil;
+        WMFArticle *articleToDelete = [[self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError] firstObject];
+        if (downloadedFetchError) {
+            DDLogError(@"Error fetching downloaded unsaved articles: %@", downloadedFetchError);
+        }
+        if (articleToDelete) {
+            NSURL *articleURL = article.URL;
+            if (!articleURL) {
+                self.updating = NO;
+                return;
+            }
+            [self cancelFetchForArticleURL:articleURL];
+            [self removeArticleWithURL:articleURL completion:^{
+                updateAgain();
+            }];
+        } else {
+            self.updating = NO;
+            [self notifyDelegateIfFinished];
+        }
+    }
+}
+
+- (void)update {
+    NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_update) object:nil];
+    [self performSelector:@selector(_update) withObject:nil afterDelay:0.5];
 }
 
 - (void)observeSavedPages {
@@ -123,95 +185,8 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 #pragma mark - Fetch
 
-- (void)fetchUncachedArticlesInSavedPages:(dispatch_block_t)completion {
-    dispatch_block_t didFinishLegacyMigration = ^{
-        NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
-        if (![defaults wmf_didFinishLegacySavedArticleImageMigration]) {
-            [defaults wmf_setDidFinishLegacySavedArticleImageMigration:YES];
-            [self.imageController removeLegacyCache];
-        }
-        if (completion) {
-            completion();
-        }
-    };
-    if ([self.savedPageList numberOfItems] == 0) {
-        didFinishLegacyMigration();
-        return;
-    }
-
-    WMFTaskGroup *group = [WMFTaskGroup new];
-    [group enter];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSFetchRequest *undownloadedRequest = [WMFArticle fetchRequest];
-        undownloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != nil && isDownloaded == NO"];
-        NSError *undownloadedFetchError = nil;
-        NSArray *undownloadedArticles = [self.dataStore.viewContext executeFetchRequest:undownloadedRequest error:&undownloadedFetchError];
-        if (undownloadedFetchError) {
-            DDLogError(@"Error fetching undownloaded saved articles: %@", undownloadedFetchError);
-        }
-        for (WMFArticle *article in undownloadedArticles) {
-            @autoreleasepool {
-                NSURL *articleURL = article.URL;
-                if (!articleURL) {
-                    continue;
-                }
-                [group enter];
-                dispatch_async(self.accessQueue, ^{
-                    [self fetchArticleURL:articleURL
-                        failure:^(NSError *error) {
-                            [group leave];
-                        }
-                        success:^{
-                            [group leave];
-                        }];
-                });
-            }
-        }
-        NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
-        downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
-        NSError *downloadedFetchError = nil;
-        NSArray *articlesToDelete = [self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError];
-        if (downloadedFetchError) {
-            DDLogError(@"Error fetching downloaded unsaved articles: %@", downloadedFetchError);
-        }
-        for (WMFArticle *article in articlesToDelete) {
-            @autoreleasepool {
-                NSURL *articleURL = article.URL;
-                if (!articleURL) {
-                    continue;
-                }
-                [group enter];
-                [self cancelFetchForArticleURL:articleURL
-                                    completion:^{
-                                        [self removeArticleWithURL:articleURL
-                                                        completion:^{
-                                                            [group leave];
-                                                        }];
-                                    }];
-            }
-        }
-        [group leave];
-    });
-    [group waitInBackgroundWithCompletion:didFinishLegacyMigration];
-}
-
-- (void)fetchUncachedArticleURLs:(NSArray<NSURL *> *)urls {
-    if (!urls.count) {
-        return;
-    }
-    for (NSURL *url in urls) {
-        dispatch_async(self.accessQueue, ^{
-            [self fetchArticleURL:url
-                failure:^(NSError *error) {
-                }
-                success:^{
-                    [self.spotlightManager addToIndexWithUrl:url];
-                }];
-        });
-    }
-}
-
-- (void)fetchArticleURL:(NSURL *)articleURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)fetchArticleURL:(NSURL *)articleURL priority:(float)priority failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+    WMFAssertMainThread(@"must be called on the main thread");
     if (!articleURL.wmf_title) {
         DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
         failure([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
@@ -222,52 +197,56 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         failure([NSError wmf_errorWithType:WMFErrorTypeFetchAlreadyInProgress userInfo:nil]);
         return;
     }
-    // NOTE: must check isCached to determine that all article data has been downloaded
-    MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
-    if (articleFromDisk.isCached) {
-        // only fetch images if article was cached
-        [self downloadImageDataForArticle:articleFromDisk
-            failure:^(NSError *_Nonnull error) {
-                dispatch_async(self.accessQueue, ^{
-                    [self didFetchArticle:articleFromDisk url:articleURL error:error];
-                    failure(error);
-                });
-            }
-            success:^{
-                dispatch_async(self.accessQueue, ^{
-                    [self didFetchArticle:articleFromDisk url:articleURL error:nil];
-                    success();
-                });
-            }];
-    } else {
-        self.fetchOperationsByArticleTitle[articleURL] =
-            [self.articleFetcher fetchArticleForURL:articleURL
-                saveToDisk:YES
-                progress:NULL
-                failure:^(NSError *_Nonnull error) {
-                    dispatch_async(self.accessQueue, ^{
-                        [self didFetchArticle:nil url:articleURL error:error];
-                        failure(error);
-                    });
-                }
-                success:^(MWKArticle *_Nonnull article) {
-                    dispatch_async(self.accessQueue, ^{
-                        [self downloadImageDataForArticle:article
-                            failure:^(NSError *error) {
-                                dispatch_async(self.accessQueue, ^{
-                                    [self didFetchArticle:article url:articleURL error:error];
-                                    failure(error);
-                                });
-                            }
-                            success:^{
-                                dispatch_async(self.accessQueue, ^{
-                                    [self didFetchArticle:article url:articleURL error:nil];
-                                    success();
-                                });
-                            }];
-                    });
-                }];
-    }
+    
+         // NOTE: must check isCached to determine that all article data has been downloaded
+         MWKArticle *articleFromDisk = [self.dataStore articleWithURL:articleURL];
+         if (articleFromDisk.isCached) {
+             // only fetch images if article was cached
+             [self downloadImageDataForArticle:articleFromDisk
+                                       failure:^(NSError *_Nonnull error) {
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [self didFetchArticle:articleFromDisk url:articleURL error:error];
+                                               failure(error);
+                                           });
+                                       }
+                                       success:^{
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [self didFetchArticle:articleFromDisk url:articleURL error:nil];
+                                               success();
+                                           });
+                                       }];
+         } else {
+             self.fetchOperationsByArticleTitle[articleURL] =
+             [self.articleFetcher fetchArticleForURL:articleURL
+                                          saveToDisk:YES
+                                            priority:priority
+                                            progress:NULL
+                                             failure:^(NSError *_Nonnull error) {
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     [self didFetchArticle:nil url:articleURL error:error];
+                                                     failure(error);
+                                                 });
+                                             }
+                                             success:^(MWKArticle *_Nonnull article) {
+                                                 dispatch_async(self.accessQueue, ^{
+                                                     [self downloadImageDataForArticle:article
+                                                                               failure:^(NSError *error) {
+                                                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                       [self didFetchArticle:article url:articleURL error:error];
+                                                                                       failure(error);
+                                                                                   });
+                                                                               }
+                                                                               success:^{
+                                                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                       [self didFetchArticle:article url:articleURL error:nil];
+                                                                                       success();
+                                                                                   });
+                                                                               }];
+                                                 });
+                                             }];
+         }
+
+    
 }
 
 - (void)downloadImageDataForArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
@@ -405,39 +384,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 #pragma mark - Cancellation
 
-- (void)cancelFetchForSavedPages {
-    BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
-    [self.savedPageList enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
-        dispatch_async(self.accessQueue, ^{
-            [self cancelFetchForArticleURL:entry.URL
-                                completion:^{
-                                }];
-        });
-    }];
-    if (wasFetching) {
-        dispatch_async(self.accessQueue, ^{
-            /*
-               only notify delegate if deletion occurs during a download session. if deletion occurs
-               after the fact, we don't need to inform delegate of completion
-             */
-            [self notifyDelegateIfFinished];
-        });
-    }
-}
-
 - (void)removeArticleWithURL:(NSURL *)URL completion:(dispatch_block_t)completion {
     [self.dataStore removeArticleWithURL:URL fromDiskWithCompletion:completion];
 }
 
-- (void)cancelFetchForArticleURL:(NSURL *)URL completion:(dispatch_block_t)completion {
-    dispatch_async(self.accessQueue, ^{
-        DDLogVerbose(@"Canceling saved page download for title: %@", URL);
-        [self.articleFetcher cancelFetchForArticleURL:URL];
-        [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
-        if (completion) {
-            completion();
-        }
-    });
+- (void)cancelFetchForArticleURL:(NSURL *)URL {
+    WMFAssertMainThread(@"must be called on the main thread");
+    DDLogVerbose(@"Canceling saved page download for title: %@", URL);
+    [self.articleFetcher cancelFetchForArticleURL:URL];
+    [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
 }
 
 #pragma mark - Delegate Notification
@@ -446,8 +401,9 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)didFetchArticle:(MWKArticle *__nullable)fetchedArticle
                     url:(NSURL *)url
                   error:(NSError *__nullable)error {
+    WMFAssertMainThread(@"must be called on the main thread");
+
     //Uncomment when dropping iOS 9
-    //dispatch_assert_queue_debug(self.accessQueue);
     if (error) {
         // store errors for later reporting
         DDLogError(@"Failed to download saved page %@ due to error: %@", url, error);
@@ -459,23 +415,19 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     // stop tracking operation, effectively advancing the progress
     [self.fetchOperationsByArticleTitle removeObjectForKey:url];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!error) {
-            WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
-            article.isDownloaded = YES;
-            NSError *saveError = nil;
-            [self.dataStore save:&saveError];
-            if (saveError) {
-                DDLogError(@"Error saving after saved articles fetch: %@", saveError);
-            }
+    if (!error) {
+        WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
+        article.isDownloaded = YES;
+        NSError *saveError = nil;
+        [self.dataStore save:&saveError];
+        if (saveError) {
+            DDLogError(@"Error saving after saved articles fetch: %@", saveError);
         }
-        [self.fetchFinishedDelegate savedArticlesFetcher:self
-                                             didFetchURL:url
-                                                 article:fetchedArticle
-                                                   error:error];
-    });
-
-    [self notifyDelegateIfFinished];
+    }
+    [self.fetchFinishedDelegate savedArticlesFetcher:self
+                                         didFetchURL:url
+                                             article:fetchedArticle
+                                               error:error];
 }
 
 /// Only invoke within accessQueue

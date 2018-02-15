@@ -110,14 +110,17 @@ public class ReadingListsController: NSObject {
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
     internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
+        var lists: Set<ReadingList> = []
         for entry in readingListEntries {
             entry.isDeletedLocally = true
             entry.isUpdatedLocally = true
-            if let moc = entry.managedObjectContext, let key = entry.articleKey, let article = dataStore.fetchArticle(withKey: key, in: moc), let list = entry.list {
-                list.removeFromArticles(article)
-                article.readingListsDidChange()
+            guard let list = entry.list else {
+                continue
             }
-            entry.list?.updateCountOfEntries()
+            lists.insert(list)
+        }
+        for list in lists {
+            list.updateArticlesAndEntries()
         }
     }
     
@@ -129,6 +132,7 @@ public class ReadingListsController: NSObject {
         var createdReadingLists: [Int64: ReadingList] = [:]
         var updatedReadingLists: [Int64: ReadingList] = [:]
         var deletedReadingLists: [Int64: ReadingList] = [:]
+        var listsToCreate: [ReadingList] = []
         for localReadingList in listsToUpdate {
             guard let readingListName = localReadingList.name else {
                 moc.delete(localReadingList)
@@ -138,17 +142,7 @@ public class ReadingListsController: NSObject {
                 if localReadingList.isDeletedLocally {
                     moc.delete(localReadingList)
                 } else {
-                    taskGroup.enter()
-                    self.apiController.createList(name: readingListName, description: localReadingList.readingListDescription, completion: { (readingListID, creationError) in
-                        defer {
-                            taskGroup.leave()
-                        }
-                        guard let readingListID = readingListID else {
-                            DDLogError("Error creating reading list: \(String(describing: creationError))")
-                            return
-                        }
-                        createdReadingLists[readingListID] = localReadingList
-                    })
+                    listsToCreate.append(localReadingList)
                 }
                 continue
             }
@@ -179,6 +173,31 @@ public class ReadingListsController: NSObject {
             }
         }
         
+        let listNamesAndDescriptionsToCreate: [(name: String, description: String?)] = listsToCreate.flatMap {
+            guard let name = $0.name else {
+                return nil;
+            }
+            return (name: name, description: $0.readingListDescription)
+        }
+        taskGroup.enter()
+        self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, creationError) in
+            defer {
+                taskGroup.leave()
+            }
+            guard let readingListIDs = readingListIDs else {
+                DDLogError("Error creating reading list: \(String(describing: creationError))")
+                return
+            }
+            for (index, readingListID) in readingListIDs.enumerated() {
+                guard index < listsToCreate.count else {
+                    break
+                }
+                let localReadingList = listsToCreate[index]
+                createdReadingLists[readingListID] = localReadingList
+            }
+        })
+        
+        
         taskGroup.wait()
         
         for (readingListID, localReadingList) in createdReadingLists {
@@ -201,6 +220,7 @@ public class ReadingListsController: NSObject {
         
         var createdReadingListEntries: [Int64: ReadingListEntry] = [:]
         var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
+        var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
         
         for localReadingListEntry in localReadingListEntriesToUpdate {
             guard let articleKey = localReadingListEntry.articleKey, let articleURL = URL(string: articleKey), let project = articleURL.wmf_site?.absoluteString, let title = articleURL.wmf_title else {
@@ -214,17 +234,7 @@ public class ReadingListsController: NSObject {
                 if localReadingListEntry.isDeletedLocally {
                     moc.delete(localReadingListEntry)
                 } else {
-                    taskGroup.enter()
-                    self.apiController.addEntryToList(withListID: readingListID, project:project, title: title, completion: { (readingListEntryID, createError) in
-                        defer {
-                            taskGroup.leave()
-                        }
-                        guard let readingListEntryID = readingListEntryID else {
-                            DDLogError("Error creating reading list entry: \(String(describing: createError))")
-                            return
-                        }
-                        createdReadingListEntries[readingListEntryID] = localReadingListEntry
-                    })
+                    entriesToAddByListID[readingListID, default: []].append((project: project, title: title, entry: localReadingListEntry))
                 }
                 continue
             }
@@ -246,6 +256,27 @@ public class ReadingListsController: NSObject {
             }
         }
         
+        for (readingListID, entries) in entriesToAddByListID {
+            taskGroup.enter()
+            let entryProjectAndTitles = entries.map { (project: $0.project, title: $0.title) }
+            self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
+                defer {
+                    taskGroup.leave()
+                }
+                guard let readingListEntryIDs = readingListEntryIDs else {
+                    DDLogError("Error creating reading list entry: \(String(describing: createError))")
+                    return
+                }
+                for (index, readingListEntryID) in readingListEntryIDs.enumerated() {
+                    guard index < entries.count else {
+                        break
+                    }
+                    let localReadingListEntry = entries[index].entry
+                    createdReadingListEntries[readingListEntryID] = localReadingListEntry
+                }
+                
+            })
+        }
         taskGroup.wait()
         
         for (readingListEntryID, localReadingListEntry) in createdReadingListEntries {
@@ -533,17 +564,21 @@ public class ReadingListsController: NSObject {
         try article.addToDefaultReadingList()
     }
     
-    @objc public func unsave(_ article: WMFArticle) {
+    @objc public func unsaveArticle(_ article: WMFArticle) {
+        unsave([article])
+    }
+    
+    @objc public func unsave(_ articles: [WMFArticle]) {
         do {
-            guard let moc = article.managedObjectContext else {
+            guard let moc = articles.first?.managedObjectContext else {
                 return
             }
-            article.savedDate = nil
-            guard let key = article.key else {
-                return
+            for article in articles {
+                article.savedDate = nil
             }
+            let keys = articles.flatMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
+            entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
             let entries = try moc.fetch(entryFetchRequest)
             try markLocalDeletion(for: entries)
         } catch let error {
@@ -552,15 +587,15 @@ public class ReadingListsController: NSObject {
     }
     
     
-    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLS: [URL]) {
+    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLs: [URL]) {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            for url in articleURLS {
+            for url in articleURLs {
                 guard let article = dataStore.fetchArticle(with: url) else {
                     continue
                 }
-                unsave(article)
+                unsave([article])
             }
             if moc.hasChanges {
                 try moc.save()
@@ -575,9 +610,8 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (article: WMFArticle) in
-                print("unsaving \(article.key!)")
-                unsave(article)
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
+                unsave(articles)
             })
             update()
         } catch let error {
@@ -675,7 +709,10 @@ public class ReadingListsController: NSObject {
     
     internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
         var sinceDate: Date = Date.distantPast
-
+        guard remoteReadingListEntries.count > 0 else {
+            return sinceDate
+        }
+        
         // Arrange remote list entries by ID and key for merging with local lists
         var remoteReadingListEntriesByID: [Int64: APIReadingListEntry] = [:]
         var remoteReadingListEntriesByListIDAndArticleKey: [Int64: [String: APIReadingListEntry]] = [:]

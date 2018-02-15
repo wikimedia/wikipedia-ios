@@ -14,8 +14,8 @@ class ReadingListsDisableSyncOperation: ReadingListsOperation {
             self.dataStore.performBackgroundCoreDataOperation(onATemporaryContext: { (moc) in
                 do {
                     if self.shouldDeleteLocalLists {
-                        try moc.wmf_batchProcessObjects(matchingPredicate: NSPredicate(format: "savedDate != NULL"), resetAfterSave: true, handler: { (article: WMFArticle) in
-                            self.readingListsController.unsave(article)
+                        try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), resetAfterSave: true, handler: { (articles: [WMFArticle]) in
+                            self.readingListsController.unsave(articles)
                         })
                     } else {
                         try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingList: ReadingList) in

@@ -411,7 +411,7 @@ extension SavedArticlesViewController: ActionDelegate {
     }
     
     private func delete(articles: [WMFArticle]) {
-        articles.forEach { self.dataStore.readingListsController.unsave($0) }
+        dataStore.readingListsController.unsave(articles)
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
