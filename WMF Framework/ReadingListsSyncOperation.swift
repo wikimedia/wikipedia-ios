@@ -5,12 +5,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 do {
                     try self.executeSync(on: moc)
                 } catch let error {
-                    DDLogError("error during sync operation")
-                    if let readingListError = error as? APIReadingListError, readingListError == .notSetup {
-                        let syncState: ReadingListSyncState = .needsLocalReset
-                        moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
-                        self.readingListsController.sync()
-                    }
+                    DDLogError("error during sync operation: \(error)")
                     do {
                         if moc.hasChanges {
                             try moc.save()
@@ -18,7 +13,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     } catch let error {
                         DDLogError("error during sync save: \(error)")
                     }
-                    self.finish(with: error)
+                    if let readingListError = error as? APIReadingListError, readingListError == .notSetup {
+                        DispatchQueue.main.async {
+                            self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                            self.finish()
+                        }
+                    } else {
+                        self.finish(with: error)
+                    }
                 }
             }
         }
