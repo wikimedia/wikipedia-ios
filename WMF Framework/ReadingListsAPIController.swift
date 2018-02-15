@@ -157,7 +157,7 @@ class ReadingListsAPIController: NSObject {
             return
         }
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
-        post(path: "batch/", bodyParameters: bodyParams) { (result, response, error) in
+        post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
                 completion(nil, ReadingListError.unableToCreateList)
                 return
