@@ -87,7 +87,7 @@
 "appearance-settings-title" = "正在读取主题";
 "article-about-title" = "关于此条目";
 "article-delete" = "删除";
-"article-deleted-accessibility-notification" = "条目已删除";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|条目}}已删除";
 "article-languages-filter-placeholder" = "查找语言";
 "article-languages-label" = "选择语言";
 "article-languages-others" = "其他语言";
@@ -115,8 +115,8 @@
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
-"delete-reading-list-alert-message" = "任何在{{PLURAL:$1|此|这些}}列表中的条目将取消保存，只要这些条目未出现在其他阅读列表中。";
-"delete-reading-list-alert-title" = "您确定要删除{{PLURAL:$1|此|这$1个}}列表么？";
+"delete-reading-list-alert-message" = "任何只保存到{{PLURAL:$1|此|这些}}列表的条目将在其删除时被取消保存。";
+"delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
 "dim-images" = "使图片变暗";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-typos" = "修正笔误";
@@ -338,6 +338,7 @@
 "reading-list-unable-to-remove-entry" = "从您的阅读列表中移除条目时发生意外错误。请稍后重试。";
 "reading-list-unable-to-update" = "更新您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-with-provided-name-not-found" = "找不到名为$1的阅读列表。请确保您已提供正确名称。";
+"reading-lists-article-moved-confirmation" = "条目已移动至“$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1个阅读列表}}";
 "reading-lists-default-list-description" = "默认用于已保存条目的列表";
 "reading-lists-default-list-title" = "书签";
@@ -355,8 +356,7 @@
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "saved-all-articles-title" = "所有条目";
 "saved-clear-all" = "清除";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "您确定要取消保存此条目，并将其从{{PLURAL:$1|$1个阅读列表}}中移除么？";
-"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "您确定要取消保存这些条目，并将它们从所有阅读列表中移除么？";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "您确定要取消保存{{PLURAL:$1|此|这些}}条目，并将其从所有阅读列表中移除么？";
 "saved-default-reading-list-tag" = "此列表不能删除";
 "saved-pages-clear-cancel" = "取消";
 "saved-pages-clear-confirmation-heading" = "您确定要删除所有您保存的条目，并将它们从所有阅读列表移除么？";
@@ -427,7 +427,9 @@
 "two-factor-login-title" = "登录您的账户";
 "two-factor-login-with-backup-code" = "使用您的任一备份代码";
 "two-factor-login-with-regular-code" = "使用验证码";
-"unsave-article-and-remove-from-reading-lists" = "取消保存并从{{PLURAL:$1|$1个阅读列表}}移除";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "取消保存该条目也将把它从阅读列表“$1”中移除。";
+"unsave-article-and-remove-from-reading-lists-message" = "取消保存该条目也将把它从所有阅读列表中移除。";
+"unsave-article-and-remove-from-reading-lists-title" = "取消保存条目么？";
 "view-in-browser-footer-link" = "在浏览器查看条目";
 "welcome-exploration-explore-feed-description" = "来自我们社群的推荐阅读和每日条目";
 "welcome-exploration-explore-feed-title" = "探索订阅";

@@ -197,9 +197,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Are you sure you want to unsave this article and remove it from %1$d reading list?</string>
+			<string>Are you sure you want to unsave this articles and remove it from all reading lists?</string>
 			<key>other</key>
-			<string>Are you sure you want to unsave this article and remove it from %1$d reading lists?</string>
+			<string>Are you sure you want to unsave these articles and remove them from all reading lists?</string>
 		</dict>
 	</dict>
 </dict>

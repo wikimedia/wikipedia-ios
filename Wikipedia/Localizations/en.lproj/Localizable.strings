@@ -338,8 +338,7 @@
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "saved-all-articles-title" = "All articles";
 "saved-clear-all" = "Clear";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Are you sure you want to unsave this article and remove it from {{PLURAL:$1|$1 reading list|$1 reading lists}}?";
-"saved-confirm-unsave-articles-and-remove-from-reading-lists" = "Are you sure you want to unsave these articles and remove them from all reading lists?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Are you sure you want to unsave {{PLURAL:$1|this articles and remove it|these articles and remove them}} from all reading lists?";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-clear-cancel" = "Cancel";
 "saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved articles and remove them from all reading lists?";
@@ -413,8 +412,9 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
-"unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from $1 reading lists";
-"unsave-article-and-remove-from-reading-lists-title" = "Unsave article and remove it from lists?";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "Unsaving this article will also remove it from the reading list “$1”.";
+"unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from all reading lists.";
+"unsave-article-and-remove-from-reading-lists-title" = "Unsave article?";
 "update-articles-button" = "Update $1";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";

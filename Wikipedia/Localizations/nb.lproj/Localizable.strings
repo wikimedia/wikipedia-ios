@@ -75,6 +75,7 @@
 "appearance-settings-title" = "Lesedrakter";
 "article-about-title" = "Om artikkelen";
 "article-delete" = "Slett";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikkelen er slettet";
 "article-languages-filter-placeholder" = "Finn språk";
 "article-languages-label" = "Velg språk";

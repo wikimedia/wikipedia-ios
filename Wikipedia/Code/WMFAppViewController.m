@@ -318,7 +318,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }
     self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.dataStore stopCacheRemoval];
-        [self.savedArticlesFetcher cancelFetchForSavedPages];
         [self endHousekeepingBackgroundTask];
     }];
 }
@@ -705,11 +704,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     [taskGroup enter];
     [self.dataStore startCacheRemoval:^{
-        [taskGroup leave];
-    }];
-
-    [taskGroup enter];
-    [self.savedArticlesFetcher fetchUncachedArticlesInSavedPages:^{
         [taskGroup leave];
     }];
 

@@ -30,12 +30,15 @@ public class ReadingListAlertController: NSObject {
     @objc public weak var delegate: WMFReadingListAlertControllerDelegate?
     
     @objc func showAlert(presenter: UIViewController & WMFReadingListAlertControllerDelegate, article: WMFArticle) {
-        guard let readingListsCount = article.readingLists?.count else {
-            return
-        }
         delegate = presenter
-        let title = WMFLocalizedString("unsave-article-and-remove-from-reading-lists-title", value: "Unsave article and remove it from lists?", comment: "Title of the alert action that unsaves a selected article and removes it from all reading lists")
-        let message = String.localizedStringWithFormat(WMFLocalizedString("unsave-article-and-remove-from-reading-lists-message", value: "Unsaving this article will remove it from %1$d reading lists", comment: "Message of the alert action that unsaves a selected article and removes it from all reading lists"), readingListsCount)
+        let title = WMFLocalizedString("unsave-article-and-remove-from-reading-lists-title", value: "Unsave article?", comment: "Title of the alert action that unsaves a selected article and removes it from all reading lists")
+        let message: String
+        if article.userCreatedReadingListsCount == 1, let name = article.userCreatedReadingLists.first?.name {
+            message = String.localizedStringWithFormat(WMFLocalizedString("unsave-article-and-remove-from-reading-list-with-name-message", value: "Unsaving this article will also remove it from the reading list “%1$@”.", comment: "Message of the alert action that unsaves a selected article and removes it from all reading lists"), name)
+        } else {
+            message = WMFLocalizedString("unsave-article-and-remove-from-reading-lists-message", value: "Unsaving this article will remove it from all reading lists.", comment: "Message of the alert action that unsaves a selected article and removes it from all reading lists")
+        }
+        
         let unsave = ReadingListAlertActionType.unsave.action {
             self.delegate?.readingListAlertController(self, didSelectUnsaveForArticle: article)
         }
@@ -50,12 +53,7 @@ public class ReadingListAlertController: NSObject {
     }
     
     func showAlert(presenter: UIViewController, articles: [WMFArticle], actions: [UIAlertAction], completion: (() -> Void)? = nil) {
-        let title: String
-        if articles.count == 1, let article = articles.first {
-            title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave this article and remove it from {{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), article.readingLists?.filter { !$0.isDefaultList }.count ?? 0)
-        } else {
-            title = WMFLocalizedString("saved-confirm-unsave-articles-and-remove-from-reading-lists", value: "Are you sure you want to unsave these articles and remove them from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected articles and removes them from all reading lists")
-        }
+        let title = String.localizedStringWithFormat(WMFLocalizedString("saved-confirm-unsave-article-and-remove-from-reading-lists", value: "Are you sure you want to unsave {{PLURAL:%1$d|this articles and remove it|these articles and remove them}} from all reading lists?", comment: "Confirmation prompt for action that unsaves a selected article and removes it from all reading lists"), articles.count)
         presenter.present(alert(with: title, message: nil, actions: actions), animated: true, completion: completion)
     }
     

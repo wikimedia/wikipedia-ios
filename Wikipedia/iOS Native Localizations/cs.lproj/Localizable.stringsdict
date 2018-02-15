@@ -13,9 +13,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Jakékoli články v tomto seznamu nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
+			<string>Jakékoli články uložené jenom v tomto seznamu nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
 			<key>other</key>
-			<string>Jakékoli články v těchto seznamech nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
+			<string>Jakékoli články uložené jenom v těchto seznamech nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Odstranit tento seznam?</string>
+			<key>other</key>
+			<string>Odstranit těchto %1$d seznamů?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -61,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze %1$d seznamu čtení?</string>
+			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit z jednoho seznamu čtení?</string>
 			<key>other</key>
-			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit ze %1$d seznamů čtení?</string>
+			<string>Jste si jist/a, že nechcete uložit tento článek a chcete ho odstranit z %1$d seznamů čtení?</string>
 		</dict>
 	</dict>
 </dict>

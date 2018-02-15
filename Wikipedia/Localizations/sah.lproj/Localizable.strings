@@ -62,6 +62,7 @@
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-delete" = "Сот";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Ыстатыйа сотулунна";
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-languages-label" = "Тылгын тал";

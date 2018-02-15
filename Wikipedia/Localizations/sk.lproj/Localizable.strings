@@ -58,6 +58,7 @@
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
 "article-delete" = "Vymazať";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Článok bol odstránený";
 "article-languages-filter-placeholder" = "Nájsť jazyk";
 "article-languages-label" = "Zvoliť jazyk";

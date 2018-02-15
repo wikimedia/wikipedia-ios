@@ -60,7 +60,13 @@
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
 "account-creation-title" = "Buat akun baru";
+"action-add-to" = "Tambahkan ke...";
+"action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
+"action-cancel" = "Batal";
+"action-move-to" = "Pindahkan ke...";
+"action-move-to-reading-list" = "Pindahkan ke daftar bacaan";
 "action-read" = "Baca";
+"action-remove" = "Hapus";
 "action-save" = "Simpan";
 "action-saved" = "Tersimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk tidak menyimpannya.";
@@ -68,6 +74,8 @@
 "action-share" = "Bagikan";
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
+"action-update" = "Perbarui";
+"add-articles-to-reading-list" = "Tambahkan $1 ke daftar bacaan";
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Sesuaikan ukuran teks artikel";
@@ -81,6 +89,7 @@
 "appearance-settings-title" = "Tema bacaan";
 "article-about-title" = "Mengenai artikel ini";
 "article-delete" = "Hapus";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel terhapus";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
@@ -109,6 +118,9 @@
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
+// Fuzzy
+"delete-reading-list-alert-message" = "Setiap artikel yang disimpan hanya ke {{PLURAL:$1|daftar ini akan hilang bila dihapus|daftar ini akan hilang bila dihapus}}.";
+"delete-reading-list-alert-title" = "Hapus {{PLURAL:$1|daftar|daftar}}?";
 "dim-images" = "Redupkan gambar";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-typos" = "Perbaikan kesalahan ketik";
@@ -122,6 +134,8 @@
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
+"empty-no-reading-lists-message" = "Ketuk tombol ‘+’ yang berwarna biru untuk membuat daftar tempat yang harus dikunjungi, topik favorit dan banyak lagi";
+"empty-no-reading-lists-title" = "Atur artikel tersimpan dengan daftar bacaan";
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
@@ -317,6 +331,21 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
+"reading-list-exists-with-same-name" = "Daftar bacaan sudah ada dengan nama $1";
+"reading-list-generic-error" = "Terjadi kesalahan tak terduga saat memperbarui daftar bacaan Anda.";
+"reading-list-hint-title" = "Pindahkan $1 ke daftar bacaan?";
+"reading-list-sync-setting" = "Sinkronisasi daftar bacaan";
+"reading-list-unable-to-add-entry" = "Terjadi kesalahan tak terduga saat menambahkan entri ke daftar bacaan Anda. Silakan coba lagi nanti.";
+"reading-list-unable-to-create" = "Terjadi kesalahan tak terduga saat membuat daftar bacaan Anda. Silakan coba lagi nanti.";
+"reading-list-unable-to-delete" = "Terjadi kesalahan tak terduga saat menghapus daftar bacaan Anda. Silakan coba lagi nanti.";
+"reading-list-unable-to-remove-entry" = "Terjadi kesalahan tak terduga saat menghapus entri dari daftar bacaan Anda. Silakan coba lagi nanti.";
+"reading-list-unable-to-update" = "Terjadi kesalahan tak terduga saat memperbarui daftar bacaan Anda. Silakan coba lagi nanti.";
+"reading-list-with-provided-name-not-found" = "Daftar bacaan dengan nama $1 tidak ditemukan. Pastikan Anda memiliki nama yang benar.";
+"reading-lists-article-moved-confirmation" = "Artikel dipindahkan ke “$1”";
+"reading-lists-count" = "{{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}";
+"reading-lists-default-list-description" = "Daftar default untuk artikel yang tersimpan";
+"reading-lists-default-list-title" = "Markah";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
 "reading-themes-controls-accessibility-brightness-slider" = "Penggeser kecerahan";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema gelap";
@@ -329,12 +358,17 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lalu|$1 tahun yang lalu}}";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
+"saved-all-articles-title" = "Semua artikel";
 "saved-clear-all" = "Kosongkan";
-"saved-pages-clear-cancel" = "Batal";
 // Fuzzy
-"saved-pages-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua halaman tersimpan Anda?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Apakah Anda yakin ingin melepaskan artikel ini dan menghapusnya dari {{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}?";
+"saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
+"saved-pages-clear-cancel" = "Batal";
+"saved-pages-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua artikel tersimpan Anda dan menghapusnya dari semua daftar bacaan?";
 "saved-pages-clear-delete-all" = "Ya, hapus semua";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
+"saved-reading-lists-title" = "Daftar bacaan";
+"saved-search-default-text" = "Cari";
 "saved-title" = "Tersimpan";
 "search-button-accessibility-label" = "Telusuri Wikipedia";
 "search-did-you-mean" = "Mungkin maksud Anda adalah: $1";
