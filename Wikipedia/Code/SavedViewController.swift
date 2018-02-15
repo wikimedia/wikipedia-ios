@@ -41,13 +41,13 @@ class SavedViewController: ViewController {
                 return
             }
             title = CommonStrings.savedTabTitle
-            savedArticlesViewController.dataStore = newValue
+            savedArticlesViewController = SavedArticlesViewController(with: newValue)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        savedArticlesViewController = SavedArticlesViewController()
+        
     }
     
     // MARK: - Toggling views
@@ -144,12 +144,19 @@ class SavedViewController: ViewController {
 
         searchBar.delegate = savedArticlesViewController
         searchBar.returnKeyType = .search
-        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search ", comment:"tbd")
+        searchBar.placeholder = WMFLocalizedString("saved-search-default-text", value:"Search", comment:"Placeholder text for the search bar in Saved")
+        
+        sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
         
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
         super.viewDidLoad()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
     }
     
     // MARK: - Sorting

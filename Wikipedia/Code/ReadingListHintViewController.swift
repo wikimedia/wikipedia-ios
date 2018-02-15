@@ -83,8 +83,7 @@ class ReadingListHintViewController: UIViewController {
         guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        let viewController = readingList.isDefaultList ? SavedArticlesViewController() : ReadingListDetailViewController(for: readingList, with: dataStore)
-        (viewController as? SavedArticlesViewController)?.dataStore = dataStore
+        let viewController = readingList.isDefaultList ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
         viewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)

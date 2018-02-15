@@ -130,11 +130,7 @@ open class ImageController : NSObject {
         guard let host = url.host, let imageName = WMFParseImageNameFromSourceURL(url) else {
             return url.absoluteString.precomposedStringWithCanonicalMapping
         }
-        var key = (host + "__" + imageName).precomposedStringWithCanonicalMapping
-        if key.lengthOfBytes(using: .utf8) > 256 {
-            key = key.sha256
-        }
-        return key
+        return (host + "__" + imageName).precomposedStringWithCanonicalMapping
     }
     
     fileprivate func variantForURL(_ url: URL) -> Int64 { // A return value of 0 indicates the original size
@@ -152,9 +148,15 @@ open class ImageController : NSObject {
         return "\(key)__\(variant)".precomposedStringWithCanonicalMapping
     }
     
-    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
+    fileprivate func legacyPermanentCacheFileURL(key: String, variant: Int64) -> URL {
         let identifier = identifierForKey(key, variant: variant)
         return self.permanentStorageDirectory.appendingPathComponent(identifier, isDirectory: false)
+    }
+    
+    fileprivate func permanentCacheFileURL(key: String, variant: Int64) -> URL {
+        let identifier = identifierForKey(key, variant: variant)
+        let component = identifier.sha256 ?? identifier
+        return self.permanentStorageDirectory.appendingPathComponent(component, isDirectory: false)
     }
     
     fileprivate func fetchCacheItem(key: String, variant: Int64, moc: NSManagedObjectContext) -> CacheItem? {
@@ -281,6 +283,7 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
                 }
+                
                 moc.perform {
                     guard createItem else {
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
@@ -353,6 +356,12 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error removing from permanent cache: \(error)")
                 }
+                do {
+                    let legacyFileURL = self.legacyPermanentCacheFileURL(key: key, variant: item.variant)
+                    try fm.removeItem(at: legacyFileURL)
+                } catch let error {
+                    DDLogError("Error removing from permanent cache: \(error)")
+                }
                 moc.delete(item)
             }
             moc.delete(group)
@@ -368,8 +377,13 @@ open class ImageController : NSObject {
         let key = cacheKeyForURL(url)
         let variant = variantForURL(url)
         let fileURL = permanentCacheFileURL(key: key, variant: variant)
-        let mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
-        let data = fileManager.contents(atPath: fileURL.path)
+        var mimeType: String? = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: fileURL.path)
+        var data = fileManager.contents(atPath: fileURL.path)
+        if data == nil { // check for legacy data
+            let legacyFileURL = legacyPermanentCacheFileURL(key: key, variant: variant)
+           mimeType = fileManager.wmf_value(forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: legacyFileURL.path)
+            data = fileManager.contents(atPath: legacyFileURL.path)
+        }
         return TypedImageData(data: data, MIMEType: mimeType)
     }
     
@@ -584,6 +598,21 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
                 }
+                
+                if !createItem {
+                    let legacyPermanentCacheURL = self.legacyPermanentCacheFileURL(key: key, variant: variant)
+                    do {
+                        try self.fileManager.moveItem(at: legacyPermanentCacheURL, to: fileURL)
+                        createItem = true
+                    } catch let error as NSError {
+                        if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
+                            createItem = true
+                        }
+                    } catch let error {
+                        DDLogError("Error moving cached file: \(error)")
+                    }
+                }
+                
                 guard createItem else {
                     continue
                 }

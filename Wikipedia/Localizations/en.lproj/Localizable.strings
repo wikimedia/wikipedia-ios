@@ -51,6 +51,7 @@
 "action-saved-accessibility" = "Saved. Activate to unsave.";
 "action-saved-accessibility-notification" = "Article saved for later";
 "action-share" = "Share";
+"action-sort" = "Sort";
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
@@ -363,11 +364,12 @@
 "saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-reading-lists-title" = "Reading lists";
-"saved-search-default-text" = "Search ";
+"saved-search-default-text" = "Search";
 "saved-title" = "Saved";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
+"search-reading-list-placeholder-text" = "Search reading list";
 "search-recent-clear-cancel" = "Cancel";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
@@ -408,6 +410,8 @@
 "share-open-in-maps" = "Open in Maps";
 "share-social-format" = "“$1” via Wikipedia: $2";
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
+"sort-by-recently-added-action" = "Recently added";
+"sort-by-title-action" = "Title";
 "status-saved-for-later" = "Saved for later";
 "status-saving-for-later" = "Saving for later...";
 "table-of-contents-button-label" = "Table of contents";
@@ -430,6 +434,7 @@
 "unsave-article-and-remove-from-reading-list-with-name-message" = "Unsaving this article will also remove it from the reading list “$1”.";
 "unsave-article-and-remove-from-reading-lists-message" = "Unsaving this article will remove it from all reading lists.";
 "unsave-article-and-remove-from-reading-lists-title" = "Unsave article?";
+"update-articles-button" = "Update $1";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";
 "welcome-exploration-explore-feed-title" = "Explore feed";

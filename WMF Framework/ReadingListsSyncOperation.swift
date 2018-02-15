@@ -50,6 +50,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
         
+        #if DEBUG
+            if syncState.contains(.needsRandomEntries) {
+                try executeRandomArticlePopulation(in: moc)
+                syncState.remove(.needsRandomEntries)
+                moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            }
+        #endif
+        
         if syncState.contains(.needsLocalReset) {
             try moc.wmf_batchProcessObjects(resetAfterSave: true, handler: { (readingList: ReadingList) in
                 readingList.readingListID = nil
@@ -65,14 +73,27 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             moc.reset()
         }
         
-        if syncState.contains(.needsLocalClear) {
+        if syncState.contains(.needsLocalArticleClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), resetAfterSave: true, handler: { (articles: [WMFArticle]) in
                 self.readingListsController.unsave(articles)
             })
-            syncState.remove(.needsLocalClear)
+        
+            syncState.remove(.needsLocalArticleClear)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
             try moc.save()
-            moc.reset()
+        }
+        
+        if syncState.contains(.needsLocalListClear) {
+            try moc.wmf_batchProcess(resetAfterSave: true, handler: { (lists: [ReadingList]) in
+                try self.readingListsController.markLocalDeletion(for: lists)
+                for list in lists {
+                    moc.delete(list)
+                }
+            })
+            
+            syncState.remove(.needsLocalListClear)
+            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            try moc.save()
         }
         
         // local only sync
@@ -282,36 +303,44 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         try moc.save()
     }
     
-    func populateReadingListsWithRandomArticles(in moc: NSManagedObjectContext) {
-        //                        for readingList in allAPIReadingLists {
-        //                            let randomArticleFetcher = WMFRandomArticleFetcher()
-        //                            guard let siteURL = URL(string: "https://en.wikipedia.org") else {
-        //                                return
-        //                            }
-        //                            for _ in 0...200 {
-        //                                let taskGroup = WMFTaskGroup()
-        //                                var listIsFull = false
-        //                                for _ in 0...5 {
-        //                                    taskGroup.enter()
-        //                                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
-        //                                        taskGroup.leave()
-        //                                    }, success: { (searchResult) in
-        //                                        let articleURL = searchResult.articleURL(forSiteURL: siteURL)
-        //                                        self.apiController.addEntryToList(withListID: readingList.id, project: siteURL.absoluteString, title: articleURL?.wmf_title ?? "", completion: { (entryID, error) in
-        //                                            print("\(String(describing: entryID))")
-        //                                            if let apiError = error as? APIReadingListError, apiError == .entryLimit {
-        //                                                listIsFull = true
-        //                                            }
-        //                                            taskGroup.leave()
-        //                                        })
-        //                                    })
-        //
-        //                                }
-        //                                taskGroup.wait()
-        //                                if listIsFull {
-        //                                    break
-        //                                }
-        //                            }
-        //                        }
+    func executeRandomArticlePopulation(in moc: NSManagedObjectContext) throws {
+        guard let siteURL = URL(string: "https://en.wikipedia.org") else {
+            return
+        }
+        let randomArticleFetcher = WMFRandomArticleFetcher()
+        let taskGroup = WMFTaskGroup()
+        try moc.wmf_batchProcessObjects { (list: ReadingList) in
+            do {
+                for _ in 0...200 {
+                    guard let entries = list.entries, entries.count < 996 else {
+                        return
+                    }
+                    var results: [MWKSearchResult] = []
+                    for _ in 0...5 {
+                        taskGroup.enter()
+                        randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
+                            taskGroup.leave()
+                        }, success: { (searchResult) in
+                            results.append(searchResult)
+                            taskGroup.leave()
+                        })
+                    }
+                    taskGroup.wait()
+                    let keys = results.flatMap { $0.articleURL(forSiteURL: siteURL)?.wmf_articleDatabaseKey }
+                    let articles = try moc.wmf_fetchOrCreate(objectsForEntityName: "WMFArticle", withValues: keys, forKey: "key") as? [WMFArticle] ?? []
+                    for (index, article) in articles.enumerated() {
+                        guard index < results.count else {
+                            continue
+                        }
+                        let result = results[index]
+                        article.update(with: result)
+                    }
+                    try readingListsController.add(articles: articles, to: list, in: moc)
+                    try moc.save()
+                }
+            } catch let error {
+                DDLogError("error populating lists: \(error)")
+            }
+        }
     }
 }

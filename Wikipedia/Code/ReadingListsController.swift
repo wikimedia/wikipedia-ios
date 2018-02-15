@@ -13,9 +13,14 @@ struct ReadingListSyncState: OptionSet {
     static let needsRemoteDisable    = ReadingListSyncState(rawValue: 1 << 3)
     
     static let needsLocalReset    = ReadingListSyncState(rawValue: 1 << 4) // mark all as unsynced, remove remote IDs
-    static let needsLocalClear    = ReadingListSyncState(rawValue: 1 << 5) // remove all saved
+    static let needsLocalArticleClear    = ReadingListSyncState(rawValue: 1 << 5) // remove all saved articles
+    static let needsLocalListClear    = ReadingListSyncState(rawValue: 1 << 6) // remove all lists
+    
+    static let needsRandomLists = ReadingListSyncState(rawValue: 1 << 7) // for debugging, populate random lists
+    static let needsRandomEntries = ReadingListSyncState(rawValue: 1 << 8) // for debugging, populate with random entries
     
     static let needsEnable: ReadingListSyncState = [.needsRemoteEnable, .needsSync]
+    static let needsLocalClear: ReadingListSyncState = [.needsLocalArticleClear, .needsLocalListClear]
     static let needsClearAndEnable: ReadingListSyncState = [.needsLocalClear, .needsRemoteEnable, .needsSync]
 
     static let needsDisable: ReadingListSyncState = [.needsRemoteDisable, .needsLocalReset]
@@ -104,11 +109,29 @@ public class ReadingListsController: NSObject {
         return list
     }
     
+    public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        if let newName = newName, !newName.isEmpty {
+            readingList.name = newName
+        }
+        readingList.readingListDescription = newDescription
+        readingList.isUpdatedLocally = true
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error updating name or description for reading list: \(error)")
+            }
+        }
+        sync()
+    }
+    
     /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
     ///
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
-    internal func markLocalDeletion(for readingLists: [ReadingList]) throws {
+    func markLocalDeletion(for readingLists: [ReadingList]) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
@@ -124,10 +147,10 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
+    /// Marks that reading list entries were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
     ///
     /// - Parameters:
-    ///   - readingLists: the reading lists to delete
+    ///   - readingListEntriess: the reading lists to delete
     internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
         var lists: Set<ReadingList> = []
         for entry in readingListEntries {
@@ -143,7 +166,7 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    internal func processLocalUpdates(in moc: NSManagedObjectContext) throws {
+    func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
         let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
@@ -177,7 +200,7 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingLists[readingListID] = localReadingList
                 })
-            } else {
+            } else if localReadingList.isUpdatedLocally {
                 taskGroup.enter()
                 self.apiController.updateList(withListID: readingListID, name: readingListName, description: localReadingList.readingListDescription, completion: { (updateError) in
                     defer {
@@ -316,6 +339,7 @@ public class ReadingListsController: NSObject {
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
+        var entryCount = 0
         for remoteEntry in readingListEntries {
             let isDeleted = remoteEntry.deleted ?? false
             guard !isDeleted else {
@@ -338,6 +362,10 @@ public class ReadingListsController: NSObject {
                 articleSummariesByArticleKey[articleKey] = result
                 group.leave()
             })
+            entryCount += 1
+            if entryCount % 8 == 0 {
+                group.wait()
+            }
         }
         
         group.wait()
@@ -409,12 +437,11 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+    internal func add(articles: [WMFArticle], to readingList: ReadingList, in moc: NSManagedObjectContext) throws {
         guard articles.count > 0 else {
             return
         }
-        assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
+
         let existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
@@ -434,7 +461,12 @@ public class ReadingListsController: NSObject {
         }
         
         readingList.updateCountOfEntries()
-        
+    }
+    
+    public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
             try moc.save()
         }
@@ -515,6 +547,9 @@ public class ReadingListsController: NSObject {
     }
     
     @objc private func _sync() {
+        guard operationQueue.operationCount == 0 else {
+            return
+        }
         let sync = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(sync)
     }
@@ -785,8 +820,18 @@ public class ReadingListsController: NSObject {
             }
         }
 
-        // create any list that wasn't matched by ID or name
-        try locallyCreate(Array(remoteReadingListEntriesByID.values), in: moc)
+        // create any entry that wasn't matched by ID or name
+        let batchSize = 500
+        var start = 0
+        var end = 0
+        let entries = Array(remoteReadingListEntriesByID.values)
+        while end < entries.count {
+            end = min(entries.count, start + batchSize)
+            try locallyCreate(Array(entries[start..<end]), in: moc)
+            start = end
+            try moc.save()
+            moc.reset()
+        }
 
         return sinceDate
     }
