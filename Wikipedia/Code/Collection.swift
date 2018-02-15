@@ -80,7 +80,7 @@ enum SortActionType {
         let action = UIAlertAction(title: title, style: .default) { (action) in
             handler(sortDescriptor, action)
         }
-        return SortAction(action: action, type: self, sortDescriptor: sortDescriptor)
+        return SortAction(action: action, type: self)
     }
 }
 
