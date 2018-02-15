@@ -1,5 +1,9 @@
 import Foundation
 
+public enum ReadingListAPIError: String, Error, Equatable {
+    case notSetup = "readinglists-db-error-not-set-up"
+}
+
 struct APIReadingLists: Codable {
     let lists: [APIReadingList]
     let next: String?
@@ -44,6 +48,13 @@ struct APIReadingListChanges: Codable {
     let lists: [APIReadingList]?
     let entries: [APIReadingListEntry]?
     let next: String?
+    }
+
+struct APIReadingListError: Codable {
+    let type: String?
+    let title: String
+    let method: String?
+    let detail: String?
 }
 
 extension APIReadingListEntry {
@@ -92,9 +103,15 @@ class ReadingListsAPIController: NSObject {
         requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
-    fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable  {
+    fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let fullPath = basePath.appending(path)
-        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: completionHandler)?.resume()
+        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListError?, response, error) in
+            if let errorResult = errorResult, let error = ReadingListAPIError(rawValue: errorResult.title) {
+                completionHandler(nil, nil, error)
+            } else {
+                completionHandler(result, response, error)
+            }
+        })?.resume()
     }
     
     fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {

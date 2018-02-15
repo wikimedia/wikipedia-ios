@@ -42,12 +42,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
+        contentView.addSubview(saveButton)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(saveButton)
 
-        saveButton.verticalPadding = 5
+        saveButton.verticalPadding = 16
+        saveButton.horizontalPadding = 16
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
@@ -180,6 +181,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             return _effectiveArticleSemanticContentAttribute
         }
     }
+
+    // for items like the Save Button that are localized and should match the UI direction
+    public var userInterfaceSemanticContentAttribute: UISemanticContentAttribute {
+        return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
+    }
     
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
@@ -188,9 +194,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         } else {
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
         }
+        let alignment = _effectiveArticleSemanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        titleLabel.textAlignment = alignment
         titleLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
         descriptionLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        descriptionLabel.textAlignment = alignment
         extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        extractLabel?.textAlignment = alignment
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

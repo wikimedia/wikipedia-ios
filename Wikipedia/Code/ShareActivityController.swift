@@ -114,7 +114,7 @@ class MoveToReadingListActivity: UIActivity {
     }
     
     override var activityImage: UIImage? {
-        return UIImage(named: "add-to-reading-list")
+        return UIImage(named: "move-to-reading-list")
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
