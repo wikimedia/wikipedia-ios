@@ -32,16 +32,15 @@ public extension NSManagedObjectContext {
         return wmf_fetch(objectForEntityName: entityName, withValue: value, forKey: key) ?? wmf_create(entityNamed: entityName, withValue: value, forKey: key)
     }
     
-    func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) -> [T]? {
+    func wmf_fetch<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
         let fetchRequest = NSFetchRequest<T>(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "\(key) IN %@", argumentArray: [values])
         fetchRequest.fetchLimit = values.count
-        var results: [T] = []
-        do {
-            results = try fetch(fetchRequest)
-        } catch let error {
-            DDLogError("Error fetching: \(error)")
-        }
+        return try fetch(fetchRequest)
+    }
+    
+    func wmf_fetchOrCreate<T: NSManagedObject, V: Hashable>(objectsForEntityName entityName: String, withValues values: [V], forKey key: String) throws -> [T]? {
+        var results = try wmf_fetch(objectsForEntityName: entityName, withValues: values, forKey: key) as? [T] ?? []
         var missingValues = Set(values)
         for result in results {
             guard let value = result.value(forKey: key) as? V else {
@@ -77,6 +76,27 @@ public extension NSManagedObjectContext {
                     reset()
                 }
             }
+        }
+    }
+    
+    func wmf_batchProcess<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: ([T]) -> Void) throws {
+        let fetchRequest = T.fetchRequest()
+        let batchSize = 500
+        fetchRequest.predicate = matchingPredicate
+        fetchRequest.fetchBatchSize = batchSize
+        let results = try fetch(fetchRequest) as? [T] ?? []
+        var start: Int = 0
+        var end: Int = 0
+        while start < results.count {
+            end = min(start + batchSize, results.count)
+            handler(Array<T>(results[start..<end]))
+            if hasChanges {
+                try save()
+            }
+            if resetAfterSave {
+                reset()
+            }
+            start = end
         }
     }
 }
