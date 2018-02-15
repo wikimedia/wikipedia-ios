@@ -392,6 +392,8 @@
 "share-open-in-maps" = "Button to open current article's location in the Maps app.";
 "share-social-format" = "Share format string for social platforms. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "share-social-mention-format" = "Share format string for social platforms with an @mention. $1 is replaced with the article title, $2 is replaced with the article URL.";
+"sort-by-recently-added-action" = "Title of the sort action that allows sorting articles by date added.";
+"sort-by-title-action" = "Title of the sort action that allows sorting articles by title.";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}";

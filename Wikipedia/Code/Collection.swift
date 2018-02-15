@@ -46,29 +46,6 @@ extension UpdatableCollection where Self: SearchableCollection {
     }
 }
 
-extension UpdatableCollection where Self: SearchableCollection & SortableCollection {
-    func setupFetchedResultsController() {
-        // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
-        let checkedKey = "checked"
-        sortActions.values.forEach { $0.setValue(false, forKey: checkedKey) }
-        let checkedAction = sort.action ?? defaultSortAction
-        checkedAction?.setValue(true, forKey: checkedKey)
-
-        guard let request = T.fetchRequest() as? NSFetchRequest<T> else {
-            assertionFailure("Can't set up NSFetchRequest")
-            return
-        }
-        request.predicate = basePredicate
-        if let searchPredicate = searchPredicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
-        }
-        
-        request.sortDescriptors = [baseSortDescriptor]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-    }
-}
-
 protocol SearchableCollection: UpdatableCollection {
     var searchString: String? { get set }
     func updateSearchString(_ newSearchString: String)
@@ -91,18 +68,25 @@ extension SearchableCollection where Self: EditableCollection {
 enum SortActionType {
     case byTitle, byRecentlyAdded
     
-    func action(with sortDescriptor: NSSortDescriptor, handler: @escaping (NSSortDescriptor, UIAlertAction) -> ()) -> UIAlertAction {
+    func action(with sortDescriptor: NSSortDescriptor, handler: @escaping (NSSortDescriptor, UIAlertAction) -> ()) -> SortAction {
         let title: String
         switch self {
         case .byTitle:
-            title = "Title"
+            title = WMFLocalizedString("sort-by-title-action", value: "Title", comment: "Title of the sort action that allows sorting articles by title.")
         case .byRecentlyAdded:
-            title = "Recently added"
+            title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting articles by date added.")
         }
-        return UIAlertAction(title: title, style: .default) { (action) in
+        
+        let action = UIAlertAction(title: title, style: .default) { (action) in
             handler(sortDescriptor, action)
         }
+        return SortAction(action: action, type: self, sortDescriptor: sortDescriptor)
     }
+}
+
+struct SortAction {
+    let action: UIAlertAction
+    let type: SortActionType
 }
 
 protocol SortableCollection: UpdatableCollection {
@@ -110,9 +94,11 @@ protocol SortableCollection: UpdatableCollection {
     var sortActions: [SortActionType: UIAlertAction] { get }
     var defaultSortAction: UIAlertAction? { get }
     var sortAlert: UIAlertController { get }
+    func presentSortAlert()
+    func updateSortActionCheckmark()
 }
 
-extension SortableCollection {
+extension SortableCollection where Self: UIViewController {
     
     func alert(title: String, message: String?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
@@ -136,7 +122,22 @@ extension SortableCollection {
         fetch()
     }
     
-    var baseSortDescriptor: NSSortDescriptor { return sort.descriptor }
+    func updateSortActionCheckmark() {
+        // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
+        let checkedKey = "checked"
+        sortActions.values.forEach { $0.setValue(false, forKey: checkedKey) }
+        let checkedAction = sort.action ?? defaultSortAction
+        checkedAction?.setValue(true, forKey: checkedKey)
+    }
+    
+    func presentSortAlert() {
+        present(sortAlert, animated: true)
+        updateSortActionCheckmark()
+    }
+    
+    var baseSortDescriptor: NSSortDescriptor {
+        return sort.descriptor
+    }
 }
 
 protocol EditableCollection: Collection {

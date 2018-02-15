@@ -42,9 +42,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         title = readingList.name
         
         setupFetchedResultsController()
-        fetch()
         setupCollectionViewUpdater()
         setupEditController()
+        fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
@@ -172,18 +172,18 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "displayTitle", ascending: false), action: nil)
+    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "createdDate", ascending: true), action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
-            self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
-        }
-        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
-            self.updateSort(with: NSSortDescriptor(key: "createdDate", ascending: false), newAction: action)
-        }
-        return [.byTitle: titleAction, .byRecentlyAdded: recentlyAddedAction]
+        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "createdDate", ascending: true), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
     
     lazy var sortAlert: UIAlertController = {
@@ -459,7 +459,7 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
     }
     
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
-    present(sortAlert, animated: true)
+        presentSortAlert()
     }
 }
 

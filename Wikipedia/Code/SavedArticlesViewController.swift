@@ -40,6 +40,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         setupEditController()
+        fetch()
         
         isRefreshControlEnabled = true
     }
@@ -57,7 +58,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return
         }
         isFirstAppearance = false
-        fetch()
         updateEmptyState()
         navigationBarHider.isNavigationBarHidingEnabled = false
     }
@@ -112,13 +112,13 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let titleAction = UIAlertAction(title: "Title", style: .default) { (action) in
-            self.updateSort(with: NSSortDescriptor(key: "displayTitle", ascending: true), newAction: action)
-        }
-        let recentlyAddedAction = UIAlertAction(title: "Recently added", style: .default) { (action) in
-            self.updateSort(with: NSSortDescriptor(key: "savedDate", ascending: false), newAction: action)
-        }
-        return [.byTitle: titleAction, .byRecentlyAdded: recentlyAddedAction]
+        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "savedDate", ascending: false), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
     
     lazy var sortAlert: UIAlertController = {
@@ -449,7 +449,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
         guard shouldShowSortAlert else {
             return
         }
-        present(sortAlert, animated: true, completion: nil)
+        presentSortAlert()
     }
 }
 
