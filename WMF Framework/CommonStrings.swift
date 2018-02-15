@@ -79,4 +79,6 @@ public class CommonStrings: NSObject {
     @objc public static let unknownError = WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
     
     @objc public static let readingListsDefaultListTitle = WMFLocalizedString("reading-lists-default-list-title", value: "Bookmarks", comment: "The title of the default saved pages list")
+    @objc public static let readingListsDefaultListDescription = WMFLocalizedString("reading-lists-default-list-description", value: "Default list for saved articles", comment: "The description of the default saved pages list")
+
 }

@@ -78,9 +78,11 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    public func setup(title: String?, description: String?, articleCount: Int64) {
+    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool) {
         titleTextField.text = title
-        descriptionTextField.text = description
+        descriptionTextField.text = isDefault ? CommonStrings.readingListsDefaultListDescription : description
+        titleTextField.isEnabled = !isDefault
+        descriptionTextField.isEnabled = !isDefault
         updateArticleCount(articleCount)
     }
     
