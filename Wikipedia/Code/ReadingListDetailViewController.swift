@@ -48,7 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         let _ = readingListDetailExtendedViewController.view
-        //navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -323,6 +323,12 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if newEditingState == .done {
+            readingListDetailExtendedViewController.finishEditing()
+        } else if newEditingState == .cancelled {
+            readingListDetailExtendedViewController.cancelEditing()
+        }
     }
 }
 

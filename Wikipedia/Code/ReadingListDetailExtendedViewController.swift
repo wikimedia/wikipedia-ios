@@ -15,6 +15,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet var constraints: [NSLayoutConstraint] = []
     
+    private var readingListTitle: String?
+    private var readingListDescription: String?
+    
     public weak var delegate: ReadingListDetailExtendedViewControllerDelegate?
     
     private var theme: Theme = Theme.standard
@@ -81,9 +84,14 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool) {
         titleTextField.text = title
-        descriptionTextField.text = isDefault ? CommonStrings.readingListsDefaultListDescription : description
+        readingListTitle = title
+        let readingListDescription = isDefault ? CommonStrings.readingListsDefaultListDescription : description
+        descriptionTextField.text = readingListDescription
+        self.readingListDescription = readingListDescription
+        
         titleTextField.isEnabled = !isDefault
         descriptionTextField.isEnabled = !isDefault
+        
         updateArticleCount(articleCount)
     }
     
@@ -91,24 +99,33 @@ class ReadingListDetailExtendedViewController: UIViewController {
         delegate?.extendedViewControllerDidPressSortButton(self)
     }
     
+    private var firstResponder: UITextField? = nil
+    
+    public func dismissKeyboardIfNecessary() {
+        firstResponder?.resignFirstResponder()
+    }
+    
     public func cancelEditing() {
-        
+        titleTextField.text = readingListTitle
+        descriptionTextField.text = readingListDescription
+        dismissKeyboardIfNecessary()
     }
     
     public func finishEditing() {
-        
+        delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
+        dismissKeyboardIfNecessary()
     }
     
 }
 
 extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
-        textField.resignFirstResponder()
+        finishEditing()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        firstResponder = textField
         delegate?.extendedViewController(self, didBeginEditing: textField)
     }
 }

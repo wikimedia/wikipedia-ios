@@ -210,7 +210,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        sortButton.isEnabled = newEditingState == .cancelled || newEditingState == .none
+        sortButton.isEnabled = newEditingState == .closed || newEditingState == .none
         if newEditingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
         }
