@@ -119,16 +119,16 @@ extension UIViewController {
     }
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
-        let addArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let addSavedArticlesToReadingListsTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
-        let removeArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let deleteSavedArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         
-        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: addArticlesTapHandler, secondaryButtonTapHandler: removeArticlesTapHandler, dismissHandler: nil)
+        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: addSavedArticlesToReadingListsTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: nil)
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }
@@ -204,11 +204,11 @@ extension UIViewController {
             return
         }
         
-        let keepArticlesOnDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let keepSavedArticlesOnDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
-        let deleteArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+        let deleteSavedArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
@@ -216,7 +216,7 @@ extension UIViewController {
             completion()
         }
         
-        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteArticlesFromDeviceTapHandler, dismissHandler: dismissHandler)
+        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler)
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }
