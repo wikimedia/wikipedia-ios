@@ -84,7 +84,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if syncState.contains(.needsLocalListClear) {
-            try moc.wmf_batchProcess(handler: { (lists: [ReadingList]) in
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "isDefault != YES"), handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
                 for list in lists {
                     moc.delete(list)
