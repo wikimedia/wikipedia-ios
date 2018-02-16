@@ -31,6 +31,8 @@ extension ReadingList {
             return isDefaultList ? CommonStrings.readingListsDefaultListTitle : canonicalName
         }
     }
+    
+    @objc static let defaultListCanonicalName = "default"
 }
 
 // MARK: Generated accessors for entries

@@ -549,9 +549,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
+        #if TEST
+        #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(sync)
         operationQueue.addOperation(completion)
+        #endif
     }
     
     @objc private func _sync() {
@@ -563,9 +566,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func sync() {
-        assert(Thread.isMainThread)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-        perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #if TEST
+        #else
+            assert(Thread.isMainThread)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
+            perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #endif
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
@@ -861,7 +867,12 @@ fileprivate extension NSManagedObjectContext {
 
 public extension NSManagedObjectContext {
     @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        return  wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        if defaultList == nil { // failsafe
+            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList?.isDefaultList = true
+        }
+        return defaultList
     }
 }
 

@@ -536,6 +536,7 @@ static uint64_t bundleHash() {
             ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
             if (!defaultReadingList) {
                 defaultReadingList = [[ReadingList alloc] initWithContext:moc];
+                defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
                 defaultReadingList.isDefault = @(YES);
             }
 
