@@ -48,7 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         let _ = readingListDetailExtendedViewController.view
-        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
+//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
     }
     
     override func viewWillAppear(_ animated: Bool) {
