@@ -310,15 +310,17 @@ extension ReadingListDetailViewController: ActionDelegate {
 
 extension ReadingListDetailViewController: ShareableArticlesProvider {}
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension ReadingListDetailViewController: BatchEditNavigationDelegate {
+extension ReadingListDetailViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
+        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
 }
@@ -458,9 +460,14 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
         updateSearchString(searchText)
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController) {
         presentSortAlert()
     }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField) {
+        editController.isTextEditing = true
+    }
+
 }
 
 // MARK: - Analytics

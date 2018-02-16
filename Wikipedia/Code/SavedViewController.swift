@@ -200,18 +200,18 @@ class SavedViewController: ViewController {
     }
 }
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension SavedViewController: BatchEditNavigationDelegate {
+extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        sortButton.isEnabled = editingState == .cancelled || editingState == .none
-        if editingState == .open && searchBar.isFirstResponder {
+        sortButton.isEnabled = newEditingState == .cancelled || newEditingState == .none
+        if newEditingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
         }
     }

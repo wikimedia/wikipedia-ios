@@ -415,8 +415,8 @@ extension ReadingListsViewController: ActionDelegate {
 
 }
 
-extension ReadingListsViewController: BatchEditNavigationDelegate {
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+extension ReadingListsViewController: CollectionViewEditControllerNavigationDelegate {
+    func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         //
     }
     

@@ -1,7 +1,8 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String)
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton)
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField)
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -52,10 +53,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        articleCountLabel.setFont(with: .systemBold, style: .footnote, traitCollection: traitCollection)
-        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
-        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
-        updateButton.titleLabel?.setFont(with: .systemBold, style: .subheadline, traitCollection: traitCollection)
+        articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
+        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
+        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        updateButton.titleLabel?.setFont(with: .systemSemiBold, style: .subheadline, traitCollection: traitCollection)
         sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
     }
     
@@ -87,7 +88,15 @@ class ReadingListDetailExtendedViewController: UIViewController {
     }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
-        delegate?.extendedViewController(self, didPressSortButton: sender)
+        delegate?.extendedViewControllerDidPressSortButton(self)
+    }
+    
+    public func cancelEditing() {
+        
+    }
+    
+    public func finishEditing() {
+        
     }
     
 }
@@ -97,6 +106,10 @@ extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
         delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.extendedViewController(self, didBeginEditing: textField)
     }
 }
 

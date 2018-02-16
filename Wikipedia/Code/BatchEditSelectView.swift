@@ -60,11 +60,16 @@ public class BatchEditSelectView: SizeThatFitsView {
 
 }
 
-public enum BatchEditingState {
+public enum BatchEditingState: Int {
     case none
     case open
     case cancelled
     case inactive // swipe action is open
+    case editing // user is editing text
+    
+    var tag: Int {
+        return self.rawValue
+    }
 }
 
 public enum BatchEditToolbarActionType {

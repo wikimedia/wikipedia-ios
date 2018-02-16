@@ -1,4 +1,4 @@
-extension BatchEditNavigationDelegate where Self: UIViewController {
+extension CollectionViewEditControllerNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) {
         
         let tabBar = self.tabBarController?.tabBar

@@ -74,7 +74,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         
         collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: theme, layoutOnly: false)
-        collapsedArticleView.titleFontFamily = .systemBold
+        collapsedArticleView.titleFontFamily = .systemSemiBold
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
