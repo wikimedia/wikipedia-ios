@@ -864,7 +864,12 @@ fileprivate extension NSManagedObjectContext {
 
 public extension NSManagedObjectContext {
     @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        return  wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        if defaultList == nil { // failsafe
+            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList?.isDefaultList = true
+        }
+        return defaultList
     }
 }
 

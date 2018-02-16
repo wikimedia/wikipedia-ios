@@ -11,6 +11,9 @@ extension ReadingList {
         if let updatedDate = DateFormatter.wmf_iso8601().date(from: remoteList.updated) {
             self.updatedDate = updatedDate as NSDate
         }
+        if remoteList.isDefault && !isDefaultList {
+            isDefaultList = true
+        }
         isUpdatedLocally = false
     }
 }
