@@ -4,6 +4,7 @@ internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
+internal let WMFReadingListBatchRequestLimit = 8
 
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
@@ -205,7 +206,7 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingLists[readingListID] = localReadingList
                 })
-                if requestCount % 4 == 0 {
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
                     taskGroup.wait()
                 }
             } else if localReadingList.isUpdatedLocally {
@@ -221,7 +222,7 @@ public class ReadingListsController: NSObject {
                     }
                     updatedReadingLists[readingListID] = localReadingList
                 })
-                if requestCount % 4 == 0 {
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
                     taskGroup.wait()
                 }
             }
@@ -305,7 +306,7 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingListEntries[readingListEntryID] = localReadingListEntry
                 })
-                if requestCount % 4 == 0 {
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
                     taskGroup.wait()
                     for (_, localReadingListEntry) in deletedReadingListEntries {
                         moc.delete(localReadingListEntry)
@@ -387,7 +388,7 @@ public class ReadingListsController: NSObject {
                     group.leave()
                 })
                 entryCount += 1
-                if entryCount % 4 == 0 {
+                if entryCount % WMFReadingListBatchRequestLimit == 0 {
                     group.wait()
                 }
             }
