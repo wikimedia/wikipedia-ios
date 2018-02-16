@@ -307,6 +307,10 @@ public class ReadingListsController: NSObject {
                 })
                 if requestCount % 4 == 0 {
                     taskGroup.wait()
+                    for (_, localReadingListEntry) in deletedReadingListEntries {
+                        moc.delete(localReadingListEntry)
+                    }
+                    deletedReadingListEntries = [:]
                 }
             } else {
                 // there's no "updating" of an entry currently
