@@ -1,32 +1,35 @@
 import UIKit
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+    let dataStore: MWKDataStore
+    let readingList: ReadingList
     
-    private let dataStore: MWKDataStore
-    private var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    internal let readingList: ReadingList
-    private var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    typealias T = ReadingListEntry
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
+    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    
+    var basePredicate: NSPredicate {
+        return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
+    }
+    
+    var searchPredicate: NSPredicate? {
+        guard let searchString = searchString else {
+            return nil
+        }
+        return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')") // ReadingListEntry has no snippet
+    }
+    
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
+    private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
 
     init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
+        self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
         super.init()
-    }
-    
-    func setupFetchedResultsControllerOrdered(by key: String, ascending: Bool) {
-        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        request.predicate = NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
-        request.sortDescriptors = [NSSortDescriptor(key: key, ascending: ascending)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching reading list entries: \(error)")
-        }
-        collectionView.reloadData()
+        self.readingListDetailExtendedViewController.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,23 +39,21 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if readingList.isDefaultList {
-            title = CommonStrings.readingListsDefaultListTitle
-        } else if let name = readingList.name {
-            title = name
-        }
+        title = readingList.name
         
-        setupFetchedResultsControllerOrdered(by: "displayTitle", ascending: true)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
+        setupFetchedResultsController()
+        setupCollectionViewUpdater()
+        setupEditController()
+        fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-
-        setupEditController(with: collectionView)
+        let _ = readingListDetailExtendedViewController.view
+        //navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefaultList)
         updateEmptyState()
     }
     
@@ -95,6 +96,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var isEmpty = true {
         didSet {
             editController.isCollectionViewEmpty = isEmpty
+            readingListDetailExtendedViewController.isHidden = isEmpty
+            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isEmpty ? 1 : 0, animated: false)
+            updateScrollViewInsets()
         }
     }
     
@@ -119,6 +123,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        readingListDetailExtendedViewController.apply(theme: theme)
         if wmf_isShowingEmptyView() {
             updateEmptyState()
         }
@@ -133,10 +138,58 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return [addToListItem, moveToListItem, removeItem]
     }()
     
+    // MARK: - Hiding extended view
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
-
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
+        super.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        navigationBarHider.scrollViewWillScrollToTop(scrollView)
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScrollToTop(scrollView)
+    }
+    
+    // MARK: - Filtering
+    
+    var searchString: String?
+    
+    // MARK: - Sorting
+    
+    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "createdDate", ascending: true), action: nil)
+    
+    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    
+    lazy var sortActions: [SortActionType: UIAlertAction] = {
+        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "createdDate", ascending: true), handler: { (sortDescriptor, action) in
+            self.updateSort(with: sortDescriptor, newAction: action)
+        })
+        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+    }()
+    
+    lazy var sortAlert: UIAlertController = {
+        return alert(title: "Sort saved articles", message: nil)
+    }()
 }
 
 // MARK: - ActionDelegate
@@ -286,6 +339,7 @@ extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
+        readingListDetailExtendedViewController.updateArticleCount(readingList.countOfEntries)
         collectionView.setNeedsLayout()
     }
 }
@@ -391,6 +445,22 @@ extension ReadingListDetailViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - ReadingListDetailExtendedViewControllerDelegate
+
+extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
+        dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
+    }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {
+        updateSearchString(searchText)
+    }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
+        presentSortAlert()
     }
 }
 

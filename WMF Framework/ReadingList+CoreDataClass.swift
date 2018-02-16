@@ -15,7 +15,12 @@ public class ReadingList: NSManagedObject {
     }
     
     public var isDefaultList: Bool {
-        return self.isDefault?.boolValue ?? false
+        get {
+            return self.isDefault?.boolValue ?? false
+        }
+        set {
+            self.isDefault = NSNumber(value: newValue)
+        }
     }
     
     public func updateCountOfEntries() {
@@ -26,5 +31,27 @@ public class ReadingList: NSManagedObject {
         countOfEntries = Int64(entries.filter({ (entry) -> Bool in
             return !entry.isDeletedLocally
         }).count)
+    }
+    
+    public func updateArticlesAndEntries() {
+        guard let entries = entries else {
+            countOfEntries = 0
+            articles = []
+            return
+        }
+        let validEntries = entries.filter { !$0.isDeletedLocally }
+        let validArticleKeys = validEntries.flatMap { $0.articleKey }
+        if validArticleKeys.count > 0 {
+            do {
+                let validArticles = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: validArticleKeys, forKey: "key") as? [WMFArticle] ?? []
+                countOfEntries = Int64(validEntries.count)
+                articles = Set<WMFArticle>(validArticles)
+            } catch let error {
+                DDLogError("error updating list: \(error)")
+            }
+        } else {
+            countOfEntries = 0
+            articles = []
+        }
     }
 }
