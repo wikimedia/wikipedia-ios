@@ -549,9 +549,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
+        #if TEST
+        #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(sync)
         operationQueue.addOperation(completion)
+        #endif
     }
     
     @objc private func _sync() {
