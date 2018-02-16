@@ -1,7 +1,7 @@
 import UIKit
 
-typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: ScrollableEducationPanelViewController) -> ())
-typealias ScrollableEducationPanelDismissHandler = ((_ sender: ScrollableEducationPanelViewController) -> ())
+typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> ())
+typealias ScrollableEducationPanelDismissHandler = (() -> ())
 
 /*
  Education panels typically have the following items, from top to bottom:
@@ -196,7 +196,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
-        primaryButtonTapHandler(self)
+        primaryButtonTapHandler(sender)
 
     }
 
@@ -204,7 +204,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let secondaryButtonTapHandler = secondaryButtonTapHandler else {
             return
         }
-        secondaryButtonTapHandler(self)
+        secondaryButtonTapHandler(sender)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -212,7 +212,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let dismissHandler = dismissHandler else {
             return
         }
-        dismissHandler(self)
+        dismissHandler()
     }
     
     func apply(theme: Theme) {
