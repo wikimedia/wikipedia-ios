@@ -1144,6 +1144,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfArticleWithURL:self.articleURL
         forceDownload:force
         saveToDisk:NO
+        priority:NSURLSessionTaskPriorityHigh
         progress:^(CGFloat progress) {
             [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
         }
@@ -1291,7 +1292,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return; // don't unsave immediately, wait for a callback from WMFReadingListAlertControllerDelegate
     }
     [self updateSavedState];
-    [self.readingListHintController didSave:YES articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)updateSaveButtonStateForSaved:(BOOL)isSaved {
@@ -1315,6 +1315,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
     }
+    [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
 
 - (void)handleSaveButtonLongPressGestureRecognizer:(UILongPressGestureRecognizer *)longPressGestureRecognizer {

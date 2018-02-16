@@ -102,7 +102,7 @@ String.localizedStringWithFormat(
  
 
 #### Plural syntax
-Ensure the last variant is the "other" or "default" variant - in these cases it's %1$d places. Ensure the format specifier appears in the "other" variant. For example, `%1$d {{PLURAL:%1$d|place|places}}` is invalid, `{{PLURAL:%1$d|one place|%1$d places}}` is valid. **Plural strings can only contain one format specifier.**
+Ensure the last variant is the "other" or "default" variant - in these cases it's %1$d places. Ensure the format specifier appears in the "other" variant. For example, `%1$d {{PLURAL:%1$d|place|places}}` is invalid, `{{PLURAL:%1$d|one place|%1$d places}}` is valid. **Plural strings can only contain one format specifier and only one plural per string at the moment (can be fixed by updating the localization script localization.swift).**
 
 Without "zero" value:
 ```
@@ -134,6 +134,9 @@ Translatewiki's script reads the `Wikipedia/Localizations` `qqq` and `en` files,
 
 `scripts/localization import` reads localizations from `Wikipedia/Localizations` and converts them into the iOS native format for `Wikipedia/iOS Native Localizations`
 
+### Updating the localization script
+
+Inside the main project (`Wikipedia.xcodeproj`), there's a `localization` target that is a Mac command line tool. You can edit the swift files used by this target (`scripts/localization.swift`, `localization/main.swift`) to update the localization script. Once you make changes, you can build and run the localization target to re-run localizations and verify the output. Once you're done making changes, you need to archive the `localization` target and copy the binary to `scripts/localizations` where it will be run with every build.
 
 ### Testing the app
 #### Indications for international testing

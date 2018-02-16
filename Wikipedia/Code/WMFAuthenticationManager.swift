@@ -3,7 +3,7 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 class WMFAuthenticationManager: NSObject {    
-    private var keychainCredentials:WMFKeychainCredentials
+    fileprivate var keychainCredentials:WMFKeychainCredentials
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -17,10 +17,22 @@ class WMFAuthenticationManager: NSObject {
         return (loggedInUsername != nil)
     }
 
-    private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    private let tokenFetcher = WMFAuthTokenFetcher()
-    private let accountLogin = WMFAccountLogin()
-    private let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
+    @objc public var hasKeychainCredentials: Bool {
+        guard
+            let userName = keychainCredentials.userName,
+            userName.count > 0,
+            let password = keychainCredentials.password,
+            password.count > 0
+            else {
+                return false
+        }
+        return true
+    }
+    
+    fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
+    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
+    fileprivate let accountLogin = WMFAccountLogin()
+    fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     
     /**
      *  Get the shared instance of this class
@@ -93,11 +105,9 @@ class WMFAuthenticationManager: NSObject {
      */
     @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
-        guard
+        guard hasKeychainCredentials,
             let userName = keychainCredentials.userName,
-            userName.count > 0,
-            let password = keychainCredentials.password,
-            password.count > 0
+            let password = keychainCredentials.password
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return
@@ -113,7 +123,7 @@ class WMFAuthenticationManager: NSObject {
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
-                        self.logout(success:WMFIgnoreSuccessHandler, failure:WMFIgnoreErrorHandler)
+                        self.logout()
                     }
                 }
                 failure(error)
@@ -121,35 +131,42 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
-    private var logoutManager:AFHTTPSessionManager?
+    fileprivate var logoutManager:AFHTTPSessionManager?
+    
+    fileprivate func resetLocalUserLoginSettings() {
+        self.keychainCredentials.userName = nil
+        self.keychainCredentials.password = nil
+        self.loggedInUsername = nil
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        HTTPCookieStorage.shared.cookies?.forEach { cookie in
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
+        SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+        
+        SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        
+        // Reset so can show for next logged in user.
+        UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
+    }
     
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
-        let outerSuccess = success
-        let outerFailure = failure
+    @objc public func logout(completion: @escaping () -> Void = {}){
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
-            
-            self.keychainCredentials.userName = nil
-            self.keychainCredentials.password = nil
-            self.loggedInUsername = nil
-            // Cookie reminders: 
-            //  - Call "action=logout" API *before* clearing app cookies.
-            //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
-            HTTPCookieStorage.shared.cookies?.forEach { cookie in
-                HTTPCookieStorage.shared.deleteCookie(cookie)
-            }
-            SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-            
-            outerSuccess()
+            // It's best to call "action=logout" API *before* clearing local login settings...
+            self.resetLocalUserLoginSettings()
+            completion()
         }, failure: { (_, error) in
-            outerFailure(error)
+            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+            self.resetLocalUserLoginSettings()
+            completion()
         })
     }
     
-    func cloneSessionCookies() {
+    fileprivate func cloneSessionCookies() {
         // Make the session cookies expire at same time user cookies. Just remember they still can't be
         // necessarily assumed to be valid as the server may expire them, but at least make them last as
         // long as we can to lessen number of server requests. Uses user tokens as templates for copying

@@ -75,6 +75,7 @@
 "appearance-settings-title" = "ערכות נושא לקריאה";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
+// Fuzzy
 "article-deleted-accessibility-notification" = "הערך נמחק";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";

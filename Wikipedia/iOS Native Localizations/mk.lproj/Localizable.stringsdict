@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Сите статии на овој список ќе бидат одзачувани ако не се на друг список за читање.</string>
+			<string>Сите статии зачувани само на овој список ќе бидат одзачувани при бришењето.</string>
 			<key>other</key>
-			<string>Сите статии на овие списоци ќе бидат одзачувани ако не се на друг список за читање.</string>
+			<string>Сите статии зачувани само на овие списоци ќе бидат одзачувани при бришењето.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Дали сте сигурни дека сакате да го избришете списоков?</string>
+			<string>Да го избришам списокот?</string>
 			<key>other</key>
-			<string>Дали сте сигурни дека сакате да ги избришете овие %1$d списоци?</string>
+			<string>Да ги избришам списоците?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

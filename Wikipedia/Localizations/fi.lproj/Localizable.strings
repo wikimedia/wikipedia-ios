@@ -74,6 +74,7 @@
 "appearance-settings-title" = "Lukuteemat";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikkeli poistettu";
 "article-languages-filter-placeholder" = "Löydä kieli";
 "article-languages-label" = "Valitse kieli";

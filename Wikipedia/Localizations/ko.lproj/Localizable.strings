@@ -62,13 +62,21 @@
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
 "account-creation-saving" = "저장 중...";
 "account-creation-title" = "새 계정 만들기";
+"action-add-to" = "추가...";
+"action-add-to-reading-list" = "읽기 목록에 추가";
+"action-cancel" = "취소";
+"action-move-to" = "이동...";
+"action-move-to-reading-list" = "읽기 목록으로 이동";
 "action-read" = "읽기";
+"action-remove" = "제거";
 "action-save" = "저장";
 "action-saved" = "저장됨";
 "action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
 "action-unsave" = "저장하지 않음";
 "action-unsaved-accessibility-notification" = "문서가 저장되지 않음";
+"action-update" = "업데이트";
+"add-articles-to-reading-list" = "$1 문서를 읽기 목록에 추가";
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "appearance-settings-adjust-text-sizing" = "문서 텍스트 크기 조정";
@@ -81,6 +89,7 @@
 "appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
+// Fuzzy
 "article-deleted-accessibility-notification" = "문서가 삭제됨";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
@@ -109,6 +118,8 @@
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
+// Fuzzy
+"delete-reading-list-alert-title" = "{{PLURAL:$1|이 문서|이 $1개 문서}}를 삭제하시겠습니까?";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
@@ -312,6 +323,20 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
+"reading-list-exists-with-same-name" = "$1 이름의 읽기 목록이 이미 존재합니다";
+"reading-list-generic-error" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다.";
+"reading-list-hint-title" = "$1 문서를 읽기 목록으로 이동할까요?";
+"reading-list-sync-setting" = "읽기 목록 동기화";
+"reading-list-unable-to-add-entry" = "읽기 목록에 항목을 추가하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
+"reading-list-unable-to-create" = "읽기 목록을 생성하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
+"reading-list-unable-to-delete" = "읽기 목록을 삭제하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
+"reading-list-unable-to-remove-entry" = "읽기 목록에서 항목을 제거하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
+"reading-list-unable-to-update" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
+"reading-list-with-provided-name-not-found" = "$1 이름의 읽기 목록을 찾을 수 없습니다. 올바른 이름인지 확인해 주십시오.";
+"reading-lists-count" = "{{PLURAL:$1|읽기 목록 $1개}}";
+"reading-lists-default-list-description" = "저장된 문서를 위한 기본 목록";
+"reading-lists-default-list-title" = "책갈피";
 "reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
 "reading-themes-controls-accessibility-dark-theme-button" = "어두운 테마";
@@ -324,12 +349,15 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=올해|지난해|$1년 전}}";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
+"saved-all-articles-title" = "모든 문서";
 "saved-clear-all" = "지우기";
+"saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-clear-cancel" = "취소";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하겠습니까?";
+"saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하고 모든 읽기 목록에서 제거하시겠습니까?";
 "saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
+"saved-reading-lists-title" = "읽기 목록";
+"saved-search-default-text" = "검색";
 "saved-title" = "저장된 문서";
 "search-button-accessibility-label" = "위키백과 검색";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";

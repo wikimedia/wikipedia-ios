@@ -48,7 +48,13 @@
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
 "account-creation-saving" = "Guardando...";
 "account-creation-title" = "Crear una cuenta nueva";
+"action-add-to" = "Añadir a…";
+"action-add-to-reading-list" = "Añadir a llista de llectura";
+"action-cancel" = "Encaboxar";
+"action-move-to" = "Treslladar a…";
+"action-move-to-reading-list" = "Treslladar a llista de llectura";
 "action-read" = "Lleer";
+"action-remove" = "Desaniciar";
 "action-save" = "Guardar";
 "action-saved" = "Guardáu";
 "action-saved-accessibility" = "Guardao. Activa pa recuperar.";
@@ -56,6 +62,8 @@
 "action-share" = "Compartir";
 "action-unsave" = "Nun guardar";
 "action-unsaved-accessibility-notification" = "Artículu ensin guardar";
+"action-update" = "Anovar";
+"add-articles-to-reading-list" = "Añadir $1 a llista de llectura";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
@@ -69,6 +77,7 @@
 "appearance-settings-title" = "Lleyendo temes";
 "article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artículu desaniciáu";
 "article-languages-filter-placeholder" = "Alcontrar llingua";
 "article-languages-label" = "Escoyer llingua";
@@ -97,6 +106,9 @@
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
+// Fuzzy
+"delete-reading-list-alert-message" = "Tolos artículos guardaos sólo {{PLURAL:$1|nesta llista dexarán de guardase cuando se desanicie|nestes llistes dexarán de guardase cuando se desanicien}}.";
+"delete-reading-list-alert-title" = "¿Desaniciar {{PLURAL:$1|la llista|les llistes}}?";
 "dim-images" = "Amenorgar el rellume d'imáxenes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
@@ -110,6 +122,8 @@
 "empty-no-feed-title" = "Sin conexón a Internet";
 "empty-no-history-message" = "Caltener un rexistru de lo que tuvisti lleyendo equí";
 "empty-no-history-title" = "Nun hai nengún historial qu'amosar";
+"empty-no-reading-lists-message" = "Toca nel «+» azul pa crear llistes de llugares pa viaxar, temes favorites y muncho más";
+"empty-no-reading-lists-title" = "Organiza los artículos guardaos con llistes de llectura";
 "empty-no-saved-pages-message" = "Guardar páxines pa veles más tarde, inclusive ensin conexón";
 "empty-no-saved-pages-title" = "Inda nun hai páxines guardaes";
 "empty-no-search-results-message" = "Nun s'alcontraron resultancies";
@@ -305,6 +319,21 @@
 "preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "rank-accessibility-label" = "Númberu $1";
 "readers-accessibility-label" = "$1 llectores";
+"reading-list-deleted-accessibility-notification" = "Desaniciada la llista de llectura";
+"reading-list-exists-with-same-name" = "Yá esiste una llista de llectura col nome $1";
+"reading-list-generic-error" = "Asocedió un error inesperáu al anovar les llistes de llectura.";
+"reading-list-hint-title" = "¿Treslladar $1 a una llista de llectura?";
+"reading-list-sync-setting" = "Sincronización de llista de llectura";
+"reading-list-unable-to-add-entry" = "Asocedió un error inesperáu al añadir una entrada a la llista de llectura. Tenta otra vuelta sero.";
+"reading-list-unable-to-create" = "Asocedió un error inesperáu al crear la llista de llectura. Tenta otra vuelta sero.";
+"reading-list-unable-to-delete" = "Asocedió un error inesperáu al desaniciar la llista de llectura. Tenta otra vuelta sero.";
+"reading-list-unable-to-remove-entry" = "Asocedió un error inesperáu al desaniciar una entrada de la llista de llectura. Tenta otra vuelta sero.";
+"reading-list-unable-to-update" = "Asocedió un error inesperáu al anovar la llista de llectura. Tenta otra vuelta sero.";
+"reading-list-with-provided-name-not-found" = "Nun s'atopó la llista de llectura llamada $1. Asegúrate de que tienes el nome correutu.";
+"reading-lists-article-moved-confirmation" = "Artículu treslladáu a «$1»";
+"reading-lists-count" = "{{PLURAL:$1|$1 llista|$1 llistes}} de llectura";
+"reading-lists-default-list-description" = "Llista predeterminada p'artículos guardaos";
+"reading-lists-default-list-title" = "Marcadores";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema prietu";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de rellumu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escura";
@@ -317,12 +346,17 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|L'añu pasáu|hai $1 años}}";
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
+"saved-all-articles-title" = "Tolos artículos";
 "saved-clear-all" = "Llimpiar";
-"saved-pages-clear-cancel" = "Encaboxar";
 // Fuzzy
-"saved-pages-clear-confirmation-heading" = "¿Seguro que quies desaniciar toles páxines guardaes?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "¿Tas seguru de que quies dexar de guardar esti artículu y quitalu de {{PLURAL:$1|$1 llista|$1 llistes}} de llectura?";
+"saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
+"saved-pages-clear-cancel" = "Encaboxar";
+"saved-pages-clear-confirmation-heading" = "¿Tas seguru de que quies desaniciar tolos artículos guardaos y quitalos de toles llistes de llectura?";
 "saved-pages-clear-delete-all" = "Si, desaniciar too";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
+"saved-reading-lists-title" = "Llistes de llectura";
+"saved-search-default-text" = "Buscar";
 "saved-title" = "Guardada";
 "search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-did-you-mean" = "¿Quixisti dicir $1?";
@@ -334,8 +368,7 @@
 "search-recent-title" = "Guetao de recién";
 "search-result-redirected-from" = "Redirixío dende: $1";
 "search-title" = "Guetar";
-// Fuzzy
-"settings-appearance" = "Aspeutu";
+"settings-appearance" = "Preferencies de llectura";
 "settings-clear-cache" = "Borrar los datos de la caché";
 "settings-clear-cache-are-you-sure-message" = "Si se borren los datos de la caché lliberaránse cerca de $1 d'espaciu. Nun se borrarán les páxines guardaes.";
 "settings-clear-cache-are-you-sure-title" = "¿Borrar los datos de la caché?";

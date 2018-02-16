@@ -69,6 +69,7 @@
 "appearance-settings-title" = "Lestrarþemu";
 "article-about-title" = "Um þessa grein";
 "article-delete" = "Eyða";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Grein var eytt";
 "article-languages-filter-placeholder" = "Finna tungumál";
 "article-languages-label" = "Velja tungumál";

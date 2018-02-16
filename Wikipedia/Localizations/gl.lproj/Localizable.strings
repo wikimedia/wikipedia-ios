@@ -73,6 +73,7 @@
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";

@@ -87,6 +87,7 @@
 "appearance-settings-title" = "پوستهٔ خواندن";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
+// Fuzzy
 "article-deleted-accessibility-notification" = "مقالهٔ حذف‌شده";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
