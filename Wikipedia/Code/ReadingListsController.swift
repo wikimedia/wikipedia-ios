@@ -504,19 +504,19 @@ public class ReadingListsController: NSObject {
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         var newSyncState = self.syncState
-        
+
+        if shouldDeleteLocalLists {
+            newSyncState.insert(.needsLocalClear)
+        } else {
+            newSyncState.insert(.needsLocalReset)
+        }
+
         if isSyncEnabled {
             newSyncState.insert(.needsRemoteEnable)
-            if shouldDeleteLocalLists {
-                newSyncState.insert(.needsLocalClear)
-            } else {
-                newSyncState.insert(.needsLocalReset)
-            }
             newSyncState.insert(.needsSync)
             newSyncState.remove(.needsUpdate)
             newSyncState.remove(.needsRemoteDisable)
         } else {
-            newSyncState.insert(.needsLocalReset)
             if shouldDeleteRemoteLists {
                 newSyncState.insert(.needsRemoteDisable)
             }
