@@ -4,6 +4,7 @@ internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
+internal let WMFReadingListBatchRequestLimit = 8
 
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
@@ -178,6 +179,7 @@ public class ReadingListsController: NSObject {
         var updatedReadingLists: [Int64: ReadingList] = [:]
         var deletedReadingLists: [Int64: ReadingList] = [:]
         var listsToCreate: [ReadingList] = []
+        var requestCount = 0
         for localReadingList in listsToUpdate {
             guard let readingListName = localReadingList.name else {
                 moc.delete(localReadingList)
@@ -192,6 +194,7 @@ public class ReadingListsController: NSObject {
                 continue
             }
             if localReadingList.isDeletedLocally {
+                requestCount += 1
                 taskGroup.enter()
                 self.apiController.deleteList(withListID: readingListID, completion: { (deleteError) in
                     defer {
@@ -203,7 +206,11 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingLists[readingListID] = localReadingList
                 })
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
+                    taskGroup.wait()
+                }
             } else if localReadingList.isUpdatedLocally {
+                requestCount += 1
                 taskGroup.enter()
                 self.apiController.updateList(withListID: readingListID, name: readingListName, description: localReadingList.readingListDescription, completion: { (updateError) in
                     defer {
@@ -215,6 +222,9 @@ public class ReadingListsController: NSObject {
                     }
                     updatedReadingLists[readingListID] = localReadingList
                 })
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
+                    taskGroup.wait()
+                }
             }
         }
         
@@ -284,6 +294,7 @@ public class ReadingListsController: NSObject {
                 continue
             }
             if localReadingListEntry.isDeletedLocally {
+                requestCount += 1
                 taskGroup.enter()
                 self.apiController.removeEntry(withEntryID: readingListEntryID, fromListWithListID: readingListID, completion: { (deleteError) in
                     defer {
@@ -295,6 +306,13 @@ public class ReadingListsController: NSObject {
                     }
                     deletedReadingListEntries[readingListEntryID] = localReadingListEntry
                 })
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
+                    taskGroup.wait()
+                    for (_, localReadingListEntry) in deletedReadingListEntries {
+                        moc.delete(localReadingListEntry)
+                    }
+                    deletedReadingListEntries = [:]
+                }
             } else {
                 // there's no "updating" of an entry currently
                 localReadingListEntry.isUpdatedLocally = false
@@ -370,7 +388,7 @@ public class ReadingListsController: NSObject {
                     group.leave()
                 })
                 entryCount += 1
-                if entryCount % 8 == 0 {
+                if entryCount % WMFReadingListBatchRequestLimit == 0 {
                     group.wait()
                 }
             }
