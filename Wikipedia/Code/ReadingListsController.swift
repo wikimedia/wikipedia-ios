@@ -4,6 +4,7 @@ internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
+
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
     
@@ -67,6 +68,8 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
+    @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
+
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     private let operationQueue = OperationQueue()
@@ -531,6 +534,8 @@ public class ReadingListsController: NSObject {
         
         dataStore.viewContext.wmf_setValue(NSNumber(value: newSyncState.rawValue), forKey: WMFReadingListSyncStateKey)
         sync()
+        
+        NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
     @objc public func start() {
