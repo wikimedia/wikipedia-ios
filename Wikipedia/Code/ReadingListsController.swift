@@ -563,9 +563,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func sync() {
-        assert(Thread.isMainThread)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-        perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #if TEST
+        #else
+            assert(Thread.isMainThread)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
+            perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #endif
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
