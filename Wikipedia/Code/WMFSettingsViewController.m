@@ -182,7 +182,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_StorageAndSyncing:
-            [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
+            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled){
+                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme: self.theme];
+            } else {
+                [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
+            }
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
@@ -331,10 +335,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler
-                                                         failure:^(NSError *error) {
-                                                             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                                                         }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme: self.theme completion:^{
+        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
+    }];
 }
 
 #pragma mark - Languages
