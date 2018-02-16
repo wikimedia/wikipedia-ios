@@ -15,7 +15,12 @@ public class ReadingList: NSManagedObject {
     }
     
     public var isDefaultList: Bool {
-        return self.isDefault?.boolValue ?? false
+        get {
+            return self.isDefault?.boolValue ?? false
+        }
+        set {
+            self.isDefault = NSNumber(value: newValue)
+        }
     }
     
     public func updateCountOfEntries() {

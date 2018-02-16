@@ -77,6 +77,7 @@
 
     [fetcher fetchArticleForURL:dummyArticleURL
         saveToDisk:YES
+        priority:NSURLSessionTaskPriorityHigh
         progress:NULL
         failure:^(NSError *erorr) {
             XCTFail(@"Recieved error");
@@ -94,6 +95,7 @@
 
             [fetcher fetchArticleForURL:dummyArticleURL
                 saveToDisk:YES
+                priority:NSURLSessionTaskPriorityHigh
                 progress:NULL
                 failure:^(NSError *erorr) {
                     XCTFail(@"Recieved error");

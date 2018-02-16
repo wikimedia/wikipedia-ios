@@ -81,7 +81,6 @@ typedef void (^WMFDynamicHeightPopoverPresentationHandler)(UIPopoverPresentation
     UIPopoverPresentationController *presenter = [popoverVC popoverPresentationController];
 
     presenter.delegate = popoverVC;
-    presenter.passthroughViews = @[self.view];
 
     if (presenterConfigurationBlock) {
         presenterConfigurationBlock(presenter);

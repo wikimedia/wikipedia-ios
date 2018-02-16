@@ -4,6 +4,7 @@ internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
+
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
     
@@ -67,6 +68,8 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
+    @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
+
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     private let operationQueue = OperationQueue()
@@ -339,6 +342,8 @@ public class ReadingListsController: NSObject {
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
+        var entryCount = 0
+        var articlesByKey: [String: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
             let isDeleted = remoteEntry.deleted ?? false
             guard !isDeleted else {
@@ -352,22 +357,29 @@ public class ReadingListsController: NSObject {
                 continue
             }
             requestedArticleKeys.insert(articleKey)
-            group.enter()
-            URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
-                guard let result = result else {
+            if let article = dataStore.fetchArticle(withKey: articleKey, in: moc) {
+                articlesByKey[articleKey] = article
+            } else {
+                group.enter()
+                URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
+                    guard let result = result else {
+                        group.leave()
+                        return
+                    }
+                    articleSummariesByArticleKey[articleKey] = result
                     group.leave()
-                    return
+                })
+                entryCount += 1
+                if entryCount % 8 == 0 {
+                    group.wait()
                 }
-                articleSummariesByArticleKey[articleKey] = result
-                group.leave()
-            })
+            }
         }
         
         group.wait()
         
         
         let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: articleSummariesByArticleKey)
-        var articlesByKey: [String: WMFArticle] = [:]
         for article in articles {
             guard let articleKey = article.key else {
                 continue
@@ -400,6 +412,7 @@ public class ReadingListsController: NSObject {
             }
         }
         
+        var updatedLists: Set<ReadingList> = []
         for remoteEntry in readingListEntries {
             guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey], let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
                 continue
@@ -416,6 +429,9 @@ public class ReadingListsController: NSObject {
             }
             readingList.addToArticles(article)
             article.readingListsDidChange()
+            updatedLists.insert(readingList)
+        }
+        for readingList in updatedLists {
             readingList.updateCountOfEntries()
         }
     }
@@ -491,19 +507,19 @@ public class ReadingListsController: NSObject {
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         var newSyncState = self.syncState
-        
+
+        if shouldDeleteLocalLists {
+            newSyncState.insert(.needsLocalClear)
+        } else {
+            newSyncState.insert(.needsLocalReset)
+        }
+
         if isSyncEnabled {
             newSyncState.insert(.needsRemoteEnable)
-            if shouldDeleteLocalLists {
-                newSyncState.insert(.needsLocalClear)
-            } else {
-                newSyncState.insert(.needsLocalReset)
-            }
             newSyncState.insert(.needsSync)
             newSyncState.remove(.needsUpdate)
             newSyncState.remove(.needsRemoteDisable)
         } else {
-            newSyncState.insert(.needsLocalReset)
             if shouldDeleteRemoteLists {
                 newSyncState.insert(.needsRemoteDisable)
             }
@@ -518,6 +534,8 @@ public class ReadingListsController: NSObject {
         
         dataStore.viewContext.wmf_setValue(NSNumber(value: newSyncState.rawValue), forKey: WMFReadingListSyncStateKey)
         sync()
+        
+        NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
     @objc public func start() {
@@ -536,9 +554,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
+        #if TEST
+        #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
         operationQueue.addOperation(sync)
         operationQueue.addOperation(completion)
+        #endif
     }
     
     @objc private func _sync() {
@@ -550,9 +571,12 @@ public class ReadingListsController: NSObject {
     }
     
     @objc public func sync() {
-        assert(Thread.isMainThread)
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-        perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #if TEST
+        #else
+            assert(Thread.isMainThread)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
+            perform(#selector(_sync), with: nil, afterDelay: 0.5)
+        #endif
     }
     
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
@@ -815,8 +839,18 @@ public class ReadingListsController: NSObject {
             }
         }
 
-        // create any list that wasn't matched by ID or name
-        try locallyCreate(Array(remoteReadingListEntriesByID.values), in: moc)
+        // create any entry that wasn't matched by ID or name
+        let batchSize = 500
+        var start = 0
+        var end = 0
+        let entries = Array(remoteReadingListEntriesByID.values)
+        while end < entries.count {
+            end = min(entries.count, start + batchSize)
+            try locallyCreate(Array(entries[start..<end]), in: moc)
+            start = end
+            try moc.save()
+            moc.reset()
+        }
 
         return sinceDate
     }
@@ -838,7 +872,12 @@ fileprivate extension NSManagedObjectContext {
 
 public extension NSManagedObjectContext {
     @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        return  wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        if defaultList == nil { // failsafe
+            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList?.isDefaultList = true
+        }
+        return defaultList
     }
 }
 

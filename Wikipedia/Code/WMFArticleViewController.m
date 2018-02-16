@@ -1942,12 +1942,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - One-time toolbar item popover tips
 
 - (BOOL)shouldShowWIconPopover {
-    return NO;
-    //    if (!self.navigationController || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
-    //        return NO;
-    //    } else {
-    //        return YES;
-    //    }
+    if (!self.navigationController || self.navigationBar.navigationBarPercentHidden == 1.0 || [[NSUserDefaults standardUserDefaults] wmf_didShowWIconPopover]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (void)showWIconPopoverIfNecessary {

@@ -142,6 +142,11 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                                              selector:@selector(articleFontSizeWasUpdated:)
                                                  name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleWasUpdated:)
+                                                 name:WMFArticleUpdatedNotification
+                                               object:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -238,9 +243,10 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
-    
+
     if (self.isResumeComplete) {
         [self.dataStore.readingListsController start];
+        [self.savedArticlesFetcher start];
     }
 }
 
@@ -299,7 +305,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        
+
         [self attemptLogin:^{
             [self.dataStore.readingListsController backgroundUpdate:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -572,25 +578,29 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
         dispatch_async(dispatch_get_main_queue(), completion);
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
-                                                         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-                                                             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-                                                             dispatch_async(dispatch_get_main_queue(), completion);
-                                                         }
-                                                                            failure:^(NSError *_Nonnull error) {
-                                                                                DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-                                                                                dispatch_async(dispatch_get_main_queue(), completion);
-                                                                            }];
+        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
+            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
+            dispatch_async(dispatch_get_main_queue(), completion);
+            [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
+        }
+        failure:^(NSError *_Nonnull error) {
+            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
+            dispatch_async(dispatch_get_main_queue(), completion);
+            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
+        }];
 }
 
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-    
+
     [self attemptLogin:^{
         [self.dataStore.readingListsController start];
+        [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
     }];
-    
+
     [self.dataStore.feedContentController startContentSources];
 
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
@@ -660,6 +670,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }
 
     [self.dataStore.readingListsController stop];
+    [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
@@ -676,7 +687,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.searchViewController = nil;
     self.settingsViewController = nil;
 
-    [self.savedArticlesFetcher stop];
     [self.dataStore.feedContentController stopContentSources];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
@@ -1522,6 +1532,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
+    }
+}
+
+#pragma mark - Article saved state changed
+
+- (void)articleWasUpdated:(NSNotification *)note {
+    WMFArticle *article = [note object];
+    id changedSavedDate = [article.changedValues objectForKey:@"savedDate"];
+    BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
+    if (articleWasSaved) {
+        [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
 }
 
