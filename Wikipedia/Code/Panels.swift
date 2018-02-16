@@ -100,7 +100,8 @@ extension UIViewController {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() && !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
         }
-        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: { _ in
+        
+        let enableSyncTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 guard self.hasSavedArticles() else {
                     SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
@@ -108,20 +109,27 @@ extension UIViewController {
                 }
                 self.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
             })
-        }, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        }
+        
+        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        
         present(panelVC, with: theme, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
-        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: { _ in
+        let addArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
-        }, secondaryButtonTapHandler: { _ in
+        }
+        let removeArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
-        }, dismissHandler: nil)
+        }
+        
+        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: addArticlesTapHandler, secondaryButtonTapHandler: removeArticlesTapHandler, dismissHandler: nil)
+        
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
@@ -137,26 +145,34 @@ extension UIViewController {
         guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
             return
         }
-        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: { _ in
+        
+        let tryLoginAgainTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.showLoginViewController(theme: theme)
             })
-        }, secondaryButtonTapHandler: { _ in
+        }
+        let stayLoggedOutTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(theme: theme, completion: {
                     WMFAuthenticationManager.sharedInstance.logout()
                 })
             })
-        }, dismissHandler: nil)
+        }
+        
+        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: tryLoginAgainTapHandler, secondaryButtonTapHandler: stayLoggedOutTapHandler, dismissHandler: nil)
+
         present(panelVC, with: theme, animated: true, completion: nil)
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
-        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { _ in
+        let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.showLoginViewController(theme: theme)
             })
-        }, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        }
+        
+        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
@@ -168,11 +184,15 @@ extension UIViewController {
         else {
             return
         }
-        let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: { _ in
+        
+        let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.showLoginViewController(theme: theme)
             })
-        }, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        }
+        
+        let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        
         present(panelVC, with: theme, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
         })
@@ -183,15 +203,21 @@ extension UIViewController {
             completion()
             return
         }
-        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: { _ in
+        
+        let keepArticlesOnDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
-        }, secondaryButtonTapHandler: { _ in
+        }
+        let deleteArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
             self.presentedViewController?.dismiss(animated: true, completion: nil)
-        }, dismissHandler: {
+        }
+        let dismissHandler: ScrollableEducationPanelDismissHandler = {
             completion()
-        })
+        }
+        
+        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteArticlesFromDeviceTapHandler, dismissHandler: dismissHandler)
+        
         present(panelVC, with: theme, animated: true, completion: nil)
     }
 }
