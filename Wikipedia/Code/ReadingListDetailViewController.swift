@@ -318,7 +318,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         return self.theme
     }
     
-    func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.leftBarButtonItem?.tintColor = theme.colors.link

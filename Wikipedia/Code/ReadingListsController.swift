@@ -565,10 +565,12 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    @objc public func stop() {
+    @objc public func stop(_ completion: @escaping () -> Void) {
         assert(Thread.isMainThread)
         updateTimer?.invalidate()
         updateTimer = nil
+        operationQueue.cancelAllOperations()
+        operationQueue.addOperation(completion)
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {

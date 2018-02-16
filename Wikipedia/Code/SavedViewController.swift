@@ -62,6 +62,8 @@ class SavedViewController: ViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
+    private var activeEditableCollection: EditableCollection?
+    
     private var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
@@ -74,6 +76,7 @@ class SavedViewController: ViewController {
                 isAddButtonHidden = true
                 isSearchBarHidden = savedArticlesViewController.isEmpty
                 scrollView = savedArticlesViewController.collectionView
+                activeEditableCollection = savedArticlesViewController
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
@@ -81,6 +84,7 @@ class SavedViewController: ViewController {
                 isAddButtonHidden = false
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
+                activeEditableCollection = readingListsViewController
             }
         }
     }
@@ -207,12 +211,24 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         return self.theme
     }
     
-    func didChangeEditingState(from oldEditingState: BatchEditingState, to newEditingState: BatchEditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         sortButton.isEnabled = newEditingState == .closed || newEditingState == .none
         if newEditingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
+        }
+    }
+    
+    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
+        if newEditingState == .open {
+            dataStore?.readingListsController.stop {
+                DispatchQueue.main.async {
+                    self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
+                }
+            }
+        } else {
+            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
         }
     }
     

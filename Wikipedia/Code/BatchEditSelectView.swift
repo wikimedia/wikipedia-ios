@@ -60,7 +60,7 @@ public class BatchEditSelectView: SizeThatFitsView {
 
 }
 
-public enum BatchEditingState: Int, EnumCollection {
+public enum EditingState: Int, EnumCollection {
     case none // initial state
     case open // batch editing pane is open
     case closed // batch editing pane is closed

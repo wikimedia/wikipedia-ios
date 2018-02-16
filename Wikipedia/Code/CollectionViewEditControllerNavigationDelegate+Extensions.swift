@@ -33,6 +33,10 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        //
+        // conforming types can provide their own implementations
+    }
+    
+    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
+        // conforming types can provide their own implementations
     }
 }
