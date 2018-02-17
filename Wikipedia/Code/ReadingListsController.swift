@@ -312,6 +312,7 @@ public class ReadingListsController: NSObject {
                         moc.delete(localReadingListEntry)
                     }
                     deletedReadingListEntries = [:]
+                    try moc.save()
                 }
             } else {
                 // there's no "updating" of an entry currently

@@ -47,6 +47,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             } else {
                 syncState.remove(.needsRemoteDisable)
                 moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+                try moc.save()
             }
         }
         
@@ -55,6 +56,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 try executeRandomArticlePopulation(in: moc)
                 syncState.remove(.needsRandomEntries)
                 moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+                try moc.save()
             }
         #endif
         
@@ -138,6 +140,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             } else {
                 syncState.remove(.needsRemoteEnable)
                 moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+                try moc.save()
             }
         }
         
