@@ -763,7 +763,7 @@ public class ReadingListsController: NSObject {
             }
             
             if remoteReadingList == nil {
-                if let localReadingListName = localReadingList.name?.precomposedStringWithCanonicalMapping {
+                if localReadingList.readingListID == nil, let localReadingListName = localReadingList.name?.precomposedStringWithCanonicalMapping{
                     remoteReadingList = remoteReadingListsByName.removeValue(forKey: localReadingListName)
                     if let remoteReadingListID = remoteReadingList?.id {
                         // remove from the dictionary because we will create any lists left in this dictionary
