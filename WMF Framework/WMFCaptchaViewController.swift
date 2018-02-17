@@ -64,7 +64,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
 
-    @objc public var captchaDelegate: WMFCaptchaViewControllerDelegate?
+    @objc public weak var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
     
     fileprivate var theme = Theme.standard
