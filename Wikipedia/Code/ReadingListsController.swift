@@ -321,6 +321,7 @@ public class ReadingListsController: NSObject {
         }
         
         for (readingListID, entries) in entriesToAddByListID {
+            requestCount += 1
             taskGroup.enter()
             let entryProjectAndTitles = entries.map { (project: $0.project, title: $0.title) }
             self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
@@ -340,6 +341,9 @@ public class ReadingListsController: NSObject {
                 }
                 
             })
+            if requestCount % WMFReadingListBatchRequestLimit == 0 {
+                taskGroup.wait()
+            }
         }
         taskGroup.wait()
         

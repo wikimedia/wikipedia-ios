@@ -166,6 +166,54 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
+    /**
+     Adds a new entry to a reading list using the reading list API
+     - parameters:
+     - listID: The list ID of the list that is getting an entry
+     - project: The project name of the new entry
+     - title: The title of the new entry
+     - completion: Called after the request completes
+     - entryID: The entry ID if it was created
+     - error: Any error preventing entry creation
+     */
+    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let title = title.precomposedStringWithCanonicalMapping
+        let project = project.precomposedStringWithCanonicalMapping
+        let bodyParams = ["project": project, "title": title]
+        post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
+            if let apiError = error as? APIReadingListError {
+                switch apiError {
+                case .duplicateEntry:
+                    // TODO: Remove when error response returns ID
+                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
+                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
+                            completion(nil, error ?? ReadingListError.unableToAddEntry)
+                            return
+                        }
+                        completion(entry.id, nil)
+                    })
+                default:
+                    completion(nil, apiError)
+                }
+                return
+            } else if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let result = result else {
+                completion(nil, error ?? ReadingListError.unableToAddEntry)
+                return
+            }
+            
+            guard let id = result["id"] as? Int64 else {
+                completion(nil, ReadingListError.unableToAddEntry)
+                return
+            }
+            
+            completion(id, nil)
+        }
+    }
     
     /**
      Adds a new entry to a reading list using the reading list API
@@ -185,15 +233,39 @@ class ReadingListsAPIController: NSObject {
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
                 switch apiError {
-//                case .duplicateEntry:
-//                    // TODO: Remove when error response returns ID
-//                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
-//                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
-//                            completion(nil, error ?? ReadingListError.unableToAddEntry)
-//                            return
-//                        }
-//                        completion(entry.id, nil)
-//                    })
+                case .duplicateEntry:
+                    DispatchQueue.global().async {
+                        let taskGroup = WMFTaskGroup()
+                        var entryIDsByProjectAndTitle: [String: [String: Int64]] = [:]
+                        var requests = 0
+                        for entry in entries {
+                            requests += 1
+                            taskGroup.enter()
+                            self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
+                                defer {
+                                    taskGroup.leave()
+                                }
+                                guard let entryID = entryID else {
+                                    return
+                                }
+                                entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = entryID
+                            })
+                            if requests % WMFReadingListBatchRequestLimit == 0 {
+                                taskGroup.wait()
+                            }
+                        }
+                        taskGroup.wait()
+                        var entryIDs: [Int64] = []
+                        for entry in entries {
+                            guard let entryID = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
+                                completion(nil, apiError)
+                                return
+                            }
+                            entryIDs.append(entryID)
+                        }
+                        completion(entryIDs, nil)
+                    }
+                    
                 default:
                     completion(nil, apiError)
                 }
