@@ -48,7 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         let _ = readingListDetailExtendedViewController.view
-        //navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -311,16 +311,24 @@ extension ReadingListDetailViewController: ActionDelegate {
 
 extension ReadingListDetailViewController: ShareableArticlesProvider {}
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension ReadingListDetailViewController: BatchEditNavigationDelegate {
+extension ReadingListDetailViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
+        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
+        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if newEditingState == .done {
+            readingListDetailExtendedViewController.finishEditing()
+        } else if newEditingState == .cancelled {
+            readingListDetailExtendedViewController.cancelEditing()
+        }
     }
 }
 
@@ -459,9 +467,14 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
         updateSearchString(searchText)
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController) {
         presentSortAlert()
     }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField) {
+        editController.isTextEditing = true
+    }
+
 }
 
 // MARK: - Analytics

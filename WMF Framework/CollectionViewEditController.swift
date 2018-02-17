@@ -8,8 +8,9 @@ enum CollectionViewCellState {
     case idle, open
 }
 
-public protocol BatchEditNavigationDelegate: NSObjectProtocol {
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) // same implementation for 2/3
+public protocol CollectionViewEditControllerNavigationDelegate: class {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
+    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState)
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
@@ -35,16 +36,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public var isActive: Bool {
         return activeIndexPath != nil
     }
-    // disabled
+
     var activeIndexPath: IndexPath? {
         didSet {
             if activeIndexPath != nil {
-                batchEditingState = .inactive
+                editingState = .swiping
             } else {
-                batchEditingState = .none
+                editingState = .none
             }
         }
     }
+    
     var isRTL: Bool = false
     var initialSwipeTranslation: CGFloat = 0
     let maxExtension: CGFloat = 10
@@ -342,12 +344,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     // MARK: - Batch editing
     
-    public weak var navigationDelegate: BatchEditNavigationDelegate? {
+    public weak var navigationDelegate: CollectionViewEditControllerNavigationDelegate? {
         willSet {
             batchEditToolbarViewController.remove()
         }
         didSet {
-            batchEditingState = .none
+            editingState = .none
         }
     }
     
@@ -358,17 +360,25 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
-    private var batchEditingState: BatchEditingState = .none {
+    private var editingState: EditingState = .none {
         didSet {
-            var barButtonSystemItem: UIBarButtonSystemItem = UIBarButtonSystemItem.edit
+            var newBarButtonSystemItem: (left: UIBarButtonSystemItem?, right: UIBarButtonSystemItem) = (left: nil, right: UIBarButtonSystemItem.edit)
             var enabled = true
-            var tag = 0
             
             defer {
-                let button = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(batchEdit(_:)))
-                button.tag = tag
-                button.isEnabled = enabled
-                navigationDelegate?.didChange(editingState: batchEditingState, rightBarButton: button)
+                let rightButton = UIBarButtonItem(barButtonSystemItem: newBarButtonSystemItem.right, target: self, action: #selector(barButtonPressed(_:)))
+                let leftButton: UIBarButtonItem?
+                if let barButtonSystemItem = newBarButtonSystemItem.left {
+                    leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+                } else {
+                    leftButton = nil
+                }
+                leftButton?.tag = editingState.tag
+                rightButton.tag = editingState.tag
+                rightButton.isEnabled = enabled
+                activeBarButton.left = leftButton
+                activeBarButton.right = rightButton
+                navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
             }
             
             guard !isCollectionViewEmpty && !hasDefaultCell else {
@@ -377,23 +387,29 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 return
             }
 
-            switch batchEditingState {
-            case .inactive:
-                barButtonSystemItem = .done
-                tag = -1
+            switch editingState {
+            case .editing:
+                areSwipeActionsDisabled = true
+                newBarButtonSystemItem.left = .cancel
+                fallthrough
+            case .swiping:
+                newBarButtonSystemItem.right = .done
+            case .open:
+                newBarButtonSystemItem.right = UIBarButtonSystemItem.cancel
+                fallthrough
+            case .closed:
+                transformBatchEditPane(for: editingState)
+            case .done:
+                fallthrough
+            case .cancelled:
+                fallthrough
             case .none:
                 break
-            case .cancelled:
-                transformBatchEditPane(for: batchEditingState)
-            case .open:
-                barButtonSystemItem = UIBarButtonSystemItem.cancel
-                tag = 1
-                transformBatchEditPane(for: batchEditingState)
             }
         }
     }
     
-    private func transformBatchEditPane(for state: BatchEditingState, animated: Bool = true) {
+    private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -420,13 +436,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc public func close() {
-        batchEditingState = .cancelled
+        editingState = .closed
         closeActionPane()
     }
     
     public var isCollectionViewEmpty: Bool = false {
         didSet {
-            batchEditingState = .none
+            editingState = .none
             navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
         }
     }
@@ -436,26 +452,59 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             guard hasDefaultCell else {
                 return
             }
-            batchEditingState = .none
+            editingState = .none
         }
     }
     
-    @objc private func batchEdit(_ sender: UIBarButtonItem) {
-        switch sender.tag {
-        case -1:
+    var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
+    
+    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
+        let editingStates = EditingState.allCases
+        
+        guard editingStates.indices.contains(sender.tag) else {
+            return
+        }
+        let currentEditingState = editingStates[sender.tag]
+        
+        let newEditingState: EditingState
+        
+        switch currentEditingState {
+        case .none:
+            fallthrough
+        case .cancelled:
+            fallthrough
+        case .done:
+            fallthrough
+        case .closed:
+            newEditingState = .open
+        case .open:
+            newEditingState = .closed
+        case .swiping:
             closeActionPane()
-            batchEditingState = .none
-        case 0:
-            batchEditingState = .open
-        case 1:
-            batchEditingState = .cancelled
+            newEditingState = .done
+        case .editing where sender == activeBarButton.left:
+            newEditingState = .cancelled
+        case .editing where sender == activeBarButton.right:
+            newEditingState = .done
         default:
             return
+        }
+        
+        navigationDelegate?.willChangeEditingState(from: currentEditingState, to: newEditingState)
+    }
+    
+    public func changeEditingState(to newEditingState: EditingState) {
+        editingState = newEditingState
+    }
+    
+    public var isTextEditing: Bool = false {
+        didSet {
+            editingState = .editing
         }
     }
     
     public var isClosed: Bool {
-        let isClosed = batchEditingState != .open
+        let isClosed = editingState != .open
         if !isClosed {
             batchEditToolbarViewController.setItemsEnabled(!selectedIndexPaths.isEmpty)
         }
@@ -463,7 +512,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public func transformBatchEditPaneOnScroll() {
-        transformBatchEditPane(for: batchEditingState, animated: false)
+        transformBatchEditPane(for: editingState, animated: false)
     }
     
     private var selectedIndexPaths: [IndexPath] {
@@ -489,7 +538,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     @objc public func didPerformBatchEditToolbarAction(with sender: UIBarButtonItem) {
         let didPerformAction = delegate?.didPerformBatchEditToolbarAction?(batchEditToolbarActions[sender.tag]) ?? false
         if didPerformAction {
-            batchEditingState = .cancelled
+            editingState = .closed
         }
     }
     

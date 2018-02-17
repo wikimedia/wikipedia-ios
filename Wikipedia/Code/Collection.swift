@@ -149,7 +149,7 @@ extension EditableCollection where Self: ActionDelegate {
     func setupEditController() {
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
-        if let navigationDelegate = self as? BatchEditNavigationDelegate {
+        if let navigationDelegate = self as? CollectionViewEditControllerNavigationDelegate {
             editController.navigationDelegate = navigationDelegate
         }
     }

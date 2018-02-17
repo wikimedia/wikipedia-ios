@@ -1,7 +1,8 @@
 protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?)
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String)
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton)
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField)
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -13,6 +14,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet var constraints: [NSLayoutConstraint] = []
+    
+    private var readingListTitle: String?
+    private var readingListDescription: String?
     
     public weak var delegate: ReadingListDetailExtendedViewControllerDelegate?
     
@@ -52,10 +56,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        articleCountLabel.setFont(with: .systemBold, style: .footnote, traitCollection: traitCollection)
-        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
-        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
-        updateButton.titleLabel?.setFont(with: .systemBold, style: .subheadline, traitCollection: traitCollection)
+        articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
+        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
+        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        updateButton.titleLabel?.setFont(with: .systemSemiBold, style: .subheadline, traitCollection: traitCollection)
         sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
     }
     
@@ -80,23 +84,49 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool) {
         titleTextField.text = title
-        descriptionTextField.text = isDefault ? CommonStrings.readingListsDefaultListDescription : description
+        readingListTitle = title
+        let readingListDescription = isDefault ? CommonStrings.readingListsDefaultListDescription : description
+        descriptionTextField.text = readingListDescription
+        self.readingListDescription = readingListDescription
+        
         titleTextField.isEnabled = !isDefault
         descriptionTextField.isEnabled = !isDefault
+        
         updateArticleCount(articleCount)
     }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
-        delegate?.extendedViewController(self, didPressSortButton: sender)
+        delegate?.extendedViewControllerDidPressSortButton(self)
+    }
+    
+    private var firstResponder: UITextField? = nil
+    
+    public func dismissKeyboardIfNecessary() {
+        firstResponder?.resignFirstResponder()
+    }
+    
+    public func cancelEditing() {
+        titleTextField.text = readingListTitle
+        descriptionTextField.text = readingListDescription
+        dismissKeyboardIfNecessary()
+    }
+    
+    public func finishEditing() {
+        delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
+        dismissKeyboardIfNecessary()
     }
     
 }
 
 extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
-        textField.resignFirstResponder()
+        finishEditing()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        firstResponder = textField
+        delegate?.extendedViewController(self, didBeginEditing: textField)
     }
 }
 

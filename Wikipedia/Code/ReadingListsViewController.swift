@@ -9,10 +9,10 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection {
-    
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
     private let reuseIdentifier = "ReadingListsViewControllerCell"
     
+    typealias T = ReadingList
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
@@ -26,7 +26,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        let basePredicate = NSPredicate(format: "isDeletedLocally == NO")
         if let readingLists = readingLists, readingLists.count > 0 {
             isShowingDefaultList = readingLists.filter { $0.isDefaultList }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
@@ -44,16 +43,18 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             request.predicate = basePredicate
         }
         
-        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "canonicalName", ascending: true)]
+        request.sortDescriptors = [baseSortDescriptor, NSSortDescriptor(key: "canonicalName", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching reading lists: \(error)")
-        }
-        
-        collectionView.reloadData()
+        fetch()
+    }
+    
+    var basePredicate: NSPredicate {
+        return NSPredicate(format: "isDeletedLocally == NO")
+    }
+    
+    var baseSortDescriptor: NSSortDescriptor {
+        return NSSortDescriptor(key: "isDefault", ascending: false)
     }
     
     init(with dataStore: MWKDataStore) {
@@ -415,8 +416,8 @@ extension ReadingListsViewController: ActionDelegate {
 
 }
 
-extension ReadingListsViewController: BatchEditNavigationDelegate {
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+extension ReadingListsViewController: CollectionViewEditControllerNavigationDelegate {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         //
     }
     
