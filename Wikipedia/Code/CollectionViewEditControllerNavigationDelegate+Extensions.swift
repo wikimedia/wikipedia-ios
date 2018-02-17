@@ -35,8 +35,18 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
     func emptyStateDidChange(_ empty: Bool) {
         // conforming types can provide their own implementations
     }
-    
+}
+
+extension CollectionViewEditControllerNavigationDelegate where Self: UpdatableCollection & EditableCollection {
     func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        // conforming types can provide their own implementations
+        if newEditingState == .open {
+            dataStore.readingListsController.stop {
+                DispatchQueue.main.async {
+                    self.editController.changeEditingState(to: newEditingState)
+                }
+            }
+        } else {
+            editController.changeEditingState(to: newEditingState)
+        }
     }
 }
