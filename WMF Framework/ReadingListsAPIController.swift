@@ -224,7 +224,7 @@ class ReadingListsAPIController: NSObject {
         - entryIDs: The entry IDs if they were created
         - error: Any error preventing entry creation
      */
-    func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+    func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
         guard entries.count > 0 else {
             completion([], nil)
             return
@@ -232,42 +232,33 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
-                switch apiError {
-                case .duplicateEntry:
-                    DispatchQueue.global().async {
-                        let taskGroup = WMFTaskGroup()
-                        var entryIDsByProjectAndTitle: [String: [String: Int64]] = [:]
-                        var requests = 0
-                        for entry in entries {
-                            requests += 1
-                            taskGroup.enter()
-                            self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
-                                defer {
-                                    taskGroup.leave()
-                                }
-                                guard let entryID = entryID else {
-                                    return
-                                }
-                                entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = entryID
-                            })
-                            if requests % WMFReadingListBatchRequestLimit == 0 {
-                                taskGroup.wait()
+                DispatchQueue.global().async {
+                    let taskGroup = WMFTaskGroup()
+                    var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
+                    var requests = 0
+                    for entry in entries {
+                        requests += 1
+                        taskGroup.enter()
+                        self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
+                            defer {
+                                taskGroup.leave()
                             }
+                            entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = (entryID, error)
+                        })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
                         }
-                        taskGroup.wait()
-                        var entryIDs: [Int64] = []
-                        for entry in entries {
-                            guard let entryID = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
-                                completion(nil, apiError)
-                                return
-                            }
-                            entryIDs.append(entryID)
-                        }
-                        completion(entryIDs, nil)
                     }
-                    
-                default:
-                    completion(nil, apiError)
+                    taskGroup.wait()
+                    var entryIDsOrErrors: [(Int64?, Error?)] = []
+                    for entry in entries {
+                        guard let entry = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
+                            completion(nil, apiError)
+                            return
+                        }
+                        entryIDsOrErrors.append(entry)
+                    }
+                    completion(entryIDsOrErrors, nil)
                 }
                 return
             } else if let error = error {
@@ -286,7 +277,7 @@ class ReadingListsAPIController: NSObject {
             }
             
             
-            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
+            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
         }
     }
     

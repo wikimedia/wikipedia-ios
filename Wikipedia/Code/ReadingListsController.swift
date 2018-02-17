@@ -332,8 +332,8 @@ public class ReadingListsController: NSObject {
                     DDLogError("Error creating reading list entry: \(String(describing: createError))")
                     return
                 }
-                for (index, readingListEntryID) in readingListEntryIDs.enumerated() {
-                    guard index < entries.count else {
+                for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
+                    guard index < entries.count, let readingListEntryID = readingListEntryIDOrError.0 else {
                         break
                     }
                     let localReadingListEntry = entries[index].entry
