@@ -243,8 +243,8 @@ public class ReadingListsController: NSObject {
                 DDLogError("Error creating reading list: \(String(describing: creationError))")
                 return
             }
-            for (index, readingListID) in readingListIDs.enumerated() {
-                guard index < listsToCreate.count else {
+            for (index, readingList) in readingListIDs.enumerated() {
+                guard index < listsToCreate.count, let readingListID = readingList.0  else {
                     break
                 }
                 let localReadingList = listsToCreate[index]

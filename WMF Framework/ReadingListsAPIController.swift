@@ -143,6 +143,27 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
+    
+    /**
+     Creates a new reading list using the reading list API
+     - parameters:
+     - name: The name for the new list
+     - description: The description for the new list
+     - completion: Called after the request completes
+     - listID: The list ID if it was created
+     - error: Any error preventing list creation
+     */
+    func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
+        post(path: "", bodyParameters: bodyParams) { (result, response, error) in
+            guard let result = result, let id = result["id"] as? Int64 else {
+                completion(nil, error ?? ReadingListError.unableToCreateList)
+                return
+            }
+            completion(id, nil)
+        }
+    }
+    
     /**
      Creates a new reading list using the reading list API
      - parameters:
@@ -151,7 +172,7 @@ class ReadingListsAPIController: NSObject {
         - listIDs: The list IDs if they were created
         - error: Any error preventing list creation
     */
-    func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+    func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
         guard lists.count > 0 else {
             completion([], nil)
             return
@@ -159,10 +180,35 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
-                completion(nil, ReadingListError.unableToCreateList)
+                DispatchQueue.global().async {
+                    let taskGroup = WMFTaskGroup()
+                    var listsByName: [String: (Int64?, Error?)] = [:]
+                    var requests = 0
+                    for list in lists {
+                        requests += 1
+                        taskGroup.enter()
+                        self.createList(name: list.name, description: list.description, completion: { (listID, error) in
+                            taskGroup.leave()
+                            listsByName[list.name] = (listID, error)
+                        })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
+                        }
+                    }
+                    taskGroup.wait()
+                    var listsOrErrors: [(Int64?, Error?)] = []
+                    for list in lists {
+                        guard let list = listsByName[list.name] else {
+                            completion(nil, ReadingListError.unableToCreateList)
+                            return
+                        }
+                        listsOrErrors.append(list)
+                    }
+                    completion(listsOrErrors, nil)
+                }
                 return
             }
-            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
+            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
         }
     }
     
