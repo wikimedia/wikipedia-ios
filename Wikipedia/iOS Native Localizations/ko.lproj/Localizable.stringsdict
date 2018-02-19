@@ -2,6 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>문서가 삭제됨</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>이 목록에 저장된 모든 문서의 저장은 이 목록이 삭제되면 취소됩니다.</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -12,10 +40,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>이 문서를 삭제하시겠습니까?</string>
 			<key>other</key>
-			<string>이 %1$d개 문서를 삭제하시겠습니까?</string>
+			<string>목록을 삭제하시겠습니까?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -144,6 +170,20 @@
 			<string>%1$d년 전</string>
 			<key>zero</key>
 			<string>올해</string>
+		</dict>
+	</dict>
+	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>이 문서의 저장을 취소하고 읽기 목록의 문서를 제거하시겠습니까?</string>
 		</dict>
 	</dict>
 </dict>

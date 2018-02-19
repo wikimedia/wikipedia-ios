@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Article supprimé</string>
+			<key>other</key>
+			<string>Articles supprimés</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -165,9 +181,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer d’une liste de lecture ?</string>
+			<string>Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer de toutes les listes de lecture ?</string>
 			<key>other</key>
-			<string>Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer de %1$d listes de lecture ?</string>
+			<string>Êtes-vous sûr de vouloir ne plus enregistrer ces articles et les supprimer de toutes les listes de lecture ?</string>
 		</dict>
 	</dict>
 </dict>
