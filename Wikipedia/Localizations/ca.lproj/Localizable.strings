@@ -71,6 +71,7 @@
 "action-saved-accessibility" = "Desat. Activa per a desfer-ho.";
 "action-saved-accessibility-notification" = "Article desat per a més endavant";
 "action-share" = "Comparteix";
+"action-sort" = "Ordena";
 "action-unsave" = "No ho desis";
 "action-unsaved-accessibility-notification" = "Article no desat";
 "action-update" = "Actualitza";
@@ -88,8 +89,7 @@
 "appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
-// Fuzzy
-"article-deleted-accessibility-notification" = "S'ha suprimit l'article";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
@@ -325,8 +325,16 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-list-add-saved-button-title" = "Sí, afegeix-los a les meves llistes de lectura";
+"reading-list-add-saved-title" = "S'han trobat articles desats";
 "reading-list-deleted-accessibility-notification" = "S'ha eliminat la llista de lectura";
+"reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
+"reading-list-hint-title" = "Voleu moure $1 a una llista de lectura?";
+"reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
+"reading-list-sync-enable-button-title" = "Habilita la sincronització";
+"reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
 "reading-list-sync-setting" = "Sincronització de la llista de lectura";
+"reading-lists-article-moved-confirmation" = "S'ha mogut l'article a «$1»";
 "reading-lists-default-list-description" = "Llista per defecte dels articles desats";
 "reading-lists-default-list-title" = "Adreces d'interès";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
@@ -340,13 +348,14 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|L'any passat|Fa $1 anys}}";
+"relogin-failed-retry-login-button-title" = "Proveu de tornar a iniciar una sessió";
+"relogin-failed-stay-logged-out-button-title" = "Manteniu-me fora de la sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "saved-all-articles-title" = "Tots els articles";
 "saved-clear-all" = "Neteja";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
 "saved-pages-clear-cancel" = "Cancel·la";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Esteu segur que voleu suprimir totes les pàgines desades?";
+"saved-pages-clear-confirmation-heading" = "Esteu segur que voleu eliminar tots els articles desats i suprimir-los de totes les llistes de lectura?";
 "saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-reading-lists-title" = "Llistes de lectura";
@@ -355,6 +364,7 @@
 "search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-did-you-mean" = "Volíeu dir: $1?";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
+"search-reading-list-placeholder-text" = "Cerca a la llista de lectura";
 "search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
@@ -395,6 +405,8 @@
 "share-open-in-maps" = "Obre a Mapes";
 "share-social-format" = "«$1» des de la Viquipèdia: $2";
 "share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
+"sort-by-recently-added-action" = "S'ha afegit recentment";
+"sort-by-title-action" = "Títol";
 "status-saved-for-later" = "Desat per a més endavant";
 "status-saving-for-later" = "Es desa per més endavant...";
 "table-of-contents-button-label" = "Taula de continguts";
@@ -414,6 +426,7 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
+"update-articles-button" = "Actualitza $1";
 "view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";
