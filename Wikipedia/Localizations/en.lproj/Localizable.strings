@@ -97,8 +97,6 @@
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"delete-reading-list-alert-message" = "This action cannot be undone. Any associated articles will not be un-saved";
-"delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
@@ -339,6 +337,8 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for saved articles";
 "reading-lists-default-list-title" = "Bookmarks";
+"reading-lists-delete-reading-list-alert-message" = "This action cannot be undone. Saved articles will remain in your All articles tab";
+"reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
@@ -365,6 +365,8 @@
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Un-saving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Un-save {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
@@ -430,8 +432,6 @@
 "two-factor-login-title" = "Log in to your account";
 "two-factor-login-with-backup-code" = "Use one of your backup codes";
 "two-factor-login-with-regular-code" = "Use verification code";
-"unsave-article-and-remove-from-reading-lists-message" = "Un-saving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
-"unsave-article-and-remove-from-reading-lists-title" = "Un-save {{PLURAL:$1|article|articles}}?";
 "update-articles-button" = "Update $1";
 "view-in-browser-footer-link" = "View article in browser";
 "welcome-exploration-explore-feed-description" = "Recommended reading and daily articles from our community";

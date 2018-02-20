@@ -16,22 +16,6 @@
 			<string>Artikel gelöscht</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Liste löschen?</string>
-			<key>other</key>
-			<string>Listen löschen?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

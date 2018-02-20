@@ -97,8 +97,6 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
-"delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
-"delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
@@ -339,6 +337,8 @@
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list";
 "reading-lists-default-list-title" = "The title of the default saved pages list";
+"reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
+"reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
@@ -365,6 +365,8 @@
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
@@ -430,8 +432,6 @@
 "two-factor-login-title" = "Title for two factor login interface";
 "two-factor-login-with-backup-code" = "Button text for showing text field for backup code two factor login";
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
-"unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists";
-"unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists";
 "update-articles-button" = "Title of the button that updates articles in a list.";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";

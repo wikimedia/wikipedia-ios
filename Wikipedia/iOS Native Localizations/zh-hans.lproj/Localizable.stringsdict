@@ -16,20 +16,6 @@
 			<string>条目已删除</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>删除列表么？</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
