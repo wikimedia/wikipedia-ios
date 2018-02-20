@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<<<<<<< HEAD
-=======
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -20,39 +18,6 @@
 			<string>Články odstraněny</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Jakékoli články uložené jenom v tomto seznamu nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
-			<key>other</key>
-			<string>Jakékoli články uložené jenom v těchto seznamech nebudou uloženy, pokud nejsou v jiném seznamu čtení.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Odstranit tento seznam?</string>
-			<key>other</key>
-			<string>Odstranit těchto %1$d seznamů?</string>
-		</dict>
-	</dict>
->>>>>>> feature/reading_lists
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -85,24 +50,5 @@
 			<string>%1$d seznamů čtení</string>
 		</dict>
 	</dict>
-<<<<<<< HEAD
-=======
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Jste si jist/a, že nechcete uložit tento článek a odstranit ho ze všech seznamů čtení?</string>
-			<key>other</key>
-			<string>Jste si jist/a, že nechcete uložit tyto články a odstranit ho ze všech seznamů čtení?</string>
-		</dict>
-	</dict>
->>>>>>> feature/reading_lists
 </dict>
 </plist>
