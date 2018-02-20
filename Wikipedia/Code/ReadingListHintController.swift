@@ -147,7 +147,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         guard didSaveArticle else {
             return
         }
-        hintVisibilityTime = 8
+        hintVisibilityTime = 0
     }
     
     // MARK: - ReadingListHintViewControllerDelegate
