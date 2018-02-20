@@ -150,10 +150,10 @@ public class Session {
                 handleErrorResponse()
                 return
             }
-            #if DEBUG
-                let stringData = String(data: data, encoding: .utf8)
-                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
-            #endif
+//            #if DEBUG
+//                let stringData = String(data: data, encoding: .utf8)
+//                DDLogDebug("codable response:\n\(String(describing:response?.url)):\n\(String(describing: stringData))")
+//            #endif
             do {
                 let result: T = try decoder.decode(T.self, from: data)
                 completionHandler(result, nil, response, error)

@@ -28,9 +28,11 @@ extension ReadingList {
             canonicalName = newValue?.precomposedStringWithCanonicalMapping
         }
         get {
-            return canonicalName
+            return isDefaultList ? CommonStrings.readingListsDefaultListTitle : canonicalName
         }
     }
+    
+    @objc static let defaultListCanonicalName = "default"
 }
 
 // MARK: Generated accessors for entries

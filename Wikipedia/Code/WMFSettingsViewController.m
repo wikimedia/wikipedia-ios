@@ -88,10 +88,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Before iOS 11
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readingListSyncStateChanged:) name:[WMFReadingListsController syncStateDidChangeNotification] object:nil];
 }
 
 - (void)dealloc {
     self.authManager = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setAuthManager:(nullable WMFAuthenticationManager *)authManager {
@@ -179,7 +182,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_StorageAndSyncing:
-            [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
+            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled){
+                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme: self.theme];
+            } else {
+                [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
+            }
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
@@ -328,10 +335,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [[WMFAuthenticationManager sharedInstance] logoutWithSuccess:WMFIgnoreSuccessHandler
-                                                         failure:^(NSError *error) {
-                                                             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                                                         }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme: self.theme completion:^{
+        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
+    }];
 }
 
 #pragma mark - Languages
@@ -503,6 +509,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #else
     return nil;
 #endif
+}
+
+#pragma mark - Notifications
+
+-(void)readingListSyncStateChanged:(NSNotification *)note {
+    WMFAssertMainThread(@"This touches the UI, so should always be on the main thread");
+    [self loadSections];
 }
 
 #pragma mark - KVO
