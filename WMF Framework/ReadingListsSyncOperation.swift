@@ -105,9 +105,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if syncState.contains(.needsLocalListClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "isDefault != YES"), handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
-                for list in lists {
-                    moc.delete(list)
-                }
             })
             
             syncState.remove(.needsLocalListClear)
@@ -312,8 +309,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
             do {
+                var results: [MWKSearchResult] = []
                 for i in 1...countOfEntriesToCreate {
-                    var results: [MWKSearchResult] = []
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
                         taskGroup.leave()
@@ -334,6 +331,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         }
                         try readingListsController.add(articles: articles, to: list, in: moc)
                         try moc.save()
+                        results.removeAll(keepingCapacity: true)
                     }
                 }
             } catch let error {

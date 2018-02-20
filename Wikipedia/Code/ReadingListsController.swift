@@ -587,7 +587,7 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, entryCount: Int64, completion: @escaping () -> Void) {
+    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, entryCount: Int64, deleteLists: Bool, deleteEntries: Bool, doFullSync: Bool, completion: @escaping () -> Void) {
         dataStore.viewContext.wmf_setValue(NSNumber(value: listCount), forKey: "WMFCountOfListsToCreate")
         dataStore.viewContext.wmf_setValue(NSNumber(value: entryCount), forKey: "WMFCountOfEntriesToCreate")
         let oldValue = syncState
@@ -598,8 +598,18 @@ public class ReadingListsController: NSObject {
         if addEntries {
             newValue.insert(.needsRandomEntries)
         }
+        if deleteLists {
+            newValue.insert(.needsLocalListClear)
+        }
+        if deleteEntries {
+            newValue.insert(.needsLocalArticleClear)
+        }
         syncState = newValue
-        backgroundUpdate(completion)
+        if doFullSync {
+            fullSync(completion)
+        } else {
+            backgroundUpdate(completion)
+        }
     }
         
     @objc public var isSyncEnabled: Bool {
