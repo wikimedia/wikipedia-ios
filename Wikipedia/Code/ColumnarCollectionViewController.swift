@@ -148,15 +148,15 @@ class ColumnarCollectionViewController: ViewController {
     
     // MARK: - Scroll
     
-    internal override func scrollToTop() {
+    override func scrollToTop() {
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let hintPresenter = self as? ReadingListHintPresenter else {
             return
         }
-        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
+        hintPresenter.readingListHintController?.scrollViewDidScroll()
     }
     
     // MARK: - Refresh Control

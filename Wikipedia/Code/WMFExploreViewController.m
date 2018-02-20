@@ -1891,6 +1891,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidScroll:scrollView];
+    [self.readingListHintController scrollViewDidScroll];
 
     if (self.isLoadingOlderContent) {
         return;
@@ -1933,7 +1934,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
-    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -2016,7 +2016,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
-    [self.readingListHintController hideHintImmediately];
     if (article && article.userCreatedReadingListsCount > 0) {
         WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
         [readingListAlertController showAlertWithPresenter:self article:article];

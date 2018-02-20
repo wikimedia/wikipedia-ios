@@ -1322,7 +1322,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
-    [self.readingListHintController hideHintImmediately];
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
@@ -1516,7 +1515,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
-    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1524,6 +1522,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
+    [self.readingListHintController scrollViewDidScroll];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

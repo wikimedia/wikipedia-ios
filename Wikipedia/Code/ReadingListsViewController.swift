@@ -264,8 +264,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return [deleteItem]
     }()
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         editController.transformBatchEditPaneOnScroll()
+        super.scrollViewDidScroll(scrollView)
     }
     
 }
