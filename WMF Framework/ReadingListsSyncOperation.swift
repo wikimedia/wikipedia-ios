@@ -77,7 +77,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         if syncState.contains(.needsLocalArticleClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
-                self.readingListsController.unsave(articles)
+                self.readingListsController.unsave(articles, in: moc)
             })
         
             syncState.remove(.needsLocalArticleClear)

@@ -370,7 +370,7 @@ extension SavedArticlesViewController: ActionDelegate {
     }
     
     private func delete(articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles)
+        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     

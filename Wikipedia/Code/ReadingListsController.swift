@@ -507,8 +507,6 @@ public class ReadingListsController: NSObject {
         sync()
     }
 
-
-
     var syncState: ReadingListSyncState {
         get {
             assert(Thread.isMainThread)
@@ -517,7 +515,13 @@ public class ReadingListsController: NSObject {
         }
         set {
             assert(Thread.isMainThread)
-            dataStore.viewContext.wmf_setValue(NSNumber(value: 0), forKey: WMFReadingListSyncStateKey)
+            let moc = dataStore.viewContext
+            moc.wmf_setValue(NSNumber(value: newValue.rawValue), forKey: WMFReadingListSyncStateKey)
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error saving after sync state update: \(error)")
+            }
         }
     }
         
@@ -529,7 +533,8 @@ public class ReadingListsController: NSObject {
     
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
-        var newSyncState = self.syncState
+        let oldSyncState = self.syncState
+        var newSyncState = oldSyncState
 
         if shouldDeleteLocalLists {
             newSyncState.insert(.needsLocalClear)
@@ -551,13 +556,13 @@ public class ReadingListsController: NSObject {
             newSyncState.remove(.needsRemoteEnable)
         }
         
-        guard newSyncState != self.syncState else {
+        guard newSyncState != oldSyncState else {
             return
         }
         
-        dataStore.viewContext.wmf_setValue(NSNumber(value: newSyncState.rawValue), forKey: WMFReadingListSyncStateKey)
-        sync()
+        self.syncState = newSyncState
         
+        sync()
         NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
@@ -661,15 +666,12 @@ public class ReadingListsController: NSObject {
         try article.addToDefaultReadingList()
     }
     
-    @objc public func unsaveArticle(_ article: WMFArticle) {
-        unsave([article])
+    @objc(unsaveArticle:inManagedObjectContext:) public func unsaveArticle(_ article: WMFArticle, in moc: NSManagedObjectContext) {
+        unsave([article], in: moc)
     }
     
-    @objc public func unsave(_ articles: [WMFArticle]) {
+    @objc(unsaveArticles:inManagedObjectContext:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
-            guard let moc = articles.first?.managedObjectContext else {
-                return
-            }
             for article in articles {
                 article.savedDate = nil
             }
@@ -692,7 +694,7 @@ public class ReadingListsController: NSObject {
                 guard let article = dataStore.fetchArticle(with: url) else {
                     continue
                 }
-                unsave([article])
+                unsave([article], in: moc)
             }
             if moc.hasChanges {
                 try moc.save()
@@ -705,15 +707,14 @@ public class ReadingListsController: NSObject {
     
     @objc public func unsaveAllArticles()  {
         assert(Thread.isMainThread)
-        do {
-            let moc = dataStore.viewContext
-            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
-                unsave(articles)
-            })
-            sync()
-        } catch let error {
-            DDLogError("Error removing all articles from default list: \(error)")
+        let oldSyncState = self.syncState
+        var newSyncState = oldSyncState
+        newSyncState.insert(.needsLocalArticleClear)
+        guard newSyncState != oldSyncState else {
+            return
         }
+        self.syncState = newSyncState
+        sync()
     }
     
     
