@@ -32,7 +32,6 @@ public class ReadingList: NSManagedObject {
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
-                removeFromPreviewArticles(article)
                 article.readingListsDidChange()
                 continue
             }
@@ -42,23 +41,37 @@ public class ReadingList: NSManagedObject {
             do {
                 let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
                 countOfEntries = Int64(validEntries.count)
-                if articlesToAdd.count > 0 {
-                    var count = previewArticles?.count ?? 0
-                    for article in articlesToAdd {
-                        if count < 4 && article.imageURLString != nil {
-                            addToPreviewArticles(article)
-                            count += 1
-                        }
-                        addToArticles(article)
-                        article.readingListsDidChange()
-                    }
+                for article in articlesToAdd {
+                    addToArticles(article)
+                    article.readingListsDidChange()
                 }
             } catch let error {
                 DDLogError("error updating list: \(error)")
             }
+            let sortedArticles = articles?.sorted(by: { (a, b) -> Bool in
+                guard let aDate = a.savedDate else {
+                    return false
+                }
+                guard let bDate = b.savedDate else {
+                    return true
+                }
+                return aDate.compare(bDate) == .orderedDescending
+            }) ?? []
+            let updatedPreviewArticles = NSMutableOrderedSet()
+            for article in sortedArticles {
+                guard updatedPreviewArticles.count < 4 else {
+                    break
+                }
+                guard article.imageURLString != nil else {
+                    continue
+                }
+                updatedPreviewArticles.add(article)
+            }
+            previewArticles = updatedPreviewArticles
         } else {
             countOfEntries = 0
             articles = []
+            previewArticles = []
         }
     }
 }
