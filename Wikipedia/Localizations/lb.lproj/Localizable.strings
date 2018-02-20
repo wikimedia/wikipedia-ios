@@ -54,15 +54,16 @@
 "action-saved" = "Gespäichert";
 "action-saved-accessibility-notification" = "Artikel fir spéider gespäichert";
 "action-share" = "Deelen";
+"action-sort" = "Zortéieren";
 "action-unsave" = "Läschen";
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
+"add-articles-to-reading-list" = "$1 op d'Lieslëscht derbäisetzen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
 "announcements-dismiss" = "Verwerfen";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artikel geläscht";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel|Artikele}} geläscht";
 "article-languages-filter-placeholder" = "Sprooch fannen";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-others" = "Aner Sproochen";
@@ -89,6 +90,7 @@
 "compass-direction" = "ëm $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliest Artikelen";
+"delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
 "dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
@@ -289,10 +291,17 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-list-add-saved-button-title" = "Jo, setzt se op meng Lieslëschten dobäi";
+"reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
 "reading-list-hint-title" = "$1 op eng Lieslëscht réckelen?";
+"reading-list-keep-button-title" = "Jo, Artikelen um Apparat halen";
+"reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
+"reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";
+"reading-list-sync-enable-button-title" = "Synchronisatioun aktivéieren";
 "reading-list-sync-setting" = "Lieschtlëscht-Synchronisatioun";
 "reading-lists-article-moved-confirmation" = "Artikel op \"$1\" geréckelt";
+"reading-lists-count" = "{{PLURAL:$1|Eng Lieslëscht|$1 Lieslëschten}}";
 "reading-lists-default-list-title" = "Lieszeechen";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
@@ -352,6 +361,8 @@
 "share-open-in-maps" = "Op der Kaart opmaachen";
 "share-social-format" = "\"$1\" iwwer Wikipedia: $2";
 "share-social-mention-format" = "\"$1\" via @Wikipedia: $2";
+"sort-by-recently-added-action" = "Rezent dobäigesat";
+"sort-by-title-action" = "Titel";
 "status-saved-for-later" = "Fir spéider gespäichert";
 "status-saving-for-later" = "Fir spéider späicheren...";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
@@ -370,6 +381,7 @@
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
+"update-articles-button" = "$1 aktualiséieren";
 "view-in-browser-footer-link" = "Artikel am Browser kucken";
 "welcome-exploration-on-this-day-title" = "Op dësem Dag";
 "welcome-explore-continue-button" = "Fir unzefänken";

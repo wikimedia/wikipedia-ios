@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>artículu desaniciáu</string>
+			<key>other</key>
+			<string>artículos desaniciaos</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tolos artículos guardaos sólo nesta llista dexarán de guardase cuando se desanicie.</string>
+			<string>Tolos artículos guardaos sólo nesta llista dexarán de guardase cuando esta se desanicie.</string>
 			<key>other</key>
-			<string>Tolos artículos guardaos sólo nestes llistes dexarán de guardase cuando se desanicien.</string>
+			<string>Tolos artículos guardaos sólo nestes llistes dexarán de guardase cuando estes se desanicien.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -181,9 +197,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿Tas seguru de que quies dexar de guardar esti artículu y quitalu de %1$d llista de llectura?</string>
+			<string>¿Tas seguru de que quies dexar de guardar esti artículu y quitalu de toles llistes de llectura?</string>
 			<key>other</key>
-			<string>¿Tas seguru de que quies dexar de guardar esti artículu y quitalu de %1$d llistes de llectura?</string>
+			<string>¿Tas seguru de que quies dexar de guardar estos artículos y quitalos de toles llistes de llectura?</string>
 		</dict>
 	</dict>
 </dict>
