@@ -61,14 +61,19 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
         
-        #if DEBUG
-            if syncState.contains(.needsRandomEntries) {
-                try executeRandomArticlePopulation(in: moc)
-                syncState.remove(.needsRandomEntries)
-                moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
-                try moc.save()
-            }
-        #endif
+        if syncState.contains(.needsRandomLists) {
+            try executeRandomListPopulation(in: moc)
+            syncState.remove(.needsRandomLists)
+            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            try moc.save()
+        }
+        
+        if syncState.contains(.needsRandomEntries) {
+            try executeRandomArticlePopulation(in: moc)
+            syncState.remove(.needsRandomEntries)
+            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            try moc.save()
+        }
         
         if syncState.contains(.needsLocalReset) {
             try moc.wmf_batchProcessObjects(handler: { (readingListEntry: ReadingListEntry) in
@@ -285,40 +290,51 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         try moc.save()
     }
     
+    func executeRandomListPopulation(in moc: NSManagedObjectContext) throws {
+        let countOfListsToCreate = moc.wmf_numberValue(forKey: "WMFCountOfListsToCreate")?.int64Value ?? 10
+        for i in 1...countOfListsToCreate {
+            do {
+                _ = try readingListsController.createReadingList(named: "\(i)", in: moc)
+            } catch {
+                _ = try readingListsController.createReadingList(named: "\(arc4random())", in: moc)
+            }
+        }
+        try moc.save()
+    }
+        
     func executeRandomArticlePopulation(in moc: NSManagedObjectContext) throws {
         guard let siteURL = URL(string: "https://en.wikipedia.org") else {
             return
         }
+        let countOfEntriesToCreate = moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 10
+        
         let randomArticleFetcher = WMFRandomArticleFetcher()
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
             do {
-                for _ in 0...200 {
-                    guard let entries = list.entries, entries.count < 996 else {
-                        return
-                    }
+                for i in 1...countOfEntriesToCreate {
                     var results: [MWKSearchResult] = []
-                    for _ in 0...5 {
-                        taskGroup.enter()
-                        randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
-                            taskGroup.leave()
-                        }, success: { (searchResult) in
-                            results.append(searchResult)
-                            taskGroup.leave()
-                        })
-                    }
-                    taskGroup.wait()
-                    let keys = results.flatMap { $0.articleURL(forSiteURL: siteURL)?.wmf_articleDatabaseKey }
-                    let articles = try moc.wmf_fetchOrCreate(objectsForEntityName: "WMFArticle", withValues: keys, forKey: "key") as? [WMFArticle] ?? []
-                    for (index, article) in articles.enumerated() {
-                        guard index < results.count else {
-                            continue
+                    taskGroup.enter()
+                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
+                        taskGroup.leave()
+                    }, success: { (searchResult) in
+                        results.append(searchResult)
+                        taskGroup.leave()
+                    })
+                    if i % 16 == 0 || i == countOfEntriesToCreate {
+                        taskGroup.wait()
+                        let keys = results.flatMap { $0.articleURL(forSiteURL: siteURL)?.wmf_articleDatabaseKey }
+                        let articles = try moc.wmf_fetchOrCreate(objectsForEntityName: "WMFArticle", withValues: keys, forKey: "key") as? [WMFArticle] ?? []
+                        for (index, article) in articles.enumerated() {
+                            guard index < results.count else {
+                                continue
+                            }
+                            let result = results[index]
+                            article.update(with: result)
                         }
-                        let result = results[index]
-                        article.update(with: result)
+                        try readingListsController.add(articles: articles, to: list, in: moc)
+                        try moc.save()
                     }
-                    try readingListsController.add(articles: articles, to: list, in: moc)
-                    try moc.save()
                 }
             } catch let error {
                 DDLogError("error populating lists: \(error)")

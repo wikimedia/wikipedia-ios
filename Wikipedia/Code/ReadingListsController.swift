@@ -10,7 +10,6 @@ internal let WMFReadingListBatchSizePerRequestLimit = 500
 
 internal let WMFReadingListCoreDataBatchSize = 500
 
-
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
     
@@ -88,11 +87,21 @@ public class ReadingListsController: NSObject {
     }
     
     // User-facing actions. Everything is performed on the main context
-    
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = []) throws -> ReadingList {
         assert(Thread.isMainThread)
-        let name = name.precomposedStringWithCanonicalMapping
         let moc = dataStore.viewContext
+        let list = try createReadingList(named: name, description: description, with: articles, in: moc)
+
+        if moc.hasChanges {
+            try moc.save()
+        }
+        
+        sync()
+        return list
+    }
+    
+    public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
+        let name = name.precomposedStringWithCanonicalMapping
         let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         existingListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@", name)
         existingListRequest.fetchLimit = 1
@@ -109,13 +118,7 @@ public class ReadingListsController: NSObject {
         list.updatedDate = list.createdDate
         list.isUpdatedLocally = true
         
-        try add(articles: articles, to: list)
-        
-        if moc.hasChanges {
-            try moc.save()
-        }
-        
-        sync()
+        try add(articles: articles, to: list, in: moc)
         
         return list
     }
@@ -582,6 +585,21 @@ public class ReadingListsController: NSObject {
                 DDLogError("Error saving after sync state update: \(error)")
             }
         }
+    }
+    
+    public func debugSync(createLists: Bool, listCount: Int64, addEntries: Bool, entryCount: Int64, completion: @escaping () -> Void) {
+        dataStore.viewContext.wmf_setValue(NSNumber(value: listCount), forKey: "WMFCountOfListsToCreate")
+        dataStore.viewContext.wmf_setValue(NSNumber(value: entryCount), forKey: "WMFCountOfEntriesToCreate")
+        let oldValue = syncState
+        var newValue = oldValue
+        if createLists {
+            newValue.insert(.needsRandomLists)
+        }
+        if addEntries {
+            newValue.insert(.needsRandomEntries)
+        }
+        syncState = newValue
+        backgroundUpdate(completion)
     }
         
     @objc public var isSyncEnabled: Bool {
