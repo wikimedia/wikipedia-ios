@@ -14,15 +14,6 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
-    public var isDefaultList: Bool {
-        get {
-            return self.isDefault?.boolValue ?? false
-        }
-        set {
-            self.isDefault = NSNumber(value: newValue)
-        }
-    }
-    
     public func updateCountOfEntries() {
         guard let entries = entries else {
             countOfEntries = 0
@@ -41,6 +32,7 @@ public class ReadingList: NSManagedObject {
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
+                removeFromPreviewArticles(article)
                 article.readingListsDidChange()
                 continue
             }
@@ -50,9 +42,16 @@ public class ReadingList: NSManagedObject {
             do {
                 let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
                 countOfEntries = Int64(validEntries.count)
-                for article in articlesToAdd {
-                    addToArticles(article)
-                    article.readingListsDidChange()
+                if articlesToAdd.count > 0 {
+                    var count = previewArticles?.count ?? 0
+                    for article in articlesToAdd {
+                        if count < 4 && article.imageURLString != nil {
+                            addToPreviewArticles(article)
+                            count += 1
+                        }
+                        addToArticles(article)
+                        article.readingListsDidChange()
+                    }
                 }
             } catch let error {
                 DDLogError("error updating list: \(error)")

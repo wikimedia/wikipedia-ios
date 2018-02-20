@@ -83,7 +83,7 @@ class ReadingListHintViewController: UIViewController {
         guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        let viewController = readingList.isDefaultList ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
+        let viewController = readingList.isDefault ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
         viewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
@@ -101,7 +101,7 @@ class ReadingListHintViewController: UIViewController {
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
+        guard let name = readingList.isDefault ? CommonStrings.shortSavedTitle : readingList.name else {
             return
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {

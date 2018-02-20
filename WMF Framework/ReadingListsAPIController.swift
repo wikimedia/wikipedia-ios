@@ -6,6 +6,7 @@ public enum APIReadingListError: String, Error, Equatable {
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
+    case needsFullSync = "readinglists-client-error-needs-full-sync"
 }
 
 struct APIReadingLists: Codable {
