@@ -68,6 +68,7 @@
 "action-saved-accessibility" = "Guardado. Ativar para não guardar.";
 "action-saved-accessibility-notification" = "Artigo guardado para mais tarde";
 "action-share" = "Partilhar";
+"action-sort" = "Ordenar";
 "action-unsave" = "Não guardar";
 "action-unsaved-accessibility-notification" = "Artigo não guardado";
 "action-update" = "Atualizar";
@@ -85,8 +86,7 @@
 "appearance-settings-title" = "Temas de leitura";
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Eliminar";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artigo eliminado";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artigo eliminado|artigos eliminados}}";
 "article-languages-filter-placeholder" = "Encontrar língua";
 "article-languages-label" = "Escolher língua";
 "article-languages-others" = "Outras línguas";
@@ -114,7 +114,6 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
-// Fuzzy
 "delete-reading-list-alert-message" = "Todos os artigos guardados apenas {{PLURAL:$1|nesta lista não serão gravados se ela for eliminada|nestas listas não serão gravados se elas forem eliminadas}}.";
 "delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "dim-images" = "Atenuar imagens";
@@ -327,10 +326,25 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-list-add-saved-button-title" = "Sim, desejo adicioná-los nas minhas listas de leitura";
+"reading-list-add-saved-subtitle" = "Há artigos guardados da lista de leitura na sua aplicação Wikipédia. Deseja mantê-los e fundi-los com as listas de leitura sincronizadas com a sua conta?";
+"reading-list-add-saved-title" = "Os artigos guardados foram encontrados";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
+"reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
 "reading-list-exists-with-same-name" = "Já existe uma lista de leitura com o nome $1";
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-hint-title" = "Mover $1 para a lista de leitura?";
+"reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
+"reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
+"reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
+"reading-list-login-button-title" = "Entre para sincronizar os seus artigos guardados";
+"reading-list-login-or-create-account-button-title" = "Entre ou crie uma conta";
+"reading-list-login-or-create-account-title" = "Entre para sincronizar os artigos guardados";
+"reading-list-login-subtitle" = "Entre ou crie uma conta para permitir que os seus artigos guardados sejam sincronizados entre os dispositivos e gravados nas suas preferências de utilizador.";
+"reading-list-login-title" = "Sincronizar os seus artigos guardados?";
+"reading-list-sync-enable-button-title" = "Ativar sincronização";
+"reading-list-sync-enable-subtitle" = "Os artigos que foram guardados e as listas de leitura podem agora ser guardados na sua conta da Wikipédia e sincronizados entre os dispositivos.";
+"reading-list-sync-enable-title" = "Ativar a sincronização das listas de leitura?";
 "reading-list-sync-setting" = "Sincronização da lista de leitura";
 "reading-list-unable-to-add-entry" = "Ocorreu um erro inesperado ao adicionar uma entrada à sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-create" = "Ocorreu um erro inesperado ao criar a sua lista de leitura. Por favor, tente novamente mais tarde.";
@@ -353,11 +367,14 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Há $1 hora|Há $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Há $1 minuto|Há $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|No ano passado|Há $1 anos}}";
+"relogin-failed-retry-login-button-title" = "Tentar iniciar sessão novamente";
+"relogin-failed-stay-logged-out-button-title" = "Manter-me desligado";
+"relogin-failed-subtitle" = "A sua sessão pode ter expirado ou as credenciais de autenticação anteriores não são mais válidas.";
+"relogin-failed-title" = "Não foi possível reestabelecer o início de sessão";
 "request-feedback-on-error" = "A aplicação encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-clear-all" = "Limpar";
-// Fuzzy
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Tem a certeza de que deseja não guardar este artigo e removê-lo de {{PLURAL:$1|$1 lista de leitura|$1 listas de leitura}}?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Tem a certeza de que deseja não guardar {{PLURAL:$1|este artigo e removê-lo|estes artigos e removê-los}} de todas as listas de leitura?";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-confirmation-heading" = "Tem a certeza de que pretende eliminar todos os artigos guardados e removê-los de todas as listas de leitura?";
@@ -369,6 +386,7 @@
 "search-button-accessibility-label" = "Pesquisar na Wikipédia";
 "search-did-you-mean" = "Será que quis dizer $1?";
 "search-field-placeholder-text" = "Procurar na Wikipédia";
+"search-reading-list-placeholder-text" = "Pesquisar na lista de leitura";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
@@ -409,6 +427,8 @@
 "share-open-in-maps" = "Abrir em Mapas";
 "share-social-format" = "“$1” via Wikipédia: $2";
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
+"sort-by-recently-added-action" = "Adicionado recentemente";
+"sort-by-title-action" = "Título";
 "status-saved-for-later" = "Guardado para mais tarde";
 "status-saving-for-later" = "A guardar para mais tarde...";
 "table-of-contents-button-label" = "Índice";
@@ -428,6 +448,10 @@
 "two-factor-login-title" = "Inicie sessão na sua conta";
 "two-factor-login-with-backup-code" = "Usar um dos seus códigos de uso único";
 "two-factor-login-with-regular-code" = "Usar código de verificação";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "Ao não guardar este artigo, este também será removido da lista de leitura “$1”.";
+"unsave-article-and-remove-from-reading-lists-message" = "Ao não guardar este artigo, este será removido de todas as listas de leitura.";
+"unsave-article-and-remove-from-reading-lists-title" = "Deseja não guardar o artigo?";
+"update-articles-button" = "Atualizar $1";
 "view-in-browser-footer-link" = "Ver artigo no browser";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";

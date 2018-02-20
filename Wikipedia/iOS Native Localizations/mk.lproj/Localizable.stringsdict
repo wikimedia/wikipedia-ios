@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Статијата е избришана</string>
+			<key>other</key>
+			<string>Статиите се избришани</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -181,9 +197,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d список за читање?</string>
+			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од сите списоци за читање?</string>
 			<key>other</key>
-			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од %1$d списоци за читање?</string>
+			<string>Дали сигурно сакате да да ги одзачувате статииве и да ги од сите списоци за читање?</string>
 		</dict>
 	</dict>
 </dict>

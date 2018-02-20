@@ -93,8 +93,7 @@
 "appearance-settings-title" = "Thèmes de lecture";
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Article supprimé";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|Article supprimé|Articles supprimés}}";
 "article-languages-filter-placeholder" = "Trouver la langue";
 "article-languages-label" = "Choisir langue";
 "article-languages-others" = "Autres langues";
@@ -122,8 +121,7 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
-// Fuzzy
-"delete-reading-list-alert-message" = "Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera plus enregistré si {{PLURAL:$1|elle est supprimée|elles sont supprimées}}.";
+"delete-reading-list-alert-message" = "Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera plus enregistré si {{PLURAL:$1|celle-ci est supprimée|celles-ci sont supprimées}}.";
 "delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
@@ -364,8 +362,7 @@
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "saved-all-articles-title" = "Tous les articles";
 "saved-clear-all" = "Effacer";
-// Fuzzy
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer {{PLURAL:$1|d’une liste de lecture|de $1 listes de lecture}} ?";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Êtes-vous sûr de vouloir ne plus enregistrer {{PLURAL:$1|cet article et le supprimer|ces articles et les supprimer}} de toutes les listes de lecture ?";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
 "saved-pages-clear-cancel" = "Annuler";
 "saved-pages-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos articles enregistrés et les enlever de toutes les listes de lecture ?";
@@ -436,6 +433,9 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "Ne plus enregistrer cet article le supprimera aussi de la liste de lecture « $1 ».";
+"unsave-article-and-remove-from-reading-lists-message" = "Ne plus enregistrer cet article le supprimera de toutes les listes de lecture.";
+"unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer l’article ?";
 "view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";

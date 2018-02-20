@@ -71,6 +71,7 @@
 "action-saved-accessibility" = "已儲存。啟用來取消儲存。";
 "action-saved-accessibility-notification" = "條目已儲存供日後使用";
 "action-share" = "分享";
+"action-sort" = "排序";
 "action-unsave" = "未儲存";
 "action-unsaved-accessibility-notification" = "條目未儲存";
 "action-update" = "更新";
@@ -88,8 +89,7 @@
 "appearance-settings-title" = "閱讀主題";
 "article-about-title" = "關於此條目";
 "article-delete" = "刪除";
-// Fuzzy
-"article-deleted-accessibility-notification" = "條目已刪除";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1| 個條目| 個條目}}已刪除";
 "article-languages-filter-placeholder" = "尋找語言";
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
@@ -117,8 +117,7 @@
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-// Fuzzy
-"delete-reading-list-alert-message" = "任何僅儲存至{{PLURAL:$1|此清單的條目，會在此清單刪除時被取消儲存|這些清單的條目，會在這些清單刪除時被取消儲存}}。";
+"delete-reading-list-alert-message" = "任何僅儲存至{{PLURAL:$1|此清單的條目，會在此清單遭刪除時被取消儲存|這些清單的條目，會在這些清單遭刪除時被取消儲存}}。";
 "delete-reading-list-alert-title" = "刪除 {{PLURAL:$1| 個清單| 個清單}}嗎？";
 "dim-images" = "調暗圖片";
 "edit-summary-choice-fixed-grammar" = "修正語法";
@@ -330,10 +329,25 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-list-add-saved-button-title" = "是的，添加它們至我的閱讀清單";
+"reading-list-add-saved-subtitle" = "這些是已儲存在您維基百科應用程式上的條目，您想要保留它們並與已同步閱讀清單來合併至您的帳號上？";
+"reading-list-add-saved-title" = "儲存所找出的條目";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
+"reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
 "reading-list-exists-with-same-name" = "已存在名為「$1」的閱讀清單";
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
 "reading-list-hint-title" = "移動$1至閱讀清單？";
+"reading-list-keep-button-title" = "是的，保留條目在裝置上";
+"reading-list-keep-subtitle" = "這些條目已同步到您的維基百科帳號，您想要在登出後讓它們保留在您的裝置上嗎？";
+"reading-list-keep-title" = "保留在裝置上的已儲存條目？";
+"reading-list-login-button-title" = "登入來同步您所儲存的條目";
+"reading-list-login-or-create-account-button-title" = "登入或建立帳號";
+"reading-list-login-or-create-account-title" = "登入來同步所儲存的條目";
+"reading-list-login-subtitle" = "登入或建立一個帳號來允許您所儲存的條目與閱讀清單可跨裝置同步，並儲存至您的使用者偏好設定。";
+"reading-list-login-title" = "同步您所儲存的條目？";
+"reading-list-sync-enable-button-title" = "啟用同步";
+"reading-list-sync-enable-subtitle" = "您所儲存的條目與閱讀清單，現已儲存到您的維基百科並跨裝置同步。";
+"reading-list-sync-enable-title" = "開啟閱讀清單同步？";
 "reading-list-sync-setting" = "閱讀清單同步";
 "reading-list-unable-to-add-entry" = "新增項目至您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-create" = "建立您的閱讀清單時發生意外錯誤。請稍後再試。";
@@ -356,11 +370,14 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1 年前}}";
+"relogin-failed-retry-login-button-title" = "嘗試再次登入";
+"relogin-failed-stay-logged-out-button-title" = "保持我的登出狀態";
+"relogin-failed-subtitle" = "您的 session 已過期，或是因為之前的憑證已不再有效。";
+"relogin-failed-title" = "無法再重新建立登入";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "saved-all-articles-title" = "所有條目";
 "saved-clear-all" = "清除";
-// Fuzzy
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "您確定要取消儲存這些條目，並從 {{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}裡移除嗎？";
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "您確定要取消儲存{{PLURAL:$1|此條目|這些條目}}，並從所有閱讀清單裡移除嗎？";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-clear-cancel" = "取消";
 "saved-pages-clear-confirmation-heading" = "您確定要刪除所有您儲存的條目，並從所有閱讀清單裡移除嗎？";
@@ -372,6 +389,7 @@
 "search-button-accessibility-label" = "搜尋維基百科";
 "search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
+"search-reading-list-placeholder-text" = "搜尋閱讀清單";
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
@@ -412,6 +430,8 @@
 "share-open-in-maps" = "在地圖中開啟";
 "share-social-format" = "「$1」經由維基百科：$2";
 "share-social-mention-format" = "「$1」經由@維基百科：$2";
+"sort-by-recently-added-action" = "最近新增的";
+"sort-by-title-action" = "標題";
 "status-saved-for-later" = "已儲存供日後使用";
 "status-saving-for-later" = "正在儲存供日後使用...";
 "table-of-contents-button-label" = "目錄";
@@ -431,6 +451,10 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "取消儲存此條目時將會從閱讀清單「$1」裡移除。";
+"unsave-article-and-remove-from-reading-lists-message" = "取消儲存此條目時將會從所有閱讀清單裡移除。";
+"unsave-article-and-remove-from-reading-lists-title" = "取消儲存條目？";
+"update-articles-button" = "更新 $1";
 "view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索訊息來源";
@@ -451,7 +475,7 @@
 "welcome-languages-description" = "我們在您的裝置上找到以下語言：";
 "welcome-languages-search-title" = "在近 300 種語言裡搜尋";
 "welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
-"welcome-notifications-tell-me-more-storage" = "通知設置儲存於設備上且不基於個人訊息或活動。";
+"welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在設備上，而不是基於個人訊息或操作。";
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-send-data-helps-title" = "協助讓應用程式更好";
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
