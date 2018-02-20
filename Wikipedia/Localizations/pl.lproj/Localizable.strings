@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alan ffm
 // Author: Alchemik
+// Author: Anwar2
 // Author: Bsitzmann
 // Author: Chrumps
 // Author: Debeet
@@ -290,6 +291,8 @@
 "two-factor-login-instructions" = "Wprowadź kod weryfikacji dwuskładnikowej";
 "two-factor-login-title" = "Zaloguj się na swoje konto";
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
+"unsave-article-and-remove-from-reading-lists-message" = "Usunięcie tego artykułu spowoduje usunięcie go ze wszystkich list czytelniczych.";
+"unsave-article-and-remove-from-reading-lists-title" = "Usunąć artykuł z listy zapisanych?";
 "view-in-browser-footer-link" = "Zobacz artykuł w przeglądarce";
 "welcome-exploration-on-this-day-title" = "W tym dniu";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";

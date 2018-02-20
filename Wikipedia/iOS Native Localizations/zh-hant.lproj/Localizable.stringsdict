@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> 個條目已刪除</string>
+			<key>other</key>
+			<string> 個條目已刪除</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>任何僅儲存至此清單的條目，會在此清單刪除時被取消儲存。</string>
+			<string>任何僅儲存至此清單的條目，會在此清單遭刪除時被取消儲存。</string>
 			<key>other</key>
-			<string>任何僅儲存至這些清單的條目，會在這些清單刪除時被取消儲存。</string>
+			<string>任何僅儲存至這些清單的條目，會在這些清單遭刪除時被取消儲存。</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -181,9 +197,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
+			<string>您確定要取消儲存此條目，並從所有閱讀清單裡移除嗎？</string>
 			<key>other</key>
-			<string>您確定要取消儲存這些條目，並從 %1$d 個閱讀清單裡移除嗎？</string>
+			<string>您確定要取消儲存這些條目，並從所有閱讀清單裡移除嗎？</string>
 		</dict>
 	</dict>
 </dict>

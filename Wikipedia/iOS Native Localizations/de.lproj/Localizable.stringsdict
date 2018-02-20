@@ -179,9 +179,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Bist du sicher, dass du diesen Artikel löschen und ihn aus einer Leseliste entfernen möchtest?</string>
+			<string>Bist du sicher, dass du diesen Artikel löschen und aus allen Leselisten entfernen möchtest?</string>
 			<key>other</key>
-			<string>Bist du sicher, dass du diesen Artikel löschen und ihn aus %1$d Leselisten entfernen möchtest?</string>
+			<string>Bist du sicher, dass du diese Artikel löschen und aus allen Leselisten entfernen möchtest?</string>
 		</dict>
 	</dict>
 </dict>

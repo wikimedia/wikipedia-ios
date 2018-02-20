@@ -72,6 +72,7 @@
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
 "account-creation-title" = "Создайте новую учётную запись";
+"action-add-to" = "Добавить в…";
 "action-cancel" = "Отмена";
 "action-read" = "Читать";
 "action-remove" = "Удалить";
@@ -334,6 +335,10 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-list-sync-setting" = "Синхронизация списка для чтения";
+"reading-lists-article-moved-confirmation" = "Статья перемещена в «$1»";
+"reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
+"reading-lists-default-list-description" = "Стандартный список для сохранённых статей";
 "reading-lists-default-list-title" = "Закладки";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
