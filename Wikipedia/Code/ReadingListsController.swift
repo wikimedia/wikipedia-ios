@@ -100,6 +100,8 @@ public class ReadingListsController: NSObject {
             throw ReadingListError.unableToCreateList
         }
         
+        list.createdDate = NSDate()
+        list.updatedDate = list.createdDate
         list.isUpdatedLocally = true
         
         try add(articles: articles, to: list)
@@ -173,6 +175,7 @@ public class ReadingListsController: NSObject {
     func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
         let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        listsToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
         listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
         let listsToUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
         var createdReadingLists: [Int64: ReadingList] = [:]
@@ -217,7 +220,7 @@ public class ReadingListsController: NSObject {
                         taskGroup.leave()
                     }
                     guard updateError == nil else {
-                        DDLogError("Error deleting reading list: \(String(describing: updateError))")
+                        DDLogError("Error updating reading list: \(String(describing: updateError))")
                         return
                     }
                     updatedReadingLists[readingListID] = localReadingList
@@ -271,9 +274,11 @@ public class ReadingListsController: NSObject {
         
         let entriesToCreateOrUpdateFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
+        entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
         
         var createdReadingListEntries: [Int64: ReadingListEntry] = [:]
+        var failedReadingListEntries: [(ReadingListEntry, APIReadingListError)] = []
         var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
         var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
         
@@ -330,13 +335,27 @@ public class ReadingListsController: NSObject {
                 }
                 guard let readingListEntryIDs = readingListEntryIDs else {
                     DDLogError("Error creating reading list entry: \(String(describing: createError))")
+                    if let apiError = createError as? APIReadingListError {
+                        for (_, entries) in entriesToAddByListID {
+                            for entry in entries {
+                                failedReadingListEntries.append((entry.entry, apiError))
+                            }
+                        }
+                    }
                     return
                 }
                 for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
-                    guard index < entries.count, let readingListEntryID = readingListEntryIDOrError.0 else {
+                    guard index < entries.count else {
                         break
                     }
                     let localReadingListEntry = entries[index].entry
+
+                    guard let readingListEntryID = readingListEntryIDOrError.0 else {
+                        if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
+                            failedReadingListEntries.append((localReadingListEntry, apiError))
+                        }
+                        continue
+                    }
                     createdReadingListEntries[readingListEntryID] = localReadingListEntry
                 }
                 
@@ -350,6 +369,10 @@ public class ReadingListsController: NSObject {
         for (readingListEntryID, localReadingListEntry) in createdReadingListEntries {
             localReadingListEntry.readingListEntryID = NSNumber(value: readingListEntryID)
             localReadingListEntry.isUpdatedLocally = false
+        }
+        
+        for failed in failedReadingListEntries {
+            failed.0.errorCode = failed.1.rawValue
         }
         
         for (_, localReadingListEntry) in deletedReadingListEntries {
@@ -444,6 +467,12 @@ public class ReadingListsController: NSObject {
                 continue
             }
             entry.update(with: remoteEntry)
+            if entry.createdDate == nil {
+                entry.createdDate = NSDate()
+            }
+            if entry.updatedDate == nil {
+                entry.updatedDate = entry.createdDate
+            }
             entry.list = readingList
             entry.articleKey = article.key
             entry.displayTitle = article.displayTitle
@@ -485,6 +514,8 @@ public class ReadingListsController: NSObject {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
                 return
             }
+            entry.createdDate = NSDate()
+            entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true
             let url = URL(string: key)
             entry.displayTitle = url?.wmf_title
@@ -800,6 +831,12 @@ public class ReadingListsController: NSObject {
                 continue
             }
             localList.update(with: remoteReadingList)
+            if localList.createdDate == nil {
+                localList.createdDate = NSDate()
+            }
+            if localList.updatedDate == nil {
+                localList.updatedDate = localList.createdDate
+            }
         }
         
         return sinceDate
@@ -934,11 +971,15 @@ internal extension WMFArticle {
         }
         
         let defaultReadingList = moc.wmf_defaultReadingList
-        let defaultListEntry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry
-        defaultListEntry?.articleKey = self.key
-        defaultListEntry?.list = defaultReadingList
-        defaultListEntry?.displayTitle = displayTitle
-        defaultListEntry?.isUpdatedLocally = true
+        guard let defaultListEntry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
+            return
+        }
+        defaultListEntry.createdDate = NSDate()
+        defaultListEntry.updatedDate = defaultListEntry.createdDate
+        defaultListEntry.articleKey = self.key
+        defaultListEntry.list = defaultReadingList
+        defaultListEntry.displayTitle = displayTitle
+        defaultListEntry.isUpdatedLocally = true
         defaultReadingList.addToArticles(self)
         defaultReadingList.updateCountOfEntries()
         readingListsDidChange()

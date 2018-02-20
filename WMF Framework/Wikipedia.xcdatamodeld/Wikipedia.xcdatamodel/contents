@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countOfEntries" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="errorCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="iconName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isDefault" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
@@ -23,6 +24,7 @@
         </fetchIndex>
         <fetchIndex name="byUpdatedLocallyIndex">
             <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byDeletedLocallyIndex">
             <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
@@ -36,6 +38,7 @@
         <attribute name="articleKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="errorCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
@@ -49,6 +52,7 @@
         </fetchIndex>
         <fetchIndex name="byUpdatedLocallyIndex">
             <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byListAndDeletedLocallyIndex">
             <fetchIndexElement property="list" type="Binary" order="ascending"/>
@@ -57,9 +61,13 @@
         <fetchIndex name="byReadingListEntryID">
             <fetchIndexElement property="readingListEntryID" type="Binary" order="ascending"/>
         </fetchIndex>
+        <fetchIndex name="byArticleKeyIndex">
+            <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="errorCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -160,9 +168,9 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="255"/>
-        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="165"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="420"/>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="270"/>
+        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="435"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>

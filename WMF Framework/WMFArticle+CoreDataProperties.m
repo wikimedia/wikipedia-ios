@@ -31,5 +31,6 @@
 @dynamic wasSignificantlyViewed;
 @dynamic wikidataDescription;
 @dynamic readingLists;
+@dynamic errorCode;
 
 @end
