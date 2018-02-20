@@ -26,8 +26,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.relationshipKeyPathsForPrefetching = ["previewArticles"]
         if let readingLists = readingLists, readingLists.count > 0 {
-            isShowingDefaultList = readingLists.filter { $0.isDefaultList }.count > 0
+            isShowingDefaultList = readingLists.filter { $0.isDefault }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
             let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
@@ -35,7 +36,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            isShowingDefaultList = commonReadingLists.filter { $0.isDefaultList }.count == 0
+            isShowingDefaultList = commonReadingLists.filter { $0.isDefault }.count == 0
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
@@ -144,16 +145,16 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         let articleCount = readingList.countOfEntries
-        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
+        let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
-        guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
+        guard !readingList.isDefault else {
+            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.layoutMargins = layout.readableMargins
             return
         }
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
+        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         cell.layoutMargins = layout.readableMargins
         
         guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
@@ -209,7 +210,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return true
         }
         
-        guard let readingList = readingList(at: indexPath), !readingList.isDefaultList else {
+        guard let readingList = readingList(at: indexPath), !readingList.isDefault else {
             return false
         }
         return true

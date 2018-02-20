@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
+@property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
 @property (nullable, nonatomic, copy) NSString *errorCode;
 
 @end
@@ -43,6 +44,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeReadingListsObject:(ReadingList *)value;
 - (void)addReadingLists:(NSSet<ReadingList *> *)values;
 - (void)removeReadingLists:(NSSet<ReadingList *> *)values;
+
+- (void)addPreviewReadingListsObject:(ReadingList *)value;
+- (void)removePreviewReadingListsObject:(ReadingList *)value;
+- (void)addPreviewReadingLists:(NSSet<ReadingList *> *)values;
+- (void)removePreviewReadingLists:(NSSet<ReadingList *> *)values;
+
 
 @end
 

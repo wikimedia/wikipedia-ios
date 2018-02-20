@@ -1,5 +1,9 @@
 import UIKit
 
+enum ReadingListDetailDisplayType {
+    case modal, pushed
+}
+
 class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     let dataStore: MWKDataStore
     let readingList: ReadingList
@@ -23,11 +27,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
     private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
+    private var displayType: ReadingListDetailDisplayType = .pushed
 
-    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
+    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
+        self.displayType = displayType
         super.init()
         self.readingListDetailExtendedViewController.delegate = self
     }
@@ -47,13 +53,23 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
         let _ = readingListDetailExtendedViewController.view
-//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
+//        Uncomment to show extended view
+//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        
+        if displayType == .modal {
+            navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+        }
+    }
+    
+    @objc private func dismissController() {
+        dismiss(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefaultList)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
         updateEmptyState()
     }
     
@@ -319,10 +335,13 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
-        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if displayType == .pushed {
+            navigationItem.leftBarButtonItem = leftBarButton
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        }
         
         if newEditingState == .done {
             readingListDetailExtendedViewController.finishEditing()

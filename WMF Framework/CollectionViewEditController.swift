@@ -547,7 +547,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         var buttons: [UIButton] = []
         
         for (index, action) in batchEditToolbarActions.enumerated() {
-            let button = action.button
+            let button = UIButton(type: .system)
             button.addTarget(self, action: #selector(didPerformBatchEditToolbarAction(with:)), for: .touchUpInside)
             button.tag = index
             button.setTitle(action.title, for: UIControlState.normal)
