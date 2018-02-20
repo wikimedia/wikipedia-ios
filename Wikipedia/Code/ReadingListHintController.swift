@@ -5,7 +5,7 @@ import UIKit
 }
 
 protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool)
 }
 
 @objc(WMFReadingListHintController)
@@ -31,6 +31,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
     }
+    
+    private var isConfirmation: Bool = false
     
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
@@ -147,12 +149,13 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         guard didSaveArticle else {
             return
         }
-        hintVisibilityTime = 0
+        hintVisibilityTime = isConfirmation ? 8 : 0
     }
     
     // MARK: - ReadingListHintViewControllerDelegate
     
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool) {
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool) {
+        self.isConfirmation = isConfirmation
         setHintHidden(shouldBeHidden)
     }
 }
