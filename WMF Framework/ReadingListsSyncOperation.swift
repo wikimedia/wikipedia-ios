@@ -18,7 +18,17 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             self.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                             self.finish()
                         }
-                    } else {
+                    } else if let readingListError = error as? APIReadingListError, readingListError == .needsFullSync {
+                        DispatchQueue.main.async {
+                            let oldState = self.readingListsController.syncState
+                            var newState = oldState
+                            newState.insert(.needsSync)
+                            if newState != oldState {
+                                self.readingListsController.syncState = newState
+                            }
+                            self.finish()
+                        }
+                    }  else {
                         self.finish(with: error)
                     }
                 }
@@ -151,7 +161,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         } else if syncState.contains(.needsUpdate) {
             try executeUpdate(on: moc)
         }
-        
+    
         moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
         if moc.hasChanges {
             try moc.save()
@@ -192,21 +202,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let group = WMFTaskGroup()
         
-        let readingListSinceDate = try readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, inManagedObjectContext: moc)
-        
-        // Delete missing reading lists
-        let remoteReadingListIDs = Set<Int64>(allAPIReadingLists.flatMap { $0.id })
-        let fetchForAllLocalLists: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        let localReadingListsToDelete = try moc.fetch(fetchForAllLocalLists).filter {
-            guard let readingListID = $0.readingListID?.int64Value else {
-                return false
-            }
-            return !remoteReadingListIDs.contains(readingListID)
-        }
-        try readingListsController.markLocalDeletion(for: localReadingListsToDelete)
-        for readingList in localReadingListsToDelete {
-            moc.delete(readingList)
-        }
+        let readingListSinceDate = try readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
         
         // Get all entries
         var remoteEntriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
@@ -227,23 +223,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var entrySinceDate = Date.distantPast
         
         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
-            let listEntrySinceDate = try readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, inManagedObjectContext: moc)
+            let listEntrySinceDate = try readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, deleteMissingLocalEntries: true, inManagedObjectContext: moc)
             if listEntrySinceDate.compare(entrySinceDate) == .orderedDescending {
                 entrySinceDate = listEntrySinceDate
-            }
-            // Delete missing entries
-            let readingListEntryIDs = Set<Int64>(remoteReadingListEntries.map { $0.id })
-            let fetchForDeletedRemoteEntries: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-            fetchForDeletedRemoteEntries.predicate = NSPredicate(format: "list.readingListID == %d", readingListID)
-            let localReadingListEntriesToDelete = try moc.fetch(fetchForDeletedRemoteEntries).filter {
-                guard let readingListID = $0.readingListEntryID?.int64Value else {
-                    return false
-                }
-                return !readingListEntryIDs.contains(readingListID)
-            }
-            try readingListsController.markLocalDeletion(for: localReadingListEntriesToDelete)
-            for readingListEntry in localReadingListEntriesToDelete {
-                moc.delete(readingListEntry)
             }
         }
         

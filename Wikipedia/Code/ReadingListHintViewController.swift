@@ -107,7 +107,7 @@ class ReadingListHintViewController: UIViewController {
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
+        guard let name = readingList.name else {
             return
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {

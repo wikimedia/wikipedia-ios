@@ -2,6 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Artikel geläscht</string>
+			<key>other</key>
+			<string>Artikele geläscht</string>
+		</dict>
+	</dict>
+	<key>delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Lëscht läschen?</string>
+			<key>other</key>
+			<string>Lëschte läschen?</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +80,22 @@
 			<string>Een Artikel</string>
 			<key>other</key>
 			<string>%1$d Artikelen</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Eng Lieslëscht</string>
+			<key>other</key>
+			<string>%1$d Lieslëschten</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
