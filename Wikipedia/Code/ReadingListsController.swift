@@ -179,6 +179,7 @@ public class ReadingListsController: NSObject {
         listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
         let listsToUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
         var createdReadingLists: [Int64: ReadingList] = [:]
+        var failedReadingLists: [(ReadingList, APIReadingListError)] = []
         var updatedReadingLists: [Int64: ReadingList] = [:]
         var deletedReadingLists: [Int64: ReadingList] = [:]
         var listsToCreate: [ReadingList] = []
@@ -238,19 +239,30 @@ public class ReadingListsController: NSObject {
             return (name: name, description: $0.readingListDescription)
         }
         taskGroup.enter()
-        self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, creationError) in
+        self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, createError) in
             defer {
                 taskGroup.leave()
             }
             guard let readingListIDs = readingListIDs else {
-                DDLogError("Error creating reading list: \(String(describing: creationError))")
+                DDLogError("Error creating reading list: \(String(describing: createError))")
+                if let apiError = createError as? APIReadingListError {
+                    for list in listsToCreate {
+                        failedReadingLists.append((list, apiError))
+                    }
+                }
                 return
             }
             for (index, readingList) in readingListIDs.enumerated() {
-                guard index < listsToCreate.count, let readingListID = readingList.0  else {
+                guard index < listsToCreate.count else {
                     break
                 }
                 let localReadingList = listsToCreate[index]
+                guard let readingListID = readingList.0 else {
+                    if let apiError = readingList.1 as? APIReadingListError {
+                         failedReadingLists.append((localReadingList, apiError))
+                    }
+                    continue
+                }
                 createdReadingLists[readingListID] = localReadingList
             }
         })
@@ -269,6 +281,10 @@ public class ReadingListsController: NSObject {
         
         for (_, localReadingList) in deletedReadingLists {
             moc.delete(localReadingList)
+        }
+        
+        for failed in failedReadingLists {
+            failed.0.errorCode = failed.1.rawValue
         }
         
         
