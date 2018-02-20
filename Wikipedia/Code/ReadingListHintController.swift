@@ -81,7 +81,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         let frame = hintHidden ? hintFrame.hidden : hintFrame.visible
         if !hintHidden {
             // add hint before animation starts
-            isHintHidden = hintHidden
+            addHint()
             // set initial frame
             if hint.view.frame.origin.y == 0 {
                 hint.view.frame = hintFrame.hidden
@@ -146,8 +146,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         didSave(saved, article: article, theme: theme)
     }
     
-    @objc func scrollViewDidScroll() {
-        guard didSaveArticle else {
+    @objc func scrollViewWillBeginDragging() {
+        guard !isHintHidden, didSaveArticle else {
             return
         }
         hintVisibilityTime = isConfirmation ? 8 : 0

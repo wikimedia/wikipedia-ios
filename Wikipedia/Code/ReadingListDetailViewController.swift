@@ -140,14 +140,14 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Hiding extended view
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
-        super.scrollViewDidScroll(scrollView)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
+        super.scrollViewWillBeginDragging(scrollView)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

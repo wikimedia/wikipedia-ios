@@ -1891,7 +1891,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewDidScroll:scrollView];
-    [self.readingListHintController scrollViewDidScroll];
 
     if (self.isLoadingOlderContent) {
         return;
@@ -1934,6 +1933,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

@@ -152,11 +152,11 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let hintPresenter = self as? ReadingListHintPresenter else {
             return
         }
-        hintPresenter.readingListHintController?.scrollViewDidScroll()
+        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
     }
     
     // MARK: - Refresh Control

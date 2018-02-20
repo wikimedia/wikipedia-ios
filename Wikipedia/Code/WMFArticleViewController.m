@@ -1515,6 +1515,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -1522,7 +1523,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
-    [self.readingListHintController scrollViewDidScroll];
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
