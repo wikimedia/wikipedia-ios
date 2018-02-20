@@ -17,9 +17,9 @@ class ReadingListHintViewController: UIViewController {
         return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Move %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
-    @IBOutlet weak var hintView: UIView!
+    @IBOutlet weak var hintView: UIView?
     @IBOutlet weak var hintButton: AlignedImageButton?
-    @IBOutlet weak var confirmationView: UIView!
+    @IBOutlet weak var confirmationView: UIView?
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationButton: UIButton!
     @IBOutlet weak var confirmationChevron: UIButton!
@@ -36,8 +36,8 @@ class ReadingListHintViewController: UIViewController {
     
     private var isHintViewHidden: Bool = false {
         didSet {
-            hintView.isHidden = isHintViewHidden
-            confirmationView.isHidden = !isHintViewHidden
+            hintView?.isHidden = isHintViewHidden
+            confirmationView?.isHidden = !isHintViewHidden
         }
     }
     
@@ -49,8 +49,8 @@ class ReadingListHintViewController: UIViewController {
         super.viewDidLoad()
         isHintViewHidden = false
     
-        hintView.addGestureRecognizer(tapGestureRecognizer.hint)
-        confirmationView.addGestureRecognizer(tapGestureRecognizer.confirmation)
+        hintView?.addGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView?.addGestureRecognizer(tapGestureRecognizer.confirmation)
         
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
@@ -62,8 +62,8 @@ class ReadingListHintViewController: UIViewController {
     }
     
     deinit {
-        hintView.removeGestureRecognizer(tapGestureRecognizer.hint)
-        confirmationView.removeGestureRecognizer(tapGestureRecognizer.confirmation)
+        hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView?.removeGestureRecognizer(tapGestureRecognizer.confirmation)
     }
     
     func reset() {
