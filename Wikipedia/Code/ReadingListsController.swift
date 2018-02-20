@@ -220,7 +220,7 @@ public class ReadingListsController: NSObject {
                         taskGroup.leave()
                     }
                     guard updateError == nil else {
-                        DDLogError("Error deleting reading list: \(String(describing: updateError))")
+                        DDLogError("Error updating reading list: \(String(describing: updateError))")
                         return
                     }
                     updatedReadingLists[readingListID] = localReadingList
