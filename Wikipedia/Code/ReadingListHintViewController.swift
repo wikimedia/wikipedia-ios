@@ -41,9 +41,17 @@ class ReadingListHintViewController: UIViewController {
         }
     }
     
+    private var tapGestureRecognizer: (hint: UITapGestureRecognizer, confirmation: UITapGestureRecognizer) {
+        return (hint: UITapGestureRecognizer(target: self, action: #selector(addArticleToReadingList(_:))), confirmation: UITapGestureRecognizer(target: self, action: #selector(openReadingList)))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         isHintViewHidden = false
+    
+        hintView.addGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView.addGestureRecognizer(tapGestureRecognizer.confirmation)
+        
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
         confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
@@ -51,6 +59,11 @@ class ReadingListHintViewController: UIViewController {
         hintButton?.verticalPadding = 5
         setHintButtonTitle()
         apply(theme: theme)
+    }
+    
+    deinit {
+        hintView.removeGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView.removeGestureRecognizer(tapGestureRecognizer.confirmation)
     }
     
     func reset() {
@@ -83,20 +96,13 @@ class ReadingListHintViewController: UIViewController {
         guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        let viewController = readingList.isDefaultList ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
-        viewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
+        let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+        let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
             self.delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: self.isHintViewHidden)
         }
     }
-    
-    @objc private func dismissReadingListDetailViewController() {
-        themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
-    }
-    
 }
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
