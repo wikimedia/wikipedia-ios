@@ -158,6 +158,9 @@ public class ReadingListsController: NSObject {
     /// - Parameters:
     ///   - readingListEntriess: the reading lists to delete
     internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
+        guard readingListEntries.count > 0 else {
+            return
+        }
         var lists: Set<ReadingList> = []
         for entry in readingListEntries {
             entry.isDeletedLocally = true
@@ -863,7 +866,7 @@ public class ReadingListsController: NSObject {
             remoteReadingListEntriesByReadingListID[listID, default: [:]][articleKey] = remoteReadingListEntry
         }
         
-        
+        var entriesToDelete: [ReadingListEntry] = []
         for (readingListID, readingListEntriesByKey) in remoteReadingListEntriesByReadingListID {
             let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@ && isDeletedLocally != YES", NSNumber(value: readingListID)) // this is != YES instead of == NO to match NULL values as well
@@ -885,19 +888,21 @@ public class ReadingListsController: NSObject {
         
                 let isDeleted = remoteReadingListEntryForUpdate.deleted ?? false
                 if isDeleted {
-                    try markLocalDeletion(for: [localReadingListEntry]) // updates associated objects
-                    moc.delete(localReadingListEntry) // object can be removed since we have the server-side update
+                    entriesToDelete.append(localReadingListEntry)
                 } else {
                     localReadingListEntry.update(with: remoteReadingListEntryForUpdate)
                 }
             }
             
             if deleteMissingLocalEntries {
-                try markLocalDeletion(for: localEntriesMissingRemotely)
-                for entry in localEntriesMissingRemotely {
-                    moc.delete(entry)
-                }
+                entriesToDelete.append(contentsOf: localEntriesMissingRemotely)
             }
+
+            try markLocalDeletion(for: entriesToDelete)
+            for entry in entriesToDelete {
+                moc.delete(entry)
+            }
+            
             try moc.save()
             moc.reset()
             
