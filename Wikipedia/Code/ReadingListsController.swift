@@ -278,6 +278,7 @@ public class ReadingListsController: NSObject {
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
         
         var createdReadingListEntries: [Int64: ReadingListEntry] = [:]
+        var failedReadingListEntries: [(ReadingListEntry, APIReadingListError)] = []
         var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
         var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
         
@@ -334,13 +335,27 @@ public class ReadingListsController: NSObject {
                 }
                 guard let readingListEntryIDs = readingListEntryIDs else {
                     DDLogError("Error creating reading list entry: \(String(describing: createError))")
+                    if let apiError = createError as? APIReadingListError {
+                        for (_, entries) in entriesToAddByListID {
+                            for entry in entries {
+                                failedReadingListEntries.append((entry.entry, apiError))
+                            }
+                        }
+                    }
                     return
                 }
                 for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
-                    guard index < entries.count, let readingListEntryID = readingListEntryIDOrError.0 else {
+                    guard index < entries.count else {
                         break
                     }
                     let localReadingListEntry = entries[index].entry
+
+                    guard let readingListEntryID = readingListEntryIDOrError.0 else {
+                        if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
+                            failedReadingListEntries.append((localReadingListEntry, apiError))
+                        }
+                        continue
+                    }
                     createdReadingListEntries[readingListEntryID] = localReadingListEntry
                 }
                 
@@ -354,6 +369,10 @@ public class ReadingListsController: NSObject {
         for (readingListEntryID, localReadingListEntry) in createdReadingListEntries {
             localReadingListEntry.readingListEntryID = NSNumber(value: readingListEntryID)
             localReadingListEntry.isUpdatedLocally = false
+        }
+        
+        for failed in failedReadingListEntries {
+            failed.0.errorCode = failed.1.rawValue
         }
         
         for (_, localReadingListEntry) in deletedReadingListEntries {
