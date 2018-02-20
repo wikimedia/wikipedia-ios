@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
+@property (nullable, nonatomic, copy) NSString *errorCode;
 
 @end
 

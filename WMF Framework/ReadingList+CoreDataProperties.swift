@@ -21,7 +21,8 @@ extension ReadingList {
     @NSManaged public var entries: Set<ReadingListEntry>?
     @NSManaged public var articles: Set<WMFArticle>?
     @NSManaged public var isDefault: NSNumber?
-    
+    @NSManaged public var errorCode: String?
+
     
     public var name: String? {
         set {

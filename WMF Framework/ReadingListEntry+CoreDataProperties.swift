@@ -15,5 +15,6 @@ extension ReadingListEntry {
     @NSManaged public var articleKey: String?
     @NSManaged public var isDeletedLocally: Bool
     @NSManaged public var isUpdatedLocally: Bool
-    
+    @NSManaged public var errorCode: String?
+
 }
