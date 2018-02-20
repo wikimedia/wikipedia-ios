@@ -154,21 +154,5 @@
 			<string>Cette année</string>
 		</dict>
 	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer d’une liste de lecture ?</string>
-			<key>other</key>
-			<string>Êtes-vous sûr de vouloir ne plus enregistrer cet article et le supprimer de %1$d listes de lecture ?</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

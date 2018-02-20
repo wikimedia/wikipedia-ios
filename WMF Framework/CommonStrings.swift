@@ -20,6 +20,13 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(WMFLocalizedString("article-deleted-accessibility-notification", value: "{{PLURAL:%1$d|artice|articles}} deleted", comment: "Notification spoken after user deletes an article from the list."), articleCount)
     }
     
+    @objc public static func unsaveArticleAndRemoveFromListsTitle(articleCount: Int) -> String {
+        return String.localizedStringWithFormat(WMFLocalizedString("unsave-article-and-remove-from-reading-lists-title", value: "Un-save {{PLURAL:%1$d|article|articles}}?", comment: "Title of the alert action that unsaves a selected article and removes it from all associated reading lists"), articleCount)
+    }
+    @objc public static func unsaveArticleAndRemoveFromListsMessage(articleCount: Int) -> String {
+        return String.localizedStringWithFormat(WMFLocalizedString("unsave-article-and-remove-from-reading-lists-message", value: "Un-saving {{PLURAL:%1$d|this articles will remove it|these articles will remove them}} from all associated reading lists", comment: "Message of the alert action that unsaves a selected article and removes it from all associated reading lists"), articleCount)
+    }
+    
     @objc public static let shortSaveTitle = WMFLocalizedString("action-save", value: "Save", comment: "Title for the 'Save' action\n{{Identical|Save}}")
     @objc public static let savedTitle:String = CommonStrings.savedTitle(language: nil)
     @objc public static let saveTitle:String = CommonStrings.saveTitle(language: nil)

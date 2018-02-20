@@ -16,22 +16,6 @@
 			<string>条目已删除</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>任何只保存到此列表的条目将在其删除时被取消保存。</string>
-			<key>other</key>
-			<string>任何只保存到这些列表的条目将在其删除时被取消保存。</string>
-		</dict>
-	</dict>
 	<key>delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -168,22 +152,6 @@
 			<string>%1$d年前</string>
 			<key>zero</key>
 			<string>今年</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>您确定要取消保存此条目，并将其从所有阅读列表中移除么？</string>
-			<key>other</key>
-			<string>您确定要取消保存这些条目，并将其从所有阅读列表中移除么？</string>
 		</dict>
 	</dict>
 </dict>
