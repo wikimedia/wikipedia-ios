@@ -419,6 +419,13 @@ extension ReadingListDetailViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
+        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+            // placeholder for now, this should be a separate label or button
+            cell.descriptionLabel.text = error.localizedDescription
+            cell.descriptionLabel.textColor = theme.colors.error
+        }
+        
         cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.readableMargins
         

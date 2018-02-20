@@ -74,10 +74,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             try moc.wmf_batchProcessObjects(handler: { (readingListEntry: ReadingListEntry) in
                 readingListEntry.readingListEntryID = nil
                 readingListEntry.isUpdatedLocally = true
+                readingListEntry.errorCode = nil
             })
             try moc.wmf_batchProcessObjects(handler: { (readingList: ReadingList) in
                 readingList.readingListID = nil
                 readingList.isUpdatedLocally = true
+                readingList.errorCode = nil
             })
             syncState.remove(.needsLocalReset)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
@@ -193,11 +195,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         if let getAllAPIReadingListsError = getAllAPIReadingListsError {
             throw getAllAPIReadingListsError
-        }
-        
-        if let remoteDefaultReadingList: APIReadingList = allAPIReadingLists.filter({ (list) -> Bool in return list.isDefault }).first {
-            let defaultReadingList = moc.wmf_fetchDefaultReadingList()
-            defaultReadingList?.readingListID = NSNumber(value: remoteDefaultReadingList.id)
         }
         
         let group = WMFTaskGroup()

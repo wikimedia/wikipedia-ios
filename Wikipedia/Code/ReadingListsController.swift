@@ -6,6 +6,11 @@ internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
 internal let WMFReadingListBatchRequestLimit = 8
 
+internal let WMFReadingListBatchSizePerRequestLimit = 500
+
+internal let WMFReadingListCoreDataBatchSize = 500
+
+
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
     
@@ -241,36 +246,40 @@ public class ReadingListsController: NSObject {
             }
             return (name: name, description: $0.readingListDescription)
         }
-        taskGroup.enter()
-        self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, createError) in
-            defer {
-                taskGroup.leave()
-            }
-            guard let readingListIDs = readingListIDs else {
-                DDLogError("Error creating reading list: \(String(describing: createError))")
-                if let apiError = createError as? APIReadingListError {
-                    for list in listsToCreate {
-                        failedReadingLists.append((list, apiError))
+        var start = 0
+        var end = 0
+        while end < listNamesAndDescriptionsToCreate.count {
+            taskGroup.enter()
+            end = min(listNamesAndDescriptionsToCreate.count, start + WMFReadingListBatchSizePerRequestLimit)
+            self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, createError) in
+                defer {
+                    taskGroup.leave()
+                }
+                guard let readingListIDs = readingListIDs else {
+                    DDLogError("Error creating reading list: \(String(describing: createError))")
+                    if let apiError = createError as? APIReadingListError {
+                        for list in listsToCreate {
+                            failedReadingLists.append((list, apiError))
+                        }
                     }
+                    return
                 }
-                return
-            }
-            for (index, readingList) in readingListIDs.enumerated() {
-                guard index < listsToCreate.count else {
-                    break
-                }
-                let localReadingList = listsToCreate[index]
-                guard let readingListID = readingList.0 else {
-                    if let apiError = readingList.1 as? APIReadingListError {
-                         failedReadingLists.append((localReadingList, apiError))
+                for (index, readingList) in readingListIDs.enumerated() {
+                    guard index < listsToCreate.count else {
+                        break
                     }
-                    continue
+                    let localReadingList = listsToCreate[index]
+                    guard let readingListID = readingList.0 else {
+                        if let apiError = readingList.1 as? APIReadingListError {
+                            failedReadingLists.append((localReadingList, apiError))
+                        }
+                        continue
+                    }
+                    createdReadingLists[readingListID] = localReadingList
                 }
-                createdReadingLists[readingListID] = localReadingList
-            }
-        })
-        
-        
+            })
+            start = end
+        }
         taskGroup.wait()
         
         for (readingListID, localReadingList) in createdReadingLists {
@@ -345,43 +354,50 @@ public class ReadingListsController: NSObject {
         }
         
         for (readingListID, entries) in entriesToAddByListID {
-            requestCount += 1
-            taskGroup.enter()
-            let entryProjectAndTitles = entries.map { (project: $0.project, title: $0.title) }
-            self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
-                defer {
-                    taskGroup.leave()
-                }
-                guard let readingListEntryIDs = readingListEntryIDs else {
-                    DDLogError("Error creating reading list entry: \(String(describing: createError))")
-                    if let apiError = createError as? APIReadingListError {
-                        for (_, entries) in entriesToAddByListID {
-                            for entry in entries {
-                                failedReadingListEntries.append((entry.entry, apiError))
+            var start = 0
+            var end = 0
+            while end < entries.count {
+                requestCount += 1
+                taskGroup.enter()
+                end = min(entries.count, start + WMFReadingListBatchSizePerRequestLimit)
+                let entryProjectAndTitles = entries[start..<end].map { (project: $0.project, title: $0.title) }
+                self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
+                    defer {
+                        taskGroup.leave()
+                    }
+                    guard let readingListEntryIDs = readingListEntryIDs else {
+                        DDLogError("Error creating reading list entry: \(String(describing: createError))")
+                        if let apiError = createError as? APIReadingListError {
+                            for (_, entries) in entriesToAddByListID {
+                                for entry in entries {
+                                    failedReadingListEntries.append((entry.entry, apiError))
+                                }
                             }
                         }
+                        return
                     }
-                    return
-                }
-                for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
-                    guard index < entries.count else {
-                        break
-                    }
-                    let localReadingListEntry = entries[index].entry
-
-                    guard let readingListEntryID = readingListEntryIDOrError.0 else {
-                        if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
-                            failedReadingListEntries.append((localReadingListEntry, apiError))
+                    for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
+                        guard index < entries.count else {
+                            break
                         }
-                        continue
+                        let localReadingListEntry = entries[index].entry
+                        
+                        guard let readingListEntryID = readingListEntryIDOrError.0 else {
+                            if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
+                                failedReadingListEntries.append((localReadingListEntry, apiError))
+                            }
+                            continue
+                        }
+                        createdReadingListEntries[readingListEntryID] = localReadingListEntry
                     }
-                    createdReadingListEntries[readingListEntryID] = localReadingListEntry
+                    
+                })
+                if requestCount % WMFReadingListBatchRequestLimit == 0 {
+                    taskGroup.wait()
                 }
-                
-            })
-            if requestCount % WMFReadingListBatchRequestLimit == 0 {
-                taskGroup.wait()
+                start = end
             }
+
         }
         taskGroup.wait()
         
@@ -635,6 +651,21 @@ public class ReadingListsController: NSObject {
         #endif
     }
     
+    @objc public func fullSync(_ completion: @escaping () -> Void) {
+        #if TEST
+        #else
+            var newValue = self.syncState
+            if newValue.contains(.needsUpdate) {
+                newValue.remove(.needsUpdate)
+                newValue.insert(.needsSync)
+                self.syncState = newValue
+            }
+            let sync = ReadingListsSyncOperation(readingListsController: self)
+            operationQueue.addOperation(sync)
+            operationQueue.addOperation(completion)
+        #endif
+    }
+    
     @objc private func _sync() {
         guard operationQueue.operationCount == 0 else {
             return
@@ -766,13 +797,22 @@ public class ReadingListsController: NSObject {
         // Arrange remote lists by ID and name for merging with local lists
         var remoteReadingListsByID: [Int64: APIReadingList] = [:]
         var remoteReadingListsByName: [String: [Int64: APIReadingList]] = [:] // server still allows multiple lists with the same name
+        var remoteDefaultReadingList: APIReadingList? = nil
         for remoteReadingList in remoteReadingLists {
             if let date = DateFormatter.wmf_iso8601().date(from: remoteReadingList.updated),
                 date.compare(sinceDate) == .orderedDescending {
                 sinceDate = date
             }
+            if remoteReadingList.isDefault {
+                remoteDefaultReadingList = remoteReadingList
+            }
             remoteReadingListsByID[remoteReadingList.id] = remoteReadingList
             remoteReadingListsByName[remoteReadingList.name.precomposedStringWithCanonicalMapping, default: [:]][remoteReadingList.id] = remoteReadingList
+        }
+        
+        if let remoteDefaultReadingList = remoteDefaultReadingList {
+            let defaultReadingList = moc.wmf_fetchDefaultReadingList()
+            defaultReadingList?.readingListID = NSNumber(value: remoteDefaultReadingList.id)
         }
         
         let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -907,12 +947,11 @@ public class ReadingListsController: NSObject {
             moc.reset()
             
             // create any entry that wasn't matched
-            let batchSize = 500
             var start = 0
             var end = 0
             let entries = Array(remoteEntriesMissingLocally.values)
             while end < entries.count {
-                end = min(entries.count, start + batchSize)
+                end = min(entries.count, start + WMFReadingListCoreDataBatchSize)
                 try locallyCreate(Array(entries[start..<end]), in: moc)
                 start = end
                 try moc.save()
@@ -921,20 +960,6 @@ public class ReadingListsController: NSObject {
         }
 
         return sinceDate
-    }
-}
-
-
-fileprivate extension NSManagedObjectContext {
-    var wmf_defaultReadingList: ReadingList {
-        guard let defaultReadingList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList else {
-            DDLogError("Missing default reading list")
-            #if DEBUG //allow this to pass on test 
-            assert(false)
-            #endif
-            return wmf_create(entityNamed: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as! ReadingList
-        }
-        return defaultReadingList
     }
 }
 
@@ -975,7 +1000,10 @@ internal extension WMFArticle {
             return
         }
         
-        let defaultReadingList = moc.wmf_defaultReadingList
+        guard let defaultReadingList = moc.wmf_fetchDefaultReadingList() else {
+            return
+        }
+        
         guard let defaultListEntry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
             return
         }
