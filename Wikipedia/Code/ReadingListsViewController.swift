@@ -44,7 +44,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             request.predicate = basePredicate
         }
         
-        request.sortDescriptors = [baseSortDescriptor, NSSortDescriptor(key: "canonicalName", ascending: true)]
+        var sortDescriptors = baseSortDescriptors
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         fetch()
@@ -54,8 +56,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return NSPredicate(format: "isDeletedLocally == NO")
     }
     
-    var baseSortDescriptor: NSSortDescriptor {
-        return NSSortDescriptor(key: "isDefault", ascending: false)
+    var baseSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "isDefault", ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
