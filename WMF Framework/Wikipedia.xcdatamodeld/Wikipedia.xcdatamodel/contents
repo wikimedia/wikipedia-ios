@@ -46,9 +46,11 @@
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="entries" inverseEntity="ReadingList" syncable="YES"/>
         <fetchIndex name="byCreatedDateIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
             <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byDisplayTitleIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
             <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byUpdatedLocallyIndex">
