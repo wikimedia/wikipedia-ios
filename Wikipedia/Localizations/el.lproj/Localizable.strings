@@ -12,6 +12,7 @@
 // Author: Protnet
 // Author: Stam.nikos
 // Author: SucreRouge
+// Author: Tgkarounos
 
 "about-content-license" = "Άδεια περιεχομένου";
 "about-content-license-details" = "Όλα τα κείμενα είναι διαθέσιμα υπό την $1· μπορεί να ισχύουν και πρόσθετοι όροι";
@@ -59,6 +60,7 @@
 "action-saved-accessibility" = "Αποθηκεύτηκε. Ενεργοποίηστε για ξεαποθήκευση.";
 "action-saved-accessibility-notification" = "Το άρθρο αποθηκεύτηκε για αργότερα";
 "action-share" = "Κοινοποίηση";
+"action-sort" = "Ταξινόμηση";
 "action-unsave" = "Ξεαποθήκευση";
 "action-unsaved-accessibility-notification" = "Μη αποθηκευμένο άρθρο";
 "action-update" = "Ενημέρωση";
@@ -67,6 +69,7 @@
 "announcements-dismiss" = "Απόρριψη";
 "appearance-settings-adjust-text-sizing" = "Προσαρμογή μεγέθους του κειμένου του λήμματος";
 "appearance-settings-expand-tables" = "Ανάπτυξη πινάκων";
+"appearance-settings-reading-themes" = "Ανάγνωση θεμάτων";
 "appearance-settings-set-automatic-table-opening" = "Ρυθμίσεις πίνακα";
 "appearance-settings-theme-options" = "Ρυθμίσεις θεμάτων";
 "article-about-title" = "Σχετικά με αυτό το άρθρο";
@@ -299,6 +302,8 @@
 "reading-list-exists-with-same-name" = "Μια λίστα ανάγνωσης υπάρχει ήδη με το όνομα $1";
 "reading-list-generic-error" = "Ένα απρόβλεπτο σφάλμα συνέβη κατά την διάρκεια της ενημέρωσης των λίστων ανάγνωσής σας.";
 "reading-list-hint-title" = "Μετακίνηση του $1 σε μία λίστα ανάγνωσης;";
+"reading-list-keep-button-title" = "Ναι, κρατήστε τα άρθρα στη συσκευή";
+"reading-list-keep-subtitle" = "Υπάρχουν άρθρα συγχρονισμένα με τον λογαριασμό σας στη Wikipedia. Θα θέλατε να τα κρατήσετε σε αυτή τη συσκευή, αφού αποσυνδεθείτε;";
 "reading-lists-default-list-title" = "Σελιδοδείκτες";
 "reading-themes-controls-accessibility-black-theme-button" = "Μαύρο θέμα";
 "reading-themes-controls-accessibility-dark-theme-button" = "Μαύρο θέμα";
@@ -308,6 +313,7 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=πρόσφατα|$1 ώρα πριν|$1 ώρες πριν}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=μόλις τώρα|$1 λεπτό πριν|$1 λεπτά πριν}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|το προηγούμενο έτος|$1 χρόνια πριν}}";
+"relogin-failed-subtitle" = "Η συνεδρία σας ενδέχεται να έχει λήξει ή τα προηγούμενα διαπιστευτήρια σύνδεσης δεν ισχύουν πλέον.";
 "saved-all-articles-title" = "Όλα τα άρθρα";
 "saved-clear-all" = "Διαγραφή όλων";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
@@ -350,6 +356,8 @@
 "share-open-in-maps" = "Άνοιγμα στους χάρτες";
 "share-social-format" = "“$1” μέσω της Βικιπαίδειας: $2";
 "share-social-mention-format" = "“$1” μέσω του @Βικιπαίδεια: $2";
+"sort-by-recently-added-action" = "Προστέθηκαν πρόσφατα";
+"sort-by-title-action" = "Τίτλος";
 "status-saved-for-later" = "Αποθηκεύτηκε για αργότερα";
 "status-saving-for-later" = "Αποθήκευση για αργότερα...";
 "table-of-contents-button-label" = "Πίνακας περιεχομένων";

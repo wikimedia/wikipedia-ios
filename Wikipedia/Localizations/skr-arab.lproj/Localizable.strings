@@ -24,14 +24,14 @@
 "action-save" = "بچاؤ";
 "action-saved" = "محفوظ";
 "action-share" = "شیئر";
+"action-sort" = "چھانٹ";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "announcements-dismiss" = "مکاؤ";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";
 "article-delete" = "مٹاؤ";
-// Fuzzy
-"article-deleted-accessibility-notification" = "مضمون مٹ ڳیا";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|مضمون|مضمون}}مٹ ڳیا";
 "article-languages-filter-placeholder" = "زبان ڳولو";
 "article-languages-label" = "زبان چݨو";
 "article-languages-others" = "ٻیاں زباناں";
@@ -149,6 +149,8 @@
 "share-custom-menu-item" = "شیئر";
 "share-menu-item" = "شیئر۔۔۔";
 "share-message-format" = "“$1” $2";
+"sort-by-recently-added-action" = "حالیہ ودھارے";
+"sort-by-title-action" = "عنوان";
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
 "table-title-other" = "ٻیاں معلومات";
@@ -157,6 +159,7 @@
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
 "top-read-header-generic" = "وکیپیڈیا";
 "top-read-header-with-language" = "وکیپیڈیا$1";
+"update-articles-button" = "نویں نکور $1";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";

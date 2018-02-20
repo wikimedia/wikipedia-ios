@@ -22,6 +22,7 @@
 // Author: Peg60
 // Author: Redredsonia
 // Author: S4b1nuz E.656
+// Author: Segaz3
 // Author: Simoarmanni
 // Author: Statix64
 // Author: SuperVirtual
@@ -89,6 +90,7 @@
 "appearance-settings-theme-options" = "Opzioni tema";
 "article-about-title" = "Su questa voce";
 "article-delete" = "Cancella";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|voce cancellata|voci cancellate}}";
 "article-languages-filter-placeholder" = "Trova lingua";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-others" = "Altre lingue";
@@ -115,7 +117,7 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
-"delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|l'elenco|gli elenchi}}?";
+"delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";

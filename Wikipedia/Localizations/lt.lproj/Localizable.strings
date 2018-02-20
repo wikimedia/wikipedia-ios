@@ -205,8 +205,7 @@
 "reference-title" = "Išnaša $1";
 "saved-clear-all" = "Išvalyti";
 "saved-pages-clear-cancel" = "Atšaukti";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus puslapius?";
+"saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus straipsnius ir pašalinti juos iš visų skaitymo sąrašų?";
 "saved-pages-clear-delete-all" = "Taip, ištrinti viską";
 "saved-title" = "Išsaugota";
 "search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";
