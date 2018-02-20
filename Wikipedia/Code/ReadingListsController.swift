@@ -494,12 +494,10 @@ public class ReadingListsController: NSObject {
             if article.savedDate == nil {
                 article.savedDate = entry.createdDate as Date?
             }
-            readingList.addToArticles(article)
-            article.readingListsDidChange()
             updatedLists.insert(readingList)
         }
         for readingList in updatedLists {
-            readingList.updateCountOfEntries()
+            readingList.updateArticlesAndEntries()
         }
     }
     
