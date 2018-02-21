@@ -59,6 +59,7 @@ class ReadingListHintViewController: UIViewController {
         hintButton?.verticalPadding = 5
         setHintButtonTitle()
         apply(theme: theme)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
     }
     
     deinit {
@@ -103,6 +104,22 @@ class ReadingListHintViewController: UIViewController {
             self.delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: self.isHintViewHidden)
         }
     }
+    
+    @objc private func dismissReadingListDetailViewController() {
+        themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func themeChanged(notification: Notification) {
+        guard let newTheme = notification.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey] as? Theme else {
+            assertionFailure("Expected theme")
+            return
+        }
+        apply(theme: newTheme)
+    }
 }
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
@@ -134,8 +151,9 @@ extension ReadingListHintViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.disabledLink
+        view.backgroundColor = theme.colors.hintBackground 
         hintButton?.setTitleColor(theme.colors.link, for: .normal)
+        hintButton?.tintColor = theme.colors.link
         confirmationButton.setTitleColor(theme.colors.link, for: .normal)
         confirmationChevron.tintColor = theme.colors.link
     }
