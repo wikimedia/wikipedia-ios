@@ -63,6 +63,7 @@ class ReadingListHintViewController: UIViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
         confirmationView?.removeGestureRecognizer(tapGestureRecognizer.confirmation)
     }
@@ -107,10 +108,6 @@ class ReadingListHintViewController: UIViewController {
     
     @objc private func dismissReadingListDetailViewController() {
         themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func themeChanged(notification: Notification) {
