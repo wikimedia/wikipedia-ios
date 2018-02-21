@@ -255,7 +255,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let taskGroup = WMFTaskGroup()
         taskGroup.enter()
         apiController.updatedListsAndEntries(since: since, completion: { (lists, entries, since, error) in
-            print("entries: \(entries)")
             updateError = error
             updatedLists =  lists
             updatedEntries = entries
