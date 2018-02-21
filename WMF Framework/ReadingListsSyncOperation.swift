@@ -188,6 +188,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     func executeFullSync(on moc: NSManagedObjectContext) throws {
+        try processLocalUpdates(in: moc)
+        if moc.hasChanges {
+            try moc.save()
+        }
+        
         let taskGroup = WMFTaskGroup()
         var allAPIReadingLists: [APIReadingList] = []
         var getAllAPIReadingListsError: Error?
@@ -239,8 +244,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if let since = nextSince {
             moc.wmf_setValue(since as NSString, forKey: WMFReadingListUpdateKey)
         }
-        
-        try processLocalUpdates(in: moc)
         
         guard moc.hasChanges else {
             return
