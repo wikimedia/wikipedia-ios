@@ -493,8 +493,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
         
-        var createdReadingListEntries: [Int64: ReadingListEntry] = [:]
-        var failedReadingListEntries: [(ReadingListEntry, APIReadingListError)] = []
+       
         var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
         var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
         
@@ -532,7 +531,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     for (_, localReadingListEntry) in deletedReadingListEntries {
                         moc.delete(localReadingListEntry)
                     }
-                    deletedReadingListEntries = [:]
+                    deletedReadingListEntries.removeAll(keepingCapacity: true)
                     try moc.save()
                     guard !isCancelled  else {
                         throw ReadingListsOperationError.cancelled
@@ -548,6 +547,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             var start = 0
             var end = 0
             while end < entries.count {
+                var createdReadingListEntries: [Int64: ReadingListEntry] = [:]
+                var failedReadingListEntries: [(ReadingListEntry, APIReadingListError)] = []
                 requestCount += 1
                 taskGroup.enter()
                 end = min(entries.count, start + WMFReadingListBatchSizePerRequestLimit)
@@ -583,30 +584,29 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     }
                     
                 })
-                if requestCount % WMFReadingListBatchRequestLimit == 0 {
-                    taskGroup.wait()
-                    guard !isCancelled  else {
-                        throw ReadingListsOperationError.cancelled
-                    }
+                taskGroup.wait()
+                for (readingListEntryID, localReadingListEntry) in createdReadingListEntries {
+                    localReadingListEntry.readingListEntryID = NSNumber(value: readingListEntryID)
+                    localReadingListEntry.isUpdatedLocally = false
+                }
+                for failed in failedReadingListEntries {
+                    failed.0.errorCode = failed.1.rawValue
+                }
+                if moc.hasChanges {
+                    try moc.save()
+                }
+                guard !isCancelled  else {
+                    throw ReadingListsOperationError.cancelled
                 }
                 start = end
             }
             
         }
-        taskGroup.wait()
+        
         guard !isCancelled  else {
             throw ReadingListsOperationError.cancelled
         }
-        
-        for (readingListEntryID, localReadingListEntry) in createdReadingListEntries {
-            localReadingListEntry.readingListEntryID = NSNumber(value: readingListEntryID)
-            localReadingListEntry.isUpdatedLocally = false
-        }
-        
-        for failed in failedReadingListEntries {
-            failed.0.errorCode = failed.1.rawValue
-        }
-        
+
         for (_, localReadingListEntry) in deletedReadingListEntries {
             moc.delete(localReadingListEntry)
         }

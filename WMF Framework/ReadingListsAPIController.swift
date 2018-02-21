@@ -9,6 +9,7 @@ public enum APIReadingListError: String, Error, Equatable {
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
+    case listDeleted = "readinglists-db-error-list-deleted"
     
     public var localizedDescription: String {
         switch self {
@@ -304,7 +305,7 @@ class ReadingListsAPIController: NSObject {
         }
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
-            if let apiError = error as? APIReadingListError {
+            if let apiError = error as? APIReadingListError, apiError != .listDeleted {
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
