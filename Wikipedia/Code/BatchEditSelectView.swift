@@ -24,7 +24,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     }
     
     fileprivate func updateMultiSelectIndicatorImage() {
-        let image = isSelected ? UIImage(named: "selected", in: Bundle.main, compatibleWith: nil) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
+        let image = isSelected ? theme.multiSelectIndicatorImage : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
         multiSelectIndicator?.image = image
     }
     
