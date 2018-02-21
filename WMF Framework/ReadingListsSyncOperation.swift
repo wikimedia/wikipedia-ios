@@ -320,6 +320,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let randomArticleFetcher = WMFRandomArticleFetcher()
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
+            guard !list.isDefault else {
+                return
+            }
             do {
                 var results: [MWKSearchResult] = []
                 for i in 1...countOfEntriesToCreate {
