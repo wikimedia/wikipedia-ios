@@ -440,16 +440,15 @@ extension SavedArticlesViewController: ActionDelegate {
     }
 }
 
+// MARK: - ShareableArticlesProvider
+
 extension SavedArticlesViewController: ShareableArticlesProvider {}
 
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool) {
-        guard shouldShowSortAlert else {
-            return
-        }
-        presentSortAlert()
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
+        presentSortAlert(from: button)
     }
 }
 
