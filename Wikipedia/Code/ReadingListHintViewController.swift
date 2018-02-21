@@ -51,6 +51,7 @@ class ReadingListHintViewController: UIViewController {
         hintButton?.verticalPadding = 5
         setHintButtonTitle()
         apply(theme: theme)
+        NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
     }
     
     func reset() {
@@ -97,6 +98,17 @@ class ReadingListHintViewController: UIViewController {
         themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func themeChanged(notification: Notification) {
+        guard let newTheme = notification.userInfo?[ReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey] as? Theme else {
+            assertionFailure("Expected theme")
+            return
+        }
+        apply(theme: newTheme)
+    }
 }
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
