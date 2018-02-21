@@ -208,6 +208,10 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
+                guard lists.count > 1 else {
+                    completion([(nil, error ?? APIReadingListError.generic)], nil)
+                    return
+                }
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var listsByName: [String: (Int64?, Error?)] = [:]
@@ -313,6 +317,10 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError, apiError != .listDeleted {
+                guard entries.count > 1 else {
+                    completion([(nil, apiError)], nil)
+                    return
+                }
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
@@ -353,11 +361,11 @@ class ReadingListsAPIController: NSObject {
             }
             
             guard let batch = result["batch"] as? [[String: Any]] else {
+                DDLogError("Unexpected result: \(result)")
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
-            
-            
+
             completion(batch.flatMap {
                 let id = $0["id"] as? Int64
                 var error: Error? = nil
