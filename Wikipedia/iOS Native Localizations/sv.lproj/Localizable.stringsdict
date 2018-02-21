@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Radera listan?</string>
-			<key>other</key>
-			<string>Radera listorna?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -152,22 +136,6 @@
 			<string>%1$d år sedan</string>
 			<key>zero</key>
 			<string>Detta år</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Är du säker på att du vill återställa denna artikel och ta bort den från %1$d läslista?</string>
-			<key>other</key>
-			<string>Är du säker på att du vill återställa denna artikel och ta bort den från %1$d läslistor?</string>
 		</dict>
 	</dict>
 </dict>

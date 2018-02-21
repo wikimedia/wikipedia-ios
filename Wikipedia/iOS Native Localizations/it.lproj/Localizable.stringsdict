@@ -18,22 +18,6 @@
 			<string>voci cancellate</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Cancellare elenco?</string>
-			<key>other</key>
-			<string>Cancellare elenchi?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

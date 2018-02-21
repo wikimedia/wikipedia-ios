@@ -542,9 +542,7 @@ internal extension WMFArticle {
     
     func readingListsDidChange() {
         let readingLists = self.readingLists ?? []
-        if readingLists.count == 0 && savedDate != nil {
-            savedDate = nil
-        } else if readingLists.count > 0 && savedDate == nil {
+        if readingLists.count > 0 && savedDate == nil {
             savedDate = Date()
         }
     }
