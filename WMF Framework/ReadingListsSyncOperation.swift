@@ -117,10 +117,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             
             // make an update call to see if the user has enabled sync on another device
             var updateError: Error? = nil
-            
             taskGroup.enter()
             let iso8601String = DateFormatter.wmf_iso8601().string(from: Date())
-            apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, error) in
+            apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, since, error) in
                 updateError = error
                 taskGroup.leave()
             })
@@ -186,10 +185,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let taskGroup = WMFTaskGroup()
         var allAPIReadingLists: [APIReadingList] = []
         var getAllAPIReadingListsError: Error?
+        var nextSince: String? = nil
         taskGroup.enter()
-        readingListsController.apiController.getAllReadingLists { (readingLists, error) in
+        readingListsController.apiController.getAllReadingLists { (readingLists, since, error) in
             getAllAPIReadingListsError = error
             allAPIReadingLists = readingLists
+            nextSince = since
             taskGroup.leave()
         }
         
@@ -201,7 +202,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let group = WMFTaskGroup()
         
-        let readingListSinceDate = try readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
+        try readingListsController.createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
         
         // Get all entries
         var remoteEntriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
@@ -219,19 +220,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         group.wait()
         
-        var entrySinceDate = Date.distantPast
-        
         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
-            let listEntrySinceDate = try readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, deleteMissingLocalEntries: true, inManagedObjectContext: moc)
-            if listEntrySinceDate.compare(entrySinceDate) == .orderedDescending {
-                entrySinceDate = listEntrySinceDate
-            }
+            try readingListsController.createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, deleteMissingLocalEntries: true, inManagedObjectContext: moc)
         }
         
-        let sinceDate = readingListSinceDate.compare(entrySinceDate) == .orderedDescending ? readingListSinceDate : entrySinceDate
-        if sinceDate.compare(Date.distantPast) != .orderedSame {
-            let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
-            moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
+        if let since = nextSince {
+            moc.wmf_setValue(since as NSString, forKey: WMFReadingListUpdateKey)
         }
         
         try readingListsController.processLocalUpdates(in: moc)
@@ -256,13 +250,16 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var updatedLists: [APIReadingList] = []
         var updatedEntries: [APIReadingListEntry] = []
         var updateError: Error?
+        var nextSince: String?
         
         let taskGroup = WMFTaskGroup()
         taskGroup.enter()
-        apiController.updatedListsAndEntries(since: since, completion: { (lists, entries, error) in
+        apiController.updatedListsAndEntries(since: since, completion: { (lists, entries, since, error) in
+            print("entries: \(entries)")
             updateError = error
             updatedLists =  lists
             updatedEntries = entries
+            nextSince = since
             taskGroup.leave()
         })
         
@@ -272,13 +269,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             throw error
         }
         
-        let listSinceDate = try readingListsController.createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
-        let entrySinceDate = try readingListsController.createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
-        let sinceDate: Date = listSinceDate.compare(entrySinceDate) == .orderedDescending ? listSinceDate : entrySinceDate
+        try readingListsController.createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
+        try readingListsController.createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
         
-        if sinceDate.compare(Date.distantPast) != .orderedSame {
-            let iso8601String = DateFormatter.wmf_iso8601().string(from: sinceDate)
-            moc.wmf_setValue(iso8601String as NSString, forKey: WMFReadingListUpdateKey)
+        if let since = nextSince {
+            moc.wmf_setValue(since as NSString, forKey: WMFReadingListUpdateKey)
         }
         
         guard moc.hasChanges else {

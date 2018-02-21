@@ -23,6 +23,12 @@ public enum APIReadingListError: String, Error, Equatable {
 struct APIReadingLists: Codable {
     let lists: [APIReadingList]
     let next: String?
+    let since: String?
+    enum CodingKeys: String, CodingKey {
+        case lists
+        case next
+        case since = "continue-from"
+    }
 }
 
 struct APIReadingList: Codable {
@@ -64,7 +70,14 @@ struct APIReadingListChanges: Codable {
     let lists: [APIReadingList]?
     let entries: [APIReadingListEntry]?
     let next: String?
+    let since: String?
+    enum CodingKeys: String, CodingKey {
+        case lists
+        case entries
+        case next
+        case since = "continue-from"
     }
+}
 
 struct APIReadingListErrorResponse: Codable {
     let type: String?
@@ -405,17 +418,22 @@ class ReadingListsAPIController: NSObject {
         - entries: Entries to append to the results
         - lists: All updated lists
         - entries: All updated entries
-        - error: Any error preventing list update
+        - since: The date to use for the next update call
+        - error: Any error
      */
-    func updatedListsAndEntries(since: String, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ error: Error?) -> Swift.Void ) {
+    func updatedListsAndEntries(since: String, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ since: String?, _ error: Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
+        var nextSince: String? = nil
         get(path: "changes/since/\(since)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
             guard let result = result, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                completion([], [], error ?? ReadingListError.generic)
+                completion([], [], nil, error ?? ReadingListError.generic)
                 return
+            }
+            if nextSince == nil {
+                nextSince = result.since
             }
             var combinedLists = lists
             if let lists = result.lists {
@@ -428,27 +446,40 @@ class ReadingListsAPIController: NSObject {
             if let next = result.next {
                 self.updatedListsAndEntries(since: since, next: next, lists: combinedLists, entries: combinedEntries, completion: completion)
             } else {
-                completion(combinedLists, combinedEntries, nil)
+                completion(combinedLists, combinedEntries, nextSince, nil)
             }
         }
     }
     
-    func getAllReadingLists(next: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], Error?) -> Swift.Void ) {
+    /**
+     Gets all reading lists from the API
+         - parameters:
+         - next: Optional continuation token for this list of results
+         - lists: Lists to append to the results
+         - lists: All lists
+         - since: The string to use for the next /changes/since call
+         - error: Any error
+     */
+    func getAllReadingLists(next: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
+        var since: String? = nil
         get(path: "", queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
             guard let apiListsResponse = apiListsResponse else {
-                completion([], error)
+                completion([], nil, error)
                 return
+            }
+            if since == nil {
+                since = apiListsResponse.since
             }
             var combinedList = lists
             combinedList.append(contentsOf: apiListsResponse.lists)
             if let next = apiListsResponse.next {
                 self.getAllReadingLists(next: next, lists: combinedList, completion: completion)
             } else {
-                completion(combinedList, nil)
+                completion(combinedList, since, nil)
             }
         }
     }

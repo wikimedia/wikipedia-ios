@@ -819,18 +819,12 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
-    internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
-        var sinceDate: Date = Date.distantPast
-
+    internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws {
         // Arrange remote lists by ID and name for merging with local lists
         var remoteReadingListsByID: [Int64: APIReadingList] = [:]
         var remoteReadingListsByName: [String: [Int64: APIReadingList]] = [:] // server still allows multiple lists with the same name
         var remoteDefaultReadingList: APIReadingList? = nil
         for remoteReadingList in remoteReadingLists {
-            if let date = DateFormatter.wmf_iso8601().date(from: remoteReadingList.updated),
-                date.compare(sinceDate) == .orderedDescending {
-                sinceDate = date
-            }
             if remoteReadingList.isDefault {
                 remoteDefaultReadingList = remoteReadingList
             }
@@ -907,24 +901,17 @@ public class ReadingListsController: NSObject {
                 localList.updatedDate = localList.createdDate
             }
         }
-        
-        return sinceDate
     }
     
-    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Date {
-        var sinceDate: Date = Date.distantPast
+    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws {
         guard remoteReadingListEntries.count > 0 else {
-            return sinceDate
+            return
         }
         
         // Arrange remote list entries by ID and key for merging with local lists
         var remoteReadingListEntriesByReadingListID: [Int64: [String: APIReadingListEntry]] = [:]
 
         for remoteReadingListEntry in remoteReadingListEntries {
-            if let date = DateFormatter.wmf_iso8601().date(from: remoteReadingListEntry.updated),
-                date.compare(sinceDate) == .orderedDescending {
-                sinceDate = date
-            }
             guard let listID = remoteReadingListEntry.listId ?? readingListID, let articleKey = remoteReadingListEntry.articleKey else {
                 DDLogError("missing id or article key for remote entry: \(remoteReadingListEntry)")
                 assert(false)
@@ -986,8 +973,6 @@ public class ReadingListsController: NSObject {
                 moc.reset()
             }
         }
-
-        return sinceDate
     }
 }
 
