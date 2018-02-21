@@ -128,7 +128,7 @@ extension ReadingListHintViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.disabledLink
+        view.backgroundColor = theme.colors.hintBackground 
         hintButton?.setTitleColor(theme.colors.link, for: .normal)
         hintButton?.tintColor = theme.colors.link
         confirmationButton.setTitleColor(theme.colors.link, for: .normal)
