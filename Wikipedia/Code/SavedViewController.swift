@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
-    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool)
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
 }
 
 @objc(WMFSavedViewController)
@@ -167,8 +167,8 @@ class SavedViewController: ViewController {
     
     public weak var savedDelegate: SavedViewControllerDelegate?
     
-    @IBAction func sortButonPressed() {
-        savedDelegate?.saved(self, shouldShowSortAlert: true)
+    @IBAction func sortButonPressed(_ sender: UIButton) {
+        savedDelegate?.savedWillShowSortAlert(self, from: sender)
     }
     
     // MARK: - Themeable

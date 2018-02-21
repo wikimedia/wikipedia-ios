@@ -29,8 +29,8 @@ extension WMFScrollable where Self : UIViewController {
     }
     
     func wmf_beginAdjustingScrollViewInsetsForKeyboard() {
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { notification in
-            self.wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
+            self?.wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
         })
     }
 

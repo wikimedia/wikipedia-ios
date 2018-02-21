@@ -36,7 +36,6 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
         }
         
         let listLimit = Int64(listLimitTextField.text ?? "10") ?? 10
-        
         let entryLimit = Int64(entryLimitTextField.text  ?? "100") ?? 100
         
         activityIndicator.startAnimating()
