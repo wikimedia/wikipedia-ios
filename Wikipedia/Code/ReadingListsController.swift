@@ -558,9 +558,7 @@ internal extension WMFArticle {
             }
             entry.isDeletedLocally = true
             entry.isUpdatedLocally = true
-            entry.list?.updateCountOfEntries()
-            list.removeFromArticles(self)
-            readingListsDidChange()
+            list.updateArticlesAndEntries()
         }
     }
     
