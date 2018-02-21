@@ -236,7 +236,14 @@ class ReadingListsAPIController: NSObject {
                 }
                 return
             }
-            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
+            completion(batch.flatMap {
+                let id = $0["id"] as? Int64
+                var error: Error? = nil
+                if let errorString = $0["error"] as? String {
+                    error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
+                }
+                return (id, error)
+            }, nil)
         }
     }
     
@@ -351,7 +358,14 @@ class ReadingListsAPIController: NSObject {
             }
             
             
-            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
+            completion(batch.flatMap {
+                let id = $0["id"] as? Int64
+                var error: Error? = nil
+                if let errorString = $0["error"] as? String {
+                    error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
+                }
+                return (id, error)
+            }, nil)
         }
     }
     
