@@ -594,15 +594,23 @@ public class ReadingListsController: NSObject {
         var newValue = oldValue
         if createLists {
             newValue.insert(.needsRandomLists)
+        } else {
+            newValue.remove(.needsRandomLists)
         }
         if addEntries {
             newValue.insert(.needsRandomEntries)
+        } else {
+            newValue.remove(.needsRandomEntries)
         }
         if deleteLists {
             newValue.insert(.needsLocalListClear)
+        } else {
+            newValue.remove(.needsLocalListClear)
         }
         if deleteEntries {
             newValue.insert(.needsLocalArticleClear)
+        } else {
+            newValue.remove(.needsLocalArticleClear)
         }
         syncState = newValue
         if doFullSync {
