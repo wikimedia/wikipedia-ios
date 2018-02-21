@@ -105,9 +105,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if syncState.contains(.needsLocalListClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "isDefault != YES"), handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
-                for list in lists {
-                    moc.delete(list)
-                }
             })
             
             syncState.remove(.needsLocalListClear)
@@ -312,8 +309,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
             do {
+                var results: [MWKSearchResult] = []
                 for i in 1...countOfEntriesToCreate {
-                    var results: [MWKSearchResult] = []
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
                         taskGroup.leave()
@@ -323,8 +320,16 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     })
                     if i % 16 == 0 || i == countOfEntriesToCreate {
                         taskGroup.wait()
-                        let keys = results.flatMap { $0.articleURL(forSiteURL: siteURL)?.wmf_articleDatabaseKey }
-                        let articles = try moc.wmf_fetchOrCreate(objectsForEntityName: "WMFArticle", withValues: keys, forKey: "key") as? [WMFArticle] ?? []
+                        let articleURLs = results.flatMap { $0.articleURL(forSiteURL: siteURL) }
+                        taskGroup.enter()
+                        var summaryResponses: [String: [String: Any]] = [:]
+                        URLSession.shared.wmf_fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
+                            // workaround this method not being async
+                            summaryResponses = actualSummaryResponses
+                            taskGroup.leave()
+                        })
+                        taskGroup.wait()
+                        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                         for (index, article) in articles.enumerated() {
                             guard index < results.count else {
                                 continue
@@ -334,6 +339,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         }
                         try readingListsController.add(articles: articles, to: list, in: moc)
                         try moc.save()
+                        results.removeAll(keepingCapacity: true)
                     }
                 }
             } catch let error {
