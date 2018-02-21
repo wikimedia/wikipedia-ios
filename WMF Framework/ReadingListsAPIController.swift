@@ -1,5 +1,7 @@
 import Foundation
 
+internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receive over this # of updated items, fall back to full sync
+
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
     case notSetup = "readinglists-db-error-not-set-up"
@@ -442,7 +444,7 @@ class ReadingListsAPIController: NSObject {
             }
             let nextSince = nextSince ?? result.since
             if let next = result.next {
-                if combinedLists.count + combinedEntries.count > 1000 {
+                if combinedLists.count + combinedEntries.count > APIReadingListUpdateLimitForFullSyncFallback {
                     completion([], [], nil, APIReadingListError.needsFullSync)
                 } else {
                     self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
