@@ -58,7 +58,7 @@ public class ReadingList: NSManagedObject {
                 guard updatedPreviewArticles.count < 4 else {
                     break
                 }
-                guard article.imageURLString != nil else {
+                guard article.imageURLString != nil || article.thumbnailURLString != nil else {
                     continue
                 }
                 updatedPreviewArticles.add(article)
