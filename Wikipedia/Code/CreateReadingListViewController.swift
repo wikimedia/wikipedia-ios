@@ -54,20 +54,21 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        guard let name = readingListNameTextField.text, !name.isEmpty else {
+        guard !isReadingListFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
             return
         }
-        delegate?.createReadingList(self, shouldCreateReadingList: true, with: name, description: descriptionTextField.text, articles: articles)
+        let trimmedDescription = descriptionTextField.text?.trimmingCharacters(in: .whitespaces)
+        delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
     }
     
     // MARK: - UITextFieldDelegate
     
     fileprivate var isReadingListFieldEmpty: Bool {
-        return readingListNameTextField.text?.isEmpty ?? true
+        return !readingListNameTextField.wmf_hasNonWhitespaceText
     }
     
     fileprivate var isDescriptionFieldEmpty: Bool {
-        return descriptionTextField.text?.isEmpty ?? true
+        return !descriptionTextField.wmf_hasNonWhitespaceText
     }
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {
