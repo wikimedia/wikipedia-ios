@@ -99,23 +99,18 @@ public enum BatchEditToolbarActionType {
         default:
             break
         }
-        let button = UIButton(type: .system)
-        button.addTarget(target, action: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)), for: .touchUpInside)
-        return BatchEditToolbarAction(title: title, type: type, button: button, target: target)
+        return BatchEditToolbarAction(title: title, type: type, target: target)
     }
 }
 
 public class BatchEditToolbarAction: UIAccessibilityCustomAction {
     let title: String
     public let type: BatchEditToolbarActionType
-    public let button: UIButton
     
-    public init(title: String, type: BatchEditToolbarActionType, button: UIButton, target: Any?) {
+    public init(title: String, type: BatchEditToolbarActionType, target: Any?) {
         self.title = title
         self.type = type
-        self.button = button
-        let selector = #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:))
-        super.init(name: title, target: target, selector: selector)
+        super.init(name: title, target: target, selector: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)))
     }
 }
 
