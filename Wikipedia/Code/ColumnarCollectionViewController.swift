@@ -148,7 +148,7 @@ class ColumnarCollectionViewController: ViewController {
     
     // MARK: - Scroll
     
-    internal override func scrollToTop() {
+    override func scrollToTop() {
         collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
     }
     

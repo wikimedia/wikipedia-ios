@@ -2,6 +2,10 @@ public struct Tag {
     let readingList: ReadingList
     let index: Int
     let indexPath: IndexPath
+    
+    var isLast: Bool {
+        return index == 2
+    }
 }
 
 class TagCollectionViewCell: CollectionViewCell {
@@ -18,10 +22,10 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     func configure(with tag: Tag, for count: Int, theme: Theme) {
-        guard let name = tag.readingList.name, tag.index <= 2 else {
+        guard tag.index <= 2, let name = tag.readingList.name else {
             return
         }
-        label.text = (tag.index == 2 ? "+\(count - 2)" : name).uppercased()
+        label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
         width = min(100, label.intrinsicContentSize.width)
         apply(theme: theme)
         updateFonts(with: traitCollection)

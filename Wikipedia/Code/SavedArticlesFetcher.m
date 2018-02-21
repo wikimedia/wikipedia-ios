@@ -131,7 +131,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         DDLogError(@"Error fetching next article to download: %@", fetchError);
     }
     dispatch_block_t updateAgain = ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.updating = NO;
             [self update];
         });

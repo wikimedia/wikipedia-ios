@@ -80,6 +80,32 @@ extension URLSession {
         }
         task.resume()
     }
+    
+    public func wmf_fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], completion: @escaping ([String: [String: Any]]) -> Void) {
+        let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
+        let taskGroup = WMFTaskGroup()
+        var summaryResponses: [String: [String: Any]] = [:]
+        for articleURL in articleURLs {
+            guard let key = articleURL.wmf_articleDatabaseKey else {
+                continue
+            }
+            taskGroup.enter()
+            wmf_fetchSummary(with: articleURL, completionHandler: { (responseObject, response, error) in
+                guard let responseObject = responseObject else {
+                    taskGroup.leave()
+                    return
+                }
+                queue.async {
+                    summaryResponses[key] = responseObject
+                    taskGroup.leave()
+                }
+            })
+        }
+        
+        taskGroup.waitInBackgroundAndNotify(on: queue) {
+            completion(summaryResponses)
+        }
+    }
 }
 
 extension NSManagedObjectContext {
@@ -113,28 +139,11 @@ extension NSManagedObjectContext {
         return articles
     }
     
+    
+
+    
     public func wmf_updateOrCreateArticleSummariesForArticles(withURLs articleURLs: [URL], completion: @escaping ([WMFArticle]) -> Void) {
-        let session = URLSession.shared
-        let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
-        let taskGroup = WMFTaskGroup()
-        var summaryResponses: [String: [String: Any]] = [:]
-        for articleURL in articleURLs {
-            guard let key = articleURL.wmf_articleDatabaseKey else {
-                continue
-            }
-            taskGroup.enter()
-            session.wmf_fetchSummary(with: articleURL, completionHandler: { (responseObject, response, error) in
-                guard let responseObject = responseObject else {
-                    taskGroup.leave()
-                    return
-                }
-                queue.async {
-                    summaryResponses[key] = responseObject
-                    taskGroup.leave()
-                }
-            })
-        }
-        taskGroup.waitInBackgroundAndNotify(on: queue) {
+        URLSession.shared.wmf_fetchArticleSummaryResponsesForArticles(withURLs: articleURLs) { (summaryResponses) in
             self.perform {
                 do {
                     let articles = try self.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)

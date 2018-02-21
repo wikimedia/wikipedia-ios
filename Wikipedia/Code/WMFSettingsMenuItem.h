@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemDisclosureType) {
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_Login,
     WMFSettingsMenuItemType_StorageAndSyncing,
+    WMFSettingsMenuItemType_StorageAndSyncingDebug,
     WMFSettingsMenuItemType_Support,
     WMFSettingsMenuItemType_SearchLanguage,
     WMFSettingsMenuItemType_SearchLanguageBarVisibility,

@@ -1,4 +1,4 @@
-extension BatchEditNavigationDelegate where Self: UIViewController {
+extension CollectionViewEditControllerNavigationDelegate where Self: UIViewController {
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) {
         
         let tabBar = self.tabBarController?.tabBar
@@ -33,6 +33,20 @@ extension BatchEditNavigationDelegate where Self: UIViewController {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        //
+        // conforming types can provide their own implementations
+    }
+}
+
+extension CollectionViewEditControllerNavigationDelegate where Self: UpdatableCollection & EditableCollection {
+    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
+        if newEditingState == .open {
+            dataStore.readingListsController.stop {
+                DispatchQueue.main.async {
+                    self.editController.changeEditingState(to: newEditingState)
+                }
+            }
+        } else {
+            editController.changeEditingState(to: newEditingState)
+        }
     }
 }

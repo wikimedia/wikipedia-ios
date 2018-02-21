@@ -9,10 +9,10 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFReadingListsViewController)
-class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection {
-    
+class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
     private let reuseIdentifier = "ReadingListsViewControllerCell"
     
+    typealias T = ReadingList
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
     var fetchedResultsController: NSFetchedResultsController<ReadingList>!
@@ -26,9 +26,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        let basePredicate = NSPredicate(format: "isDeletedLocally == NO")
+        request.relationshipKeyPathsForPrefetching = ["previewArticles"]
         if let readingLists = readingLists, readingLists.count > 0 {
-            isShowingDefaultList = readingLists.filter { $0.isDefaultList }.count > 0
+            isShowingDefaultList = readingLists.filter { $0.isDefault }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
             let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
@@ -36,7 +36,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            isShowingDefaultList = commonReadingLists.filter { $0.isDefaultList }.count == 0
+            isShowingDefaultList = commonReadingLists.filter { $0.isDefault }.count == 0
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
@@ -44,16 +44,20 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             request.predicate = basePredicate
         }
         
-        request.sortDescriptors = [NSSortDescriptor(key: "isDefault", ascending: false), NSSortDescriptor(key: "canonicalName", ascending: true)]
+        var sortDescriptors = baseSortDescriptors
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching reading lists: \(error)")
-        }
-        
-        collectionView.reloadData()
+        fetch()
+    }
+    
+    var basePredicate: NSPredicate {
+        return NSPredicate(format: "isDeletedLocally == NO")
+    }
+    
+    var baseSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "isDefault", ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
@@ -143,22 +147,32 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         let articleCount = readingList.countOfEntries
-        let lastFourArticlesWithLeadImages = try? readingListsController.articlesWithLeadImages(for: readingList, limit: 4)
+        let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
-        guard !readingList.isDefaultList else {
-            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
-            cell.layoutMargins = layout.readableMargins
-            return
+        if readingList.isDefault {
+            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+            if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+                // placeholder for now, this should be a separate label or button
+                cell.descriptionLabel.text = error.localizedDescription
+                cell.descriptionLabel.textColor = theme.colors.error
+            }
+            cell.isBatchEditable = false
+        } else {
+            cell.actions = availableActions(at: indexPath)
+            cell.isBatchEditable = true
+            cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
-        cell.actions = availableActions(at: indexPath)
-        cell.isBatchEditable = true
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages ?? [], layoutOnly: layoutOnly)
-        cell.layoutMargins = layout.readableMargins
         
-        guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
+        let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
         cell.swipeTranslation = translation
+
+        cell.layoutMargins = layout.readableMargins
+
+        if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+            // placeholder for now, this should be a separate label or button
+            cell.descriptionLabel.text = error.localizedDescription
+            cell.descriptionLabel.textColor = theme.colors.error
+        }
     }
     
     // MARK: - Empty state
@@ -208,7 +222,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return true
         }
         
-        guard let readingList = readingList(at: indexPath), !readingList.isDefaultList else {
+        guard let readingList = readingList(at: indexPath), !readingList.isDefault else {
             return false
         }
         return true
@@ -253,7 +267,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         editController.transformBatchEditPaneOnScroll()
     }
-    
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
@@ -415,8 +428,8 @@ extension ReadingListsViewController: ActionDelegate {
 
 }
 
-extension ReadingListsViewController: BatchEditNavigationDelegate {
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+extension ReadingListsViewController: CollectionViewEditControllerNavigationDelegate {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         //
     }
     
