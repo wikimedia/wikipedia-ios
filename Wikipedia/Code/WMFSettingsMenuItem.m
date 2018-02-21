@@ -128,23 +128,23 @@
         }
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:WMFLocalizedStringWithDefaultValue(@"reading-list-sync-setting", nil, nil, @"Reading list sync", @"Main menu option to enable or disable reading list sync")
-                                             iconName:@"settings-zero"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                       disclosureText:nil
-                                           isSwitchOn:[SessionSingleton sharedInstance].dataStore.readingListsController.isSyncEnabled];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:WMFLocalizedStringWithDefaultValue(@"reading-list-sync-setting", nil, nil, @"Reading list sync", @"Main menu option to enable or disable reading list sync")
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].dataStore.readingListsController.isSyncEnabled];
         }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:@"Reading list danger zone"
-                                             iconName:@"settings-zero"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:nil];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:@"Reading list danger zone"
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:nil];
         }
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return
