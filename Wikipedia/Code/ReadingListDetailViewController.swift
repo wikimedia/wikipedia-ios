@@ -474,8 +474,8 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
         updateSearchString(searchText)
     }
     
-    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController) {
-        presentSortAlert()
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController, sortButton: UIButton) {
+        presentSortAlert(from: sortButton)
     }
     
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField) {

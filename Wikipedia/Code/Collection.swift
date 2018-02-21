@@ -94,7 +94,7 @@ protocol SortableCollection: UpdatableCollection {
     var sortActions: [SortActionType: UIAlertAction] { get }
     var defaultSortAction: UIAlertAction? { get }
     var sortAlert: UIAlertController { get }
-    func presentSortAlert()
+    func presentSortAlert(from button: UIButton)
     func updateSortActionCheckmark()
 }
 
@@ -105,10 +105,6 @@ extension SortableCollection where Self: UIViewController {
         sortActions.values.forEach { alert.addAction($0) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
-        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
-            popoverController.sourceView = first
-            popoverController.sourceRect = first.bounds
-        }
         return alert
     }
     
@@ -130,7 +126,11 @@ extension SortableCollection where Self: UIViewController {
         checkedAction?.setValue(true, forKey: checkedKey)
     }
     
-    func presentSortAlert() {
+    func presentSortAlert(from button: UIButton) {
+        if let popoverController = sortAlert.popoverPresentationController  {
+            popoverController.sourceView = button
+            popoverController.sourceRect = button.bounds
+        }
         present(sortAlert, animated: true)
         updateSortActionCheckmark()
     }
