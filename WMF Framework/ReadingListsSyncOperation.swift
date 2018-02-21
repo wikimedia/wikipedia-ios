@@ -699,9 +699,24 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         var updatedLists: Set<ReadingList> = []
         for remoteEntry in readingListEntries {
-            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let article = articlesByKey[articleKey], let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
+            guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
                 continue
             }
+            
+            var fetchedArticle = articlesByKey[articleKey]
+            if fetchedArticle == nil {
+                if let newArticle = moc.wmf_fetchOrCreate(objectForEntityName: "WMFArticle", withValue: articleKey, forKey: "key") as? WMFArticle {
+                    if newArticle.displayTitle == nil {
+                        newArticle.displayTitle = remoteEntry.title
+                    }
+                    fetchedArticle = newArticle
+                }
+            }
+            
+            guard let article = fetchedArticle else {
+                continue
+            }
+
             guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
                 continue
             }
