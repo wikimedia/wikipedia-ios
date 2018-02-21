@@ -4,7 +4,7 @@ internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
-internal let WMFReadingListBatchRequestLimit = 8 // currently this waits until all 8 requests are done before firing off 8 new ones, should be optimized to add new requests as old ones finish
+internal let WMFReadingListBatchRequestLimit = 64 // currently this waits until all requests are done before firing off new ones, could be optimized to add new requests as old ones finish
 
 internal let WMFReadingListBatchSizePerRequestLimit = 500
 
