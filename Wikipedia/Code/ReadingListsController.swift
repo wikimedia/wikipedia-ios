@@ -145,19 +145,11 @@ public class ReadingListsController: NSObject {
     ///
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
-    func markLocalDeletion(for readingLists: [ReadingList]) throws {
+    func markLocalDeletion(for readingLists: [ReadingList], shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
-            for entry in readingList.entries ?? [] {
-                entry.isDeletedLocally = true
-                entry.isUpdatedLocally = true
-            }
-            let articles = readingList.articles ?? []
-            readingList.articles = []
-            for article in articles {
-                article.readingListsDidChange()
-            }
+            try markLocalDeletion(for: Array(readingList.entries ?? []), shouldMoveOrphanedArticlesToTheDefaultList: shouldMoveOrphanedArticlesToTheDefaultList)
         }
     }
     
@@ -184,9 +176,11 @@ public class ReadingListsController: NSObject {
     }
     
     public func delete(readingLists: [ReadingList]) throws {
+        assert(Thread.isMainThread)
+        
         let moc = dataStore.viewContext
         
-        try markLocalDeletion(for: readingLists)
+        try markLocalDeletion(for: readingLists, shouldMoveOrphanedArticlesToTheDefaultList: true)
         
         if moc.hasChanges {
             try moc.save()
