@@ -718,7 +718,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             updatedLists.insert(readingList)
         }
         for readingList in updatedLists {
-            readingList.updateArticlesAndEntries()
+            try readingList.updateArticlesAndEntries()
         }
     }
     

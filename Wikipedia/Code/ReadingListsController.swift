@@ -165,7 +165,7 @@ public class ReadingListsController: NSObject {
     ///
     /// - Parameters:
     ///   - readingListEntriess: the reading lists to delete
-    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
+    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry], shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
         guard readingListEntries.count > 0 else {
             return
         }
@@ -179,7 +179,7 @@ public class ReadingListsController: NSObject {
             lists.insert(list)
         }
         for list in lists {
-            list.updateArticlesAndEntries()
+            try list.updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: shouldMoveOrphanedArticlesToTheDefaultList)
         }
     }
     
@@ -216,7 +216,7 @@ public class ReadingListsController: NSObject {
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
         }
-        readingList.updateArticlesAndEntries()
+        try readingList.updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: true)
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
@@ -396,18 +396,13 @@ public class ReadingListsController: NSObject {
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list == %@ && articleKey IN %@", readingList, articleKeys)
         let entriesToDelete = try moc.fetch(entriesRequest)
-        try markLocalDeletion(for: entriesToDelete)
-        
-        if moc.hasChanges {
-            try moc.save()
-        }
-        sync()
+        try remove(entries: entriesToDelete)
     }
     
     public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        try markLocalDeletion(for: entries)
+        try markLocalDeletion(for: entries, shouldMoveOrphanedArticlesToTheDefaultList: true)
         if moc.hasChanges {
             try moc.save()
         }
@@ -537,7 +532,7 @@ internal extension WMFArticle {
         defaultListEntry.list = defaultReadingList
         defaultListEntry.displayTitle = displayTitle
         defaultListEntry.isUpdatedLocally = true
-        defaultReadingList.updateArticlesAndEntries()
+        try defaultReadingList.updateArticlesAndEntries()
     }
     
     func readingListsDidChange() {

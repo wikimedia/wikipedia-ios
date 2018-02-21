@@ -24,7 +24,7 @@ public class ReadingList: NSManagedObject {
         }).count)
     }
     
-    public func updateArticlesAndEntries() {
+    public func updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
         let previousArticles = articles ?? []
         let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
@@ -32,21 +32,20 @@ public class ReadingList: NSManagedObject {
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
+                if !isDefault && shouldMoveOrphanedArticlesToTheDefaultList && (article.readingLists?.count ?? 0) == 0 {
+                    try article.addToDefaultReadingList()
+                }
                 article.readingListsDidChange()
                 continue
             }
         }
         if validArticleKeys.count > 0 {
             let articleKeysToAdd = validArticleKeys.subtracting(previousKeys)
-            do {
-                let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
-                countOfEntries = Int64(validEntries.count)
-                for article in articlesToAdd {
-                    addToArticles(article)
-                    article.readingListsDidChange()
-                }
-            } catch let error {
-                DDLogError("error updating list: \(error)")
+            let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
+            countOfEntries = Int64(validEntries.count)
+            for article in articlesToAdd {
+                addToArticles(article)
+                article.readingListsDidChange()
             }
             let sortedArticles = articles?.sorted(by: { (a, b) -> Bool in
                 guard let aDate = a.savedDate else {
