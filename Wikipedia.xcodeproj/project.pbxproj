@@ -2198,7 +2198,6 @@
 		D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
 		D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8CE26281E698E2400DAE2E0 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */; };
@@ -2285,10 +2284,6 @@
 		D8CE26A21E698E2400DAE2E0 /* TopReadWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D85D34C51D74D07500845125 /* TopReadWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8CE26A31E698E2400DAE2E0 /* ContinueReadingWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E8380631D64989F0076EDE4 /* ContinueReadingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D8CE26A51E698E2400DAE2E0 /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8CE26B21E698E9000DAE2E0 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B11E698E9000DAE2E0 /* CoreMedia.framework */; };
-		D8CE26B41E698E9A00DAE2E0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B31E698E9A00DAE2E0 /* AVFoundation.framework */; };
-		D8CE26B61E698EA500DAE2E0 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */; };
-		D8CE26B81E698F0200DAE2E0 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B71E698F0200DAE2E0 /* Appsee.framework */; };
 		D8CE9B031FDEBB1900AE7D49 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831835301FD1AC490025DD3D /* NavigationBar.swift */; };
 		D8CE9B041FDEBB2C00AE7D49 /* NavigationBarHider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */; };
 		D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3650D1E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift */; };
@@ -2595,14 +2590,10 @@
 		D8EC3F1A1E9BDA35006712EB /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		D8EC3F1C1E9BDA35006712EB /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CD975F1E83F68400ECCA9D /* SafariServices.framework */; };
-		D8EC3F201E9BDA35006712EB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */; };
-		D8EC3F211E9BDA35006712EB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B31E698E9A00DAE2E0 /* AVFoundation.framework */; };
-		D8EC3F221E9BDA35006712EB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE26B11E698E9000DAE2E0 /* CoreMedia.framework */; };
 		D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D906931DF58D1800853BFD /* libsqlite3.tbd */; };
 		D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D551A61DF1AE9B00B90177 /* libxml2.tbd */; };
 		D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB3B1DF0B6EE00DDF311 /* FLAnimatedImage.framework */; };
-		D8EC3F281E9BDA35006712EB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D858A7F81DA6DB96009C3DEB /* libz.tbd */; };
 		D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2B1DF0ABBF00DDF311 /* NYTPhotoViewer.framework */; };
 		D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */; };
 		D8EC3F2B1E9BDA35006712EB /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82FDB2A1DF0ABBF00DDF311 /* GCDWebServers.framework */; };
@@ -4361,7 +4352,6 @@
 		D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewHeader.swift; sourceTree = "<group>"; };
 		D8533ED41ECF581600E44F86 /* NewsCollectionViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewHeader.xib; sourceTree = "<group>"; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
-		D858A7F81DA6DB96009C3DEB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+WMFKeyValue.h"; sourceTree = "<group>"; };
 		D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+WMFKeyValue.m"; sourceTree = "<group>"; };
 		D85C145A1F388582002186A5 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -4504,10 +4494,6 @@
 		D8CE211B1E68D81900DAE2E0 /* CocoaLumberjackSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjackSwift.framework; path = Build/iOS/CocoaLumberjackSwift.framework; sourceTree = "<group>"; };
 		D8CE26AF1E698E2400DAE2E0 /* Wikipedia Alpha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia Alpha.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8CE26B01E698E2500DAE2E0 /* Wikipedia Alpha-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Wikipedia Alpha-Info.plist"; path = "Wikipedia/Wikipedia Alpha-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D8CE26B11E698E9000DAE2E0 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		D8CE26B31E698E9A00DAE2E0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		D8CE26B71E698F0200DAE2E0 /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = Wikipedia/Frameworks/Appsee.framework; sourceTree = "<group>"; };
 		D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBarHider.swift; path = ../Wikipedia/Code/NavigationBarHider.swift; sourceTree = "<group>"; };
 		D8D0CC361DF6F8C30031EDD9 /* UIFont+WMFDynamicType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+WMFDynamicType.swift"; sourceTree = "<group>"; };
 		D8D270321D75BE8100D093A8 /* TopReadWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TopReadWidget.entitlements; sourceTree = "<group>"; };
@@ -4838,15 +4824,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */,
-				D8CE26B81E698F0200DAE2E0 /* Appsee.framework in Frameworks */,
-				D8CE26B61E698EA500DAE2E0 /* CoreVideo.framework in Frameworks */,
-				D8CE26B41E698E9A00DAE2E0 /* AVFoundation.framework in Frameworks */,
-				D8CE26B21E698E9000DAE2E0 /* CoreMedia.framework in Frameworks */,
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE26211E698E2400DAE2E0 /* libxml2.tbd in Frameworks */,
 				D8CE26231E698E2400DAE2E0 /* FLAnimatedImage.framework in Frameworks */,
-				D8CE26241E698E2400DAE2E0 /* libz.tbd in Frameworks */,
 				D8CE26261E698E2400DAE2E0 /* NYTPhotoViewer.framework in Frameworks */,
 				D8CE26271E698E2400DAE2E0 /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8CE26281E698E2400DAE2E0 /* GCDWebServers.framework in Frameworks */,
@@ -4871,14 +4852,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */,
-				D8EC3F201E9BDA35006712EB /* CoreVideo.framework in Frameworks */,
-				D8EC3F211E9BDA35006712EB /* AVFoundation.framework in Frameworks */,
-				D8EC3F221E9BDA35006712EB /* CoreMedia.framework in Frameworks */,
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F251E9BDA35006712EB /* libxml2.tbd in Frameworks */,
 				D8EC3F271E9BDA35006712EB /* FLAnimatedImage.framework in Frameworks */,
-				D8EC3F281E9BDA35006712EB /* libz.tbd in Frameworks */,
 				D8EC3F291E9BDA35006712EB /* NYTPhotoViewer.framework in Frameworks */,
 				D8EC3F2A1E9BDA35006712EB /* CocoaLumberjackSwift.framework in Frameworks */,
 				D8EC3F2B1E9BDA35006712EB /* GCDWebServers.framework in Frameworks */,
@@ -7302,7 +7279,6 @@
 			children = (
 				B09BE6A01FB3DA45007F52E3 /* WebKit.framework */,
 				D8CD975F1E83F68400ECCA9D /* SafariServices.framework */,
-				D8CE26B91E698F0700DAE2E0 /* Appsee */,
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
 				D82FDAD81DF0A96E00DDF311 /* Carthage */,
 				D8D553611DF1B63200B90177 /* QuartzCore.framework */,
@@ -7954,18 +7930,6 @@
 			name = TUSafariActivity;
 			path = "Wikipedia/Third Party Code/TUSafariActivity";
 			sourceTree = SOURCE_ROOT;
-		};
-		D8CE26B91E698F0700DAE2E0 /* Appsee */ = {
-			isa = PBXGroup;
-			children = (
-				D8CE26B71E698F0200DAE2E0 /* Appsee.framework */,
-				D858A7F81DA6DB96009C3DEB /* libz.tbd */,
-				D8CE26B51E698EA500DAE2E0 /* CoreVideo.framework */,
-				D8CE26B31E698E9A00DAE2E0 /* AVFoundation.framework */,
-				D8CE26B11E698E9000DAE2E0 /* CoreMedia.framework */,
-			);
-			name = Appsee;
-			sourceTree = "<group>";
 		};
 		D8D5513E1DF1A33D00B90177 /* Third Party */ = {
 			isa = PBXGroup;
