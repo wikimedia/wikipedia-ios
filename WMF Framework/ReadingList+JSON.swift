@@ -14,6 +14,7 @@ extension ReadingList {
         if remoteList.isDefault && !isDefault {
             isDefault = true
         }
+        errorCode = nil
         isUpdatedLocally = false
     }
 }

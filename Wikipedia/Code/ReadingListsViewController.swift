@@ -44,7 +44,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             request.predicate = basePredicate
         }
         
-        request.sortDescriptors = [baseSortDescriptor, NSSortDescriptor(key: "canonicalName", ascending: true)]
+        var sortDescriptors = baseSortDescriptors
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         fetch()
@@ -54,8 +56,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return NSPredicate(format: "isDeletedLocally == NO")
     }
     
-    var baseSortDescriptor: NSSortDescriptor {
-        return NSSortDescriptor(key: "isDefault", ascending: false)
+    var baseSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "isDefault", ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
@@ -147,20 +149,30 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let articleCount = readingList.countOfEntries
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
-        guard !readingList.isDefault else {
+        if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-            cell.layoutMargins = layout.readableMargins
-            return
+            if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+                // placeholder for now, this should be a separate label or button
+                cell.descriptionLabel.text = error.localizedDescription
+                cell.descriptionLabel.textColor = theme.colors.error
+            }
+            cell.isBatchEditable = false
+        } else {
+            cell.actions = availableActions(at: indexPath)
+            cell.isBatchEditable = true
+            cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
-        cell.actions = availableActions(at: indexPath)
-        cell.isBatchEditable = true
-        cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-        cell.layoutMargins = layout.readableMargins
         
-        guard let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
+        let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
         cell.swipeTranslation = translation
+
+        cell.layoutMargins = layout.readableMargins
+
+        if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+            // placeholder for now, this should be a separate label or button
+            cell.descriptionLabel.text = error.localizedDescription
+            cell.descriptionLabel.textColor = theme.colors.error
+        }
     }
     
     // MARK: - Empty state
@@ -255,7 +267,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         editController.transformBatchEditPaneOnScroll()
     }
-    
 }
 
 // MARK: - CreateReadingListViewControllerDelegate

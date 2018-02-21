@@ -45,10 +45,12 @@
         <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="entries" inverseEntity="ReadingList" syncable="YES"/>
-        <fetchIndex name="byCreatedDateIndex">
+        <fetchIndex name="byErrorCodeAndCreatedDateIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
             <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
         </fetchIndex>
-        <fetchIndex name="byDisplayTitleIndex">
+        <fetchIndex name="byErrorCodeAndDisplayTitleIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
             <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byUpdatedLocallyIndex">

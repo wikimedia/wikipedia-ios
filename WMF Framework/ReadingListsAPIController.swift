@@ -7,6 +7,17 @@ public enum APIReadingListError: String, Error, Equatable {
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
+    
+    public var localizedDescription: String {
+        switch self {
+        case .listLimit:
+            return WMFLocalizedString("reading-list-api-error-list-limit", value: "This list is not synced because you have reached the limit for the number of synced lists.", comment: "You have too many lists.")
+        case .entryLimit:
+            return WMFLocalizedString("reading-list-api-error-entry-limit", value: "This entry is not synced because you have reached the limit for the number of entries in this list.", comment: "You have too many entries in this list.")
+        default:
+            return WMFLocalizedString("reading-list-api-error-generic", value: "An unexpected error occurred while syncing your reading lists.", comment: "An unexpected error occurred while syncing your reading lists.")
+        }
+    }
 }
 
 struct APIReadingLists: Codable {

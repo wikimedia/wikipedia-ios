@@ -189,16 +189,16 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "createdDate", ascending: true), action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "createdDate", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true), NSSortDescriptor(key: "errorCode", ascending: false)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
@@ -438,6 +438,13 @@ extension ReadingListDetailViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
+        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+            // placeholder for now, this should be a separate label or button
+            cell.descriptionLabel.text = error.localizedDescription
+            cell.descriptionLabel.textColor = theme.colors.error
+        }
+        
         cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.readableMargins
         
