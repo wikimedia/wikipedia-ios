@@ -24,7 +24,7 @@ public class ReadingList: NSManagedObject {
         }).count)
     }
     
-    public func updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
+    public func updateArticlesAndEntries() throws {
         let previousArticles = articles ?? []
         let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
@@ -32,9 +32,6 @@ public class ReadingList: NSManagedObject {
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
-                if !isDefault && shouldMoveOrphanedArticlesToTheDefaultList && (article.readingLists?.count ?? 0) == 0 {
-                    try article.addToDefaultReadingList()
-                }
                 article.readingListsDidChange()
                 continue
             }

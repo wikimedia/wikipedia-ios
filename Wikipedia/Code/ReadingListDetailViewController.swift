@@ -9,8 +9,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     let readingList: ReadingList
     
     typealias T = ReadingListEntry
-    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
+    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -84,7 +84,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
-        guard let sections = fetchedResultsController.sections,
+        guard let fetchedResultsController = fetchedResultsController,
+            let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
@@ -401,14 +402,14 @@ extension ReadingListDetailViewController {
 
 extension ReadingListDetailViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = fetchedResultsController?.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
+        guard let sections = fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects

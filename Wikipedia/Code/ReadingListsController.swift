@@ -1,6 +1,7 @@
 import Foundation
 
 internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
+internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
@@ -151,11 +152,11 @@ public class ReadingListsController: NSObject {
     ///
     /// - Parameters:
     ///   - readingLists: the reading lists to delete
-    func markLocalDeletion(for readingLists: [ReadingList], shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
+    func markLocalDeletion(for readingLists: [ReadingList]) throws {
         for readingList in readingLists {
             readingList.isDeletedLocally = true
             readingList.isUpdatedLocally = true
-            try markLocalDeletion(for: Array(readingList.entries ?? []), shouldMoveOrphanedArticlesToTheDefaultList: shouldMoveOrphanedArticlesToTheDefaultList)
+            try markLocalDeletion(for: Array(readingList.entries ?? []))
         }
     }
     
@@ -163,7 +164,7 @@ public class ReadingListsController: NSObject {
     ///
     /// - Parameters:
     ///   - readingListEntriess: the reading lists to delete
-    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry], shouldMoveOrphanedArticlesToTheDefaultList: Bool = false) throws {
+    internal func markLocalDeletion(for readingListEntries: [ReadingListEntry]) throws {
         guard readingListEntries.count > 0 else {
             return
         }
@@ -177,7 +178,7 @@ public class ReadingListsController: NSObject {
             lists.insert(list)
         }
         for list in lists {
-            try list.updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: shouldMoveOrphanedArticlesToTheDefaultList)
+            try list.updateArticlesAndEntries()
         }
     }
     
@@ -186,7 +187,7 @@ public class ReadingListsController: NSObject {
         
         let moc = dataStore.viewContext
         
-        try markLocalDeletion(for: readingLists, shouldMoveOrphanedArticlesToTheDefaultList: true)
+        try markLocalDeletion(for: readingLists)
         
         if moc.hasChanges {
             try moc.save()
@@ -216,7 +217,7 @@ public class ReadingListsController: NSObject {
             entry.displayTitle = url?.wmf_title
             entry.list = readingList
         }
-        try readingList.updateArticlesAndEntries(shouldMoveOrphanedArticlesToTheDefaultList: true)
+        try readingList.updateArticlesAndEntries()
     }
     
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
@@ -296,6 +297,24 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         let state = syncState
         return state.contains(.needsSync) || state.contains(.needsUpdate)
+    }
+    
+    @objc public var isDefaultListEnabled: Bool {
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_numberValue(forKey: WMFReadingListDefaultListEnabledKey)?.boolValue ?? false
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListDefaultListEnabledKey)
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
     }
     
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
@@ -405,7 +424,7 @@ public class ReadingListsController: NSObject {
     public func remove(entries: [ReadingListEntry]) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        try markLocalDeletion(for: entries, shouldMoveOrphanedArticlesToTheDefaultList: true)
+        try markLocalDeletion(for: entries)
         if moc.hasChanges {
             try moc.save()
         }

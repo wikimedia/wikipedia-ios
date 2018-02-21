@@ -188,6 +188,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
             }
             break;
+        case WMFSettingsMenuItemType_ShowDefaultList:
+            self.dataStore.readingListsController.isDefaultListEnabled = isOn;
+            break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
@@ -451,6 +454,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ShowDefaultList],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]
     ]
                                                                                   headerTitle:nil

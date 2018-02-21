@@ -307,6 +307,7 @@
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
+"reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved";
 "reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
@@ -317,7 +318,6 @@
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
-"reading-list-hint-title" = "Title of the reading list hint that appears after an article is saved";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
@@ -326,6 +326,7 @@
 "reading-list-login-or-create-account-title" = "Title for syncing save articles.";
 "reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across devices.";
 "reading-list-login-title" = "Title for syncing save articles.";
+"reading-list-show-default-list-setting" = "Main menu option to enable or disable default list";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
@@ -337,7 +338,7 @@
 "reading-list-unable-to-remove-entry" = "Informs the user that an error occurred while removing an entry from their reading list.";
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
-"reading-lists-article-moved-confirmation" = "Confirmation shown after the user moves an article to a list";
+"reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list";
 "reading-lists-default-list-title" = "The title of the default saved pages list";
