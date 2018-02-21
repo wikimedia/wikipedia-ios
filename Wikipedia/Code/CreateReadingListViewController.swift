@@ -4,7 +4,7 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
     func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
 }
 
-class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
+class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
         
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
