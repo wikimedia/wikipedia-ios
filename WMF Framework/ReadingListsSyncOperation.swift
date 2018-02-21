@@ -720,6 +720,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws {
+        guard remoteReadingLists.count > 0 || deleteMissingLocalLists else {
+            return
+        }
         // Arrange remote lists by ID and name for merging with local lists
         var remoteReadingListsByID: [Int64: APIReadingList] = [:]
         var remoteReadingListsByName: [String: [Int64: APIReadingList]] = [:] // server still allows multiple lists with the same name
@@ -804,7 +807,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws {
-        guard remoteReadingListEntries.count > 0 else {
+        guard remoteReadingListEntries.count > 0 || deleteMissingLocalEntries else {
             return
         }
         
