@@ -88,7 +88,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
         
-        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
+        if let randomArticleViewController = presenter as? WMFRandomArticleViewController, hintVisibilityTime != 0 {
             randomArticleViewController.isReadingListHintHidden = hintHidden
         }
         
