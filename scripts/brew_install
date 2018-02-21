@@ -1,4 +1,5 @@
 #!/bin/bash
+# Setup homebrew and upgrade required formulae
 
 scripts/setup_homebrew
 

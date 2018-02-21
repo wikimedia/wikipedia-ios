@@ -1,4 +1,5 @@
 #!/bin/bash
+# calculates a sha256 hash of the cartfile and attaches the swift version to create a unique key for dependency build state
 
 if [ -z "$SRCROOT" ]
 then

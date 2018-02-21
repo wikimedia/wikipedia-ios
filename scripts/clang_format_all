@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+# runs clang format against all source files
 
 def iterate_and_format(dir)
   file_types = {h: true, m: true, cpp: true, c: true}

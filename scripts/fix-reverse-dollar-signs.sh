@@ -1,4 +1,5 @@
 #! /bin/sh
+# fixes incorrect string format specifiers in localizations
 
 set -e
 

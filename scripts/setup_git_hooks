@@ -1,4 +1,5 @@
 #!/bin/bash
+# sets up pre commit hooks
 
 brew update && brew install clang-format
 brew upgrade clang-format
