@@ -330,13 +330,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         })
                         taskGroup.wait()
                         let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
-                        for (index, article) in articles.enumerated() {
-                            guard index < results.count else {
-                                continue
-                            }
-                            let result = results[index]
-                            article.update(with: result)
-                        }
                         try readingListsController.add(articles: articles, to: list, in: moc)
                         try moc.save()
                         results.removeAll(keepingCapacity: true)
