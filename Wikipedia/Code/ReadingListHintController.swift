@@ -44,6 +44,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     func removeHint() {
+        task?.cancel()
         hint.willMove(toParentViewController: nil)
         hint.view.removeFromSuperview()
         hint.removeFromParentViewController()
@@ -67,26 +68,30 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }
     }
     
+    private var task: DispatchWorkItem?
+    
     func dismissHint() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(setHintHidden), object: 1)
-        perform(#selector(setHintHidden), with: 1, afterDelay: hintVisibilityTime)
+        self.task?.cancel()
+        let task = DispatchWorkItem { self.setHintHidden(true) }
+        DispatchQueue.main.asyncAfter(deadline: .now() + hintVisibilityTime , execute: task)
+        self.task = task
     }
     
     @objc func setHintHidden(_ hintHidden: Bool) {
         let frame = hintHidden ? hintFrame.hidden : hintFrame.visible
         if !hintHidden {
             // add hint before animation starts
-            isHintHidden = hintHidden
+            addHint()
             // set initial frame
             if hint.view.frame.origin.y == 0 {
                 hint.view.frame = hintFrame.hidden
             }
         }
         
-        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
+        if let randomArticleViewController = presenter as? WMFRandomArticleViewController, hintVisibilityTime != 0 {
             randomArticleViewController.isReadingListHintHidden = hintHidden
         }
-
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
             self.hint.view.frame = frame
             self.hint.view.setNeedsLayout()
@@ -106,7 +111,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
-        didSaveArticle = true
+        didSaveArticle = didSave
         
         self.theme = theme
         
@@ -134,10 +139,6 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hint.reset()
     }
     
-    @objc func hideHintImmediately() {
-        isHintHidden = true
-    }
-    
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
             return
@@ -146,7 +147,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func scrollViewWillBeginDragging() {
-        guard didSaveArticle else {
+        guard !isHintHidden, didSaveArticle else {
             return
         }
         hintVisibilityTime = isConfirmation ? 8 : 0

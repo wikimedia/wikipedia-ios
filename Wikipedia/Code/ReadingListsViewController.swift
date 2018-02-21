@@ -267,7 +267,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         editController.transformBatchEditPaneOnScroll()
     }
-    
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
