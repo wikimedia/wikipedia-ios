@@ -1,6 +1,10 @@
 import UIKit
 
-public class BatchEditSelectView: SizeThatFitsView {
+public class BatchEditSelectView: SizeThatFitsView, Themeable {
+    public var theme = Theme.standard
+    public func apply(theme: Theme) {
+        self.theme = theme
+    }
     
     fileprivate var multiSelectIndicator: UIImageView?
     
@@ -20,7 +24,7 @@ public class BatchEditSelectView: SizeThatFitsView {
     }
     
     fileprivate func updateMultiSelectIndicatorImage() {
-        let image = isSelected ? UIImage(named: "selected", in: Bundle.main, compatibleWith: nil) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
+        let image = isSelected ? theme.multiSelectIndicatorImage : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
         multiSelectIndicator?.image = image
     }
     
