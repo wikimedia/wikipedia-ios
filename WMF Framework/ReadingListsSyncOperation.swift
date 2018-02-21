@@ -814,6 +814,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         // Arrange remote list entries by ID and key for merging with local lists
         var remoteReadingListEntriesByReadingListID: [Int64: [String: APIReadingListEntry]] = [:]
         
+        if let readingListID = readingListID {
+            remoteReadingListEntriesByReadingListID[readingListID] = [:]
+        }
+        
         for remoteReadingListEntry in remoteReadingListEntries {
             guard let listID = remoteReadingListEntry.listId ?? readingListID, let articleKey = remoteReadingListEntry.articleKey else {
                 DDLogError("missing id or article key for remote entry: \(remoteReadingListEntry)")
