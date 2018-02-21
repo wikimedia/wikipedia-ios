@@ -42,7 +42,7 @@ public enum ReadingListError: Error, Equatable {
     case unableToUpdateList
     case unableToAddEntry
     case unableToRemoveEntry
-    case unableToAddArticlesDueToListLimit(count: Int)
+    case unableToAddArticlesDueToListLimit(name: String, count: Int)
     case listWithProvidedNameNotFound(name: String)
     
     public var localizedDescription: String {
@@ -51,10 +51,10 @@ public enum ReadingListError: Error, Equatable {
         case .generic:
             return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
         case .listExistsWithTheSameName(let name):
-            let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name %1$@", comment: "Informs the user that a reading list exists with the same name.")
+            let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name “%1$@”", comment: "Informs the user that a reading list exists with the same name.")
             return String.localizedStringWithFormat(format, name)
         case .listWithProvidedNameNotFound(let name):
-            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name %1$@ was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
+            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
@@ -64,9 +64,9 @@ public enum ReadingListError: Error, Equatable {
             return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occured while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
-        case .unableToAddArticlesDueToListLimit(let count):
-            let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
-            return String.localizedStringWithFormat(format, count)
+        case .unableToAddArticlesDueToListLimit(let name, let count):
+            let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} to “%2$@” because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
+            return String.localizedStringWithFormat(format, count, name)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occured while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         }
@@ -222,8 +222,8 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        guard readingList.entries?.count ?? 0 + articles.count < WMFReadingListEntryLimit else {
-            throw ReadingListError.unableToAddArticlesDueToListLimit(count: articles.count)
+        guard readingList.entries?.count ?? 0 + articles.count <= WMFReadingListEntryLimit else {
+            throw ReadingListError.unableToAddArticlesDueToListLimit(name: readingList.name ?? "", count: articles.count)
         }
         try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
