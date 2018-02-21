@@ -23,7 +23,7 @@ class WMFAuthLinkLabel: UILabel, Themeable {
 
     fileprivate var boldSubheadlineFont: UIFont? {
         get {
-            return UIFont.wmf_preferredFontForFontFamily(WMFFontFamily.systemBold, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)
+            return UIFont.wmf_preferredFontForFontFamily(WMFFontFamily.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: self.traitCollection)
         }
     }
 

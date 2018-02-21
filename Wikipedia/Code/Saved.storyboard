@@ -123,7 +123,7 @@
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
                             <connections>
-                                <action selector="sortButonPressed" destination="DbA-ai-MSH" eventType="touchUpInside" id="YaZ-LW-869"/>
+                                <action selector="sortButonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="1Fi-LP-Njx"/>
                             </connections>
                         </button>
                     </subviews>

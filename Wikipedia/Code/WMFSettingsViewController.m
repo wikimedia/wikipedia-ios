@@ -233,6 +233,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+            DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
+            [self.navigationController pushViewController:vc animated:YES];
+        } break;
         case WMFSettingsMenuItemType_About: {
             AboutViewController *vc = [[AboutViewController alloc] initWithTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
@@ -444,7 +448,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]
     ]
                                                                                   headerTitle:nil
                                                                                    footerText:nil];

@@ -7,6 +7,7 @@ extension ReadingListEntry {
         createdDate = remoteCreatedDate as NSDate?
         let remoteUpdatedDate = DateFormatter.wmf_iso8601().date(from: remoteEntry.updated)
         updatedDate = remoteUpdatedDate as NSDate?
+        errorCode = nil
         isUpdatedLocally = false
     }
 }

@@ -537,7 +537,7 @@ static uint64_t bundleHash() {
             if (!defaultReadingList) {
                 defaultReadingList = [[ReadingList alloc] initWithContext:moc];
                 defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
-                defaultReadingList.isDefault = @(YES);
+                defaultReadingList.isDefault = YES;
             }
 
             for (ReadingListEntry *entry in defaultReadingList.entries) {

@@ -14,15 +14,6 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
-    public var isDefaultList: Bool {
-        get {
-            return self.isDefault?.boolValue ?? false
-        }
-        set {
-            self.isDefault = NSNumber(value: newValue)
-        }
-    }
-    
     public func updateCountOfEntries() {
         guard let entries = entries else {
             countOfEntries = 0
@@ -57,9 +48,30 @@ public class ReadingList: NSManagedObject {
             } catch let error {
                 DDLogError("error updating list: \(error)")
             }
+            let sortedArticles = articles?.sorted(by: { (a, b) -> Bool in
+                guard let aDate = a.savedDate else {
+                    return false
+                }
+                guard let bDate = b.savedDate else {
+                    return true
+                }
+                return aDate.compare(bDate) == .orderedDescending
+            }) ?? []
+            let updatedPreviewArticles = NSMutableOrderedSet()
+            for article in sortedArticles {
+                guard updatedPreviewArticles.count < 4 else {
+                    break
+                }
+                guard article.imageURLString != nil else {
+                    continue
+                }
+                updatedPreviewArticles.add(article)
+            }
+            previewArticles = updatedPreviewArticles
         } else {
             countOfEntries = 0
             articles = []
+            previewArticles = []
         }
     }
 }

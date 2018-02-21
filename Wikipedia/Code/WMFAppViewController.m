@@ -669,7 +669,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
         return;
     }
 
-    [self.dataStore.readingListsController stop];
+    [self.dataStore.readingListsController stop:^{}];
     [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
