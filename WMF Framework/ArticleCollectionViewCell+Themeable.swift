@@ -9,6 +9,7 @@ extension ArticleCollectionViewCell: Themeable {
         saveButton.setTitleColor(theme.colors.link, for: .normal)
         imageView.alpha = theme.imageOpacity
         actionsView.apply(theme: theme)
+        batchEditSelectView?.apply(theme: theme)
         updateSelectedOrHighlighted()
     }
 }
