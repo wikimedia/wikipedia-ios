@@ -442,7 +442,11 @@ class ReadingListsAPIController: NSObject {
             }
             let nextSince = nextSince ?? result.since
             if let next = result.next {
-                self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
+                if combinedLists.count + combinedEntries.count > 1000 {
+                    completion([], [], nil, APIReadingListError.needsFullSync)
+                } else {
+                    self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
+                }
             } else {
                 completion(combinedLists, combinedEntries, nextSince, nil)
             }

@@ -97,16 +97,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             moc.reset()
         }
         
-        if syncState.contains(.needsLocalArticleClear) {
-            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
-                self.readingListsController.unsave(articles, in: moc)
-            })
-        
-            syncState.remove(.needsLocalArticleClear)
-            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
-            try moc.save()
-        }
-        
         if syncState.contains(.needsLocalListClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "isDefault != YES"), handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
@@ -117,6 +107,17 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             try moc.save()
         }
         
+        if syncState.contains(.needsLocalArticleClear) {
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
+                self.readingListsController.unsave(articles, in: moc)
+            })
+        
+            syncState.remove(.needsLocalArticleClear)
+            moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+            try moc.save()
+        }
+        
+
         // local only sync
         guard syncState != [] else {
             
