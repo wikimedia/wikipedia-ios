@@ -130,6 +130,7 @@ extension ReadingListHintViewController: Themeable {
         }
         view.backgroundColor = theme.colors.disabledLink
         hintButton?.setTitleColor(theme.colors.link, for: .normal)
+        hintButton?.tintColor = theme.colors.link
         confirmationButton.setTitleColor(theme.colors.link, for: .normal)
         confirmationChevron.tintColor = theme.colors.link
     }
