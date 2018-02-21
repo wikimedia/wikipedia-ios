@@ -393,21 +393,11 @@ public class ReadingListsController: NSObject {
         let moc = dataStore.viewContext
         
         let articleKeys = articles.flatMap { $0.key }
-        for article in articles {
-            readingList.removeFromArticles(article)
-            article.readingListsDidChange()
-        }
-        
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list == %@ && articleKey IN %@", readingList, articleKeys)
         let entriesToDelete = try moc.fetch(entriesRequest)
-        for entry in entriesToDelete {
-            entry.isDeletedLocally = true
-            entry.isUpdatedLocally = true
-        }
-
-        readingList.updateCountOfEntries()
-
+        try markLocalDeletion(for: entriesToDelete)
+        
         if moc.hasChanges {
             try moc.save()
         }
@@ -548,18 +538,6 @@ internal extension WMFArticle {
         defaultListEntry.displayTitle = displayTitle
         defaultListEntry.isUpdatedLocally = true
         defaultReadingList.updateArticlesAndEntries()
-    }
-    
-    func removeFromDefaultReadingList() throws {
-        let entries = try fetchReadingListEntries()
-        for entry in entries {
-            guard let list = entry.list, list.isDefault else {
-                return
-            }
-            entry.isDeletedLocally = true
-            entry.isUpdatedLocally = true
-            list.updateArticlesAndEntries()
-        }
     }
     
     func readingListsDidChange() {
