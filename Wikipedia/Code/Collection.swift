@@ -8,7 +8,7 @@ protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
     var collectionViewUpdater: CollectionViewUpdater<T>! { get set }
     var fetchedResultsController: NSFetchedResultsController<T>! { get set }
     var basePredicate: NSPredicate { get }
-    var baseSortDescriptor: NSSortDescriptor { get }
+    var baseSortDescriptors: [NSSortDescriptor] { get }
     func setupFetchedResultsController()
     func setupCollectionViewUpdater()
     func fetch()
@@ -41,7 +41,7 @@ extension UpdatableCollection where Self: SearchableCollection {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, searchPredicate])
         }
         
-        request.sortDescriptors = [baseSortDescriptor]
+        request.sortDescriptors = baseSortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
 }
@@ -68,7 +68,7 @@ extension SearchableCollection where Self: EditableCollection {
 enum SortActionType {
     case byTitle, byRecentlyAdded
     
-    func action(with sortDescriptor: NSSortDescriptor, handler: @escaping (NSSortDescriptor, UIAlertAction) -> ()) -> SortAction {
+    func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction) -> ()) -> SortAction {
         let title: String
         switch self {
         case .byTitle:
@@ -78,7 +78,7 @@ enum SortActionType {
         }
         
         let action = UIAlertAction(title: title, style: .default) { (action) in
-            handler(sortDescriptor, action)
+            handler(sortDescriptors, action)
         }
         return SortAction(action: action, type: self)
     }
@@ -90,11 +90,11 @@ struct SortAction {
 }
 
 protocol SortableCollection: UpdatableCollection {
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) { get set }
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) { get set }
     var sortActions: [SortActionType: UIAlertAction] { get }
     var defaultSortAction: UIAlertAction? { get }
     var sortAlert: UIAlertController { get }
-    func presentSortAlert()
+    func presentSortAlert(from button: UIButton)
     func updateSortActionCheckmark()
 }
 
@@ -105,18 +105,14 @@ extension SortableCollection where Self: UIViewController {
         sortActions.values.forEach { alert.addAction($0) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
-        if let popoverController = alert.popoverPresentationController, let first = collectionView.visibleCells.first {
-            popoverController.sourceView = first
-            popoverController.sourceRect = first.bounds
-        }
         return alert
     }
     
-    func updateSort(with newDescriptor: NSSortDescriptor, newAction: UIAlertAction) {
-        guard sort.descriptor != newDescriptor else {
+    func updateSort(with newDescriptors: [NSSortDescriptor], newAction: UIAlertAction) {
+        guard sort.descriptors != newDescriptors else {
             return
         }
-        sort = (descriptor: newDescriptor, action: newAction)
+        sort = (descriptors: newDescriptors, action: newAction)
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
@@ -130,13 +126,17 @@ extension SortableCollection where Self: UIViewController {
         checkedAction?.setValue(true, forKey: checkedKey)
     }
     
-    func presentSortAlert() {
+    func presentSortAlert(from button: UIButton) {
+        if let popoverController = sortAlert.popoverPresentationController  {
+            popoverController.sourceView = button
+            popoverController.sourceRect = button.bounds
+        }
         present(sortAlert, animated: true)
         updateSortActionCheckmark()
     }
     
-    var baseSortDescriptor: NSSortDescriptor {
-        return sort.descriptor
+    var baseSortDescriptors: [NSSortDescriptor] {
+        return sort.descriptors
     }
 }
 
@@ -149,7 +149,7 @@ extension EditableCollection where Self: ActionDelegate {
     func setupEditController() {
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
-        if let navigationDelegate = self as? BatchEditNavigationDelegate {
+        if let navigationDelegate = self as? CollectionViewEditControllerNavigationDelegate {
             editController.navigationDelegate = navigationDelegate
         }
     }

@@ -6,11 +6,29 @@ public enum APIReadingListError: String, Error, Equatable {
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
+    case needsFullSync = "readinglists-client-error-needs-full-sync"
+    
+    public var localizedDescription: String {
+        switch self {
+        case .listLimit:
+            return WMFLocalizedString("reading-list-api-error-list-limit", value: "This list is not synced because you have reached the limit for the number of synced lists.", comment: "You have too many lists.")
+        case .entryLimit:
+            return WMFLocalizedString("reading-list-api-error-entry-limit", value: "This entry is not synced because you have reached the limit for the number of entries in this list.", comment: "You have too many entries in this list.")
+        default:
+            return WMFLocalizedString("reading-list-api-error-generic", value: "An unexpected error occurred while syncing your reading lists.", comment: "An unexpected error occurred while syncing your reading lists.")
+        }
+    }
 }
 
 struct APIReadingLists: Codable {
     let lists: [APIReadingList]
     let next: String?
+    let since: String?
+    enum CodingKeys: String, CodingKey {
+        case lists
+        case next
+        case since = "continue-from"
+    }
 }
 
 struct APIReadingList: Codable {
@@ -52,7 +70,14 @@ struct APIReadingListChanges: Codable {
     let lists: [APIReadingList]?
     let entries: [APIReadingListEntry]?
     let next: String?
+    let since: String?
+    enum CodingKeys: String, CodingKey {
+        case lists
+        case entries
+        case next
+        case since = "continue-from"
     }
+}
 
 struct APIReadingListErrorResponse: Codable {
     let type: String?
@@ -143,6 +168,27 @@ class ReadingListsAPIController: NSObject {
         }
     }
     
+    
+    /**
+     Creates a new reading list using the reading list API
+     - parameters:
+     - name: The name for the new list
+     - description: The description for the new list
+     - completion: Called after the request completes
+     - listID: The list ID if it was created
+     - error: Any error preventing list creation
+     */
+    func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
+        post(path: "", bodyParameters: bodyParams) { (result, response, error) in
+            guard let result = result, let id = result["id"] as? Int64 else {
+                completion(nil, error ?? ReadingListError.unableToCreateList)
+                return
+            }
+            completion(id, nil)
+        }
+    }
+    
     /**
      Creates a new reading list using the reading list API
      - parameters:
@@ -151,7 +197,7 @@ class ReadingListsAPIController: NSObject {
         - listIDs: The list IDs if they were created
         - error: Any error preventing list creation
     */
-    func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+    func createLists(_ lists: [(name: String, description: String?)], completion: @escaping (_ listIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
         guard lists.count > 0 else {
             completion([], nil)
             return
@@ -159,13 +205,86 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
-                completion(nil, ReadingListError.unableToCreateList)
+                DispatchQueue.global().async {
+                    let taskGroup = WMFTaskGroup()
+                    var listsByName: [String: (Int64?, Error?)] = [:]
+                    var requests = 0
+                    for list in lists {
+                        requests += 1
+                        taskGroup.enter()
+                        self.createList(name: list.name, description: list.description, completion: { (listID, error) in
+                            taskGroup.leave()
+                            listsByName[list.name] = (listID, error)
+                        })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
+                        }
+                    }
+                    taskGroup.wait()
+                    var listsOrErrors: [(Int64?, Error?)] = []
+                    for list in lists {
+                        guard let list = listsByName[list.name] else {
+                            completion(nil, ReadingListError.unableToCreateList)
+                            return
+                        }
+                        listsOrErrors.append(list)
+                    }
+                    completion(listsOrErrors, nil)
+                }
                 return
             }
-            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
+            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
         }
     }
     
+    /**
+     Adds a new entry to a reading list using the reading list API
+     - parameters:
+     - listID: The list ID of the list that is getting an entry
+     - project: The project name of the new entry
+     - title: The title of the new entry
+     - completion: Called after the request completes
+     - entryID: The entry ID if it was created
+     - error: Any error preventing entry creation
+     */
+    func addEntryToList(withListID listID: Int64, project: String, title: String, completion: @escaping (_ entryID: Int64?,_ error: Error?) -> Swift.Void ) {
+        let title = title.precomposedStringWithCanonicalMapping
+        let project = project.precomposedStringWithCanonicalMapping
+        let bodyParams = ["project": project, "title": title]
+        post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
+            if let apiError = error as? APIReadingListError {
+                switch apiError {
+                case .duplicateEntry:
+                    // TODO: Remove when error response returns ID
+                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
+                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
+                            completion(nil, error ?? ReadingListError.unableToAddEntry)
+                            return
+                        }
+                        completion(entry.id, nil)
+                    })
+                default:
+                    completion(nil, apiError)
+                }
+                return
+            } else if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let result = result else {
+                completion(nil, error ?? ReadingListError.unableToAddEntry)
+                return
+            }
+            
+            guard let id = result["id"] as? Int64 else {
+                completion(nil, ReadingListError.unableToAddEntry)
+                return
+            }
+            
+            completion(id, nil)
+        }
+    }
     
     /**
      Adds a new entry to a reading list using the reading list API
@@ -176,7 +295,7 @@ class ReadingListsAPIController: NSObject {
         - entryIDs: The entry IDs if they were created
         - error: Any error preventing entry creation
      */
-    func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [Int64]?,_ error: Error?) -> Swift.Void ) {
+    func addEntriesToList(withListID listID: Int64, entries: [(project: String, title: String)], completion: @escaping (_ entryIDs: [(Int64?, Error?)]?,_ error: Error?) -> Swift.Void ) {
         guard entries.count > 0 else {
             completion([], nil)
             return
@@ -184,18 +303,33 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
-                switch apiError {
-//                case .duplicateEntry:
-//                    // TODO: Remove when error response returns ID
-//                    self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (entries, error) in
-//                        guard let entry = entries.first(where: { (entry) -> Bool in entry.title == title && entry.project == project }) else {
-//                            completion(nil, error ?? ReadingListError.unableToAddEntry)
-//                            return
-//                        }
-//                        completion(entry.id, nil)
-//                    })
-                default:
-                    completion(nil, apiError)
+                DispatchQueue.global().async {
+                    let taskGroup = WMFTaskGroup()
+                    var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
+                    var requests = 0
+                    for entry in entries {
+                        requests += 1
+                        taskGroup.enter()
+                        self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
+                            defer {
+                                taskGroup.leave()
+                            }
+                            entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = (entryID, error)
+                        })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
+                        }
+                    }
+                    taskGroup.wait()
+                    var entryIDsOrErrors: [(Int64?, Error?)] = []
+                    for entry in entries {
+                        guard let entry = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
+                            completion(nil, apiError)
+                            return
+                        }
+                        entryIDsOrErrors.append(entry)
+                    }
+                    completion(entryIDsOrErrors, nil)
                 }
                 return
             } else if let error = error {
@@ -214,7 +348,7 @@ class ReadingListsAPIController: NSObject {
             }
             
             
-            completion(batch.flatMap { $0["id"] as? Int64 }, nil)
+            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
         }
     }
     
@@ -278,22 +412,24 @@ class ReadingListsAPIController: NSObject {
     /**
      Gets updated lists and entries list API
      - parameters:
-        - since: The continuation token. Lets the server know the current state of the device. Currently an ISO 8601 date string
-        - next: Optional continuation token
+        - since: The continuation token for this whole list of updates. Lets the server know the current state of the device. Currently an ISO 8601 date string
+        - next: The continuation within this whole list of updates (since is the start of the whole list, next is the next page)
+        - nextSince: The paramater to use for "since" the next time you call this method to get the updates that have happened since this update.
         - lists: Lists to append to the results
         - entries: Entries to append to the results
         - lists: All updated lists
         - entries: All updated entries
-        - error: Any error preventing list update
+        - since: The date to use for the next update call
+        - error: Any error
      */
-    func updatedListsAndEntries(since: String, next: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ error: Error?) -> Swift.Void ) {
+    func updatedListsAndEntries(since: String, next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], entries: [APIReadingListEntry] = [], completion: @escaping (_ lists: [APIReadingList], _ entries: [APIReadingListEntry], _ since: String?, _ error: Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
         get(path: "changes/since/\(since)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
             guard let result = result, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                completion([], [], error ?? ReadingListError.generic)
+                completion([], [], nil, error ?? ReadingListError.generic)
                 return
             }
             var combinedLists = lists
@@ -304,30 +440,41 @@ class ReadingListsAPIController: NSObject {
             if let entries = result.entries {
                 combinedEntries.append(contentsOf: entries)
             }
+            let nextSince = nextSince ?? result.since
             if let next = result.next {
-                self.updatedListsAndEntries(since: since, next: next, lists: combinedLists, entries: combinedEntries, completion: completion)
+                self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
             } else {
-                completion(combinedLists, combinedEntries, nil)
+                completion(combinedLists, combinedEntries, nextSince, nil)
             }
         }
     }
     
-    func getAllReadingLists(next: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], Error?) -> Swift.Void ) {
+    /**
+     Gets all reading lists from the API
+         - parameters:
+         - next: Optional continuation token for this list of results
+         - lists: Lists to append to the results
+         - lists: All lists
+         - since: The string to use for the next /changes/since call
+         - error: Any error
+     */
+    func getAllReadingLists(next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
         }
         get(path: "", queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
             guard let apiListsResponse = apiListsResponse else {
-                completion([], error)
+                completion([], nil, error)
                 return
             }
             var combinedList = lists
             combinedList.append(contentsOf: apiListsResponse.lists)
+            let nextSince = nextSince ?? apiListsResponse.since
             if let next = apiListsResponse.next {
-                self.getAllReadingLists(next: next, lists: combinedList, completion: completion)
+                self.getAllReadingLists(next: next, nextSince: nextSince, lists: combinedList, completion: completion)
             } else {
-                completion(combinedList, nil)
+                completion(combinedList, nextSince, nil)
             }
         }
     }

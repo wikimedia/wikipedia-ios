@@ -83,13 +83,13 @@ class ReadingListHintViewController: UIViewController {
         guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        let viewController = readingList.isDefaultList ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
+        let viewController = readingList.isDefault ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
         viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
         viewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
-            self.delegate?.readingListHint(self, shouldBeHidden: true)
+            self.delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: self.isHintViewHidden)
         }
     }
     
@@ -101,7 +101,7 @@ class ReadingListHintViewController: UIViewController {
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        guard let name = readingList.isDefaultList ? CommonStrings.shortSavedTitle : readingList.name else {
+        guard let name = readingList.isDefault ? CommonStrings.shortSavedTitle : readingList.name else {
             return
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
@@ -114,11 +114,11 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         isHintViewHidden = true
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-moved-confirmation", value: "Article moved to “%1$@”", comment: "Confirmation shown after the user moves an article to a list"), name)
         confirmationButton.setTitle(title, for: .normal)
-        delegate?.readingListHint(self, shouldBeHidden: false)
+        delegate?.readingListHint(self, shouldBeHidden: false, isConfirmation: isHintViewHidden)
     }
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
-        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed)
+        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed, isConfirmation: isHintViewHidden)
     }
 }
 

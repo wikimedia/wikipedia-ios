@@ -107,16 +107,16 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "savedDate", ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "savedDate", ascending: false), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "savedDate", ascending: false)], handler: { (sortDescriptors, action) in
+            self.updateSort(with:  sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
@@ -370,7 +370,7 @@ extension SavedArticlesViewController: ActionDelegate {
     }
     
     private func delete(articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles)
+        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
@@ -440,16 +440,15 @@ extension SavedArticlesViewController: ActionDelegate {
     }
 }
 
+// MARK: - ShareableArticlesProvider
+
 extension SavedArticlesViewController: ShareableArticlesProvider {}
 
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool) {
-        guard shouldShowSortAlert else {
-            return
-        }
-        presentSortAlert()
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
+        presentSortAlert(from: button)
     }
 }
 
@@ -484,14 +483,14 @@ extension SavedArticlesViewController {
     }
 }
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension SavedArticlesViewController: BatchEditNavigationDelegate {
+extension SavedArticlesViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
@@ -517,7 +516,7 @@ extension SavedArticlesViewController: UISearchBarDelegate {
 
 extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     func didSelect(_ tag: Tag) {
-        let viewController = tag.index == 2 ? ReadingListsViewController(with: dataStore, readingLists: readingListsForArticle(at: tag.indexPath)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingListsForArticle(at: tag.indexPath)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         wmf_push(viewController, animated: true)
     }

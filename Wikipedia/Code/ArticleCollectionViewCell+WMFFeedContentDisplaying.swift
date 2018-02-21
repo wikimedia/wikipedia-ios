@@ -22,7 +22,7 @@ public extension ArticleCollectionViewCell {
         let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
         if let highlightingText = highlightingText {
             let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
-            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .subheadline) {
+            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline) {
                 attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
             }
         }

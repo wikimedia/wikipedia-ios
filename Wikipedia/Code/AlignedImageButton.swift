@@ -17,8 +17,13 @@ public class AlignedImageButton: UIButton {
         }
     }
     
-    /// Padding added to the top and bottom of the button
-    @IBInspectable open var horizontalPadding: CGFloat = 0 {
+    @IBInspectable open var leftPadding: CGFloat = 0 {
+        didSet {
+            adjustInsets()
+        }
+    }
+    
+    @IBInspectable open var rightPadding: CGFloat = 0 {
         didSet {
             adjustInsets()
         }
@@ -62,7 +67,7 @@ public class AlignedImageButton: UIButton {
         let inset = semanticContentAttribute == .forceRightToLeft ? -0.5 * horizontalSpacing : 0.5 * horizontalSpacing
         imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
         titleEdgeInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: -inset)
-        contentEdgeInsets = UIEdgeInsets(top: verticalPadding, left: abs(inset) + horizontalPadding, bottom: verticalPadding, right: abs(inset) + horizontalPadding)
+        contentEdgeInsets = UIEdgeInsets(top: verticalPadding, left: abs(inset) + leftPadding, bottom: verticalPadding, right: abs(inset) + rightPadding)
     }
     
 }
