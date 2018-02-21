@@ -77,8 +77,8 @@ extension UIView {
     @objc(wmf_preferredFrameAtPoint:fittingAvailableWidth:alignedBySemanticContentAttribute:apply:)
     public func wmf_preferredFrame(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         if let imageButton = self as? AlignedImageButton {
-            let size = CGSize(width: availableWidth + 2 * imageButton.horizontalPadding, height: UIViewNoIntrinsicMetric)
-            return self.wmf_preferredFrame(at: CGPoint(x: point.x - imageButton.horizontalPadding, y: point.y - imageButton.verticalPadding), fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+            let size = CGSize(width: availableWidth + imageButton.leftPadding + imageButton.rightPadding, height: UIViewNoIntrinsicMetric)
+            return self.wmf_preferredFrame(at: CGPoint(x: point.x - imageButton.leftPadding, y: point.y - imageButton.verticalPadding), fitting: size, alignedBy: semanticContentAttribute, apply: apply)
         } else {
             let size = CGSize(width: availableWidth, height: UIViewNoIntrinsicMetric)
             return self.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
