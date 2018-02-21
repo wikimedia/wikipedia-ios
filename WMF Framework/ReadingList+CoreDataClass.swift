@@ -67,11 +67,12 @@ public class ReadingList: NSManagedObject {
                 }
                 updatedPreviewArticles.add(article)
             }
-            previewArticles = updatedPreviewArticles
+            removeFromPreviewArticles(previewArticles ?? [])
+            addToPreviewArticles(updatedPreviewArticles)
         } else {
             countOfEntries = 0
-            articles = []
-            previewArticles = []
+            removeFromArticles(NSSet(set: articles ?? []))
+            removeFromPreviewArticles(previewArticles ?? [])
         }
     }
 }

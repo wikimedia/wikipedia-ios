@@ -320,8 +320,16 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     })
                     if i % 16 == 0 || i == countOfEntriesToCreate {
                         taskGroup.wait()
-                        let keys = results.flatMap { $0.articleURL(forSiteURL: siteURL)?.wmf_articleDatabaseKey }
-                        let articles = try moc.wmf_fetchOrCreate(objectsForEntityName: "WMFArticle", withValues: keys, forKey: "key") as? [WMFArticle] ?? []
+                        let articleURLs = results.flatMap { $0.articleURL(forSiteURL: siteURL) }
+                        taskGroup.enter()
+                        var summaryResponses: [String: [String: Any]] = [:]
+                        URLSession.shared.wmf_fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
+                            // workaround this method not being async
+                            summaryResponses = actualSummaryResponses
+                            taskGroup.leave()
+                        })
+                        taskGroup.wait()
+                        let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                         for (index, article) in articles.enumerated() {
                             guard index < results.count else {
                                 continue
