@@ -10,6 +10,8 @@ internal let WMFReadingListBatchSizePerRequestLimit = 500
 
 internal let WMFReadingListCoreDataBatchSize = 500
 
+internal let WMFReadingListEntryLimit = 1000
+
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
     
@@ -40,6 +42,7 @@ public enum ReadingListError: Error, Equatable {
     case unableToUpdateList
     case unableToAddEntry
     case unableToRemoveEntry
+    case unableToAddArticlesDueToListLimit(count: Int)
     case listWithProvidedNameNotFound(name: String)
     
     public var localizedDescription: String {
@@ -61,6 +64,9 @@ public enum ReadingListError: Error, Equatable {
             return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occured while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
+        case .unableToAddArticlesDueToListLimit(let count):
+            let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
+            return String.localizedStringWithFormat(format, count)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occured while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         }
@@ -216,6 +222,9 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
+        guard readingList.entries?.count ?? 0 + articles.count < WMFReadingListEntryLimit else {
+            throw ReadingListError.unableToAddArticlesDueToListLimit(count: articles.count)
+        }
         try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
             try moc.save()
