@@ -109,31 +109,31 @@ class ReadingListsAPIController: NSObject {
     private let scheme = "https"
     
     private var pendingTasks: [String: Any] = [:]
-    private let semaphore = DispatchSemaphore(value: 1)
+    private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
     
     func addPendingTask(_ task: Any, for key: String) {
-        semaphore.wait()
-        pendingTasks[key] = task
-        semaphore.signal()
+        pendingTaskQueue.async {
+             self.pendingTasks[key] = task
+        }
     }
     
     func removePendingTask(for key: String) {
-        semaphore.wait()
-        pendingTasks.removeValue(forKey: key)
-        semaphore.signal()
+        pendingTaskQueue.async {
+             self.pendingTasks.removeValue(forKey: key)
+        }
     }
     
     func cancelPendingTasks() {
-        semaphore.wait()
-        for (_, task) in pendingTasks {
-            if let task = task as? URLSessionTask {
-                task.cancel()
-            } else if let task = task as? Operation {
-                task.cancel()
+        pendingTaskQueue.async {
+            for (_, task) in self.pendingTasks {
+                if let task = task as? URLSessionTask {
+                    task.cancel()
+                } else if let task = task as? Operation {
+                    task.cancel()
+                }
             }
+            self.pendingTasks.removeAll()
         }
-        pendingTasks.removeAll()
-        semaphore.signal()
     }
 
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
