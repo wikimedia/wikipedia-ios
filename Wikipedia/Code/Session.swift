@@ -35,6 +35,10 @@ import Foundation
 
     fileprivate let session = URLSession.shared
     
+    private lazy var tokenFetcher: WMFAuthTokenFetcher = {
+        return WMFAuthTokenFetcher()
+    }()
+    
     private lazy var queue: OperationQueue = {
         let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 16
@@ -43,6 +47,11 @@ import Foundation
 
     public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
+    }
+    
+    public func requestWithCSRF(scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        let op = CRSFTokenOperation(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, bodyParameters: bodyParameters, completion: completion)
+        queue.addOperation(op)
     }
 
     public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
@@ -138,7 +147,7 @@ import Foundation
          - error: Any network or parsing error
      */
     public func jsonCodableTask<T, E>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
-        return dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+        guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
                 return
@@ -167,7 +176,12 @@ import Foundation
                 DDLogError("Error parsing codable response: \(resultParsingError)")
                 handleErrorResponse()
             }
-        })
+        }) else {
+            return nil
+        }
+        let op = URLSessionTaskOperation(task: task)
+        queue.addOperation(op)
+        return task
     }
     
     

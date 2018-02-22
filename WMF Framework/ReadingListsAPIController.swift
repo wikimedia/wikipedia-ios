@@ -104,31 +104,13 @@ extension APIReadingListEntry {
 
 class ReadingListsAPIController: NSObject {
     private let session = Session.shared
-    private lazy var tokenFetcher: WMFAuthTokenFetcher = {
-        return WMFAuthTokenFetcher()
-    }()
     private let basePath = "/api/rest_v1/data/lists/"
     private let host = "en.wikipedia.org"
     private let scheme = "https"
-    private lazy var queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 16
-        return queue
-    }()
-    
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        let fullPath = basePath.appending(path)
-        let op = CRSFTokenOperation(session: session, tokenFetcher: tokenFetcher, scheme: scheme, host: host, fullPath: fullPath, method: method, bodyParameters: bodyParameters, completion: completion)
-        queue.addOperation(op)
-    }
-    
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
-    }
     
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let fullPath = basePath.appending(path)
-        guard let task = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+        guard let _ = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
@@ -138,8 +120,15 @@ class ReadingListsAPIController: NSObject {
             completionHandler(nil, nil, APIReadingListError.generic)
             return
         }
-        let taskOp = URLSessionTaskOperation(task: task)
-        queue.addOperation(taskOp)
+    }
+    
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        let fullPath = basePath.appending(path)
+        session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: completion)
+    }
+    
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
     fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {

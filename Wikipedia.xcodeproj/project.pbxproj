@@ -1967,6 +1967,7 @@
 		D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C4D3D21FD5D9250089CEC2 /* TUSafariActivity.m */; };
 		D8C9BFE81D6CC92C0084624F /* MWKLanguageLinkResponseSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8062D1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C9BFE91D6CC9310084624F /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062E1C0CE7670065EBC0 /* MWKLanguageLinkResponseSerializer.m */; };
+		D8CAD1E3203EEFDD006467E2 /* CRSFTokenOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CAD1E2203EEFDD006467E2 /* CRSFTokenOperation.swift */; };
 		D8CB32AD1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */; };
 		D8CD975E1E83F65700ECCA9D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D895D0841D9C1EB8005418C1 /* UserNotifications.framework */; };
@@ -4487,6 +4488,7 @@
 		D8C8C21F20113E6200B3317B /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sq; path = sq.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8C8C22020113EA000B3317B /* is */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = is; path = is.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8C8C22120113F0500B3317B /* ps */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ps; path = ps.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		D8CAD1E2203EEFDD006467E2 /* CRSFTokenOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRSFTokenOperation.swift; sourceTree = "<group>"; };
 		D8CB32AC1E79D8A0008A0966 /* RoundedCornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedCornerView.swift; sourceTree = "<group>"; };
 		D8CD975F1E83F68400ECCA9D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		D8CD97641E83FAB400ECCA9D /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -7535,6 +7537,7 @@
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
 				D8704C67203E399800C889C7 /* URLSessionTaskOperation.swift */,
+				D8CAD1E2203EEFDD006467E2 /* CRSFTokenOperation.swift */,
 				D82E954B1F15397D007BD960 /* ThemeableTextField.swift */,
 				D801C93A1EB9404A001FA294 /* WMFLocalization.h */,
 				D801C93B1EB9404A001FA294 /* WMFLocalization.m */,
@@ -10610,6 +10613,7 @@
 				0E728D411DAEEC380074EB4B /* WMFRelatedSearchResults.m in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D84C36051F323E0900895FA1 /* WMFCVLInvalidationContext.m in Sources */,
+				D8CAD1E3203EEFDD006467E2 /* CRSFTokenOperation.swift in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
 				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
