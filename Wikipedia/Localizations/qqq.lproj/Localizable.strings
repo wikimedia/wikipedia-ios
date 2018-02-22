@@ -192,6 +192,7 @@
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
 "home-news-footer" = "Footer for presenting user option to see longer list of news stories.";
+"home-reading-list-prompt" = "Description on feed card that describes reading lists.";
 "home-themes-action-title" = "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.";
 "home-themes-prompt" = "Description on feed card that describes how to adjust reading preferences.";
 "home-title" = "Title for home interface.\n{{Identical|Explore}}";
