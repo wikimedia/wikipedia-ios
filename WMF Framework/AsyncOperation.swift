@@ -8,6 +8,8 @@ enum AsyncOperationError: Error {
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
     
+    let progress = Progress()
+    
     // MARK: - Operation State
 
     static fileprivate let stateKeyPath = "state" // For KVO
