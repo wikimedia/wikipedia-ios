@@ -452,10 +452,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         return
                     }
                     for (index, readingList) in readingListIDs.enumerated() {
-                        guard index < listsToCreate.count else {
+                        guard (start + index) < listsToCreate.count else {
                             break
                         }
-                        let localReadingList = listsToCreate[index]
+                        let localReadingList = listsToCreate[start + index]
                         guard let readingListID = readingList.0 else {
                             if let apiError = readingList.1 as? APIReadingListError {
                                 failedReadingLists.append((localReadingList, apiError))
@@ -587,10 +587,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             return
                         }
                         for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
-                            guard index < entries.count else {
+                            guard (start + index) < entries.count else {
                                 break
                             }
-                            let localReadingListEntry = entries[index].entry
+                            let localReadingListEntry = entries[start + index].entry
                             
                             guard let readingListEntryID = readingListEntryIDOrError.0 else {
                                 if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
