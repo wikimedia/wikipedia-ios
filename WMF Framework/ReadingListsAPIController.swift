@@ -103,23 +103,37 @@ extension APIReadingListEntry {
 }
 
 class ReadingListsAPIController: NSObject {
-    private let session = Session.shared
-    private lazy var tokenFetcher: WMFAuthTokenFetcher = {
+    fileprivate let session = Session.shared
+    fileprivate lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
     }()
-    private let basePath = "/api/rest_v1/data/lists/"
-    private let host = "en.wikipedia.org"
-    private let scheme = "https"
-    private lazy var queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 16
-        return queue
-    }()
+    fileprivate let basePath = "/api/rest_v1/data/lists/"
+    fileprivate let host = "en.wikipedia.org"
+    fileprivate let scheme = "https"
     
     fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = scheme
+        guard
+            let siteURL = components.url
+            else {
+                completion(nil, nil, APIReadingListError.generic)
+                return
+        }
+        
         let fullPath = basePath.appending(path)
-        let op = CRSFTokenOperation(session: session, tokenFetcher: tokenFetcher, scheme: scheme, host: host, fullPath: fullPath, method: method, bodyParameters: bodyParameters, completion: completion)
-        queue.addOperation(op)
+        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
+            self.session.jsonDictionaryTask(host: self.host, method: method, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
+                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
+                    completion(result, nil, apiError)
+                } else {
+                    completion(result, response, error)
+                }
+                }?.resume()
+        }) { (failure) in
+            completion(nil, nil, failure)
+        }
     }
     
     fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
@@ -128,18 +142,13 @@ class ReadingListsAPIController: NSObject {
     
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let fullPath = basePath.appending(path)
-        guard let task = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
             }
-        }) else {
-            completionHandler(nil, nil, APIReadingListError.generic)
-            return
-        }
-        let taskOp = URLSessionTaskOperation(task: task)
-        queue.addOperation(taskOp)
+        })?.resume()
     }
     
     fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
@@ -214,6 +223,9 @@ class ReadingListsAPIController: NSObject {
                             taskGroup.leave()
                             listsByName[list.name] = (listID, error)
                         })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
+                        }
                     }
                     taskGroup.wait()
                     var listsOrErrors: [(Int64?, Error?)] = []
@@ -322,6 +334,9 @@ class ReadingListsAPIController: NSObject {
                             }
                             entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = (entryID, error)
                         })
+                        if requests % WMFReadingListBatchRequestLimit == 0 {
+                            taskGroup.wait()
+                        }
                     }
                     taskGroup.wait()
                     var entryIDsOrErrors: [(Int64?, Error?)] = []
