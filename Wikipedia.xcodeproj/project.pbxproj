@@ -401,6 +401,11 @@
 		B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
+		B07F823B203F68FE00317D78 /* UILabel+WMFStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */; };
+		B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */; };
+		B07F823D203F690800317D78 /* UILabel+WMFStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */; };
+		B07F823E203F690900317D78 /* UILabel+WMFStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */; };
+		B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */; };
 		B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */; };
 		B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
 		B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */; };
@@ -3321,6 +3326,7 @@
 		B07963E11C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+WMFHideEmptyToolbar.h"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.h"; sourceTree = SOURCE_ROOT; };
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
 		B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageEqualityTests.m; path = WikipediaUnitTests/Code/MWKImageEqualityTests.m; sourceTree = SOURCE_ROOT; };
+		B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+WMFStyling.swift"; sourceTree = "<group>"; };
 		B083371D1DADB251002860D2 /* WMFWelcomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePageViewController.swift; path = Wikipedia/Code/WMFWelcomePageViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePanelViewController.swift; path = Wikipedia/Code/WMFWelcomePanelViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewController.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -6468,6 +6474,7 @@
 			children = (
 				B0E805041C0CE0DC0065EBC0 /* UILabel+WMFStyling.h */,
 				B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */,
+				B07F823A203F68FD00317D78 /* UILabel+WMFStyling.swift */,
 			);
 			name = UILabel;
 			sourceTree = "<group>";
@@ -9829,6 +9836,7 @@
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
+				B07F823B203F68FE00317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
@@ -10247,6 +10255,7 @@
 				D80ED2F71EE57F4800CE8C50 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				83FBE9731F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D80ED2FB1EE57F4800CE8C50 /* WikiGlyphLabel.m in Sources */,
+				B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D80ED2FC1EE57F4800CE8C50 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D80ED2FD1EE57F4800CE8C50 /* WMFRotationRespectingNavigationController.m in Sources */,
@@ -10778,6 +10787,7 @@
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */,
+				B07F823E203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
@@ -11196,6 +11206,7 @@
 				D8CE25621E698E2400DAE2E0 /* WikiGlyphLabel.m in Sources */,
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
+				B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
@@ -11513,6 +11524,7 @@
 				83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8EC3E521E9BDA35006712EB /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8EC3E531E9BDA35006712EB /* UIViewController+WMFEmptyView.m in Sources */,
+				B07F823D203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0CD9DE81F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
 				D8EC3E561E9BDA35006712EB /* WMFArticleContainerViewController+TOC.swift in Sources */,
