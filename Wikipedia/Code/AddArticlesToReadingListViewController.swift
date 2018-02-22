@@ -105,4 +105,8 @@ extension AddArticlesToReadingListViewController: Themeable {
         readingListsViewController?.apply(theme: theme)
         addButton?.tintColor = theme.colors.link
     }
+    
+    @objc override public var preferredStatusBarStyle: UIStatusBarStyle {
+        return theme.preferredStatusBarStyle
+    }
 }
