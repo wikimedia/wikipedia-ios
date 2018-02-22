@@ -2,7 +2,8 @@ import Foundation
 
 class URLSessionTaskOperation: AsyncOperation {
     private let task: URLSessionTask
-    
+    private var observation: NSKeyValueObservation?
+
     init(task: URLSessionTask) {
         self.task = task
         super.init()
@@ -18,8 +19,12 @@ class URLSessionTaskOperation: AsyncOperation {
             queuePriority = .veryHigh
         }
     }
+
+    deinit {
+        observation?.invalidate()
+        observation = nil
+    }
     
-    private var observation: NSKeyValueObservation?
     override func execute() {
         observation = task.observe(\.state, changeHandler: { [weak self] (task, change) in
             switch task.state {
