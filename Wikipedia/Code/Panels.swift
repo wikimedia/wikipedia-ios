@@ -26,7 +26,7 @@ class LoginToSyncSavedArticlesToReadingListPanelViewController : ScrollableEduca
         image = UIImage.init(named: "reading-list-login")
         heading = WMFLocalizedString("reading-list-login-title", value:"Sync your saved articles?", comment:"Title for syncing save articles.")
         subheading = CommonStrings.readingListLoginSubtitle
-        primaryButtonTitle = WMFLocalizedString("reading-list-login-button-title", value:"Log in to sync your saved articles", comment:"Title for button to login to sync saved articles and reading lists.")
+        primaryButtonTitle = CommonStrings.readingListLoginButtonTitle
     }
 }
 
