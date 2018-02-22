@@ -363,9 +363,11 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         updateTimer?.invalidate()
         updateTimer = nil
-        operationQueue.cancelAllOperations()
-        apiController.cancelPendingTasks()
-        operationQueue.addOperation(completion)
+        DispatchQueue.global().async {
+            self.operationQueue.cancelAllOperations()
+            self.apiController.cancelPendingTasks()
+            self.operationQueue.addOperation(completion)
+        }
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
