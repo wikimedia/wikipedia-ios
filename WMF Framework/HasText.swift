@@ -92,3 +92,41 @@ extension UIButton {
         return wmf_hasNonWhitespaceText || wmf_hasNonWhitespaceAttributedText
     }
 }
+
+extension UITextField {
+    public var wmf_hasText: Bool {
+        guard let text = text else {
+            return false
+        }
+        return text.wmf_hasText
+    }
+    
+    public var wmf_hasNonWhitespaceText: Bool {
+        guard let text = text else {
+            return false
+        }
+        return text.wmf_hasNonWhitespaceText
+    }
+    
+    public var wmf_hasAttributedText: Bool {
+        guard let attributedText = attributedText else {
+            return false
+        }
+        return attributedText.wmf_hasText
+    }
+    
+    public var wmf_hasNonWhitespaceAttributedText: Bool {
+        guard let attributedText = attributedText else {
+            return false
+        }
+        return attributedText.wmf_hasNonWhitespaceText
+    }
+    
+    public var wmf_hasAnyText: Bool {
+        return wmf_hasText || wmf_hasAttributedText
+    }
+    
+    public var wmf_hasAnyNonWhitespaceText: Bool {
+        return wmf_hasNonWhitespaceText || wmf_hasNonWhitespaceAttributedText
+    }
+}
