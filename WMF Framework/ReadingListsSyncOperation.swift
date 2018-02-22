@@ -702,9 +702,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         var updatedLists: Set<ReadingList> = []
-        for remoteEntry in readingListEntries {
+        for (articleKey, remoteEntry) in remoteEntriesToCreateLocallyByArticleKey {
             autoreleasepool {
-                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_articleDatabaseKey, let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
+                guard let readingList = finalReadingListsByEntryID[remoteEntry.id] else {
                     return
                 }
                 

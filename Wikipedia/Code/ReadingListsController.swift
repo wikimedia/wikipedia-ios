@@ -433,9 +433,6 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            if article.savedDate == nil {
-                article.savedDate = Date()
-            }
             try article.addToDefaultReadingList()
             if moc.hasChanges {
                 try moc.save()
@@ -456,9 +453,6 @@ public class ReadingListsController: NSObject {
     
     @objc(unsaveArticles:inManagedObjectContext:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
-            for article in articles {
-                article.savedDate = nil
-            }
             let keys = articles.flatMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
