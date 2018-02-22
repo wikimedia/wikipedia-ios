@@ -112,7 +112,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    [self.pageSummarySessionManager.session wmf_fetchSummaryWithArticleURL:articleURL
+    [[WMFSession shared] fetchSummaryWithArticleURL:articleURL
                                                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                              summaryResponse = summary;
                                                              [taskGroup leave];
