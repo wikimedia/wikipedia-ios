@@ -13,7 +13,6 @@ class CRSFTokenOperation: AsyncOperation {
     private let completion: ([String: Any]?, URLResponse?, Error?) -> Void
     
     init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        DDLogDebug("RLAPI: \(method.stringValue) \(path)")
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -38,12 +37,19 @@ class CRSFTokenOperation: AsyncOperation {
                 finish()
                 return
         }
-        
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.session.jsonDictionaryTask(host: self.host, method: self.method, path: self.path, queryParameters: ["csrf_token": token.token], bodyParameters: self.bodyParameters) { (result , response, error) in
                 if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
+                    DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(apiError)")
                     self.completion(result, nil, apiError)
                 } else {
+                    #if DEBUG
+                    if let error = error {
+                        DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(error)")
+                    } else {
+                        DDLogDebug("RLAPI: \(self.method.stringValue) \(self.path)")
+                    }
+                    #endif
                     self.completion(result, response, error)
                 }
                 finish()
