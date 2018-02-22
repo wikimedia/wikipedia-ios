@@ -8,10 +8,12 @@ class URLSessionTaskOperation: AsyncOperation {
     
     var observation: NSKeyValueObservation?
     override func execute() {
-        observation = task.observe(\.state, changeHandler: { (task, change) in
+        observation = task.observe(\.state, changeHandler: { [weak self] (task, change) in
             switch task.state {
             case .completed:
-                self.finish()
+                self?.observation?.invalidate()
+                self?.observation = nil
+                self?.finish()
             default:
                 break
             }
