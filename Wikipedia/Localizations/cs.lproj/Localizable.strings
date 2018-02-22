@@ -184,11 +184,11 @@
 "potd-description-prefix" = "Obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
-"reading-list-add-saved-button-title" = "Ano, přidat {{PLURAL:$1|článek|články}} do tohoto seznamu čtení";
+"reading-list-add-saved-button-title" = "Ano, přidat články do tohoto seznamu čtení";
 "reading-list-add-saved-subtitle" = "Na vaší aplikaci Wikipedie jsou uložené články. Chtěl/a byste je ponechat a sloučit se seznamy čtení, které jsou synchronizovány do vašeho účtu?";
 "reading-list-add-saved-title" = "Uložené články nalezeny";
 "reading-list-deleted-accessibility-notification" = "Seznam čtení odstraněn";
-"reading-list-do-not-keep-button-title" = "Ne, odstranit {{PLURAL:$1|článek|články}} ze zařízení";
+"reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
 "reading-list-exists-with-same-name" = "Existuje již seznam čtení se stejným jménem ($1)";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení.";
 "reading-list-hint-title" = "Přesunout $1 do seznamu čtení?";
