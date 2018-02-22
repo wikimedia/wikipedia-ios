@@ -54,9 +54,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
-        let _ = readingListDetailExtendedViewController.view
-//        Uncomment to show extended view
-//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
