@@ -364,6 +364,7 @@ public class ReadingListsController: NSObject {
         updateTimer?.invalidate()
         updateTimer = nil
         operationQueue.cancelAllOperations()
+        apiController.cancelPendingTasks()
         operationQueue.addOperation(completion)
     }
     
