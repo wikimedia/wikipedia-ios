@@ -536,6 +536,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
         
+        taskGroup.wait()
+        
+        for (_, localReadingListEntry) in deletedReadingListEntries {
+            moc.delete(localReadingListEntry)
+        }
+        
+        try moc.save()
+        
+        guard !isCancelled  else {
+            throw ReadingListsOperationError.cancelled
+        }
+        
         for (readingListID, entries) in entriesToAddByListID {
             var start = 0
             var end = 0
@@ -594,14 +606,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 start = end
             }
             
-        }
-        
-        guard !isCancelled  else {
-            throw ReadingListsOperationError.cancelled
-        }
-
-        for (_, localReadingListEntry) in deletedReadingListEntries {
-            moc.delete(localReadingListEntry)
         }
     }
     
