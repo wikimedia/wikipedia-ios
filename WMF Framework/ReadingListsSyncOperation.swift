@@ -389,6 +389,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 }
                 guard let readingListID = localReadingList.readingListID?.int64Value else {
                     if localReadingList.isDeletedLocally {
+                        // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingList)
                     } else {
                         listsToCreate.append(localReadingList)
@@ -509,6 +510,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 }
                 guard let readingListEntryID = localReadingListEntry.readingListEntryID?.int64Value else {
                     if localReadingListEntry.isDeletedLocally {
+                        // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingListEntry)
                     } else {
                         entriesToAddByListID[readingListID, default: []].append((project: project, title: title, entry: localReadingListEntry))
