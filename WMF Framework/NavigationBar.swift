@@ -200,7 +200,6 @@ public class NavigationBar: SetupView {
             }
         }
         self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden
-        self.underBarView.alpha = self.bar.alpha
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
         self.extendedView.transform = totalTransform
         self.backgroundView.transform = totalTransform
