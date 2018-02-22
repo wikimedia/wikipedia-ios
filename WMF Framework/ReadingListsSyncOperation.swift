@@ -24,14 +24,20 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             self.finish()
                         }
                     } else if let readingListError = error as? APIReadingListError, readingListError == .needsFullSync {
+                        let readingListsController = self.readingListsController
                         DispatchQueue.main.async {
-                            let oldState = self.readingListsController.syncState
+                            guard let oldState = readingListsController?.syncState else {
+                                return
+                            }
                             var newState = oldState
                             newState.insert(.needsSync)
                             if newState != oldState {
-                                self.readingListsController.syncState = newState
+                                readingListsController?.syncState = newState
                             }
                             self.finish()
+                            DispatchQueue.main.async {
+                                readingListsController?.sync()
+                            }
                         }
                     }  else {
                         self.finish(with: error)
