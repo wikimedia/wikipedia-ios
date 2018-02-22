@@ -17,14 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isDownloaded;
 @property (nonatomic) BOOL isExcludedFromFeed;
 @property (nullable, nonatomic, copy) NSString *key;
-@property (nonatomic) double latitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
+@property (nonatomic) double latitude;  //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nullable, nonatomic, copy) NSDate *newsNotificationDate;
 @property (nullable, nonatomic, retain) NSDictionary *pageViews;
 @property (nullable, nonatomic, copy) NSNumber *placesSortOrder;
 @property (nullable, nonatomic, copy) NSDate *savedDate;
 @property (nullable, nonatomic, copy) NSNumber *signedQuadKey;
-@property (nullable, nonatomic, copy) NSString *snippet; // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere)
+@property (nullable, nonatomic, copy) NSString *snippet;            // TODO: consider making naming consistent (probably use 'extract' instead of 'snippet' here and 'summary' elsewhere)
 @property (nullable, nonatomic, copy) NSString *thumbnailURLString; // deprecated
 @property (nullable, nonatomic, copy) NSDate *viewedDate;
 @property (nullable, nonatomic, copy) NSDate *viewedDateWithoutTime;
@@ -49,7 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removePreviewReadingListsObject:(ReadingList *)value;
 - (void)addPreviewReadingLists:(NSSet<ReadingList *> *)values;
 - (void)removePreviewReadingLists:(NSSet<ReadingList *> *)values;
-
 
 @end
 

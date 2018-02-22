@@ -12,11 +12,10 @@
     CC_SHA256_Update(&hashObject,
                      (const void *)buffer,
                      (CC_LONG)length);
-    
-    
+
     unsigned char digest[CC_SHA256_DIGEST_LENGTH];
     CC_SHA256_Final(digest, &hashObject);
-    
+
     char hash[2 * sizeof(digest) + 1];
     for (size_t i = 0; i < sizeof(digest); ++i) {
         snprintf(hash + (2 * i), 3, "%02x", (int)(digest[i]));
@@ -26,7 +25,6 @@
 }
 
 @end
-
 
 @implementation NSString (SHA256)
 

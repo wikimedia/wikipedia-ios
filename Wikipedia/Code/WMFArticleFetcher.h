@@ -33,7 +33,7 @@ extern NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey;
  *          the error's @c userInfo will contain the cached article for the key @c WMFArticleFetcherErrorCachedFallbackArticleKey
  *  @param success block
  */
-- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)URL saveToDisk:(BOOL)saveToDisk                                          priority:(float)priority progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
+- (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)URL saveToDisk:(BOOL)saveToDisk priority:(float)priority progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success;
 
 /**
  *  Fetch the latest version of @c URL, if the locally stored revision is not the latest. If forceDownload is passed, the latest version is always downloaded ignoring any cahced data

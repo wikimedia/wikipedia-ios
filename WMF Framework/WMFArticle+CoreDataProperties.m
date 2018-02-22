@@ -3,7 +3,7 @@
 @implementation WMFArticle (CoreDataProperties)
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
 @dynamic displayTitle;

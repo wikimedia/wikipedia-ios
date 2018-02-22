@@ -24,7 +24,7 @@ public class ReadingList: NSManagedObject {
         }).count)
     }
     
-    public func updateArticlesAndEntries() {
+    public func updateArticlesAndEntries() throws {
         let previousArticles = articles ?? []
         let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
@@ -38,15 +38,11 @@ public class ReadingList: NSManagedObject {
         }
         if validArticleKeys.count > 0 {
             let articleKeysToAdd = validArticleKeys.subtracting(previousKeys)
-            do {
-                let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
-                countOfEntries = Int64(validEntries.count)
-                for article in articlesToAdd {
-                    addToArticles(article)
-                    article.readingListsDidChange()
-                }
-            } catch let error {
-                DDLogError("error updating list: \(error)")
+            let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
+            countOfEntries = Int64(validEntries.count)
+            for article in articlesToAdd {
+                addToArticles(article)
+                article.readingListsDidChange()
             }
             let sortedArticles = articles?.sorted(by: { (a, b) -> Bool in
                 guard let aDate = a.savedDate else {
@@ -62,7 +58,7 @@ public class ReadingList: NSManagedObject {
                 guard updatedPreviewArticles.count < 4 else {
                     break
                 }
-                guard article.imageURLString != nil else {
+                guard article.imageURLString != nil || article.thumbnailURLString != nil else {
                     continue
                 }
                 updatedPreviewArticles.add(article)

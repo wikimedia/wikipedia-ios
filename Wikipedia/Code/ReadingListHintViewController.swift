@@ -14,12 +14,12 @@ class ReadingListHintViewController: UIViewController {
     
     private var hintButtonTitle: String {
         let articleTitle = article?.displayTitle ?? "article"
-        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-hint-title", value: "Move %1$@ to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
+        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-add-hint-title", value: "Add “%1$@” to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
-    @IBOutlet weak var hintView: UIView!
+    @IBOutlet weak var hintView: UIView?
     @IBOutlet weak var hintButton: AlignedImageButton?
-    @IBOutlet weak var confirmationView: UIView!
+    @IBOutlet weak var confirmationView: UIView?
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationButton: UIButton!
     @IBOutlet weak var confirmationChevron: UIButton!
@@ -36,14 +36,22 @@ class ReadingListHintViewController: UIViewController {
     
     private var isHintViewHidden: Bool = false {
         didSet {
-            hintView.isHidden = isHintViewHidden
-            confirmationView.isHidden = !isHintViewHidden
+            hintView?.isHidden = isHintViewHidden
+            confirmationView?.isHidden = !isHintViewHidden
         }
+    }
+    
+    private var tapGestureRecognizer: (hint: UITapGestureRecognizer, confirmation: UITapGestureRecognizer) {
+        return (hint: UITapGestureRecognizer(target: self, action: #selector(addArticleToReadingList(_:))), confirmation: UITapGestureRecognizer(target: self, action: #selector(openReadingList)))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         isHintViewHidden = false
+    
+        hintView?.addGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView?.addGestureRecognizer(tapGestureRecognizer.confirmation)
+        
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
         confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
@@ -52,6 +60,12 @@ class ReadingListHintViewController: UIViewController {
         setHintButtonTitle()
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
+        confirmationView?.removeGestureRecognizer(tapGestureRecognizer.confirmation)
     }
     
     func reset() {
@@ -72,7 +86,7 @@ class ReadingListHintViewController: UIViewController {
         guard let article = article, let dataStore = dataStore else {
             return
         }
-        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: dataStore.viewContext.wmf_fetchDefaultReadingList(), theme: theme)
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
         present(addArticlesToReadingListViewController, animated: true, completion: nil)
     }
@@ -84,10 +98,8 @@ class ReadingListHintViewController: UIViewController {
         guard let readingList = readingList, let dataStore = dataStore else {
             return
         }
-        let viewController = readingList.isDefault ? SavedArticlesViewController(with: dataStore) : ReadingListDetailViewController(for: readingList, with: dataStore)
-        viewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissReadingListDetailViewController))
-        viewController.apply(theme: theme)
-        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
+        let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+        let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
             self.delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: self.isHintViewHidden)
@@ -96,10 +108,6 @@ class ReadingListHintViewController: UIViewController {
     
     @objc private func dismissReadingListDetailViewController() {
         themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc func themeChanged(notification: Notification) {
@@ -113,7 +121,7 @@ class ReadingListHintViewController: UIViewController {
 
 extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
-        guard let name = readingList.isDefault ? CommonStrings.shortSavedTitle : readingList.name else {
+        guard let name = readingList.name else {
             return
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
@@ -124,7 +132,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         }
         self.readingList = readingList
         isHintViewHidden = true
-        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-moved-confirmation", value: "Article moved to “%1$@”", comment: "Confirmation shown after the user moves an article to a list"), name)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list"), name)
         confirmationButton.setTitle(title, for: .normal)
         delegate?.readingListHint(self, shouldBeHidden: false, isConfirmation: isHintViewHidden)
     }

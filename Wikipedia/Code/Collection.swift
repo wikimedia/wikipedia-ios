@@ -5,8 +5,8 @@ protocol Collection: class {
 protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
     associatedtype T: NSManagedObject
     var dataStore: MWKDataStore { get }
-    var collectionViewUpdater: CollectionViewUpdater<T>! { get set }
-    var fetchedResultsController: NSFetchedResultsController<T>! { get set }
+    var collectionViewUpdater: CollectionViewUpdater<T>? { get set }
+    var fetchedResultsController: NSFetchedResultsController<T>? { get set }
     var basePredicate: NSPredicate { get }
     var baseSortDescriptors: [NSSortDescriptor] { get }
     func setupFetchedResultsController()
@@ -16,13 +16,16 @@ protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
 
 extension UpdatableCollection {
     func setupCollectionViewUpdater() {
+        guard let fetchedResultsController = fetchedResultsController else {
+            return
+        }
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater.delegate = self
+        collectionViewUpdater?.delegate = self
     }
     
     func fetch() {
         do {
-            try fetchedResultsController.performFetch()
+            try fetchedResultsController?.performFetch()
         } catch let error {
             DDLogError("Error performing fetch: \(error)")
         }

@@ -1,4 +1,5 @@
 #!/bin/bash
+# used on jenkins to update ruby gems
 
 git checkout bundle_update
 git pull

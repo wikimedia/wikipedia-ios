@@ -18,38 +18,6 @@
 			<string>Статиите се избришани</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Сите статии зачувани само на овој список ќе бидат одзачувани при бришењето.</string>
-			<key>other</key>
-			<string>Сите статии зачувани само на овие списоци ќе бидат одзачувани при бришењето.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Да го избришам списокот?</string>
-			<key>other</key>
-			<string>Да ги избришам списоците?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -184,22 +152,6 @@
 			<string>Пред %1$d години</string>
 			<key>zero</key>
 			<string>Годинава</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Дали сигурно сакате да ја одзачувате статијава и да ја отстраните од сите списоци за читање?</string>
-			<key>other</key>
-			<string>Дали сигурно сакате да да ги одзачувате статииве и да ги од сите списоци за читање?</string>
 		</dict>
 	</dict>
 </dict>

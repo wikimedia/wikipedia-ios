@@ -15,8 +15,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     typealias T = ReadingList
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
-    var fetchedResultsController: NSFetchedResultsController<ReadingList>!
-    var collectionViewUpdater: CollectionViewUpdater<ReadingList>!
+    var fetchedResultsController: NSFetchedResultsController<ReadingList>?
+    var collectionViewUpdater: CollectionViewUpdater<ReadingList>?
     var editController: CollectionViewEditController!
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
@@ -40,8 +40,12 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
-            isShowingDefaultList = true
-            request.predicate = basePredicate
+            isShowingDefaultList = dataStore.readingListsController.isDefaultListEnabled
+            var predicate = basePredicate
+            if !isShowingDefaultList {
+                predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
+            }
+            request.predicate = predicate
         }
         
         var sortDescriptors = baseSortDescriptors
@@ -83,11 +87,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupFetchedResultsController()
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
-
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         setupEditController()
@@ -108,16 +107,24 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupFetchedResultsController()
         updateEmptyState()
+        guard let fetchedResultsController = fetchedResultsController else {
+            return
+        }
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
+        collectionViewUpdater = nil
+        fetchedResultsController = nil
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
-        guard let sections = fetchedResultsController.sections,
+        guard let fetchedResultsController = fetchedResultsController, let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
@@ -292,14 +299,14 @@ extension ReadingListsViewController: CreateReadingListDelegate {
 // MARK: - UICollectionViewDataSource
 extension ReadingListsViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = self.fetchedResultsController?.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
+        guard let sections = self.fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects
@@ -366,14 +373,6 @@ extension ReadingListsViewController: ActionDelegate {
     
     private func entriesCount(for readingLists: [ReadingList]) -> Int {
         return Int(readingLists.flatMap({ $0.countOfEntries }).reduce(0, +))
-    }
-    
-    func createDeletionAlert(for readingLists: [ReadingList]) -> UIAlertController {
-        let readingListsCount = readingLists.count
-        let title = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists."), readingListsCount)
-        let message = String.localizedStringWithFormat(WMFLocalizedString("delete-reading-list-alert-message", value: "Any articles saved only to {{PLURAL:%1$d|this list will be unsaved when this list is deleted|these lists will be unsaved when these lists are deleted}}.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        return alert
     }
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {

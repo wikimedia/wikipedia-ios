@@ -2,38 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Setiap artikel yang disimpan hanya ke daftar ini akan hilang bila dihapus.</string>
-			<key>other</key>
-			<string>Setiap artikel yang disimpan hanya ke daftar ini akan hilang bila dihapus.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Hapus daftar?</string>
-			<key>other</key>
-			<string>Hapus daftar?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -168,22 +136,6 @@
 			<string>%1$d tahun yang lalu</string>
 			<key>zero</key>
 			<string>Tahun ini</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Apakah Anda yakin ingin melepaskan artikel ini dan menghapusnya dari %1$d daftar bacaan?</string>
-			<key>other</key>
-			<string>Apakah Anda yakin ingin melepaskan artikel ini dan menghapusnya dari %1$d daftar bacaan?</string>
 		</dict>
 	</dict>
 </dict>

@@ -16,7 +16,12 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.fetchedResultsController = fetchedResultsController
         self.collectionView = collectionView
         super.init()
-        self.fetchedResultsController.delegate = self;
+        self.fetchedResultsController.delegate = self
+        self.collectionView.reloadData()
+    }
+    
+    deinit {
+        self.fetchedResultsController.delegate = nil
     }
     
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

@@ -1,12 +1,16 @@
 import UIKit
 
+enum ReadingListDetailDisplayType {
+    case modal, pushed
+}
+
 class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
     typealias T = ReadingListEntry
-    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
+    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -23,11 +27,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
     private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
+    private var displayType: ReadingListDetailDisplayType = .pushed
 
-    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
+    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
+        self.displayType = displayType
         super.init()
         self.readingListDetailExtendedViewController.delegate = self
     }
@@ -47,8 +53,18 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
         let _ = readingListDetailExtendedViewController.view
-//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view) // COMMENT OUT WHEN MERGING
+//        Uncomment to show extended view
+//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        
+        if displayType == .modal {
+            navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+        }
+    }
+    
+    @objc private func dismissController() {
+        dismiss(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +84,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
-        guard let sections = fetchedResultsController.sections,
+        guard let fetchedResultsController = fetchedResultsController,
+            let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
@@ -319,10 +336,13 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
-        navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = rightBarButton
-        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if displayType == .pushed {
+            navigationItem.leftBarButtonItem = leftBarButton
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        }
         
         if newEditingState == .done {
             readingListDetailExtendedViewController.finishEditing()
@@ -382,14 +402,14 @@ extension ReadingListDetailViewController {
 
 extension ReadingListDetailViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = fetchedResultsController?.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
+        guard let sections = fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects

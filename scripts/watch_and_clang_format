@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# watch the directory and run clang format when a file changes. not used currently
 
 require 'listen'
 

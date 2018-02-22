@@ -1,5 +1,7 @@
 import Foundation
 
+internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receive over this # of updated items, fall back to full sync
+
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
     case notSetup = "readinglists-db-error-not-set-up"
@@ -7,6 +9,7 @@ public enum APIReadingListError: String, Error, Equatable {
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
+    case listDeleted = "readinglists-db-error-list-deleted"
     
     public var localizedDescription: String {
         switch self {
@@ -205,6 +208,10 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
             guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
+                guard lists.count > 1 else {
+                    completion([(nil, error ?? APIReadingListError.generic)], nil)
+                    return
+                }
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var listsByName: [String: (Int64?, Error?)] = [:]
@@ -233,7 +240,14 @@ class ReadingListsAPIController: NSObject {
                 }
                 return
             }
-            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
+            completion(batch.flatMap {
+                let id = $0["id"] as? Int64
+                var error: Error? = nil
+                if let errorString = $0["error"] as? String {
+                    error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
+                }
+                return (id, error)
+            }, nil)
         }
     }
     
@@ -302,7 +316,11 @@ class ReadingListsAPIController: NSObject {
         }
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
-            if let apiError = error as? APIReadingListError {
+            if let apiError = error as? APIReadingListError, apiError != .listDeleted {
+                guard entries.count > 1 else {
+                    completion([(nil, apiError)], nil)
+                    return
+                }
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
@@ -343,12 +361,19 @@ class ReadingListsAPIController: NSObject {
             }
             
             guard let batch = result["batch"] as? [[String: Any]] else {
+                DDLogError("Unexpected result: \(result)")
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
-            
-            
-            completion(batch.flatMap { ($0["id"] as? Int64, nil) }, nil)
+
+            completion(batch.flatMap {
+                let id = $0["id"] as? Int64
+                var error: Error? = nil
+                if let errorString = $0["error"] as? String {
+                    error = APIReadingListError(rawValue: errorString) ?? APIReadingListError.generic
+                }
+                return (id, error)
+            }, nil)
         }
     }
     
@@ -442,7 +467,11 @@ class ReadingListsAPIController: NSObject {
             }
             let nextSince = nextSince ?? result.since
             if let next = result.next {
-                self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
+                if combinedLists.count + combinedEntries.count > APIReadingListUpdateLimitForFullSyncFallback {
+                    completion([], [], nil, APIReadingListError.needsFullSync)
+                } else {
+                    self.updatedListsAndEntries(since: since, next: next, nextSince: nextSince, lists: combinedLists, entries: combinedEntries, completion: completion)
+                }
             } else {
                 completion(combinedLists, combinedEntries, nextSince, nil)
             }
