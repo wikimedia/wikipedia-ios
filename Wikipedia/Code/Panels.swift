@@ -133,7 +133,7 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
-    fileprivate func showLoginViewController(theme: Theme) {
+    @objc func wmf_showLoginViewController(theme: Theme) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
@@ -148,7 +148,7 @@ extension UIViewController {
         
         let tryLoginAgainTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.showLoginViewController(theme: theme)
+                self.wmf_showLoginViewController(theme: theme)
             })
         }
         let stayLoggedOutTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
@@ -167,7 +167,7 @@ extension UIViewController {
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.showLoginViewController(theme: theme)
+                self.wmf_showLoginViewController(theme: theme)
             })
         }
         
@@ -187,7 +187,7 @@ extension UIViewController {
         
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.showLoginViewController(theme: theme)
+                self.wmf_showLoginViewController(theme: theme)
             })
         }
         
