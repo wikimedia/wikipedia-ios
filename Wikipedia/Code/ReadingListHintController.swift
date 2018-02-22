@@ -70,6 +70,12 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     private var task: DispatchWorkItem?
     
+    func updateRandom(_ isReadingListHintHidden: Bool) {
+        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
+            randomArticleViewController.isReadingListHintHidden = isReadingListHintHidden
+        }
+    }
+    
     func dismissHint() {
         self.task?.cancel()
         let task = DispatchWorkItem { self.setHintHidden(true) }
@@ -88,8 +94,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
         
-        if let randomArticleViewController = presenter as? WMFRandomArticleViewController, hintVisibilityTime != 0 {
-            randomArticleViewController.isReadingListHintHidden = hintHidden
+        if hintVisibilityTime != 0 {
+            updateRandom(hintHidden)
         }
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
@@ -98,6 +104,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }, completion: { (_) in
             // remove hint after animation is completed
             self.isHintHidden = hintHidden
+            if hintHidden {
+                self.updateRandom(hintHidden)
+            }
         })
     }
     
