@@ -341,7 +341,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         let articleURLs = results.flatMap { $0.articleURL(forSiteURL: siteURL) }
                         taskGroup.enter()
                         var summaryResponses: [String: [String: Any]] = [:]
-                        URLSession.shared.wmf_fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
+                        Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
                             // workaround this method not being async
                             summaryResponses = actualSummaryResponses
                             taskGroup.leave()
@@ -401,12 +401,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     }
                     deletedReadingLists[readingListID] = localReadingList
                 })
-                if requestCount % WMFReadingListBatchRequestLimit == 0 {
-                    taskGroup.wait()
-                    guard !isCancelled  else {
-                        throw ReadingListsOperationError.cancelled
-                    }
-                }
             } else if localReadingList.isUpdatedLocally {
                 requestCount += 1
                 taskGroup.enter()
@@ -420,12 +414,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     }
                     updatedReadingLists[readingListID] = localReadingList
                 })
-                if requestCount % WMFReadingListBatchRequestLimit == 0 {
-                    taskGroup.wait()
-                    guard !isCancelled  else {
-                        throw ReadingListsOperationError.cancelled
-                    }
-                }
             }
         }
         
@@ -501,48 +489,50 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
         
         for localReadingListEntry in localReadingListEntriesToUpdate {
-            guard let articleKey = localReadingListEntry.articleKey, let articleURL = URL(string: articleKey), let project = articleURL.wmf_site?.absoluteString, let title = articleURL.wmf_title else {
-                moc.delete(localReadingListEntry)
-                continue
-            }
-            guard let readingListID = localReadingListEntry.list?.readingListID?.int64Value else {
-                continue
-            }
-            guard let readingListEntryID = localReadingListEntry.readingListEntryID?.int64Value else {
-                if localReadingListEntry.isDeletedLocally {
+            try autoreleasepool {
+                guard let articleKey = localReadingListEntry.articleKey, let articleURL = URL(string: articleKey), let project = articleURL.wmf_site?.absoluteString, let title = articleURL.wmf_title else {
                     moc.delete(localReadingListEntry)
-                } else {
-                    entriesToAddByListID[readingListID, default: []].append((project: project, title: title, entry: localReadingListEntry))
+                    return
                 }
-                continue
-            }
-            if localReadingListEntry.isDeletedLocally {
-                requestCount += 1
-                taskGroup.enter()
-                self.apiController.removeEntry(withEntryID: readingListEntryID, fromListWithListID: readingListID, completion: { (deleteError) in
-                    defer {
-                        taskGroup.leave()
-                    }
-                    guard deleteError == nil else {
-                        DDLogError("Error deleting reading list entry: \(String(describing: deleteError))")
-                        return
-                    }
-                    deletedReadingListEntries[readingListEntryID] = localReadingListEntry
-                })
-                if requestCount % WMFReadingListBatchRequestLimit == 0 {
-                    taskGroup.wait()
-                    for (_, localReadingListEntry) in deletedReadingListEntries {
+                guard let readingListID = localReadingListEntry.list?.readingListID?.int64Value else {
+                    return
+                }
+                guard let readingListEntryID = localReadingListEntry.readingListEntryID?.int64Value else {
+                    if localReadingListEntry.isDeletedLocally {
                         moc.delete(localReadingListEntry)
+                    } else {
+                        entriesToAddByListID[readingListID, default: []].append((project: project, title: title, entry: localReadingListEntry))
                     }
-                    deletedReadingListEntries.removeAll(keepingCapacity: true)
-                    try moc.save()
-                    guard !isCancelled  else {
-                        throw ReadingListsOperationError.cancelled
-                    }
+                    return
                 }
-            } else {
-                // there's no "updating" of an entry currently
-                localReadingListEntry.isUpdatedLocally = false
+                if localReadingListEntry.isDeletedLocally {
+                    requestCount += 1
+                    taskGroup.enter()
+                    self.apiController.removeEntry(withEntryID: readingListEntryID, fromListWithListID: readingListID, completion: { (deleteError) in
+                        defer {
+                            taskGroup.leave()
+                        }
+                        guard deleteError == nil else {
+                            DDLogError("Error deleting reading list entry: \(String(describing: deleteError))")
+                            return
+                        }
+                        deletedReadingListEntries[readingListEntryID] = localReadingListEntry
+                    })
+                    if requestCount % WMFReadingListBatchSizePerRequestLimit == 0 {
+                        taskGroup.wait()
+                        for (_, localReadingListEntry) in deletedReadingListEntries {
+                            moc.delete(localReadingListEntry)
+                        }
+                        deletedReadingListEntries.removeAll(keepingCapacity: true)
+                        try moc.save()
+                        guard !isCancelled  else {
+                            throw ReadingListsOperationError.cancelled
+                        }
+                    }
+                } else {
+                    // there's no "updating" of an entry currently
+                    localReadingListEntry.isUpdatedLocally = false
+                }
             }
         }
         
@@ -642,7 +632,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 articlesByKey[articleKey] = article
             } else {
                 group.enter()
-                URLSession.shared.wmf_fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
+                Session.shared.fetchSummary(with: articleURL, completionHandler: { (result, response, error) in
                     guard let result = result else {
                         group.leave()
                         return
@@ -651,12 +641,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     group.leave()
                 })
                 entryCount += 1
-                if entryCount % WMFReadingListBatchRequestLimit == 0 {
-                    group.wait()
-                    guard !isCancelled  else {
-                        throw ReadingListsOperationError.cancelled
-                    }
-                }
             }
         }
         
