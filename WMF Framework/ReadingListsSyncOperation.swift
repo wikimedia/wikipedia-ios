@@ -39,7 +39,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                                 readingListsController?.sync()
                             }
                         }
-                    }  else {
+                    }  else if let readingListError = error as? ReadingListsOperationError, readingListError == .cancelled {
+                        self.apiController.cancelPendingTasks()
+                        self.finish()
+                    } else {
                         self.finish(with: error)
                     }
                 }
@@ -91,11 +94,17 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 readingListEntry.readingListEntryID = nil
                 readingListEntry.isUpdatedLocally = true
                 readingListEntry.errorCode = nil
+                guard !self.isCancelled else {
+                    throw ReadingListsOperationError.cancelled
+                }
             })
             try moc.wmf_batchProcessObjects(handler: { (readingList: ReadingList) in
                 readingList.readingListID = nil
                 readingList.isUpdatedLocally = true
                 readingList.errorCode = nil
+                guard !self.isCancelled else {
+                    throw ReadingListsOperationError.cancelled
+                }
             })
             syncState.remove(.needsLocalReset)
             moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
@@ -106,6 +115,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if syncState.contains(.needsLocalListClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "isDefault != YES"), handler: { (lists: [ReadingList]) in
                 try self.readingListsController.markLocalDeletion(for: lists)
+                guard !self.isCancelled else {
+                    throw ReadingListsOperationError.cancelled
+                }
             })
             
             syncState.remove(.needsLocalListClear)
@@ -116,6 +128,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if syncState.contains(.needsLocalArticleClear) {
             try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
                 self.readingListsController.unsave(articles, in: moc)
+                guard !self.isCancelled else {
+                    throw ReadingListsOperationError.cancelled
+                }
             })
         
             syncState.remove(.needsLocalArticleClear)

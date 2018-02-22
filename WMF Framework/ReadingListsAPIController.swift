@@ -108,23 +108,59 @@ class ReadingListsAPIController: NSObject {
     private let host = "en.wikipedia.org"
     private let scheme = "https"
     
+    private var pendingTasks: [String: Any] = [:]
+    private let semaphore = DispatchSemaphore(value: 1)
+    
+    func addPendingTask(_ task: Any, for key: String) {
+        semaphore.wait()
+        pendingTasks[key] = task
+        semaphore.signal()
+    }
+    
+    func removePendingTask(for key: String) {
+        semaphore.wait()
+        pendingTasks.removeValue(forKey: key)
+        semaphore.signal()
+    }
+    
+    func cancelPendingTasks() {
+        semaphore.wait()
+        for (_, task) in pendingTasks {
+            if let task = task as? URLSessionTask {
+                task.cancel()
+            } else if let task = task as? Operation {
+                task.cancel()
+            }
+        }
+        pendingTasks.removeAll()
+        semaphore.signal()
+    }
+
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
+        let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        guard let _ = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+        guard let task = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
             }
+            self.removePendingTask(for: key)
         }) else {
             completionHandler(nil, nil, APIReadingListError.generic)
             return
         }
+        addPendingTask(task, for: key)
     }
     
     fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: completion)
+        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: { (result, response, error) in
+            completion(result, response, error)
+            self.removePendingTask(for: key)
+        })
+        addPendingTask(op, for: key)
     }
     
     fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {

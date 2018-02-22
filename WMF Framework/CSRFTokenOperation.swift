@@ -1,6 +1,6 @@
 import Foundation
 
-class CRSFTokenOperation: AsyncOperation {
+class CSRFTokenOperation: AsyncOperation {
     private let session: Session
     private let tokenFetcher: WMFAuthTokenFetcher
     
@@ -10,7 +10,7 @@ class CRSFTokenOperation: AsyncOperation {
     
     private let method: Session.Request.Method
     private let bodyParameters: [String: Any]?
-    private let completion: ([String: Any]?, URLResponse?, Error?) -> Void
+    private var completion: (([String: Any]?, URLResponse?, Error?) -> Void)?
     
     init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         self.session = session
@@ -23,6 +23,17 @@ class CRSFTokenOperation: AsyncOperation {
         self.completion = completion
     }
     
+    override func finish(with error: Error) {
+        completion?(nil, nil, error)
+        completion = nil
+        super.finish(with: error)
+    }
+    
+    override func cancel() {
+        super.cancel()
+        finish(with: AsyncOperationError.cancelled)
+    }
+    
     override func execute() {
         let finish = {
             self.finish()
@@ -33,7 +44,8 @@ class CRSFTokenOperation: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                completion(nil, nil, APIReadingListError.generic)
+                completion?(nil, nil, APIReadingListError.generic)
+                completion = nil
                 finish()
                 return
         }
@@ -41,7 +53,7 @@ class CRSFTokenOperation: AsyncOperation {
             self.session.jsonDictionaryTask(host: self.host, method: self.method, path: self.path, queryParameters: ["csrf_token": token.token], bodyParameters: self.bodyParameters) { (result , response, error) in
                 if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
                     DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(apiError)")
-                    self.completion(result, nil, apiError)
+                    self.completion?(result, nil, apiError)
                 } else {
                     #if DEBUG
                     if let error = error {
@@ -50,12 +62,14 @@ class CRSFTokenOperation: AsyncOperation {
                         DDLogDebug("RLAPI: \(self.method.stringValue) \(self.path)")
                     }
                     #endif
-                    self.completion(result, response, error)
+                    self.completion?(result, response, error)
                 }
+                self.completion = nil
                 finish()
                 }?.resume()
         }) { (failure) in
-            self.completion(nil, nil, failure)
+            self.completion?(nil, nil, failure)
+            self.completion = nil
             finish()
         }
     }
