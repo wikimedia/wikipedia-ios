@@ -212,17 +212,18 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
-    @objc(fetchSummaryWithArticleURL:completionHandler:)
-    public func fetchSummary(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+    @objc(fetchSummaryWithArticleURL:priority:completionHandler:)
+    public func fetchSummary(with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
         guard let task = summaryTask(with: articleURL, completionHandler: completionHandler) else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
             return
         }
+        task.priority = priority
         let operation = URLSessionTaskOperation(task: task)
         queue.addOperation(operation)
     }
     
-    public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], completion: @escaping ([String: [String: Any]]) -> Void) {
+    public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {
         let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
         let taskGroup = WMFTaskGroup()
         var summaryResponses: [String: [String: Any]] = [:]
@@ -231,7 +232,7 @@ import Foundation
                 continue
             }
             taskGroup.enter()
-            fetchSummary(with: articleURL, completionHandler: { (responseObject, response, error) in
+            fetchSummary(with: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
                 guard let responseObject = responseObject else {
                     taskGroup.leave()
                     return
