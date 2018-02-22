@@ -80,6 +80,7 @@ class ReadingListHintViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         hintButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        confirmationButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?
