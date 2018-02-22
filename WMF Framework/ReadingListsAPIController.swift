@@ -195,9 +195,7 @@ class ReadingListsAPIController: NSObject {
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var listsByName: [String: (Int64?, Error?)] = [:]
-                    var requests = 0
                     for list in lists {
-                        requests += 1
                         taskGroup.enter()
                         self.createList(name: list.name, description: list.description, completion: { (listID, error) in
                             taskGroup.leave()
@@ -298,31 +296,21 @@ class ReadingListsAPIController: NSObject {
                     completion([(nil, apiError)], nil)
                     return
                 }
-                DispatchQueue.global().async {
-                    let taskGroup = WMFTaskGroup()
-                    var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
-                    var requests = 0
-                    for entry in entries {
-                        requests += 1
-                        taskGroup.enter()
-                        self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
-                            defer {
-                                taskGroup.leave()
-                            }
-                            entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = (entryID, error)
-                        })
+                self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (remoteEntries, getAllEntriesError) in
+                    var remoteEntriesByProjectAndTitle: [String: [String: APIReadingListEntry]] = [:]
+                    for remoteEntry in remoteEntries {
+                        remoteEntriesByProjectAndTitle[remoteEntry.project.precomposedStringWithCanonicalMapping, default: [:]][remoteEntry.title.precomposedStringWithCanonicalMapping] = remoteEntry
                     }
-                    taskGroup.wait()
-                    var entryIDsOrErrors: [(Int64?, Error?)] = []
-                    for entry in entries {
-                        guard let entry = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
-                            completion(nil, apiError)
-                            return
+                    let results: [(Int64?, Error?)] = entries.map {
+                        let project = $0.project.precomposedStringWithCanonicalMapping
+                        let title = $0.title.precomposedStringWithCanonicalMapping
+                        guard let remoteEntry = remoteEntriesByProjectAndTitle[project]?[title] else {
+                            return (nil, apiError == .entryLimit ? apiError : APIReadingListError.generic)
                         }
-                        entryIDsOrErrors.append(entry)
+                        return (remoteEntry.id, nil)
                     }
-                    completion(entryIDsOrErrors, nil)
-                }
+                    completion(results, nil)
+                })
                 return
             } else if let error = error {
                 completion(nil, error)
