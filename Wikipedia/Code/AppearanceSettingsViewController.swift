@@ -58,7 +58,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         extendedLayoutIncludesOpaqueBars = true
         
-        title = WMFLocalizedString("appearance-settings-title", value: "Reading themes", comment: "Title of the Appearance view in Settings.")
+        title = CommonStrings.readingPreferences
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
