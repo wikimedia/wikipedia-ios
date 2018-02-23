@@ -106,6 +106,17 @@
     return view;
 }
 
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    if (![self.imageView superview]) {
+        return;
+    }
+    BOOL isCompactVertical = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
+    self.imageView.alpha = isCompactVertical ? 0.0 : 1.0;
+    self.imageView.hidden = isCompactVertical;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
 
