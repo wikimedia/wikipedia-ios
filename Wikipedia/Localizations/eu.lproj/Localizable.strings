@@ -325,7 +325,7 @@
 "reading-list-add-saved-title" = "Gordetako artikuluak aurkitu dira";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
-"reading-list-exists-with-same-name" = "1$ izena duen irakurketa zerrenda existitzen da jada";
+"reading-list-exists-with-same-name" = "$1 izena duen irakurketa zerrenda existitzen da jada";
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
 "reading-list-hint-title" = "$1 mugitu irakurketa zerrenda batera?";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
@@ -442,7 +442,7 @@
 "two-factor-login-title" = "Zure kontuan sartu";
 "two-factor-login-with-backup-code" = "Erabil ezazu zure babeskopiarako kodeetako bat";
 "two-factor-login-with-regular-code" = "Berrespen kodea erabili";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Artikulu hau ez gordetzeak \"1$\" irakurketa-zerrendatik ere ezabatzea ekarriko du.";
+"unsave-article-and-remove-from-reading-list-with-name-message" = "Artikulu hau ez gordetzeak \"$1\" irakurketa-zerrendatik ere ezabatzea ekarriko du.";
 "unsave-article-and-remove-from-reading-lists-message" = "Artikulu hau ez gordetzeak irakurketa-zerrenda guztietatik ezabatzea ekarriko du.";
 "unsave-article-and-remove-from-reading-lists-title" = "Gordetako artikulua izatera utzi?";
 "update-articles-button" = "Eguneratu $1";
