@@ -46,7 +46,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         let collectionView = self.collectionView
-        guard objectChanges.count < 10 && sectionChanges.count < 10 else { // reload data for larger changes
+        guard objectChanges.count < 1000 && sectionChanges.count < 1 else { // reload data for larger changes
             collectionView.reloadData()
             return
         }
