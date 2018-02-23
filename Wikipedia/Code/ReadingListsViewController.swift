@@ -339,23 +339,21 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
 
 // MARK: - ActionDelegate
 extension ReadingListsViewController: ActionDelegate {
-    
-    func willPerformAction(_ action: Action) {
+
+    func willPerformAction(_ action: Action, from sender: UIButton?) {
         guard let readingList = readingList(at: action.indexPath) else {
             return
         }
-        guard action.type == .delete, shouldPresentDeletionAlert(for: [readingList]) else {
-            let _ = self.editController.didPerformAction(action)
+        guard action.type == .delete else {
+            let _ = self.editController.didPerformAction(action, from: sender)
             return
         }
         let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action {
-            self.editController.close()
+        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action, from: sender) }
+        alertController.showAlert(presenter: self, items: [readingList], actions: [cancel, delete], completion: nil) {
+            let _ = self.editController.didPerformAction(action, from: sender)
         }
-        let delete = ReadingListAlertActionType.delete.action {
-            let _ = self.editController.didPerformAction(action)
-        }
-        alertController.showAlert(presenter: self, readingLists: [readingList], actions: [cancel, delete])
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -365,14 +363,6 @@ extension ReadingListsViewController: ActionDelegate {
         } catch let error {
             self.readingListsController.handle(error)
         }
-    }
-    
-    func shouldPresentDeletionAlert(for readingLists: [ReadingList]) -> Bool {
-        return entriesCount(for: readingLists) > 0
-    }
-    
-    private func entriesCount(for readingLists: [ReadingList]) -> Int {
-        return Int(readingLists.flatMap({ $0.countOfEntries }).reduce(0, +))
     }
     
     func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
@@ -386,27 +376,23 @@ extension ReadingListsViewController: ActionDelegate {
         case .update:
             return true
         case .delete:
-            if shouldPresentDeletionAlert(for: readingLists) {
-                let alertController = ReadingListAlertController()
-                let delete = ReadingListAlertActionType.delete.action {
-                    self.deleteReadingLists(readingLists)
-                }
-                var didPerform = false
-                alertController.showAlert(presenter: self, readingLists: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete]) {
-                    didPerform = true
-                }
-                return didPerform
-            } else {
-                deleteReadingLists(readingLists)
-                return true
+            let alertController = ReadingListAlertController()
+            let delete = ReadingListAlertActionType.delete.action {
+                self.deleteReadingLists(readingLists)
             }
+            var didPerform = false
+            alertController.showAlert(presenter: self, items: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+                self.deleteReadingLists(readingLists)
+                didPerform = true
+            }
+            return didPerform
         default:
             break
         }
         return false
     }
     
-    func didPerformAction(_ action: Action) -> Bool {
+    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
         let indexPath = action.indexPath
         guard let readingList = readingList(at: indexPath) else {
             return false

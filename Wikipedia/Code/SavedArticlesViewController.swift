@@ -352,24 +352,16 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            if shouldPresentDeletionAlert(for: articles) {
-                let alertController = ReadingListAlertController()
-                let unsave = ReadingListAlertActionType.unsave.action {
-                    self.delete(articles: articles)
-                }
-                let cancel = ReadingListAlertActionType.cancel.action {
-                    self.editController.close()
-                }
-                var didPerform = false
-                alertController.showAlert(presenter: self, articles: articles, actions: [cancel, unsave]) {
-                    didPerform = true
-                }
-                return didPerform
-                
-            } else {
-                delete(articles: articles)
-                return true
+            let alertController = ReadingListAlertController()
+            let delete = ReadingListAlertActionType.delete.action {
+                self.delete(articles: articles)
             }
+            var didPerform = false
+            alertController.showAlert(presenter: self, items: articles, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+                self.delete(articles: articles)
+                didPerform = true
+            }
+            return didPerform
         default:
             break
         }
@@ -381,29 +373,23 @@ extension SavedArticlesViewController: ActionDelegate {
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
-    func willPerformAction(_ action: Action) {
+    func willPerformAction(_ action: Action, from sender: UIButton?) {
         guard let article = article(at: action.indexPath) else {
             return
         }
-        guard action.type == .delete, shouldPresentDeletionAlert(for: [article]) else {
-            let _ = self.editController.didPerformAction(action)
+        guard action.type == .delete else {
+            let _ = self.editController.didPerformAction(action, from: sender)
             return
         }
         let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action {
-            let _ = self.editController.didPerformAction(action)
+        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action, from: sender) }
+        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
+        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
+            let _ = self.editController.didPerformAction(action, from: sender)
         }
-        let cancel = ReadingListAlertActionType.cancel.action {
-            self.editController.close()
-        }
-        alertController.showAlert(presenter: self, articles: [article], actions: [cancel, unsave])
     }
     
-    func shouldPresentDeletionAlert(for articles: [WMFArticle]) -> Bool {
-        return articles.filter { $0.isOnlyInDefaultList }.count != articles.count
-    }
-    
-    func didPerformAction(_ action: Action) -> Bool {
+    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
         let indexPath = action.indexPath
         defer {
             if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
