@@ -372,8 +372,8 @@
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Un-saving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "Un-save {{PLURAL:$1|article|articles}}?";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
