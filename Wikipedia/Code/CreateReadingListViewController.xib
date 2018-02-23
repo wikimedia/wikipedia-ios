@@ -17,6 +17,7 @@
                 <outlet property="descriptionTextField" destination="9bd-dM-Z1B" id="Mb2-vc-7rl"/>
                 <outlet property="readingListNameLabel" destination="1mL-FN-xFB" id="1KD-S4-Gtd"/>
                 <outlet property="readingListNameTextField" destination="pLi-n2-Obn" id="8za-Ti-XyY"/>
+                <outlet property="scrollView" destination="ANn-ak-pec" id="nsP-lg-Y8f"/>
                 <outlet property="titleLabel" destination="Rae-vX-ya2" id="SsJ-fW-Y6k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
