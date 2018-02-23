@@ -46,6 +46,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         super.viewDidLoad()
         
         title = readingList.name
+
+        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         
         setupFetchedResultsController()
         setupCollectionViewUpdater()
@@ -53,9 +55,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
-        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
-        
+
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
         }
@@ -112,7 +112,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         didSet {
             editController.isCollectionViewEmpty = isEmpty
             readingListDetailExtendedViewController.isHidden = isEmpty
-            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isEmpty ? 1 : 0, animated: false)
+            if isEmpty {
+                navigationBar.removeExtendedNavigationBarView()
+            } else {
+                navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+            }
             updateScrollViewInsets()
         }
     }
