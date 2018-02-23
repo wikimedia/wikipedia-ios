@@ -1,10 +1,10 @@
 import UIKit
 
-@objc public protocol ReadingListHintPresenter: NSObjectProtocol {
+@objc public protocol ReadingListHintPresenter: class {
     var readingListHintController: ReadingListHintController? { get set }
 }
 
-protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
+protocol ReadingListHintViewControllerDelegate: class {
     func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool)
 }
 
@@ -70,9 +70,10 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     private var task: DispatchWorkItem?
     
-    func updateRandom(_ isReadingListHintHidden: Bool) {
-        if let randomArticleViewController = presenter as? WMFRandomArticleViewController {
-            randomArticleViewController.isReadingListHintHidden = isReadingListHintHidden
+    func updateRandom(_ hintHidden: Bool) {
+        if let navigationController = (presenter as? WMFRandomArticleViewController)?.navigationController as? WMFArticleNavigationController {
+            navigationController.readingListHintHeight = hintHeight
+            navigationController.readingListHintHidden = hintHidden
         }
     }
     
@@ -94,9 +95,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
         
-        if hintVisibilityTime != 0 {
-            updateRandom(hintHidden)
-        }
+        updateRandom(hintHidden)
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
             self.hint.view.frame = frame
