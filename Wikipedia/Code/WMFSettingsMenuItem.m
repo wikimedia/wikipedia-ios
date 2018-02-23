@@ -79,7 +79,7 @@
         case WMFSettingsMenuItemType_Appearance: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Reading preferences", @"Title for button letting user customize reading preferences.")
+                                                    title:WMFCommonStrings.readingPreferences
                                                  iconName:@"settings-appearance"
                                                 iconColor:[UIColor wmf_colorWithHex:0x000000]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText

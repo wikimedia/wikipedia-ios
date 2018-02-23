@@ -18,6 +18,7 @@
 // Author: Mailman
 // Author: Mariya
 // Author: MaxBioHazard
+// Author: Mouse21
 // Author: Movses
 // Author: Nemo bis
 // Author: Nitch
@@ -98,8 +99,7 @@
 "appearance-settings-title" = "Темы оформления для чтения";
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Статья удалена";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|статья|статьи}} удалена";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
@@ -335,6 +335,8 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-list-keep-button-title" = "Да, сохраняйте статьи на устройстве";
+"reading-list-login-button-title" = "Войдите в систему, чтобы синхронизировать сохраненные статьи";
 "reading-list-sync-setting" = "Синхронизация списка для чтения";
 "reading-lists-article-moved-confirmation" = "Статья перемещена в «$1»";
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
