@@ -8,6 +8,7 @@
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
+NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -505,10 +506,88 @@ static uint64_t bundleHash() {
     }];
 }
 
+- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSError *migrationSaveError = nil;
+    if (currentLibraryVersion < 1) {
+        if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
+            [moc wmf_setValue:@(1) forKey:WMFLibraryVersionKey];
+            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                return;
+            }
+        } else {
+            return;
+        }
+    }
+
+    if (currentLibraryVersion < 5) {
+        ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
+        if (!defaultReadingList) {
+            defaultReadingList = [[ReadingList alloc] initWithContext:moc];
+            defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
+            defaultReadingList.isDefault = YES;
+        }
+
+        for (ReadingListEntry *entry in defaultReadingList.entries) {
+            entry.isUpdatedLocally = YES;
+        }
+
+        if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+            DDLogError(@"Error saving during migration: %@", migrationSaveError);
+            return;
+        }
+
+        NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
+        request.fetchLimit = 500;
+        request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && readingLists.@count == 0", defaultReadingList];
+
+        NSError *migrationFetchError = nil;
+        NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:&migrationFetchError];
+        if (migrationFetchError) {
+            DDLogError(@"Error fetching unmigrated saved articles: %@", migrationFetchError);
+            return;
+        }
+
+        NSError *addError = nil;
+
+        while (results.count > 0) {
+            for (WMFArticle *article in results) {
+                [self.readingListsController addArticleToDefaultReadingList:article error:&addError];
+                if (addError) {
+                    break;
+                }
+            }
+            if (addError) {
+                break;
+            }
+            if (![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                return;
+            }
+            [moc reset];
+            defaultReadingList = [moc wmf_fetchDefaultReadingList]; // needs to re-fetch after reset
+            results = [moc executeFetchRequest:request error:&migrationFetchError];
+            if (!defaultReadingList || migrationFetchError) {
+                DDLogError(@"Error fetching during migration: %@ %@", defaultReadingList, migrationFetchError);
+                return;
+            }
+        }
+        if (addError) {
+            DDLogError(@"Error adding to default reading list: %@", addError);
+        } else {
+            [moc wmf_setValue:@(5) forKey:WMFLibraryVersionKey];
+        }
+
+        if (![moc save:&migrationSaveError]) {
+            DDLogError(@"Error saving during migration: %@", migrationSaveError);
+            return;
+        }
+    }
+}
+
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static NSString *key = @"WMFLibraryVersion";
     static const NSInteger libraryVersion = 5;
-    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:key];
+    NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
         if (completion) {
@@ -521,82 +600,7 @@ static uint64_t bundleHash() {
             dispatch_async(dispatch_get_main_queue(), completion);
         };
         if (currentLibraryVersion < libraryVersion) {
-            NSError *migrationSaveError = nil;
-            if (currentLibraryVersion < 1) {
-                if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
-                    [moc wmf_setValue:@(1) forKey:key];
-                    if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                        DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                        done();
-                        return;
-                    }
-                }
-            }
-
-            ReadingList *defaultReadingList = [moc wmf_fetchDefaultReadingList];
-            if (!defaultReadingList) {
-                defaultReadingList = [[ReadingList alloc] initWithContext:moc];
-                defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
-                defaultReadingList.isDefault = YES;
-            }
-
-            for (ReadingListEntry *entry in defaultReadingList.entries) {
-                entry.isUpdatedLocally = YES;
-            }
-
-            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                done();
-                return;
-            }
-
-            NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
-            request.fetchLimit = 500;
-            request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && readingLists.@count == 0", defaultReadingList];
-
-            NSError *migrationFetchError = nil;
-            NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:&migrationFetchError];
-            if (migrationFetchError) {
-                DDLogError(@"Error fetching unmigrated saved articles: %@", migrationFetchError);
-                done();
-                return;
-            }
-
-            NSError *addError = nil;
-            while (results.count > 0) {
-                for (WMFArticle *article in results) {
-                    [self.readingListsController addArticleToDefaultReadingList:article error:&addError];
-                    if (addError) {
-                        break;
-                    }
-                }
-                if (addError) {
-                    break;
-                }
-                if (![moc save:&migrationSaveError]) {
-                    DDLogError(@"Error saving during migration: %@", migrationSaveError);
-                    done();
-                    return;
-                }
-                [moc reset];
-                defaultReadingList = [moc wmf_fetchDefaultReadingList]; // needs to re-fetch after reset
-                results = [moc executeFetchRequest:request error:&migrationFetchError];
-                if (!defaultReadingList || migrationFetchError) {
-                    DDLogError(@"Error fetching during migration: %@ %@", defaultReadingList, migrationFetchError);
-                    done();
-                    return;
-                }
-            }
-
-            if (addError) {
-                DDLogError(@"Error adding to default reading list: %@", addError);
-            } else {
-                [moc wmf_setValue:@(libraryVersion) forKey:key];
-            }
-
-            if (![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
-            }
+            [self performUpdatesFromLibraryVersion:currentLibraryVersion inManagedObjectContext:moc];
         }
         done();
     }];

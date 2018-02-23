@@ -24,6 +24,7 @@ let WMFAppThemeName = "WMFAppThemeName"
 let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
 let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
+let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
 let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
 
@@ -152,6 +153,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFDidShowThemeCardInFeed)
+            synchronize()
+        }
+    }
+
+    @objc public var wmf_didShowReadingListCardInFeed: Bool {
+        get {
+            return bool(forKey: WMFDidShowReadingListCardInFeed)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowReadingListCardInFeed)
             synchronize()
         }
     }

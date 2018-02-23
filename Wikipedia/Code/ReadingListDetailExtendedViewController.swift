@@ -9,7 +9,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var articleCountLabel: UILabel!
     @IBOutlet weak var titleTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
-    @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
@@ -41,10 +40,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
         titleTextField.delegate = self
         descriptionTextField.delegate = self
         
-        updateButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-        updateButton.masksToBounds = true
-        updateButton.cornerRadius = 18
-        
         sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
         
         searchBar.returnKeyType = .search
@@ -59,7 +54,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
-        updateButton.titleLabel?.setFont(with: .systemSemiBold, style: .subheadline, traitCollection: traitCollection)
         sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
     }
     
@@ -70,7 +64,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
                 return
             }
             articleCountLabel.text = articleCountString.uppercased()
-            updateButton.setTitle(String.localizedStringWithFormat(WMFLocalizedString("update-articles-button", value: "Update %1$@", comment: "Title of the button that updates articles in a list."), articleCountString), for: .normal)
         }
     }
     
@@ -155,8 +148,6 @@ extension ReadingListDetailExtendedViewController: Themeable {
         titleTextField.apply(theme: theme)
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
-        updateButton.backgroundColor = theme.colors.accent
-        updateButton.setTitleColor(theme.colors.paperBackground, for: .normal)
         separatorView.backgroundColor = theme.colors.border
     }
 }

@@ -103,52 +103,68 @@ extension APIReadingListEntry {
 }
 
 class ReadingListsAPIController: NSObject {
-    fileprivate let session = Session.shared
-    fileprivate lazy var tokenFetcher: WMFAuthTokenFetcher = {
-        return WMFAuthTokenFetcher()
-    }()
-    fileprivate let basePath = "/api/rest_v1/data/lists/"
-    fileprivate let host = "en.wikipedia.org"
-    fileprivate let scheme = "https"
+    private let session = Session.shared
+    private let basePath = "/api/rest_v1/data/lists/"
+    private let host = "en.wikipedia.org"
+    private let scheme = "https"
     
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        var components = URLComponents()
-        components.host = host
-        components.scheme = scheme
-        guard
-            let siteURL = components.url
-            else {
-                completion(nil, nil, APIReadingListError.generic)
-                return
+    private var pendingTasks: [String: Any] = [:]
+    private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    
+    func addPendingTask(_ task: Any, for key: String) {
+        pendingTaskQueue.async {
+             self.pendingTasks[key] = task
         }
-        
-        let fullPath = basePath.appending(path)
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
-            self.session.jsonDictionaryTask(host: self.host, method: method, path: fullPath, queryParameters: ["csrf_token": token.token], bodyParameters: bodyParameters) { (result , response, error) in
-                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
-                    completion(result, nil, apiError)
-                } else {
-                    completion(result, response, error)
+    }
+    
+    func removePendingTask(for key: String) {
+        pendingTaskQueue.async {
+             self.pendingTasks.removeValue(forKey: key)
+        }
+    }
+    
+    func cancelPendingTasks() {
+        pendingTaskQueue.async {
+            for (_, task) in self.pendingTasks {
+                if let task = task as? URLSessionTask {
+                    task.cancel()
+                } else if let task = task as? Operation {
+                    task.cancel()
                 }
-                }?.resume()
-        }) { (failure) in
-            completion(nil, nil, failure)
+            }
+            self.pendingTasks.removeAll()
         }
     }
-    
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
-    }
-    
+
     fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
+        let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+        guard let task = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
                 completionHandler(result, response, error)
             }
-        })?.resume()
+            self.removePendingTask(for: key)
+        }) else {
+            completionHandler(nil, nil, APIReadingListError.generic)
+            return
+        }
+        addPendingTask(task, for: key)
+    }
+    
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        let key = UUID().uuidString
+        let fullPath = basePath.appending(path)
+        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: { (result, response, error) in
+            completion(result, response, error)
+            self.removePendingTask(for: key)
+        })
+        addPendingTask(op, for: key)
+    }
+    
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
     fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
@@ -215,17 +231,12 @@ class ReadingListsAPIController: NSObject {
                 DispatchQueue.global().async {
                     let taskGroup = WMFTaskGroup()
                     var listsByName: [String: (Int64?, Error?)] = [:]
-                    var requests = 0
                     for list in lists {
-                        requests += 1
                         taskGroup.enter()
                         self.createList(name: list.name, description: list.description, completion: { (listID, error) in
                             taskGroup.leave()
                             listsByName[list.name] = (listID, error)
                         })
-                        if requests % WMFReadingListBatchRequestLimit == 0 {
-                            taskGroup.wait()
-                        }
                     }
                     taskGroup.wait()
                     var listsOrErrors: [(Int64?, Error?)] = []
@@ -321,34 +332,21 @@ class ReadingListsAPIController: NSObject {
                     completion([(nil, apiError)], nil)
                     return
                 }
-                DispatchQueue.global().async {
-                    let taskGroup = WMFTaskGroup()
-                    var entryIDsByProjectAndTitle: [String: [String: (Int64?, Error?)]] = [:]
-                    var requests = 0
-                    for entry in entries {
-                        requests += 1
-                        taskGroup.enter()
-                        self.addEntryToList(withListID: listID, project: entry.project, title: entry.title, completion: { (entryID, error) in
-                            defer {
-                                taskGroup.leave()
-                            }
-                            entryIDsByProjectAndTitle[entry.project, default: [:]][entry.title] = (entryID, error)
-                        })
-                        if requests % WMFReadingListBatchRequestLimit == 0 {
-                            taskGroup.wait()
-                        }
+                self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (remoteEntries, getAllEntriesError) in
+                    var remoteEntriesByProjectAndTitle: [String: [String: APIReadingListEntry]] = [:]
+                    for remoteEntry in remoteEntries {
+                        remoteEntriesByProjectAndTitle[remoteEntry.project.precomposedStringWithCanonicalMapping, default: [:]][remoteEntry.title.precomposedStringWithCanonicalMapping] = remoteEntry
                     }
-                    taskGroup.wait()
-                    var entryIDsOrErrors: [(Int64?, Error?)] = []
-                    for entry in entries {
-                        guard let entry = entryIDsByProjectAndTitle[entry.project]?[entry.title] else {
-                            completion(nil, apiError)
-                            return
+                    let results: [(Int64?, Error?)] = entries.map {
+                        let project = $0.project.precomposedStringWithCanonicalMapping
+                        let title = $0.title.precomposedStringWithCanonicalMapping
+                        guard let remoteEntry = remoteEntriesByProjectAndTitle[project]?[title] else {
+                            return (nil, apiError == .entryLimit ? apiError : APIReadingListError.generic)
                         }
-                        entryIDsOrErrors.append(entry)
+                        return (remoteEntry.id, nil)
                     }
-                    completion(entryIDsOrErrors, nil)
-                }
+                    completion(results, nil)
+                })
                 return
             } else if let error = error {
                 completion(nil, error)
