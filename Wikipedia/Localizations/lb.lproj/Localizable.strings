@@ -294,11 +294,15 @@
 "reading-list-add-saved-button-title" = "Jo, setzt se op meng Lieslëschten dobäi";
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
+"reading-list-do-not-keep-button-title" = "Neen, Artikele vum Apparat läschen";
 "reading-list-hint-title" = "$1 op eng Lieslëscht réckelen?";
 "reading-list-keep-button-title" = "Jo, Artikelen um Apparat halen";
 "reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
+"reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
+"reading-list-login-or-create-account-title" = "Alogge fir gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";
 "reading-list-sync-enable-button-title" = "Synchronisatioun aktivéieren";
+"reading-list-sync-enable-title" = "Synchronisatioun vu Lieslëschten aschalten?";
 "reading-list-sync-setting" = "Lieschtlëscht-Synchronisatioun";
 "reading-lists-article-moved-confirmation" = "Artikel op \"$1\" geréckelt";
 "reading-lists-count" = "{{PLURAL:$1|Eng Lieslëscht|$1 Lieslëschten}}";
@@ -309,6 +313,8 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
+"relogin-failed-retry-login-button-title" = "Probéiert nach emol Iech anzeloggen";
+"relogin-failed-stay-logged-out-button-title" = "Mech ausgeloggt halen";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
 "saved-all-articles-title" = "All Artikelen";
 "saved-clear-all" = "Eidel maachen";
@@ -323,6 +329,7 @@
 "search-button-accessibility-label" = "Op Wikipedia sichen";
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
+"search-reading-list-placeholder-text" = "Lieslëscht duerchsichen";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-confirmation-heading" = "All rezent Ufroe fir ze siche läschen?";
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";

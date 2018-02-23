@@ -104,20 +104,38 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public weak var delegate: ActionDelegate?
     
-    public func didPerformAction(_ action: Action) -> Bool {
-        guard action.indexPath == activeIndexPath else {
-            return self.delegate?.didPerformAction(action) ?? false
-        }
-        let activatedAction = action.type == .delete ? action : nil
-        closeActionPane(with: activatedAction) { (finished) in
-            let _ = self.delegate?.didPerformAction(action)
+    func updateConfirmationImage(_ image: UIImage?, for sender: UIButton?, completion: @escaping () -> Bool) -> Bool {
+        if let image = image {
+            sender?.setImage(image, for: .normal)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                let _ = completion()
+            }
+        } else {
+            return completion()
         }
         return true
     }
     
-    public func willPerformAction(_ action: Action) {
-        guard let _ = delegate?.willPerformAction?(action) else {
-            let _ = didPerformAction(action)
+    public func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+        return updateConfirmationImage(action.confirmationIcon, for: sender) {
+            self.delegatePerformingAction(action, from: sender)
+        }
+    }
+    
+    private func delegatePerformingAction(_ action: Action, from sender: UIButton?) -> Bool {
+        guard action.indexPath == activeIndexPath else {
+            return self.delegate?.didPerformAction(action, from: sender) ?? false
+        }
+        let activatedAction = action.type == .delete ? action : nil
+        closeActionPane(with: activatedAction) { (finished) in
+            let _ = self.delegate?.didPerformAction(action, from: sender)
+        }
+        return true
+    }
+    
+    public func willPerformAction(_ action: Action, from sender: UIButton?) {
+        guard let _ = delegate?.willPerformAction(action, from: sender) else {
+            let _ = didPerformAction(action, from: sender)
             return
         }
     }

@@ -320,6 +320,9 @@
 "reading-list-add-saved-button-title" = "Да, додај ги во списоците за читање";
 "reading-list-add-saved-subtitle" = "Има статии зачувани на вашиот Википедиин прилог. Дали сакате да ги задржите и да ги споите со списоците за читање усогласени на вашата сметка?";
 "reading-list-add-saved-title" = "Пронајдени зачувани статии";
+"reading-list-api-error-entry-limit" = "Оваа ставка не е усогласена бидејќи ја достигнавте границата на дозволени ставки во овој список.";
+"reading-list-api-error-generic" = "Се појави неочекувана грешка при услгоасувањето на вашите списоци за читање.";
+"reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-do-not-keep-button-title" = "Не, избриши ги статиите од уредот";
 "reading-list-exists-with-same-name" = "Веќе постои список за читање наречен „$1“";
