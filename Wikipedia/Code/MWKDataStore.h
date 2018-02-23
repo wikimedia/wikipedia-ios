@@ -46,6 +46,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (BOOL)migrateToCoreData:(NSError **)error;
 - (void)performCoreDataMigrations:(dispatch_block_t)completion;
 - (void)performLibraryUpdates:(dispatch_block_t)completion;
+- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;

@@ -261,7 +261,7 @@ extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
         backgroundColor = .clear
         
-        //statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
+        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
         backgroundView.backgroundColor = theme.colors.chromeBackground
         
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
