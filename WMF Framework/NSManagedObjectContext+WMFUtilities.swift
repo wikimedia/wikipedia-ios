@@ -57,7 +57,7 @@ public extension NSManagedObjectContext {
         return results
     }
     
-    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, progressHandler: ((Progress) -> Void)? = nil, handler: (T) throws -> Void) throws {
+    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, parentProgress: Progress? = nil, handler: (T) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
         fetchRequest.predicate = matchingPredicate
@@ -65,9 +65,10 @@ public extension NSManagedObjectContext {
         let results = try fetch(fetchRequest)
         
         var progress: Progress?
-        if let progressHandler = progressHandler {
+        if let parentProgress = parentProgress {
             let actualProgress = Progress(totalUnitCount: Int64(results.count))
-            progressHandler(actualProgress)
+            parentProgress.totalUnitCount += actualProgress.totalUnitCount
+            parentProgress.addChild(actualProgress, withPendingUnitCount: actualProgress.totalUnitCount)
             progress = actualProgress
         }
         
@@ -88,7 +89,7 @@ public extension NSManagedObjectContext {
         }
     }
     
-    func wmf_batchProcess<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, progressHandler: ((Progress) -> Void)? = nil, handler: ([T]) throws -> Void) throws {
+    func wmf_batchProcess<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, parentProgress: Progress? = nil, handler: ([T]) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
         fetchRequest.predicate = matchingPredicate
@@ -96,9 +97,10 @@ public extension NSManagedObjectContext {
         let results = try fetch(fetchRequest) as? [T] ?? []
         
         var progress: Progress?
-        if let progressHandler = progressHandler {
+        if let parentProgress = parentProgress {
             let actualProgress = Progress(totalUnitCount: Int64(results.count))
-            progressHandler(actualProgress)
+            parentProgress.totalUnitCount += actualProgress.totalUnitCount
+            parentProgress.addChild(actualProgress, withPendingUnitCount: actualProgress.totalUnitCount)
             progress = actualProgress
         }
         

@@ -82,13 +82,31 @@ public class ReadingListsController: NSObject {
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
+    
+    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
+    private var observedProgresses: [Operation: NSKeyValueObservation] = [:]
+    
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        operationQueue.maxConcurrentOperationCount = 1
         super.init()
+        operationQueue.maxConcurrentOperationCount = 1
+    }
+    
+    private func addOperation(_ operation: ReadingListsOperation) {
+        observedOperations[operation] = operation.observe(\.isFinished, changeHandler: { (operation, change) in
+            if operation.isFinished {
+                self.observedOperations.removeValue(forKey: operation)?.invalidate()
+                self.observedProgresses.removeValue(forKey: operation)?.invalidate()
+                print("fractionCompleted operation: \(operation.progress.fractionCompleted)")
+            }
+        })
+        observedProgresses[operation] = operation.progress.observe(\.fractionCompleted, changeHandler: { (progress, change) in
+            print("fractionCompleted: \(progress.fractionCompleted)")
+        })
+        operationQueue.addOperation(operation)
     }
     
     // User-facing actions. Everything is performed on the main context
@@ -372,7 +390,7 @@ public class ReadingListsController: NSObject {
         #if TEST
         #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(sync)
+        addOperation(sync)
         operationQueue.addOperation(completion)
         #endif
     }
@@ -387,7 +405,7 @@ public class ReadingListsController: NSObject {
                 self.syncState = newValue
             }
             let sync = ReadingListsSyncOperation(readingListsController: self)
-            operationQueue.addOperation(sync)
+            addOperation(sync)
             operationQueue.addOperation(completion)
         #endif
     }
@@ -397,7 +415,7 @@ public class ReadingListsController: NSObject {
             return
         }
         let sync = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(sync)
+        addOperation(sync)
     }
     
     @objc public func sync() {

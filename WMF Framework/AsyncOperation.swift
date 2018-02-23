@@ -8,7 +8,7 @@ enum AsyncOperationError: Error {
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
     
-    let progress = Progress()
+    let progress = Progress(totalUnitCount: 0)
     
     // MARK: - Operation State
 
