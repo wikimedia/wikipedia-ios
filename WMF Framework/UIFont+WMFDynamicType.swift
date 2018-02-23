@@ -4,6 +4,7 @@ import UIKit
     case system
     case systemBlack
     case systemMedium
+    case systemSemiBold
     case systemBold
     case systemHeavy
     case systemItalic
@@ -102,7 +103,7 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 37
             ]
         ],
-        .systemBold: [
+        .systemSemiBold: [
             UIFontTextStyle.subheadline: [
                 .accessibilityExtraExtraExtraLarge: 21,
                 .accessibilityExtraExtraLarge: 21,
@@ -145,6 +146,22 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .small: 15,
                 .extraSmall: 14
             ]
+        ],
+        .systemBold: [
+            UIFontTextStyle.title1: [
+                .accessibilityExtraExtraExtraLarge: 30,
+                .accessibilityExtraExtraLarge: 30,
+                .accessibilityExtraLarge: 30,
+                .accessibilityLarge: 30,
+                .accessibilityMedium: 30,
+                .extraExtraExtraLarge: 28,
+                .extraExtraLarge: 26,
+                .extraLarge: 24,
+                .large: 23,
+                .medium: 22,
+                .small: 21,
+                .extraSmall: 20
+            ],
         ],
         .systemItalic: [
             UIFontTextStyle.caption2: [
@@ -242,8 +259,10 @@ public extension UIFont {
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
         case .systemMedium:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
-        case .systemBold:
+        case .systemSemiBold:
             font = UIFont.boldSystemFont(ofSize: size)
+        case .systemBold:
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold)
         case .systemHeavy:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
         case .systemItalic:

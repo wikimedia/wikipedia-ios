@@ -18,22 +18,6 @@
 			<string>artikkelia poistettu</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Poista lista?</string>
-			<key>other</key>
-			<string>Poista listaa?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -168,22 +152,6 @@
 			<string>%1$d vuotta sitten</string>
 			<key>zero</key>
 			<string>Tänä vuonna</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Haluatko varmasti olla tallentamatta tätä artikkelia ja poistaa sen kaikista lukulistoista?</string>
-			<key>other</key>
-			<string>Haluatko varmasti olla tallentamatta näitä artikkeleita ja poistaa ne kaikista lukulistoista?</string>
 		</dict>
 	</dict>
 </dict>

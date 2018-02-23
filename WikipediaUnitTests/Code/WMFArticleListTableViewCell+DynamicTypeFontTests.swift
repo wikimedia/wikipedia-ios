@@ -39,7 +39,7 @@ class WMFArticleCollectionViewCell: XCTestCase {
             let traitsForSizeCategory = UITraitCollection(preferredContentSizeCategory:sizeCategory)
 
             let bodyFontForSizeCategory = UIFont.preferredFont(forTextStyle:UIFontTextStyle.body, compatibleWith:traitsForSizeCategory)
-            let systemBoldFontForSizeCategory = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: UIFontTextStyle.body, compatibleWithTraitCollection: traitsForSizeCategory)
+            let systemBoldFontForSizeCategory = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: UIFontTextStyle.body, compatibleWithTraitCollection: traitsForSizeCategory)
 
             XCTAssertTrue(bodyFontForSizeCategory.pointSize == systemBoldFontForSizeCategory?.pointSize)
         }

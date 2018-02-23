@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
-    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool)
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
 }
 
 @objc(WMFSavedViewController)
@@ -62,6 +62,8 @@ class SavedViewController: ViewController {
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
     
+    private var activeEditableCollection: EditableCollection?
+    
     private var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
@@ -74,6 +76,7 @@ class SavedViewController: ViewController {
                 isAddButtonHidden = true
                 isSearchBarHidden = savedArticlesViewController.isEmpty
                 scrollView = savedArticlesViewController.collectionView
+                activeEditableCollection = savedArticlesViewController
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
@@ -81,6 +84,7 @@ class SavedViewController: ViewController {
                 isAddButtonHidden = false
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
+                activeEditableCollection = readingListsViewController
             }
         }
     }
@@ -163,8 +167,8 @@ class SavedViewController: ViewController {
     
     public weak var savedDelegate: SavedViewControllerDelegate?
     
-    @IBAction func sortButonPressed() {
-        savedDelegate?.saved(self, shouldShowSortAlert: true)
+    @IBAction func sortButonPressed(_ sender: UIButton) {
+        savedDelegate?.savedWillShowSortAlert(self, from: sender)
     }
     
     // MARK: - Themeable
@@ -200,19 +204,31 @@ class SavedViewController: ViewController {
     }
 }
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension SavedViewController: BatchEditNavigationDelegate {
+extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        sortButton.isEnabled = editingState == .cancelled || editingState == .none
-        if editingState == .open && searchBar.isFirstResponder {
+        sortButton.isEnabled = newEditingState == .closed || newEditingState == .none
+        if newEditingState == .open && searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
+        }
+    }
+    
+    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
+        if newEditingState == .open {
+            dataStore?.readingListsController.stop {
+                DispatchQueue.main.async {
+                    self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
+                }
+            }
+        } else {
+            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
         }
     }
     

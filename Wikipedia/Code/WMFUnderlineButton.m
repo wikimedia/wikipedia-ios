@@ -12,7 +12,7 @@ IB_DESIGNABLE
 
 @implementation WMFUnderlineButton
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     if (self) {
         [self configureStyle];
@@ -27,8 +27,7 @@ IB_DESIGNABLE
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         [self inspectableDefaults];

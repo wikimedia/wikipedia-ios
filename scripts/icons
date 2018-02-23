@@ -1,6 +1,7 @@
 #!/bin/sh
 # Requires imagemagick (brew install imagemagick)
 # and ghostscript (brew install ghostscript)
+# generates rasterized app icons from pdfs
 
 export APP_ICON_ROOT="Wikipedia/Images.xcassets/AppIcon.appiconset"
 

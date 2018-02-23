@@ -88,7 +88,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Before iOS 11
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readingListSyncStateChanged:) name:[WMFReadingListsController syncStateDidChangeNotification] object:nil];
 }
 
@@ -182,11 +182,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
         case WMFSettingsMenuItemType_StorageAndSyncing:
-            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled){
-                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme: self.theme];
+            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled) {
+                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme:self.theme];
             } else {
                 [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
             }
+            break;
+        case WMFSettingsMenuItemType_ShowDefaultList:
+            self.dataStore.readingListsController.isDefaultListEnabled = isOn;
             break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
@@ -231,6 +234,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_SendFeedback: {
             WMFHelpViewController *vc = [[WMFHelpViewController alloc] initWithDataStore:self.dataStore];
             [vc applyTheme:self.theme];
+            [self.navigationController pushViewController:vc animated:YES];
+        } break;
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+            DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
         case WMFSettingsMenuItemType_About: {
@@ -335,9 +342,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme: self.theme completion:^{
-        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{}];
-    }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme:self.theme
+                                                          completion:^{
+                                                              [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+                                                              }];
+                                                          }];
 }
 
 #pragma mark - Languages
@@ -444,7 +453,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ShowDefaultList],
+        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]
     ]
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
@@ -513,7 +524,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Notifications
 
--(void)readingListSyncStateChanged:(NSNotification *)note {
+- (void)readingListSyncStateChanged:(NSNotification *)note {
     WMFAssertMainThread(@"This touches the UI, so should always be on the main thread");
     [self loadSections];
 }

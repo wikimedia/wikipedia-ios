@@ -1,12 +1,16 @@
 import UIKit
 
+enum ReadingListDetailDisplayType {
+    case modal, pushed
+}
+
 class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
     typealias T = ReadingListEntry
-    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>!
-    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>!
+    var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
+    var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -23,11 +27,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
     private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
+    private var displayType: ReadingListDetailDisplayType = .pushed
 
-    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
+    init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
+        self.displayType = displayType
         super.init()
         self.readingListDetailExtendedViewController.delegate = self
     }
@@ -47,13 +53,23 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
         let _ = readingListDetailExtendedViewController.view
-        //navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+//        Uncomment to show extended view
+//        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        
+        if displayType == .modal {
+            navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+        }
+    }
+    
+    @objc private func dismissController() {
+        dismiss(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefaultList)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
         updateEmptyState()
     }
     
@@ -68,7 +84,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
-        guard let sections = fetchedResultsController.sections,
+        guard let fetchedResultsController = fetchedResultsController,
+            let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
@@ -173,16 +190,16 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "createdDate", ascending: true), action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "createdDate", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true), NSSortDescriptor(key: "errorCode", ascending: false)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
@@ -311,16 +328,27 @@ extension ReadingListDetailViewController: ActionDelegate {
 
 extension ReadingListDetailViewController: ShareableArticlesProvider {}
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension ReadingListDetailViewController: BatchEditNavigationDelegate {
+extension ReadingListDetailViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
+        
+        if displayType == .pushed {
+            navigationItem.leftBarButtonItem = leftBarButton
+            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        }
+        
+        if newEditingState == .done {
+            readingListDetailExtendedViewController.finishEditing()
+        } else if newEditingState == .cancelled {
+            readingListDetailExtendedViewController.cancelEditing()
+        }
     }
 }
 
@@ -374,14 +402,14 @@ extension ReadingListDetailViewController {
 
 extension ReadingListDetailViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = fetchedResultsController?.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
+        guard let sections = fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects
@@ -411,6 +439,13 @@ extension ReadingListDetailViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
+        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+            // placeholder for now, this should be a separate label or button
+            cell.descriptionLabel.text = error.localizedDescription
+            cell.descriptionLabel.textColor = theme.colors.error
+        }
+        
         cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.readableMargins
         
@@ -459,9 +494,14 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
         updateSearchString(searchText)
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didPressSortButton sortButton: UIButton) {
-        presentSortAlert()
+    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController, sortButton: UIButton) {
+        presentSortAlert(from: sortButton)
     }
+    
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField) {
+        editController.isTextEditing = true
+    }
+
 }
 
 // MARK: - Analytics

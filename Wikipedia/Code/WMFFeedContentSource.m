@@ -306,7 +306,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         NSCalendar *localCalendar = NSCalendar.wmf_gregorianCalendar;
         NSDateComponents *components = [localCalendar components:NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitYear fromDate:storyDate];
         if (storyComponents.month > components.month + 1) { //probably not how this should be done
-            components.year = components.year - 1; // assume it's last year
+            components.year = components.year - 1;          // assume it's last year
         } else if (components.month > storyComponents.month + 1) {
             components.year = components.year + 1; // assume it's next year
         }

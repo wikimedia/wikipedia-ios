@@ -3,7 +3,7 @@
 @implementation WMFArticle (CoreDataProperties)
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
 @dynamic displayTitle;
@@ -31,5 +31,7 @@
 @dynamic wasSignificantlyViewed;
 @dynamic wikidataDescription;
 @dynamic readingLists;
+@dynamic previewReadingLists;
+@dynamic errorCode;
 
 @end

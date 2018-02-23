@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeRanked,
     WMFFeedDisplayTypeNotification,
     WMFFeedDisplayTypeCompactList,
-    WMFFeedDisplayTypeTheme
+    WMFFeedDisplayTypeTheme,
+    WMFFeedDisplayTypeReadingList
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -55,8 +56,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedMoreType) {
 
 typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
     WMFFeedBlacklistOptionNone = 0,
-    WMFFeedBlacklistOptionContent = 1 << 0, //blacklist specific section content
-    WMFFeedBlacklistOptionSection = 1 << 1, //blacklist this section
+    WMFFeedBlacklistOptionContent = 1 << 0,    //blacklist specific section content
+    WMFFeedBlacklistOptionSection = 1 << 1,    //blacklist this section
     WMFFeedBlacklistOptionAllSections = 1 << 2 // blacklist all sections of this type
 };
 

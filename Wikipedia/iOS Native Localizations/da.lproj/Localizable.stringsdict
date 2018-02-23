@@ -2,38 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Alle artikler kun gemt i denne liste vil ikke blive gemt, når læselisten slettes.</string>
-			<key>other</key>
-			<string>Alle artikler kun gemt i disse lister vil ikke blive gemt, når læselisterne slettes.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Slet liste?</string>
-			<key>other</key>
-			<string>Slet lister?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -168,22 +136,6 @@
 			<string>%1$d år siden</string>
 			<key>zero</key>
 			<string>Dette år</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Er du sikker på, at du ønsker ikke længere at gemme denne artikel og fjerne den fra %1$d læseliste?</string>
-			<key>other</key>
-			<string>Er du sikker på, at du ønsker ikke længere at gemme denne artikel og fjerne den fra %1$d læselister?</string>
 		</dict>
 	</dict>
 </dict>

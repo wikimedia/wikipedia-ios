@@ -109,20 +109,20 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
     self.wmf_imageTokenToCancel = [self.wmf_imageController fetchImageWithURL:imageURL
-                                       priority:0.5
-                                        failure:failure
-                                        success:^(WMFImageDownload *_Nonnull download) {
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                @strongify(self);
-                                                self.wmf_imageURLToCancel = nil;
-                                                self.wmf_imageTokenToCancel = nil;
-                                                if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                                    failure([NSError wmf_cancelledError]);
-                                                } else {
-                                                    [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
-                                                }
-                                            });
-                                        }];
+                                                                     priority:0.5
+                                                                      failure:failure
+                                                                      success:^(WMFImageDownload *_Nonnull download) {
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              @strongify(self);
+                                                                              self.wmf_imageURLToCancel = nil;
+                                                                              self.wmf_imageTokenToCancel = nil;
+                                                                              if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                                                                                  failure([NSError wmf_cancelledError]);
+                                                                              } else {
+                                                                                  [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
+                                                                              }
+                                                                          });
+                                                                      }];
 }
 
 - (void)wmf_setImage:(UIImage *)image

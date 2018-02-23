@@ -107,8 +107,7 @@ extension String {
         let formatValueType = tokens["1"] ?? "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
-        let newToken = "%1$\(formatValueType)"
-        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).replacingOccurrences(of: token, with: newToken)
+        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
         
         var keyIndex = 0
         guard let countPrefixRegex = countPrefixRegex else {
@@ -137,7 +136,7 @@ extension String {
                 continue
             }
             
-            keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).replacingOccurrences(of: token, with: newToken)
+            keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).iOSNativeLocalization(tokens: tokens)
             
         }
         

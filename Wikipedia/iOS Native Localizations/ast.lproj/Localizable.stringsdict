@@ -18,38 +18,6 @@
 			<string>artículos desaniciaos</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Tolos artículos guardaos sólo nesta llista dexarán de guardase cuando esta se desanicie.</string>
-			<key>other</key>
-			<string>Tolos artículos guardaos sólo nestes llistes dexarán de guardase cuando estes se desanicien.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>¿Desaniciar la llista?</string>
-			<key>other</key>
-			<string>¿Desaniciar les llistes?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -184,22 +152,6 @@
 			<string>hai %1$d años</string>
 			<key>zero</key>
 			<string>Esti añu</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>¿Tas seguru de que quies dexar de guardar esti artículu y quitalu de toles llistes de llectura?</string>
-			<key>other</key>
-			<string>¿Tas seguru de que quies dexar de guardar estos artículos y quitalos de toles llistes de llectura?</string>
 		</dict>
 	</dict>
 </dict>

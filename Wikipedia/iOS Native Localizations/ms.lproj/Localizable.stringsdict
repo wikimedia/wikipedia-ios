@@ -18,38 +18,6 @@
 			<string>rencana dipadamkan</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila senarai ini dipadamkan.</string>
-			<key>other</key>
-			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila senarai ini dipadamkan.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Padamkan senarai?</string>
-			<key>other</key>
-			<string>Padamkan senarai?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -184,22 +152,6 @@
 			<string>%1$d tahun lepas</string>
 			<key>zero</key>
 			<string>Tahun ini</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada semua senarai bacaan?</string>
-			<key>other</key>
-			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada semua senarai bacaan?</string>
 		</dict>
 	</dict>
 </dict>

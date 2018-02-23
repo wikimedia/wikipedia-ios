@@ -18,22 +18,6 @@
 			<string>artiklar raderades</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Radera listan?</string>
-			<key>other</key>
-			<string>Radera listorna?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -168,22 +152,6 @@
 			<string>%1$d år sedan</string>
 			<key>zero</key>
 			<string>Detta år</string>
-		</dict>
-	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Är du säker på att du vill ta bort denna artikel och ta bort den från alla läslistor?</string>
-			<key>other</key>
-			<string>Är du säker på att du vill ta bort dessa artiklar och ta bort dem från alla läslistor?</string>
 		</dict>
 	</dict>
 </dict>

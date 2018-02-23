@@ -1322,7 +1322,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (longPressGestureRecognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
-    [self.readingListHintController hideHintImmediately];
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];

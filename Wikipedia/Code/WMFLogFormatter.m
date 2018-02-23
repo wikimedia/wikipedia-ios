@@ -36,10 +36,10 @@ static NSString *cachedApplicationName;
                                       [self stringFromDate:logMessage->_timestamp],
                                       cachedApplicationName,
                                       [self queueThreadLabelForLogMessage:logMessage],
-                                      logMessage->_function,
-                                      (unsigned long)logMessage->_line,
+                                      logMessage -> _function,
+                                      (unsigned long)logMessage -> _line,
                                       level,
-                                      logMessage->_message];
+                                      logMessage -> _message];
 }
 
 @end

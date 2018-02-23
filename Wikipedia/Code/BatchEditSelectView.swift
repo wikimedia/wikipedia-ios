@@ -1,6 +1,10 @@
 import UIKit
 
-public class BatchEditSelectView: SizeThatFitsView {
+public class BatchEditSelectView: SizeThatFitsView, Themeable {
+    public var theme = Theme.standard
+    public func apply(theme: Theme) {
+        self.theme = theme
+    }
     
     fileprivate var multiSelectIndicator: UIImageView?
     
@@ -20,7 +24,7 @@ public class BatchEditSelectView: SizeThatFitsView {
     }
     
     fileprivate func updateMultiSelectIndicatorImage() {
-        let image = isSelected ? UIImage(named: "selected", in: Bundle.main, compatibleWith: nil) : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
+        let image = isSelected ? theme.multiSelectIndicatorImage : UIImage(named: "unselected", in: Bundle.main, compatibleWith: nil)
         multiSelectIndicator?.image = image
     }
     
@@ -60,11 +64,18 @@ public class BatchEditSelectView: SizeThatFitsView {
 
 }
 
-public enum BatchEditingState {
-    case none
-    case open
-    case cancelled
-    case inactive // swipe action is open
+public enum EditingState: Int, EnumCollection {
+    case none // initial state
+    case open // batch editing pane is open
+    case closed // batch editing pane is closed
+    case swiping // swipe action is open
+    case editing // user is editing text
+    case cancelled // user pressed cancel bar button
+    case done // user pressed done bar button
+    
+    var tag: Int {
+        return self.rawValue
+    }
 }
 
 public enum BatchEditToolbarActionType {
@@ -92,23 +103,18 @@ public enum BatchEditToolbarActionType {
         default:
             break
         }
-        let button = UIButton(type: .system)
-        button.addTarget(target, action: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)), for: .touchUpInside)
-        return BatchEditToolbarAction(title: title, type: type, button: button, target: target)
+        return BatchEditToolbarAction(title: title, type: type, target: target)
     }
 }
 
 public class BatchEditToolbarAction: UIAccessibilityCustomAction {
     let title: String
     public let type: BatchEditToolbarActionType
-    public let button: UIButton
     
-    public init(title: String, type: BatchEditToolbarActionType, button: UIButton, target: Any?) {
+    public init(title: String, type: BatchEditToolbarActionType, target: Any?) {
         self.title = title
         self.type = type
-        self.button = button
-        let selector = #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:))
-        super.init(name: title, target: target, selector: selector)
+        super.init(name: title, target: target, selector: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)))
     }
 }
 

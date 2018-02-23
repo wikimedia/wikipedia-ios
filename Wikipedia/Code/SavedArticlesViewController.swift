@@ -7,8 +7,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
 
     typealias T = WMFArticle
     let dataStore: MWKDataStore
-    var fetchedResultsController: NSFetchedResultsController<WMFArticle>!
-    var collectionViewUpdater: CollectionViewUpdater<WMFArticle>!
+    var fetchedResultsController: NSFetchedResultsController<WMFArticle>?
+    var collectionViewUpdater: CollectionViewUpdater<WMFArticle>?
     var editController: CollectionViewEditController!
     
     var basePredicate: NSPredicate {
@@ -36,11 +36,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewDidLoad() {
         super.viewDidLoad()
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
-        setupFetchedResultsController()
-        setupCollectionViewUpdater()
+    
         setupEditController()
-        fetch()
         
         isRefreshControlEnabled = true
     }
@@ -54,11 +51,14 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     private var isFirstAppearance = true
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupFetchedResultsController()
+        fetch()
+        setupCollectionViewUpdater()
+        updateEmptyState()
         guard isFirstAppearance else {
             return
         }
         isFirstAppearance = false
-        updateEmptyState()
         navigationBarHider.isNavigationBarHidingEnabled = false
     }
     
@@ -71,6 +71,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        collectionViewUpdater = nil
+        fetchedResultsController = nil
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -107,16 +113,16 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptor: NSSortDescriptor, action: UIAlertAction?) = (descriptor: NSSortDescriptor(key: "savedDate", ascending: false), action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "savedDate", ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: NSSortDescriptor(key: "displayTitle", ascending: true), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+            self.updateSort(with: sortDescriptors, newAction: action)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: NSSortDescriptor(key: "savedDate", ascending: false), handler: { (sortDescriptor, action) in
-            self.updateSort(with: sortDescriptor, newAction: action)
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "savedDate", ascending: false)], handler: { (sortDescriptors, action) in
+            self.updateSort(with:  sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
     }()
@@ -134,7 +140,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     private func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let sections = fetchedResultsController.sections,
+        guard let fetchedResultsController = fetchedResultsController,
+            let sections = fetchedResultsController.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
@@ -266,14 +273,14 @@ extension SavedArticlesViewController {
 
 extension SavedArticlesViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        guard let sectionsCount = self.fetchedResultsController.sections?.count else {
+        guard let sectionsCount = fetchedResultsController?.sections?.count else {
             return 0
         }
         return sectionsCount
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = self.fetchedResultsController.sections, section < sections.count else {
+        guard let sections = fetchedResultsController?.sections, section < sections.count else {
             return 0
         }
         return sections[section].numberOfObjects
@@ -370,7 +377,7 @@ extension SavedArticlesViewController: ActionDelegate {
     }
     
     private func delete(articles: [WMFArticle]) {
-        dataStore.readingListsController.unsave(articles)
+        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
@@ -440,16 +447,15 @@ extension SavedArticlesViewController: ActionDelegate {
     }
 }
 
+// MARK: - ShareableArticlesProvider
+
 extension SavedArticlesViewController: ShareableArticlesProvider {}
 
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    func saved(_ saved: SavedViewController, shouldShowSortAlert: Bool) {
-        guard shouldShowSortAlert else {
-            return
-        }
-        presentSortAlert()
+    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
+        presentSortAlert(from: button)
     }
 }
 
@@ -484,14 +490,14 @@ extension SavedArticlesViewController {
     }
 }
 
-// MARK: - BatchEditNavigationDelegate
+// MARK: - NavigationDelegate
 
-extension SavedArticlesViewController: BatchEditNavigationDelegate {
+extension SavedArticlesViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
         return self.theme
     }
     
-    func didChange(editingState: BatchEditingState, rightBarButton: UIBarButtonItem) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
     }
@@ -517,7 +523,7 @@ extension SavedArticlesViewController: UISearchBarDelegate {
 
 extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     func didSelect(_ tag: Tag) {
-        let viewController = tag.index == 2 ? ReadingListsViewController(with: dataStore, readingLists: readingListsForArticle(at: tag.indexPath)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingListsForArticle(at: tag.indexPath)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         wmf_push(viewController, animated: true)
     }

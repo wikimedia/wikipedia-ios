@@ -127,7 +127,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>@</string>
 			<key>other</key>
-			<string>変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。</string>
+			<string>変更内容を保存すると、あなたは %1$@ に同意し、自分の投稿内容を %2$@ ライセンスのもとで公開することに同意したと見なされます。</string>
 		</dict>
 	</dict>
 </dict>

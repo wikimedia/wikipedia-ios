@@ -18,38 +18,6 @@
 			<string>articles deleted</string>
 		</dict>
 	</dict>
-	<key>delete-reading-list-alert-message</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Any articles saved only to this list will be unsaved when this list is deleted.</string>
-			<key>other</key>
-			<string>Any articles saved only to these lists will be unsaved when these lists are deleted.</string>
-		</dict>
-	</dict>
-	<key>delete-reading-list-alert-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Delete list?</string>
-			<key>other</key>
-			<string>Delete lists?</string>
-		</dict>
-	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -98,6 +66,22 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>You cannot add this article to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+			<key>other</key>
+			<string>You cannot add these articles to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -112,6 +96,38 @@
 			<string>%1$d reading list</string>
 			<key>other</key>
 			<string>%1$d reading lists</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>This action cannot be undone. Any articles saved only to this list will be unsaved.</string>
+			<key>other</key>
+			<string>This action cannot be undone. Any articles saved only to these lists will be unsaved.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Delete list?</string>
+			<key>other</key>
+			<string>Delete lists?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -186,7 +202,7 @@
 			<string>This year</string>
 		</dict>
 	</dict>
-	<key>saved-confirm-unsave-article-and-remove-from-reading-lists</key>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -197,9 +213,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Are you sure you want to unsave this articles and remove it from all reading lists?</string>
+			<string>Un-saving this articles will remove it from all associated reading lists</string>
 			<key>other</key>
-			<string>Are you sure you want to unsave these articles and remove them from all reading lists?</string>
+			<string>Un-saving these articles will remove them from all associated reading lists</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Un-save article?</string>
+			<key>other</key>
+			<string>Un-save articles?</string>
 		</dict>
 	</dict>
 </dict>

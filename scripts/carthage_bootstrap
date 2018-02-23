@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is run with every build to ensure the carthage dependencies are up to date
 
 if [ -z "$SRCROOT" ]
 then

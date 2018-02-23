@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# opens a PR when the twn branch changes. used by jenkins.
 
 pr_branch = 'twn'
 base_branch = 'develop'
