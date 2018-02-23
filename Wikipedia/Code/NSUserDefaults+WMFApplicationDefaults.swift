@@ -10,7 +10,7 @@ let WMFArticleFontSizeMultiplierKey = "WMFArticleFontSizeMultiplier"
     case large = 100
     case extraLarge = 120
     case extraExtraLarge = 140
-    case extraExtraExtraLarge = 160
+    case extraExtraExtraLarge = 180
 }
 
 extension UserDefaults {
