@@ -322,6 +322,9 @@
 "reading-list-add-saved-button-title" = "Ja, füge sie zu meinen Leselisten hinzu";
 "reading-list-add-saved-subtitle" = "Auf deiner Wikipedia-App sind gespeicherte Artikel vorhanden. Möchtest du sie behalten und sie mit deinem Benutzerkonto synchronisierte Leselisten zusammenführen?";
 "reading-list-add-saved-title" = "Gespeicherte Artikel gefunden";
+"reading-list-api-error-entry-limit" = "Dieser Eintrag ist nicht synchronisiert, da du die Grenze für die Anzahl an Einträgen in dieser Liste erreicht hast.";
+"reading-list-api-error-generic" = "Beim Synchronisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
+"reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
 "reading-list-deleted-accessibility-notification" = "Leseliste gelöscht";
 "reading-list-do-not-keep-button-title" = "Nein, Artikel vom Gerät löschen";
 "reading-list-exists-with-same-name" = "Eine Leseliste mit dem Namen $1 ist bereits vorhanden";

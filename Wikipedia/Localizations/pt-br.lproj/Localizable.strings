@@ -342,6 +342,9 @@
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
 "reading-list-add-saved-subtitle" = "Existem artigos salvos em seu aplicativo Wikipedia. Você gostaria de mantê-los e mesclar com listas de leitura sincronizadas com sua conta?";
 "reading-list-add-saved-title" = "Artigos salvos encontrados";
+"reading-list-api-error-entry-limit" = "Esta entrada não é sincronizada porque você atingiu o limite para o número de entradas nesta lista.";
+"reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar suas listas de leitura.";
+"reading-list-api-error-list-limit" = "Esta lista não é sincronizada porque você atingiu o limite para o número de listas sincronizadas.";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
 "reading-list-exists-with-same-name" = "Já existe uma lista de leitura com o nome $1";

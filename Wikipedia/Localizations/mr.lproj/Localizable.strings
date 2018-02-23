@@ -4,6 +4,7 @@
 // Author: NehalDaveND
 // Author: Nemo bis
 // Author: Rupalichinchure
+// Author: Sureshkhole
 // Author: V.narsikar
 // Author: अभय नातू
 // Author: संतोष दहिवळ
@@ -34,13 +35,13 @@
 "abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे प्रकाशित करण्याबाबत आपण खात्री देता काय?";
 "abuse-filter-warning-irrelevant" = "असंबंधित बाह्य दूवे किंवा चित्रे";
 "abuse-filter-warning-repeat" = "एकच वर्णाचे अनेक वेळ टंकन";
-"abuse-filter-warning-subheading" = "आपल्या संपादनात खालीलपैकी एक वा एकाधिक गोष्टी असू शकतात:";
+"abuse-filter-warning-subheading" = "आपल्या संपादनात खालीलपैकी एक किंवा अनेक बाबी असू शकतात:";
 "account-creation-captcha-obtaining" = "नविन कॅपचा मिळवित आहे...";
 "account-creation-logging-in" = "सनोंद प्रवेश करीत आहे...";
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
-"alert-no-internet" = "तिथे जाल अनुबंध नाही";
+"alert-no-internet" = "इथे इंटरनेट सेवा उपलब्ध नाही";
 "article-about-title" = "या लेखाबद्दल";
 "article-delete" = "हटवा";
 "article-languages-filter-placeholder" = "भाषा शोधा";
@@ -48,8 +49,8 @@
 "article-languages-others" = "इतर भाषा";
 "article-languages-yours" = "आपल्या भाषा";
 "article-read-more-title" = "अधिक वाचन";
-"article-unable-to-load-article" = "लेखाचे भारण करता आले नाही.";
-"article-unable-to-load-section" = "या भागाचे भारण करता आले नाही.या लेखास तरोताजे करण्याने अडचण दुर होते का बघा.";
+"article-unable-to-load-article" = "लेख दाखवता आला नाही.";
+"article-unable-to-load-section" = "हा भाग दाखवता आला नाही. या लेखास ताजे करण्याने अडचण दुर होते का बघा.";
 "back-button-accessibility-label" = "परत जा";
 "button-done" = "झाले";
 "button-next" = "पुढील";
@@ -65,12 +66,12 @@
 "edit-summary-choice-fixed-typos" = "टंकनदोष सुधरविला";
 "edit-summary-choice-linked-words" = "दुवे जोडले";
 "edit-summary-choice-other" = "इतर";
-"edit-summary-field-placeholder-text" = "या पानाचे सुधारणेसाठी ईतर मार्ग";
+"edit-summary-field-placeholder-text" = "या पानातील मजकूर सुधारण्याचे उपलब्ध पर्याय";
 "edit-summary-title" = "तूम्ही या पानात काय वाढवले?";
-"empty-no-article-message" = "माफ करा, लेख भारीत करु शकलो नाही";
+"empty-no-article-message" = "माफ करा, लेख दाखवू शकलो नाही";
 "empty-no-feed-action-message" = "आपण अजूनही जतन केलेली पाने वाचू शकता";
 "empty-no-feed-message" = "आपल्यापाशी आंतरजाल असल्यावर आपण आपले शिफारस केलेले लेख बघु शकता";
-"empty-no-feed-title" = "जाल अनुबंध नाही";
+"empty-no-feed-title" = "इंटरनेट सेवा उपलब्ध नाहीत";
 "empty-no-history-message" = "आपण येथे काय वाचत आहात त्याचा मागोवा घ्या";
 "empty-no-history-title" = "दर्शविण्यास काहीच इतिहास नाही";
 "empty-no-saved-pages-message" = "नंतर बघण्यास पाने जतन करा, विनाजाल सुद्धा";

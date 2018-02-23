@@ -327,6 +327,9 @@
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
 "reading-list-add-saved-subtitle" = "위키백과 앱에 저장된 문서가 있습니다. 이 문서들을 보관하고 계정에 동기화된 읽기 목록으로 병합하시겠습니까?";
 "reading-list-add-saved-title" = "저장된 문서를 찾았습니다";
+"reading-list-api-error-entry-limit" = "이 목록의 항목 수 제한에 도달했기 때문에 이 항목은 동기화되지 않습니다.";
+"reading-list-api-error-generic" = "읽기 목록을 동기화하는 동안 예측하지 못한 오류가 발생했습니다.";
+"reading-list-api-error-list-limit" = "동기화된 목록 수 제한에 도달했기 때문에 이 목록은 동기화되지 않습니다.";
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
 "reading-list-do-not-keep-button-title" = "아니요, 장치에서 문서를 삭제합니다";
 "reading-list-exists-with-same-name" = "$1 이름의 읽기 목록이 이미 존재합니다";

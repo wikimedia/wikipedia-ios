@@ -331,6 +331,9 @@
 "reading-list-add-saved-button-title" = "是，将他们添加到我的阅读列表";
 "reading-list-add-saved-subtitle" = "这些是保存到您的维基百科应用的条目。您是否希望保留它们，并合并到同步至您账户的阅读列表？";
 "reading-list-add-saved-title" = "找到的已保存条目";
+"reading-list-api-error-entry-limit" = "此记录未同步，因为您已达到此列表的记录数限制。";
+"reading-list-api-error-generic" = "同步您的阅读列表时发生意外错误。";
+"reading-list-api-error-list-limit" = "此列表未同步，因为您已达到同步列表的数量限制。";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-exists-with-same-name" = "已存在名为$1的阅读列表";
