@@ -385,18 +385,16 @@ extension SavedArticlesViewController: ActionDelegate {
         guard let article = article(at: action.indexPath) else {
             return
         }
-        guard action.type == .delete, shouldPresentDeletionAlert(for: [article]) else {
+        guard action.type == .delete else {
             let _ = self.editController.didPerformAction(action)
             return
         }
         let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action {
+        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
+        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
             let _ = self.editController.didPerformAction(action)
         }
-        let cancel = ReadingListAlertActionType.cancel.action {
-            self.editController.close()
-        }
-        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave])
     }
     
     func shouldPresentDeletionAlert(for articles: [WMFArticle]) -> Bool {
