@@ -352,24 +352,16 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            if shouldPresentDeletionAlert(for: articles) {
-                let alertController = ReadingListAlertController()
-                let unsave = ReadingListAlertActionType.unsave.action {
-                    self.delete(articles: articles)
-                }
-                let cancel = ReadingListAlertActionType.cancel.action {
-                    self.editController.close()
-                }
-                var didPerform = false
-                alertController.showAlert(presenter: self, items: articles, actions: [cancel, unsave]) {
-                    didPerform = true
-                }
-                return didPerform
-                
-            } else {
-                delete(articles: articles)
-                return true
+            let alertController = ReadingListAlertController()
+            let delete = ReadingListAlertActionType.delete.action {
+                self.delete(articles: articles)
             }
+            var didPerform = false
+            alertController.showAlert(presenter: self, items: articles, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+                self.delete(articles: articles)
+                didPerform = true
+            }
+            return didPerform
         default:
             break
         }
@@ -395,10 +387,6 @@ extension SavedArticlesViewController: ActionDelegate {
         alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
             let _ = self.editController.didPerformAction(action)
         }
-    }
-    
-    func shouldPresentDeletionAlert(for articles: [WMFArticle]) -> Bool {
-        return articles.filter { $0.isOnlyInDefaultList }.count != articles.count
     }
     
     func didPerformAction(_ action: Action) -> Bool {
