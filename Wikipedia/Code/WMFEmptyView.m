@@ -84,6 +84,17 @@
     return view;
 }
 
++ (instancetype)noReadingListsEmptyView {
+    WMFEmptyView *view = [[self class] emptyView];
+    view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
+    view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-message", nil, nil, @"Tap on the blue ‘+’ to create lists for places to travel to, favorite topics and much more", @"Message of a blank screen shown when a user has no reading lists");
+
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    return view;
+}
+
 + (instancetype)noHistoryEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"recent-blank"];
@@ -125,8 +136,8 @@
     self.theme = theme;
     self.imageView.tintColor = theme.colors.tertiaryText;
     self.titleLabel.textColor = theme.colors.primaryText;
-    self.messageLabel.textColor = theme.colors.tertiaryText;
-    self.actionLabel.textColor = theme.colors.tertiaryText;
+    self.messageLabel.textColor = theme.colors.secondaryText;
+    self.actionLabel.textColor = theme.colors.secondaryText;
     self.backgroundColor = theme.colors.baseBackground;
     [self setNeedsLayout];
 }

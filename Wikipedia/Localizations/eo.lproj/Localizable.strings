@@ -121,6 +121,7 @@
 "preference-title-eventlogging-opt-in" = "Sendi raporton pri uzado";
 "saved-clear-all" = "Vakigi";
 "saved-pages-clear-cancel" = "Nuligi";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ĉu vi certas, ke vi volas forigi ĉiujn viajn konservitajn erojn?";
 "saved-pages-clear-delete-all" = "Jes, forigi ĉiujn";
 "saved-title" = "Konservita";

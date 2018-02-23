@@ -244,6 +244,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFFeedDisplayTypeNotification;
         case WMFContentGroupKindTheme:
             return WMFFeedDisplayTypeTheme;
+        case WMFContentGroupKindReadingList:
+            return WMFFeedDisplayTypeReadingList;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDisplayTypeAnnouncement;
         case WMFContentGroupKindUnknown:
@@ -301,6 +303,8 @@ NS_ASSUME_NONNULL_BEGIN
             return YES;
         case WMFContentGroupKindTheme:
             return YES;
+        case WMFContentGroupKindReadingList:
+            return YES;
         case WMFContentGroupKindAnnouncement:
             return YES;
         case WMFContentGroupKindUnknown:
@@ -323,6 +327,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNotification:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindTheme:
+            return WMFFeedDetailTypeNone;
+        case WMFContentGroupKindReadingList:
             return WMFFeedDetailTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedDetailTypeNone;
@@ -443,6 +449,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNotification:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindTheme:
+            return WMFFeedHeaderTypeNone;
+        case WMFContentGroupKindReadingList:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindAnnouncement:
             return WMFFeedHeaderTypeNone;

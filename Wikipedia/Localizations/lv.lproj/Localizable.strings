@@ -21,10 +21,15 @@
 "account-creation-logging-in" = "Pieslēdzās...";
 "account-creation-saving" = "Saglabā...";
 "account-creation-title" = "Izveidot jaunu kontu";
+"action-add-to" = "Pievienot...";
+"action-cancel" = "Atcelt";
+"action-move-to" = "Pārvietot uz...";
 "action-read" = "Lasīt";
+"action-remove" = "Noņemt";
 "action-save" = "Saglabāt";
 "action-saved" = "Saglabāts";
 "action-share" = "Dalīties";
+"action-update" = "Atjaunināt";
 // Fuzzy
 "announcements-dismiss" = "Nē, paldies";
 "article-about-title" = "Par šo rakstu";
@@ -138,7 +143,10 @@
 "places-title" = "Vietas";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
+"reading-lists-article-moved-confirmation" = "Raksts pārvietots uz “$1”";
+"reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
+"saved-all-articles-title" = "Visi raksti";
 "saved-clear-all" = "Notīrīt";
 "saved-pages-clear-cancel" = "Atcelt";
 "saved-pages-clear-delete-all" = "Jā, dzēst visu";

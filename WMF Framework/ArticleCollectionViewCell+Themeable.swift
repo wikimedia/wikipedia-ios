@@ -1,6 +1,7 @@
 extension ArticleCollectionViewCell: Themeable {
-    public func apply(theme: Theme) {
-        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
+    open func apply(theme: Theme) {
+        let selected = batchEditingTranslation > 0 ? theme.colors.batchSelectionBackground : theme.colors.midBackground
+        setBackgroundColors(theme.colors.paperBackground, selected: selected)
         imageView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
@@ -8,12 +9,13 @@ extension ArticleCollectionViewCell: Themeable {
         saveButton.setTitleColor(theme.colors.link, for: .normal)
         imageView.alpha = theme.imageOpacity
         actionsView.apply(theme: theme)
+        batchEditSelectView?.apply(theme: theme)
         updateSelectedOrHighlighted()
     }
 }
 
 extension ArticleRightAlignedImageCollectionViewCell {
-    public override func apply(theme: Theme) {
+    open override func apply(theme: Theme) {
         super.apply(theme: theme)
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border

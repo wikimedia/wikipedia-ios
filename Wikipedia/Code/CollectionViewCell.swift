@@ -8,6 +8,7 @@ import UIKit
 //    (To further alleviate this performance issue, WMFColumnarCollectionViewLayout could be updated
 //     to not require a full layout pass for calculating the total collection view content size. Instead,
 //     it could do a rough estimate pass, and then update the content size as the user scrolls.)
+// 3. Handling RTL content on LTR devices and vice versa
 
 @objc(WMFCollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
@@ -41,7 +42,7 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
+    public func setBackgroundColors(_ deselected: UIColor, selected: UIColor) {
         backgroundView?.backgroundColor = deselected
         selectedBackgroundView?.backgroundColor = selected
         let newColor = isSelectedOrHighlighted ? selected : deselected

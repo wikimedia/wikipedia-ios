@@ -3,7 +3,7 @@
 @implementation WMFContent (CoreDataProperties)
 
 + (NSFetchRequest<WMFContent *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"WMFContent"];
+    return [[NSFetchRequest alloc] initWithEntityName:@"WMFContent"];
 }
 
 @dynamic object;

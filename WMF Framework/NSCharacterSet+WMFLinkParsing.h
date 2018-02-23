@@ -4,4 +4,6 @@
 
 + (NSCharacterSet *)wmf_URLPathComponentAllowedCharacterSet;
 
++ (NSCharacterSet *)wmf_URLQueryAllowedCharacterSet;
+
 @end

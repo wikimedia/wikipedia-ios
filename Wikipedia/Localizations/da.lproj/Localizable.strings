@@ -52,7 +52,13 @@
 "account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
 "account-creation-title" = "Opret en ny konto";
+"action-add-to" = "Tilføj til ...";
+"action-add-to-reading-list" = "Tilføj til læseliste";
+"action-cancel" = "Annuller";
+"action-move-to" = "Flyt til ...";
+"action-move-to-reading-list" = "Flyt til læseliste";
 "action-read" = "Læs";
+"action-remove" = "Fjern";
 "action-save" = "Gem";
 "action-saved" = "Gemt";
 "action-saved-accessibility" = "Gemt. Aktiver for at fortryde.";
@@ -60,6 +66,8 @@
 "action-share" = "Del";
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
+"action-update" = "Opdater";
+"add-articles-to-reading-list" = "Tilføj $1 til læselisten";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
@@ -73,6 +81,7 @@
 "appearance-settings-title" = "Læsetemaer";
 "article-about-title" = "Om denne artikel";
 "article-delete" = "Slet";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel slettet";
 "article-languages-filter-placeholder" = "Find sprog";
 "article-languages-label" = "Vælg sprog";
@@ -101,6 +110,9 @@
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
+// Fuzzy
+"delete-reading-list-alert-message" = "Alle artikler kun gemt i {{PLURAL:$1|denne liste vil ikke blive gemt, når læselisten slettes|disse lister vil ikke blive gemt, når læselisterne slettes}}.";
+"delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
 "dim-images" = "Mørklæg billeder";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -114,6 +126,8 @@
 "empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-history-message" = "Hold styr på hvad du har læst her";
 "empty-no-history-title" = "Ingen historik at vise";
+"empty-no-reading-lists-message" = "Tryk på det blå »+« for at oprette lister for steder at rejse til, favoritemner og meget mere";
+"empty-no-reading-lists-title" = "Organiser gemte artikler med læselister";
 "empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
 "empty-no-saved-pages-title" = "Ingen gemte sider endnu";
 "empty-no-search-results-message" = "Ingen resultater fundet";
@@ -309,6 +323,21 @@
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 læsere";
+"reading-list-deleted-accessibility-notification" = "Læseliste slettet";
+"reading-list-exists-with-same-name" = "En læseliste findes allerede med navnet $1";
+"reading-list-generic-error" = "Der opstod en uventet fejl under opdatering af dine læselister.";
+"reading-list-hint-title" = "Flyt $1 til en læseliste?";
+"reading-list-sync-setting" = "Læselistesynkronisering";
+"reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
+"reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
+"reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
+"reading-list-unable-to-remove-entry" = "Der opstod en uventet fejl under fjernelse af en post i din læseliste. Prøv igen senere.";
+"reading-list-unable-to-update" = "Der opstod en uventet fejl under opdatering af din læseliste. Prøv igen senere.";
+"reading-list-with-provided-name-not-found" = "En læseliste med navnet $1 blev ikke fundet. Sikr dig at du har det korrekte navn.";
+"reading-lists-article-moved-confirmation" = "Artikel flyttet til »$1«";
+"reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
+"reading-lists-default-list-description" = "Standardliste for gemte artikler";
+"reading-lists-default-list-title" = "Bogmærker";
 "reading-themes-controls-accessibility-black-theme-button" = "Sort tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Lysstyrkeskyder";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk tema";
@@ -321,11 +350,17 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|Sidste år|$1 år siden}}";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
+"saved-all-articles-title" = "Alle artikler";
 "saved-clear-all" = "Slet";
+// Fuzzy
+"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Er du sikker på, at du ønsker ikke længere at gemme denne artikel og fjerne den fra {{PLURAL:$1|$1 læseliste|$1 læselister}}?";
+"saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-clear-cancel" = "Annuller";
-"saved-pages-clear-confirmation-heading" = "Vil du slette alle dine gemte sider?";
+"saved-pages-clear-confirmation-heading" = "Er du sikker på, at du ønsker at slette alle dine gemte artikler og fjerne dem fra alle læselister?";
 "saved-pages-clear-delete-all" = "Ja, slet alt";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
+"saved-reading-lists-title" = "Læselister";
+"saved-search-default-text" = "Søg";
 "saved-title" = "Gemt";
 "search-button-accessibility-label" = "Søg i Wikipedia";
 "search-did-you-mean" = "Mente du $1?";

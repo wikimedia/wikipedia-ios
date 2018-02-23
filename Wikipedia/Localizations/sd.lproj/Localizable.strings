@@ -46,7 +46,13 @@
 "account-creation-passwords-mismatched" = "ڳجھي لفظ جون جڳھون مشابھت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-title" = "نئون کاتو کوليو";
+"action-add-to" = "۾ وجھو…";
+"action-add-to-reading-list" = "پڙھڻ جي فھرست ۾ وجھو";
+"action-cancel" = "رد";
+"action-move-to" = "ڏانهن چوريو";
+"action-move-to-reading-list" = "پڙھڻ جي فھرست ڏانھن چوريو";
 "action-read" = "پڙھو";
+"action-remove" = "هٽايو";
 "action-save" = "سانڍيو";
 "action-saved" = "سانڍيل";
 "action-saved-accessibility" = "سانڍيل. اڻسانڍڻ لاءِ سرگرم ڪريو.";
@@ -54,6 +60,8 @@
 "action-share" = "ونڊيو";
 "action-unsave" = "اڻسانڍيو";
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
+"action-update" = "تجديد";
+"add-articles-to-reading-list" = "پڙھڻ جي فھرست $1 ۾ وجھو";
 "alert-no-internet" = "باهمڄار ڳانڍاپو نہ آهي";
 "announcements-dismiss" = "برخاست";
 "appearance-settings-adjust-text-sizing" = "مضمون جي متن جي ماپ ترتيبيو";
@@ -65,6 +73,7 @@
 "appearance-settings-title" = "پڙھڻ جا نظارا";
 "article-about-title" = "هن مضمون بابت";
 "article-delete" = "ڊاھيو";
+// Fuzzy
 "article-deleted-accessibility-notification" = "مضمون ڊھجي ويو";
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-languages-label" = "ٻولي چونڊيو";
@@ -310,11 +319,16 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
+"saved-all-articles-title" = "سڀ مضمون";
 "saved-clear-all" = "ختم ڪريو";
+"saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";
 "saved-pages-clear-cancel" = "رد";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان پنھنجا  سڀ سانڍيل صفحا ڊاھڻ چاھيو ٿا'";
 "saved-pages-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
+"saved-reading-lists-title" = "پڙھڻ جون فھرستون";
+"saved-search-default-text" = "ڳولا";
 "saved-title" = "سانڍيل";
 "search-button-accessibility-label" = "وڪيپيڊيا ڳوليو";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";

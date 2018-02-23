@@ -21,6 +21,7 @@
 // Author: Sadrettin
 // Author: Sayginer
 // Author: Sucsuzz
+// Author: TmY e12
 // Author: Trockya
 // Author: Uğurkent
 // Author: Velg
@@ -69,14 +70,23 @@
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
 "account-creation-saving" = "Kaydediliyor...";
 "account-creation-title" = "Yeni bir hesap oluştur";
+"action-add-to" = "Ekle...";
+"action-add-to-reading-list" = "Okuma listesine ekle";
+"action-cancel" = "Çıkış";
+"action-move-to" = "Taşı...";
+"action-move-to-reading-list" = "Okuma listesine taşı";
 "action-read" = "Oku";
+"action-remove" = "Kaldır";
 "action-save" = "Kaydet";
 "action-saved" = "Kaydedildi";
 "action-saved-accessibility" = "Kaydedildi. Geri almak için aktifleştirin.";
 "action-saved-accessibility-notification" = "Madde, sonrası için kaydedildi";
 "action-share" = "Paylaş";
+"action-sort" = "Sınıflandır";
 "action-unsave" = "Kaydedilenlerden çıkar";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
+"action-update" = "Güncelle";
+"add-articles-to-reading-list" = "$1'i okuma listesine ekle";
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Reddet";
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
@@ -90,7 +100,7 @@
 "appearance-settings-title" = "Okuma temaları";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
-"article-deleted-accessibility-notification" = "Madde silindi";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|madde}} silindi";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seçin";
 "article-languages-others" = "Diğer diller";
@@ -118,6 +128,8 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
+"delete-reading-list-alert-message" = "Sadece kayıtlı olan tüm makaleleri {{PLURAL:$1|tbu liste silindiğinde bu liste kaydedilmeyecek|bu listeler silindiğinde bu listeler kaydedilmeyecek}}.";
+"delete-reading-list-alert-title" = "Sil {PLURAL:$1|liste|listeler}}?";
 "dim-images" = "Resimleri karart";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";
@@ -131,6 +143,8 @@
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
+"empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için listeler oluşturmak için mavi \"+\" butonunun üzerine hafifçe dokunun";
+"empty-no-reading-lists-title" = "Kaydedilen okuma listelerini düzenle";
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
@@ -326,6 +340,14 @@
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
+"reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
+"reading-list-add-saved-subtitle" = "Wikipedia uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
+"reading-list-add-saved-title" = "Kaydedilen makaleler bulundu";
+"reading-list-api-error-entry-limit" = "Bu liste, bu listedeki girişlerin sayısına sınırlamış olduğunuz için senkronize edilmiyor.";
+"reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
+"reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
+"reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
+"reading-list-do-not-keep-button-title" = "Hayır, cihazdan makaleleri sil";
 "reading-themes-controls-accessibility-black-theme-button" = "Siyah tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Parlaklık çubuğu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Koyu tema";
@@ -340,6 +362,7 @@
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "saved-clear-all" = "Temizle";
 "saved-pages-clear-cancel" = "İptal";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Kayıtlı tüm sayfaları silmek istediğinizden emin misiniz?";
 "saved-pages-clear-delete-all" = "Evet, tümünü sil";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";

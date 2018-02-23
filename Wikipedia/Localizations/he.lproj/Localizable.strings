@@ -75,6 +75,7 @@
 "appearance-settings-title" = "ערכות נושא לקריאה";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
+// Fuzzy
 "article-deleted-accessibility-notification" = "הערך נמחק";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
@@ -311,6 +312,7 @@
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
 "rank-accessibility-label" = "מספר $1";
 "readers-accessibility-label" = "$1 קוראים";
+"reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";
 "reading-themes-controls-accessibility-light-theme-button" = "ערכת נושא בהירה";
@@ -324,6 +326,7 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "saved-clear-all" = "ניקוי";
 "saved-pages-clear-cancel" = "ביטול";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "האם באמת למחוק את כל הדפים השמורים שלך?";
 "saved-pages-clear-delete-all" = "כן, למחוק הכול";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
@@ -338,8 +341,7 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
-// Fuzzy
-"settings-appearance" = "מראה";
+"settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
 "settings-clear-cache-are-you-sure-message" = "ניקוי הנתונים המוטמנים יפנה בערך $1 של נפח אחסון. זה לא ימחק את הדפים השמורים שלך.";
 "settings-clear-cache-are-you-sure-title" = "לנקות את הנתונים המוטמנים?";
@@ -379,6 +381,7 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-title-other" = "מידע נוסף";
+"theme-black-display-name" = "שחורה";
 "theme-dark-display-name" = "חשוכה";
 "theme-default-display-name" = "ברירת מחדל";
 "theme-sepia-display-name" = "ספיה";

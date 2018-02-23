@@ -16,7 +16,12 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.fetchedResultsController = fetchedResultsController
         self.collectionView = collectionView
         super.init()
-        self.fetchedResultsController.delegate = self;
+        self.fetchedResultsController.delegate = self
+        self.collectionView.reloadData()
+    }
+    
+    deinit {
+        self.fetchedResultsController.delegate = nil
     }
     
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -41,6 +46,10 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         let collectionView = self.collectionView
+        guard objectChanges.count < 10 && sectionChanges.count < 10 else { // reload data for larger changes
+            collectionView.reloadData()
+            return
+        }
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START ===")
             let insertedSections = NSMutableIndexSet()

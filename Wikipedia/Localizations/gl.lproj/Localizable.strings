@@ -73,6 +73,7 @@
 "appearance-settings-title" = "Temas de lectura";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artigo eliminado";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";
@@ -323,6 +324,7 @@
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
 "saved-clear-all" = "Limpar";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Está seguro de que quere borrar todas as súas páxinas gardadas?";
 "saved-pages-clear-delete-all" = "Si, borrar todo";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";

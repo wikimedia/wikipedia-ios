@@ -93,6 +93,7 @@
 "appearance-settings-title" = "テーマを読み込む";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
+// Fuzzy
 "article-deleted-accessibility-notification" = "記事を削除しました";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-languages-label" = "言語を選択";
@@ -343,6 +344,7 @@
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "saved-clear-all" = "消去";
 "saved-pages-clear-cancel" = "キャンセル";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";

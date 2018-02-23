@@ -4,11 +4,12 @@ import UIKit
 // These views use a manual layout rather than auto layout for convienence within a CollectionViewCell
 
 @objc(WMFSizeThatFitsView)
-open class SizeThatFitsView: UIView {
+open class SizeThatFitsView: SetupView {
     // MARK - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
-    open func setup() {
+    override open func setup() {
+        super.setup()
         translatesAutoresizingMaskIntoConstraints = false
         autoresizesSubviews = false
         layoutSubviews()
@@ -25,19 +26,6 @@ open class SizeThatFitsView: UIView {
     // that should be updated after layout. Subclassers must call super.updateAccessibilityElements()
     open func updateAccessibilityElements() {
         
-    }
-    
-    // MARK - Initializers
-    // Don't override these initializers, use setup() instead
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
     }
     
     // MARK - Layout
