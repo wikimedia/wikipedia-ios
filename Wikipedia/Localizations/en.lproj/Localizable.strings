@@ -66,7 +66,6 @@
 "appearance-settings-set-automatic-table-opening" = "Table Settings";
 "appearance-settings-text-sizing-example-text" = "Drag the slider above to change the article text sizing. Utilize your system text size to resize other text areas in the app.";
 "appearance-settings-theme-options" = "Theme options";
-"appearance-settings-title" = "Reading themes";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|articles}} deleted";
