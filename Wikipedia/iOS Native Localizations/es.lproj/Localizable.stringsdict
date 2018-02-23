@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>¿Confirmas que quieres eliminar esta lista?</string>
+			<string>¿Quieres eliminar la lista?</string>
 			<key>other</key>
-			<string>¿Confirmas que quieres eliminar estas %1$d listas?</string>
+			<string>¿Quieres eliminar las listas?</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>rencana dipadamkan</string>
+			<key>other</key>
+			<string>rencana dipadamkan</string>
+		</dict>
+	</dict>
 	<key>delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila ia dipadamkan.</string>
+			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila senarai ini dipadamkan.</string>
 			<key>other</key>
-			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila ia dipadamkan.</string>
+			<string>Sebarang rencana yang disimpan hanya untuk senarai ini akan tidak disimpan apabila senarai ini dipadamkan.</string>
 		</dict>
 	</dict>
 	<key>delete-reading-list-alert-title</key>
@@ -181,9 +197,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada %1$d senarai bacaan?</string>
+			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada semua senarai bacaan?</string>
 			<key>other</key>
-			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada %1$d senarai bacaan?</string>
+			<string>Adakah anda pasti mahu menyelamatkan rencana ini dan mengeluarkannya daripada semua senarai bacaan?</string>
 		</dict>
 	</dict>
 </dict>
