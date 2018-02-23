@@ -361,7 +361,7 @@ extension SavedArticlesViewController: ActionDelegate {
                     self.editController.close()
                 }
                 var didPerform = false
-                alertController.showAlert(presenter: self, articles: articles, actions: [cancel, unsave]) {
+                alertController.showAlert(presenter: self, items: articles, actions: [cancel, unsave]) {
                     didPerform = true
                 }
                 return didPerform
@@ -396,7 +396,7 @@ extension SavedArticlesViewController: ActionDelegate {
         let cancel = ReadingListAlertActionType.cancel.action {
             self.editController.close()
         }
-        alertController.showAlert(presenter: self, articles: [article], actions: [cancel, unsave])
+        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave])
     }
     
     func shouldPresentDeletionAlert(for articles: [WMFArticle]) -> Bool {
