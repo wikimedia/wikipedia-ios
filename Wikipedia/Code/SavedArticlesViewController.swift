@@ -373,23 +373,23 @@ extension SavedArticlesViewController: ActionDelegate {
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
-    func willPerformAction(_ action: Action) {
+    func willPerformAction(_ action: Action, from sender: UIButton?) {
         guard let article = article(at: action.indexPath) else {
             return
         }
         guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action)
+            let _ = self.editController.didPerformAction(action, from: sender)
             return
         }
         let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action, from: sender) }
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
         alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
-            let _ = self.editController.didPerformAction(action)
+            let _ = self.editController.didPerformAction(action, from: sender)
         }
     }
     
-    func didPerformAction(_ action: Action) -> Bool {
+    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
         let indexPath = action.indexPath
         defer {
             if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
