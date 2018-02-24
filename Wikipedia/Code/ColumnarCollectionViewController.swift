@@ -35,10 +35,13 @@ class ColumnarCollectionViewController: ViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateEmptyState()
         if isFirstAppearance {
             isFirstAppearance = false
             viewWillHaveFirstAppearance(animated)
+            updateEmptyState()
+            isEmptyDidChange() // perform initial update even though the value might not have changed
+        } else {
+            updateEmptyState()
         }
         registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
@@ -55,7 +58,7 @@ class ColumnarCollectionViewController: ViewController {
     }
     
     open func viewWillHaveFirstAppearance(_ animated: Bool) {
-        isEmptyDidChange() // perform initial update even though the value might not have changed
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {

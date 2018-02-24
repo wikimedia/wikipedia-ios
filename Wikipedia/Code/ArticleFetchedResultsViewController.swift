@@ -91,21 +91,19 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         updateDeleteButton()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        editController.close()
+    }
+    
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
         do {
             try fetchedResultsController.performFetch()
         } catch let error {
             DDLogError("Error fetching articles for \(self): \(error)")
         }
         collectionView.reloadData()
-        updateDeleteButton()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        editController.close()
+        super.viewWillHaveFirstAppearance(animated)
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
