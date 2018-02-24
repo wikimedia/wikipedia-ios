@@ -248,6 +248,7 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.backgroundColor = theme.colors.baseBackground
         collectionView.indicatorStyle = theme.scrollIndicatorStyle
         collectionView.reloadData()
+        wmf_applyTheme(toEmptyView: theme)
     }
 }
 
