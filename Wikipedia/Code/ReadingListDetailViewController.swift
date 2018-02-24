@@ -424,7 +424,7 @@ extension ReadingListDetailViewController {
     }
     
     private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditable = true
+        cell.isBatchEditing = editController.isBatchEditing
         
         guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
             assertionFailure("Coudn't get a reading list entry or an article key to configure the cell")

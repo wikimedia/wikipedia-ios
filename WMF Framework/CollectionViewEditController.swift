@@ -378,6 +378,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return editableCells
     }
     
+    public var isBatchEditing: Bool {
+        return editingState == .open
+    }
+    
     private var editingState: EditingState = .none {
         didSet {
             var newBarButtonSystemItem: (left: UIBarButtonSystemItem?, right: UIBarButtonSystemItem) = (left: nil, right: UIBarButtonSystemItem.edit)
@@ -433,14 +437,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         collectionView.allowsMultipleSelection = willOpen
         isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
-            let targetTranslation = (willOpen ? cell.batchEditSelectView?.fixedWidth : 0) ?? 0
+            cell.isBatchEditable = true
             if animated {
+                // ensure layout is in the start anim state
+                cell.isBatchEditing = !willOpen
+                cell.layoutIfNeeded()
                 UIView.animate(withDuration: 0.3, delay: 0.1, options: [.allowUserInteraction, .beginFromCurrentState, .curveEaseInOut], animations: {
-                    cell.batchEditingTranslation = targetTranslation
+                    cell.isBatchEditing = willOpen
                     cell.layoutIfNeeded()
                 })
             } else {
-                cell.batchEditingTranslation = targetTranslation
+                cell.isBatchEditing = willOpen
                 cell.layoutIfNeeded()
             }
             if let themeableCell = cell as? Themeable, let navigationDelegate = navigationDelegate {

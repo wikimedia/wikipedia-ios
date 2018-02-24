@@ -268,7 +268,7 @@ extension SavedArticlesViewController {
     }
     
     private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditable = true
+        cell.isBatchEditing = editController.isBatchEditing
         
         guard let article = article(at: indexPath) else {
             return
