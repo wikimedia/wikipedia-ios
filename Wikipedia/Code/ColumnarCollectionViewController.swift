@@ -31,8 +31,15 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.reloadData()
     }
 
+    private var isFirstAppearance = true
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateEmptyState()
+        if isFirstAppearance {
+            isFirstAppearance = false
+            viewWillHaveFirstAppearance(animated)
+        }
         registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
@@ -45,6 +52,10 @@ class ColumnarCollectionViewController: ViewController {
             }
             cellWithSubItems.deselectSelectedSubItems(animated: animated)
         }
+    }
+    
+    open func viewWillHaveFirstAppearance(_ animated: Bool) {
+        isEmptyDidChange() // perform initial update even though the value might not have changed
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -191,6 +202,39 @@ class ColumnarCollectionViewController: ViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeInterval, execute: {
             self.collectionView.refreshControl?.endRefreshing()
         })
+    }
+    
+    // MARK: - Empty State
+    
+    var emptyViewType: WMFEmptyViewType = .none
+    
+    final var isEmpty = true
+    final func updateEmptyState() {
+        let sectionCount = numberOfSections(in: collectionView)
+        
+        var isCurrentlyEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isCurrentlyEmpty = false
+                break
+            }
+        }
+        
+        guard isCurrentlyEmpty != isEmpty else {
+            return
+        }
+        
+        isEmpty = isCurrentlyEmpty
+        
+        isEmptyDidChange()
+    }
+    
+    open func isEmptyDidChange() {
+        if isEmpty {
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
+        } else {
+            wmf_hideEmptyView()
+        }
     }
     
     // MARK: - Themeable
