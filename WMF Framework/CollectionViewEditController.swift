@@ -458,10 +458,26 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         closeActionPane()
     }
     
-    public var isCollectionViewEmpty: Bool = false {
-        didSet {
+    private func emptyStateDidChange() {
+        if isCollectionViewEmpty && editingState != .none {
             editingState = .none
-            navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
+        }
+        navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
+    }
+    
+    private var _isCollectionViewEmpty: Bool = false
+    public var isCollectionViewEmpty: Bool {
+        set {
+            guard newValue != _isCollectionViewEmpty else {
+                return
+            }
+            
+            _isCollectionViewEmpty = newValue
+            
+            emptyStateDidChange()
+        }
+        get {
+            return _isCollectionViewEmpty
         }
     }
     
