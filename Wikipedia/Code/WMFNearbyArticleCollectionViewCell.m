@@ -157,11 +157,11 @@
 #pragma mark - Image
 
 - (void)setImageURL:(NSURL *)imageURL failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES optimize:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 - (void)setImage:(MWKImage *)image failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
-    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES optimize:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 - (void)setImageURL:(NSURL *)imageURL {

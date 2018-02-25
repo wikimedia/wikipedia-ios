@@ -129,7 +129,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         }
         if let imageURL = articles.first?.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth) {
             isConfirmationImageViewHidden = false
-            confirmationImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })
+            confirmationImageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, optimize: true, failure: { (error) in }, success: { })
         } else {
             isConfirmationImageViewHidden = true
         }

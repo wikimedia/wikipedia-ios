@@ -97,7 +97,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
 #pragma mark - Set Image
 
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU optimize:(BOOL)optimize failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
 
     NSURL *imageURL = [self wmf_imageURLToFetch];
@@ -119,7 +119,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                                                               if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                                                                   failure([NSError wmf_cancelledError]);
                                                                               } else {
-                                                                                  [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
+                                                                                  [self wmf_setImage:download.image.staticImage animatedImage:download.image.animatedImage detectFaces:detectFaces onGPU:onGPU optimize:optimize animated:download.originRawValue != [WMFImageDownload imageOriginMemory] failure:failure success:success];
                                                                               }
                                                                           });
                                                                       }];
@@ -129,18 +129,19 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
        animatedImage:(FLAnimatedImage *)animatedImage
          detectFaces:(BOOL)detectFaces
                onGPU:(BOOL)onGPU
+            optimize:(BOOL)optimize
             animated:(BOOL)animated
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
     if (!detectFaces) {
-        [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:nil animated:animated failure:failure success:success];
+        [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:nil animated:animated optimize:optimize failure:failure success:success];
         return;
     }
 
     if (![self wmf_imageRequiresFaceDetection]) {
         NSValue *faceBoundsValue = [self wmf_faceBoundsInImage:image];
-        [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:faceBoundsValue animated:animated failure:failure success:success];
+        [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:faceBoundsValue animated:animated optimize:optimize failure:failure success:success];
         return;
     }
 
@@ -153,7 +154,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
                                        failure([NSError wmf_cancelledError]);
                                    } else {
-                                       [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:bounds animated:animated failure:failure success:success];
+                                       [self wmf_setImage:image animatedImage:animatedImage detectFaces:detectFaces faceBoundsValue:bounds animated:animated optimize:optimize failure:failure success:success];
                                    }
                                });
                            }];
@@ -164,6 +165,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
          detectFaces:(BOOL)detectFaces
      faceBoundsValue:(nullable NSValue *)faceBoundsValue
             animated:(BOOL)animated
+            optimize:(BOOL)optimize
              failure:(WMFErrorHandler)failure
              success:(WMFSuccessHandler)success {
     NSAssert([NSThread isMainThread], @"Interaction with a UIImageView should only happen on the main thread");
@@ -200,7 +202,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         if (image) {
             self.backgroundColor = [UIColor whiteColor];
         }
-        self.image = image;
+        self.image = optimize ? [self optimizedImageFromImage:image] : image;
         //        };
         //        if (animated) {
         //            [UIView transitionWithView:self
@@ -215,6 +217,15 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         success();
         //        }
     }
+}
+
+- (UIImage *)optimizedImageFromImage:(UIImage *)image {
+    CGSize imageSize = image.size;
+    UIGraphicsBeginImageContextWithOptions( imageSize, YES, [UIScreen mainScreen].scale );
+    [image drawInRect: CGRectMake( 0, 0, imageSize.width, imageSize.height )];
+    UIImage *optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return optimizedImage;
 }
 
 - (void)wmf_cancelImageDownload {

@@ -1245,7 +1245,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             }
             if (announcement.imageURL) {
                 cell.isImageViewHidden = NO;
-                [cell.imageView wmf_setImageWithURL:announcement.imageURL detectFaces:NO failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+                [cell.imageView wmf_setImageWithURL:announcement.imageURL detectFaces:NO optimize:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
             } else {
                 cell.isImageViewHidden = YES;
             }

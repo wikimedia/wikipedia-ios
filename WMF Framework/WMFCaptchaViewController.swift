@@ -113,7 +113,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             assertionFailure("Unable to determine fullCaptchaImageURL")
             return
         }
-        captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, failure: { (error) in
+        captchaImageView.wmf_setImage(with: fullCaptchaImageURL, detectFaces: false, onGPU: false, optimize: false, failure: { (error) in
             
         }) { 
             

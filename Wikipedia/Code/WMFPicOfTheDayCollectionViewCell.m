@@ -28,7 +28,7 @@ static const NSString *kvo_WMFPicOfTheDayCollectionViewCell_potdImageView_image 
 }
 
 - (void)setImageURL:(NSURL *)imageURL {
-    [self.potdImageView wmf_setImageWithURL:imageURL detectFaces:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
+    [self.potdImageView wmf_setImageWithURL:imageURL detectFaces:YES optimize:YES failure:WMFIgnoreErrorHandler success:WMFIgnoreSuccessHandler];
 }
 
 #pragma mark - UITableViewCell

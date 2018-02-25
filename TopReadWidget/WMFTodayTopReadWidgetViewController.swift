@@ -285,7 +285,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             
             if #available(iOSApplicationExtension 10.0, *) {
                 if let imageURL = result.thumbnailURL {
-                    vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                    vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, optimize: true, failure: { (error) in
                         vc.collapseImageAndWidenLabels = true
                     }) {
                         vc.collapseImageAndWidenLabels = false
