@@ -200,6 +200,8 @@
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
     self.articleImageView.alpha = theme.imageOpacity;
+    self.titleLabel.backgroundColor = self.backgroundView.backgroundColor;
+    self.distanceLabel.backgroundColor = self.backgroundView.backgroundColor;
     if (@available(iOS 11.0, *)) {
         self.articleImageView.accessibilityIgnoresInvertColors = true;
     }
