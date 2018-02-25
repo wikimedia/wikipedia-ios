@@ -14,6 +14,9 @@ class WMFTitledExploreSectionFooter: WMFExploreCollectionReusableView, Themeable
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         backgroundColor = theme.colors.midBackground
+        titleLabel.backgroundColor = backgroundColor
+        descriptionLabel.backgroundColor = backgroundColor
         enableLocationButton.borderColor = theme.colors.link
+        enableLocationButton.titleLabel?.backgroundColor = backgroundColor
     }
 }
