@@ -206,6 +206,9 @@ extension AnnouncementCollectionViewCell: Themeable {
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.textColor = theme.colors.secondaryText
         captionTextView.backgroundColor = theme.colors.paperBackground
+        messageLabel.backgroundColor = theme.colors.paperBackground
+        actionButton.titleLabel?.backgroundColor = theme.colors.paperBackground
+        dismissButton.titleLabel?.backgroundColor = theme.colors.paperBackground
         updateCaptionTextViewWithAttributedCaption()
     }
 }
