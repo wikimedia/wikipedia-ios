@@ -14,7 +14,6 @@ class TagCollectionViewCell: CollectionViewCell {
     internal var width: CGFloat = 0
     
     override func setup() {
-        label.isOpaque = true
         contentView.addSubview(label)
         layer.cornerRadius = 3
         clipsToBounds = true
@@ -51,6 +50,11 @@ class TagCollectionViewCell: CollectionViewCell {
         }
         
         return CGSize(width: size.width, height: origin.y)
+    }
+    
+    override func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        label.backgroundColor = labelBackgroundColor
     }
 }
 
