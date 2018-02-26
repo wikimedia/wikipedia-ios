@@ -57,6 +57,8 @@ class ReadingListHintViewController: UIViewController {
         confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
         confirmationButtonLeadingConstraint.toView = confirmationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
         hintButton?.verticalPadding = 5
+        hintButton?.titleLabel?.wmf_configureToAutoAdjustFontSize()
+        confirmationButton?.titleLabel?.wmf_configureToAutoAdjustFontSize()
         setHintButtonTitle()
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
@@ -78,6 +80,7 @@ class ReadingListHintViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         hintButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        confirmationButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?

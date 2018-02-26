@@ -106,6 +106,12 @@
         [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowThemeCardInFeed = YES;
     }
+
+    if (!userDefaults.wmf_didShowReadingListCardInFeed) {
+        NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
+        [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+        userDefaults.wmf_didShowReadingListCardInFeed = YES;
+    }
 }
 
 - (void)updateVisibilityOfAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {

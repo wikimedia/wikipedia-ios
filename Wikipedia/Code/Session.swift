@@ -1,6 +1,6 @@
 import Foundation
 
-public class Session {
+@objc(WMFSession) public class Session: NSObject {
     public struct Request {
         public enum Method {
             case get
@@ -31,12 +31,28 @@ public class Session {
 
     }
 
-    public static let shared = Session()
+    @objc public static let shared = Session()
 
     fileprivate let session = URLSession.shared
+    
+    private lazy var tokenFetcher: WMFAuthTokenFetcher = {
+        return WMFAuthTokenFetcher()
+    }()
+    
+    private lazy var queue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 16
+        return queue
+    }()
 
     public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
+    }
+    
+    public func requestWithCSRF(scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) -> Operation {
+        let op = CSRFTokenOperation(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, bodyParameters: bodyParameters, completion: completion)
+        queue.addOperation(op)
+        return op
     }
 
     public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
@@ -102,7 +118,7 @@ public class Session {
         guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
-        return session.wmf_jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
+        return jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
             completionHandler(result, response as? HTTPURLResponse, error)
         })
     }
@@ -132,7 +148,7 @@ public class Session {
          - error: Any network or parsing error
      */
     public func jsonCodableTask<T, E>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
-        return dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+        guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
                 return
@@ -161,6 +177,90 @@ public class Session {
                 DDLogError("Error parsing codable response: \(resultParsingError)")
                 handleErrorResponse()
             }
+        }) else {
+            return nil
+        }
+        let op = URLSessionTaskOperation(task: task)
+        queue.addOperation(op)
+        return task
+    }
+    
+    
+    public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+        return session.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, response, error)
+                return
+            }
+            do {
+                guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    completionHandler(nil, response, nil)
+                    return
+                }
+                completionHandler(responseObject, response, nil)
+            } catch let error {
+                DDLogError("Error parsing JSON: \(error)")
+                completionHandler(nil, response, error)
+            }
         })
+    }
+    
+    public func summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
+            return nil
+        }
+        
+        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
+        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", encodedTitle])
+        
+        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        components.percentEncodedPath = percentEncodedPath
+        guard let summaryURL = components.url else {
+            return nil
+        }
+        
+        var request = URLRequest(url: summaryURL)
+        //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
+        request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
+        return jsonDictionaryTask(with: request, completionHandler: completionHandler)
+    }
+    
+    @objc(fetchSummaryWithArticleURL:priority:completionHandler:)
+    public func fetchSummary(with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        guard let task = summaryTask(with: articleURL, completionHandler: completionHandler) else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return
+        }
+        task.priority = priority
+        let operation = URLSessionTaskOperation(task: task)
+        queue.addOperation(operation)
+    }
+    
+    public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {
+        let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
+        let taskGroup = WMFTaskGroup()
+        var summaryResponses: [String: [String: Any]] = [:]
+        for articleURL in articleURLs {
+            guard let key = articleURL.wmf_articleDatabaseKey else {
+                continue
+            }
+            taskGroup.enter()
+            fetchSummary(with: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
+                guard let responseObject = responseObject else {
+                    taskGroup.leave()
+                    return
+                }
+                queue.async {
+                    summaryResponses[key] = responseObject
+                    taskGroup.leave()
+                }
+            })
+        }
+        
+        taskGroup.waitInBackgroundAndNotify(on: queue) {
+            completion(summaryResponses)
+        }
     }
 }

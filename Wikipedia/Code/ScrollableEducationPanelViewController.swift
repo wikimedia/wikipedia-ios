@@ -125,8 +125,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         modalTransitionStyle = .crossDissolve
         
         reset()
-        configureButtonToAutoAdjustFontSize(button: primaryButton)
-        configureButtonToAutoAdjustFontSize(button: secondaryButton)
+        primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
+        secondaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
         closeButton.isHidden = !showCloseButton
         
         [self.view, self.roundedCornerContainer].forEach {view in
@@ -138,16 +138,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         if (showCloseButton && sender.view == view) {
             dismiss(animated: true, completion: nil)
         }
-    }
-    
-    // Configure button so its text will shrink if the translation is crazy long.
-    fileprivate func configureButtonToAutoAdjustFontSize(button: UIButton) {
-        guard let label = primaryButton.titleLabel else {
-            return
-        }
-        label.numberOfLines = 1
-        label.adjustsFontSizeToFitWidth = true
-        label.lineBreakMode = .byClipping
     }
     
     // Clear out xib defaults. Needed because we check these for nil to conditionally collapse stackview subviews.

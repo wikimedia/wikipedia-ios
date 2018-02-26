@@ -632,7 +632,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDisplayTypeTheme:
         case WMFFeedDisplayTypeNotification:
-        case WMFFeedDisplayTypeAnnouncement: {
+        case WMFFeedDisplayTypeAnnouncement:
+        case WMFFeedDisplayTypeReadingList: {
             WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFAnnouncementCollectionViewCell" forIndexPath:indexPath];
             [self configureAnnouncementCell:cell withContentGroup:contentGroup atIndexPath:indexPath];
             return cell;
@@ -746,7 +747,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDisplayTypeTheme:
         case WMFFeedDisplayTypeNotification:
-        case WMFFeedDisplayTypeAnnouncement: {
+        case WMFFeedDisplayTypeAnnouncement:
+        case WMFFeedDisplayTypeReadingList: {
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:@"WMFAnnouncementCollectionViewCell"];
             [self configureAnnouncementCell:cell withContentGroup:section atIndexPath:indexPath];
             CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
@@ -1077,6 +1079,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindAnnouncement:
         case WMFContentGroupKindTheme:
+        case WMFContentGroupKindReadingList:
         case WMFContentGroupKindNotification:
             return NO;
         default:
@@ -1263,6 +1266,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.imageViewDimension = cell.imageView.image.size.height;
             cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", @"Description on feed card that describes how to adjust reading preferences.");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
+        } break;
+        case WMFFeedDisplayTypeReadingList: {
+            cell.isImageViewHidden = NO;
+            cell.imageView.image = [UIImage imageNamed:@"feed-card-reading-list"];
+            cell.imageViewDimension = cell.imageView.image.size.height;
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-reading-list-prompt", nil, nil, @"Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", @"Description on feed card that describes reading lists.");
+            [cell.actionButton setTitle:[WMFCommonStrings readingListLoginButtonTitle] forState:UIControlStateNormal];
         } break;
         default:
             break;
@@ -1826,6 +1836,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
             [self dismissAnnouncementCell:cell];
         } break;
+        case WMFContentGroupKindReadingList: {
+            [self wmf_showLoginViewControllerWithTheme:self.theme];
+            [self dismissAnnouncementCell:cell];
+        } break;
         case WMFContentGroupKindNotification: {
             [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
                 if (error) {
@@ -1863,6 +1877,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindAnnouncement:
         case WMFContentGroupKindTheme:
+        case WMFContentGroupKindReadingList:
         case WMFContentGroupKindNotification: {
             [contentGroup markDismissed];
             [contentGroup updateVisibility];

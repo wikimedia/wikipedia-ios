@@ -4,7 +4,7 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
     func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
 }
 
-class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
+class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
         
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
@@ -26,8 +26,8 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
-        readingListNameTextField.placeholder = "reading list title"
-        descriptionTextField.placeholder = "optional short description"
+        readingListNameTextField.placeholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")
+        descriptionTextField.placeholder = WMFLocalizedString("reading-list-new-list-description-placeholder", value: "optional short description", comment: "Placeholder text appearing in text field for entering new list description")
         
         createReadingListButton.isEnabled = false
     }
@@ -54,20 +54,21 @@ class CreateReadingListViewController: UIViewController, UITextFieldDelegate {
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        guard let name = readingListNameTextField.text, !name.isEmpty else {
+        guard !isReadingListFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
             return
         }
-        delegate?.createReadingList(self, shouldCreateReadingList: true, with: name, description: descriptionTextField.text, articles: articles)
+        let trimmedDescription = descriptionTextField.text?.trimmingCharacters(in: .whitespaces)
+        delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
     }
     
     // MARK: - UITextFieldDelegate
     
     fileprivate var isReadingListFieldEmpty: Bool {
-        return readingListNameTextField.text?.isEmpty ?? true
+        return !readingListNameTextField.wmf_hasNonWhitespaceText
     }
     
     fileprivate var isDescriptionFieldEmpty: Bool {
-        return descriptionTextField.text?.isEmpty ?? true
+        return !descriptionTextField.wmf_hasNonWhitespaceText
     }
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {

@@ -7,7 +7,9 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation MWKDataStore (Testing)
 
 + (instancetype)temporaryDataStore {
-    return [[MWKDataStore alloc] initWithContainerURL:[NSURL fileURLWithPath:WMFRandomTemporaryPath()]];
+    MWKDataStore *dataStore = [[MWKDataStore alloc] initWithContainerURL:[NSURL fileURLWithPath:WMFRandomTemporaryPath()]];
+    [dataStore performUpdatesFromLibraryVersion:0 inManagedObjectContext:dataStore.viewContext];
+    return dataStore;
 }
 
 @end

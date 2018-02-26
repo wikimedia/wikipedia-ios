@@ -5,8 +5,6 @@ internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEna
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
-internal let WMFReadingListBatchRequestLimit = 8 // currently this waits until all requests are done before firing off new ones, could be optimized to add new requests as old ones finish
-
 internal let WMFReadingListBatchSizePerRequestLimit = 500
 
 internal let WMFReadingListCoreDataBatchSize = 500
@@ -366,6 +364,7 @@ public class ReadingListsController: NSObject {
         updateTimer?.invalidate()
         updateTimer = nil
         operationQueue.cancelAllOperations()
+        apiController.cancelPendingTasks()
         operationQueue.addOperation(completion)
     }
     
@@ -435,9 +434,6 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            if article.savedDate == nil {
-                article.savedDate = Date()
-            }
             try article.addToDefaultReadingList()
             if moc.hasChanges {
                 try moc.save()
@@ -458,9 +454,6 @@ public class ReadingListsController: NSObject {
     
     @objc(unsaveArticles:inManagedObjectContext:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
-            for article in articles {
-                article.savedDate = nil
-            }
             let keys = articles.flatMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)

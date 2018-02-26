@@ -19,18 +19,17 @@
                 <outlet property="separatorView" destination="NNE-RI-aJ4" id="4RH-oE-7JL"/>
                 <outlet property="sortButton" destination="VWH-3Z-bep" id="Mbi-Bv-BOr"/>
                 <outlet property="titleTextField" destination="vBx-C3-qBc" id="Ts3-3W-3YI"/>
-                <outlet property="updateButton" destination="Oeb-GS-Le1" id="6Z3-Po-n5T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="constraints" destination="y3q-WA-OGa" collectionClass="NSMutableArray" id="usZ-ur-TNu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcV-tM-qMa" userLabel="Content View">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-Ji-QqS">
                             <rect key="frame" x="15" y="15" width="42" height="21"/>
@@ -50,26 +49,22 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oeb-GS-Le1">
-                            <rect key="frame" x="15" y="125.5" width="46" height="30"/>
-                            <state key="normal" title="Button"/>
-                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-RI-aJ4" userLabel="Separator View">
-                            <rect key="frame" x="0.0" y="175.5" width="375" height="0.5"/>
+                            <rect key="frame" x="0.0" y="125.5" width="375" height="0.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="GcR-WB-jU3"/>
                             </constraints>
                         </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="k7T-rp-1Fm">
-                            <rect key="frame" x="8" y="190" width="285" height="36"/>
+                            <rect key="frame" x="8" y="140" width="285" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="fcx-df-IsE"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWH-3Z-bep">
-                            <rect key="frame" x="309" y="193" width="46" height="30"/>
+                            <rect key="frame" x="309" y="143" width="46" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="C5R-0O-z7D"/>
@@ -89,16 +84,13 @@
                         <constraint firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" constant="15" id="P8q-hO-E0G"/>
                         <constraint firstAttribute="trailing" secondItem="vBx-C3-qBc" secondAttribute="trailing" constant="15" id="PDo-oz-lDu"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uC9-Ji-QqS" secondAttribute="trailing" constant="15" id="Tge-bZ-2fn"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oeb-GS-Le1" secondAttribute="trailing" constant="15" id="VL4-YE-pK2"/>
                         <constraint firstItem="VeG-7e-nxd" firstAttribute="leading" secondItem="vBx-C3-qBc" secondAttribute="leading" id="WCE-lf-luw"/>
-                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="Oeb-GS-Le1" secondAttribute="bottom" constant="20" id="aEu-rb-zRl"/>
-                        <constraint firstItem="Oeb-GS-Le1" firstAttribute="top" secondItem="VeG-7e-nxd" secondAttribute="bottom" constant="20" id="fg7-CK-rl9"/>
                         <constraint firstItem="VWH-3Z-bep" firstAttribute="leading" secondItem="k7T-rp-1Fm" secondAttribute="trailing" constant="16" id="gBB-c7-bio"/>
                         <constraint firstItem="vBx-C3-qBc" firstAttribute="top" secondItem="uC9-Ji-QqS" secondAttribute="bottom" constant="8" id="iMX-J6-djU"/>
                         <constraint firstItem="VeG-7e-nxd" firstAttribute="top" secondItem="vBx-C3-qBc" secondAttribute="bottom" constant="8" id="j46-bO-PEe"/>
-                        <constraint firstItem="Oeb-GS-Le1" firstAttribute="leading" secondItem="VeG-7e-nxd" secondAttribute="leading" id="tHZ-GU-QDI"/>
+                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="VeG-7e-nxd" secondAttribute="bottom" constant="20" id="pXI-em-JvA"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
-                        <constraint firstAttribute="height" constant="240" id="y3q-WA-OGa"/>
+                        <constraint firstAttribute="height" constant="190" id="y3q-WA-OGa"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="0kT-ff-0rB"/>
                 </view>

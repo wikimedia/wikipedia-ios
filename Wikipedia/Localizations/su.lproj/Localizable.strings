@@ -361,6 +361,7 @@
 "share-open-in-maps" = "Buka dina Péta";
 "share-social-format" = "“$1” liwat Wikipedia: $2";
 "share-social-mention-format" = "“$1” liwat @Wikipedia: $2";
+"sort-by-title-action" = "Judul";
 "status-saved-for-later" = "Disimpen jang engké";
 "status-saving-for-later" = "Nyimpen jang engké...";
 "table-of-contents-button-label" = "Daptar Eusi";
@@ -368,6 +369,7 @@
 "table-of-contents-close-accessibility-label" = "Tutup daptar eusi";
 "table-of-contents-heading" = "Eusi";
 "table-title-other" = "Informasi leuwih jero";
+"theme-black-display-name" = "Hideung";
 "theme-dark-display-name" = "Poék";
 "theme-default-display-name" = "Bawaan";
 "theme-sepia-display-name" = "Sépia";
@@ -379,6 +381,7 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
+"update-articles-button" = "Anyarkeun $1";
 "view-in-browser-footer-link" = "Tempo artikel di panyungsi";
 "welcome-exploration-explore-feed-description" = "Bacaan nu disarankeun jeung artikel poéan ti komunitas kami";
 "welcome-exploration-explore-feed-title" = "Langlang eupan";

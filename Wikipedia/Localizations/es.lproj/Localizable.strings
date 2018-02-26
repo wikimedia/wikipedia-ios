@@ -12,6 +12,7 @@
 // Author: Luzcaru
 // Author: Macofe
 // Author: MadriCR
+// Author: MarcoAurelio
 // Author: Mcervera
 // Author: Mgpena
 // Author: Nemo bis
@@ -77,6 +78,7 @@
 "action-saved-accessibility" = "Guardado. Actívalo para borrarlo.";
 "action-saved-accessibility-notification" = "Artículo guardado para después";
 "action-share" = "Compartir";
+"action-sort" = "Ordenar";
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
@@ -121,8 +123,7 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
-// Fuzzy
-"delete-reading-list-alert-title" = "¿Confirmas que quieres eliminar {{PLURAL:$1|esta lista|estas $1 listas}}?";
+"delete-reading-list-alert-title" = "¿Quieres eliminar {{PLURAL:$1|la lista|las listas}}?";
 "dim-images" = "Atenuación de imágenes";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
@@ -333,7 +334,17 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
+"reading-list-add-saved-title" = "Se encontraron artículos guardados";
+"reading-list-do-not-keep-button-title" = "No, eliminar artículos del dispositivo";
 "reading-list-generic-error" = "Se produjo un error inesperado al actualizar tus listas de lectura.";
+"reading-list-keep-button-title" = "Sí, mantener artículos en el dispositivo";
+"reading-list-login-button-title" = "Accede para sincronizar tus artículos guardados";
+"reading-list-login-or-create-account-button-title" = "Acceder o crear cuenta";
+"reading-list-login-or-create-account-title" = "Accede para sincronizar artículos guardados";
+"reading-list-login-title" = "¿Quieres sincronizar los artículos guardados?";
+"reading-list-sync-enable-button-title" = "Activar sincronización";
+"reading-list-sync-enable-title" = "¿Quieres activar la sincronización de listas de lectura?";
 "reading-list-sync-setting" = "Sincronización de listas";
 "reading-list-unable-to-add-entry" = "Se produjo un error inesperado al añadir una entrada a la lista de lectura. Inténtalo de nuevo más tarde.";
 "reading-list-unable-to-delete" = "Se produjo un error inesperado al eliminar la lista de lectura. Inténtalo de nuevo más tarde.";
@@ -353,6 +364,8 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recientemente|Hace $1 hora|Hace $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
+"relogin-failed-retry-login-button-title" = "Prueba a acceder de nuevo";
+"relogin-failed-stay-logged-out-button-title" = "Mantener mi sesión cerrada";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-clear-all" = "Vaciar";
@@ -407,6 +420,8 @@
 "share-open-in-maps" = "Abrir en Mapas";
 "share-social-format" = "«$1» vía Wikipedia: $2";
 "share-social-mention-format" = "«$1» vía @Wikipedia: $2";
+"sort-by-recently-added-action" = "Añadidos recientemente";
+"sort-by-title-action" = "Título";
 "status-saved-for-later" = "Guardado para después";
 "status-saving-for-later" = "Guardando para después…";
 "table-of-contents-button-label" = "Sumario";
@@ -426,6 +441,7 @@
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
 "two-factor-login-with-regular-code" = "Usar código de verificación";
+"update-articles-button" = "Actualizar $1";
 "view-in-browser-footer-link" = "Ver artículo en el navegador";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal de exploración";
