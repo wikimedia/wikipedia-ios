@@ -442,7 +442,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         let listNamesAndDescriptionsToCreate: [(name: String, description: String?)] = listsToCreate.flatMap {
-            guard let name = $0.canonicalName else {
+            guard !$0.isDefault, let name = $0.canonicalName else {
                 return nil;
             }
             return (name: name, description: $0.readingListDescription)
