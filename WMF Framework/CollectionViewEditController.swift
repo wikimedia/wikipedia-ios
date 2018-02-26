@@ -461,6 +461,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc public func close() {
+        guard editingState == .open else {
+            return
+        }
         editingState = .closed
         closeActionPane()
     }
