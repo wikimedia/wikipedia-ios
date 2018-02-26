@@ -3,6 +3,7 @@
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
+#import "UIImage+WMFImageProcessing.h"
 #import <WMF/CIDetector+WMFFaceDetection.h>
 #import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
@@ -202,7 +203,7 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         if (image) {
             self.backgroundColor = [UIColor whiteColor];
         }
-        self.image = optimize ? [self optimizedImageFromImage:image] : image;
+        self.image = optimize ? [image wmf_optimizedImage] : image;
         //        };
         //        if (animated) {
         //            [UIView transitionWithView:self
@@ -217,15 +218,6 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         success();
         //        }
     }
-}
-
-- (UIImage *)optimizedImageFromImage:(UIImage *)image {
-    CGSize imageSize = image.size;
-    UIGraphicsBeginImageContextWithOptions( imageSize, YES, [UIScreen mainScreen].scale );
-    [image drawInRect: CGRectMake( 0, 0, imageSize.width, imageSize.height )];
-    UIImage *optimizedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return optimizedImage;
 }
 
 - (void)wmf_cancelImageDownload {

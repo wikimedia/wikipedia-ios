@@ -5,4 +5,6 @@
 /// @return The receiver's existing `CIImage` property, or a new `CIImage` initialized with the receiver.
 - (CIImage *__nonnull)wmf_getOrCreateCIImage;
 
+- (UIImage *__nonnull)wmf_optimizedImage;
+
 @end
