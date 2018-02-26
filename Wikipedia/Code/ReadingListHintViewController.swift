@@ -64,6 +64,11 @@ class ReadingListHintViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: false)
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
         hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
@@ -102,6 +107,7 @@ class ReadingListHintViewController: UIViewController {
             return
         }
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+        readingListDetailViewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {

@@ -76,4 +76,8 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return [self wmf_emptyView].superview != nil;
 }
 
+- (void)wmf_applyThemeToEmptyView:(WMFTheme *)theme {
+    [[self wmf_emptyView] applyTheme:theme];
+}
+
 @end

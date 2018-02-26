@@ -21,6 +21,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
     self.secondToolbarHidden = YES;
     self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    self.readingListHintHidden = YES;
 
     static UIImage *clearImage = nil;
     static dispatch_once_t onceToken;
@@ -51,6 +52,13 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     self.navigationDelegate = delegate;
 }
 
+#pragma mark - Hint
+
+- (void)setReadingListHintHidden:(BOOL)readingListHintHidden {
+    _readingListHintHidden = readingListHintHidden;
+    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:YES];
+}
+
 #pragma mark - Layout
 
 - (void)viewDidLayoutSubviews {
@@ -71,7 +79,11 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
         if (self.isToolbarHidden) {
             origin = CGPointMake(0, bounds.size.height - size.height);
         } else {
-            origin = CGPointMake(0, self.toolbar.frame.origin.y - size.height);
+            if (self.readingListHintHidden) {
+                origin = CGPointMake(0, self.toolbar.frame.origin.y - size.height);
+            } else {
+                origin = CGPointMake(0, self.toolbar.frame.origin.y - size.height - self.readingListHintHeight);
+            }
         }
     }
     dispatch_block_t animations = ^{

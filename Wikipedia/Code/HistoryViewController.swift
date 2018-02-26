@@ -16,6 +16,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emptyViewType = .noHistory
+        
         title = CommonStrings.historyTabTitle
         register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
@@ -34,10 +37,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
-    }
-    
-    override var emptyViewType: WMFEmptyViewType {
-        return .noHistory
     }
     
     override func deleteAll() {
