@@ -71,8 +71,6 @@
 "history-clear-cancel" = "Canslo";
 "history-clear-confirmation-heading" = "Hollol sicr eich bod am ddileu'r cyfan?";
 "history-clear-delete-all" = "Ie! Dileu'r cyfan!";
-"history-section-today" = "Heddiw";
-"history-section-yesterday" = "Ddoe";
 "history-title" = "Hanes";
 "icon-shortcut-continue-reading-title" = "Parhau i ddarllen";
 "icon-shortcut-random-title" = "Erthygl ar hap";
@@ -137,7 +135,6 @@
 "table-title-other" = "Rhagor o wybodaeth";
 "two-factor-login-title" = "Mewngofnodwch i'ch cyfri";
 "welcome-languages-add-button" = "Ychwanegu iaith arall";
-"welcome-languages-continue-button" = "Parhau";
 "wikitext-download-failed" = "Methwyd a chael y diweddaraf!";
 "wikitext-download-success" = "Llwythwyd y cynnwys.";
 "wikitext-downloading" = "Wrthi'n llwytho...";

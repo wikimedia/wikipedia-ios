@@ -285,6 +285,7 @@
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
 "saved-clear-all" = "Diverkañ";
 "saved-pages-clear-cancel" = "Nullañ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ha sur eo hoc'h eus c'hoant da lemel ho holl elfennoù enrollet ?";
 "saved-pages-clear-delete-all" = "Ya, lemel pep tra";
 "saved-pages-image-download-error" = "C'hwitet eo pellgardadur ar skeudennoù evit ar bajenn enrollet-se.";
@@ -298,6 +299,7 @@
 "search-recent-title" = "Enklaskoù nevez";
 "search-result-redirected-from" = "Adkaset eus:$1";
 "search-title" = "Klask";
+"settings-appearance" = "Penndibaboù lenn";
 "settings-clear-cache" = "Diverkañ ar roadennoù krubuilhet";
 "settings-clear-cache-are-you-sure-message" = "Diverkañ roadennoù krubuilhet a ziac'hubo war-dro $1 a blas. Ne ziverko ket ho pajennoù enrollet.";
 "settings-clear-cache-are-you-sure-title" = "Diverkañ ar roadennoù krubuilhet ?";

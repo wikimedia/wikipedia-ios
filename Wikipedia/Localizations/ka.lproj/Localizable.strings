@@ -199,6 +199,7 @@
 "reference-title" = "სქოლიო $1";
 "saved-clear-all" = "გასუფთავება";
 "saved-pages-clear-cancel" = "გაუქმება";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ ყველა დამასხოვრებული გვერდის წაშლა?";
 "saved-pages-clear-delete-all" = "დიახ, ყველაფრის წაშლა";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
@@ -212,6 +213,7 @@
 "search-recent-title" = "ბოლოს მოძიებული";
 "search-result-redirected-from" = "გადამისამართებულია $1-დან";
 "search-title" = "ძიება";
+"settings-appearance" = "წაკითხვის დაყენება";
 "settings-help-and-feedback" = "დახმარება და უკუკავშირი";
 "settings-language-bar" = "ენების ჩვენება ძიებისას";
 "settings-my-languages" = "ჩემი ენები";

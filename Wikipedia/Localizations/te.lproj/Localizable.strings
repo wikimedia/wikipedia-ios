@@ -69,8 +69,6 @@
 // Fuzzy
 "history-clear-confirmation-heading" = "ఇటీవలి అంశాలన్నింటినీ తొలగించాలా?";
 "history-clear-delete-all" = "అవును, అన్నిటినీ తొలగించు";
-"history-section-today" = "నేడు";
-"history-section-yesterday" = "నిన్న";
 "history-title" = "చరిత్ర";
 "hockeyapp-alert-always-send" = "ఎప్పుడూ పంపండి";
 "hockeyapp-alert-do-not-send" = "పంపవద్దు";
@@ -125,7 +123,6 @@
 "places-search-recently-searched-header" = "ఇటీవల వెతికినవి";
 // Fuzzy
 "places-search-top-articles" = "మేటి వ్యాసాలు";
-"save-action" = "భద్రపరచు";
 "saved-pages-clear-cancel" = "రద్దుచేయి";
 "saved-pages-clear-delete-all" = "అవును, అన్నిటినీ తొలగించు";
 "saved-title" = "భద్రపరచబడింది";
@@ -137,7 +134,6 @@
 "settings-notifications" = "గమనింపులు";
 "settings-support" = "వికీపీడియాకి తోడ్పడండి";
 "settings-title" = "అమరికలు";
-"share-cancel" = "రద్దుచేయి";
 "share-custom-menu-item" = "పంచుకోండి...";
 "table-of-contents-button-label" = "విషయ సూచిక";
 "table-of-contents-close-accessibility-hint" = "మూసివేయి";
@@ -149,9 +145,6 @@
 "welcome-explore-continue-button" = "మొదలుపెట్టండి";
 "welcome-explore-tell-me-more-done-button" = "అర్థమైంది";
 "welcome-languages-add-button" = "మరొక భాషను చేర్చు";
-"welcome-languages-continue-button" = "కొనసాగించు";
-"welcome-languages-title" = "భాషలు";
-"welcome-volunteer-thanks" = "$1 కృతజ్ఞతలు!";
 "wikitext-upload-save-sign-in" = "ప్రవేశించండి";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
 "zero-charged-verbiage" = "వికీపీడియా జీరో అచేతనించబడింది";

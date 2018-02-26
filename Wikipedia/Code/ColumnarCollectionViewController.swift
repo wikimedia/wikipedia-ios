@@ -10,6 +10,7 @@ class ColumnarCollectionViewController: ViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
+        scrollView = cv
         return cv
     }()
 
@@ -25,17 +26,23 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
-    
-    override var scrollView: UIScrollView? {
-        return collectionView
-    }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
 
+    private var isFirstAppearance = true
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isFirstAppearance {
+            isFirstAppearance = false
+            viewWillHaveFirstAppearance(animated)
+            updateEmptyState()
+            isEmptyDidChange() // perform initial update even though the value might not have changed
+        } else {
+            updateEmptyState()
+        }
         registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
@@ -48,6 +55,10 @@ class ColumnarCollectionViewController: ViewController {
             }
             cellWithSubItems.deselectSelectedSubItems(animated: animated)
         }
+    }
+    
+    open func viewWillHaveFirstAppearance(_ animated: Bool) {
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -149,6 +160,88 @@ class ColumnarCollectionViewController: ViewController {
         }
     }
     
+    // MARK: - Scroll
+    
+    override func scrollToTop() {
+        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
+        }
+        hintPresenter.readingListHintController?.scrollViewWillBeginDragging()
+    }
+    
+    // MARK: - Refresh Control
+    
+    final var isRefreshControlEnabled: Bool = false {
+        didSet {
+            if isRefreshControlEnabled {
+                let refreshControl = UIRefreshControl()
+                refreshControl.layer.zPosition = -100
+                refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
+                collectionView.refreshControl = refreshControl
+            } else {
+                collectionView.refreshControl = nil
+            }
+        }
+    }
+    
+    var refreshStart: Date = Date()
+    @objc func refreshControlActivated() {
+        refreshStart = Date()
+        self.refresh()
+    }
+    
+    open func refresh() {
+        assert(false, "default implementation shouldn't be called")
+        self.endRefreshing()
+    }
+    
+    open func endRefreshing() {
+        let now = Date()
+        let timeInterval = 0.5 - now.timeIntervalSince(refreshStart)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeInterval, execute: {
+            self.collectionView.refreshControl?.endRefreshing()
+        })
+    }
+    
+    // MARK: - Empty State
+    
+    var emptyViewType: WMFEmptyViewType = .none
+    
+    final var isEmpty = true
+    final func updateEmptyState() {
+        let sectionCount = numberOfSections(in: collectionView)
+        
+        var isCurrentlyEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isCurrentlyEmpty = false
+                break
+            }
+        }
+        
+        guard isCurrentlyEmpty != isEmpty else {
+            return
+        }
+        
+        isEmpty = isCurrentlyEmpty
+        
+        isEmptyDidChange()
+    }
+    
+    open func isEmptyDidChange() {
+        if isEmpty {
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
+        } else {
+            wmf_hideEmptyView()
+        }
+    }
+    
+    // MARK: - Themeable
+    
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         guard viewIfLoaded != nil else {
@@ -158,6 +251,7 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.backgroundColor = theme.colors.baseBackground
         collectionView.indicatorStyle = theme.scrollIndicatorStyle
         collectionView.reloadData()
+        wmf_applyTheme(toEmptyView: theme)
     }
 }
 
@@ -211,7 +305,16 @@ extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDeleg
     }
 }
 
+// MARK: - WMFArticlePreviewingActionsDelegate
 extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate {
+    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        guard let hintPresenter = self as? ReadingListHintPresenter else {
+            return
+        }
+        hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        
+    }
+    
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, animated: true)

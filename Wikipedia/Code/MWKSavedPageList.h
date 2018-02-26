@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticle *)mostRecentEntry;
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)entryForKey:(NSString *)key;
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
@@ -53,6 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param url The url of the page to remove
  */
 - (void)removeEntryWithURL:(NSURL *)url;
+
+/**
+ *  Remove entries with given urls
+ */
+- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls;
 
 /**
  *  Remove all history entries

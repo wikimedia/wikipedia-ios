@@ -11,4 +11,8 @@
 
 - (void)waitInBackgroundWithTimeout:(NSTimeInterval)timeout completion:(nonnull dispatch_block_t)completion;
 
+- (void)waitWithTimeout:(NSTimeInterval)timeout;
+
+- (void)wait;
+
 @end

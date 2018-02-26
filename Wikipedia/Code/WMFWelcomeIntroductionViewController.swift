@@ -20,7 +20,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        learnMoreButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        learnMoreButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     @IBAction func showLearnMoreAlert(withSender sender: AnyObject) {

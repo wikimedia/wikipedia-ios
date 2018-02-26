@@ -42,8 +42,8 @@ public extension MWKArticle {
 @available(iOS 9.0, *)
 
 public class WMFSavedPageSpotlightManager: NSObject {
-    
-    let dataStore: MWKDataStore
+    private let queue = DispatchQueue(label: "org.wikimedia.saved_page_spotlight_manager", qos: DispatchQoS.background, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    private let dataStore: MWKDataStore
     @objc var savedPageList: MWKSavedPageList {
         return dataStore.savedPageList
     }
@@ -67,15 +67,17 @@ public class WMFSavedPageSpotlightManager: NSObject {
             return
         }
         
-        let searchableItemAttributes = article.searchableItemAttributes()
-        searchableItemAttributes.keywords?.append("Saved")
-        
-        let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
-        item.expirationDate = NSDate.distantFuture
-        
-        CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
-            if let error = error {
-                DDLogError("Indexing error: \(error.localizedDescription)")
+        queue.async {
+            let searchableItemAttributes = article.searchableItemAttributes()
+            searchableItemAttributes.keywords?.append("Saved")
+            
+            let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            item.expirationDate = NSDate.distantFuture
+            
+            CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
+                if let error = error {
+                    DDLogError("Indexing error: \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -84,11 +86,15 @@ public class WMFSavedPageSpotlightManager: NSObject {
         guard let identifier = NSURL.wmf_desktopURL(for: url as URL)?.absoluteString else {
             return
         }
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [identifier]) { (error) in
-            if let error = error {
-                DDLogError("Deindexing error: \(error.localizedDescription)")
+        
+        queue.async {
+            CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [identifier]) { (error) in
+                if let error = error {
+                    DDLogError("Deindexing error: \(error.localizedDescription)")
+                }
             }
         }
+
     }
 
 }

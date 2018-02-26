@@ -161,6 +161,7 @@
 "request-feedback-on-error" = "De Äpp hädd e Problehm jefonge, woh dä ier Äntwekler jähn mih drövver weße dähte. Sidd_esu joht un doht heh kleke, öm en e-mail met de Eijnzelheijte ze scheke.";
 "saved-clear-all" = "Läddesch maache";
 "saved-pages-clear-cancel" = "Ophühre";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Wells De verhaftesch all Ding jesescherte Sigge fott schmiiße?";
 "saved-pages-clear-delete-all" = "Joh, donn alle fottschmiiße";
 "saved-pages-image-download-error" = "Mer kunnte kein Bellder för heh di faßjehallde Sigg eronger lahde.";

@@ -64,7 +64,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     @IBOutlet fileprivate var infoButton: UIButton!
     @IBOutlet fileprivate var refreshButton: UIButton!
 
-    @objc public var captchaDelegate: WMFCaptchaViewControllerDelegate?
+    @objc public weak var captchaDelegate: WMFCaptchaViewControllerDelegate?
     fileprivate let captchaResetter = WMFCaptchaResetter()
     
     fileprivate var theme = Theme.standard
@@ -159,23 +159,6 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
         return true
     }
     
-    fileprivate func firstArrangedSubviewWithRequiredNonZeroHeightConstraint() -> UIView? {
-        return stackView.arrangedSubviews.first(where: {arrangedSubview in
-            let requiredHeightConstraint = arrangedSubview.constraints.first(where: {constraint in
-                guard
-                    type(of: constraint) == NSLayoutConstraint.self,
-                    constraint.firstAttribute == .height,
-                    constraint.priority == UILayoutPriority.required,
-                    constraint.constant != 0
-                    else{
-                        return false
-                }
-                return true
-            })
-            return (requiredHeightConstraint != nil)
-        })
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let captchaDelegate = captchaDelegate else{
@@ -183,7 +166,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             return
         }
         
-        assert(firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
+        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
         
 

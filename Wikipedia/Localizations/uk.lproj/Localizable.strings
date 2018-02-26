@@ -277,6 +277,7 @@
 "request-feedback-on-error" = "Програмка зіткнулася з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з деталями помилки.";
 "saved-clear-all" = "Очистити";
 "saved-pages-clear-cancel" = "Скасувати";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ви дійсно хочете видалити всі збережені сторінки?";
 "saved-pages-clear-delete-all" = "Так, вилучити всі";
 "saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
@@ -290,6 +291,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+// Fuzzy
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";

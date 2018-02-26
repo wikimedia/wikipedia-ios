@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# runs clang format against the git diff
 
 file_types = {h: true, m: true, cpp: true, c: true}
 

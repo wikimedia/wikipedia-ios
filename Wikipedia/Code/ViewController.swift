@@ -1,8 +1,10 @@
 import UIKit
 import WMF
 
-class ViewController: UIViewController, Themeable {
+class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
+    var areScrollViewInsetsDeterminedByVisibleHeight: Bool = false
+    var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -12,12 +14,15 @@ class ViewController: UIViewController, Themeable {
         super.init(coder: aDecoder)
     }
     
-    let navigationBar: NavigationBar = NavigationBar()
+    var navigationBar: NavigationBar = NavigationBar()
     
     open var showsNavigationBar: Bool = false
+    var ownsNavigationBar: Bool = true
     
     open var scrollView: UIScrollView? {
-        return nil
+        didSet {
+            updateScrollViewInsets()
+        }
     }
     
     override func viewDidLoad() {
@@ -31,17 +36,31 @@ class ViewController: UIViewController, Themeable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let navigationController = navigationController {
+        
+        if let parentVC = parent as? ViewController {
+            showsNavigationBar = true
+            ownsNavigationBar = false
+            navigationBar = parentVC.navigationBar
+        }  else if let navigationController = navigationController {
+            ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
         } else {
             showsNavigationBar = false
         }
+        
+        navigationBarHider.navigationBar = navigationBar
+        navigationBarHider.delegate = self
+        
+        guard ownsNavigationBar else {
+            return
+        }
 
         if showsNavigationBar {
             if navigationBar.superview == nil {
+
                 navigationBar.delegate = self
                 navigationBar.translatesAutoresizingMaskIntoConstraints = false
+
                 view.addSubview(navigationBar)
                 let navTopConstraint = view.topAnchor.constraint(equalTo: navigationBar.topAnchor)
                 let navLeadingConstraint = view.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor)
@@ -87,7 +106,7 @@ class ViewController: UIViewController, Themeable {
         self.updateScrollViewInsets()
     }
     
-    fileprivate func updateScrollViewInsets() {
+    public final func updateScrollViewInsets() {
         guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
         }
@@ -98,8 +117,8 @@ class ViewController: UIViewController, Themeable {
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
-
-        var top = frame.maxY
+        
+        var top = areScrollViewInsetsDeterminedByVisibleHeight ? navigationBar.visibleHeight : frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
@@ -120,6 +139,22 @@ class ViewController: UIViewController, Themeable {
 
     open func didUpdateScrollViewInsets() {
         
+    }
+    
+    // MARK: - Scrolling
+    
+    func scrollToTop() {
+        guard let scrollView = scrollView else {
+            return
+        }
+        navigationBarHider.scrollViewWillScrollToTop(scrollView)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: true)
+    }
+    
+    // MARK: - WMFNavigationBarHiderDelegate
+    
+    func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        //
     }
 
     func apply(theme: Theme) {

@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var wmf = {}
+const wmf = {}
 
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')
@@ -15,7 +15,7 @@ wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
 
 window.wmf = wmf
-},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":9,"wikimedia-page-library":11}],2:[function(require,module,exports){
+},{"./js/elementLocation":3,"./js/findInPage":4,"./js/footers":5,"./js/sections":7,"./js/utilities":8,"wikimedia-page-library":10}],2:[function(require,module,exports){
 const refs = require('./refs')
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
@@ -65,7 +65,7 @@ class ClickedItem {
  * @param  {!ClickedItem} item the item which was clicked on
  * @return {Boolean} `true` if a message was sent, otherwise `false`
  */
-function sendMessageForClickedItem(item){
+const sendMessageForClickedItem = item => {
   switch(item.type()) {
   case ItemType.link:
     sendMessageForLinkWithHref(item.href)
@@ -90,7 +90,7 @@ function sendMessageForClickedItem(item){
  * @param  {!String} href url
  * @return {void}
  */
-function sendMessageForLinkWithHref(href){
+const sendMessageForLinkWithHref = href => {
   if(href[0] === '#'){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
@@ -102,7 +102,7 @@ function sendMessageForLinkWithHref(href){
  * @param  {!Element} target an image element
  * @return {void}
  */
-function sendMessageForImageWithTarget(target){
+const sendMessageForImageWithTarget = target => {
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': target.getAttribute('src'),
     'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -117,7 +117,7 @@ function sendMessageForImageWithTarget(target){
  * @param  {!Element} innerPlaceholderSpan
  * @return {void}
  */
-function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
+const sendMessageForImagePlaceholderWithTarget = innerPlaceholderSpan => {
   const outerSpan = innerPlaceholderSpan.parentElement
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': outerSpan.getAttribute('data-src'),
@@ -133,16 +133,14 @@ function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
  * @param  {!Element} target an anchor element
  * @return {void}
  */
-function sendMessageForReferenceWithTarget(target){
-  refs.sendNearbyReferences( target )
-}
+const sendMessageForReferenceWithTarget = target => refs.sendNearbyReferences( target )
 
 /**
  * Handler for the click event.
  * @param  {ClickEvent} event the event being handled
  * @return {void}
  */
-function handleClickEvent(event){
+const handleClickEvent = event => {
   const target = event.target
   if(!target) {
     return
@@ -171,31 +169,19 @@ function handleClickEvent(event){
 /**
  * Associate our custom click handler logic with the document `click` event.
  */
-document.addEventListener('click', function (event) {
+document.addEventListener('click', event => {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-},{"./refs":6,"./utilities":9,"wikimedia-page-library":11}],3:[function(require,module,exports){
-//  Created by Monte Hurd on 12/28/13.
+},{"./refs":6,"./utilities":8,"wikimedia-page-library":10}],3:[function(require,module,exports){
 //  Used by methods in "UIWebView+ElementLocation.h" category.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-function stringEndsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1
-}
+const stringEndsWith = (str, suffix) => str.indexOf(suffix, str.length - suffix.length) !== -1
 
-exports.getImageWithSrc = function(src) {
-  var images = document.getElementsByTagName('img')
-  for (var i = 0; i < images.length; ++i) {
-    if (stringEndsWith(images[i].src, src)) {
-      return images[i]
-    }
-  }
-  return null
-}
+exports.getImageWithSrc = src => document.querySelector(`img[src$="${src}"]`)
 
-exports.getElementRect = function(element) {
-  var rect = element.getBoundingClientRect()
+exports.getElementRect = element => {
+  const rect = element.getBoundingClientRect()
     // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
   return {
     Y: rect.top,
@@ -205,52 +191,48 @@ exports.getElementRect = function(element) {
   }
 }
 
-exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
-  for (var i = 0; i < elementCount; ++i) {
-    var div = document.getElementById(elementPrefix + i)
+exports.getIndexOfFirstOnScreenElement = (elementPrefix, elementCount) => {
+  for (let i = 0; i < elementCount; ++i) {
+    const div = document.getElementById(elementPrefix + i)
     if (div === null) {
       continue
     }
-    var rect = this.getElementRect(div)
-    if ( rect.Y >= -1 || rect.Y + rect.Height >= 50) {
+    const rect = this.getElementRect(div)
+    if (rect.Y >= -1 || rect.Y + rect.Height >= 50) {
       return i
     }
   }
   return -1
 }
 
-exports.getElementFromPoint = function(x, y){
-  return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
-}
+exports.getElementFromPoint = (x, y) => document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)
 
-exports.isElementTopOnscreen = function(element){
-  return element.getBoundingClientRect().top < 0
-}
+exports.isElementTopOnscreen = element => element.getBoundingClientRect().top < 0
 },{}],4:[function(require,module,exports){
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
-var FindInPageResultCount = 0
-var FindInPageResultMatches = []
-var FindInPagePreviousFocusMatchSpanId = null
+let FindInPageResultCount = 0
+let FindInPageResultMatches = []
+let FindInPagePreviousFocusMatchSpanId = null
 
-function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, searchTerm) {
+const recursivelyHighlightSearchTermInTextNodesStartingWithElement = (element, searchTerm) => {
   if (element) {
     if (element.nodeType == 3) {            // Text node
       while (true) {
-        var value = element.nodeValue  // Search for searchTerm in text node
-        var idx = value.toLowerCase().indexOf(searchTerm)
+        const value = element.nodeValue  // Search for searchTerm in text node
+        const idx = value.toLowerCase().indexOf(searchTerm)
 
         if (idx < 0) break
 
-        var span = document.createElement('span')
-        var text = document.createTextNode(value.substr(idx, searchTerm.length))
+        const span = document.createElement('span')
+        let text = document.createTextNode(value.substr(idx, searchTerm.length))
         span.appendChild(text)
         span.setAttribute('class', 'findInPageMatch')
 
         text = document.createTextNode(value.substr(idx + searchTerm.length))
         element.deleteData(idx, value.length - idx)
-        var next = element.nextSibling
+        const next = element.nextSibling
         element.parentNode.insertBefore(span, next)
         element.parentNode.insertBefore(text, next)
         element = text
@@ -258,7 +240,7 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
       }
     } else if (element.nodeType == 1) {     // Element node
       if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
-        for (var i = element.childNodes.length - 1; i >= 0; i--) {
+        for (let i = element.childNodes.length - 1; i >= 0; i--) {
           recursivelyHighlightSearchTermInTextNodesStartingWithElement(element.childNodes[i], searchTerm)
         }
       }
@@ -266,17 +248,17 @@ function recursivelyHighlightSearchTermInTextNodesStartingWithElement(element, s
   }
 }
 
-function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
+const recursivelyRemoveSearchTermHighlightsStartingWithElement = element => {
   if (element) {
     if (element.nodeType == 1) {
       if (element.getAttribute('class') == 'findInPageMatch') {
-        var text = element.removeChild(element.firstChild)
-        element.parentNode.insertBefore(text,element)
+        const text = element.removeChild(element.firstChild)
+        element.parentNode.insertBefore(text, element)
         element.parentNode.removeChild(element)
         return true
       }
-      var normalize = false
-      for (var i = element.childNodes.length - 1; i >= 0; i--) {
+      let normalize = false
+      for (let i = element.childNodes.length - 1; i >= 0; i--) {
         if (recursivelyRemoveSearchTermHighlightsStartingWithElement(element.childNodes[i])) {
           normalize = true
         }
@@ -290,21 +272,21 @@ function recursivelyRemoveSearchTermHighlightsStartingWithElement(element) {
   return false
 }
 
-function deFocusPreviouslyFocusedSpan() {
+const deFocusPreviouslyFocusedSpan = () => {
   if(FindInPagePreviousFocusMatchSpanId){
     document.getElementById(FindInPagePreviousFocusMatchSpanId).classList.remove('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = null
   }
 }
 
-function removeSearchTermHighlights() {
+const removeSearchTermHighlights = () => {
   FindInPageResultCount = 0
   FindInPageResultMatches = []
   deFocusPreviouslyFocusedSpan()
   recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
 }
 
-function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
+const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   removeSearchTermHighlights()
   if (searchTerm.trim().length === 0){
     window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
@@ -318,10 +300,10 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
     // matches in first-to-last order. We can work around this by adding the "id"
     // and building our results array *after* the recursion is done, thanks to
     // "getElementsByClassName".
-  var orderedMatchElements = document.getElementsByClassName('findInPageMatch')
+  const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
   FindInPageResultMatches.length = orderedMatchElements.length
-  for (var i = 0; i < orderedMatchElements.length; i++) {
-    var matchSpanId = 'findInPageMatchID|' + i
+  for (let i = 0; i < orderedMatchElements.length; i++) {
+    const matchSpanId = 'findInPageMatchID|' + i
     orderedMatchElements[i].setAttribute('id', matchSpanId)
         // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
@@ -330,9 +312,9 @@ function findAndHighlightAllMatchesForSearchTerm(searchTerm) {
   window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
 }
 
-function useFocusStyleForHighlightedSearchTermWithId(id) {
+const useFocusStyleForHighlightedSearchTermWithId = id => {
   deFocusPreviouslyFocusedSpan()
-  setTimeout(function(){
+  setTimeout(() => {
     document.getElementById(id).classList.add('findInPageMatch_Focus')
     FindInPagePreviousFocusMatchSpanId = id
   }, 0)
@@ -433,57 +415,40 @@ class Footer {
 }
 
 exports.Footer = Footer
-},{"wikimedia-page-library":11}],6:[function(require,module,exports){
-var elementLocation = require('./elementLocation')
+},{"wikimedia-page-library":10}],6:[function(require,module,exports){
+const elementLocation = require('./elementLocation')
 
-function isCitation( href ) {
-  return href.indexOf('#cite_note') > -1
-}
+const isCitation = href => href.indexOf('#cite_note') > -1
+const isEndnote = href => href.indexOf('#endnote_') > -1
+const isReference = href => href.indexOf('#ref_') > -1
 
-function isEndnote( href ) {
-  return href.indexOf('#endnote_') > -1
-}
-
-function isReference( href ) {
-  return href.indexOf('#ref_') > -1
-}
-
-function goDown( element ) {
-  return element.getElementsByTagName( 'A' )[0]
-}
+const goDown = element => element.getElementsByTagName( 'A' )[0]
 
 /**
  * Skip over whitespace but not other elements
  */
-function skipOverWhitespace( skipFunc ) {
-  return function(element) {
-    do {
-      element = skipFunc( element )
-      if (element && element.nodeType == Node.TEXT_NODE) {
-        if (element.textContent.match(/^\s+$/)) {
-          // Ignore empty whitespace
-          continue
-        } else {
-          break
-        }
+const skipOverWhitespace = skipFunc => element => {
+  do {
+    element = skipFunc( element )
+    if (element && element.nodeType == Node.TEXT_NODE) {
+      if (element.textContent.match(/^\s+$/)) {
+        // Ignore empty whitespace
+        continue
       } else {
-        // found an element or ran out
         break
       }
-    } while (true)
-    return element
-  }
+    } else {
+      // found an element or ran out
+      break
+    }
+  } while (true)
+  return element
 }
 
-var goLeft = skipOverWhitespace( function( element ) {
-  return element.previousSibling
-})
+let goLeft = skipOverWhitespace( element => element.previousSibling )
+let goRight = skipOverWhitespace( element => element.nextSibling )
 
-var goRight = skipOverWhitespace( function( element ) {
-  return element.nextSibling
-})
-
-function hasCitationLink( element ) {
+const hasCitationLink = element => {
   try {
     return isCitation( goDown( element ).getAttribute( 'href' ) )
   } catch (e) {
@@ -491,15 +456,13 @@ function hasCitationLink( element ) {
   }
 }
 
-function collectRefText( sourceNode ) {
-  var href = sourceNode.getAttribute( 'href' )
-  var targetId = href.slice(1)
-  var targetNode = document.getElementById( targetId )
-
+const collectRefText = sourceNode => {
+  const href = sourceNode.getAttribute( 'href' )
+  const targetId = href.slice(1)
+  let targetNode = document.getElementById( targetId )
   if ( targetNode === null ) {
     targetNode = document.getElementById( decodeURIComponent( targetId ) )
   }
-  
   if ( targetNode === null ) {
     /*global console */
     console.log('reference target not found: ' + targetId)
@@ -507,15 +470,15 @@ function collectRefText( sourceNode ) {
   }
 
   // preferably without the back link
-  var backlinks = targetNode.getElementsByClassName( 'mw-cite-backlink' )
-  for (var i = 0; i < backlinks.length; i++) {
-    backlinks[i].style.display = 'none'
-  }
+  targetNode.querySelectorAll( '.mw-cite-backlink' )
+    .forEach(backlink => {
+      backlink.style.display = 'none'
+    })
   return targetNode.innerHTML
 }
 
-function collectRefLink( sourceNode ) {
-  var node = sourceNode
+const collectRefLink = sourceNode => {
+  let node = sourceNode
   while (!node.classList || !node.classList.contains('reference')) {
     node = node.parentNode
     if (!node) {
@@ -525,13 +488,13 @@ function collectRefLink( sourceNode ) {
   return node.id
 }
 
-function sendNearbyReferences( sourceNode ) {
-  var selectedIndex = 0
-  var refs = []
-  var linkId = []
-  var linkText = []
-  var linkRects = []
-  var curNode = sourceNode
+const sendNearbyReferences = sourceNode => {
+  let selectedIndex = 0
+  let refs = []
+  let linkId = []
+  let linkText = []
+  let linkRects = []
+  let curNode = sourceNode
 
   // handle clicked ref:
   refs.push( collectRefText( curNode ) )
@@ -557,13 +520,13 @@ function sendNearbyReferences( sourceNode ) {
     linkText.push( curNode.textContent )
   }
 
-  for(var i = 0; i < linkId.length; i++){
-    var rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
+  for(let i = 0; i < linkId.length; i++){
+    const rect = elementLocation.getElementRect(document.getElementById(linkId[i]))
     linkRects.push(rect)
   }
 
-  var referencesGroup = []
-  for(var j = 0; j < linkId.length; j++){
+  let referencesGroup = []
+  for(let j = 0; j < linkId.length; j++){
     referencesGroup.push({
       'id': linkId[j],
       'rect': linkRects[j],
@@ -591,7 +554,7 @@ const requirements = {
   tables: require('wikimedia-page-library').CollapseTable,
   themes: require('wikimedia-page-library').ThemeTransform,
   redLinks: require('wikimedia-page-library').RedLinks,
-  paragraphs: require('./transforms/relocateFirstParagraph'),
+  leadIntroductionTransform: require('wikimedia-page-library').LeadIntroductionTransform,
   widenImage: require('wikimedia-page-library').WidenImage,
   lazyLoadTransformer: require('wikimedia-page-library').LazyLoadTransformer,
   location: require('./elementLocation')
@@ -607,10 +570,6 @@ const lazyDocument = document.implementation.createHTMLDocument()
 const lazyImageLoadViewportDistanceMultiplier = 2 // Load images on the current screen up to one ahead.
 const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window, lazyImageLoadViewportDistanceMultiplier)
 const liveDocument = document
-
-// backfill fragments with "createElement" so transforms will work as well with fragments as
-// they do with documents
-DocumentFragment.prototype.createElement = name => lazyDocument.createElement(name)
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
 
@@ -710,18 +669,29 @@ const processResponseStatus = response => {
 
 const extractResponseJSON = response => response.json()
 
+// Backfill fragments with `createElement` and `createDocumentFragment` so transforms
+// requiring `Document` parameters will also work if passed a `DocumentFragment`.
+// Reminder: didn't use 'prototype' because it extends all instances.
+const enrichFragment = fragment => {
+  fragment.createElement = name => lazyDocument.createElement(name)
+  fragment.createDocumentFragment = () => lazyDocument.createDocumentFragment()
+  fragment.createTextNode = text => lazyDocument.createTextNode(text)
+}
+
 const fragmentForSection = section => {
   const fragment = lazyDocument.createDocumentFragment()
+  enrichFragment(fragment)
   const container = section.containerDiv() // do not append this to document. keep unattached to main DOM (ie headless) until transforms have been run on the fragment
   fragment.appendChild(container)
   return fragment
 }
 
 const applyTransformationsToFragment = (fragment, article, isLead) => {
-  requirements.redLinks.hideRedLinks(document, fragment)
+  requirements.redLinks.hideRedLinks(fragment)
 
   if(!article.ismain && isLead){
-    requirements.paragraphs.moveFirstGoodParagraphAfterElement('content_block_0_hr', fragment)
+    const afterElement = fragment.getElementById('content_block_0_hr')
+    requirements.leadIntroductionTransform.moveLeadIntroductionUp(fragment, 'content_block_0', afterElement)
   }
 
   const isFilePage = fragment.querySelector('#filetoc') !== null
@@ -738,7 +708,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
       const heading = fragment.querySelector('.section_heading[data-id]')
       heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
     }
-    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'});
+    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'})
   }
 
   const tableFooterDivClickCallback = container => {
@@ -748,7 +718,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   }
 
   // Adds table collapsing header/footers.
-  requirements.tables.adjustTables(window, fragment, article.displayTitle, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
+  requirements.tables.adjustTables(window, fragment, article.title, article.ismain, this.collapseTablesInitially, this.collapseTablesLocalizedStrings.tableInfoboxTitle, this.collapseTablesLocalizedStrings.tableOtherTitle, this.collapseTablesLocalizedStrings.tableFooterTitle, tableFooterDivClickCallback)
 
   // Prevents some collapsed tables from scrolling side-to-side.
   // May want to move this to wikimedia-page-library if there are no issues.
@@ -837,117 +807,36 @@ exports.sectionErrorMessageLocalizedString  = undefined
 exports.fetchTransformAndAppendSectionsToDocument = fetchTransformAndAppendSectionsToDocument
 exports.Language = Language
 exports.Article = Article
-},{"./elementLocation":3,"./transforms/relocateFirstParagraph":8,"./utilities":9,"wikimedia-page-library":11}],8:[function(require,module,exports){
-
-function moveFirstGoodParagraphAfterElement(preceedingElementID, content ) {
-    /*
-    Instead of moving the infobox down beneath the first P tag,
-    move the first good looking P tag *up* (as the first child of
-    the first section div). That way the first P text will appear not
-    only above infoboxes, but above other tables/images etc too!
-    */
-
-  if(content.getElementById( 'mainpage' ))return
-
-  var block_0 = content.getElementById( 'content_block_0' )
-  if(!block_0) return
-
-  var allPs = block_0.getElementsByTagName( 'p' )
-  if(!allPs) return
-
-  var preceedingElement = content.getElementById( preceedingElementID )
-  if(!preceedingElement) return
-
-  function isParagraphGood(p) {
-    // Narrow down to first P which is direct child of content_block_0 DIV.
-    // (Don't want to yank P from somewhere in the middle of a table!)
-    if(p.parentNode == block_0) {
-                // Ensure the P being pulled up has at least a couple lines of text.
-                // Otherwise silly things like a empty P or P which only contains a
-                // BR tag will get pulled up (see articles on "Chemical Reaction",
-                // "Hawaii", "United States", "Color" and "Academy (educational
-                // institution)").
-
-      if(p.innerHTML.indexOf('id="coordinates"') !== -1) {
-        return false
-      }
-
-      var minLength = 60
-      var pIsTooSmall = p.textContent.length < minLength
-      return !pIsTooSmall
-    }
-    return false
-
-  }
-
-  var firstGoodParagraph = function(){
-    return Array.prototype.slice.call( allPs).find(isParagraphGood)
-  }()
-
-  if(!firstGoodParagraph) return
-
-  // Move everything between the firstGoodParagraph and the next paragraph to a light-weight fragment.
-  var fragmentOfItemsToRelocate = function(){
-    var didHitGoodP = false
-    var didHitNextP = false
-
-    var shouldElementMoveUp = function(element) {
-      if(didHitGoodP && element.tagName === 'P'){
-        didHitNextP = true
-      }else if(element.isEqualNode(firstGoodParagraph)){
-        didHitGoodP = true
-      }
-      return didHitGoodP && !didHitNextP
-    }
-
-    var fragment = document.createDocumentFragment()
-    Array.prototype.slice.call(firstGoodParagraph.parentNode.childNodes).forEach(function(element) {
-      if(shouldElementMoveUp(element)){
-        // appendChild() attaches the element to the fragment *and* removes it from DOM.
-        fragment.appendChild(element)
-      }
-    })
-    return fragment
-  }()
-
-  // Attach the fragment just after `preceedingElement`.
-  // insertBefore() on a fragment inserts "the children of the fragment, not the fragment itself."
-  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
-  block_0.insertBefore(fragmentOfItemsToRelocate, preceedingElement.nextSibling)
-}
-
-exports.moveFirstGoodParagraphAfterElement = moveFirstGoodParagraphAfterElement
-},{}],9:[function(require,module,exports){
+},{"./elementLocation":3,"./utilities":8,"wikimedia-page-library":10}],8:[function(require,module,exports){
 
 // Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-function findClosest (el, selector) {
+const findClosest = (el, selector) => {
   while ((el = el.parentElement) && !el.matches(selector));
   return el
 }
 
-function setLanguage(lang, dir, uidir){
-  var html = document.querySelector( 'html' )
+const setLanguage = (lang, dir, uidir) => {
+  const html = document.querySelector( 'html' )
   html.lang = lang
   html.dir = dir
   html.classList.add( 'content-' + dir )
   html.classList.add( 'ui-' + uidir )
 }
 
-function setPageProtected(isProtected){
-  document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-}
+const setPageProtected =
+  isProtected => document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
 
-function scrollToFragment(fragmentId){
+const scrollToFragment = fragmentId => {
   location.hash = ''
   location.hash = fragmentId
 }
 
-function accessibilityCursorToFragment(fragmentId){
+const accessibilityCursorToFragment = fragmentId => {
     /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
      in order to have the desired effect, so we first give focus to the body element,
      then move it to the desired fragment. */
-  var focus_element = document.getElementById(fragmentId)
-  var other_element = document.body
+  const focus_element = document.getElementById(fragmentId)
+  const other_element = document.body
   other_element.setAttribute('tabindex', 0)
   other_element.focus()
   focus_element.setAttribute('tabindex', 0)
@@ -959,19 +848,19 @@ exports.scrollToFragment = scrollToFragment
 exports.setPageProtected = setPageProtected
 exports.setLanguage = setLanguage
 exports.findClosest = findClosest
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 // This file keeps the same area of the article onscreen after rotate or tablet TOC toggle.
 const utilities = require('./utilities')
 
-var topElement = undefined
-var relativeYOffset = 0
+let topElement = undefined
+let relativeYOffset = 0
 
-const relativeYOffsetForElement = function(element) {
+const relativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return rect.top / rect.height
 }
 
-const recordTopElementAndItsRelativeYOffset = function() {
+const recordTopElementAndItsRelativeYOffset = () => {
   topElement = document.elementFromPoint( window.innerWidth / 2, window.innerHeight / 3 )
   topElement = utilities.findClosest(topElement, 'div#content > div') || topElement
   if (topElement) {
@@ -981,30 +870,28 @@ const recordTopElementAndItsRelativeYOffset = function() {
   }
 }
 
-const yOffsetFromRelativeYOffsetForElement = function(element) {
+const yOffsetFromRelativeYOffsetForElement = element => {
   const rect = element.getBoundingClientRect()
   return window.scrollY + rect.top - relativeYOffset * rect.height
 }
 
-const scrollToSamePlaceBeforeResize = function() {
+const scrollToSamePlaceBeforeResize = () => {
   if (!topElement) {
     return
   }
   window.scrollTo(0, yOffsetFromRelativeYOffsetForElement(topElement))
 }
 
-window.addEventListener('resize', function (event) {
-  setTimeout(scrollToSamePlaceBeforeResize, 50)
-})
+window.addEventListener('resize', event => setTimeout(scrollToSamePlaceBeforeResize, 50))
 
-var timer = null
-window.addEventListener('scroll', function() {
+let timer = null
+window.addEventListener('scroll', () => {
   if(timer !== null) {
     clearTimeout(timer)
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
-},{"./utilities":9}],11:[function(require,module,exports){
+},{"./utilities":8}],10:[function(require,module,exports){
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
@@ -1158,22 +1045,20 @@ var elementUtilities = {
 var CONSTRAINT = {
   IMAGE_PRESUMES_WHITE_BACKGROUND: 'pagelib_theme_image_presumes_white_background',
   DIV_DO_NOT_APPLY_BASELINE: 'pagelib_theme_div_do_not_apply_baseline'
-};
 
-// Theme to CSS classes.
-var THEME = {
+  // Theme to CSS classes.
+};var THEME = {
   DEFAULT: 'pagelib_theme_default',
   DARK: 'pagelib_theme_dark',
   SEPIA: 'pagelib_theme_sepia',
   BLACK: 'pagelib_theme_black'
-};
 
-/**
- * @param {!Document} document
- * @param {!string} theme
- * @return {void}
- */
-var setTheme = function setTheme(document, theme) {
+  /**
+   * @param {!Document} document
+   * @param {!string} theme
+   * @return {void}
+   */
+};var setTheme = function setTheme(document, theme) {
   var html = document.querySelector('html');
 
   // Set the new theme.
@@ -1242,33 +1127,187 @@ var ThemeTransform = {
 };
 
 var SECTION_TOGGLED_EVENT_TYPE = 'section-toggled';
+var ELEMENT_NODE = 1;
+var TEXT_NODE = 3;
+var BREAKING_SPACE = ' ';
+
+/**
+ * Determine if we want to extract text from this header.
+ * @param {!Element} header
+ * @return {!boolean}
+ */
+var isHeaderEligible = function isHeaderEligible(header) {
+  return header.childNodes && Polyfill.querySelectorAll(header, 'a').length < 3;
+};
+
+/**
+ * Determine eligibility of extracted text.
+ * @param {?string} headerText
+ * @return {!boolean}
+ */
+var isHeaderTextEligible = function isHeaderTextEligible(headerText) {
+  return headerText && headerText.replace(/[\s0-9]/g, '').length > 0;
+};
+
+/**
+ * Extracts first word from string. Returns null if for any reason it is unable to do so.
+ * @param  {!string} string
+ * @return {?string}
+ */
+var firstWordFromString = function firstWordFromString(string) {
+  // 'If the global flag (g) is not set, Element zero of the array contains the entire match,
+  // while elements 1 through n contain any submatches.'
+  var matches = string.match(/\w+/); // Only need first match so not using 'g' option.
+  if (!matches) {
+    return undefined;
+  }
+  return matches[0];
+};
+
+/**
+ * Is node's textContent too similar to pageTitle. Checks if the first word of the node's
+ * textContent is found at the beginning of pageTitle.
+ * @param  {!Node} node
+ * @param  {!string} pageTitle
+ * @return {!boolean}
+ */
+var isNodeTextContentSimilarToPageTitle = function isNodeTextContentSimilarToPageTitle(node, pageTitle) {
+  var firstPageTitleWord = firstWordFromString(pageTitle);
+  var firstNodeTextContentWord = firstWordFromString(node.textContent);
+  // Don't claim similarity if 1st words were not extracted.
+  if (!firstPageTitleWord || !firstNodeTextContentWord) {
+    return false;
+  }
+  return firstPageTitleWord.toLowerCase() === firstNodeTextContentWord.toLowerCase();
+};
+
+/**
+ * Determines if a node is an element or text node.
+ * @param  {!Node} node
+ * @return {!boolean}
+ */
+var nodeTypeIsElementOrText = function nodeTypeIsElementOrText(node) {
+  return node.nodeType === ELEMENT_NODE || node.nodeType === TEXT_NODE;
+};
+
+/**
+ * Removes leading and trailing whitespace and normalizes other whitespace - i.e. ensures
+ * non-breaking spaces, tabs, etc are replaced with regular breaking spaces. 
+ * @param  {!string} string
+ * @return {!string}
+ */
+var stringWithNormalizedWhitespace = function stringWithNormalizedWhitespace(string) {
+  return string.trim().replace(/\s/g, BREAKING_SPACE);
+};
+
+/**
+ * Determines if node is a BR.
+ * @param  {!Node}  node
+ * @return {!boolean}
+ */
+var isNodeBreakElement = function isNodeBreakElement(node) {
+  return node.nodeType === ELEMENT_NODE && node.tagName === 'BR';
+};
+
+/**
+ * Replace node with a text node bearing a single breaking space.
+ * @param {!Document} document
+ * @param  {!Node} node
+ * @return {void}
+ */
+var replaceNodeWithBreakingSpaceTextNode = function replaceNodeWithBreakingSpaceTextNode(document, node) {
+  return node.parentNode.replaceChild(document.createTextNode(BREAKING_SPACE), node);
+};
+
+/**
+ * Extracts any header text determined to be eligible.
+ * @param {!Document} document
+ * @param {!Element} header
+ * @param {?string} pageTitle
+ * @return {?string}
+ */
+var extractEligibleHeaderText = function extractEligibleHeaderText(document, header, pageTitle) {
+  if (!isHeaderEligible(header)) {
+    return null;
+  }
+  // Clone header into fragment. This is done so we can remove some elements we don't want
+  // represented when "textContent" is used. Because we've cloned the header into a fragment, we are
+  // free to strip out anything we want without worrying about affecting the visible document.
+  var fragment = document.createDocumentFragment();
+  fragment.appendChild(header.cloneNode(true));
+  var fragmentHeader = fragment.querySelector('th');
+
+  Polyfill.querySelectorAll(fragmentHeader, '.geo, .coordinates, sup.reference, ol, ul').forEach(function (el) {
+    return el.remove();
+  });
+
+  var childNodesArray = Array.prototype.slice.call(fragmentHeader.childNodes);
+  if (pageTitle) {
+    childNodesArray.filter(nodeTypeIsElementOrText).filter(function (node) {
+      return isNodeTextContentSimilarToPageTitle(node, pageTitle);
+    }).forEach(function (node) {
+      return node.remove();
+    });
+  }
+
+  childNodesArray.filter(isNodeBreakElement).forEach(function (node) {
+    return replaceNodeWithBreakingSpaceTextNode(document, node);
+  });
+
+  var headerText = fragmentHeader.textContent;
+  if (isHeaderTextEligible(headerText)) {
+    return stringWithNormalizedWhitespace(headerText);
+  }
+  return null;
+};
+
+/**
+ * Used to sort array of Elements so those containing 'scope' attribute are moved to front of
+ * array. Relative order between 'scope' elements is preserved. Relative order between non 'scope'
+ * elements is preserved.
+ * @param  {!Element} a
+ * @param  {!Element} b
+ * @return {!boolean}
+ */
+var elementScopeComparator = function elementScopeComparator(a, b) {
+  var aHasScope = a.hasAttribute('scope');
+  var bHasScope = b.hasAttribute('scope');
+  if (aHasScope && bHasScope) {
+    return 0;
+  }
+  if (aHasScope) {
+    return -1;
+  }
+  if (bHasScope) {
+    return 1;
+  }
+  return 0;
+};
 
 /**
  * Find an array of table header (TH) contents. If there are no TH elements in
  * the table or the header's link matches pageTitle, an empty array is returned.
+ * @param {!Document} document
  * @param {!Element} element
  * @param {?string} pageTitle Unencoded page title; if this title matches the
  *                            contents of the header exactly, it will be omitted.
  * @return {!Array<string>}
  */
-var getTableHeader = function getTableHeader(element, pageTitle) {
-  var thArray = [];
+var getTableHeaderTextArray = function getTableHeaderTextArray(document, element, pageTitle) {
+  var headerTextArray = [];
   var headers = Polyfill.querySelectorAll(element, 'th');
+  headers.sort(elementScopeComparator);
   for (var i = 0; i < headers.length; ++i) {
-    var header = headers[i];
-    var anchors = Polyfill.querySelectorAll(header, 'a');
-    if (anchors.length < 3) {
-      // Also ignore it if it's identical to the page title.
-      if ((header.textContent && header.textContent.length) > 0 && header.textContent !== pageTitle && header.innerHTML !== pageTitle) {
-        thArray.push(header.textContent);
+    var headerText = extractEligibleHeaderText(document, headers[i], pageTitle);
+    if (headerText && headerTextArray.indexOf(headerText) === -1) {
+      headerTextArray.push(headerText);
+      // 'newCaptionFragment' only ever uses the first 2 items.
+      if (headerTextArray.length === 2) {
+        break;
       }
     }
-    if (thArray.length === 2) {
-      // 'newCaption' only ever uses the first 2 items.
-      break;
-    }
   }
-  return thArray;
+  return headerTextArray;
 };
 
 /**
@@ -1350,14 +1389,14 @@ var isInfobox = function isInfobox(element) {
 
 /**
  * @param {!Document} document
- * @param {?string} content HTML string.
+ * @param {!DocumentFragment} content
  * @return {!HTMLDivElement}
  */
 var newCollapsedHeaderDiv = function newCollapsedHeaderDiv(document, content) {
   var div = document.createElement('div');
   div.classList.add('pagelib_collapse_table_collapsed_container');
   div.classList.add('pagelib_collapse_table_expanded');
-  div.innerHTML = content || '';
+  div.appendChild(content);
   return div;
 };
 
@@ -1375,32 +1414,38 @@ var newCollapsedFooterDiv = function newCollapsedFooterDiv(document, content) {
 };
 
 /**
+ * @param {!Document} document
  * @param {!string} title
  * @param {!Array.<string>} headerText
- * @return {!string} HTML string.
+ * @return {!DocumentFragment}
  */
-var newCaption = function newCaption(title, headerText) {
-  var caption = '<strong>' + title + '</strong>';
+var newCaptionFragment = function newCaptionFragment(document, title, headerText) {
+  var fragment = document.createDocumentFragment();
 
-  caption += '<span class=pagelib_collapse_table_collapse_text>';
+  var strong = document.createElement('strong');
+  strong.innerHTML = title;
+  fragment.appendChild(strong);
+
+  var span = document.createElement('span');
+  span.classList.add('pagelib_collapse_table_collapse_text');
   if (headerText.length > 0) {
-    caption += ': ' + headerText[0];
+    span.appendChild(document.createTextNode(': ' + headerText[0]));
   }
   if (headerText.length > 1) {
-    caption += ', ' + headerText[1];
+    span.appendChild(document.createTextNode(', ' + headerText[1]));
   }
   if (headerText.length > 0) {
-    caption += ' …';
+    span.appendChild(document.createTextNode(' …'));
   }
-  caption += '</span>';
+  fragment.appendChild(span);
 
-  return caption;
+  return fragment;
 };
 
 /**
  * @param {!Window} window
- * @param {!Element} content
- * @param {?string} pageTitle
+ * @param {!Document} document
+ * @param {?string} pageTitle use title for this not `display title` (which can contain tags)
  * @param {?boolean} isMainPage
  * @param {?boolean} isInitiallyCollapsed
  * @param {?string} infoboxTitle
@@ -1409,12 +1454,12 @@ var newCaption = function newCaption(title, headerText) {
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {void}
  */
-var adjustTables = function adjustTables(window, content, pageTitle, isMainPage, isInitiallyCollapsed, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+var adjustTables = function adjustTables(window, document, pageTitle, isMainPage, isInitiallyCollapsed, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
   if (isMainPage) {
     return;
   }
 
-  var tables = content.querySelectorAll('table');
+  var tables = document.querySelectorAll('table');
 
   var _loop = function _loop(i) {
     var table = tables[i];
@@ -1423,16 +1468,15 @@ var adjustTables = function adjustTables(window, content, pageTitle, isMainPage,
       return 'continue';
     }
 
-    // todo: this is actually an array
-    var headerText = getTableHeader(table, pageTitle);
-    if (!headerText.length && !isInfobox(table)) {
+    var headerTextArray = getTableHeaderTextArray(document, table, pageTitle);
+    if (!headerTextArray.length && !isInfobox(table)) {
       return 'continue';
     }
-    var caption = newCaption(isInfobox(table) ? infoboxTitle : otherTitle, headerText);
+    var captionFragment = newCaptionFragment(document, isInfobox(table) ? infoboxTitle : otherTitle, headerTextArray);
 
     // create the container div that will contain both the original table
     // and the collapsed version.
-    var containerDiv = window.document.createElement('div');
+    var containerDiv = document.createElement('div');
     containerDiv.className = 'pagelib_collapse_table_container';
     table.parentNode.insertBefore(containerDiv, table);
     table.parentNode.removeChild(table);
@@ -1442,10 +1486,10 @@ var adjustTables = function adjustTables(window, content, pageTitle, isMainPage,
     table.style.marginTop = '0px';
     table.style.marginBottom = '0px';
 
-    var collapsedHeaderDiv = newCollapsedHeaderDiv(window.document, caption);
+    var collapsedHeaderDiv = newCollapsedHeaderDiv(document, captionFragment);
     collapsedHeaderDiv.style.display = 'block';
 
-    var collapsedFooterDiv = newCollapsedFooterDiv(window.document, footerTitle);
+    var collapsedFooterDiv = newCollapsedFooterDiv(document, footerTitle);
     collapsedFooterDiv.style.display = 'none';
 
     // add our stuff to the container
@@ -1488,8 +1532,8 @@ var adjustTables = function adjustTables(window, content, pageTitle, isMainPage,
 
 /**
  * @param {!Window} window
- * @param {!Element} content
- * @param {?string} pageTitle
+ * @param {!Document} document
+ * @param {?string} pageTitle use title for this not `display title` (which can contain tags)
  * @param {?boolean} isMainPage
  * @param {?string} infoboxTitle
  * @param {?string} otherTitle
@@ -1497,8 +1541,8 @@ var adjustTables = function adjustTables(window, content, pageTitle, isMainPage,
  * @param {?FooterDivClickCallback} footerDivClickCallback
  * @return {void}
  */
-var collapseTables = function collapseTables(window, content, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
-  adjustTables(window, content, pageTitle, isMainPage, true, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback);
+var collapseTables = function collapseTables(window, document, pageTitle, isMainPage, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback) {
+  adjustTables(window, document, pageTitle, isMainPage, true, infoboxTitle, otherTitle, footerTitle, footerDivClickCallback);
 };
 
 /**
@@ -1532,26 +1576,119 @@ var CollapseTable = {
   adjustTables: adjustTables,
   expandCollapsedTableIfItContainsElement: expandCollapsedTableIfItContainsElement,
   test: {
-    getTableHeader: getTableHeader,
+    elementScopeComparator: elementScopeComparator,
+    extractEligibleHeaderText: extractEligibleHeaderText,
+    firstWordFromString: firstWordFromString,
+    getTableHeaderTextArray: getTableHeaderTextArray,
     shouldTableBeCollapsed: shouldTableBeCollapsed,
+    isHeaderEligible: isHeaderEligible,
+    isHeaderTextEligible: isHeaderTextEligible,
     isInfobox: isInfobox,
     newCollapsedHeaderDiv: newCollapsedHeaderDiv,
     newCollapsedFooterDiv: newCollapsedFooterDiv,
-    newCaption: newCaption
+    newCaptionFragment: newCaptionFragment,
+    isNodeTextContentSimilarToPageTitle: isNodeTextContentSimilarToPageTitle,
+    stringWithNormalizedWhitespace: stringWithNormalizedWhitespace,
+    replaceNodeWithBreakingSpaceTextNode: replaceNodeWithBreakingSpaceTextNode
+  }
+};
+
+/**
+ * Extracts array of page issues from element
+ * @param {!Document} document
+ * @param {?Element} element
+ * @return {!Array.<string>} Return empty array if nothing is extracted
+ */
+var collectPageIssues = function collectPageIssues(document, element) {
+  if (!element) {
+    return [];
+  }
+  var tables = Polyfill.querySelectorAll(element, 'table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
+  // Get the tables into a fragment so we can remove some elements without triggering a layout
+  var fragment = document.createDocumentFragment();
+  var cloneTableIntoFragment = function cloneTableIntoFragment(table) {
+    return fragment.appendChild(table.cloneNode(true));
+  }; // eslint-disable-line require-jsdoc
+  tables.forEach(cloneTableIntoFragment);
+  // Remove some elements we don't want when "textContent" or "innerHTML" are used
+  Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed').forEach(function (el) {
+    return el.remove();
+  });
+  return Polyfill.querySelectorAll(fragment, 'td[class*=mbox-text] > *[class*=mbox-text]');
+};
+
+/**
+ * Extracts array of page issues HTML from element
+ * @param {!Document} document
+ * @param {?Element} element
+ * @return {!Array.<string>} Return empty array if nothing is extracted
+ */
+var collectPageIssuesHTML = function collectPageIssuesHTML(document, element) {
+  return collectPageIssues(document, element).map(function (el) {
+    return el.innerHTML;
+  });
+};
+
+/**
+ * Extracts array of page issues text from element
+ * @param {!Document} document
+ * @param {?Element} element
+ * @return {!Array.<string>} Return empty array if nothing is extracted
+ */
+var collectPageIssuesText = function collectPageIssuesText(document, element) {
+  return collectPageIssues(document, element).map(function (el) {
+    return el.textContent.trim();
+  });
+};
+
+/**
+ * Extracts array of disambiguation titles from an element
+ * @param {?Element} element
+ * @return {!Array.<string>} Return empty array if nothing is extracted
+ */
+var collectDisambiguationTitles = function collectDisambiguationTitles(element) {
+  if (!element) {
+    return [];
+  }
+  return Polyfill.querySelectorAll(element, 'div.hatnote a[href]:not([href=""]):not([redlink="1"])').map(function (el) {
+    return el.href;
+  });
+};
+
+/**
+ * Extracts array of disambiguation items html from an element
+ * @param {?Element} element
+ * @return {!Array.<string>} Return empty array if nothing is extracted
+ */
+var collectDisambiguationHTML = function collectDisambiguationHTML(element) {
+  if (!element) {
+    return [];
+  }
+  return Polyfill.querySelectorAll(element, 'div.hatnote').map(function (el) {
+    return el.innerHTML;
+  });
+};
+
+var CollectionUtilities = {
+  collectDisambiguationTitles: collectDisambiguationTitles,
+  collectDisambiguationHTML: collectDisambiguationHTML,
+  collectPageIssuesHTML: collectPageIssuesHTML,
+  collectPageIssuesText: collectPageIssuesText,
+  test: {
+    collectPageIssues: collectPageIssues
   }
 };
 
 var COMPATIBILITY = {
   FILTER: 'pagelib_compatibility_filter'
-};
 
-/**
- * @param {!Document} document
- * @param {!Array.<string>} properties
- * @param {!string} value
- * @return {void}
- */
-var isStyleSupported = function isStyleSupported(document, properties, value) {
+  /**
+   * @param {!Document} document
+   * @param {!Array.<string>} properties
+   * @param {!string} value
+   * @return {void}
+   */
+};var isStyleSupported = function isStyleSupported(document, properties, value) {
   var element = document.createElement('span');
   return properties.some(function (property) {
     element.style[property] = value;
@@ -1833,6 +1970,99 @@ var ElementGeometry = function () {
   return ElementGeometry;
 }();
 
+var ELEMENT_NODE$1 = 1;
+
+/**
+ * Determine if paragraph is the one we are interested in.
+ * @param  {!HTMLParagraphElement}  paragraphElement
+ * @return {!boolean}
+ */
+var isParagraphEligible = function isParagraphEligible(paragraphElement) {
+  // Ignore 'coordinates' which are presently hidden. See enwiki 'Bolton Field' and 'Sharya Forest
+  // Museum Railway'. Not counting coordinates towards the eligible P min textContent length
+  // heuristic has dual effect of P's containing only coordinates being rejected, and P's containing
+  // coordinates but also other elements meeting the eligible P min textContent length being
+  // accepted.
+  var coordElement = paragraphElement.querySelector('[id="coordinates"]');
+  var coordTextLength = !coordElement ? 0 : coordElement.textContent.length;
+
+  // Ensures the paragraph has at least a little text. Otherwise silly things like a empty P or P
+  // which only contains a BR tag will get pulled up. See enwiki 'Hawaii', 'United States',
+  // 'Academy (educational institution)', 'Lovászpatona'
+  var minEligibleTextLength = 50;
+  var hasEnoughEligibleText = paragraphElement.textContent.length - coordTextLength >= minEligibleTextLength;
+  return hasEnoughEligibleText;
+};
+
+/**
+ * Nodes we want to move up. This includes the `eligibleParagraph` and everything up to (but not
+ * including) the next paragraph.
+ * @param  {!HTMLParagraphElement} eligibleParagraph
+ * @return {!Array.<Node>} Array of text nodes, elements, etc...
+ */
+var extractLeadIntroductionNodes = function extractLeadIntroductionNodes(eligibleParagraph) {
+  var introNodes = [];
+  var node = eligibleParagraph;
+  do {
+    introNodes.push(node);
+    node = node.nextSibling;
+  } while (node && !(node.nodeType === ELEMENT_NODE$1 && node.tagName === 'P'));
+  return introNodes;
+};
+
+/**
+ * Locate first eligible paragraph. We don't want paragraphs from somewhere in the middle of a
+ * table, so only paragraphs which are direct children of `containerID` element are considered. 
+ * @param  {!Document} document
+ * @param  {!string} containerID ID of the section under examination.
+ * @return {?HTMLParagraphElement}
+ */
+var getEligibleParagraph = function getEligibleParagraph(document, containerID) {
+  return Polyfill.querySelectorAll(document, '#' + containerID + ' > p').find(isParagraphEligible);
+};
+
+/**
+ * Instead of moving the infobox down beneath the first P tag, move the first eligible P tag
+ * (and related elements) up. This ensures some text will appear above infoboxes, tables, images
+ * etc. This method does not do a 'mainpage' check - do so before calling it.
+ * @param  {!Document} document
+ * @param  {!string} containerID ID of the section under examination.
+ * @param  {?Element} afterElement Element after which paragraph will be moved. If not specified
+ * paragraph will be move to top of `containerID` element.
+ * @return {void}
+ */
+var moveLeadIntroductionUp = function moveLeadIntroductionUp(document, containerID, afterElement) {
+  var eligibleParagraph = getEligibleParagraph(document, containerID);
+  if (!eligibleParagraph) {
+    return;
+  }
+
+  // A light-weight fragment to hold everything we want to move up.
+  var fragment = document.createDocumentFragment();
+  // DocumentFragment's `appendChild` attaches the element to the fragment AND removes it from DOM.
+  extractLeadIntroductionNodes(eligibleParagraph).forEach(function (element) {
+    return fragment.appendChild(element);
+  });
+
+  var container = document.getElementById(containerID);
+  var insertBeforeThisElement = !afterElement ? container.firstChild : afterElement.nextSibling;
+
+  // Attach the fragment just before `insertBeforeThisElement`. Conveniently, `insertBefore` on a
+  // DocumentFragment inserts 'the children of the fragment, not the fragment itself.', so no
+  // unnecessary container element is introduced.
+  // https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+  container.insertBefore(fragment, insertBeforeThisElement);
+};
+
+var LeadIntroductionTransform = {
+  moveLeadIntroductionUp: moveLeadIntroductionUp,
+  test: {
+    isParagraphEligible: isParagraphEligible,
+    extractLeadIntroductionNodes: extractLeadIntroductionNodes,
+    getEligibleParagraph: getEligibleParagraph
+  }
+};
+
 /**
  * Ensures the 'Read more' section header can always be scrolled to the top of the screen.
  * @param {!Window} window
@@ -1939,12 +2169,6 @@ var FooterLegal = {
 };
 
 /**
- * @typedef {function} FooterMenuItemPayloadExtractor
- * @param {!Document} document
- * @return {!Array.<string>} Important - should return empty array if no payload strings.
- */
-
-/**
  * @typedef {function} FooterMenuItemClickCallback
  * @param {!Array.<string>} payload Important - should return empty array if no payload strings.
  * @return {void}
@@ -1953,39 +2177,6 @@ var FooterLegal = {
 /**
  * @typedef {number} MenuItemType
  */
-
-// eslint-disable-next-line valid-jsdoc
-/**
- * Extracts array of no-html page issues strings from document.
- * @type {FooterMenuItemPayloadExtractor}
- */
-var pageIssuesStringsArray = function pageIssuesStringsArray(document) {
-  var tables = Polyfill.querySelectorAll(document, 'div#content_block_0 table.ambox:not(.ambox-multiple_issues):not(.ambox-notice)');
-  // Get the tables into a fragment so we can remove some elements without triggering a layout
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < tables.length; i++) {
-    fragment.appendChild(tables[i].cloneNode(true));
-  }
-  // Remove some element so their text doesn't appear when we use "innerText"
-  Polyfill.querySelectorAll(fragment, '.hide-when-compact, .collapsed').forEach(function (el) {
-    return el.remove();
-  });
-  // Get the innerText
-  return Polyfill.querySelectorAll(fragment, 'td[class$=mbox-text]').map(function (el) {
-    return el.innerText;
-  });
-};
-
-// eslint-disable-next-line valid-jsdoc
-/**
- * Extracts array of disambiguation page urls from document.
- * @type {FooterMenuItemPayloadExtractor}
- */
-var disambiguationTitlesArray = function disambiguationTitlesArray(document) {
-  return Polyfill.querySelectorAll(document, 'div#content_block_0 div.hatnote a[href]:not([href=""]):not([redlink="1"])').map(function (el) {
-    return el.href;
-  });
-};
 
 /**
  * Type representing kinds of menu items.
@@ -1998,12 +2189,11 @@ var MenuItemType = {
   disambiguation: 4,
   coordinate: 5,
   talkPage: 6
+
+  /**
+   * Menu item model.
+   */
 };
-
-/**
- * Menu item model.
- */
-
 var MenuItem = function () {
   /**
    * MenuItem constructor.
@@ -2051,8 +2241,16 @@ var MenuItem = function () {
     }
 
     /**
+     * Extracts array of page issues, disambiguation titles, etc from element.
+     * @typedef {function} PayloadExtractor
+     * @param {!Document} document
+     * @param {?Element} element
+     * @return {!Array.<string>} Return empty array if nothing is extracted
+     */
+
+    /**
      * Returns reference to function for extracting payload when this menu item is tapped.
-     * @return {?FooterMenuItemPayloadExtractor}
+     * @return {?PayloadExtractor}
      */
 
   }, {
@@ -2060,9 +2258,12 @@ var MenuItem = function () {
     value: function payloadExtractor() {
       switch (this.itemType) {
         case MenuItemType.pageIssues:
-          return pageIssuesStringsArray;
+          return CollectionUtilities.collectPageIssuesText;
         case MenuItemType.disambiguation:
-          return disambiguationTitlesArray;
+          // Adapt 'collectDisambiguationTitles' method signature to conform to PayloadExtractor type.
+          return function (_, element) {
+            return CollectionUtilities.collectDisambiguationTitles(element);
+          };
         default:
           return undefined;
       }
@@ -2140,7 +2341,7 @@ var maybeAddItem = function maybeAddItem(title, subtitle, itemType, containerID,
   // Items are not added if they have a payload extractor which fails to extract anything.
   var extractor = item.payloadExtractor();
   if (extractor) {
-    item.payload = extractor(document);
+    item.payload = extractor(document, document.querySelector('div#content_block_0'));
     if (item.payload.length === 0) {
       return;
     }
@@ -2452,6 +2653,7 @@ var updateSaveButtonBookmarkIcon = function updateSaveButtonBookmarkIcon(button,
 
 /**
  * Updates save button text and bookmark icon for saved state.
+ * Safe to call even for titles for which there is not currently a 'Read more' item.
  * @param {!string} title
  * @param {!string} text
  * @param {!boolean} isSaved
@@ -2765,15 +2967,15 @@ var UNIT_TO_MINIMUM_LAZY_LOAD_SIZE = {
   px: 50, // https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/includes/MobileFormatter.php;c89f371ea9e789d7e1a827ddfec7c8028a549c12$22
   ex: 10, // ''
   em: 5 // 1ex ≈ .5em; https://developer.mozilla.org/en-US/docs/Web/CSS/length#Units
-};
 
-/**
- * Replace an image with a placeholder.
- * @param {!Document} document
- * @param {!HTMLImageElement} image The image to be replaced.
- * @return {!HTMLSpanElement} The placeholder replacing image.
- */
-var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
+
+  /**
+   * Replace an image with a placeholder.
+   * @param {!Document} document
+   * @param {!HTMLImageElement} image The image to be replaced.
+   * @return {!HTMLSpanElement} The placeholder replacing image.
+   */
+};var convertImageToPlaceholder = function convertImageToPlaceholder(document, image) {
   // There are a number of possible implementations for placeholders including:
   //
   // - [MobileFrontend] Replace the original image with a span and replace the span with a new
@@ -3066,14 +3268,14 @@ var _class$1 = function () {
   return _class;
 }();
 
-var CLASS$2 = { ANDROID: 'pagelib_platform_android', IOS: 'pagelib_platform_ios' };
+var CLASS$2 = { ANDROID: 'pagelib_platform_android', IOS: 'pagelib_platform_ios'
 
-// Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
-/**
- * @param {!Window} window
- * @return {!boolean} true if the user agent is Android, false otherwise.
- */
-var isAndroid = function isAndroid(window) {
+  // Regular expressions from https://phabricator.wikimedia.org/diffusion/EMFR/browse/master/resources/mobile.startup/browser.js;c89f371ea9e789d7e1a827ddfec7c8028a549c12.
+  /**
+   * @param {!Window} window
+   * @return {!boolean} true if the user agent is Android, false otherwise.
+   */
+};var isAndroid = function isAndroid(window) {
   return (/android/i.test(window.navigator.userAgent)
   );
 };
@@ -3118,18 +3320,17 @@ var configureRedLinkTemplate = function configureRedLinkTemplate(span, anchor) {
 };
 
 /**
- * Finds red links in a document or document fragment.
- * @param {!(Document|DocumentFragment)} content Document or fragment in which to seek red links.
+ * Finds red links in a document.
+ * @param {!Document} content Document in which to seek red links.
  * @return {!Array.<HTMLAnchorElement>} Array of zero or more red link anchors.
  */
-var redLinkAnchorsInContent = function redLinkAnchorsInContent(content) {
+var redLinkAnchorsInDocument = function redLinkAnchorsInDocument(content) {
   return Polyfill.querySelectorAll(content, 'a.new');
 };
 
 /**
  * Makes span to be used as cloning template for red link anchor replacements.
- * @param  {!Document} document Document to use to create span element. Reminder: this can't be a
- * document fragment because fragments don't implement 'createElement'.
+ * @param  {!Document} document Document to use to create span element.
  * @return {!HTMLSpanElement} Span element suitable for use as template for red link anchor
  * replacements.
  */
@@ -3148,17 +3349,13 @@ var replaceAnchorWithSpan = function replaceAnchorWithSpan(anchor, span) {
 };
 
 /**
- * Hides red link anchors in either a document or a document fragment so they are unclickable and
- * unfocusable.
+ * Hides red link anchors in a document so they are unclickable and unfocusable.
  * @param {!Document} document Document in which to hide red links.
- * @param {?DocumentFragment} fragment If specified, red links are hidden in the fragment and the
- * document is used only for span cloning.
  * @return {void}
  */
-var hideRedLinks = function hideRedLinks(document, fragment) {
+var hideRedLinks = function hideRedLinks(document) {
   var spanTemplate = newRedLinkTemplate(document);
-  var content = fragment !== undefined ? fragment : document;
-  redLinkAnchorsInContent(content).forEach(function (redLink) {
+  redLinkAnchorsInDocument(document).forEach(function (redLink) {
     var span = spanTemplate.cloneNode(false);
     configureRedLinkTemplate(span, redLink);
     replaceAnchorWithSpan(redLink, span);
@@ -3169,7 +3366,7 @@ var RedLinks = {
   hideRedLinks: hideRedLinks,
   test: {
     configureRedLinkTemplate: configureRedLinkTemplate,
-    redLinkAnchorsInContent: redLinkAnchorsInContent,
+    redLinkAnchorsInDocument: redLinkAnchorsInDocument,
     newRedLinkTemplate: newRedLinkTemplate,
     replaceAnchorWithSpan: replaceAnchorWithSpan
   }
@@ -3183,10 +3380,10 @@ var RedLinks = {
 var ancestorsToWiden = function ancestorsToWiden(element) {
   var widenThese = [];
   var el = element;
-  while (el.parentNode) {
-    el = el.parentNode;
+  while (el.parentElement) {
+    el = el.parentElement;
     // No need to walk above 'content_block'.
-    if (el.classList && el.classList.contains('content_block')) {
+    if (el.classList.contains('content_block')) {
       break;
     }
     widenThese.push(el);
@@ -3202,9 +3399,6 @@ var ancestorsToWiden = function ancestorsToWiden(element) {
  * @return {void}
  */
 var updateStyleValue = function updateStyleValue(style, key, value) {
-  if (!style || !key) {
-    return;
-  }
   style[key] = value;
 };
 
@@ -3216,7 +3410,7 @@ var updateStyleValue = function updateStyleValue(style, key, value) {
  * @return {void}
  */
 var updateExistingStyleValue = function updateExistingStyleValue(style, key, value) {
-  var valueExists = style && key && Boolean(style[key]);
+  var valueExists = Boolean(style[key]);
   if (valueExists) {
     updateStyleValue(style, key, value);
   }
@@ -3231,15 +3425,14 @@ var styleWideningKeysAndValues = {
   height: 'auto',
   maxWidth: '100%',
   float: 'none'
-};
 
-/**
- * Perform widening on an element. Certain style properties are updated, but only if existing values
- * for these properties already exist.
- * @param  {!HTMLElement} element
- * @return {void}
- */
-var widenElementByUpdatingExistingStyles = function widenElementByUpdatingExistingStyles(element) {
+  /**
+   * Perform widening on an element. Certain style properties are updated, but only if existing values
+   * for these properties already exist.
+   * @param  {!HTMLElement} element
+   * @return {void}
+   */
+};var widenElementByUpdatingExistingStyles = function widenElementByUpdatingExistingStyles(element) {
   Object.keys(styleWideningKeysAndValues).forEach(function (key) {
     return updateExistingStyleValue(element.style, key, styleWideningKeysAndValues[key]);
   });
@@ -3359,11 +3552,13 @@ var WidenImage = {
 var pagelib$1 = {
   // todo: rename CollapseTableTransform.
   CollapseTable: CollapseTable,
+  CollectionUtilities: CollectionUtilities,
   CompatibilityTransform: CompatibilityTransform,
   DimImagesTransform: DimImagesTransform,
   EditTransform: EditTransform,
   // todo: rename Footer.ContainerTransform, Footer.LegalTransform, Footer.MenuTransform,
   //       Footer.ReadMoreTransform.
+  LeadIntroductionTransform: LeadIntroductionTransform,
   FooterContainer: FooterContainer,
   FooterLegal: FooterLegal,
   FooterMenu: FooterMenu,
@@ -3394,4 +3589,4 @@ return pagelib$1;
 })));
 
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10]);
+},{}]},{},[1,2,3,4,5,6,7,8,9]);

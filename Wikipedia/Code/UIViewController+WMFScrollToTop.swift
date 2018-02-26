@@ -13,12 +13,6 @@ extension UICollectionViewController {
     }
 }
 
-extension ColumnarCollectionViewController {
-    fileprivate func scrollToTop() {
-        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
-    }
-}
-
 extension ArticleCollectionViewController {
     @objc func scrollToTop(_ isScrollable: Bool) {
         guard isScrollable else { return }

@@ -74,5 +74,45 @@
 			<string>Dzisiaj</string>
 		</dict>
 	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d godziny temu</string>
+			<key>one</key>
+			<string>%1$d godzinę temu</string>
+			<key>other</key>
+			<string>%1$d godzin temu</string>
+			<key>zero</key>
+			<string>Ostatnio</string>
+		</dict>
+	</dict>
+	<key>relative-date-minutes-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d minuty temu</string>
+			<key>one</key>
+			<string>%1$d minutę temu</string>
+			<key>other</key>
+			<string>%1$d minut temu</string>
+			<key>zero</key>
+			<string>Przed chwilą</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

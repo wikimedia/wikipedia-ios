@@ -79,7 +79,7 @@
         case WMFSettingsMenuItemType_Appearance: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-appearance", nil, nil, @"Appearance", @"Title for button letting user choose appearance settings.")
+                                                    title:WMFCommonStrings.readingPreferences
                                                  iconName:@"settings-appearance"
                                                 iconColor:[UIColor wmf_colorWithHex:0x000000]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
@@ -125,6 +125,36 @@
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
                                                isSwitchOn:[SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving];
+        }
+        case WMFSettingsMenuItemType_StorageAndSyncing: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:WMFLocalizedStringWithDefaultValue(@"reading-list-sync-setting", nil, nil, @"Reading list sync", @"Main menu option to enable or disable reading list sync")
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].dataStore.readingListsController.isSyncEnabled];
+        }
+        case WMFSettingsMenuItemType_ShowDefaultList: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:WMFLocalizedStringWithDefaultValue(@"reading-list-show-default-list-setting", nil, nil, @"Show default list", @"Main menu option to enable or disable default list")
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].dataStore.readingListsController.isDefaultListEnabled];
+        }
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:@"Reading list danger zone"
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F45DE]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return

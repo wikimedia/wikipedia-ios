@@ -1,4 +1,5 @@
 #!/bin/bash
+# installs required tools for development
 
 scripts/brew_install
 

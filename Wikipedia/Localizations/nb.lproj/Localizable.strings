@@ -75,6 +75,7 @@
 "appearance-settings-title" = "Lesedrakter";
 "article-about-title" = "Om artikkelen";
 "article-delete" = "Slett";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikkelen er slettet";
 "article-languages-filter-placeholder" = "Finn språk";
 "article-languages-label" = "Velg språk";
@@ -325,6 +326,7 @@
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
 "saved-clear-all" = "Tøm";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
 "saved-pages-clear-delete-all" = "Ja, slett alt";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
@@ -339,6 +341,7 @@
 "search-recent-title" = "Siste søk";
 "search-result-redirected-from" = "Omdirigert fra: $1";
 "search-title" = "Søk";
+// Fuzzy
 "settings-appearance" = "Utseende";
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";

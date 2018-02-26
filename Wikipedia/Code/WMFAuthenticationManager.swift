@@ -3,7 +3,7 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 class WMFAuthenticationManager: NSObject {    
-    private var keychainCredentials:WMFKeychainCredentials
+    fileprivate var keychainCredentials:WMFKeychainCredentials
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -17,10 +17,22 @@ class WMFAuthenticationManager: NSObject {
         return (loggedInUsername != nil)
     }
 
-    private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    private let tokenFetcher = WMFAuthTokenFetcher()
-    private let accountLogin = WMFAccountLogin()
-    private let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
+    @objc public var hasKeychainCredentials: Bool {
+        guard
+            let userName = keychainCredentials.userName,
+            userName.count > 0,
+            let password = keychainCredentials.password,
+            password.count > 0
+            else {
+                return false
+        }
+        return true
+    }
+    
+    fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
+    fileprivate let tokenFetcher = WMFAuthTokenFetcher()
+    fileprivate let accountLogin = WMFAccountLogin()
+    fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
     
     /**
      *  Get the shared instance of this class
@@ -31,6 +43,31 @@ class WMFAuthenticationManager: NSObject {
 
     override private init() {
         keychainCredentials = WMFKeychainCredentials()
+    }
+    
+    var loginSiteURL: URL {
+        var baseURL: URL?
+        if let host = self.keychainCredentials.host {
+            var components = URLComponents()
+            components.host = host
+            components.scheme = "https"
+            baseURL = components.url
+        }
+        
+        if baseURL == nil {
+//            #if DEBUG
+//                let loginHost = "readinglists.wmflabs.org"
+//                let loginScheme = "https"
+//                var components = URLComponents()
+//                components.host = loginHost
+//                components.scheme = loginScheme
+//                baseURL = components.url
+//            #else
+                baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+//            #endif
+        }
+        
+        return baseURL!
     }
     
     /**
@@ -44,13 +81,14 @@ class WMFAuthenticationManager: NSObject {
      *  @param failure     The handler for any errors
      */
     @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL!, success: { tokenBlock in
-            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL!, success: {result in
+        let siteURL = loginSiteURL
+        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { tokenBlock in
+            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
                 self.keychainCredentials.userName = normalizedUserName
                 self.keychainCredentials.password = password
+                self.keychainCredentials.host = siteURL.host
                 self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 loginSuccess(result)
@@ -67,18 +105,16 @@ class WMFAuthenticationManager: NSObject {
      */
     @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
-        guard
+        guard hasKeychainCredentials,
             let userName = keychainCredentials.userName,
-            userName.count > 0,
-            let password = keychainCredentials.password,
-            password.count > 0
+            let password = keychainCredentials.password
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return
         }
         
-        let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL();
-        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL!, success: { result in
+        let siteURL = loginSiteURL
+        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
@@ -87,7 +123,7 @@ class WMFAuthenticationManager: NSObject {
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 if let error = error as? URLError {
                     if error.code != .notConnectedToInternet {
-                        self.logout(success:WMFIgnoreSuccessHandler, failure:WMFIgnoreErrorHandler)
+                        self.logout()
                     }
                 }
                 failure(error)
@@ -95,35 +131,42 @@ class WMFAuthenticationManager: NSObject {
         })
     }
     
-    private let logoutManager = AFHTTPSessionManager(baseURL: MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL())
+    fileprivate var logoutManager:AFHTTPSessionManager?
+    
+    fileprivate func resetLocalUserLoginSettings() {
+        self.keychainCredentials.userName = nil
+        self.keychainCredentials.password = nil
+        self.loggedInUsername = nil
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        HTTPCookieStorage.shared.cookies?.forEach { cookie in
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
+        SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
+        
+        SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        
+        // Reset so can show for next logged in user.
+        UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
+    }
     
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(success:@escaping WMFSuccessHandler, failure:@escaping WMFErrorHandler){
-        let outerSuccess = success;
-        let outerFailure = failure;
-        
-        _ = logoutManager.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
-            
-            self.keychainCredentials.userName = nil
-            self.keychainCredentials.password = nil
-            self.loggedInUsername = nil
-            // Cookie reminders: 
-            //  - Call "action=logout" API *before* clearing app cookies.
-            //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
-            HTTPCookieStorage.shared.cookies?.forEach { cookie in
-                HTTPCookieStorage.shared.deleteCookie(cookie)
-            }
-            SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-            
-            outerSuccess()
+    @objc public func logout(completion: @escaping () -> Void = {}){
+        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
+        _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
+            // It's best to call "action=logout" API *before* clearing local login settings...
+            self.resetLocalUserLoginSettings()
+            completion()
         }, failure: { (_, error) in
-            outerFailure(error)
+            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+            self.resetLocalUserLoginSettings()
+            completion()
         })
     }
     
-    func cloneSessionCookies() {
+    fileprivate func cloneSessionCookies() {
         // Make the session cookies expire at same time user cookies. Just remember they still can't be
         // necessarily assumed to be valid as the server may expire them, but at least make them last as
         // long as we can to lessen number of server requests. Uses user tokens as templates for copying
