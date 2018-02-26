@@ -1,6 +1,6 @@
 extension ArticleCollectionViewCell: Themeable {
     open func apply(theme: Theme) {
-        let selected = batchEditingTranslation > 0 ? theme.colors.batchSelectionBackground : theme.colors.midBackground
+        let selected = isBatchEditing ? theme.colors.batchSelectionBackground : theme.colors.midBackground
         setBackgroundColors(theme.colors.paperBackground, selected: selected)
         imageView.backgroundColor = theme.colors.midBackground
         titleLabel.textColor = theme.colors.primaryText
