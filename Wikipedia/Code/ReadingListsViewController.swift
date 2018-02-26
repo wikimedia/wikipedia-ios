@@ -171,6 +171,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 cell.descriptionLabel.text = error.localizedDescription
                 cell.descriptionLabel.textColor = theme.colors.error
             }
+            cell.actions = []
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
         } else {
