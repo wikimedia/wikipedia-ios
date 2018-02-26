@@ -24,8 +24,7 @@ class SavedViewController: ViewController {
     @IBOutlet var underBarView: UIView!
     @IBOutlet var allArticlesButton: UIButton!
     @IBOutlet var readingListsButton: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet weak var separatorView: UIView!
@@ -75,7 +74,7 @@ class SavedViewController: ViewController {
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
                 isAddButtonHidden = true
-                isSearchBarHidden = savedArticlesViewController.isEmpty
+                isSearchBarHidden = savedArticlesViewController.editController.isCollectionViewEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
             case .readingLists :
@@ -102,18 +101,11 @@ class SavedViewController: ViewController {
     
     private var isSearchBarHidden: Bool = false {
         didSet {
-            extendedNavBarView.isHidden = isSearchBarHidden
             if isSearchBarHidden {
-                NSLayoutConstraint.deactivate(searchBarConstraints)
+                navigationBar.removeExtendedNavigationBarView()
             } else {
-                NSLayoutConstraint.activate(searchBarConstraints)
+                navigationBar.addExtendedNavigationBarView(extendedNavBarView)
             }
-            guard currentView != .readingLists else {
-                return
-            }
-            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
-            savedArticlesViewController?.updateScrollViewInsets()
-            updateScrollViewInsets()
         }
     }
     
@@ -141,6 +133,7 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
+        
         currentView = .savedArticles
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")

@@ -103,9 +103,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         
         // Remove peek & pop for now
         unregisterForPreviewing()
-        
-        areScrollViewInsetsDeterminedByVisibleHeight = false
-        
+
         isRefreshControlEnabled = true
     }
     

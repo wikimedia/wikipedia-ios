@@ -232,7 +232,7 @@ class ColumnarCollectionViewController: ViewController {
         isEmptyDidChange()
     }
     
-    var emptyViewFrame: CGRect {
+    private var emptyViewFrame: CGRect {
         let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
         let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
         return frame
@@ -246,8 +246,8 @@ class ColumnarCollectionViewController: ViewController {
         }
     }
     
-    override func didUpdateScrollViewInsets() {
-        super.didUpdateScrollViewInsets()
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
         wmf_setEmptyViewFrame(emptyViewFrame)
     }
     
