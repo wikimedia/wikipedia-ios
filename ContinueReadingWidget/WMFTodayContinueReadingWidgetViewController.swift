@@ -148,7 +148,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         if #available(iOSApplicationExtension 10.0, *) {
             if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
                 self.collapseImageAndWidenLabels = false
-                self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
+                self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, optimize: true, failure: { (error) in
                     self.collapseImageAndWidenLabels = true
                 }) {
                     self.collapseImageAndWidenLabels = false

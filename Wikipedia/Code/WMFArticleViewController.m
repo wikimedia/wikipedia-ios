@@ -214,6 +214,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage
                                                detectFaces:YES
+                                                  optimize:YES
                                                    failure:WMFIgnoreErrorHandler
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];

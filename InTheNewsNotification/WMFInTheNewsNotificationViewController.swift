@@ -87,7 +87,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
         
         self.imageViewHidden = false
         if let thumbnailURLString = info[WMFNotificationInfoThumbnailURLStringKey] as? String, let thumbnailURL = URL(string: thumbnailURLString) {
-            imageView.wmf_setImage(with: thumbnailURL, detectFaces: false, onGPU: false, failure: { (error) in
+            imageView.wmf_setImage(with: thumbnailURL, detectFaces: false, onGPU: false, optimize: true, failure: { (error) in
                 DispatchQueue.main.async(execute: { 
                    self.imageViewHidden = true
                 })

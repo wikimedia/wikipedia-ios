@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param success Invoked after the image has been successfully set and animated into view.
  *
  */
-- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
+- (void)wmf_fetchImageDetectFaces:(BOOL)detectFaces onGPU:(BOOL)onGPU optimize:(BOOL)optimize failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 
 /**
  *  Cancels any ongoing fetch for the receiver's current image, using its internal @c WMFImageController.

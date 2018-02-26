@@ -18,7 +18,7 @@ extension ArticleCollectionViewCell {
                 return
             }
             isImageViewHidden = false
-            imageView.wmf_setImage(with: newURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+            imageView.wmf_setImage(with: newURL, detectFaces: true, onGPU: true, optimize: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         get {
             return imageView.wmf_imageURLToFetch
