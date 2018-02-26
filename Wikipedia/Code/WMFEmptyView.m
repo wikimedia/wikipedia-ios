@@ -97,13 +97,24 @@
 
 + (instancetype)noHistoryEmptyView {
     WMFEmptyView *view = [[self class] emptyView];
-    view.imageView.image = [UIImage imageNamed:@"recent-blank"];
+    view.imageView.image = [UIImage imageNamed:@"history-blank"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-title", nil, nil, @"No history to show", @"Title of a blank screen shown when a user has no history");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-history-message", nil, nil, @"Keep track of what you've been reading here", @"Message of a blank screen shown when a user has no history");
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     return view;
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+
+    if (![self.imageView superview]) {
+        return;
+    }
+    BOOL isCompactVertical = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact);
+    self.imageView.alpha = isCompactVertical ? 0.0 : 1.0;
+    self.imageView.hidden = isCompactVertical;
 }
 
 - (void)layoutSubviews {

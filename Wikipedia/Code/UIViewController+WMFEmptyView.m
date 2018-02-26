@@ -7,7 +7,7 @@
 
 static const char *const WMFEmptyViewKey = "WMFEmptyView";
 
-- (WMFEmptyView *)wmf_emptyView {
+- (nullable WMFEmptyView *)wmf_emptyView {
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
@@ -78,6 +78,10 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
 
 - (void)wmf_applyThemeToEmptyView:(WMFTheme *)theme {
     [[self wmf_emptyView] applyTheme:theme];
+}
+
+- (void)wmf_setEmptyViewFrame:(CGRect)frame {
+    [[self wmf_emptyView] setFrame:frame];
 }
 
 @end

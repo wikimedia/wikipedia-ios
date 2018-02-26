@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="jDP-Yy-8ig">
-                    <rect key="frame" x="40" y="223" width="295" height="161.5"/>
+                    <rect key="frame" x="40" y="253" width="295" height="161.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="no-internet" translatesAutoresizingMaskIntoConstraints="NO" id="Vjd-6b-y2g">
                             <rect key="frame" x="116.5" y="0.0" width="62" height="65"/>
@@ -60,7 +60,7 @@
                 <constraint firstAttribute="trailing" secondItem="jDP-Yy-8ig" secondAttribute="trailing" constant="40" id="Wf3-5u-s8Y"/>
                 <constraint firstItem="dxl-iz-vGe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jDP-Yy-8ig" secondAttribute="bottom" constant="8" id="ccf-Hq-J9y"/>
                 <constraint firstItem="MLg-bD-50n" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fX8-T8-LOw"/>
-                <constraint firstItem="jDP-Yy-8ig" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-30" id="gCe-wk-k9G"/>
+                <constraint firstItem="jDP-Yy-8ig" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gCe-wk-k9G"/>
                 <constraint firstItem="MLg-bD-50n" firstAttribute="top" secondItem="dxl-iz-vGe" secondAttribute="bottom" constant="12" id="m8k-nW-vr4"/>
                 <constraint firstItem="dxl-iz-vGe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="okl-UE-KmW"/>
                 <constraint firstAttribute="trailing" secondItem="dxl-iz-vGe" secondAttribute="trailing" constant="40" id="r3p-WV-kNv"/>

@@ -489,7 +489,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
     }
     
-    public var isCollectionViewEmpty: Bool = false {
+    public var isCollectionViewEmpty: Bool = true {
         didSet {
             guard oldValue != isCollectionViewEmpty else {
                 return

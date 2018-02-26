@@ -340,8 +340,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.webViewController.webView.scrollView;
 }
 
-- (void)didUpdateScrollViewInsets {
-    [super didUpdateScrollViewInsets];
+- (void)scrollViewInsetsDidChange {
+    [super scrollViewInsetsDidChange];
     [self updateTableOfContentsInsets];
 }
 
