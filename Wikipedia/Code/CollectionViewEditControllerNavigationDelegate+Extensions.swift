@@ -40,11 +40,7 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
 extension CollectionViewEditControllerNavigationDelegate where Self: UpdatableCollection & EditableCollection {
     func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
         if newEditingState == .open {
-            dataStore.readingListsController.stop {
-                DispatchQueue.main.async {
-                    self.editController.changeEditingState(to: newEditingState)
-                }
-            }
+            self.editController.changeEditingState(to: newEditingState)
         } else {
             editController.changeEditingState(to: newEditingState)
         }

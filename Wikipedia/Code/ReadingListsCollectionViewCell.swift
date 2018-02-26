@@ -81,6 +81,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         defaultListTag.setFont(with: .systemItalic, style: .caption2, traitCollection: traitCollection)
     }
     
+    override func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        articleCountLabel.backgroundColor = labelBackgroundColor
+        defaultListTag.backgroundColor = labelBackgroundColor
+    }
+    
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft

@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame;
 - (void)wmf_hideEmptyView;
 - (BOOL)wmf_isShowingEmptyView;
-
+- (void)wmf_applyThemeToEmptyView:(WMFTheme *)theme;
 @property (nonatomic, readonly) WMFEmptyView *wmf_emptyView;
 
 @end

@@ -222,11 +222,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     
     func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
         if newEditingState == .open {
-            dataStore?.readingListsController.stop {
-                DispatchQueue.main.async {
-                    self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
-                }
-            }
+            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
         } else {
             self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
         }
