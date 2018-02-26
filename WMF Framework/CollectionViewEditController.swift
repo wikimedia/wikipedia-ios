@@ -443,7 +443,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         collectionView.allowsMultipleSelection = willOpen
         isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
-            cell.isBatchEditable = true
+            guard cell.isBatchEditable else {
+                continue
+            }
             if animated {
                 // ensure layout is in the start anim state
                 cell.isBatchEditing = !willOpen

@@ -446,6 +446,7 @@ extension ReadingListDetailViewController {
         }
         
         cell.actions = availableActions(at: indexPath)
+        cell.isBatchEditable = true
         cell.layoutMargins = layout.readableMargins
         
         guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {

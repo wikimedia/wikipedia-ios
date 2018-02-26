@@ -76,6 +76,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.wmf_reset()
         resetSwipeable()
         isBatchEditing = false
+        isBatchEditable = false
+        actions = []
         updateFonts(with: traitCollection)
     }
 
