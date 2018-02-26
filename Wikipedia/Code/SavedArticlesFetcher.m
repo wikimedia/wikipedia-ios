@@ -97,22 +97,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Observing
 
 - (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = note.object;
-
-    if (article.savedDate != nil && !article.isDownloaded) {
-        [self update];
-    } else if (article.savedDate == nil) {
-        NSURL *articleURL = article.URL;
-        if (articleURL) {
-            [self cancelFetchForArticleURL:articleURL];
-            if (article.isDownloaded) {
-                [self removeArticleWithURL:articleURL
-                                completion:^{
-                                }];
-                [self.spotlightManager removeFromIndexWithUrl:articleURL];
-            }
-        }
-    }
+    [self update];
 }
 
 - (void)_update {
@@ -171,6 +156,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                             completion:^{
                                 updateAgain();
                             }];
+            [self.spotlightManager removeFromIndexWithUrl:articleURL];
         } else {
             self.updating = NO;
             [self notifyDelegateIfFinished];
