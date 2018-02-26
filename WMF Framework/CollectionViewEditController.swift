@@ -417,12 +417,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
         }
         
-        guard !isCollectionViewEmpty && !hasDefaultCell else {
-            isBatchEditToolbarHidden = true
-            enabled = false
-            return
-        }
-        
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
@@ -435,6 +429,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             fallthrough
         case .closed:
             transformBatchEditPane(for: editingState)
+        case .empty:
+            isBatchEditToolbarHidden = true
+            enabled = false
         default:
             break
         }
@@ -479,6 +476,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     private func emptyStateDidChange() {
         if isCollectionViewEmpty {
+            editingState = .empty
+        } else {
             editingState = .none
         }
         navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
@@ -490,15 +489,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 return
             }
             emptyStateDidChange()
-        }
-    }
-    
-    public var hasDefaultCell: Bool = false {
-        didSet {
-            guard hasDefaultCell else {
-                return
-            }
-            editingState = .none
         }
     }
     
