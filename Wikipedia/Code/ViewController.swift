@@ -110,13 +110,14 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
             return
         }
         
-        var top: CGFloat = 0
+        var frame = CGRect.zero
         if showsNavigationBar {
-            top = navigationBar.frame.height
+            frame = navigationBar.frame
         } else if let navigationController = navigationController {
-            top = navigationController.view.convert(navigationController.navigationBar.frame, to: view).maxY
+            frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
         
+        var top = frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
