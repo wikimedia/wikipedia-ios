@@ -242,14 +242,35 @@ public class NavigationBar: SetupView {
     }
     
     @objc public func addExtendedNavigationBarView(_ view: UIView) {
+        guard extendedView.subviews.first == nil else {
+            return
+        }
         extendedViewHeightConstraint.isActive = false
         extendedView.wmf_addSubviewWithConstraintsToEdges(view)
     }
-    
+
+    @objc public func removeExtendedNavigationBarView() {
+        guard let subview = extendedView.subviews.first else {
+            return
+        }
+        subview.removeFromSuperview()
+        extendedViewHeightConstraint.isActive = true
+    }
     
     @objc public func addUnderNavigationBarView(_ view: UIView) {
+        guard underBarView.subviews.first == nil else {
+            return
+        }
         underBarViewHeightConstraint.isActive = false
         underBarView.wmf_addSubviewWithConstraintsToEdges(view)
+    }
+
+    @objc public func removeUnderNavigationBarView() {
+        guard let subview = extendedView.subviews.first else {
+            return
+        }
+        subview.removeFromSuperview()
+        underBarViewHeightConstraint.isActive = true
     }
     
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

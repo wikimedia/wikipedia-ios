@@ -688,25 +688,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleUpdatedNotification object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self deactivateActiveElements];
-}
-
-- (void)deactivateActiveElements {
-    NSString *deactivationScript = @"\
-    var activeElements = document.querySelectorAll(\".active\");\
-    for (var i=0; i < activeElements.length; i++) {\
-        activeElements[i].classList.remove(\"active\");\
-    }";
-    [self.webView evaluateJavaScript:deactivationScript
-                   completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                       if (error) {
-                           DDLogError(@"Error deactivating links \(error)");
-                       }
-                   }];
-}
-
 - (void)articleUpdatedWithNotification:(NSNotification *)notification {
     if (notification.object) {
         if ([notification.object isMemberOfClass:[WMFArticle class]]) {

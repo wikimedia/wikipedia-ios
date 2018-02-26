@@ -64,6 +64,11 @@ class ReadingListHintViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: false)
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
         hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
