@@ -488,6 +488,7 @@ extension ReadingListDetailViewController {
 extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
+        title = name
     }
     
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {
