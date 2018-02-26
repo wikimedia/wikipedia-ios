@@ -107,6 +107,7 @@ class ReadingListHintViewController: UIViewController {
             return
         }
         let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+        readingListDetailViewController.apply(theme: theme)
         let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
