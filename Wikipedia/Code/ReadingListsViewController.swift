@@ -399,16 +399,6 @@ extension ReadingListsViewController: ActionDelegate {
 
 }
 
-extension ReadingListsViewController: CollectionViewEditControllerNavigationDelegate {
-    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
-        //
-    }
-    
-    var currentTheme: Theme {
-        return self.theme
-    }
-}
-
 // MARK: - WMFColumnarCollectionViewLayoutDelegate
 extension ReadingListsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
