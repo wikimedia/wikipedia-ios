@@ -36,7 +36,7 @@ open class CollectionViewCell: UICollectionViewCell {
 
     }
     
-    var labelBackgroundColor: UIColor? {
+    public var labelBackgroundColor: UIColor? {
         didSet {
             updateBackgroundColorOfLabels()
         }
