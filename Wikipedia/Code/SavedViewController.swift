@@ -72,6 +72,7 @@ class SavedViewController: ViewController {
                 removeChild(readingListsViewController)
                 addChild(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
+                readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
                 isAddButtonHidden = true
                 isSearchBarHidden = savedArticlesViewController.isEmpty
@@ -81,6 +82,7 @@ class SavedViewController: ViewController {
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
+                savedArticlesViewController.editController.navigationDelegate = nil
                 isAddButtonHidden = false
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true

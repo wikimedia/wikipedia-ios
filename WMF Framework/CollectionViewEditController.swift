@@ -372,7 +372,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             if navigationDelegate == nil {
                 editingState = .unknown
             } else {
-                editingState = .none
+                editingState = isCollectionViewEmpty ? .empty : .none
             }
         }
     }
