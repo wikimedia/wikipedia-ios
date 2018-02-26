@@ -173,7 +173,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             }
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
+            cell.isBatchEditable = false
         } else {
+            cell.isBatchEditable = true
             cell.actions = availableActions(at: indexPath)
             if editController.isBatchEditing {
                 cell.isBatchEditing = editController.isBatchEditing

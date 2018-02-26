@@ -372,7 +372,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             if navigationDelegate == nil {
                 editingState = .unknown
             } else {
-                editingState = .none
+                editingState = isCollectionViewEmpty ? .empty : .none
             }
         }
     }
@@ -417,12 +417,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
         }
         
-        guard !isCollectionViewEmpty && !hasDefaultCell else {
-            isBatchEditToolbarHidden = true
-            enabled = false
-            return
-        }
-        
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
@@ -435,6 +429,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             fallthrough
         case .closed:
             transformBatchEditPane(for: editingState)
+        case .empty:
+            isBatchEditToolbarHidden = true
+            enabled = false
         default:
             break
         }
@@ -446,7 +443,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         collectionView.allowsMultipleSelection = willOpen
         isBatchEditToolbarHidden = !willOpen
         for cell in editableCells {
-            cell.isBatchEditable = true
+            guard cell.isBatchEditable else {
+                continue
+            }
             if animated {
                 // ensure layout is in the start anim state
                 cell.isBatchEditing = !willOpen
@@ -479,6 +478,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     private func emptyStateDidChange() {
         if isCollectionViewEmpty {
+            editingState = .empty
+        } else {
             editingState = .none
         }
         navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
@@ -490,15 +491,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 return
             }
             emptyStateDidChange()
-        }
-    }
-    
-    public var hasDefaultCell: Bool = false {
-        didSet {
-            guard hasDefaultCell else {
-                return
-            }
-            editingState = .none
         }
     }
     
