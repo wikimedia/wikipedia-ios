@@ -56,6 +56,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         fetch()
     }
     
+    func setupCollectionViewUpdater() {
+        guard let fetchedResultsController = fetchedResultsController else {
+            return
+        }
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
+    }
+    
     var basePredicate: NSPredicate {
         return NSPredicate(format: "isDeletedLocally == NO")
     }
@@ -89,6 +97,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.viewDidLoad()
         register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
+        emptyViewType = .noReadingLists
+        
         setupEditController()
         
         // Remove peek & pop for now
@@ -106,14 +116,10 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
-        updateEmptyState()
-        guard let fetchedResultsController = fetchedResultsController else {
-            return
-        }
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
+        setupCollectionViewUpdater()
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -156,6 +162,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let articleCount = readingList.countOfEntries
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
+        cell.layoutMargins = layout.readableMargins
+
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
@@ -163,18 +171,20 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 cell.descriptionLabel.text = error.localizedDescription
                 cell.descriptionLabel.textColor = theme.colors.error
             }
-            cell.isBatchEditable = false
+            cell.isBatchEditing = false
+            cell.swipeTranslation = 0
         } else {
             cell.actions = availableActions(at: indexPath)
-            cell.isBatchEditable = true
+            if editController.isBatchEditing {
+                cell.isBatchEditing = editController.isBatchEditing
+            } else {
+                cell.isBatchEditing = false
+                let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
+                cell.swipeTranslation = translation
+            }
             cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
-        
-        let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
-        cell.swipeTranslation = translation
-
-        cell.layoutMargins = layout.readableMargins
-
+    
         if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
             // placeholder for now, this should be a separate label or button
             cell.descriptionLabel.text = error.localizedDescription
@@ -184,40 +194,16 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     // MARK: - Empty state
     
-    private var isEmpty = true {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-        }
-    }
-    
-    private final func updateEmptyState() {
-        let sectionCount = numberOfSections(in: collectionView)
-        
-        isEmpty = true
-        for sectionIndex in 0..<sectionCount {
-            let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
-            if numberOfItems > (isShowingDefaultList ? 1 : 0) {
-                editController.hasDefaultCell = numberOfItems == 1
-                isEmpty = false
-                break
-            }
-        }
+    override func isEmptyDidChange() {
+        editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             if isShowingDefaultList {
                 collectionView.isHidden = true
             }
-            let yPosition: CGFloat
-            if let navigationController = navigationController {
-                yPosition = navigationController.navigationBar.frame.size.height + navigationBar.statusBarHeight
-            } else {
-                yPosition = view.bounds.origin.y
-            }
-            let emptyViewFrame = CGRect(origin: CGPoint(x: view.bounds.origin.x, y: yPosition), size: view.bounds.size)
-            wmf_showEmptyView(of: WMFEmptyViewType.noReadingLists, theme: theme, frame: emptyViewFrame)
         } else {
-            wmf_hideEmptyView()
             collectionView.isHidden = false
         }
+        super.isEmptyDidChange()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {

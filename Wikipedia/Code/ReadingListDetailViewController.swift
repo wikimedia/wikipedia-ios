@@ -46,6 +46,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         super.viewDidLoad()
         
         title = readingList.name
+        
+        emptyViewType = .noSavedPages
 
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         
@@ -68,7 +70,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
-        updateEmptyState()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,34 +109,16 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Empty state
     
-    private var isEmpty = true {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-            readingListDetailExtendedViewController.isHidden = isEmpty
-            if isEmpty {
-                navigationBar.removeExtendedNavigationBarView()
-            } else {
-                navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
-            }
-            updateScrollViewInsets()
-        }
-    }
-    
-    private final func updateEmptyState() {
-        let sectionCount = numberOfSections(in: collectionView)
-        
-        isEmpty = true
-        for sectionIndex in 0..<sectionCount {
-            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
-                isEmpty = false
-                break
-            }
-        }
+    override func isEmptyDidChange() {
+        editController.isCollectionViewEmpty = isEmpty
+        readingListDetailExtendedViewController.isHidden = isEmpty
         if isEmpty {
-            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: view.bounds)
+            navigationBar.removeExtendedNavigationBarView()
         } else {
-            wmf_hideEmptyView()
+            navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
+        updateScrollViewInsets()
+        super.isEmptyDidChange()
     }
     
     // MARK: - Theme
@@ -143,9 +126,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         readingListDetailExtendedViewController.apply(theme: theme)
-        if wmf_isShowingEmptyView() {
-            updateEmptyState()
-        }
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -444,7 +424,7 @@ extension ReadingListDetailViewController {
     }
     
     private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditable = true
+        cell.isBatchEditing = editController.isBatchEditing
         
         guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
             assertionFailure("Coudn't get a reading list entry or an article key to configure the cell")

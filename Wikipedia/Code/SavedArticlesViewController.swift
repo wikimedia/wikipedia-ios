@@ -40,6 +40,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         setupEditController()
         
         isRefreshControlEnabled = true
+        
+        emptyViewType = .noSavedPages
     }
     
     override func refresh() {
@@ -48,17 +50,16 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         }
     }
     
-    private var isFirstAppearance = true
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         fetch()
         setupCollectionViewUpdater()
-        updateEmptyState()
-        guard isFirstAppearance else {
-            return
-        }
-        isFirstAppearance = false
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
+        super.viewWillHaveFirstAppearance(animated)
         navigationBarHider.isNavigationBarHidingEnabled = false
     }
     
@@ -86,29 +87,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Empty state
     
-    var isEmpty = true {
-        didSet {
-            editController.isCollectionViewEmpty = isEmpty
-        }
-    }
-    
-    private final func updateEmptyState() {
-        let sectionCount = numberOfSections(in: collectionView)
-        
-        isEmpty = true
-        for sectionIndex in 0..<sectionCount {
-            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
-                isEmpty = false
-                break
-            }
-        }
-        if isEmpty {
-            let emptyViewYPosition = navigationBar.visibleHeight - navigationBar.extendedView.frame.height
-            let emptyViewFrame = CGRect(x: view.bounds.origin.x, y: emptyViewYPosition, width: view.bounds.width, height: view.bounds.height - emptyViewYPosition)
-            wmf_showEmptyView(of: WMFEmptyViewType.noSavedPages, theme: theme, frame: emptyViewFrame)
-        } else {
-            wmf_hideEmptyView()
-        }
+    override func isEmptyDidChange() {
+        editController.isCollectionViewEmpty = isEmpty
+        super.isEmptyDidChange()
     }
     
     // MARK: - Sorting
@@ -164,15 +145,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         } catch let error {
             DDLogError("Error fetching lists: \(error)")
             return []
-        }
-    }
-    
-    // MARK: - Themeable
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        if wmf_isShowingEmptyView() {
-            updateEmptyState()
         }
     }
     
@@ -296,7 +268,7 @@ extension SavedArticlesViewController {
     }
     
     private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditable = true
+        cell.isBatchEditing = editController.isBatchEditing
         
         guard let article = article(at: indexPath) else {
             return
