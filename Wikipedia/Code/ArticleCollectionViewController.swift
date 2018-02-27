@@ -193,10 +193,9 @@ extension ArticleCollectionViewController: ActionDelegate {
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
         let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
-        alertController.showAlert(presenter: self, items: [article], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action)
+        return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
-        return true
     }
     
     func didPerformAction(_ action: Action) -> Bool {

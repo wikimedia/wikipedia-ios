@@ -330,11 +330,11 @@ extension SavedArticlesViewController: ActionDelegate {
                 self.delete(articles: articles)
             }
             var didPerform = false
-            alertController.showAlert(presenter: self, items: articles, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.delete(articles: articles)
                 didPerform = true
+                return didPerform
             }
-            return didPerform
         default:
             break
         }
@@ -356,10 +356,9 @@ extension SavedArticlesViewController: ActionDelegate {
         let alertController = ReadingListAlertController()
         let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
-            let _ = self.editController.didPerformAction(action)
+        return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
-        return true
     }
     
     func didPerformAction(_ action: Action) -> Bool {

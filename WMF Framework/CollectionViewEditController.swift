@@ -121,7 +121,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                self.delegatePerformingAction(action)
             }
         }
-        return true
+        return self.delegatePerformingAction(action)
     }
     
     private func delegatePerformingAction(_ action: Action) -> Bool {

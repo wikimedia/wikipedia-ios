@@ -336,10 +336,9 @@ extension ReadingListsViewController: ActionDelegate {
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
         let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
-        alertController.showAlert(presenter: self, items: [readingList], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action)
+        return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
-        return true
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -367,11 +366,11 @@ extension ReadingListsViewController: ActionDelegate {
                 self.deleteReadingLists(readingLists)
             }
             var didPerform = false
-            alertController.showAlert(presenter: self, items: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.deleteReadingLists(readingLists)
                 didPerform = true
+                return didPerform
             }
-            return didPerform
         default:
             break
         }
