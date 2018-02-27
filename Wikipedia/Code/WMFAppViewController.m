@@ -10,7 +10,6 @@
 
 // Networking
 #import "SavedArticlesFetcher.h"
-#import "AssetsFileFetcher.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -63,6 +62,9 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
+static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 24 * 60 * 60;
+static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
+
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
@@ -96,6 +98,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
 @property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
+
+@property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
+
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
 
@@ -245,9 +250,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self migrateIfNecessary];
 
     if (self.isResumeComplete) {
+        [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
-        [self downloadAssetsFilesIfNecessary];
     }
 }
 
@@ -443,6 +448,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
                         [self.dataStore performLibraryUpdates:^{
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self endMigrationBackgroundTask];
+                                [self checkRemoteAppConfigIfNecessary];
                                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
@@ -597,6 +603,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
     [self attemptLogin:^{
+        [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
@@ -1243,15 +1250,48 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[self placesViewController] showNearbyArticles];
 }
 
-#pragma mark - Download Assets
+#pragma mark - App config
 
-- (void)downloadAssetsFilesIfNecessary {
-    // Sync config/ios.json at most once per day.
-    [[QueuesSingleton sharedInstance].assetsFetchManager wmf_cancelAllTasksWithCompletionHandler:^{
-        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
-                                                          withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                               maxAge:kWMFMaxAgeDefault];
-    }];
+- (void)checkRemoteAppConfigIfNecessary {
+    WMFAssertMainThread(@"Remote app config check must start from the main thread");
+    if (self.isCheckingRemoteConfig) {
+        return;
+    }
+    self.checkingRemoteConfig = YES;
+    CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey] doubleValue];
+    CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
+    if (now - lastCheckTime >= WMFRemoteAppConfigCheckInterval) {
+        NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
+        if (!remoteConfigURL) {
+            self.checkingRemoteConfig = NO;
+            return;
+        }
+        NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
+        if (!request) {
+            self.checkingRemoteConfig = NO;
+            return;
+        }
+        [[[WMFSession shared] jsonDictionaryTaskWith:request completionHandler:^(NSDictionary<NSString *,id> * _Nullable remoteConfigurationDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    DDLogError(@"Error checking remote config: %@", error);
+                    self.checkingRemoteConfig = NO;
+                    return;
+                }
+                [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
+                self.checkingRemoteConfig = NO;
+            });
+        }] resume];
+    } else {
+        self.checkingRemoteConfig = NO;
+    }
+}
+
+- (void)updateLocalConfigurationFromRemoteConfiguration:(NSDictionary *)remoteConfigurationDictionary {
+    NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
+    BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
+    self.dataStore.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
 }
 
 #pragma mark - UITabBarControllerDelegate

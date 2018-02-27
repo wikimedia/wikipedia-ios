@@ -307,6 +307,9 @@ public class ReadingListsController: NSObject {
             return moc.wmf_numberValue(forKey: WMFReadingListSyncRemotelyDisabledKey)?.boolValue ?? true
         }
         set {
+            guard newValue != isSyncRemotelyEnabled else {
+                return
+            }
             assert(Thread.isMainThread)
             let moc = dataStore.viewContext
             moc.wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListSyncRemotelyDisabledKey)
