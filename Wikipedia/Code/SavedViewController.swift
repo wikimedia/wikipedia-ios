@@ -251,5 +251,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
+        navigationItem.leftBarButtonItem?.isEnabled = !savedArticlesViewController.editController.isCollectionViewEmpty
     }
 }
