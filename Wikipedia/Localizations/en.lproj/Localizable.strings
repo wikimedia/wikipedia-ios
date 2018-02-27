@@ -68,7 +68,7 @@
 "appearance-settings-theme-options" = "Theme options";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|articles}} deleted";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} deleted";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
@@ -372,7 +372,7 @@
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
