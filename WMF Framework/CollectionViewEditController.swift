@@ -103,18 +103,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public weak var delegate: ActionDelegate?
     
-    func updateConfirmationImage(_ image: UIImage?, for sender: UIButton?, completion: @escaping () -> Bool) -> Bool {
-        if let image = image {
-            sender?.setImage(image, for: .normal)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = completion()
-            }
-        } else {
-            return completion()
-        }
-        return true
-    }
-    
     public func didPerformAction(_ action: Action) -> Bool {
         if let cell = activeCell {
             return cell.actionsView.updateConfirmationImage(for: action) {
