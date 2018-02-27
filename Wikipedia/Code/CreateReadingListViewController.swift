@@ -62,6 +62,17 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
     }
     
+    func handleReadingListNameError(_ error: ReadingListError) {
+        readingListNameTextField.textColor = theme.colors.error
+        readingListNameErrorLabel.isHidden = false
+        readingListNameErrorLabel.text = error.localizedDescription
+    }
+    
+    func hideReadingListError() {
+        readingListNameErrorLabel.isHidden = true
+        readingListNameTextField.textColor = theme.colors.primaryText
+    }
+    
     // MARK: - UITextFieldDelegate
     
     fileprivate var isReadingListFieldEmpty: Bool {
@@ -74,6 +85,9 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {
         createReadingListButton.isEnabled = !isReadingListFieldEmpty
+        if readingListNameTextField.isFirstResponder {
+            hideReadingListError()
+        }
         showDoneReturnKeyIfNecessary()
     }
     
@@ -110,6 +124,9 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         createReadingListButton.isEnabled = false
+        if readingListNameTextField.isFirstResponder {
+            hideReadingListError()
+        }
         showDoneReturnKeyIfNecessary()
         return true
     }
