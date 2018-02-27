@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artice deleted</string>
+			<string>article deleted</string>
 			<key>other</key>
 			<string>articles deleted</string>
 		</dict>
@@ -213,7 +213,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Unsaving this articles will remove it from all associated reading lists</string>
+			<string>Unsaving this article will remove it from all associated reading lists</string>
 			<key>other</key>
 			<string>Unsaving these articles will remove them from all associated reading lists</string>
 		</dict>
