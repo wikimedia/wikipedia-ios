@@ -326,20 +326,20 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
 // MARK: - ActionDelegate
 extension ReadingListsViewController: ActionDelegate {
 
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
+    func willPerformAction(_ action: Action) -> Bool {
         guard let readingList = readingList(at: action.indexPath) else {
-            return
+            return false
         }
         guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
+            return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action, from: sender) }
+        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
         alertController.showAlert(presenter: self, items: [readingList], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
+            let _ = self.editController.didPerformAction(action)
         }
+        return true
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -378,7 +378,7 @@ extension ReadingListsViewController: ActionDelegate {
         return false
     }
     
-    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         guard let readingList = readingList(at: indexPath) else {
             return false

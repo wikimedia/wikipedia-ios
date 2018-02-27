@@ -115,28 +115,28 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         return true
     }
     
-    public func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
-        return updateConfirmationImage(action.confirmationIcon, for: sender) {
-            self.delegatePerformingAction(action, from: sender)
-        }
-    }
-    
-    private func delegatePerformingAction(_ action: Action, from sender: UIButton?) -> Bool {
-        guard action.indexPath == activeIndexPath else {
-            return self.delegate?.didPerformAction(action, from: sender) ?? false
-        }
-        let activatedAction = action.type == .delete ? action : nil
-        closeActionPane(with: activatedAction) { (finished) in
-            let _ = self.delegate?.didPerformAction(action, from: sender)
+    public func didPerformAction(_ action: Action) -> Bool {
+        if let cell = activeCell {
+            return cell.actionsView.updateConfirmationImage(for: action) {
+               self.delegatePerformingAction(action)
+            }
         }
         return true
     }
     
-    public func willPerformAction(_ action: Action, from sender: UIButton?) {
-        guard let _ = delegate?.willPerformAction(action, from: sender) else {
-            let _ = didPerformAction(action, from: sender)
-            return
+    private func delegatePerformingAction(_ action: Action) -> Bool {
+        guard action.indexPath == activeIndexPath else {
+            return self.delegate?.didPerformAction(action) ?? false
         }
+        let activatedAction = action.type == .delete ? action : nil
+        closeActionPane(with: activatedAction) { (finished) in
+            let _ = self.delegate?.didPerformAction(action)
+        }
+        return true
+    }
+    
+    public func willPerformAction(_ action: Action) -> Bool {
+        return delegate?.willPerformAction(action) ?? didPerformAction(action)
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {

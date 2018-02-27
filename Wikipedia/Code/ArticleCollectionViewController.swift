@@ -183,23 +183,23 @@ extension ArticleCollectionViewController: ActionDelegate {
         return false
     }
     
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
+    func willPerformAction(_ action: Action) -> Bool {
         guard let article = article(at: action.indexPath) else {
-            return
+            return false
         }
         guard action.type == .unsave else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
+            return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action, from: sender) }
+        let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         alertController.showAlert(presenter: self, items: [article], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
+            let _ = self.editController.didPerformAction(action)
         }
+        return true
     }
     
-    func didPerformAction(_ action: Action, from: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
             if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
