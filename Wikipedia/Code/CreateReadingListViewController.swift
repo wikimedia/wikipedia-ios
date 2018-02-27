@@ -9,6 +9,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var readingListNameErrorLabel: UILabel!
     @IBOutlet weak var readingListNameTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     
@@ -131,6 +132,7 @@ extension CreateReadingListViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
+        readingListNameErrorLabel.textColor = theme.colors.error
         
         createReadingListButton.apply(theme: theme)
        
