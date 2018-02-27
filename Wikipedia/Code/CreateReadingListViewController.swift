@@ -75,7 +75,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         }
         readingListNameErrorLabel.isHidden = true
         readingListNameTextField.textColor = theme.colors.primaryText
-        createReadingListButton.isEnabled = true
     }
     
     private var shouldEnableCreateReadingListButton: Bool {
@@ -93,10 +92,10 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {
-        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
         if readingListNameTextField.isFirstResponder {
             hideReadingListError()
         }
+        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
         showDoneReturnKeyIfNecessary()
     }
     
@@ -132,10 +131,10 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && !readingListNameTextField.isFirstResponder && readingListNameErrorLabel.isHidden
         if readingListNameTextField.isFirstResponder {
             hideReadingListError()
         }
+        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && !readingListNameTextField.isFirstResponder && readingListNameErrorLabel.isHidden
         showDoneReturnKeyIfNecessary()
         return true
     }
