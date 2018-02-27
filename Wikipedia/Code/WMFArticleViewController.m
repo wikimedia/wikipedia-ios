@@ -1904,7 +1904,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
-    NSLog(@"here ArticleViewController");
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
 }
 
 #pragma mark - Article Navigation
