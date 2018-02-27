@@ -450,14 +450,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSMutableArray *items = [NSMutableArray arrayWithObjects:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login], [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support], nil];
-    if (self.dataStore.readingListsController.isSyncRemotelyEnabled) {
-        [items addObjectsFromArray:@[
-                                     [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
-                                     [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ShowDefaultList],
-                                     [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]
-                                     ]];
-    }
+    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
+                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
+                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
+                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ShowDefaultList],
+                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];

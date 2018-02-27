@@ -112,6 +112,8 @@
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowReadingListCardInFeed = YES;
+    } else if (!moc.wmf_isSyncRemotelyEnabled) {
+        [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
 }
 
