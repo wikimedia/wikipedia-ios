@@ -74,7 +74,7 @@ class SavedViewController: ViewController {
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
                 leftButtonType = .clear
-                isSearchBarHidden = savedArticlesViewController.editController.isCollectionViewEmpty
+                isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
             case .readingLists :
@@ -90,6 +90,9 @@ class SavedViewController: ViewController {
         }
     }
     
+    private var isSavedArticlesEmpty: Bool {
+        return savedArticlesViewController.editController.isCollectionViewEmpty
+    }
     
     private enum LeftButtonType {
         case add
@@ -108,13 +111,14 @@ class SavedViewController: ViewController {
             case .clear:
                 let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButtonTitle, style: .plain, target: savedArticlesViewController.self, action: #selector(savedArticlesViewController?.clear))
+                navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
             default:
                 navigationItem.leftBarButtonItem = nil
             }
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
-    
+
     private var isSearchBarHidden: Bool = false {
         didSet {
             if isSearchBarHidden {
@@ -251,6 +255,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
-        navigationItem.leftBarButtonItem?.isEnabled = !savedArticlesViewController.editController.isCollectionViewEmpty
+        navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
     }
 }
