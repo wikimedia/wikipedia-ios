@@ -23,6 +23,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     private var displayType: ReadingListsDisplayType = .readingListsTab
     var isShowingDefaultList = false
     public weak var delegate: ReadingListsViewControllerDelegate?
+    private var createReadingListViewController: CreateReadingListViewController?
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
@@ -136,8 +137,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return fetchedResultsController.object(at: indexPath)
     }
     
+    // MARK: - Reading list creation
+    
     @objc func createReadingList(with articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil) {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
+        createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles, moveFromReadingList: moveFromReadingList)
+        guard let createReadingListViewController = createReadingListViewController else {
+            assertionFailure("createReadingListViewController is nil")
+            return
+        }
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
         createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
@@ -151,6 +158,17 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     @objc func dismissCreateReadingListViewController() {
         dismiss(animated: true, completion: nil)
     }
+    
+    private func handleReadingListError(_ error: Error) {
+        if let readingListsError = error as? ReadingListError {
+            WMFAlertManager.sharedInstance.showAlert(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(
+                CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        }
+    }
+    
+    // MARK: - Cell configuration
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let readingList = readingList(at: indexPath) else {
@@ -237,7 +255,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 try readingListsController.add(articles: articles, to: readingList)
                 delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             } catch let error {
-                readingListsController.handle(error)
+                handleReadingListError(error)
             }
             return
         }
@@ -277,7 +295,11 @@ extension ReadingListsViewController: CreateReadingListDelegate {
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
-            readingListsController.handle(error)
+            if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
+                createReadingListViewController?.handleReadingListNameError(readingListError)
+            } else {
+                handleReadingListError(error)
+            }
         }
     }
 }
@@ -347,7 +369,7 @@ extension ReadingListsViewController: ActionDelegate {
             try self.readingListsController.delete(readingLists: readingLists)
             self.editController.close()
         } catch let error {
-            self.readingListsController.handle(error)
+            handleReadingListError(error)
         }
     }
     

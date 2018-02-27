@@ -316,7 +316,7 @@
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
-"reading-list-exists-with-same-name" = "A reading list already exists with the name “$1”";
+"reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
