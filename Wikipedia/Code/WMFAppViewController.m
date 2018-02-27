@@ -247,6 +247,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     if (self.isResumeComplete) {
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
+        [self downloadAssetsFilesIfNecessary];
     }
 }
 
@@ -602,7 +603,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     }];
 
     [self.dataStore.feedContentController startContentSources];
-
+    
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
@@ -693,7 +694,6 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
-    [self downloadAssetsFilesIfNecessary];
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
