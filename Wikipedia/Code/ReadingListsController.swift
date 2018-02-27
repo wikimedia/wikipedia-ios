@@ -34,7 +34,7 @@ struct ReadingListSyncState: OptionSet {
 }
 
 public enum ReadingListError: Error, Equatable {
-    case listExistsWithTheSameName(name: String)
+    case listExistsWithTheSameName
     case unableToCreateList
     case generic
     case unableToDeleteList
@@ -49,9 +49,8 @@ public enum ReadingListError: Error, Equatable {
         // TODO: WMFAlertManager can't display this string
         case .generic:
             return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
-        case .listExistsWithTheSameName(let name):
-            let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name “%1$@”", comment: "Informs the user that a reading list exists with the same name.")
-            return String.localizedStringWithFormat(format, name)
+        case .listExistsWithTheSameName:
+            return WMFLocalizedString("reading-list-exists-with-same-name", value: "Reading list name already in use", comment: "Informs the user that a reading list exists with the same name.")
         case .listWithProvidedNameNotFound(let name):
             let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
             return String.localizedStringWithFormat(format, name)
@@ -112,7 +111,7 @@ public class ReadingListsController: NSObject {
         existingListRequest.fetchLimit = 1
         let result = try moc.fetch(existingListRequest).first
         guard result == nil else {
-            throw ReadingListError.listExistsWithTheSameName(name: name)
+            throw ReadingListError.listExistsWithTheSameName
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
