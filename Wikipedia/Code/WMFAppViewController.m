@@ -1260,39 +1260,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     CFAbsoluteTime lastCheckTime = (CFAbsoluteTime)[[self.dataStore.viewContext wmf_numberValueForKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey] doubleValue];
     CFAbsoluteTime now = CFAbsoluteTimeGetCurrent();
     if (now - lastCheckTime >= WMFRemoteAppConfigCheckInterval) {
-        NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
-        if (!remoteConfigURL) {
+        [self.dataStore updateLocalConfigurationFromRemoteConfigurationWithCompletion:^(NSError *error) {
+            if (!error) {
+                [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
+            }
             self.checkingRemoteConfig = NO;
-            return;
-        }
-        NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
-        if (!request) {
-            self.checkingRemoteConfig = NO;
-            return;
-        }
-        [[[WMFSession shared] jsonDictionaryTaskWith:request
-                                   completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           if (error) {
-                                               DDLogError(@"Error checking remote config: %@", error);
-                                               self.checkingRemoteConfig = NO;
-                                               return;
-                                           }
-                                           [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                           [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
-                                           self.checkingRemoteConfig = NO;
-                                       });
-                                   }] resume];
+        }];
     } else {
         self.checkingRemoteConfig = NO;
     }
 }
 
-- (void)updateLocalConfigurationFromRemoteConfiguration:(NSDictionary *)remoteConfigurationDictionary {
-    NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
-    BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
-    self.dataStore.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
-}
 
 #pragma mark - UITabBarControllerDelegate
 
