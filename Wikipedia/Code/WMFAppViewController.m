@@ -62,7 +62,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
-static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 24 * 60 * 60;
+static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
@@ -100,7 +100,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
 
 @property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
-
 
 @property (nonatomic, copy) NSDictionary *notificationUserInfoToShow;
 
@@ -610,7 +609,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }];
 
     [self.dataStore.feedContentController startContentSources];
-    
+
     NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
@@ -1271,18 +1270,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             self.checkingRemoteConfig = NO;
             return;
         }
-        [[[WMFSession shared] jsonDictionaryTaskWith:request completionHandler:^(NSDictionary<NSString *,id> * _Nullable remoteConfigurationDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error) {
-                    DDLogError(@"Error checking remote config: %@", error);
-                    self.checkingRemoteConfig = NO;
-                    return;
-                }
-                [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
-                self.checkingRemoteConfig = NO;
-            });
-        }] resume];
+        [[[WMFSession shared] jsonDictionaryTaskWith:request
+                                   completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (error) {
+                                               DDLogError(@"Error checking remote config: %@", error);
+                                               self.checkingRemoteConfig = NO;
+                                               return;
+                                           }
+                                           [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                           [self.dataStore.viewContext wmf_setValue:[NSNumber numberWithDouble:now] forKey:WMFLastRemoteAppConfigCheckAbsoluteTimeKey];
+                                           self.checkingRemoteConfig = NO;
+                                       });
+                                   }] resume];
     } else {
         self.checkingRemoteConfig = NO;
     }
