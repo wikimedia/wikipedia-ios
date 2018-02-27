@@ -618,7 +618,6 @@
 		B0E8059D1C0CE2F50065EBC0 /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */; };
 		B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062A1C0CE7670065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m */; };
 		B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8062C1C0CE7670065EBC0 /* MWKImageInfoResponseSerializer.m */; };
-		B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */; };
 		B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
@@ -947,7 +946,6 @@
 		D80ED2C61EE57F4800CE8C50 /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		D80ED2C81EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		D80ED2CA1EE57F4800CE8C50 /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */; };
-		D80ED2CB1EE57F4800CE8C50 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		D80ED2CC1EE57F4800CE8C50 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
@@ -1690,7 +1688,6 @@
 		D8A42AAB1E815A9C00D8E281 /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		D8A42AAD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		D8A42AAF1E815A9C00D8E281 /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */; };
-		D8A42AB01E815A9C00D8E281 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
@@ -2050,7 +2047,6 @@
 		D8CE25331E698E2400DAE2E0 /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */; };
-		D8CE25381E698E2400DAE2E0 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
@@ -2438,7 +2434,6 @@
 		D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */; };
 		D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED17331E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift */; };
 		D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */; };
-		D8EC3E2F1E9BDA35006712EB /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */; };
 		D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807CA1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m */; };
 		D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC62FFBF1C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
@@ -3650,8 +3645,6 @@
 		B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMantleJSONResponseSerializer.m; path = Wikipedia/Code/WMFMantleJSONResponseSerializer.m; sourceTree = SOURCE_ROOT; };
 		B0E806381C0CE7B00065EBC0 /* FetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetcherBase.h; path = Wikipedia/Code/FetcherBase.h; sourceTree = SOURCE_ROOT; };
 		B0E806391C0CE7B00065EBC0 /* FetcherBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FetcherBase.m; path = Wikipedia/Code/FetcherBase.m; sourceTree = SOURCE_ROOT; };
-		B0E806411C0CE7F70065EBC0 /* AssetsFileFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssetsFileFetcher.h; path = Wikipedia/Code/AssetsFileFetcher.h; sourceTree = SOURCE_ROOT; };
-		B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetsFileFetcher.m; path = Wikipedia/Code/AssetsFileFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E8064D1C0CE84B0065EBC0 /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcher_Testing.h; path = Wikipedia/Code/SavedArticlesFetcher_Testing.h; sourceTree = SOURCE_ROOT; };
 		B0E8064E1C0CE84B0065EBC0 /* SavedArticlesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcher.h; path = Wikipedia/Code/SavedArticlesFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SavedArticlesFetcher.m; path = Wikipedia/Code/SavedArticlesFetcher.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -5034,8 +5027,6 @@
 				B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */,
 				B0E806611C0CE9030065EBC0 /* MWKLanguageLinkFetcher.h */,
 				B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */,
-				B0E806411C0CE7F70065EBC0 /* AssetsFileFetcher.h */,
-				B0E806421C0CE7F70065EBC0 /* AssetsFileFetcher.m */,
 				B0E806671C0CE9030065EBC0 /* PreviewHtmlFetcher.h */,
 				B0E806681C0CE9030065EBC0 /* PreviewHtmlFetcher.m */,
 				B09B03F11CE0FB6300009083 /* PageHistoryFetcher.swift */,
@@ -9902,7 +9893,6 @@
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
 				B0CD9DDA1F70997300051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
-				B0E8064A1C0CE7F70065EBC0 /* AssetsFileFetcher.m in Sources */,
 				D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -10219,7 +10209,6 @@
 				B0B423651EF9D6A400D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D80ED2C81EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D80ED2CA1EE57F4800CE8C50 /* SavedPagesFunnel.m in Sources */,
-				D80ED2CB1EE57F4800CE8C50 /* AssetsFileFetcher.m in Sources */,
 				7A203F0F1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D80ED2CC1EE57F4800CE8C50 /* WMFChange.m in Sources */,
 				D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */,
@@ -10855,7 +10844,6 @@
 				D8A42AAD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0CD9DEF1F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D8A42AAF1E815A9C00D8E281 /* SavedPagesFunnel.m in Sources */,
-				D8A42AB01E815A9C00D8E281 /* AssetsFileFetcher.m in Sources */,
 				D8A42AB11E815A9C00D8E281 /* WMFChange.m in Sources */,
 				D8A42AB31E815A9C00D8E281 /* MWKSearchRedirectMapping.m in Sources */,
 				D8A42AB41E815A9C00D8E281 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -11174,7 +11162,6 @@
 				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */,
-				D8CE25381E698E2400DAE2E0 /* AssetsFileFetcher.m in Sources */,
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -11491,7 +11478,6 @@
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */,
 				7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
-				D8EC3E2F1E9BDA35006712EB /* AssetsFileFetcher.m in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
 				D8EC3E331E9BDA35006712EB /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,

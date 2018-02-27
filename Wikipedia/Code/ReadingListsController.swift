@@ -2,6 +2,7 @@ import Foundation
 
 internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
+fileprivate let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
@@ -290,13 +291,29 @@ public class ReadingListsController: NSObject {
         
        
     }
-        
+    
+    // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)
         let state = syncState
         return state.contains(.needsSync) || state.contains(.needsUpdate)
     }
     
+    // is sync available or is it shut down server-side
+    @objc public var isSyncRemotelyEnabled: Bool {
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_isSyncRemotelyEnabled
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_isSyncRemotelyEnabled = newValue
+        }
+    }
+    
+    // should the default list be shown to the user
     @objc public var isDefaultListEnabled: Bool {
         get {
             assert(Thread.isMainThread)
@@ -582,5 +599,25 @@ extension WMFArticle {
     
     @objc public var userCreatedReadingListsCount: Int {
         return userCreatedReadingLists.count
+    }
+}
+
+extension NSManagedObjectContext {
+    // is sync available or is it shut down server-side
+    @objc public var wmf_isSyncRemotelyEnabled: Bool {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListSyncRemotelyEnabledKey)?.boolValue ?? true
+        }
+        set {
+            guard newValue != wmf_isSyncRemotelyEnabled else {
+                return
+            }
+            wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListSyncRemotelyEnabledKey)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
     }
 }
