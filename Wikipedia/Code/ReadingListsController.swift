@@ -100,8 +100,8 @@ public class ReadingListsController: NSObject {
             if operation.isFinished {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
                 self.observedProgresses.removeValue(forKey: operation)?.invalidate()
-                print("fractionCompleted operation: \(operation.progress.fractionCompleted)")
             }
+            print("fractionCompleted operation: \(operation.progress.fractionCompleted)")
         })
         observedProgresses[operation] = operation.progress.observe(\.fractionCompleted, changeHandler: { (progress, change) in
             print("fractionCompleted: \(progress.fractionCompleted)")

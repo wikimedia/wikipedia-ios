@@ -116,7 +116,7 @@ public extension NSManagedObjectContext {
                 reset()
             }
             start = end
-            progress?.completedUnitCount += 1
+            progress?.completedUnitCount = Int64(end)
         }
     }
 }
