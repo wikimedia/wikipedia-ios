@@ -55,18 +55,18 @@ public enum ReadingListError: Error, Equatable {
             let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
-            return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occurred while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
         case .unableToDeleteList:
-            return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occured while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occurred while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
         case .unableToUpdateList:
-            return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occured while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occurred while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
-            return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occurred while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         case .unableToAddArticlesDueToListLimit(let name, let count):
             let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} to “%2$@” because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
             return String.localizedStringWithFormat(format, count, name)
         case .unableToRemoveEntry:
-            return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occured while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         }
     }
     
