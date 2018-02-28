@@ -14,7 +14,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     }
     
     var navigationBar: NavigationBar = NavigationBar()
-    
+    var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
     
@@ -24,6 +24,10 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
@@ -31,6 +35,12 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .never
         }
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
+            if let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+                self?.keyboardFrame = self?.view.convert(endFrame, from: self?.view.window)
+            }
+            self?.updateScrollViewInsets()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +135,12 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
             safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: min(44, bottomLayoutGuide.length), right: 0) // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
         }
         
-        let bottom = safeInsets.bottom
+        var bottom = safeInsets.bottom
+        if let keyboardFrame = keyboardFrame {
+            let keyboardHeight = view.bounds.height - keyboardFrame.minY
+            bottom = max(bottom, keyboardHeight)
+        }
+        
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
