@@ -39,7 +39,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             }
             isShowingDefaultList = dataStore.readingListsController.isDefaultListEnabled
             if !isShowingDefaultList {
-                subpredicates.append(NSPredicate.init(format: "isDefault != YES"))
+                subpredicates.append(NSPredicate(format: "isDefault != YES"))
             }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
