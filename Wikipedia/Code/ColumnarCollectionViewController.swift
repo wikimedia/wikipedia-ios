@@ -232,12 +232,23 @@ class ColumnarCollectionViewController: ViewController {
         isEmptyDidChange()
     }
     
+    private var emptyViewFrame: CGRect {
+        let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
+        let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
+        return frame
+    }
+    
     open func isEmptyDidChange() {
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
+    }
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        wmf_setEmptyViewFrame(emptyViewFrame)
     }
     
     // MARK: - Themeable

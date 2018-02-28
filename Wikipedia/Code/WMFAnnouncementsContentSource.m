@@ -107,10 +107,13 @@
         userDefaults.wmf_didShowThemeCardInFeed = YES;
     }
 
-    if (!userDefaults.wmf_didShowReadingListCardInFeed) {
+    
+    if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed) {
         NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowReadingListCardInFeed = YES;
+    } else if (!moc.wmf_isSyncRemotelyEnabled) {
+        [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
 }
 

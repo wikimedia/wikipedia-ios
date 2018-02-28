@@ -47,7 +47,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard let articleURL = articleURL(at: indexPath) else {
             return nil
         }
-        return dataStore.fetchArticle(with: articleURL)
+        let article = dataStore.fetchOrCreateArticle(with: articleURL)
+        let result = results[indexPath.item]
+        article?.update(with: result)
+        return article
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

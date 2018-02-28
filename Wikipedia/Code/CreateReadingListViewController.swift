@@ -9,6 +9,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var readingListNameErrorLabel: UILabel!
     @IBOutlet weak var readingListNameTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     
@@ -54,16 +55,35 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     weak var delegate: CreateReadingListDelegate?
     
     @IBAction func createReadingListButtonPressed() {
-        guard !isReadingListFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
+        guard !isReadingListNameFieldEmpty, let trimmedName = readingListNameTextField.text?.trimmingCharacters(in: .whitespaces) else {
             return
         }
         let trimmedDescription = descriptionTextField.text?.trimmingCharacters(in: .whitespaces)
         delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
     }
     
+    func handleReadingListNameError(_ error: ReadingListError) {
+        readingListNameTextField.textColor = theme.colors.error
+        readingListNameErrorLabel.isHidden = false
+        readingListNameErrorLabel.text = error.localizedDescription
+        createReadingListButton.isEnabled = false
+    }
+    
+    private func hideReadingListError() {
+        guard !readingListNameErrorLabel.isHidden else {
+            return
+        }
+        readingListNameErrorLabel.isHidden = true
+        readingListNameTextField.textColor = theme.colors.primaryText
+    }
+    
+    private var shouldEnableCreateReadingListButton: Bool {
+        return (!isReadingListNameFieldEmpty && readingListNameTextField.isFirstResponder) && readingListNameErrorLabel.isHidden
+    }
+    
     // MARK: - UITextFieldDelegate
     
-    fileprivate var isReadingListFieldEmpty: Bool {
+    fileprivate var isReadingListNameFieldEmpty: Bool {
         return !readingListNameTextField.wmf_hasNonWhitespaceText
     }
     
@@ -72,7 +92,10 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     @IBAction func textFieldDidChange(_ textField: UITextField) {
-        createReadingListButton.isEnabled = !isReadingListFieldEmpty
+        if readingListNameTextField.isFirstResponder {
+            hideReadingListError()
+        }
+        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
         showDoneReturnKeyIfNecessary()
     }
     
@@ -82,7 +105,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     func showDoneReturnKeyIfNecessary() {
-        if !isReadingListFieldEmpty && !isDescriptionFieldEmpty {
+        if !isReadingListNameFieldEmpty && !isDescriptionFieldEmpty {
             descriptionTextField.returnKeyType = .done
         } else {
             descriptionTextField.returnKeyType = .default
@@ -108,7 +131,10 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        createReadingListButton.isEnabled = false
+        if readingListNameTextField.isFirstResponder {
+            hideReadingListError()
+        }
+        createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && !readingListNameTextField.isFirstResponder && readingListNameErrorLabel.isHidden
         showDoneReturnKeyIfNecessary()
         return true
     }
@@ -131,6 +157,7 @@ extension CreateReadingListViewController: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
+        readingListNameErrorLabel.textColor = theme.colors.error
         
         createReadingListButton.apply(theme: theme)
        

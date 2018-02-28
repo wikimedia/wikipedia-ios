@@ -186,7 +186,7 @@ import Foundation
     }
     
     
-    public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)

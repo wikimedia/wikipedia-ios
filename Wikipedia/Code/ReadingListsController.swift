@@ -2,6 +2,7 @@ import Foundation
 
 internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
+fileprivate let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
 
 internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
@@ -34,7 +35,7 @@ struct ReadingListSyncState: OptionSet {
 }
 
 public enum ReadingListError: Error, Equatable {
-    case listExistsWithTheSameName(name: String)
+    case listExistsWithTheSameName
     case unableToCreateList
     case generic
     case unableToDeleteList
@@ -49,25 +50,24 @@ public enum ReadingListError: Error, Equatable {
         // TODO: WMFAlertManager can't display this string
         case .generic:
             return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
-        case .listExistsWithTheSameName(let name):
-            let format = WMFLocalizedString("reading-list-exists-with-same-name", value: "A reading list already exists with the name “%1$@”", comment: "Informs the user that a reading list exists with the same name.")
-            return String.localizedStringWithFormat(format, name)
+        case .listExistsWithTheSameName:
+            return WMFLocalizedString("reading-list-exists-with-same-name", value: "Reading list name already in use", comment: "Informs the user that a reading list exists with the same name.")
         case .listWithProvidedNameNotFound(let name):
             let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
-            return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occured while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occurred while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
         case .unableToDeleteList:
-            return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occured while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-delete", value: "An unexpected error occurred while deleting your reading list. Please try again later.", comment: "Informs the user that an error occurred while deleting their reading list.")
         case .unableToUpdateList:
-            return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occured while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occurred while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
-            return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occured while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occurred while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         case .unableToAddArticlesDueToListLimit(let name, let count):
             let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} to “%2$@” because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
             return String.localizedStringWithFormat(format, count, name)
         case .unableToRemoveEntry:
-            return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occured while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
+            return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         }
     }
     
@@ -130,7 +130,7 @@ public class ReadingListsController: NSObject {
         existingListRequest.fetchLimit = 1
         let result = try moc.fetch(existingListRequest).first
         guard result == nil else {
-            throw ReadingListError.listExistsWithTheSameName(name: name)
+            throw ReadingListError.listExistsWithTheSameName
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
@@ -308,13 +308,29 @@ public class ReadingListsController: NSObject {
         
        
     }
-        
+    
+    // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
         assert(Thread.isMainThread)
         let state = syncState
         return state.contains(.needsSync) || state.contains(.needsUpdate)
     }
     
+    // is sync available or is it shut down server-side
+    @objc public var isSyncRemotelyEnabled: Bool {
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_isSyncRemotelyEnabled
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_isSyncRemotelyEnabled = newValue
+        }
+    }
+    
+    // should the default list be shown to the user
     @objc public var isDefaultListEnabled: Bool {
         get {
             assert(Thread.isMainThread)
@@ -600,5 +616,25 @@ extension WMFArticle {
     
     @objc public var userCreatedReadingListsCount: Int {
         return userCreatedReadingLists.count
+    }
+}
+
+extension NSManagedObjectContext {
+    // is sync available or is it shut down server-side
+    @objc public var wmf_isSyncRemotelyEnabled: Bool {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListSyncRemotelyEnabledKey)?.boolValue ?? true
+        }
+        set {
+            guard newValue != wmf_isSyncRemotelyEnabled else {
+                return
+            }
+            wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListSyncRemotelyEnabledKey)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
     }
 }

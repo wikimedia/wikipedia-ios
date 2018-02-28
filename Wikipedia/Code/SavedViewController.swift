@@ -24,8 +24,7 @@ class SavedViewController: ViewController {
     @IBOutlet var underBarView: UIView!
     @IBOutlet var allArticlesButton: UIButton!
     @IBOutlet var readingListsButton: UIButton!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet var searchBarConstraints: [NSLayoutConstraint] = []
+    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
     
     @IBOutlet weak var separatorView: UIView!
@@ -72,16 +71,18 @@ class SavedViewController: ViewController {
                 removeChild(readingListsViewController)
                 addChild(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
+                readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                isAddButtonHidden = true
-                isSearchBarHidden = savedArticlesViewController.isEmpty
+                leftButtonType = .clear
+                isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
             case .readingLists :
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
-                isAddButtonHidden = false
+                savedArticlesViewController.editController.navigationDelegate = nil
+                leftButtonType = .add
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
@@ -89,29 +90,42 @@ class SavedViewController: ViewController {
         }
     }
     
-    private var isAddButtonHidden: Bool = true {
+    private var isSavedArticlesEmpty: Bool {
+        return savedArticlesViewController.editController.isCollectionViewEmpty
+    }
+    
+    private enum LeftButtonType {
+        case add
+        case clear
+        case none
+    }
+    
+    private var leftButtonType: LeftButtonType = .none {
         didSet {
-            let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
-            let clearButton = UIBarButtonItem(title: clearButtonTitle, style: .plain, target: savedArticlesViewController.self, action: #selector(savedArticlesViewController?.clear))
-            navigationItem.leftBarButtonItem = isAddButtonHidden ? clearButton : UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+            guard oldValue != leftButtonType else {
+                return
+            }
+            switch leftButtonType {
+            case .add:
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+            case .clear:
+                let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButtonTitle, style: .plain, target: savedArticlesViewController.self, action: #selector(savedArticlesViewController?.clear))
+                navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
+            default:
+                navigationItem.leftBarButtonItem = nil
+            }
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
     }
-    
+
     private var isSearchBarHidden: Bool = false {
         didSet {
-            extendedNavBarView.isHidden = isSearchBarHidden
             if isSearchBarHidden {
-                NSLayoutConstraint.deactivate(searchBarConstraints)
+                navigationBar.removeExtendedNavigationBarView()
             } else {
-                NSLayoutConstraint.activate(searchBarConstraints)
+                navigationBar.addExtendedNavigationBarView(extendedNavBarView)
             }
-            guard currentView != .readingLists else {
-                return
-            }
-            navigationBar.setNavigationBarPercentHidden(0, extendedViewPercentHidden: isSearchBarHidden ? 1 : 0, animated: false)
-            savedArticlesViewController?.updateScrollViewInsets()
-            updateScrollViewInsets()
         }
     }
     
@@ -139,6 +153,7 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
+        
         currentView = .savedArticles
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
@@ -214,9 +229,16 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        sortButton.isEnabled = newEditingState == .closed || newEditingState == .none
-        if newEditingState == .open && searchBar.isFirstResponder {
-            searchBar.resignFirstResponder()
+        let editingStates: [EditingState] = [.swiping, .open, .editing]
+        let isEditing = editingStates.contains(newEditingState)
+        sortButton.isEnabled = !isEditing
+        if isEditing {
+            if searchBar.isFirstResponder {
+                searchBar.resignFirstResponder()
+            }
+            leftButtonType = .none
+        } else {
+            leftButtonType = currentView == .savedArticles ? .clear : .add
         }
     }
     
@@ -233,5 +255,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
+        navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
     }
 }
