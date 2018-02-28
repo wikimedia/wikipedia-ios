@@ -1574,6 +1574,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+}
+
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
