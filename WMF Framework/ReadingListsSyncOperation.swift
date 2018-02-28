@@ -51,12 +51,15 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     func executeSync(on moc: NSManagedObjectContext) throws {
+        
+        let syncEndpointsAreAvailable = moc.wmf_isSyncRemotelyEnabled
+        
         let rawSyncState = moc.wmf_numberValue(forKey: WMFReadingListSyncStateKey)?.int64Value ?? 0
         var syncState = ReadingListSyncState(rawValue: rawSyncState)
         
         let taskGroup = WMFTaskGroup()
         
-        if syncState.contains(.needsRemoteDisable) {
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -141,27 +144,37 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
 
         // local only sync
         guard syncState != [] else {
-            
-            // make an update call to see if the user has enabled sync on another device
-            var updateError: Error? = nil
-            taskGroup.enter()
-            let iso8601String = DateFormatter.wmf_iso8601().string(from: Date())
-            apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, since, error) in
-                updateError = error
-                taskGroup.leave()
-            })
-            taskGroup.wait()
-            
-            if updateError == nil {
-                DispatchQueue.main.async {
-                    self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                    self.finish()
+            if syncEndpointsAreAvailable {
+                // make an update call to see if the user has enabled sync on another device
+                var updateError: Error? = nil
+                taskGroup.enter()
+                let iso8601String = DateFormatter.wmf_iso8601().string(from: Date())
+                apiController.updatedListsAndEntries(since: iso8601String, completion: { (lists, entries, since, error) in
+                    updateError = error
+                    taskGroup.leave()
+                })
+                taskGroup.wait()
+                
+                if updateError == nil {
+                    DispatchQueue.main.async {
+                        self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                        self.finish()
+                    }
+                } else {
+                    try executeLocalOnlySync(on: moc)
+                    try moc.save()
+                    finish()
                 }
             } else {
                 try executeLocalOnlySync(on: moc)
                 try moc.save()
                 finish()
             }
+            return
+        }
+        
+        guard syncEndpointsAreAvailable else {
+            self.finish()
             return
         }
         
