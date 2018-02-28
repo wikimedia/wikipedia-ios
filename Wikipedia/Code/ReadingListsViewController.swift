@@ -21,7 +21,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
     private var displayType: ReadingListsDisplayType = .readingListsTab
-    var isShowingDefaultList = false
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
     
@@ -29,7 +28,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
         if let readingLists = readingLists, readingLists.count > 0 {
-            isShowingDefaultList = readingLists.filter { $0.isDefault }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
             let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
@@ -37,16 +35,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            isShowingDefaultList = dataStore.readingListsController.isDefaultListEnabled
-            if !isShowingDefaultList {
+            if !dataStore.readingListsController.isDefaultListEnabled {
                 subpredicates.append(NSPredicate(format: "isDefault != YES"))
             }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
-            isShowingDefaultList = dataStore.readingListsController.isDefaultListEnabled
             var predicate = basePredicate
-            if !isShowingDefaultList {
+            if !dataStore.readingListsController.isDefaultListEnabled {
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
             }
             request.predicate = predicate
@@ -218,9 +214,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
-            if isShowingDefaultList {
-                collectionView.isHidden = true
-            }
+            collectionView.isHidden = true
         } else {
             collectionView.isHidden = false
         }
