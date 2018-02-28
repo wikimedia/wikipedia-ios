@@ -196,18 +196,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 extension ReadingListDetailViewController: ActionDelegate {
     
     func willPerformAction(_ action: Action) -> Bool {
-        guard let article = article(at: action.indexPath) else {
-            return false
-        }
-        guard action.type == .delete else {
-            return self.editController.didPerformAction(action)
-        }
-        let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
-            return self.editController.didPerformAction(action)
-        }
+        return self.editController.didPerformAction(action)
     }
     
     
