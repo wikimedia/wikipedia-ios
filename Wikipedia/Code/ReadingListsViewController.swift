@@ -105,18 +105,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         unregisterForPreviewing()
 
         isRefreshControlEnabled = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(syncProgressDidChange(notification:)), name: ReadingListsController.syncProgressDidChangeNotification, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc private func syncProgressDidChange(notification: Notification) {
-        guard let fractionCompleted = notification.userInfo?[ReadingListsController.syncProgressDidChangeFractionCompletedKey] as? Double else {
-            return
-        }
     }
     
     override func refresh() {
