@@ -348,19 +348,18 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
 // MARK: - ActionDelegate
 extension ReadingListsViewController: ActionDelegate {
 
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
+    func willPerformAction(_ action: Action) -> Bool {
         guard let readingList = readingList(at: action.indexPath) else {
-            return
+            return false
         }
         guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
+            return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action, from: sender) }
-        alertController.showAlert(presenter: self, items: [readingList], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
+        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
+        return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
     }
     
@@ -389,18 +388,18 @@ extension ReadingListsViewController: ActionDelegate {
                 self.deleteReadingLists(readingLists)
             }
             var didPerform = false
-            alertController.showAlert(presenter: self, items: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.deleteReadingLists(readingLists)
                 didPerform = true
+                return didPerform
             }
-            return didPerform
         default:
             break
         }
         return false
     }
     
-    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         guard let readingList = readingList(at: indexPath) else {
             return false
