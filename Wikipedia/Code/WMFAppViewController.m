@@ -1271,7 +1271,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-
 #pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
@@ -1530,11 +1529,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bar items
 
-    [tabBarItems addObject:[UITabBarItem appearance]];
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
+        [item setBadgeTextAttributes:@{NSForegroundColorAttributeName: theme.colors.accent} forState:UIControlStateNormal];
+        [item setBadgeColor:theme.colors.chromeBackground];
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
