@@ -184,10 +184,6 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     [self.dataStore.readingListsController unsaveArticle:article inManagedObjectContext:moc];
 }
 
-- (void)removeAllEntries {
-    [self.dataStore.readingListsController unsaveAllArticles];
-}
-
 - (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
     [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
 }
