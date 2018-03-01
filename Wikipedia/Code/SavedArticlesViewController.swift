@@ -415,6 +415,18 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
         presentSortAlert(from: button)
     }
+    
+    func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchString(searchText)
+        
+        if searchText.isEmpty {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - AddArticlesToReadingListDelegate
@@ -445,22 +457,6 @@ extension SavedArticlesViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension SavedArticlesViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchString(searchText)
-        
-        if searchText.isEmpty {
-            searchBar.resignFirstResponder()
-        }
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
     }
 }
 
