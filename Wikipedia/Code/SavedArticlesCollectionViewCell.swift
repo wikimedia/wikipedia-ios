@@ -86,14 +86,25 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
         }
         
+        let titleLabelAvailableWidth: CGFloat
+        
+        if isStatusViewHidden {
+            titleLabelAvailableWidth = widthMinusMargins
+        } else if isImageViewHidden {
+            titleLabelAvailableWidth = widthMinusMargins - statusViewDimension - spacing
+        } else {
+            titleLabelAvailableWidth = widthMinusMargins - statusViewDimension - 2 * spacing
+        }
+        
         var x = layoutMargins.left
         if isRTL {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
+        
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -107,11 +118,18 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
+        
+        if (apply && !isStatusViewHidden) {
+            let x = isRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
+            let statusViewFrame = CGRect(x: x, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
+            statusView.frame = statusViewFrame
+            statusView.cornerRadius = 0.5 * statusViewDimension
+        }
 
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
@@ -165,6 +183,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        statusView.backgroundColor = UIColor.green
         
         if shouldShowSeparators {
             topSeparator.isHidden = index > 0
