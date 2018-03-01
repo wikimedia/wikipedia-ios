@@ -66,7 +66,7 @@ class ReadingListHintViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: false)
+        delegate?.readingListHint(self, shouldBeHidden: true)
     }
     
     deinit {
@@ -111,7 +111,7 @@ class ReadingListHintViewController: UIViewController {
         let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
         themeableNavigationController = navigationController
         present(navigationController, animated: true) {
-            self.delegate?.readingListHint(self, shouldBeHidden: true, isConfirmation: self.isHintViewHidden)
+            self.delegate?.readingListHint(self, shouldBeHidden: true)
         }
     }
     
@@ -143,11 +143,11 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         isHintViewHidden = true
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list"), name)
         confirmationButton.setTitle(title, for: .normal)
-        delegate?.readingListHint(self, shouldBeHidden: false, isConfirmation: isHintViewHidden)
+        delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
-        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed, isConfirmation: isHintViewHidden)
+        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed)
     }
 }
 
