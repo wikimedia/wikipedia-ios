@@ -41,6 +41,7 @@
 "account-creation-missing-fields" = "खाते उघडण्यास आपण सदस्यनाव,परवलीचा शब्द व परवलीचा शब्दाचे नक्कीकरण टाकणे आवश्यक आहे.";
 "account-creation-passwords-mismatched" = "परवलीचा शब्द जुळत नाही.";
 "account-creation-saving" = "जतन करीत आहे...";
+"action-sort" = "निवडा";
 "alert-no-internet" = "इथे इंटरनेट सेवा उपलब्ध नाही";
 "article-about-title" = "या लेखाबद्दल";
 "article-delete" = "हटवा";
@@ -167,6 +168,14 @@
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
 "preference-title-eventlogging-opt-in" = "वापराचा अहवाल पाठवा";
+"reading-list-add-hint-title" = "$1 हे वाचनयादीत जोडायचे आहे?";
+// Fuzzy
+"reading-list-exists-with-same-name" = "$1 या नावाची वाचन यादी आधीच अस्तित्त्वात आहे.";
+"reading-list-new-list-description-placeholder" = "पर्यायी लघु वर्णन";
+"reading-list-new-list-name-placeholder" = "वाचन यादी शिर्षक";
+"reading-list-show-default-list-setting" = "नेहमीची यादी दाखवा";
+"reading-lists-article-added-confirmation" = "$1 येथे लेख जोडला आहे";
+"reading-lists-delete-reading-list-alert-title" = "काढून टाका {{PLURAL:$1|यादी|याद्या}}?";
 "reference-title" = "संदर्भ $1";
 "saved-clear-all" = "स्वच्छ करा";
 "saved-pages-clear-cancel" = "रद्द करा";
@@ -175,6 +184,7 @@
 "saved-pages-clear-delete-all" = "होय,सर्व वगळा";
 "saved-pages-image-download-error" = "या जतन केलेल्या पानासाठीच्या संचिका अधिभारण अयशस्वी";
 "saved-title" = "जतन केले";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "साठवू नका {{PLURAL:$1|लेख|लेख}}?";
 "search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
 "search-field-placeholder-text" = "विकिपीडिया मध्ये शोधा";
 "search-recent-clear-cancel" = "रद्द करा";
@@ -194,6 +204,8 @@
 "settings-title" = "मांडण्या";
 // Fuzzy
 "share-custom-menu-item" = "सहभाग करा";
+"sort-by-recently-added-action" = "नुकतेच जोडलेले";
+"sort-by-title-action" = "शीर्षक";
 "table-of-contents-button-label" = "अनुक्रमणिका";
 "table-of-contents-close-accessibility-hint" = "बंद करा";
 "table-of-contents-close-accessibility-label" = "अनुक्रमणिका बंद करा";

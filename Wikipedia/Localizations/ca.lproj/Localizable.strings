@@ -86,7 +86,6 @@
 "appearance-settings-set-automatic-table-opening" = "Preferències de les taules";
 "appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per sobre per a canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
 "appearance-settings-theme-options" = "Opcions del tema";
-"appearance-settings-title" = "Temes de lectura";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
@@ -329,12 +328,10 @@
 "reading-list-add-saved-title" = "S'han trobat articles desats";
 "reading-list-deleted-accessibility-notification" = "S'ha eliminat la llista de lectura";
 "reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
-"reading-list-hint-title" = "Voleu moure $1 a una llista de lectura?";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
 "reading-list-sync-enable-button-title" = "Habilita la sincronització";
 "reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
 "reading-list-sync-setting" = "Sincronització de la llista de lectura";
-"reading-lists-article-moved-confirmation" = "S'ha mogut l'article a «$1»";
 "reading-lists-default-list-description" = "Llista per defecte dels articles desats";
 "reading-lists-default-list-title" = "Adreces d'interès";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
@@ -426,7 +423,6 @@
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
 "two-factor-login-with-backup-code" = "Utilitza un dels vostres codis de seguretat";
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
-"update-articles-button" = "Actualitza $1";
 "view-in-browser-footer-link" = "Mostra l'article al navegador";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
 "welcome-exploration-explore-feed-title" = "Canal Exploreu!";

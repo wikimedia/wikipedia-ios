@@ -3,6 +3,7 @@
 // Author: Brion Vibber
 // Author: Caliburn
 // Author: Derugon
+// Author: Envlh
 // Author: Eric.LEWIN
 // Author: Fitoschido
 // Author: Gomoko
@@ -91,7 +92,6 @@
 "appearance-settings-set-automatic-table-opening" = "Paramètres de tableau";
 "appearance-settings-text-sizing-example-text" = "Déplacez le curseur ci-dessus pour modifier la taille du texte de l’article. Utilisez votre taille de texte système pour dimensionner les autres zones de texte de l’application.";
 "appearance-settings-theme-options" = "Options des thèmes";
-"appearance-settings-title" = "Thèmes de lecture";
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Article supprimé|Articles supprimés}}";
@@ -122,8 +122,6 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
-"delete-reading-list-alert-message" = "Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera plus enregistré si {{PLURAL:$1|celle-ci est supprimée|celles-ci sont supprimées}}.";
-"delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
@@ -219,6 +217,7 @@
 "home-nearby-footer" = "Davantage proche de là où vous êtes";
 "home-nearby-location-footer" = "Plus proche de $1";
 "home-news-footer" = "Davantage dans les nouvelles";
+"home-reading-list-prompt" = "Vos articles enregistrés peuvent maintenant être organisés dans des listes de lecture et synchronisés entre appareils. Connectez-vous pour permettre à vos listes de lecture d’être enregistrées dans vos préférences utilisateur.";
 "home-themes-action-title" = "Gérer les préférences";
 "home-themes-prompt" = "Ajustez vos préférences de lecture (y compris la taille du texte et le thème) depuis la barre d’outil de l’article ou dans vos préférences utilisateur pour améliorer la lisibilité.";
 "home-title" = "Explorer";
@@ -237,7 +236,7 @@
 "info-box-title" = "Faits en bref";
 "languages-title" = "Changer de langue";
 "languages-wikipedia" = "Langues de Wikipédia";
-"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
 "login-forgot-password" = "Mot de passe oublié ?";
 "login-join-wikipedia" = "Rejoindre Wikipédia.";
@@ -334,6 +333,7 @@
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
+"reading-list-add-hint-title" = "Ajouter « $1 » à la liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";
 "reading-list-add-saved-subtitle" = "Voici les articles enregistrés dans votre application Wikipédia. Voulez-vous les conserver et les fusionner avec les listes de lecture synchronisées avec votre compte ?";
 "reading-list-add-saved-title" = "Articles enregistrés trouvés";
@@ -342,9 +342,9 @@
 "reading-list-api-error-list-limit" = "Cette liste n’est pas synchronisée parce que vous avez atteint la limite du nombre de listes synchronisées.";
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
-"reading-list-exists-with-same-name" = "Une liste de lecture avec le nom $1 existe déjà";
+// Fuzzy
+"reading-list-exists-with-same-name" = "Une liste de lecture existe déjà avec le nom « $1 »";
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
-"reading-list-hint-title" = "Déplacer $1 vers une liste de lecture ?";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
@@ -353,20 +353,26 @@
 "reading-list-login-or-create-account-title" = "Se connecter pour synchroniser les articles enregistrés";
 "reading-list-login-subtitle" = "Se connecter ou créer un compte pour permettre de synchroniser vos articles enregistrés et vos listes de lecture entre appareils, et enregistrer vos préférences utilisateur.";
 "reading-list-login-title" = "Synchroniser vos articles enregistrés ?";
+"reading-list-new-list-description-placeholder" = "courte description optionnelle";
+"reading-list-new-list-name-placeholder" = "lecture du titre de la liste";
+"reading-list-show-default-list-setting" = "Afficher la liste par défaut";
 "reading-list-sync-enable-button-title" = "Activer la synchronisation";
 "reading-list-sync-enable-subtitle" = "Vos articles enregistrés et vos listes de lecture peuvent maintenant être enregistrés sur votre compte Wikipédia et synchronisés entre appareils.";
 "reading-list-sync-enable-title" = "Activer la synchronisation des listes de lecture ?";
 "reading-list-sync-setting" = "Synchronisation de la liste de lecture";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Vous ne pouvez pas ajouter {{PLURAL:$1|cet article|ces articles}} à « $2 » parce qu’il y a une limite au nombre d’articles que vous pouvez avoir dans une liste de lecture.";
 "reading-list-unable-to-add-entry" = "Une erreur inattendue s’est produite lors de l’ajout d’une entrée à votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-create" = "Une erreur inattendue s’est produite lors de la création de votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-delete" = "Une erreur inattendue s’est produite lors de la suppression de votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-remove-entry" = "Une erreur inattendue s’est produite lors de la suppression d’une entrée de votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-update" = "Une erreur inattendue s’est produite lors de la mise à jour de votre liste de lecture. Veuillez réessayer ultérieurement.";
-"reading-list-with-provided-name-not-found" = "Une liste de lecture nommée $1 n’a pas été trouvée. Assurez-vous que le nom est correct.";
-"reading-lists-article-moved-confirmation" = "Article déplacé en « $1 »";
+"reading-list-with-provided-name-not-found" = "Une liste de lecture nommée « $1 » n’a pas été trouvée. Assurez-vous que le nom est correct.";
+"reading-lists-article-added-confirmation" = "Article ajouté à « $1 »";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
 "reading-lists-default-list-description" = "Liste par défaut pour les articles enregistrés";
 "reading-lists-default-list-title" = "Favoris";
+"reading-lists-delete-reading-list-alert-message" = "Cette action ne peut pas être annulée. Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera pas enregistré.";
+"reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";
 "reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";
 "reading-themes-controls-accessibility-dark-theme-button" = "Thème sombre";
@@ -385,7 +391,6 @@
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "saved-all-articles-title" = "Tous les articles";
 "saved-clear-all" = "Effacer";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Êtes-vous sûr de vouloir ne plus enregistrer {{PLURAL:$1|cet article et le supprimer|ces articles et les supprimer}} de toutes les listes de lecture ?";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
 "saved-pages-clear-cancel" = "Annuler";
 "saved-pages-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos articles enregistrés et les enlever de toutes les listes de lecture ?";
@@ -394,6 +399,8 @@
 "saved-reading-lists-title" = "Listes de lecture";
 "saved-search-default-text" = "Rechercher";
 "saved-title" = "Enregistré";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Ne plus enregistrer {{PLURAL:$1|cet article le supprimera|ces articles les supprimera}} de toutes les listes de lecture associées";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer {{PLURAL:$1|l’article|les articles}} ?";
 "search-button-accessibility-label" = "Rechercher dans Wikipédia";
 "search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -459,10 +466,6 @@
 "two-factor-login-title" = "Se connecter à votre compte";
 "two-factor-login-with-backup-code" = "Utiliser un de vos codes de sauvegarde";
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Ne plus enregistrer cet article le supprimera aussi de la liste de lecture « $1 ».";
-"unsave-article-and-remove-from-reading-lists-message" = "Ne plus enregistrer cet article le supprimera de toutes les listes de lecture.";
-"unsave-article-and-remove-from-reading-lists-title" = "Ne plus enregistrer l’article ?";
-"update-articles-button" = "Mettre à jour $1";
 "view-in-browser-footer-link" = "Afficher l’article dans le navigateur";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";

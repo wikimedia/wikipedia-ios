@@ -3,6 +3,13 @@
 // Author: Nemo bis
 // Author: Robin Owain
 
+"about-content-license" = "Trwydded y cynnwys";
+"about-content-license-details" = "Oni nodir yn wahanol, mae'r cynnwys o dan drwydded $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
+"about-contributors" = "Cyfranwyr";
+"about-libraries" = "Llyfrgelloedd a ddefnyddiwyd";
+"about-libraries-complete-list" = "Rhestr lawn";
+"about-libraries-license" = "Trwyddedi";
 "account-creation-create-account" = "Creer y cyfrif";
 "account-creation-have-account" = "Oes gen ti gyfrif? $1";
 "account-creation-log-in" = "Mewngofnodi";

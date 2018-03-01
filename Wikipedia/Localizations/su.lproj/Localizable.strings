@@ -61,7 +61,6 @@
 "appearance-settings-reading-themes" = "Téma bacaan";
 "appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistim anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
-"appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
 // Fuzzy
@@ -381,7 +380,6 @@
 "two-factor-login-title" = "Asup log kana akun anjeun";
 "two-factor-login-with-backup-code" = "Paké kode cadangan anjeun";
 "two-factor-login-with-regular-code" = "Paké kodeu vérifikasi";
-"update-articles-button" = "Anyarkeun $1";
 "view-in-browser-footer-link" = "Tempo artikel di panyungsi";
 "welcome-exploration-explore-feed-description" = "Bacaan nu disarankeun jeung artikel poéan ti komunitas kami";
 "welcome-exploration-explore-feed-title" = "Langlang eupan";
