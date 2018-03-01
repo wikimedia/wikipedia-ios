@@ -87,7 +87,6 @@
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
 "appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 위의 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
-"appearance-settings-title" = "읽기 테마";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|문서}}가 삭제됨";
@@ -118,8 +117,6 @@
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
-"delete-reading-list-alert-message" = "{{PLURAL:$1|이 목록에 저장된 모든 문서의 저장은 이 목록이 삭제되면 취소됩니다}}.";
-"delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-typos" = "오타 고침";
 "edit-summary-choice-linked-words" = "링크를 추가";
@@ -324,6 +321,7 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-list-add-hint-title" = "\"$1\" 문서를 읽기 목록에 추가할까요?";
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
 "reading-list-add-saved-subtitle" = "위키백과 앱에 저장된 문서가 있습니다. 이 문서들을 보관하고 계정에 동기화된 읽기 목록으로 병합하시겠습니까?";
 "reading-list-add-saved-title" = "저장된 문서를 찾았습니다";
@@ -332,9 +330,8 @@
 "reading-list-api-error-list-limit" = "동기화된 목록 수 제한에 도달했기 때문에 이 목록은 동기화되지 않습니다.";
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
 "reading-list-do-not-keep-button-title" = "아니요, 장치에서 문서를 삭제합니다";
-"reading-list-exists-with-same-name" = "$1 이름의 읽기 목록이 이미 존재합니다";
+"reading-list-exists-with-same-name" = "읽기 목록 이름을 이미 사용 중입니다";
 "reading-list-generic-error" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다.";
-"reading-list-hint-title" = "$1 문서를 읽기 목록으로 이동할까요?";
 "reading-list-keep-button-title" = "예, 장치에 문서를 보관합니다";
 "reading-list-keep-subtitle" = "위키백과 계정에 동기화된 문서가 있습니다. 로그아웃한 뒤에 이 문서들을 이 장치에 보관하시겠습니까?";
 "reading-list-keep-title" = "저장된 문서를 장치에 보관할까요?";
@@ -343,6 +340,7 @@
 "reading-list-login-or-create-account-title" = "로그인하여 저장된 문서를 동기화합니다";
 "reading-list-login-subtitle" = "저장된 문서와 읽기 목록을 장치 간에 동기화하고 사용자 환경 설정에 저장하려면 계정을 만들거나 로그인하십시오.";
 "reading-list-login-title" = "저장된 문서를 동기화할까요?";
+"reading-list-show-default-list-setting" = "기본 목록 표시";
 "reading-list-sync-enable-button-title" = "동기화 사용";
 "reading-list-sync-enable-subtitle" = "저장된 문서와 읽기 목록은 지금 위키백과 계정에 저장하여 장치 간에 동기화할 수 있습니다.";
 "reading-list-sync-enable-title" = "읽기 목록 동기화를 켜시겠습니까?";
@@ -352,11 +350,12 @@
 "reading-list-unable-to-delete" = "읽기 목록을 삭제하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-remove-entry" = "읽기 목록에서 항목을 제거하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-update" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
-"reading-list-with-provided-name-not-found" = "$1 이름의 읽기 목록을 찾을 수 없습니다. 올바른 이름인지 확인해 주십시오.";
-"reading-lists-article-moved-confirmation" = "문서를 \"$1\" 목록으로 이동했습니다";
+"reading-list-with-provided-name-not-found" = "\"$1\" 이름의 읽기 목록을 찾을 수 없습니다. 올바른 이름인지 확인해 주십시오.";
+"reading-lists-article-added-confirmation" = "문서를 \"$1\" 목록에 추가했습니다";
 "reading-lists-count" = "{{PLURAL:$1|읽기 목록 $1개}}";
 "reading-lists-default-list-description" = "저장된 문서를 위한 기본 목록";
 "reading-lists-default-list-title" = "책갈피";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
 "reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
 "reading-themes-controls-accessibility-dark-theme-button" = "어두운 테마";
@@ -375,7 +374,6 @@
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "saved-all-articles-title" = "모든 문서";
 "saved-clear-all" = "지우기";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "{{PLURAL:$1|이 문서의 저장을 취소하고 읽기 목록의 문서를 제거}}하시겠습니까?";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-clear-cancel" = "취소";
 "saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하고 모든 읽기 목록에서 제거하시겠습니까?";
@@ -448,10 +446,6 @@
 "two-factor-login-title" = "자신의 계정으로 로그인";
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "이 문서의 저장을 취소하면 \"$1\" 읽기 목록의 문서도 제거됩니다.";
-"unsave-article-and-remove-from-reading-lists-message" = "이 문서의 저장을 취소하면 모든 읽기 목록의 해당 문서가 제거됩니다.";
-"unsave-article-and-remove-from-reading-lists-title" = "문서의 저장을 취소하시겠습니까?";
-"update-articles-button" = "$1 업데이트";
 "view-in-browser-footer-link" = "브라우저에서 문서 보기";
 "welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";

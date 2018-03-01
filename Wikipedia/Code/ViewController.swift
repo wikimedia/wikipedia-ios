@@ -3,7 +3,6 @@ import WMF
 
 class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
-    var areScrollViewInsetsDeterminedByVisibleHeight: Bool = false
     var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
@@ -15,7 +14,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     }
     
     var navigationBar: NavigationBar = NavigationBar()
-    
+    var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
     
@@ -25,6 +24,10 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: theme)
@@ -32,6 +35,12 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         if #available(iOS 11.0, *) {
             scrollView?.contentInsetAdjustmentBehavior = .never
         }
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
+            if let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+                self?.keyboardFrame = self?.view.convert(endFrame, from: self?.view.window)
+            }
+            self?.updateScrollViewInsets()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +56,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         } else {
             showsNavigationBar = false
         }
-        
+    
         navigationBarHider.navigationBar = navigationBar
         navigationBarHider.delegate = self
         
@@ -118,7 +127,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
         
-        var top = areScrollViewInsetsDeterminedByVisibleHeight ? navigationBar.visibleHeight : frame.maxY
+        var top = frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets
@@ -126,19 +135,31 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
             safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: min(44, bottomLayoutGuide.length), right: 0) // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
         }
         
-        let bottom = safeInsets.bottom
+        var bottom = safeInsets.bottom
+        if let keyboardFrame = keyboardFrame {
+            let keyboardHeight = view.bounds.height - keyboardFrame.minY
+            bottom = max(bottom, keyboardHeight)
+        }
+        
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
         if scrollView.wmf_setContentInsetPreservingTopAndBottomOffset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, withNavigationBar: navigationBar) {
-            didUpdateScrollViewInsets()
+            scrollViewInsetsDidChange()
         }
     }
 
-    open func didUpdateScrollViewInsets() {
-        
+    open func scrollViewInsetsDidChange() {
+        if showsNavigationBar && ownsNavigationBar {
+            for child in childViewControllers {
+                guard let vc = child as? ViewController, !vc.ownsNavigationBar else {
+                    continue
+                }
+                vc.scrollViewInsetsDidChange()
+            }
+        }
     }
     
     // MARK: - Scrolling

@@ -75,7 +75,6 @@
 "appearance-settings-set-automatic-table-opening" = "Töflustillingar";
 "appearance-settings-text-sizing-example-text" = "Dragðu til sleðann hér fyrir ofan til að breyta stærð textans í greininni. Notaðu stærðarbreytingar í stillingum kerfisins til að breyta stærð texta í öðrum hlutum forritsins.";
 "appearance-settings-theme-options" = "Valkostir þema";
-"appearance-settings-title" = "Lestrarþemu";
 "article-about-title" = "Um þessa grein";
 "article-delete" = "Eyða";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|grein|greinum}} eytt";
@@ -106,8 +105,6 @@
 "compass-direction" = "klukkan $1 á áttavita";
 "continue-reading-empty-description" = "Kanna hvort Wikipedia sé með fleiri greinar til að lesa";
 "continue-reading-empty-title" = "Engar nýlega lesnar greinar";
-"delete-reading-list-alert-message" = "Allar greinar sem einungis eru vistaðar í {{PLURAL:$1|þennan lista verða óvistaðar þegar þessum lista er eytt|þessa lista verða óvistaðar þegar þessum listum er eytt}}.";
-"delete-reading-list-alert-title" = "Eyða {{PLURAL:$1|lista|listum}}?";
 "dim-images" = "Dekkja myndir";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-typos" = "Lagaði innsláttarvillu";
@@ -323,9 +320,9 @@
 "reading-list-add-saved-title" = "Vistaðar greinar fundust";
 "reading-list-deleted-accessibility-notification" = "Leslista eytt";
 "reading-list-do-not-keep-button-title" = "Nei, eyða greinum af tæki";
+// Fuzzy
 "reading-list-exists-with-same-name" = "Leslisti með heitinu $1 er þegar til";
 "reading-list-generic-error" = "Óvænt villa kom upp við að uppfæra leslistana þína.";
-"reading-list-hint-title" = "Færa $1 á leslista?";
 "reading-list-keep-button-title" = "Já, halda greinum á tæki";
 "reading-list-keep-subtitle" = "Það eru greinar sem samstilltar hafa verið við Wikipedia-aðganginn þinn. Myndirðu vilja halda þeim á þessu tæki eftir að þú skráir þig út?";
 "reading-list-keep-title" = "Halda vistuðum greinum á tæki?";
@@ -343,8 +340,8 @@
 "reading-list-unable-to-delete" = "Óvænt villa kom upp við að eyða leslistanum þínum. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-remove-entry" = "Óvænt villa kom upp við að fjarlægja færslu af leslistanum þínum. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-update" = "Óvænt villa kom upp við að uppfæra leslistann þinn. Endilega reyndu aftur síðar.";
+// Fuzzy
 "reading-list-with-provided-name-not-found" = "Leslisti með heitinu $1 fannst ekki. Gakktu úr skugga um að þú hafir sett inn rétt heiti.";
-"reading-lists-article-moved-confirmation" = "Grein færð í “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 leslistann|$1 leslistana}}";
 "reading-lists-default-list-description" = "Sjálfgefinn listi fyrir vistaðar greinar";
 "reading-lists-default-list-title" = "Bókamerki";
@@ -366,7 +363,6 @@
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "saved-all-articles-title" = "Allar greinar";
 "saved-clear-all" = "Hreinsa";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Ertu viss um að þú viljir afturkalla vistun {{PLURAL:$1|þessarar greinar og fjarlægja hana|þessar greinar og fjarlægja þær}} af öllum leslistum?";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
 "saved-pages-clear-cancel" = "Hætta við";
 "saved-pages-clear-confirmation-heading" = "Ertu viss um að þú viljir eyða öllum vistuðum greinum og fjarlægja þær af öllum leslistum?";
@@ -440,10 +436,6 @@
 "two-factor-login-title" = "Skráðu þig inn í notandaaðganginn þinn";
 "two-factor-login-with-backup-code" = "Notaðu einn af öryggiskóðunum þínum";
 "two-factor-login-with-regular-code" = "Nota staðfestingarkóða";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Afturköllun á vistun þessarar greinar mun einnig fjarlægja hana af leslistanum “$1”.";
-"unsave-article-and-remove-from-reading-lists-message" = "Afturköllun á vistun greinar mun fjarlægja hana af öllum leslistum.";
-"unsave-article-and-remove-from-reading-lists-title" = "Afturkalla vistun greinar?";
-"update-articles-button" = "Uppfæra $1";
 "view-in-browser-footer-link" = "Skoða grein í vafra";
 "welcome-exploration-explore-feed-description" = "Lesefni sem mælt er með og daglegar greinar frá samfélaginu okkar";
 "welcome-exploration-explore-feed-title" = "'Uppgötva'-streymið";

@@ -195,20 +195,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 
 extension ReadingListDetailViewController: ActionDelegate {
     
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
-        guard let article = article(at: action.indexPath) else {
-            return
-        }
-        guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
-        }
-        let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action, from: sender) }
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
-        }
+    func willPerformAction(_ action: Action) -> Bool {
+        return self.editController.didPerformAction(action)
     }
     
     
@@ -275,7 +263,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         }
     }
     
-    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
             if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
@@ -446,6 +434,7 @@ extension ReadingListDetailViewController {
         }
         
         cell.actions = availableActions(at: indexPath)
+        cell.isBatchEditable = true
         cell.layoutMargins = layout.readableMargins
         
         guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
@@ -487,6 +476,7 @@ extension ReadingListDetailViewController {
 extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
+        title = name
     }
     
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {

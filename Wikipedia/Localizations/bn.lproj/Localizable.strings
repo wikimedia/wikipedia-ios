@@ -301,6 +301,7 @@
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
 "reading-lists-default-list-title" = "বুকমার্ক";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|তালিকাটি|তালিকাগুলি}} মুছবেন?";
 "reading-themes-controls-accessibility-dark-theme-button" = "আঁধার থিম";
 "reading-themes-controls-accessibility-light-theme-button" = "অল্পোজ্জ্বল থিম";
 "reading-themes-controls-accessibility-sepia-theme-button" = "কালচে-বাদামি থিম";
@@ -351,6 +352,7 @@
 "share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@উইকিপিডিয়া হয়ে";
 "share-open-in-maps" = "মানচিত্রে খুলুন";
+"sort-by-title-action" = "শিরোনাম";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "table-of-contents-button-label" = "সূচিপত্র";

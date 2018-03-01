@@ -74,8 +74,7 @@
 "appearance-settings-theme-options" = "Ρυθμίσεις θεμάτων";
 "article-about-title" = "Σχετικά με αυτό το άρθρο";
 "article-delete" = "Διαγραφή";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Το άρθρο διαγράφηκε";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|το λήμμα διαγράφηκε|τα λήμματα διαγράφηκαν}}";
 "article-languages-filter-placeholder" = "Εύρεση γλώσσας";
 "article-languages-label" = "Επιλέξτε γλώσσα";
 "article-languages-others" = "Άλλες γλώσσες";
@@ -299,9 +298,9 @@
 "rank-accessibility-label" = "Αριθμός $1";
 "readers-accessibility-label" = "$1 αναγνώστες";
 "reading-list-deleted-accessibility-notification" = "Η λίστα ανάγνωσης διεγράφη";
-"reading-list-exists-with-same-name" = "Μια λίστα ανάγνωσης υπάρχει ήδη με το όνομα $1";
+// Fuzzy
+"reading-list-exists-with-same-name" = "Μια λίστα ανάγνωσης υπάρχει ήδη με το όνομα «$1»";
 "reading-list-generic-error" = "Ένα απρόβλεπτο σφάλμα συνέβη κατά την διάρκεια της ενημέρωσης των λίστων ανάγνωσής σας.";
-"reading-list-hint-title" = "Μετακίνηση του $1 σε μία λίστα ανάγνωσης;";
 "reading-list-keep-button-title" = "Ναι, κρατήστε τα άρθρα στη συσκευή";
 "reading-list-keep-subtitle" = "Υπάρχουν άρθρα συγχρονισμένα με τον λογαριασμό σας στη Wikipedia. Θα θέλατε να τα κρατήσετε σε αυτή τη συσκευή, αφού αποσυνδεθείτε;";
 "reading-lists-default-list-title" = "Σελιδοδείκτες";

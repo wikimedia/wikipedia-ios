@@ -65,6 +65,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
 
 public enum EditingState: Int, EnumCollection {
     case unknown // pre-init state, nil delegate state
+    case empty // collection view is empty
     case none // initial state
     case open // batch editing pane is open
     case closed // batch editing pane is closed

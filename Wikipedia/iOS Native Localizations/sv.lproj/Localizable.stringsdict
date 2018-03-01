@@ -66,6 +66,22 @@
 			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Du kan inte lägga till denna artikel i "%2$@" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.</string>
+			<key>other</key>
+			<string>Du kan inte lägga till dessa artiklar i "%2$@" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +96,38 @@
 			<string>%1$d läslista</string>
 			<key>other</key>
 			<string>%1$d läslistor</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Denna handling kan inte ångras. Alla artiklar som endast sparas i denna lista kommer att tas bort.</string>
+			<key>other</key>
+			<string>Denna handling kan inte ångras. Alla artiklar som endast sparas i dessa listor kommer att tas bort.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Radera listan?</string>
+			<key>other</key>
+			<string>Radera listorna?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -152,6 +200,38 @@
 			<string>%1$d år sedan</string>
 			<key>zero</key>
 			<string>Detta år</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>När denna artikel tas bort plockas den bort från alla associerade läslistor</string>
+			<key>other</key>
+			<string>När dessa artiklar tas bort plockas de bort från alla associerade läslistor</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ta bort artikeln?</string>
+			<key>other</key>
+			<string>Ta bort artiklarna?</string>
 		</dict>
 	</dict>
 </dict>

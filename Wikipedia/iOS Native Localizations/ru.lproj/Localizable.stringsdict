@@ -66,6 +66,22 @@
 			<string>%1$d статьи</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Вы не можете добавить эта статья в “%2$@” потому что существует ограничение на количество статей, которые вы можете иметь в списке чтения.</string>
+			<key>other</key>
+			<string>Вы не можете добавить эти статьи в “%2$@” потому что существует ограничение на количество статей, которые вы можете иметь в списке чтения.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +96,38 @@
 			<string>%1$d список для чтения</string>
 			<key>other</key>
 			<string>%1$d списков для чтения</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Это действие не может быть отменено. Любые статьи, сохраненные только для этот список будут несохранены.</string>
+			<key>other</key>
+			<string>Это действие не может быть отменено. Любые статьи, сохраненные только для эти списки будут несохранены.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Удалить список?</string>
+			<key>other</key>
+			<string>Удалить списки?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -152,6 +200,38 @@
 			<string>%1$d лет назад</string>
 			<key>zero</key>
 			<string>этот год</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Несохранила эта статья удалит его из всех связанных списков чтения</string>
+			<key>other</key>
+			<string>Несохранила эти статьи удаляют их из всех связанных списков чтения</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Несохраненная статья</string>
+			<key>other</key>
+			<string>Несохраненная статей</string>
 		</dict>
 	</dict>
 </dict>

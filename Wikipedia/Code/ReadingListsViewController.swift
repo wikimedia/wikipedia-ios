@@ -21,14 +21,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     private var articles: [WMFArticle] = [] // the articles that will be added to a reading list
     private var readingLists: [ReadingList]? // the displayed reading lists
     private var displayType: ReadingListsDisplayType = .readingListsTab
-    var isShowingDefaultList = false
     public weak var delegate: ReadingListsViewControllerDelegate?
+    private var createReadingListViewController: CreateReadingListViewController?
     
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
         if let readingLists = readingLists, readingLists.count > 0 {
-            isShowingDefaultList = readingLists.filter { $0.isDefault }.count > 0
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
             let commonReadingLists = articles.reduce(articles.first?.readingLists ?? []) { $0.intersection($1.readingLists ?? []) }
@@ -36,13 +35,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            isShowingDefaultList = commonReadingLists.filter { $0.isDefault }.count == 0
+            if !dataStore.readingListsController.isDefaultListEnabled {
+                subpredicates.append(NSPredicate(format: "isDefault != YES"))
+            }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
-            isShowingDefaultList = dataStore.readingListsController.isDefaultListEnabled
             var predicate = basePredicate
-            if !isShowingDefaultList {
+            if !dataStore.readingListsController.isDefaultListEnabled {
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
             }
             request.predicate = predicate
@@ -103,9 +103,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         
         // Remove peek & pop for now
         unregisterForPreviewing()
-        
-        areScrollViewInsetsDeterminedByVisibleHeight = false
-        
+
         isRefreshControlEnabled = true
     }
     
@@ -138,8 +136,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return fetchedResultsController.object(at: indexPath)
     }
     
+    // MARK: - Reading list creation
+    
     @objc func createReadingList(with articles: [WMFArticle] = [], moveFromReadingList: ReadingList? = nil) {
-        let createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles)
+        createReadingListViewController = CreateReadingListViewController(theme: self.theme, articles: articles, moveFromReadingList: moveFromReadingList)
+        guard let createReadingListViewController = createReadingListViewController else {
+            assertionFailure("createReadingListViewController is nil")
+            return
+        }
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
         createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
@@ -153,6 +157,17 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     @objc func dismissCreateReadingListViewController() {
         dismiss(animated: true, completion: nil)
     }
+    
+    private func handleReadingListError(_ error: Error) {
+        if let readingListsError = error as? ReadingListError {
+            WMFAlertManager.sharedInstance.showAlert(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+        } else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(
+                CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+        }
+    }
+    
+    // MARK: - Cell configuration
     
     open func configure(cell: ReadingListsCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let readingList = readingList(at: indexPath) else {
@@ -173,7 +188,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             }
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
+            cell.isBatchEditable = false
         } else {
+            cell.isBatchEditable = true
             cell.actions = availableActions(at: indexPath)
             if editController.isBatchEditing {
                 cell.isBatchEditing = editController.isBatchEditing
@@ -197,9 +214,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
-            if isShowingDefaultList {
-                collectionView.isHidden = true
-            }
+            collectionView.isHidden = true
         } else {
             collectionView.isHidden = false
         }
@@ -237,7 +252,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 try readingListsController.add(articles: articles, to: readingList)
                 delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             } catch let error {
-                readingListsController.handle(error)
+                handleReadingListError(error)
             }
             return
         }
@@ -277,7 +292,11 @@ extension ReadingListsViewController: CreateReadingListDelegate {
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingList.dismiss(animated: true, completion: nil)
         } catch let error {
-            readingListsController.handle(error)
+            if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
+                createReadingListViewController?.handleReadingListNameError(readingListError)
+            } else {
+                handleReadingListError(error)
+            }
         }
     }
 }
@@ -326,19 +345,18 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
 // MARK: - ActionDelegate
 extension ReadingListsViewController: ActionDelegate {
 
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
+    func willPerformAction(_ action: Action) -> Bool {
         guard let readingList = readingList(at: action.indexPath) else {
-            return
+            return false
         }
         guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
+            return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListAlertController()
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action, from: sender) }
-        alertController.showAlert(presenter: self, items: [readingList], actions: [cancel, delete], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
+        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
+        return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
     }
     
@@ -347,7 +365,7 @@ extension ReadingListsViewController: ActionDelegate {
             try self.readingListsController.delete(readingLists: readingLists)
             self.editController.close()
         } catch let error {
-            self.readingListsController.handle(error)
+            handleReadingListError(error)
         }
     }
     
@@ -367,18 +385,18 @@ extension ReadingListsViewController: ActionDelegate {
                 self.deleteReadingLists(readingLists)
             }
             var didPerform = false
-            alertController.showAlert(presenter: self, items: readingLists, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.deleteReadingLists(readingLists)
                 didPerform = true
+                return didPerform
             }
-            return didPerform
         default:
             break
         }
         return false
     }
     
-    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         guard let readingList = readingList(at: indexPath) else {
             return false

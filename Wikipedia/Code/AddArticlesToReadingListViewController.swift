@@ -67,7 +67,6 @@ class AddArticlesToReadingListViewController: UIViewController {
         readingListsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
-        readingListsViewController.areScrollViewInsetsDeterminedByVisibleHeight = false
         readingListsViewController.delegate = self
         apply(theme: theme)
     }

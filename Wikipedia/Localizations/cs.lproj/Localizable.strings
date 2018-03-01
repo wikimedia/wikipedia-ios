@@ -88,8 +88,6 @@
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
-"delete-reading-list-alert-message" = "Jakékoli články uložené jenom v {{PLURAL:$1|tomto seznamu|těchto seznamech}} nebudou uloženy, pokud nejsou v jiném seznamu čtení.";
-"delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|tento seznam|tyto $1 seznamy|těchto $1 seznamů}}?";
 "edit-summary-choice-fixed-grammar" = "Oprava gramatiky";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
@@ -189,9 +187,9 @@
 "reading-list-add-saved-title" = "Uložené články nalezeny";
 "reading-list-deleted-accessibility-notification" = "Seznam čtení odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
+// Fuzzy
 "reading-list-exists-with-same-name" = "Existuje již seznam čtení se stejným jménem ($1)";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení.";
-"reading-list-hint-title" = "Přesunout $1 do seznamu čtení?";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
 "reading-list-keep-subtitle" = "Jsou zde články synchronizovány k vašemu účtu na Wikipedii. Chcete je na tomto zařízení po odhlášení ponechat?";
 "reading-list-keep-title" = "Ponechat uložené články na zařízení?";
@@ -200,6 +198,9 @@
 "reading-list-login-or-create-account-title" = "Přihlašte se pro synchronizaci uložených článků";
 "reading-list-login-subtitle" = "Přihlašte se nebo si založte účet, abyste mohl/a povolit synchronizaci článků a seznamů čtení skrze zařízení.";
 "reading-list-login-title" = "Synchronizovat vámi uložené články?";
+"reading-list-new-list-description-placeholder" = "Volitelný krátký popis";
+"reading-list-new-list-name-placeholder" = "Název seznamu čtení";
+"reading-list-show-default-list-setting" = "Zobrazit výchozí seznam";
 "reading-list-sync-enable-button-title" = "Povolit synchronizace";
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy čtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů čtení?";
@@ -209,11 +210,12 @@
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-remove-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-update" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení. Zkuste prosím později znovu.";
+// Fuzzy
 "reading-list-with-provided-name-not-found" = "Seznam čtení s názvem $1 nebyl nalezen. Ujistěte se prosím, že jste vyhledal správné jméno.";
-"reading-lists-article-moved-confirmation" = "Článek přesunut na „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 seznam čtení|$1 seznamy čtení|$1 seznamů čtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam uložených článků";
 "reading-lists-default-list-title" = "Záložky";
+"reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
 "relogin-failed-retry-login-button-title" = "Pokusit se přihlásit znovu";
 "relogin-failed-stay-logged-out-button-title" = "Ponechat můj účet odhlášen";
 "relogin-failed-subtitle" = "Vaše relace možná vypršela nebo předchozí záznam v pověření již není platný.";
@@ -221,7 +223,6 @@
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "saved-all-articles-title" = "Všechny články";
 "saved-clear-all" = "Vyprázdnit";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Jste si jist/a, že nechcete uložit {{PLURAL:$1|tento článek|tyto články}} a odstranit ho ze všech seznamů čtení?";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
 "saved-pages-clear-cancel" = "Zrušit";
 "saved-pages-clear-confirmation-heading" = "Jste si jist, že chcete smazat všechny uložené články a odstranit je ze všech seznamů čtení?";
@@ -263,10 +264,6 @@
 "top-read-header-generic" = "Wikipedie";
 "top-read-header-with-language" = "$1 Wikipedie";
 "top-read-see-more" = "Zobrazit další nejvíce čtené";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Neuložení tohoto článku ho také odstraní ze seznamu čtení “$1”.";
-"unsave-article-and-remove-from-reading-lists-message" = "Neuložení tohoto článku ho odstraní ze všech seznamů čtení.";
-"unsave-article-and-remove-from-reading-lists-title" = "Zahodit změny?";
-"update-articles-button" = "Aktualizovat $1";
 "welcome-explore-continue-button" = "Začněte";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
 "welcome-languages-add-button" = "Přidat další jazyk";
