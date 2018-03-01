@@ -68,7 +68,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
-@property (nonatomic, strong) UITabBarController *rootTabBarController;
+@property (nonatomic, strong) WMFRotationRespectingTabBarController *rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
@@ -179,7 +179,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if ([self uiIsLoaded]) {
         return;
     }
-    UITabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
+    WMFRotationRespectingTabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
     [self addChildViewController:tabBar];
     [self.view insertSubview:tabBar.view atIndex:0];
     [self.view wmf_addConstraintsToEdgesOfView:tabBar.view withInsets:UIEdgeInsetsZero priority:UILayoutPriorityRequired];
@@ -1513,6 +1513,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
 
+    [self.rootTabBarController applyTheme:theme];
+    
     // Tab bars
 
     NSArray<UITabBar *> *tabBars = @[self.rootTabBarController.tabBar, [UITabBar appearance]];
