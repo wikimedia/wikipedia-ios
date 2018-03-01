@@ -183,7 +183,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        statusView.backgroundColor = UIColor.green
+        isStatusViewHidden = article.isDownloaded
+        
+        if !isStatusViewHidden {
+            statusView.backgroundColor = theme.colors.warning
+        }
         
         if shouldShowSeparators {
             topSeparator.isHidden = index > 0
