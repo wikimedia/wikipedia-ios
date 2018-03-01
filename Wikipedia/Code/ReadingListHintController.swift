@@ -1,11 +1,11 @@
 import UIKit
 
-@objc public protocol ReadingListHintPresenter: NSObjectProtocol {
+@objc public protocol ReadingListHintPresenter: class {
     var readingListHintController: ReadingListHintController? { get set }
 }
 
-protocol ReadingListHintViewControllerDelegate: NSObjectProtocol {
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool)
+protocol ReadingListHintViewControllerDelegate: class {
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
 }
 
 @objc(WMFReadingListHintController)
@@ -31,9 +31,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
     }
-    
-    private var isConfirmation: Bool = false
-    
+        
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
         self.presenter = presenter
@@ -70,6 +68,13 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     private var task: DispatchWorkItem?
     
+    func updateRandom(_ hintHidden: Bool) {
+        if let navigationController = (presenter as? WMFRandomArticleViewController)?.navigationController as? WMFArticleNavigationController {
+            navigationController.readingListHintHeight = hintHeight
+            navigationController.readingListHintHidden = hintHidden
+        }
+    }
+    
     func dismissHint() {
         self.task?.cancel()
         let task = DispatchWorkItem { self.setHintHidden(true) }
@@ -88,9 +93,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
         
-        if let randomArticleViewController = presenter as? WMFRandomArticleViewController, hintVisibilityTime != 0 {
-            randomArticleViewController.isReadingListHintHidden = hintHidden
-        }
+        updateRandom(hintHidden)
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
             self.hint.view.frame = frame
@@ -98,6 +101,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         }, completion: { (_) in
             // remove hint after animation is completed
             self.isHintHidden = hintHidden
+            if hintHidden {
+                self.updateRandom(hintHidden)
+            }
         })
     }
     
@@ -147,16 +153,15 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func scrollViewWillBeginDragging() {
-        guard !isHintHidden, didSaveArticle else {
+        guard !isHintHidden else {
             return
         }
-        hintVisibilityTime = isConfirmation ? 8 : 0
+        hintVisibilityTime = 0
     }
     
     // MARK: - ReadingListHintViewControllerDelegate
     
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool) {
-        self.isConfirmation = isConfirmation
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool) {
         setHintHidden(shouldBeHidden)
     }
 }

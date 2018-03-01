@@ -34,14 +34,14 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         }
     }
     
-    public var fixedWidth: CGFloat = 60
+    public static let fixedWidth: CGFloat = 60
     
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
         if (apply) {
-            multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: fixedWidth, height: size.height)
+            multiSelectIndicator?.frame = CGRect(x: 0, y: 0, width: BatchEditSelectView.fixedWidth, height: size.height)
         }
-        let width = superSize.width == UIViewNoIntrinsicMetric ? fixedWidth : superSize.width
+        let width = superSize.width == UIViewNoIntrinsicMetric ? BatchEditSelectView.fixedWidth : superSize.width
         let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
         return CGSize(width: width, height: height)
     }
@@ -61,10 +61,11 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         backgroundColor = multiSelectIndicator.backgroundColor
         setNeedsLayout()
     }
-
 }
 
 public enum EditingState: Int, EnumCollection {
+    case unknown // pre-init state, nil delegate state
+    case empty // collection view is empty
     case none // initial state
     case open // batch editing pane is open
     case closed // batch editing pane is closed
@@ -119,7 +120,8 @@ public class BatchEditToolbarAction: UIAccessibilityCustomAction {
 }
 
 public protocol BatchEditableCell: NSObjectProtocol {
-    var batchEditingTranslation: CGFloat { get set }
+    var isBatchEditing: Bool { get set }
+    var isBatchEditable: Bool { get set }
     var batchEditSelectView: BatchEditSelectView? { get }
     func layoutIfNeeded() // call to layout views after setting batch edit translation
 }

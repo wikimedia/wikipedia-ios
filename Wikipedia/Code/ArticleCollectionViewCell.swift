@@ -75,7 +75,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
-        resetBatchEdit()
+        isBatchEditing = false
+        isBatchEditable = false
+        actions = []
         updateFonts(with: traitCollection)
     }
 
@@ -261,7 +263,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
 
-    public var batchEditingTranslation: CGFloat = 0 {
+    private var batchEditingTranslation: CGFloat = 0 {
         didSet {
             layoutMarginsAdditions.left = batchEditingTranslation / 1.5
             let isOpen = batchEditingTranslation > 0
@@ -289,15 +291,28 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK: - BatchEditableCell
     
     public var batchEditSelectView: BatchEditSelectView?
-    
-    func resetBatchEdit() {
-        batchEditingTranslation = 0
-        batchEditSelectView?.removeFromSuperview()
-    }
-    
+
     public var isBatchEditable: Bool = false {
         didSet {
-            batchEditSelectView = BatchEditSelectView()
+            if isBatchEditable && batchEditSelectView == nil {
+                batchEditSelectView = BatchEditSelectView()
+                batchEditSelectView?.isSelected = isSelected
+            } else if !isBatchEditable && batchEditSelectView != nil {
+                batchEditSelectView?.removeFromSuperview()
+                batchEditSelectView = nil
+            }
+        }
+    }
+    
+    public var isBatchEditing: Bool = false {
+        didSet {
+            if isBatchEditing {
+                isBatchEditable = true
+                batchEditingTranslation = BatchEditSelectView.fixedWidth
+                batchEditSelectView?.isSelected = isSelected
+            } else {
+                batchEditingTranslation = 0
+            }
         }
     }
     

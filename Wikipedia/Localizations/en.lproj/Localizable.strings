@@ -68,7 +68,7 @@
 "appearance-settings-theme-options" = "Theme options";
 "article-about-title" = "About this article";
 "article-delete" = "Delete";
-"article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|articles}} deleted";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|article|articles}} deleted";
 "article-languages-filter-placeholder" = "Find language";
 "article-languages-label" = "Choose language";
 "article-languages-others" = "Other languages";
@@ -316,7 +316,7 @@
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
-"reading-list-exists-with-same-name" = "A reading list already exists with the name “$1”";
+"reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
@@ -334,11 +334,11 @@
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
 "reading-list-sync-setting" = "Reading list sync";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "You cannot add {{PLURAL:$1|this article|these articles}} to “$2” because there is a limit to the number of articles you can have in a reading list.";
-"reading-list-unable-to-add-entry" = "An unexpected error occured while adding an entry to your reading list. Please try again later.";
-"reading-list-unable-to-create" = "An unexpected error occured while creating your reading list. Please try again later.";
-"reading-list-unable-to-delete" = "An unexpected error occured while deleting your reading list. Please try again later.";
-"reading-list-unable-to-remove-entry" = "An unexpected error occured while removing an entry from your reading list. Please try again later.";
-"reading-list-unable-to-update" = "An unexpected error occured while updating your reading list. Please try again later.";
+"reading-list-unable-to-add-entry" = "An unexpected error occurred while adding an entry to your reading list. Please try again later.";
+"reading-list-unable-to-create" = "An unexpected error occurred while creating your reading list. Please try again later.";
+"reading-list-unable-to-delete" = "An unexpected error occurred while deleting your reading list. Please try again later.";
+"reading-list-unable-to-remove-entry" = "An unexpected error occurred while removing an entry from your reading list. Please try again later.";
+"reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
 "reading-lists-article-added-confirmation" = "Article added to “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
@@ -372,8 +372,8 @@
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Un-saving {{PLURAL:$1|this articles will remove it|these articles will remove them}} from all associated reading lists";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "Un-save {{PLURAL:$1|article|articles}}?";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";

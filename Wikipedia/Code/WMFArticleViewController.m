@@ -340,8 +340,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return self.webViewController.webView.scrollView;
 }
 
-- (void)didUpdateScrollViewInsets {
-    [super didUpdateScrollViewInsets];
+- (void)scrollViewInsetsDidChange {
+    [super scrollViewInsetsDidChange];
     [self updateTableOfContentsInsets];
 }
 
@@ -1574,6 +1574,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+}
+
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
@@ -1904,7 +1908,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
-    NSLog(@"here ArticleViewController");
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
 }
 
 #pragma mark - Article Navigation

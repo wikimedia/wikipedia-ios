@@ -42,29 +42,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         return true
     }
     
-    var emptyViewType: WMFEmptyViewType {
-        return .none
-    }
-    
-    var isEmpty = true
-    
-    fileprivate final func updateEmptyState() {
-        let sectionCount = numberOfSections(in: collectionView)
-
-        isEmpty = true
-        for sectionIndex in 0..<sectionCount {
-            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
-                isEmpty = false
-                break
-            }
-        }
-        if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: view.bounds)
-        } else {
-            wmf_hideEmptyView()
-        }
-    }
-    
     var deleteAllButtonText: String? = nil
     var deleteAllConfirmationText: String? = nil
     var deleteAllCancelText: String? = nil
@@ -107,29 +84,26 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
-        updateDeleteButton()
     }
     
-    var isFirstAppearance = true
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard isFirstAppearance else {
-            return
-        }
-        isFirstAppearance = false
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching articles for \(self): \(error)")
-        }
-        collectionView.reloadData()
-        updateEmptyState()
+    override func isEmptyDidChange() {
+        super.isEmptyDidChange()
         updateDeleteButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         editController.close()
+    }
+    
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            DDLogError("Error fetching articles for \(self): \(error)")
+        }
+        collectionView.reloadData()
+        super.viewWillHaveFirstAppearance(animated)
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
@@ -145,13 +119,6 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
             return true
         }
         return translation == 0
-    }
-    
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        if wmf_isShowingEmptyView() {
-            updateEmptyState()
-        }
     }
 }
 

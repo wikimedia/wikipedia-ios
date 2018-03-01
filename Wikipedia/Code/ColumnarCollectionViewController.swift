@@ -31,8 +31,18 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.reloadData()
     }
 
+    private var isFirstAppearance = true
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isFirstAppearance {
+            isFirstAppearance = false
+            viewWillHaveFirstAppearance(animated)
+            updateEmptyState()
+            isEmptyDidChange() // perform initial update even though the value might not have changed
+        } else {
+            updateEmptyState()
+        }
         registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
@@ -45,6 +55,10 @@ class ColumnarCollectionViewController: ViewController {
             }
             cellWithSubItems.deselectSelectedSubItems(animated: animated)
         }
+    }
+    
+    open func viewWillHaveFirstAppearance(_ animated: Bool) {
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -193,6 +207,50 @@ class ColumnarCollectionViewController: ViewController {
         })
     }
     
+    // MARK: - Empty State
+    
+    var emptyViewType: WMFEmptyViewType = .none
+    
+    final var isEmpty = true
+    final func updateEmptyState() {
+        let sectionCount = numberOfSections(in: collectionView)
+        
+        var isCurrentlyEmpty = true
+        for sectionIndex in 0..<sectionCount {
+            if self.collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 {
+                isCurrentlyEmpty = false
+                break
+            }
+        }
+        
+        guard isCurrentlyEmpty != isEmpty else {
+            return
+        }
+        
+        isEmpty = isCurrentlyEmpty
+        
+        isEmptyDidChange()
+    }
+    
+    private var emptyViewFrame: CGRect {
+        let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
+        let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
+        return frame
+    }
+    
+    open func isEmptyDidChange() {
+        if isEmpty {
+            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
+        } else {
+            wmf_hideEmptyView()
+        }
+    }
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        wmf_setEmptyViewFrame(emptyViewFrame)
+    }
+    
     // MARK: - Themeable
     
     override func apply(theme: Theme) {
@@ -204,6 +262,7 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.backgroundColor = theme.colors.baseBackground
         collectionView.indicatorStyle = theme.scrollIndicatorStyle
         collectionView.reloadData()
+        wmf_applyTheme(toEmptyView: theme)
     }
 }
 

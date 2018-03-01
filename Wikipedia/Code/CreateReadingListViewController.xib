@@ -15,6 +15,7 @@
                 <outlet property="createReadingListButton" destination="UtA-Zm-L74" id="fqQ-pX-Ptg"/>
                 <outlet property="descriptionLabel" destination="lCo-6s-4Lk" id="GEK-dQ-mTM"/>
                 <outlet property="descriptionTextField" destination="9bd-dM-Z1B" id="Mb2-vc-7rl"/>
+                <outlet property="readingListNameErrorLabel" destination="xtG-cd-4uw" id="4gM-gh-UT9"/>
                 <outlet property="readingListNameLabel" destination="1mL-FN-xFB" id="1KD-S4-Gtd"/>
                 <outlet property="readingListNameTextField" destination="pLi-n2-Obn" id="8za-Ti-XyY"/>
                 <outlet property="scrollView" destination="ANn-ak-pec" id="nsP-lg-Y8f"/>
@@ -31,7 +32,7 @@
                     <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-ce-n7H" userLabel="Content View">
-                            <rect key="frame" x="16" y="0.0" width="288" height="294.5"/>
+                            <rect key="frame" x="16" y="0.0" width="288" height="289.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
                                     <rect key="frame" x="78" y="30" width="132.5" height="20.5"/>
@@ -39,8 +40,8 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Nyk-1i-Eum">
-                                    <rect key="frame" x="0.0" y="80.5" width="288" height="124"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Nyk-1i-Eum">
+                                    <rect key="frame" x="0.0" y="80.5" width="288" height="119"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="f5N-Ni-ahN" userLabel="Name Stack View">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="49.5"/>
@@ -63,10 +64,16 @@
                                                         <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="Fbw-x7-Qcl"/>
                                                     </connections>
                                                 </textField>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading list name already in use" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtG-cd-4uw" userLabel="Reading List Name Error Label">
+                                                    <rect key="frame" x="0.0" y="49.5" width="288" height="0.0"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f7O-Jy-CeT" userLabel="Description Stack View">
-                                            <rect key="frame" x="0.0" y="74.5" width="288" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="74.5" width="288" height="44.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCo-6s-4Lk">
                                                     <rect key="frame" x="0.0" y="0.0" width="288" height="14.5"/>
@@ -75,7 +82,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bd-dM-Z1B" userLabel="Description Text Field" customClass="WMFThemeableTextField">
-                                                    <rect key="frame" x="0.0" y="14.5" width="288" height="35"/>
+                                                    <rect key="frame" x="0.0" y="14.5" width="288" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="yMZ-JL-Ela"/>
                                                     </constraints>
@@ -94,7 +101,7 @@
                                     </constraints>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="234.5" width="288" height="40"/>
+                                    <rect key="frame" x="0.0" y="229.5" width="288" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AUY-nK-uJd"/>
                                     </constraints>

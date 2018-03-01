@@ -39,17 +39,26 @@ public class ReadingListAlertController: NSObject {
         presenter.present(alert(with: title, message: message, actions: [ReadingListAlertActionType.cancel.action(), unsave]), animated: true)
     }
     
-    func showAlert(presenter: UIViewController, readingLists: [ReadingList], actions: [UIAlertAction], completion: (() -> Void)? = nil) {
+    func showAlert(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: (() -> Void)? = nil, failure: () -> Bool) -> Bool {
+        let articlesCount = articles.count
+        guard articles.filter ({ $0.isOnlyInDefaultList }).count != articlesCount else {
+            return failure()
+        }
+        let title = CommonStrings.unsaveArticleAndRemoveFromListsTitle(articleCount: articlesCount)
+        let message = CommonStrings.unsaveArticleAndRemoveFromListsMessage(articleCount: articlesCount)
+        presenter.present(alert(with: title, message: message, actions: actions), animated: true, completion: completion)
+        return true
+    }
+    
+    func showAlert(presenter: UIViewController, for readingLists: [ReadingList], with actions: [UIAlertAction], completion: (() -> Void)? = nil, failure: () -> Bool) -> Bool {
         let readingListsCount = readingLists.count
+        guard Int(readingLists.flatMap({ $0.countOfEntries }).reduce(0, +)) > 0 else {
+            return failure()
+        }
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists."), readingListsCount)
         let message =  String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-message", value: "This action cannot be undone. Any articles saved only to {{PLURAL:%1$d|this list|these lists}} will be unsaved.", comment: "Title of the altert shown before deleting selected reading lists."), readingListsCount)
         presenter.present(alert(with: title, message: message, actions: actions), animated: true, completion: completion)
-    }
-    
-    func showAlert(presenter: UIViewController, articles: [WMFArticle], actions: [UIAlertAction], completion: (() -> Void)? = nil) {
-        let title = CommonStrings.unsaveArticleAndRemoveFromListsTitle(articleCount: articles.count)
-        let message = CommonStrings.unsaveArticleAndRemoveFromListsMessage(articleCount: articles.count)
-        presenter.present(alert(with: title, message: message, actions: actions), animated: true, completion: completion)
+        return true
     }
     
     private func alert(with title: String, message: String?, actions: [UIAlertAction]) -> UIAlertController {

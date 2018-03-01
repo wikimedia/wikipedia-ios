@@ -17,7 +17,7 @@ public class Action: UIAccessibilityCustomAction {
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
     @objc func didPerformAction(_ action: Action) -> Bool
-    @objc optional func willPerformAction(_ action: Action)
+    @objc func willPerformAction(_ action: Action) -> Bool
     @objc optional func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
     @objc optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
 }
@@ -151,16 +151,24 @@ public class ActionsView: SizeThatFitsView, Themeable {
 
     public weak var delegate: ActionDelegate?
     
+    private var activeSender: UIButton?
+    
     @objc func willPerformAction(_ sender: UIButton) {
+        activeSender = sender
         let action = actions[sender.tag]
+        let _ = delegate?.willPerformAction(action)
+    }
+    
+    func updateConfirmationImage(for action: Action, completion: @escaping () -> Bool) -> Bool {
         if let image = action.confirmationIcon {
-            sender.setImage(image, for: .normal)
+            activeSender?.setImage(image, for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = self.delegate?.willPerformAction?(action)
+                let _ = completion()
             }
         } else {
-            let _ = delegate?.willPerformAction?(action)
+            return completion()
         }
+        return true
     }
     
     public func apply(theme: Theme) {

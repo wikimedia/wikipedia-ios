@@ -68,7 +68,7 @@ class ClickedItem {
 const sendMessageForClickedItem = item => {
   switch(item.type()) {
   case ItemType.link:
-    sendMessageForLinkWithHref(item.target, item.href)
+    sendMessageForLinkWithHref(item.href)
     break
   case ItemType.image:
     sendMessageForImageWithTarget(item.target)
@@ -90,11 +90,10 @@ const sendMessageForClickedItem = item => {
  * @param  {!String} href url
  * @return {void}
  */
-const sendMessageForLinkWithHref = (link, href) => {
+const sendMessageForLinkWithHref = href => {
   if(href[0] === '#'){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
-  link.classList.add('active')
   window.webkit.messageHandlers.linkClicked.postMessage({ 'href': href })
 }
 
