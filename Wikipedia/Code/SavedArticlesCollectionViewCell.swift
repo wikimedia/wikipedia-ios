@@ -15,11 +15,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    private var isTagsViewHidden: Bool = true {
-        didSet {
-            setNeedsLayout()
-        }
-    }
+    private var isTagsViewHidden: Bool = true
     
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
