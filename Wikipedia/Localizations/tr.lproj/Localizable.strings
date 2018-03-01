@@ -97,7 +97,6 @@
 "appearance-settings-set-automatic-table-opening" = "Tablo Ayarları";
 "appearance-settings-text-sizing-example-text" = "Madde metin boyutunu değiştirmek için yukarıdaki kaydırıcıyı sürükleyin. Uygulamadaki diğer metin alanlarını yeniden boyutlandırmak için sisteminizin metin boyutundan yararlanın.";
 "appearance-settings-theme-options" = "Tema seçenekleri";
-"appearance-settings-title" = "Okuma temaları";
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artice|madde}} silindi";
@@ -128,8 +127,6 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
-"delete-reading-list-alert-message" = "Sadece kayıtlı olan tüm makaleleri {{PLURAL:$1|tbu liste silindiğinde bu liste kaydedilmeyecek|bu listeler silindiğinde bu listeler kaydedilmeyecek}}.";
-"delete-reading-list-alert-title" = "Sil {PLURAL:$1|liste|listeler}}?";
 "dim-images" = "Resimleri karart";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-typos" = "Yazım hatası düzeltildi";

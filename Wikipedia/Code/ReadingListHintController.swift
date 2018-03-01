@@ -5,7 +5,7 @@ import UIKit
 }
 
 protocol ReadingListHintViewControllerDelegate: class {
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool)
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
 }
 
 @objc(WMFReadingListHintController)
@@ -31,9 +31,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             }
         }
     }
-    
-    private var isConfirmation: Bool = false
-    
+        
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
         self.presenter = presenter
@@ -155,16 +153,15 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func scrollViewWillBeginDragging() {
-        guard !isHintHidden, didSaveArticle else {
+        guard !isHintHidden else {
             return
         }
-        hintVisibilityTime = isConfirmation ? 8 : 0
+        hintVisibilityTime = 0
     }
     
     // MARK: - ReadingListHintViewControllerDelegate
     
-    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool, isConfirmation: Bool) {
-        self.isConfirmation = isConfirmation
+    func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool) {
         setHintHidden(shouldBeHidden)
     }
 }

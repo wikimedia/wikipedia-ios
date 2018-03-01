@@ -35,19 +35,16 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="moe-WC-1c5"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="actionButton" destination="269-0y-zMz" id="afs-tZ-Hwi"/>
                         <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="eby-nN-6Yg" id="VN4-EM-xv8"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
                         <outlet property="separatorView" destination="YHx-oI-zV4" id="I7m-6y-sIv"/>
-                        <outlet property="sortButton" destination="269-0y-zMz" id="2EB-vW-bIH"/>
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
                         <outletCollection property="toggleButtons" destination="Kqc-qA-t3B" collectionClass="NSMutableArray" id="CRS-iW-yxS"/>
-                        <outletCollection property="searchBarConstraints" destination="7kR-eh-tKa" collectionClass="NSMutableArray" id="GlV-I3-vef"/>
-                        <outletCollection property="searchBarConstraints" destination="yFy-GN-5oz" collectionClass="NSMutableArray" id="ctW-Wd-yfe"/>
-                        <outletCollection property="searchBarConstraints" destination="cRy-oU-bgr" collectionClass="NSMutableArray" id="Vlf-lc-3VY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ckE-eP-1C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -118,12 +115,12 @@
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="269-0y-zMz" userLabel="Action Button">
                             <rect key="frame" x="317" y="11" width="30" height="30"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
                             <connections>
-                                <action selector="sortButonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="1Fi-LP-Njx"/>
+                                <action selector="actionButonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="SqX-sp-EPM"/>
                             </connections>
                         </button>
                     </subviews>

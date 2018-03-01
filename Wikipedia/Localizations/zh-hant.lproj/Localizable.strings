@@ -86,7 +86,6 @@
 "appearance-settings-set-automatic-table-opening" = "表格設定";
 "appearance-settings-text-sizing-example-text" = "拖拉上方滑動桿來改變條目文字大小。利用您系統的文字大小，來向在應用程式裡其它文字區域做調整。";
 "appearance-settings-theme-options" = "主題選項";
-"appearance-settings-title" = "閱讀主題";
 "article-about-title" = "關於此條目";
 "article-delete" = "刪除";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1| 個條目| 個條目}}已刪除";
@@ -112,13 +111,11 @@
 "button-saved-remove" = "從已保存移除";
 "button-skip" = "略過";
 "cancel" = "取消";
-"cc-by-sa-3.0" = "創用CC 姓名標示-相同方式分享 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
-"delete-reading-list-alert-message" = "任何僅儲存至{{PLURAL:$1|此清單的條目，會在此清單遭刪除時被取消儲存|這些清單的條目，會在這些清單遭刪除時被取消儲存}}。";
-"delete-reading-list-alert-title" = "刪除 {{PLURAL:$1| 個清單| 個清單}}嗎？";
 "dim-images" = "調暗圖片";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-typos" = "修正筆誤";
@@ -214,6 +211,7 @@
 "home-nearby-footer" = "更多您所在位置周遭的事物";
 "home-nearby-location-footer" = "更多$1附近";
 "home-news-footer" = "更多的新聞";
+"home-reading-list-prompt" = "您所儲存的條目現可整合成閱讀清單，以及跨裝置同步。登入來允許您的閱讀清單可儲存至您的使用者偏好設定。";
 "home-themes-action-title" = "管理偏好設定";
 "home-themes-prompt" = "請從您的使用者設定裡條目工具列，來調整您在文字大小與主題方面的閱讀偏好設定，以獲得更舒適的閱讀體驗。";
 "home-title" = "探索";
@@ -329,6 +327,7 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-list-add-hint-title" = "添加「$1」至閱讀清單嗎？";
 "reading-list-add-saved-button-title" = "是的，添加它們至我的閱讀清單";
 "reading-list-add-saved-subtitle" = "這些是已儲存在您維基百科應用程式上的條目，您想要保留它們並與已同步閱讀清單來合併至您的帳號上？";
 "reading-list-add-saved-title" = "儲存所找出的條目";
@@ -337,9 +336,9 @@
 "reading-list-api-error-list-limit" = "此清單尚未同步，因為您已達到同步清單的上限數目。";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
+// Fuzzy
 "reading-list-exists-with-same-name" = "已存在名為「$1」的閱讀清單";
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
-"reading-list-hint-title" = "移動$1至閱讀清單？";
 "reading-list-keep-button-title" = "是的，保留條目在裝置上";
 "reading-list-keep-subtitle" = "這些條目已同步到您的維基百科帳號，您想要在登出後讓它們保留在您的裝置上嗎？";
 "reading-list-keep-title" = "保留在裝置上的已儲存條目？";
@@ -348,20 +347,26 @@
 "reading-list-login-or-create-account-title" = "登入來同步所儲存的條目";
 "reading-list-login-subtitle" = "登入或建立一個帳號來允許您所儲存的條目與閱讀清單可跨裝置同步，並儲存至您的使用者偏好設定。";
 "reading-list-login-title" = "同步您所儲存的條目？";
+"reading-list-new-list-description-placeholder" = "選用簡短描述";
+"reading-list-new-list-name-placeholder" = "閱讀清單標題";
+"reading-list-show-default-list-setting" = "顯示預設清單";
 "reading-list-sync-enable-button-title" = "啟用同步";
 "reading-list-sync-enable-subtitle" = "您所儲存的條目與閱讀清單，現已儲存到您的維基百科並跨裝置同步。";
 "reading-list-sync-enable-title" = "開啟閱讀清單同步？";
 "reading-list-sync-setting" = "閱讀清單同步";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "您無法添加{{PLURAL:$1|此條目|這些條目}}至「$2」，因為您的閱讀清單裡有條目數量限制。";
 "reading-list-unable-to-add-entry" = "新增項目至您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-create" = "建立您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-delete" = "刪除您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-remove-entry" = "從您的閱讀清單移動項目時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-update" = "更新您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-with-provided-name-not-found" = "找不到名為「$1」的閱讀清單。請確定是正確的名稱。";
-"reading-lists-article-moved-confirmation" = "條目已移動至「$1」";
+"reading-lists-article-added-confirmation" = "條目已添加至「$1」";
 "reading-lists-count" = "{{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}";
 "reading-lists-default-list-description" = "已儲存條目的預設清單";
 "reading-lists-default-list-title" = "書籤";
+"reading-lists-delete-reading-list-alert-message" = "此操作無法還原，任何儲存至{{PLURAL:$1|此清單|這些清單}}的條目將會被取消儲存。";
+"reading-lists-delete-reading-list-alert-title" = "刪除 {{PLURAL:$1| 個清單| 個清單}}嗎？";
 "reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
 "reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
@@ -380,7 +385,6 @@
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "saved-all-articles-title" = "所有條目";
 "saved-clear-all" = "清除";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "您確定要取消儲存{{PLURAL:$1|此條目|這些條目}}，並從所有閱讀清單裡移除嗎？";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-clear-cancel" = "取消";
 "saved-pages-clear-confirmation-heading" = "您確定要刪除所有您儲存的條目，並從所有閱讀清單裡移除嗎？";
@@ -389,6 +393,8 @@
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋";
 "saved-title" = "已儲存";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "取消儲存{{PLURAL:$1|此條目將會把它|這些條目此條目將會把它們}}從所有相關聯的閱讀清單裡移除";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "取消儲存 {{PLURAL:$1| 個條目| 個條目}}嗎？";
 "search-button-accessibility-label" = "搜尋維基百科";
 "search-did-you-mean" = "您指的是 $1 嗎？";
 "search-field-placeholder-text" = "搜尋維基百科";
@@ -454,10 +460,6 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "取消儲存此條目時將會從閱讀清單「$1」裡移除。";
-"unsave-article-and-remove-from-reading-lists-message" = "取消儲存此條目時將會從所有閱讀清單裡移除。";
-"unsave-article-and-remove-from-reading-lists-title" = "取消儲存條目？";
-"update-articles-button" = "更新 $1";
 "view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
 "welcome-exploration-explore-feed-title" = "探索訊息來源";

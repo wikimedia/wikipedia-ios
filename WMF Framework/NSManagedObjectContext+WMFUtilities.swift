@@ -57,12 +57,21 @@ public extension NSManagedObjectContext {
         return results
     }
     
-    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: (T) throws -> Void) throws {
+    func wmf_batchProcessObjects<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, parentProgress: Progress? = nil, handler: (T) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
         fetchRequest.predicate = matchingPredicate
         fetchRequest.fetchBatchSize = batchSize
         let results = try fetch(fetchRequest)
+        
+        var progress: Progress?
+        if let parentProgress = parentProgress {
+            let actualProgress = Progress(totalUnitCount: Int64(results.count))
+            parentProgress.totalUnitCount += actualProgress.totalUnitCount
+            parentProgress.addChild(actualProgress, withPendingUnitCount: actualProgress.totalUnitCount)
+            progress = actualProgress
+        }
+        
         for (index, result) in results.enumerated() {
             if let result = result as? T {
                 try handler(result)
@@ -76,15 +85,25 @@ public extension NSManagedObjectContext {
                     reset()
                 }
             }
+            progress?.completedUnitCount += 1
         }
     }
     
-    func wmf_batchProcess<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, handler: ([T]) throws -> Void) throws {
+    func wmf_batchProcess<T: NSManagedObject>(matchingPredicate: NSPredicate? = nil, resetAfterSave: Bool = false, parentProgress: Progress? = nil, handler: ([T]) throws -> Void) throws {
         let fetchRequest = T.fetchRequest()
         let batchSize = 500
         fetchRequest.predicate = matchingPredicate
         fetchRequest.fetchBatchSize = batchSize
         let results = try fetch(fetchRequest) as? [T] ?? []
+        
+        var progress: Progress?
+        if let parentProgress = parentProgress {
+            let actualProgress = Progress(totalUnitCount: Int64(results.count))
+            parentProgress.totalUnitCount += actualProgress.totalUnitCount
+            parentProgress.addChild(actualProgress, withPendingUnitCount: actualProgress.totalUnitCount)
+            progress = actualProgress
+        }
+        
         var start: Int = 0
         var end: Int = 0
         while start < results.count {
@@ -97,6 +116,7 @@ public extension NSManagedObjectContext {
                 reset()
             }
             start = end
+            progress?.completedUnitCount = Int64(end)
         }
     }
 }

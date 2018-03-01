@@ -66,6 +66,22 @@
 			<string>%1$d rencana</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Anda tidak boleh menambah rencana ini ke “%2$@” kerana terdapat had jumlah rencana yang anda dapat dalam senarai bacaan.</string>
+			<key>other</key>
+			<string>Anda tidak boleh menambah rencana ini ke “%2$@” kerana terdapat had jumlah rencana yang anda dapat dalam senarai bacaan.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +96,38 @@
 			<string>%1$d senarai bacaan</string>
 			<key>other</key>
 			<string>%1$d senarai bacaan</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tindakan ini tidak dapat dibatalkan. Sebarang rencana yang disimpan hanya untuk senarai ini tidak akan disimpan.</string>
+			<key>other</key>
+			<string>Tindakan ini tidak dapat dibatalkan. Sebarang rencana yang disimpan hanya untuk senarai ini tidak akan disimpan.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Padamkan senarai?</string>
+			<key>other</key>
+			<string>Padamkan senarai?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -152,6 +200,38 @@
 			<string>%1$d tahun lepas</string>
 			<key>zero</key>
 			<string>Tahun ini</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Mengosongkan rencana ini akan membuangnya daripada semua senarai bacaan yang berkaitan</string>
+			<key>other</key>
+			<string>Mengosongkan rencana ini akan membuangnya daripada semua senarai bacaan yang berkaitan</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Batal simpan rencana?</string>
+			<key>other</key>
+			<string>Batal simpan rencana?</string>
 		</dict>
 	</dict>
 </dict>

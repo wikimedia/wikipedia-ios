@@ -76,7 +76,6 @@
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
 "appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
 "appearance-settings-theme-options" = "विषय विकल्प";
-"appearance-settings-title" = "विषय पढ़ रहा";
 "article-about-title" = "इस लेख के बारे में";
 "article-delete" = "हटाएँ";
 // Fuzzy
@@ -414,9 +413,6 @@
 "two-factor-login-title" = "अपने अकाउंट में लॉगिन करें";
 "two-factor-login-with-backup-code" = "अपने बैकअप कोड्स में से एक प्रयोग करें";
 "two-factor-login-with-regular-code" = "सत्यापन कोड का उपयोग करें";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "इस आलेख को नहीं सहेजने से इसे पढ़ने की सूची \"$1\" से भी हटा दिया जाएगा";
-"unsave-article-and-remove-from-reading-lists-message" = "इस लेख को नहीं सहेजने से इसे सभी पठन सूची से हटा दिया जाएगा।";
-"update-articles-button" = "$1 अपडेट करें";
 "view-in-browser-footer-link" = "ब्राउज़र में लेख देखें";
 "welcome-exploration-explore-feed-description" = "हमारे समुदाय से पढ़ने के लिए निर्वाचित दैनिक लेख";
 "welcome-exploration-explore-feed-title" = "फीड में खोजें";

@@ -75,7 +75,6 @@
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
 "appearance-settings-text-sizing-example-text" = "Arrastra el control d'arriba pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
-"appearance-settings-title" = "Lleyendo temes";
 "article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artículu desaniciáu|artículos desaniciaos}}";
@@ -106,8 +105,6 @@
 "compass-direction" = "a les $1 en puntu";
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
-"delete-reading-list-alert-message" = "Tolos artículos guardaos sólo {{PLURAL:$1|nesta llista dexarán de guardase cuando esta se desanicie|nestes llistes dexarán de guardase cuando estes se desanicien}}.";
-"delete-reading-list-alert-title" = "¿Desaniciar {{PLURAL:$1|la llista|les llistes}}?";
 "dim-images" = "Amenorgar el rellume d'imáxenes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
@@ -318,14 +315,18 @@
 "preference-title-eventlogging-opt-in" = "Unviar informes d'usu";
 "rank-accessibility-label" = "Númberu $1";
 "readers-accessibility-label" = "$1 llectores";
+"reading-list-add-hint-title" = "¿Añadir «$1» a una llista de llectura?";
 "reading-list-add-saved-button-title" = "Si, amestalos a les mios llistes de llectura";
 "reading-list-add-saved-subtitle" = "Hai artículos guardaos na app de Wikipedia. ¿Quies caltenelos y amestalos a llistes de llectura sincronizaes cola to cuenta?";
 "reading-list-add-saved-title" = "Alcontráronse artículos guardaos";
+"reading-list-api-error-entry-limit" = "Esta entrada nun ta sincronizada porque aportasti a la llende del númberu d'entraes d'esta llista.";
+"reading-list-api-error-generic" = "Asocedió un error inesperáu al sincronizar les llistes de llectura.";
+"reading-list-api-error-list-limit" = "Esta llista nun ta sincronizada porque aportasti a la llende del númberu de llistes sincronizaes.";
 "reading-list-deleted-accessibility-notification" = "Desaniciada la llista de llectura";
 "reading-list-do-not-keep-button-title" = "Non, desaniciar los artículos del preséu";
-"reading-list-exists-with-same-name" = "Yá esiste una llista de llectura col nome $1";
+// Fuzzy
+"reading-list-exists-with-same-name" = "Yá esiste una llista de llectura col nome «$1»";
 "reading-list-generic-error" = "Asocedió un error inesperáu al anovar les llistes de llectura.";
-"reading-list-hint-title" = "¿Treslladar $1 a una llista de llectura?";
 "reading-list-keep-button-title" = "Si, caltener los artículos nel preséu";
 "reading-list-keep-subtitle" = "Hai artículos sincronizaos cola to cuenta de Wikipedia. ¿Quies caltenelos nesti preséu cuando zarres la sesión?";
 "reading-list-keep-title" = "¿Caltener los artículos guardaos nel preséu?";
@@ -334,6 +335,7 @@
 "reading-list-login-or-create-account-title" = "Anicia sesión pa sincronizar los artículos guardaos";
 "reading-list-login-subtitle" = "Anicia sesión o crea una cuenta pa permitir que los artículos guardaos y llistes de llectura se sincronicen ente preseos y se guarden nes preferencies d'usuariu.";
 "reading-list-login-title" = "¿Sincronizar los artículos guardaos?";
+"reading-list-show-default-list-setting" = "Ver la llista predeterminada";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-subtitle" = "Los artículos guardaos y llistes de llectura agora pueden guardase na cuenta de Wikipedia y sincronizase ente preseos.";
 "reading-list-sync-enable-title" = "¿Activar la sincronización de llistes de llectura?";
@@ -343,11 +345,12 @@
 "reading-list-unable-to-delete" = "Asocedió un error inesperáu al desaniciar la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-remove-entry" = "Asocedió un error inesperáu al desaniciar una entrada de la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-update" = "Asocedió un error inesperáu al anovar la llista de llectura. Tenta otra vuelta sero.";
-"reading-list-with-provided-name-not-found" = "Nun s'atopó la llista de llectura llamada $1. Asegúrate de que tienes el nome correutu.";
-"reading-lists-article-moved-confirmation" = "Artículu treslladáu a «$1»";
+"reading-list-with-provided-name-not-found" = "Nun s'atopó la llista de llectura llamada «$1». Asegúrate de que tienes el nome correutu.";
+"reading-lists-article-added-confirmation" = "Artículu amestáu a «$1»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista|$1 llistes}} de llectura";
 "reading-lists-default-list-description" = "Llista predeterminada p'artículos guardaos";
 "reading-lists-default-list-title" = "Marcadores";
+"reading-lists-delete-reading-list-alert-title" = "¿Desaniciar {{PLURAL:$1|la llista|les llistes}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema prietu";
 "reading-themes-controls-accessibility-brightness-slider" = "Control de rellumu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escura";
@@ -366,7 +369,6 @@
 "request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-all-articles-title" = "Tolos artículos";
 "saved-clear-all" = "Llimpiar";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "¿Tas seguru de que quies dexar de guardar {{PLURAL:$1|esti artículu y quitalu|estos artículos y quitalos}} de toles llistes de llectura?";
 "saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
 "saved-pages-clear-cancel" = "Encaboxar";
 "saved-pages-clear-confirmation-heading" = "¿Tas seguru de que quies desaniciar tolos artículos guardaos y quitalos de toles llistes de llectura?";
@@ -375,6 +377,7 @@
 "saved-reading-lists-title" = "Llistes de llectura";
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardada";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "¿Dexar de guardar {{PLURAL:$1|l'artículu|los artículos}}?";
 "search-button-accessibility-label" = "Guetar na Wikipedia";
 "search-did-you-mean" = "¿Quixisti dicir $1?";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
@@ -440,10 +443,6 @@
 "two-factor-login-title" = "Anicia sesión na to cuenta";
 "two-factor-login-with-backup-code" = "Usar unu de los códigos de respaldu";
 "two-factor-login-with-regular-code" = "Usar códigu de comprobación";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Dexar de guardar esti artículu quitarálu tamién de la llista de llectura «$1».";
-"unsave-article-and-remove-from-reading-lists-message" = "Dexar de guardar esti artículu quitarálu tamién de toles llistes de llectura.";
-"unsave-article-and-remove-from-reading-lists-title" = "¿Dexar de guardar l'artículu?";
-"update-articles-button" = "Anovar $1";
 "view-in-browser-footer-link" = "Ver artículu nel navegador";
 "welcome-exploration-explore-feed-description" = "Llectures recomendaes y artículos diarios de la nuesa comunidá";
 "welcome-exploration-explore-feed-title" = "Canal Esplorar";

@@ -330,11 +330,11 @@ extension SavedArticlesViewController: ActionDelegate {
                 self.delete(articles: articles)
             }
             var didPerform = false
-            alertController.showAlert(presenter: self, items: articles, actions: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.delete(articles: articles)
                 didPerform = true
+                return didPerform
             }
-            return didPerform
         default:
             break
         }
@@ -346,23 +346,22 @@ extension SavedArticlesViewController: ActionDelegate {
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
     }
     
-    func willPerformAction(_ action: Action, from sender: UIButton?) {
+    func willPerformAction(_ action: Action) -> Bool {
         guard let article = article(at: action.indexPath) else {
-            return
+            return false
         }
         guard action.type == .delete else {
-            let _ = self.editController.didPerformAction(action, from: sender)
-            return
+            return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action, from: sender) }
+        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        alertController.showAlert(presenter: self, items: [article], actions: [cancel, unsave], completion: nil) {
-            let _ = self.editController.didPerformAction(action, from: sender)
+        return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
+            return self.editController.didPerformAction(action)
         }
     }
     
-    func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
+    func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         defer {
             if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
@@ -416,6 +415,18 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
         presentSortAlert(from: button)
     }
+    
+    func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchString(searchText)
+        
+        if searchText.isEmpty {
+            searchBar.resignFirstResponder()
+        }
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
 
 // MARK: - AddArticlesToReadingListDelegate
@@ -446,22 +457,6 @@ extension SavedArticlesViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension SavedArticlesViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        updateSearchString(searchText)
-        
-        if searchText.isEmpty {
-            searchBar.resignFirstResponder()
-        }
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
     }
 }
 

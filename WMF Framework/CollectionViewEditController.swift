@@ -103,40 +103,28 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public weak var delegate: ActionDelegate?
     
-    func updateConfirmationImage(_ image: UIImage?, for sender: UIButton?, completion: @escaping () -> Bool) -> Bool {
-        if let image = image {
-            sender?.setImage(image, for: .normal)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = completion()
+    public func didPerformAction(_ action: Action) -> Bool {
+        if let cell = activeCell {
+            return cell.actionsView.updateConfirmationImage(for: action) {
+               self.delegatePerformingAction(action)
             }
-        } else {
-            return completion()
         }
-        return true
+        return self.delegatePerformingAction(action)
     }
     
-    public func didPerformAction(_ action: Action, from sender: UIButton?) -> Bool {
-        return updateConfirmationImage(action.confirmationIcon, for: sender) {
-            self.delegatePerformingAction(action, from: sender)
-        }
-    }
-    
-    private func delegatePerformingAction(_ action: Action, from sender: UIButton?) -> Bool {
+    private func delegatePerformingAction(_ action: Action) -> Bool {
         guard action.indexPath == activeIndexPath else {
-            return self.delegate?.didPerformAction(action, from: sender) ?? false
+            return self.delegate?.didPerformAction(action) ?? false
         }
         let activatedAction = action.type == .delete ? action : nil
         closeActionPane(with: activatedAction) { (finished) in
-            let _ = self.delegate?.didPerformAction(action, from: sender)
+            let _ = self.delegate?.didPerformAction(action)
         }
         return true
     }
     
-    public func willPerformAction(_ action: Action, from sender: UIButton?) {
-        guard let _ = delegate?.willPerformAction(action, from: sender) else {
-            let _ = didPerformAction(action, from: sender)
-            return
-        }
+    public func willPerformAction(_ action: Action) -> Bool {
+        return delegate?.willPerformAction(action) ?? didPerformAction(action)
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -489,7 +477,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         navigationDelegate?.emptyStateDidChange(isCollectionViewEmpty)
     }
     
-    public var isCollectionViewEmpty: Bool = false {
+    public var isCollectionViewEmpty: Bool = true {
         didSet {
             guard oldValue != isCollectionViewEmpty else {
                 return

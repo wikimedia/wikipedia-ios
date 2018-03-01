@@ -191,6 +191,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
     [self logReadMoreSaveButtonToggle:isSaved];
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
+    [self.delegate webViewController:self didTapFooterReadMoreSaveForLaterForArticleURL:url didSave:isSaved];
 }
 
 - (void)handleJavascriptConsoleLogScriptMessage:(NSDictionary *)messageDict {
