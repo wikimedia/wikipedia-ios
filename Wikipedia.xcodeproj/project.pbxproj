@@ -459,6 +459,11 @@
 		B0BCF0BB202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0BCF0BC202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0BCF0BD202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
+		B0BF1D50204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */; };
+		B0BF1D51204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */; };
+		B0BF1D52204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */; };
+		B0BF1D53204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */; };
+		B0BF1D54204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
@@ -3362,6 +3367,7 @@
 		B0B4CF0B1CC0501B0051DF7A /* WMFArticleLanguagesSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleLanguagesSectionHeader.xib; sourceTree = "<group>"; };
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
 		B0BCF0B8202537D800986F72 /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
+		B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTabBarBadgeDots.swift; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -6595,6 +6601,7 @@
 				D8C0C00A1D144FF30019374D /* WMFProxyServer.m */,
 				D80C24B61D673DC300816503 /* WMFTabBarController.h */,
 				D80C24B71D673DC300816503 /* WMFTabBarController.m */,
+				B0BF1D4F204796F900D85B42 /* WMFTabBarBadgeDots.swift */,
 				D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */,
 				7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */,
 				D8FEECCB1DE3729400B883F0 /* WMFChange.h */,
@@ -9872,6 +9879,7 @@
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0C6BE571E4526A40033BD6E /* WMFChangePasswordViewController.swift in Sources */,
 				B04DA3C91D9F740800F45DB7 /* WMFSearchLanguagesBarViewController.swift in Sources */,
+				B0BF1D50204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
@@ -10178,6 +10186,7 @@
 				D80ED2AF1EE57F4800CE8C50 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D80ED2B01EE57F4800CE8C50 /* MWKTitleLanguageController.m in Sources */,
 				D80ED2B11EE57F4800CE8C50 /* UIView+WMFSnapshotting.m in Sources */,
+				B0BF1D54204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */,
 				D80ED2B21EE57F4800CE8C50 /* ColumnarCollectionViewController.swift in Sources */,
 				D80ED2B41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D80ED2B51EE57F4800CE8C50 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
@@ -10819,6 +10828,7 @@
 				D8A42A9C1E815A9C00D8E281 /* PageHistoryViewController.m in Sources */,
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8A42A9E1E815A9C00D8E281 /* WMFChangePasswordViewController.swift in Sources */,
+				B0BF1D53204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */,
 				D8A42A9F1E815A9C00D8E281 /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				D8A42AA01E815A9C00D8E281 /* WMFUnderlineButton.m in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
@@ -11125,6 +11135,7 @@
 				D8CE25191E698E2400DAE2E0 /* WMFSearchFetcher.m in Sources */,
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE251E1E698E2400DAE2E0 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
+				B0BF1D51204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
@@ -11441,6 +11452,7 @@
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
+				B0BF1D52204796FA00D85B42 /* WMFTabBarBadgeDots.swift in Sources */,
 				D8EC3E151E9BDA35006712EB /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,

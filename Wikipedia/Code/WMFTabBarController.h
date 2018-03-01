@@ -1,5 +1,6 @@
 @import UIKit;
+@import WMF.Swift;
 
-@interface WMFTabBarController : UITabBarController
+@interface WMFTabBarController : UITabBarController <WMFThemeable>
 
 @end
