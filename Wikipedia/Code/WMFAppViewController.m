@@ -151,6 +151,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(articleWasUpdated:)
                                                  name:WMFArticleUpdatedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsSyncProgressDidChange:)
+                                                 name:[WMFReadingListsController syncProgressDidChangeNotification]
+                                               object:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -300,6 +305,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
+}
+
+- (void)readingListsSyncProgressDidChange:(NSNotification *)note {
+    NSNumber *progress = note.userInfo[WMFReadingListsController.syncProgressDidChangeFractionCompletedKey];
+
+    // TODO: minimum busy time before showing and a minimum show length
+    UITabBarItem *item = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
+    if (!progress || [progress doubleValue] >= 1) {
+        [item setBadgeValue:nil];
+    } else {
+        [item setBadgeValue:@"\u25cf"];
+    }
 }
 
 #pragma mark - Background Fetch
