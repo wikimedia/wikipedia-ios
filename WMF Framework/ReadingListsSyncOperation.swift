@@ -386,6 +386,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         }
                         let articles = try moc.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                         try readingListsController.add(articles: articles, to: list, in: moc)
+                        if let defaultReadingList = moc.wmf_fetchDefaultReadingList() {
+                            try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
+                        }
                         try moc.save()
                         results.removeAll(keepingCapacity: true)
                     }
