@@ -132,6 +132,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    public var isAlertLabelHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {

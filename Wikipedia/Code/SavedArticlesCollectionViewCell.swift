@@ -15,6 +15,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    private var isTagsViewHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
@@ -156,8 +162,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        let tagsCount: CGFloat = CGFloat(tags.readingLists.count)
-        if (apply && tagsCount != 0), let layout = layout {
+        if (apply && !isTagsViewHidden), let layout = layout {
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth, height: layout.itemSize.height)
         }
         
@@ -184,6 +189,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         isStatusViewHidden = article.isDownloaded
+        isTagsViewHidden = tags.readingLists.count > 0
+        isAlertLabelHidden = false // update before merging
         
         if !isStatusViewHidden {
             statusView.backgroundColor = theme.colors.warning
