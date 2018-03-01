@@ -117,7 +117,6 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
-"delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-linked-words" = "Aggiunti collegamenti";
@@ -309,11 +308,14 @@
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
+"reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
-"reading-list-hint-title" = "Spostare $1 nell'elenco di lettura?";
+"reading-list-show-default-list-setting" = "Mostra elenco predefinito";
 "reading-list-sync-setting" = "Sincronizza elenco di lettura";
+"reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
 "reading-lists-default-list-title" = "Segnalibri";
+"reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";

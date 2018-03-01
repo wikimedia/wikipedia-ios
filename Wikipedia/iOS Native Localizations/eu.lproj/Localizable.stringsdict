@@ -50,6 +50,22 @@
 			<string>%1$d artikulu</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ezin duzu gehituartikulu hau hurrengora “%2$@” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.</string>
+			<key>other</key>
+			<string>Ezin duzu gehituartikulu hauek hurrengora “%2$@” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +80,38 @@
 			<string>irakurketa zerrenda %1$d</string>
 			<key>other</key>
 			<string>%1$d irakurketa zerrenda</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ekintza hau ezin da desegin. Bakarrik zerrenda honetan gordetako artikuluak desagertuko dira.</string>
+			<key>other</key>
+			<string>Ekintza hau ezin da desegin. Bakarrik zerrenda hauetan gordetako artikuluak desagertuko dira.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ezabatu zerrenda %1$d?</string>
+			<key>other</key>
+			<string>Ezabatu %1$d zerrendak?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -118,6 +166,38 @@
 			<string>Orain dela %1$d minutu</string>
 			<key>zero</key>
 			<string>Oraintxe</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ezabatzekotan artikulu honek ezabatuko du asoziatutako irakurketa zerrenda guztietatik</string>
+			<key>other</key>
+			<string>Ezabatzekotan artikulu hauek ezabatuko dute asoziatutako irakurketa zerrenda guztietatik</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>artikulu %1$d ezabatu?</string>
+			<key>other</key>
+			<string>%1$d artikuluak ezabatu?</string>
 		</dict>
 	</dict>
 </dict>

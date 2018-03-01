@@ -1,6 +1,7 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
 // Author: An13sa
+// Author: Envlh
 // Author: EukeneFL
 // Author: Fitoschido
 // Author: Gorkaazk
@@ -77,7 +78,6 @@
 "appearance-settings-set-automatic-table-opening" = "Taula Ezarpenak";
 "appearance-settings-text-sizing-example-text" = "Arrastatu goiko kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
-"appearance-settings-title" = "Irakurketa gaiak";
 "article-about-title" = "Artikulu honi buruz";
 "article-delete" = "Ezabatu";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezabatuta";
@@ -108,8 +108,6 @@
 "compass-direction" = "ordu $1(e)tan";
 "continue-reading-empty-description" = "Wikipedia arakatu irakurtzeko artikulu gehiago lortzeko";
 "continue-reading-empty-title" = "Ez dago azkenaldian irakurritako artikulurik";
-"delete-reading-list-alert-message" = "Bakarrik hemen {{PLURAL:$1|zerrenda hau ez da gordeko behin ezabatuta|zerrenda hauek ez dira gordeko behin ezabatuta}} gordetako edozein artikulu.";
-"delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrenda}}?";
 "dim-images" = "Irudiak arindu";
 "edit-summary-choice-fixed-grammar" = "Gramatika konpondu";
 "edit-summary-choice-fixed-typos" = "Tipografia konpondu";
@@ -205,6 +203,7 @@
 "home-nearby-footer" = "Zure kokapenetik gertuko gehiago";
 "home-nearby-location-footer" = "Zure kokapenetik gertuko gehiago $1";
 "home-news-footer" = "Berrietako gehiago";
+"home-reading-list-prompt" = "Gordetako artikuluak irakurketa-zerrendatan antola eta sinkroniza daitezke gailuetan zehar. Hasi saioa zure irakurketa-zerrendak zure erabiltzaile prefentzietan gordetzeko baimena eman ahal izateko.";
 "home-themes-action-title" = "Lehentasunak aukeratu";
 "home-themes-prompt" = "Zure irakurketa lehentasunak hitzartu testuaren neurria eta gaia artikuluaren erraminta atalean edo erabiltzailearen doitze atalean, irakurketa esperientzia erosoagoa izateko.";
 "home-title" = "Esploratu";
@@ -223,7 +222,7 @@
 "info-box-title" = "Datu azkarrak";
 "languages-title" = "Hizkuntza aldatu";
 "languages-wikipedia" = "Wikipedia hizkuntzak";
-"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Eduki guztia $1(r)en babespean dago, ez bada kontrakoa esaten.";
 "login-forgot-password" = "Zure pasahitza ahaztu duzu?";
 "login-join-wikipedia" = "Wikipediara batu";
@@ -320,14 +319,18 @@
 "preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
 "rank-accessibility-label" = "$1 zenbakia";
 "readers-accessibility-label" = "$1 irakurle";
+"reading-list-add-hint-title" = "Gehitu $1 irakurketa zerrendara?";
 "reading-list-add-saved-button-title" = "Bai, gehitu itzazu nire irakurketa zerrendetara";
 "reading-list-add-saved-subtitle" = "Zure Wikipedia aplikazioan irakurketa zerrendako artikuluak gorde dira. Zure kontuarekin sinkronizatutako irakurketen zerrendak gorde eta bateratu nahi dituzu?";
 "reading-list-add-saved-title" = "Gordetako artikuluak aurkitu dira";
+"reading-list-api-error-entry-limit" = "Sarrera hau ez dago sinkronizatuta zerrenda honetako sarrera muga jadanik gainditu duzulako.";
+"reading-list-api-error-generic" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak sinkronizatzen ari ziren bitartean.";
+"reading-list-api-error-list-limit" = "Zerrenda hau ez dago sinkronizatuta zure sinkronizatutako zerrenden muga gainditu duzulako.";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
+// Fuzzy
 "reading-list-exists-with-same-name" = "$1 izena duen irakurketa zerrenda existitzen da jada";
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
-"reading-list-hint-title" = "$1 mugitu irakurketa zerrenda batera?";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
 "reading-list-keep-subtitle" = "Zure Wikipedia kontuan sinkronizatutako artikuluak daude. Saioa itxi eta gero, gailuan mantendu nahiko zenituzke?";
 "reading-list-keep-title" = "Gordetako artikuluak gailuan mantendu nahi dituzu?";
@@ -336,20 +339,26 @@
 "reading-list-login-or-create-account-title" = "Hasi saioa gordetako artikuluak sinkronizatzeko";
 "reading-list-login-subtitle" = "Hasi saioa edo sortu kontu bat zure gordetako artikuluak eta irakurketa-zerrendak gailu guztietan sinkronizatzeko eta zure erabiltzailearen hobespenetan gorde ahal izateko.";
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
+"reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
+"reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
+"reading-list-show-default-list-setting" = "Zerrenda hobetsia erakutsi";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta gailuetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
 "reading-list-sync-setting" = "Irakurketa zerrenda sinkronizatu";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Ezin duzu gehitu{{PLURAL:$1|artikulu hau|artikulu hauek}} hurrengora “$2” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-delete" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-remove-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendatik sarrera bat ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-update" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda eguneratzen ari zen bitartean. Mesedez, saia ezazu geroago.";
-"reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jartzen duzula.";
-"reading-lists-article-moved-confirmation" = "\"$1\"-ra mugitu da artikulua";
+"reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jarri duzula.";
+"reading-lists-article-added-confirmation" = "\"$1\"-ra gehitu da artikulua";
 "reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}";
 "reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
 "reading-lists-default-list-title" = "Lastermarkak";
+"reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
+"reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Gai iluna";
 "reading-themes-controls-accessibility-brightness-slider" = "Argitasun sliderra";
 "reading-themes-controls-accessibility-dark-theme-button" = "Gai iluna";
@@ -368,7 +377,6 @@
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-clear-all" = "Garbitu";
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Ziur zaude artikulua ez duzula gorde nahi eta {PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}-rik ezabatu nahi duzula?";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako artikulu guztiak ezabatu nahi dituzula eta irakurketa zerrendetatik ezabatu nahi duzula?";
@@ -377,6 +385,8 @@
 "saved-reading-lists-title" = "Irakurketa zerrendak";
 "saved-search-default-text" = "Bilatu";
 "saved-title" = "Gordea";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Ezabatzekotan {{PLURAL:$1|artikulu honek ezabatuko du|artikulu hauek ezabatuko dute}} asoziatutako irakurketa zerrenda guztietatik";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|artikulu $1|$1 artikuluak}} ezabatu?";
 "search-button-accessibility-label" = "Bilatu Wikipedian";
 "search-did-you-mean" = "$1 esan nahi zenuen?";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
@@ -442,10 +452,6 @@
 "two-factor-login-title" = "Zure kontuan sartu";
 "two-factor-login-with-backup-code" = "Erabil ezazu zure babeskopiarako kodeetako bat";
 "two-factor-login-with-regular-code" = "Berrespen kodea erabili";
-"unsave-article-and-remove-from-reading-list-with-name-message" = "Artikulu hau ez gordetzeak \"$1\" irakurketa-zerrendatik ere ezabatzea ekarriko du.";
-"unsave-article-and-remove-from-reading-lists-message" = "Artikulu hau ez gordetzeak irakurketa-zerrenda guztietatik ezabatzea ekarriko du.";
-"unsave-article-and-remove-from-reading-lists-title" = "Gordetako artikulua izatera utzi?";
-"update-articles-button" = "Eguneratu $1";
 "view-in-browser-footer-link" = "Artikulua arakatzailean ikusi";
 "welcome-exploration-explore-feed-description" = "Gure komunitateko gomendaturiko irakurketak eta eguneko artikuluak";
 "welcome-exploration-explore-feed-title" = "Arakatze jarioa";

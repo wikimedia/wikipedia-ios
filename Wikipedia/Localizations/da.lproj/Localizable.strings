@@ -78,7 +78,6 @@
 "appearance-settings-set-automatic-table-opening" = "Tabelindstillinger";
 "appearance-settings-text-sizing-example-text" = "Træk skyderen oven over for at ændre størrelsen på artikelteksten. Udnyt din tekststørrelse fra systemet til at ændre størrelse på andre tekstområder i programmet.";
 "appearance-settings-theme-options" = "Temaindstillinger";
-"appearance-settings-title" = "Læsetemaer";
 "article-about-title" = "Om denne artikel";
 "article-delete" = "Slet";
 // Fuzzy
@@ -110,9 +109,6 @@
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
-// Fuzzy
-"delete-reading-list-alert-message" = "Alle artikler kun gemt i {{PLURAL:$1|denne liste vil ikke blive gemt, når læselisten slettes|disse lister vil ikke blive gemt, når læselisterne slettes}}.";
-"delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
 "dim-images" = "Mørklæg billeder";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -324,17 +320,17 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 læsere";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
+// Fuzzy
 "reading-list-exists-with-same-name" = "En læseliste findes allerede med navnet $1";
 "reading-list-generic-error" = "Der opstod en uventet fejl under opdatering af dine læselister.";
-"reading-list-hint-title" = "Flyt $1 til en læseliste?";
 "reading-list-sync-setting" = "Læselistesynkronisering";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
 "reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
 "reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
 "reading-list-unable-to-remove-entry" = "Der opstod en uventet fejl under fjernelse af en post i din læseliste. Prøv igen senere.";
 "reading-list-unable-to-update" = "Der opstod en uventet fejl under opdatering af din læseliste. Prøv igen senere.";
+// Fuzzy
 "reading-list-with-provided-name-not-found" = "En læseliste med navnet $1 blev ikke fundet. Sikr dig at du har det korrekte navn.";
-"reading-lists-article-moved-confirmation" = "Artikel flyttet til »$1«";
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for gemte artikler";
 "reading-lists-default-list-title" = "Bogmærker";
@@ -352,8 +348,6 @@
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "saved-all-articles-title" = "Alle artikler";
 "saved-clear-all" = "Slet";
-// Fuzzy
-"saved-confirm-unsave-article-and-remove-from-reading-lists" = "Er du sikker på, at du ønsker ikke længere at gemme denne artikel og fjerne den fra {{PLURAL:$1|$1 læseliste|$1 læselister}}?";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-clear-cancel" = "Annuller";
 "saved-pages-clear-confirmation-heading" = "Er du sikker på, at du ønsker at slette alle dine gemte artikler og fjerne dem fra alle læselister?";
