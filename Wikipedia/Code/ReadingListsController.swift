@@ -303,20 +303,14 @@ public class ReadingListsController: NSObject {
             newValue.remove(.needsLocalArticleClear)
         }
         
-        
-        operationQueue.cancelAllOperations()
-        operationQueue.addOperation {
-            DispatchQueue.main.async {
-                self.syncState = newValue
-                if doFullSync {
-                    self.fullSync(completion)
-                } else {
-                    self.backgroundUpdate(completion)
-                }
+        cancelSync {
+            self.syncState = newValue
+            if doFullSync {
+                self.fullSync(completion)
+            } else {
+                self.backgroundUpdate(completion)
             }
         }
-        
-       
     }
     
     // is sync enabled for this user
@@ -403,13 +397,19 @@ public class ReadingListsController: NSObject {
         sync()
     }
     
+    private func cancelSync(_ completion: @escaping () -> Void) {
+        operationQueue.cancelAllOperations()
+        apiController.cancelPendingTasks()
+        operationQueue.addOperation {
+            DispatchQueue.main.async(execute: completion)
+        }
+    }
+    
     @objc public func stop(_ completion: @escaping () -> Void) {
         assert(Thread.isMainThread)
         updateTimer?.invalidate()
         updateTimer = nil
-        operationQueue.cancelAllOperations()
-        apiController.cancelPendingTasks()
-        operationQueue.addOperation(completion)
+        cancelSync(completion)
     }
     
     @objc public func backgroundUpdate(_ completion: @escaping () -> Void) {
@@ -417,7 +417,9 @@ public class ReadingListsController: NSObject {
         #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
         addOperation(sync)
-        operationQueue.addOperation(completion)
+        operationQueue.addOperation {
+            DispatchQueue.main.async(execute: completion)
+        }
         #endif
     }
     
@@ -432,24 +434,30 @@ public class ReadingListsController: NSObject {
             }
             let sync = ReadingListsSyncOperation(readingListsController: self)
             addOperation(sync)
-            operationQueue.addOperation(completion)
+            operationQueue.addOperation {
+                DispatchQueue.main.async(execute: completion)
+            }
         #endif
     }
     
     @objc private func _sync() {
+        let sync = ReadingListsSyncOperation(readingListsController: self)
+        addOperation(sync)
+    }
+    
+    @objc private func _syncIfNotSyncing() {
         guard operationQueue.operationCount == 0 else {
             return
         }
-        let sync = ReadingListsSyncOperation(readingListsController: self)
-        addOperation(sync)
+        _sync()
     }
     
     @objc public func sync() {
         #if TEST
         #else
             assert(Thread.isMainThread)
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_sync), object: nil)
-            perform(#selector(_sync), with: nil, afterDelay: 0.5)
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_syncIfNotSyncing), object: nil)
+            perform(#selector(_syncIfNotSyncing), with: nil, afterDelay: 0.5)
         #endif
     }
     
@@ -528,16 +536,18 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    @objc public func unsaveAllArticles()  {
-        assert(Thread.isMainThread)
-        let oldSyncState = self.syncState
-        var newSyncState = oldSyncState
-        newSyncState.insert(.needsLocalArticleClear)
-        guard newSyncState != oldSyncState else {
-            return
+    @objc public func unsaveAllArticles(_ completion: @escaping () -> Void)  {
+        cancelSync {
+            assert(Thread.isMainThread)
+            let oldSyncState = self.syncState
+            var newSyncState = oldSyncState
+            newSyncState.insert(.needsLocalArticleClear)
+            guard newSyncState != oldSyncState else {
+                return
+            }
+            self.syncState = newSyncState
+            self.fullSync(completion)
         }
-        self.syncState = newSyncState
-        sync()
     }
 }
 
