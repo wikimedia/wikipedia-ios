@@ -60,9 +60,9 @@
 "appearance-settings-reading-themes" = "Readin themes";
 "appearance-settings-text-sizing-example-text" = "Drag the slider abuin tae cheenge the airticle text sizin. Utilize yer seestem text size tae resize ither text auries in the app.";
 "appearance-settings-theme-options" = "Theme options";
-"appearance-settings-title" = "Readin themes";
 "article-about-title" = "Aboot this airticle";
 "article-delete" = "Delete";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Airticle deletit";
 "article-languages-filter-placeholder" = "Find leid";
 "article-languages-label" = "Pick yer leid";

@@ -68,9 +68,9 @@
 "appearance-settings-set-automatic-table-opening" = "ھەڵبژاردەکانی خشتە";
 "appearance-settings-text-sizing-example-text" = "ئەم خزێنەرەی سەرەوە بەکارببە بۆ گۆڕینی قەبارەی دەقەکان. بۆ گۆڕینی قەبارەی ھەندێک لە دەقەکان، پێویستە لە سیستمی ئامێرەکەتەوە دەستکاری قەبارەی دەقەکان بکەیت.";
 "appearance-settings-theme-options" = "ھەڵبژاردەی بەرگەکان";
-"appearance-settings-title" = "بەرگی خوێندنەوە";
 "article-about-title" = "دەربارەی ئەم وتارە";
 "article-delete" = "سڕینەوە";
+// Fuzzy
 "article-deleted-accessibility-notification" = "وتارەکە سڕدرایەوە";
 "article-languages-filter-placeholder" = "دۆزینەوەی زمان";
 "article-languages-label" = "ھەڵبژاردنی زمان";
@@ -93,7 +93,7 @@
 "button-saved-for-later" = "پاشەکەوت کرا بۆ دواتر";
 "button-saved-remove" = "لە خەزێنەکراوەکانی لابەرە";
 "button-skip" = "پەڕاندن";
-"cancel" = "ھەڵیوەشێنەوە";
+"cancel" = "ھەڵوەشاندنەوە";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "داخستن";
 "compass-direction" = "لە کاتژمێر $1";
@@ -321,6 +321,7 @@
 "request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
 "saved-clear-all" = "سڕینەوە";
 "saved-pages-clear-cancel" = "ھەڵوەشاندنەوە";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕە پاشەکەوتکراوەکانت بسڕیتەوە؟";
 "saved-pages-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "saved-pages-image-download-error" = "داگرتنی وێنەکان بۆ ئەم وتارە خەزن کراوە شکستی ھێنا";

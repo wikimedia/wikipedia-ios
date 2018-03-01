@@ -90,6 +90,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
                                     useDesktopURL:(BOOL)useDeskTopURL
                                        saveToDisk:(BOOL)saveToDisk
+                                         priority:(float)priority
                                          progress:(WMFProgressHandler __nullable)progress
                                           failure:(WMFErrorHandler)failure
                                           success:(WMFArticleHandler)success {
@@ -111,7 +112,8 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    [self.pageSummarySessionManager.session wmf_fetchSummaryWithArticleURL:articleURL
+    [[WMFSession shared] fetchSummaryWithArticleURL:articleURL
+                                           priority:priority
                                                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                              summaryResponse = summary;
                                                              [taskGroup leave];
@@ -138,7 +140,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             [taskGroup leave];
         }];
 
-    operation.priority = NSURLSessionTaskPriorityHigh;
+    operation.priority = priority;
     [self trackOperation:operation forArticleURL:articleURL];
 
     [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
@@ -241,6 +243,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURL:(NSURL *)url
                                                     forceDownload:(BOOL)forceDownload
                                                        saveToDisk:(BOOL)saveToDisk
+                                                         priority:(float)priority
                                                          progress:(WMFProgressHandler __nullable)progress
                                                           failure:(WMFErrorHandler)failure
                                                           success:(WMFArticleHandler)success {
@@ -291,7 +294,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
             DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
         }
-        task = [self fetchArticleForURL:url saveToDisk:saveToDisk progress:progress failure:failure success:success];
+        task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority progress:progress failure:failure success:success];
     } else {
         task = [self.revisionFetcher fetchLatestRevisionsForArticleURL:url
                                                            resultLimit:1
@@ -310,28 +313,29 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                        success(cachedArticle);
                                                                        return;
                                                                    } else {
-                                                                       [self fetchArticleForURL:url saveToDisk:saveToDisk progress:progress failure:failure success:success];
+                                                                       [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority progress:progress failure:failure success:success];
                                                                        return;
                                                                    }
                                                                }];
     }
-    task.priority = NSURLSessionTaskPriorityHigh;
+    task.priority = priority;
     return task;
 }
 
 - (nullable NSURLSessionTask *)fetchLatestVersionOfArticleWithURLIfNeeded:(NSURL *)url
                                                                saveToDisk:(BOOL)saveToDisk
+                                                                 priority:(float)priority
                                                                  progress:(WMFProgressHandler __nullable)progress
                                                                   failure:(WMFErrorHandler)failure
                                                                   success:(WMFArticleHandler)success {
-    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk progress:progress failure:failure success:success];
+    return [self fetchLatestVersionOfArticleWithURL:url forceDownload:NO saveToDisk:saveToDisk priority:priority progress:progress failure:failure success:success];
 }
 
-- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL saveToDisk:(BOOL)saveToDisk progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
+- (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL saveToDisk:(BOOL)saveToDisk priority:(float)priority progress:(WMFProgressHandler __nullable)progress failure:(WMFErrorHandler)failure success:(WMFArticleHandler)success {
     NSAssert(articleURL.wmf_title != nil, @"Title text nil");
     NSAssert(self.dataStore != nil, @"Store nil");
     NSAssert(self.operationManager != nil, @"Manager nil");
-    return [self fetchArticleForURL:articleURL useDesktopURL:NO saveToDisk:saveToDisk progress:progress failure:failure success:success];
+    return [self fetchArticleForURL:articleURL useDesktopURL:NO saveToDisk:saveToDisk priority:priority progress:progress failure:failure success:success];
 }
 
 @end

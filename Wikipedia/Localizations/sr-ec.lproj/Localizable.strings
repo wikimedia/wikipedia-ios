@@ -7,6 +7,7 @@
 // Author: Milicevic01
 // Author: Nemo bis
 // Author: Obsuser
+// Author: Prevodim
 // Author: Rancher
 // Author: Srdjan m
 // Author: Милан Јелисавчић
@@ -53,10 +54,14 @@
 "account-creation-passwords-mismatched" = "Лозинке се не поклапају.";
 "account-creation-saving" = "Чувам…";
 "account-creation-title" = "Отвори нови налог";
+"action-add-to-reading-list" = "Додај на списак за читање";
+"action-cancel" = "Откажи";
 "action-read" = "Читај";
+"action-remove" = "Уклони";
 "action-save" = "Сачувај";
 "action-saved" = "Сачувано";
 "action-share" = "Дели";
+"action-update" = "Ажурирај";
 "alert-no-internet" = "Нема интернет везе";
 "announcements-dismiss" = "Одбаци";
 "article-about-title" = "О чланку";
@@ -80,6 +85,7 @@
 "button-save-for-later" = "Сачувај за касније";
 "button-saved-for-later" = "Сачувано за касније";
 "button-saved-remove" = "Уклони из спремљених";
+"button-skip" = "Прескочи";
 "cancel" = "Откажи";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Затвори";
@@ -125,10 +131,10 @@
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
 "feed-news-notification-text" = "Омогућите обавештења да будете обавештени од Википедије када чланак буде у трендинг у новостима";
-"field-alert-captcha-invalid" = "Невалидна CAPTCHA";
+"field-alert-captcha-invalid" = "Неисправна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
-"field-alert-password-invalid" = "Невалидна лозинка";
-"field-alert-token-invalid" = "Невалидан код";
+"field-alert-password-invalid" = "Неисправна лозинка";
+"field-alert-token-invalid" = "Неисправан код";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни код";
 "field-captcha-placeholder" = "Текст CAPTCHA";
@@ -175,6 +181,7 @@
 "home-nearby-footer" = "Још из ваше близине";
 "home-nearby-location-footer" = "Још у близини $1";
 "home-news-footer" = "Више вести";
+"home-themes-action-title" = "Подешавања";
 "home-title" = "Истражи";
 "home-title-accessibility-label" = "Википедија, скролујте на врх за Истраживање";
 "icon-shortcut-continue-reading-title" = "Настави читање";
@@ -215,6 +222,7 @@
 "main-menu-zero-faq" = "ЧПП о режиму Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-trash-accessibility-label" = "Избриши";
+"more-languages-tooltip-title" = "Додај језике";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стопа";
 "nearby-distance-label-km" = "$1 км";
@@ -226,6 +234,7 @@
 "number-billions" = "{{FORMATNUM:$1}}B";
 "number-millions" = "{{FORMATNUM:$1}}M";
 "number-thousands" = "{{FORMATNUM:$1}}K";
+"on-this-day-title" = "На данашњи дан";
 "onboarding-wikipedia" = "Википедија";
 "open-link-cancel" = "Откажи";
 "page-edit-history" = "Целокупна историја измена";
@@ -240,6 +249,7 @@
 "page-protected-sysop" = "Ова страница је потпуно заштићена.";
 "page-read-in-other-languages" = "Доступно на још $1 језика";
 "page-similar-titles" = "Сличне странице";
+"page-talk-page" = "Погледај страницу за разговор";
 "pictured" = "на слици";
 "places-accessibility-clear-saved-searches" = "Очисти скорашње претраге";
 "places-accessibility-close-search" = "Блиска претрага";
@@ -279,16 +289,21 @@
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
 "rank-accessibility-label" = "Број: $1";
 "readers-accessibility-label" = "Читалаца: $1";
+"reading-lists-default-list-title" = "Обележавачи";
 "reference-title" = "Референца $1";
+"relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";
 "request-feedback-on-error" = "Апликација је наишла на проблем за који би наши девелопери желели да сазнају. Кликните овде да нам пошаљете имејл да информацијама о квару.";
+"saved-all-articles-title" = "Сви чланци";
 "saved-clear-all" = "Очисти";
 "saved-pages-clear-cancel" = "Откажи";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Заиста желите да избришете све сачуване странице?";
 "saved-pages-clear-delete-all" = "Да, избриши све";
 "saved-pages-image-download-error" = "Не могу да преузмем слике за ову сачувану страницу.";
+"saved-search-default-text" = "Претрага";
 "saved-title" = "Сачувано";
 "search-did-you-mean" = "Да ли сте мислили на $1?";
-"search-field-placeholder-text" = "Претрага Википедије";
+"search-field-placeholder-text" = "Претражи Википедију";
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-confirmation-heading" = "Избрисати све скорашње претраге?";
 "search-recent-clear-confirmation-sub-heading" = "Ова радња је неповратна!";
@@ -318,6 +333,7 @@
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-custom-menu-item" = "Дели...";
 "share-get-directions-in-maps" = "Преузми упутства";
+"share-menu-item" = "Подели...";
 "share-on-twitter-sign-off" = "преко @Wikipedia";
 "share-open-in-maps" = "Отвори у Мапама";
 "status-saved-for-later" = "Сачувано за касније";
@@ -327,6 +343,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори садржај";
 "table-of-contents-heading" = "Садржај";
 "table-title-other" = "Детаљније";
+"theme-black-display-name" = "Црна";
 "theme-dark-display-name" = "Тамно";
 "theme-default-display-name" = "Подразумевано";
 "top-read-header-generic" = "Википедија";
@@ -337,13 +354,18 @@
 "two-factor-login-title" = "Пријавите се на свој налог";
 "two-factor-login-with-backup-code" = "Користите један од својих резервних кодова";
 "two-factor-login-with-regular-code" = "Користите код за верификацију";
+"view-in-browser-footer-link" = "Читај чланак у прегледнику";
+"welcome-exploration-on-this-day-title" = "На данашњи дан";
 "welcome-explore-continue-button" = "Почни";
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";
 "welcome-explore-tell-me-more-done-button" = "Разумем";
+"welcome-intro-free-encyclopedia-more-about" = "О Википедији";
+"welcome-intro-free-encyclopedia-title" = "Слободна енциклопедија";
 "welcome-languages-add-button" = "Додај други језик";
 "welcome-notifications-tell-me-more-creation" = "Обавештења се креирају и вама достављају на ваш уређај помоћу апликације, не са наших или сервера треће стране.";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се спремају на уређају и нису заснована на личним информацијама или активности.";
 "welcome-notifications-tell-me-more-title" = "Још о обавештењима";
+"welcome-send-data-helps-title" = "Помозите нам да побољшамо апликацију";
 // Fuzzy
 "welcome-send-data-sub-title" = "Помозите Фондацији Викимедија да направи апликацију бољом тако што ћете рећи како користите апликацију. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";

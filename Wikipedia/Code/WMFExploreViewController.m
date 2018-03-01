@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListAlertControllerDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -61,6 +61,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
+@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -75,6 +76,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     _userStore = userStore;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
+    self.saveButtonsController.delegate = self;
+    self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
 }
 
 - (void)dealloc {
@@ -110,13 +113,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         _refreshControl = [[UIRefreshControl alloc] init];
         [_refreshControl addTarget:self action:@selector(refreshControlActivated) forControlEvents:UIControlEventValueChanged];
         _refreshControl.layer.zPosition = -100;
-        if ([self.collectionView respondsToSelector:@selector(setRefreshControl:)]) {
-            self.collectionView.refreshControl = _refreshControl;
-        } else {
-            [self.collectionView addSubview:_refreshControl];
-        }
+        self.collectionView.refreshControl = _refreshControl;
     }
 }
+
 - (MWKSavedPageList *)savedPages {
     NSParameterAssert(self.userStore);
     return self.userStore.savedPageList;
@@ -369,7 +369,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerCellsAndViews];
     [self setupRefreshControl];
 
-    [super viewDidLoad];  // intentionally at the bottom of the method for theme application
+    [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
@@ -537,7 +537,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         }
 
         [self.refreshControl endRefreshing];
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed theme:self.theme frame:self.view.bounds];
     }
 }
 
@@ -632,7 +632,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDisplayTypeTheme:
         case WMFFeedDisplayTypeNotification:
-        case WMFFeedDisplayTypeAnnouncement: {
+        case WMFFeedDisplayTypeAnnouncement:
+        case WMFFeedDisplayTypeReadingList: {
             WMFAnnouncementCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"WMFAnnouncementCollectionViewCell" forIndexPath:indexPath];
             [self configureAnnouncementCell:cell withContentGroup:contentGroup atIndexPath:indexPath];
             return cell;
@@ -746,7 +747,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFFeedDisplayTypeTheme:
         case WMFFeedDisplayTypeNotification:
-        case WMFFeedDisplayTypeAnnouncement: {
+        case WMFFeedDisplayTypeAnnouncement:
+        case WMFFeedDisplayTypeReadingList: {
             WMFAnnouncementCollectionViewCell *cell = [self placeholderCellForIdentifier:@"WMFAnnouncementCollectionViewCell"];
             [self configureAnnouncementCell:cell withContentGroup:section atIndexPath:indexPath];
             CGSize size = [cell sizeThatFits:CGSizeMake(columnWidth, UIViewNoIntrinsicMetric)];
@@ -1016,9 +1018,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 }
 
 - (void)configureTitledExploreSectionFooter:(WMFTitledExploreSectionFooter *)footer forSectionAtIndex:(NSInteger)index {
-    footer.titleLabel.text = [EnableLocationViewController localizedEnableLocationExploreTitle];
-    footer.descriptionLabel.text = [EnableLocationViewController localizedEnableLocationDescription];
-    [footer.enableLocationButton setTitle:[EnableLocationViewController localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
+    footer.titleLabel.text = [WMFCommonStrings localizedEnableLocationExploreTitle];
+    footer.descriptionLabel.text = [WMFCommonStrings localizedEnableLocationDescription];
+    [footer.enableLocationButton setTitle:[WMFCommonStrings localizedEnableLocationButtonTitle] forState:UIControlStateNormal];
     [footer.enableLocationButton removeTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside]; // ensures the view controller isn't duplicated in the target list, causing duplicate actions to be sent
     footer.enableLocationButton.tag = index;
     [footer.enableLocationButton addTarget:self action:@selector(enableLocationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -1077,6 +1079,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindAnnouncement:
         case WMFContentGroupKindTheme:
+        case WMFContentGroupKindReadingList:
         case WMFContentGroupKindNotification:
             return NO;
         default:
@@ -1263,6 +1266,13 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             cell.imageViewDimension = cell.imageView.image.size.height;
             cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-themes-prompt", nil, nil, @"Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", @"Description on feed card that describes how to adjust reading preferences.");
             [cell.actionButton setTitle:WMFLocalizedStringWithDefaultValue(@"home-themes-action-title", nil, nil, @"Manage preferences", @"Action on the feed card that describes the theme feature. Takes the user to manage theme preferences.") forState:UIControlStateNormal];
+        } break;
+        case WMFFeedDisplayTypeReadingList: {
+            cell.isImageViewHidden = NO;
+            cell.imageView.image = [UIImage imageNamed:@"feed-card-reading-list"];
+            cell.imageViewDimension = cell.imageView.image.size.height;
+            cell.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"home-reading-list-prompt", nil, nil, @"Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", @"Description on feed card that describes reading lists.");
+            [cell.actionButton setTitle:[WMFCommonStrings readingListLoginButtonTitle] forState:UIControlStateNormal];
         } break;
         default:
             break;
@@ -1573,6 +1583,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self wmf_pushArticleViewController:articleController animated:YES];
 }
 
+- (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
+    [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+}
+
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
                                        shareActivityController:(UIActivityViewController *)shareActivityController {
     [articleController wmf_removePeekableChildViewControllers];
@@ -1822,6 +1836,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
             [self dismissAnnouncementCell:cell];
         } break;
+        case WMFContentGroupKindReadingList: {
+            [self wmf_showLoginViewControllerWithTheme:self.theme];
+            [self dismissAnnouncementCell:cell];
+        } break;
         case WMFContentGroupKindNotification: {
             [[WMFNotificationsController sharedNotificationsController] requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
                 if (error) {
@@ -1859,6 +1877,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindAnnouncement:
         case WMFContentGroupKindTheme:
+        case WMFContentGroupKindReadingList:
         case WMFContentGroupKindNotification: {
             [contentGroup markDismissed];
             [contentGroup updateVisibility];
@@ -1929,6 +1948,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+    [self.readingListHintController scrollViewWillBeginDragging];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -1989,7 +2009,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }];
 
     self.searchBar.searchTextPositionAdjustment = UIOffsetMake(7, 0);
-
     self.collectionView.backgroundColor = theme.colors.baseBackground;
     self.view.backgroundColor = theme.colors.baseBackground;
     self.collectionView.indicatorStyle = theme.scrollIndicatorStyle;
@@ -2003,6 +2022,32 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return;
     }
     [self wmf_pushArticleWithURL:articleURL dataStore:self.userStore theme:self.theme animated:YES];
+}
+
+#pragma mark - WMFSaveButtonsControllerDelegate
+
+- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
+    [self.readingListHintController didSave:didSave article:article theme:self.theme];
+}
+
+- (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
+    if (article && article.userCreatedReadingListsCount > 0) {
+        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
+        [readingListAlertController showAlertWithPresenter:self article:article];
+    } else {
+        [self.saveButtonsController updateSavedState];
+    }
+}
+
+- (void)showAddArticlesToReadingListViewControllerFor:(WMFArticle *_Nonnull)article {
+    WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.userStore articles:@[article] moveFromReadingList:nil theme:self.theme];
+    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+}
+
+#pragma mark - WMFReadingListAlertControllerDelegate
+
+- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+    [self.saveButtonsController updateSavedState];
 }
 
 #if DEBUG && DEBUG_CHAOS

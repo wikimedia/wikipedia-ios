@@ -31,7 +31,6 @@
         self.theme = [WMFTheme standard];
     }
 
-
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
     buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
     self.navigationItem.leftBarButtonItem = buttonX;
@@ -114,7 +113,7 @@
     [super viewDidAppear:animated];
 
     [self registerForKeyboardNotifications];
-    
+
     [self highlightProgressiveButton:[self changesMade]];
 
     if ([self changesMade]) {

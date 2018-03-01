@@ -38,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)start;
 - (void)stop;
-- (void)fetchUncachedArticlesInSavedPages:(dispatch_block_t)completion;
-- (void)cancelFetchForSavedPages;
 
 @end
 

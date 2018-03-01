@@ -61,9 +61,9 @@
 "appearance-settings-reading-themes" = "Téma bacaan";
 "appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistim anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
-"appearance-settings-title" = "Téma bacaan";
 "article-about-title" = "Ngeunaan ieu artikel";
 "article-delete" = "Pupus";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel kapupus";
 "article-languages-filter-placeholder" = "Panggihan basa";
 "article-languages-label" = "Pilih basa";
@@ -311,6 +311,7 @@
 "request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-clear-all" = "Bersihkeun";
 "saved-pages-clear-cancel" = "Bolay";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh kaca kasimpen anjeun?";
 "saved-pages-clear-delete-all" = "Nya, hapus sadayana";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";
@@ -359,6 +360,7 @@
 "share-open-in-maps" = "Buka dina Péta";
 "share-social-format" = "“$1” liwat Wikipedia: $2";
 "share-social-mention-format" = "“$1” liwat @Wikipedia: $2";
+"sort-by-title-action" = "Judul";
 "status-saved-for-later" = "Disimpen jang engké";
 "status-saving-for-later" = "Nyimpen jang engké...";
 "table-of-contents-button-label" = "Daptar Eusi";
@@ -366,6 +368,7 @@
 "table-of-contents-close-accessibility-label" = "Tutup daptar eusi";
 "table-of-contents-heading" = "Eusi";
 "table-title-other" = "Informasi leuwih jero";
+"theme-black-display-name" = "Hideung";
 "theme-dark-display-name" = "Poék";
 "theme-default-display-name" = "Bawaan";
 "theme-sepia-display-name" = "Sépia";

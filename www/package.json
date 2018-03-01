@@ -4,7 +4,7 @@
   "repository": "https://gerrit.wikimedia.org/r/apps/ios/wikipedia",
   "version": "0.1.0",
   "dependencies": {
-    "wikimedia-page-library": "4.7.12"
+    "wikimedia-page-library": "5.0.0"
   },
   "devDependencies": {
     "grunt": "1.0.1",

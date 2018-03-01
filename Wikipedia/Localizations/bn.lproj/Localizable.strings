@@ -56,19 +56,27 @@
 "account-creation-passwords-mismatched" = "পাসওয়ার্ড মিলেনি";
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-title" = "নতুন অ্যাকাউন্ট তৈরি করুন";
+"action-cancel" = "বাতিল";
+"action-move-to" = "স্থানান্তর করুন...";
 "action-read" = "পড়ুন";
+"action-remove" = "সরান";
 "action-save" = "সংরক্ষণ";
 "action-saved" = "সংরক্ষিত";
 "action-saved-accessibility" = "সংরক্ষিত। অসংরক্ষিত করতে সক্রিয় করুন।";
 "action-share" = "বণ্টন";
 "action-unsave" = "অসংরক্ষিত";
+"action-update" = "হালনাগাদ করুন";
+"add-articles-to-reading-list" = "পড়ার তালিকায় $1 যোগ করুন";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
 "announcements-dismiss" = "খারিজ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
+"appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-about-title" = "এই নিবন্ধ সম্পর্কে";
 "article-delete" = "অপসারণ";
+// Fuzzy
+"article-deleted-accessibility-notification" = "নিবন্ধ অপসারিত হয়েছে";
 "article-languages-filter-placeholder" = "ভাষা খুঁজুন";
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-others" = "অন্যান্য ভাষাসমূহ";
@@ -185,6 +193,7 @@
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি অবস্থান থেকে আরও";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
+"home-news-footer" = "সংবাদে আরো";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
 "icon-shortcut-continue-reading-title" = "পড়া অব্যাহত রাখুন";
@@ -291,6 +300,8 @@
 "preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
+"reading-lists-default-list-title" = "বুকমার্ক";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|তালিকাটি|তালিকাগুলি}} মুছবেন?";
 "reading-themes-controls-accessibility-dark-theme-button" = "আঁধার থিম";
 "reading-themes-controls-accessibility-light-theme-button" = "অল্পোজ্জ্বল থিম";
 "reading-themes-controls-accessibility-sepia-theme-button" = "কালচে-বাদামি থিম";
@@ -299,12 +310,16 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
+"saved-all-articles-title" = "সব নিবন্ধ";
 "saved-clear-all" = "পরিষ্কার করুন";
 "saved-pages-clear-cancel" = "বাতিল";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
 "saved-pages-clear-delete-all" = "হ্যাঁ, সব মুছে ফেলুন";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
+"saved-search-default-text" = "অনুসন্ধান";
 "saved-title" = "সংরক্ষিত";
+"search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
 "search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
 "search-recent-clear-cancel" = "বাতিল";
@@ -337,6 +352,7 @@
 "share-message-format" = "“$1” $2";
 "share-on-twitter-sign-off" = "@উইকিপিডিয়া হয়ে";
 "share-open-in-maps" = "মানচিত্রে খুলুন";
+"sort-by-title-action" = "শিরোনাম";
 "status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "table-of-contents-button-label" = "সূচিপত্র";
@@ -365,6 +381,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
 "welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
+"welcome-languages-search-title" = "প্রায় ৩০০টি ভাষায় অন্বেষণ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
@@ -372,6 +389,7 @@
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";
 "wikitext-preview-changes" = "আপনার পরিবর্তনগুলির প্রাকদর্শন উদ্ধার হচ্ছে...";
 "wikitext-preview-changes-none" = "প্রাকদর্শন করার মত কোন পরিবর্তন করা হয়নি।";
+"wikitext-preview-link-preview-title" = "লিঙ্ক প্রাকদর্শন";
 "wikitext-upload-captcha-error" = "ক্যাপচা যাচাইকরণ ত্রুটি।";
 "wikitext-upload-captcha-needed" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
 "wikitext-upload-result-unknown" = "উইকিটেক্সট আপলোডের ফলাফল নির্ণয় করা যায়নি।";

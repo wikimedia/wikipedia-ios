@@ -12,6 +12,7 @@
 @class MWKImageList;
 @class WMFArticle;
 @class WMFExploreFeedContentController;
+@class WMFReadingListsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,14 +46,21 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (BOOL)migrateToCoreData:(NSError **)error;
 - (void)performCoreDataMigrations:(dispatch_block_t)completion;
 - (void)performLibraryUpdates:(dispatch_block_t)completion;
-- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion;
+- (void)performUpdatesFromLibraryVersion:(NSUInteger)currentLibraryVersion inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull void (^)(NSError *nullable))completion;
+
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 
 @property (readonly, strong, nonatomic) MWKHistoryList *historyList;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
+@property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
+
+- (void)performBackgroundCoreDataOperationOnATemporaryContext:(nonnull void (^)(NSManagedObjectContext *moc))mocBlock;
+
 @property (nonatomic, strong, readonly) WMFExploreFeedContentController *feedContentController;
 
 - (void)teardownFeedImportContext;
@@ -63,8 +71,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
 
-- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL; //uses the view context
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;

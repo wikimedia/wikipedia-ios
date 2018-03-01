@@ -163,9 +163,14 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
             }
             [moc performBlock:^{
                 [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
-                [moc fetchOrCreateGroupForURL:placeholderURL ofKind:WMFContentGroupKindLocationPlaceholder forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:^(WMFContentGroup * _Nonnull group) {
-                    group.contentPreview = articleURL;
-                }];
+                [moc fetchOrCreateGroupForURL:placeholderURL
+                                       ofKind:WMFContentGroupKindLocationPlaceholder
+                                      forDate:date
+                                  withSiteURL:self.siteURL
+                            associatedContent:nil
+                           customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                               group.contentPreview = articleURL;
+                           }];
                 completion();
             }];
         }

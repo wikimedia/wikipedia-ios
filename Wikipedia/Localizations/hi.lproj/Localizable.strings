@@ -6,6 +6,7 @@
 // Author: Macofe
 // Author: NehalDaveND
 // Author: Nemo bis
+// Author: Nitin1485
 // Author: Rajatkatiyar10
 // Author: Rishi.Singh
 // Author: Sachinkatiyar
@@ -65,6 +66,7 @@
 "action-saved-accessibility" = "रक्षित किया गया। हटाने के लिए सक्रिय करें।";
 "action-saved-accessibility-notification" = "बाद के लिए सहेजे गए लेख";
 "action-share" = "साझा करें";
+"action-sort" = "क्रमबद्ध करें";
 "action-unsave" = "न सहेजें";
 "action-unsaved-accessibility-notification" = "असुरक्षित लेख";
 "alert-no-internet" = "कोई इंटरनेट कनेक्शन नहीं";
@@ -74,9 +76,9 @@
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
 "appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
 "appearance-settings-theme-options" = "विषय विकल्प";
-"appearance-settings-title" = "विषय पढ़ रहा";
 "article-about-title" = "इस लेख के बारे में";
 "article-delete" = "हटाएँ";
+// Fuzzy
 "article-deleted-accessibility-notification" = "लेख डिलीट कर दिया गया";
 "article-languages-filter-placeholder" = "भाषा ढूंढें";
 "article-languages-label" = "भाषा चुनें";
@@ -313,6 +315,15 @@
 "preference-title-eventlogging-opt-in" = "उपयोग रिपोर्ट भेजें";
 "rank-accessibility-label" = "नंबर $1";
 "readers-accessibility-label" = "$1 पाठक";
+"reading-list-add-saved-button-title" = "हाँ, उन्हें मेरी पठन सूची में जोड़ें";
+"reading-list-add-saved-title" = "सहेजे गए लेख मिले";
+"reading-list-do-not-keep-button-title" = "नहीं, डिवाइस से लेख हटाएं";
+"reading-list-keep-button-title" = "हाँ, डिवाइस पर आलेख रखें";
+"reading-list-keep-title" = "डिवाइस पर सहेजे गए लेखों को रखें?";
+"reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
+"reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
+"reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
+"reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
 "reading-themes-controls-accessibility-black-theme-button" = "काला रूपरंग";
 "reading-themes-controls-accessibility-brightness-slider" = "चमक स्लाइडर";
 "reading-themes-controls-accessibility-dark-theme-button" = "डार्क थीम";
@@ -324,9 +335,14 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=इस वर्ष|पिछला वर्ष|$1 वर्ष पहले}}";
+"relogin-failed-retry-login-button-title" = "पुनः लॉग इन करने का प्रयास करें";
+"relogin-failed-stay-logged-out-button-title" = "मुझे लॉग आउट रखें";
+"relogin-failed-subtitle" = "आपका सत्र समाप्त हो चूका है या पिछले लॉग इन क्रेडेंशियल्स अब मान्य नहीं हैं";
+"relogin-failed-title" = "लॉग इन को पुन: स्थापित करने में असमर्थ";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "saved-clear-all" = "साफ़ करें";
 "saved-pages-clear-cancel" = "रद्द करें";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "क्या आप वास्तव में अपने सभी सहेजे गए पेजों को मिटाना चाहते हैं?";
 "saved-pages-clear-delete-all" = "हाँ, सभी मिटायें";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
@@ -334,6 +350,7 @@
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";
 "search-did-you-mean" = "क्या आपका मतलब $1 था?";
 "search-field-placeholder-text" = "विकिपीडिया में खोजें";
+"search-reading-list-placeholder-text" = "पठन सूची खोजें";
 "search-recent-clear-cancel" = "रद्द करें";
 "search-recent-clear-confirmation-heading" = "हाल की सभी खोजों को मिटायें?";
 "search-recent-clear-confirmation-sub-heading" = "इस क्रिया को वापस नहीं लिया जा सकता!";
@@ -375,6 +392,8 @@
 "share-open-in-maps" = "नक्शों में खोलें";
 "share-social-format" = "\"$1\" विकिपीडिया: $2 के माध्यम से";
 "share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
+"sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
+"sort-by-title-action" = "शीर्षक";
 "status-saved-for-later" = "बाद के लिए सहेजा गया";
 "status-saving-for-later" = "बाद के लिए सहेजा जा रहा है...";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";

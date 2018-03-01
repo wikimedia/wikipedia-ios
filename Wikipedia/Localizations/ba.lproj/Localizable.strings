@@ -1,5 +1,6 @@
 // Messages for Bashkir (башҡортса)
 // Exported from translatewiki.net
+// Author: Envlh
 // Author: Mhurd
 // Author: Nemo bis
 // Author: Азат Хәлилов
@@ -64,7 +65,7 @@
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
 "button-saved-for-later" = "Киләсәккә һаҡланды";
 "button-skip" = "Үткәреп ебәрергә";
-"cc-by-sa-3.0" = "CC-BY-SA 3.0";
+"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
 "edit-summary-choice-fixed-grammar" = "Дөрөҫ яҙыу төҙәтелгән";
@@ -169,6 +170,7 @@
 "preference-title-eventlogging-opt-in" = "Файҙаланыу тураһында отчет ебәреү";
 "saved-clear-all" = "Таҙартыу";
 "saved-pages-clear-cancel" = "Кире алырға";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Һеҙ ысынлап та һаҡланған бөтә элементтарҙы юйырға теләйһегеҙме?";
 "saved-pages-clear-delete-all" = "Эйе, бөтәһен дә юйырға";
 "saved-pages-image-download-error" = "Был һаҡланған бит өсөн һүрәтен күсереп булманы";

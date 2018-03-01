@@ -72,9 +72,9 @@
 "appearance-settings-set-automatic-table-opening" = "Tabellinnstillinger";
 "appearance-settings-text-sizing-example-text" = "Dra glidebryteren ovenfor for å endre tekststørrelsen i artikler. Bruker systemets tekststørrelse for å endre størrelsen på andre tekstfelter i appen.";
 "appearance-settings-theme-options" = "Draktvalg";
-"appearance-settings-title" = "Lesedrakter";
 "article-about-title" = "Om artikkelen";
 "article-delete" = "Slett";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikkelen er slettet";
 "article-languages-filter-placeholder" = "Finn språk";
 "article-languages-label" = "Velg språk";
@@ -325,6 +325,7 @@
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
 "saved-clear-all" = "Tøm";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
 "saved-pages-clear-delete-all" = "Ja, slett alt";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";

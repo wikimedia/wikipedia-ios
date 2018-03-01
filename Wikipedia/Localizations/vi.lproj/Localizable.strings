@@ -66,7 +66,6 @@
 "appearance-settings-reading-themes" = "Giao diện đọc";
 "appearance-settings-text-sizing-example-text" = "Kéo con trượt bên trên để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
-"appearance-settings-title" = "Giao diện đọc";
 "article-about-title" = "Thông tin về bài viết";
 "article-delete" = "Xóa";
 "article-languages-filter-placeholder" = "Tìm ngôn ngữ";
@@ -315,6 +314,7 @@
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "saved-clear-all" = "Xóa sạch";
 "saved-pages-clear-cancel" = "Hủy bỏ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
 "saved-pages-clear-delete-all" = "Có, xóa toàn bộ";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";

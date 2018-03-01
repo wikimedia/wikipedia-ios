@@ -117,9 +117,17 @@ platform :ios do
   
   desc "Increment the build number"
   lane :bump_build do |options|
-    app_identifer = params[:app_identifier] || "org.wikimedia.wikipedia"
+    app_identifer = options[:app_identifier] || "org.wikimedia.wikipedia"
     increment_build_number({
       build_number: get_latest_alpha_or_beta_build_number + 1
+    })
+  end
+  
+  desc "Set the build number"
+  lane :set_build_number do |options|
+    build = options[:build] || 0
+    increment_build_number({
+      build_number: build
     })
   end
   
