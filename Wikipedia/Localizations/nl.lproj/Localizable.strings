@@ -79,6 +79,7 @@
 "appearance-settings-title" = "Leesthema's";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Artikel verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
@@ -325,6 +326,7 @@
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "saved-clear-all" = "Wissen";
 "saved-pages-clear-cancel" = "Annuleren";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Weet u zeker dat u alle opgeslagen pagina's wilt verwijderen?";
 "saved-pages-clear-delete-all" = "Ja, alles verwijderen";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
@@ -339,6 +341,7 @@
 "search-recent-title" = "Recente zoekopdrachten";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
+// Fuzzy
 "settings-appearance" = "Uiterlijk";
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache komt er $1 beschikbaar. Er worden geen opgeslagen pagina's verwijderd.";

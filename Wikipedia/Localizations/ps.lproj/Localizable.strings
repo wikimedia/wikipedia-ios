@@ -1,6 +1,7 @@
 // Messages for Pashto (پښتو)
 // Exported from translatewiki.net
 // Author: Ahmed-Najib-Biabani-Ibrahimkhel
+// Author: Baloch Khan
 // Author: Macofe
 // Author: Nemo bis
 
@@ -108,6 +109,7 @@
 "page-protected-can-not-edit-title" = "دا مخ ژغورل شوی";
 "page-read-in-other-languages" = "په $1 ژبو کې شته";
 "page-similar-titles" = "ورته مخونه";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
 "saved-clear-all" = "سپينول";
@@ -140,10 +142,7 @@
 "welcome-explore-continue-button" = "پيلول";
 "welcome-explore-tell-me-more-done-button" = "وپوهېدم";
 "welcome-languages-add-button" = "بله ژبه ورگډول";
-"welcome-languages-continue-button" = "پرله پورې";
-"welcome-languages-title" = "ژبې";
 "welcome-volunteer-send-usage-reports" = "د کارېدنې راپورونه لېږل";
-"welcome-volunteer-thanks" = "$1 له تاسو مننه!";
 "wikitext-downloading" = "مېنځپانگه رابرسېرېږي...";
 "wikitext-upload-save" = "خپرېږي...";
 "wikitext-upload-save-sign-in" = "ننوتل";

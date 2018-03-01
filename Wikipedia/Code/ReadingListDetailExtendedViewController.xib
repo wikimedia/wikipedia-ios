@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailExtendedViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="articleCountLabel" destination="uC9-Ji-QqS" id="NxD-BR-emx"/>
+                <outlet property="descriptionTextField" destination="VeG-7e-nxd" id="TZe-4K-8HF"/>
+                <outlet property="searchBar" destination="k7T-rp-1Fm" id="Q38-DG-KUp"/>
+                <outlet property="separatorView" destination="NNE-RI-aJ4" id="4RH-oE-7JL"/>
+                <outlet property="sortButton" destination="VWH-3Z-bep" id="Mbi-Bv-BOr"/>
+                <outlet property="titleTextField" destination="vBx-C3-qBc" id="Ts3-3W-3YI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="constraints" destination="y3q-WA-OGa" collectionClass="NSMutableArray" id="usZ-ur-TNu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcV-tM-qMa" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-Ji-QqS">
+                            <rect key="frame" x="15" y="15" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-C3-qBc" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="15" y="44" width="345" height="23.5"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VeG-7e-nxd" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="15" y="75.5" width="345" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-RI-aJ4" userLabel="Separator View">
+                            <rect key="frame" x="0.0" y="125.5" width="375" height="0.5"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="GcR-WB-jU3"/>
+                            </constraints>
+                        </view>
+                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="k7T-rp-1Fm">
+                            <rect key="frame" x="8" y="140" width="285" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="fcx-df-IsE"/>
+                            </constraints>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWH-3Z-bep">
+                            <rect key="frame" x="309" y="143" width="46" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="C5R-0O-z7D"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" id="9eV-BS-TMm"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="VWH-3Z-bep" secondAttribute="trailing" constant="12" id="9tM-2R-vwV"/>
+                        <constraint firstItem="VWH-3Z-bep" firstAttribute="centerY" secondItem="k7T-rp-1Fm" secondAttribute="centerY" id="AjI-zz-o0v"/>
+                        <constraint firstItem="vBx-C3-qBc" firstAttribute="leading" secondItem="uC9-Ji-QqS" secondAttribute="leading" id="DuK-gw-IGU"/>
+                        <constraint firstAttribute="trailing" secondItem="NNE-RI-aJ4" secondAttribute="trailing" id="EH8-Rq-OhD"/>
+                        <constraint firstAttribute="bottom" secondItem="k7T-rp-1Fm" secondAttribute="bottom" constant="14" id="EJM-7U-wbC"/>
+                        <constraint firstItem="uC9-Ji-QqS" firstAttribute="top" secondItem="HcV-tM-qMa" secondAttribute="top" constant="15" id="HH5-kv-Cum"/>
+                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="8" id="KWg-ok-r2Q"/>
+                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="top" secondItem="NNE-RI-aJ4" secondAttribute="bottom" constant="14" id="Ov8-Lw-vFK"/>
+                        <constraint firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" constant="15" id="P8q-hO-E0G"/>
+                        <constraint firstAttribute="trailing" secondItem="vBx-C3-qBc" secondAttribute="trailing" constant="15" id="PDo-oz-lDu"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uC9-Ji-QqS" secondAttribute="trailing" constant="15" id="Tge-bZ-2fn"/>
+                        <constraint firstItem="VeG-7e-nxd" firstAttribute="leading" secondItem="vBx-C3-qBc" secondAttribute="leading" id="WCE-lf-luw"/>
+                        <constraint firstItem="VWH-3Z-bep" firstAttribute="leading" secondItem="k7T-rp-1Fm" secondAttribute="trailing" constant="16" id="gBB-c7-bio"/>
+                        <constraint firstItem="vBx-C3-qBc" firstAttribute="top" secondItem="uC9-Ji-QqS" secondAttribute="bottom" constant="8" id="iMX-J6-djU"/>
+                        <constraint firstItem="VeG-7e-nxd" firstAttribute="top" secondItem="vBx-C3-qBc" secondAttribute="bottom" constant="8" id="j46-bO-PEe"/>
+                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="VeG-7e-nxd" secondAttribute="bottom" constant="20" id="pXI-em-JvA"/>
+                        <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
+                        <constraint firstAttribute="height" constant="190" id="y3q-WA-OGa"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="0kT-ff-0rB"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="HcV-tM-qMa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jfx-XJ-Lhq"/>
+                <constraint firstAttribute="bottom" secondItem="HcV-tM-qMa" secondAttribute="bottom" id="WdH-Os-DNi"/>
+                <constraint firstItem="HcV-tM-qMa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="apA-8u-xHs"/>
+                <constraint firstItem="HcV-tM-qMa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="p8N-Ia-VvP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="55"/>
+        </view>
+    </objects>
+</document>

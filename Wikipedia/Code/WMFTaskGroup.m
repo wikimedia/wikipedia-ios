@@ -61,4 +61,13 @@
     });
 }
 
+- (void)waitWithTimeout:(NSTimeInterval)timeout {
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, timeout * NSEC_PER_SEC);
+    dispatch_group_wait(self.group, time);
+}
+
+- (void)wait {
+    dispatch_group_wait(self.group, DISPATCH_TIME_FOREVER);
+}
+
 @end

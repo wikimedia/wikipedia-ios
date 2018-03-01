@@ -2,275 +2,152 @@
 // Exported from translatewiki.net
 // Author: JoeWalshWMF
 // Author: Kosovastar
+// Author: Liridon
 // Author: Nemo bis
 // Author: Olsi
 
-"languages-title" = "Ndrysho gjuhën";
-"article-languages-label" = "Zgjidhni gjuhën";
-"article-languages-cancel" = "Anulo";
-"article-languages-downloading" = "Duke ngarkuar gjuhët e artikullit...";
-"article-languages-filter-placeholder" = "Gjeni gjuhën";
-"article-read-more-title" = "Lexo më shumë";
-"article-about-title" = "Rreth këtij artikulli";
-"article-unable-to-load-section" = "Nuk mund të ngarkohet ky seksion. Provoni të rihapni artikullin për të parë nëse rregullohet problemi.";
-"article-unable-to-load-article" = "Nuk mund të ngarkohet artikulli.";
-"article-related-articles-title" = "Artikuj të ngjashëm";
-"article-languages-yours" = "Gjuhët tuaja";
-"article-languages-others" = "Gjuhët e tjera";
-"info-box-title" = "Fakte të shpejta";
-"info-box-close-text" = "Mbylle";
-"table-title-other" = "Më shumë informacion";
-"saved-clear-all" = "Pastro";
-"history-clear-all" = "Pastro";
-"history-label" = "Të fundit";
-"history-section-today" = "Sot";
-"history-section-yesterday" = "Dje";
-"history-section-lastweek" = "Javën e kaluar";
-"history-section-lastmonth" = "Muajin e kaluar";
-// Fuzzy
-"history-clear-confirmation-heading" = "Fshini të gjithë artikujt e fundit?";
-"history-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
-"history-clear-cancel" = "Anulo";
-// Fuzzy
-"history-clear-delete-all" = "Fshi të gjitha";
-"history-description" = "Ndoshta i keni fshirë të gjitha. Herën tjetër që shkoni në një faqe, ju mund të riktheheni te ajo nga këtu.";
-"history-none" = "Nuk ka faqe të fundit këtu.";
-"zero-free-verbiage" = "Qasje falas Wikipedia nga operatori juaj celular (pa tarifim të dhënash)";
-"zero-charged-verbiage" = "Wikipedia Zero është e çaktivizuar";
-"zero-charged-verbiage-extended" = "Hapja e artikujve të tjerë mund të çojë në tarifimin e të dhënave. Artikujt e ruajtur nuk përdorin të dhëna dhe janë falas.";
-"zero-interstitial-title" = "Duke lënë Wikipedia Zero";
-"zero-interstitial-leave-app" = "Mund të zbatohet tarifimi i të dhënave. Dëshironi të vazhdoni në faqen e jashtme?";
-"zero-interstitial-continue" = "Largohu";
-"zero-interstitial-cancel" = "Qëndroni këtu";
-"zero-learn-more" = "Nuk zbatohet tarifimi i të dhënave për këtë aplikacion të Wikipedias.";
-"zero-learn-more-learn-more" = "Lexo më shumë";
-"zero-learn-more-no-thanks" = "Largoje";
-"zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Më paralajmëro nëse po lë Wikipedia Zeron";
-"zero-settings-devmode" = "Zero devmode";
-"account-creation-captcha-required" = "Kërkohet verifikimi CAPTCHA.";
-// Fuzzy
-"account-creation-captcha-obtaining" = "Duke marrë një CAPTCHA tjetër.";
-"account-creation-logging-in" = "Duke hyrë...";
-"account-creation-passwords-mismatched" = "Fushat e fjalëkalimeve nuk përputhen.";
-"account-creation-saving" = "Duke ruajtur...";
-"account-creation-login" = "Keni një llogari? Identifikohuni";
-"account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";
-// Fuzzy
-"login-name-not-found" = "Emri i përdoruesit është i nevojshëm në mënyrë që të hyni.";
-// Fuzzy
-"login-name-illegal" = "Ju dhatë një emër përdoruesi të palejuar.";
-// Fuzzy
-"login-name-does-not-exist" = "Emri i përdoruesit që dhatë nuk ekziston.";
-"login-password-empty" = "Fjalëkalimi është i nevojshëm në mënyrë që të hyni.";
-"login-password-wrong" = "Fjalëkalimi që dhatë është i pasaktë.";
-"login-throttled" = "Keni hyrë shumë herë në një kohë të shkurtër.";
-"login-user-blocked" = "Përdoruesi është i bllokuar.";
-"login-account-creation" = "Nuk keni llogari? Bashkojuni Wikipedias";
-// Fuzzy
-"login-username-placeholder-text" = "Emri i përdoruesit";
-"login-password-placeholder-text" = "Fjalëkalimi";
-"wikitext-downloading" = "Duke ngarkuar përmbajtjen...";
-"wikitext-download-failed" = "Nuk mund të hapet versioni i fundit.";
-"wikitext-download-success" = "Përmbajtja u ngarkua.";
-"wikitext-preview-changes" = "Duke marrë një parapamje të ndryshimeve tuaja...";
-"wikitext-preview-changes-none" = "Nuk u bë asnjë ndryshim për parapamje.";
-"wikitext-upload-save" = "Duke publikuar...";
-"wikitext-upload-save-sign-in" = "Hyni";
-// Fuzzy
-"wikitext-upload-save-anonymously" = "Ruaj në mënyrë anonime";
-"open-link-title" = "Hap lidhjen";
-"open-link-cancel" = "Anulo";
-"search-searching" = "Duke kërkuar...";
-"search-field-placeholder-text" = "Kërko në Wikipedia";
-"search-field-placeholder-text-zero" = "Kërko në Wikipedia Zero";
-"search-loading-section-zero" = "Duke ngarkuar seksionin e parë të artikullit...";
-"search-loading-section-remaining" = "Duke ngarkuar pjesën tjetër të artikullit...";
-"search-loading-article-loaded" = "Artikulli u ngarkua.";
-"search-cancel" = "Anulo";
-"search-titles" = "Titujt";
-"search-within-articles" = "Brenda artikujve";
-"search-did-you-mean" = "Mos kishit në mendje $1?";
-// Fuzzy
-"search-recent-title" = "Kërkimet e fundit";
-"search-recent-clear-confirmation-heading" = "Fshi të gjitha kërkimet e fundit?";
-"search-recent-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
-"search-recent-clear-cancel" = "Anulo";
-"search-recent-clear-delete-all" = "Fshi të gjitha";
-"settings-title" = "Cilësimet";
-"settings-primary-language" = "Primar";
-"main-menu-title" = "Më tepër...";
-"main-menu-heading-about" = "Rreth";
-"main-menu-language-title" = "Kërko në Wikipedian në gjuhën $1";
-// Fuzzy
-"main-menu-faq" = "Pyetje të shpeshta";
-"main-menu-language-toggle-show" = "Trego gjuhët";
-"main-menu-language-toggle-hide" = "Fshih gjuhët";
-"main-menu-account-title-logged-out" = "Llogaria";
-// Fuzzy
-"main-menu-account-title-logged-in" = "Keni hyrë si: $1";
-// Fuzzy
-"main-menu-account-login" = "Hyni";
-"main-menu-account-logout" = "Dil";
-"main-menu-show-title" = "Më trego...";
-"main-menu-show-history" = "Të fundit";
-"main-menu-show-saved" = "Faqet e ruajtura";
-"main-menu-current-article-save" = "Ruani $1 për lexim pa internet";
-"main-menu-random" = "I rastit";
-"main-menu-feedback-heading" = "Komente";
-// Fuzzy
-"main-menu-send-feedback" = "Dërgoni komente rreth aplikacionit";
-"main-menu-show-page-history" = "Historiku i ndryshimeve të artikullit $1";
-"main-menu-credits" = "Kreditet";
-// Fuzzy
-"main-menu-about" = "Rreth aplikacionit Wikipedia";
-"main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
-"main-menu-privacy-policy" = "Politika e privatësisë";
-// Fuzzy
-"main-menu-terms-of-use" = "Kushtet e përdorimit";
-// Fuzzy
-"main-menu-rate-app" = "Vlerësoni aplikacionin";
-"main-menu-heading-zero" = "Wikipedia Zero";
-"main-menu-heading-legal" = "Privatësia dhe Kushtet";
-"main-menu-show-today" = "Sot";
-"main-menu-nearby" = "Pranë";
-"main-menu-more" = "Më shumë...";
-"main-menu-heading-debug" = "Debug";
-"main-menu-debug-crash" = "Mbyllje e detyrueshme";
-"saved-pages-title" = "Faqet e ruajtura";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Fshi të gjithë artikujt e ruajtur?";
-"saved-pages-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
-"saved-pages-clear-cancel" = "Anulo";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Fshi të gjitha";
-"saved-pages-refresh-cancel-alert-button" = "E kuptova";
-"page-history-title" = "Historiku i artikullit";
-"page-history-downloading" = "Duke ngarkuar historikun e artikullit...";
-"navbar-title-mode-edit-wikitext" = "Redakto";
-"navbar-title-mode-login" = "Hyni";
-"navbar-title-mode-create-account" = "Krijo llogari";
-"navbar-title-mode-edit-wikitext-preview" = "Parapamje";
-"navbar-title-mode-edit-wikitext-summary" = "Përshkruani redaktimin tuaj";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-save" = "Ruaj";
-"edit-summary-choice-linked-words" = "Shtova lidhje";
-"edit-summary-choice-fixed-grammar" = "Rregollova gabimet gramatikore";
-"edit-summary-choice-fixed-inaccuracy" = "Rregollva disa pasaktësi";
-"edit-summary-choice-fixed-styling" = "Rregullova stilizimin";
-"edit-summary-choice-fixed-typos" = "Rregullova gabimet drejtshkrimore";
-"edit-summary-choice-added-category" = "Shtova kategori";
-"edit-summary-choice-added-missing-info" = "Shtova informacione që mungonin";
-"edit-summary-choice-added-clarification" = "Shtova sqarime";
-"edit-summary-choice-other" = "Tjetër";
-"edit-summary-description" = "Një përmbledhje specifike i ndihmon bashkë-redaktorët t'i rishikojnë shpejt redaktimet tuaja. Ju mund të zgjidhni gjithashtu nga etiketat më poshtë.";
-"edit-summary-field-placeholder-text" = "Mënyra të tjera se si ju e përmirësuat artikullin";
-"edit-summary-title" = "Si e përmirësuat artikullin?";
-"article-pull-to-refresh-prompt" = "Tërhiq për të përditësuar artikullin";
-"article-pull-to-refresh-is-refreshing" = "Duke përditësuar artikullin";
-"about-title" = "Rreth";
-"about-wikipedia" = "Wikipedia";
 // Fuzzy
 "about-contributors" = "kontribuuesit";
 // Fuzzy
 "about-testers" = "testuesit";
+"about-title" = "Rreth";
 // Fuzzy
 "about-translators" = "përkthyesit";
 "about-translators-details" = "Përkthyer nga vullnetarët në $1";
 "about-wikimedia-foundation" = "Fondacioni Wikimedia";
-"share-menu-save-page" = "Ruaj faqen";
-"share-menu-page-saved" = "Ruajtur për lexim pa internet.";
-// Fuzzy
-"share-custom-menu-item" = "Shpërndaje";
-"share-article-name-on-wikipedia" = "\"$1\" në @Wikipedia:";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" në @Wikipedia: \"$2\"";
-"share-as-image" = "Shpërndaje si imazh";
-"share-as-text" = "Shpërndaje si tekst";
-"timestamp-just-now" = "tani";
-"timestamp-minutes" = "%d minuta më parë";
-"timestamp-hours" = "%d orë më parë";
-"timestamp-days" = "%d ditë më parë";
-"timestamp-months" = "%d muaj më parë";
-"timestamp-years" = "%d vite më parë";
-"lastmodified-by-user" = "Redaktuar $1 nga $2";
-"lastmodified-by-anon" = "Redaktuar $1 nga një përdorues anonim";
-"button-next" = "Më pas";
-"button-done" = "Përfunduar";
-"button-save" = "Ruaje";
-"button-publish" = "Publiko";
-"button-ok" = "Në rregull";
-"button-save-for-later" = "Ruani për më vonë";
-"button-saved-for-later" = "Ruajtur për më vonë";
-"onboarding-create-account" = "Krijo llogari";
-"onboarding-login" = "Hyni";
-"onboarding-already-have-account" = "Keni një llogari?$1";
-"onboarding-skip" = "Tejkalo";
-"onboarding-wikipedia" = "Wikipedia";
-"onboarding-free-encyclopedia" = "Enciklopedia e lirë";
-"page-protected-autoconfirmed" = "Kjo faqe ka qenë gjysmë e mbrojtur.";
-"page-protected-sysop" = "Kjo faqe ka qenë e mbrojtur plotësisht.";
-"page-protected-can-not-edit" = "Ju nuk keni të drejtë të redaktoni këtë faqe";
-"page-protected-can-not-edit-title" = "Kjo faqe është e mbrojtur";
-"license-footer-name" = "CC BY-SA 3.0";
-"table-of-contents-heading" = "Përmbajtja";
-"table-of-contents-close-accessibility-hint" = "Mbyll";
-"table-of-contents-popover-description" = "Merrni një pasqyrë të artikujve";
-"abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta publikoni?";
-"abuse-filter-warning-subheading" = "Redaktimi juaj mund të përmbajë një ose më shumë nga të mëposhtmet:";
-"abuse-filter-warning-caps" = "Shkrim ME SHKRONJA TË MËDHA";
-"abuse-filter-warning-blanking" = "Zbrazje e artikujve ose spam";
-"abuse-filter-warning-irrelevant" = "Imazhe ose lidhje të jashtme të papërshtatshme";
-"abuse-filter-warning-repeat" = "Përsëëëëëëritje karakteresh";
+"about-wikipedia" = "Wikipedia";
 "abuse-filter-disallow-heading" = "Ju nuk mund ta publikoni këtë redaktim. Ju lutemi kthehuni prapa dhe ndryshojeni.";
 "abuse-filter-disallow-unconstructive" = "Një filter i automatizuar e ka indenftikuar këtë redaktim si potencialisht jokonstruktiv ose si një përpjekje për vandalizëm.";
-"menu-edit-accessibility-label" = "Redakto";
-"menu-close-accessibility-label" = "Mbylle";
-"menu-preview-accessibility-label" = "Parapamje";
-"menu-back-accessibility-label" = "Prapa";
-"menu-forward-accessibility-label" = "Përpara";
-"menu-w-accessibility-label" = "Menuja";
-"menu-toc-accessibility-label" = "Përmbajtja";
-"menu-search-accessibility-label" = "Kërko";
-"menu-reload-accessibility-label" = "Ringarko";
-"menu-cancel-accessibility-label" = "Anulo";
-"menu-share-accessibility-label" = "Shpërndaje";
-"menu-more-accessibility-label" = "Më shumë cilësime";
-"menu-trash-accessibility-label" = "Fshi";
-"menu-language-accessibility-label" = "Gjuhët";
-"nearby-title" = "Pranë";
-"nearby-distance-label-meters" = "$1 m";
-"nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-feet" = "$1 feet (1 feet = 0.3048 m)";
-"nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
-"nearby-pull-to-refresh-prompt" = "Tërhiqe për ta përditësuar";
-"nearby-pull-to-refresh-is-refreshing" = "Duke përditësuar";
-"nearby-none" = "Nuk u gjet asnjë artikull pranë jush. Tërhiqni për të përditësuar ose provoni më vonë.";
-"nearby-open-in-maps" = "Hape në harta";
-"nearby-cancel" = "Anulo";
-"nearby-location-updates-denied" = "Ky aplikacion nuk ka leje për të marrë përditësimet e vendndodhjes.";
-"nearby-location-updates-enable" = "Për të aktivizuar përditësimet e vendndodhjes, hapni aplikacionin Settings dhe zgjidhni të mëposhtmet:";
-"nearby-location-updates-settings-menu" = "Privacy > Location Services > Wikipedia";
-"nearby-location-general-error" = "Nuk mund të përcaktohet vendndodhja. Tërhiqni për të përditësuar ose provonë përsëeri më vonë.";
-"nearby-wifi" = "Aktivizimi i WI-FI mund ta ndihmojë pajisjen tuaj ta përcaktojë më mirë vendndodhjen tuaj.";
-"image-gallery-fetch-image-info-error-ok" = "Në rregull";
-"page-similar-titles" = "Faqe të ngjashme";
-"explore-featured-article-heading" = "Artikujt e veçuar";
+"abuse-filter-warning-blanking" = "Zbrazje e artikujve ose spam";
+"abuse-filter-warning-caps" = "Shkrim ME SHKRONJA TË MËDHA";
+"abuse-filter-warning-heading" = "Ky duket si një redaktim jokonstruktiv, jeni të sigurt që dëshironi ta publikoni?";
+"abuse-filter-warning-irrelevant" = "Imazhe ose lidhje të jashtme të papërshtatshme";
+"abuse-filter-warning-repeat" = "Përsëëëëëëritje karakteresh";
+"abuse-filter-warning-subheading" = "Redaktimi juaj mund të përmbajë një ose më shumë nga të mëposhtmet:";
+// Fuzzy
+"account-creation-captcha-obtaining" = "Duke marrë një CAPTCHA tjetër.";
+"account-creation-logging-in" = "Duke hyrë...";
+"account-creation-missing-fields" = "Ju duhet të fusni një emër përdoruesi, fjalëkalimin dhe konfirmimin e fjalëkalimit për të krijuar një llogari.";
+"account-creation-passwords-mismatched" = "Fushat e fjalëkalimeve nuk përputhen.";
+"account-creation-saving" = "Duke ruajtur...";
+"article-about-title" = "Rreth këtij artikulli";
+"article-languages-filter-placeholder" = "Gjeni gjuhën";
+"article-languages-label" = "Zgjidhni gjuhën";
+"article-languages-others" = "Gjuhët e tjera";
+"article-languages-yours" = "Gjuhët tuaja";
+"article-read-more-title" = "Lexo më shumë";
+"article-unable-to-load-article" = "Nuk mund të ngarkohet artikulli.";
+"article-unable-to-load-section" = "Nuk mund të ngarkohet ky seksion. Provoni të rihapni artikullin për të parë nëse rregullohet problemi.";
+"back" = "Prapa";
+"button-done" = "Përfunduar";
+"button-next" = "Më pas";
+"button-ok" = "Në rregull";
+"button-publish" = "Publiko";
+"button-save-for-later" = "Ruani për më vonë";
+"button-saved-for-later" = "Ruajtur për më vonë";
+"edit-summary-choice-fixed-grammar" = "Rregollova gabimet gramatikore";
+"edit-summary-choice-fixed-typos" = "Rregullova gabimet drejtshkrimore";
+"edit-summary-choice-linked-words" = "Shtova lidhje";
+"edit-summary-choice-other" = "Tjetër";
+"edit-summary-field-placeholder-text" = "Mënyra të tjera se si ju e përmirësuat artikullin";
+"edit-summary-title" = "Si e përmirësuat artikullin?";
 "explore-continue-reading-heading" = "Vazhdo leximin";
+"explore-featured-article-heading" = "Artikujt e veçuar";
+"explore-main-page-heading" = "Sot në Wikipedia";
 "explore-nearby-heading" = "Vendet në afërsi";
 "explore-nearby-sub-heading-your-location" = "Vendndodhja juaj";
-"explore-continue-related-heading" = "Sepse ju lexoni";
-"explore-main-page-heading" = "Sot në Wikipedia";
-"explore-random-article-heading" = "Artikull i rastit";
-"explore-random-article-sub-heading" = "Wikipedia Anglisht";
 "explore-potd-heading" = "Fotografia e ditës";
-"explore-most-read-more-list-title" = "Artikujt më të lexuar";
-"number-thousands" = "$1K";
-"number-millions" = "$1M";
-"number-billions" = "$1B";
+"explore-random-article-heading" = "Artikull i rastit";
 "feed-news-notification-button-text" = "Aktivizo njoftimet";
-"back" = "Prapa";
-"save-action" = "Ruaj";
-"unsave-action" = "Mos ruaj";
-"status-saving-for-later" = "Duke ruajtur për më vonë...";
+"history-clear-all" = "Pastro";
+"history-clear-cancel" = "Anulo";
+// Fuzzy
+"history-clear-confirmation-heading" = "Fshini të gjithë artikujt e fundit?";
+// Fuzzy
+"history-clear-delete-all" = "Fshi të gjitha";
+"info-box-close-text" = "Mbylle";
+// Fuzzy
+"info-box-title" = "Fakte të shpejta";
+"languages-title" = "Ndrysho gjuhën";
+"license-footer-name" = "CC BY-SA 3.0";
+// Fuzzy
+"main-menu-about" = "Rreth aplikacionit Wikipedia";
+// Fuzzy
+"main-menu-account-login" = "Hyni";
+"main-menu-account-logout" = "Dil";
+// Fuzzy
+"main-menu-account-title-logged-in" = "Keni hyrë si: $1";
+"main-menu-debug-crash" = "Mbyllje e detyrueshme";
+"main-menu-heading-debug" = "Debug";
+"main-menu-heading-legal" = "Privatësia dhe Kushtet";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-nearby" = "Pranë";
+"main-menu-privacy-policy" = "Politika e privatësisë";
+// Fuzzy
+"main-menu-rate-app" = "Vlerësoni aplikacionin";
+// Fuzzy
+"main-menu-terms-of-use" = "Kushtet e përdorimit";
+"main-menu-title" = "Më tepër...";
+"main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
+"menu-cancel-accessibility-label" = "Anulo";
+"menu-trash-accessibility-label" = "Fshi";
+"navbar-title-mode-edit-wikitext-preview" = "Parapamje";
+"nearby-distance-label-feet" = "$1 feet (1 feet = 0.3048 m)";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
+"number-billions" = "$1B";
+"number-millions" = "$1M";
+"number-thousands" = "$1K";
+"onboarding-wikipedia" = "Wikipedia";
+"open-link-cancel" = "Anulo";
+"page-history-title" = "Historiku i artikullit";
+"page-protected-autoconfirmed" = "Kjo faqe ka qenë gjysmë e mbrojtur.";
+"page-protected-can-not-edit" = "Ju nuk keni të drejtë të redaktoni këtë faqe";
+"page-protected-can-not-edit-title" = "Kjo faqe është e mbrojtur";
+"page-protected-sysop" = "Kjo faqe ka qenë e mbrojtur plotësisht.";
+"page-similar-titles" = "Faqe të ngjashme";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Ditë|Dje|$1 ditë më parë}}";
+"saved-clear-all" = "Pastro";
+"saved-pages-clear-cancel" = "Anulo";
+// Fuzzy
+"saved-pages-clear-confirmation-heading" = "Fshi të gjithë artikujt e ruajtur?";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Fshi të gjitha";
+"search-did-you-mean" = "Mos kishit në mendje $1?";
+"search-field-placeholder-text" = "Kërko në Wikipedia";
+"search-recent-clear-cancel" = "Anulo";
+"search-recent-clear-confirmation-heading" = "Fshi të gjitha kërkimet e fundit?";
+"search-recent-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
+"search-recent-clear-delete-all" = "Fshi të gjitha";
+// Fuzzy
+"search-recent-title" = "Kërkimet e fundit";
+"settings-primary-language" = "Primar";
+"settings-title" = "Cilësimet";
+"share-article-name-on-wikipedia" = "\"$1\" në @Wikipedia:";
+// Fuzzy
+"share-custom-menu-item" = "Shpërndaje";
 "status-saved-for-later" = "Ruajtur për më vonë";
+"status-saving-for-later" = "Duke ruajtur për më vonë...";
+"table-of-contents-close-accessibility-hint" = "Mbyll";
+"table-of-contents-heading" = "Përmbajtja";
+"table-title-other" = "Më shumë informacion";
+"wikitext-download-failed" = "Nuk mund të hapet versioni i fundit.";
+"wikitext-download-success" = "Përmbajtja u ngarkua.";
+"wikitext-downloading" = "Duke ngarkuar përmbajtjen...";
+"wikitext-preview-changes" = "Duke marrë një parapamje të ndryshimeve tuaja...";
+"wikitext-preview-changes-none" = "Nuk u bë asnjë ndryshim për parapamje.";
+"wikitext-upload-save" = "Duke publikuar...";
+"wikitext-upload-save-sign-in" = "Hyni";
+"zero-charged-verbiage" = "Wikipedia Zero është e çaktivizuar";
+"zero-charged-verbiage-extended" = "Hapja e artikujve të tjerë mund të çojë në tarifimin e të dhënave. Artikujt e ruajtur nuk përdorin të dhëna dhe janë falas.";
+"zero-free-verbiage" = "Qasje falas Wikipedia nga operatori juaj celular (pa tarifim të dhënash)";
+"zero-interstitial-cancel" = "Qëndroni këtu";
+"zero-interstitial-continue" = "Largohu";
+"zero-interstitial-leave-app" = "Mund të zbatohet tarifimi i të dhënave. Dëshironi të vazhdoni në faqen e jashtme?";
+"zero-interstitial-title" = "Duke lënë Wikipedia Zero";
+"zero-learn-more" = "Nuk zbatohet tarifimi i të dhënave për këtë aplikacion të Wikipedias.";
+"zero-learn-more-learn-more" = "Lexo më shumë";
+"zero-learn-more-no-thanks" = "Largoje";
+// Fuzzy
+"zero-warn-when-leaving" = "Më paralajmëro nëse po lë Wikipedia Zeron";

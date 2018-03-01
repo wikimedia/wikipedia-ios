@@ -1,4 +1,4 @@
-var wmf = {}
+const wmf = {}
 
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
 wmf.elementLocation = require('./js/elementLocation')

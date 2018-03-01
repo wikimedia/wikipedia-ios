@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
         @"pilimit": numberOfRandomItemsToFetch,
         // revision
-        @"rrvlimit": @(1),
+        // @"rrvlimit": @(1),
         @"rvprop": @"ids",
         @"format": @"json",
     };

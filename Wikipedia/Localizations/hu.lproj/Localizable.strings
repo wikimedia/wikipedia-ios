@@ -75,6 +75,7 @@
 "appearance-settings-title" = "Olvasási témák";
 "article-about-title" = "Erről a szócikkről";
 "article-delete" = "Törlés";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Szócikk törölve";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
@@ -321,6 +322,7 @@
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "saved-clear-all" = "Törlés";
 "saved-pages-clear-cancel" = "Mégse";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Biztosan törölni akarod az összes mentett lapot?";
 "saved-pages-clear-delete-all" = "Igen, összes törlése";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
@@ -335,6 +337,7 @@
 "search-recent-title" = "Legutóbbi keresések";
 "search-result-redirected-from" = "$1 szócikkből átirányítva";
 "search-title" = "Keresés";
+// Fuzzy
 "settings-appearance" = "Megjelenés";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";

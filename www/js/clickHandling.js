@@ -47,7 +47,7 @@ class ClickedItem {
  * @param  {!ClickedItem} item the item which was clicked on
  * @return {Boolean} `true` if a message was sent, otherwise `false`
  */
-function sendMessageForClickedItem(item){
+const sendMessageForClickedItem = item => {
   switch(item.type()) {
   case ItemType.link:
     sendMessageForLinkWithHref(item.href)
@@ -72,7 +72,7 @@ function sendMessageForClickedItem(item){
  * @param  {!String} href url
  * @return {void}
  */
-function sendMessageForLinkWithHref(href){
+const sendMessageForLinkWithHref = href => {
   if(href[0] === '#'){
     tableCollapser.expandCollapsedTableIfItContainsElement(document.getElementById(href.substring(1)))
   }
@@ -84,7 +84,7 @@ function sendMessageForLinkWithHref(href){
  * @param  {!Element} target an image element
  * @return {void}
  */
-function sendMessageForImageWithTarget(target){
+const sendMessageForImageWithTarget = target => {
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': target.getAttribute('src'),
     'width': target.naturalWidth,   // Image should be fetched by time it is tapped, so naturalWidth and height should be available.
@@ -99,7 +99,7 @@ function sendMessageForImageWithTarget(target){
  * @param  {!Element} innerPlaceholderSpan
  * @return {void}
  */
-function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
+const sendMessageForImagePlaceholderWithTarget = innerPlaceholderSpan => {
   const outerSpan = innerPlaceholderSpan.parentElement
   window.webkit.messageHandlers.imageClicked.postMessage({
     'src': outerSpan.getAttribute('data-src'),
@@ -115,16 +115,14 @@ function sendMessageForImagePlaceholderWithTarget(innerPlaceholderSpan){
  * @param  {!Element} target an anchor element
  * @return {void}
  */
-function sendMessageForReferenceWithTarget(target){
-  refs.sendNearbyReferences( target )
-}
+const sendMessageForReferenceWithTarget = target => refs.sendNearbyReferences( target )
 
 /**
  * Handler for the click event.
  * @param  {ClickEvent} event the event being handled
  * @return {void}
  */
-function handleClickEvent(event){
+const handleClickEvent = event => {
   const target = event.target
   if(!target) {
     return
@@ -153,7 +151,7 @@ function handleClickEvent(event){
 /**
  * Associate our custom click handler logic with the document `click` event.
  */
-document.addEventListener('click', function (event) {
+document.addEventListener('click', event => {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
