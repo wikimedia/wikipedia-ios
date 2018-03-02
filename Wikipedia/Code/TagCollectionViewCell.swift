@@ -10,8 +10,9 @@ public struct Tag {
 
 class TagCollectionViewCell: CollectionViewCell {
     static let reuseIdentifier = "TagCollectionViewCell"
-    fileprivate let label = UILabel()
-    internal var width: CGFloat = 0
+    private let label = UILabel()
+    var width: CGFloat = 0
+    let margins = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
     
     override func setup() {
         contentView.addSubview(label)
@@ -19,13 +20,14 @@ class TagCollectionViewCell: CollectionViewCell {
         clipsToBounds = true
         super.setup()
     }
-    
+
     func configure(with tag: Tag, for count: Int, theme: Theme) {
         guard tag.index <= 2, let name = tag.readingList.name else {
             return
         }
         label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
-        width = min(100, label.intrinsicContentSize.width)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        width = min(150, label.intrinsicContentSize.width)
         apply(theme: theme)
         updateFonts(with: traitCollection)
         setNeedsLayout()
@@ -43,12 +45,18 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        var origin = CGPoint.zero
-        
-        if label.wmf_hasText {
-            origin.y += label.wmf_preferredHeight(at: origin, fitting: width, alignedBy: semanticContentAttributeOverride, spacing: 0, apply: apply)
+        let availableWidth = width - margins.left - margins.right
+        var x = margins.left
+        if semanticContentAttributeOverride == .forceRightToLeft {
+            x = width - x - availableWidth
         }
-        
+        print("label origin: \(label.frame.origin)")
+        var origin = CGPoint(x: x, y: margins.top)
+        if label.wmf_hasText {
+            let tagLabel = label.wmf_preferredFrame(at: origin, fitting: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
+            origin.y += tagLabel.height
+            
+        }
         return CGSize(width: size.width, height: origin.y)
     }
     

@@ -275,15 +275,12 @@ extension SavedArticlesViewController {
         guard let article = article(at: indexPath) else {
             return
         }
-        
+        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         cell.delegate = self
-        
         cell.layoutMargins = layout.readableMargins
         
         guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {

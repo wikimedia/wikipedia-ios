@@ -15,6 +15,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    private var isTagsViewHidden: Bool = true {
+        didSet {
+            collectionView.isHidden = isTagsViewHidden
+            setNeedsLayout()
+        }
+    }
+    
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
@@ -25,6 +32,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    private var estimatedCollectionViewHeight: CGFloat? = nil
     
     fileprivate lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -86,14 +95,25 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
         }
         
+        let titleLabelAvailableWidth: CGFloat
+        
+        if isStatusViewHidden {
+            titleLabelAvailableWidth = widthMinusMargins
+        } else if isImageViewHidden {
+            titleLabelAvailableWidth = widthMinusMargins - statusViewDimension - spacing
+        } else {
+            titleLabelAvailableWidth = widthMinusMargins - statusViewDimension - 2 * spacing
+        }
+        
         var x = layoutMargins.left
         if isRTL {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
+        
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -107,11 +127,18 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
+        
+        if (apply && !isStatusViewHidden) {
+            let x = isRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
+            let statusViewFrame = CGRect(x: x, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
+            statusView.frame = statusViewFrame
+            statusView.cornerRadius = 0.5 * statusViewDimension
+        }
 
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
@@ -138,9 +165,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        let tagsCount: CGFloat = CGFloat(tags.readingLists.count)
-        if (apply && tagsCount != 0), let layout = layout {
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth, height: layout.itemSize.height)
+        if (apply && !isTagsViewHidden), let layout = layout {
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: layout.itemSize.height)
         }
         
         return CGSize(width: size.width, height: height)
@@ -165,6 +191,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        isStatusViewHidden = article.isDownloaded
+        isTagsViewHidden = tags.readingLists.count == 0
+        isAlertLabelHidden = false // update before merging
+        
+        if !isStatusViewHidden {
+            statusView.backgroundColor = theme.colors.warning
+        }
         
         if shouldShowSeparators {
             topSeparator.isHidden = index > 0
@@ -185,6 +218,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
+        collectionView.backgroundColor = UIColor.magenta
         collectionView.visibleCells.forEach { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
@@ -228,13 +262,14 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard tags.readingLists.count != 0 else {
+        guard !isTagsViewHidden else {
             return .zero
         }
         
         placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
-        // simply returning size is not altering the item's size
+        placeholderCell.sizethat
+        let width = placeholderCell.width + placeholderCell.margins.left + placeholderCell.margins.right
+        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: UIViewNoIntrinsicMetric, alignedBy: semanticContentAttribute, apply: false).size
         layout?.itemSize = size
         setNeedsLayout()
         return size
