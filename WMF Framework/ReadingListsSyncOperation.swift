@@ -923,7 +923,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         for (readingListID, readingListEntriesByKey) in remoteReadingListEntriesByReadingListID {
             try autoreleasepool {
                 let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-                localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@ && isDeletedLocally != YES", NSNumber(value: readingListID)) // this is != YES instead of == NO to match NULL values as well
+                localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@", NSNumber(value: readingListID))
                 let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
                 var localEntriesMissingRemotely: [ReadingListEntry] = []
                 var remoteEntriesMissingLocally: [String: APIReadingListEntry] = readingListEntriesByKey
