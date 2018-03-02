@@ -603,6 +603,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
         
+        taskGroup.wait()
+        
         for (_, localReadingListEntry) in deletedReadingListEntries {
             moc.delete(localReadingListEntry)
         }
