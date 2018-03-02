@@ -17,6 +17,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     private var isTagsViewHidden: Bool = true {
         didSet {
+            collectionView.isHidden = isTagsViewHidden
             setNeedsLayout()
         }
     }
@@ -31,6 +32,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    private var estimatedCollectionViewHeight: CGFloat? = nil
     
     fileprivate lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -163,7 +166,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isTagsViewHidden), let layout = layout {
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: separatorWidth, height: layout.itemSize.height)
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: layout.itemSize.height)
         }
         
         return CGSize(width: size.width, height: height)
@@ -189,7 +192,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         isStatusViewHidden = article.isDownloaded
-        isTagsViewHidden = tags.readingLists.count > 0
+        isTagsViewHidden = tags.readingLists.count == 0
         isAlertLabelHidden = false // update before merging
         
         if !isStatusViewHidden {
@@ -215,6 +218,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
+        collectionView.backgroundColor = UIColor.magenta
         collectionView.visibleCells.forEach { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
@@ -258,13 +262,14 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard tags.readingLists.count != 0 else {
+        guard !isTagsViewHidden else {
             return .zero
         }
         
         placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: placeholderCell.width, alignedBy: semanticContentAttribute, apply: false).size
-        // simply returning size is not altering the item's size
+        placeholderCell.sizethat
+        let width = placeholderCell.width + placeholderCell.margins.left + placeholderCell.margins.right
+        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: UIViewNoIntrinsicMetric, alignedBy: semanticContentAttribute, apply: false).size
         layout?.itemSize = size
         setNeedsLayout()
         return size
