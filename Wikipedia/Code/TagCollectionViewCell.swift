@@ -8,9 +8,24 @@ public struct Tag {
     }
 }
 
+class TagLabel: UILabel {
+    let insets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+    
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+    }
+    
+    override public var intrinsicContentSize: CGSize {
+        var intrinsicSuperViewContentSize = super.intrinsicContentSize
+        intrinsicSuperViewContentSize.height += insets.top + insets.bottom
+        intrinsicSuperViewContentSize.width += insets.left + insets.right
+        return intrinsicSuperViewContentSize
+    }
+}
+
 class TagCollectionViewCell: CollectionViewCell {
     static let reuseIdentifier = "TagCollectionViewCell"
-    fileprivate let label = UILabel()
+    fileprivate let label = TagLabel()
     internal var width: CGFloat = 0
     
     override func setup() {
