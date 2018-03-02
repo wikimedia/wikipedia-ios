@@ -541,15 +541,15 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 guard let readingListEntryID = localReadingListEntry.readingListEntryID?.int64Value else {
+                    if let olderAddition = entriesToAddByListID[readingListID]?[project]?.removeValue(forKey: title) {
+                        moc.delete(olderAddition)
+                    }
                     if localReadingListEntry.isDeletedLocally {
                         // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingListEntry)
                     } else {
                         if let olderDeletion = entriesToDeleteByListID[readingListID]?[project]?.removeValue(forKey: title) {
                             moc.delete(olderDeletion)
-                        }
-                        if let olderAddition = entriesToAddByListID[readingListID]?[project]?.removeValue(forKey: title) {
-                            moc.delete(olderAddition)
                         }
                         entriesToAddByListID[readingListID, default: [:]][project, default: [:]][title] =  localReadingListEntry
                     }
