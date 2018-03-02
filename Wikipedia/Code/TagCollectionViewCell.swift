@@ -11,8 +11,8 @@ public struct Tag {
 class TagCollectionViewCell: CollectionViewCell {
     static let reuseIdentifier = "TagCollectionViewCell"
     private let label = UILabel()
-    var width: CGFloat = 0
     let margins = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+    private let maxWidth: CGFloat = 150
     
     override func setup() {
         contentView.addSubview(label)
@@ -26,8 +26,6 @@ class TagCollectionViewCell: CollectionViewCell {
             return
         }
         label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        width = min(150, label.intrinsicContentSize.width)
         apply(theme: theme)
         updateFonts(with: traitCollection)
         setNeedsLayout()
@@ -45,19 +43,16 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let availableWidth = width - margins.left - margins.right
-        var x = margins.left
-        if semanticContentAttributeOverride == .forceRightToLeft {
-            x = width - x - availableWidth
-        }
-        print("label origin: \(label.frame.origin)")
-        var origin = CGPoint(x: x, y: margins.top)
-        if label.wmf_hasText {
-            let tagLabel = label.wmf_preferredFrame(at: origin, fitting: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
-            origin.y += tagLabel.height
-            
-        }
-        return CGSize(width: size.width, height: origin.y)
+        let availableWidth = (size.width == UIViewNoIntrinsicMetric ? maxWidth : size.width) - margins.left - margins.right
+
+        var origin = CGPoint(x: margins.left, y: margins.top)
+
+        let tagLabelFrame = label.wmf_preferredFrame(at: origin, fitting: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
+        origin.y += tagLabelFrame.height
+        origin.y += margins.bottom
+
+        return CGSize(width: tagLabelFrame.size.width + margins.left
+             + margins.right, height: origin.y)
     }
     
     override func updateBackgroundColorOfLabels() {

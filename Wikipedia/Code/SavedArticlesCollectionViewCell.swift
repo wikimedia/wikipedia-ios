@@ -166,7 +166,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isTagsViewHidden), let layout = layout {
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: layout.itemSize.height)
+            let height = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
+            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: height)
         }
         
         return CGSize(width: size.width, height: height)
@@ -218,7 +219,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
-        collectionView.backgroundColor = UIColor.magenta
         collectionView.visibleCells.forEach { ($0 as? TagCollectionViewCell)?.apply(theme: theme) }
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
@@ -267,12 +267,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         }
         
         placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        placeholderCell.sizethat
-        let width = placeholderCell.width + placeholderCell.margins.left + placeholderCell.margins.right
-        let size = placeholderCell.wmf_preferredFrame(at: .zero, fitting: UIViewNoIntrinsicMetric, alignedBy: semanticContentAttribute, apply: false).size
-        layout?.itemSize = size
-        setNeedsLayout()
-        return size
+        return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
     }
 }
 
