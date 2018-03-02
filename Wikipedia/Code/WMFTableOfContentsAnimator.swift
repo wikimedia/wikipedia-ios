@@ -25,21 +25,18 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
         self.presentedViewController = presentedViewController
         self.isPresenting = true
         self.isInteractive = false
+        presentationGesture = UIPanGestureRecognizer()
         super.init()
-        presentationGesture = UIPanGestureRecognizer(target: self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
-        presentationGesture?.maximumNumberOfTouches = 1
-        presentationGesture?.delegate = self
-        if let presentationGesture = presentationGesture {
-            self.presentingViewController!.view.addGestureRecognizer(presentationGesture)
-        }
+        presentationGesture.addTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        presentationGesture.maximumNumberOfTouches = 1
+        presentationGesture.delegate = self
+        self.presentingViewController!.view.addGestureRecognizer(presentationGesture)
     }
     
     deinit {
         removeDismissalGestureRecognizer()
-        if let presentationGesture = presentationGesture {
-            presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
-            presentationGesture.view?.removeGestureRecognizer(presentationGesture)
-        }
+        presentationGesture.removeTarget(self, action: #selector(WMFTableOfContentsAnimator.handlePresentationGesture(_:)))
+        presentationGesture.view?.removeGestureRecognizer(presentationGesture)
     }
     
     weak var presentingViewController: UIViewController?
@@ -203,7 +200,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     
     
     // MARK: - Gestures
-    private var presentationGesture: UIPanGestureRecognizer?
+    private let presentationGesture: UIPanGestureRecognizer
     
     var dismissalGesture: UIPanGestureRecognizer?
     
@@ -335,7 +332,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
                 return false
             }
             
-        } else if gestureRecognizer == self.presentationGesture, let presentationGesture = presentationGesture {
+        } else if gestureRecognizer == self.presentationGesture {
             
             let translation = presentationGesture.translation(in: presentationGesture.view)
             let location = presentationGesture.location(in: presentationGesture.view)
