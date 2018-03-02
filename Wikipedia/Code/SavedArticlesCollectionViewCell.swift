@@ -33,7 +33,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return collectionView
     }()
     
-    private var estimatedCollectionViewHeight: CGFloat? = nil
     
     fileprivate lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -194,7 +193,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         isStatusViewHidden = article.isDownloaded
         isTagsViewHidden = tags.readingLists.count == 0
-        isAlertLabelHidden = false // update before merging
         
         if !isStatusViewHidden {
             statusView.backgroundColor = theme.colors.warning
