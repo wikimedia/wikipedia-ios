@@ -33,14 +33,17 @@ extension UIScrollView {
         let wasAtBottom = wmf_isAtBottom
         scrollIndicatorInsets = updatedScrollIndicatorInsets
         contentInset = updatedContentInset
+
         if wasAtTop {
             contentOffset = wmf_topOffset
-        } else if wasAtBottom {
+        } else if contentSize.height > UIEdgeInsetsInsetRect(bounds, contentInset).height && wasAtBottom {
             contentOffset = wmf_bottomOffset
         }
+
         if wmf_isAtTop {
             navigationBar?.setPercentHidden(0, animated: false)
         }
+
         return true
     }
 }
