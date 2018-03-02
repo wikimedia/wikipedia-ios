@@ -417,10 +417,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 guard let readingListID = localReadingList.readingListID?.int64Value else {
-                    if localReadingList.isDeletedLocally {
+                    if localReadingList.isDeletedLocally || localReadingList.canonicalName == nil {
                         // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingList)
-                    } else {
+                    } else if !localReadingList.isDefault {
                         listsToCreate.append(localReadingList)
                     }
                     return
@@ -455,11 +455,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
         }
         
-        let listNamesAndDescriptionsToCreate: [(name: String, description: String?)] = listsToCreate.flatMap {
-            guard !$0.isDefault, let name = $0.canonicalName else {
-                return nil;
-            }
-            return (name: name, description: $0.readingListDescription)
+
+        let listNamesAndDescriptionsToCreate: [(name: String, description: String?)] = listsToCreate.map {
+            assert($0.canonicalName != nil)
+            return (name: $0.canonicalName ?? "", description: $0.readingListDescription)
         }
         var start = 0
         var end = 0
@@ -467,24 +466,26 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             end = min(listNamesAndDescriptionsToCreate.count, start + WMFReadingListBatchSizePerRequestLimit)
             autoreleasepool {
                 taskGroup.enter()
-                self.apiController.createLists(listNamesAndDescriptionsToCreate, completion: { (readingListIDs, createError) in
+                let listsToCreateSubarray = Array(listsToCreate[start..<end])
+                let namesAndDescriptionsSubarray = Array(listNamesAndDescriptionsToCreate[start..<end])
+                self.apiController.createLists(namesAndDescriptionsSubarray, completion: { (readingListIDs, createError) in
                     defer {
                         taskGroup.leave()
                     }
                     guard let readingListIDs = readingListIDs else {
                         DDLogError("Error creating reading list: \(String(describing: createError))")
                         if let apiError = createError as? APIReadingListError {
-                            for list in listsToCreate {
+                            for list in listsToCreateSubarray {
                                 failedReadingLists.append((list, apiError))
                             }
                         }
                         return
                     }
                     for (index, readingList) in readingListIDs.enumerated() {
-                        guard (start + index) < listsToCreate.count else {
+                        guard index < listsToCreateSubarray.count else {
                             break
                         }
-                        let localReadingList = listsToCreate[start + index]
+                        let localReadingList = listsToCreateSubarray[index]
                         guard let readingListID = readingList.0 else {
                             if let apiError = readingList.1 as? APIReadingListError {
                                 failedReadingLists.append((localReadingList, apiError))
@@ -599,7 +600,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     var failedReadingListEntries: [(ReadingListEntry, APIReadingListError)] = []
                     requestCount += 1
                     taskGroup.enter()
-                    let entryProjectAndTitles = entries[start..<end].map { (project: $0.project, title: $0.title) }
+                    let entrySubarray = Array(entries[start..<end])
+                    let entryProjectAndTitles = entrySubarray.map { (project: $0.project, title: $0.title) }
                     self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
                         defer {
                             taskGroup.leave()
@@ -607,19 +609,17 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         guard let readingListEntryIDs = readingListEntryIDs else {
                             DDLogError("Error creating reading list entry: \(String(describing: createError))")
                             if let apiError = createError as? APIReadingListError {
-                                for (_, entries) in entriesToAddByListID {
-                                    for entry in entries {
-                                        failedReadingListEntries.append((entry.entry, apiError))
-                                    }
+                                for entry in entrySubarray {
+                                    failedReadingListEntries.append((entry.entry, apiError))
                                 }
                             }
                             return
                         }
                         for (index, readingListEntryIDOrError) in readingListEntryIDs.enumerated() {
-                            guard (start + index) < entries.count else {
+                            guard index < entrySubarray.count else {
                                 break
                             }
-                            let localReadingListEntry = entries[start + index].entry
+                            let localReadingListEntry = entrySubarray[index].entry
                             
                             guard let readingListEntryID = readingListEntryIDOrError.0 else {
                                 if let apiError = readingListEntryIDOrError.1 as? APIReadingListError {
