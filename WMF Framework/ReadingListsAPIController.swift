@@ -328,10 +328,6 @@ class ReadingListsAPIController: NSObject {
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
         post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError, apiError != .listDeleted {
-                guard entries.count > 1 else {
-                    completion([(nil, apiError)], nil)
-                    return
-                }
                 self.getAllEntriesForReadingListWithID(readingListID: listID, completion: { (remoteEntries, getAllEntriesError) in
                     var remoteEntriesByProjectAndTitle: [String: [String: APIReadingListEntry]] = [:]
                     for remoteEntry in remoteEntries {
