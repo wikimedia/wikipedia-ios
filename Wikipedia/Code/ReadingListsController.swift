@@ -604,12 +604,18 @@ internal extension WMFArticle {
         try defaultReadingList.updateArticlesAndEntries()
     }
     
-    func readingListsDidChange() {
+    func readingListsDidChange(with entries: Set<ReadingListEntry>) {
         let readingLists = self.readingLists ?? []
         if readingLists.count == 0 && savedDate != nil {
             savedDate = nil
         } else if readingLists.count > 0 && savedDate == nil {
-            savedDate = Date()
+            let dateFromEntries = entries.first(where: { (entry) -> Bool in
+                guard let entryKey = entry.articleKey else {
+                    return false
+                }
+                return entryKey == key
+            })?.createdDate
+            savedDate = dateFromEntries as Date? ?? Date()
         }
     }
 }

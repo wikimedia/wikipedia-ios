@@ -32,7 +32,7 @@ public class ReadingList: NSManagedObject {
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
-                article.readingListsDidChange()
+                article.readingListsDidChange(with: validEntries)
                 continue
             }
         }
@@ -42,7 +42,7 @@ public class ReadingList: NSManagedObject {
             countOfEntries = Int64(validEntries.count)
             for article in articlesToAdd {
                 addToArticles(article)
-                article.readingListsDidChange()
+                article.readingListsDidChange(with: validEntries)
             }
             let sortedArticles = articles?.sorted(by: { (a, b) -> Bool in
                 guard let aDate = a.savedDate else {

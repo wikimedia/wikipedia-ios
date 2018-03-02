@@ -767,9 +767,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 entry.list = readingList
                 entry.articleKey = article.key
                 entry.displayTitle = article.displayTitle
-                if article.savedDate == nil {
-                    article.savedDate = entry.createdDate as Date?
-                }
                 updatedLists.insert(readingList)
             }
         }
