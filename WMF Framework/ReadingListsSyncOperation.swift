@@ -528,12 +528,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: true)]
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
         
-       
-        var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
-        var entriesToAddByListID: [Int64: [(project: String, title: String, entry: ReadingListEntry)]] = [:]
+        var entriesToDeleteByListID: [Int64: [String: [String: ReadingListEntry]]] = [:] // [listID: [project: [title: entry]]
+        var entriesToAddByListID: [Int64: [String: [String: ReadingListEntry]]] = [:] // [listID: [project: [title: entry]]
         
         for localReadingListEntry in localReadingListEntriesToUpdate {
-            try autoreleasepool {
+            autoreleasepool {
                 guard let articleKey = localReadingListEntry.articleKey, let articleURL = URL(string: articleKey), let project = articleURL.wmf_site?.absoluteString, let title = articleURL.wmf_title else {
                     moc.delete(localReadingListEntry)
                     return
@@ -546,34 +545,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingListEntry)
                     } else {
-                        entriesToAddByListID[readingListID, default: []].append((project: project, title: title, entry: localReadingListEntry))
+                        if let olderDeletion = entriesToDeleteByListID[readingListID]?[project]?.removeValue(forKey: title) {
+                            moc.delete(olderDeletion)
+                        }
+                        entriesToAddByListID[readingListID, default: [:]][project, default: [:]][title] =  localReadingListEntry
                     }
                     return
                 }
                 if localReadingListEntry.isDeletedLocally {
-                    requestCount += 1
-                    taskGroup.enter()
-                    self.apiController.removeEntry(withEntryID: readingListEntryID, fromListWithListID: readingListID, completion: { (deleteError) in
-                        defer {
-                            taskGroup.leave()
-                        }
-                        guard deleteError == nil else {
-                            DDLogError("Error deleting reading list entry: \(String(describing: deleteError))")
-                            return
-                        }
-                        deletedReadingListEntries[readingListEntryID] = localReadingListEntry
-                    })
-                    if requestCount % WMFReadingListBatchSizePerRequestLimit == 0 {
-                        taskGroup.wait()
-                        for (_, localReadingListEntry) in deletedReadingListEntries {
-                            moc.delete(localReadingListEntry)
-                        }
-                        deletedReadingListEntries.removeAll(keepingCapacity: true)
-                        try moc.save()
-                        guard !isCancelled  else {
-                            throw ReadingListsOperationError.cancelled
-                        }
+                    if let olderAddition = entriesToAddByListID[readingListID]?[project]?.removeValue(forKey: title) {
+                        moc.delete(olderAddition)
                     }
+                    entriesToDeleteByListID[readingListID, default: [:]][project, default: [:]][title] = localReadingListEntry
                 } else {
                     // there's no "updating" of an entry currently
                     localReadingListEntry.isUpdatedLocally = false
@@ -582,6 +565,43 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         taskGroup.wait()
+        
+        var deletedReadingListEntries: [Int64: ReadingListEntry] = [:]
+        for (readingListID, entriesByProjectAndTitle) in entriesToDeleteByListID {
+            for (project, entriesByTitle) in entriesByProjectAndTitle {
+                for (title, localReadingListEntry) in entriesByTitle {
+                    guard let readingListEntryID = localReadingListEntry.readingListEntryID?.int64Value else {
+                        moc.delete(localReadingListEntry)
+                        continue
+                    }
+                    try autoreleasepool {
+                        requestCount += 1
+                        taskGroup.enter()
+                        self.apiController.removeEntry(withEntryID: readingListEntryID, fromListWithListID: readingListID, completion: { (deleteError) in
+                            defer {
+                                taskGroup.leave()
+                            }
+                            guard deleteError == nil else {
+                                DDLogError("Error deleting reading list entry: \(String(describing: deleteError))")
+                                return
+                            }
+                            deletedReadingListEntries[readingListEntryID] = localReadingListEntry
+                        })
+                        if requestCount % WMFReadingListBatchSizePerRequestLimit == 0 {
+                            taskGroup.wait()
+                            for (_, localReadingListEntry) in deletedReadingListEntries {
+                                moc.delete(localReadingListEntry)
+                            }
+                            deletedReadingListEntries.removeAll(keepingCapacity: true)
+                            try moc.save()
+                            guard !isCancelled  else {
+                                throw ReadingListsOperationError.cancelled
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         for (_, localReadingListEntry) in deletedReadingListEntries {
             moc.delete(localReadingListEntry)
@@ -593,7 +613,13 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             throw ReadingListsOperationError.cancelled
         }
         
-        for (readingListID, entries) in entriesToAddByListID {
+        for (readingListID, entriesByProjectAndTitle) in entriesToAddByListID {
+            var entries: [(project: String, title: String, entry: ReadingListEntry)] = []
+            for (project, entriesByTitle) in entriesByProjectAndTitle {
+                for (title, localReadingListEntry) in entriesByTitle {
+                    entries.append((project: project, title: title, localReadingListEntry))
+                }
+            }
             var start = 0
             var end = 0
             while end < entries.count {
@@ -651,7 +677,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 }
                 start = end
             }
-            
         }
     }
     
