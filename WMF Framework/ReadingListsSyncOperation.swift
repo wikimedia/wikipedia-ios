@@ -601,7 +601,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     requestCount += 1
                     taskGroup.enter()
                     let entrySubarray = Array(entries[start..<end])
-                    let entryProjectAndTitles = entries[start..<end].map { (project: $0.project, title: $0.title) }
+                    let entryProjectAndTitles = entrySubarray.map { (project: $0.project, title: $0.title) }
                     self.apiController.addEntriesToList(withListID: readingListID, entries: entryProjectAndTitles, completion: { (readingListEntryIDs, createError) in
                         defer {
                             taskGroup.leave()
