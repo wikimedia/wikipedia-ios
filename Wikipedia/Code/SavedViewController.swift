@@ -1,7 +1,7 @@
 import UIKit
 
 protocol SavedViewControllerDelegate: NSObjectProtocol {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
+    func saved(_ saved: SavedViewController, didPressSortButton sortButton: UIButton)
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
 }
@@ -224,7 +224,7 @@ class SavedViewController: ViewController {
     @IBAction func actionButonPressed(_ sender: UIButton) {
         switch actionButtonType {
         case .sort:
-            savedDelegate?.savedWillShowSortAlert(self, from: sender)
+            savedDelegate?.saved(self, didPressSortButton: sender)
         case .cancel:
             searchBar.resignFirstResponder()
         }

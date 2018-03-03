@@ -411,8 +411,8 @@ extension SavedArticlesViewController: ShareableArticlesProvider {}
 // MARK: - SavedViewControllerDelegate
 
 extension SavedArticlesViewController: SavedViewControllerDelegate {
-    func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton) {
-        presentSortAlert(from: button)
+    func saved(_ saved: SavedViewController, didPressSortButton sortButton: UIButton) {
+        presentSortAlert(from: sortButton)
     }
     
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String) {
