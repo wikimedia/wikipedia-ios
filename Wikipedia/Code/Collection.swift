@@ -130,9 +130,12 @@ extension SortableCollection where Self: UIViewController {
     }
     
     func presentSortAlert(from button: UIButton) {
-        if let popoverController = sortAlert.popoverPresentationController  {
+        if let popoverController = sortAlert.popoverPresentationController {
             popoverController.sourceView = button
             popoverController.sourceRect = button.bounds
+            if let tabBarSelectedItem = tabBarController?.tabBar.selectedItem?.value(forKey: "view") as? UIView {
+                popoverController.passthroughViews = [tabBarSelectedItem]
+            }
         }
         present(sortAlert, animated: true)
         updateSortActionCheckmark()

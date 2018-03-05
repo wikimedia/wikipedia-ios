@@ -67,8 +67,13 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
         let shareActivityController = ShareActivityController(article: article, context: self, customActivities: customActivities)
         if UIDevice.current.userInterfaceIdiom == .pad {
             let cell = collectionView.cellForItem(at: indexPath)
-            shareActivityController.popoverPresentationController?.sourceView = cell ?? view
-            shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+            if let presentationController = shareActivityController.popoverPresentationController {
+                presentationController.sourceView = cell ?? view
+                presentationController.sourceRect = cell?.bounds ?? view.bounds
+                if let tabBarSelectedItem = tabBarController?.tabBar.selectedItem?.value(forKey: "view") as? UIView {
+                    presentationController.passthroughViews = [tabBarSelectedItem]
+                }
+            }
         }
         shareActivityController.excludedActivityTypes = [.addToReadingList]
         present(shareActivityController, animated: true, completion: nil)
