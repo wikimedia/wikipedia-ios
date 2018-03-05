@@ -15,6 +15,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
+    private var alertIcon = UIImageView()
+    private var alertLabel = UILabel()
+    public var statusView = UIImageView()
 
     public var actions: [Action] {
         set {
@@ -32,6 +35,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        statusView.clipsToBounds = true
         
         if #available(iOSApplicationExtension 11.0, *) {
             imageView.accessibilityIgnoresInvertColors = true
@@ -42,6 +46,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
+        contentView.addSubview(alertIcon)
+        contentView.addSubview(alertLabel)
+        contentView.addSubview(statusView)
         contentView.addSubview(saveButton)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
@@ -72,6 +79,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
+        statusViewDimension = 6
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
@@ -109,6 +117,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             return safeAreaInsets
         } else {
             return UIEdgeInsets.zero
+        }
+    }
+    
+    public final var statusViewDimension: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public var isStatusViewHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public var isAlertLabelHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
         }
     }
     

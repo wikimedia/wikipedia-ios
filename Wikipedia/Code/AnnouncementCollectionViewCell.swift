@@ -46,6 +46,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.isEditable = false
         addSubview(captionTextView)
         
+        actionButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 6)
+        
         actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
         dismissButton.titleLabel?.adjustsFontSizeToFitWidth = true
         

@@ -187,14 +187,16 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Clear Saved Articles
     
-    @objc func clear() {
+    @objc func clear(_ completion: @escaping () -> Void) {
         let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved articles and remove them from all reading lists?", comment: "Heading text of delete all confirmation dialog")
         let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
         let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
         let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: { (action) in
+            completion()
+        }))
         sheet.addAction(UIAlertAction(title: clearConfirm, style: .destructive, handler: { (action) in
-            self.dataStore.readingListsController.unsaveAllArticles()
+            self.dataStore.readingListsController.unsaveAllArticles(completion)
         }))
         present(sheet, animated: true, completion: nil)
     }
@@ -273,15 +275,12 @@ extension SavedArticlesViewController {
         guard let article = article(at: indexPath) else {
             return
         }
-        
+        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         cell.delegate = self
-        
         cell.layoutMargins = layout.readableMargins
         
         guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {

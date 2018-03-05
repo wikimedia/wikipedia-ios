@@ -30,6 +30,18 @@ class SavedViewController: ViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     
+    let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    lazy var activityIndicatorBarButtonItem: UIBarButtonItem = {
+       return UIBarButtonItem(customView: activityIndicator)
+    }()
+    lazy var clearSavedArticlesBarButtonItem: UIBarButtonItem = {
+        let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
+        return UIBarButtonItem(title: clearButtonTitle, style: .plain, target: self, action: #selector(clear(_:)))
+    }()
+    lazy var addReadingListBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+    }()
+    
     public weak var savedDelegate: SavedViewControllerDelegate?
     
     // MARK: - Initalization and setup
@@ -107,15 +119,27 @@ class SavedViewController: ViewController {
             }
             switch leftButtonType {
             case .add:
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+                navigationItem.leftBarButtonItems = [addReadingListBarButtonItem]
             case .clear:
-                let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
-                navigationItem.leftBarButtonItem = UIBarButtonItem(title: clearButtonTitle, style: .plain, target: savedArticlesViewController.self, action: #selector(savedArticlesViewController?.clear))
-                navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
+                navigationItem.leftBarButtonItems = [clearSavedArticlesBarButtonItem, activityIndicatorBarButtonItem]
+                updateClearSavedArticlesBarButtonItemIsEnabled()
             default:
-                navigationItem.leftBarButtonItem = nil
+                navigationItem.leftBarButtonItems = [activityIndicatorBarButtonItem]
             }
-            navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
+        }
+    }
+    
+    private func updateClearSavedArticlesBarButtonItemIsEnabled() {
+        clearSavedArticlesBarButtonItem.isEnabled = !isSavedArticlesEmpty && !activityIndicator.isAnimating
+    }
+    
+    @objc func clear(_ sender: UIBarButtonItem?) {
+        sender?.isEnabled = false
+        activityIndicator.startAnimating()
+        savedArticlesViewController.clear {
+            assert(Thread.isMainThread)
+            self.activityIndicator.stopAnimating()
+            self.updateClearSavedArticlesBarButtonItemIsEnabled()
         }
     }
 
@@ -233,9 +257,13 @@ class SavedViewController: ViewController {
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
+
+        clearSavedArticlesBarButtonItem.tintColor = theme.colors.link
+        addReadingListBarButtonItem.tintColor = theme.colors.link
         
-        navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
+        
+        activityIndicator.activityIndicatorViewStyle  = theme.isDark ? .white : .gray
     }
 }
 
@@ -275,7 +303,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
-        navigationItem.leftBarButtonItem?.isEnabled = !isSavedArticlesEmpty
+        updateClearSavedArticlesBarButtonItemIsEnabled()
     }
 }
 
