@@ -350,8 +350,7 @@
 "reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли предела для количества синхронизированных списков.";
 "reading-list-deleted-accessibility-notification" = "Список чтения удален";
 "reading-list-do-not-keep-button-title" = "Нет, удалять статьи с устройства";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Список чтения имя уже в использую";
+"reading-list-exists-with-same-name" = "Это название списка для чтения имя используется";
 "reading-list-generic-error" = "При обновлении списков чтения произошла непредвиденная ошибка.";
 "reading-list-keep-button-title" = "Да, сохраняйте статьи на устройстве";
 "reading-list-keep-subtitle" = "Есть статьи синхронизированные с вашей учетной записью Википедии. Вы хотите оставить их на этом устройстве после выхода из системы?";

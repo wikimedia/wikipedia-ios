@@ -78,8 +78,11 @@
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
 "appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-expand-tables-footer" = "Aseta kaikki taulukot kaikissa artikkeleissa aukeamaan oletuksena, mukaanlukien Pikafaktoja, Viitteet, Ilmoitukset ja Ulkoiset linkit.";
+"appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteemat";
 "appearance-settings-set-automatic-table-opening" = "Luetteloasetukset";
+"appearance-settings-text-sizing-example-text" = "Vedä liukusäädintä yläpuolella vaihtaaksesi artikkelin tekstin kokoa. Käytä järjestelmän tekstikokoa muuttaaksesi muita tekstialueita sovelluksessa.";
 "appearance-settings-theme-options" = "Teeman asetukset";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-delete" = "Poista";
@@ -90,6 +93,7 @@
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Lue lisää";
 "article-share" = "Jaa";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back" = "Takaisin";
@@ -123,6 +127,7 @@
 "empty-no-feed-title" = "Ei Internet-yhteyttä";
 "empty-no-history-message" = "Pidä kirjaa lukemistasi artikkeleista";
 "empty-no-history-title" = "Ei näytettävää historiaa";
+"empty-no-reading-lists-message" = "Napauta sinistä ‘+’ merkkiä luodaksesi listoja matkustettaville paikoille, suosikkiartikkeleille ja paljon enemmän";
 "empty-no-reading-lists-title" = "Järjestä tallennetut artikkelit lukulistoilla";
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
@@ -204,7 +209,9 @@
 "home-nearby-footer" = "Lisää paikallisia artikkeleita";
 "home-nearby-location-footer" = "Lähistöllä: $1";
 "home-news-footer" = "Lisää uutisissa";
+"home-reading-list-prompt" = "Tallennetut artikkelisi voidaan nyt järjestää lukulistoihin ja synkronoidaan laitteiden välillä. Kirjaudu sisään salliaksesi lukulistojesi tallentumisen käyttäjäasetuksiisi.";
 "home-themes-action-title" = "Hallinnoi asetuksia";
+"home-themes-prompt" = "Säädä lukemisasetuksiasi, mukaan lukien tekstin kokoa ja teemaa artikkelipalkista tai käyttäjä asetuksistasi, jotta saat mukavamman lukukokemuksen.";
 "home-title" = "Tutki";
 "home-title-accessibility-label" = "Wikipedia, selaa alkuun Tutki";
 "icon-shortcut-continue-reading-title" = "Jatka lukemista";
@@ -320,11 +327,14 @@
 "readers-accessibility-label" = "$1 lukijaa";
 "reading-list-add-hint-title" = "Lisää “$1” lukulistaan?";
 "reading-list-add-saved-button-title" = "Kyllä, lisää ne lukulistoihini";
+"reading-list-add-saved-subtitle" = "Nämä ovat Wikipedia-sovellukseesi tallennettuja artikkeleita. Haluaisitko pitää ne ja yhdistää tilillesi synkronoituihin lukulistoihin.";
 "reading-list-add-saved-title" = "Löydetyt tallennetut artikkelit";
+"reading-list-api-error-entry-limit" = "Tätä merkintää ei ole synkronoitu koska olet saavuttanut merkintöjen lukumäärän rajan tässä listassa.";
+"reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
+"reading-list-api-error-list-limit" = "Tätä luetteloa ei synkronoida, koska olet saavuttanut synkronoitujen listojen lukumäärän rajan.";
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Lukulista on jo olemassa nimellä “$1”";
+"reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
 "reading-list-generic-error" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä.";
 "reading-list-keep-button-title" = "Kyllä, säilytä artikkelit laitteessa";
 "reading-list-keep-subtitle" = "Nämä ovat artikkeleita, jotka on synkronoitu Wikipedia-tiliisi. Haluaisitko säilyttää ne tässä laitteessa sen jälkeen kun kirjaudut ulos?";
@@ -334,20 +344,25 @@
 "reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
 "reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden poikki ja tallentaa käyttäjäasetuksiisi.";
 "reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
+"reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
+"reading-list-new-list-name-placeholder" = "lukulistan otsikko";
 "reading-list-show-default-list-setting" = "Näytä oletuslista";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
 "reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tiliisi ja synkronoida laitteiden poikki.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
 "reading-list-sync-setting" = "Lukulistan synkronointi";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Et voi lisätä {{PLURAL:$1|tätä artikkelia|näitä artikkeleita}} lukulistaan “$2” koska lukulistassa olevien artikkeleiden määrä on rajoitettu.";
 "reading-list-unable-to-add-entry" = "Odottamaton virhe tapahtui lisätessä\nmerkintää lukulistaan. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-create" = "Odottamaton virhe tapahtui lukulistaasi luodessa. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-delete" = "Odottamaton virhe tapahtui poistaessa lukulistaasi. Yritä myöhemmin uudelleen.";
+"reading-list-unable-to-remove-entry" = "Odottamaton virhe tapahtui poistaessa merkintää lukulistasta. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-update" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä. Yritä myöhemmin uudelleen.";
 "reading-list-with-provided-name-not-found" = "Lukulistaa nimellä “$1” ei löytynyt. Varmista, että sinulle on oikea nimi.";
 "reading-lists-article-added-confirmation" = "Artikkeli lisätty listaan “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
 "reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleille";
 "reading-lists-default-list-title" = "Kirjanmerkit";
+"reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Musta teema";
 "reading-themes-controls-accessibility-brightness-slider" = "Kirkkauden liukusäädin";
@@ -375,6 +390,7 @@
 "saved-reading-lists-title" = "Lukulistat";
 "saved-search-default-text" = "Hae";
 "saved-title" = "Tallennettu";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Tämän artikkelin tallentamattomaksi jättäminen poistaa sen|Näiden artikkelien tallentamattomaksi jättäminen poistaa ne}} kaikista niihin liittyvistä lukulistoista";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Poista {{PLURAL:$1|artikkeli|artikkelia}}?";
 "search-button-accessibility-label" = "Etsi Wikipediasta";
 "search-did-you-mean" = "Tarkoititko $1?";
@@ -409,6 +425,7 @@
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
 "share-a-fact-share-menu-item" = "Jaa fakta…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
+"share-building" = "Luodaan Share-a-fact korttia...";
 "share-custom-menu-item" = "Jaa...";
 "share-default-format" = "“$1” artikkelista “$2”: $3";
 "share-email-format" = "“$1”\n\nartikkelista “$2”\n\n$3";
@@ -418,6 +435,7 @@
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Mapsissa";
 "share-social-format" = "“$1” Wikipedian kautta: $2";
+"share-social-mention-format" = "“$1” @Wikipedian kautta: $2";
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";
 "status-saved-for-later" = "Tallennettu myöhempää varten";
@@ -440,6 +458,7 @@
 "two-factor-login-with-backup-code" = "Käytä yhtä varmuuskopiokoodeistasi";
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "view-in-browser-footer-link" = "Lue artikkeli selaimessa";
+"welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
 "welcome-exploration-on-this-day-title" = "Tänä päivänä";
