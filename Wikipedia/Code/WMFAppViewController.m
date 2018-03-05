@@ -1276,6 +1276,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self wmf_hideKeyboard];
+    if ([self.presentedViewController isKindOfClass:[UIAlertController class]] ||
+        [self.presentedViewController isKindOfClass:[WMFShareActivityController class]]) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
