@@ -187,8 +187,7 @@
 "reading-list-add-saved-title" = "Uložené články nalezeny";
 "reading-list-deleted-accessibility-notification" = "Seznam čtení odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Existuje již seznam čtení se stejným jménem ($1)";
+"reading-list-exists-with-same-name" = "Toto jméno již má jiný seznam čtení";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení.";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
 "reading-list-keep-subtitle" = "Jsou zde články synchronizovány k vašemu účtu na Wikipedii. Chcete je na tomto zařízení po odhlášení ponechat?";
@@ -230,6 +229,8 @@
 "saved-reading-lists-title" = "Seznamy čtení";
 "saved-search-default-text" = "Hledat";
 "saved-title" = "Uložené";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Neuložit {{PLURAL:$1|tento článek|tyto články}} a odstranit je ze všech asociovaných seznamů čtení";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Neuložit {{PLURAL:$1|článek|články}}?";
 "search-did-you-mean" = "Mysleli jste $1?";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-reading-list-placeholder-text" = "Hledat seznamy čtení";
