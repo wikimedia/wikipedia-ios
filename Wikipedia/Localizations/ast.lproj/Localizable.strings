@@ -324,8 +324,7 @@
 "reading-list-api-error-list-limit" = "Esta llista nun ta sincronizada porque aportasti a la llende del númberu de llistes sincronizaes.";
 "reading-list-deleted-accessibility-notification" = "Desaniciada la llista de llectura";
 "reading-list-do-not-keep-button-title" = "Non, desaniciar los artículos del preséu";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Yá esiste una llista de llectura col nome «$1»";
+"reading-list-exists-with-same-name" = "El nome de la llista de llectura yá ta usándose";
 "reading-list-generic-error" = "Asocedió un error inesperáu al anovar les llistes de llectura.";
 "reading-list-keep-button-title" = "Si, caltener los artículos nel preséu";
 "reading-list-keep-subtitle" = "Hai artículos sincronizaos cola to cuenta de Wikipedia. ¿Quies caltenelos nesti preséu cuando zarres la sesión?";
@@ -335,11 +334,14 @@
 "reading-list-login-or-create-account-title" = "Anicia sesión pa sincronizar los artículos guardaos";
 "reading-list-login-subtitle" = "Anicia sesión o crea una cuenta pa permitir que los artículos guardaos y llistes de llectura se sincronicen ente preseos y se guarden nes preferencies d'usuariu.";
 "reading-list-login-title" = "¿Sincronizar los artículos guardaos?";
+"reading-list-new-list-description-placeholder" = "descripción curtia opcional";
+"reading-list-new-list-name-placeholder" = "títulu de la llista de llectura";
 "reading-list-show-default-list-setting" = "Ver la llista predeterminada";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-subtitle" = "Los artículos guardaos y llistes de llectura agora pueden guardase na cuenta de Wikipedia y sincronizase ente preseos.";
 "reading-list-sync-enable-title" = "¿Activar la sincronización de llistes de llectura?";
 "reading-list-sync-setting" = "Sincronización de llista de llectura";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Nun puedes amestar {{PLURAL:$1|esti artículu|estos artículos}} a «$2» porque hai una llende nel númberu d'artículos que puedes tener nuna llista de llectura.";
 "reading-list-unable-to-add-entry" = "Asocedió un error inesperáu al añadir una entrada a la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-create" = "Asocedió un error inesperáu al crear la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-delete" = "Asocedió un error inesperáu al desaniciar la llista de llectura. Tenta otra vuelta sero.";

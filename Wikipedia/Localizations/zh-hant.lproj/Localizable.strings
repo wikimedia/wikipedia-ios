@@ -336,8 +336,7 @@
 "reading-list-api-error-list-limit" = "此清單尚未同步，因為您已達到同步清單的上限數目。";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
-// Fuzzy
-"reading-list-exists-with-same-name" = "已存在名為「$1」的閱讀清單";
+"reading-list-exists-with-same-name" = "閱讀清單名稱已被使用";
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
 "reading-list-keep-button-title" = "是的，保留條目在裝置上";
 "reading-list-keep-subtitle" = "這些條目已同步到您的維基百科帳號，您想要在登出後讓它們保留在您的裝置上嗎？";

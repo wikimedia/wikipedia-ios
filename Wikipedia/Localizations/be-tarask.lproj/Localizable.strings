@@ -136,8 +136,7 @@
 "preference-summary-eventlogging-opt-in" = "Дазволіць фундацыі «Вікімэдыя» зьбіраць інфармацыю пра тое, як вы выкарыстоўваеце праграму, каб палепшыць яе";
 "preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-clear-cancel" = "Скасаваць";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя захаваныя старонкі?";
+"saved-pages-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя захаваныя артыкулы і выдаліць іх з усіх сьпісаў для чытаньня?";
 // Fuzzy
 "saved-pages-clear-delete-all" = "Выдаліць усе";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
