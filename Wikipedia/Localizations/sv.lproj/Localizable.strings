@@ -336,8 +336,7 @@
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
 "reading-list-deleted-accessibility-notification" = "Läslistor raderades";
 "reading-list-do-not-keep-button-title" = "Nej, radera artiklar från enheten";
-// Fuzzy
-"reading-list-exists-with-same-name" = "En läslista med namnet \"$1\" finns redan";
+"reading-list-exists-with-same-name" = "En läslista med namnet finns redan";
 "reading-list-generic-error" = "Ett oväntat fel uppstod när dina läslistor uppdaterades.";
 "reading-list-keep-button-title" = "Ja, behåll artiklar på enheten";
 "reading-list-keep-subtitle" = "Det finns synkroniserade artiklar på ditt Wikipedia-konto. Vill du behålla dem på denna enhet efter du loggar ut?";
@@ -347,6 +346,8 @@
 "reading-list-login-or-create-account-title" = "Logga in för att synkronisera sparade artiklar";
 "reading-list-login-subtitle" = "Logga in eller skapa ett konto för att låta dina sparade artiklar och läslistor synkroniseras över enheter och sparas till dina användarinställningar.";
 "reading-list-login-title" = "Synkronisera dina sparade artiklar?";
+"reading-list-new-list-description-placeholder" = "valfri kort beskrivning";
+"reading-list-new-list-name-placeholder" = "titel på läslista";
 "reading-list-show-default-list-setting" = "Visa standardlista";
 "reading-list-sync-enable-button-title" = "Aktivera synkronisering";
 "reading-list-sync-enable-subtitle" = "Dina sparade artiklar och läslistor kan nu sparas till ditt Wikipedia-konto och synkroniseras över enheter.";
