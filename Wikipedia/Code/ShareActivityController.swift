@@ -70,8 +70,8 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
             if let presentationController = shareActivityController.popoverPresentationController {
                 presentationController.sourceView = cell ?? view
                 presentationController.sourceRect = cell?.bounds ?? view.bounds
-                if let tabBar = tabBarController?.tabBar {
-                    presentationController.passthroughViews = [tabBar]
+                if let tabBarSelectedItem = tabBarController?.tabBar.selectedItem?.value(forKey: "view") as? UIView {
+                    presentationController.passthroughViews = [tabBarSelectedItem]
                 }
             }
         }

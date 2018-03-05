@@ -133,8 +133,8 @@ extension SortableCollection where Self: UIViewController {
         if let popoverController = sortAlert.popoverPresentationController {
             popoverController.sourceView = button
             popoverController.sourceRect = button.bounds
-            if let tabBar = tabBarController?.tabBar {
-                popoverController.passthroughViews = [tabBar]
+            if let tabBarSelectedItem = tabBarController?.tabBar.selectedItem?.value(forKey: "view") as? UIView {
+                popoverController.passthroughViews = [tabBarSelectedItem]
             }
         }
         present(sortAlert, animated: true)
