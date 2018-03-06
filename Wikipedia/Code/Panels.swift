@@ -66,7 +66,7 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-user")
-        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing save articles.")
+        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
     }
@@ -75,9 +75,9 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
 class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        heading = "Limit hit for unsorted articles"
-        subheading = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles."
-        primaryButtonTitle = "Sort articles"
+        heading = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-title", value: "Limit hit for unsorted articles", comment: "Title for letting the user know that the limit for unsorted articles was reached.")
+        subheading = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-subtitle", value:  "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.", comment: "Subtitle letting the user know that there is a limit of 5000 unsorted articles.")
+        primaryButtonTitle = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-button-title", value: "Sort articles", comment: "Title for button to sort unsorted articles.")
     }
 }
 
