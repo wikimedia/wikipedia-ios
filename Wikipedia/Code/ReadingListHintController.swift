@@ -54,6 +54,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         guard readingList.isDefault && entriesLimitReached else {
             return
         }
+        
         guard dataStore.readingListsController.isSyncEnabled else {
             return
         }
