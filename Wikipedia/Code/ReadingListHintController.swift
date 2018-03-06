@@ -51,7 +51,14 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         guard let userInfo = notification.userInfo, let readingList = userInfo[ReadingList.entriesLimitReachedReadingListKey] as? ReadingList, let entriesLimitReached = userInfo[ReadingList.entriesLimitReachedKey] as? Bool else {
             return
         }
-        if !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() && readingList.isDefault && entriesLimitReached {
+        guard readingList.isDefault && entriesLimitReached else {
+            return
+        }
+        guard dataStore.readingListsController.isSyncEnabled else {
+            return
+        }
+        // !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel()
+        if true {
             isPresentingPanel = true
             let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
                 self.presenter?.presentedViewController?.dismiss(animated: true)
