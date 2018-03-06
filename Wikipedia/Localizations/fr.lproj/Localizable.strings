@@ -342,8 +342,7 @@
 "reading-list-api-error-list-limit" = "Cette liste n’est pas synchronisée parce que vous avez atteint la limite du nombre de listes synchronisées.";
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Une liste de lecture existe déjà avec le nom « $1 »";
+"reading-list-exists-with-same-name" = "Nom de liste de lecture déjà utilisé";
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";

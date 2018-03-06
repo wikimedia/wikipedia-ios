@@ -66,5 +66,37 @@
 			<string>Odstranit seznamy?</string>
 		</dict>
 	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neuložit tento článek a odstranit je ze všech asociovaných seznamů čtení</string>
+			<key>other</key>
+			<string>Neuložit tyto články a odstranit je ze všech asociovaných seznamů čtení</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neuložit článek?</string>
+			<key>other</key>
+			<string>Neuložit články?</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

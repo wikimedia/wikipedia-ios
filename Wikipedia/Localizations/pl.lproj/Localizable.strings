@@ -65,6 +65,7 @@
 "action-save" = "Zapisz";
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
+"action-sort" = "Sortuj";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
@@ -247,6 +248,8 @@
 "readers-accessibility-label" = "$1 czytelników";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
+"reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
+"reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
 "reference-title" = "Przypis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
@@ -283,6 +286,7 @@
 "share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-menu-item" = "Udostępnij...";
 "share-message-format" = "„$1” $2";
+"sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
