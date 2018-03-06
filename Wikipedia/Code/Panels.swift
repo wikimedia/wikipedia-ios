@@ -72,6 +72,15 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
     }
 }
 
+class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        heading = "Limit hit for unsorted articles"
+        subheading = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles."
+        primaryButtonTitle = "Sort articles"
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -222,4 +231,10 @@ extension UIViewController {
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }
+    
+    @objc func wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
+        let panelVC = LimitHitForUnsortedArticlesPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        present(panelVC, with: theme, animated: true, completion: completion)
+    }
+
 }
