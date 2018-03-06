@@ -324,8 +324,7 @@
 "reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-do-not-keep-button-title" = "Не, избриши ги статиите од уредот";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Веќе постои список за читање наречен „$1“";
+"reading-list-exists-with-same-name" = "Веќе постои список за читање со тоа име";
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
 "reading-list-keep-subtitle" = "Има статии усогласени со вашата сметка на Википедија. Дали сакате да ги задржите на овој уред откако ќе се одјавите?";
