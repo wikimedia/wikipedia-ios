@@ -88,7 +88,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListAlertControllerDelegate,
+                                        WMFReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter>
 
 // Data
