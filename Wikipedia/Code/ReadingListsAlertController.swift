@@ -75,6 +75,9 @@ public class ReadingListsAlertController: NSObject {
         guard Thread.isMainThread, dataStore.readingListsController.isSyncEnabled else {
             return
         }
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {
+            return
+        }
         guard readingList.isDefault else {
             return
         }
