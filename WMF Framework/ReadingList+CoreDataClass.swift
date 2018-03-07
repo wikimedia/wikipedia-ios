@@ -17,9 +17,11 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
+    private var previousCountOfEntries: Int64 = 0
+    
     public var isEntriesLimitReached: Bool = false {
         didSet {
-            guard oldValue != isEntriesLimitReached, isEntriesLimitReached else {
+            guard isEntriesLimitReached, countOfEntries > previousCountOfEntries else {
                 return
             }
             let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self]
@@ -28,6 +30,8 @@ public class ReadingList: NSManagedObject {
     }
     
     public func updateArticlesAndEntries() throws {
+        previousCountOfEntries = countOfEntries
+        
         let previousArticles = articles ?? []
         let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
