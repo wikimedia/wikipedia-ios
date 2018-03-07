@@ -252,7 +252,7 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        guard readingList.entries?.count ?? 0 + articles.count <= WMFReadingListEntryLimit else {
+        guard readingList.entries?.count ?? 0 + articles.count <= moc.wmf_readingListsConfigMaxEntriesPerList.intValue else {
             throw ReadingListError.unableToAddArticlesDueToListLimit(name: readingList.name ?? "", count: articles.count)
         }
         try add(articles: articles, to: readingList, in: moc)
@@ -657,6 +657,42 @@ extension NSManagedObjectContext {
                 try save()
             } catch let error {
                 DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Reading lists config
+    
+    @objc public var wmf_readingListsConfigMaxEntriesPerList: NSNumber {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
+        }
+        set {
+            guard newValue != wmf_readingListsConfigMaxEntriesPerList else {
+                return
+            }
+            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxEntriesPerList)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxEntriesPerList: \(error)")
+            }
+        }
+    }
+    
+    @objc public var wmf_readingListsConfigMaxListsPerUser: NSNumber {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser) ?? 100
+        }
+        set {
+            guard newValue != wmf_readingListsConfigMaxListsPerUser else {
+                return
+            }
+            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxListsPerUser)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: \(error)")
             }
         }
     }
