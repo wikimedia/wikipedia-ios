@@ -1,8 +1,8 @@
 @objc public protocol WMFReadingListAlertControllerDelegate: NSObjectProtocol {
-    func readingListAlertController(_ readingListAlertController: ReadingListAlertController, didSelectUnsaveForArticle: WMFArticle)
+    func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)
 }
 
-public enum ReadingListAlertActionType {
+public enum ReadingListsAlertActionType {
     case delete, unsave, cancel
     
     public func action(with handler: (() -> Void)? = nil) -> UIAlertAction {
@@ -25,18 +25,20 @@ public enum ReadingListAlertActionType {
     }
 }
 
-@objc (WMFReadingListAlertController)
-public class ReadingListAlertController: NSObject {
+@objc (WMFReadingListsAlertController)
+public class ReadingListsAlertController: NSObject {
     @objc public weak var delegate: WMFReadingListAlertControllerDelegate?
+    
+    // MARK: UIAlertController presentation
     
     @objc func showAlert(presenter: UIViewController & WMFReadingListAlertControllerDelegate, article: WMFArticle) {
         delegate = presenter
-        let unsave = ReadingListAlertActionType.unsave.action {
-            self.delegate?.readingListAlertController(self, didSelectUnsaveForArticle: article)
+        let unsave = ReadingListsAlertActionType.unsave.action {
+            self.delegate?.readingListsAlertController(self, didSelectUnsaveForArticle: article)
         }
         let title = CommonStrings.unsaveArticleAndRemoveFromListsTitle(articleCount: 1)
         let message = CommonStrings.unsaveArticleAndRemoveFromListsMessage(articleCount: 1)
-        presenter.present(alert(with: title, message: message, actions: [ReadingListAlertActionType.cancel.action(), unsave]), animated: true)
+        presenter.present(alert(with: title, message: message, actions: [ReadingListsAlertActionType.cancel.action(), unsave]), animated: true)
     }
     
     func showAlert(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: (() -> Void)? = nil, failure: () -> Bool) -> Bool {
