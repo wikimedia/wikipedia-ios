@@ -1,7 +1,8 @@
 import UIKit
 
-@objc public protocol ReadingListHintPresenter: class {
-    var readingListHintController: ReadingListHintController? { get set }
+@objc(WMFReadingListHintPresenter)
+public protocol ReadingListHintPresenter: class {
+    @objc var readingListHintController: ReadingListHintController? { get }
 }
 
 protocol ReadingListHintViewControllerDelegate: class {
