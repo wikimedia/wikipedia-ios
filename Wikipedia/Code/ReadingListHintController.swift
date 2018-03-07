@@ -118,8 +118,11 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+        guard presenter?.presentedViewController == nil else {
+            return
+        }
+
         didSaveArticle = didSave
-        
         self.theme = theme
         
         let didSaveOtherArticle = didSave && !isHintHidden && article != hint.article
