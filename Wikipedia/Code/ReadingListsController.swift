@@ -554,18 +554,7 @@ public class ReadingListsController: NSObject {
     }
 }
 
-public extension NSManagedObjectContext {
-    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
-        if defaultList == nil { // failsafe
-            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
-            defaultList?.isDefault = true
-        }
-        return defaultList
-    }
-}
-
-internal extension WMFArticle {
+extension WMFArticle {
     func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
@@ -615,9 +604,7 @@ internal extension WMFArticle {
             savedDate = Date()
         }
     }
-}
 
-extension WMFArticle {
     @objc public var isInDefaultList: Bool {
         guard let readingLists = self.readingLists else {
             return false
@@ -642,7 +629,17 @@ extension WMFArticle {
     }
 }
 
-extension NSManagedObjectContext {
+public extension NSManagedObjectContext {
+    // use with caution, fetching is expensive
+    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
+        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        if defaultList == nil { // failsafe
+            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList?.isDefault = true
+        }
+        return defaultList
+    }
+    
     // is sync available or is it shut down server-side
     @objc public var wmf_isSyncRemotelyEnabled: Bool {
         get {
