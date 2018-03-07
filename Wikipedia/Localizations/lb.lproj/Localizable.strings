@@ -295,13 +295,14 @@
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
 "reading-list-do-not-keep-button-title" = "Neen, Artikele vum Apparat läschen";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Eng Lieslëscht mam Numm \"$1\" gëtt et schonn";
+"reading-list-exists-with-same-name" = "Numm vun der Lieslëscht gëtt scho benotzt";
 "reading-list-keep-button-title" = "Jo, Artikelen um Apparat halen";
 "reading-list-keep-title" = "Gespäichert Artikelen um Apparat halen?";
 "reading-list-login-button-title" = "Alogge fir Är gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-or-create-account-title" = "Alogge fir gespäichert Artikelen ze synchroniséieren";
 "reading-list-login-title" = "Är gespäichert Artikele synchroniséieren?";
+"reading-list-new-list-description-placeholder" = "fakultativ Kuerzbeschreiwung";
+"reading-list-new-list-name-placeholder" = "Titel vun der Lieslëscht";
 "reading-list-show-default-list-setting" = "Standardlëscht weisen";
 "reading-list-sync-enable-button-title" = "Synchronisatioun aktivéieren";
 "reading-list-sync-enable-title" = "Synchronisatioun vu Lieslëschten aschalten?";
@@ -329,6 +330,7 @@
 "saved-reading-lists-title" = "Lieslëschten";
 "saved-search-default-text" = "Sichen";
 "saved-title" = "Gespäichert";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel|Artikele}} läschen?";
 "search-button-accessibility-label" = "Op Wikipedia sichen";
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";

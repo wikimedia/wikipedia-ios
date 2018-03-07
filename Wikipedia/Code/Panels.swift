@@ -66,7 +66,7 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-user")
-        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing save articles.")
+        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
     }
