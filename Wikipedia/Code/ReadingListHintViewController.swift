@@ -41,16 +41,21 @@ class ReadingListHintViewController: UIViewController {
         }
     }
     
-    private var tapGestureRecognizer: (hint: UITapGestureRecognizer, confirmation: UITapGestureRecognizer) {
-        return (hint: UITapGestureRecognizer(target: self, action: #selector(addArticleToReadingList(_:))), confirmation: UITapGestureRecognizer(target: self, action: #selector(openReadingList)))
-    }
+    private var tapHintGestureRecognizer: UIGestureRecognizer?
+    private var tapConfirmationGestureRecognizer: UIGestureRecognizer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         isHintViewHidden = false
-    
-        hintView?.addGestureRecognizer(tapGestureRecognizer.hint)
-        confirmationView?.addGestureRecognizer(tapGestureRecognizer.confirmation)
+        
+        tapHintGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addArticleToReadingList(_:)))
+        tapConfirmationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openReadingList))
+        if let tapHintGestureRecognizer = tapHintGestureRecognizer {
+            hintView?.addGestureRecognizer(tapHintGestureRecognizer)
+        }
+        if let tapConfirmationGestureRecognizer = tapConfirmationGestureRecognizer {
+            confirmationView?.addGestureRecognizer(tapConfirmationGestureRecognizer)
+        }
         
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
@@ -71,8 +76,12 @@ class ReadingListHintViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        hintView?.removeGestureRecognizer(tapGestureRecognizer.hint)
-        confirmationView?.removeGestureRecognizer(tapGestureRecognizer.confirmation)
+        if let tapHintGestureRecognizer = tapHintGestureRecognizer {
+            hintView?.removeGestureRecognizer(tapHintGestureRecognizer)
+        }
+        if let tapConfirmationGestureRecognizer = tapConfirmationGestureRecognizer {
+            confirmationView?.removeGestureRecognizer(tapConfirmationGestureRecognizer)
+        }
     }
     
     func reset() {

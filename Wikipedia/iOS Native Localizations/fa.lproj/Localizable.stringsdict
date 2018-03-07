@@ -50,6 +50,70 @@
 			<string>%1$d مقاله</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>شما نمی‌توانید this article را به “%2$@” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.</string>
+			<key>other</key>
+			<string>شما نمی‌توانید these articles را به “%2$@” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d فهرست خواندن</string>
+			<key>other</key>
+			<string>%1$d فهرست‌های خواندن</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در این فهرست دخیره شده، به صورت دخیره‌ نشده خواهد ماند.</string>
+			<key>other</key>
+			<string>این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در این فهرست‌ها دخیره شده، به صورت دخیره‌ نشده خواهد ماند.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>فهرستt حذف شود؟</string>
+			<key>other</key>
+			<string>فهرست‌ها حذف شود؟</string>
+		</dict>
+	</dict>
 	<key>relative-date-days-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

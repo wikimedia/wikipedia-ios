@@ -66,6 +66,22 @@
 			<string>%1$d artikkelia</string>
 		</dict>
 	</dict>
+	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Et voi lisätä tätä artikkelia lukulistaan “%2$@” koska lukulistassa olevien artikkeleiden määrä on rajoitettu.</string>
+			<key>other</key>
+			<string>Et voi lisätä näitä artikkeleita lukulistaan “%2$@” koska lukulistassa olevien artikkeleiden määrä on rajoitettu.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +96,22 @@
 			<string>%1$d lukulista</string>
 			<key>other</key>
 			<string>%1$d lukulistaa</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain tähän listaan ei tallenneta.</string>
+			<key>other</key>
+			<string>Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain näihin listoihin ei tallenneta.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -168,6 +200,22 @@
 			<string>%1$d vuotta sitten</string>
 			<key>zero</key>
 			<string>Tänä vuonna</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tämän artikkelin tallentamattomaksi jättäminen poistaa sen kaikista niihin liittyvistä lukulistoista</string>
+			<key>other</key>
+			<string>Näiden artikkelien tallentamattomaksi jättäminen poistaa ne kaikista niihin liittyvistä lukulistoista</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
