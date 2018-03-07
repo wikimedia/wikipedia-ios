@@ -88,7 +88,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListAlertControllerDelegate>
+                                        WMFReadingListAlertControllerDelegate,
+                                        WMFReadingListHintPresenter>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -146,7 +147,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
-@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @end
 
