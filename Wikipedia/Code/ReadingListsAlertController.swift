@@ -68,4 +68,25 @@ public class ReadingListsAlertController: NSObject {
         actions.forEach { alert.addAction($0) }
         return alert
     }
+    
+    // MARK: - ScrollableEducationPanelViewController presentation
+    
+    @objc func showLimitHitForDefaultListPanelIfNecessary(presenter: UIViewController, dataStore: MWKDataStore, readingList: ReadingList, theme: Theme) {
+        guard Thread.isMainThread, dataStore.readingListsController.isSyncEnabled else {
+            return
+        }
+        guard readingList.isDefault else {
+            return
+        }
+        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            presenter.presentedViewController?.dismiss(animated: true)
+            let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+            readingListDetailViewController.apply(theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
+            presenter.present(navigationController, animated: true)
+        }
+        presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
+        }
+    }
 }
