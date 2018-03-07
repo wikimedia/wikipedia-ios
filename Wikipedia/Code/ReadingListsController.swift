@@ -51,7 +51,6 @@ public enum ReadingListError: Error, Equatable {
     
     public var localizedDescription: String {
         switch self {
-        // TODO: WMFAlertManager can't display this string
         case .generic:
             return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
         case .listExistsWithTheSameName:
