@@ -1,6 +1,10 @@
 import UIKit
 
-@objc public protocol ReadingListHintPresenter: class {
+public protocol SavableArticlesProvider: class {
+    
+}
+
+public protocol ReadingListHintPresenter: class {
     var readingListHintController: ReadingListHintController? { get set }
 }
 
@@ -17,7 +21,6 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     private let hintHeight: CGFloat = 50
     private var theme: Theme = Theme.standard
     private var didSaveArticle: Bool = false
-    private var isPresentingPanel: Bool = false
     
     private var isHintHidden = true {
         didSet {
@@ -40,39 +43,6 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         self.hint.dataStore = dataStore
         super.init()
         self.hint.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(entriesLimitReached(notification:)), name: ReadingList.entriesLimitReachedNotification, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: ReadingList.entriesLimitReachedNotification, object: nil)
-    }
-    
-    @objc private func entriesLimitReached(notification: Notification) {
-        guard let userInfo = notification.userInfo, let readingList = userInfo[ReadingList.entriesLimitReachedReadingListKey] as? ReadingList, let entriesLimitReached = userInfo[ReadingList.entriesLimitReachedKey] as? Bool else {
-            return
-        }
-        guard readingList.isDefault && entriesLimitReached else {
-            return
-        }
-        
-        guard dataStore.readingListsController.isSyncEnabled else {
-            return
-        }
-        // !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel()
-        if true {
-            isPresentingPanel = true
-            let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-                self.presenter?.presentedViewController?.dismiss(animated: true)
-                let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: self.dataStore, displayType: .modal)
-                readingListDetailViewController.apply(theme: self.theme)
-                let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: self.theme)
-                self.presenter?.present(navigationController, animated: true)
-            }
-            presenter?.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
-                self.isPresentingPanel = false
-                UserDefaults.wmf_userDefaults().wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
-            }
-        }
     }
     
     func removeHint() {
@@ -151,10 +121,12 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
-        guard !isPresentingPanel else {
-            return
+        if let readingListsAlertPresenter = presenter as? ReadingListsAlertPresenter {
+            guard !readingListsAlertPresenter.readingListsAlertController.isPresenting else {
+                return
+            }
         }
-        
+
         didSaveArticle = didSave
         self.theme = theme
         

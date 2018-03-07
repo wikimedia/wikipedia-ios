@@ -25,8 +25,11 @@ class ColumnarCollectionViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
+        if self is ReadingListsAlertPresenter {
+            NotificationCenter.default.addObserver(self, selector: #selector(ReadingListsAlertPresenter.entriesLimitReached(notification:)), name: ReadingList.entriesLimitReachedNotification, object: nil)
+        }
     }
-
+    
     @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
@@ -134,7 +137,6 @@ class ColumnarCollectionViewController: ViewController {
     // MARK - 3D Touch
     
     var previewingContext: UIViewControllerPreviewing?
-    
     
     func unregisterForPreviewing() {
         guard let context = previewingContext else {

@@ -1287,9 +1287,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
-        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
-        [readingListAlertController showAlertWithPresenter:self article:articleToUnsave];
-        return; // don't unsave immediately, wait for a callback from WMFReadingListAlertControllerDelegate
+        WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+        [readingListsAlertController showAlertWithPresenter:self article:articleToUnsave];
+        return; // don't unsave immediately, wait for a callback from WMFReadingListsAlertControllerDelegate
     }
     [self updateSavedState];
 }
@@ -1329,7 +1329,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFReadingListActionSheetControllerDelegate
 
-- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+- (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self updateSavedState];
 }
 

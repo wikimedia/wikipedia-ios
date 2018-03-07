@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListAlertControllerDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListAlertControllerDelegate, WMFReadingListsAlertPresenter>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -61,7 +61,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
-@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -78,6 +79,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     self.saveButtonsController = [[WMFSaveButtonsController alloc] initWithDataStore:_userStore];
     self.saveButtonsController.delegate = self;
     self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:self.userStore presenter:self];
+    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
 - (void)dealloc {
@@ -370,6 +372,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self setupRefreshControl];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(entriesLimitReachedWithNotification:) name:[ReadingList entriesLimitReachedNotification] object:nil];
 }
 
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion {
@@ -2032,8 +2036,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
     if (article && article.userCreatedReadingListsCount > 0) {
-        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
-        [readingListAlertController showAlertWithPresenter:self article:article];
+        WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+        [readingListsAlertController showAlertWithPresenter:self article:article];
     } else {
         [self.saveButtonsController updateSavedState];
     }
@@ -2044,10 +2048,19 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
-#pragma mark - WMFReadingListAlertControllerDelegate
+#pragma mark - WMFReadingListsAlertControllerDelegate
 
-- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+- (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self.saveButtonsController updateSavedState];
+}
+
+#pragma mark - WMFReadingListsAlertPresenter
+
+- (void)entriesLimitReachedWithNotification:(NSNotification *)notification {
+    ReadingList *readingList = (ReadingList *)notification.userInfo[ReadingList.entriesLimitReachedReadingListKey];
+    if (readingList) {
+        [self.readingListsAlertController showLimitHitForDefaultListPanelIfNecessaryWithPresenter:self dataStore:self.userStore readingList:readingList theme:self.theme];
+    }
 }
 
 #if DEBUG && DEBUG_CHAOS

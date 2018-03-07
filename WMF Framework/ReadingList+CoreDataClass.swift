@@ -5,7 +5,6 @@ public class ReadingList: NSManagedObject {
     
     @objc public static let entriesLimitReachedNotification = NSNotification.Name(rawValue:"WMFEntriesLimitReachedNotification")
     @objc public static let entriesLimitReachedReadingListKey = "readingList"
-    @objc public static let entriesLimitReachedKey = "entriesLimitReached"
     
     open var articleKeys: [String] {
         let entries = self.entries ?? []
@@ -20,10 +19,10 @@ public class ReadingList: NSManagedObject {
     
     public var isEntriesLimitReached: Bool = false {
         didSet {
-            guard oldValue != isEntriesLimitReached else {
+            guard oldValue != isEntriesLimitReached, isEntriesLimitReached else {
                 return
             }
-            let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self, ReadingList.entriesLimitReachedKey: isEntriesLimitReached]
+            let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self]
             NotificationCenter.default.post(name: ReadingList.entriesLimitReachedNotification, object: nil, userInfo: userInfo)
         }
     }

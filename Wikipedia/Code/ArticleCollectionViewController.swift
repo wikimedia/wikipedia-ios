@@ -8,7 +8,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, ReadingListsAlertPresenter {
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
@@ -76,6 +76,19 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    // MARK: - ReadingListsAlertPresenter
+    
+    lazy var readingListsAlertController: ReadingListsAlertController = {
+        return ReadingListsAlertController()
+    }()
+    
+    func entriesLimitReached(notification: Notification) {
+        guard let readingList = notification.userInfo?[ReadingList.entriesLimitReachedReadingListKey] as? ReadingList else {
+            return
+        }
+        readingListsAlertController.showLimitHitForDefaultListPanelIfNecessary(presenter: self, dataStore: dataStore, readingList: readingList, theme: theme)
     }
     
 }
@@ -190,9 +203,9 @@ extension ArticleCollectionViewController: ActionDelegate {
         guard action.type == .unsave else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
             return self.editController.didPerformAction(action)
         }
