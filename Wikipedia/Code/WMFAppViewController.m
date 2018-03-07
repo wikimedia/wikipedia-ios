@@ -194,6 +194,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.view wmf_addConstraintsToEdgesOfView:tabBar.view withInsets:UIEdgeInsetsZero priority:UILayoutPriorityRequired];
 
     [tabBar didMoveToParentViewController:self];
+    tabBar.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     self.rootTabBarController = tabBar;
 
     [self applyTheme:self.theme];

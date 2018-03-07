@@ -345,8 +345,8 @@
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
 "reading-lists-article-added-confirmation" = "Article added to “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
-"reading-lists-default-list-description" = "Default list for saved articles";
-"reading-lists-default-list-title" = "Bookmarks";
+"reading-lists-default-list-description" = "Default list for your saved articles";
+"reading-lists-default-list-title" = "Saved";
 "reading-lists-delete-reading-list-alert-message" = "This action cannot be undone. Any articles saved only to {{PLURAL:$1|this list|these lists}} will be unsaved.";
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";

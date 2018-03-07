@@ -345,8 +345,8 @@
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
 "reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
-"reading-lists-default-list-description" = "The description of the default saved pages list";
-"reading-lists-default-list-title" = "The title of the default saved pages list";
+"reading-lists-default-list-description" = "The description of the default saved pages list.";
+"reading-lists-default-list-title" = "The title of the default saved pages list\n{{Identical|Saved}}";
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
