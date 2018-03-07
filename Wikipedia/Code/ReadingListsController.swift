@@ -1,16 +1,20 @@
 import Foundation
 
-internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
-internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
-fileprivate let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
+// Sync keys
+let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
+private let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
+let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
-internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
+// Default list key
+private let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
 
-internal let WMFReadingListBatchSizePerRequestLimit = 500
+// Batch size keys
+let WMFReadingListBatchSizePerRequestLimit = 500
+let WMFReadingListCoreDataBatchSize = 500
 
-internal let WMFReadingListCoreDataBatchSize = 500
-
-internal let WMFReadingListEntryLimit = 1000
+// Reading lists config keys
+let WMFReadingListsConfigMaxEntriesPerList = "WMFReadingListsConfigMaxEntriesPerList"
+let WMFReadingListsConfigMaxListsPerUser = "WMFReadingListsConfigMaxListsPerUser"
 
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
