@@ -111,6 +111,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
+@property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -151,6 +153,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(articleWasUpdated:)
                                                  name:WMFArticleUpdatedNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(entriesLimitReachedWithNotification:)
+                                                 name:[ReadingList entriesLimitReachedNotification]
+                                               object:nil];
+
+    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -904,7 +913,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                                             }
                                                                         }
                                                                     });
-
                                                                 }];
             }
 
@@ -1271,7 +1279,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-
 #pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
@@ -1628,6 +1635,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSettingsAnimated:(BOOL)animated {
     [self showSettingsWithSubViewController:nil animated:animated];
+}
+
+#pragma mark - WMFReadingListsAlertPresenter
+
+- (void)entriesLimitReachedWithNotification:(NSNotification *)notification {
+    ReadingList *readingList = (ReadingList *)notification.userInfo[ReadingList.entriesLimitReachedReadingListKey];
+    if (readingList) {
+        [self.readingListsAlertController showLimitHitForDefaultListPanelIfNecessaryWithPresenter:self dataStore:self.dataStore readingList:readingList theme:self.theme];
+    }
 }
 
 #pragma mark - Perma Random Mode
