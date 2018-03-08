@@ -89,6 +89,14 @@
             self.disclosureIcon.image = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
+        case WMFSettingsMenuItemDisclosureType_TitleButton:
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
+            self.disclosureSwitch.hidden = YES;
+            self.titleButton.hidden = NO;
+            [self.titleButton addTarget:self action:@selector(didPressButton:) forControlEvents:UIControlEventTouchUpInside];
+            break;
         default:
             break;
     }
