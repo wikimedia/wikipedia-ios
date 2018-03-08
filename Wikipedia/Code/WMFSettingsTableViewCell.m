@@ -77,6 +77,7 @@
             self.disclosureIcon.image = nil;
             self.disclosureSwitch.hidden = NO;
             [self.disclosureSwitch addTarget:self action:@selector(didToggleDisclosureSwitch:) forControlEvents:UIControlEventValueChanged];
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewController:
             self.disclosureIcon.hidden = NO;
