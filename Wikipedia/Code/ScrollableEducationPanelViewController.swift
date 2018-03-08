@@ -182,7 +182,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction fileprivate func primaryButtonTapped(_ sender: Any) {
+    @IBAction open func primaryButtonTapped(_ sender: Any) {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
