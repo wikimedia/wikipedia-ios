@@ -150,12 +150,15 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
-    @objc func wmf_showLoginViewController(theme: Theme) {
+    @objc func wmf_showLoginViewController(theme: Theme, enableSync: Bool = false) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
         }
-        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+        if enableSync {
+            loginVC.enableSyncOnLogin = enableSync
+        }
+        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
     
     @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
