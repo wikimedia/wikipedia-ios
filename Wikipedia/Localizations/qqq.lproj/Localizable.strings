@@ -332,7 +332,7 @@
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
-"reading-list-sync-setting" = "Main menu option to enable or disable reading list sync";
+"reading-list-sync-setting" = "Title for the Saved articles storage and syncing Settings button.";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Informs the user that adding the selected articles to their reading list would put them over the limit.";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
