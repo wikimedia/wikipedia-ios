@@ -132,8 +132,8 @@
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = theme.colors.primaryText;
     self.disclosureLabel.textColor = theme.colors.secondaryText;
-    self.iconBackgroundColor = theme.colors.iconBackground;
-    self.iconColor = theme.colors.icon;
+    self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;;
+    self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;
     self.disclosureIcon.tintColor = theme.colors.secondaryText;
 }
 
