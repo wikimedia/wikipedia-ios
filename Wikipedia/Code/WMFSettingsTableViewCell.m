@@ -7,9 +7,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
+@property (strong, nonatomic) IBOutlet UIButton *titleButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleButtonLeadingWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
+@property (strong, nonatomic) NSString *buttonTitle;
 @property (nonatomic, strong) WMFTheme *theme;
 
 @end
@@ -19,6 +22,11 @@
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
+}
+
+- (void)setButtonTitle:(NSString *)buttonTitle {
+    _buttonTitle = buttonTitle;
+    [self.titleButton setTitle:buttonTitle forState:UIControlStateNormal];
 }
 
 - (void)setIconName:(NSString *)iconName {
@@ -31,6 +39,7 @@
         self.titleIcon.hidden = YES;
         self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
     }
+    self.titleButtonLeadingWidth.constant = self.titleLabelLeadingWidth.constant;
 }
 
 - (void)setDisclosureText:(NSString *)disclosureText {
