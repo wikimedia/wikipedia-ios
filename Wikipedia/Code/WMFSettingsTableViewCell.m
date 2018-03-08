@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
 @property (strong, nonatomic) NSString *buttonTitle;
+@property (nonatomic) NSInteger controlTag;
+@property (nonatomic) BOOL isSwitchOn;
 @property (nonatomic, strong) WMFTheme *theme;
 
 @end
@@ -63,6 +65,16 @@
         image = [[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     });
     return image;
+}
+
+- (void)setControlTag:(NSInteger)controlTag {
+    self.disclosureSwitch.tag = controlTag;
+    self.titleButton.tag = controlTag;
+}
+
+- (void)setIsSwitchOn:(BOOL)isSwitchOn {
+    _isSwitchOn = isSwitchOn;
+    [self.disclosureSwitch setOn:isSwitchOn];
 }
 
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
