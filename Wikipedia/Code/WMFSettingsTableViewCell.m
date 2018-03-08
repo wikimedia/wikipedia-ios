@@ -126,6 +126,19 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType title:(NSString *)title iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor buttonTitle:(NSString *)buttonTitle controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
+    self.isSwitchOn = isSwitchOn;
+    self.disclosureType = disclosureType;
+    self.title = title;
+    self.iconName = iconName;
+    self.iconColor = iconColor;
+    self.iconBackgroundColor = iconBackgroundColor;
+    self.buttonTitle = buttonTitle;
+    self.controlTag = controlTag;
+
+    [self applyTheme:theme];
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
