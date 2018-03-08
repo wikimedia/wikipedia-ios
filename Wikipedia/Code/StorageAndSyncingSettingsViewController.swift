@@ -151,6 +151,8 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let settingsItem = sections[indexPath.section].items[indexPath.row]
@@ -160,6 +162,8 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
         return tableView.rowHeight
     }
 }
+
+// MARK: - WMFSettingsTableViewCellDelegate
 
 extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDelegate {
     
