@@ -76,6 +76,7 @@
             self.disclosureLabel.hidden = YES;
             self.disclosureIcon.image = nil;
             self.disclosureSwitch.hidden = NO;
+            [self.disclosureSwitch addTarget:self action:@selector(didToggleDisclosureSwitch:) forControlEvents:UIControlEventValueChanged];
             break;
         case WMFSettingsMenuItemDisclosureType_ViewController:
             self.disclosureIcon.hidden = NO;
@@ -100,6 +101,14 @@
         default:
             break;
     }
+}
+
+- (void)didToggleDisclosureSwitch:(UISwitch *)sender {
+    [self.delegate settingsTableViewCell:self didToggleDisclosureSwitch:sender];
+}
+
+- (void)didPressButton:(UIButton *)sender {
+    [self.delegate settingsTableViewCell:self didPressButton:sender];
 }
 
 - (void)setIconColor:(UIColor *)iconColor {
