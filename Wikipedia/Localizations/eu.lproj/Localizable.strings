@@ -328,8 +328,7 @@
 "reading-list-api-error-list-limit" = "Zerrenda hau ez dago sinkronizatuta zure sinkronizatutako zerrenden muga gainditu duzulako.";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
-// Fuzzy
-"reading-list-exists-with-same-name" = "$1 izena duen irakurketa zerrenda existitzen da jada";
+"reading-list-exists-with-same-name" = "Irakurketa zerrendari jarritako izena erabilpean dago";
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
 "reading-list-keep-subtitle" = "Zure Wikipedia kontuan sinkronizatutako artikuluak daude. Saioa itxi eta gero, gailuan mantendu nahiko zenituzke?";
@@ -355,7 +354,9 @@
 "reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jarri duzula.";
 "reading-lists-article-added-confirmation" = "\"$1\"-ra gehitu da artikulua";
 "reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
+// Fuzzy
 "reading-lists-default-list-title" = "Lastermarkak";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
 "reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";

@@ -314,6 +314,7 @@
 "reading-list-sync-setting" = "Sincronizza elenco di lettura";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
+// Fuzzy
 "reading-lists-default-list-title" = "Segnalibri";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";

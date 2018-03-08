@@ -339,8 +339,10 @@
 "reading-list-sync-setting" = "Sincronització de la llista de lectura";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Llista per defecte dels articles desats";
-"reading-lists-default-list-title" = "Adreces d'interès";
+"reading-lists-default-list-title" = "Desats";
+"reading-lists-delete-reading-list-alert-title" = "Voleu suprimir {{PLURAL:$1|la llista|les llistes}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
 "reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";

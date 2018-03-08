@@ -362,7 +362,9 @@
 "reading-list-with-provided-name-not-found" = "找不到名為「$1」的閱讀清單。請確定是正確的名稱。";
 "reading-lists-article-added-confirmation" = "條目已添加至「$1」";
 "reading-lists-count" = "{{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}";
+// Fuzzy
 "reading-lists-default-list-description" = "已儲存條目的預設清單";
+// Fuzzy
 "reading-lists-default-list-title" = "書籤";
 "reading-lists-delete-reading-list-alert-message" = "此操作無法還原，任何儲存至{{PLURAL:$1|此清單|這些清單}}的條目將會被取消儲存。";
 "reading-lists-delete-reading-list-alert-title" = "刪除 {{PLURAL:$1| 個清單| 個清單}}嗎？";

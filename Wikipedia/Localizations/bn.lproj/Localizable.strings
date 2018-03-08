@@ -300,6 +300,7 @@
 "preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
+// Fuzzy
 "reading-lists-default-list-title" = "বুকমার্ক";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|তালিকাটি|তালিকাগুলি}} মুছবেন?";
 "reading-themes-controls-accessibility-dark-theme-button" = "আঁধার থিম";
