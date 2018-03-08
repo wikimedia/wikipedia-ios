@@ -328,7 +328,6 @@
 "reading-list-login-title" = "Sync your saved articles?";
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
-"reading-list-show-default-list-setting" = "Show default list";
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across devices.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
