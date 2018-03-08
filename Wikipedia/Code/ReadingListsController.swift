@@ -1,16 +1,20 @@
 import Foundation
 
-internal let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
-internal let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
-fileprivate let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
+// Sync keys
+let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
+private let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
+let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
-internal let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
+// Default list key
+private let WMFReadingListDefaultListEnabledKey = "WMFReadingListDefaultListEnabled"
 
-internal let WMFReadingListBatchSizePerRequestLimit = 500
+// Batch size keys
+let WMFReadingListBatchSizePerRequestLimit = 500
+let WMFReadingListCoreDataBatchSize = 500
 
-internal let WMFReadingListCoreDataBatchSize = 500
-
-internal let WMFReadingListEntryLimit = 1000
+// Reading lists config keys
+let WMFReadingListsConfigMaxEntriesPerList = "WMFReadingListsConfigMaxEntriesPerList"
+let WMFReadingListsConfigMaxListsPerUser = "WMFReadingListsConfigMaxListsPerUser"
 
 struct ReadingListSyncState: OptionSet {
     let rawValue: Int64
@@ -47,7 +51,6 @@ public enum ReadingListError: Error, Equatable {
     
     public var localizedDescription: String {
         switch self {
-        // TODO: WMFAlertManager can't display this string
         case .generic:
             return WMFLocalizedString("reading-list-generic-error", value: "An unexpected error occurred while updating your reading lists.", comment: "An unexpected error occurred while updating your reading lists.")
         case .listExistsWithTheSameName:
@@ -249,7 +252,7 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        guard readingList.entries?.count ?? 0 + articles.count <= WMFReadingListEntryLimit else {
+        guard readingList.entries?.count ?? 0 + articles.count <= moc.wmf_readingListsConfigMaxEntriesPerList.intValue else {
             throw ReadingListError.unableToAddArticlesDueToListLimit(name: readingList.name ?? "", count: articles.count)
         }
         try add(articles: articles, to: readingList, in: moc)
@@ -551,18 +554,7 @@ public class ReadingListsController: NSObject {
     }
 }
 
-public extension NSManagedObjectContext {
-    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
-        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
-        if defaultList == nil { // failsafe
-            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
-            defaultList?.isDefault = true
-        }
-        return defaultList
-    }
-}
-
-internal extension WMFArticle {
+extension WMFArticle {
     func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
@@ -612,9 +604,7 @@ internal extension WMFArticle {
             savedDate = Date()
         }
     }
-}
 
-extension WMFArticle {
     @objc public var isInDefaultList: Bool {
         guard let readingLists = self.readingLists else {
             return false
@@ -639,7 +629,17 @@ extension WMFArticle {
     }
 }
 
-extension NSManagedObjectContext {
+public extension NSManagedObjectContext {
+    // use with caution, fetching is expensive
+    @objc func wmf_fetchDefaultReadingList() -> ReadingList? {
+        var defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: NSNumber(value: true), forKey: "isDefault") as? ReadingList
+        if defaultList == nil { // failsafe
+            defaultList = wmf_fetch(objectForEntityName: "ReadingList", withValue: ReadingList.defaultListCanonicalName, forKey: "canonicalName") as? ReadingList
+            defaultList?.isDefault = true
+        }
+        return defaultList
+    }
+    
     // is sync available or is it shut down server-side
     @objc public var wmf_isSyncRemotelyEnabled: Bool {
         get {
@@ -654,6 +654,42 @@ extension NSManagedObjectContext {
                 try save()
             } catch let error {
                 DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Reading lists config
+    
+    @objc public var wmf_readingListsConfigMaxEntriesPerList: NSNumber {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
+        }
+        set {
+            guard newValue != wmf_readingListsConfigMaxEntriesPerList else {
+                return
+            }
+            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxEntriesPerList)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxEntriesPerList: \(error)")
+            }
+        }
+    }
+    
+    @objc public var wmf_readingListsConfigMaxListsPerUser: NSNumber {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser) ?? 100
+        }
+        set {
+            guard newValue != wmf_readingListsConfigMaxListsPerUser else {
+                return
+            }
+            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxListsPerUser)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: \(error)")
             }
         }
     }

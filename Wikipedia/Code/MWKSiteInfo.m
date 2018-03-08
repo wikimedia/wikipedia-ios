@@ -14,16 +14,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKSiteInfo ()
 @property (readwrite, copy, nonatomic) NSURL *siteURL;
 @property (readwrite, copy, nonatomic) NSString *mainPageTitleText;
+@property (readwrite, copy, nonatomic) NSNumber *readingListsConfigMaxEntriesPerList;
+@property (readwrite, copy, nonatomic) NSNumber *readingListsConfigMaxListsPerUser;
+
 @end
 
 @implementation MWKSiteInfo
 
 - (instancetype)initWithSiteURL:(NSURL *)siteURL
-              mainPageTitleText:(NSString *)mainPage {
+              mainPageTitleText:(NSString *)mainPage
+readingListsConfigMaxEntriesPerList:(NSNumber *)readingListsConfigMaxEntriesPerList
+readingListsConfigMaxListsPerUser:(NSNumber *)readingListsConfigMaxListsPerUser {
     self = [super init];
     if (self) {
         self.siteURL = [siteURL wmf_siteURL];
         self.mainPageTitleText = mainPage;
+        self.readingListsConfigMaxEntriesPerList = readingListsConfigMaxEntriesPerList;
+        self.readingListsConfigMaxListsPerUser = readingListsConfigMaxListsPerUser;
     }
     return self;
 }

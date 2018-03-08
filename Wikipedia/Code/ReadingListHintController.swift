@@ -1,7 +1,8 @@
 import UIKit
 
-@objc public protocol ReadingListHintPresenter: class {
-    var readingListHintController: ReadingListHintController? { get set }
+@objc(WMFReadingListHintPresenter)
+public protocol ReadingListHintPresenter: class {
+    @objc var readingListHintController: ReadingListHintController? { get }
 }
 
 protocol ReadingListHintViewControllerDelegate: class {
@@ -117,8 +118,11 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+        guard presenter?.presentedViewController == nil else {
+            return
+        }
+
         didSaveArticle = didSave
-        
         self.theme = theme
         
         let didSaveOtherArticle = didSave && !isHintHidden && article != hint.article
