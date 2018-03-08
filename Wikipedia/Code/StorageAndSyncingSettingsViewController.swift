@@ -26,15 +26,15 @@ enum StorageAndSyncingSettingsItemType: Int {
         switch self {
         case .syncSavedArticlesAndLists:
             disclosureType = .switch
-            title = "Sync saved articles and lists"
+            title = WMFLocalizedString("settings-storage-and-syncing-enable-sync-title", value: "Sync saved articles and lists", comment: "Title of the settings option that enables saved articles and reading lists syncing")
             isSwitchOn = isSwitchOnByDefault
         case .showSavedReadingList:
             disclosureType = .switch
-            title = "Show Saved reading list"
+            title = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-title", value: "Show Saved reading list", comment: "Title of the settings option that enables showing the default reading list")
             isSwitchOn = isSwitchOnByDefault
         case .syncWithTheServer:
             disclosureType = .titleButton
-            buttonTitle = "Sync with the server"
+            buttonTitle = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Sync with the server", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
         default:
             break
         }
@@ -58,12 +58,12 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         let eraseSavedArticles = StorageAndSyncingSettingsItemType.eraseSavedArticles.settingsItem()
         let syncWithTheServer = StorageAndSyncingSettingsItemType.syncWithTheServer.settingsItem()
         
-        let syncSavedArticlesAndListsSection = SettingsSection(headerTitle: nil, footerText: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", items: [syncSavedArticlesAndLists])
-        let showSavedReadingListSection = SettingsSection(headerTitle: nil, footerText: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", items: [showSavedReadingList])
+        let syncSavedArticlesAndListsSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing"), items: [syncSavedArticlesAndLists])
+        
+        let showSavedReadingListSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list"), items: [showSavedReadingList])
         
         let eraseSavedArticlesSection = SettingsSection(headerTitle: nil, footerText: nil, items: [eraseSavedArticles])
-        
-        let syncWithTheServerSection = SettingsSection(headerTitle: nil, footerText: "Request a sync from the server for an update to your synced articles and reading lists", items: [syncWithTheServer])
+        let syncWithTheServerSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync"), items: [syncWithTheServer])
         
         return [syncSavedArticlesAndListsSection, showSavedReadingListSection, eraseSavedArticlesSection, syncWithTheServerSection]
     }
@@ -98,10 +98,10 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     
     private lazy var eraseSavedArticlesView: EraseSavedArticlesView? = {
         let eraseSavedArticlesView = EraseSavedArticlesView.wmf_viewFromClassNib()
-        eraseSavedArticlesView?.titleLabel.text = "Erase saved articles"
-        eraseSavedArticlesView?.button.setTitle("Erase", for: .normal)
+        eraseSavedArticlesView?.titleLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-title", value: "Erase saved articles", comment: "Title of the settings option that enables erasing saved articles")
+        eraseSavedArticlesView?.button.setTitle(WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-button-title", value: "Erase", comment: "Title of the settings button that enables erasing saved articles"), for: .normal)
         eraseSavedArticlesView?.button.addTarget(self, action: #selector(eraseSavedArticles), for: .touchUpInside)
-        eraseSavedArticlesView?.footerLabel.text = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space."
+        eraseSavedArticlesView?.footerLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.", comment: "Footer text of the settings option that enables erasing saved articles")
        return eraseSavedArticlesView
     }()
 }

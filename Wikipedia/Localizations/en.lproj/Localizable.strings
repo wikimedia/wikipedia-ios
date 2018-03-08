@@ -401,6 +401,15 @@
 "settings-notifications-trending" = "Trending current events";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync";
+"settings-storage-and-syncing-enable-sync-title" = "Sync saved articles and lists";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
+"settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
+"settings-storage-and-syncing-server-sync-title" = "Sync with the server";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
