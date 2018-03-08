@@ -72,7 +72,11 @@ public class ReadingListsAlertController: NSObject {
     // MARK: - ScrollableEducationPanelViewController presentation
     
     @objc func showLimitHitForDefaultListPanelIfNecessary(presenter: UIViewController, dataStore: MWKDataStore, readingList: ReadingList, theme: Theme) {
-        guard Thread.isMainThread, dataStore.readingListsController.isSyncEnabled else {
+        guard Thread.isMainThread else {
+            assertionFailure("Expected main thread")
+            return
+        }
+        guard dataStore.readingListsController.isSyncEnabled else {
             return
         }
         guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {
