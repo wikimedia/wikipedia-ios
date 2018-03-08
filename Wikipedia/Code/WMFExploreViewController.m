@@ -1837,7 +1837,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindReadingList: {
-            [self wmf_showLoginViewControllerWithTheme:self.theme];
+            [self wmf_showLoginViewControllerWithTheme:self.theme enableSync: false];
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
