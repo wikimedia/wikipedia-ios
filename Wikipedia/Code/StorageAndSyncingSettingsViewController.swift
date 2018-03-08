@@ -154,7 +154,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
 extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let settingsItem = sections[indexPath.section].items[indexPath.row]
-        guard settingsItem.disclosureType != .none else {
+        guard settingsItem.disclosureType != nil else {
             return eraseSavedArticlesView?.frame.height ?? 0
         }
         return tableView.rowHeight
