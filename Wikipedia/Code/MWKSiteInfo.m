@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKSiteInfo ()
 @property (readwrite, copy, nonatomic) NSURL *siteURL;
 @property (readwrite, copy, nonatomic) NSString *mainPageTitleText;
+@property (readwrite, copy, nonatomic) NSNumber *readingListsConfigMaxEntriesPerList;
+@property (readwrite, copy, nonatomic) NSNumber *readingListsConfigMaxListsPerUser;
 
 @end
 
