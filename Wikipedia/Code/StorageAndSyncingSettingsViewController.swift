@@ -52,7 +52,6 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var indexPathsForCellsWithSwitches: [IndexPath] = []
     
     private var sections: [SettingsSection] {
-        // TODO: Localize strings
         let syncSavedArticlesAndLists = StorageAndSyncingSettingsItemType.syncSavedArticlesAndLists.settingsItem(isSwitchOnByDefault: isSyncEnabled)
         let showSavedReadingList = StorageAndSyncingSettingsItemType.showSavedReadingList.settingsItem(isSwitchOnByDefault: dataStore?.readingListsController.isDefaultListEnabled)
         let eraseSavedArticles = StorageAndSyncingSettingsItemType.eraseSavedArticles.settingsItem()
