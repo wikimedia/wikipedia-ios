@@ -1,12 +1,12 @@
-struct SettingsSection {
+private struct Section {
     let headerTitle: String?
     let footerText: String?
-    let items: [SettingsItem]
+    let items: [Item]
 }
 
-struct SettingsItem {
+private struct Item {
     let disclosureType: WMFSettingsMenuItemDisclosureType?
-    let itemType: StorageAndSyncingSettingsItemType
+    let type: ItemType
     let title: String?
     let iconName: String?
     let iconColor: UIColor?
@@ -15,10 +15,10 @@ struct SettingsItem {
     let buttonTitle: String?
 }
 
-enum StorageAndSyncingSettingsItemType: Int {
+private enum ItemType: Int {
     case syncSavedArticlesAndLists, showSavedReadingList, eraseSavedArticles, syncWithTheServer
     
-    public func settingsItem(isSwitchOnByDefault: Bool? = nil) -> SettingsItem {
+    func item(isSwitchOnByDefault: Bool? = nil) -> Item {
         var disclosureType: WMFSettingsMenuItemDisclosureType? = nil
         var title: String? = nil
         var isSwitchOn: Bool? = nil
@@ -39,7 +39,7 @@ enum StorageAndSyncingSettingsItemType: Int {
             break
         }
         
-        return SettingsItem(disclosureType: disclosureType, itemType: self, title: title, iconName: nil, iconColor: nil, iconBackgroundColor: nil, isSwitchOn: isSwitchOn, buttonTitle: buttonTitle)
+        return Item(disclosureType: disclosureType, type: self, title: title, iconName: nil, iconColor: nil, iconBackgroundColor: nil, isSwitchOn: isSwitchOn, buttonTitle: buttonTitle)
     }
 }
 
@@ -51,18 +51,18 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     @objc public var dataStore: MWKDataStore?
     private var indexPathsForCellsWithSwitches: [IndexPath] = []
     
-    private var sections: [SettingsSection] {
-        let syncSavedArticlesAndLists = StorageAndSyncingSettingsItemType.syncSavedArticlesAndLists.settingsItem(isSwitchOnByDefault: isSyncEnabled)
-        let showSavedReadingList = StorageAndSyncingSettingsItemType.showSavedReadingList.settingsItem(isSwitchOnByDefault: dataStore?.readingListsController.isDefaultListEnabled)
-        let eraseSavedArticles = StorageAndSyncingSettingsItemType.eraseSavedArticles.settingsItem()
-        let syncWithTheServer = StorageAndSyncingSettingsItemType.syncWithTheServer.settingsItem()
+    private var sections: [Section] {
+        let syncSavedArticlesAndLists = ItemType.syncSavedArticlesAndLists.item(isSwitchOnByDefault: isSyncEnabled)
+        let showSavedReadingList = ItemType.showSavedReadingList.item(isSwitchOnByDefault: dataStore?.readingListsController.isDefaultListEnabled)
+        let eraseSavedArticles = ItemType.eraseSavedArticles.item()
+        let syncWithTheServer = ItemType.syncWithTheServer.item()
         
-        let syncSavedArticlesAndListsSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing"), items: [syncSavedArticlesAndLists])
+        let syncSavedArticlesAndListsSection = Section(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing"), items: [syncSavedArticlesAndLists])
         
-        let showSavedReadingListSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list"), items: [showSavedReadingList])
+        let showSavedReadingListSection = Section(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list"), items: [showSavedReadingList])
         
-        let eraseSavedArticlesSection = SettingsSection(headerTitle: nil, footerText: nil, items: [eraseSavedArticles])
-        let syncWithTheServerSection = SettingsSection(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync"), items: [syncWithTheServer])
+        let eraseSavedArticlesSection = Section(headerTitle: nil, footerText: nil, items: [eraseSavedArticles])
+        let syncWithTheServerSection = Section(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync"), items: [syncWithTheServer])
         
         return [syncSavedArticlesAndListsSection, showSavedReadingListSection, eraseSavedArticlesSection, syncWithTheServerSection]
     }
@@ -139,7 +139,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         }
         
         cell.delegate = self
-        cell.configure(disclosureType, title: settingsItem.title, iconName: settingsItem.iconName, isSwitchOn: settingsItem.isSwitchOn ?? false, iconColor: settingsItem.iconColor, iconBackgroundColor: settingsItem.iconBackgroundColor, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.itemType.rawValue, theme: theme)
+        cell.configure(disclosureType, title: settingsItem.title, iconName: settingsItem.iconName, isSwitchOn: settingsItem.isSwitchOn ?? false, iconColor: settingsItem.iconColor, iconBackgroundColor: settingsItem.iconBackgroundColor, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
     
         if settingsItem.disclosureType == .switch {
             indexPathsForCellsWithSwitches.append(indexPath)
@@ -170,7 +170,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
 extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDelegate {
     
     func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
-        guard let settingsItemType = StorageAndSyncingSettingsItemType(rawValue: sender.tag) else {
+        guard let settingsItemType = ItemType(rawValue: sender.tag) else {
             assertionFailure("Toggled discloure switch of WMFSettingsTableViewCell for undefined StorageAndSyncingSettingsItemType")
             return
         }
@@ -190,7 +190,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
     }
     
     func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didPress sender: UIButton!) {
-        guard let settingsItemType = StorageAndSyncingSettingsItemType(rawValue: sender.tag), settingsItemType == .syncWithTheServer else {
+        guard let settingsItemType = ItemType(rawValue: sender.tag), settingsItemType == .syncWithTheServer else {
             assertionFailure("Pressed button of WMFSettingsTableViewCell for undefined StorageAndSyncingSettingsItemType")
             return
         }
