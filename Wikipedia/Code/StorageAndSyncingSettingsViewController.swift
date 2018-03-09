@@ -8,27 +8,24 @@ private struct Item {
     let disclosureType: WMFSettingsMenuItemDisclosureType?
     let type: ItemType
     let title: String?
-    let isSwitchOn: Bool?
+    let isSwitchOn: Bool
     let buttonTitle: String?
-}
-
-private enum ItemType: Int {
-    case syncSavedArticlesAndLists, showSavedReadingList, eraseSavedArticles, syncWithTheServer
     
-    func item(isSwitchOnByDefault: Bool? = nil) -> Item {
+    init(for type: ItemType, isSwitchOn: Bool = false) {
+        self.type = type
+        self.isSwitchOn = isSwitchOn
+        
         var disclosureType: WMFSettingsMenuItemDisclosureType? = nil
         var title: String? = nil
-        var isSwitchOn: Bool? = nil
         var buttonTitle: String? = nil
-        switch self {
+
+        switch type {
         case .syncSavedArticlesAndLists:
             disclosureType = .switch
             title = WMFLocalizedString("settings-storage-and-syncing-enable-sync-title", value: "Sync saved articles and lists", comment: "Title of the settings option that enables saved articles and reading lists syncing")
-            isSwitchOn = isSwitchOnByDefault
         case .showSavedReadingList:
             disclosureType = .switch
             title = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-title", value: "Show Saved reading list", comment: "Title of the settings option that enables showing the default reading list")
-            isSwitchOn = isSwitchOnByDefault
         case .syncWithTheServer:
             disclosureType = .titleButton
             buttonTitle = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Sync with the server", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
@@ -36,8 +33,14 @@ private enum ItemType: Int {
             break
         }
         
-        return Item(disclosureType: disclosureType, type: self, title: title, isSwitchOn: isSwitchOn, buttonTitle: buttonTitle)
+        self.title = title
+        self.disclosureType = disclosureType
+        self.buttonTitle = buttonTitle
     }
+}
+
+private enum ItemType: Int {
+    case syncSavedArticlesAndLists, showSavedReadingList, eraseSavedArticles, syncWithTheServer
 }
 
 @objc(WMFStorageAndSyncingSettingsViewController)
@@ -49,10 +52,11 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var indexPathsForCellsWithSwitches: [IndexPath] = []
     
     private var sections: [Section] {
-        let syncSavedArticlesAndLists = ItemType.syncSavedArticlesAndLists.item(isSwitchOnByDefault: isSyncEnabled)
-        let showSavedReadingList = ItemType.showSavedReadingList.item(isSwitchOnByDefault: dataStore?.readingListsController.isDefaultListEnabled)
-        let eraseSavedArticles = ItemType.eraseSavedArticles.item()
-        let syncWithTheServer = ItemType.syncWithTheServer.item()
+        let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
+        
+        let showSavedReadingList = Item(for: .showSavedReadingList, isSwitchOn: dataStore?.readingListsController.isDefaultListEnabled ?? false)
+        let eraseSavedArticles = Item(for: .eraseSavedArticles)
+        let syncWithTheServer = Item(for: .syncWithTheServer)
         
         let syncSavedArticlesAndListsSection = Section(headerTitle: nil, footerText: WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing"), items: [syncSavedArticlesAndLists])
         
@@ -136,7 +140,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         }
         
         cell.delegate = self
-        cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn ?? false, iconColor: nil, iconBackgroundColor: nil, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
+        cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
     
         if settingsItem.disclosureType == .switch {
             indexPathsForCellsWithSwitches.append(indexPath)
