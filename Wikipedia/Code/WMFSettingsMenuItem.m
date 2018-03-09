@@ -89,7 +89,7 @@
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:WMFLocalizedStringWithDefaultValue(@"reading-list-sync-setting", nil, nil, @"Saved articles storage and syncing", @"Title for the Saved articles storage and syncing Settings button.")
+                                                title:[WMFCommonStrings settingsStorageAndSyncing]
                                              iconName:@"settings-saved-articles"
                                             iconColor:[UIColor wmf_colorWithHex:0x00b4ce]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText

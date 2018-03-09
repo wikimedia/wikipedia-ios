@@ -69,7 +69,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = WMFLocalizedString("settings-storage-and-syncing-title", value: "Saved articles storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
+        title = CommonStrings.settingsStorageAndSyncing
         tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.separatorStyle = .none
