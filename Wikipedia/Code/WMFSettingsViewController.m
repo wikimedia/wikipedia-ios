@@ -381,7 +381,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
-    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] init];
+    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] initWithNibName:@"StorageAndSyncingSettingsViewController" bundle:nil];
     [storageAndSyncingSettingsVC applyTheme:self.theme];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
