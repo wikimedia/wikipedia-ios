@@ -359,7 +359,9 @@
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
+// Fuzzy
 "reading-lists-default-list-description" = "Lista padrão para os artigos guardados";
+// Fuzzy
 "reading-lists-default-list-title" = "Marcadores";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";

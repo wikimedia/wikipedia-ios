@@ -11,6 +11,7 @@
 // Author: Macofe
 // Author: Namoroka
 // Author: Nemo bis
+// Author: Nuevo Paso
 // Author: Priviet
 // Author: Revi
 // Author: SeoJeongHo
@@ -354,7 +355,7 @@
 "reading-lists-article-added-confirmation" = "문서를 \"$1\" 목록에 추가했습니다";
 "reading-lists-count" = "{{PLURAL:$1|읽기 목록 $1개}}";
 "reading-lists-default-list-description" = "저장된 문서를 위한 기본 목록";
-"reading-lists-default-list-title" = "책갈피";
+"reading-lists-default-list-title" = "저장됨";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
 "reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";

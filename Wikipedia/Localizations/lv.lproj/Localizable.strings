@@ -143,6 +143,7 @@
 "places-title" = "Vietas";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
+// Fuzzy
 "reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
 "saved-all-articles-title" = "Visi raksti";
