@@ -49,7 +49,7 @@ LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
 CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
-CSS_ORIGIN = $(CSS_PREFIX)/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|ext.math.styles|ext.pygments|
+CSS_ORIGIN = $(CSS_PREFIX)/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|ext.math.styles|ext.pygments|mobile.app
 
 define get_css_module
 curl -s -L -o
@@ -59,9 +59,9 @@ css: ##Download latest stylesheets
 	@echo "Downloading CSS assets from $(CSS_PREFIX)..."; \
 	mkdir -p $(WEB_ASSETS_DIR); \
 	cd $(WEB_ASSETS_DIR); \
-	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
-	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
-	$(get_css_module) 'preview.css' "$(CSS_ORIGIN)mobile.app.preview" > /dev/null
+	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)|mobile.app.pagestyles" > /dev/null; \
+	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)|mobile.app.pagestyles" > /dev/null; \
+	$(get_css_module) 'preview.css' "$(CSS_ORIGIN)" > /dev/null
 
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
 NPM_VERSION = "$(shell npm -version 2>/dev/null)"
