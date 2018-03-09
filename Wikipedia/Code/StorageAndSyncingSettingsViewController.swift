@@ -89,6 +89,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     
     private var isSyncEnabled: Bool {
         guard let dataStore = dataStore else {
+            assertionFailure("dataStore is nil")
             return false
         }
         return dataStore.readingListsController.isSyncEnabled
