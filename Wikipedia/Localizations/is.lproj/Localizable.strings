@@ -343,7 +343,9 @@
 // Fuzzy
 "reading-list-with-provided-name-not-found" = "Leslisti með heitinu $1 fannst ekki. Gakktu úr skugga um að þú hafir sett inn rétt heiti.";
 "reading-lists-count" = "{{PLURAL:$1|$1 leslistann|$1 leslistana}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Sjálfgefinn listi fyrir vistaðar greinar";
+// Fuzzy
 "reading-lists-default-list-title" = "Bókamerki";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart þema";
 "reading-themes-controls-accessibility-brightness-slider" = "Sleði fyrir birtustig";

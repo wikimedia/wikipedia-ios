@@ -321,6 +321,9 @@
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
 "reading-list-keep-title" = "Keep saved articles on device?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sort articles";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limit hit for unsorted articles";
 "reading-list-login-button-title" = "Log in to sync your saved articles";
 "reading-list-login-or-create-account-button-title" = "Log in or create account";
 "reading-list-login-or-create-account-title" = "Log in to sync saved articles";

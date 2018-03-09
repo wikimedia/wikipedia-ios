@@ -309,6 +309,7 @@
 "reading-list-sync-setting" = "Lieschtlëscht-Synchronisatioun";
 "reading-list-with-provided-name-not-found" = "Eng Lieslëscht mam Numm \"$1\" gouf net fonnt. Vergewëssert Iech w.e.g. datt Dir de richtegen Numm hutt.";
 "reading-lists-count" = "{{PLURAL:$1|Eng Lieslëscht|$1 Lieslëschten}}";
+// Fuzzy
 "reading-lists-default-list-title" = "Lieszeechen";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";

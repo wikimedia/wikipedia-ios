@@ -362,7 +362,9 @@
 "reading-list-with-provided-name-not-found" = "En läslista med namnet \"$1\" hittades inte. Se till att du har rätt namn.";
 "reading-lists-article-added-confirmation" = "Artikeln lades till i \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 läslista|$1 läslistor}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Standardlista för sparade artiklar";
+// Fuzzy
 "reading-lists-default-list-title" = "Bokmärken";
 "reading-lists-delete-reading-list-alert-message" = "Denna handling kan inte ångras. Alla artiklar som endast sparas i {{PLURAL:$1|denna lista|dessa listor}} kommer att tas bort.";
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";

@@ -350,7 +350,9 @@
 "reading-list-with-provided-name-not-found" = "Не пронајдов список за читање наречен „$1“. Проверете дали името ви е исправно.";
 "reading-lists-article-added-confirmation" = "Статијата е додадена во „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Стандарден список за зачувани статии";
+// Fuzzy
 "reading-lists-default-list-title" = "Обележани";
 "reading-lists-delete-reading-list-alert-message" = "Ова дејство е неповратно. Сите статии зачувани само во {{PLURAL:$1|овој список|овие списоци}} ќе бидат одзачувани.";
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
