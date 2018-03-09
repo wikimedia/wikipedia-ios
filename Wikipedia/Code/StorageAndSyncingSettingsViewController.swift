@@ -8,9 +8,6 @@ private struct Item {
     let disclosureType: WMFSettingsMenuItemDisclosureType?
     let type: ItemType
     let title: String?
-    let iconName: String?
-    let iconColor: UIColor?
-    let iconBackgroundColor: UIColor?
     let isSwitchOn: Bool?
     let buttonTitle: String?
 }
@@ -39,7 +36,7 @@ private enum ItemType: Int {
             break
         }
         
-        return Item(disclosureType: disclosureType, type: self, title: title, iconName: nil, iconColor: nil, iconBackgroundColor: nil, isSwitchOn: isSwitchOn, buttonTitle: buttonTitle)
+        return Item(disclosureType: disclosureType, type: self, title: title, isSwitchOn: isSwitchOn, buttonTitle: buttonTitle)
     }
 }
 
@@ -139,7 +136,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         }
         
         cell.delegate = self
-        cell.configure(disclosureType, title: settingsItem.title, iconName: settingsItem.iconName, isSwitchOn: settingsItem.isSwitchOn ?? false, iconColor: settingsItem.iconColor, iconBackgroundColor: settingsItem.iconBackgroundColor, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
+        cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn ?? false, iconColor: nil, iconBackgroundColor: nil, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
     
         if settingsItem.disclosureType == .switch {
             indexPathsForCellsWithSwitches.append(indexPath)
