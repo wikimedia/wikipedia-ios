@@ -149,18 +149,6 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate
-
-extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let settingsItem = sections[indexPath.section].items[indexPath.row]
-        guard settingsItem.disclosureType != nil else {
-            return eraseSavedArticlesView?.frame.height ?? 0
-        }
-        return tableView.rowHeight
-    }
-}
-
 // MARK: - WMFSettingsTableViewCellDelegate
 
 extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDelegate {
