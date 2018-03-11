@@ -121,9 +121,8 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: customViewCellReuseIdentifier, for: indexPath)
             cell.selectionStyle = .none
             if let eraseSavedArticlesView = eraseSavedArticlesView {
-                eraseSavedArticlesView.frame = cell.contentView.bounds
-                eraseSavedArticlesView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                cell.contentView.addSubview(eraseSavedArticlesView)
+                eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
+                cell.contentView.wmf_addSubviewWithConstraintsToEdges(eraseSavedArticlesView)
             } else {
                 assertionFailure("Couldn't load EraseSavedArticlesView from nib")
             }
