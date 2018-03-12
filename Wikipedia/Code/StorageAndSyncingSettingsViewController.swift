@@ -130,6 +130,11 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         view.wmf_addSubview(showSavedReadingListFooterLabel, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 7.5, left: 15, bottom: 7.5, right: 18))
         return view
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        showSavedReadingListFooterLabel.setFont(with: .system, style: .footnote, traitCollection: traitCollection)
+    }
 }
 
 // MARK: UITableViewDataSource
