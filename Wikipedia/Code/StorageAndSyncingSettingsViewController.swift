@@ -200,6 +200,14 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
         }
         return 30
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        guard let footerView = view as? UITableViewHeaderFooterView else {
+            return
+        }
+        footerView.textLabel?.textColor = theme.colors.secondaryText
+        footerView.textLabel?.backgroundColor = theme.colors.baseBackground
+    }
 }
 
 // MARK: - WMFSettingsTableViewCellDelegate
