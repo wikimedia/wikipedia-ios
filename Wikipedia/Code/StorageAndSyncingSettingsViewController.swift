@@ -182,6 +182,26 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
+
+extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let section = sections[section]
+        guard section.type == .showSavedReadingList else {
+            return nil
+        }
+        return showSavedReadingListFooterView
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        let section = sections[section]
+        guard section.type == .showSavedReadingList else {
+            return 18
+        }
+        return 30
+    }
+}
+
 // MARK: - WMFSettingsTableViewCellDelegate
 
 extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDelegate {
