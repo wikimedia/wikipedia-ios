@@ -349,6 +349,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     // MARK: - Batch editing
     
+    public var isShowingDefaultCellOnly: Bool = false {
+        didSet {
+            guard oldValue != isShowingDefaultCellOnly else {
+                return
+            }
+            editingState = isShowingDefaultCellOnly ? .empty : .none
+        }
+    }
+    
     public weak var navigationDelegate: CollectionViewEditControllerNavigationDelegate? {
         willSet {
             batchEditToolbarViewController.remove()
