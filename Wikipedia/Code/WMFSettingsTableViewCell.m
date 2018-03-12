@@ -16,6 +16,7 @@
 @property (nonatomic) NSInteger controlTag;
 @property (nonatomic) BOOL isSwitchOn;
 @property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic, strong) UIColor *labelBackgroundColor;
 
 @end
 
@@ -178,6 +179,12 @@
     [self applyTheme:theme];
 }
 
+- (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
+    self.titleLabel.backgroundColor = labelBackgroundColor;
+    self.disclosureLabel.backgroundColor = labelBackgroundColor;
+    self.titleButton.titleLabel.backgroundColor = labelBackgroundColor;
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
@@ -187,6 +194,8 @@
     self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;
     self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;
     self.disclosureIcon.tintColor = theme.colors.secondaryText;
+    self.disclosureSwitch.backgroundColor = theme.colors.paperBackground;
+    self.labelBackgroundColor = theme.colors.paperBackground;
 }
 
 @end
