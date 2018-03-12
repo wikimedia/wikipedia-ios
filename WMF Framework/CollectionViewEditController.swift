@@ -395,19 +395,20 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
-        var newBarButtonSystemItem: (left: UIBarButtonSystemItem?, right: UIBarButtonSystemItem) = (left: nil, right: UIBarButtonSystemItem.edit)
+        var rightButtonSystemItem: UIBarButtonSystemItem = .edit
+        var leftButtonSystemItem: UIBarButtonSystemItem? = nil
         
         defer {
-            let rightButton = UIBarButtonItem(barButtonSystemItem: newBarButtonSystemItem.right, target: self, action: #selector(barButtonPressed(_:)))
+            let rightButton = UIBarButtonItem(barButtonSystemItem: rightButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
             let leftButton: UIBarButtonItem?
-            if let barButtonSystemItem = newBarButtonSystemItem.left {
+            if let barButtonSystemItem = leftButtonSystemItem {
                 leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
             } else {
                 leftButton = nil
             }
             leftButton?.tag = editingState.tag
             rightButton.tag = editingState.tag
-            rightButton.isEnabled = isShowingDefaultCellOnly ? false : !isCollectionViewEmpty
+            rightButton.isEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
             activeBarButton.left = leftButton
             activeBarButton.right = rightButton
             navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
@@ -416,12 +417,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
-            newBarButtonSystemItem.left = .cancel
+            leftButtonSystemItem = .cancel
             fallthrough
         case .swiping:
-            newBarButtonSystemItem.right = .done
+            rightButtonSystemItem = .done
         case .open:
-            newBarButtonSystemItem.right = UIBarButtonSystemItem.cancel
+            rightButtonSystemItem = .cancel
             fallthrough
         case .closed:
             transformBatchEditPane(for: editingState)
