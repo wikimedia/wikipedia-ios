@@ -1,5 +1,5 @@
 private struct Section {
-    let headerTitle: String?
+    let type: ItemType
     let footerText: String?
     let items: [Item]
     
