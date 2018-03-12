@@ -2,6 +2,24 @@ private struct Section {
     let headerTitle: String?
     let footerText: String?
     let items: [Item]
+    
+    init(for type: ItemType, with items: [Item]) {
+        self.type = type
+        
+        var footerText: String? = nil
+        
+        switch type {
+        case .syncSavedArticlesAndLists:
+            footerText = WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing")
+        case .syncWithTheServer:
+            footerText = WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync")
+        default:
+            break
+        }
+        
+        self.footerText = footerText
+        self.items = items
+    }
 }
 
 private struct Item {
