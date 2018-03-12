@@ -395,13 +395,13 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
-        var rightButtonSystemItem: UIBarButtonSystemItem = .edit
-        var leftButtonSystemItem: UIBarButtonSystemItem? = nil
+        var rightBarButtonSystemItem: UIBarButtonSystemItem = .edit
+        var leftBarButtonSystemItem: UIBarButtonSystemItem? = nil
         
         defer {
-            let rightButton = UIBarButtonItem(barButtonSystemItem: rightButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            let rightButton = UIBarButtonItem(barButtonSystemItem: rightBarButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
             let leftButton: UIBarButtonItem?
-            if let barButtonSystemItem = leftButtonSystemItem {
+            if let barButtonSystemItem = leftBarButtonSystemItem {
                 leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
             } else {
                 leftButton = nil
@@ -417,12 +417,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
-            leftButtonSystemItem = .cancel
+            leftBarButtonSystemItem = .cancel
             fallthrough
         case .swiping:
-            rightButtonSystemItem = .done
+            rightBarButtonSystemItem = .done
         case .open:
-            rightButtonSystemItem = .cancel
+            rightBarButtonSystemItem = .cancel
             fallthrough
         case .closed:
             transformBatchEditPane(for: editingState)
