@@ -42,7 +42,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             if activeIndexPath != nil {
                 editingState = .swiping
             } else {
-                editingState = .none
+                editingState = isCollectionViewEmpty ? .empty : .none
             }
         }
     }
