@@ -116,6 +116,20 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         eraseSavedArticlesView?.footerLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.", comment: "Footer text of the settings option that enables erasing saved articles")
        return eraseSavedArticlesView
     }()
+    
+    private lazy var showSavedReadingListFooterLabel: UILabel = {
+        let label = UILabel()
+        label.text = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list")
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    private lazy var showSavedReadingListFooterView: UIView = {
+        let view = UIView()
+        view.wmf_addSubview(showSavedReadingListFooterLabel, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 7.5, left: 15, bottom: 7.5, right: 18))
+        return view
+    }()
 }
 
 // MARK: UITableViewDataSource
