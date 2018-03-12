@@ -27,6 +27,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
+        let isDefaultListEnabled = readingListsController.isDefaultListEnabled
+        
         if let readingLists = readingLists, readingLists.count > 0 {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
@@ -35,14 +37,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 subpredicates.append(NSPredicate(format: "isDefault != YES"))
             }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
             var predicate = basePredicate
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
             }
             request.predicate = predicate
