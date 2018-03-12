@@ -70,6 +70,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         guard readingListsController.isDefaultListEnabled else {
             return false
         }
+        guard let readingList = readingList(at: IndexPath(item: 0, section: 0)), readingList.isDefault else {
+            return false
+        }
         return collectionView.numberOfSections == 1 && collectionView(collectionView, numberOfItemsInSection: 0) == 1
     }
     
