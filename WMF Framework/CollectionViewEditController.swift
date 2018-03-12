@@ -354,7 +354,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             guard oldValue != isShowingDefaultCellOnly else {
                 return
             }
-            editingState = isShowingDefaultCellOnly ? .empty : .none
+            editingState = isCollectionViewEmpty || isShowingDefaultCellOnly ? .empty : .none
         }
     }
     
