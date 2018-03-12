@@ -427,7 +427,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             transformBatchEditPane(for: editingState)
         case .empty:
             isBatchEditToolbarHidden = true
-            enabled = false
         default:
             break
         }
