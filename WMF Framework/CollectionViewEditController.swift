@@ -476,7 +476,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func emptyStateDidChange() {
-        if isCollectionViewEmpty {
+        if isCollectionViewEmpty || isShowingDefaultCellOnly {
             editingState = .empty
         } else {
             editingState = .none
