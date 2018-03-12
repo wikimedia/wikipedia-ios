@@ -334,6 +334,9 @@
 "reading-list-keep-button-title" = "Ja, bevar artikler på enhed";
 "reading-list-keep-subtitle" = "Der er artikler synkroniseret med din Wikipediakonto. Ønsker du at bevare dem på denne enhed efter at du logger ud?";
 "reading-list-keep-title" = "Bevar gemte artikler på enhed?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sorter artikler";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Der er en begrænsning på 5.000 usorterede artikler. Sorter venligst dine eksisterende artikler i lister for at fortsætte synkroniseringen af usorterede artikler.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Begrænsningen for usorterede artikler er nået";
 "reading-list-login-button-title" = "Log ind for at synkronisere dine gemte artikler";
 "reading-list-login-or-create-account-button-title" = "Log ind eller opret konto";
 "reading-list-login-or-create-account-title" = "Log ind for at synkronisere gemte artikler";
@@ -346,19 +349,19 @@
 "reading-list-sync-enable-subtitle" = "Dine gemte artikler og læselister kan nu gemmes på din Wikipediakonto og synkroniseres på tværs af enheder.";
 "reading-list-sync-enable-title" = "Aktiver synkronisering af læselister?";
 "reading-list-sync-setting" = "Læselistesynkronisering";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Du kan ikke tilføje {{PLURAL:$1|denne artikel|disse artikler}} til »$2«, da der er en begrænsning på antallet af artikler du kan have i en læseliste.";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
 "reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
 "reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
 "reading-list-unable-to-remove-entry" = "Der opstod en uventet fejl under fjernelse af en post i din læseliste. Prøv igen senere.";
 "reading-list-unable-to-update" = "Der opstod en uventet fejl under opdatering af din læseliste. Prøv igen senere.";
-// Fuzzy
-"reading-list-with-provided-name-not-found" = "En læseliste med navnet $1 blev ikke fundet. Sikr dig at du har det korrekte navn.";
+"reading-list-with-provided-name-not-found" = "En læseliste med navnet »$1« blev ikke fundet. Sikr dig at du har det korrekte navn.";
 "reading-lists-article-added-confirmation" = "Artikel tilføjet til »$1«";
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
-// Fuzzy
-"reading-lists-default-list-description" = "Standardliste for gemte artikler";
-// Fuzzy
-"reading-lists-default-list-title" = "Bogmærker";
+"reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
+"reading-lists-default-list-title" = "Gemt";
+"reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikle gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
+"reading-lists-delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Sort tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Lysstyrkeskyder";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk tema";
@@ -370,6 +373,10 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|Sidste år|$1 år siden}}";
+"relogin-failed-retry-login-button-title" = "Prøv at logge ind igen";
+"relogin-failed-stay-logged-out-button-title" = "Hold mig logget ind";
+"relogin-failed-subtitle" = "Din session kan være udløbet eller tidligere log i akkreditiver er ikke længere gyldig.";
+"relogin-failed-title" = "Kan ikke genetablere log ind";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "saved-all-articles-title" = "Alle artikler";
 "saved-clear-all" = "Slet";

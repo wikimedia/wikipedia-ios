@@ -371,6 +371,7 @@
 "share-open-in-maps" = "Abrir en Maps";
 "share-social-format" = "“$1” vía Wikipedia: $2";
 "share-social-mention-format" = "“$1” vía @Wikipedia: $2";
+"sort-by-title-action" = "Título";
 "status-saved-for-later" = "Gardado para máis tarde";
 "status-saving-for-later" = "Gardando para máis tarde...";
 "table-of-contents-button-label" = "Táboa de contidos";

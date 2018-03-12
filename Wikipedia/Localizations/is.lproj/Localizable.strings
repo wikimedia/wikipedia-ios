@@ -340,8 +340,7 @@
 "reading-list-unable-to-delete" = "Óvænt villa kom upp við að eyða leslistanum þínum. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-remove-entry" = "Óvænt villa kom upp við að fjarlægja færslu af leslistanum þínum. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-update" = "Óvænt villa kom upp við að uppfæra leslistann þinn. Endilega reyndu aftur síðar.";
-// Fuzzy
-"reading-list-with-provided-name-not-found" = "Leslisti með heitinu $1 fannst ekki. Gakktu úr skugga um að þú hafir sett inn rétt heiti.";
+"reading-list-with-provided-name-not-found" = "Leslisti með heitinu „$1“ fannst ekki. Gakktu úr skugga um að þú hafir sett inn rétt heiti.";
 "reading-lists-count" = "{{PLURAL:$1|$1 leslistann|$1 leslistana}}";
 // Fuzzy
 "reading-lists-default-list-description" = "Sjálfgefinn listi fyrir vistaðar greinar";

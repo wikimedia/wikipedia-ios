@@ -347,6 +347,9 @@
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limite atteinte pour les articles non triés";
 "reading-list-login-button-title" = "Connectez-vous pour synchroniser vos articles enregistrés";
 "reading-list-login-or-create-account-button-title" = "Se connecter ou créer un compte";
 "reading-list-login-or-create-account-title" = "Se connecter pour synchroniser les articles enregistrés";

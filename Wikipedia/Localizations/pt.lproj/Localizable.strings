@@ -338,6 +338,9 @@
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
 "reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Foi atingido o limite de artigos não ordenados";
 "reading-list-login-button-title" = "Entre para sincronizar os seus artigos guardados";
 "reading-list-login-or-create-account-button-title" = "Entre ou crie uma conta";
 "reading-list-login-or-create-account-title" = "Entre para sincronizar os artigos guardados";
@@ -359,10 +362,8 @@
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
-// Fuzzy
-"reading-lists-default-list-description" = "Lista padrão para os artigos guardados";
-// Fuzzy
-"reading-lists-default-list-title" = "Marcadores";
+"reading-lists-default-list-description" = "Lista padrão para os seus artigos guardados";
+"reading-lists-default-list-title" = "Guardados";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos guardados apenas {{PLURAL:$1|nesta lista|nestas listas}} deixarão de ser guardados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";

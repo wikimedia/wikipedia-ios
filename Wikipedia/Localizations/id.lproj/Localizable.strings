@@ -363,10 +363,8 @@
 "reading-list-with-provided-name-not-found" = "Daftar bacaan dengan nama “$1” tidak ditemukan. Pastikan Anda memiliki nama yang benar.";
 "reading-lists-article-added-confirmation" = "Artikel ditambahkan ke “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}";
-// Fuzzy
-"reading-lists-default-list-description" = "Daftar default untuk artikel yang tersimpan";
-// Fuzzy
-"reading-lists-default-list-title" = "Markah";
+"reading-lists-default-list-description" = "Daftar baku untuk artikel tersimpan Anda";
+"reading-lists-default-list-title" = "Tersimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak bisa dibatalkan. Setiap artikel yang disimpan hanya ke {{PLURAL:$1|daftar ini|daftar ini}} akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Hapus {{PLURAL:$1|daftar|daftar}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
