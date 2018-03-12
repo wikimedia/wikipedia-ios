@@ -245,6 +245,7 @@ extension StorageAndSyncingSettingsViewController: Themeable {
             return
         }
         tableView.backgroundColor = theme.colors.baseBackground
+        showSavedReadingListFooterLabel.textColor = theme.colors.secondaryText
         eraseSavedArticlesView?.apply(theme: theme)
     }
 }
