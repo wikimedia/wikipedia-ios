@@ -396,7 +396,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
         var newBarButtonSystemItem: (left: UIBarButtonSystemItem?, right: UIBarButtonSystemItem) = (left: nil, right: UIBarButtonSystemItem.edit)
-        var enabled = true
         
         defer {
             let rightButton = UIBarButtonItem(barButtonSystemItem: newBarButtonSystemItem.right, target: self, action: #selector(barButtonPressed(_:)))
@@ -408,7 +407,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
             leftButton?.tag = editingState.tag
             rightButton.tag = editingState.tag
-            rightButton.isEnabled = enabled
+            rightButton.isEnabled = isShowingDefaultCellOnly ? false : !isCollectionViewEmpty
             activeBarButton.left = leftButton
             activeBarButton.right = rightButton
             navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
