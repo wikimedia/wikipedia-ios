@@ -50,7 +50,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Footer text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfg-ry-ZdR">
-                            <rect key="frame" x="64" y="54.5" width="275" height="125.5"/>
+                            <rect key="frame" x="64" y="54.5" width="275" height="135.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                         <constraint firstItem="8tm-1U-9fo" firstAttribute="leading" secondItem="FHd-wQ-Wp7" secondAttribute="trailing" constant="14" id="bAS-U3-KLS"/>
                         <constraint firstItem="doE-fb-YsU" firstAttribute="top" secondItem="FHd-wQ-Wp7" secondAttribute="bottom" constant="7" id="cIk-80-eM4"/>
                         <constraint firstItem="S7i-Z6-3Sq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8tm-1U-9fo" secondAttribute="trailing" constant="10" id="g52-Xq-oiW"/>
-                        <constraint firstAttribute="bottom" secondItem="jfg-ry-ZdR" secondAttribute="bottom" constant="20" id="jZj-hZ-GPc"/>
+                        <constraint firstAttribute="bottom" secondItem="jfg-ry-ZdR" secondAttribute="bottom" constant="10" id="jZj-hZ-GPc"/>
                         <constraint firstItem="jfg-ry-ZdR" firstAttribute="leading" secondItem="8tm-1U-9fo" secondAttribute="leading" id="ovs-RP-voT"/>
                         <constraint firstItem="FHd-wQ-Wp7" firstAttribute="leading" secondItem="W4A-NL-ugb" secondAttribute="leading" constant="20" id="uiQ-NV-50Z"/>
                     </constraints>
