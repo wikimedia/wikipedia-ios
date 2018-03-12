@@ -66,6 +66,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         collectionViewUpdater?.delegate = self
     }
     
+    var isShowingDefaultReadingListOnly: Bool {
+        guard readingListsController.isDefaultListEnabled else {
+            return false
+        }
+        return collectionView.numberOfSections == 1 && collectionView(collectionView, numberOfItemsInSection: 0) == 1
+    }
+    
     var basePredicate: NSPredicate {
         return NSPredicate(format: "isDeletedLocally == NO")
     }
@@ -119,6 +126,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
     
@@ -339,9 +347,10 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         collectionView.setNeedsLayout()
     }
-    
+
 }
 
 // MARK: - ActionDelegate
