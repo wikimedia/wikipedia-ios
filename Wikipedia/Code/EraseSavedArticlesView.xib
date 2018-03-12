@@ -43,7 +43,7 @@
                             <state key="normal" title="Button"/>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doE-fb-YsU" userLabel="Separator View">
-                            <rect key="frame" x="64" y="44" width="291" height="0.5"/>
+                            <rect key="frame" x="64" y="44" width="311" height="0.5"/>
                             <color key="backgroundColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="OWL-qB-he4"/>
@@ -57,14 +57,13 @@
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="7AW-i2-fyx"/>
                         <constraint firstItem="doE-fb-YsU" firstAttribute="leading" secondItem="8tm-1U-9fo" secondAttribute="leading" id="AWJ-lw-Tag"/>
                         <constraint firstItem="jfg-ry-ZdR" firstAttribute="trailing" secondItem="S7i-Z6-3Sq" secondAttribute="trailing" id="Enu-Xx-WYZ"/>
                         <constraint firstItem="FHd-wQ-Wp7" firstAttribute="top" secondItem="W4A-NL-ugb" secondAttribute="top" constant="7" id="Pvl-yN-jsk"/>
                         <constraint firstItem="jfg-ry-ZdR" firstAttribute="top" secondItem="doE-fb-YsU" secondAttribute="bottom" constant="10" id="TQv-Wr-Bby"/>
                         <constraint firstAttribute="trailing" secondItem="S7i-Z6-3Sq" secondAttribute="trailing" constant="36" id="Tr5-zI-9yI"/>
                         <constraint firstItem="S7i-Z6-3Sq" firstAttribute="centerY" secondItem="8tm-1U-9fo" secondAttribute="centerY" id="WhV-uH-eZt"/>
-                        <constraint firstAttribute="trailing" secondItem="doE-fb-YsU" secondAttribute="trailing" constant="20" id="X61-Po-nwb"/>
+                        <constraint firstAttribute="trailing" secondItem="doE-fb-YsU" secondAttribute="trailing" id="X61-Po-nwb"/>
                         <constraint firstItem="8tm-1U-9fo" firstAttribute="centerY" secondItem="FHd-wQ-Wp7" secondAttribute="centerY" id="XUg-nS-5Cg"/>
                         <constraint firstItem="8tm-1U-9fo" firstAttribute="leading" secondItem="FHd-wQ-Wp7" secondAttribute="trailing" constant="14" id="bAS-U3-KLS"/>
                         <constraint firstItem="doE-fb-YsU" firstAttribute="top" secondItem="FHd-wQ-Wp7" secondAttribute="bottom" constant="7" id="cIk-80-eM4"/>
