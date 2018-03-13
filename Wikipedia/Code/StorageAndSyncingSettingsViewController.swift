@@ -138,6 +138,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         guard let disclosureType = settingsItem.disclosureType else {
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier(), for: indexPath)
             cell.selectionStyle = .none
+            cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
                 cell.contentView.wmf_addSubviewWithConstraintsToEdges(eraseSavedArticlesView)
