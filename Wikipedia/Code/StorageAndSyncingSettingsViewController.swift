@@ -169,7 +169,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
             return nil
         }
         footer.prepareForReuse()
-        footer.text = sections[section].footerText
+        footer.setShortTextAsProse(sections[section].footerText)
         footer.type = .footer
         if let footer = footer as Themeable? {
             footer.apply(theme: theme)
