@@ -170,7 +170,6 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
         guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier()) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
-        footer.prepareForReuse()
         footer.setShortTextAsProse(sections[section].footerText)
         footer.type = .footer
         if let footer = footer as Themeable? {
@@ -183,6 +182,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
         guard let footer = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
+        footer.prepareForReuse()
         return footer.height(withExpectedWidth: tableView.bounds.size.width)
     }
 }
