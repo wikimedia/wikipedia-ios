@@ -59,8 +59,8 @@ css: ##Download latest stylesheets
 	@echo "Downloading CSS assets from $(CSS_PREFIX)..."; \
 	mkdir -p $(WEB_ASSETS_DIR); \
 	cd $(WEB_ASSETS_DIR); \
-	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)|mobile.app.pagestyles" > /dev/null; \
-	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)|mobile.app.pagestyles" > /dev/null; \
+	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)" > /dev/null; \
+	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)" > /dev/null; \
 	$(get_css_module) 'preview.css' "$(CSS_ORIGIN)" > /dev/null
 
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
