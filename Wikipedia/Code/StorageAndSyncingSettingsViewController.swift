@@ -4,19 +4,21 @@ private struct Section {
     let items: [Item]
     
     init(for type: ItemType, with items: [Item]) {
-        self.type = type
         
         var footerText: String? = nil
         
         switch type {
         case .syncSavedArticlesAndLists:
             footerText = WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing")
+        case .showSavedReadingList:
+            footerText = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list")
         case .syncWithTheServer:
             footerText = WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync")
         default:
             break
         }
         
+        self.type = type
         self.footerText = footerText
         self.items = items
     }
@@ -63,7 +65,6 @@ private enum ItemType: Int {
 
 @objc(WMFStorageAndSyncingSettingsViewController)
 class StorageAndSyncingSettingsViewController: UIViewController {
-    private let customViewCellReuseIdentifier = "CustomViewTableViewCell"
     private var theme: Theme = Theme.standard
     @IBOutlet weak var tableView: UITableView!
     @objc public var dataStore: MWKDataStore?
@@ -87,7 +88,8 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         super.viewDidLoad()
         title = CommonStrings.settingsStorageAndSyncing
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: customViewCellReuseIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier())
+        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())
         apply(theme: self.theme)
     }
     
@@ -116,25 +118,6 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         eraseSavedArticlesView?.footerLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.", comment: "Footer text of the settings option that enables erasing saved articles")
        return eraseSavedArticlesView
     }()
-    
-    private lazy var showSavedReadingListFooterLabel: UILabel = {
-        let label = UILabel()
-        label.text = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list")
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    
-    private lazy var showSavedReadingListFooterView: UIView = {
-        let view = UIView()
-        view.wmf_addSubview(showSavedReadingListFooterLabel, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 7.5, left: 15, bottom: 7.5, right: 18))
-        return view
-    }()
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        showSavedReadingListFooterLabel.setFont(with: .system, style: .footnote, traitCollection: traitCollection)
-    }
 }
 
 // MARK: UITableViewDataSource
@@ -152,7 +135,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         let settingsItem = sections[indexPath.section].items[indexPath.row]
         
         guard let disclosureType = settingsItem.disclosureType else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: customViewCellReuseIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier(), for: indexPath)
             cell.selectionStyle = .none
             if let eraseSavedArticlesView = eraseSavedArticlesView {
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,37 +159,29 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sections[section].footerText
-    }
 }
 
 // MARK: UITableViewDelegate
 
 extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let section = sections[section]
-        guard section.type == .showSavedReadingList else {
+        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier()) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
-        return showSavedReadingListFooterView
+        footer.prepareForReuse()
+        footer.text = sections[section].footerText
+        footer.type = .footer
+        if let footer = footer as Themeable? {
+            footer.apply(theme: theme)
+        }
+        return footer
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        let section = sections[section]
-        guard section.type == .showSavedReadingList else {
-            return 18
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let footer = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+            return 0
         }
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        guard let footerView = view as? UITableViewHeaderFooterView else {
-            return
-        }
-        footerView.textLabel?.textColor = theme.colors.secondaryText
-        footerView.textLabel?.backgroundColor = theme.colors.baseBackground
+        return footer.height(withExpectedWidth: tableView.bounds.size.width)
     }
 }
 
@@ -253,7 +228,6 @@ extension StorageAndSyncingSettingsViewController: Themeable {
             return
         }
         tableView.backgroundColor = theme.colors.baseBackground
-        showSavedReadingListFooterLabel.textColor = theme.colors.secondaryText
         eraseSavedArticlesView?.apply(theme: theme)
     }
 }
