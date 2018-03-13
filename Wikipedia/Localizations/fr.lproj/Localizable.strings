@@ -368,8 +368,8 @@
 "reading-list-with-provided-name-not-found" = "Une liste de lecture nommée « $1 » n’a pas été trouvée. Assurez-vous que le nom est correct.";
 "reading-lists-article-added-confirmation" = "Article ajouté à « $1 »";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
-"reading-lists-default-list-description" = "Liste par défaut pour les articles enregistrés";
-"reading-lists-default-list-title" = "Favoris";
+"reading-lists-default-list-description" = "Liste par défaut pour vos articles enregistrés";
+"reading-lists-default-list-title" = "Enregistré";
 "reading-lists-delete-reading-list-alert-message" = "Cette action ne peut pas être annulée. Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera pas enregistré.";
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";

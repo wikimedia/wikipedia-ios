@@ -303,6 +303,7 @@
 "reading-list-generic-error" = "Ένα απρόβλεπτο σφάλμα συνέβη κατά την διάρκεια της ενημέρωσης των λίστων ανάγνωσής σας.";
 "reading-list-keep-button-title" = "Ναι, κρατήστε τα άρθρα στη συσκευή";
 "reading-list-keep-subtitle" = "Υπάρχουν άρθρα συγχρονισμένα με τον λογαριασμό σας στη Wikipedia. Θα θέλατε να τα κρατήσετε σε αυτή τη συσκευή, αφού αποσυνδεθείτε;";
+// Fuzzy
 "reading-lists-default-list-title" = "Σελιδοδείκτες";
 "reading-themes-controls-accessibility-black-theme-button" = "Μαύρο θέμα";
 "reading-themes-controls-accessibility-dark-theme-button" = "Μαύρο θέμα";

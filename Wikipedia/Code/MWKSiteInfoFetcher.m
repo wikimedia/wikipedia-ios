@@ -45,7 +45,8 @@
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];
-            MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"]];
+            NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
+            MWKSiteInfo *info = [[MWKSiteInfo alloc] initWithSiteURL:siteURL mainPageTitleText:generalProps[@"mainpage"] readingListsConfigMaxEntriesPerList:readingListsConfig[@"maxEntriesPerList"] readingListsConfigMaxListsPerUser:readingListsConfig[@"maxListsPerUser"]];
             completion(info);
         }
         failure:^(NSURLSessionDataTask *operation, NSError *error) {

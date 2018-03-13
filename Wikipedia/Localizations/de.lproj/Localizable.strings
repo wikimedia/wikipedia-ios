@@ -353,8 +353,8 @@
 "reading-list-with-provided-name-not-found" = "Eine Leseliste mit dem Namen „$1“ wurde nicht gefunden. Bitte stelle sicher, dass du den richtigen Namen hast.";
 "reading-lists-article-added-confirmation" = "Artikel zu „$1“ hinzugefügt";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
-"reading-lists-default-list-description" = "Standardliste für gespeicherte Artikel";
-"reading-lists-default-list-title" = "Lesezeichen";
+"reading-lists-default-list-description" = "Standardliste für deine gespeicherten Artikel";
+"reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
