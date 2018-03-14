@@ -202,7 +202,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
     
-        if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+        if let error = readingList.APIError {
             // placeholder for now, this should be a separate label or button
             cell.descriptionLabel.text = error.localizedDescription
             cell.descriptionLabel.textColor = theme.colors.error
