@@ -280,20 +280,17 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle]) {
-        guard shouldCreateReadingList else {
-            return
-        }
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
-            if let moveFromReadingList = createReadingList.moveFromReadingList {
+            if let moveFromReadingList = createReadingListViewController.moveFromReadingList {
                 try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
             }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
-            createReadingList.dismiss(animated: true, completion: nil)
+            createReadingListViewController.dismiss(animated: true, completion: nil)
         } catch let error {
             if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
-                createReadingListViewController?.handleReadingListNameError(readingListError)
+                createReadingListViewController.handleReadingListNameError(readingListError)
             } else {
                 handleReadingListError(error)
             }
