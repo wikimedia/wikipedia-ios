@@ -192,6 +192,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
+        if (apply && !isAlertIconHidden) {
+            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.x += alertIconFrame.width + spacing
+        }
+        
         if (apply && !isAlertLabelHidden) {
             print("description hidden: \(descriptionLabel.isHidden)")
             print("origin x: \(origin.x)")
