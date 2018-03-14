@@ -170,7 +170,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertIconHidden) {
-            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: 12, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let _ = alertIcon.wmf_preferredFrame(at: origin, fitting: 12, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.x += alertIconDimension + spacing
         }
         
