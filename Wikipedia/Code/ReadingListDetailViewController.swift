@@ -69,7 +69,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault, listLimitExceeded: readingList.isListLimitExceeded)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, listLimitExceeded: readingList.isListLimitExceeded)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
