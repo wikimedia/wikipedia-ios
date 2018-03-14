@@ -87,6 +87,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         isBatchEditable = false
         actions = []
         isAlertLabelHidden = true
+        isAlertIconHidden = true
         isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
@@ -136,6 +137,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var isAlertLabelHidden: Bool = true {
         didSet {
+    
+    public var isAlertIconHidden: Bool = true {
+        didSet {
+            alertIcon.isHidden = isAlertIconHidden
             setNeedsLayout()
         }
     }
