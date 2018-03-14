@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -76,13 +77,13 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKJ-QG-jkJ" userLabel="Alert View">
                             <rect key="frame" x="15" y="111.5" width="345" height="45"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjI-cv-IBB" userLabel="Alert Title Label">
-                                    <rect key="frame" x="0.0" y="0.0" width="345" height="23.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjI-cv-IBB" userLabel="Alert Title Label">
+                                    <rect key="frame" x="0.0" y="0.0" width="345" height="31.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIk-ny-9dq" userLabel="Alert Message Label">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIk-ny-9dq" userLabel="Alert Message Label">
                                     <rect key="frame" x="0.0" y="31.5" width="345" height="13.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                     <nil key="textColor"/>
@@ -90,7 +91,7 @@
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="IIk-ny-9dq" firstAttribute="top" secondItem="FjI-cv-IBB" secondAttribute="bottom" constant="8" id="3R6-wp-IKS"/>
+                                <constraint firstItem="IIk-ny-9dq" firstAttribute="top" secondItem="FjI-cv-IBB" secondAttribute="bottomMargin" constant="8" id="3R6-wp-IKS"/>
                                 <constraint firstItem="FjI-cv-IBB" firstAttribute="top" secondItem="iKJ-QG-jkJ" secondAttribute="top" id="FfI-ex-DwW"/>
                                 <constraint firstItem="IIk-ny-9dq" firstAttribute="leading" secondItem="iKJ-QG-jkJ" secondAttribute="leading" id="LxN-8N-GUn"/>
                                 <constraint firstItem="FjI-cv-IBB" firstAttribute="leading" secondItem="iKJ-QG-jkJ" secondAttribute="leading" id="Sol-bX-tX9"/>
@@ -123,7 +124,7 @@
                         <constraint firstItem="iKJ-QG-jkJ" firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" id="x6u-bW-6iH"/>
                         <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="iKJ-QG-jkJ" secondAttribute="bottom" constant="15" id="xti-A2-eeJ"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
-                        <constraint firstAttribute="height" constant="236" id="y3q-WA-OGa"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="236" id="y3q-WA-OGa"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="0kT-ff-0rB"/>
                 </view>
