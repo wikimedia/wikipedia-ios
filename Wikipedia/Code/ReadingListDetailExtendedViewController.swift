@@ -58,6 +58,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
         sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        alertTitleLabel.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
+        alertMessageLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
@@ -78,7 +80,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool, listLimitExceeded: Bool) {
+    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool, listLimit: Int, listLimitExceeded: Bool) {
         titleTextField.text = title
         readingListTitle = title
         let readingListDescription = isDefault ? CommonStrings.readingListsDefaultListDescription : description
@@ -89,6 +91,13 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.isEnabled = !isDefault
         
         updateArticleCount(articleCount)
+        
+        let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the limit of allowed reading lists per account.")
+        alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, listLimit)
+        alertTitleLabel.isHidden = !listLimitExceeded
+        let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
+        alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, listLimit)
+        alertMessageLabel.isHidden = !listLimitExceeded
     }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
@@ -152,5 +161,7 @@ extension ReadingListDetailExtendedViewController: Themeable {
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
         separatorView.backgroundColor = theme.colors.border
+        alertTitleLabel.textColor = theme.colors.error
+        alertMessageLabel.textColor = theme.colors.primaryText
     }
 }
