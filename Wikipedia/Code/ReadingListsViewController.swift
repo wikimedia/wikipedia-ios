@@ -289,11 +289,16 @@ extension ReadingListsViewController: CreateReadingListDelegate {
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingListViewController.dismiss(animated: true, completion: nil)
         } catch let error {
-            if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
+            
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
                 createReadingListViewController.handleReadingListNameError(readingListError)
-            } else {
-                handleReadingListError(error)
+            default:
+                createReadingListViewController.dismiss(animated: true) {
+                    self.handleReadingListError(error)
+                }
             }
+            
         }
     }
 }
