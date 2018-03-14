@@ -169,10 +169,27 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: height)
         }
         
+        if (apply && !isAlertIconHidden) {
+            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: 12, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.x += alertIconDimension + spacing
+        }
+        
+        if (apply && !isAlertLabelHidden) {
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isAlertLabelHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+        }
+        
         return CGSize(width: size.width, height: height)
     }
     
-    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool, shouldShowAlertLabel: Bool = false, shouldShowAlertIcon: Bool = false) {
         titleLabel.text = article.displayTitle
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         
@@ -191,7 +208,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        isTagsViewHidden = tags.readingLists.count == 0
+        isTagsViewHidden = tags.readingLists.count == 0 || shouldShowAlertLabel
         
         if !isStatusViewHidden {
             statusView.backgroundColor = theme.colors.warning
@@ -208,6 +225,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 80
+        
+        alertLabel.text = WMFLocalizedString("reading-lists-article-not-synced-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+        isAlertLabelHidden = !shouldShowAlertLabel
+        isAlertIconHidden = !shouldShowAlertIcon
+        if !isAlertIconHidden {
+            alertIcon.image = UIImage(named: "error-icon")
+        }
+        
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
