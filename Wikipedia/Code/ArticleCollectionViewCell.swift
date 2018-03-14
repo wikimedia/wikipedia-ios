@@ -213,6 +213,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         descriptionLabel.setFont(with:descriptionFontFamily, style: descriptionTextStyle, traitCollection: traitCollection)
         extractLabel?.setFont(with:extractFontFamily, style: extractTextStyle, traitCollection: traitCollection)
         saveButton.titleLabel?.setFont(with:saveButtonFontFamily, style: saveButtonTextStyle, traitCollection: traitCollection)
+        alertLabel.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
     }
     
     // MARK - Semantic content
