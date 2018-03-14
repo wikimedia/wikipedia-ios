@@ -12,6 +12,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var alertTitleLabel: UILabel!
+    @IBOutlet weak var alertMessageLabel: UILabel!
     @IBOutlet var constraints: [NSLayoutConstraint] = []
     
     private var readingListTitle: String?
@@ -75,7 +78,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool) {
+    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool, listLimitExceeded: Bool) {
         titleTextField.text = title
         readingListTitle = title
         let readingListDescription = isDefault ? CommonStrings.readingListsDefaultListDescription : description
