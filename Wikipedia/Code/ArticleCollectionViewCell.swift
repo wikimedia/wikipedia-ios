@@ -86,6 +86,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         isBatchEditing = false
         isBatchEditable = false
         actions = []
+        isAlertLabelHidden = true
+        isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
 
