@@ -91,12 +91,19 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier())
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())
+        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadRows(at: indexPathsForCellsWithSwitches, with: .none)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableView.reloadData()
     }
     
     private var isSyncEnabled: Bool {
@@ -179,11 +186,10 @@ extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let footer = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
-        footer.prepareForReuse()
-        return footer.height(withExpectedWidth: tableView.bounds.size.width)
+        return UITableViewAutomaticDimension
     }
 }
 
