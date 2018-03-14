@@ -48,6 +48,7 @@ public enum ReadingListError: Error, Equatable {
     case unableToRemoveEntry
     case unableToAddArticlesDueToListLimit(name: String, count: Int)
     case listWithProvidedNameNotFound(name: String)
+    case listLimitReached
     
     public var localizedDescription: String {
         switch self {
@@ -71,6 +72,8 @@ public enum ReadingListError: Error, Equatable {
             return String.localizedStringWithFormat(format, count, name)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
+        case .listLimitReached:
+            return WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of 100 reading lists per account", comment: "Informs the user that they have reached the limit of 100 reading lists per account")
         }
     }
     
