@@ -192,14 +192,20 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertIconHidden) {
-            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.x += alertIconFrame.width + spacing
+            let _ = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.x += alertIconDimension + spacing
         }
         
         if (apply && !isAlertLabelHidden) {
-            let xPosition = isAlertIconHidden ? origin.x : alertIcon.frame.maxX + spacing
-            let yPosition = isAlertIconHidden ? origin.y : (alertIcon.frame.midY - 0.6 * alertIconSize.width)
-            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isAlertLabelHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
 
         return CGSize(width: size.width, height: height)
