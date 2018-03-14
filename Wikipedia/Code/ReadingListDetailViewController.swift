@@ -69,7 +69,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
+        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault, listLimitExceeded: readingList.isListLimitExceeded)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -424,7 +424,7 @@ extension ReadingListDetailViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        let shouldShowAlert = readingList.APIError != nil
+        let shouldShowAlert = readingList.isListLimitExceeded
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly, shouldShowAlertLabel: shouldShowAlert, shouldShowAlertIcon: shouldShowAlert)
         

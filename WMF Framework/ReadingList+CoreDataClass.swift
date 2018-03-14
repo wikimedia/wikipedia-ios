@@ -29,6 +29,13 @@ public class ReadingList: NSManagedObject {
         }
     }
     
+    public var isListLimitExceeded: Bool {
+        guard let error = APIError else {
+            return false
+        }
+        return error == .listLimit
+    }
+    
     public func updateArticlesAndEntries() throws {
         previousCountOfEntries = countOfEntries
         
