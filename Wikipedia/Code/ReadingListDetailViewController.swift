@@ -424,8 +424,9 @@ extension ReadingListDetailViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        let shouldShowAlert = readingList.APIError != nil
         
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly, shouldShowAlertLabel: shouldShowAlert, shouldShowAlertIcon: shouldShowAlert)
         
         if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
             // placeholder for now, this should be a separate label or button
