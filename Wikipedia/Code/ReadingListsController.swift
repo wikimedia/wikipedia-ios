@@ -48,7 +48,7 @@ public enum ReadingListError: Error, Equatable {
     case unableToRemoveEntry
     case unableToAddArticlesDueToListLimit(name: String, count: Int)
     case listWithProvidedNameNotFound(name: String)
-    case listLimitReached
+    case listLimitReached(limit: Int)
     
     public var localizedDescription: String {
         switch self {
@@ -72,8 +72,9 @@ public enum ReadingListError: Error, Equatable {
             return String.localizedStringWithFormat(format, count, name)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
-        case .listLimitReached:
-            return WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of 100 reading lists per account", comment: "Informs the user that they have reached the limit of 100 reading lists per account")
+        case .listLimitReached(let limit):
+            let format = WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of %1$@ reading lists per account", comment: "Informs the user that they have reached the limit of 100 reading lists per account.")
+            return String.localizedStringWithFormat(format, limit)
         }
     }
     
@@ -159,6 +160,8 @@ public class ReadingListsController: NSObject {
         
         try add(articles: articles, to: list, in: moc)
         
+        
+        
         return list
     }
     
@@ -178,6 +181,13 @@ public class ReadingListsController: NSObject {
             }
         }
         sync()
+    }
+    
+    private func countOfAllReadingLists() throws -> Int {
+        assert(Thread.isMainThread)
+        let moc = dataStore.viewContext
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        return try moc.count(for: request)
     }
     
     /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
