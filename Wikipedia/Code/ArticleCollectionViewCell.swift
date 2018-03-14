@@ -15,9 +15,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
-    private var alertIcon = UIImageView()
-    private var alertLabel = UILabel()
-    public var statusView = UIImageView()
+    public var alertIcon = UIImageView()
+    public var alertLabel = UILabel()
+    public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     public var actions: [Action] {
         set {
