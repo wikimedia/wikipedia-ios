@@ -326,7 +326,7 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limit hit for unsorted articles";
 "reading-list-list-limit-exceeded-message" = "This reading list and the articles saved to it will not be synced, please decrease your number of lists to $1 to resume syncing of this list.";
 "reading-list-list-limit-exceeded-title" = "You have exceeded the limit of $1 reading lists per account.";
-"reading-list-list-limit-reached" = "You have reached the limit of %i reading lists per account";
+"reading-list-list-limit-reached" = "You have reached the limit of $1 reading lists per account";
 "reading-list-login-button-title" = "Log in to sync your saved articles";
 "reading-list-login-or-create-account-button-title" = "Log in or create account";
 "reading-list-login-or-create-account-title" = "Log in to sync saved articles";

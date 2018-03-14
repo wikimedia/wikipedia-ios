@@ -73,7 +73,7 @@ public enum ReadingListError: Error, Equatable {
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         case .listLimitReached(let limit):
-            let format = WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of %i reading lists per account", comment: "Informs the user that they have reached the limit of 100 reading lists per account.")
+            let format = WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of %1$d reading lists per account", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
             return String.localizedStringWithFormat(format, limit)
         }
     }
