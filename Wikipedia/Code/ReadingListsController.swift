@@ -136,7 +136,7 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
-        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser.intValue
+        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
         let readingListsCount = try countOfAllReadingLists()
         guard readingListsCount + 1 <= listLimit else {
             throw ReadingListError.listLimitReached(limit: listLimit)
@@ -695,15 +695,15 @@ public extension NSManagedObjectContext {
         }
     }
     
-    @objc public var wmf_readingListsConfigMaxListsPerUser: NSNumber {
+    @objc public var wmf_readingListsConfigMaxListsPerUser: Int {
         get {
-            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser) ?? 100
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }
         set {
             guard newValue != wmf_readingListsConfigMaxListsPerUser else {
                 return
             }
-            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxListsPerUser)
+            wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListsConfigMaxListsPerUser)
             do {
                 try save()
             } catch let error {
