@@ -79,7 +79,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.updateFonts(with: traitCollection)
         articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
         defaultListTag.setFont(with: .systemItalic, style: .caption2, traitCollection: traitCollection)
-        alertLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {
