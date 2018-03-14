@@ -212,6 +212,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        
+        isAlertLabelHidden = readingList.APIError == nil
+        
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
     
@@ -256,6 +259,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         } else {
             bottomSeparator.isHidden = true
         }
+        
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
