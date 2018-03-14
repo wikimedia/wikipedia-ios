@@ -80,7 +80,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         spacing = 5
         imageViewDimension = 70
         statusViewDimension = 6
-        alertIconSize = CGSize(width: 12, height: 14)
+        alertIconDimension = 12
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
@@ -130,7 +130,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    public final var alertIconSize: CGSize = .zero {
+    public final var alertIconDimension: CGFloat = 0 {
         didSet {
             setNeedsLayout()
         }
