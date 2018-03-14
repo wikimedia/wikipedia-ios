@@ -187,6 +187,7 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
         return try moc.count(for: request)
     }
     
