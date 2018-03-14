@@ -79,6 +79,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.updateFonts(with: traitCollection)
         articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
         defaultListTag.setFont(with: .systemItalic, style: .caption2, traitCollection: traitCollection)
+        alertLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {
@@ -190,6 +191,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
+        
+        if (apply && !isAlertLabelHidden) {
+            print("description hidden: \(descriptionLabel.isHidden)")
+            print("origin x: \(origin.x)")
+            alertLabel.frame = alertLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+        }
 
         return CGSize(width: size.width, height: height)
     }
@@ -213,9 +220,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
-        isAlertLabelHidden = readingList.APIError == nil
-        
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+        
+        alertLabel.text = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+        isAlertLabelHidden = readingList.APIError == nil
     }
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
