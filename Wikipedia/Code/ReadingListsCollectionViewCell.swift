@@ -198,7 +198,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertLabelHidden) {
-            let _ = alertLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let yPosition = isAlertIconHidden ? origin.y : (alertIcon.frame.midY - 0.5 * alertIconDimension)
+            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: yPosition), fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
 
         return CGSize(width: size.width, height: height)
