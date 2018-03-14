@@ -227,6 +227,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         alertLabel.text = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
         isAlertLabelHidden = readingList.APIError == nil
+        isAlertIconHidden = isAlertLabelHidden
+        if !isAlertIconHidden {
+            alertIcon.image = UIImage(named: "error-icon")
+        }
     }
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
