@@ -198,9 +198,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertLabelHidden) {
-            print("description hidden: \(descriptionLabel.isHidden)")
-            print("origin x: \(origin.x)")
-            alertLabel.frame = alertLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let _ = alertLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
 
         return CGSize(width: size.width, height: height)
