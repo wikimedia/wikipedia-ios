@@ -131,6 +131,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var isStatusViewHidden: Bool = true {
         didSet {
+            statusView.isHidden = isStatusViewHidden
             setNeedsLayout()
         }
     }
