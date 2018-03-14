@@ -136,7 +136,14 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
+        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser.intValue
+        let readingListsCount = try countOfAllReadingLists()
+        guard readingListsCount + 1 <= listLimit else {
+            throw ReadingListError.listLimitReached(limit: listLimit)
+        }
+        
         sync()
+    
         return list
     }
     
@@ -159,9 +166,6 @@ public class ReadingListsController: NSObject {
         list.isUpdatedLocally = true
         
         try add(articles: articles, to: list, in: moc)
-        
-        
-        
         return list
     }
     
