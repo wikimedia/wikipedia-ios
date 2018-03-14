@@ -138,6 +138,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var isAlertLabelHidden: Bool = true {
         didSet {
+            alertLabel.isHidden = isAlertLabelHidden
+            setNeedsLayout()
+        }
+    }
     
     public var isAlertIconHidden: Bool = true {
         didSet {
