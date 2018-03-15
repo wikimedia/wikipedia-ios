@@ -199,7 +199,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewWillDisappear(animated)
         guard let dismissHandler = dismissHandler, !discardDismissHandlerOnPrimaryButtonTap else {
             return
         }
