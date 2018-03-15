@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticle *)mostRecentEntry;
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
+- (nullable WMFArticle *)entryForKey:(NSString *)key;
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
@@ -55,9 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeEntryWithURL:(NSURL *)url;
 
 /**
- *  Remove all history entries
+ *  Remove entries with given urls
  */
-- (void)removeAllEntries;
+- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls;
 
 #pragma mark - Migration
 

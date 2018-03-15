@@ -46,10 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Presently EN only.
 - (NSUInteger)textDeathRegexMatchCount {
-    if (self.text == nil || self.siteURL == nil || [self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]){
+    if (self.text == nil || self.siteURL == nil || [self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]) {
         return 0;
     }
-    return [[WMFFeedOnThisDayEvent enDeathRegex] numberOfMatchesInString:self.text options:0 range: NSMakeRange(0, [self.text length])];
+    return [[WMFFeedOnThisDayEvent enDeathRegex] numberOfMatchesInString:self.text options:0 range:NSMakeRange(0, [self.text length])];
 }
 
 + (NSRegularExpression *)enDeathRegex {
@@ -61,16 +61,17 @@ NS_ASSUME_NONNULL_BEGIN
     static NSRegularExpression *regex;
     dispatch_once(&onceToken, ^{
         regex = [NSRegularExpression regularExpressionWithPattern:@"\\b(kill(s|ed|ers|ing)?|explosion(s)?|bomb(s|ers|ing|ings|ed)?|slaughter(s|ed|ing)?|massacre(d)?|die|dead|death(s)?|attack(ing|ers|ed)?|assassin(s|ated|ation)?|murder(s|ing|ers|ed)?|execute|execut(ed|ing|ion|ions)?|terror(ist|ism|ize|izing)?|fatal(ity|ly)?)\\b"
-                                                          options:NSRegularExpressionCaseInsensitive error:nil];
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:nil];
     });
     return regex;
 }
 
 - (NSNumber *)calculateScore {
     NSInteger imageCount = [self previewsImageCount];
-    
+
     // Use image count if not EN.
-    if ([self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]){
+    if ([self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]) {
         return @(imageCount);
     }
 

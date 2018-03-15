@@ -3,10 +3,11 @@ import UIKit
 
 
 @objc(WMFArticleCollectionViewCell)
-open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
+open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
+    public var layoutMarginsAdditions: UIEdgeInsets = .zero
     
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
@@ -14,6 +15,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
+    private var alertIcon = UIImageView()
+    private var alertLabel = UILabel()
+    public var statusView = UIImageView()
 
     public var actions: [Action] {
         set {
@@ -31,6 +35,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         titleFontFamily = .georgia
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        statusView.clipsToBounds = true
         
         if #available(iOSApplicationExtension 11.0, *) {
             imageView.accessibilityIgnoresInvertColors = true
@@ -41,12 +46,17 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
+        contentView.addSubview(alertIcon)
+        contentView.addSubview(alertLabel)
+        contentView.addSubview(statusView)
+        contentView.addSubview(saveButton)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(saveButton)
 
-        saveButton.verticalPadding = 5
+        saveButton.verticalPadding = 16
+        saveButton.rightPadding = 16
+        saveButton.leftPadding = 12
         saveButton.saveButtonState = .longSave
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
@@ -69,9 +79,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
+        statusViewDimension = 6
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
+        isBatchEditing = false
+        isBatchEditable = false
+        actions = []
         updateFonts(with: traitCollection)
     }
 
@@ -106,12 +120,34 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         }
     }
     
+    public final var statusViewDimension: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public var isStatusViewHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public var isAlertLabelHidden: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            contentView.frame = CGRect(origin: CGPoint(x: swipeTranslation, y: 0), size: size)
+            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            batchEditSelectView?.layoutIfNeeded()
+            
             let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
-            let actionsViewWidth = abs(swipeTranslation)
+
+            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
             let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
@@ -174,6 +210,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
             return _effectiveArticleSemanticContentAttribute
         }
     }
+
+    // for items like the Save Button that are localized and should match the UI direction
+    public var userInterfaceSemanticContentAttribute: UISemanticContentAttribute {
+        return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
+    }
     
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
@@ -182,9 +223,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         } else {
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
         }
+        let alignment = _effectiveArticleSemanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
+        titleLabel.textAlignment = alignment
         titleLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
         descriptionLabel.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        descriptionLabel.textAlignment = alignment
         extractLabel?.semanticContentAttribute = _effectiveArticleSemanticContentAttribute
+        extractLabel?.textAlignment = alignment
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -224,7 +269,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     var swipeState: SwipeState = .closed {
         didSet {
             if swipeState != .closed && actionsView.superview == nil {
-                insertSubview(actionsView, belowSubview: contentView)
+                contentView.addSubview(actionsView)
                 contentView.backgroundColor = backgroundView?.backgroundColor
                 clipsToBounds = true
             } else if swipeState == .closed && actionsView.superview != nil {
@@ -238,6 +283,20 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
+            layoutMarginsAdditions.right = 0 - swipeTranslation
+            layoutMarginsAdditions.left = swipeTranslation
+            setNeedsLayout()
+        }
+    }
+
+    private var batchEditingTranslation: CGFloat = 0 {
+        didSet {
+            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
+            let isOpen = batchEditingTranslation > 0
+            if isOpen, let batchEditSelectView = batchEditSelectView {
+                contentView.addSubview(batchEditSelectView)
+                batchEditSelectView.clipsToBounds = true
+            }
             setNeedsLayout()
         }
     }
@@ -247,20 +306,45 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell {
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
         return isRTL ? actionsViewInsets.left + maxWidth : 0 - maxWidth - actionsViewInsets.right
     }
-    
-    func showActionsView(with swipeType: CollectionViewCellSwipeType) {
-        // We don't need to do this if the view is already visible.
-        guard actionsView.superview == nil else { return }
-        
-        insertSubview(actionsView, belowSubview: contentView)
-        layoutSubviews()
-        actionsView.layoutIfNeeded()
-    }
 
     // MARK: Prepare for reuse
     
     func resetSwipeable() {
         swipeTranslation = 0
         swipeState = .closed
+    }
+    
+    // MARK: - BatchEditableCell
+    
+    public var batchEditSelectView: BatchEditSelectView?
+
+    public var isBatchEditable: Bool = false {
+        didSet {
+            if isBatchEditable && batchEditSelectView == nil {
+                batchEditSelectView = BatchEditSelectView()
+                batchEditSelectView?.isSelected = isSelected
+            } else if !isBatchEditable && batchEditSelectView != nil {
+                batchEditSelectView?.removeFromSuperview()
+                batchEditSelectView = nil
+            }
+        }
+    }
+    
+    public var isBatchEditing: Bool = false {
+        didSet {
+            if isBatchEditing {
+                isBatchEditable = true
+                batchEditingTranslation = BatchEditSelectView.fixedWidth
+                batchEditSelectView?.isSelected = isSelected
+            } else {
+                batchEditingTranslation = 0
+            }
+        }
+    }
+    
+    override open var isSelected: Bool {
+        didSet {
+            batchEditSelectView?.isSelected = isSelected
+        }
     }
 }

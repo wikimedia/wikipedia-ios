@@ -47,7 +47,7 @@
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
-            randomArticleVC.permaRandomMode = self.isPermaRandomMode;
+            randomArticleVC.permaRandomMode = NO; // self.isPermaRandomMode to turn on
 #endif
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
             [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];

@@ -42,6 +42,7 @@
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
+#import "WMFArticleNavigationController.h"
 
 // Views
 #import "WMFTableHeaderLabelView.h"
@@ -56,6 +57,7 @@
 #import "UIButton+WMFButton.h"
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
+#import "WMFRandomArticleViewController.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

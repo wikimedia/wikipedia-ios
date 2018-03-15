@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateReadingListViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="createReadingListButton" destination="UtA-Zm-L74" id="fqQ-pX-Ptg"/>
+                <outlet property="descriptionLabel" destination="lCo-6s-4Lk" id="GEK-dQ-mTM"/>
+                <outlet property="descriptionTextField" destination="9bd-dM-Z1B" id="Mb2-vc-7rl"/>
+                <outlet property="readingListNameErrorLabel" destination="xtG-cd-4uw" id="4gM-gh-UT9"/>
+                <outlet property="readingListNameLabel" destination="1mL-FN-xFB" id="1KD-S4-Gtd"/>
+                <outlet property="readingListNameTextField" destination="pLi-n2-Obn" id="8za-Ti-XyY"/>
+                <outlet property="scrollView" destination="ANn-ak-pec" id="nsP-lg-Y8f"/>
+                <outlet property="titleLabel" destination="Rae-vX-ya2" id="SsJ-fW-Y6k"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANn-ak-pec">
+                    <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-ce-n7H" userLabel="Content View">
+                            <rect key="frame" x="16" y="0.0" width="288" height="289.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
+                                    <rect key="frame" x="78" y="30" width="132.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Nyk-1i-Eum">
+                                    <rect key="frame" x="0.0" y="80.5" width="288" height="119"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="f5N-Ni-ahN" userLabel="Name Stack View">
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="49.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading list name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mL-FN-xFB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="14.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pLi-n2-Obn" userLabel="Reading List Name Text Field" customClass="WMFThemeableTextField">
+                                                    <rect key="frame" x="0.0" y="19.5" width="288" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="Iwb-XE-O3d"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="Fbw-x7-Qcl"/>
+                                                    </connections>
+                                                </textField>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading list name already in use" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtG-cd-4uw" userLabel="Reading List Name Error Label">
+                                                    <rect key="frame" x="0.0" y="49.5" width="288" height="0.0"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="f7O-Jy-CeT" userLabel="Description Stack View">
+                                            <rect key="frame" x="0.0" y="74.5" width="288" height="44.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCo-6s-4Lk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="14.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9bd-dM-Z1B" userLabel="Description Text Field" customClass="WMFThemeableTextField">
+                                                    <rect key="frame" x="0.0" y="14.5" width="288" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="yMZ-JL-Ela"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <action selector="textFieldDidChange:" destination="-1" eventType="editingChanged" id="3PC-B1-aTN"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="288" id="1rb-Dd-5DJ"/>
+                                    </constraints>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="229.5" width="288" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="AUY-nK-uJd"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                    <state key="normal" title="Create reading list"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.20000000000000001" green="0.40085786579999999" blue="0.79973679779999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="createReadingListButtonPressed" destination="-1" eventType="touchUpInside" id="EB8-GE-caI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="UtA-Zm-L74" firstAttribute="width" secondItem="Nyk-1i-Eum" secondAttribute="width" id="9Lv-ml-01l"/>
+                                <constraint firstItem="UtA-Zm-L74" firstAttribute="top" secondItem="Nyk-1i-Eum" secondAttribute="bottom" constant="30" id="FxV-hW-Yvp"/>
+                                <constraint firstItem="Nyk-1i-Eum" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="G7J-8s-fAn"/>
+                                <constraint firstAttribute="bottom" secondItem="UtA-Zm-L74" secondAttribute="bottom" constant="20" id="J1i-Q2-u3d"/>
+                                <constraint firstAttribute="width" constant="288" id="R2J-1Q-nIl">
+                                    <variation key="heightClass=regular-widthClass=regular" constant="588"/>
+                                </constraint>
+                                <constraint firstItem="Rae-vX-ya2" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="T6d-BJ-pTr"/>
+                                <constraint firstItem="UtA-Zm-L74" firstAttribute="centerX" secondItem="Nyk-1i-Eum" secondAttribute="centerX" id="Uhw-eR-mrr"/>
+                                <constraint firstItem="Nyk-1i-Eum" firstAttribute="top" secondItem="Rae-vX-ya2" secondAttribute="bottom" constant="30" id="seb-q4-Ra9"/>
+                                <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="zDF-Av-3Tt"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="tX4-ce-n7H" secondAttribute="bottom" id="6k7-3D-UQx"/>
+                        <constraint firstItem="tX4-ce-n7H" firstAttribute="centerX" secondItem="ANn-ak-pec" secondAttribute="centerX" id="aZB-eJ-S8y"/>
+                        <constraint firstAttribute="trailing" secondItem="tX4-ce-n7H" secondAttribute="trailing" id="iUv-SW-Iv7"/>
+                        <constraint firstItem="tX4-ce-n7H" firstAttribute="top" secondItem="ANn-ak-pec" secondAttribute="top" id="wxb-c7-eGs"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ANn-ak-pec" secondAttribute="bottom" id="8rj-vQ-7rM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ANn-ak-pec" secondAttribute="trailing" id="9PB-bd-gcy"/>
+                <constraint firstItem="ANn-ak-pec" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OzZ-Tq-ec9"/>
+                <constraint firstItem="ANn-ak-pec" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="UpJ-aP-QIL"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="35.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

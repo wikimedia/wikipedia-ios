@@ -113,7 +113,7 @@
     [self updateScrollViewInsets];
 }
 
-- (void)didUpdateScrollViewInsets {
+- (void)scrollViewInsetsDidChange {
 }
 
 - (void)updateScrollViewInsets {
@@ -147,7 +147,7 @@
         return;
     }
     if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
-        [self didUpdateScrollViewInsets];
+        [self scrollViewInsetsDidChange];
     }
 }
 

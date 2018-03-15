@@ -17,8 +17,6 @@ typedef NS_ENUM(NSUInteger, WMFAssetsFileType) {
 
 @property (nonatomic, strong, readonly) NSDictionary *dictionary;
 
-@property (nonatomic, strong, readonly) NSURL *url;
-
 - (id)initWithFileType:(WMFAssetsFileType)file;
 
 - (BOOL)isOlderThan:(NSTimeInterval)maxAge;

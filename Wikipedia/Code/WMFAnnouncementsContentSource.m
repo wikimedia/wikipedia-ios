@@ -83,7 +83,7 @@
                                                            forDate:[NSDate date]
                                                        withSiteURL:self.siteURL
                                                  associatedContent:nil
-                                                customizationBlock:^(WMFContentGroup * _Nonnull group) {
+                                                customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
                                                 }];
             [group updateVisibility];
@@ -105,6 +105,15 @@
         NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
         [moc fetchOrCreateGroupForURL:themeContentGroupURL ofKind:WMFContentGroupKindTheme forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         userDefaults.wmf_didShowThemeCardInFeed = YES;
+    }
+
+    
+    if (moc.wmf_isSyncRemotelyEnabled && !userDefaults.wmf_didShowReadingListCardInFeed) {
+        NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
+        [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+        userDefaults.wmf_didShowReadingListCardInFeed = YES;
+    } else if (!moc.wmf_isSyncRemotelyEnabled) {
+        [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
 }
 

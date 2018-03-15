@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# opens a PR against the repo. used by jenkins to open localization PRs
 
 pr_branch = ARGV[0]
 base_branch = ARGV[1]

@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, EnableLocationViewControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
 
     fileprivate var mapView: MapView!
     @IBOutlet weak var navigationBar: NavigationBar!
@@ -683,9 +683,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                             }
                         }
                     } else {
-                        WMFAlertManager.sharedInstance.showWarningAlert(
-                            WMFLocalizedString("error-unknown", value: "An unknown error occurred", comment: "Message displayed when an unknown error occurred")
-                            , sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                        WMFAlertManager.sharedInstance.showWarningAlert(CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                     }
                     return
                 }
@@ -1324,19 +1322,29 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - Location Access
     
     func promptForLocationAccess() {
-        let enableLocationVC = EnableLocationViewController(nibName: "EnableLocationViewController", bundle: nil)
-        enableLocationVC.apply(theme: theme)
-        enableLocationVC.modalPresentationStyle = .popover
-        enableLocationVC.preferredContentSize = enableLocationVC.view.systemLayoutSizeFitting(CGSize(width: enableLocationVC.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
-        enableLocationVC.popoverPresentationController?.delegate = self
-        enableLocationVC.popoverPresentationController?.sourceView = view
-        enableLocationVC.popoverPresentationController?.canOverlapSourceViewRect = true
-        enableLocationVC.popoverPresentationController?.sourceRect = view.bounds
-        enableLocationVC.popoverPresentationController?.permittedArrowDirections = []
-        enableLocationVC.delegate = self
-        present(enableLocationVC, animated: true, completion: {
-            
-        })
+        var skipSearchInDismissEnableLocationPanelHandler = false
+        
+        let enableLocationButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            skipSearchInDismissEnableLocationPanelHandler = true // Needed because the call to 'sender.dismiss' below triggers the 'dismissHandler', but we only want to perform the default search if the primary button was not tapped.
+            self.presentedViewController?.dismiss(animated: true, completion: {
+                guard WMFLocationManager.isAuthorizationNotDetermined() else {
+                    UIApplication.shared.wmf_openAppSpecificSystemSettings()
+                    return
+                }
+                self.locationManager.startMonitoringLocation()
+            })
+        }
+        
+        let dismissEnableLocationPanelHandler: ScrollableEducationPanelDismissHandler = {
+            if (!skipSearchInDismissEnableLocationPanelHandler) {
+                self.performDefaultSearchIfNecessary(withRegion: nil)
+            }
+        }
+        
+        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
+        
+        enableLocationPanelVC.apply(theme: theme)
+        present(enableLocationPanelVC, animated: true, completion: nil)
     }
 
     
@@ -1773,14 +1781,19 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             break
         case .share:
-            let activityVC = ShareActivityController(article: article, context: context)
-            activityVC.popoverPresentationController?.sourceView = view
+            let addToReadingListActivity = AddToReadingListActivity {
+                let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            }
+            let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])
+            shareActivityController.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
                 sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
             }
-            activityVC.popoverPresentationController?.sourceRect = sourceRect
-            present(activityVC, animated: true, completion: nil)
+            shareActivityController.popoverPresentationController?.sourceRect = sourceRect
+            shareActivityController.excludedActivityTypes = [.addToReadingList]
+            present(shareActivityController, animated: true, completion: nil)
             break
         case .none:
             fallthrough
@@ -2424,21 +2437,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let center = CGPoint(x: view.pointee.bounds.midX, y: view.pointee.bounds.midY)
         let newOrigin = CGPoint(x: center.x - 0.5*oldRect.width, y: center.y - 0.5*oldRect.height)
         rect.pointee = CGRect(origin: newOrigin, size: oldRect.size)
-    }
-    
-    
-    // MARK: - EnableLocationViewControllerDelegate
-    
-    func enableLocationViewController(_ enableLocationViewController: EnableLocationViewController, didFinishWithShouldPromptForLocationAccess shouldPromptForLocationAccess: Bool) {
-        guard shouldPromptForLocationAccess else {
-            performDefaultSearchIfNecessary(withRegion: nil)
-            return
-        }
-        guard WMFLocationManager.isAuthorizationNotDetermined() else {
-            UIApplication.shared.wmf_openAppSpecificSystemSettings()
-            return
-        }
-        locationManager.startMonitoringLocation()
     }
     
     // MARK: - ArticlePlaceViewDelegate

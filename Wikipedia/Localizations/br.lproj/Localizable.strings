@@ -63,7 +63,6 @@
 "appearance-settings-image-dimming-footer" = "Digreskiñ divoullder skeudennoù an tem teñval";
 "appearance-settings-reading-themes" = "Temoù lenn";
 "appearance-settings-theme-options" = "Dibaboù an temoù";
-"appearance-settings-title" = "Temoù lenn";
 "article-about-title" = "Diwar-benn ar pennad-mañ";
 "article-delete" = "Diverkañ";
 "article-languages-filter-placeholder" = "Kavout ar yezh";
@@ -285,6 +284,7 @@
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
 "saved-clear-all" = "Diverkañ";
 "saved-pages-clear-cancel" = "Nullañ";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Ha sur eo hoc'h eus c'hoant da lemel ho holl elfennoù enrollet ?";
 "saved-pages-clear-delete-all" = "Ya, lemel pep tra";
 "saved-pages-image-download-error" = "C'hwitet eo pellgardadur ar skeudennoù evit ar bajenn enrollet-se.";

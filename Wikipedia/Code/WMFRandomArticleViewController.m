@@ -20,6 +20,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 @property (nonatomic, strong) WMFRandomArticleFetcher *randomArticleFetcher;
 @property (nonatomic, getter=viewHasAppeared) BOOL viewAppeared;
 @property (nonatomic) CGFloat previousContentOffsetY;
+
 @end
 
 @implementation WMFRandomArticleViewController
@@ -120,11 +121,21 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
             NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme diceButtonItem:self.diceButtonItem];
 #if WMF_TWEAKS_ENABLED
-            randomArticleVC.permaRandomMode = YES;
+            randomArticleVC.permaRandomMode = NO;
 #endif
             [self wmf_pushArticleViewController:randomArticleVC
                                        animated:YES];
         }];
+}
+
+- (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
+    WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
+    if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
+        return;
+    }
+    if (articleNavgiationController.secondToolbarHidden != randomButtonHidden) {
+        [articleNavgiationController setSecondToolbarHidden:randomButtonHidden animated:animated];
+    }
 }
 
 #pragma mark - WebViewControllerDelegate
@@ -153,9 +164,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
     }
 
-    if (articleNavgiationController.secondToolbarHidden != shouldHideRandomButton) {
-        [articleNavgiationController setSecondToolbarHidden:shouldHideRandomButton animated:YES];
-    }
+    [self setRandomButtonHidden:shouldHideRandomButton animated:YES];
 
     self.previousContentOffsetY = newContentOffsetY;
 }

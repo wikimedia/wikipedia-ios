@@ -1,8 +1,14 @@
 import Foundation
 
+enum AsyncOperationError: Error {
+    case cancelled
+}
+
 // Adapted from https://gist.github.com/calebd/93fa347397cec5f88233
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
+    
+    let progress = Progress(totalUnitCount: 1)
     
     // MARK: - Operation State
 
@@ -14,6 +20,8 @@ import Foundation
         case executing
         case finished
     }
+    
+    public var error: Error?
     
     fileprivate var _state = AsyncOperation.State.ready
     
@@ -75,7 +83,7 @@ import Foundation
         // "Your custom implementation must not call super at any time."
         
         if isCancelled {
-            finish()
+            finish(with: AsyncOperationError.cancelled)
             return
         }
         
@@ -86,6 +94,13 @@ import Foundation
     // MARK: - Custom behavior
     
     @objc open func finish() {
+        progress.completedUnitCount = progress.totalUnitCount
+        state = .finished
+    }
+    
+    @objc open func finish(with error: Error) {
+        progress.completedUnitCount = progress.totalUnitCount
+        self.error = error
         state = .finished
     }
     

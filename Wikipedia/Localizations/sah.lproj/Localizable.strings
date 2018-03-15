@@ -62,6 +62,7 @@
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-delete" = "Сот";
+// Fuzzy
 "article-deleted-accessibility-notification" = "Ыстатыйа сотулунна";
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-languages-label" = "Тылгын тал";
@@ -281,6 +282,7 @@
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
 "saved-clear-all" = "Сот";
 "saved-pages-clear-cancel" = "Салҕаама";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Хараллыбыт сирэйдэри барытын сотоҕун дуо?";
 "saved-pages-clear-delete-all" = "Барытын сот";
 "saved-pages-image-download-error" = "Бу урут хаалларыллыбыт сирэй ойуута хачайдамматах эбит.";

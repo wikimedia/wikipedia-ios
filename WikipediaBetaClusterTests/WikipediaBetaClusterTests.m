@@ -128,4 +128,42 @@
     return a1.count == a2.count;
 }
 
+- (void)testParserDivWrapperHasNotLeakedIntoMobileviewSectionHTMLOnBeta {
+    // Early notification of parser divs leaking to mobileview section html output.
+    // Changes are staged on wmflabs.org before being deployed to production.
+
+    // Past occurences and the divs they leaked into mobileview output:
+    // https://phabricator.wikimedia.org/T186927
+    //      <div class="mw-parser-output"
+    // https://phabricator.wikimedia.org/T129717
+    //      <div class="mw-mobilefrontend-leadsection"
+
+    // If this test fails: identify the div leaking into mobileview output causing the failure and find the
+    // upsteam ticket which introduced the change and raise a flag before the change is deployed to production!
+
+    NSURL *betaClusterURL = [NSURL URLWithString:@"https://en.m.wikipedia.beta.wmflabs.org/w/api.php?action=mobileview&format=json&page=Barack_Obama&sections=0&prop=text%7Csections%7Crevision&revision=349208"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch mobileview section html for a specific revision of an article on beta and confirm text starts with expected string so we can be notified if parser wrapper div leaks into mobileview section html again."];
+    NSURLSessionDataTask *dataTask =
+        [[NSURLSession sharedSession] dataTaskWithURL:betaClusterURL
+                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                                        NSArray *sectionsFromBetaCluster = json[@"mobileview"][@"sections"];
+
+                                        NSDictionary *firstSectionFromBetaCluster = sectionsFromBetaCluster[0];
+                                        NSString *firstSectionTextFromBetaCluster = firstSectionFromBetaCluster[@"text"];
+                                        XCTAssertTrue([firstSectionTextFromBetaCluster hasPrefix:@"<p>hello there"], @"\n\nSome parser HTML may have leaked into mobileview output. This test which just failed is an early warning sign that something has been staged to the beta cluster which may cause a parser div to leak into mobileview output if it is deployed to production. Don't ignore this failure!\n\n");
+
+                                        [expectation fulfill];
+
+                                    }];
+    [dataTask resume];
+
+    [self waitForExpectationsWithTimeout:120.0
+                                 handler:^(NSError *error) {
+                                     if (error) {
+                                         NSLog(@"Timeout Error: %@", error);
+                                     }
+                                 }];
+}
+
 @end

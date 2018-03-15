@@ -62,6 +62,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         }
 
         WMFArticle *article = [self.dataStore.viewContext fetchOrCreateArticleWithURL:obj.url];
+        // Don't add to the defaut list here, that is handled by a later migration
         article.savedDate = obj.date;
     }];
 
@@ -95,6 +96,18 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
     NSString *key = [url wmf_articleDatabaseKey];
+    if (!key) {
+        return nil;
+    }
+    WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
+    if (article.savedDate) {
+        return article;
+    } else {
+        return nil;
+    }
+}
+
+- (nullable WMFArticle *)entryForKey:(NSString *)key {
     if (!key) {
         return nil;
     }
@@ -141,36 +154,38 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if (!key) {
         return NO;
     }
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    if (!moc) {
+        return NO;
+    }
     WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
     if (article.savedDate == nil) {
-        article.savedDate = [NSDate date];
+        [self.dataStore.readingListsController save:article];
     } else {
-        article.savedDate = nil;
+        [self.dataStore.readingListsController unsaveArticle:article inManagedObjectContext:moc];
     }
-    [self.dataStore save:nil];
     return article.savedDate != nil;
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
-    article.savedDate = [NSDate date];
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController save:article];
 }
 
 - (void)removeEntryWithURL:(NSURL *)url {
+    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    if (!moc) {
+        return;
+    }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
     if (!article) {
         return;
     }
-    article.savedDate = nil;
-    [self.dataStore save:nil];
+    [self.dataStore.readingListsController unsaveArticle:article inManagedObjectContext:moc];
 }
 
-- (void)removeAllEntries {
-    [self enumerateItemsWithBlock:^(WMFArticle *_Nonnull entry, BOOL *_Nonnull stop) {
-        entry.savedDate = nil;
-    }];
-    [self.dataStore save:nil];
+- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
+    [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
 }
 
 #pragma mark - Legacy Schema Migration

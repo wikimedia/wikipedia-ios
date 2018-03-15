@@ -179,6 +179,7 @@
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
 "saved-clear-all" = "Escafar";
 "saved-pages-clear-cancel" = "Anullar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Sètz segur que volètz suprimir totes vòstres elements enregistrats ?";
 "saved-pages-clear-delete-all" = "Òc, suprimir tot";
 "saved-title" = "Enregistrat";
