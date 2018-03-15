@@ -45,8 +45,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var showCloseButton = true
-    
-    private var primaryButtonTapped = false
+    private var discardDismissHandlerOnPrimaryButtonTap = false
     
     var image:UIImage? {
         get {
@@ -108,12 +107,13 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
         self.dismissHandler = dismissHandler
+        self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     required public init?(coder aDecoder: NSCoder) {
         return nil
@@ -188,7 +188,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
-        primaryButtonTapped = true
         primaryButtonTapHandler(sender)
     }
 
@@ -200,8 +199,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        guard let dismissHandler = dismissHandler, !primaryButtonTapped else {
+        super.viewDidDisappear(animated)
+        guard let dismissHandler = dismissHandler, !discardDismissHandlerOnPrimaryButtonTap else {
             return
         }
         dismissHandler()
