@@ -12,7 +12,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleButtonLeadingWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
-@property (strong, nonatomic) NSString *buttonTitle;
 @property (nonatomic) NSInteger controlTag;
 @property (nonatomic) BOOL isSwitchOn;
 @property (nonatomic, strong) WMFTheme *theme;
@@ -28,8 +27,11 @@
 }
 
 - (void)setButtonTitle:(NSString *)buttonTitle {
-    _buttonTitle = buttonTitle;
     [self.titleButton setTitle:buttonTitle forState:UIControlStateNormal];
+}
+
+-(NSString *)buttonTitle {
+    return self.titleButton.titleLabel.text;
 }
 
 - (void)setIconName:(NSString *)iconName {
