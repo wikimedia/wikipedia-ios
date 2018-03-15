@@ -46,6 +46,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var showCloseButton = true
     private var discardDismissHandlerOnPrimaryButtonTap = false
+    private var primaryButtonTapped = false
+    
     
     var image:UIImage? {
         get {
@@ -188,6 +190,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
+        primaryButtonTapped = true
         primaryButtonTapHandler(sender)
     }
 
@@ -200,10 +203,18 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        guard let dismissHandler = dismissHandler, !discardDismissHandlerOnPrimaryButtonTap else {
+        guard let dismissHandler = dismissHandler else {
+            return
+        }
+        guard !(discardDismissHandlerOnPrimaryButtonTap && primaryButtonTapped) else {
             return
         }
         dismissHandler()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        primaryButtonTapped = false
     }
     
     func apply(theme: Theme) {
