@@ -63,8 +63,6 @@ class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController 
 }
 
 class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
-    private var tappedPrimaryButton: Bool = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-user")
@@ -72,19 +70,6 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
     }
-    
-    override func primaryButtonTapped(_ sender: Any) {
-        tappedPrimaryButton = true
-        super.primaryButtonTapped(sender)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        guard !tappedPrimaryButton else {
-            return
-        }
-        super.viewWillDisappear(animated)
-    }
-    
 }
 
 class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelViewController {
