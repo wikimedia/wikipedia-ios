@@ -13,7 +13,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
     
-    public var enableSyncOnLogin: Bool = false
+    public var loginSuccessCompletion: (() -> Void)?
     
     @objc public var funnel: LoginFunnel?
     
@@ -145,9 +145,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            if self.enableSyncOnLogin {
-                SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-            }
+            self.loginSuccessCompletion?()
             self.setViewControllerUserInteraction(enabled: true)
             let presenter = self.presentingViewController
             self.dismiss(animated: true, completion: {

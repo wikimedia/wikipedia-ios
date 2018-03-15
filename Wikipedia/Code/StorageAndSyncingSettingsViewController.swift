@@ -206,7 +206,13 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         switch settingsItemType {
         case .syncSavedArticlesAndLists:
             if WMFAuthenticationManager.sharedInstance.loggedInUsername == nil && !isSyncEnabled {
-                wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: { sender.setOn(false, animated: true) })
+                let dismissHandler = {
+                    sender.setOn(false, animated: true)
+                }
+                let loginSuccessCompletion: () -> Void = {
+                   self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                }
+                wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion)
             } else {
                 dataStore?.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
             }

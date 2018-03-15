@@ -159,14 +159,12 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
-    @objc func wmf_showLoginViewController(theme: Theme, enableSync: Bool = false) {
+    @objc func wmf_showLoginViewController(theme: Theme, loginSuccessCompletion: (() -> Void)? = nil) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
         }
-        if enableSync {
-            loginVC.enableSyncOnLogin = enableSync
-        }
+        loginVC.loginSuccessCompletion = loginSuccessCompletion
         present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
     
@@ -193,10 +191,10 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
+    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil) {
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showLoginViewController(theme: theme, enableSync: true)
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion)
             })
         }
         
