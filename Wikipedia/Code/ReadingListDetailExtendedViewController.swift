@@ -94,10 +94,15 @@ class ReadingListDetailExtendedViewController: UIViewController {
         
         let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
         alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, listLimit)
-        alertTitleLabel.isHidden = !listLimitExceeded
         let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
         alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, listLimit)
-        alertMessageLabel.isHidden = !listLimitExceeded
+        isAlertViewHidden = !listLimitExceeded
+    }
+    
+    private var isAlertViewHidden: Bool = true {
+        didSet {
+            alertView.isHidden = isAlertViewHidden
+        }
     }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
