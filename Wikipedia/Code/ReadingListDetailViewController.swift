@@ -111,7 +111,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        readingListDetailExtendedViewController.isHidden = isEmpty
         if isEmpty {
             navigationBar.removeExtendedNavigationBarView()
         } else {

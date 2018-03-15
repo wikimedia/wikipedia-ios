@@ -15,7 +15,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var alertView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel!
     @IBOutlet weak var alertMessageLabel: UILabel!
-    @IBOutlet var constraints: [NSLayoutConstraint] = []
     
     private var readingListTitle: String?
     private var readingListDescription: String?
@@ -23,13 +22,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
     public weak var delegate: ReadingListDetailExtendedViewControllerDelegate?
     
     private var theme: Theme = Theme.standard
-    
-    public var isHidden: Bool = false {
-        didSet {
-            view.isHidden = isHidden
-            isHidden ? NSLayoutConstraint.deactivate(constraints) : NSLayoutConstraint.activate(constraints)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +94,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     private var isAlertViewHidden: Bool = true {
         didSet {
             alertView.isHidden = isAlertViewHidden
+            view.setNeedsLayout()
         }
     }
     
