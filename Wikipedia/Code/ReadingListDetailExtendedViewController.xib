@@ -96,7 +96,7 @@
                                 <constraint firstItem="FjI-cv-IBB" firstAttribute="leading" secondItem="iKJ-QG-jkJ" secondAttribute="leading" id="Sol-bX-tX9"/>
                                 <constraint firstAttribute="trailing" secondItem="IIk-ny-9dq" secondAttribute="trailing" id="euS-NU-GRA"/>
                                 <constraint firstAttribute="bottom" secondItem="IIk-ny-9dq" secondAttribute="bottom" id="qRa-eI-a9B"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="uod-ho-ar0"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" placeholder="YES" id="uod-ho-ar0"/>
                                 <constraint firstAttribute="trailing" secondItem="FjI-cv-IBB" secondAttribute="trailing" id="yAA-tf-2JB"/>
                             </constraints>
                         </view>
@@ -123,7 +123,6 @@
                         <constraint firstItem="iKJ-QG-jkJ" firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" id="x6u-bW-6iH"/>
                         <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="iKJ-QG-jkJ" secondAttribute="bottom" constant="15" id="xti-A2-eeJ"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="236" id="y3q-WA-OGa"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="0kT-ff-0rB"/>
                 </view>
