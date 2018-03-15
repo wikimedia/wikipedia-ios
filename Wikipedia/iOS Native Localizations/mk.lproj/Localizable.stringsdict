@@ -66,22 +66,6 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Не можеете да ја додадете статијава во „%2$@“ бидејќи ја достгнува границата на дозволени статии во списокот.</string>
-			<key>other</key>
-			<string>Не можеете да ги додадете статииве во „%2$@“ бидејќи ја достгнува границата на дозволени статии во списокот.</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

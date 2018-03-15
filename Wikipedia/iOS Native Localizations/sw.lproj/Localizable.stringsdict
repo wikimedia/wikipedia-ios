@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>You cannot add this article to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+			<string>Article cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@</string>
 			<key>other</key>
-			<string>You cannot add these articles to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+			<string>Articles cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
