@@ -582,6 +582,8 @@ static NSMutableDictionary *globalDesignDictionary;
                                      alpha:[_messageViewDesignDictionary[@"backgroundColorAlpha"] floatValue]];
   } else if (_messageViewDesignDictionary[@"backgroundColor"]) {
     backgroundColor = [self colorForString:_messageViewDesignDictionary[@"backgroundColor"]];
+  } else {
+      // apply theme
   }
 
   if (backgroundColor) self.backgroundColor = backgroundColor;
