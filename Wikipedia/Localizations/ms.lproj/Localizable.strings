@@ -331,6 +331,9 @@
 "reading-list-keep-button-title" = "Ya, simpan rencana pada peranti";
 "reading-list-keep-subtitle" = "Terdapat rencana yang diselaraskan ke akaun Wikipedia anda. Adakah anda ingin menyimpannya pada peranti ini selepas anda log keluar?";
 "reading-list-keep-title" = "Simpan rencana yang disimpan pada peranti?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Isih rencana";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Terdapat had 5000 rencana tak disortir. Sila sortir rencana anda yang ada dalam senarai untuk meneruskan penyegerakan rencana yang tidak disortir.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Had untuk rencana yang tidak disortir";
 "reading-list-login-button-title" = "Log masuk untuk menyegerakkan rencana anda yang disimpan";
 "reading-list-login-or-create-account-button-title" = "Log masuk atau buka akaun";
 "reading-list-login-or-create-account-title" = "Log masuk untuk menyegerakkan rencana yang disimpan";

@@ -356,6 +356,8 @@
 "reading-list-keep-subtitle" = "Есть статьи синхронизированные с вашей учетной записью Википедии. Вы хотите оставить их на этом устройстве после выхода из системы?";
 "reading-list-keep-title" = "Сохранять сохраненные статьи на устройстве?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Сортировать статьи";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Существует ограничение в 5000 неотсортированных статей. Пожалуйста, отсортируйте существующие статьи по спискам, чтобы продолжить синхронизацию несортированных статей.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Предельное ограничение для неотсортированных статей";
 "reading-list-login-button-title" = "Войдите в систему, чтобы синхронизировать сохраненные статьи";
 "reading-list-login-or-create-account-button-title" = "Войти или создать учетную запись";
 "reading-list-login-or-create-account-title" = "Войдите в систему, чтобы синхронизировать сохранённые статьи";

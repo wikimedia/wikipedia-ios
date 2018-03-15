@@ -342,6 +342,9 @@
 "reading-list-keep-button-title" = "Ya, simpan artikel di perangkat";
 "reading-list-keep-subtitle" = "Ada artikel yang disinkronkan ke akun Wikipedia Anda. Apakah Anda ingin menyimpannya di perangkat ini setelah keluar log?";
 "reading-list-keep-title" = "Simpan artikel tersimpan di perangkat?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Urutkan artikel";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Ada batas 5.000 artikel yang tidak diurutkan. Silakan urutkan artikel Anda yang ada ke dalam daftar untuk melanjutkan sinkronisasi artikel yang tidak diurutkan.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Batasan untuk artikel yang tidak diurutkan";
 "reading-list-login-button-title" = "Masuk log untuk menyinkronkan artikel tersimpan Anda";
 "reading-list-login-or-create-account-button-title" = "Masuk log atau buat akun";
 "reading-list-login-or-create-account-title" = "Masuk log untuk menyinkronkan artikel tersimpan";
