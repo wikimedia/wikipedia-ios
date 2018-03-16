@@ -8,9 +8,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
     
+    private var isDefault: Bool = false
     private let defaultListTag = UILabel() // explains that the default list cannot be deleted
     
     private var singlePixelDimension: CGFloat = 0.5
+    
+    private var displayType: ReadingListsDisplayType = .readingListsTab
     
     private var alertType: AlertType? {
         didSet {
@@ -77,10 +80,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         super.setup()
     }
-    
-    private var displayType: ReadingListsDisplayType = .readingListsTab
-    
-    private var isDefault: Bool = false
     
     open override func reset() {
         super.reset()
