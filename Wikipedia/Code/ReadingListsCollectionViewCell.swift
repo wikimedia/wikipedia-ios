@@ -244,14 +244,26 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
-        
-        let shouldShowAlert = readingList.isListLimitExceeded
-        
-        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly, shouldShowAlertLabel: shouldShowAlert, shouldShowAlertIcon: shouldShowAlert)
+    func configureAlert(for readingList: ReadingList) {
+        if readingList.isListLimitExceeded {
+            alertType = .listLimitExceeded
+        } else if readingList.isEntryLimitExceeded {
+            alertType = .entryLimitExceeded
+        }
+        let shouldHideAlert = alertType == nil
+        isAlertLabelHidden = shouldHideAlert
+        isAlertIconHidden = shouldHideAlert
+        if !isAlertIconHidden {
+            alertIcon.image = UIImage(named: "error-icon")
+        }
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool, shouldShowAlertLabel: Bool = false, shouldShowAlertIcon: Bool = false) {
+    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        
+        configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+    }
+    
+    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
         imageViewDimension = 80
 
@@ -291,13 +303,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
-        }
-        
-        alertLabel.text = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
-        isAlertLabelHidden = !shouldShowAlertLabel
-        isAlertIconHidden = !shouldShowAlertIcon
-        if !isAlertIconHidden {
-            alertIcon.image = UIImage(named: "error-icon")
         }
         
         apply(theme: theme)
