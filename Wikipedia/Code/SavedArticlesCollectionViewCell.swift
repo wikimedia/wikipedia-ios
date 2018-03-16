@@ -270,13 +270,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         extractLabel?.text = nil
         imageViewDimension = 80
         
-        alertLabel.text = WMFLocalizedString("reading-lists-article-not-synced-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
-        isAlertLabelHidden = !shouldShowAlertLabel
-        isAlertIconHidden = !shouldShowAlertIcon
-        if !isAlertIconHidden {
-            alertIcon.image = UIImage(named: "error-icon")
-        }
-        
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
