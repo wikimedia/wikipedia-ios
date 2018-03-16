@@ -209,7 +209,31 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool, shouldShowAlertLabel: Bool = false, shouldShowAlertIcon: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, isInDefaultReadingList: Bool = false) {
+        guard let error = entry.APIError else {
+            return
+        }
+        
+        switch error {
+        case .entryLimit where isInDefaultReadingList:
+            alertType = .genericNotSynced
+        case .entryLimit:
+            alertType = .entryLimitExceeded
+        case .listLimit:
+            alertType = .listLimitExceeded
+        default:
+            alertType = .none
+        }
+        
+        let shouldHideAlert = alertType == .none
+        isAlertLabelHidden = shouldHideAlert
+        isAlertIconHidden = shouldHideAlert
+        if !isAlertIconHidden {
+            alertIcon.image = UIImage(named: "error-icon")
+        }
+    }
+    
+    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         titleLabel.text = article.displayTitle
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         
