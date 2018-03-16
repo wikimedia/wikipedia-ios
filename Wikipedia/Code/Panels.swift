@@ -144,12 +144,13 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
-    @objc func wmf_showLoginViewController(theme: Theme) {
+    @objc func wmf_showLoginViewController(theme: Theme, loginSuccessCompletion: (() -> Void)? = nil) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
         }
-        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+        loginVC.loginSuccessCompletion = loginSuccessCompletion
+        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
     
     @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
@@ -175,14 +176,14 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
+    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil) {
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showLoginViewController(theme: theme)
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion)
             })
         }
         
-        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true)
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }

@@ -233,10 +233,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
             if currentAppTheme.withDimmingEnabled(false) === checkmarkItem.theme {
                 cell.accessoryType = .checkmark
-                cell.backgroundView?.backgroundColor = theme.colors.midBackground
+                cell.isSelected = true
             } else {
                 cell.accessoryType = .none
-                cell.backgroundView?.backgroundColor = theme.colors.paperBackground
+                cell.isSelected = false
             }
         }
     }
