@@ -423,11 +423,12 @@ extension ReadingListDetailViewController {
             return
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        let shouldShowAlert = readingList.isListLimitExceeded
         
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly, shouldShowAlertLabel: shouldShowAlert, shouldShowAlertIcon: shouldShowAlert)
+        cell.configureAlert(for: entry)
+        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
+        // TODO: Remove this after testing
+        if let error = entry.APIError {
             // placeholder for now, this should be a separate label or button
             cell.descriptionLabel.text = error.localizedDescription
             cell.descriptionLabel.textColor = theme.colors.error
