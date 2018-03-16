@@ -177,7 +177,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+        guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return nil
         }
         if let th = header as Themeable? {
@@ -188,7 +188,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+        guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return 0
         }
         header.text = sections[section].headerTitle

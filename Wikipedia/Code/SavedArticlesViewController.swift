@@ -324,12 +324,12 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            let alertController = ReadingListAlertController()
-            let delete = ReadingListAlertActionType.delete.action {
+            let alertController = ReadingListsAlertController()
+            let delete = ReadingListsAlertActionType.delete.action {
                 self.delete(articles: articles)
             }
             var didPerform = false
-            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.delete(articles: articles)
                 didPerform = true
                 return didPerform
@@ -352,9 +352,9 @@ extension SavedArticlesViewController: ActionDelegate {
         guard action.type == .delete else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
+        let alertController = ReadingListsAlertController()
+        let unsave = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
         return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
             return self.editController.didPerformAction(action)
         }

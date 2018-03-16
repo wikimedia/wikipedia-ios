@@ -376,7 +376,9 @@
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
+// Fuzzy
 "reading-lists-default-list-description" = "Стандартный список для сохранённых статей";
+// Fuzzy
 "reading-lists-default-list-title" = "Закладки";
 "reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";

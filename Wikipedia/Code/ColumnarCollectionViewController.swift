@@ -135,7 +135,6 @@ class ColumnarCollectionViewController: ViewController {
     
     var previewingContext: UIViewControllerPreviewing?
     
-    
     func unregisterForPreviewing() {
         guard let context = previewingContext else {
             return

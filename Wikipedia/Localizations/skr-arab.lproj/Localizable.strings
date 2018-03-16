@@ -126,6 +126,7 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "rank-accessibility-label" = "نمبر$1";
+// Fuzzy
 "reading-lists-default-list-title" = "کتاب نشان";
 "reading-themes-controls-accessibility-dark-theme-button" = "ڳوڑھا تھیم، مرکزی خیال";
 "reference-title" = "حوالہ$1";

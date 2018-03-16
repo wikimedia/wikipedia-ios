@@ -361,8 +361,8 @@
 "reading-list-with-provided-name-not-found" = "找不到名为“$1”的阅读列表。请确保您已提供正确名称。";
 "reading-lists-article-added-confirmation" = "条目已添加至“$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1个阅读列表}}";
-"reading-lists-default-list-description" = "默认用于已保存条目的列表";
-"reading-lists-default-list-title" = "书签";
+"reading-lists-default-list-description" = "默认用于您的已保存条目的列表";
+"reading-lists-default-list-title" = "已保存";
 "reading-lists-delete-reading-list-alert-message" = "此操作不能撤销。任何只添加至{{PLURAL:$1此|这些}}列表的条目将被取消保存。";
 "reading-lists-delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
 "reading-themes-controls-accessibility-black-theme-button" = "黑暗主题";

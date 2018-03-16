@@ -134,6 +134,7 @@
 "home-more-like-footer" = "Více podobných článku $1";
 "home-nearby-footer" = "Více z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
+"home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů čtení a synchronizovány skrze zařízení. Přihlašte se, abyste povolil/a ukládání seznamů čtení do vašich uživatelských nastavení";
 "home-title" = "Prozkoumat";
 "icon-shortcut-continue-reading-title" = "Pokračovat ve čtení";
 "icon-shortcut-nearby-title" = "Blízké články";
@@ -182,9 +183,13 @@
 "potd-description-prefix" = "Obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
+"reading-list-add-hint-title" = "Přidat \"$1\" do seznamu čtení?";
 "reading-list-add-saved-button-title" = "Ano, přidat články do tohoto seznamu čtení";
 "reading-list-add-saved-subtitle" = "Na vaší aplikaci Wikipedie jsou uložené články. Chtěl/a byste je ponechat a sloučit se seznamy čtení, které jsou synchronizovány do vašeho účtu?";
 "reading-list-add-saved-title" = "Uložené články nalezeny";
+"reading-list-api-error-entry-limit" = "Tento záznam není synchronizován, protože jste překročil/a limit v počtu článků v tomto seznamu.";
+"reading-list-api-error-generic" = "Nastala neočekávaná chyba při synchronizaci vašich seznamů čtení.";
+"reading-list-api-error-list-limit" = "Tento seznam není synchronizován, protože jste překročil/a limit počtu synchronizovaných seznamů.";
 "reading-list-deleted-accessibility-notification" = "Seznam čtení odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
 "reading-list-exists-with-same-name" = "Toto jméno již má jiný seznam čtení";
@@ -204,16 +209,19 @@
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy čtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů čtení?";
 "reading-list-sync-setting" = "Synchronizace seznamů čtení";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "Nemůžete přidat {{PLURAL:$1|tento článek|tyto články}} do „$2“, protože byl překročen limit počtu článků, které v tomto seznamu čtení můžete mít.";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-create" = "Nastala neočekávaná chyba při zakládání vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-remove-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-update" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu čtení. Zkuste prosím později znovu.";
-// Fuzzy
 "reading-list-with-provided-name-not-found" = "Seznam čtení s názvem $1 nebyl nalezen. Ujistěte se prosím, že jste vyhledal správné jméno.";
+"reading-lists-article-added-confirmation" = "Článek přidán do „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 seznam čtení|$1 seznamy čtení|$1 seznamů čtení}}";
-"reading-lists-default-list-description" = "Výchozí seznam uložených článků";
+"reading-lists-default-list-description" = "Výchozí seznam pro vaše uložené články";
+// Fuzzy
 "reading-lists-default-list-title" = "Záložky";
+"reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou uloženy.";
 "reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
 "relogin-failed-retry-login-button-title" = "Pokusit se přihlásit znovu";
 "relogin-failed-stay-logged-out-button-title" = "Ponechat můj účet odhlášen";

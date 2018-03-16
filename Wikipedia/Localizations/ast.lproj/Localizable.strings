@@ -350,7 +350,9 @@
 "reading-list-with-provided-name-not-found" = "Nun s'atopó la llista de llectura llamada «$1». Asegúrate de que tienes el nome correutu.";
 "reading-lists-article-added-confirmation" = "Artículu amestáu a «$1»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista|$1 llistes}} de llectura";
+// Fuzzy
 "reading-lists-default-list-description" = "Llista predeterminada p'artículos guardaos";
+// Fuzzy
 "reading-lists-default-list-title" = "Marcadores";
 "reading-lists-delete-reading-list-alert-title" = "¿Desaniciar {{PLURAL:$1|la llista|les llistes}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema prietu";

@@ -352,9 +352,9 @@ extension ReadingListsViewController: ActionDelegate {
         guard action.type == .delete else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
         return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
             return self.editController.didPerformAction(action)
         }
@@ -380,12 +380,12 @@ extension ReadingListsViewController: ActionDelegate {
         case .update:
             return true
         case .delete:
-            let alertController = ReadingListAlertController()
-            let delete = ReadingListAlertActionType.delete.action {
+            let alertController = ReadingListsAlertController()
+            let delete = ReadingListsAlertActionType.delete.action {
                 self.deleteReadingLists(readingLists)
             }
             var didPerform = false
-            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.deleteReadingLists(readingLists)
                 didPerform = true
                 return didPerform
