@@ -181,16 +181,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
-        case WMFSettingsMenuItemType_StorageAndSyncing:
-            if ([WMFAuthenticationManager sharedInstance].loggedInUsername == nil && !self.dataStore.readingListsController.isSyncEnabled) {
-                [self wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanelWithTheme:self.theme];
-            } else {
-                [self.dataStore.readingListsController setSyncEnabled:isOn shouldDeleteLocalLists:NO shouldDeleteRemoteLists:!isOn];
-            }
-            break;
-        case WMFSettingsMenuItemType_ShowDefaultList:
-            self.dataStore.readingListsController.isDefaultListEnabled = isOn;
-            break;
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
             [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
@@ -214,6 +204,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_Appearance: {
             [self showAppearance];
+            break;
+        }
+        case WMFSettingsMenuItemType_StorageAndSyncing: {
+            [self showStorageAndSyncing];
             break;
         }
         case WMFSettingsMenuItemType_Support:
@@ -384,6 +378,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
+#pragma mark - Storage and syncing
+
+- (void)showStorageAndSyncing {
+    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] initWithNibName:@"StorageAndSyncingSettingsViewController" bundle:nil];
+    [storageAndSyncingSettingsVC applyTheme:self.theme];
+    storageAndSyncingSettingsVC.dataStore = self.dataStore;
+    [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
+}
+
 #pragma mark - Debugging
 
 + (void)generateTestCrash {
@@ -452,8 +455,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (WMFSettingsTableViewSection *)section_1 {
     NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
                        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ShowDefaultList],
                        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
@@ -469,6 +470,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];
     return section;

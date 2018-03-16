@@ -90,10 +90,10 @@ class SavedViewController: ViewController {
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
             case .readingLists :
-                removeChild(savedArticlesViewController)
-                addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
+                removeChild(savedArticlesViewController)
+                addChild(readingListsViewController)
                 leftButtonType = .add
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
