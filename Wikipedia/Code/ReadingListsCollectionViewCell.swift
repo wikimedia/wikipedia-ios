@@ -15,7 +15,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    private var alertType: AlertType? {
+    private var alertType: AlertType = .none {
         didSet {
             guard oldValue != alertType else {
                 return
