@@ -12,6 +12,22 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var singlePixelDimension: CGFloat = 0.5
     
+    private var alertType: AlertType? {
+        didSet {
+            guard oldValue != alertType else {
+                return
+            }
+            var alertLabelText: String? = nil
+            if alertType == .listLimitExceeded {
+                alertLabelText = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+            } else if alertType == .entryLimitExceeded {
+                alertLabelText = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+            }
+            alertLabel.text = alertLabelText
+            
+        }
+    }
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
