@@ -22,6 +22,26 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    private var alertType: AlertType = .none {
+        didSet {
+            guard oldValue != alertType else {
+                return
+            }
+            var alertLabelText: String? = nil
+            switch alertType {
+            case .listLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            case .entryLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            case .genericNotSynced:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            default:
+                break
+            }
+            alertLabel.text = alertLabelText
+        }
+    }
+    
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
