@@ -252,7 +252,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        isTagsViewHidden = tags.readingLists.count == 0 || shouldShowAlertLabel
+        isTagsViewHidden = tags.readingLists.count == 0
         
         if !isStatusViewHidden {
             statusView.backgroundColor = theme.colors.warning
