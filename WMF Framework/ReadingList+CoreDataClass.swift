@@ -3,6 +3,9 @@ import CoreData
 
 public class ReadingList: NSManagedObject {
     
+    @objc public static let entriesLimitReachedNotification = NSNotification.Name(rawValue:"WMFEntriesLimitReachedNotification")
+    @objc public static let entriesLimitReachedReadingListKey = "readingList"
+    
     open var articleKeys: [String] {
         let entries = self.entries ?? []
         let existingKeys = entries.flatMap { (entry) -> String? in
@@ -14,17 +17,21 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
-    public func updateCountOfEntries() {
-        guard let entries = entries else {
-            countOfEntries = 0
-            return
+    private var previousCountOfEntries: Int64 = 0
+    
+    public var isEntriesLimitReached: Bool = false {
+        didSet {
+            guard isEntriesLimitReached, countOfEntries > previousCountOfEntries else {
+                return
+            }
+            let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self]
+            NotificationCenter.default.post(name: ReadingList.entriesLimitReachedNotification, object: nil, userInfo: userInfo)
         }
-        countOfEntries = Int64(entries.filter({ (entry) -> Bool in
-            return !entry.isDeletedLocally
-        }).count)
     }
     
     public func updateArticlesAndEntries() throws {
+        previousCountOfEntries = countOfEntries
+        
         let previousArticles = articles ?? []
         let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
@@ -68,6 +75,10 @@ public class ReadingList: NSManagedObject {
             countOfEntries = 0
             articles = []
             previewArticles = []
+        }
+        
+        if let moc = managedObjectContext {
+            isEntriesLimitReached = countOfEntries >= moc.wmf_readingListsConfigMaxEntriesPerList.int64Value
         }
     }
 }

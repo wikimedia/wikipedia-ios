@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListAlertControllerDelegate>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListsAlertControllerDelegate, WMFReadingListHintPresenter>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -61,7 +61,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
-@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -515,7 +515,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                     default:
                         break;
                 }
-
             });
         }];
     }
@@ -1288,7 +1287,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             hasLocationCell = YES;
             *stop = YES;
         }
-
     }];
     return hasLocationCell;
 }
@@ -1837,7 +1835,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindReadingList: {
-            [self wmf_showLoginViewControllerWithTheme:self.theme];
+            [self wmf_showLoginViewControllerWithTheme:self.theme loginSuccessCompletion:nil];
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
@@ -2032,8 +2030,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
     if (article && article.userCreatedReadingListsCount > 0) {
-        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
-        [readingListAlertController showAlertWithPresenter:self article:article];
+        WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+        [readingListsAlertController showAlertWithPresenter:self article:article];
     } else {
         [self.saveButtonsController updateSavedState];
     }
@@ -2044,9 +2042,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
-#pragma mark - WMFReadingListAlertControllerDelegate
+#pragma mark - WMFReadingListsAlertControllerDelegate
 
-- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+- (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self.saveButtonsController updateSavedState];
 }
 

@@ -360,8 +360,8 @@
 "reading-list-with-provided-name-not-found" = "Lukulistaa nimellä “$1” ei löytynyt. Varmista, että sinulle on oikea nimi.";
 "reading-lists-article-added-confirmation" = "Artikkeli lisätty listaan “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
-"reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleille";
-"reading-lists-default-list-title" = "Kirjanmerkit";
+"reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleillesi";
+"reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Musta teema";

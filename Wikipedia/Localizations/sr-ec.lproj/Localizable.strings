@@ -289,6 +289,7 @@
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
 "rank-accessibility-label" = "Број: $1";
 "readers-accessibility-label" = "Читалаца: $1";
+// Fuzzy
 "reading-lists-default-list-title" = "Обележавачи";
 "reference-title" = "Референца $1";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";

@@ -77,7 +77,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
     }
-    
 }
 
 extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
@@ -190,9 +189,9 @@ extension ArticleCollectionViewController: ActionDelegate {
         guard action.type == .unsave else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
             return self.editController.didPerformAction(action)
         }

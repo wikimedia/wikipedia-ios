@@ -1,8 +1,8 @@
-@objc public protocol WMFReadingListAlertControllerDelegate: NSObjectProtocol {
-    func readingListAlertController(_ readingListAlertController: ReadingListAlertController, didSelectUnsaveForArticle: WMFArticle)
+@objc public protocol WMFReadingListsAlertControllerDelegate: NSObjectProtocol {
+    func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)
 }
 
-public enum ReadingListAlertActionType {
+public enum ReadingListsAlertActionType {
     case delete, unsave, cancel
     
     public func action(with handler: (() -> Void)? = nil) -> UIAlertAction {
@@ -25,18 +25,20 @@ public enum ReadingListAlertActionType {
     }
 }
 
-@objc (WMFReadingListAlertController)
-public class ReadingListAlertController: NSObject {
-    @objc public weak var delegate: WMFReadingListAlertControllerDelegate?
+@objc (WMFReadingListsAlertController)
+public class ReadingListsAlertController: NSObject {
+    @objc public weak var delegate: WMFReadingListsAlertControllerDelegate?
     
-    @objc func showAlert(presenter: UIViewController & WMFReadingListAlertControllerDelegate, article: WMFArticle) {
+    // MARK: UIAlertController presentation
+    
+    @objc func showAlert(presenter: UIViewController & WMFReadingListsAlertControllerDelegate, article: WMFArticle) {
         delegate = presenter
-        let unsave = ReadingListAlertActionType.unsave.action {
-            self.delegate?.readingListAlertController(self, didSelectUnsaveForArticle: article)
+        let unsave = ReadingListsAlertActionType.unsave.action {
+            self.delegate?.readingListsAlertController(self, didSelectUnsaveForArticle: article)
         }
         let title = CommonStrings.unsaveArticleAndRemoveFromListsTitle(articleCount: 1)
         let message = CommonStrings.unsaveArticleAndRemoveFromListsMessage(articleCount: 1)
-        presenter.present(alert(with: title, message: message, actions: [ReadingListAlertActionType.cancel.action(), unsave]), animated: true)
+        presenter.present(alert(with: title, message: message, actions: [ReadingListsAlertActionType.cancel.action(), unsave]), animated: true)
     }
     
     func showAlert(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: (() -> Void)? = nil, failure: () -> Bool) -> Bool {
@@ -65,5 +67,33 @@ public class ReadingListAlertController: NSObject {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         actions.forEach { alert.addAction($0) }
         return alert
+    }
+    
+    // MARK: - ScrollableEducationPanelViewController presentation
+    
+    @objc func showLimitHitForDefaultListPanelIfNecessary(presenter: UIViewController, dataStore: MWKDataStore, readingList: ReadingList, theme: Theme) {
+        guard Thread.isMainThread else {
+            assertionFailure("Expected main thread")
+            return
+        }
+        guard dataStore.readingListsController.isSyncEnabled else {
+            return
+        }
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {
+            return
+        }
+        guard readingList.isDefault else {
+            return
+        }
+        let primaryButtonHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            presenter.presentedViewController?.dismiss(animated: true)
+            let readingListDetailViewController = ReadingListDetailViewController(for: readingList, with: dataStore, displayType: .modal)
+            readingListDetailViewController.apply(theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: readingListDetailViewController, theme: theme)
+            presenter.present(navigationController, animated: true)
+        }
+        presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
+        }
     }
 }
