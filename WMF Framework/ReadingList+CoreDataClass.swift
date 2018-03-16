@@ -29,11 +29,46 @@ public class ReadingList: NSManagedObject {
         }
     }
     
-    public var isListLimitExceeded: Bool {
+    // if this is true, it means that we received an error from the API indicating that the list limit was exceeded
+    public var isListLimitExceededRemotely: Bool {
         guard let error = APIError else {
             return false
         }
         return error == .listLimit
+    }
+    
+    // if this is true, it means that we received an error from the API indicating that the entry limit was exceeded
+    public var isEntryLimitExceededRemotely: Bool {
+        guard let error = APIError else {
+            return false
+        }
+        return error == .entryLimit
+    }
+    
+    // if this is true, it means that the count of local lists >= list limit
+    public var isListLimitExceededLocally: Bool {
+        guard let moc = managedObjectContext, let readingListsCount = try? moc.countOfAllReadingLists() else {
+            return false
+        }
+        return readingListsCount >= moc.wmf_readingListsConfigMaxListsPerUser
+    }
+    
+    // if this is true, it means that the count of local entries >= list limit
+    public var isEntryLimitExceededLocally: Bool {
+        guard let moc = managedObjectContext else {
+            return false
+        }
+        return Int(countOfEntries) >= moc.wmf_readingListsConfigMaxEntriesPerList.intValue
+    }
+    
+    // if this is true, it means that the list limit was exceeded remotely or locally
+    public var isListLimitExceeded: Bool {
+        return isListLimitExceededLocally || isListLimitExceededRemotely
+    }
+    
+    // if this is true, it means that the entry limit was exceeded remotely or locally
+    public var isEntryLimitExceeded: Bool {
+        return isEntryLimitExceededRemotely || isEntryLimitExceededLocally
     }
     
     public func updateArticlesAndEntries() throws {
