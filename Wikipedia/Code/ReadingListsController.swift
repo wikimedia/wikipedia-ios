@@ -137,7 +137,7 @@ public class ReadingListsController: NSObject {
         }
         
         let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
-        let readingListsCount = try countOfAllReadingLists()
+        let readingListsCount = try moc.countOfAllReadingLists()
         guard readingListsCount + 1 <= listLimit else {
             throw ReadingListError.listLimitReached(limit: listLimit)
         }
@@ -185,14 +185,6 @@ public class ReadingListsController: NSObject {
             }
         }
         sync()
-    }
-    
-    private func countOfAllReadingLists() throws -> Int {
-        assert(Thread.isMainThread)
-        let moc = dataStore.viewContext
-        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
-        return try moc.count(for: request)
     }
     
     /// Marks that reading lists were deleted locally and updates associated objects. Doesn't delete them from the NSManagedObjectContext - that should happen only with confirmation from the server that they were deleted.
@@ -711,5 +703,12 @@ public extension NSManagedObjectContext {
                 DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: \(error)")
             }
         }
+    }
+    
+    func countOfAllReadingLists() throws -> Int {
+        assert(Thread.isMainThread)
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+        return try self.count(for: request)
     }
 }
