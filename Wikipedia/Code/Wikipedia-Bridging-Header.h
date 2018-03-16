@@ -45,7 +45,7 @@
 #import "WMFArticleNavigationController.h"
 
 // Views
-#import "WMFTableHeaderLabelView.h"
+#import "WMFTableHeaderFooterLabelView.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"

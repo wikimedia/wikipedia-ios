@@ -334,11 +334,9 @@
 "reading-list-login-title" = "Title for syncing save articles.";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
-"reading-list-show-default-list-setting" = "Main menu option to enable or disable default list";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
-"reading-list-sync-setting" = "Main menu option to enable or disable reading list sync";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Informs the user that adding the selected articles to their reading list would put them over the limit.";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
@@ -349,7 +347,6 @@
 "reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
 "reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
-"reading-lists-article-not-synced-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
@@ -414,6 +411,16 @@
 "settings-notifications-trending" = "Title for the setting for trending notifications";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
+"settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
+"settings-storage-and-syncing-server-sync-footer-text" = "Footer text of the settings button that initiates saved articles and reading lists server sync";
+"settings-storage-and-syncing-server-sync-title" = "Title of the settings button that initiates saved articles and reading lists server sync";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Title of the settings option that enables showing the default reading list";
+"settings-storage-and-syncing-title" = "Title of the saved articles storage and syncing settings screen";
 "settings-support" = "Title for button letting user make a donation.";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
