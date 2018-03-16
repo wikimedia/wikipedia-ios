@@ -244,12 +244,20 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configureAlert(for readingList: ReadingList) {
-        if readingList.isListLimitExceeded {
-            alertType = .listLimitExceeded
-        } else if readingList.isEntryLimitExceeded {
-            alertType = .entryLimitExceeded
+        guard let error = readingList.APIError else {
+            return
         }
-        let shouldHideAlert = alertType == nil
+        
+        switch error {
+        case .listLimit:
+            alertType = .listLimitExceeded
+        case .entryLimit:
+            alertType = .entryLimitExceeded
+        default:
+            alertType = .none
+        }
+
+        let shouldHideAlert = alertType == .none
         isAlertLabelHidden = shouldHideAlert
         isAlertIconHidden = shouldHideAlert
         if !isAlertIconHidden {
