@@ -565,7 +565,7 @@ public class ReadingListsController: NSObject {
     }
 }
 
-extension WMFArticle {
+public extension WMFArticle {
     func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
@@ -581,7 +581,9 @@ extension WMFArticle {
             return (entry.list?.isDefault ?? false) && !entry.isDeletedLocally
         })
     }
-    
+}
+
+extension WMFArticle {
     func addToDefaultReadingList() throws {
         guard let moc = self.managedObjectContext else {
             return
