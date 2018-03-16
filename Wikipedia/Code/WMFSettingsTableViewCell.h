@@ -1,5 +1,13 @@
 #import "WMFSettingsMenuItem.h"
 @import WMF.Swift;
+@class WMFSettingsTableViewCell;
+
+@protocol WMFSettingsTableViewCellDelegate <NSObject>
+
+- (void)settingsTableViewCell:(WMFSettingsTableViewCell *)settingsTableViewCell didToggleDisclosureSwitch:(UISwitch *)sender;
+- (void)settingsTableViewCell:(WMFSettingsTableViewCell *)settingsTableViewCell didPressButton:(UIButton *)sender;
+
+@end
 
 @interface WMFSettingsTableViewCell : UITableViewCell <WMFThemeable>
 
@@ -17,4 +25,6 @@
 @property (strong, nonatomic) UIColor *iconColor;
 @property (strong, nonatomic) UIColor *iconBackgroundColor;
 
+@property (nonatomic, weak) id<WMFSettingsTableViewCellDelegate> delegate;
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType title:(NSString *)title iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor buttonTitle:(NSString *)buttonTitle controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme;
 @end

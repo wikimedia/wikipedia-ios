@@ -1,7 +1,13 @@
 @import UIKit;
 @import WMF.Swift;
 
-@interface WMFTableHeaderLabelView : UITableViewHeaderFooterView <WMFThemeable>
+typedef NS_ENUM(NSUInteger, WMFTableHeaderFooterLabelViewType) {
+    WMFTableHeaderFooterLabelViewType_Header,
+    WMFTableHeaderFooterLabelViewType_Footer
+};
+
+@interface WMFTableHeaderFooterLabelView : UITableViewHeaderFooterView <WMFThemeable>
+@property (nonatomic, assign) WMFTableHeaderFooterLabelViewType type;
 @property (copy, nonatomic) NSString *text;
 - (CGFloat)heightWithExpectedWidth:(CGFloat)width;
 
