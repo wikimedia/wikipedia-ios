@@ -9,7 +9,7 @@ enum CollectionViewCellState {
 }
 
 public protocol CollectionViewEditControllerNavigationDelegate: class {
-    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState)
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
@@ -395,42 +395,58 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
-        var rightBarButtonSystemItem: UIBarButtonSystemItem = .edit
-        var leftBarButtonSystemItem: UIBarButtonSystemItem? = nil
         
-        defer {
-            let rightButton = UIBarButtonItem(barButtonSystemItem: rightBarButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            let leftButton: UIBarButtonItem?
-            if let barButtonSystemItem = leftBarButtonSystemItem {
-                leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            } else {
-                leftButton = nil
-            }
-            leftButton?.tag = editingState.tag
-            rightButton.tag = editingState.tag
-            rightButton.isEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
-            activeBarButton.left = leftButton
-            activeBarButton.right = rightButton
-            navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
-        }
+        let rightBarButtonSystemItem: UIBarButtonSystemItem?
+        let leftBarButtonSystemItem: UIBarButtonSystemItem?
         
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
             leftBarButtonSystemItem = .cancel
-            fallthrough
+            rightBarButtonSystemItem = .done
         case .swiping:
+            leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .done
         case .open:
+            leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .cancel
-            fallthrough
+            transformBatchEditPane(for: editingState)
         case .closed:
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .edit
             transformBatchEditPane(for: editingState)
         case .empty:
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = nil
             isBatchEditToolbarHidden = true
         default:
-            break
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .edit
         }
+        
+        let rightButton: UIBarButtonItem?
+        let leftButton: UIBarButtonItem?
+        
+        if let barButtonSystemItem = rightBarButtonSystemItem {
+            rightButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+        } else {
+            rightButton = nil
+        }
+        
+        if let barButtonSystemItem = leftBarButtonSystemItem {
+            leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+        } else {
+            leftButton = nil
+        }
+        
+        leftButton?.tag = editingState.tag
+        rightButton?.tag = editingState.tag
+        rightButton?.isEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
+        
+        activeBarButton.left = leftButton
+        activeBarButton.right = rightButton
+        
+        navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
     }
     
     private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
