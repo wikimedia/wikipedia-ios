@@ -347,7 +347,10 @@
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
 "reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
+"reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";

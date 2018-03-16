@@ -30,7 +30,7 @@ public class ReadingList: NSManagedObject {
     }
     
     // if this is true, it means that we received an error from the API indicating that the list limit was exceeded
-    public var isListLimitExceededRemotely: Bool {
+    public var isListLimitExceeded: Bool {
         guard let error = APIError else {
             return false
         }
@@ -38,7 +38,7 @@ public class ReadingList: NSManagedObject {
     }
     
     // if this is true, it means that we received an error from the API indicating that the entry limit was exceeded
-    public var isEntryLimitExceededRemotely: Bool {
+    public var isEntryLimitExceeded: Bool {
         guard let error = APIError else {
             return false
         }
