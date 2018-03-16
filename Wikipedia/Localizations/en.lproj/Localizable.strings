@@ -348,6 +348,7 @@
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
 "reading-lists-article-added-confirmation" = "Article added to “$1”";
 "reading-lists-article-not-synced-limit-exceeded" = "List limit exceeded, unable to sync article";
+"reading-lists-articles-not-synced-limit-exceeded" = "Some articles not synced, limit exceeded";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for your saved articles";
 "reading-lists-default-list-title" = "Saved";
