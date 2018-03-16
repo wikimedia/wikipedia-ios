@@ -1,7 +1,7 @@
 import Foundation
 
-enum AlertType {
-    case listLimitExceeded, entryLimitExceeded
+public enum AlertType {
+    case listLimitExceeded, entryLimitExceeded, genericNotSynced, none
 }
 
 enum ReadingListsDisplayType {
