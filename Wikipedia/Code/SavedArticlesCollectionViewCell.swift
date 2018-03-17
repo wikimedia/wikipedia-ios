@@ -24,9 +24,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     private var alertType: AlertType = .none {
         didSet {
-            guard oldValue != alertType else {
-                return
-            }
             var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:
@@ -38,7 +35,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             default:
                 break
             }
+            
             alertLabel.text = alertLabelText
+
+            if !isAlertIconHidden {
+                alertIcon.image = UIImage(named: "error-icon")
+            }
         }
     }
     
@@ -217,19 +219,19 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         switch error {
         case .entryLimit where isInDefaultReadingList:
             alertType = .genericNotSynced
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
         case .entryLimit:
-            alertType = .entryLimitExceeded
+            alertType = .entryLimitExceeded(limit: 0)
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
         case .listLimit:
-            alertType = .listLimitExceeded
+            alertType = .listLimitExceeded(limit: 0)
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
         default:
-            alertType = .none
-        }
-        
-        let shouldHideAlert = alertType == .none
-        isAlertLabelHidden = shouldHideAlert
-        isAlertIconHidden = shouldHideAlert
-        if !isAlertIconHidden {
-            alertIcon.image = UIImage(named: "error-icon")
+            isAlertLabelHidden = true
+            isAlertIconHidden = true
         }
     }
     
