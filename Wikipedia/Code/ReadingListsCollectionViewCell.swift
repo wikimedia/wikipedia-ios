@@ -17,17 +17,20 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var alertType: AlertType = .none {
         didSet {
-            guard oldValue != alertType else {
-                return
-            }
             var alertLabelText: String? = nil
-            if alertType == .listLimitExceeded {
+            switch alertType {
+            case .listLimitExceeded:
                 alertLabelText = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
-            } else if alertType == .entryLimitExceeded {
+            case .entryLimitExceeded:
                 alertLabelText = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+            default:
+                break
             }
             alertLabel.text = alertLabelText
             
+            if !isAlertIconHidden {
+                alertIcon.image = UIImage(named: "error-icon")
+            }
         }
     }
     
@@ -250,18 +253,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         switch error {
         case .listLimit:
-            alertType = .listLimitExceeded
+            alertType = .listLimitExceeded(limit: 0)
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
         case .entryLimit:
-            alertType = .entryLimitExceeded
+            alertType = .entryLimitExceeded(limit: 0)
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
         default:
             alertType = .none
-        }
-
-        let shouldHideAlert = alertType == .none
-        isAlertLabelHidden = shouldHideAlert
-        isAlertIconHidden = shouldHideAlert
-        if !isAlertIconHidden {
-            alertIcon.image = UIImage(named: "error-icon")
+            isAlertLabelHidden = true
+            isAlertIconHidden = true
         }
     }
     
