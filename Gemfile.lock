@@ -22,7 +22,7 @@ GEM
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
-    excon (0.60.0)
+    excon (0.61.0)
     faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
     faraday-cookie_jar (0.0.6)
