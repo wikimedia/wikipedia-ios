@@ -211,27 +211,33 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
-        guard let error = entry.APIError else {
-            return
+    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+        if let error = entry.APIError {
+            switch error {
+            case .entryLimit where isInDefaultReadingList:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .genericNotSynced
+            case .entryLimit:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .entryLimitExceeded(limit: listLimit)
+            default:
+                isAlertLabelHidden = true
+                isAlertIconHidden = true
+            }
         }
         
-        switch error {
-        case .entryLimit where isInDefaultReadingList:
-            isAlertLabelHidden = false
-            isAlertIconHidden = false
-            alertType = .genericNotSynced
-        case .entryLimit:
-            isAlertLabelHidden = false
-            isAlertIconHidden = false
-            alertType = .entryLimitExceeded(limit: listLimit)
-        case .listLimit:
-            isAlertLabelHidden = false
-            isAlertIconHidden = false
-            alertType = .listLimitExceeded(limit: entryLimit)
-        default:
-            isAlertLabelHidden = true
-            isAlertIconHidden = true
+        if let error = readingList?.APIError {
+            switch error {
+            case .listLimit:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .listLimitExceeded(limit: entryLimit)
+            default:
+                isAlertLabelHidden = true
+                isAlertIconHidden = true
+            }
         }
     }
     
