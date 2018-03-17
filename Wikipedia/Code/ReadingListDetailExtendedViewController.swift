@@ -72,10 +72,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    public func setup(title: String?, description: String?, articleCount: Int64, isDefault: Bool, listLimit: Int, listLimitExceeded: Bool) {
-        titleTextField.text = title
-        readingListTitle = title
-        let readingListDescription = isDefault ? CommonStrings.readingListsDefaultListDescription : description
     private var alertType: AlertType = .none {
         didSet {
             switch alertType {
@@ -94,19 +90,33 @@ class ReadingListDetailExtendedViewController: UIViewController {
             }
         }
     }
+    
+    public func setup(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
+        let readingListName = readingList.name
+        let readingListDescription = readingList.isDefault ? CommonStrings.readingListsDefaultListDescription : readingList.readingListDescription
+        let isDefault = readingList.isDefault
+        
+        titleTextField.text = readingListName
+        readingListTitle = readingListName
         descriptionTextField.text = readingListDescription
         self.readingListDescription = readingListDescription
         
         titleTextField.isEnabled = !isDefault
         descriptionTextField.isEnabled = !isDefault
         
-        updateArticleCount(articleCount)
+        updateArticleCount(readingList.countOfEntries)
         
-        let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
-        alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, listLimit)
-        let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
-        alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, listLimit)
-        isAlertViewHidden = !listLimitExceeded
+        if let error = readingList.APIError {
+            if error == .listLimit {
+                alertType = .listLimitExceeded(limit: listLimit)
+                isAlertViewHidden = false
+            } else if error == .entryLimit {
+                alertType = .entryLimitExceeded(limit: entryLimit)
+                isAlertViewHidden = false
+            }
+        } else {
+            isAlertViewHidden = true
+        }
     }
     
     private var isAlertViewHidden: Bool = true {
