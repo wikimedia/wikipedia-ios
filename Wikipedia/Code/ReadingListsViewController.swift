@@ -31,6 +31,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
+        let isDefaultListEnabled = readingListsController.isDefaultListEnabled
+        
         if let readingLists = readingLists, readingLists.count > 0 {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
@@ -39,14 +41,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 subpredicates.append(NSPredicate(format: "isDefault != YES"))
             }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
             var predicate = basePredicate
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
             }
             request.predicate = predicate
@@ -66,6 +68,16 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
         collectionViewUpdater?.delegate = self
+    }
+    
+    var isShowingDefaultReadingListOnly: Bool {
+        guard readingListsController.isDefaultListEnabled else {
+            return false
+        }
+        guard let readingList = readingList(at: IndexPath(item: 0, section: 0)), readingList.isDefault else {
+            return false
+        }
+        return collectionView.numberOfSections == 1 && collectionView(collectionView, numberOfItemsInSection: 0) == 1
     }
     
     var basePredicate: NSPredicate {
@@ -121,6 +133,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
     
@@ -345,9 +358,10 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         collectionView.setNeedsLayout()
     }
-    
+
 }
 
 // MARK: - ActionDelegate
