@@ -277,7 +277,7 @@ extension SavedArticlesViewController {
         }
         
         if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
-            cell.configureAlert(for: entry, isInDefaultReadingList: true)
+            cell.configureAlert(for: entry, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
         }
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)

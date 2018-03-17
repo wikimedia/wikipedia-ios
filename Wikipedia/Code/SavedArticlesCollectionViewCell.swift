@@ -211,24 +211,24 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, isInDefaultReadingList: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
         guard let error = entry.APIError else {
             return
         }
         
         switch error {
         case .entryLimit where isInDefaultReadingList:
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
             alertType = .genericNotSynced
-            isAlertLabelHidden = false
-            isAlertIconHidden = false
         case .entryLimit:
-            alertType = .entryLimitExceeded(limit: 0)
             isAlertLabelHidden = false
             isAlertIconHidden = false
+            alertType = .entryLimitExceeded(limit: listLimit)
         case .listLimit:
-            alertType = .listLimitExceeded(limit: 0)
             isAlertLabelHidden = false
             isAlertIconHidden = false
+            alertType = .listLimitExceeded(limit: entryLimit)
         default:
             isAlertLabelHidden = true
             isAlertIconHidden = true
