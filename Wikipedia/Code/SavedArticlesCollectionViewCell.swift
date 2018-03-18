@@ -193,11 +193,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        if (apply && !isTagsViewHidden), let layout = layout {
-            let height = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: height)
-        }
-        
         if (apply && !isAlertIconHidden) {
             let _ = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.x += alertIconDimension + spacing
@@ -212,7 +207,22 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 yPosition = origin.y
                 availableWidth = widthMinusMargins
             }
-            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.x += alertLabelFrame.width + spacing
+        }
+        
+        if !isTagsViewHidden {
+            var xPosition = alertLabel.frame.maxX + spacing
+            var yPosition = alertLabel.frame.midY - 0.5 * collectionViewHeight
+            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (3 * spacing)
+
+            if isAlertLabelHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+                collectionViewAvailableWidth = availableWidth
+            collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
         }
         
         return CGSize(width: size.width, height: height)
