@@ -81,6 +81,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        collectionView.reloadData()
     }
     
     override func setup() {
