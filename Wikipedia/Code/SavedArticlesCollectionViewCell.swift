@@ -215,17 +215,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             origin.x += alertLabelFrame.width + spacing
         }
         
-        if !isTagsViewHidden {
+        if (apply && !isTagsViewHidden) {
             var xPosition = alertLabel.frame.maxX + spacing
             var yPosition = alertLabel.frame.midY - 0.5 * collectionViewHeight
-            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (3 * spacing)
+            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (CGFloat(tags.readingLists.count) * spacing)
 
             if isAlertLabelHidden {
                 xPosition = origin.x
                 yPosition = origin.y
                 availableWidth = widthMinusMargins
             }
-                collectionViewAvailableWidth = availableWidth
+            collectionViewAvailableWidth = availableWidth
             collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
         }
         
