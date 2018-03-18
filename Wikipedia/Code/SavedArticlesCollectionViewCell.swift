@@ -104,8 +104,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.isHidden = true
         titleFontFamily = .system
         titleTextStyle = .body
+        collectionViewAvailableWidth = 0
         updateFonts(with: traitCollection)
     }
+    
+    private var collectionViewAvailableWidth: CGFloat = 0
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
