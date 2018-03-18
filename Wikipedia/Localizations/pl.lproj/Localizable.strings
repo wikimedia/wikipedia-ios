@@ -70,8 +70,7 @@
 "announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artykuł został usunięty";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artykuł usunięty|artykuły usunięte}}";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
@@ -249,6 +248,7 @@
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
+"reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
 "reference-title" = "Przypis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
