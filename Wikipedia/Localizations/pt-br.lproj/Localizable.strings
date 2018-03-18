@@ -351,6 +351,9 @@
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados com a sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
 "reading-list-keep-title" = "Mantenha artigos salvados no dispositivo?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Foi atingido o limite de artigos não ordenados";
 "reading-list-login-button-title" = "Faça o login para sincronizar seus artigos salvos";
 "reading-list-login-or-create-account-button-title" = "Faça login ou crie uma conta";
 "reading-list-login-or-create-account-title" = "Faça o login para sincronizar artigos salvos";

@@ -340,6 +340,9 @@
 "reading-list-keep-button-title" = "是，将条目保留到设备";
 "reading-list-keep-subtitle" = "这些是同步到您维基百科账户的条目。您是否希望在退出后，在此设备上保留它们？";
 "reading-list-keep-title" = "在设备上保留已保存的条目么？";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "排序条目";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
+"reading-list-limit-hit-for-unsorted-articles-title" = "未分类条目的限制触发";
 "reading-list-login-button-title" = "登录以同步您保存的条目";
 "reading-list-login-or-create-account-button-title" = "登录或创建账户";
 "reading-list-login-or-create-account-title" = "登录以同步保存的条目";

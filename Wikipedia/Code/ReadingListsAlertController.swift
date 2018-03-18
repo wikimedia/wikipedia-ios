@@ -76,9 +76,6 @@ public class ReadingListsAlertController: NSObject {
             assertionFailure("Expected main thread")
             return
         }
-        guard dataStore.readingListsController.isSyncEnabled else {
-            return
-        }
         guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {
             return
         }
