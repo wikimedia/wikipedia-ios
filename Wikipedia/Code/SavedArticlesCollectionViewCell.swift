@@ -52,6 +52,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
