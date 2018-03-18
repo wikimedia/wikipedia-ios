@@ -33,7 +33,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     var tableView: UITableView = UITableView() {
         didSet {
             tableView.register(PlacesSearchSuggestionTableViewCell.wmf_classNib(), forCellReuseIdentifier: PlaceSearchSuggestionController.cellReuseIdentifier)
-            tableView.register(WMFTableHeaderLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier)
+            tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier)
             tableView.dataSource = self
             tableView.delegate = self
             tableView.reloadData()
@@ -110,7 +110,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard searches[section].count > 0, section < 2, let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier) as? WMFTableHeaderLabelView else {
+        guard searches[section].count > 0, section < 2, let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PlaceSearchSuggestionController.headerReuseIdentifier) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
     
@@ -135,7 +135,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let header = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderLabelView else {
+        guard let header = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
         let calculatedHeight = header.height(withExpectedWidth: tableView.bounds.size.width)
