@@ -3,10 +3,10 @@ public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
 }
 
 class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
-    fileprivate var bottomSeparator = UIView()
-    fileprivate var topSeparator = UIView()
+    private var bottomSeparator = UIView()
+    private var topSeparator = UIView()
     
-    fileprivate var singlePixelDimension: CGFloat = 0.5
+    private var singlePixelDimension: CGFloat = 0.5
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
@@ -44,7 +44,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    fileprivate lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -56,18 +56,18 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }()
     
     
-    fileprivate lazy var layout: UICollectionViewFlowLayout? = {
+    private lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.scrollDirection = .horizontal
         layout?.sectionInset = UIEdgeInsets.zero
         return layout
     }()
     
-    fileprivate lazy var placeholderCell: TagCollectionViewCell = {
+    private lazy var placeholderCell: TagCollectionViewCell = {
         return TagCollectionViewCell()
     }()
     
-    fileprivate var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
+    private var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
     
     weak public var delegate: SavedArticlesCollectionViewCellDelegate?
     
@@ -291,7 +291,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.backgroundColor = theme.colors.border
     }
     
-    fileprivate func tag(at indexPath: IndexPath) -> Tag {
+    private func tag(at indexPath: IndexPath) -> Tag {
         return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item, indexPath: tags.indexPath)
     }
 }
