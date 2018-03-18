@@ -56,6 +56,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return collectionView
     }()
     
+    private lazy var collectionViewHeight: CGFloat = {
+        guard let layout = layout else {
+            return 0
+        }
+        return self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
+    }()
     
     private lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
