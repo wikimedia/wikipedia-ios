@@ -137,8 +137,7 @@
 "preference-title-eventlogging-opt-in" = "Адпраўляць справаздачы пра карыстаньне";
 "saved-pages-clear-cancel" = "Скасаваць";
 "saved-pages-clear-confirmation-heading" = "Вы ўпэўненыя, што хочаце выдаліць усе вашыя захаваныя артыкулы і выдаліць іх з усіх сьпісаў для чытаньня?";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Выдаліць усе";
+"saved-pages-clear-delete-all" = "Так, выдаліць усе";
 "saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
 "saved-title" = "Захаваны";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";

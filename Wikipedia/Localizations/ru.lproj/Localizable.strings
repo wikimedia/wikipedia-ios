@@ -355,6 +355,9 @@
 "reading-list-keep-button-title" = "Да, сохраняйте статьи на устройстве";
 "reading-list-keep-subtitle" = "Есть статьи синхронизированные с вашей учетной записью Википедии. Вы хотите оставить их на этом устройстве после выхода из системы?";
 "reading-list-keep-title" = "Сохранять сохраненные статьи на устройстве?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Сортировать статьи";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Существует ограничение в 5000 неотсортированных статей. Пожалуйста, отсортируйте существующие статьи по спискам, чтобы продолжить синхронизацию несортированных статей.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Предельное ограничение для неотсортированных статей";
 "reading-list-login-button-title" = "Войдите в систему, чтобы синхронизировать сохраненные статьи";
 "reading-list-login-or-create-account-button-title" = "Войти или создать учетную запись";
 "reading-list-login-or-create-account-title" = "Войдите в систему, чтобы синхронизировать сохранённые статьи";
@@ -376,10 +379,8 @@
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
-// Fuzzy
-"reading-lists-default-list-description" = "Стандартный список для сохранённых статей";
-// Fuzzy
-"reading-lists-default-list-title" = "Закладки";
+"reading-lists-default-list-description" = "Стандартный список для ваших сохранённых статей";
+"reading-lists-default-list-title" = "Сохранённые";
 "reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
