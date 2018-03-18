@@ -355,7 +355,19 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         }
         
         placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+        let placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+        var width: CGFloat = 0
+        if collectionViewAvailableWidth > 0 {
+            width = min(placeholderCellSize.width, collectionViewAvailableWidth)
+            collectionViewAvailableWidth -= (width + spacing)
+            if (collectionViewAvailableWidth) <= 0 {
+                // TODO
+            }
+        } else {
+            width = placeholderCellSize.width
+        }
+        setNeedsLayout()
+        return CGSize(width: width, height: placeholderCellSize.height)
     }
 }
 
