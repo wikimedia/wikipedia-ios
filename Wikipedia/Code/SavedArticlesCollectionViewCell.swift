@@ -355,7 +355,10 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelect(tag(at: indexPath))
+        guard configuredTags.indices.contains(indexPath.item) else {
+            return
+        }
+        delegate?.didSelect(configuredTags[indexPath.item])
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
