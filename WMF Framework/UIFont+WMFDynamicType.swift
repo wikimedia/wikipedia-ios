@@ -147,18 +147,18 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 14
             ],
             UIFontTextStyle.caption2: [
-                .accessibilityExtraExtraExtraLarge: 16,
-                .accessibilityExtraExtraLarge: 16,
-                .accessibilityExtraLarge: 16,
-                .accessibilityLarge: 16,
-                .accessibilityMedium: 16,
-                .extraExtraExtraLarge: 16,
-                .extraExtraLarge: 14,
-                .extraLarge: 12,
-                .large: 10,
-                .medium: 9,
-                .small: 8,
-                .extraSmall: 8
+                .accessibilityExtraExtraExtraLarge: 17,
+                .accessibilityExtraExtraLarge: 17,
+                .accessibilityExtraLarge: 17,
+                .accessibilityLarge: 17,
+                .accessibilityMedium: 17,
+                .extraExtraExtraLarge: 17,
+                .extraExtraLarge: 15,
+                .extraLarge: 13,
+                .large: 11,
+                .medium: 10,
+                .small: 9,
+                .extraSmall: 9
             ]
         ],
         .systemBold: [
