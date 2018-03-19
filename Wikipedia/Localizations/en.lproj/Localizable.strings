@@ -318,6 +318,7 @@
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
 "reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of $1 articles per account.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Article|Articles}} cannot be added to this list. You have reached the limit of $2 articles per reading list for $3";
 "reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
@@ -339,7 +340,6 @@
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across devices.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "{{PLURAL:$1|Article|Articles}} cannot be added to this list. You have reached the limit of $2 articles per reading list for $3";
 "reading-list-unable-to-add-entry" = "An unexpected error occurred while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occurred while creating your reading list. Please try again later.";
 "reading-list-unable-to-delete" = "An unexpected error occurred while deleting your reading list. Please try again later.";
