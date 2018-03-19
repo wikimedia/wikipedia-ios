@@ -30,7 +30,7 @@ class TagCollectionViewCell: CollectionViewCell {
         guard !tag.isCollapsed, let name = tag.readingList.name else {
             return
         }
-        label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
+        label.text = (tag.isLast ? "+\(count - tag.index)" : name).uppercased()
         apply(theme: theme)
         updateFonts(with: traitCollection)
         setNeedsLayout()
