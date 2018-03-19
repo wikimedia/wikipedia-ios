@@ -16,7 +16,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    private var configuredTags: [Tag] = []
+    private var configuredTags: [Tag] = [] {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     private var isTagsViewHidden: Bool = true {
         didSet {
