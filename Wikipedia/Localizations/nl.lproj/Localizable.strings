@@ -78,8 +78,7 @@
 "appearance-settings-theme-options" = "Thema-opties";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artikel verwijderd";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artikelen}} verwijderd";
 "article-languages-filter-placeholder" = "Taal zoeken";
 "article-languages-label" = "Taal kiezen";
 "article-languages-others" = "Andere talen";
