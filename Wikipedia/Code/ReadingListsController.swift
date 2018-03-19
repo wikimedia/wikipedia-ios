@@ -49,6 +49,7 @@ public enum ReadingListError: Error, Equatable {
     case entryLimitReached(name: String, count: Int, limit: Int)
     case listWithProvidedNameNotFound(name: String)
     case listLimitReached(limit: Int)
+    case listEntryLimitsReached(name: String, count: Int, listLimit: Int, entryLimit: Int)
     
     public var localizedDescription: String {
         switch self {
@@ -68,13 +69,15 @@ public enum ReadingListError: Error, Equatable {
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occurred while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
         case .entryLimitReached(let name, let count, let limit):
-            let format = WMFLocalizedString("reading-list-entry-limit-reached", value: "{{PLURAL:%1$d|Article|Articles}} cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
-            return String.localizedStringWithFormat(format, count, limit, name)
+            return String.localizedStringWithFormat(CommonStrings.readingListsEntryLimitReachedFormat, count, limit, name)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
         case .listLimitReached(let limit):
-            let format = WMFLocalizedString("reading-list-list-limit-reached", value: "You have reached the limit of %1$d reading lists per account", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
-            return String.localizedStringWithFormat(format, limit)
+            return String.localizedStringWithFormat(CommonStrings.readingListsListLimitReachedFormat, limit)
+        case .listEntryLimitsReached(let name, let count, let listLimit, let entryLimit):
+            let entryLimitReached = String.localizedStringWithFormat(CommonStrings.readingListsEntryLimitReachedFormat, count, entryLimit, name)
+            let listLimitReached = String.localizedStringWithFormat(CommonStrings.readingListsListLimitReachedFormat, listLimit)
+            return "\(entryLimitReached)\n\n\(listLimitReached)"
         }
     }
     
