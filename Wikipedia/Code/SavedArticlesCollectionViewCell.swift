@@ -369,20 +369,42 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        let placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
-        var width: CGFloat = 0
-        if collectionViewAvailableWidth > 0 {
-            width = min(placeholderCellSize.width, collectionViewAvailableWidth)
-            collectionViewAvailableWidth -= (width + spacing)
-            if (collectionViewAvailableWidth) <= 0 {
-                // TODO
-            }
-        } else {
-            width = placeholderCellSize.width
+        let tagToConfigure = tag(at: indexPath)
+
+        if let lastConfiguredTag = configuredTags.last, lastConfiguredTag.isLast, tagToConfigure.index > lastConfiguredTag.index {
+            tagToConfigure.isCollapsed = true
+            return .zero
         }
-        setNeedsLayout()
-        return CGSize(width: width, height: placeholderCellSize.height)
+        
+        let tagsCount = tags.readingLists.count
+        
+        guard collectionViewAvailableWidth > 0 else {
+            placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+            return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+        }
+        
+        guard collectionViewAvailableWidth - spacing >= 0 else {
+            assertionFailure("collectionViewAvailableWidth - spacing will be: \(collectionViewAvailableWidth - spacing)")
+            return .zero
+        }
+        
+        collectionViewAvailableWidth -= spacing
+        
+        placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        
+        let isLastTagToConfigure = tagToConfigure.index + 1 == tags.readingLists.count
+        
+        if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= 60, !isLastTagToConfigure {
+            tagToConfigure.isLast = true
+            placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        }
+        
+        collectionViewAvailableWidth -= placeholderCellSize.width
+        
+        configuredTags.append(tagToConfigure)
+        return placeholderCellSize
     }
 }
 
