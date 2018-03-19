@@ -6,7 +6,7 @@ public class ReadingList: NSManagedObject {
     @objc public static let entriesLimitReachedNotification = NSNotification.Name(rawValue:"WMFEntriesLimitReachedNotification")
     @objc public static let entriesLimitReachedReadingListKey = "readingList"
     
-    var articleKeys: [String] {
+    public var articleKeys: [String] {
         let entries = self.entries ?? []
         let existingKeys = entries.flatMap { (entry) -> String? in
             guard entry.isDeletedLocally == false else {
