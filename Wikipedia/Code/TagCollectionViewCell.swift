@@ -18,6 +18,7 @@ class TagCollectionViewCell: CollectionViewCell {
     private let label = UILabel()
     let margins = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
     private let maxWidth: CGFloat = 150
+    public let minWidth: CGFloat = 60
     
     override func setup() {
         contentView.addSubview(label)

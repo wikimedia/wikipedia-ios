@@ -395,7 +395,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         let isLastTagToConfigure = tagToConfigure.index + 1 == tags.readingLists.count
         
-        if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= 60, !isLastTagToConfigure {
+        if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= placeholderCell.minWidth, !isLastTagToConfigure {
             tagToConfigure.isLast = true
             placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
             placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
