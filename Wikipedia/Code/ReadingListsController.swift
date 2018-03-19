@@ -163,14 +163,10 @@ public class ReadingListsController: NSObject {
         if let name = readingList?.name {
             if didExceedListLimit && willExceedEntryLimit {
                 throw ReadingListError.listEntryLimitsReached(name: name, count: articles.count, listLimit: listLimit, entryLimit: entryLimit)
-            }
-            
-            if willExceedEntryLimit {
+            } else if willExceedEntryLimit {
                 throw ReadingListError.entryLimitReached(name: name, count: articles.count, limit: entryLimit)
             }
-        }
-        
-        if willExceedListLimit {
+        } else if willExceedListLimit {
             throw ReadingListError.listLimitReached(limit: listLimit)
         }
     }
