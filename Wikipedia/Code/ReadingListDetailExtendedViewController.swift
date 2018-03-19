@@ -166,6 +166,37 @@ class ReadingListDetailExtendedViewController: UIViewController {
         dismissKeyboardIfNecessary()
     }
     
+    public func collapseAlert(_ collapse: Bool, animated: Bool) {
+        if descriptionTextFieldToSeparatorViewBottomConstraint == nil {
+            descriptionTextFieldToSeparatorViewBottomConstraint = descriptionTextField.bottomAnchor.constraint(equalTo: separatorView.topAnchor)
+            self.descriptionTextFieldToSeparatorViewBottomConstraint?.constant = -15
+        }
+        if animated {
+            UIView.animate(withDuration: 0.7) {
+                if collapse {
+                    self.alertView.alpha = 0
+                    NSLayoutConstraint.deactivate(self.alertViewConstraints)
+                    self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
+                } else {
+                    self.alertView.alpha = 1
+                    self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
+                    NSLayoutConstraint.activate(self.alertViewConstraints)
+                }
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            if collapse {
+                NSLayoutConstraint.deactivate(self.alertViewConstraints)
+                self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
+            } else {
+                self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
+                NSLayoutConstraint.activate(self.alertViewConstraints)
+            }
+        }
+        
+    }
+    
 }
 
 extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
