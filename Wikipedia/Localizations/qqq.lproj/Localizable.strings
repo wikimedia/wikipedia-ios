@@ -316,6 +316,8 @@
 "reading-list-api-error-list-limit" = "You have too many lists.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
+"reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
+"reading-list-entry-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";

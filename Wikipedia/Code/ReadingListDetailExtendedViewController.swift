@@ -84,8 +84,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
                 alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, limit)
                 alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, limit)
             case .entryLimitExceeded(let limit):
-                let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
-                let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
+                let alertTitleFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-title", value: "You have exceeded the limit of %1$d articles per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
+                let alertMessageFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-message", value: "Please decrease your number of articles in this list to %1$d to resume syncing of all articles in this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
                 alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, limit)
                 alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, limit)
             default:

@@ -316,6 +316,8 @@
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
+"reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
+"reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of $1 articles per account.";
 "reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
