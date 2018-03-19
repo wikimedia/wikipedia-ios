@@ -341,6 +341,9 @@
 "reading-list-keep-button-title" = "Ja, behåll artiklar på enheten";
 "reading-list-keep-subtitle" = "Det finns synkroniserade artiklar på ditt Wikipedia-konto. Vill du behålla dem på denna enhet efter du loggar ut?";
 "reading-list-keep-title" = "Behåll sparade artiklar på enheten?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortera artiklar";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Det finns en gräns på 5000 osorterade artiklar. Var god sortera dina befintliga artiklar i listor för att fortsätta synkronisera osorterade artiklar.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Gränsen för osorterade artiklar är nådd";
 "reading-list-login-button-title" = "Logga in för att synkronisera dina sparade artiklar";
 "reading-list-login-or-create-account-button-title" = "Logga in eller skapa konto";
 "reading-list-login-or-create-account-title" = "Logga in för att synkronisera sparade artiklar";
@@ -362,8 +365,8 @@
 "reading-list-with-provided-name-not-found" = "En läslista med namnet \"$1\" hittades inte. Se till att du har rätt namn.";
 "reading-lists-article-added-confirmation" = "Artikeln lades till i \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 läslista|$1 läslistor}}";
-"reading-lists-default-list-description" = "Standardlista för sparade artiklar";
-"reading-lists-default-list-title" = "Bokmärken";
+"reading-lists-default-list-description" = "Standardlista för dina sparade artiklar";
+"reading-lists-default-list-title" = "Sparade";
 "reading-lists-delete-reading-list-alert-message" = "Denna handling kan inte ångras. Alla artiklar som endast sparas i {{PLURAL:$1|denna lista|dessa listor}} kommer att tas bort.";
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart tema";

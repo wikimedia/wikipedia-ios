@@ -347,6 +347,9 @@
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limite atteinte pour les articles non triés";
 "reading-list-login-button-title" = "Connectez-vous pour synchroniser vos articles enregistrés";
 "reading-list-login-or-create-account-button-title" = "Se connecter ou créer un compte";
 "reading-list-login-or-create-account-title" = "Se connecter pour synchroniser les articles enregistrés";
@@ -368,8 +371,8 @@
 "reading-list-with-provided-name-not-found" = "Une liste de lecture nommée « $1 » n’a pas été trouvée. Assurez-vous que le nom est correct.";
 "reading-lists-article-added-confirmation" = "Article ajouté à « $1 »";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
-"reading-lists-default-list-description" = "Liste par défaut pour les articles enregistrés";
-"reading-lists-default-list-title" = "Favoris";
+"reading-lists-default-list-description" = "Liste par défaut pour vos articles enregistrés";
+"reading-lists-default-list-title" = "Enregistré";
 "reading-lists-delete-reading-list-alert-message" = "Cette action ne peut pas être annulée. Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera pas enregistré.";
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";

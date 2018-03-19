@@ -11,6 +11,7 @@
 // Author: Macofe
 // Author: Namoroka
 // Author: Nemo bis
+// Author: Nuevo Paso
 // Author: Priviet
 // Author: Revi
 // Author: SeoJeongHo
@@ -129,6 +130,7 @@
 "empty-no-feed-title" = "인터넷 연결 없음";
 "empty-no-history-message" = "여기에는 당신이 읽은 문서들이 표시됩니다";
 "empty-no-history-title" = "표시할 역사가 없습니다";
+"empty-no-reading-lists-message" = "여행하고픈 장소, 즐겨찾는 주제 등을 위한 목록을 만들려면 파란색 '+'를 탭하세요";
 "empty-no-reading-lists-title" = "저장된 문서를 읽기 목록으로 정리합니다";
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
@@ -201,6 +203,7 @@
 "hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
 "home-button-explore-accessibility-label" = "위키백과, 탐색으로 돌아가기";
 "home-button-history-accessibility-label" = "위키백과, \"역사\"로 돌아가기";
+"home-button-popover-description" = "찾아보기 피드로 돌아가려면 'W'에 탭하세요";
 "home-button-popover-title" = "대문으로 이동하려면 탭하세요";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
 "home-hide-suggestion-cancel" = "취소";
@@ -335,16 +338,22 @@
 "reading-list-keep-button-title" = "예, 장치에 문서를 보관합니다";
 "reading-list-keep-subtitle" = "위키백과 계정에 동기화된 문서가 있습니다. 로그아웃한 뒤에 이 문서들을 이 장치에 보관하시겠습니까?";
 "reading-list-keep-title" = "저장된 문서를 장치에 보관할까요?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "문서 정렬";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "500건의 정렬되지 않은 문서 제한이 있습니다. 정렬되지 않은 문서를 계속 정렬하려면 기존 문서들을 목록으로 정렬시켜 주십시오.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "정렬되지 않은 문서의 제한 히트 수";
 "reading-list-login-button-title" = "로그인하여 저장된 문서를 동기화합니다";
 "reading-list-login-or-create-account-button-title" = "로그인 / 계정 만들기";
 "reading-list-login-or-create-account-title" = "로그인하여 저장된 문서를 동기화합니다";
 "reading-list-login-subtitle" = "저장된 문서와 읽기 목록을 장치 간에 동기화하고 사용자 환경 설정에 저장하려면 계정을 만들거나 로그인하십시오.";
 "reading-list-login-title" = "저장된 문서를 동기화할까요?";
+"reading-list-new-list-description-placeholder" = "선택적인 간단한 설명";
+"reading-list-new-list-name-placeholder" = "읽기 목록 제목";
 "reading-list-show-default-list-setting" = "기본 목록 표시";
 "reading-list-sync-enable-button-title" = "동기화 사용";
 "reading-list-sync-enable-subtitle" = "저장된 문서와 읽기 목록은 지금 위키백과 계정에 저장하여 장치 간에 동기화할 수 있습니다.";
 "reading-list-sync-enable-title" = "읽기 목록 동기화를 켜시겠습니까?";
 "reading-list-sync-setting" = "읽기 목록 동기화";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "읽기 목록에 넣을 수 있는 문서 수에 제한이 있기 때문에 {{PLURAL:$1|이 문서}}를 \"$2\"에 추가할 수 없습니다.";
 "reading-list-unable-to-add-entry" = "읽기 목록에 항목을 추가하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-create" = "읽기 목록을 생성하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-delete" = "읽기 목록을 삭제하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
@@ -354,7 +363,8 @@
 "reading-lists-article-added-confirmation" = "문서를 \"$1\" 목록에 추가했습니다";
 "reading-lists-count" = "{{PLURAL:$1|읽기 목록 $1개}}";
 "reading-lists-default-list-description" = "저장된 문서를 위한 기본 목록";
-"reading-lists-default-list-title" = "책갈피";
+"reading-lists-default-list-title" = "저장됨";
+"reading-lists-delete-reading-list-alert-message" = "이 작업은 취소할 수 없습니다. {{PLURAL:$1|이 목록}}에 저장된 문서들만 저장이 취소됩니다.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
 "reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
@@ -382,6 +392,8 @@
 "saved-reading-lists-title" = "읽기 목록";
 "saved-search-default-text" = "검색";
 "saved-title" = "저장된 문서";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|이 문서의}} 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|문서}}의 저장을 취소하시겠습니까?";
 "search-button-accessibility-label" = "위키백과 검색";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
@@ -483,7 +495,7 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "변경사항을 저장한다는 것은 $1에 동의하고 $2 및 $3 라이선스에 따라 기여를 배포하는 데 동의한다는 것을 의미합니다.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "변경사항을 저장한다는 것은 $1에 동의하고 $2 및 $3 라이선스에 따라 이 기여를 배포하는 데 동의한다는 것을 의미합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";

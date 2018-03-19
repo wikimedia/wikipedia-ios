@@ -329,6 +329,9 @@
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
 "reading-list-keep-subtitle" = "Има статии усогласени со вашата сметка на Википедија. Дали сакате да ги задржите на овој уред откако ќе се одјавите?";
 "reading-list-keep-title" = "Да ги задржам зачуваните статии на уредот?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Подреди статии";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Достигната границата на неподредени статии";
 "reading-list-login-button-title" = "Најавете се за да ги усогласите зачуваните статии";
 "reading-list-login-or-create-account-button-title" = "Најава / направи сметка";
 "reading-list-login-or-create-account-title" = "Најавете се за да усогласите зачувани статии";
@@ -350,8 +353,8 @@
 "reading-list-with-provided-name-not-found" = "Не пронајдов список за читање наречен „$1“. Проверете дали името ви е исправно.";
 "reading-lists-article-added-confirmation" = "Статијата е додадена во „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
-"reading-lists-default-list-description" = "Стандарден список за зачувани статии";
-"reading-lists-default-list-title" = "Обележани";
+"reading-lists-default-list-description" = "Стандарден список за вашите зачувани статии";
+"reading-lists-default-list-title" = "Зачувани";
 "reading-lists-delete-reading-list-alert-message" = "Ова дејство е неповратно. Сите статии зачувани само во {{PLURAL:$1|овој список|овие списоци}} ќе бидат одзачувани.";
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";

@@ -331,6 +331,9 @@
 "reading-list-keep-button-title" = "Ya, simpan rencana pada peranti";
 "reading-list-keep-subtitle" = "Terdapat rencana yang diselaraskan ke akaun Wikipedia anda. Adakah anda ingin menyimpannya pada peranti ini selepas anda log keluar?";
 "reading-list-keep-title" = "Simpan rencana yang disimpan pada peranti?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Isih rencana";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Terdapat had 5000 rencana tak disortir. Sila sortir rencana anda yang ada dalam senarai untuk meneruskan penyegerakan rencana yang tidak disortir.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Had untuk rencana yang tidak disortir";
 "reading-list-login-button-title" = "Log masuk untuk menyegerakkan rencana anda yang disimpan";
 "reading-list-login-or-create-account-button-title" = "Log masuk atau buka akaun";
 "reading-list-login-or-create-account-title" = "Log masuk untuk menyegerakkan rencana yang disimpan";
@@ -352,8 +355,8 @@
 "reading-list-with-provided-name-not-found" = "Senarai bacaan dengan nama “$1” tidak dijumpai. Sila pastikan anda mempunyai nama yang betul.";
 "reading-lists-article-added-confirmation" = "Rencana ditambah ke “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}}";
-"reading-lists-default-list-description" = "Senarai lalai untuk rencana yang disimpan";
-"reading-lists-default-list-title" = "Kegemaran";
+"reading-lists-default-list-description" = "Senarai lalai untuk rencana anda yang disimpan";
+"reading-lists-default-list-title" = "Disimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak dapat dibatalkan. Sebarang rencana yang disimpan hanya untuk {{PLURAL:$1|senarai ini|senarai ini}} tidak akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Padamkan {{PLURAL:$1|senarai|senarai}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";

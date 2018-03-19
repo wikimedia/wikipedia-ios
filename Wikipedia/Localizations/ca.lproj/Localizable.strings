@@ -324,12 +324,14 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-list-add-hint-title" = "Voleu afegir «$1» a una llista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, afegeix-los a les meves llistes de lectura";
 "reading-list-add-saved-title" = "S'han trobat articles desats";
 "reading-list-deleted-accessibility-notification" = "S'ha eliminat la llista de lectura";
 "reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordena els articles";
 "reading-list-login-title" = "Voleu sincronitzar els articles desats?";
 "reading-list-new-list-description-placeholder" = "descripció curta opcional";
 "reading-list-new-list-name-placeholder" = "títol de la llista de lectura";
@@ -339,8 +341,10 @@
 "reading-list-sync-setting" = "Sincronització de la llista de lectura";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
+// Fuzzy
 "reading-lists-default-list-description" = "Llista per defecte dels articles desats";
-"reading-lists-default-list-title" = "Adreces d'interès";
+"reading-lists-default-list-title" = "Desats";
+"reading-lists-delete-reading-list-alert-title" = "Voleu suprimir {{PLURAL:$1|la llista|les llistes}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
 "reading-themes-controls-accessibility-brightness-slider" = "Lliscador de brillantor";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema fosc";

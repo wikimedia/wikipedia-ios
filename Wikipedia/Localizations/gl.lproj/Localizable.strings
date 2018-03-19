@@ -52,14 +52,23 @@
 "account-creation-passwords-mismatched" = "Os contrasinais non coinciden.";
 "account-creation-saving" = "Gardando...";
 "account-creation-title" = "Crear unha nova conta";
+"action-add-to" = "Engadir a...";
+"action-add-to-reading-list" = "Engadir á lista de lectura";
+"action-cancel" = "Cancelar";
+"action-move-to" = "Mover a...";
+"action-move-to-reading-list" = "Mover á lista de lectura";
 "action-read" = "Ler";
+"action-remove" = "Eliminar";
 "action-save" = "Gardar";
 "action-saved" = "Gardado";
 "action-saved-accessibility" = "Gardado. Activar para eliminar o gardado.";
 "action-saved-accessibility-notification" = "Artigo gardado para despois";
 "action-share" = "Compartir";
+"action-sort" = "Ordenar";
 "action-unsave" = "Non gardar";
 "action-unsaved-accessibility-notification" = "Artigo sen gardar";
+"action-update" = "Actualizar";
+"add-articles-to-reading-list" = "Engadir $1 á lista de lectura";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -72,8 +81,7 @@
 "appearance-settings-theme-options" = "Opcións dos temas";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artigo eliminado";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artigo eliminado|artigos eliminados}}";
 "article-languages-filter-placeholder" = "Atopar lingua";
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-others" = "Outras linguas";
@@ -114,6 +122,8 @@
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "empty-no-history-title" = "Non hai ningún historial para amosar";
+"empty-no-reading-lists-message" = "Prema no «+» azul para crear listas de lugares a visitar, os seus temas favoritos e moito máis";
+"empty-no-reading-lists-title" = "Organizar os artigos gardados mediante listas de lectura";
 "empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
 "empty-no-search-results-message" = "No se atoparon resultados";
@@ -194,6 +204,7 @@
 "home-nearby-footer" = "Máis próximos á súa localización";
 "home-nearby-location-footer" = "Máis preto de $1";
 "home-news-footer" = "Máis nas novas";
+"home-reading-list-prompt" = "Os seus artigos gardados xa poden ser organizados nas listas de lectura e sincronizados ente aparellos. Conéctese para permitir que as súas listas de lectura sexan gardadas nas preferencias de usuario.";
 "home-themes-action-title" = "Xestionar as preferencias";
 "home-themes-prompt" = "Axuste as súas preferencias de lectura (incluíndo tamaño do texto e tema) na barra de ferramentas do artigo ou nas súas preferencias de usuario para unha experiencia de lectura máis confortable.";
 "home-title" = "Explorar";
@@ -259,7 +270,7 @@
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
 "page-issues" = "Problemas na páxina";
-"page-last-edited" = "Editado fai $1 días";
+"page-last-edited" = "Editado hai $1 días";
 "page-location" = "Ver nun mapa";
 "page-protected-autoconfirmed" = "Esta páxina está semiprotexida.";
 "page-protected-can-not-edit" = "Non ten os permisos necesarios para editar esta páxina";
@@ -309,6 +320,11 @@
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectores";
+"reading-list-add-hint-title" = "Engdir \"$1\" á lista de lectura?";
+"reading-list-add-saved-button-title" = "Si, engadilos ás miñas listas de lectura";
+"reading-list-add-saved-subtitle" = "Hai artigos gardados na súa aplicación Wikipedia. Desexa mantelos e fusionalos coas listas de lectura sincronizadas coa súa conta?";
+"reading-list-add-saved-title" = "Artigos gardados atopados";
+"reading-list-api-error-entry-limit" = "Esta entrada non está sincronizada porque alcanzou o límite do número de entradas desta lista.";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-brightness-slider" = "Cursor de luminosidade";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema escuro";
@@ -371,6 +387,7 @@
 "share-open-in-maps" = "Abrir en Maps";
 "share-social-format" = "“$1” vía Wikipedia: $2";
 "share-social-mention-format" = "“$1” vía @Wikipedia: $2";
+"sort-by-title-action" = "Título";
 "status-saved-for-later" = "Gardado para máis tarde";
 "status-saving-for-later" = "Gardando para máis tarde...";
 "table-of-contents-button-label" = "Táboa de contidos";

@@ -66,9 +66,18 @@ class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : 
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage.init(named: "reading-list-user")
-        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing save articles.")
+        heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
+    }
+}
+
+class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        heading = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-title", value: "Limit hit for unsorted articles", comment: "Title for letting the user know that the limit for unsorted articles was reached.")
+        subheading = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-subtitle", value:  "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.", comment: "Subtitle letting the user know that there is a limit of 5000 unsorted articles.")
+        primaryButtonTitle = WMFLocalizedString("reading-list-limit-hit-for-unsorted-articles-button-title", value: "Sort articles", comment: "Title for button to sort unsorted articles.")
     }
 }
 
@@ -135,12 +144,13 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
     
-    @objc func wmf_showLoginViewController(theme: Theme) {
+    @objc func wmf_showLoginViewController(theme: Theme, loginSuccessCompletion: (() -> Void)? = nil) {
         guard let loginVC = WMFLoginViewController.wmf_initialViewControllerFromClassStoryboard() else {
             assertionFailure("Expected view controller(s) not found")
             return
         }
-        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true, completion: nil)
+        loginVC.loginSuccessCompletion = loginSuccessCompletion
+        present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
     
     @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
@@ -166,14 +176,14 @@ extension UIViewController {
         present(panelVC, with: theme, animated: true, completion: nil)
     }
 
-    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme) {
+    @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil) {
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showLoginViewController(theme: theme)
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion)
             })
         }
         
-        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true)
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }
@@ -222,4 +232,10 @@ extension UIViewController {
         
         present(panelVC, with: theme, animated: true, completion: nil)
     }
+    
+    @objc func wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
+        let panelVC = LimitHitForUnsortedArticlesPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        present(panelVC, with: theme, animated: true, completion: completion)
+    }
+
 }

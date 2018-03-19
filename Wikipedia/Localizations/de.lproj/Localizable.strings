@@ -332,6 +332,9 @@
 "reading-list-keep-button-title" = "Ja, Artikel auf dem Gerät behalten";
 "reading-list-keep-subtitle" = "Es sind mit deinem Wikipedia-Benutzerkonto synchronisierte Artikel vorhanden. Möchtest du sie nach der Abmeldung auf diesem Gerät behalten?";
 "reading-list-keep-title" = "Gespeicherte Artikel auf dem Gerät behalten?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikel sortieren";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Es gibt eine Begrenzung von 5000 unsortierten Artikeln. Bitte sortiere deine vorhandenen Artikel in Listen ein, um mit der Synchronisierung deiner unsortierten Artikel fortzufahren.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Grenze für unsortierte Artikel";
 "reading-list-login-button-title" = "Zur Synchronisierung deiner gespeicherten Artikel anmelden";
 "reading-list-login-or-create-account-button-title" = "Anmelden oder Benutzerkonto erstellen";
 "reading-list-login-or-create-account-title" = "Zur Synchronisierung von gespeicherten Artikeln anmelden";
@@ -353,8 +356,8 @@
 "reading-list-with-provided-name-not-found" = "Eine Leseliste mit dem Namen „$1“ wurde nicht gefunden. Bitte stelle sicher, dass du den richtigen Namen hast.";
 "reading-lists-article-added-confirmation" = "Artikel zu „$1“ hinzugefügt";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
-"reading-lists-default-list-description" = "Standardliste für gespeicherte Artikel";
-"reading-lists-default-list-title" = "Lesezeichen";
+"reading-lists-default-list-description" = "Standardliste für deine gespeicherten Artikel";
+"reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
