@@ -15,6 +15,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    private var configuredTags: [Tag] = []
+    
     private var isTagsViewHidden: Bool = true {
         didSet {
             collectionView.isHidden = isTagsViewHidden
@@ -106,6 +108,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         titleFontFamily = .system
         titleTextStyle = .body
         collectionViewAvailableWidth = 0
+        configuredTags = []
         updateFonts(with: traitCollection)
     }
     
