@@ -136,8 +136,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
-            alertView.isHidden = isAlertViewHidden
-            view.setNeedsLayout()
+            collapseAlert(isAlertViewHidden, animated: false)
         }
     }
     
