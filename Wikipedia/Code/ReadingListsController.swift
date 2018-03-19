@@ -145,9 +145,34 @@ public class ReadingListsController: NSObject {
             throw ReadingListError.listLimitReached(limit: listLimit)
         }
         
+        try throwLimitErrorIfNecessary(for: nil, articles: [], in: moc)
         sync()
-    
         return list
+    }
+    
+    private func throwLimitErrorIfNecessary(for readingList: ReadingList?, articles: [WMFArticle], in moc: NSManagedObjectContext) throws {
+        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
+        let entryLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
+        let readingListsCount = try moc.countOfAllReadingLists()
+        let countOfEntries = Int(readingList?.countOfEntries ?? 0)
+
+        let willExceedListLimit = readingListsCount + 1 > listLimit
+        let didExceedListLimit = readingListsCount > listLimit
+        let willExceedEntryLimit = countOfEntries + articles.count > entryLimit
+        
+        if let name = readingList?.name {
+            if didExceedListLimit && willExceedEntryLimit {
+                throw ReadingListError.listEntryLimitsReached(name: name, count: articles.count, listLimit: listLimit, entryLimit: entryLimit)
+            }
+            
+            if willExceedEntryLimit {
+                throw ReadingListError.entryLimitReached(name: name, count: articles.count, limit: entryLimit)
+            }
+        }
+        
+        if willExceedListLimit {
+            throw ReadingListError.listLimitReached(limit: listLimit)
+        }
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
@@ -265,10 +290,7 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        let entriesLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
-        guard (Int(readingList.countOfEntries) + articles.count) <= entriesLimit else {
-            throw ReadingListError.entryLimitReached(name: readingList.name ?? "", count: articles.count, limit: entriesLimit)
-        }
+        try throwLimitErrorIfNecessary(for: readingList, articles: articles, in: moc)
         try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
             try moc.save()
