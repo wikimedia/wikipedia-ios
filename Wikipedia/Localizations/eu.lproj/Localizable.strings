@@ -340,11 +340,9 @@
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
-"reading-list-show-default-list-setting" = "Zerrenda hobetsia erakutsi";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta gailuetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
-"reading-list-sync-setting" = "Irakurketa zerrenda sinkronizatu";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Ezin duzu gehitu{{PLURAL:$1|artikulu hau|artikulu hauek}} hurrengora “$2” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";

@@ -25,7 +25,7 @@
 "about-libraries" = "Bibliotek som har använts";
 "about-libraries-complete-list" = "Fullständig lista";
 "about-libraries-license" = "Licens";
-"about-libraries-licenses-title" = "Vi älskar öppen källkod $1";
+"about-libraries-licenses-title" = "Vi älskar programvara med öppen källkod $1";
 "about-product-of" = "Skapad av $1 med hjälp från volontärer som du";
 "about-repositories" = "Förvar";
 "about-repositories-app-source-license" = "Källkoden är tillgänglig under $1.";
@@ -210,7 +210,7 @@
 "home-more-like-footer" = "Mer som liknar $1";
 "home-nearby-footer" = "Mer från i närheten av din plats";
 "home-nearby-location-footer" = "Mer i närheten av $1";
-"home-news-footer" = "Mer aktuellt";
+"home-news-footer" = "Mer i nyheterna";
 "home-reading-list-prompt" = "Dina sparade artiklar kan nu organiseras i läslistor och synkroniseras över enheter. Logga in för att låta dina läslistor sparas till dina användarinställningar.";
 "home-themes-action-title" = "Hantera inställningar";
 "home-themes-prompt" = "Justera dina läsinställningar inklusive textstorlek och tema från verktygsfältet eller i dina användarinställningar för en mer bekväm läsupplevelse.";
@@ -262,7 +262,7 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 engelska mil";
-"new-password-instructions" = "Du loggade in med ett temporär lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
+"new-password-instructions" = "Du loggade in med ett temporärt lösenord. För att slutföra inloggningen måste du ange ett nytt lösenord här:";
 "new-password-title" = "Ändra ditt lösenord";
 "no-email-account-alert" = "Lägg in ett e-postkonto på din enhet och försök igen.";
 "number-billions" = "$1B";
@@ -351,11 +351,9 @@
 "reading-list-login-title" = "Synkronisera dina sparade artiklar?";
 "reading-list-new-list-description-placeholder" = "valfri kort beskrivning";
 "reading-list-new-list-name-placeholder" = "titel på läslista";
-"reading-list-show-default-list-setting" = "Visa standardlista";
 "reading-list-sync-enable-button-title" = "Aktivera synkronisering";
 "reading-list-sync-enable-subtitle" = "Dina sparade artiklar och läslistor kan nu sparas till ditt Wikipedia-konto och synkroniseras över enheter.";
 "reading-list-sync-enable-title" = "Aktivera synkronisering av läslistor?";
-"reading-list-sync-setting" = "Synkronisering av läslista";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Du kan inte lägga till {{PLURAL:$1|denna artikel|dessa artiklar}} i \"$2\" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.";
 "reading-list-unable-to-add-entry" = "Ett oväntat fel uppstod när ett element lades till i din läslista. Försök igen senare.";
 "reading-list-unable-to-create" = "Ett oväntat fel uppstod när din läslista skapades. Försök igen senare.";
@@ -425,6 +423,16 @@
 "settings-notifications-trending" = "Populära aktuella händelser";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in för att synkronisera";
+"settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet.\n\nUpp till 364,4 MB kommer att frigöras när dina artiklar raderas.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
+"settings-storage-and-syncing-server-sync-footer-text" = "Begär en synkronisering från servern för en uppdatering av dina synkroniserade artiklar och läslistor";
+"settings-storage-and-syncing-server-sync-title" = "Synkronisera med servern";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Visa sparad läslista";
+"settings-storage-and-syncing-title" = "Lagring och synkronisering av sparade artiklar";
 "settings-support" = "Stöd Wikipedia";
 "settings-title" = "Inställningar";
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";
@@ -464,7 +472,7 @@
 "two-factor-login-with-regular-code" = "Använd verifieringskod";
 "view-in-browser-footer-link" = "Visa artikeln i webbläsaren";
 "welcome-exploration-explore-feed-description" = "Dagens artiklar och lästips från vår gemenskap";
-"welcome-exploration-explore-feed-title" = "Utforska flödet";
+"welcome-exploration-explore-feed-title" = "Utforskningsflöde";
 "welcome-exploration-on-this-day-description" = "Res bakåt i tiden för att ta reda på vad som hände idag i historien";
 "welcome-exploration-on-this-day-title" = "På denna dag";
 "welcome-exploration-places-description" = "Upptäck landmärken nära dig eller sök efter platser runtom i världen";
