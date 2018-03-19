@@ -350,6 +350,9 @@
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
 "reading-list-keep-subtitle" = "چند مقاله همسان‌سازی‌شده در حساب کاربری ویکی‌پدیای شما وجود دارد. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفا مقالاتتان را در فهرست‌ها مرتب کنید تا امکان همگام‌سازی مقالات مرتب‌نشده وجود داشته باشد.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "محدودیت انتخاب مقالات مرتب‌نشده";
 "reading-list-login-button-title" = "برای همسان‌سازی مقاله‌های ذخیره‌شده وارد شوید";
 "reading-list-login-or-create-account-button-title" = "ورود به سامانه یا ساخت حساب کاربری";
 "reading-list-login-or-create-account-title" = "برای همسان‌سازی داده‌های ذخیره‌شده وارد شوید";
@@ -371,10 +374,8 @@
 "reading-list-with-provided-name-not-found" = "فهرست خواندن با نام “$1” یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به “$1” افزوده شد.";
 "reading-lists-count" = "{{PLURAL:$1|$1 فهرست خواندن|$1 فهرست‌های خواندن}}";
-// Fuzzy
 "reading-lists-default-list-description" = "فهرست پیش‌فرض برای مقاله‌های ذخیره‌شده";
-// Fuzzy
-"reading-lists-default-list-title" = "بوکمارک‌ها";
+"reading-lists-default-list-title" = "ذخیره‌شده";
 "reading-lists-delete-reading-list-alert-message" = "این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در {{PLURAL:$1|این فهرست|این فهرست‌ها}} دخیره شده، به صورت دخیره‌ نشده خواهد ماند.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فهرستt|فهرست‌ها}} حذف شود؟";
 "reading-themes-controls-accessibility-black-theme-button" = "تِم سیاه";
