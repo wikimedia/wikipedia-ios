@@ -10,6 +10,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
+            configuredTags = []
             collectionView.reloadData()
             setNeedsLayout()
         }
