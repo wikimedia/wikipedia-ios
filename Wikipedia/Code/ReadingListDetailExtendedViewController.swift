@@ -15,6 +15,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var alertView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel!
     @IBOutlet weak var alertMessageLabel: UILabel!
+    @IBOutlet var alertViewConstraints: [NSLayoutConstraint] = []
     
     private var readingListTitle: String?
     private var readingListDescription: String?

@@ -24,6 +24,8 @@
                 <outlet property="sortButton" destination="VWH-3Z-bep" id="Mbi-Bv-BOr"/>
                 <outlet property="titleTextField" destination="vBx-C3-qBc" id="Ts3-3W-3YI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="alertViewConstraints" destination="xti-A2-eeJ" collectionClass="NSMutableArray" id="FFV-if-lOX"/>
+                <outletCollection property="alertViewConstraints" destination="3qH-Ot-Mz7" collectionClass="NSMutableArray" id="Psp-If-aFG"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
