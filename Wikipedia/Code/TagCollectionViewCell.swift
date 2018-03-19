@@ -27,7 +27,7 @@ class TagCollectionViewCell: CollectionViewCell {
     }
 
     func configure(with tag: Tag, for count: Int, theme: Theme) {
-        guard tag.index <= 2, let name = tag.readingList.name else {
+        guard !tag.isCollapsed, let name = tag.readingList.name else {
             return
         }
         label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
