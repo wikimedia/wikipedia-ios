@@ -342,7 +342,10 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        tagCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
+        guard configuredTags.indices.contains(indexPath.item) else {
+            return cell
+        }
+        tagCell.configure(with: configuredTags[indexPath.item], for: tags.readingLists.count, theme: theme)
         return tagCell
     }
 
