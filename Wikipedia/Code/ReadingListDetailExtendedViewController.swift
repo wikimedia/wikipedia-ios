@@ -200,7 +200,10 @@ extension ReadingListDetailExtendedViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         articleCountLabel.textColor = theme.colors.secondaryText
+        articleCountLabel.backgroundColor = view.backgroundColor
         titleTextField.apply(theme: theme)
+        alertTitleLabel.backgroundColor = view.backgroundColor
+        alertMessageLabel.backgroundColor = view.backgroundColor
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
         separatorView.backgroundColor = theme.colors.border

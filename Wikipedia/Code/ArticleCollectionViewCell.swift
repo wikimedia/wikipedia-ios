@@ -100,6 +100,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         extractLabel?.backgroundColor = labelBackgroundColor
         saveButton.backgroundColor = labelBackgroundColor
         saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        alertIcon.backgroundColor = labelBackgroundColor
+        alertLabel.backgroundColor = labelBackgroundColor
     }
     
     deinit {
