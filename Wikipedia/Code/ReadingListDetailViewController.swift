@@ -425,6 +425,12 @@ extension ReadingListDetailViewController {
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        
+        // Default reading list won't know if one of the limits was hit so we need to check if any of its entries knows of any errors.
+        if readingList.isDefault, let error = entry.APIError {
+            readingListDetailExtendedViewController.configureAlert(for: error)
+        }
+        
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
         // TODO: Remove this after testing
