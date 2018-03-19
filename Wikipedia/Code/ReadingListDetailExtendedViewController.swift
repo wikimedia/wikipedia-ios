@@ -112,15 +112,22 @@ class ReadingListDetailExtendedViewController: UIViewController {
         
         updateArticleCount(readingList.countOfEntries)
         
-        if let error = readingList.APIError {
-            if error == .listLimit {
-                alertType = .listLimitExceeded(limit: listLimit)
-                isAlertViewHidden = false
-            } else if error == .entryLimit {
-                alertType = .entryLimitExceeded(limit: entryLimit)
-                isAlertViewHidden = false
-            }
-        } else {
+        setAlertType(for: readingList.APIError, with: listLimit, entryLimit: entryLimit)
+    }
+    
+    private func setAlertType(for error: APIReadingListError?, with listLimit: Int, entryLimit: Int) {
+        guard let error = error else {
+            isAlertViewHidden = true
+            return
+        }
+        switch error {
+        case .listLimit:
+            alertType = .listLimitExceeded(limit: listLimit)
+            isAlertViewHidden = false
+        case .entryLimit:
+            alertType = .entryLimitExceeded(limit: entryLimit)
+            isAlertViewHidden = false
+        default:
             isAlertViewHidden = true
         }
     }
@@ -130,6 +137,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
             alertView.isHidden = isAlertViewHidden
             view.setNeedsLayout()
         }
+    }
+    
+    public func configureAlert(for error: APIReadingListError) {
+        setAlertType(for: error, with: listLimit, entryLimit: entryLimit)
     }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
