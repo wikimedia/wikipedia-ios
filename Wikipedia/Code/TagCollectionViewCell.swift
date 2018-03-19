@@ -1,10 +1,16 @@
-public struct Tag {
+public class Tag {
     let readingList: ReadingList
     let index: Int
     let indexPath: IndexPath
+    var isLast: Bool
+    var isCollapsed: Bool
     
-    var isLast: Bool {
-        return index == 2
+    init(readingList: ReadingList, index: Int, indexPath: IndexPath) {
+        self.readingList = readingList
+        self.index = index
+        self.indexPath = indexPath
+        self.isLast = false
+        self.isCollapsed = false
     }
 }
 
