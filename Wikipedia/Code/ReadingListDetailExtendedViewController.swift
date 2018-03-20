@@ -111,7 +111,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         setAlertType(for: readingList.APIError, with: listLimit, entryLimit: entryLimit)
     }
     
-    private func setAlertType(for error: APIReadingListError?, with listLimit: Int, entryLimit: Int) {
+    private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
         guard let error = error else {
             isAlertViewHidden = true
             return
@@ -130,7 +130,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
-            collapseAlert(isAlertViewHidden, animated: false)
+            collapseAlert(isAlertViewHidden)
         }
     }
     
@@ -155,35 +155,20 @@ class ReadingListDetailExtendedViewController: UIViewController {
         dismissKeyboardIfNecessary()
     }
     
-    public func collapseAlert(_ collapse: Bool, animated: Bool) {
+    public func collapseAlert(_ collapse: Bool) {
         if descriptionTextFieldToSeparatorViewBottomConstraint == nil {
             descriptionTextFieldToSeparatorViewBottomConstraint = descriptionTextField.bottomAnchor.constraint(equalTo: separatorView.topAnchor)
             self.descriptionTextFieldToSeparatorViewBottomConstraint?.constant = -15
         }
-        if animated {
-            UIView.animate(withDuration: 0.7) {
-                if collapse {
-                    self.alertView.alpha = 0
-                    NSLayoutConstraint.deactivate(self.alertViewConstraints)
-                    self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
-                } else {
-                    self.alertView.alpha = 1
-                    self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
-                    NSLayoutConstraint.activate(self.alertViewConstraints)
-                }
-                self.view.setNeedsLayout()
-                self.view.layoutIfNeeded()
-            }
+        if collapse {
+            self.alertView.isHidden = true
+            NSLayoutConstraint.deactivate(self.alertViewConstraints)
+            self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
         } else {
-            if collapse {
-                NSLayoutConstraint.deactivate(self.alertViewConstraints)
-                self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
-            } else {
-                self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
-                NSLayoutConstraint.activate(self.alertViewConstraints)
-            }
+            self.alertView.isHidden = false
+            self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
+            NSLayoutConstraint.activate(self.alertViewConstraints)
         }
-        
     }
     
 }
