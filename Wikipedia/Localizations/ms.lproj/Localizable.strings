@@ -341,11 +341,9 @@
 "reading-list-login-title" = "Menyegerakkan rencana anda yang disimpan?";
 "reading-list-new-list-description-placeholder" = "penerangan pendek pilihan";
 "reading-list-new-list-name-placeholder" = "tajuk senarai bacaan";
-"reading-list-show-default-list-setting" = "Tunjukkan senarai lalai";
 "reading-list-sync-enable-button-title" = "Dayakan penyegerakan";
 "reading-list-sync-enable-subtitle" = "Rencana yang disimpan dan senarai bacaan anda kini boleh disimpan ke akaun Wikipedia anda dan disegerakkan merentas peranti.";
 "reading-list-sync-enable-title" = "Hidupkan penyegerakan senarai bacaan?";
-"reading-list-sync-setting" = "Penyegerakan senarai bacaan";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Anda tidak boleh menambah {{PLURAL:$1|rencana ini|rencana ini}} ke “$2” kerana terdapat had jumlah rencana yang anda dapat dalam senarai bacaan.";
 "reading-list-unable-to-add-entry" = "Ralat yang tidak dijangka berlaku semasa menambah entri ke senarai bacaan anda. Sila cuba sebentar lagi.";
 "reading-list-unable-to-create" = "Ralat yang tidak dijangka berlaku semasa membuat senarai bacaan anda. Sila cuba sebentar lagi.";
