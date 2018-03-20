@@ -251,7 +251,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             case .entryLimit:
                 isAlertLabelHidden = false
                 isAlertIconHidden = false
-                alertType = .entryLimitExceeded(limit: listLimit)
+                alertType = .entryLimitExceeded(limit: entryLimit)
             default:
                 isAlertLabelHidden = true
                 isAlertIconHidden = true
@@ -263,10 +263,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             case .listLimit:
                 isAlertLabelHidden = false
                 isAlertIconHidden = false
-                alertType = .listLimitExceeded(limit: entryLimit)
+                alertType = .listLimitExceeded(limit: listLimit)
             default:
-                isAlertLabelHidden = true
-                isAlertIconHidden = true
+                break // test with list limit
             }
         }
     }
