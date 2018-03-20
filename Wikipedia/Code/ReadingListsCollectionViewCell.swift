@@ -226,7 +226,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 yPosition = origin.y
                 availableWidth = widthMinusMargins
             }
-            let _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += alertLabelFrame.layoutHeight(with: spacing)
         }
 
         return CGSize(width: size.width, height: height)
