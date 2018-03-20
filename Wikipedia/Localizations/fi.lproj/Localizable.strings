@@ -339,6 +339,7 @@
 "reading-list-keep-button-title" = "Kyllä, säilytä artikkelit laitteessa";
 "reading-list-keep-subtitle" = "Nämä ovat artikkeleita, jotka on synkronoitu Wikipedia-tiliisi. Haluaisitko säilyttää ne tässä laitteessa sen jälkeen kun kirjaudut ulos?";
 "reading-list-keep-title" = "Säilytä tallennetut artikkelit laitteessa?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Lajittele artikkelit";
 "reading-list-login-button-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelisi";
 "reading-list-login-or-create-account-button-title" = "Kirjaudu sisään tai luo tunnus";
 "reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
@@ -346,11 +347,9 @@
 "reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
 "reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
 "reading-list-new-list-name-placeholder" = "lukulistan otsikko";
-"reading-list-show-default-list-setting" = "Näytä oletuslista";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
 "reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tiliisi ja synkronoida laitteiden poikki.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
-"reading-list-sync-setting" = "Lukulistan synkronointi";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Et voi lisätä {{PLURAL:$1|tätä artikkelia|näitä artikkeleita}} lukulistaan “$2” koska lukulistassa olevien artikkeleiden määrä on rajoitettu.";
 "reading-list-unable-to-add-entry" = "Odottamaton virhe tapahtui lisätessä\nmerkintää lukulistaan. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-create" = "Odottamaton virhe tapahtui lukulistaasi luodessa. Yritä myöhemmin uudelleen.";
@@ -420,6 +419,7 @@
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
+"settings-storage-and-syncing-server-sync-title" = "Synkronoi palvelimen kanssa";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
