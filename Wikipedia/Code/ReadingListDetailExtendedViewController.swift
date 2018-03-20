@@ -28,6 +28,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var theme: Theme = Theme.standard
     
+    private var firstResponder: UITextField? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -141,7 +143,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
         delegate?.extendedViewControllerDidPressSortButton(self, sortButton: sender)
     }
     
-    private var firstResponder: UITextField? = nil
     public func reconfigureAlert(for readingList: ReadingList) {
         setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
