@@ -352,11 +352,9 @@
 "reading-list-login-title" = "Sinkronkan artikel tersimpan Anda?";
 "reading-list-new-list-description-placeholder" = "deskripsi singkat opsional";
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
-"reading-list-show-default-list-setting" = "Tampilkan daftar baku";
 "reading-list-sync-enable-button-title" = "Aktifkan sinkronisasi";
 "reading-list-sync-enable-subtitle" = "Artikel tersimpan dan daftar bacaan Anda sekarang dapat disimpan ke akun Wikipedia Anda dan disinkronkan di seluruh perangkat.";
 "reading-list-sync-enable-title" = "Aktifkan sinkronisasi daftar bacaan?";
-"reading-list-sync-setting" = "Sinkronisasi daftar bacaan";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Anda tidak dapat menambahkan {{PLURAL:$1|artikel ini|artikel ini}} ke “$2” karena ada batasan jumlah artikel yang dapat Anda miliki dalam daftar bacaan.";
 "reading-list-unable-to-add-entry" = "Terjadi kesalahan tak terduga saat menambahkan entri ke daftar bacaan Anda. Silakan coba lagi nanti.";
 "reading-list-unable-to-create" = "Terjadi kesalahan tak terduga saat membuat daftar bacaan Anda. Silakan coba lagi nanti.";
