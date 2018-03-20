@@ -213,8 +213,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertIconHidden) {
-            let _ = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.x += alertIconDimension + spacing
+            origin.y += alertIconFrame.layoutHeight(with: spacing)
         }
         
         if (apply && !isAlertLabelHidden) {
