@@ -116,7 +116,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         
         updateArticleCount(readingList.countOfEntries)
         
-        setAlertType(for: readingList.APIError, with: listLimit, entryLimit: entryLimit)
+        setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
     
     private func setAlertType(for error: APIReadingListError?, listLimit: Int, entryLimit: Int) {
