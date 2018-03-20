@@ -200,11 +200,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-            if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-                // placeholder for now, this should be a separate label or button
-                cell.descriptionLabel.text = error.localizedDescription
-                cell.descriptionLabel.textColor = theme.colors.error
-            }
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
             cell.isBatchEditable = false
