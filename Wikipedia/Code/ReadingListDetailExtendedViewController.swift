@@ -21,6 +21,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     private var readingListTitle: String?
     private var readingListDescription: String?
     
+    private var listLimit: Int = 0
+    private var entryLimit: Int = 0
+    
     public weak var delegate: ReadingListDetailExtendedViewControllerDelegate?
     
     private var theme: Theme = Theme.standard
@@ -139,6 +142,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     }
     
     private var firstResponder: UITextField? = nil
+    public func reconfigureAlert(for readingList: ReadingList) {
+        setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
+    }
     
     public func dismissKeyboardIfNecessary() {
         firstResponder?.resignFirstResponder()
