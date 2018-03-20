@@ -99,6 +99,9 @@ class ReadingListDetailExtendedViewController: UIViewController {
     }
     
     public func setup(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
+        self.listLimit = listLimit
+        self.entryLimit = entryLimit
+        
         let readingListName = readingList.name
         let readingListDescription = readingList.isDefault ? CommonStrings.readingListsDefaultListDescription : readingList.readingListDescription
         let isDefault = readingList.isDefault
