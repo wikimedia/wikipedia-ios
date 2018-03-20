@@ -433,13 +433,6 @@ extension ReadingListDetailViewController {
         
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        // TODO: Remove this after testing
-        if let error = entry.APIError {
-            // placeholder for now, this should be a separate label or button
-            cell.descriptionLabel.text = error.localizedDescription
-            cell.descriptionLabel.textColor = theme.colors.error
-        }
-        
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.readableMargins
