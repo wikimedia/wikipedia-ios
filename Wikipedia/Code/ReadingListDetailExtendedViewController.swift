@@ -134,10 +134,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
         }
     }
     
-    public func configureAlert(for error: APIReadingListError) {
-        setAlertType(for: error, with: listLimit, entryLimit: entryLimit)
-    }
-    
     @IBAction func didPressSortButton(_ sender: UIButton) {
         delegate?.extendedViewControllerDidPressSortButton(self, sortButton: sender)
     }
