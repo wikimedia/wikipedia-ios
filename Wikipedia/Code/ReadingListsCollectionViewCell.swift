@@ -221,7 +221,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             var xPosition = alertIcon.frame.maxX + spacing
             var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isAlertLabelHidden {
+            if isAlertIconHidden {
                 xPosition = origin.x
                 yPosition = origin.y
                 availableWidth = widthMinusMargins
