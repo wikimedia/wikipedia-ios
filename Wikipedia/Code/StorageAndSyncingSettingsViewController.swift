@@ -120,6 +120,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         let erase = UIAlertAction(title: CommonStrings.eraseAllSavedArticles, style: .destructive) { (_) in
             guard let dataStore = self.dataStore else {
                 assertionFailure("dataStore is nil")
+                return
             }
             self.dataStore?.readingListsController.setSyncEnabled(dataStore.readingListsController.isSyncEnabled, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
         }
