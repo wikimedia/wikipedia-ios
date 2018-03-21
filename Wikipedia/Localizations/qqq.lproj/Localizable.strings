@@ -405,6 +405,8 @@
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Title of the alert shown before erasing all saved article.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
