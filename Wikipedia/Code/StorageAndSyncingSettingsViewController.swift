@@ -120,7 +120,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     
     private lazy var eraseSavedArticlesView: EraseSavedArticlesView? = {
         let eraseSavedArticlesView = EraseSavedArticlesView.wmf_viewFromClassNib()
-        eraseSavedArticlesView?.titleLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-title", value: "Erase saved articles", comment: "Title of the settings option that enables erasing saved articles")
+        eraseSavedArticlesView?.titleLabel.text = CommonStrings.eraseAllSavedArticles
         eraseSavedArticlesView?.button.setTitle(WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-button-title", value: "Erase", comment: "Title of the settings button that enables erasing saved articles"), for: .normal)
         eraseSavedArticlesView?.button.addTarget(self, action: #selector(eraseSavedArticles), for: .touchUpInside)
         eraseSavedArticlesView?.footerLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.", comment: "Footer text of the settings option that enables erasing saved articles")
