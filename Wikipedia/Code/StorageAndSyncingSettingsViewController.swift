@@ -123,7 +123,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
                 return
             }
             if isSyncEnabled {
-                self.dataStore?.readingListsController.setSyncEnabled(isSyncEnabled, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
+                self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
             } else {
                 self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
                 self.dataStore?.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
