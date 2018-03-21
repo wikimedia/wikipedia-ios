@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="landscape">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -23,8 +23,8 @@
                 <outlet property="sortButton" destination="bgL-r9-Pn9" id="S1a-aN-D4U"/>
                 <outlet property="titleTextField" destination="AgM-1W-5hR" id="axY-zZ-9ae"/>
                 <outlet property="view" destination="zSx-ZW-jSc" id="nKZ-7G-ImW"/>
-                <outletCollection property="alertViewConstraints" destination="M8k-c1-NOq" collectionClass="NSMutableArray" id="CFe-XT-TFP"/>
-                <outletCollection property="alertViewConstraints" destination="YM2-mi-cTq" collectionClass="NSMutableArray" id="sD0-Zl-MIC"/>
+                <outletCollection property="alertViewConstraints" destination="YM2-mi-cTq" collectionClass="NSMutableArray" id="LPq-fm-czB"/>
+                <outletCollection property="alertViewConstraints" destination="PKe-AI-psk" collectionClass="NSMutableArray" id="Hjt-Tv-TOu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -33,34 +33,34 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5C-Gu-g6u">
-                    <rect key="frame" x="110" y="15" width="155" height="21"/>
+                    <rect key="frame" x="31" y="15" width="313" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AgM-1W-5hR" customClass="WMFThemeableTextField">
-                    <rect key="frame" x="110" y="44" width="155" height="22.333333333333329"/>
+                    <rect key="frame" x="31" y="44" width="313" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwR-Hu-U77" customClass="WMFThemeableTextField">
-                    <rect key="frame" x="110" y="74.333333333333329" width="155" height="0.0"/>
+                    <rect key="frame" x="31" y="82" width="313" height="13.5"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAH-PK-NVy">
-                    <rect key="frame" x="110" y="89.333333333333329" width="155" height="44.999999999999986"/>
+                    <rect key="frame" x="31" y="110.5" width="313" height="45"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBx-YP-hgl">
-                            <rect key="frame" x="0.0" y="0.0" width="155" height="23.666666666666668"/>
+                            <rect key="frame" x="0.0" y="0.0" width="313" height="23.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHw-6i-Hb4">
-                            <rect key="frame" x="0.0" y="31.666666666666668" width="155" height="13.333333333333332"/>
+                            <rect key="frame" x="0.0" y="31.5" width="313" height="13.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -78,21 +78,21 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBQ-Cj-b7m">
-                    <rect key="frame" x="0.0" y="149.33333333333334" width="375" height="0.66666666666665719"/>
+                    <rect key="frame" x="0.0" y="170.5" width="375" height="0.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="6sB-eK-shz"/>
                     </constraints>
                 </view>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="YZc-Lw-AtL">
-                    <rect key="frame" x="110" y="164" width="93" height="36"/>
+                    <rect key="frame" x="20" y="185" width="265" height="36"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="HNn-nK-hN1"/>
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgL-r9-Pn9">
-                    <rect key="frame" x="219" y="167" width="46" height="30"/>
+                    <rect key="frame" x="301" y="188" width="46" height="30"/>
                     <state key="normal" title="Button"/>
                     <connections>
                         <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="7TX-us-SmV"/>
