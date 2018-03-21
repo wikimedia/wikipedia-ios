@@ -32,7 +32,11 @@ class SavedProgressViewController: UIViewController, Themeable {
             self?.progressIsFinishedObservation?.invalidate()
             // Observe any time this Progress object finishes.
             self?.progressIsFinishedObservation = fetchProgressManager.progress.observe(\Progress.isFinished, options: [.new, .initial]) { [weak self] (progress, change) in
-                self?.view.isHidden = !progress.wmf_shouldShowProgressView()
+                if let view = self?.view {
+                    UIView.transition(with: view, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
+                        self?.view.isHidden = !progress.wmf_shouldShowProgressView()
+                    })
+                }
             }
         }
     }
