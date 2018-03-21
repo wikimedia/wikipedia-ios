@@ -408,6 +408,11 @@
 		B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A271D8B747A00D973CF /* WebViewController+WMFReferencePopover.m */; };
 		B0379A2C1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */; };
 		B0379A371D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */; };
+		B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
+		B03F8A8A205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
+		B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
+		B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
+		B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
 		B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */; };
 		B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
@@ -431,6 +436,16 @@
 		B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */; };
 		B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */; };
 		B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */; };
+		B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
+		B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
+		B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
+		B0845E1420618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
+		B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */; };
+		B0845E1C2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
+		B0845E1D2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
+		B0845E1E2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
+		B0845E1F2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
+		B0845E202061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */; };
 		B08624311F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
 		B08624321F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
 		B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */; };
@@ -3317,6 +3332,7 @@
 		B0379A291D8B756C00D973CF /* WMFReferencePopoverMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFReferencePopoverMessageViewController.h; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.h; sourceTree = SOURCE_ROOT; };
 		B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFReferencePopoverMessageViewController.m; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.m; sourceTree = SOURCE_ROOT; };
 		B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFReferencePopoverMessageViewController.storyboard; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.storyboard; sourceTree = SOURCE_ROOT; };
+		B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherProgressManager.swift; sourceTree = "<group>"; };
 		B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayExploreCollectionViewCell.swift; path = Wikipedia/Code/OnThisDayExploreCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
@@ -3345,6 +3361,8 @@
 		B083375C1DB16A09002860D2 /* WMFWelcomePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomePanelViewController.swift; path = Wikipedia/Code/WMFWelcomePanelViewController.swift; sourceTree = SOURCE_ROOT; };
 		B083375E1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeLanguageTableViewController.swift; path = Wikipedia/Code/WMFWelcomeLanguageTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		B08337601DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFWelcomeAnalyticsViewController.swift; path = Wikipedia/Code/WMFWelcomeAnalyticsViewController.swift; sourceTree = SOURCE_ROOT; };
+		B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProgressViewController.swift; sourceTree = "<group>"; };
+		B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SavedProgressViewController.storyboard; sourceTree = "<group>"; };
 		B08624301F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnimationBackgroundView.swift; sourceTree = "<group>"; };
 		B0866F431CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionFooter.h; sourceTree = "<group>"; };
 		B0866F441CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionFooter.m; sourceTree = "<group>"; };
@@ -7214,6 +7232,7 @@
 				B0E8064D1C0CE84B0065EBC0 /* SavedArticlesFetcher_Testing.h */,
 				B0E8064E1C0CE84B0065EBC0 /* SavedArticlesFetcher.h */,
 				B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */,
+				B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */,
 			);
 			name = Fetchers;
 			sourceTree = "<group>";
@@ -7406,6 +7425,8 @@
 				7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */,
 				7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */,
 				7AE1D3381FCD10B900393471 /* SavedViewController.swift */,
+				B0845E0F20618DA400CDD98E /* SavedProgressViewController.swift */,
+				B0845E1B2061B44A00CDD98E /* SavedProgressViewController.storyboard */,
 				7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */,
 				7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */,
 				7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */,
@@ -8971,6 +8992,7 @@
 				7ADEAB081FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
 				B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */,
 				B0E803141C0CD6430065EBC0 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
+				B0845E1C2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				0EE2438F1DC988AA00066CBD /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				B0E802CC1C0CD2F70065EBC0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
@@ -9031,6 +9053,7 @@
 				D80ED3E91EE57F4800CE8C50 /* NewsCollectionViewHeader.xib in Resources */,
 				D80ED3EA1EE57F4800CE8C50 /* WMFEmptyView.xib in Resources */,
 				D80ED3EB1EE57F4800CE8C50 /* NotificationBackgroundMessage@2x.png in Resources */,
+				B0845E202061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */,
 				BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */,
@@ -9212,6 +9235,7 @@
 				7ADEAB0B1FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
 				D8A42C0E1E815A9C00D8E281 /* PageHistoryViewController.storyboard in Resources */,
 				D8A42C0F1E815A9C00D8E281 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
+				B0845E1F2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED41F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D8A42C101E815A9C00D8E281 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8A42C111E815A9C00D8E281 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
@@ -9311,6 +9335,7 @@
 				7ADEAB091FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
 				D8CE26951E698E2400DAE2E0 /* PageHistoryViewController.storyboard in Resources */,
 				D8CE26961E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.xib in Resources */,
+				B0845E1D2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D8CE26971E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8CE26981E698E2400DAE2E0 /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
@@ -9410,6 +9435,7 @@
 				7ADEAB0A1FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib in Resources */,
 				D8EC3F951E9BDA35006712EB /* PageHistoryViewController.storyboard in Resources */,
 				D8EC3F961E9BDA35006712EB /* WMFEmptySectionCollectionViewCell.xib in Resources */,
+				B0845E1E2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D8EC3F971E9BDA35006712EB /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8EC3F981E9BDA35006712EB /* WMFPicOfTheDayCollectionViewCell.xib in Resources */,
@@ -10064,6 +10090,7 @@
 				D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
+				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */,
@@ -10086,6 +10113,7 @@
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
+				B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
@@ -10338,6 +10366,7 @@
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
 				D80ED33A1EE57F4800CE8C50 /* UILabel+WMFStyling.m in Sources */,
 				D8C4D3DC1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D80ED33B1EE57F4800CE8C50 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D80ED33C1EE57F4800CE8C50 /* WMFBorderButton.m in Sources */,
 				D80ED33D1EE57F4800CE8C50 /* WMFEmptySectionCollectionViewCell.m in Sources */,
@@ -10416,6 +10445,7 @@
 				D80ED3801EE57F4800CE8C50 /* WMFForgotPasswordViewController.swift in Sources */,
 				830D71D31F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				D80ED3811EE57F4800CE8C50 /* WMFImageGalleryViewController.m in Sources */,
+				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				D80ED3831EE57F4800CE8C50 /* UIFont+WMFStyle.m in Sources */,
 				B0F9299D1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
@@ -11015,6 +11045,7 @@
 				D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8A42B441E815A9C00D8E281 /* UIView+RemoveConstraints.m in Sources */,
 				D8A42B451E815A9C00D8E281 /* SectionEditorViewController.m in Sources */,
+				B0845E1420618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D818D38E1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
@@ -11037,6 +11068,7 @@
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
+				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B5F1E815A9C00D8E281 /* WMFKeychainCredentials.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
 				D8A42B611E815A9C00D8E281 /* NSString+FormattedAttributedString.m in Sources */,
@@ -11289,6 +11321,7 @@
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				D8CE259B1E698E2400DAE2E0 /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D8C4D3D91FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				B03F8A8A205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8CE259C1E698E2400DAE2E0 /* WMFTableOfContentsHeader.swift in Sources */,
 				D8CE259E1E698E2400DAE2E0 /* UILabel+WMFStyling.m in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
@@ -11367,6 +11400,7 @@
 				D8CE25E61E698E2400DAE2E0 /* WMFProxyServer.m in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
+				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
 				B0CD9DDD1F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F929A01F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
@@ -11607,6 +11641,7 @@
 				D8EC3E961E9BDA35006712EB /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
+				B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8EC3E991E9BDA35006712EB /* UILabel+WMFStyling.m in Sources */,
 				D8EC3E9A1E9BDA35006712EB /* UIViewController+WMFScrollToTop.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
@@ -11685,6 +11720,7 @@
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				D8EC3EE51E9BDA35006712EB /* WMFProxyServer.m in Sources */,
+				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8EC3EE91E9BDA35006712EB /* WMFForgotPasswordViewController.swift in Sources */,
 				D8EC3EEB1E9BDA35006712EB /* WMFImageGalleryViewController.m in Sources */,
