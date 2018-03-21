@@ -189,15 +189,22 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if !isAlertIconHidden {
-            let alertIconFrame = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
             origin.x += alertIconDimension + spacing
-            origin.y += alertIconFrame.layoutHeight(with: 0)
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
         if !isAlertLabelHidden {
             var xPosition = alertIcon.frame.maxX + spacing
             var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isRTL {
+                xPosition = alertIcon.frame.minX - availableWidth - spacing
+            }
             if isAlertIconHidden {
                 xPosition = origin.x
                 yPosition = origin.y
