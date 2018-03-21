@@ -374,7 +374,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        let tagToConfigure = tag(at: indexPath)
+        var tagToConfigure = tag(at: indexPath)
 
         if let lastConfiguredTag = configuredTags.last, lastConfiguredTag.isLast, tagToConfigure.index > lastConfiguredTag.index {
             tagToConfigure.isCollapsed = true

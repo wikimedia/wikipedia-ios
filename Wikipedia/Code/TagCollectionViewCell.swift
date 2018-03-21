@@ -1,4 +1,4 @@
-public class Tag {
+public struct Tag {
     let readingList: ReadingList
     let index: Int
     let indexPath: IndexPath
