@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SavedArticlesFetcher : FetcherBase
 
+@property (nonatomic, strong, readonly) NSNumber *fetchesInProcessCount;
+
 @property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
 
 @property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
