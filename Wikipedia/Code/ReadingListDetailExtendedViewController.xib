@@ -34,7 +34,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcV-tM-qMa" userLabel="Content View">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
+                    <rect key="frame" x="16" y="0.0" width="343" height="236"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-Ji-QqS">
                             <rect key="frame" x="15" y="15" width="42" height="21"/>
@@ -43,49 +43,49 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-C3-qBc" customClass="WMFThemeableTextField">
-                            <rect key="frame" x="15" y="44" width="345" height="14.5"/>
+                            <rect key="frame" x="15" y="44" width="313" height="14.5"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VeG-7e-nxd" customClass="WMFThemeableTextField">
-                            <rect key="frame" x="15" y="66.5" width="345" height="30"/>
+                            <rect key="frame" x="15" y="66.5" width="313" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-RI-aJ4" userLabel="Separator View">
-                            <rect key="frame" x="0.0" y="171.5" width="375" height="0.5"/>
+                            <rect key="frame" x="0.0" y="171.5" width="343" height="0.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="GcR-WB-jU3"/>
                             </constraints>
                         </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="k7T-rp-1Fm">
-                            <rect key="frame" x="8" y="186" width="285" height="36"/>
+                            <rect key="frame" x="12" y="186" width="249" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="fcx-df-IsE"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWH-3Z-bep">
-                            <rect key="frame" x="309" y="189" width="46" height="30"/>
+                            <rect key="frame" x="277" y="189" width="46" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="C5R-0O-z7D"/>
                             </connections>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKJ-QG-jkJ" userLabel="Alert View">
-                            <rect key="frame" x="15" y="111.5" width="345" height="45"/>
+                            <rect key="frame" x="15" y="111.5" width="313" height="45"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjI-cv-IBB" userLabel="Alert Title Label">
-                                    <rect key="frame" x="0.0" y="0.0" width="345" height="31.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="313" height="31.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIk-ny-9dq" userLabel="Alert Message Label">
-                                    <rect key="frame" x="0.0" y="31.5" width="345" height="13.5"/>
+                                    <rect key="frame" x="0.0" y="31.5" width="313" height="13.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                         <constraint firstAttribute="bottom" secondItem="k7T-rp-1Fm" secondAttribute="bottom" constant="14" id="EJM-7U-wbC"/>
                         <constraint firstItem="uC9-Ji-QqS" firstAttribute="top" secondItem="HcV-tM-qMa" secondAttribute="top" constant="15" id="HH5-kv-Cum"/>
                         <constraint firstItem="iKJ-QG-jkJ" firstAttribute="leading" secondItem="VeG-7e-nxd" secondAttribute="leading" id="J0L-X2-uZQ"/>
-                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="8" id="KWg-ok-r2Q"/>
+                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leadingMargin" constant="4" id="KWg-ok-r2Q"/>
                         <constraint firstItem="k7T-rp-1Fm" firstAttribute="top" secondItem="NNE-RI-aJ4" secondAttribute="bottom" constant="14" id="Ov8-Lw-vFK"/>
                         <constraint firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" constant="15" id="P8q-hO-E0G"/>
                         <constraint firstAttribute="trailing" secondItem="vBx-C3-qBc" secondAttribute="trailing" constant="15" id="PDo-oz-lDu"/>
@@ -130,9 +130,9 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="HcV-tM-qMa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jfx-XJ-Lhq"/>
+                <constraint firstItem="HcV-tM-qMa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="Jfx-XJ-Lhq"/>
                 <constraint firstAttribute="bottom" secondItem="HcV-tM-qMa" secondAttribute="bottom" id="WdH-Os-DNi"/>
-                <constraint firstItem="HcV-tM-qMa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="apA-8u-xHs"/>
+                <constraint firstItem="HcV-tM-qMa" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="apA-8u-xHs"/>
                 <constraint firstItem="HcV-tM-qMa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="p8N-Ia-VvP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
