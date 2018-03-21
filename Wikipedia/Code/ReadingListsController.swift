@@ -3,6 +3,7 @@ import Foundation
 // Sync keys
 let WMFReadingListSyncStateKey = "WMFReadingListsSyncState"
 private let WMFReadingListSyncRemotelyEnabledKey = "WMFReadingListSyncRemotelyEnabled"
+private let WMFReadingListSyncEnabledKey = "WMFReadingListSyncEnabled"
 let WMFReadingListUpdateKey = "WMFReadingListUpdateKey"
 
 // Default list key
@@ -272,6 +273,7 @@ public class ReadingListsController: NSObject {
             assert(Thread.isMainThread)
             let moc = dataStore.viewContext
             moc.wmf_setValue(NSNumber(value: newValue.rawValue), forKey: WMFReadingListSyncStateKey)
+            self.isSyncEnabled = newValue.contains(.needsSync) || newValue.contains(.needsUpdate)
             do {
                 try moc.save()
             } catch let error {
@@ -318,9 +320,16 @@ public class ReadingListsController: NSObject {
     
     // is sync enabled for this user
     @objc public var isSyncEnabled: Bool {
-        assert(Thread.isMainThread)
-        let state = syncState
-        return state.contains(.needsSync) || state.contains(.needsUpdate)
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_isSyncEnabled
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_isSyncEnabled = newValue
+        }
     }
     
     // is sync available or is it shut down server-side
@@ -654,6 +663,24 @@ public extension NSManagedObjectContext {
                 try save()
             } catch let error {
                 DDLogError("Error saving after sync state update: \(error)")
+            }
+        }
+    }
+    
+    // is sync enabled or is it diasabled for this account
+    @objc public var wmf_isSyncEnabled: Bool {
+        get {
+            return wmf_numberValue(forKey: WMFReadingListSyncEnabledKey)?.boolValue ?? true
+        }
+        set {
+            guard newValue != wmf_isSyncEnabled else {
+                return
+            }
+            wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListSyncEnabledKey)
+            do {
+                try save()
+            } catch let error {
+                DDLogError("Error setting wmf_isSyncEnabled: \(error)")
             }
         }
     }
