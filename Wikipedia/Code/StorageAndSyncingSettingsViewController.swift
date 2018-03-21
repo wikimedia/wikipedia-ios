@@ -115,7 +115,14 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     }
     
     @objc private func eraseSavedArticles() {
-        dataStore?.readingListsController.unsaveAllArticles({})
+        let alert = UIAlertController(title: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-title", value: "Erase all saved articles?", comment: "Title of the alert shown before erasing all saved article."), message: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-message", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.", comment: "Message for the alert shown before erasing all saved articles."), preferredStyle: .alert)
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let erase = UIAlertAction(title: CommonStrings.eraseAllSavedArticles, style: .destructive) { (_) in
+            self.dataStore?.readingListsController.unsaveAllArticles({})
+        }
+        alert.addAction(cancel)
+        alert.addAction(erase)
+        present(alert, animated: true)
     }
     
     private lazy var eraseSavedArticlesView: EraseSavedArticlesView? = {
