@@ -18,7 +18,6 @@ public class ReadingList: NSManagedObject {
     }
     
     private var previousCountOfEntries: Int64 = 0
-    
     private var isEntriesLimitReached: Bool = false {
         didSet {
             guard isEntriesLimitReached, countOfEntries > previousCountOfEntries else {
