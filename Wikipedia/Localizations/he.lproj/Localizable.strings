@@ -54,14 +54,23 @@
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
 "account-creation-title" = "יצירת חשבון חדש";
+"action-add-to" = "הוספה ל־...";
+"action-add-to-reading-list" = "הוספה לרשימת קריאה";
+"action-cancel" = "ביטול";
+"action-move-to" = "העברה ל־...";
+"action-move-to-reading-list" = "העברה לרשימת קריאה";
 "action-read" = "קריאה";
+"action-remove" = "הסרה";
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
 "action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
 "action-share" = "שיתוף";
+"action-sort" = "מיון";
 "action-unsave" = "ביטול שמירה";
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
+"action-update" = "עדכון";
+"add-articles-to-reading-list" = "הוספת הדף $1 לרשימת הקריאה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
@@ -74,8 +83,7 @@
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
-// Fuzzy
-"article-deleted-accessibility-notification" = "הערך נמחק";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|הערך נמחק|הערכים נמחקו}}";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
@@ -325,8 +333,7 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "saved-clear-all" = "ניקוי";
 "saved-pages-clear-cancel" = "ביטול";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "האם באמת למחוק את כל הדפים השמורים שלך?";
+"saved-pages-clear-confirmation-heading" = "האם באמת למחוק את כל הערכים השמורים שלך ולהסיר אותם מכל רשימות הקריאה?";
 "saved-pages-clear-delete-all" = "כן, למחוק הכול";
 "saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
 "saved-title" = "נשמר";

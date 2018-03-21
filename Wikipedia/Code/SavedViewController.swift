@@ -90,10 +90,10 @@ class SavedViewController: ViewController {
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
             case .readingLists :
-                removeChild(savedArticlesViewController)
-                addChild(readingListsViewController)
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
+                removeChild(savedArticlesViewController)
+                addChild(readingListsViewController)
                 leftButtonType = .add
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
@@ -274,7 +274,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         return self.theme
     }
     
-    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) {
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         let editingStates: [EditingState] = [.swiping, .open, .editing]

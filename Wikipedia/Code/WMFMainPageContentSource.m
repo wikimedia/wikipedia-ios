@@ -5,6 +5,7 @@
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFArticle+Extensions.h>
+#import <WMF/WMF-Swift.h>
 
 @interface WMFMainPageContentSource ()
 
@@ -89,7 +90,15 @@
                     }
                     return;
                 }
-
+                
+                if (data.readingListsConfigMaxEntriesPerList != nil) {
+                    moc.wmf_readingListsConfigMaxEntriesPerList = data.readingListsConfigMaxEntriesPerList;
+                }
+                
+                if (data.readingListsConfigMaxListsPerUser != nil) {
+                    moc.wmf_readingListsConfigMaxListsPerUser = data.readingListsConfigMaxListsPerUser;
+                }
+                
                 [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
                     siteURL:self.siteURL
                     completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {

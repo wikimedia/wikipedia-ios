@@ -111,6 +111,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
+@property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -156,6 +158,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(readingListsSyncProgressDidChange:)
                                                  name:[WMFReadingListsController syncProgressDidChangeNotification]
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(entriesLimitReachedWithNotification:)
+                                                 name:[ReadingList entriesLimitReachedNotification]
+                                               object:nil];
+
+    self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -190,6 +199,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.view wmf_addConstraintsToEdgesOfView:tabBar.view withInsets:UIEdgeInsetsZero priority:UILayoutPriorityRequired];
 
     [tabBar didMoveToParentViewController:self];
+    tabBar.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     self.rootTabBarController = tabBar;
 
     [self applyTheme:self.theme];
@@ -921,7 +931,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                                             }
                                                                         }
                                                                     });
-
                                                                 }];
             }
 
@@ -1645,6 +1654,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)showSettingsAnimated:(BOOL)animated {
     [self showSettingsWithSubViewController:nil animated:animated];
+}
+
+#pragma mark - WMFReadingListsAlertPresenter
+
+- (void)entriesLimitReachedWithNotification:(NSNotification *)notification {
+    ReadingList *readingList = (ReadingList *)notification.userInfo[ReadingList.entriesLimitReachedReadingListKey];
+    if (readingList) {
+        [self.readingListsAlertController showLimitHitForDefaultListPanelIfNecessaryWithPresenter:self dataStore:self.dataStore readingList:readingList theme:self.theme];
+    }
 }
 
 #pragma mark - Perma Random Mode

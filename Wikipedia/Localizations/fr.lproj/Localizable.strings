@@ -342,12 +342,14 @@
 "reading-list-api-error-list-limit" = "Cette liste n’est pas synchronisée parce que vous avez atteint la limite du nombre de listes synchronisées.";
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Une liste de lecture existe déjà avec le nom « $1 »";
+"reading-list-exists-with-same-name" = "Nom de liste de lecture déjà utilisé";
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limite atteinte pour les articles non triés";
 "reading-list-login-button-title" = "Connectez-vous pour synchroniser vos articles enregistrés";
 "reading-list-login-or-create-account-button-title" = "Se connecter ou créer un compte";
 "reading-list-login-or-create-account-title" = "Se connecter pour synchroniser les articles enregistrés";
@@ -355,11 +357,9 @@
 "reading-list-login-title" = "Synchroniser vos articles enregistrés ?";
 "reading-list-new-list-description-placeholder" = "courte description optionnelle";
 "reading-list-new-list-name-placeholder" = "lecture du titre de la liste";
-"reading-list-show-default-list-setting" = "Afficher la liste par défaut";
 "reading-list-sync-enable-button-title" = "Activer la synchronisation";
 "reading-list-sync-enable-subtitle" = "Vos articles enregistrés et vos listes de lecture peuvent maintenant être enregistrés sur votre compte Wikipédia et synchronisés entre appareils.";
 "reading-list-sync-enable-title" = "Activer la synchronisation des listes de lecture ?";
-"reading-list-sync-setting" = "Synchronisation de la liste de lecture";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Vous ne pouvez pas ajouter {{PLURAL:$1|cet article|ces articles}} à « $2 » parce qu’il y a une limite au nombre d’articles que vous pouvez avoir dans une liste de lecture.";
 "reading-list-unable-to-add-entry" = "Une erreur inattendue s’est produite lors de l’ajout d’une entrée à votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-create" = "Une erreur inattendue s’est produite lors de la création de votre liste de lecture. Veuillez réessayer ultérieurement.";
@@ -369,8 +369,8 @@
 "reading-list-with-provided-name-not-found" = "Une liste de lecture nommée « $1 » n’a pas été trouvée. Assurez-vous que le nom est correct.";
 "reading-lists-article-added-confirmation" = "Article ajouté à « $1 »";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
-"reading-lists-default-list-description" = "Liste par défaut pour les articles enregistrés";
-"reading-lists-default-list-title" = "Favoris";
+"reading-lists-default-list-description" = "Liste par défaut pour vos articles enregistrés";
+"reading-lists-default-list-title" = "Enregistré";
 "reading-lists-delete-reading-list-alert-message" = "Cette action ne peut pas être annulée. Tout article enregistré uniquement dans {{PLURAL:$1|cette liste|ces listes}} ne sera pas enregistré.";
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";
@@ -429,6 +429,16 @@
 "settings-notifications-trending" = "Tendance des événements actuels";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez pour synchroniser";
+"settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Effacer";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, de la même façon que de cet appareil.\n\nEffacer vos articles enregistrés libérera environ 364,4 Mo d’espace.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Effacer les articles enregistrés";
+"settings-storage-and-syncing-server-sync-footer-text" = "Demander une synchronisation pour le serveur pour une mise à jour de vos articles et de vos listes de lecture synchronisés";
+"settings-storage-and-syncing-server-sync-title" = "Synchroniser avec le serveur";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Afficher la liste de lecture Sauvegardés (par ex. défaut) comme une liste séparée dans la vue de vos listes de lecture. Cette liste apparaît sur les appareils Android";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Afficher la liste de lecture Sauvegardés";
+"settings-storage-and-syncing-title" = "Stockage des articles enregistrés et synchronisation";
 "settings-support" = "Soutenir Wikipédia";
 "settings-title" = "Paramètres";
 "share-a-fact-made-with" = "Fait avec l’application Wikipédia";

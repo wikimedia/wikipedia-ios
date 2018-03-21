@@ -22,6 +22,7 @@
 "about-repositories-app-source-license" = "स्रोतकोड $1 मातहत उपलब्ध";
 "about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "अनुप्रयोगबारे प्रतिक्रिया पठाउनुहोस्";
+"about-testers" = "परीक्षणकर्ताहरू";
 "about-title" = "बारेमा";
 "about-translators" = "अनुवादकहरू";
 "about-wikimedia-foundation" = "विकिमिडिया फाउन्डेसन";
@@ -91,18 +92,25 @@
 "field-password-title" = "पासवर्ड";
 "field-username-title" = "प्रयोगकर्ताको नाम";
 "find-in-page-button-label" = "पानामा खोज्नुहोस्";
+"find-in-page-number-matches" = "$1 / $2";
+"forgot-password-username-or-email-title" = "अथवा";
+"gfdl" = "GFDL";
 "history-clear-all" = "खाली गर्नुहोस्";
 "history-clear-cancel" = "रद्द गर्नुहोस्";
 "history-clear-delete-all" = "हो, सबै मेट्नुहोस्";
 "history-title" = "ईतिहास";
 "hockeyapp-alert-always-send" = "सधैँ पठाउनुहोस्";
+"hockeyapp-alert-do-not-send" = "नपठाउने";
+"hockeyapp-alert-send-report" = "प्रतिवेदन पठाउनुहोस्";
 "hockeyapp-alert-title" = "माफ गर्नुहोस्, अनुप्रयोग पछिल्लो पटक क्र्यास भयो";
 "home-hide-suggestion-cancel" = "रद्द गर्नुहोस्";
+"home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-location-footer" = "नजिकै थप $1";
 "home-news-footer" = "समचारमा थप";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
 "icon-shortcut-continue-reading-title" = "पढ्ने कार्य जारी राख्नुहोस्";
+"icon-shortcut-nearby-title" = "नजिकैका लेखहरू";
 "icon-shortcut-random-title" = "कुनै लेख";
 "icon-shortcut-search-title" = "विकिपिडियामा खोज्नुहोस्";
 "image-gallery-unknown-owner" = "अज्ञात लेखक।";
@@ -116,6 +124,7 @@
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
 "license-footer-name" = "CC BY-SA 3.0";
+"login-join-wikipedia" = "विकिपिडियामा सहभागीहुनुहोस्।";
 "main-menu-about" = "विकिपिडिया अनुप्रयोगको बारेमा";
 "main-menu-account-login" = "लग इन";
 "main-menu-account-logout" = "लग आउट गर्नुहोस्";
@@ -186,6 +195,7 @@
 "preference-title-eventlogging-opt-in" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
 "rank-accessibility-label" = "नम्बर $1";
 "readers-accessibility-label" = "$1 को पाठकहरू";
+"reading-lists-default-list-title" = "सङ्ग्रह गरिएको";
 "reference-title" = "सन्दर्भ $1";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-clear-all" = "खाली गर्नुहोस्";
@@ -205,6 +215,7 @@
 "settings-title" = "सेटिङ्हरू";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-custom-menu-item" = "साझेदारी गर्नुहोस्...";
+"sort-by-title-action" = "शीर्षक";
 "status-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
 "status-saving-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्...";
 "table-of-contents-button-label" = "विषयसूची";
@@ -212,12 +223,14 @@
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";
 "table-of-contents-heading" = "सामग्रीहरू";
 "table-title-other" = "थप जानकारी";
+"theme-black-display-name" = "कालो";
 "theme-dark-display-name" = "गाढा";
 "theme-default-display-name" = "पूर्वनिर्धारित";
 "theme-sepia-display-name" = "सेपिया";
 "top-read-header-generic" = "विकिपिडिया";
 "top-read-header-with-language" = "$1 विकिपिडिया";
 "top-read-see-more" = "अरू धेरै धेरै पढिएकाहरू हेर्नुहोस्";
+"two-factor-login-continue" = "लग इन जारी राख्नुहोस् ।";
 "welcome-exploration-on-this-day-title" = "आजको दिनमा";
 "welcome-explore-continue-button" = "सुरु गर्नुहोस्";
 "welcome-explore-new-ways-title" = "अन्वेषण गर्ने नयाँ तरिका";
@@ -229,6 +242,8 @@
 // Fuzzy
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
+"wikitext-download-success" = "सामग्री लोड गरियो ।";
+"wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";
 "wikitext-upload-save-sign-in" = "लग इन";

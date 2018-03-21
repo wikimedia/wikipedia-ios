@@ -324,12 +324,14 @@
 "reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-do-not-keep-button-title" = "Не, избриши ги статиите од уредот";
-// Fuzzy
-"reading-list-exists-with-same-name" = "Веќе постои список за читање наречен „$1“";
+"reading-list-exists-with-same-name" = "Веќе постои список за читање со тоа име";
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
 "reading-list-keep-subtitle" = "Има статии усогласени со вашата сметка на Википедија. Дали сакате да ги задржите на овој уред откако ќе се одјавите?";
 "reading-list-keep-title" = "Да ги задржам зачуваните статии на уредот?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Подреди статии";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Достигната границата на неподредени статии";
 "reading-list-login-button-title" = "Најавете се за да ги усогласите зачуваните статии";
 "reading-list-login-or-create-account-button-title" = "Најава / направи сметка";
 "reading-list-login-or-create-account-title" = "Најавете се за да усогласите зачувани статии";
@@ -337,11 +339,9 @@
 "reading-list-login-title" = "Да ги усогласам зачуваните статии?";
 "reading-list-new-list-description-placeholder" = "краток опис (незад.)";
 "reading-list-new-list-name-placeholder" = "наслов на спис. за читање";
-"reading-list-show-default-list-setting" = "Прик. основен список";
 "reading-list-sync-enable-button-title" = "Овозможи усогласување";
 "reading-list-sync-enable-subtitle" = "Зачуваните статии и списоци за читање сега можат да се складираат во вашата сметка на Википедија и да се усогласат низ разни уреди.";
 "reading-list-sync-enable-title" = "Да го вклучам усогласувањето на списоците за читање?";
-"reading-list-sync-setting" = "Усогласи спис. за читање";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Не можеете да {{PLURAL:$1|ја додадете статијава|ги додадете статииве}} во „$2“ бидејќи ја достгнува границата на дозволени статии во списокот.";
 "reading-list-unable-to-add-entry" = "Се појави неочекувана грешка при додавањето на ставка во вашиот список за читање. Обидете се подоцна.";
 "reading-list-unable-to-create" = "Се појави неочекувана грешка при создавањето на список за читање. Обидете се подоцна.";
@@ -351,8 +351,8 @@
 "reading-list-with-provided-name-not-found" = "Не пронајдов список за читање наречен „$1“. Проверете дали името ви е исправно.";
 "reading-lists-article-added-confirmation" = "Статијата е додадена во „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
-"reading-lists-default-list-description" = "Стандарден список за зачувани статии";
-"reading-lists-default-list-title" = "Обележани";
+"reading-lists-default-list-description" = "Стандарден список за вашите зачувани статии";
+"reading-lists-default-list-title" = "Зачувани";
 "reading-lists-delete-reading-list-alert-message" = "Ова дејство е неповратно. Сите статии зачувани само во {{PLURAL:$1|овој список|овие списоци}} ќе бидат одзачувани.";
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";
@@ -411,6 +411,13 @@
 "settings-notifications-trending" = "Тековни настани";
 "settings-primary-language" = "Главен";
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Дозволи Викимедија да зачувува статии и списоци за читање во вашите кориснички нагодувања при најава на усогласувањето";
+"settings-storage-and-syncing-enable-sync-title" = "Усогласувај зачувани статии и списоци";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Избриши";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Избриши зачувани статии";
+"settings-storage-and-syncing-server-sync-title" = "Усогласи со опслужувачот";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Прикажи зачувани списоци за читање";
+"settings-storage-and-syncing-title" = "Складирање и усогласување на зачувани статии";
 "settings-support" = "Поддржете ја Википедија";
 "settings-title" = "Нагодувања";
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";

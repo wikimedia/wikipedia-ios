@@ -126,7 +126,7 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "rank-accessibility-label" = "نمبر$1";
-"reading-lists-default-list-title" = "کتاب نشان";
+"reading-lists-default-list-title" = "محفوظ";
 "reading-themes-controls-accessibility-dark-theme-button" = "ڳوڑھا تھیم، مرکزی خیال";
 "reference-title" = "حوالہ$1";
 "saved-all-articles-title" = "سارے مضمون";
@@ -145,6 +145,7 @@
 "settings-clear-cache-cancel" = "منسوخ";
 "settings-my-languages" = "میݙیاں زباناں";
 "settings-primary-language" = "ابتدائی";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "مٹاؤ";
 "settings-title" = "ترتیباں";
 "share-custom-menu-item" = "شیئر";
 "share-menu-item" = "شیئر۔۔۔";

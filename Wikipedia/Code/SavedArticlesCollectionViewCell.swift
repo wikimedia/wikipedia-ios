@@ -191,7 +191,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        isStatusViewHidden = article.isDownloaded
         isTagsViewHidden = tags.readingLists.count == 0
         
         if !isStatusViewHidden {

@@ -351,6 +351,9 @@
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados com a sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
 "reading-list-keep-title" = "Mantenha artigos salvados no dispositivo?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Foi atingido o limite de artigos não ordenados";
 "reading-list-login-button-title" = "Faça o login para sincronizar seus artigos salvos";
 "reading-list-login-or-create-account-button-title" = "Faça login ou crie uma conta";
 "reading-list-login-or-create-account-title" = "Faça o login para sincronizar artigos salvos";
@@ -358,11 +361,9 @@
 "reading-list-login-title" = "Sincronize seus artigos salvos?";
 "reading-list-new-list-description-placeholder" = "descrição curta opcional";
 "reading-list-new-list-name-placeholder" = "Título da lista de leitura";
-"reading-list-show-default-list-setting" = "Mostrar lista padrão";
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
 "reading-list-sync-enable-subtitle" = "Os artigos guardados e as listas de leitura agora podem ser guardados na sua conta Wikipedia e sincronizados entre dispositivos.";
 "reading-list-sync-enable-title" = "Deseja ativar a sincronização das listas de leitura?";
-"reading-list-sync-setting" = "Sincronização da lista de leitura";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "Não pode adicionar {{PLURAL:$1|este artigo|estes artigos}} a “$2”, porque há um limite para a quantidade de artigos que se pode ter numa lista de leitura.";
 "reading-list-unable-to-add-entry" = "Ocorreu um erro inesperado ao adicionar uma entrada à sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-create" = "Ocorreu um erro inesperado ao criar a sua lista de leitura. Por favor, tente novamente mais tarde.";
@@ -372,8 +373,8 @@
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
-"reading-lists-default-list-description" = "Lista padrão para os artigos guardados";
-"reading-lists-default-list-title" = "Favoritos";
+"reading-lists-default-list-description" = "Lista padrão para seus artigos salvos";
+"reading-lists-default-list-title" = "Salvo";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos salvados apenas {{PLURAL:$1|nesta lista|nestas listas}} não serão salvados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
@@ -432,6 +433,13 @@
 "settings-notifications-trending" = "Tendências atuais";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como o idioma principal para o aplicativo. Alterar esse idioma alterará o conteúdo diário (como o artigo em destaque) exibido no Explorar.";
+"settings-storage-and-syncing-enable-sync-title" = "Sincronizar artigos e listas salvas";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "A borração dos artigos guardados irá removê-los da sua conta de usuário se você tiver sincronização ativada e com este dispositivo.\n\nApagar seus artigos salvos liberará cerca de 364,4 MB de espaço.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos salvados";
+"settings-storage-and-syncing-server-sync-title" = "Sincronizar com o servidor";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar lista de leitura salvada";
+"settings-storage-and-syncing-title" = "Armazenamento e sincronização de artigos salvos";
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";

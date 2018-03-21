@@ -9,12 +9,14 @@
 // Author: Ebraminio
 // Author: Fatemi127
 // Author: Freshman404
+// Author: Hadi
 // Author: Hosseinblue
 // Author: Huji
 // Author: Ladsgroup
 // Author: Leyth
 // Author: Macofe
 // Author: Mahdiz
+// Author: Mardetanha
 // Author: Maspadana
 // Author: Namo
 // Author: Nemo bis
@@ -26,8 +28,8 @@
 // Author: درفش کاویانی
 
 "about-content-license" = "مجوز محتوی";
-"about-content-license-details" = "در غیراین صورت، محتوی تحت $1 در دسترس است.";
-"about-content-license-details-share-alike-license" = "مجوز کریتیو کامنز اشتراک‌گذاری یکجور";
+"about-content-license-details" = "در صورتی که حالت دیگری اعلام نشود،‌ محتوی تحت $1 در دسترس است.";
+"about-content-license-details-share-alike-license" = "مجوز کریتیو کامنز اشتراک‌گذاری یکسان";
 "about-contributors" = "مشارکت‌کنندگان";
 "about-libraries" = "کتابخانه‌های استفاده‌شده";
 "about-libraries-complete-list" = "فهرست کامل";
@@ -38,15 +40,15 @@
 "about-repositories-app-source-license" = "سورس کد تحت $1 در دسترس است.";
 "about-repositories-app-source-license-mit" = "مجوز ام‌‌آی‌تی";
 "about-send-feedback" = "فرستادن بازخورد برنامه";
-"about-testers" = "آزمایشگر";
+"about-testers" = "آزمایشگران";
 "about-testers-details" = "QA توسط $1 آزموده شد";
 "about-title" = "درباره";
 "about-translators" = "مترجم‌ها";
 "about-translators-details" = "این برنامه توسط مترجمان داوطلب در $1 ترجمه شده‌است";
 "about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "about-wikipedia" = "ویکی‌پدیا";
-"abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید. لطفاً بازگردید و تغییرش دهید.";
-"abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و قابل توجه به اینجا تعلق دارند.";
+"abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را منتشر کنید. لطفاً بازگردید و آن را تغییر دهید.";
+"abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و سرشناس به اینجا تعلق دارند.";
 "abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
 "abuse-filter-warning-blanking" = "خالی‌کردن مقاله‌ها یا هرز نگاره";
 "abuse-filter-warning-caps" = "نوشتن همه با حروف بزرگ";
@@ -82,6 +84,7 @@
 "action-unsave" = "ذخیره‌نشده";
 "action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
 "action-update" = "به‌روزرسانی";
+"add-articles-to-reading-list" = "افزودن «$1» به فهرست خواندن";
 "alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "پنهان‌سازی";
 "appearance-settings-adjust-text-sizing" = "تنظیم اندازه متن مقاله";
@@ -94,8 +97,7 @@
 "appearance-settings-theme-options" = "تنظیمات پوسته";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
-// Fuzzy
-"article-deleted-accessibility-notification" = "مقالهٔ حذف‌شده";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|مقالهٔ|مقاله‌های}} حذف‌شده";
 "article-languages-filter-placeholder" = "یافتن زبان";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-others" = "زبان‌های دیگر";
@@ -136,6 +138,8 @@
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "empty-no-history-title" = "تاریخچه‌ای برای مشاهده وجود ندارد";
+"empty-no-reading-lists-message" = "برای ساخت فهرستی از مقصدهای سفر، موضوعات دلخواه و چیزهای دیگر بر روی ‘+’ آبی بزنید";
+"empty-no-reading-lists-title" = "مرتب‌کردن مقاله‌های ذخیره‌شده و فهرست‌های خواندن";
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
@@ -216,6 +220,7 @@
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
 "home-nearby-location-footer" = "موارد نزدیک بیشتر به $1";
 "home-news-footer" = "موارد بیشتر در اخبار";
+"home-reading-list-prompt" = "مقاله‌های ذخیره‌شده شما اکنون می‌توانند در فهرست‌های خواندن مرتب شده و با دیگر دستگاه‌ها همسان‌سازی شود. برای ذخیره فهرست‌های خواندن در ترجیحات کاربری خود، وارد شوید.";
 "home-themes-action-title" = "مدیریت ترجیحات";
 "home-themes-prompt" = "با تنظیم ترجیحات مطالعه شامل اندازه متن و پوسته از بخش ابزار مقاله یا در تنظیمات کاربری می‌توانید تجریهٔ یک مطالعهٔ مطبوع داشته باشید.";
 "home-title" = "مرور";
@@ -331,7 +336,46 @@
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های استفاده";
 "rank-accessibility-label" = "عدد $1";
 "readers-accessibility-label" = "$1 خواننده";
-"reading-lists-default-list-title" = "بوکمارک‌ها";
+"reading-list-add-hint-title" = "“$1” به فهرست خواندن افزوده شود؟";
+"reading-list-add-saved-button-title" = "بله، اینها را به فهرست‌های خواندن من بیفزا";
+"reading-list-add-saved-subtitle" = "چند مقاله‌ در برنامه ویکی‌پدیای شما ذخیره شده است. آیا می‌خواهید آنها را نگه‌ داشته و با فهرست‌های خواندن در حساب کاربری شما همسان‌سازی شود؟";
+"reading-list-add-saved-title" = "مقاله‌های ذخیره‌شده یافت شد";
+"reading-list-api-error-entry-limit" = "این ورودی همسان‌سازی نشد زیرا شما به محدودیت تعداد ورودی‌ها در این فهرست رسیده‌اید.";
+"reading-list-api-error-generic" = "یک خطای غیرمنتظره در هنگام همسان‌سازی فهرست‌های خواندن شما روی داد.";
+"reading-list-api-error-list-limit" = "این فهرست همسان‌سازی نشد زیرا شما به محدودیت تعداد فهرست‌های همسان‌سازی‌شده رسیده‌اید.";
+"reading-list-deleted-accessibility-notification" = "فهرست خواندن حذف شد";
+"reading-list-do-not-keep-button-title" = "نه، مقاله‌ها را از دستگاه حذف کن";
+"reading-list-exists-with-same-name" = "نام فهرست خواندن از قبل وجود دارد";
+"reading-list-generic-error" = "یک خطای غیرمنتظره در هنگام بارگذاری فهرست‌های خواندن شما روی داد.";
+"reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
+"reading-list-keep-subtitle" = "چند مقاله همسان‌سازی‌شده در حساب کاربری ویکی‌پدیای شما وجود دارد. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
+"reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفا مقالاتتان را در فهرست‌ها مرتب کنید تا امکان همگام‌سازی مقالات مرتب‌نشده وجود داشته باشد.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "محدودیت انتخاب مقالات مرتب‌نشده";
+"reading-list-login-button-title" = "برای همسان‌سازی مقاله‌های ذخیره‌شده وارد شوید";
+"reading-list-login-or-create-account-button-title" = "ورود به سامانه یا ساخت حساب کاربری";
+"reading-list-login-or-create-account-title" = "برای همسان‌سازی داده‌های ذخیره‌شده وارد شوید";
+"reading-list-login-subtitle" = "برای همسان‌سازی مقالات ذخیره‌شده و فهرست‌های خواندن در دستگاه‌های دیگر و دخیره آنها در ترجیحات کاربری شما وارد حساب کاربری خود شده یا حساب کاربری بسازید.";
+"reading-list-login-title" = "مقالات ذخیره‌شده شما همسان‌سازی شود؟";
+"reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
+"reading-list-new-list-name-placeholder" = "عنوان فهرست خواندن";
+"reading-list-sync-enable-button-title" = "فعال‌کردن همسان‌سازی";
+"reading-list-sync-enable-subtitle" = "مقالات و لیست‌ها مطالعه شما اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره شده و با دیگر دستگاه‌ها همسان‌سازی شود.";
+"reading-list-sync-enable-title" = "همسان‌سازی فهرست خواندن فعال شود؟";
+"reading-list-unable-to-add-entries-due-to-list-limit" = "شما نمی‌توانید {{PLURAL:$1|this article|these articles}} را به “$2” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.";
+"reading-list-unable-to-add-entry" = "یک خطای غیرمنتظره هنگام افزودن یک ورودی به فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-create" = "یک خطای غیرمنتظره هنگام ساخت فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-delete" = "یک خطای غیرمنتظره هنگام حذف فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-remove-entry" = "یک خطای غیرمنتظره هنگام حذف یک ورودی از فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-unable-to-update" = "یک خطای غیرمنتظره هنگام به‌روزرسانی فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
+"reading-list-with-provided-name-not-found" = "فهرست خواندن با نام “$1” یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
+"reading-lists-article-added-confirmation" = "مقاله به “$1” افزوده شد.";
+"reading-lists-count" = "{{PLURAL:$1|$1 فهرست خواندن|$1 فهرست‌های خواندن}}";
+"reading-lists-default-list-description" = "فهرست پیش‌فرض برای مقاله‌های ذخیره‌شده";
+"reading-lists-default-list-title" = "ذخیره‌شده";
+"reading-lists-delete-reading-list-alert-message" = "این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در {{PLURAL:$1|این فهرست|این فهرست‌ها}} دخیره شده، به صورت دخیره‌ نشده خواهد ماند.";
+"reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فهرستt|فهرست‌ها}} حذف شود؟";
 "reading-themes-controls-accessibility-black-theme-button" = "تِم سیاه";
 "reading-themes-controls-accessibility-brightness-slider" = "لغزندهٔ درخشندگی";
 "reading-themes-controls-accessibility-dark-theme-button" = "پوسته تیره";
@@ -345,17 +389,20 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=این سال|سال پیش|$1 سال پیش}}";
 "relogin-failed-retry-login-button-title" = "برای ورود مجدد تلاش کنید";
 "relogin-failed-stay-logged-out-button-title" = "مرا از سامانه خارج کن";
+"relogin-failed-subtitle" = "ممکن است زمان ورود به سامانهٔ شما به پایان رسیده باشد یا ورود قبلی شما دیگر معتبر نباشد.";
+"relogin-failed-title" = "امکان ورود مجدد نیست";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "saved-all-articles-title" = "همهٔ مقالات";
 "saved-clear-all" = "پاک‌کردن";
+"saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
 "saved-pages-clear-cancel" = "لغو";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که همه موارد ذخیره‌شده را حذف کنید؟";
+"saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه مقاله‌های ذخیره‌شده را حذف کرده و آنها را از همه فهرست‌های خواندن پاک کنید؟";
 "saved-pages-clear-delete-all" = "بله، حذف همه";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-reading-lists-title" = "فهرست‌های خواندن";
 "saved-search-default-text" = "جستجو";
 "saved-title" = "ذخیره شد";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "عدم ذخیرهٔ {{PLURAL:$1|این مقاله آن را از فهرست خواندن حذف می‌کند|این مقالات آنها را از فهرست خواندن حذف می‌کند}}";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "عدم ذخیرهٔ {{PLURAL:$1|مقاله|مقالات}}؟";
 "search-button-accessibility-label" = "جستجوی ویکی‌پدیا";
 "search-did-you-mean" = "منظورتان «$1» بود؟";

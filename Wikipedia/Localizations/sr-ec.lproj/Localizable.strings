@@ -131,10 +131,10 @@
 "explore-randomizer" = "Случајан чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
 "feed-news-notification-text" = "Омогућите обавештења да будете обавештени од Википедије када чланак буде у трендинг у новостима";
-"field-alert-captcha-invalid" = "Неисправна CAPTCHA";
+"field-alert-captcha-invalid" = "Невалидна CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
-"field-alert-password-invalid" = "Неисправна лозинка";
-"field-alert-token-invalid" = "Неисправан код";
+"field-alert-password-invalid" = "Невалидна лозинка";
+"field-alert-token-invalid" = "Невалидан код";
 "field-alert-username-unavailable" = "Корисничко име није доступно";
 "field-backup-token-title" = "Резервни код";
 "field-captcha-placeholder" = "Текст CAPTCHA";
@@ -239,7 +239,7 @@
 "open-link-cancel" = "Откажи";
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
-"page-issues" = "Проблеми са страницом";
+"page-issues" = "Проблеми странице";
 "page-last-edited" = "Измењено пре $1 дана";
 "page-location" = "Погледај на мапи";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
@@ -289,6 +289,7 @@
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
 "rank-accessibility-label" = "Број: $1";
 "readers-accessibility-label" = "Читалаца: $1";
+// Fuzzy
 "reading-lists-default-list-title" = "Обележавачи";
 "reference-title" = "Референца $1";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";

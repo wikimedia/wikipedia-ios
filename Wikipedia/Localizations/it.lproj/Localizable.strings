@@ -310,11 +310,11 @@
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
-"reading-list-show-default-list-setting" = "Mostra elenco predefinito";
-"reading-list-sync-setting" = "Sincronizza elenco di lettura";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
-"reading-lists-default-list-title" = "Segnalibri";
+"reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
+"reading-lists-default-list-title" = "Salvato";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
@@ -354,6 +354,7 @@
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
+"settings-storage-and-syncing-server-sync-title" = "Sincronizza con il server";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto…";
