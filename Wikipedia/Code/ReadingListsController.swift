@@ -538,20 +538,6 @@ public class ReadingListsController: NSObject {
             DDLogError("Error removing all articles from default list: \(error)")
         }
     }
-    
-    @objc public func unsaveAllArticles(_ completion: @escaping () -> Void)  {
-        cancelSync {
-            assert(Thread.isMainThread)
-            let oldSyncState = self.syncState
-            var newSyncState = oldSyncState
-            newSyncState.insert(.needsLocalArticleClear)
-            guard newSyncState != oldSyncState else {
-                return
-            }
-            self.syncState = newSyncState
-            self.fullSync(completion)
-        }
-    }
 }
 
 extension WMFArticle {
