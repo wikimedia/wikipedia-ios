@@ -13,7 +13,16 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var singlePixelDimension: CGFloat = 0.5
     
-    private var displayType: ReadingListsDisplayType = .readingListsTab
+    private var displayType: ReadingListsDisplayType = .readingListsTab {
+        didSet {
+            guard oldValue != displayType else {
+                return
+            }
+            let isAddArticlesToReadingListDisplayType = displayType == .addArticlesToReadingList
+            isAlertIconHidden = isAddArticlesToReadingListDisplayType
+            isAlertLabelHidden = isAddArticlesToReadingListDisplayType
+        }
+    }
     
     private var alertType: AlertType = .none {
         didSet {
