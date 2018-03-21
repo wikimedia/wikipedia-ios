@@ -137,7 +137,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
         if displayType == .readingListsTab && articleCount > 0 {
-            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let articleCountLabelSize = articleCountLabel.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - articleCountLabelSize.width - layoutMargins.right
+            }
+            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
             articleCountLabel.isHidden = false
         } else {
