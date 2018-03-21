@@ -163,8 +163,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
-            if !isAlertIconHidden || isAlertLabelHidden {
-                origin.y += titleLabelFrame.layoutHeight(with: spacing)
+            if !isAlertIconHidden || !isAlertLabelHidden {
+                origin.y += (titleLabelFrame.layoutHeight(with: spacing) + spacing)
             }
         }
         
