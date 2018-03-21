@@ -266,7 +266,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 isAlertIconHidden = false
                 alertType = .listLimitExceeded(limit: listLimit)
             default:
-                break // test with list limit
+                break
             }
         }
     }
