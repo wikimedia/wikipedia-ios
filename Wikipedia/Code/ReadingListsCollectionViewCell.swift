@@ -13,16 +13,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var singlePixelDimension: CGFloat = 0.5
     
-    private var displayType: ReadingListsDisplayType = .readingListsTab {
-        didSet {
-            guard oldValue != displayType else {
-                return
-            }
-            let isAddArticlesToReadingListDisplayType = displayType == .addArticlesToReadingList
-            isAlertIconHidden = isAddArticlesToReadingListDisplayType
-            isAlertLabelHidden = isAddArticlesToReadingListDisplayType
-        }
-    }
+    private var displayType: ReadingListsDisplayType = .readingListsTab
     
     private var alertType: AlertType = .none {
         didSet {
@@ -295,6 +286,10 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             isAlertLabelHidden = true
             isAlertIconHidden = true
         }
+        
+        let isAddArticlesToReadingListDisplayType = displayType == .addArticlesToReadingList
+        isAlertIconHidden = isAddArticlesToReadingListDisplayType
+        isAlertLabelHidden = isAddArticlesToReadingListDisplayType
     }
     
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
