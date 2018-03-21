@@ -236,6 +236,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             }
             collectionViewAvailableWidth = availableWidth
             collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
+            collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
         return CGSize(width: size.width, height: height)
