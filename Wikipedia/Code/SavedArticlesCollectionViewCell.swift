@@ -207,8 +207,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isAlertIconHidden) {
-            let _ = alertIcon.wmf_preferredFrame(at: origin, fitting: alertIconDimension, alignedBy: articleSemanticContentAttribute, apply: apply)
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
             origin.x += alertIconDimension + spacing
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
         if (apply && !isAlertLabelHidden) {
