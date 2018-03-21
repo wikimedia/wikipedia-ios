@@ -22,12 +22,21 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVp-Ga-oZr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-7Q-j2P">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="250" constant="60" id="Z3Z-po-wGW"/>
+                                </constraints>
+                            </containerView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="leading" secondItem="GCG-ME-1AZ" secondAttribute="leading" id="7h6-U1-pjA"/>
+                            <constraint firstItem="SMV-D9-nEr" firstAttribute="trailing" secondItem="gPn-7Q-j2P" secondAttribute="trailing" id="MVz-ZF-wM8"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="top" secondItem="GCG-ME-1AZ" secondAttribute="top" id="MpS-JC-IqE"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="bottom" secondItem="GCG-ME-1AZ" secondAttribute="bottom" id="TG1-Qj-s0g"/>
                             <constraint firstItem="hVp-Ga-oZr" firstAttribute="trailing" secondItem="GCG-ME-1AZ" secondAttribute="trailing" id="bM8-Ed-1rk"/>
+                            <constraint firstItem="SMV-D9-nEr" firstAttribute="bottom" secondItem="gPn-7Q-j2P" secondAttribute="bottom" id="eiv-L8-05c"/>
+                            <constraint firstItem="gPn-7Q-j2P" firstAttribute="leading" secondItem="SMV-D9-nEr" secondAttribute="leading" id="u24-nI-9xL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SMV-D9-nEr"/>
                     </view>
@@ -39,6 +48,7 @@
                         <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="extendedNavBarView" destination="eby-nN-6Yg" id="VN4-EM-xv8"/>
+                        <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
                         <outlet property="separatorView" destination="YHx-oI-zV4" id="I7m-6y-sIv"/>
