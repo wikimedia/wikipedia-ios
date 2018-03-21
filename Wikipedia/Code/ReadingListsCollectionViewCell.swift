@@ -185,8 +185,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
 
         if displayType == .readingListsTab && isDefault {
+            let defaultListTagSize = defaultListTag.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - defaultListTagSize.width - layoutMargins.right
+            }
             origin.y += spacing
-            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: origin, fitting: defaultListTag.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += defaultListTagFrame.layoutHeight(with: spacing)
             defaultListTag.isHidden = false
         } else {
