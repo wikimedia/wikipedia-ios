@@ -66,22 +66,6 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Vous ne pouvez pas ajouter cet article à « %2$@ » parce qu’il y a une limite au nombre d’articles que vous pouvez avoir dans une liste de lecture.</string>
-			<key>other</key>
-			<string>Vous ne pouvez pas ajouter ces articles à « %2$@ » parce qu’il y a une limite au nombre d’articles que vous pouvez avoir dans une liste de lecture.</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

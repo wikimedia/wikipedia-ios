@@ -96,7 +96,7 @@
                 }
                 
                 if (data.readingListsConfigMaxListsPerUser != nil) {
-                    moc.wmf_readingListsConfigMaxListsPerUser = data.readingListsConfigMaxListsPerUser;
+                    moc.wmf_readingListsConfigMaxListsPerUser = [data.readingListsConfigMaxListsPerUser intValue];
                 }
                 
                 [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
