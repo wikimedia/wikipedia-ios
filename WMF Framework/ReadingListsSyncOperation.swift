@@ -661,6 +661,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         let group = WMFTaskGroup()
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
+        var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
         var entryCount = 0
         var articlesByKey: [String: WMFArticle] = [:]
@@ -674,6 +675,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry
+                guard !requestedArticleKeys.contains(articleKey) else {
+                    return
+                }
+                requestedArticleKeys.insert(articleKey)
                 if let article = dataStore.fetchArticle(withKey: articleKey, in: moc) {
                     articlesByKey[articleKey] = article
                 } else {
