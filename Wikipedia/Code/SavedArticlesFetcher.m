@@ -94,6 +94,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.includesSubentities = NO;
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
     NSError *fetchError = nil;
     NSUInteger count = [moc countForFetchRequest:request error:&fetchError];
