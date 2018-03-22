@@ -42,8 +42,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
             case .genericNotSynced:
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
-            default:
-                break
+            case .downloading:
+                alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
             }
             
             alertLabel.text = alertLabelText
