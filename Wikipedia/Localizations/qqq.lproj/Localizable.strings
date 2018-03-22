@@ -350,6 +350,7 @@
 "reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-article-queued-to-be-downloaded" = "Text of the alert label informing the user that article is queued to be downloaded.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
