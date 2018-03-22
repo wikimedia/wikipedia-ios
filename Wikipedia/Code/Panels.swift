@@ -107,6 +107,7 @@ extension UIViewController {
     
     @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel(),
+            WMFAuthenticationManager.sharedInstance.isLoggedIn,
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncRemotelyEnabled,
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
