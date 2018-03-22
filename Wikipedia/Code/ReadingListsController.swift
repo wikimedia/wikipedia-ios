@@ -230,7 +230,7 @@ public class ReadingListsController: NSObject {
             return
         }
 
-        let existingKeys = Set(readingList.articleKeys)
+        var existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
             guard let key = article.key, !existingKeys.contains(key) else {
@@ -239,6 +239,7 @@ public class ReadingListsController: NSObject {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
                 return
             }
+            existingKeys.insert(key)
             entry.createdDate = NSDate()
             entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true

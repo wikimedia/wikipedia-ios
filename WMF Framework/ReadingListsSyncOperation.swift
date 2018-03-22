@@ -661,7 +661,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         let group = WMFTaskGroup()
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
-        var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
         var entryCount = 0
         var articlesByKey: [String: WMFArticle] = [:]
@@ -675,10 +674,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry
-                guard !requestedArticleKeys.contains(articleKey) else {
-                    return
-                }
-                requestedArticleKeys.insert(articleKey)
                 if let article = dataStore.fetchArticle(withKey: articleKey, in: moc) {
                     articlesByKey[articleKey] = article
                 } else {
@@ -754,21 +749,23 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 
-                guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
-                    return
-                }
-                entry.update(with: remoteEntry)
-                if entry.createdDate == nil {
-                    entry.createdDate = NSDate()
-                }
-                if entry.updatedDate == nil {
-                    entry.updatedDate = entry.createdDate
-                }
-                entry.list = readingList
-                entry.articleKey = article.key
-                entry.displayTitle = article.displayTitle
-                if article.savedDate == nil {
-                    article.savedDate = entry.createdDate as Date?
+                if !readingList.articleKeys.contains(articleKey) {
+                    guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
+                        return
+                    }
+                    entry.update(with: remoteEntry)
+                    if entry.createdDate == nil {
+                        entry.createdDate = NSDate()
+                    }
+                    if entry.updatedDate == nil {
+                        entry.updatedDate = entry.createdDate
+                    }
+                    entry.list = readingList
+                    entry.articleKey = article.key
+                    entry.displayTitle = article.displayTitle
+                    if article.savedDate == nil {
+                        article.savedDate = entry.createdDate as Date?
+                    }
                 }
                 updatedLists.insert(readingList)
             }
