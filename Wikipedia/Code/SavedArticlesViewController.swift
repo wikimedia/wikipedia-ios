@@ -184,22 +184,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
-    
-    // MARK: - Clear Saved Articles
-    
-    @objc func clear(_ completion: @escaping () -> Void) {
-        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved articles and remove them from all reading lists?", comment: "Heading text of delete all confirmation dialog")
-        let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
-        let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
-        let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: { (action) in
-            completion()
-        }))
-        sheet.addAction(UIAlertAction(title: clearConfirm, style: .destructive, handler: { (action) in
-            self.dataStore.readingListsController.unsaveAllArticles(completion)
-        }))
-        present(sheet, animated: true, completion: nil)
-    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
