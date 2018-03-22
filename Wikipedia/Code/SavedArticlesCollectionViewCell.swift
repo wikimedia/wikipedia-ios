@@ -300,8 +300,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         isTagsViewHidden = tags.readingLists.count == 0
         
-        if !isStatusViewHidden {
-            statusView.backgroundColor = theme.colors.warning
+        isStatusViewHidden = article.isDownloaded
+        if alertType == nil {
+            isAlertLabelHidden = article.isDownloaded
+            alertType = .downloading
         }
         
         if shouldShowSeparators {
