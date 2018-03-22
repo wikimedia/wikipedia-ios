@@ -91,6 +91,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 // Reminder: due to the internal structure of this class and how it is presently being used, we can't simply check the 'count' of 'fetchOperationsByArticleTitle' dictionary for the total. (It doesn't reflect the actual total.) Could re-plumb this class later.
 - (NSUInteger)calculateTotalArticlesToFetchCount {
+    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
