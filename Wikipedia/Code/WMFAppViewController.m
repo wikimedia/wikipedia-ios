@@ -1060,11 +1060,15 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
-        
-        SavedArticlesFetcherProgressManager* savedArticlesProgressManager = [SavedArticlesFetcherProgressManager shared];
-        savedArticlesProgressManager.fetcher = _savedArticlesFetcher;
+            [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _savedArticlesFetcher;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
+        [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
+    }
 }
 
 - (WMFNotificationsController *)notificationsController {
