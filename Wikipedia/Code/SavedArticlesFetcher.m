@@ -1,4 +1,3 @@
-#import "SavedArticlesFetcher_Testing.h"
 @import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
@@ -16,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
-@property (nonatomic, strong) MWKSavedPageList *savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
@@ -30,16 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSNumber *fetchesInProcessCount;
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                    savedPageList:(MWKSavedPageList *)savedPageList
-                   articleFetcher:(WMFArticleFetcher *)articleFetcher
-                  imageController:(WMFImageController *)imageController
-                 imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher NS_DESIGNATED_INITIALIZER;
 @end
 
 @implementation SavedArticlesFetcher
-
-@dynamic fetchFinishedDelegate;
 
 #pragma mark - NSObject
 
@@ -50,12 +41,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                    savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
-    NSParameterAssert(savedPageList);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
     NSParameterAssert(imageInfoFetcher);
@@ -71,17 +60,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.dataStore = dataStore;
         self.articleFetcher = articleFetcher;
         self.imageController = imageController;
-        self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
     }
     return self;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
-                    savedPageList:(MWKSavedPageList *)savedPageList {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     return [self initWithDataStore:dataStore
-                     savedPageList:savedPageList
                     articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
@@ -456,10 +442,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             DDLogError(@"Error saving after saved articles fetch: %@", saveError);
         }
     }
-    [self.fetchFinishedDelegate savedArticlesFetcher:self
-                                         didFetchURL:url
-                                             article:fetchedArticle
-                                               error:error];
 }
 
 /// Only invoke within accessQueue
