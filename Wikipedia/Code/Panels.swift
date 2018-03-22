@@ -127,6 +127,7 @@ extension UIViewController {
         
         present(panelVC, with: theme, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
+            SessionSingleton.sharedInstance().dataStore.readingListsController.didAttemptSyncCompletion = nil
         })
     }
     
