@@ -364,11 +364,7 @@
 "relogin-failed-title" = "Unable to re-establish log in";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "saved-all-articles-title" = "All articles";
-"saved-clear-all" = "Clear";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
-"saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved articles and remove them from all reading lists?";
-"saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
@@ -405,6 +401,8 @@
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync";
 "settings-storage-and-syncing-enable-sync-title" = "Sync saved articles and lists";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Erase all saved articles?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";

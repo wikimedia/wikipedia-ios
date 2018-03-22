@@ -364,11 +364,7 @@
 "relogin-failed-title" = "Title for letting user know they are no longer logged in.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
-"saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
-"saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
-"saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
-"saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved";
@@ -405,6 +401,8 @@
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Title of the alert shown before erasing all saved article.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
