@@ -374,6 +374,11 @@
 		B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */; };
 		B01CFC5F1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
 		B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC601E71069000B3546A /* String?+WMFExtras.swift */; };
+		B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
+		B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
+		B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
+		B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
+		B01E54B3206479CC00374FEE /* ProgressContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01E54AE206479CC00374FEE /* ProgressContainer.swift */; };
 		B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */; };
 		B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */; };
 		B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */; };
@@ -3300,6 +3305,7 @@
 		B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+SubviewVerification.swift"; sourceTree = "<group>"; };
 		B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDeleteBackwardReportingTextField.swift; path = Wikipedia/Code/WMFDeleteBackwardReportingTextField.swift; sourceTree = SOURCE_ROOT; };
 		B01CFC601E71069000B3546A /* String?+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String?+WMFExtras.swift"; path = "Wikipedia/Code/String?+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
+		B01E54AE206479CC00374FEE /* ProgressContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressContainer.swift; sourceTree = "<group>"; };
 		B01EA07D2022856200813726 /* ScrollableEducationPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollableEducationPanelView.xib; sourceTree = "<group>"; };
 		B02376B21D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFDynamicHeightPopoverMessage.h"; sourceTree = "<group>"; };
 		B02376B31D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMFDynamicHeightPopoverMessage.m"; sourceTree = "<group>"; };
@@ -7226,6 +7232,7 @@
 				B0E8064E1C0CE84B0065EBC0 /* SavedArticlesFetcher.h */,
 				B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */,
 				B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */,
+				B01E54AE206479CC00374FEE /* ProgressContainer.swift */,
 			);
 			name = Fetchers;
 			sourceTree = "<group>";
@@ -9871,6 +9878,7 @@
 				B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */,
 				830D71C31F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
+				B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				B0CD9DDC1F70997300051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
@@ -10381,6 +10389,7 @@
 				D80ED34D1EE57F4800CE8C50 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D80ED34E1EE57F4800CE8C50 /* PaddedLabel.m in Sources */,
+				B01E54B3206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D80ED34F1EE57F4800CE8C50 /* WMFReferencePageViewController.swift in Sources */,
 				D80ED3501EE57F4800CE8C50 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				D850A53E1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -10826,6 +10835,7 @@
 				D8A42A5C1E815A9C00D8E281 /* WMFArticleResponseSerializer.m in Sources */,
 				D84DAA141EEEF527008E4B18 /* HexColors.m in Sources */,
 				830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */,
+				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8A42A5D1E815A9C00D8E281 /* EditSummaryViewController.m in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
@@ -11336,6 +11346,7 @@
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8CE25B21E698E2400DAE2E0 /* PaddedLabel.m in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
 				D8CE25B51E698E2400DAE2E0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
@@ -11656,6 +11667,7 @@
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8EC3EAF1E9BDA35006712EB /* PaddedLabel.m in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
 				D8EC3EB21E9BDA35006712EB /* WMFSearchResults+ResponseSerializer.m in Sources */,
