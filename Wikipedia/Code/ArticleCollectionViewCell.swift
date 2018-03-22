@@ -15,9 +15,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
-    private var alertIcon = UIImageView()
-    private var alertLabel = UILabel()
-    public var statusView = UIImageView()
+    public var alertIcon = UIImageView()
+    public var alertLabel = UILabel()
+    public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     public var actions: [Action] {
         set {
@@ -80,12 +80,16 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         spacing = 5
         imageViewDimension = 70
         statusViewDimension = 6
+        alertIconDimension = 12
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
         isBatchEditing = false
         isBatchEditable = false
         actions = []
+        isAlertLabelHidden = true
+        isAlertIconHidden = true
+        isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
 
@@ -96,6 +100,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         extractLabel?.backgroundColor = labelBackgroundColor
         saveButton.backgroundColor = labelBackgroundColor
         saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        alertIcon.backgroundColor = labelBackgroundColor
+        alertLabel.backgroundColor = labelBackgroundColor
     }
     
     deinit {
@@ -126,14 +132,29 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    public final var alertIconDimension: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     public var isStatusViewHidden: Bool = true {
         didSet {
+            statusView.isHidden = isStatusViewHidden
             setNeedsLayout()
         }
     }
     
     public var isAlertLabelHidden: Bool = true {
         didSet {
+            alertLabel.isHidden = isAlertLabelHidden
+            setNeedsLayout()
+        }
+    }
+    
+    public var isAlertIconHidden: Bool = true {
+        didSet {
+            alertIcon.isHidden = isAlertIconHidden
             setNeedsLayout()
         }
     }
@@ -194,6 +215,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         descriptionLabel.setFont(with:descriptionFontFamily, style: descriptionTextStyle, traitCollection: traitCollection)
         extractLabel?.setFont(with:extractFontFamily, style: extractTextStyle, traitCollection: traitCollection)
         saveButton.titleLabel?.setFont(with:saveButtonFontFamily, style: saveButtonTextStyle, traitCollection: traitCollection)
+        alertLabel.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
     }
     
     // MARK - Semantic content

@@ -66,22 +66,6 @@
 			<string>%1$d مقاله</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>شما نمی‌توانید this article را به “%2$@” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.</string>
-			<key>other</key>
-			<string>شما نمی‌توانید these articles را به “%2$@” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
