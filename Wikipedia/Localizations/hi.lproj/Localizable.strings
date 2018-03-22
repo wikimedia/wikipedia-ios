@@ -340,11 +340,6 @@
 "relogin-failed-subtitle" = "आपका सत्र समाप्त हो चूका है या पिछले लॉग इन क्रेडेंशियल्स अब मान्य नहीं हैं";
 "relogin-failed-title" = "लॉग इन को पुन: स्थापित करने में असमर्थ";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
-"saved-clear-all" = "साफ़ करें";
-"saved-pages-clear-cancel" = "रद्द करें";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "क्या आप वास्तव में अपने सभी सहेजे गए पेजों को मिटाना चाहते हैं?";
-"saved-pages-clear-delete-all" = "हाँ, सभी मिटायें";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
 "saved-title" = "सहेजा गया";
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";

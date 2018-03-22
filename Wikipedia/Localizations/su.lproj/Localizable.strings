@@ -309,11 +309,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Cik kénéh|$1 menit kaliwat|$1 menit kaliwat}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
 "request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
-"saved-clear-all" = "Bersihkeun";
-"saved-pages-clear-cancel" = "Bolay";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh kaca kasimpen anjeun?";
-"saved-pages-clear-delete-all" = "Nya, hapus sadayana";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";
 "saved-title" = "Kasimpen";
 "search-button-accessibility-label" = "Paluruh Wikipédia";

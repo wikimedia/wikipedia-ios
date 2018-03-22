@@ -196,11 +196,6 @@
 "places-title" = "နေရာများ";
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
-"saved-clear-all" = "ရှင်းလင်း";
-"saved-pages-clear-cancel" = "မလုပ်တော့ပါ";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "သိမ်းဆည်းထားသော စာမျက်နှာများအားလုံး ဖျက်ပစ်ရန် သေချာပါသလား?";
-"saved-pages-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "saved-title" = "သိမ်းဆည်းပြီး";
 "search-button-accessibility-label" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "search-did-you-mean" = "$1 ဟု ဆိုလိုပါသလား?";

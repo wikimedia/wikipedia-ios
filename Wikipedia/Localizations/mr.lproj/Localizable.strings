@@ -176,11 +176,6 @@
 "reading-lists-article-added-confirmation" = "$1 येथे लेख जोडला आहे";
 "reading-lists-delete-reading-list-alert-title" = "काढून टाका {{PLURAL:$1|यादी|याद्या}}?";
 "reference-title" = "संदर्भ $1";
-"saved-clear-all" = "स्वच्छ करा";
-"saved-pages-clear-cancel" = "रद्द करा";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "आपण नक्की करता काय कि आपली जतन केलेली सर्व पाने वगळावयाची आहेत?";
-"saved-pages-clear-delete-all" = "होय,सर्व वगळा";
 "saved-pages-image-download-error" = "या जतन केलेल्या पानासाठीच्या संचिका अधिभारण अयशस्वी";
 "saved-title" = "जतन केले";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "साठवू नका {{PLURAL:$1|लेख|लेख}}?";

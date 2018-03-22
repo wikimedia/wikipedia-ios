@@ -390,11 +390,7 @@
 "relogin-failed-title" = "Impossible de rétablir la connexion";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "saved-all-articles-title" = "Tous les articles";
-"saved-clear-all" = "Effacer";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
-"saved-pages-clear-cancel" = "Annuler";
-"saved-pages-clear-confirmation-heading" = "Êtes-vous sûr de vouloir supprimer tous vos articles enregistrés et les enlever de toutes les listes de lecture ?";
-"saved-pages-clear-delete-all" = "Oui, supprimer tout";
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
 "saved-reading-lists-title" = "Listes de lecture";
 "saved-search-default-text" = "Rechercher";
