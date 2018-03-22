@@ -79,8 +79,11 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    private var alertType: AlertType = .none {
+    private var alertType: AlertType? {
         didSet {
+            guard let alertType = alertType else {
+                return
+            }
             switch alertType {
             case .listLimitExceeded(let limit):
                 let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
