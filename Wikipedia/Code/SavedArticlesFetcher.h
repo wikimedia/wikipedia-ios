@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SavedArticlesFetcher : FetcherBase
+@interface SavedArticlesFetcher : FetcherBase <NSProgressReporting>
+
+@property (nonatomic, strong) NSProgress *progress;
 
 @property (nonatomic, strong, readonly) NSNumber *fetchesInProcessCount;
 

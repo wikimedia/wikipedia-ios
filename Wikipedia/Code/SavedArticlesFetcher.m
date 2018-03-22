@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSNumber *fetchesInProcessCount;
 
+@property (nonatomic, strong) SavedArticlesFetcherProgressManager *savedArticlesFetcherProgressManager;
+
 @end
 
 @implementation SavedArticlesFetcher
@@ -62,6 +64,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         self.imageController = imageController;
         self.imageInfoFetcher = imageInfoFetcher;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
+        self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
     }
     return self;
 }
