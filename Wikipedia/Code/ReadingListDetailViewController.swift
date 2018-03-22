@@ -69,7 +69,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
+        readingListDetailExtendedViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -111,7 +111,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        readingListDetailExtendedViewController.isHidden = isEmpty
         if isEmpty {
             navigationBar.removeExtendedNavigationBarView()
         } else {
@@ -347,6 +346,7 @@ extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {}
 
 extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        readingListDetailExtendedViewController.reconfigureAlert(for: readingList)
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
@@ -425,13 +425,8 @@ extension ReadingListDetailViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
+        cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
-        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-            // placeholder for now, this should be a separate label or button
-            cell.descriptionLabel.text = error.localizedDescription
-            cell.descriptionLabel.textColor = theme.colors.error
-        }
         
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true

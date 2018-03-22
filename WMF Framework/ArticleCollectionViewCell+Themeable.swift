@@ -8,6 +8,9 @@ extension ArticleCollectionViewCell: Themeable {
         extractLabel?.textColor = theme.colors.primaryText
         saveButton.setTitleColor(theme.colors.link, for: .normal)
         imageView.alpha = theme.imageOpacity
+        statusView.backgroundColor = theme.colors.warning
+        alertIcon.tintColor = theme.colors.error
+        alertLabel.textColor = theme.colors.error
         actionsView.apply(theme: theme)
         batchEditSelectView?.apply(theme: theme)
         updateSelectedOrHighlighted()
