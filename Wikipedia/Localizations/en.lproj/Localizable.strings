@@ -316,6 +316,9 @@
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
+"reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
+"reading-list-entry-limit-exceeded-title" = "You have exceeded the limit of $1 articles per account.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Article|Articles}} cannot be added to this list. You have reached the limit of $2 articles per reading list for $3";
 "reading-list-exists-with-same-name" = "Reading list name already in use";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
@@ -324,6 +327,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sort articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Limit hit for unsorted articles";
+"reading-list-list-limit-exceeded-message" = "This reading list and the articles saved to it will not be synced, please decrease your number of lists to $1 to resume syncing of this list.";
+"reading-list-list-limit-exceeded-title" = "You have exceeded the limit of $1 reading lists per account.";
+"reading-list-list-limit-reached" = "You have reached the limit of $1 reading lists per account";
 "reading-list-login-button-title" = "Log in to sync your saved articles";
 "reading-list-login-or-create-account-button-title" = "Log in or create account";
 "reading-list-login-or-create-account-title" = "Log in to sync saved articles";
@@ -334,7 +340,6 @@
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across devices.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "You cannot add {{PLURAL:$1|this article|these articles}} to “$2” because there is a limit to the number of articles you can have in a reading list.";
 "reading-list-unable-to-add-entry" = "An unexpected error occurred while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occurred while creating your reading list. Please try again later.";
 "reading-list-unable-to-delete" = "An unexpected error occurred while deleting your reading list. Please try again later.";
@@ -342,11 +347,16 @@
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
 "reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-not-synced" = "Not synced";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
+"reading-lists-article-not-synced-list-limit-exceeded" = "List limit exceeded, unable to sync article";
+"reading-lists-articles-not-synced-limit-exceeded" = "Some articles not synced, limit exceeded";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for your saved articles";
 "reading-lists-default-list-title" = "Saved";
 "reading-lists-delete-reading-list-alert-message" = "This action cannot be undone. Any articles saved only to {{PLURAL:$1|this list|these lists}} will be unsaved.";
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
@@ -364,11 +374,7 @@
 "relogin-failed-title" = "Unable to re-establish log in";
 "request-feedback-on-error" = "The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.";
 "saved-all-articles-title" = "All articles";
-"saved-clear-all" = "Clear";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
-"saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved articles and remove them from all reading lists?";
-"saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 "saved-pages-progress-syncing" = "Article syncing in progress...";
 "saved-reading-lists-title" = "Reading lists";

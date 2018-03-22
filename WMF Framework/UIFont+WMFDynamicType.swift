@@ -145,6 +145,20 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .medium: 16,
                 .small: 15,
                 .extraSmall: 14
+            ],
+            UIFontTextStyle.caption2: [
+                .accessibilityExtraExtraExtraLarge: 17,
+                .accessibilityExtraExtraLarge: 17,
+                .accessibilityExtraLarge: 17,
+                .accessibilityLarge: 17,
+                .accessibilityMedium: 17,
+                .extraExtraExtraLarge: 17,
+                .extraExtraLarge: 15,
+                .extraLarge: 13,
+                .large: 11,
+                .medium: 10,
+                .small: 9,
+                .extraSmall: 9
             ]
         ],
         .systemBold: [
