@@ -391,6 +391,8 @@ public class ReadingListsController: NSObject {
         NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
+    @objc public var didAttemptSyncCompletion: (() -> Void)?
+    
     @objc public func start() {
         guard updateTimer == nil else {
             return
@@ -446,6 +448,11 @@ public class ReadingListsController: NSObject {
     @objc private func _sync() {
         let sync = ReadingListsSyncOperation(readingListsController: self)
         addOperation(sync)
+        if let completion = didAttemptSyncCompletion {
+            operationQueue.addOperation {
+                DispatchQueue.main.async(execute: completion)
+            }
+        }
     }
     
     @objc private func _syncIfNotSyncing() {
