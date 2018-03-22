@@ -754,24 +754,23 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 
-                if !readingList.articleKeys.contains(articleKey) {
-                    guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
-                        return
-                    }
-                    entry.update(with: remoteEntry)
-                    if entry.createdDate == nil {
-                        entry.createdDate = NSDate()
-                    }
-                    if entry.updatedDate == nil {
-                        entry.updatedDate = entry.createdDate
-                    }
-                    entry.list = readingList
-                    entry.articleKey = article.key
-                    entry.displayTitle = article.displayTitle
-                    if article.savedDate == nil {
-                        article.savedDate = entry.createdDate as Date?
-                    }
+                guard let entry = NSEntityDescription.insertNewObject(forEntityName: "ReadingListEntry", into: moc) as? ReadingListEntry else {
+                    return
                 }
+                entry.update(with: remoteEntry)
+                if entry.createdDate == nil {
+                    entry.createdDate = NSDate()
+                }
+                if entry.updatedDate == nil {
+                    entry.updatedDate = entry.createdDate
+                }
+                entry.list = readingList
+                entry.articleKey = article.key
+                entry.displayTitle = article.displayTitle
+                if article.savedDate == nil {
+                    article.savedDate = entry.createdDate as Date?
+                }
+                
                 updatedLists.insert(readingList)
             }
         }
@@ -894,9 +893,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var entriesToDelete: [ReadingListEntry] = []
         for (readingListID, readingListEntriesByKey) in remoteReadingListEntriesByReadingListID {
             try autoreleasepool {
-                let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-                localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@ && isDeletedLocally != YES", NSNumber(value: readingListID)) // this is != YES instead of == NO to match NULL values as well
-                let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
+
+                let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                localReadingListsFetch.predicate = NSPredicate(format: "readingListID == %@", NSNumber(value: readingListID))
+                let localReadingLists = try moc.fetch(localReadingListsFetch)
+                let localReadingListEntries = localReadingLists.first?.entries?.filter { !$0.isDeletedLocally } ?? []
+                
                 var localEntriesMissingRemotely: [ReadingListEntry] = []
                 var remoteEntriesMissingLocally: [String: APIReadingListEntry] = readingListEntriesByKey
                 for localReadingListEntry in localReadingListEntries {
