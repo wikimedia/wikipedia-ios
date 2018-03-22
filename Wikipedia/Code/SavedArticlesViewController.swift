@@ -259,9 +259,16 @@ extension SavedArticlesViewController {
         guard let article = article(at: indexPath) else {
             return
         }
+        
+        if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
+            cell.configureAlert(for: entry, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
+        }
+        
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
+        
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.delegate = self
