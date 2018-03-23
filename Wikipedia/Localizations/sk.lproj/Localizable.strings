@@ -274,11 +274,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Práve teraz|Pred $1 minútou|Pred $1 minútami}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Minulý rok|Pred $1 rokmi}}";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
-"saved-clear-all" = "Vyčistiť";
-"saved-pages-clear-cancel" = "Zrušiť";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Naozaj chcete vymazať všetky uložené stránky?";
-"saved-pages-clear-delete-all" = "Áno, vymazať všetko";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
 "saved-title" = "Uložené";
 "search-button-accessibility-label" = "Hľadať";

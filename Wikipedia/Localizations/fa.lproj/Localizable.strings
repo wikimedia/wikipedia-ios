@@ -393,11 +393,7 @@
 "relogin-failed-title" = "امکان ورود مجدد نیست";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "saved-all-articles-title" = "همهٔ مقالات";
-"saved-clear-all" = "پاک‌کردن";
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
-"saved-pages-clear-cancel" = "لغو";
-"saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه مقاله‌های ذخیره‌شده را حذف کرده و آنها را از همه فهرست‌های خواندن پاک کنید؟";
-"saved-pages-clear-delete-all" = "بله، حذف همه";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-reading-lists-title" = "فهرست‌های خواندن";
 "saved-search-default-text" = "جستجو";

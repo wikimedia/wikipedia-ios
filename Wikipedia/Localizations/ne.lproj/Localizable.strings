@@ -198,9 +198,6 @@
 "reading-lists-default-list-title" = "सङ्ग्रह गरिएको";
 "reference-title" = "सन्दर्भ $1";
 "saved-all-articles-title" = "सबै लेखहरू";
-"saved-clear-all" = "खाली गर्नुहोस्";
-"saved-pages-clear-cancel" = "रद्द गर्नुहोस्";
-"saved-pages-clear-delete-all" = "हो, सबै मेट्नुहोस्";
 "saved-title" = "संग्रह गर्ने";
 "search-button-accessibility-label" = "विकिपिडियामा खोज्नुहोस्";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";

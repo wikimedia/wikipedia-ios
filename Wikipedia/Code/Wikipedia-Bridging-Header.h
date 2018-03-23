@@ -25,6 +25,7 @@
 #import "WMFChange.h"
 
 #import "WMFArticleFetcher.h"
+#import "SavedArticlesFetcher.h"
 
 // Model
 #import "MWKLicense.h"
