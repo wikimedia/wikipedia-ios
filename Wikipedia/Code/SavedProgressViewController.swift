@@ -27,11 +27,11 @@ class SavedProgressViewController: UIViewController, Themeable {
     
     private func beginProgressObservations(){
         // Observe any time a new Progress object is set. (NSProgress are not re-usable so you need to reset it if you're tracking a new progression)
-        progressObjectWasSetObservation = SavedArticlesFetcherProgressManager.shared.observe(\SavedArticlesFetcherProgressManager.progress, options: [.new, .initial]) { [weak self] (fetchProgressManager, change) in
-            self?.progressView.observedProgress = fetchProgressManager.progress
+        progressObjectWasSetObservation = ProgressContainer.shared.observe(\ProgressContainer.articleFetcherProgress, options: [.new, .initial]) { [weak self] (progressContainer, change) in
+            self?.progressView.observedProgress = progressContainer.articleFetcherProgress
             self?.progressIsFinishedObservation?.invalidate()
             // Observe any time this Progress object finishes.
-            self?.progressIsFinishedObservation = fetchProgressManager.progress.observe(\Progress.isFinished, options: [.new, .initial]) { [weak self] (progress, change) in
+            self?.progressIsFinishedObservation = progressContainer.articleFetcherProgress?.observe(\Progress.isFinished, options: [.new, .initial]) { [weak self] (progress, change) in
                 self?.animate(isHidden: !progress.wmf_shouldShowProgressView())
             }
         }
