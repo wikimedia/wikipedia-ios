@@ -1,10 +1,18 @@
 import Foundation
 
 extension ReadingList {
+    @objc public static let conflictingReadingListNameUpdatedNotification = NSNotification.Name(rawValue: "WMFConflictingReadingListNameUpdatedNotification")
+    @objc public static let conflictingReadingListNameUpdatedOldNameKey = NSNotification.Name(rawValue: "oldName")
+    @objc public static let conflictingReadingListNameUpdatedNewNameKey = NSNotification.Name(rawValue: "newName")
+    
     func update(with remoteList: APIReadingList) {
         self.readingListID = NSNumber(value: remoteList.id)
         if remoteList.name == CommonStrings.readingListsDefaultListTitle {
             self.name = "\(remoteList.name)_[user created]"
+            if let newName = self.name {
+                let userInfo = [ReadingList.conflictingReadingListNameUpdatedOldNameKey: remoteList.name, ReadingList.conflictingReadingListNameUpdatedNewNameKey: newName]
+                NotificationCenter.default.post(name: ReadingList.conflictingReadingListNameUpdatedNotification, object: nil, userInfo: userInfo)
+            }
         } else {
             self.name = remoteList.name
         }
