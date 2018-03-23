@@ -394,11 +394,7 @@
 "relogin-failed-title" = "Não é possível restabelecer log in";
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "saved-all-articles-title" = "Todos os artigos";
-"saved-clear-all" = "Limpar";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
-"saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-confirmation-heading" = "Tem a certeza de que pretende eliminar todos os artigos salvados e removê-los de todas as listas de leitura?";
-"saved-pages-clear-delete-all" = "Sim, apagar tudo";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
 "saved-reading-lists-title" = "Listas de leitura";
 "saved-search-default-text" = "Pesquisar";

@@ -340,11 +340,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|昨年| $1年前}}";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
-"saved-clear-all" = "消去";
-"saved-pages-clear-cancel" = "キャンセル";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
-"saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
 "saved-title" = "保存済み";
 "search-button-accessibility-label" = "ウィキペディア内を検索";

@@ -319,12 +319,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "saved-all-articles-title" = "سڀ مضمون";
-"saved-clear-all" = "ختم ڪريو";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";
-"saved-pages-clear-cancel" = "رد";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان پنھنجا  سڀ سانڍيل صفحا ڊاھڻ چاھيو ٿا'";
-"saved-pages-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
 "saved-reading-lists-title" = "پڙھڻ جون فھرستون";
 "saved-search-default-text" = "ڳولا";
