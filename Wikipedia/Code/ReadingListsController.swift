@@ -181,12 +181,19 @@ public class ReadingListsController: NSObject {
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
         let name = name.precomposedStringWithCanonicalMapping
-        let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@", name)
-        existingListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingListRequest).first
-        guard result == nil else {
-            throw ReadingListError.listExistsWithTheSameName
+        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.fetchLimit = 1
+        let result = try moc.fetch(existingOrDefaultListRequest).first
+        
+        if let list = result {
+            if list.isDefault {
+                if list.name == name {
+                    throw ReadingListError.listExistsWithTheSameName
+                }
+            } else {
+               throw ReadingListError.listExistsWithTheSameName
+            }
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
