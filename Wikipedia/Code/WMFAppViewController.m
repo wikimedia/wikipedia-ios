@@ -159,6 +159,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncFinishedWithErrorNotification:)
+                                                 name:[WMFReadingListsController syncFinishedWithErrorNotification]
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -310,6 +315,17 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
+}
+
+- (void)syncFinishedWithErrorNotification:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncFinishedWithErrorErrorKey];
+    if (error.wmf_isNetworkConnectionError) {
+        WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", @"Syncing will resume when internet connection is available", nil, nil, @"")
+            [[WMFAlertManager sharedInstance] showWarningAlert:@"Syncing will resume when internet connection is available"
+                                                        sticky:YES
+                                         dismissPreviousAlerts:YES
+                                                   tapCallBack:nil];
+    }
 }
 
 #pragma mark - Background Fetch
