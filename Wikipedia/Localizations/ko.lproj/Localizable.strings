@@ -348,11 +348,9 @@
 "reading-list-login-title" = "저장된 문서를 동기화할까요?";
 "reading-list-new-list-description-placeholder" = "선택적인 간단한 설명";
 "reading-list-new-list-name-placeholder" = "읽기 목록 제목";
-"reading-list-show-default-list-setting" = "기본 목록 표시";
 "reading-list-sync-enable-button-title" = "동기화 사용";
 "reading-list-sync-enable-subtitle" = "저장된 문서와 읽기 목록은 지금 위키백과 계정에 저장하여 장치 간에 동기화할 수 있습니다.";
 "reading-list-sync-enable-title" = "읽기 목록 동기화를 켜시겠습니까?";
-"reading-list-sync-setting" = "읽기 목록 동기화";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "읽기 목록에 넣을 수 있는 문서 수에 제한이 있기 때문에 {{PLURAL:$1|이 문서}}를 \"$2\"에 추가할 수 없습니다.";
 "reading-list-unable-to-add-entry" = "읽기 목록에 항목을 추가하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-create" = "읽기 목록을 생성하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";

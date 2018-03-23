@@ -73,7 +73,6 @@ public class ReadingListsAlertController: NSObject {
     
     @objc func showLimitHitForDefaultListPanelIfNecessary(presenter: UIViewController, dataStore: MWKDataStore, readingList: ReadingList, theme: Theme) {
         guard Thread.isMainThread else {
-            assertionFailure("Expected main thread")
             return
         }
         guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {

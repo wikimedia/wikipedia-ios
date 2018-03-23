@@ -151,8 +151,7 @@
 "search-title" = "Пошук";
 "settings-title" = "Налады";
 "share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
-// Fuzzy
-"share-custom-menu-item" = "Падзяліцца";
+"share-custom-menu-item" = "Падзяліцца…";
 // Fuzzy
 "table-of-contents-button-label" = "Зьмест";
 "table-of-contents-heading" = "Зьмест";

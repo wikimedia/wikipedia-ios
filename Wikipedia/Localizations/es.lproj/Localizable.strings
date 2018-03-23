@@ -339,16 +339,15 @@
 "reading-list-exists-with-same-name" = "El nombre de la lista de lectura ya está en uso";
 "reading-list-generic-error" = "Se produjo un error inesperado al actualizar tus listas de lectura.";
 "reading-list-keep-button-title" = "Sí, mantener artículos en el dispositivo";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artículos";
 "reading-list-login-button-title" = "Accede para sincronizar tus artículos guardados";
 "reading-list-login-or-create-account-button-title" = "Acceder o crear cuenta";
 "reading-list-login-or-create-account-title" = "Accede para sincronizar artículos guardados";
 "reading-list-login-title" = "¿Quieres sincronizar los artículos guardados?";
 "reading-list-new-list-description-placeholder" = "descripción breve opcional";
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
-"reading-list-show-default-list-setting" = "Mostrar lista predeterminada";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-title" = "¿Quieres activar la sincronización de listas de lectura?";
-"reading-list-sync-setting" = "Sincronización de listas";
 "reading-list-unable-to-add-entries-due-to-list-limit" = "No puedes añadir {{PLURAL:$1|este artículo|estos artículos}} a «$2» porque existe un límite en la cantidad de artículos que puede contener una lista de lectura.";
 "reading-list-unable-to-add-entry" = "Se produjo un error inesperado al añadir una entrada a la lista de lectura. Inténtalo de nuevo más tarde.";
 "reading-list-unable-to-create" = "Se produjo un error al crear la lista de lectura. Inténtalo de nuevo más tarde.";

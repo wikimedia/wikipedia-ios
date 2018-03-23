@@ -8,9 +8,31 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private let imageGrid = UIView()
     private var gridImageViews: [UIImageView] = []
     
+    private var isDefault: Bool = false
     private let defaultListTag = UILabel() // explains that the default list cannot be deleted
     
     private var singlePixelDimension: CGFloat = 0.5
+    
+    private var displayType: ReadingListsDisplayType = .readingListsTab
+    
+    private var alertType: AlertType = .none {
+        didSet {
+            var alertLabelText: String? = nil
+            switch alertType {
+            case .listLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-list-not-synced-limit-exceeded", value: "List not synced, limit exceeded", comment: "Text of the alert label informing the user that list couldn't be synced.")
+            case .entryLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-articles-not-synced-limit-exceeded", value: "Some articles not synced, limit exceeded", comment: "Text of the alert label informing the user that some articles couldn't be synced.")
+            default:
+                break
+            }
+            alertLabel.text = alertLabelText
+            
+            if !isAlertIconHidden {
+                alertIcon.image = UIImage(named: "error-icon")
+            }
+        }
+    }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -62,10 +84,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
     }
     
-    private var displayType: ReadingListsDisplayType = .readingListsTab
-    
-    private var isDefault: Bool = false
-    
     open override func reset() {
         super.reset()
         bottomSeparator.isHidden = true
@@ -110,7 +128,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
         if displayType == .readingListsTab && articleCount > 0 {
-            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: origin, fitting: articleCountLabel.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let articleCountLabelSize = articleCountLabel.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - articleCountLabelSize.width - layoutMargins.right
+            }
+            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
             articleCountLabel.isHidden = false
         } else {
@@ -145,17 +168,51 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
+            if !isAlertIconHidden || !isAlertLabelHidden {
+                origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
+            }
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
 
         if displayType == .readingListsTab && isDefault {
+            let defaultListTagSize = defaultListTag.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - defaultListTagSize.width - layoutMargins.right
+            }
             origin.y += spacing
-            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: origin, fitting: defaultListTag.intrinsicContentSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += defaultListTagFrame.layoutHeight(with: 0)
+            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += defaultListTagFrame.layoutHeight(with: spacing)
             defaultListTag.isHidden = false
         } else {
             defaultListTag.isHidden = true
+        }
+        
+        if !isAlertIconHidden {
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
+            origin.x += alertIconDimension + spacing
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
+        }
+        
+        if !isAlertLabelHidden {
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isRTL {
+                xPosition = alertIcon.frame.minX - availableWidth - spacing
+            }
+            if isAlertIconHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += alertLabelFrame.layoutHeight(with: 0)
         }
 
         origin.y += layoutMargins.bottom
@@ -211,7 +268,32 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    func configureAlert(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
+        guard let error = readingList.APIError else {
+            return
+        }
+        
+        switch error {
+        case .listLimit:
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
+            alertType = .listLimitExceeded(limit: listLimit)
+        case .entryLimit:
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
+            alertType = .entryLimitExceeded(limit: entryLimit)
+        default:
+            isAlertLabelHidden = true
+            isAlertIconHidden = true
+        }
+        
+        let isAddArticlesToReadingListDisplayType = displayType == .addArticlesToReadingList
+        isAlertIconHidden = isAddArticlesToReadingListDisplayType
+        isAlertLabelHidden = isAddArticlesToReadingListDisplayType
+    }
+    
     func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+        
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, count: count, shouldAdjustMargins: shouldAdjustMargins, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
     
@@ -256,6 +338,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         } else {
             bottomSeparator.isHidden = true
         }
+        
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil

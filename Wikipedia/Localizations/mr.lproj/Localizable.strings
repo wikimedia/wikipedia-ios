@@ -173,7 +173,6 @@
 "reading-list-exists-with-same-name" = "$1 या नावाची वाचन यादी आधीच अस्तित्त्वात आहे.";
 "reading-list-new-list-description-placeholder" = "पर्यायी लघु वर्णन";
 "reading-list-new-list-name-placeholder" = "वाचन यादी शिर्षक";
-"reading-list-show-default-list-setting" = "नेहमीची यादी दाखवा";
 "reading-lists-article-added-confirmation" = "$1 येथे लेख जोडला आहे";
 "reading-lists-delete-reading-list-alert-title" = "काढून टाका {{PLURAL:$1|यादी|याद्या}}?";
 "reference-title" = "संदर्भ $1";
