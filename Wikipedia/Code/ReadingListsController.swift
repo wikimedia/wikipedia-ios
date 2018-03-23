@@ -90,11 +90,11 @@ public enum ReadingListError: Error, Equatable {
 public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     
-    @objc public static let syncProgressDidChangeNotification = NSNotification.Name(rawValue:"WMFSyncProgressDidChangeNotification")
+    @objc public static let syncProgressDidChangeNotification = NSNotification.Name(rawValue: "WMFSyncProgressDidChangeNotification")
     @objc public static let syncProgressDidChangeFractionCompletedKey = "fractionCompleted"
     
-    @objc public static let syncFinishedWithErrorNotification = NSNotification.Name(rawValue:"WMFSyncFinishedWithErrorNotification")
-    @objc public static let syncFinishedWithErrorErrorKey = NSNotification.Name(rawValue:"error")
+    @objc public static let syncFinishedWithErrorNotification = NSNotification.Name(rawValue: "WMFSyncFinishedWithErrorNotification")
+    @objc public static let syncFinishedWithErrorErrorKey = NSNotification.Name(rawValue: "error")
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
