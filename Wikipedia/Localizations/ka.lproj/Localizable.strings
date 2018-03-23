@@ -197,11 +197,6 @@
 "preference-summary-eventlogging-opt-in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
 "preference-title-eventlogging-opt-in" = "გამოყენების ანგარიშის გაგზავნა";
 "reference-title" = "სქოლიო $1";
-"saved-clear-all" = "გასუფთავება";
-"saved-pages-clear-cancel" = "გაუქმება";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "დარწმუნებული ხართ, რომ გსურთ ყველა დამასხოვრებული გვერდის წაშლა?";
-"saved-pages-clear-delete-all" = "დიახ, ყველაფრის წაშლა";
 "saved-pages-image-download-error" = "შეუძლებელია სურათების ჩაწერა ამ შენახული გვერდისთვის.";
 "saved-title" = "შენახულია";
 "search-did-you-mean" = "ხომ არ იგულისხმეთ $1?";

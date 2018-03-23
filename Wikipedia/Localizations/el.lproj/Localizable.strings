@@ -322,10 +322,7 @@
 "relogin-failed-stay-logged-out-button-title" = "Κράτα με αποσυνδεδεμένο";
 "relogin-failed-subtitle" = "Η συνεδρία σας ενδέχεται να έχει λήξει ή τα προηγούμενα διαπιστευτήρια σύνδεσης δεν ισχύουν πλέον.";
 "saved-all-articles-title" = "Όλα τα άρθρα";
-"saved-clear-all" = "Διαγραφή όλων";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
-"saved-pages-clear-cancel" = "Ακύρωση";
-"saved-pages-clear-delete-all" = "Ναι, διαγραφή όλων";
 "saved-pages-image-download-error" = "Αποτυχία στην λήψη εικόνων για αυτή την αποθηκευμένη σελίδα.";
 "saved-reading-lists-title" = "Λίστες ανάγνωσης";
 "saved-search-default-text" = "Αναζήτηση";

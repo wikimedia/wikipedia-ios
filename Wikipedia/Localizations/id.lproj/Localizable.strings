@@ -385,11 +385,7 @@
 "relogin-failed-title" = "Tidak dapat masuk log lagi";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "saved-all-articles-title" = "Semua artikel";
-"saved-clear-all" = "Kosongkan";
 "saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
-"saved-pages-clear-cancel" = "Batal";
-"saved-pages-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua artikel tersimpan Anda dan menghapusnya dari semua daftar bacaan?";
-"saved-pages-clear-delete-all" = "Ya, hapus semua";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
 "saved-reading-lists-title" = "Daftar bacaan";
 "saved-search-default-text" = "Cari";

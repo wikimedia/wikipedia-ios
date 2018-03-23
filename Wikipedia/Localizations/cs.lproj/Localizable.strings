@@ -230,11 +230,7 @@
 "relogin-failed-title" = "Znemožnit opětovné vytvoření záznamu";
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "saved-all-articles-title" = "Všechny články";
-"saved-clear-all" = "Vyprázdnit";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
-"saved-pages-clear-cancel" = "Zrušit";
-"saved-pages-clear-confirmation-heading" = "Jste si jist, že chcete smazat všechny uložené články a odstranit je ze všech seznamů čtení?";
-"saved-pages-clear-delete-all" = "Smazat vše";
 "saved-reading-lists-title" = "Seznamy čtení";
 "saved-search-default-text" = "Hledat";
 "saved-title" = "Uložené";

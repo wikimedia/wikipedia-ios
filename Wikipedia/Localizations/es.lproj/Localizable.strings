@@ -375,11 +375,7 @@
 "relogin-failed-stay-logged-out-button-title" = "Mantener mi sesión cerrada";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "saved-all-articles-title" = "Todos los artículos";
-"saved-clear-all" = "Vaciar";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
-"saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-confirmation-heading" = "¿Confirmas que quieres eliminar todos tus artículos guardados y quitarlos de todas las listas de lectura?";
-"saved-pages-clear-delete-all" = "Sí, borrar todas";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
 "saved-reading-lists-title" = "Listas de lectura";
 "saved-search-default-text" = "Buscar";
@@ -411,6 +407,8 @@
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-storage-and-syncing-server-sync-title" = "Sincronizar con el servidor";
+"settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos guardados";
 "settings-support" = "Apoya a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";

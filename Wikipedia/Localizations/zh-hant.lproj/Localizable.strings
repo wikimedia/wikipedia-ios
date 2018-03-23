@@ -384,11 +384,7 @@
 "relogin-failed-title" = "無法再重新建立登入";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "saved-all-articles-title" = "所有條目";
-"saved-clear-all" = "清除";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
-"saved-pages-clear-cancel" = "取消";
-"saved-pages-clear-confirmation-heading" = "您確定要刪除所有您儲存的條目，並從所有閱讀清單裡移除嗎？";
-"saved-pages-clear-delete-all" = "是的，刪除全部";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋";
@@ -425,6 +421,8 @@
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
 "settings-storage-and-syncing-enable-sync-footer-text" = "當您登入做出同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
 "settings-storage-and-syncing-enable-sync-title" = "同步已儲存條目與清單";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "若您在此裝置上啟用了同步，您的已儲存條目在抹除時，也會從您的使用者帳號裡移除。另外此操作是無法還原的。";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "抹除所有已儲存條目？";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "抹除";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "若在裝置上您已啟用了同步，抹除您的已儲存條目時，將會從您的使用者帳號裡移除。\n\n抹除您的已儲存條目將會釋放出約 364.4 MB 的空間。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "抹除已儲存條目";
