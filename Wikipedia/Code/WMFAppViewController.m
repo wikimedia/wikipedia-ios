@@ -163,7 +163,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(syncFinishedWithErrorNotification:)
                                                  name:[WMFReadingListsController syncFinishedWithErrorNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(conflictingReadingListNameUpdatedNotification:)
                                                  name:[ReadingList conflictingReadingListNameUpdatedNotification]
@@ -335,7 +335,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)conflictingReadingListNameUpdatedNotification:(NSNotification *)note {
     NSString *oldName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedOldNameKey];
     NSString *newName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedNewNameKey];
-    NSString* alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed."), oldName, newName];
+    NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed."), oldName, newName];
     [[WMFAlertManager sharedInstance] showWarningAlert:alertTitle
                                                 sticky:YES
                                  dismissPreviousAlerts:YES
