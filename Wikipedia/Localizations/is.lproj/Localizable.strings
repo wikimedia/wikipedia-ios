@@ -373,11 +373,7 @@
 "relogin-failed-title" = "Gat ekki endurheimt innskráningu";
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "saved-all-articles-title" = "Allar greinar";
-"saved-clear-all" = "Hreinsa";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
-"saved-pages-clear-cancel" = "Hætta við";
-"saved-pages-clear-confirmation-heading" = "Ertu viss um að þú viljir eyða öllum vistuðum greinum og fjarlægja þær af öllum leslistum?";
-"saved-pages-clear-delete-all" = "Eyða öllu";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
 "saved-reading-lists-title" = "Leslistar";
 "saved-search-default-text" = "Leita";

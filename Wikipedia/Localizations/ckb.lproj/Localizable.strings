@@ -319,11 +319,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ھەر ئێستا|$1 دەقە لەمەوبەر|$1 دەقە لەمەوبەر}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ئەم ساڵ|Last year|$1 ساڵ لەمەوبەر}}";
 "request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
-"saved-clear-all" = "سڕینەوە";
-"saved-pages-clear-cancel" = "ھەڵوەشاندنەوە";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "دڵنیای کە دەتەوێت ھەموو پەڕە پاشەکەوتکراوەکانت بسڕیتەوە؟";
-"saved-pages-clear-delete-all" = "بەڵێ، ھەمووی بسڕەوە";
 "saved-pages-image-download-error" = "داگرتنی وێنەکان بۆ ئەم وتارە خەزن کراوە شکستی ھێنا";
 "saved-title" = "پاشەکەوت کرا";
 "search-button-accessibility-label" = "گەڕان بە ویکیپیدیادا";

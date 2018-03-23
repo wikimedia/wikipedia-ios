@@ -323,11 +323,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nettopp|For $1 minutt siden|For $1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I år|I fjor|For $1 år siden}}";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
-"saved-clear-all" = "Tøm";
-"saved-pages-clear-cancel" = "Avbryt";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
-"saved-pages-clear-delete-all" = "Ja, slett alt";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
 "saved-title" = "Lagret";
 "search-button-accessibility-label" = "Søk i Wikipedia";

@@ -272,12 +272,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=அண்மையில்|$1 மணிக்கு முன்பு|$1 மணி நேரத்திற்கு முன்பு}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=இப்பொழுது|$1 நிமிடத்திற்கு முன்பு|$1 நிமிடங்களுக்கு முன்பு}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=இந்த வருடம்|சென்ற வருடம்|$1 வருடங்களுக்கு முன்பு}}";
-"saved-clear-all" = "வெறுமையாக்கு";
-"saved-pages-clear-cancel" = "ரத்து செய்";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "சேமிக்கப்பட்ட உருப்படிகள் அனைத்தையும் அழிக்கவா?";
-// Fuzzy
-"saved-pages-clear-delete-all" = "அனைத்தையும் நீக்குக";
 "saved-title" = "சேமிக்கப்பட்டது";
 "search-button-accessibility-label" = "விக்கிப்பீடியாவில் தேடவும்";
 "search-did-you-mean" = "தாங்கள் கருதியது $1?";

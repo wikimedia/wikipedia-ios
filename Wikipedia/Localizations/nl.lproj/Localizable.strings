@@ -322,11 +322,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
-"saved-clear-all" = "Wissen";
-"saved-pages-clear-cancel" = "Annuleren";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Weet u zeker dat u alle opgeslagen pagina's wilt verwijderen?";
-"saved-pages-clear-delete-all" = "Ja, alles verwijderen";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 "saved-title" = "Opgeslagen";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";

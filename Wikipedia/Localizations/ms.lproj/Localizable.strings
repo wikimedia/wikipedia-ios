@@ -374,11 +374,7 @@
 "relogin-failed-title" = "Tidak dapat membuat semula log masuk";
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "saved-all-articles-title" = "Semua rencana";
-"saved-clear-all" = "Padamkan";
 "saved-default-reading-list-tag" = "Senarai ini tidak dapat dipadamkan";
-"saved-pages-clear-cancel" = "Batalkan";
-"saved-pages-clear-confirmation-heading" = "Adakah anda pasti mahu memadamkan semua rencana anda yang disimpan dan membuangnya dari semua senarai bacaan?";
-"saved-pages-clear-delete-all" = "Ya, padamkan semua";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
 "saved-reading-lists-title" = "Senarai bacaan";
 "saved-search-default-text" = "Cari";
