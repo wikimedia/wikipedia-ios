@@ -320,11 +320,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)syncFinishedWithErrorNotification:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncFinishedWithErrorErrorKey];
     if (error.wmf_isNetworkConnectionError) {
-        WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", @"Syncing will resume when internet connection is available", nil, nil, @"")
-            [[WMFAlertManager sharedInstance] showWarningAlert:@"Syncing will resume when internet connection is available"
-                                                        sticky:YES
-                                         dismissPreviousAlerts:YES
-                                                   tapCallBack:nil];
+        [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
+                                                    sticky:YES
+                                     dismissPreviousAlerts:YES
+                                               tapCallBack:nil];
     }
 }
 
