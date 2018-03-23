@@ -357,11 +357,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
-"saved-clear-all" = "Temizle";
-"saved-pages-clear-cancel" = "İptal";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Kayıtlı tüm sayfaları silmek istediğinizden emin misiniz?";
-"saved-pages-clear-delete-all" = "Evet, tümünü sil";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
 "saved-title" = "Kaydedilenler";
 "search-button-accessibility-label" = "Vikipedi'de Ara";

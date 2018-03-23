@@ -383,11 +383,7 @@
 "relogin-failed-title" = "无法重新登录";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "saved-all-articles-title" = "所有条目";
-"saved-clear-all" = "清除";
 "saved-default-reading-list-tag" = "此列表不能删除";
-"saved-pages-clear-cancel" = "取消";
-"saved-pages-clear-confirmation-heading" = "您确定要删除所有您保存的条目，并将它们从所有阅读列表移除么？";
-"saved-pages-clear-delete-all" = "是的，删除全部";
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
 "saved-reading-lists-title" = "阅读列表";
 "saved-search-default-text" = "搜索";
@@ -424,6 +420,8 @@
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "如果您启用了从此设备同步，那么清空您保存的条目将从您的用户账户中移除它们。您不能撤销这一操作。";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "清空所有保存的条目么？";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "清空";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "如果您在此设备上启用了同步的话，清空您保存的条目将从您的用户账户中移除。\n\n清空您保存的条目将腾出约364.4 MB空间。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "清空保存的条目";

@@ -180,11 +180,6 @@
 "readers-accessibility-label" = "$1 lesers";
 "reference-title" = "Verwysing $1";
 "request-feedback-on-error" = "Die toep het ’n probleem ervaar waarvan ons ontwikkelaars meer wil weet. Tik hier om aan ons ’n e-pos met die foutbesonderhede te stuur.";
-"saved-clear-all" = "Maak skoon";
-"saved-pages-clear-cancel" = "Kanselleer";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Is u seker u wil al u bewaarde blaaie skrap?";
-"saved-pages-clear-delete-all" = "Ja, skrap alles";
 "search-did-you-mean" = "Het u $1 bedoel?";
 "search-field-placeholder-text" = "Soek in Wikipedia";
 "search-recent-clear-cancel" = "Kanselleer";
