@@ -150,6 +150,7 @@ extension UIViewController {
             return
         }
         loginVC.loginSuccessCompletion = loginSuccessCompletion
+        loginVC.apply(theme: theme)
         present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
     }
     
