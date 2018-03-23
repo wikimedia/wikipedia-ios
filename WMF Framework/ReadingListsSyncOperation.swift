@@ -770,7 +770,6 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 if article.savedDate == nil {
                     article.savedDate = entry.createdDate as Date?
                 }
-                
                 updatedLists.insert(readingList)
             }
         }
