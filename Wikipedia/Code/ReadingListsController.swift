@@ -115,7 +115,7 @@ public class ReadingListsController: NSObject {
     }
     
     private func addOperation(_ operation: ReadingListsOperation) {
-        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
+        observedOperations[operation] = operation.observe(\.isFinished, changeHandler: { (operation, change) in
             if operation.isFinished {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
                 self.observedProgresses.removeValue(forKey: operation)?.invalidate()

@@ -155,11 +155,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(readingListsSyncProgressDidChange:)
-                                                 name:[WMFReadingListsController syncProgressDidChangeNotification]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
@@ -315,18 +310,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
-}
-
-- (void)readingListsSyncProgressDidChange:(NSNotification *)note {
-    NSNumber *progress = note.userInfo[WMFReadingListsController.syncProgressDidChangeFractionCompletedKey];
-
-    // TODO: minimum busy time before showing and a minimum show length
-    UITabBarItem *item = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
-    if (!progress || [progress doubleValue] >= 1) {
-        [item setBadgeValue:nil];
-    } else {
-        [item setBadgeValue:@"\u25cf"];
-    }
 }
 
 #pragma mark - Background Fetch
@@ -1059,16 +1042,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
-            [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]
+
+                                              savedPageList:[self.dataStore savedPageList]];
     }
     return _savedArticlesFetcher;
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
-        [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
-    }
 }
 
 - (WMFNotificationsController *)notificationsController {
@@ -1560,12 +1538,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bar items
 
+    [tabBarItems addObject:[UITabBarItem appearance]];
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
-        [item setBadgeTextAttributes:@{NSForegroundColorAttributeName: theme.colors.accent} forState:UIControlStateNormal];
-        [item setBadgeColor:theme.colors.chromeBackground];
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }

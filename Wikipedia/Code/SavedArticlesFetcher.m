@@ -1,3 +1,4 @@
+#import "SavedArticlesFetcher_Testing.h"
 @import WMF;
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
@@ -15,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) MWKDataStore *dataStore;
+@property (nonatomic, strong) MWKSavedPageList *savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong) WMFImageController *imageController;
 @property (nonatomic, strong) MWKImageInfoFetcher *imageInfoFetcher;
@@ -26,13 +28,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSURLSessionTask *> *fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<NSURL *, NSError *> *errorsByArticleTitle;
 
-@property (nonatomic, strong) NSNumber *fetchesInProcessCount;
-
-@property (nonatomic, strong) SavedArticlesFetcherProgressManager *savedArticlesFetcherProgressManager;
-
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                    savedPageList:(MWKSavedPageList *)savedPageList
+                   articleFetcher:(WMFArticleFetcher *)articleFetcher
+                  imageController:(WMFImageController *)imageController
+                 imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher NS_DESIGNATED_INITIALIZER;
 @end
 
 @implementation SavedArticlesFetcher
+
+@dynamic fetchFinishedDelegate;
 
 #pragma mark - NSObject
 
@@ -43,62 +48,37 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                    savedPageList:(MWKSavedPageList *)savedPageList
                    articleFetcher:(WMFArticleFetcher *)articleFetcher
                   imageController:(WMFImageController *)imageController
                  imageInfoFetcher:(MWKImageInfoFetcher *)imageInfoFetcher {
     NSParameterAssert(dataStore);
+    NSParameterAssert(savedPageList);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
     NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
-        self.fetchesInProcessCount = @0;
         self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
         self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
-
-        [self updateFetchesInProcessCount];
-
         self.errorsByArticleTitle = [NSMutableDictionary new];
         self.dataStore = dataStore;
         self.articleFetcher = articleFetcher;
         self.imageController = imageController;
+        self.savedPageList = savedPageList;
         self.imageInfoFetcher = imageInfoFetcher;
         self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.dataStore];
-        self.savedArticlesFetcherProgressManager = [[SavedArticlesFetcherProgressManager alloc] initWithDelegate:self];
     }
     return self;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                    savedPageList:(MWKSavedPageList *)savedPageList {
     return [self initWithDataStore:dataStore
+                     savedPageList:savedPageList
                     articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
                    imageController:[WMFImageController sharedInstance]
                   imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
-}
-
-#pragma mark - Progress
-
-// Reminder: due to the internal structure of this class and how it is presently being used, we can't simply check the 'count' of 'fetchOperationsByArticleTitle' dictionary for the total. (It doesn't reflect the actual total.) Could re-plumb this class later.
-- (NSUInteger)calculateTotalArticlesToFetchCount {
-    NSAssert([NSThread isMainThread], @"Must be called on the main thread");
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
-    NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.includesSubentities = NO;
-    request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
-    NSError *fetchError = nil;
-    NSUInteger count = [moc countForFetchRequest:request error:&fetchError];
-    if (fetchError) {
-        DDLogError(@"Error counting number of article to be downloaded: %@", fetchError);
-    }
-    return count;
-}
-
-- (void)updateFetchesInProcessCount {
-    NSUInteger count = [self calculateTotalArticlesToFetchCount];
-    if (count == NSNotFound) {
-        return;
-    }
-    self.fetchesInProcessCount = @(count);
 }
 
 #pragma mark - Public
@@ -147,12 +127,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             [self fetchArticleURL:articleURL
                 priority:NSURLSessionTaskPriorityLow
                 failure:^(NSError *error) {
-                    [self updateFetchesInProcessCount];
                     updateAgain();
                 }
                 success:^{
                     [self.spotlightManager addToIndexWithUrl:articleURL];
-                    [self updateFetchesInProcessCount];
                     updateAgain();
                 }];
         } else {
@@ -261,8 +239,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                             }];
                     });
                 }];
-
-        [self updateFetchesInProcessCount];
     }
 }
 
@@ -410,8 +386,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     DDLogVerbose(@"Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
     [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
-
-    [self updateFetchesInProcessCount];
 }
 
 #pragma mark - Delegate Notification
@@ -434,8 +408,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     // stop tracking operation, effectively advancing the progress
     [self.fetchOperationsByArticleTitle removeObjectForKey:url];
 
-    [self updateFetchesInProcessCount];
-
     if (!error) {
         WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
         article.isDownloaded = YES;
@@ -445,6 +417,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             DDLogError(@"Error saving after saved articles fetch: %@", saveError);
         }
     }
+    [self.fetchFinishedDelegate savedArticlesFetcher:self
+                                         didFetchURL:url
+                                             article:fetchedArticle
+                                               error:error];
 }
 
 /// Only invoke within accessQueue

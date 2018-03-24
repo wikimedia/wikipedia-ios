@@ -376,7 +376,6 @@
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
-"saved-pages-progress-syncing" = "Text for article syncing progress bar label";
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
