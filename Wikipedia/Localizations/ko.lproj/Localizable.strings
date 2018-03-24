@@ -381,11 +381,7 @@
 "relogin-failed-title" = "로그인을 재수행할 수 없습니다";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
 "saved-all-articles-title" = "모든 문서";
-"saved-clear-all" = "지우기";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
-"saved-pages-clear-cancel" = "취소";
-"saved-pages-clear-confirmation-heading" = "저장된 모든 문서를 삭제하고 모든 읽기 목록에서 제거하시겠습니까?";
-"saved-pages-clear-delete-all" = "예, 모두 삭제합니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
 "saved-reading-lists-title" = "읽기 목록";
 "saved-search-default-text" = "검색";
@@ -419,6 +415,12 @@
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-storage-and-syncing-enable-sync-title" = "저장된 문서와 목록 동기화";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "삭제";
+"settings-storage-and-syncing-erase-saved-articles-title" = "저장된 문서 삭제";
+"settings-storage-and-syncing-server-sync-title" = "서버와 동기화";
+"settings-storage-and-syncing-show-default-reading-list-title" = "저장된 읽기 목록 표시";
+"settings-storage-and-syncing-title" = "저장된 문서의 저장소 및 동기화";
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
 "share-a-fact-made-with" = "위키백과 앱으로 작성함";
