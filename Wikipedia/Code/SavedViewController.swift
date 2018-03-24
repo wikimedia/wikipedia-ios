@@ -19,7 +19,7 @@ class SavedViewController: ViewController {
         let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
         return readingListsCollectionViewController
     }()
-
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet var underBarView: UIView!
@@ -29,14 +29,11 @@ class SavedViewController: ViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
-    @IBOutlet weak var progressContainerView: UIView!
-
+    
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
     }()
     
-    fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
-
     public weak var savedDelegate: SavedViewControllerDelegate?
     
     // MARK: - Initalization and setup
@@ -170,8 +167,6 @@ class SavedViewController: ViewController {
         edgesForExtendedLayout = .all
         
         super.viewDidLoad()
-
-        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -220,7 +215,6 @@ class SavedViewController: ViewController {
         
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
-        savedProgressViewController?.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)

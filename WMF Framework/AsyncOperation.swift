@@ -15,7 +15,7 @@ enum AsyncOperationError: Error {
     static fileprivate let stateKeyPath = "state" // For KVO
     fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
-    @objc public enum State: Int {
+    fileprivate enum State: Int {
         case ready
         case executing
         case finished
@@ -25,7 +25,7 @@ enum AsyncOperationError: Error {
     
     fileprivate var _state = AsyncOperation.State.ready
     
-    @objc public var state: AsyncOperation.State {
+    fileprivate var state: AsyncOperation.State {
         get {
             semaphore.wait()
             let state = _state

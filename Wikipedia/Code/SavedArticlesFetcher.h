@@ -1,6 +1,11 @@
 @import WMF.FetcherBase;
 
-@class MWKDataStore;
+@class MWKArticle,
+    MWKSavedPageList,
+    WMFArticleFetcher,
+    SavedArticlesFetcher,
+    WMFImageController,
+    MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,13 +18,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface SavedArticlesFetcher : FetcherBase <NSProgressReporting>
+@protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
-@property (nonatomic, strong) NSProgress *progress;
+- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher
+                 didFetchURL:(NSURL *)url
+                     article:(MWKArticle *__nullable)article
+                       error:(NSError *__nullable)error;
 
-@property (nonatomic, strong, readonly) NSNumber *fetchesInProcessCount;
+@end
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
+@interface SavedArticlesFetcher : FetcherBase
+
+@property (nonatomic, strong, readonly) MWKSavedPageList *savedPageList;
+
+@property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
+
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                    savedPageList:(MWKSavedPageList *)savedPageList;
 
 - (void)start;
 - (void)stop;
