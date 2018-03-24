@@ -154,7 +154,9 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
-        
+
+        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+
         currentView = .savedArticles
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
@@ -170,8 +172,6 @@ class SavedViewController: ViewController {
         edgesForExtendedLayout = .all
         
         super.viewDidLoad()
-
-        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
