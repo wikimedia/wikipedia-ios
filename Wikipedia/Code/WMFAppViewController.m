@@ -113,6 +113,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
 
+@property (nonatomic, strong, readwrite) NSDate *syncStartDate;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -356,6 +358,24 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [item setBadgeValue:nil];
     } else {
         [item setBadgeValue:@"\u25cf"];
+    }
+    
+    NSLog(@"progress: %@", progress);
+    
+    // sync started
+    if ([progress doubleValue] == 0) {
+        self.syncStartDate = [NSDate date];
+    }
+    
+    // sync finished
+    if ([progress doubleValue] == 1) {
+        if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
+            // TODO: change string
+            [[WMFAlertManager sharedInstance] showWarningAlert:@"Large sync completed"
+                                                        sticky:YES
+                                         dismissPreviousAlerts:YES
+                                                   tapCallBack:nil];
+        }
     }
 }
 
