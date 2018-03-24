@@ -348,7 +348,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                  dismissPreviousAlerts:YES
                                            tapCallBack:nil];
 }
-    
+
 - (void)readingListsSyncProgressDidChange:(NSNotification *)note {
     NSNumber *progress = note.userInfo[WMFReadingListsController.syncProgressDidChangeFractionCompletedKey];
 
@@ -359,14 +359,14 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     } else {
         [item setBadgeValue:@"\u25cf"];
     }
-    
+
     NSLog(@"progress: %@", progress);
-    
+
     // sync started
     if ([progress doubleValue] == 0) {
         self.syncStartDate = [NSDate date];
     }
-    
+
     // sync finished
     if ([progress doubleValue] == 1) {
         if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
@@ -1110,12 +1110,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
             [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
-            [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _savedArticlesFetcher;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
     }
