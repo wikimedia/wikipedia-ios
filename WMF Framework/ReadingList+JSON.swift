@@ -8,11 +8,12 @@ extension ReadingList {
     func update(with remoteList: APIReadingList) {
         self.readingListID = NSNumber(value: remoteList.id)
         if remoteList.name == CommonStrings.readingListsDefaultListTitle {
-            self.name = "\(remoteList.name)_[user created]"
-            if let newName = self.name {
+            let newName = "\(remoteList.name)_[user created]"
+            if newName != self.name {
                 let userInfo = [ReadingList.conflictingReadingListNameUpdatedOldNameKey: remoteList.name, ReadingList.conflictingReadingListNameUpdatedNewNameKey: newName]
                 NotificationCenter.default.post(name: ReadingList.conflictingReadingListNameUpdatedNotification, object: nil, userInfo: userInfo)
             }
+            self.name = newName
         } else {
             self.name = remoteList.name
         }
