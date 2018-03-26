@@ -5,7 +5,6 @@
 #import "PreviewWebViewContainer.h"
 #import "PaddedLabel.h"
 #import "MenuButton.h"
-#import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
@@ -382,7 +381,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // Set the overlay's text field to self.summaryText so it can display
     // any existing value (in case user taps "Other" again)
     summaryVC.summaryText = self.summaryText;
-    summaryVC.previewVC = self;
+    __weak typeof(self) weakSelf = self;
+    summaryVC.didSaveSummary = ^void(NSString* savedSummary){
+        weakSelf.summaryText = savedSummary;
+    };
     [summaryVC applyTheme:self.theme];
     [self presentViewController:[[WMFThemeableNavigationController alloc] initWithRootViewController:summaryVC theme:self.theme] animated:YES completion:nil];
 }
