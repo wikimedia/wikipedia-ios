@@ -347,7 +347,6 @@
 "reading-list-sync-enable-button-title" = "Aktiver synkronisering";
 "reading-list-sync-enable-subtitle" = "Dine gemte artikler og læselister kan nu gemmes på din Wikipediakonto og synkroniseres på tværs af enheder.";
 "reading-list-sync-enable-title" = "Aktiver synkronisering af læselister?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Du kan ikke tilføje {{PLURAL:$1|denne artikel|disse artikler}} til »$2«, da der er en begrænsning på antallet af artikler du kan have i en læseliste.";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
 "reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
 "reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
