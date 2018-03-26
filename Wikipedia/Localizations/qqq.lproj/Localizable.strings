@@ -331,6 +331,9 @@
 "reading-list-api-error-list-limit" = "You have too many lists.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
+"reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
+"reading-list-entry-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account.";
+"reading-list-entry-limit-reached" = "Informs the user that adding the selected articles to their reading list would put them over the limit.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
@@ -339,6 +342,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Title for button to sort unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Subtitle letting the user know that there is a limit of 5000 unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Title for letting the user know that the limit for unsorted articles was reached.";
+"reading-list-list-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
+"reading-list-list-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account.";
+"reading-list-list-limit-reached" = "Informs the user that they have reached the allowed limit of reading lists per account.";
 "reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-button-title" = "Title for button to login or create account to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
@@ -349,7 +355,6 @@
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Informs the user that adding the selected articles to their reading list would put them over the limit.";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";
@@ -357,11 +362,16 @@
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
 "reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
+"reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
+"reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
 "reading-lists-default-list-title" = "The title of the default saved pages list\n{{Identical|Saved}}";
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
+"reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
@@ -381,6 +391,7 @@
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
+"saved-pages-progress-syncing" = "Text for article syncing progress bar label";
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
