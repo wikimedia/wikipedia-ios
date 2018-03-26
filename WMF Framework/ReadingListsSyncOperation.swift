@@ -8,6 +8,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     var syncedReadingListEntriesCount = 0
     
     override func execute() {
+        syncedReadingListsCount = 0
+        syncedReadingListEntriesCount = 0
+        
         DispatchQueue.main.async {
             self.dataStore.performBackgroundCoreDataOperation { (moc) in
                 do {
