@@ -251,7 +251,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let group = WMFTaskGroup()
         
-        try createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
+        syncedReadingListsCount += try createOrUpdate(remoteReadingLists: allAPIReadingLists, deleteMissingLocalLists: true, inManagedObjectContext: moc)
         
         // Get all entries
         var remoteEntriesByReadingListID: [Int64: [APIReadingListEntry]] = [:]
@@ -273,7 +273,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         for (readingListID, remoteReadingListEntries) in remoteEntriesByReadingListID {
-            try createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, deleteMissingLocalEntries: true, inManagedObjectContext: moc)
+            syncedReadingListEntriesCount += try createOrUpdate(remoteReadingListEntries: remoteReadingListEntries, for: readingListID, deleteMissingLocalEntries: true, inManagedObjectContext: moc)
         }
         
         if let since = nextSince {
@@ -327,8 +327,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             throw error
         }
         
-        try createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
-        try createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
+        syncedReadingListsCount += try createOrUpdate(remoteReadingLists: updatedLists, inManagedObjectContext: moc)
+        syncedReadingListEntriesCount += try createOrUpdate(remoteReadingListEntries: updatedEntries, inManagedObjectContext: moc)
         
         if let since = nextSince {
             moc.wmf_setValue(since as NSString, forKey: WMFReadingListUpdateKey)
