@@ -879,11 +879,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         return createdOrUpdatedReadingListsCount
     }
     
-    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws {
+    internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
         guard remoteReadingListEntries.count > 0 || deleteMissingLocalEntries else {
-            return
+            return 0
         }
-        
+        var createdOrUpdatedReadingListEntriesCount = 0
         // Arrange remote list entries by ID and key for merging with local lists
         var remoteReadingListEntriesByReadingListID: [Int64: [String: APIReadingListEntry]] = [:]
         
@@ -912,6 +912,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 for localReadingListEntry in localReadingListEntries {
                     guard let articleKey = localReadingListEntry.articleKey else {
                         moc.delete(localReadingListEntry)
+                        createdOrUpdatedReadingListEntriesCount += 1
                         continue
                     }
                     
@@ -925,8 +926,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     let isDeleted = remoteReadingListEntryForUpdate.deleted ?? false
                     if isDeleted {
                         entriesToDelete.append(localReadingListEntry)
+                        createdOrUpdatedReadingListEntriesCount += 1
                     } else {
                         localReadingListEntry.update(with: remoteReadingListEntryForUpdate)
+                        createdOrUpdatedReadingListEntriesCount += 1
                     }
                 }
                 
@@ -937,6 +940,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 try readingListsController.markLocalDeletion(for: entriesToDelete)
                 for entry in entriesToDelete {
                     moc.delete(entry)
+                    createdOrUpdatedReadingListEntriesCount += 1
                 }
                 
                 try moc.save()
@@ -952,8 +956,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     start = end
                     try moc.save()
                     moc.reset()
+                    createdOrUpdatedReadingListEntriesCount += 1
                 }
             }
         }
+        return createdOrUpdatedReadingListEntriesCount
     }
 }
