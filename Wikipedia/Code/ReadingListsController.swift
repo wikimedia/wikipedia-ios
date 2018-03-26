@@ -124,8 +124,10 @@ public class ReadingListsController: NSObject {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
                 self.observedProgresses.removeValue(forKey: operation)?.invalidate()
                 if let error = operation.error {
-                    let userInfo = [ReadingListsController.syncFinishedWithErrorErrorKey: error]
-                    NotificationCenter.default.post(name: ReadingListsController.syncFinishedWithErrorNotification, object: nil, userInfo: userInfo)
+                    DispatchQueue.main.async {
+                        let userInfo = [ReadingListsController.syncFinishedWithErrorErrorKey: error]
+                        NotificationCenter.default.post(name: ReadingListsController.syncFinishedWithErrorNotification, object: nil, userInfo: userInfo)
+                    }
                 }
             } else if operation.isExecuting {
                 self.postSyncProgressDidChangeNotificationOnTheMainThread(operation.progress.fractionCompleted)
