@@ -66,22 +66,6 @@
 			<string>%1$d artikler</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Du kan ikke tilføje denne artikel til »%2$@«, da der er en begrænsning på antallet af artikler du kan have i en læseliste.</string>
-			<key>other</key>
-			<string>Du kan ikke tilføje disse artikler til »%2$@«, da der er en begrænsning på antallet af artikler du kan have i en læseliste.</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
