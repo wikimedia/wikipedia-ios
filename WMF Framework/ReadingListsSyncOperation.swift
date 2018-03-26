@@ -4,6 +4,9 @@ internal enum ReadingListsOperationError: Error {
 }
 
 internal class ReadingListsSyncOperation: ReadingListsOperation {
+    var syncedReadingListsCount = 0
+    var syncedReadingListEntriesCount = 0
+    
     override func execute() {
         DispatchQueue.main.async {
             self.dataStore.performBackgroundCoreDataOperation { (moc) in
