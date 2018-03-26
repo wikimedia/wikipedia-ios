@@ -375,11 +375,7 @@
 "relogin-failed-title" = "Hasiera saioa ezin da berrezarri";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
-"saved-clear-all" = "Garbitu";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
-"saved-pages-clear-cancel" = "Utzi";
-"saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako artikulu guztiak ezabatu nahi dituzula eta irakurketa zerrendetatik ezabatu nahi duzula?";
-"saved-pages-clear-delete-all" = "Bai, dena ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
 "saved-search-default-text" = "Bilatu";

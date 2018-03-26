@@ -326,11 +326,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "saved-all-articles-title" = "Tutte le voci";
-"saved-clear-all" = "Pulisci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
-"saved-pages-clear-cancel" = "Annulla";
-"saved-pages-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutte le voci che hai salvato e rimuoverle da tutti gli elenchi di lettura?";
-"saved-pages-clear-delete-all" = "Sì, cancella tutto";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";

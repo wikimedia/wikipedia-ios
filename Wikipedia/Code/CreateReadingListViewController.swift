@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CreateReadingListDelegate: NSObjectProtocol {
-    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle])
 }
 
 class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
@@ -59,7 +59,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             return
         }
         let trimmedDescription = descriptionTextField.text?.trimmingCharacters(in: .whitespaces)
-        delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
+        delegate?.createReadingListViewController(self, didCreateReadingListWith: trimmedName, description: trimmedDescription, articles: articles)
     }
     
     func handleReadingListNameError(_ error: ReadingListError) {

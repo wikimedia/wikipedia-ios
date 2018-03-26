@@ -46,8 +46,10 @@ public enum ReadingListError: Error, Equatable {
     case unableToUpdateList
     case unableToAddEntry
     case unableToRemoveEntry
-    case unableToAddArticlesDueToListLimit(name: String, count: Int)
+    case entryLimitReached(name: String, count: Int, limit: Int)
     case listWithProvidedNameNotFound(name: String)
+    case listLimitReached(limit: Int)
+    case listEntryLimitsReached(name: String, count: Int, listLimit: Int, entryLimit: Int)
     
     public var localizedDescription: String {
         switch self {
@@ -66,11 +68,16 @@ public enum ReadingListError: Error, Equatable {
             return WMFLocalizedString("reading-list-unable-to-update", value: "An unexpected error occurred while updating your reading list. Please try again later.", comment: "Informs the user that an error occurred while updating their reading list.")
         case .unableToAddEntry:
             return WMFLocalizedString("reading-list-unable-to-add-entry", value: "An unexpected error occurred while adding an entry to your reading list. Please try again later.", comment: "Informs the user that an error occurred while adding an entry to their reading list.")
-        case .unableToAddArticlesDueToListLimit(let name, let count):
-            let format = WMFLocalizedString("reading-list-unable-to-add-entries-due-to-list-limit", value: "You cannot add {{PLURAL:%1$d|this article|these articles}} to “%2$@” because there is a limit to the number of articles you can have in a reading list.", comment: "Informs the user that adding the selected articles to their reading list would put them over the limit.")
-            return String.localizedStringWithFormat(format, count, name)
+        case .entryLimitReached(let name, let count, let limit):
+            return String.localizedStringWithFormat(CommonStrings.readingListsEntryLimitReachedFormat, count, limit, name)
         case .unableToRemoveEntry:
             return WMFLocalizedString("reading-list-unable-to-remove-entry", value: "An unexpected error occurred while removing an entry from your reading list. Please try again later.", comment: "Informs the user that an error occurred while removing an entry from their reading list.")
+        case .listLimitReached(let limit):
+            return String.localizedStringWithFormat(CommonStrings.readingListsListLimitReachedFormat, limit)
+        case .listEntryLimitsReached(let name, let count, let listLimit, let entryLimit):
+            let entryLimitReached = String.localizedStringWithFormat(CommonStrings.readingListsEntryLimitReachedFormat, count, entryLimit, name)
+            let listLimitReached = String.localizedStringWithFormat(CommonStrings.readingListsListLimitReachedFormat, listLimit)
+            return "\(entryLimitReached)\n\n\(listLimitReached)"
         }
     }
     
@@ -108,7 +115,7 @@ public class ReadingListsController: NSObject {
     }
     
     private func addOperation(_ operation: ReadingListsOperation) {
-        observedOperations[operation] = operation.observe(\.isFinished, changeHandler: { (operation, change) in
+        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
             if operation.isFinished {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
                 self.observedProgresses.removeValue(forKey: operation)?.invalidate()
@@ -132,8 +139,36 @@ public class ReadingListsController: NSObject {
             try moc.save()
         }
         
+        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
+        let readingListsCount = try moc.countOfAllReadingLists()
+        guard readingListsCount + 1 <= listLimit else {
+            throw ReadingListError.listLimitReached(limit: listLimit)
+        }
+        
+        try throwLimitErrorIfNecessary(for: nil, articles: [], in: moc)
         sync()
         return list
+    }
+    
+    private func throwLimitErrorIfNecessary(for readingList: ReadingList?, articles: [WMFArticle], in moc: NSManagedObjectContext) throws {
+        let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
+        let entryLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
+        let readingListsCount = try moc.countOfAllReadingLists()
+        let countOfEntries = Int(readingList?.countOfEntries ?? 0)
+
+        let willExceedListLimit = readingListsCount + 1 > listLimit
+        let didExceedListLimit = readingListsCount > listLimit
+        let willExceedEntryLimit = countOfEntries + articles.count > entryLimit
+        
+        if let name = readingList?.name {
+            if didExceedListLimit && willExceedEntryLimit {
+                throw ReadingListError.listEntryLimitsReached(name: name, count: articles.count, listLimit: listLimit, entryLimit: entryLimit)
+            } else if willExceedEntryLimit {
+                throw ReadingListError.entryLimitReached(name: name, count: articles.count, limit: entryLimit)
+            }
+        } else if willExceedListLimit {
+            throw ReadingListError.listLimitReached(limit: listLimit)
+        }
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
@@ -155,7 +190,6 @@ public class ReadingListsController: NSObject {
         list.isUpdatedLocally = true
         
         try add(articles: articles, to: list, in: moc)
-        
         return list
     }
     
@@ -252,9 +286,7 @@ public class ReadingListsController: NSObject {
     public func add(articles: [WMFArticle], to readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
-        guard readingList.entries?.count ?? 0 + articles.count <= moc.wmf_readingListsConfigMaxEntriesPerList.intValue else {
-            throw ReadingListError.unableToAddArticlesDueToListLimit(name: readingList.name ?? "", count: articles.count)
-        }
+        try throwLimitErrorIfNecessary(for: readingList, articles: articles, in: moc)
         try add(articles: articles, to: readingList, in: moc)
         if moc.hasChanges {
             try moc.save()
@@ -538,23 +570,9 @@ public class ReadingListsController: NSObject {
             DDLogError("Error removing all articles from default list: \(error)")
         }
     }
-    
-    @objc public func unsaveAllArticles(_ completion: @escaping () -> Void)  {
-        cancelSync {
-            assert(Thread.isMainThread)
-            let oldSyncState = self.syncState
-            var newSyncState = oldSyncState
-            newSyncState.insert(.needsLocalArticleClear)
-            guard newSyncState != oldSyncState else {
-                return
-            }
-            self.syncState = newSyncState
-            self.fullSync(completion)
-        }
-    }
 }
 
-extension WMFArticle {
+public extension WMFArticle {
     func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
@@ -570,7 +588,9 @@ extension WMFArticle {
             return (entry.list?.isDefault ?? false) && !entry.isDeletedLocally
         })
     }
-    
+}
+
+extension WMFArticle {
     func addToDefaultReadingList() throws {
         guard let moc = self.managedObjectContext else {
             return
@@ -677,20 +697,27 @@ public extension NSManagedObjectContext {
         }
     }
     
-    @objc public var wmf_readingListsConfigMaxListsPerUser: NSNumber {
+    @objc public var wmf_readingListsConfigMaxListsPerUser: Int {
         get {
-            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser) ?? 100
+            return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }
         set {
             guard newValue != wmf_readingListsConfigMaxListsPerUser else {
                 return
             }
-            wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxListsPerUser)
+            wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListsConfigMaxListsPerUser)
             do {
                 try save()
             } catch let error {
                 DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: \(error)")
             }
         }
+    }
+    
+    func countOfAllReadingLists() throws -> Int {
+        assert(Thread.isMainThread)
+        let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+        return try self.count(for: request)
     }
 }
