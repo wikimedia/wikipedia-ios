@@ -337,11 +337,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|O último ano|hai $1 anos}}";
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
-"saved-clear-all" = "Limpar";
-"saved-pages-clear-cancel" = "Cancelar";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Está seguro de que quere borrar todas as súas páxinas gardadas?";
-"saved-pages-clear-delete-all" = "Si, borrar todo";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
 "saved-title" = "Gardado";
 "search-button-accessibility-label" = "Procurar na Wikipedia";

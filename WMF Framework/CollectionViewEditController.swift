@@ -404,6 +404,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             areSwipeActionsDisabled = true
             leftBarButtonSystemItem = .cancel
             rightBarButtonSystemItem = .done
+            if oldValue == .open {
+                transformBatchEditPane(for: editingState)
+            }
         case .swiping:
             leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .done

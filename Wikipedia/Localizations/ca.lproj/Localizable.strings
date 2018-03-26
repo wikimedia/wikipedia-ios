@@ -360,11 +360,7 @@
 "relogin-failed-stay-logged-out-button-title" = "Manteniu-me fora de la sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "saved-all-articles-title" = "Tots els articles";
-"saved-clear-all" = "Neteja";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
-"saved-pages-clear-cancel" = "Cancel·la";
-"saved-pages-clear-confirmation-heading" = "Esteu segur que voleu eliminar tots els articles desats i suprimir-los de totes les llistes de lectura?";
-"saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-reading-lists-title" = "Llistes de lectura";
 "saved-search-default-text" = "Cerca";

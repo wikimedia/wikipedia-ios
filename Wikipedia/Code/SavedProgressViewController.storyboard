@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="byl-9N-rP3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Saved Progress View Controller-->
+        <scene sceneID="tsf-fI-YEI">
+            <objects>
+                <viewController storyboardIdentifier="SavedProgressViewController" id="byl-9N-rP3" customClass="SavedProgressViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bog-93-sHh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9e-CR-Keb">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tt3-Mt-7mp">
+                                        <rect key="frame" x="58" y="48" width="260" height="2"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="260" id="2Vw-gi-ixX"/>
+                                        </constraints>
+                                    </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQH-3I-nr4">
+                                        <rect key="frame" x="10" y="10" width="355" height="28"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="tt3-Mt-7mp" firstAttribute="centerX" secondItem="s9e-CR-Keb" secondAttribute="centerX" id="0I8-yE-T6K"/>
+                                    <constraint firstItem="MQH-3I-nr4" firstAttribute="leading" secondItem="s9e-CR-Keb" secondAttribute="leading" constant="10" id="3mf-at-gz4"/>
+                                    <constraint firstItem="MQH-3I-nr4" firstAttribute="top" secondItem="s9e-CR-Keb" secondAttribute="top" constant="10" id="9BW-M2-vWL"/>
+                                    <constraint firstAttribute="trailing" secondItem="MQH-3I-nr4" secondAttribute="trailing" constant="10" id="Jnf-Is-4qz"/>
+                                    <constraint firstAttribute="bottom" secondItem="tt3-Mt-7mp" secondAttribute="bottom" constant="10" id="WXg-wl-hAX"/>
+                                    <constraint firstItem="tt3-Mt-7mp" firstAttribute="top" secondItem="MQH-3I-nr4" secondAttribute="bottom" constant="10" id="lf8-ju-jHS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="s9e-CR-Keb" firstAttribute="top" secondItem="Bog-93-sHh" secondAttribute="top" id="WII-li-kgP"/>
+                            <constraint firstAttribute="bottom" secondItem="s9e-CR-Keb" secondAttribute="bottom" id="Z00-Xd-aMy"/>
+                            <constraint firstItem="s9e-CR-Keb" firstAttribute="leading" secondItem="Bog-93-sHh" secondAttribute="leading" id="jP5-Eq-MEu"/>
+                            <constraint firstAttribute="trailing" secondItem="s9e-CR-Keb" secondAttribute="trailing" id="mgN-Qm-zXd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sCZ-VI-zmn"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="60"/>
+                    <connections>
+                        <outlet property="label" destination="MQH-3I-nr4" id="6ol-DR-0Ri"/>
+                        <outlet property="progressView" destination="tt3-Mt-7mp" id="8Vq-Fc-h4D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qvh-re-L77" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-970.39999999999998" y="654.87256371814101"/>
+        </scene>
+    </scenes>
+</document>

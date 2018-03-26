@@ -380,11 +380,7 @@
 "relogin-failed-title" = "Kykenemätön palauttaa sisäänkirjautumista";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "saved-all-articles-title" = "Kaikki artikkelit";
-"saved-clear-all" = "Tyhjennä";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
-"saved-pages-clear-cancel" = "Peruuta";
-"saved-pages-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tallennetut artikkelisi ja poistaa ne kaikista lukulistoista?";
-"saved-pages-clear-delete-all" = "Kyllä, poista kaikki";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "saved-reading-lists-title" = "Lukulistat";
 "saved-search-default-text" = "Hae";

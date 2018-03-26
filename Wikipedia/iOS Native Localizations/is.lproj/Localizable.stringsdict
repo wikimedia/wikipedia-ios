@@ -66,22 +66,6 @@
 			<string>%1$d greinar</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>Þú getur ekki bætt þessari grein við “%2$@” vegna þess að það eru takmörk fyrir þeim fjölda greina sem þú getur geymt í leslista.</string>
-			<key>other</key>
-			<string>Þú getur ekki bætt þessum greinum við “%2$@” vegna þess að það eru takmörk fyrir þeim fjölda greina sem þú getur geymt í leslista.</string>
-		</dict>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

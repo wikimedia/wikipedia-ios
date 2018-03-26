@@ -3,14 +3,21 @@ public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
 }
 
 class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
-    fileprivate var bottomSeparator = UIView()
-    fileprivate var topSeparator = UIView()
+    private var bottomSeparator = UIView()
+    private var topSeparator = UIView()
     
-    fileprivate var singlePixelDimension: CGFloat = 0.5
+    private var singlePixelDimension: CGFloat = 0.5
     
     public var tags: (readingLists: [ReadingList], indexPath: IndexPath) = (readingLists: [], indexPath: IndexPath()) {
         didSet {
+            configuredTags = []
             collectionView.reloadData()
+            setNeedsLayout()
+        }
+    }
+    
+    private var configuredTags: [Tag] = [] {
+        didSet {
             setNeedsLayout()
         }
     }
@@ -22,36 +29,67 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    fileprivate lazy var collectionView: UICollectionView = {
+    private var alertType: AlertType = .none {
+        didSet {
+            var alertLabelText: String? = nil
+            switch alertType {
+            case .listLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-list-limit-exceeded", value: "List limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            case .entryLimitExceeded:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            case .genericNotSynced:
+                alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
+            default:
+                break
+            }
+            
+            alertLabel.text = alertLabelText
+
+            if !isAlertIconHidden {
+                alertIcon.image = UIImage(named: "error-icon")
+            }
+        }
+    }
+    
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
+        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier())
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
+    private lazy var collectionViewHeight: CGFloat = {
+        guard let layout = layout else {
+            return 0
+        }
+        return self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
+    }()
     
-    fileprivate lazy var layout: UICollectionViewFlowLayout? = {
+    private lazy var layout: UICollectionViewFlowLayout? = {
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.scrollDirection = .horizontal
         layout?.sectionInset = UIEdgeInsets.zero
         return layout
     }()
     
-    fileprivate lazy var placeholderCell: TagCollectionViewCell = {
+    private lazy var placeholderCell: TagCollectionViewCell = {
         return TagCollectionViewCell()
     }()
     
-    fileprivate var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
+    private var theme: Theme = Theme.standard // stored to theme TagCollectionViewCell
     
     weak public var delegate: SavedArticlesCollectionViewCellDelegate?
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+        configuredTags = []
+        collectionView.reloadData()
     }
     
     override func setup() {
@@ -75,8 +113,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.isHidden = true
         titleFontFamily = .system
         titleTextStyle = .body
+        collectionViewAvailableWidth = 0
+        configuredTags = []
         updateFonts(with: traitCollection)
     }
+    
+    private var collectionViewAvailableWidth: CGFloat = 0
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
@@ -164,12 +206,74 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        if (apply && !isTagsViewHidden), let layout = layout {
-            let height = self.collectionView(collectionView, layout: layout, sizeForItemAt: IndexPath(item: 0, section: 0)).height
-            collectionView.frame = CGRect(x: layoutMargins.left, y: origin.y, width: widthMinusMargins, height: height)
+        if (apply && !isAlertIconHidden) {
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
+            origin.x += alertIconDimension + spacing
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
+        }
+        
+        if (apply && !isAlertLabelHidden) {
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isAlertIconHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.x += alertLabelFrame.width + spacing
+        }
+        
+        if (apply && !isTagsViewHidden) {
+            var xPosition = alertLabel.frame.maxX + spacing
+            var yPosition = alertLabel.frame.midY - 0.5 * collectionViewHeight
+            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (CGFloat(tags.readingLists.count) * spacing)
+
+            if isAlertLabelHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            collectionViewAvailableWidth = availableWidth
+            collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
+            collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
         return CGSize(width: size.width, height: height)
+    }
+    
+    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+        if let error = entry.APIError {
+            switch error {
+            case .entryLimit where isInDefaultReadingList:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .genericNotSynced
+            case .entryLimit:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .entryLimitExceeded(limit: entryLimit)
+            default:
+                isAlertLabelHidden = true
+                isAlertIconHidden = true
+            }
+        }
+        
+        if let error = readingList?.APIError {
+            switch error {
+            case .listLimit:
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .listLimitExceeded(limit: listLimit)
+            default:
+                break
+            }
+        }
     }
     
     func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
@@ -208,6 +312,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 80
+        
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
         }
@@ -221,7 +326,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.backgroundColor = theme.colors.border
     }
     
-    fileprivate func tag(at indexPath: IndexPath) -> Tag {
+    private func tag(at indexPath: IndexPath) -> Tag {
         return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item, indexPath: tags.indexPath)
     }
 }
@@ -234,15 +339,18 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags.readingLists.count > 3 ? 3 : tags.readingLists.count
+        return tags.readingLists.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier(), for: indexPath)
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }
-        tagCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
+        guard configuredTags.indices.contains(indexPath.item) else {
+            return cell
+        }
+        tagCell.configure(with: configuredTags[indexPath.item], for: tags.readingLists.count, theme: theme)
         return tagCell
     }
 
@@ -252,7 +360,10 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didSelect(tag(at: indexPath))
+        guard configuredTags.indices.contains(indexPath.item) else {
+            return
+        }
+        delegate?.didSelect(configuredTags[indexPath.item])
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
@@ -263,8 +374,42 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        placeholderCell.configure(with: tag(at: indexPath), for: tags.readingLists.count, theme: theme)
-        return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+        var tagToConfigure = tag(at: indexPath)
+
+        if let lastConfiguredTag = configuredTags.last, lastConfiguredTag.isLast, tagToConfigure.index > lastConfiguredTag.index {
+            tagToConfigure.isCollapsed = true
+            return .zero
+        }
+        
+        let tagsCount = tags.readingLists.count
+        
+        guard collectionViewAvailableWidth > 0 else {
+            placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+            return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+        }
+        
+        guard collectionViewAvailableWidth - spacing >= 0 else {
+            assertionFailure("collectionViewAvailableWidth - spacing will be: \(collectionViewAvailableWidth - spacing)")
+            return .zero
+        }
+        
+        collectionViewAvailableWidth -= spacing
+        
+        placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        
+        let isLastTagToConfigure = tagToConfigure.index + 1 == tags.readingLists.count
+        
+        if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= placeholderCell.minWidth, !isLastTagToConfigure {
+            tagToConfigure.isLast = true
+            placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
+            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        }
+        
+        collectionViewAvailableWidth -= placeholderCellSize.width
+        
+        configuredTags.append(tagToConfigure)
+        return placeholderCellSize
     }
 }
 
