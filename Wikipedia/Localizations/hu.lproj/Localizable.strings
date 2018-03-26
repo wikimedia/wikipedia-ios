@@ -319,11 +319,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ez évben|Tavaly|$1 évvel ezelőtt}}";
 "request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
-"saved-clear-all" = "Törlés";
-"saved-pages-clear-cancel" = "Mégse";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Biztosan törölni akarod az összes mentett lapot?";
-"saved-pages-clear-delete-all" = "Igen, összes törlése";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
 "saved-title" = "Elmentve";
 "search-button-accessibility-label" = "Keresés a Wikipédiában";

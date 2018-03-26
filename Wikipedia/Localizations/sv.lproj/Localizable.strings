@@ -384,11 +384,7 @@
 "relogin-failed-title" = "Kunde inte återupprätta inloggning";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "saved-all-articles-title" = "Alla artiklar";
-"saved-clear-all" = "Rensa";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
-"saved-pages-clear-cancel" = "Avbryt";
-"saved-pages-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina sparade artiklar och ta bort dem från alla läslistor?";
-"saved-pages-clear-delete-all" = "Ja, radera allt";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
 "saved-reading-lists-title" = "Läslistor";
 "saved-search-default-text" = "Sök";

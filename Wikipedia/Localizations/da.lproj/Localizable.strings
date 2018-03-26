@@ -377,11 +377,7 @@
 "relogin-failed-title" = "Kan ikke genetablere log ind";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "saved-all-articles-title" = "Alle artikler";
-"saved-clear-all" = "Slet";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
-"saved-pages-clear-cancel" = "Annuller";
-"saved-pages-clear-confirmation-heading" = "Er du sikker på, at du ønsker at slette alle dine gemte artikler og fjerne dem fra alle læselister?";
-"saved-pages-clear-delete-all" = "Ja, slet alt";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-reading-lists-title" = "Læselister";
 "saved-search-default-text" = "Søg";

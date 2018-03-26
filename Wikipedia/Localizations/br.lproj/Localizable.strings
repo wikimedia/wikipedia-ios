@@ -282,11 +282,6 @@
 "readers-accessibility-label" = "$1 lenner";
 "reference-title" = "Daveenn $1";
 "request-feedback-on-error" = "Ur gudenn zo c'hoarvezet gant an arload. Plijout a rafe d'hon diorroerien gouzout hiroc'h diwar he fenn. Touchit amañ, mar plij, evit kas ur postel deomp ha displegit deomp ar fazi dre ar munud.";
-"saved-clear-all" = "Diverkañ";
-"saved-pages-clear-cancel" = "Nullañ";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Ha sur eo hoc'h eus c'hoant da lemel ho holl elfennoù enrollet ?";
-"saved-pages-clear-delete-all" = "Ya, lemel pep tra";
 "saved-pages-image-download-error" = "C'hwitet eo pellgardadur ar skeudennoù evit ar bajenn enrollet-se.";
 "saved-title" = "Enrollet";
 "search-did-you-mean" = "N'ho poa ket soñjet kentoc'h e : $1";

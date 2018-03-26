@@ -34,6 +34,13 @@ extension ReadingList {
         }
     }
     
+    public var APIError: APIReadingListError? {
+        guard let errorCode = errorCode ?? entries?.first(where: { !$0.isDeletedLocally && $0.errorCode != nil })?.errorCode else {
+            return nil
+        }
+        return APIReadingListError(rawValue: errorCode)
+    }
+    
     @objc static let defaultListCanonicalName = "default"
 
 }

@@ -19,7 +19,7 @@ class SavedViewController: ViewController {
         let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
         return readingListsCollectionViewController
     }()
-    
+
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet var underBarView: UIView!
@@ -29,19 +29,14 @@ class SavedViewController: ViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
-    
-    let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    lazy var activityIndicatorBarButtonItem: UIBarButtonItem = {
-       return UIBarButtonItem(customView: activityIndicator)
-    }()
-    lazy var clearSavedArticlesBarButtonItem: UIBarButtonItem = {
-        let clearButtonTitle = WMFLocalizedString("saved-clear-all", value: "Clear", comment: "Text of the button shown at the top of saved pages which deletes all the saved pages\n{{Identical|Clear}}")
-        return UIBarButtonItem(title: clearButtonTitle, style: .plain, target: self, action: #selector(clear(_:)))
-    }()
+    @IBOutlet weak var progressContainerView: UIView!
+
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
     }()
     
+    fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
+
     public weak var savedDelegate: SavedViewControllerDelegate?
     
     // MARK: - Initalization and setup
@@ -85,7 +80,7 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                leftButtonType = .clear
+                leftButtonType = .none
                 isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
@@ -108,7 +103,6 @@ class SavedViewController: ViewController {
     
     private enum LeftButtonType {
         case add
-        case clear
         case none
     }
     
@@ -120,26 +114,9 @@ class SavedViewController: ViewController {
             switch leftButtonType {
             case .add:
                 navigationItem.leftBarButtonItems = [addReadingListBarButtonItem]
-            case .clear:
-                navigationItem.leftBarButtonItems = [clearSavedArticlesBarButtonItem, activityIndicatorBarButtonItem]
-                updateClearSavedArticlesBarButtonItemIsEnabled()
             default:
-                navigationItem.leftBarButtonItems = [activityIndicatorBarButtonItem]
+                navigationItem.leftBarButtonItems = []
             }
-        }
-    }
-    
-    private func updateClearSavedArticlesBarButtonItemIsEnabled() {
-        clearSavedArticlesBarButtonItem.isEnabled = !isSavedArticlesEmpty && !activityIndicator.isAnimating
-    }
-    
-    @objc func clear(_ sender: UIBarButtonItem?) {
-        sender?.isEnabled = false
-        activityIndicator.startAnimating()
-        savedArticlesViewController.clear {
-            assert(Thread.isMainThread)
-            self.activityIndicator.stopAnimating()
-            self.updateClearSavedArticlesBarButtonItemIsEnabled()
         }
     }
 
@@ -177,7 +154,9 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
-        
+
+        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+
         currentView = .savedArticles
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
@@ -241,6 +220,7 @@ class SavedViewController: ViewController {
         
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
+        savedProgressViewController?.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
@@ -258,12 +238,9 @@ class SavedViewController: ViewController {
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
 
-        clearSavedArticlesBarButtonItem.tintColor = theme.colors.link
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        
-        activityIndicator.activityIndicatorViewStyle  = theme.isDark ? .white : .gray
     }
 }
 
@@ -286,7 +263,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             }
             leftButtonType = .none
         } else {
-            leftButtonType = currentView == .savedArticles ? .clear : .add
+            leftButtonType = currentView == .savedArticles ? .none : .add
         }
     }
     
@@ -303,7 +280,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             return
         }
         isSearchBarHidden = empty
-        updateClearSavedArticlesBarButtonItemIsEnabled()
     }
 }
 
