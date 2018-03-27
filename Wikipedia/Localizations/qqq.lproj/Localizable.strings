@@ -357,6 +357,7 @@
 "reading-lists-default-list-title" = "The title of the default saved pages list\n{{Identical|Saved}}";
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
+"reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed.";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
 "reading-lists-sync-error-no-internet-connection" = "Alert message informing user that syncing will resume when internet connection is available.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
