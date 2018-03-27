@@ -324,6 +324,9 @@
 "reading-list-api-error-list-limit" = "Овој список не е усогласен бидејќи ја достигнавте дозволената граница на усогласени списоци.";
 "reading-list-deleted-accessibility-notification" = "Списокот за читање е избришан";
 "reading-list-do-not-keep-button-title" = "Не, избриши ги статиите од уредот";
+"reading-list-entry-limit-exceeded-message" = "Сведете го бројот на статии во списоков на $1 за да продолжите со нивното усогласување.";
+"reading-list-entry-limit-exceeded-title" = "Ја надминавте границата од $1 статии по сметка.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Статијата не може да се додаде|Статиите не можат да се додадат}} во списоков. Ја достигнавте границата од $2 статии по список за $3";
 "reading-list-exists-with-same-name" = "Веќе постои список за читање со тоа име";
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
@@ -332,6 +335,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Подреди статии";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Достигната границата на неподредени статии";
+"reading-list-list-limit-exceeded-message" = "Овој список за читање и статиите зачувани во него нема да бидат усогласени. Сведете го бројот на списоци на $1 за да продолжите со усогласување на списокот.";
+"reading-list-list-limit-exceeded-title" = "Ја достигнавте границата од $1 списоци по сметка";
+"reading-list-list-limit-reached" = "Ја достигнавте границата од $1 списоци по сметка";
 "reading-list-login-button-title" = "Најавете се за да ги усогласите зачуваните статии";
 "reading-list-login-or-create-account-button-title" = "Најава / направи сметка";
 "reading-list-login-or-create-account-title" = "Најавете се за да усогласите зачувани статии";
@@ -342,7 +348,6 @@
 "reading-list-sync-enable-button-title" = "Овозможи усогласување";
 "reading-list-sync-enable-subtitle" = "Зачуваните статии и списоци за читање сега можат да се складираат во вашата сметка на Википедија и да се усогласат низ разни уреди.";
 "reading-list-sync-enable-title" = "Да го вклучам усогласувањето на списоците за читање?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Не можеете да {{PLURAL:$1|ја додадете статијава|ги додадете статииве}} во „$2“ бидејќи ја достгнува границата на дозволени статии во списокот.";
 "reading-list-unable-to-add-entry" = "Се појави неочекувана грешка при додавањето на ставка во вашиот список за читање. Обидете се подоцна.";
 "reading-list-unable-to-create" = "Се појави неочекувана грешка при создавањето на список за читање. Обидете се подоцна.";
 "reading-list-unable-to-delete" = "Се појави неочекувана грешка при бришењето на на вашиот список за читање. Обидете се подоцна.";
@@ -350,11 +355,16 @@
 "reading-list-unable-to-update" = "Се појави неочекувана грешка при подновата на вашиот список за читање. Обидете се подоцна.";
 "reading-list-with-provided-name-not-found" = "Не пронајдов список за читање наречен „$1“. Проверете дали името ви е исправно.";
 "reading-lists-article-added-confirmation" = "Статијата е додадена во „$1“";
+"reading-lists-article-not-synced" = "Неусогласена";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Надминат е дозволениот број статии. Не можам да ја усогласам статијата.";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Границата е надмината. Не можев да ја усогласам статијата.";
+"reading-lists-articles-not-synced-limit-exceeded" = "Некои статии не се усогласени. Границата е надмината.";
 "reading-lists-count" = "{{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
 "reading-lists-default-list-description" = "Стандарден список за вашите зачувани статии";
 "reading-lists-default-list-title" = "Зачувани";
 "reading-lists-delete-reading-list-alert-message" = "Ова дејство е неповратно. Сите статии зачувани само во {{PLURAL:$1|овој список|овие списоци}} ќе бидат одзачувани.";
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Списокот не е усогласен. Границата е надмината.";
 "reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";
 "reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
 "reading-themes-controls-accessibility-dark-theme-button" = "Темен изглед";
@@ -374,6 +384,7 @@
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
+"saved-pages-progress-syncing" = "Усогласувањето е во тек...";
 "saved-reading-lists-title" = "Списоци за читање";
 "saved-search-default-text" = "Пребарај";
 "saved-title" = "Зачувано";

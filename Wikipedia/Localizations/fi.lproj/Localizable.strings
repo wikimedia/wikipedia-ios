@@ -350,7 +350,6 @@
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
 "reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tiliisi ja synkronoida laitteiden poikki.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Et voi lisätä {{PLURAL:$1|tätä artikkelia|näitä artikkeleita}} lukulistaan “$2” koska lukulistassa olevien artikkeleiden määrä on rajoitettu.";
 "reading-list-unable-to-add-entry" = "Odottamaton virhe tapahtui lisätessä\nmerkintää lukulistaan. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-create" = "Odottamaton virhe tapahtui lukulistaasi luodessa. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-delete" = "Odottamaton virhe tapahtui poistaessa lukulistaasi. Yritä myöhemmin uudelleen.";
@@ -358,6 +357,7 @@
 "reading-list-unable-to-update" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä. Yritä myöhemmin uudelleen.";
 "reading-list-with-provided-name-not-found" = "Lukulistaa nimellä “$1” ei löytynyt. Varmista, että sinulle on oikea nimi.";
 "reading-lists-article-added-confirmation" = "Artikkeli lisätty listaan “$1”";
+"reading-lists-article-not-synced" = "Ei synkronoitu";
 "reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
 "reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleillesi";
 "reading-lists-default-list-title" = "Tallennetut";
@@ -415,7 +415,9 @@
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Poista tallennetut artikkelit";
 "settings-storage-and-syncing-server-sync-title" = "Synkronoi palvelimen kanssa";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Näytä tallennetut lukulistat";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
