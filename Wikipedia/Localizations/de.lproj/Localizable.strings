@@ -327,6 +327,9 @@
 "reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
 "reading-list-deleted-accessibility-notification" = "Leseliste gelöscht";
 "reading-list-do-not-keep-button-title" = "Nein, Artikel vom Gerät löschen";
+"reading-list-entry-limit-exceeded-message" = "Bitte reduziere die Anzahl der Artikel in dieser Liste auf $1, um mit der Synchronisierung aller Artikel in dieser Liste fortzufahren.";
+"reading-list-entry-limit-exceeded-title" = "Du hast die Grenze von $1 Artikeln pro Benutzerkonto überschritten.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Der Artikel konnte|Die Artikel konnten}} nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von $2 Artikeln pro Leseliste für $3 erreicht.";
 "reading-list-exists-with-same-name" = "Der Name der Leseliste wird bereits verwendet";
 "reading-list-generic-error" = "Beim Aktualisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-keep-button-title" = "Ja, Artikel auf dem Gerät behalten";
@@ -335,6 +338,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikel sortieren";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Es gibt eine Begrenzung von 5000 unsortierten Artikeln. Bitte sortiere deine vorhandenen Artikel in Listen ein, um mit der Synchronisierung deiner unsortierten Artikel fortzufahren.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Grenze für unsortierte Artikel";
+"reading-list-list-limit-exceeded-message" = "Diese Leseliste und die in ihr gespeicherten Artikel werden nicht synchronisiert. Bitte reduziere die Anzahl der Listen auf $1, um mit der Synchronisierung dieser Liste fortzufahren.";
+"reading-list-list-limit-exceeded-title" = "Du hast die Grenze von $1 Leselisten pro Benutzerkonto überschritten.";
+"reading-list-list-limit-reached" = "Du hast die Grenze von $1 Leselisten pro Benutzerkonto erreicht";
 "reading-list-login-button-title" = "Zur Synchronisierung deiner gespeicherten Artikel anmelden";
 "reading-list-login-or-create-account-button-title" = "Anmelden oder Benutzerkonto erstellen";
 "reading-list-login-or-create-account-title" = "Zur Synchronisierung von gespeicherten Artikeln anmelden";
@@ -345,7 +351,6 @@
 "reading-list-sync-enable-button-title" = "Synchronisierung aktivieren";
 "reading-list-sync-enable-subtitle" = "Deine gespeicherten Artikel und Leselisten können jetzt auf deinem Wikipedia-Benutzerkonto gespeichert und zwischen deinen Geräten synchronisiert werden.";
 "reading-list-sync-enable-title" = "Synchronisierung von Leselisten anschalten?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Du kannst {{PLURAL:$1|diesen|diese}} Artikel nicht zu „$2“ hinzufügen, da es eine Begrenzung bei der Anzahl von Artikeln gibt, die du in einer Leseliste haben kannst.";
 "reading-list-unable-to-add-entry" = "Beim Hinzufügen eines Eintrags zu deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-unable-to-create" = "Beim Erstellen deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-unable-to-delete" = "Beim Löschen deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
@@ -353,11 +358,16 @@
 "reading-list-unable-to-update" = "Beim Aktualisieren deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-with-provided-name-not-found" = "Eine Leseliste mit dem Namen „$1“ wurde nicht gefunden. Bitte stelle sicher, dass du den richtigen Namen hast.";
 "reading-lists-article-added-confirmation" = "Artikel zu „$1“ hinzugefügt";
+"reading-lists-article-not-synced" = "Nicht synchronisiert";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Listengrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
+"reading-lists-articles-not-synced-limit-exceeded" = "Einige Artikel wurden nicht synchronisiert. Grenze überschritten.";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
 "reading-lists-default-list-description" = "Standardliste für deine gespeicherten Artikel";
 "reading-lists-default-list-title" = "Gespeichert";
 "reading-lists-delete-reading-list-alert-message" = "Diese Aktion kann nicht rückgängig gemacht werden. Alle Artikel, die nur in {{PLURAL:$1|dieser Liste|diesen Listen}} gespeichert sind, werden gelöscht.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
+"reading-lists-list-not-synced-limit-exceeded" = "Liste nicht synchronisiert, Grenze überschritten";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dunkles Farbschema";
@@ -377,6 +387,7 @@
 "saved-all-articles-title" = "Alle Artikel";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
+"saved-pages-progress-syncing" = "Artikelsynchronisierung läuft …";
 "saved-reading-lists-title" = "Leselisten";
 "saved-search-default-text" = "Suchen";
 "saved-title" = "Gespeichert";
