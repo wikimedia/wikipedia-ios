@@ -611,12 +611,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
         dispatch_async(dispatch_get_main_queue(), completion);
-        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
             dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
@@ -625,11 +623,20 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         }];
 }
 
+- (void (^)(void))didAttemptSyncCompletion {
+    __weak typeof(self) weakSelf = self;
+    WMFTheme *theme = self.theme;
+    return ^{
+        [weakSelf wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:theme];
+    };
+}
+
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
     [self attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
+        self.dataStore.readingListsController.didAttemptSyncCompletion = self.didAttemptSyncCompletion;
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
