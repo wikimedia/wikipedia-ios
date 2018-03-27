@@ -167,7 +167,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES failure:saveToDiskFailure completion:nil];
+                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk failure:saveToDiskFailure completion:nil];
                                                   NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                   WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
                                                   article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
