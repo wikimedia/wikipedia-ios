@@ -93,8 +93,10 @@ public class ReadingListsController: NSObject {
     @objc public static let syncProgressDidChangeNotification = NSNotification.Name(rawValue: "WMFSyncProgressDidChangeNotification")
     @objc public static let syncProgressDidChangeFractionCompletedKey = "fractionCompleted"
     
-    @objc public static let syncFinishedWithErrorNotification = NSNotification.Name(rawValue: "WMFSyncFinishedWithErrorNotification")
-    @objc public static let syncFinishedWithErrorErrorKey = NSNotification.Name(rawValue: "error")
+    @objc public static let syncFinishedNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
+    @objc public static let syncFinishedErrorKey = NSNotification.Name(rawValue: "error")
+    @objc public static let syncFinishedSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
+    @objc public static let syncFinishedSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
@@ -123,11 +125,16 @@ public class ReadingListsController: NSObject {
             if operation.isFinished {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
                 self.observedProgresses.removeValue(forKey: operation)?.invalidate()
-                if let error = operation.error {
-                    DispatchQueue.main.async {
-                        let userInfo = [ReadingListsController.syncFinishedWithErrorErrorKey: error]
-                        NotificationCenter.default.post(name: ReadingListsController.syncFinishedWithErrorNotification, object: nil, userInfo: userInfo)
+                DispatchQueue.main.async {
+                    var userInfo: [Notification.Name: Any] = [:]
+                    if let error = operation.error {
+                        userInfo[ReadingListsController.syncFinishedErrorKey] = error
                     }
+                    if let syncOperation = operation as? ReadingListsSyncOperation {
+                        userInfo[ReadingListsController.syncFinishedSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
+                        userInfo[ReadingListsController.syncFinishedSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
+                    }
+                    NotificationCenter.default.post(name: ReadingListsController.syncFinishedNotification, object: nil, userInfo: userInfo)
                 }
             } else if operation.isExecuting {
                 self.postSyncProgressDidChangeNotificationOnTheMainThread(operation.progress.fractionCompleted)
