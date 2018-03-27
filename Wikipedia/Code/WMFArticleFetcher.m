@@ -106,6 +106,18 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:articleURL] : [NSURL wmf_mobileAPIURLForURL:articleURL];
+    
+    __block WMFErrorHandler saveToDiskFailure = nil;
+    if (saveToDisk) {
+        saveToDiskFailure = ^(NSError *error) {
+            if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:@"You do not have enough space on your device to save this article"
+                                                                     sticky:YES
+                                                      dismissPreviousAlerts:YES
+                                                                tapCallBack:nil];
+            }
+        };
+    }
 
     WMFTaskGroup *taskGroup = [WMFTaskGroup new];
     [[MWNetworkActivityIndicatorManager sharedManager] push];
@@ -155,14 +167,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES failure:^(NSError *error) {
-                                                      if (error.code == NSFileWriteOutOfSpaceError) {
-                                                          [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:@"You do not have enough space on your device to save this article"
-                                                                                                      sticky:YES
-                                                                                       dismissPreviousAlerts:YES
-                                                                                                 tapCallBack:nil];
-                                                      }
-                                                  } completion:nil];
+                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES failure:saveToDiskFailure completion:nil];
                                                   NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                   WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
                                                   article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
