@@ -337,6 +337,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                      dismissPreviousAlerts:YES
                                                tapCallBack:nil];
     }
+    
+    if (!error) {
+        if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
+            NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncFinishedSyncedReadingListsCountKey] integerValue];
+            NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncFinishedSyncedReadingListEntriesCountKey] integerValue];
+            NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"%1$d articles and %2$d reading lists synced from your account", @"Alert message informing user that large sync was completed."), syncedReadingListsCount, syncedReadingListEntriesCount];
+            [[WMFAlertManager sharedInstance] showSuccessAlert:alertTitle
+                                                        sticky:YES
+                                         dismissPreviousAlerts:YES
+                                                   tapCallBack:nil];
+        }
+   }
 }
 
 - (void)conflictingReadingListNameUpdatedNotification:(NSNotification *)note {
@@ -365,17 +377,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     // sync started
     if ([progress doubleValue] == 0) {
         self.syncStartDate = [NSDate date];
-    }
-
-    // sync finished
-    if ([progress doubleValue] == 1) {
-        if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
-            // TODO: change string
-            [[WMFAlertManager sharedInstance] showWarningAlert:@"Large sync completed"
-                                                        sticky:YES
-                                         dismissPreviousAlerts:YES
-                                                   tapCallBack:nil];
-        }
     }
 }
 
