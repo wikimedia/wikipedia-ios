@@ -66,6 +66,22 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Статијата не може да се додаде во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
+			<key>other</key>
+			<string>Статиите не можат да се додадат во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
