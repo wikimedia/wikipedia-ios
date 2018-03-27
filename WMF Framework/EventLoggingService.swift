@@ -283,7 +283,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         let moc = self.managedObjectContext
         moc.perform {
             let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
-            fetch.sortDescriptors = [NSSortDescriptor.init(key: "recorded", ascending: true)]
+            fetch.sortDescriptors = [NSSortDescriptor.init(keyPath: \EventRecord.recorded, ascending: true)]
             fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
             fetch.fetchLimit = self.postBatchSize
             
