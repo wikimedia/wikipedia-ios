@@ -64,6 +64,22 @@
 			<string>%1$d Artikel</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Der Artikel konnte nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
+			<key>other</key>
+			<string>Die Artikel konnten nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
