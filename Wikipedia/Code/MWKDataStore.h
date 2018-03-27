@@ -170,14 +170,6 @@ extern NSString *const WMFArticleUpdatedNotification;
  */
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
 
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param image The image to save
- */
-- (void)saveImage:(MWKImage *)image;
-
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 
 - (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion;

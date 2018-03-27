@@ -1075,16 +1075,8 @@ static uint64_t bundleHash() {
     return [self saveData:data toFile:name atPath:path error:error];
 }
 
-- (void)saveDictionary:(NSDictionary *)dict path:(NSString *)path name:(NSString *)name {
-    [self saveDictionary:dict path:path name:name error:NULL];
-}
-
 - (BOOL)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name error:(NSError **)error {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
-}
-
-- (void)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name {
-    [self saveString:string path:path name:name error:NULL];
 }
 
 - (void)saveArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure {
@@ -1116,13 +1108,7 @@ static uint64_t bundleHash() {
     [self saveString:html path:path name:@"Section.html"];
 }
 
-- (void)saveImage:(MWKImage *)image {
-    if ([image.article isMain]) {
-        return;
     }
-    NSString *path = [self pathForImage:image];
-    NSDictionary *export = [image dataExport];
-    [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
