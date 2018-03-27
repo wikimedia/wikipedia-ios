@@ -17,7 +17,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public let actionsView = ActionsView()
     public var alertIcon = UIImageView()
     public var alertLabel = UILabel()
-    open var alertType: AlertType?
+    open var alertType: ReadingListAlertType?
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     public var actions: [Action] {

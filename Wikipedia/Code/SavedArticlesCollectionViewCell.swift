@@ -29,7 +29,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    override var alertType: AlertType? {
+    override var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
                 return

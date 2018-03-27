@@ -15,7 +15,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    override var alertType: AlertType? {
+    override var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
                 return

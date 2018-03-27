@@ -79,7 +79,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCount = count
     }
     
-    private var alertType: AlertType? {
+    private var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
                 return
