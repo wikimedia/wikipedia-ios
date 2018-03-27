@@ -374,9 +374,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [item setBadgeValue:@"\u25cf"];
     }
 
-    NSLog(@"progress: %@", progress);
-
-    // sync started
     if ([progress doubleValue] == 0) {
         self.syncStartDate = [NSDate date];
     }
