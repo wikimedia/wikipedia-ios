@@ -1,6 +1,7 @@
 @import CoreLocation;
 
 #import <WMF/MWKSiteDataObject.h>
+#import <WMF/WMFBlockDefinitions.h>
 NS_ASSUME_NONNULL_BEGIN
 static const NSInteger kMWKArticleSectionNone = -1;
 
@@ -105,7 +106,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article;
 
-- (void)save;
+- (void)save:(WMFErrorHandler)failure;
 
 - (BOOL)isCached;
 

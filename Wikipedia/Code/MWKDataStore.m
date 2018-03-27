@@ -70,11 +70,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _articleSaveOperations;
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk {
-    [self asynchronouslyCacheArticle:article toDisk:toDisk completion:nil];
-}
-
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion {
     [self addArticleToMemoryCache:article];
     if (!toDisk) {
         if (completion) {
@@ -97,7 +93,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         }
 
         op = [NSBlockOperation blockOperationWithBlock:^{
-            [article save];
+            [article save:failure];
             @synchronized(queue) {
                 [operations removeObjectForKey:key];
             }
@@ -1091,7 +1087,7 @@ static uint64_t bundleHash() {
     [self saveString:string path:path name:name error:NULL];
 }
 
-- (void)saveArticle:(MWKArticle *)article {
+- (void)saveArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure {
     if (article.url.wmf_title == nil) {
         return;
     }
@@ -1102,7 +1098,11 @@ static uint64_t bundleHash() {
     [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
-    [self saveDictionary:export path:path name:@"Article.plist"];
+    NSError* error;
+    BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
+    if (!success) {
+        failure(error);
+    }
 }
 
 - (void)saveSection:(MWKSection *)section {

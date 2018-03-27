@@ -99,7 +99,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
-
+    
     // Force desktop domain if not Zero rated.
     if (![SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated) {
         useDeskTopURL = YES;
@@ -155,7 +155,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
 
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
+                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES failure:^(NSError *error) {
+                                                      if (error.code == NSFileWriteOutOfSpaceError) {
+                                                          [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:@"You do not have enough space on your device to save this article"
+                                                                                                      sticky:YES
+                                                                                       dismissPreviousAlerts:YES
+                                                                                                 tapCallBack:nil];
+                                                      }
+                                                  } completion:nil];
                                                   NSManagedObjectContext *moc = self.dataStore.viewContext;
                                                   WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
                                                   article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
