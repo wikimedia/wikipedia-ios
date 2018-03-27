@@ -336,6 +336,9 @@
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
 "reading-list-deleted-accessibility-notification" = "Läslistor raderades";
 "reading-list-do-not-keep-button-title" = "Nej, radera artiklar från enheten";
+"reading-list-entry-limit-exceeded-message" = "Var god minska antalet artiklar i denna lista till $1 för att fortsätta synkronisera alla artiklar i denna lista.";
+"reading-list-entry-limit-exceeded-title" = "Du har överstigit gränsen på $1 artiklar per konto.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikeln|Artiklarna}} kan inte läggas till i denna lista. Du har nått gränsen på $2 artiklar per läslista för $3";
 "reading-list-exists-with-same-name" = "En läslista med namnet finns redan";
 "reading-list-generic-error" = "Ett oväntat fel uppstod när dina läslistor uppdaterades.";
 "reading-list-keep-button-title" = "Ja, behåll artiklar på enheten";
@@ -344,6 +347,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortera artiklar";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Det finns en gräns på 5000 osorterade artiklar. Var god sortera dina befintliga artiklar i listor för att fortsätta synkronisera osorterade artiklar.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Gränsen för osorterade artiklar är nådd";
+"reading-list-list-limit-exceeded-message" = "Denna läslista och artiklarna som är sparade i den kommer inte att synkroniseras, var god minska antalet listor till $1 för att fortsätta synkronisera denna lista.";
+"reading-list-list-limit-exceeded-title" = "Du har överstigit gränsen på $1 läslistor per konto.";
+"reading-list-list-limit-reached" = "Du har nått gränsen på $1 läslistor per konto.";
 "reading-list-login-button-title" = "Logga in för att synkronisera dina sparade artiklar";
 "reading-list-login-or-create-account-button-title" = "Logga in eller skapa konto";
 "reading-list-login-or-create-account-title" = "Logga in för att synkronisera sparade artiklar";
@@ -354,7 +360,6 @@
 "reading-list-sync-enable-button-title" = "Aktivera synkronisering";
 "reading-list-sync-enable-subtitle" = "Dina sparade artiklar och läslistor kan nu sparas till ditt Wikipedia-konto och synkroniseras över enheter.";
 "reading-list-sync-enable-title" = "Aktivera synkronisering av läslistor?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Du kan inte lägga till {{PLURAL:$1|denna artikel|dessa artiklar}} i \"$2\" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.";
 "reading-list-unable-to-add-entry" = "Ett oväntat fel uppstod när ett element lades till i din läslista. Försök igen senare.";
 "reading-list-unable-to-create" = "Ett oväntat fel uppstod när din läslista skapades. Försök igen senare.";
 "reading-list-unable-to-delete" = "Ett oväntat fel uppstod när din läslista raderades. Försök igen senare.";
@@ -362,11 +367,16 @@
 "reading-list-unable-to-update" = "Ett oväntat fel uppstod när din läslista uppdaterades. Försök igen senare.";
 "reading-list-with-provided-name-not-found" = "En läslista med namnet \"$1\" hittades inte. Se till att du har rätt namn.";
 "reading-lists-article-added-confirmation" = "Artikeln lades till i \"$1\"";
+"reading-lists-article-not-synced" = "Inte synkroniserad";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgränsen har överstigits, kan inte synkronisera artikel";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Listgränsen har överstigits, kan inte synkronisera artikel";
+"reading-lists-articles-not-synced-limit-exceeded" = "Vissa artiklar är inte synkroniserade, gränsen har överstigits";
 "reading-lists-count" = "{{PLURAL:$1|$1 läslista|$1 läslistor}}";
 "reading-lists-default-list-description" = "Standardlista för dina sparade artiklar";
 "reading-lists-default-list-title" = "Sparade";
 "reading-lists-delete-reading-list-alert-message" = "Denna handling kan inte ångras. Alla artiklar som endast sparas i {{PLURAL:$1|denna lista|dessa listor}} kommer att tas bort.";
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Listan är inte synkroniserad, gränsen har överstigits";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mörkt tema";
@@ -386,6 +396,7 @@
 "saved-all-articles-title" = "Alla artiklar";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
+"saved-pages-progress-syncing" = "Synkronisering av artikel pågår...";
 "saved-reading-lists-title" = "Läslistor";
 "saved-search-default-text" = "Sök";
 "saved-title" = "Sparade";
@@ -421,6 +432,8 @@
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in för att synkronisera";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet. Du kan inte ångra detta.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Radera alla sparade artiklar?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet.\n\nUpp till 364,4 MB kommer att frigöras när dina artiklar raderas.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
