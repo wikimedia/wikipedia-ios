@@ -1090,20 +1090,17 @@ static uint64_t bundleHash() {
     [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
-    NSError* error;
+    NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
     if (!success) {
         failure(error);
     }
-    // remove after testing
-    NSError *testError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteOutOfSpaceError userInfo:nil];
-    failure(testError);
 }
 
 - (void)saveSection:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
-    NSError* error;
+    NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
     if (!success) {
         failure(error);
@@ -1112,7 +1109,7 @@ static uint64_t bundleHash() {
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
     NSString *path = [self pathForSection:section];
-    NSError* error;
+    NSError *error;
     BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
     if (!success) {
         failure(error);
@@ -1547,7 +1544,7 @@ static uint64_t bundleHash() {
 
 #pragma mark - Remote Configuration
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * nullable))completion {
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {
     void (^combinedCompletion)(NSError *) = ^(NSError *error) {
         if (completion) {
             completion(error);
