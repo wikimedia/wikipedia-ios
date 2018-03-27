@@ -336,6 +336,7 @@
 "reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
 "reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across devices.";
 "reading-list-login-title" = "Title for syncing save articles.";
+"reading-list-name-user-created-annotation" = "Annotation added to a conflicting reading list name";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";

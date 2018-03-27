@@ -8,7 +8,8 @@ extension ReadingList {
     func update(with remoteList: APIReadingList) {
         self.readingListID = NSNumber(value: remoteList.id)
         if remoteList.name == CommonStrings.readingListsDefaultListTitle {
-            let newName = "\(remoteList.name)_[user created]"
+            let userCreatedAnnotation = WMFLocalizedString("reading-list-name-user-created-annotation", value: "_[user created]", comment: "Annotation added to a conflicting reading list name")
+            let newName = String.localizedStringWithFormat("%1$@%2$@", remoteList.name, userCreatedAnnotation)
             if newName != self.name {
                 let userInfo = [ReadingList.conflictingReadingListNameUpdatedOldNameKey: remoteList.name, ReadingList.conflictingReadingListNameUpdatedNewNameKey: newName]
                 NotificationCenter.default.post(name: ReadingList.conflictingReadingListNameUpdatedNotification, object: nil, userInfo: userInfo)
