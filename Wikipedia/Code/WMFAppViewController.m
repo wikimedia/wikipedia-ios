@@ -167,8 +167,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(syncFinishedWithErrorNotification:)
-                                                 name:[WMFReadingListsController syncFinishedWithErrorNotification]
+                                             selector:@selector(syncFinishedNotification:)
+                                                 name:[WMFReadingListsController syncFinishedNotification]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -329,8 +329,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureExploreViewController];
 }
 
-- (void)syncFinishedWithErrorNotification:(NSNotification *)note {
-    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncFinishedWithErrorErrorKey];
+- (void)syncFinishedNotification:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncFinishedErrorKey];
     if (error.wmf_isNetworkConnectionError) {
         [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                     sticky:YES
