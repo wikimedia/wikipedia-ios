@@ -336,6 +336,9 @@
 "reading-list-api-error-list-limit" = "此清單尚未同步，因為您已達到同步清單的上限數目。";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
+"reading-list-entry-limit-exceeded-message" = "請刪減您在此清單的條目數量至 $1 個，以恢復此清單的所有條目同步。";
+"reading-list-entry-limit-exceeded-title" = "您已超出各帳號 $1 個條目上限。";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1| 個條目| 個條目}}無法添加至此清單。您已達到$3裡各閱讀清單的 $2 個條目上限";
 "reading-list-exists-with-same-name" = "閱讀清單名稱已被使用";
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
 "reading-list-keep-button-title" = "是的，保留條目在裝置上";
@@ -344,6 +347,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序條目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "有 5000 個未排序條目的上限。請排序您現有的條目至清單裡，來繼續未排序條目的同步。";
 "reading-list-limit-hit-for-unsorted-articles-title" = "命中未排序條目的上限";
+"reading-list-list-limit-exceeded-message" = "此閱讀清單與儲存在清單裡頭的條目無法同步，請刪減您在清單的條目數量至 $1 個，以恢復此清單的同步。";
+"reading-list-list-limit-exceeded-title" = "您已超出各帳號 $1 個閱讀清單上限。";
+"reading-list-list-limit-reached" = "您已達到各帳號 $1 個閱讀清單上限";
 "reading-list-login-button-title" = "登入來同步您所儲存的條目";
 "reading-list-login-or-create-account-button-title" = "登入或建立帳號";
 "reading-list-login-or-create-account-title" = "登入來同步所儲存的條目";
@@ -354,7 +360,6 @@
 "reading-list-sync-enable-button-title" = "啟用同步";
 "reading-list-sync-enable-subtitle" = "您所儲存的條目與閱讀清單，現已儲存到您的維基百科並跨裝置同步。";
 "reading-list-sync-enable-title" = "開啟閱讀清單同步？";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "您無法添加{{PLURAL:$1|此條目|這些條目}}至「$2」，因為您的閱讀清單裡有條目數量限制。";
 "reading-list-unable-to-add-entry" = "新增項目至您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-create" = "建立您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-delete" = "刪除您的閱讀清單時發生意外錯誤。請稍後再試。";
@@ -362,11 +367,16 @@
 "reading-list-unable-to-update" = "更新您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-with-provided-name-not-found" = "找不到名為「$1」的閱讀清單。請確定是正確的名稱。";
 "reading-lists-article-added-confirmation" = "條目已添加至「$1」";
+"reading-lists-article-not-synced" = "尚未同步";
+"reading-lists-article-not-synced-article-limit-exceeded" = "超出條目上限，無法同步條目";
+"reading-lists-article-not-synced-list-limit-exceeded" = "超出清單上限，無法同步條目";
+"reading-lists-articles-not-synced-limit-exceeded" = "因超出上限，一些條目無法同步";
 "reading-lists-count" = "{{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}";
 "reading-lists-default-list-description" = "您已儲存條目的預設清單";
 "reading-lists-default-list-title" = "已儲存";
 "reading-lists-delete-reading-list-alert-message" = "此操作無法還原，任何儲存至{{PLURAL:$1|此清單|這些清單}}的條目將會被取消儲存。";
 "reading-lists-delete-reading-list-alert-title" = "刪除 {{PLURAL:$1| 個清單| 個清單}}嗎？";
+"reading-lists-list-not-synced-limit-exceeded" = "因超出上限，清單無法同步";
 "reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
 "reading-themes-controls-accessibility-dark-theme-button" = "陰暗主題";
@@ -386,6 +396,7 @@
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
+"saved-pages-progress-syncing" = "條目同步進行中...";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋";
 "saved-title" = "已儲存";

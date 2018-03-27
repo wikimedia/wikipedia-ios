@@ -364,7 +364,6 @@
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
 "reading-list-sync-enable-subtitle" = "Os artigos guardados e as listas de leitura agora podem ser guardados na sua conta Wikipedia e sincronizados entre dispositivos.";
 "reading-list-sync-enable-title" = "Deseja ativar a sincronização das listas de leitura?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Não pode adicionar {{PLURAL:$1|este artigo|estes artigos}} a “$2”, porque há um limite para a quantidade de artigos que se pode ter numa lista de leitura.";
 "reading-list-unable-to-add-entry" = "Ocorreu um erro inesperado ao adicionar uma entrada à sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-create" = "Ocorreu um erro inesperado ao criar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-delete" = "Ocorreu um erro inesperado ao eliminar a sua lista de leitura. Por favor, tente novamente mais tarde.";

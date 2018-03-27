@@ -335,6 +335,9 @@
 "reading-list-api-error-list-limit" = "此列表未同步，因为您已达到同步列表的数量限制。";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
+"reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
+"reading-list-entry-limit-exceeded-title" = "您已超过每账户$1个条目限制。";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|条目}}不能添加到此列表。您已超过每个$3的阅读列表$2个条目限制";
 "reading-list-exists-with-same-name" = "阅读列表名称已被使用";
 "reading-list-generic-error" = "更新您的阅读列表时发生意外错误。";
 "reading-list-keep-button-title" = "是，将条目保留到设备";
@@ -343,6 +346,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序条目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
 "reading-list-limit-hit-for-unsorted-articles-title" = "未分类条目的限制触发";
+"reading-list-list-limit-exceeded-message" = "此阅读列表（及保存至此的条目）将不会同步，请减少您的列表数量至$1以恢复同步此列表。";
+"reading-list-list-limit-exceeded-title" = "您已超过每账户$1个阅读列表限制。";
+"reading-list-list-limit-reached" = "您已超过每账户$1个阅读列表限制";
 "reading-list-login-button-title" = "登录以同步您保存的条目";
 "reading-list-login-or-create-account-button-title" = "登录或创建账户";
 "reading-list-login-or-create-account-title" = "登录以同步保存的条目";
@@ -353,7 +359,6 @@
 "reading-list-sync-enable-button-title" = "启用同步";
 "reading-list-sync-enable-subtitle" = "您保存的条目和阅读列表现在可以保存至您的维基百科账户，并跨设备同步。";
 "reading-list-sync-enable-title" = "打开阅读列表同步？";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "您不能添加{{PLURAL:$1|此|这些}}条目至“$2”，因为存在您可以添加进阅读列表的条目数量限制。";
 "reading-list-unable-to-add-entry" = "添加条目至您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-unable-to-create" = "创建您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-unable-to-delete" = "删除您的阅读列表时发生意外错误。请稍后重试。";
@@ -361,11 +366,16 @@
 "reading-list-unable-to-update" = "更新您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-with-provided-name-not-found" = "找不到名为“$1”的阅读列表。请确保您已提供正确名称。";
 "reading-lists-article-added-confirmation" = "条目已添加至“$1”";
+"reading-lists-article-not-synced" = "未同步";
+"reading-lists-article-not-synced-article-limit-exceeded" = "超过条目限制，无法同步条目";
+"reading-lists-article-not-synced-list-limit-exceeded" = "超过列表限制，无法同步条目";
+"reading-lists-articles-not-synced-limit-exceeded" = "部分条目未同步，超过限制";
 "reading-lists-count" = "{{PLURAL:$1|$1个阅读列表}}";
 "reading-lists-default-list-description" = "默认用于您的已保存条目的列表";
 "reading-lists-default-list-title" = "已保存";
 "reading-lists-delete-reading-list-alert-message" = "此操作不能撤销。任何只添加至{{PLURAL:$1此|这些}}列表的条目将被取消保存。";
 "reading-lists-delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
+"reading-lists-list-not-synced-limit-exceeded" = "列表未同步，超过限制";
 "reading-themes-controls-accessibility-black-theme-button" = "黑暗主题";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
 "reading-themes-controls-accessibility-dark-theme-button" = "夜间主题";
@@ -385,6 +395,7 @@
 "saved-all-articles-title" = "所有条目";
 "saved-default-reading-list-tag" = "此列表不能删除";
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
+"saved-pages-progress-syncing" = "条目同步正在进行...";
 "saved-reading-lists-title" = "阅读列表";
 "saved-search-default-text" = "搜索";
 "saved-title" = "已保存";
