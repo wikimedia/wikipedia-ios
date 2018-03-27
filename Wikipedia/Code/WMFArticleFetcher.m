@@ -111,7 +111,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     if (saveToDisk) {
         saveToDiskFailure = ^(NSError *error) {
             if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
-                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:@"You do not have enough space on your device to save this article"
+                [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
                                                                      sticky:YES
                                                       dismissPreviousAlerts:YES
                                                                 tapCallBack:nil];

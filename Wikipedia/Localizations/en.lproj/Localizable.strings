@@ -74,6 +74,7 @@
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
+"article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-article" = "Unable to load article.";
