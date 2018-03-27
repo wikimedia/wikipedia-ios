@@ -144,10 +144,10 @@
     return count;
 }
 
-- (void)save {
+- (void)save:(nullable WMFErrorHandler)failure {
     for (MWKSection *section in self) {
         @autoreleasepool {
-            [section save];
+            [section save:failure];
         }
     }
 }

@@ -267,9 +267,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Save
 
-- (void)save:(WMFErrorHandler)failure {
+- (void)save:(nullable WMFErrorHandler)failure {
     [self.dataStore saveArticle:self failure:failure];
-    [self.sections save];
+    [self.sections save:failure];
 }
 
 #pragma mark - Accessors

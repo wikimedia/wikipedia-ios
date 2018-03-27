@@ -90,7 +90,7 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param article    The article to save.
  **/
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion;
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(nullable WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Cancel the asynchronous save for the @c article.
@@ -144,7 +144,7 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param article the article to save
  */
-- (void)saveArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure;
+- (void)saveArticle:(MWKArticle *)article failure:(nullable WMFErrorHandler)failure;
 
 /**
  *  Adds the article to the memory cache
@@ -159,7 +159,7 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param section the section to save
  */
-- (void)saveSection:(MWKSection *)section;
+- (void)saveSection:(MWKSection *)section failure:(nullable WMFErrorHandler)failure;
 
 /**
  *  Saves the section to the store
@@ -168,7 +168,7 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  @param html    The text to save
  *  @param section the section to save
  */
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
+- (void)saveSectionText:(NSString *)html section:(MWKSection *)section failure:(nullable WMFErrorHandler)failure;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 

@@ -70,7 +70,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _articleSaveOperations;
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(nullable WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion {
     [self addArticleToMemoryCache:article];
     if (!toDisk) {
         if (completion) {
@@ -1079,7 +1079,7 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)saveArticle:(MWKArticle *)article failure:(WMFErrorHandler)failure {
+- (void)saveArticle:(MWKArticle *)article failure:(nullable WMFErrorHandler)failure {
     if (article.url.wmf_title == nil) {
         return;
     }
@@ -1095,19 +1095,27 @@ static uint64_t bundleHash() {
     if (!success) {
         failure(error);
     }
+    // remove after testing
+    NSError *testError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteOutOfSpaceError userInfo:nil];
+    failure(testError);
 }
 
-- (void)saveSection:(MWKSection *)section {
+- (void)saveSection:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
-    [self saveDictionary:export path:path name:@"Section.plist"];
+    NSError* error;
+    BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
+    if (!success) {
+        failure(error);
+    }
 }
 
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
+- (void)saveSectionText:(NSString *)html section:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
     NSString *path = [self pathForSection:section];
-    [self saveString:html path:path name:@"Section.html"];
-}
-
+    NSError* error;
+    BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
+    if (!success) {
+        failure(error);
     }
 }
 
