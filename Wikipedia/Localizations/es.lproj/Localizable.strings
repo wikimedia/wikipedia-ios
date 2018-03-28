@@ -52,7 +52,7 @@
 "abuse-filter-warning-caps" = "Escribir TODO EN MAYÚSCULAS";
 "abuse-filter-warning-heading" = "Esto parece una edición no constructiva. ¿Estás seguro de que quieres publicarla?";
 "abuse-filter-warning-irrelevant" = "Enlaces o imágenes externas irrelevantes";
-"abuse-filter-warning-repeat" = "Caracteres repitiééééndose";
+"abuse-filter-warning-repeat" = "Caracteres repetiiiiiidos";
 "abuse-filter-warning-subheading" = "Tu edición puede contener uno o más de los siguientes:";
 "account-creation-captcha-cannot-see-image" = "¿No puedes ver la imagen? $1";
 "account-creation-captcha-obtaining" = "Obtener un nuevo CAPTCHA...";
@@ -61,7 +61,7 @@
 "account-creation-create-account" = "Crea tu cuenta";
 "account-creation-have-account" = "¿Ya tienes una cuenta? $1";
 "account-creation-log-in" = "Acceder.";
-"account-creation-logging-in" = "Iniciando sesión…";
+"account-creation-logging-in" = "Accediendo…";
 "account-creation-missing-fields" = "Debes escribir un nombre de usuario, una contraseña y confirmar la contraseña para crear una cuenta.";
 "account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
 "account-creation-saving" = "Guardando…";
@@ -82,6 +82,7 @@
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
+"add-articles-to-reading-list" = "Añadir $1 a lista de lectura";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
@@ -348,7 +349,6 @@
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-title" = "¿Quieres activar la sincronización de listas de lectura?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "No puedes añadir {{PLURAL:$1|este artículo|estos artículos}} a «$2» porque existe un límite en la cantidad de artículos que puede contener una lista de lectura.";
 "reading-list-unable-to-add-entry" = "Se produjo un error inesperado al añadir una entrada a la lista de lectura. Inténtalo de nuevo más tarde.";
 "reading-list-unable-to-create" = "Se produjo un error al crear la lista de lectura. Inténtalo de nuevo más tarde.";
 "reading-list-unable-to-delete" = "Se produjo un error inesperado al eliminar la lista de lectura. Inténtalo de nuevo más tarde.";
@@ -377,6 +377,7 @@
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
+"saved-pages-progress-syncing" = "Sincronización de artículos en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
 "saved-search-default-text" = "Buscar";
 "saved-title" = "Guardados";

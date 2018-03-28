@@ -343,7 +343,6 @@
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-subtitle" = "Los artículos guardaos y llistes de llectura agora pueden guardase na cuenta de Wikipedia y sincronizase ente preseos.";
 "reading-list-sync-enable-title" = "¿Activar la sincronización de llistes de llectura?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Nun puedes amestar {{PLURAL:$1|esti artículu|estos artículos}} a «$2» porque hai una llende nel númberu d'artículos que puedes tener nuna llista de llectura.";
 "reading-list-unable-to-add-entry" = "Asocedió un error inesperáu al añadir una entrada a la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-create" = "Asocedió un error inesperáu al crear la llista de llectura. Tenta otra vuelta sero.";
 "reading-list-unable-to-delete" = "Asocedió un error inesperáu al desaniciar la llista de llectura. Tenta otra vuelta sero.";
