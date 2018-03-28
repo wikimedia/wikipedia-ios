@@ -165,6 +165,7 @@
 		7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */; };
 		7A2FE55F20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */; };
 		7A2FE56020517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */; };
+		7A3159CF206458B000143119 /* ReadingListAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3159CE206458B000143119 /* ReadingListAlertType.swift */; };
 		7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB881FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
@@ -3237,6 +3238,7 @@
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
 		7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSavedArticlesView.swift; sourceTree = "<group>"; };
+		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorageAndSyncingSettingsViewController.xib; sourceTree = "<group>"; };
 		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
@@ -8098,6 +8100,7 @@
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
 				B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */,
 				B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */,
+				7A3159CE206458B000143119 /* ReadingListAlertType.swift */,
 				D84C36061F323FEE00895FA1 /* Collection View Cells */,
 				D84C36211F32410A00895FA1 /* Table View Cells */,
 				D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */,
@@ -10705,6 +10708,7 @@
 				D84C36041F323E0900895FA1 /* WMFCVLAttributes.m in Sources */,
 				D8E78FA71FB4D8890094B968 /* WMFAuthTokenFetcher.swift in Sources */,
 				D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
+				7A3159CF206458B000143119 /* ReadingListAlertType.swift in Sources */,
 				D84C36021F323E0900895FA1 /* WMFCVLColumn.m in Sources */,
 				D8FA18E21E1BD8A3009675C3 /* NSArray+WMFMapping.m in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
