@@ -102,6 +102,7 @@ public class ReadingListsController: NSObject {
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
     
+    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
     private var isSyncing = false {
         didSet {
             guard oldValue != isSyncing, isSyncing else {
@@ -120,21 +121,25 @@ public class ReadingListsController: NSObject {
     }
     
     private func addOperation(_ operation: ReadingListsOperation) {
-        if operation.isExecuting {
-            isSyncing = true
-        } else if operation.isFinished {
-            DispatchQueue.main.async {
-                var userInfo: [Notification.Name: Any] = [:]
-                if let error = operation.error {
-                    userInfo[ReadingListsController.syncDidFinishErrorKey] = error
+        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
+            if operation.isFinished {
+                self.observedOperations.removeValue(forKey: operation)?.invalidate()
+                DispatchQueue.main.async {
+                    var userInfo: [Notification.Name: Any] = [:]
+                    if let error = operation.error {
+                        userInfo[ReadingListsController.syncDidFinishErrorKey] = error
+                    }
+                    if let syncOperation = operation as? ReadingListsSyncOperation {
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
+                    }
+                    NotificationCenter.default.post(name: ReadingListsController.syncDidFinishNotification, object: nil, userInfo: userInfo)
+                    self.isSyncing = false
                 }
-                if let syncOperation = operation as? ReadingListsSyncOperation {
-                    userInfo[ReadingListsController.syncDidFinishSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
-                    userInfo[ReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
-                }
-                NotificationCenter.default.post(name: ReadingListsController.syncDidFinishNotification, object: nil, userInfo: userInfo)
+            } else if operation.isExecuting {
+                self.isSyncing = true
             }
-        }
+        })
         operationQueue.addOperation(operation)
     }
     
