@@ -29,8 +29,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    private var alertType: AlertType = .none {
+    override var alertType: ReadingListAlertType? {
         didSet {
+            guard let alertType = alertType else {
+                return
+            }
             var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:
@@ -39,8 +42,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced-article-limit-exceeded", value: "Article limit exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be synced.")
             case .genericNotSynced:
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
-            default:
-                break
+            case .downloading:
+                alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
             }
             
             alertLabel.text = alertLabelText
@@ -297,8 +300,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         isTagsViewHidden = tags.readingLists.count == 0
         
-        if !isStatusViewHidden {
-            statusView.backgroundColor = theme.colors.warning
+        isStatusViewHidden = article.isDownloaded
+        if alertType == nil {
+            isAlertLabelHidden = article.isDownloaded
+            alertType = .downloading
         }
         
         if shouldShowSeparators {
