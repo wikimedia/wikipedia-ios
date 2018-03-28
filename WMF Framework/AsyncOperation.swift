@@ -8,8 +8,6 @@ enum AsyncOperationError: Error {
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
     
-    let progress = Progress(totalUnitCount: 1)
-    
     // MARK: - Operation State
 
     static fileprivate let stateKeyPath = "state" // For KVO
@@ -94,12 +92,10 @@ enum AsyncOperationError: Error {
     // MARK: - Custom behavior
     
     @objc open func finish() {
-        progress.completedUnitCount = progress.totalUnitCount
         state = .finished
     }
     
     @objc open func finish(with error: Error) {
-        progress.completedUnitCount = progress.totalUnitCount
         self.error = error
         state = .finished
     }
