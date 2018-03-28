@@ -904,9 +904,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var entriesToDelete: [ReadingListEntry] = []
         for (readingListID, readingListEntriesByKey) in remoteReadingListEntriesByReadingListID {
             try autoreleasepool {
-                let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-                localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@ && isDeletedLocally != YES", NSNumber(value: readingListID)) // this is != YES instead of == NO to match NULL values as well
-                let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
+
+                let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                localReadingListsFetch.predicate = NSPredicate(format: "readingListID == %@", NSNumber(value: readingListID))
+                let localReadingLists = try moc.fetch(localReadingListsFetch)
+                let localReadingListEntries = localReadingLists.first?.entries?.filter { !$0.isDeletedLocally } ?? []
+                
                 var localEntriesMissingRemotely: [ReadingListEntry] = []
                 var remoteEntriesMissingLocally: [String: APIReadingListEntry] = readingListEntriesByKey
                 for localReadingListEntry in localReadingListEntries {
