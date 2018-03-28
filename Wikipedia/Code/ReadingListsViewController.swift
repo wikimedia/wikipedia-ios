@@ -51,7 +51,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         
         var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -81,7 +81,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     var baseSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: "isDefault", ascending: false)]
+        return [NSSortDescriptor(keyPath: \ReadingList.isDefault, ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
