@@ -87,6 +87,7 @@
             firstFetchResult = article;
             [self.tempDataStore asynchronouslyCacheArticle:article
                                                     toDisk:YES
+                                                   failure:nil
                                                 completion:^{
                                                     savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
 
@@ -110,6 +111,7 @@
 
                     [self.tempDataStore asynchronouslyCacheArticle:article
                                                             toDisk:YES
+                                                           failure:nil
                                                         completion:^{
                                                             MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
                                                             XCTAssert([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]);
