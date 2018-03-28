@@ -162,10 +162,15 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncDidStartNotification:)
+                                                 name:[WMFReadingListsController syncDidStartNotification]
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(syncFinishedNotification:)
-                                                 name:[WMFReadingListsController syncFinishedNotification]
+                                             selector:@selector(syncDidFinishNotification:)
+                                                 name:[WMFReadingListsController syncDidFinishNotification]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -329,8 +334,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureExploreViewController];
 }
 
-- (void)syncFinishedNotification:(NSNotification *)note {
-    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncFinishedErrorKey];
+- (void)syncDidStartNotification:(NSNotification *)note {
+    self.syncStartDate = [NSDate date];
+}
+
+- (void)syncDidFinishNotification:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncDidFinishErrorKey];
     if (error.wmf_isNetworkConnectionError) {
         [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                     sticky:YES
@@ -340,8 +349,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     
     if (!error) {
         if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
-            NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncFinishedSyncedReadingListsCountKey] integerValue];
-            NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncFinishedSyncedReadingListEntriesCountKey] integerValue];
+            NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] integerValue];
+            NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
             if (syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0) {
                 NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"%1$d articles and %2$d reading lists synced from your account", @"Alert message informing user that large sync was completed."), syncedReadingListEntriesCount, syncedReadingListsCount];
                 [[WMFAlertManager sharedInstance] showSuccessAlert:alertTitle
