@@ -115,6 +115,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong, readwrite) NSDate *syncStartDate;
 
+@property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -154,11 +156,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleWasUpdated:)
                                                  name:WMFArticleUpdatedNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(readingListsSyncProgressDidChange:)
-                                                 name:[WMFReadingListsController syncProgressDidChangeNotification]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -223,6 +220,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
+
+    UITabBarItem *savedTabBarItem = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
+    self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
 - (void)configureTabController {
@@ -361,22 +361,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                 sticky:YES
                                  dismissPreviousAlerts:YES
                                            tapCallBack:nil];
-}
-
-- (void)readingListsSyncProgressDidChange:(NSNotification *)note {
-    NSNumber *progress = note.userInfo[WMFReadingListsController.syncProgressDidChangeFractionCompletedKey];
-
-    // TODO: minimum busy time before showing and a minimum show length
-    UITabBarItem *item = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
-    if (!progress || [progress doubleValue] >= 1) {
-        [item setBadgeValue:nil];
-    } else {
-        [item setBadgeValue:@"\u25cf"];
-    }
-
-    if ([progress doubleValue] == 0) {
-        self.syncStartDate = [NSDate date];
-    }
 }
 
 #pragma mark - Background Fetch
@@ -1108,8 +1092,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher =
-        [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _savedArticlesFetcher;

@@ -90,9 +90,6 @@ public enum ReadingListError: Error, Equatable {
 public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     
-    @objc public static let syncProgressDidChangeNotification = NSNotification.Name(rawValue: "WMFSyncProgressDidChangeNotification")
-    @objc public static let syncProgressDidChangeFractionCompletedKey = "fractionCompleted"
-    
     @objc public static let syncFinishedNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
     @objc public static let syncFinishedErrorKey = NSNotification.Name(rawValue: "error")
     @objc public static let syncFinishedSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
@@ -100,9 +97,6 @@ public class ReadingListsController: NSObject {
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
-    
-    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
-    private var observedProgresses: [Operation: NSKeyValueObservation] = [:]
     
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
@@ -113,36 +107,9 @@ public class ReadingListsController: NSObject {
         operationQueue.maxConcurrentOperationCount = 1
     }
     
-    private func postSyncProgressDidChangeNotificationOnTheMainThread(_ fractionCompleted: Double) {
-        DispatchQueue.main.async {
-            let userInfo = [ReadingListsController.syncProgressDidChangeFractionCompletedKey: fractionCompleted]
-            NotificationCenter.default.post(name: ReadingListsController.syncProgressDidChangeNotification, object: nil, userInfo: userInfo)
-        }
-    }
-    
     private func addOperation(_ operation: ReadingListsOperation) {
-        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
-            if operation.isFinished {
-                self.observedOperations.removeValue(forKey: operation)?.invalidate()
-                self.observedProgresses.removeValue(forKey: operation)?.invalidate()
-                DispatchQueue.main.async {
-                    var userInfo: [Notification.Name: Any] = [:]
-                    if let error = operation.error {
-                        userInfo[ReadingListsController.syncFinishedErrorKey] = error
-                    }
-                    if let syncOperation = operation as? ReadingListsSyncOperation {
-                        userInfo[ReadingListsController.syncFinishedSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
-                        userInfo[ReadingListsController.syncFinishedSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
-                    }
-                    NotificationCenter.default.post(name: ReadingListsController.syncFinishedNotification, object: nil, userInfo: userInfo)
                 }
-            } else if operation.isExecuting {
-                self.postSyncProgressDidChangeNotificationOnTheMainThread(operation.progress.fractionCompleted)
             }
-        })
-        observedProgresses[operation] = operation.progress.observe(\.fractionCompleted, changeHandler: { (progress, change) in
-            self.postSyncProgressDidChangeNotificationOnTheMainThread(progress.fractionCompleted)
-        })
         operationQueue.addOperation(operation)
     }
     
