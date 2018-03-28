@@ -72,14 +72,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
-        func checkmarkItemFor(theme: Theme) -> (AppearanceSettingsCheckmarkItem) {
+        func checkmarkItem(for theme: Theme) -> (AppearanceSettingsCheckmarkItem) {
             return AppearanceSettingsCheckmarkItem(title: theme.displayName, theme: theme) { [weak self] in
                 self?.userDidSelect(theme: theme)
             }
         }
 
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [checkmarkItemFor(theme: Theme.light), checkmarkItemFor(theme: Theme.sepia), checkmarkItemFor(theme: Theme.dark), checkmarkItemFor(theme: Theme.black)])
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle)])
         
