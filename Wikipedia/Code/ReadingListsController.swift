@@ -89,17 +89,29 @@ public enum ReadingListError: Error, Equatable {
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
+    @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
     
-    @objc public static let syncFinishedNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
-    @objc public static let syncFinishedErrorKey = NSNotification.Name(rawValue: "error")
-    @objc public static let syncFinishedSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
-    @objc public static let syncFinishedSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
+    @objc public static let syncDidFinishNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
+    @objc public static let syncDidFinishErrorKey = NSNotification.Name(rawValue: "error")
+    @objc public static let syncDidFinishSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
+    @objc public static let syncDidFinishSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
+    
+    private var isSyncing = false {
+        didSet {
+            guard oldValue != isSyncing, isSyncing else {
+                return
+            }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: ReadingListsController.syncDidStartNotification, object: nil)
+            }
+        }
+    }
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -108,8 +120,21 @@ public class ReadingListsController: NSObject {
     }
     
     private func addOperation(_ operation: ReadingListsOperation) {
+        if operation.isExecuting {
+            isSyncing = true
+        } else if operation.isFinished {
+            DispatchQueue.main.async {
+                var userInfo: [Notification.Name: Any] = [:]
+                if let error = operation.error {
+                    userInfo[ReadingListsController.syncDidFinishErrorKey] = error
                 }
+                if let syncOperation = operation as? ReadingListsSyncOperation {
+                    userInfo[ReadingListsController.syncDidFinishSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
+                    userInfo[ReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
+                }
+                NotificationCenter.default.post(name: ReadingListsController.syncDidFinishNotification, object: nil, userInfo: userInfo)
             }
+        }
         operationQueue.addOperation(operation)
     }
     
