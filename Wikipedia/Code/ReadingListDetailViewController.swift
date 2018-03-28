@@ -171,15 +171,15 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "createdDate", ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "createdDate", ascending: false)], handler: { (sortDescriptors, action) in
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
