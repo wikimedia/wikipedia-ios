@@ -15,8 +15,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    private var alertType: AlertType = .none {
+    override var alertType: ReadingListAlertType? {
         didSet {
+            guard let alertType = alertType else {
+                return
+            }
             var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:

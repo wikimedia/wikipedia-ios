@@ -350,6 +350,7 @@
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "List limit exceeded, unable to sync article";
+"reading-lists-article-queued-to-be-downloaded" = "Article queued to be downloaded";
 "reading-lists-articles-not-synced-limit-exceeded" = "Some articles not synced, limit exceeded";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for your saved articles";

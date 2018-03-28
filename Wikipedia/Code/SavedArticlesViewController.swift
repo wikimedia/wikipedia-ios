@@ -94,15 +94,15 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "savedDate", ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "savedDate", ascending: false)], handler: { (sortDescriptors, action) in
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, action) in
             self.updateSort(with:  sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
@@ -137,7 +137,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.predicate = NSPredicate(format:"ANY articles == %@ && isDefault == NO", article)
-        request.sortDescriptors = [NSSortDescriptor(key: "canonicalName", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
         request.fetchLimit = 4
         
         do {
