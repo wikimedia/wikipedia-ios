@@ -434,6 +434,11 @@
 		B062ABC81D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B062ABC71D88BF370062BE21 /* WMFArticlePreviewViewControllerVisualTests.m */; };
 		B066F0D21E4F00B100A199F8 /* WMFKeychainCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */; };
 		B066F0D51E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */; };
+		B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
+		B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
+		B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
+		B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
+		B068EDE4206B183500C827D1 /* Progress+ProgressUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */; };
 		B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B07D25E01D29974E00550721 /* MWKImageEqualityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B07D25DF1D29974E00550721 /* MWKImageEqualityTests.m */; };
@@ -3365,6 +3370,7 @@
 		B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePreviewFetcher.m; path = Wikipedia/Code/WMFArticlePreviewFetcher.m; sourceTree = SOURCE_ROOT; };
 		B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFKeychainCredentials.swift; path = Wikipedia/Code/WMFKeychainCredentials.swift; sourceTree = SOURCE_ROOT; };
 		B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFHideKeyboard.swift"; path = "Wikipedia/Code/UIViewController+WMFHideKeyboard.swift"; sourceTree = SOURCE_ROOT; };
+		B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Progress+ProgressUI.swift"; sourceTree = "<group>"; };
 		B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeakScriptMessageDelegate.swift; path = Wikipedia/Code/WeakScriptMessageDelegate.swift; sourceTree = SOURCE_ROOT; };
 		B07963E11C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+WMFHideEmptyToolbar.h"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.h"; sourceTree = SOURCE_ROOT; };
 		B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+WMFHideEmptyToolbar.m"; path = "Wikipedia/Code/UINavigationController+WMFHideEmptyToolbar.m"; sourceTree = SOURCE_ROOT; };
@@ -7242,6 +7248,7 @@
 				B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */,
 				B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */,
 				B01E54AE206479CC00374FEE /* ProgressContainer.swift */,
+				B068EDDF206B183500C827D1 /* Progress+ProgressUI.swift */,
 			);
 			name = Fetchers;
 			sourceTree = "<group>";
@@ -10170,6 +10177,7 @@
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
 				7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
+				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -10475,6 +10483,7 @@
 				D80ED38B1EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				B0CD9DF81F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D80ED38D1EE57F4800CE8C50 /* WMFSearchViewController.m in Sources */,
+				B068EDE4206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				B0BCF0BD202537D800986F72 /* Panels.swift in Sources */,
 				D80ED38E1EE57F4800CE8C50 /* UIApplication+SystemSettings.swift in Sources */,
 				B0BCF0AF2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -11130,6 +11139,7 @@
 				D8A42B8A1E815A9C00D8E281 /* WMFScrollable.swift in Sources */,
 				7AFEB1BF1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
+				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
@@ -11435,6 +11445,7 @@
 				D8CE25F81E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				D8CE25FA1E698E2400DAE2E0 /* WMFSearchViewController.m in Sources */,
 				B0CD9DE31F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				B068EDE1206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				B0BCF0BA202537D800986F72 /* Panels.swift in Sources */,
 				D8CE25FB1E698E2400DAE2E0 /* UIApplication+SystemSettings.swift in Sources */,
 				B0BCF0AC2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -11757,6 +11768,7 @@
 				B0CD9DEA1F70997400051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				D8EC3EF91E9BDA35006712EB /* WMFSearchViewController.m in Sources */,
 				D8EC3EFA1E9BDA35006712EB /* UIApplication+SystemSettings.swift in Sources */,
+				B068EDE2206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				B0BCF0BB202537D800986F72 /* Panels.swift in Sources */,
 				D8EC3EFD1E9BDA35006712EB /* WMFArticleRevision.m in Sources */,
 				B0BCF0AD2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
