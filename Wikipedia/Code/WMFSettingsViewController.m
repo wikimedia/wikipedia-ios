@@ -258,6 +258,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 #pragma mark - Dynamic URLs
 
 - (NSURL *)donationURL {
