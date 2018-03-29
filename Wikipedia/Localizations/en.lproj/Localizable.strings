@@ -416,7 +416,7 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Erase all saved articles?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about $1 of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
 "settings-storage-and-syncing-server-sync-title" = "Sync with the server";
