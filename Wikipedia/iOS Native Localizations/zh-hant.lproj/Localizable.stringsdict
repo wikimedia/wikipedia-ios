@@ -66,6 +66,22 @@
 			<string>%1$d個條目</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string> 個條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
+			<key>other</key>
+			<string> 個條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

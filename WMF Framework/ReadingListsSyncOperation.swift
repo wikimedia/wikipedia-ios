@@ -129,7 +129,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         
         if syncState.contains(.needsLocalArticleClear) {
-            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), parentProgress: progress, handler: { (articles: [WMFArticle]) in
+            try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "savedDate != NULL"), handler: { (articles: [WMFArticle]) in
                 self.readingListsController.unsave(articles, in: moc)
                 guard !self.isCancelled else {
                     throw ReadingListsOperationError.cancelled
@@ -404,7 +404,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
         let listsToCreateOrUpdateFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        listsToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
+        listsToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.createdDate, ascending: false)]
         listsToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
         let listsToUpdate =  try moc.fetch(listsToCreateOrUpdateFetch)
         var createdReadingLists: [Int64: ReadingList] = [:]
@@ -525,7 +525,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let entriesToCreateOrUpdateFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesToCreateOrUpdateFetch.predicate = NSPredicate(format: "isUpdatedLocally == YES")
-        entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: false)]
+        entriesToCreateOrUpdateFetch.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)]
         let localReadingListEntriesToUpdate =  try moc.fetch(entriesToCreateOrUpdateFetch)
         
        
@@ -892,9 +892,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var entriesToDelete: [ReadingListEntry] = []
         for (readingListID, readingListEntriesByKey) in remoteReadingListEntriesByReadingListID {
             try autoreleasepool {
-                let localReadingListEntryFetch: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-                localReadingListEntryFetch.predicate = NSPredicate(format: "list.readingListID == %@ && isDeletedLocally != YES", NSNumber(value: readingListID)) // this is != YES instead of == NO to match NULL values as well
-                let localReadingListEntries = try moc.fetch(localReadingListEntryFetch)
+
+                let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+                localReadingListsFetch.predicate = NSPredicate(format: "readingListID == %@", NSNumber(value: readingListID))
+                let localReadingLists = try moc.fetch(localReadingListsFetch)
+                let localReadingListEntries = localReadingLists.first?.entries?.filter { !$0.isDeletedLocally } ?? []
+                
                 var localEntriesMissingRemotely: [ReadingListEntry] = []
                 var remoteEntriesMissingLocally: [String: APIReadingListEntry] = readingListEntriesByKey
                 for localReadingListEntry in localReadingListEntries {

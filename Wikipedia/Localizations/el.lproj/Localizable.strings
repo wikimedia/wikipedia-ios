@@ -346,6 +346,7 @@
 "settings-notifications-learn-more" = "Μάθετε περισσότερα για τις ειδοποιήσεις";
 "settings-notifications-system-turn-on" = "Ενεργοποίηση ειδοποιήσεων";
 "settings-primary-language" = "Βασικά";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Σβήσιμο όλων των εισηγμένων λημμάτων;";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Σβήσιμο";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Σβήσιμο αποθηκευμένων άρθρων";
 "settings-storage-and-syncing-server-sync-title" = "Συγχρονισμός με τον διακομιστή";
