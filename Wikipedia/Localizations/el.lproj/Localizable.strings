@@ -307,6 +307,7 @@
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
 "reading-lists-article-added-confirmation" = "Λήμμα προστέθηκε στο \"$1\"";
+"reading-lists-article-not-synced" = "Μη συγχρονισμένο";
 "reading-lists-default-list-title" = "Αποθηκεύθηκε";
 "reading-lists-delete-reading-list-alert-title" = "Διαγραφή των {{PLURAL:$1|λίστα|λιστών}};";
 "reading-themes-controls-accessibility-black-theme-button" = "Μαύρο θέμα";

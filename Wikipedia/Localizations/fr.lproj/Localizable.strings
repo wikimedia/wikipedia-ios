@@ -376,6 +376,7 @@
 "reading-lists-article-not-synced" = "Non synchronisé";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite d’articles dépassée, impossible de synchroniser l’article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listes dépassée, impossible de synchroniser l’article";
+"reading-lists-article-queued-to-be-downloaded" = "Articles mis en file pour être téléchargés";
 "reading-lists-articles-not-synced-limit-exceeded" = "Certains articles ne sont pas synchronisés, du fait d’un dépassement de limite";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
 "reading-lists-default-list-description" = "Liste par défaut pour vos articles enregistrés";

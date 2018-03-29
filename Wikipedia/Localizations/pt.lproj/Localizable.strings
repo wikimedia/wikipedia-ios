@@ -367,6 +367,7 @@
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
+"reading-lists-article-queued-to-be-downloaded" = "Artigo em espera para ser descarregado";
 "reading-lists-articles-not-synced-limit-exceeded" = "Alguns artigos não foram sincronizados, o limite foi excedido";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
 "reading-lists-default-list-description" = "Lista padrão para os seus artigos guardados";
