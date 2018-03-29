@@ -58,8 +58,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate let searchFetcher = WMFSearchFetcher()
     fileprivate let wikidataFetcher = WikidataFetcher()
     fileprivate let locationManager = WMFLocationManager.fine()
-    fileprivate let animationDuration = 0.6
-    fileprivate let animationScale = CGFloat(0.6)
+    internal let animationDuration = 0.6
+    internal let animationScale = CGFloat(0.6)
     fileprivate let popoverFadeDuration = 0.25
     fileprivate let searchHistoryCountLimit = 15
     fileprivate var searchSuggestionController: PlaceSearchSuggestionController!

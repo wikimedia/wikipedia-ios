@@ -3,6 +3,8 @@ import MapKit
 
 protocol ArticleLocationGrouperViewContext: class {
     var countOfAnimatingAnnotations: Int { get set }
+    var animationDuration: Double  { get }
+    var animationScale: CGFloat { get }
     
     func selectVisibleKeyToSelectIfNecessary()
     func set(shouldShowAllImages: Bool)
@@ -43,10 +45,10 @@ class ArticleLocationGrouper {
     fileprivate var groupingTaskGroup: WMFTaskGroup?
     fileprivate var needsRegroup = false
     
-    weak var clusteringViewContext: ArticleLocationGrouperViewContext!
+    weak var groupingViewContext: ArticleLocationGrouperViewContext!
     
     init(context: ArticleLocationGrouperViewContext) {
-        self.clusteringViewContext = context
+        self.groupingViewContext = context
     }
     
     func merge(group: ArticleGroup, key: String, groups: [String: ArticleGroup], groupingDistance: CLLocationDistance, articleKeyToSelect: String?) -> Set<String> {
@@ -278,17 +280,17 @@ class ArticleLocationGrouper {
                     
                     let placeView = mapView.view(for: previousPlace)
                     taskGroup.enter()
-                    clusteringViewContext.countOfAnimatingAnnotations += 1
-                    UIView.animate(withDuration:0.6, delay: 0, options: [.allowUserInteraction], animations: {
+                    groupingViewContext.countOfAnimatingAnnotations += 1
+                    UIView.animate(withDuration:groupingViewContext.animationDuration, delay: 0, options: [.allowUserInteraction], animations: {
                         placeView?.alpha = 0
                         if (previousPlace.articles.count > 1) {
-                            placeView?.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+                            placeView?.transform = CGAffineTransform(scaleX: self.groupingViewContext.animationScale, y: self.groupingViewContext.animationScale)
                         }
                         previousPlace.coordinate = coordinate
                     }, completion: { (finished) in
                         taskGroup.leave()
                         mapView.removeAnnotation(previousPlace)
-                        self.clusteringViewContext.countOfAnimatingAnnotations -= 1
+                        self.groupingViewContext.countOfAnimatingAnnotations -= 1
                     })
                 }
             }
@@ -306,23 +308,23 @@ class ArticleLocationGrouper {
         for (_, annotation) in annotationsToRemove {
             let placeView = mapView.view(for: annotation)
             taskGroup.enter()
-            clusteringViewContext.countOfAnimatingAnnotations += 1
-            UIView.animate(withDuration: 0.3, animations: {
-                placeView?.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            groupingViewContext.countOfAnimatingAnnotations += 1
+            UIView.animate(withDuration: 0.5 * groupingViewContext.animationDuration, animations: {
+                placeView?.transform = CGAffineTransform(scaleX: self.groupingViewContext.animationScale, y: self.groupingViewContext.animationScale)
                 placeView?.alpha = 0
             }, completion: { (finished) in
                 taskGroup.leave()
                 mapView.removeAnnotation(annotation)
-                self.clusteringViewContext.countOfAnimatingAnnotations -= 1
+                self.groupingViewContext.countOfAnimatingAnnotations -= 1
             })
         }
         currentGroupingPrecision = groupingPrecision
         if greaterThanOneArticleGroupCount > 0 {
-            clusteringViewContext.set(shouldShowAllImages: false)
+            groupingViewContext.set(shouldShowAllImages: false)
         }
         taskGroup.waitInBackground {
             self.groupingTaskGroup = nil
-            self.clusteringViewContext.selectVisibleKeyToSelectIfNecessary()
+            self.groupingViewContext.selectVisibleKeyToSelectIfNecessary()
             if (self.needsRegroup) {
                 self.needsRegroup = false
                 self.regroupArticlesIfNecessary(forVisibleRegion: mapRegion ?? mapView.region, articleKeyToSelect: articleKeyToSelect, currentSearchRegion: currentSearchRegion, isViewModeOverlay: isViewModeOverlay, mapView: mapView, articleFetchedResultsController: articleFetchedResultsController, mapRegion: mapRegion)
