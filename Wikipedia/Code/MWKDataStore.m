@@ -1283,6 +1283,11 @@ static uint64_t bundleHash() {
 
 #pragma mark - helper methods
 
+- (NSInteger)sitesDirectorySize {
+    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
+    return [[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
+}
+
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         NSFetchRequest *articlesWithHTMLInTitlesFetchRequest = [WMFArticle fetchRequest];
