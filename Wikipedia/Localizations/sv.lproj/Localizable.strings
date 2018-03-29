@@ -370,6 +370,7 @@
 "reading-lists-article-not-synced" = "Inte synkroniserad";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgränsen har överstigits, kan inte synkronisera artikel";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listgränsen har överstigits, kan inte synkronisera artikel";
+"reading-lists-article-queued-to-be-downloaded" = "Artikeln lades i kö för nedladdning";
 "reading-lists-articles-not-synced-limit-exceeded" = "Vissa artiklar är inte synkroniserade, gränsen har överstigits";
 "reading-lists-count" = "{{PLURAL:$1|$1 läslista|$1 läslistor}}";
 "reading-lists-default-list-description" = "Standardlista för dina sparade artiklar";
