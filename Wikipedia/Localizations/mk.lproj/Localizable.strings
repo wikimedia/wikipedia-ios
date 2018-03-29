@@ -358,6 +358,7 @@
 "reading-lists-article-not-synced" = "Неусогласена";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Надминат е дозволениот број статии. Не можам да ја усогласам статијата.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Границата е надмината. Не можев да ја усогласам статијата.";
+"reading-lists-article-queued-to-be-downloaded" = "Страницата е ставена на чекање за преземање";
 "reading-lists-articles-not-synced-limit-exceeded" = "Некои статии не се усогласени. Границата е надмината.";
 "reading-lists-count" = "{{PLURAL:$1|$1 список за читање|$1 списоци за читање}}";
 "reading-lists-default-list-description" = "Стандарден список за вашите зачувани статии";

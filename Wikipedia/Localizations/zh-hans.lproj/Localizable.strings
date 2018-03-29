@@ -369,6 +369,7 @@
 "reading-lists-article-not-synced" = "未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超过条目限制，无法同步条目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超过列表限制，无法同步条目";
+"reading-lists-article-queued-to-be-downloaded" = "条目已加入下载队列";
 "reading-lists-articles-not-synced-limit-exceeded" = "部分条目未同步，超过限制";
 "reading-lists-count" = "{{PLURAL:$1|$1个阅读列表}}";
 "reading-lists-default-list-description" = "默认用于您的已保存条目的列表";
