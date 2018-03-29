@@ -373,7 +373,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         guard !isCancelled  else {
                             throw ReadingListsOperationError.cancelled
                         }
-                        let articleURLs = results.flatMap { $0.articleURL(forSiteURL: siteURL) }
+                        let articleURLs = results.compactMap { $0.articleURL(forSiteURL: siteURL) }
                         taskGroup.enter()
                         var summaryResponses: [String: [String: Any]] = [:]
                         Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
@@ -716,7 +716,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             finalReadingListsByEntryID = [:]
             var readingListsByReadingListID: [Int64: ReadingList] = [:]
             let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@", readingListEntries.flatMap { $0.listId } )
+            localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@", readingListEntries.compactMap { $0.listId } )
             let localReadingLists = try moc.fetch(localReadingListsFetch)
             for localReadingList in localReadingLists {
                 guard let localReadingListID = localReadingList.readingListID?.int64Value else {

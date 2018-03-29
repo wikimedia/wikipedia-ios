@@ -218,8 +218,8 @@ extension ReadingListDetailViewController: ActionDelegate {
             return false
         }
         
-        let entries = selectedIndexPaths.flatMap({ entry(at: $0) })
-        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        let entries = selectedIndexPaths.compactMap({ entry(at: $0) })
+        let articles = selectedIndexPaths.compactMap({ article(at: $0) })
         
         switch action.type {
         case .addTo:

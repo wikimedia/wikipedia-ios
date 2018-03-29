@@ -45,7 +45,7 @@ open class HistoryFetchResults: NSObject {
     }
     
     @objc open func items() -> [PageHistorySection]  {
-        return self.revisionsByDay.keys.sorted(by: <).flatMap() { self.revisionsByDay[$0] }
+        return self.revisionsByDay.keys.sorted(by: <).compactMap() { self.revisionsByDay[$0] }
     }
     
     @objc open func batchComplete() -> Bool {

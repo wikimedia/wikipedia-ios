@@ -251,7 +251,7 @@ class ReadingListsAPIController: NSObject {
                 }
                 return
             }
-            completion(batch.flatMap {
+            completion(batch.compactMap {
                 let id = $0["id"] as? Int64
                 var error: Error? = nil
                 if let errorString = $0["error"] as? String {
@@ -364,7 +364,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
 
-            completion(batch.flatMap {
+            completion(batch.compactMap {
                 let id = $0["id"] as? Int64
                 var error: Error? = nil
                 if let errorString = $0["error"] as? String {
