@@ -162,9 +162,11 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
-                let dataSizeString = ByteCountFormatter.string(fromByteCount: Int64(URLCache.shared.currentDiskUsage), countStyle: .file)
+                let permanentStorageDirectorySize = ImageController.shared.permanentStorageDirectorySize
+                let sitesDirectorySize = Int64(dataStore?.sitesDirectorySize() ?? 0)
+                let dataSizeString = ByteCountFormatter.string(fromByteCount: permanentStorageDirectorySize + sitesDirectorySize, countStyle: .file)
                 let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles")
-                eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString) // to do add sections size
+                eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString)
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
                 cell.contentView.wmf_addSubviewWithConstraintsToEdges(eraseSavedArticlesView)
             } else {
