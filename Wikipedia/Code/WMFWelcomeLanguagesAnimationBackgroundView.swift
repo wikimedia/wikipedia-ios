@@ -1,7 +1,10 @@
 import Foundation
 
 open class WMFWelcomeLanguagesAnimationBackgroundView : WMFWelcomeAnimationBackgroundView {
-    override open lazy var imageModels:[ImageModel]? = [
+    override func getImageModels() -> [ImageModel]? {
+        return imageModels
+    }
+    private lazy var imageModels:[ImageModel]? = [
         ImageModel.init(name: "ftux-background-langs", unitSize: CGSize(width: 0.08125, height: 0.071875), unitDestination:CGPoint(x: 0.303125, y: -0.121951), delay: 0.8, duration: 1.3, initialOpacity: 0.0),
         ImageModel.init(name: "ftux-background-langs", unitSize: CGSize(width: 0.08125, height: 0.071875), unitDestination:CGPoint(x: -0.259375, y: 0.277439), delay: 1.0, duration: 1.4, initialOpacity: 0.0),
         
