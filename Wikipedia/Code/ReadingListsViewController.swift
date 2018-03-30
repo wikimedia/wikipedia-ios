@@ -381,7 +381,7 @@ extension ReadingListsViewController: ActionDelegate {
             return false
         }
         
-        let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
+        let readingLists: [ReadingList] = selectedIndexPaths.compactMap({ readingList(at: $0) })
         
         switch action.type {
         case .update:

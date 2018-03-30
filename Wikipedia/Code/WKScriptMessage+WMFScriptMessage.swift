@@ -85,7 +85,7 @@ extension WKScriptMessage {
                 if selection == "disambiguation" {
                     // WKScriptMessage's body doesn't auto-convert url strings to URL, so manually do so for
                     // the disambiguation payload.
-                    return ["selection": selection, "payload": payload.flatMap{URL(string: $0)}]
+                    return ["selection": selection, "payload": payload.compactMap{URL(string: $0)}]
                 }else{
                     return safeBody
                 }

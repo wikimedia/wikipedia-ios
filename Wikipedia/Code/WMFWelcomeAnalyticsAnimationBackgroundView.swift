@@ -1,7 +1,10 @@
 import Foundation
 
 open class WMFWelcomeAnalyticsAnimationBackgroundView : WMFWelcomeAnimationBackgroundView {
-    override open lazy var imageModels:[ImageModel]? = [
+    override func getImageModels() -> [ImageModel]? {
+        return imageModels
+    }
+    private lazy var imageModels:[ImageModel]? = [
         ImageModel.init(name: "ftux-background-chart", unitSize: CGSize(width: 0.05, height: 0.04375), unitDestination:CGPoint(x: 0.26875, y: 0.329268), delay: 0.8, duration: 1.3, initialOpacity: 0.0),
         ImageModel.init(name: "ftux-background-shield-star", unitSize: CGSize(width: 0.05, height: 0.0625), unitDestination:CGPoint(x: -0.3234375, y: -0.41158), delay: 1.0, duration: 1.4, initialOpacity: 0.0),
         
