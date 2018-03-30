@@ -213,6 +213,9 @@
                   Identifier = "NSURL_WMFLinkParsingTests">
                </Test>
                <Test
+                  Identifier = "NumberFormatterExtrasTests/testThousands()">
+               </Test>
+               <Test
                   Identifier = "SavedArticlesFetcherTests">
                </Test>
                <Test
@@ -247,6 +250,30 @@
                </Test>
                <Test
                   Identifier = "WMFCollectionViewExtensionTests">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringDifferentDayUnder24Hours">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringSameDayUnder12Hours">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringSameDayUnder12HoursSingular">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringSameDayUnder1Hour">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringSameDayUnder1Minute">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringSameDayUnder24Hours">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringTwoDaysAgo">
+               </Test>
+               <Test
+                  Identifier = "WMFDateCalculationTests/testRelativeDateStringYesterday">
                </Test>
                <Test
                   Identifier = "WMFDateFormatterTests">
