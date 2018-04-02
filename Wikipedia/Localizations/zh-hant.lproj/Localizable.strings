@@ -370,6 +370,7 @@
 "reading-lists-article-not-synced" = "尚未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超出條目上限，無法同步條目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超出清單上限，無法同步條目";
+"reading-lists-article-queued-to-be-downloaded" = "條目已排在要下載的項目";
 "reading-lists-articles-not-synced-limit-exceeded" = "因超出上限，一些條目無法同步";
 "reading-lists-count" = "{{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}";
 "reading-lists-default-list-description" = "您已儲存條目的預設清單";

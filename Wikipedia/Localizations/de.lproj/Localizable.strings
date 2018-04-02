@@ -361,6 +361,7 @@
 "reading-lists-article-not-synced" = "Nicht synchronisiert";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listengrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
+"reading-lists-article-queued-to-be-downloaded" = "Artikel in die Download-Warteschlange eingereiht";
 "reading-lists-articles-not-synced-limit-exceeded" = "Einige Artikel wurden nicht synchronisiert. Grenze überschritten.";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
 "reading-lists-default-list-description" = "Standardliste für deine gespeicherten Artikel";
