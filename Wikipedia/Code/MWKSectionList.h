@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKSection *)sectionWithFragment:(NSString *)fragment;
 
-- (void)save:(nullable WMFErrorHandler)failure;
+- (void)save;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;
 

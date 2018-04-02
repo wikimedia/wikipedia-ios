@@ -89,9 +89,8 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  Save the @c article asynchronously. If an existing save operation exists for this article or an article with the same URL, it will be cancelled and re-added with this copy of the article.
  *
  *  @param article    The article to save.
- *  @param failure block performed when save fails
  **/
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(nullable WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion;
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Cancel the asynchronous save for the @c article.
@@ -144,9 +143,8 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  Saves the article to the store
  *
  *  @param article the article to save
- *  @param failure block performed when save fails
  */
-- (void)saveArticle:(MWKArticle *)article failure:(nullable WMFErrorHandler)failure;
+- (void)saveArticle:(MWKArticle *)article;
 
 /**
  *  Adds the article to the memory cache
@@ -160,9 +158,8 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  This is a non-op if the section.article is a main page
  *
  *  @param section the section to save
- *  @param failure block performed when save fails
  */
-- (void)saveSection:(MWKSection *)section failure:(nullable WMFErrorHandler)failure;
+- (void)saveSection:(MWKSection *)section;
 
 /**
  *  Saves the section to the store
@@ -170,9 +167,8 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param html    The text to save
  *  @param section the section to save
- *  @param failure block performed when save fails
  */
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section failure:(nullable WMFErrorHandler)failure;
+- (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 

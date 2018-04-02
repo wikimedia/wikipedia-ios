@@ -70,7 +70,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _articleSaveOperations;
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk failure:(nullable WMFErrorHandler)failure completion:(nullable dispatch_block_t)completion {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion {
     [self addArticleToMemoryCache:article];
     if (!toDisk) {
         if (completion) {
@@ -93,7 +93,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         }
 
         op = [NSBlockOperation blockOperationWithBlock:^{
-            [article save:failure];
+            [article save];
             @synchronized(queue) {
                 [operations removeObjectForKey:key];
             }
@@ -1079,7 +1079,6 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)saveArticle:(MWKArticle *)article failure:(nullable WMFErrorHandler)failure {
     if (article.url.wmf_title == nil) {
         return;
     }
@@ -1092,27 +1091,22 @@ static uint64_t bundleHash() {
     NSDictionary *export = [article dataExport];
     NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    if (!success) {
-        failure(error);
-    }
 }
 
-- (void)saveSection:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
+- (void)saveSection:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
     NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
     if (!success) {
-        failure(error);
     }
 }
 
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section failure:(nullable WMFErrorHandler)failure {
+- (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
     BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
     if (!success) {
-        failure(error);
     }
 }
 

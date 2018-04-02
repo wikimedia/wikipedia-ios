@@ -111,10 +111,10 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return _text;
 }
 
-- (void)save:(nullable WMFErrorHandler)failure {
-    [self.article.dataStore saveSection:self failure:failure];
+- (void)save {
+    [self.article.dataStore saveSection:self];
     if (_text != nil) {
-        [self.article.dataStore saveSectionText:_text section:self failure:failure];
+        [self.article.dataStore saveSectionText:_text section:self];
     }
 }
 
