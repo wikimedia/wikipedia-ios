@@ -93,6 +93,8 @@ extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
  *
  *  @param article    The article to save.
  **/
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk;
+
 - (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion;
 
 /**
