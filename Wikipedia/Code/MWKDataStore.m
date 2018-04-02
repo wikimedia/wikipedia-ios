@@ -1110,7 +1110,7 @@ static uint64_t bundleHash() {
     NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
     if (!success) {
-         [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
+        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
     }
 }
 
