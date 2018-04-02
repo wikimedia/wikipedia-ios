@@ -1655,8 +1655,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                         tapCallBack:nil];
     }
     if (articleURL) {
-        WMFArticle *article = [self.dataStore fetchArticleWithURL:articleURL];
-        article.savedDate = nil;
+        [self.dataStore.readingListsController stop:^{
+            [self.dataStore.savedPageList removeEntryWithURL:articleURL];
+        }];
     }
 }
 
