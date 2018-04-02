@@ -1088,6 +1088,8 @@ static uint64_t bundleHash() {
         [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
     });
 }
+
+- (void)saveArticle:(MWKArticle *)article {
     if (article.url.wmf_title == nil) {
         return;
     }
