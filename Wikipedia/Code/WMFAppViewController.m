@@ -356,7 +356,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
             NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] integerValue];
             NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
-            if (syncedReadingListsCount > 0 && syncedReadingListEntriesCount > 0) {
+            if (syncedReadingListsCount > 1 && syncedReadingListEntriesCount > 1) { // // TODO: When localization script supports multiple plurals per string, update to > 0
                 // TODO: When localization script supports multiple plurals per string, update to use plurals.
                 NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"%1$d articles and %2$d reading lists synced from your account", @"Alert message informing user that large sync was completed."), syncedReadingListEntriesCount, syncedReadingListsCount];
                 [[WMFAlertManager sharedInstance] showSuccessAlert:alertTitle
