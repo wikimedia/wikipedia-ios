@@ -301,7 +301,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isTagsViewHidden = tags.readingLists.count == 0
         
         isStatusViewHidden = article.isDownloaded
-        if alertType == nil {
+        if alertType == nil || alertType == .downloading {
             isAlertLabelHidden = article.isDownloaded
             alertType = .downloading
         }
