@@ -30,6 +30,9 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
  * added to saved pages, history, etc…
  */
 extern NSString *const WMFArticleUpdatedNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
+extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 @interface MWKDataStore : NSObject
 
