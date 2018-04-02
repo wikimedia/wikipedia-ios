@@ -177,6 +177,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(conflictingReadingListNameUpdatedNotification:)
                                                  name:[ReadingList conflictingReadingListNameUpdatedNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleSaveToDiskDidFail:)
+                                                 name:WMFArticleSaveToDiskDidFailNotification
+                                               object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
@@ -1635,6 +1640,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
     if (articleWasSaved) {
         [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
+    }
+}
+
+#pragma mark - Article save to disk did fail
+
+- (void)articleSaveToDiskDidFail:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFArticleSaveToDiskDidFailErrorKey];
+    NSURL *articleURL = (NSURL *)note.userInfo[WMFArticleSaveToDiskDidFailArticleURLKey];
+    if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
+                                                             sticky:YES
+                                              dismissPreviousAlerts:YES
+                                                        tapCallBack:nil];
+    }
+    if (articleURL) {
+        WMFArticle *article = [self.dataStore fetchArticleWithURL:articleURL];
+        article.savedDate = nil;
     }
 }
 
