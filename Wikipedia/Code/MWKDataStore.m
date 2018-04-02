@@ -8,6 +8,9 @@
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
+NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
+NSString *const WMFArticleSaveToDiskDidFailArticleURLKey = @"WMFArticleSavedToDiskWithArticleURLKey";
+NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWithErrorKey";
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -1079,6 +1082,12 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
+- (void)postArticleSaveToDiskDidFailNotification:(NSURL *)articleURL error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
+        [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+    });
+}
     if (article.url.wmf_title == nil) {
         return;
     }
@@ -1099,6 +1108,7 @@ static uint64_t bundleHash() {
     NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
     if (!success) {
+         [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
     }
 }
 
@@ -1107,6 +1117,7 @@ static uint64_t bundleHash() {
     NSError *error;
     BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
     if (!success) {
+        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
     }
 }
 
