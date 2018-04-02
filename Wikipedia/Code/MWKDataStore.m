@@ -73,7 +73,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     return _articleSaveOperations;
 }
 
-(void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk {
     [self asynchronouslyCacheArticle:article toDisk:toDisk completion:nil];
 }
 
