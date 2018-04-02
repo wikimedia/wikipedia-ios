@@ -1102,6 +1102,9 @@ static uint64_t bundleHash() {
     NSDictionary *export = [article dataExport];
     NSError *error;
     BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
+    if (!success) {
+        [self postArticleSaveToDiskDidFailNotification:article.url error:error];
+    }
 }
 
 - (void)saveSection:(MWKSection *)section {
