@@ -23,7 +23,7 @@
 - (MWKArticle *)getTestingArticle {
     NSURL *url = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en" title:@"Barack Obama" fragment:nil];
     MWKArticle *article = [self articleWithMobileViewJSONFixture:@"Obama" withURL:url dataStore:self.session.dataStore];
-    [article save:nil];
+    [article save];
     return article;
 }
 

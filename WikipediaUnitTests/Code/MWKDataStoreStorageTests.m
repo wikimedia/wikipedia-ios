@@ -15,7 +15,7 @@
     article = [[MWKArticle alloc] initWithURL:self.articleURL dataStore:self.dataStore dict:self.json0[@"mobileview"]];
 
     MWKArticle *article2;
-    XCTAssertNoThrow([self.dataStore saveArticle:article failure]);
+    XCTAssertNoThrow([self.dataStore saveArticle:article]);
     XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
     XCTAssertEqual(article, article2);
 
