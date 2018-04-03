@@ -433,6 +433,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             newReadingLists.append(newReadingList)
         }
         newReadingLists.append(readingList)
+        if newReadingLists.count > 0 {
+            let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
+            NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
+        }
         return newReadingLists
     }
     
