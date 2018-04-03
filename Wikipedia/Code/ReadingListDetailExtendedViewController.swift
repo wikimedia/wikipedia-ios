@@ -11,7 +11,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
-    @IBOutlet weak var alertView: UIView?
+    @IBOutlet var alertView: UIView?
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
     
