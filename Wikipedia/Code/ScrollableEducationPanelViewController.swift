@@ -138,6 +138,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
+        
+        apply(theme: theme)
     }
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
