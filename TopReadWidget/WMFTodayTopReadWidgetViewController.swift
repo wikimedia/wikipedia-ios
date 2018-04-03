@@ -63,13 +63,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     // Controllers
     var articlePreviewViewControllers: [WMFArticlePreviewViewController] = []
 
-    var theme: Theme = {
-        if #available(iOSApplicationExtension 10.0, *) {
-            return Theme.widget
-        } else {
-            return Theme.widgetiOS9
-        }
-    }()
+    var theme: Theme = .widget
 
     override func viewDidLoad() {
         super.viewDidLoad()

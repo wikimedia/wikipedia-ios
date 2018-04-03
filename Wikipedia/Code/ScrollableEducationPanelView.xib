@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollableEducationPanelViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="BAe-h0-y6b" id="eXa-fB-phT"/>
+                <outlet property="effectsView" destination="i3Y-1u-tKd" id="O8S-b1-HYo"/>
                 <outlet property="footerLabel" destination="NCF-lS-nEw" id="Cpg-ot-4y5"/>
                 <outlet property="headingLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
                 <outlet property="imageView" destination="rFJ-kb-kte" id="Dmh-26-vvR"/>
