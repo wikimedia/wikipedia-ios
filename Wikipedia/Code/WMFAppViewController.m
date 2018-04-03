@@ -160,7 +160,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readingListsWereSplitNotification:)
                                                  name:[WMFReadingListsController readingListsWereSplitNotification]

@@ -358,6 +358,7 @@
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
+"reading-lists-split-notification" = "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";
