@@ -48,7 +48,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var showCloseButton = true
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
-    
+    private var theme: Theme = Theme.standard
     
     var image:UIImage? {
         get {
@@ -110,8 +110,9 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
+        self.theme = theme
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
@@ -219,6 +220,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
     
     func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.tintColor = theme.colors.link
     }
 }
