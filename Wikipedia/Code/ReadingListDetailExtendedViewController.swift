@@ -147,7 +147,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
                 searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = true
             } else {
                 guard let alertView = alertView else {
-                    assertionFailure("alertView is nil")
                     return
                 }
                 view.addSubview(alertView)
