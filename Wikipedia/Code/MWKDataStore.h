@@ -238,6 +238,8 @@ extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 // Storage helper methods
 
+- (NSInteger)sitesDirectorySize;
+
 - (NSError *)removeFolderAtBasePath;
 
 - (BOOL)hasHTMLFileForSection:(MWKSection *)section;
