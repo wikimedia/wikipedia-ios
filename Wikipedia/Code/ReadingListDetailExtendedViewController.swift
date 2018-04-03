@@ -154,8 +154,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
                 let bottomConstraint = searchBar.topAnchor.constraint(equalTo: alertView.bottomAnchor, constant: 15)
                 let leadingConstraint = alertView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor)
                 let trailingConstraint = alertView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor)
-                NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
                 searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = false
+                NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
             }
         }
     }
