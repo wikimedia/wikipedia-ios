@@ -15,7 +15,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
     
-    private lazy var descriptionTextFieldToSearchBarVerticalSpacing: NSLayoutConstraint = {
+    private lazy var searchBarToDescriptionTextFieldVerticalSpacingConstraint: NSLayoutConstraint = {
         searchBar.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
     }()
     
@@ -144,7 +144,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         didSet {
             if isAlertViewHidden {
                 alertView?.removeFromSuperview()
-                descriptionTextFieldToSearchBarVerticalSpacing.isActive = true
+                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = true
             } else {
                 guard let alertView = alertView else {
                     assertionFailure("alertView is nil")
@@ -156,7 +156,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
                 let leadingConstraint = alertView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor)
                 let trailingConstraint = alertView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor)
                 NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-                descriptionTextFieldToSearchBarVerticalSpacing.isActive = false
+                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = false
             }
         }
     }
