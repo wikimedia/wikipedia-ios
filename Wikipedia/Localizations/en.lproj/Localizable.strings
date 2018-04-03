@@ -58,6 +58,7 @@
 "add-articles-to-reading-list" = "Add $1 to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-expand-tables" = "Expand tables";
 "appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
