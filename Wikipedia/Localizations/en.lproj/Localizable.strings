@@ -58,6 +58,7 @@
 "add-articles-to-reading-list" = "Add $1 to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-expand-tables" = "Expand tables";
 "appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
@@ -109,7 +110,7 @@
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-history-message" = "Keep track of what you've been reading here";
 "empty-no-history-title" = "No history to show";
-"empty-no-reading-lists-message" = "Tap on the blue ‘+’ to create lists for places to travel to, favorite topics and much more";
+"empty-no-reading-lists-message" = "Tap on the blue ‘+’ to create reading lists for places to travel to, favorite topics and much more";
 "empty-no-reading-lists-title" = "Organize saved articles with reading lists";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
@@ -338,7 +339,7 @@
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
 "reading-list-sync-enable-button-title" = "Enable syncing";
-"reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across devices.";
+"reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
 "reading-list-unable-to-add-entry" = "An unexpected error occurred while adding an entry to your reading list. Please try again later.";
 "reading-list-unable-to-create" = "An unexpected error occurred while creating your reading list. Please try again later.";
