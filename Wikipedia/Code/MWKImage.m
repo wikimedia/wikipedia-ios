@@ -156,10 +156,6 @@
 
 #pragma mark - Import / Export
 
-- (void)save {
-    [self.article.dataStore saveImage:self];
-}
-
 - (BOOL)hasEstimatedSize {
     return self.width && self.height;
 }
