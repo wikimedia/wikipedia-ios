@@ -11,11 +11,13 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
-    @IBOutlet weak var alertView: UIView!
-    @IBOutlet weak var alertTitleLabel: UILabel!
-    @IBOutlet weak var alertMessageLabel: UILabel!
-    @IBOutlet var alertViewConstraints: [NSLayoutConstraint] = []
-    private var descriptionTextFieldToSeparatorViewBottomConstraint: NSLayoutConstraint?
+    @IBOutlet weak var alertView: UIView?
+    @IBOutlet weak var alertTitleLabel: UILabel?
+    @IBOutlet weak var alertMessageLabel: UILabel?
+    
+    private lazy var descriptionTextFieldToSearchBarVerticalSpacing: NSLayoutConstraint = {
+        searchBar.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
+    }()
     
     private var readingListTitle: String?
     private var readingListDescription: String?
@@ -56,8 +58,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
         sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
-        alertTitleLabel.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
-        alertMessageLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
+        alertTitleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
+        alertMessageLabel?.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.
@@ -87,13 +89,13 @@ class ReadingListDetailExtendedViewController: UIViewController {
             case .listLimitExceeded(let limit):
                 let alertTitleFormat = WMFLocalizedString("reading-list-list-limit-exceeded-title", value: "You have exceeded the limit of %1$d reading lists per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
                 let alertMessageFormat = WMFLocalizedString("reading-list-list-limit-exceeded-message", value: "This reading list and the articles saved to it will not be synced, please decrease your number of lists to %1$d to resume syncing of this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
-                alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, limit)
-                alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, limit)
+                alertTitleLabel?.text = String.localizedStringWithFormat(alertTitleFormat, limit)
+                alertMessageLabel?.text = String.localizedStringWithFormat(alertMessageFormat, limit)
             case .entryLimitExceeded(let limit):
                 let alertTitleFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-title", value: "You have exceeded the limit of %1$d articles per account.", comment: "Informs the user that they have reached the allowed limit of reading lists per account.")
                 let alertMessageFormat = WMFLocalizedString("reading-list-entry-limit-exceeded-message", value: "Please decrease your number of articles in this list to %1$d to resume syncing of all articles in this list.", comment: "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.")
-                alertTitleLabel.text = String.localizedStringWithFormat(alertTitleFormat, limit)
-                alertMessageLabel.text = String.localizedStringWithFormat(alertMessageFormat, limit)
+                alertTitleLabel?.text = String.localizedStringWithFormat(alertTitleFormat, limit)
+                alertMessageLabel?.text = String.localizedStringWithFormat(alertMessageFormat, limit)
             default:
                 break
             }
@@ -140,7 +142,22 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
-            collapseAlert(isAlertViewHidden)
+            if isAlertViewHidden {
+                alertView?.removeFromSuperview()
+                descriptionTextFieldToSearchBarVerticalSpacing.isActive = true
+            } else {
+                guard let alertView = alertView else {
+                    assertionFailure("alertView is nil")
+                    return
+                }
+                view.addSubview(alertView)
+                let topConstraint = alertView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
+                let bottomConstraint = searchBar.topAnchor.constraint(equalTo: alertView.bottomAnchor, constant: 15)
+                let leadingConstraint = alertView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor)
+                let trailingConstraint = alertView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor)
+                NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
+                descriptionTextFieldToSearchBarVerticalSpacing.isActive = false
+            }
         }
     }
     
@@ -165,22 +182,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
     public func finishEditing() {
         delegate?.extendedViewController(self, didEdit: titleTextField.text, description: descriptionTextField.text)
         dismissKeyboardIfNecessary()
-    }
-    
-    public func collapseAlert(_ collapse: Bool) {
-        if descriptionTextFieldToSeparatorViewBottomConstraint == nil {
-            descriptionTextFieldToSeparatorViewBottomConstraint = descriptionTextField.bottomAnchor.constraint(equalTo: searchBar.topAnchor)
-            self.descriptionTextFieldToSeparatorViewBottomConstraint?.constant = -15
-        }
-        if collapse {
-            self.alertView.isHidden = true
-            NSLayoutConstraint.deactivate(self.alertViewConstraints)
-            self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = true
-        } else {
-            self.alertView.isHidden = false
-            self.descriptionTextFieldToSeparatorViewBottomConstraint?.isActive = false
-            NSLayoutConstraint.activate(self.alertViewConstraints)
-        }
     }
     
 }
@@ -221,11 +222,11 @@ extension ReadingListDetailExtendedViewController: Themeable {
         articleCountLabel.textColor = theme.colors.secondaryText
         articleCountLabel.backgroundColor = view.backgroundColor
         titleTextField.apply(theme: theme)
-        alertTitleLabel.backgroundColor = view.backgroundColor
-        alertMessageLabel.backgroundColor = view.backgroundColor
+        alertTitleLabel?.backgroundColor = view.backgroundColor
+        alertMessageLabel?.backgroundColor = view.backgroundColor
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
-        alertTitleLabel.textColor = theme.colors.error
-        alertMessageLabel.textColor = theme.colors.primaryText
+        alertTitleLabel?.textColor = theme.colors.error
+        alertMessageLabel?.textColor = theme.colors.primaryText
     }
 }
