@@ -420,10 +420,10 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
-"settings-storage-and-syncing-server-sync-title" = "Sync with the server";
+"settings-storage-and-syncing-server-sync-title" = "Update synced reading lists";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
-"settings-storage-and-syncing-title" = "Saved articles storage and syncing";
+"settings-storage-and-syncing-title" = "Article storage and syncing";
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
