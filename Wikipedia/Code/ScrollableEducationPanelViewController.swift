@@ -40,6 +40,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var stackView: UIStackView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
+    @IBOutlet fileprivate weak var effectsView: UIVisualEffectView!
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
