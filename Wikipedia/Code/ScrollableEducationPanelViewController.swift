@@ -138,6 +138,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
         
+        closeButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        
         apply(theme: theme)
     }
     
