@@ -9,7 +9,6 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var articleCountLabel: UILabel!
     @IBOutlet weak var titleTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
-    @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var alertView: UIView!
@@ -170,7 +169,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     public func collapseAlert(_ collapse: Bool) {
         if descriptionTextFieldToSeparatorViewBottomConstraint == nil {
-            descriptionTextFieldToSeparatorViewBottomConstraint = descriptionTextField.bottomAnchor.constraint(equalTo: separatorView.topAnchor)
+            descriptionTextFieldToSeparatorViewBottomConstraint = descriptionTextField.bottomAnchor.constraint(equalTo: searchBar.topAnchor)
             self.descriptionTextFieldToSeparatorViewBottomConstraint?.constant = -15
         }
         if collapse {
@@ -226,7 +225,6 @@ extension ReadingListDetailExtendedViewController: Themeable {
         alertMessageLabel.backgroundColor = view.backgroundColor
         descriptionTextField.apply(theme: theme)
         descriptionTextField.textColor = theme.colors.secondaryText
-        separatorView.backgroundColor = theme.colors.border
         alertTitleLabel.textColor = theme.colors.error
         alertMessageLabel.textColor = theme.colors.primaryText
     }
