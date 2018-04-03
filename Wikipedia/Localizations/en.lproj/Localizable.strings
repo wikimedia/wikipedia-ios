@@ -55,7 +55,7 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
-"add-articles-to-reading-list" = "Add $1 to reading list";
+"add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
@@ -238,7 +238,7 @@
 "menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
-"move-articles-to-reading-list" = "Move $1 to reading list";
+"move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";

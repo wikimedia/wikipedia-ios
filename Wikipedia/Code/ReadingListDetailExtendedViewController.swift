@@ -67,12 +67,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
             guard viewIfLoaded != nil else {
                 return
             }
-            articleCountLabel.text = articleCountString.uppercased()
+            articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         }
-    }
-    
-    var articleCountString: String {
-        return String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
     }
     
     public func updateArticleCount(_ count: Int64) {
