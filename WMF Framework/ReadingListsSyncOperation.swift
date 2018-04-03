@@ -400,6 +400,42 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
     }
     
+    private func splitReadingList(_ readingList: ReadingList, intoReadingListsOfSize size: Int, in moc: NSManagedObjectContext) throws -> [ReadingList] {
+        var newReadingLists: [ReadingList] = []
+        
+        guard let readingListName = readingList.name else {
+            assertionFailure("Missing reading list name")
+            return newReadingLists
+        }
+        
+        let entries = Array(readingList.entries ?? [])
+        let entriesCount = Int(readingList.countOfEntries)
+        
+        let splitEntriesArrays = stride(from: size, to: entriesCount, by: size).map {
+            Array(entries[$0..<min($0 + size, entriesCount)])
+        }
+        
+        for (index, splitEntries) in splitEntriesArrays.enumerated() {
+            guard let newReadingList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
+                continue
+            }
+            newReadingList.name = "\(readingListName)_\(index + 1)"
+            newReadingList.createdDate = NSDate()
+            newReadingList.updatedDate = newReadingList.createdDate
+            newReadingList.isUpdatedLocally = true
+            for splitEntry in splitEntries {
+                splitEntry.list = newReadingList
+                splitEntry.isUpdatedLocally = true
+            }
+            readingList.isUpdatedLocally = true
+            try readingList.updateArticlesAndEntries()
+            try newReadingList.updateArticlesAndEntries()
+            newReadingLists.append(newReadingList)
+        }
+        newReadingLists.append(readingList)
+        return newReadingLists
+    }
+    
     
     func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
@@ -424,7 +460,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
-                        listsToCreate.append(localReadingList)
+                        let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
+                        if localReadingList.countOfEntries > entryLimit, let splitReadingLists = try? splitReadingList(localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
+                            listsToCreate.append(contentsOf: splitReadingLists)
+                        } else {
+                            listsToCreate.append(localReadingList)
+                        }
                     }
                     return
                 }
