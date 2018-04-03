@@ -30,6 +30,9 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
  * added to saved pages, history, etc…
  */
 extern NSString *const WMFArticleUpdatedNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
+extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 @interface MWKDataStore : NSObject
 
@@ -171,14 +174,6 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  @param section the section to save
  */
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
-
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param image The image to save
- */
-- (void)saveImage:(MWKImage *)image;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 
