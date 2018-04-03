@@ -90,6 +90,9 @@ public enum ReadingListError: Error, Equatable {
 public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     
+    @objc public static let readingListsWereSplitNotification = NSNotification.Name("WMFReadingListsWereSplit")
+    @objc public static let readingListsWereSplitNotificationEntryLimitKey = NSNotification.Name("WMFReadingListsWereSplitNotificationEntryLimitKey")
+    
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     
