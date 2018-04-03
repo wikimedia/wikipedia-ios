@@ -227,6 +227,15 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.tintColor = theme.colors.link
+        headingLabel?.textColor = theme.colors.primaryText
+        subheadingLabel?.textColor = theme.colors.primaryText
+        footerLabel?.textColor = theme.colors.primaryText
+        closeButton.tintColor = theme.colors.primaryText
+        primaryButton?.tintColor = theme.colors.link
+        secondaryButton?.tintColor = theme.colors.link
+        primaryButton?.layer.borderColor = theme.colors.link.cgColor
+        
+        effectsView.effect = UIBlurEffect(style: theme.colors.blurEffectStyle)
+        effectsView.backgroundColor = theme.colors.blurEffectBackground
     }
 }
