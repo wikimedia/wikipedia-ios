@@ -120,8 +120,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageGridHidden || !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         var x = layoutMargins.left
