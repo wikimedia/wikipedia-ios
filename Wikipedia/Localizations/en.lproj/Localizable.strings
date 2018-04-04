@@ -55,7 +55,7 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
-"add-articles-to-reading-list" = "Add $1 to reading list";
+"add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
@@ -75,6 +75,7 @@
 "article-languages-others" = "Other languages";
 "article-languages-yours" = "Your languages";
 "article-read-more-title" = "Read more";
+"article-save-error-not-enough-space" = "You do not have enough space on your device to save this article";
 "article-share" = "Share";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Reading Themes Controls";
 "article-unable-to-load-article" = "Unable to load article.";
@@ -238,6 +239,7 @@
 "menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
+"move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-km" = "$1 km";
@@ -336,6 +338,7 @@
 "reading-list-login-or-create-account-title" = "Log in to sync saved articles";
 "reading-list-login-subtitle" = "Log in or create an account to allow your saved articles and reading lists to be synced across devices and saved to your user preferences.";
 "reading-list-login-title" = "Sync your saved articles?";
+"reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
 "reading-list-sync-enable-button-title" = "Enable syncing";
@@ -353,12 +356,15 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "List limit exceeded, unable to sync article";
 "reading-lists-article-queued-to-be-downloaded" = "Article queued to be downloaded";
 "reading-lists-articles-not-synced-limit-exceeded" = "Some articles not synced, limit exceeded";
+"reading-lists-conflicting-reading-list-name-updated" = "Your list '$1' has been renamed to '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
 "reading-lists-default-list-description" = "Default list for your saved articles";
 "reading-lists-default-list-title" = "Saved";
 "reading-lists-delete-reading-list-alert-message" = "This action cannot be undone. Any articles saved only to {{PLURAL:$1|this list|these lists}} will be unsaved.";
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
+"reading-lists-large-sync-completed" = "$1 articles and $2 reading lists synced from your account";
 "reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
+"reading-lists-sync-error-no-internet-connection" = "Syncing will resume when internet connection is available";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
 "reading-themes-controls-accessibility-dark-theme-button" = "Dark theme";
@@ -417,13 +423,13 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Erase all saved articles?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about $1 of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
-"settings-storage-and-syncing-server-sync-title" = "Sync with the server";
+"settings-storage-and-syncing-server-sync-title" = "Update synced reading lists";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
-"settings-storage-and-syncing-title" = "Saved articles storage and syncing";
+"settings-storage-and-syncing-title" = "Article storage and syncing";
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
