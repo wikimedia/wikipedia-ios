@@ -308,7 +308,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if shouldShowSeparators {
-            topSeparator.isHidden = index > 0
+            topSeparator.isHidden = true
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
