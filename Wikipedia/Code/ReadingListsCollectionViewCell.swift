@@ -131,7 +131,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if displayType == .readingListsTab && articleCount > 0 {
+        if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
             if isRTL {
@@ -309,7 +309,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         self.isDefault = isDefault
         self.articleCount = articleCount
     
-        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
+        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         defaultListTag.text = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
         titleLabel.text = name
         descriptionLabel.text = description
