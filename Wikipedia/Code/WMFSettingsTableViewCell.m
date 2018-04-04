@@ -184,7 +184,6 @@
 - (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
     self.titleLabel.backgroundColor = labelBackgroundColor;
     self.disclosureLabel.backgroundColor = labelBackgroundColor;
-    self.titleButton.titleLabel.backgroundColor = labelBackgroundColor;
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
