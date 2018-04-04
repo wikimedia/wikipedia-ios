@@ -16,22 +16,33 @@
         // Observe any time a new Progress object is set. (NSProgress are not re-usable so you need to reset it if you're tracking a new progression)
         progressObjectWasSetObservation = ProgressContainer.shared.observe(\ProgressContainer.articleFetcherProgress, options: [.new, .initial]) { [weak self] (progressContainer, change) in
             self?.progressFractionCompletedObservation?.invalidate()
+            
+            var exceededMinSyncInProgressDuration = false
+            
             // Observe any time this Progress object progresses.
             self?.progressFractionCompletedObservation = progressContainer.articleFetcherProgress?.observe(\Progress.fractionCompleted, options: [.new, .initial]) { [weak self] (progress, change) in
-                self?.tabBarItem?.updateBadgeValue(for: progress)
+                
+                guard progress.wmf_shouldShowProgressUI() else {
+                    exceededMinSyncInProgressDuration = false
+                    self?.tabBarItem?.showBadge(false)
+                    return
+                }
+                exceededMinSyncInProgressDuration = true
+
+                dispatchOnMainQueueAfterDelayInSeconds(WMFMinProgressDurationBeforeShowingProgressUI) { [weak self] in
+                    // If `exceededMinSyncInProgressDuration` is still true here we've exceeded the min so it's ok to show badge.
+                    guard exceededMinSyncInProgressDuration else {
+                        return
+                    }
+                    self?.tabBarItem?.showBadge(true)
+                }
             }
         }
     }
 }
 
-private extension Progress {
-    func shouldShowBadge() -> Bool {
-        return fractionCompleted > 0
-    }
-}
-
 private extension UITabBarItem {
-    func updateBadgeValue(for progress: Progress) {
-        badgeValue = progress.shouldShowBadge() ? "\u{25cf}" : nil
+    func showBadge(_ shouldShow: Bool) {
+        badgeValue = shouldShow ? "\u{25cf}" : nil
     }
 }
