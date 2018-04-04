@@ -406,7 +406,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
     }
     
-    private func splitReadingList(_ readingList: ReadingList, intoReadingListsOfSize size: Int, in moc: NSManagedObjectContext) throws -> [ReadingList] {
+    private func split(readingList: ReadingList, intoReadingListsOfSize size: Int, in moc: NSManagedObjectContext) throws -> [ReadingList] {
         var newReadingLists: [ReadingList] = []
         
         guard let readingListName = readingList.name else {
@@ -471,7 +471,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
                         let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
-                        if localReadingList.countOfEntries > entryLimit, let splitReadingLists = try? splitReadingList(localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
+                        if localReadingList.countOfEntries > entryLimit, let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
                             listsToCreate.append(contentsOf: splitReadingLists)
                         } else {
                             listsToCreate.append(localReadingList)
