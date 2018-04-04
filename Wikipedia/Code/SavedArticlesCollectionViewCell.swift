@@ -135,8 +135,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         let titleLabelAvailableWidth: CGFloat
@@ -301,7 +302,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isTagsViewHidden = tags.readingLists.count == 0
         
         isStatusViewHidden = article.isDownloaded
-        if alertType == nil {
+        if alertType == nil || alertType == .downloading {
             isAlertLabelHidden = article.isDownloaded
             alertType = .downloading
         }
@@ -316,7 +317,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 80
+        imageViewDimension = 100
         
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)

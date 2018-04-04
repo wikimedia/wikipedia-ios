@@ -89,17 +89,58 @@ public enum ReadingListError: Error, Equatable {
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
+    @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
     
+    @objc public static let syncDidFinishNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
+    @objc public static let syncDidFinishErrorKey = NSNotification.Name(rawValue: "error")
+    @objc public static let syncDidFinishSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
+    @objc public static let syncDidFinishSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
+
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
     
+    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
+    private var isSyncing = false {
+        didSet {
+            guard oldValue != isSyncing, isSyncing else {
+                return
+            }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: ReadingListsController.syncDidStartNotification, object: nil)
+            }
+        }
+    }
+    
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
         operationQueue.maxConcurrentOperationCount = 1
+    }
+    
+    private func addOperation(_ operation: ReadingListsOperation) {
+        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
+            if operation.isFinished {
+                self.observedOperations.removeValue(forKey: operation)?.invalidate()
+                DispatchQueue.main.async {
+                    var userInfo: [Notification.Name: Any] = [:]
+                    if let error = operation.error {
+                        userInfo[ReadingListsController.syncDidFinishErrorKey] = error
+                    }
+                    if let syncOperation = operation as? ReadingListsSyncOperation {
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
+                    }
+                    NotificationCenter.default.post(name: ReadingListsController.syncDidFinishNotification, object: nil, userInfo: userInfo)
+                    self.isSyncing = false
+                }
+            } else if operation.isExecuting {
+                self.isSyncing = true
+            }
+        })
+        operationQueue.addOperation(operation)
     }
     
     // User-facing actions. Everything is performed on the main context
@@ -146,12 +187,19 @@ public class ReadingListsController: NSObject {
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
         let name = name.precomposedStringWithCanonicalMapping
-        let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@", name)
-        existingListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingListRequest).first
-        guard result == nil else {
-            throw ReadingListError.listExistsWithTheSameName
+        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.fetchLimit = 1
+        let result = try moc.fetch(existingOrDefaultListRequest).first
+        
+        if let list = result {
+            if list.isDefault {
+                if list.name == name {
+                    throw ReadingListError.listExistsWithTheSameName
+                }
+            } else {
+               throw ReadingListError.listExistsWithTheSameName
+            }
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
@@ -425,7 +473,7 @@ public class ReadingListsController: NSObject {
         #if TEST
         #else
         let sync = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(sync)
+        addOperation(sync)
         operationQueue.addOperation {
             DispatchQueue.main.async(execute: completion)
         }
@@ -442,7 +490,7 @@ public class ReadingListsController: NSObject {
                 self.syncState = newValue
             }
             let sync = ReadingListsSyncOperation(readingListsController: self)
-            operationQueue.addOperation(sync)
+            addOperation(sync)
             operationQueue.addOperation {
                 DispatchQueue.main.async(execute: completion)
             }
@@ -451,7 +499,7 @@ public class ReadingListsController: NSObject {
     
     @objc private func _sync() {
         let sync = ReadingListsSyncOperation(readingListsController: self)
-        operationQueue.addOperation(sync)
+        addOperation(sync)
     }
     
     @objc private func _syncIfNotSyncing() {

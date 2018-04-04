@@ -48,7 +48,7 @@ private struct Item {
             title = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-title", value: "Show Saved reading list", comment: "Title of the settings option that enables showing the default reading list")
         case .syncWithTheServer:
             disclosureType = .titleButton
-            buttonTitle = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Sync with the server", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
+            buttonTitle = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Update synced reading lists", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
         default:
             break
         }
@@ -139,7 +139,6 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         eraseSavedArticlesView?.titleLabel.text = CommonStrings.eraseAllSavedArticles
         eraseSavedArticlesView?.button.setTitle(WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-button-title", value: "Erase", comment: "Title of the settings button that enables erasing saved articles"), for: .normal)
         eraseSavedArticlesView?.button.addTarget(self, action: #selector(eraseSavedArticles), for: .touchUpInside)
-        eraseSavedArticlesView?.footerLabel.text = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about 364.4 MB of space.", comment: "Footer text of the settings option that enables erasing saved articles")
        return eraseSavedArticlesView
     }()
 }
@@ -163,6 +162,11 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
+                let permanentStorageDirectorySize = ImageController.shared.permanentStorageDirectorySize
+                let sitesDirectorySize = Int64(dataStore?.sitesDirectorySize() ?? 0)
+                let dataSizeString = ByteCountFormatter.string(fromByteCount: permanentStorageDirectorySize + sitesDirectorySize, countStyle: .file)
+                let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles")
+                eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString)
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
                 cell.contentView.wmf_addSubviewWithConstraintsToEdges(eraseSavedArticlesView)
             } else {

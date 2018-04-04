@@ -58,6 +58,7 @@
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"app-store-short-description" = "Short description of the app for the app store";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
 "appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
@@ -74,6 +75,7 @@
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
+"article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
 "article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
@@ -237,6 +239,7 @@
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
+"move-articles-to-reading-list" = "Title for the view in charge of moving articles to a reading list - $1 is replaced with the number of articles to move";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
@@ -333,8 +336,9 @@
 "reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-button-title" = "Title for button to login or create account to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
-"reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across devices.";
+"reading-list-login-subtitle" = "Subtitle explaining that saved articles and reading lists can be synced across Wikipedia apps.";
 "reading-list-login-title" = "Title for syncing save articles.";
+"reading-list-name-user-created-annotation" = "Annotation added to a conflicting reading list name";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
@@ -352,12 +356,15 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-queued-to-be-downloaded" = "Text of the alert label informing the user that article is queued to be downloaded.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
+"reading-lists-conflicting-reading-list-name-updated" = "Alert message informing user that their reading list was renamed.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
 "reading-lists-default-list-title" = "The title of the default saved pages list\n{{Identical|Saved}}";
 "reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
+"reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed.";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
+"reading-lists-sync-error-no-internet-connection" = "Alert message informing user that syncing will resume when internet connection is available.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-dark-theme-button" = "Accessibility label for the dark theme button in the Reading Themes Controls popover";

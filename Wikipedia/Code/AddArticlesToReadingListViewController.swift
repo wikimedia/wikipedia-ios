@@ -55,7 +55,8 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar?.topItem?.title = String.localizedStringWithFormat(WMFLocalizedString("add-articles-to-reading-list", value:"Add %1$@ to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add"), "\(String.localizedStringWithFormat(CommonStrings.articleCountFormat, articles.count))")
+        let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
+        navigationBar?.topItem?.title = String.localizedStringWithFormat(title, articles.count)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         
         readingListsViewController = ReadingListsViewController.init(with: dataStore, articles: articles)
