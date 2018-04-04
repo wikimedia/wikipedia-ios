@@ -232,7 +232,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList:readingList, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
