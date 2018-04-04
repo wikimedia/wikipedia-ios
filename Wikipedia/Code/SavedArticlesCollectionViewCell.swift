@@ -332,7 +332,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.backgroundColor = theme.colors.border
     }
     
-    private func tag(at indexPath: IndexPath) -> Tag {
+    private func tag(at indexPath: IndexPath) -> Tag? {
+        guard tags.readingLists.indices.contains(indexPath.item) else {
+            return nil
+        }
         return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item, indexPath: tags.indexPath)
     }
 }
@@ -380,7 +383,9 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        var tagToConfigure = tag(at: indexPath)
+        guard var tagToConfigure = tag(at: indexPath) else {
+            return .zero
+        }
 
         if let lastConfiguredTag = configuredTags.last, lastConfiguredTag.isLast, tagToConfigure.index > lastConfiguredTag.index {
             tagToConfigure.isCollapsed = true
