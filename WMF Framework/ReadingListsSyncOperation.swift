@@ -161,11 +161,15 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         self.finish()
                     }
                 } else {
+                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup {
+                        readingListsController.postReadingListsSyncWasEnabledNotification(false)
+                    }
                     try executeLocalOnlySync(on: moc)
                     try moc.save()
                     finish()
                 }
             } else {
+                readingListsController.postReadingListsSyncWasEnabledNotification(false)
                 try executeLocalOnlySync(on: moc)
                 try moc.save()
                 finish()

@@ -160,6 +160,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsSyncWasEnabledWithNotification:)
+                                                 name:[WMFReadingListsController readingListsSyncWasEnabledNotification]
+                                               object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
@@ -315,6 +320,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
+}
+
+- (void)readingListsSyncWasEnabledWithNotification:(NSNotification *)note {
+    BOOL readingListsSyncWasEnabled = [note.userInfo[WMFReadingListsController.readingListsSyncWasEnabledKey] boolValue];
+    if (readingListsSyncWasEnabled == NO) {
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
+    }
 }
 
 #pragma mark - Background Fetch
@@ -599,12 +611,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
         DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
         dispatch_async(dispatch_get_main_queue(), completion);
-        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
             dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
         }
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);

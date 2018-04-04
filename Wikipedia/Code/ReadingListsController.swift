@@ -88,7 +88,8 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
-    @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
+    @objc public static let readingListsSyncWasEnabledNotification = NSNotification.Name("WMFReadingListsSyncWasEnabled")
+    @objc public static let readingListsSyncWasEnabledKey = "readingListsSyncWasEnabled"
     
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
@@ -362,6 +363,12 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    func postReadingListsSyncWasEnabledNotification(_ syncWasEnabled: Bool) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: ReadingListsController.readingListsSyncWasEnabledNotification, object: nil, userInfo: [ReadingListsController.readingListsSyncWasEnabledKey: NSNumber(value: syncWasEnabled)])
+        }
+    }
+    
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         let oldSyncState = self.syncState
@@ -393,8 +400,9 @@ public class ReadingListsController: NSObject {
         
         self.syncState = newSyncState
         
+        postReadingListsSyncWasEnabledNotification(isSyncEnabled)
+        
         sync()
-        NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
     @objc public func start() {

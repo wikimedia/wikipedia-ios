@@ -88,8 +88,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Before iOS 11
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readingListSyncStateChanged:) name:[WMFReadingListsController syncStateDidChangeNotification] object:nil];
 }
 
 - (void)dealloc {
@@ -527,13 +525,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #else
     return nil;
 #endif
-}
-
-#pragma mark - Notifications
-
-- (void)readingListSyncStateChanged:(NSNotification *)note {
-    WMFAssertMainThread(@"This touches the UI, so should always be on the main thread");
-    [self loadSections];
 }
 
 #pragma mark - KVO
