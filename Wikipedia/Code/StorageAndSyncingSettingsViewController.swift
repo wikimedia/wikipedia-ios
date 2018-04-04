@@ -129,6 +129,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
                 self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
                 self.dataStore?.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             }
+            self.tableView.reloadData()
         }
         alert.addAction(cancel)
         alert.addAction(erase)
