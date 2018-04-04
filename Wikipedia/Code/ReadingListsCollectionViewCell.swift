@@ -120,8 +120,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageGridHidden || !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         var x = layoutMargins.left
@@ -302,7 +303,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
-        imageViewDimension = 80
+        imageViewDimension = 100
 
         self.displayType = displayType
         self.isDefault = isDefault
