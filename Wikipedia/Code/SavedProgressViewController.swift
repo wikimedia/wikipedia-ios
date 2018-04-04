@@ -30,9 +30,26 @@ class SavedProgressViewController: UIViewController, Themeable {
         progressObjectWasSetObservation = ProgressContainer.shared.observe(\ProgressContainer.articleFetcherProgress, options: [.new, .initial]) { [weak self] (progressContainer, change) in
             self?.progressView.observedProgress = progressContainer.articleFetcherProgress
             self?.progressIsFinishedObservation?.invalidate()
+            
+            var exceededMinSyncInProgressDuration = false
+            
             // Observe any time this Progress object finishes.
             self?.progressIsFinishedObservation = progressContainer.articleFetcherProgress?.observe(\Progress.isFinished, options: [.new, .initial]) { [weak self] (progress, change) in
-                self?.animate(isHidden: !progress.wmf_shouldShowProgressView())
+                
+                guard progress.wmf_shouldShowProgressUI() else {
+                    exceededMinSyncInProgressDuration = false
+                    self?.animate(isHidden: true)
+                    return
+                }
+                exceededMinSyncInProgressDuration = true
+                
+                dispatchOnMainQueueAfterDelayInSeconds(WMFMinProgressDurationBeforeShowingProgressUI) { [weak self] in
+                    // If `exceededMinSyncInProgressDuration` is still true here we've exceeded the min so it's ok to show progress view.
+                    guard exceededMinSyncInProgressDuration else {
+                        return
+                    }
+                    self?.animate(isHidden: false)
+                }
             }
         }
     }
