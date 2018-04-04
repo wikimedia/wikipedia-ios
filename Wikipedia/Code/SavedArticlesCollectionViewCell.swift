@@ -317,7 +317,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 80
+        imageViewDimension = 100
         
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
