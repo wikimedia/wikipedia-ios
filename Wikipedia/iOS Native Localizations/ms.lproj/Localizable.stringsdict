@@ -66,7 +66,7 @@
 			<string>%1$d rencana</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Anda tidak boleh menambah rencana ini ke “%2$@” kerana terdapat had jumlah rencana yang anda dapat dalam senarai bacaan.</string>
+			<string>Rencana tidak boleh ditambah ke senarai ini. Anda telah mencapai had %2$d rencana setiap senarai bacaan untuk %3$@</string>
 			<key>other</key>
-			<string>Anda tidak boleh menambah rencana ini ke “%2$@” kerana terdapat had jumlah rencana yang anda dapat dalam senarai bacaan.</string>
+			<string>Rencana tidak boleh ditambah ke senarai ini. Anda telah mencapai had %2$d rencana setiap senarai bacaan untuk %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

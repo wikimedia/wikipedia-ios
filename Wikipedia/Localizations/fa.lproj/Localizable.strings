@@ -360,12 +360,9 @@
 "reading-list-login-title" = "مقالات ذخیره‌شده شما همسان‌سازی شود؟";
 "reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
 "reading-list-new-list-name-placeholder" = "عنوان فهرست خواندن";
-"reading-list-show-default-list-setting" = "نمایش لیست پیش‌فرض";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همسان‌سازی";
 "reading-list-sync-enable-subtitle" = "مقالات و لیست‌ها مطالعه شما اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره شده و با دیگر دستگاه‌ها همسان‌سازی شود.";
 "reading-list-sync-enable-title" = "همسان‌سازی فهرست خواندن فعال شود؟";
-"reading-list-sync-setting" = "همسان‌سازی فهرست خواندن";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "شما نمی‌توانید {{PLURAL:$1|this article|these articles}} را به “$2” بیفزایید چون تعداد مقالات در فهرست خواندن محدودیت دارد.";
 "reading-list-unable-to-add-entry" = "یک خطای غیرمنتظره هنگام افزودن یک ورودی به فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-create" = "یک خطای غیرمنتظره هنگام ساخت فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "یک خطای غیرمنتظره هنگام حذف فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
@@ -395,11 +392,7 @@
 "relogin-failed-title" = "امکان ورود مجدد نیست";
 "request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه دهندگان آن به دانستن بیشتر در مورد آن علاقه‌مند می‌باشند. لطفاً با ضربه زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "saved-all-articles-title" = "همهٔ مقالات";
-"saved-clear-all" = "پاک‌کردن";
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
-"saved-pages-clear-cancel" = "لغو";
-"saved-pages-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه مقاله‌های ذخیره‌شده را حذف کرده و آنها را از همه فهرست‌های خواندن پاک کنید؟";
-"saved-pages-clear-delete-all" = "بله، حذف همه";
 "saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
 "saved-reading-lists-title" = "فهرست‌های خواندن";
 "saved-search-default-text" = "جستجو";

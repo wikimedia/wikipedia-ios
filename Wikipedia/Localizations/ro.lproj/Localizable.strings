@@ -166,11 +166,6 @@
 "preference-summary-eventlogging-opt-in" = "Permiteți Wikimediei să adune informații despre modul în care utilizați aplicația pentru a putea îmbunătăți aplicația";
 "preference-title-eventlogging-opt-in" = "Trimite rapoarte de utilizare";
 "request-feedback-on-error" = "Aplicația a întâmpinat o problemă despre care programatorii noștri ar dori să afle mai multe. Apăsați aici pentru a ne trimite un e-mail cu detalii despre eroare.";
-"saved-clear-all" = "Șterge";
-"saved-pages-clear-cancel" = "Revocare";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Sigur doriți să ștergeți toate paginile salvate?";
-"saved-pages-clear-delete-all" = "Da, șterge tot";
 "saved-pages-image-download-error" = "Nu se pot descărca imaginile pentru această pagină salvată.";
 "saved-title" = "Salvat";
 "search-did-you-mean" = "V-ați referit la $1?";

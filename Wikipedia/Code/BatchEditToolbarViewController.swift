@@ -3,7 +3,8 @@ import UIKit
 public final class BatchEditToolbarViewController: UIViewController {
 
     public var items: [UIButton] = []
-    fileprivate var theme: Theme = Theme.standard
+    private var theme: Theme = Theme.standard
+    private var separator: UIView?
     
     public func setItemsEnabled(_ enabled: Bool) {
         for item in items {
@@ -32,6 +33,17 @@ public final class BatchEditToolbarViewController: UIViewController {
         let heightConstraint = stackView.heightAnchor.constraint(equalTo: view.heightAnchor)
         NSLayoutConstraint.activate([centerXConstraint, centerYConstraint, widthConstraint, heightConstraint])
         
+        let separator = UIView()
+        view.addSubview(separator)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        let separatorWidthConstraint = separator.widthAnchor.constraint(equalTo: view.widthAnchor)
+        let separatorHeightConstraint = separator.heightAnchor.constraint(equalToConstant: 0.5)
+        let separatorTopConstraint = separator.topAnchor.constraint(equalTo: view.topAnchor)
+        let separatorLeadingConstraint = separator.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let separatorTrailingConstraint = separator.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        NSLayoutConstraint.activate([separatorWidthConstraint, separatorHeightConstraint, separatorTopConstraint, separatorLeadingConstraint, separatorTrailingConstraint])
+        self.separator = separator
+        
         apply(theme: theme)
     }
 }
@@ -43,5 +55,6 @@ extension BatchEditToolbarViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.midBackground
+        separator?.backgroundColor = theme.colors.border
     }
 }

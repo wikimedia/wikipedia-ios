@@ -332,13 +332,13 @@
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordena els articles";
+"reading-list-login-or-create-account-button-title" = "Inicia una sessió o crea un compte";
+"reading-list-login-or-create-account-title" = "Inicia una sessió per a sincronitzar els articles desats";
 "reading-list-login-title" = "Voleu sincronitzar els articles desats?";
 "reading-list-new-list-description-placeholder" = "descripció curta opcional";
 "reading-list-new-list-name-placeholder" = "títol de la llista de lectura";
-"reading-list-show-default-list-setting" = "Mostra la llista per defecte";
 "reading-list-sync-enable-button-title" = "Habilita la sincronització";
 "reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
-"reading-list-sync-setting" = "Sincronització de la llista de lectura";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
 // Fuzzy
@@ -360,11 +360,7 @@
 "relogin-failed-stay-logged-out-button-title" = "Manteniu-me fora de la sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "saved-all-articles-title" = "Tots els articles";
-"saved-clear-all" = "Neteja";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
-"saved-pages-clear-cancel" = "Cancel·la";
-"saved-pages-clear-confirmation-heading" = "Esteu segur que voleu eliminar tots els articles desats i suprimir-los de totes les llistes de lectura?";
-"saved-pages-clear-delete-all" = "Sí, esborra-ho tot";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
 "saved-reading-lists-title" = "Llistes de lectura";
 "saved-search-default-text" = "Cerca";

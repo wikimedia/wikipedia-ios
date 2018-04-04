@@ -365,12 +365,9 @@
 "reading-list-login-title" = "Синхронизировать сохраненные статьи?";
 "reading-list-new-list-description-placeholder" = "Необязательное короткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
-"reading-list-show-default-list-setting" = "Показать список по умолчанию";
 "reading-list-sync-enable-button-title" = "Включить синхронизацию";
 "reading-list-sync-enable-subtitle" = "Сохраненные статьи и списки чтения теперь могут быть сохранены в вашей учетной записи в Википедии и синхронизированы между устройствами.";
 "reading-list-sync-enable-title" = "Включить синхронизацию списков для чтения?";
-"reading-list-sync-setting" = "Синхронизация списка для чтения";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Вы не можете добавить {{PLURAL:$1|эта статья|эти статьи}} в “$2” потому что существует ограничение на количество статей, которые вы можете иметь в списке чтения.";
 "reading-list-unable-to-add-entry" = "При добавлении записи в список чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-unable-to-create" = "При создании списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-unable-to-delete" = "При удалении списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
@@ -400,11 +397,7 @@
 "relogin-failed-title" = "Не удалось восстановить вход в систему";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "saved-all-articles-title" = "Все статьи";
-"saved-clear-all" = "Очистить";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
-"saved-pages-clear-cancel" = "Отмена";
-"saved-pages-clear-confirmation-heading" = "Вы уверены, что хотите удалить все сохранённые статьи и убрать их из всех своих списков для чтения?";
-"saved-pages-clear-delete-all" = "Да, удалить всё";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
 "saved-reading-lists-title" = "Списки для чтения";
 "saved-search-default-text" = "Найти";
@@ -439,6 +432,8 @@
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Стереть";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Стереть сохранённые статьи";
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
 "share-a-fact-made-with" = "Создано с помощью Википедии";

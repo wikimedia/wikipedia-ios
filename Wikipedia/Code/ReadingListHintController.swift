@@ -78,7 +78,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func dismissHint() {
         self.task?.cancel()
-        let task = DispatchWorkItem { self.setHintHidden(true) }
+        let task = DispatchWorkItem { [weak self] in
+            self?.setHintHidden(true)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + hintVisibilityTime , execute: task)
         self.task = task
     }

@@ -51,7 +51,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         
         var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -81,7 +81,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     var baseSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: "isDefault", ascending: false)]
+        return [NSSortDescriptor(keyPath: \ReadingList.isDefault, ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
@@ -173,7 +173,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     private func handleReadingListError(_ error: Error) {
         if let readingListsError = error as? ReadingListError {
-            WMFAlertManager.sharedInstance.showAlert(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         } else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(
                 CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -191,14 +191,11 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
         cell.layoutMargins = layout.readableMargins
+        
+        cell.configureAlert(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
 
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-            if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-                // placeholder for now, this should be a separate label or button
-                cell.descriptionLabel.text = error.localizedDescription
-                cell.descriptionLabel.textColor = theme.colors.error
-            }
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
             cell.isBatchEditable = false
@@ -213,12 +210,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 cell.swipeTranslation = translation
             }
             cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-        }
-    
-        if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-            // placeholder for now, this should be a separate label or button
-            cell.descriptionLabel.text = error.localizedDescription
-            cell.descriptionLabel.textColor = theme.colors.error
         }
     }
     
@@ -293,23 +284,25 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle]) {
-        guard shouldCreateReadingList else {
-            return
-        }
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
-            if let moveFromReadingList = createReadingList.moveFromReadingList {
+            if let moveFromReadingList = createReadingListViewController.moveFromReadingList {
                 try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
             }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
-            createReadingList.dismiss(animated: true, completion: nil)
+            createReadingListViewController.dismiss(animated: true, completion: nil)
         } catch let error {
-            if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
-                createReadingListViewController?.handleReadingListNameError(readingListError)
-            } else {
-                handleReadingListError(error)
+            
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                createReadingListViewController.handleReadingListNameError(readingListError)
+            default:
+                createReadingListViewController.dismiss(animated: true) {
+                    self.handleReadingListError(error)
+                }
             }
+            
         }
     }
 }

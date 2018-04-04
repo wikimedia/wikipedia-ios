@@ -197,6 +197,9 @@
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
 "reading-list-keep-subtitle" = "Jsou zde články synchronizovány k vašemu účtu na Wikipedii. Chcete je na tomto zařízení po odhlášení ponechat?";
 "reading-list-keep-title" = "Ponechat uložené články na zařízení?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Zařazené články";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existuje limit 5000 nezařazených článků. Zařaďte prosím vaše existující články do seznamů, abyste umožnili pokračování synchronizování nezařazených článků.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Překročení limitu pro nezařazené články";
 "reading-list-login-button-title" = "Přihlašte se pro synchronizaci vámi uložených článků";
 "reading-list-login-or-create-account-button-title" = "Přihlásit se nebo vytvořit účet";
 "reading-list-login-or-create-account-title" = "Přihlašte se pro synchronizaci uložených článků";
@@ -204,12 +207,9 @@
 "reading-list-login-title" = "Synchronizovat vámi uložené články?";
 "reading-list-new-list-description-placeholder" = "Volitelný krátký popis";
 "reading-list-new-list-name-placeholder" = "Název seznamu čtení";
-"reading-list-show-default-list-setting" = "Zobrazit výchozí seznam";
 "reading-list-sync-enable-button-title" = "Povolit synchronizace";
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy čtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů čtení?";
-"reading-list-sync-setting" = "Synchronizace seznamů čtení";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Nemůžete přidat {{PLURAL:$1|tento článek|tyto články}} do „$2“, protože byl překročen limit počtu článků, které v tomto seznamu čtení můžete mít.";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-create" = "Nastala neočekávaná chyba při zakládání vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-delete" = "Nastala neočekávaná chyba při odstraňování vašeho seznamu čtení. Zkuste prosím později znovu.";
@@ -229,11 +229,7 @@
 "relogin-failed-title" = "Znemožnit opětovné vytvoření záznamu";
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "saved-all-articles-title" = "Všechny články";
-"saved-clear-all" = "Vyprázdnit";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
-"saved-pages-clear-cancel" = "Zrušit";
-"saved-pages-clear-confirmation-heading" = "Jste si jist, že chcete smazat všechny uložené články a odstranit je ze všech seznamů čtení?";
-"saved-pages-clear-delete-all" = "Smazat vše";
 "saved-reading-lists-title" = "Seznamy čtení";
 "saved-search-default-text" = "Hledat";
 "saved-title" = "Uložené";

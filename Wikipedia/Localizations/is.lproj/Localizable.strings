@@ -340,12 +340,9 @@
 "reading-list-login-title" = "Samstilla vistuðu greinarnar þínar?";
 "reading-list-new-list-description-placeholder" = "stutt valkvæð lýsing";
 "reading-list-new-list-name-placeholder" = "titill leslista";
-"reading-list-show-default-list-setting" = "Birta sjálfgefinn lista";
 "reading-list-sync-enable-button-title" = "Virkja samstillingu";
 "reading-list-sync-enable-subtitle" = "Nú er hægt að vista greinar og leslista á Wikipedia-aðganginn þinn og samstilla þannig á milli tækja.";
 "reading-list-sync-enable-title" = "Kveikja á samstillingu leslista?";
-"reading-list-sync-setting" = "Les samstillingu leslista";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Þú getur ekki bætt {{PLURAL:$1|þessari grein|þessum greinum}} við “$2” vegna þess að það eru takmörk fyrir þeim fjölda greina sem þú getur geymt í leslista.";
 "reading-list-unable-to-add-entry" = "Óvænt villa kom upp við að bæta færslu við leslistann þinn. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-create" = "Óvænt villa kom upp við að búa til leslistann þinn. Endilega reyndu aftur síðar.";
 "reading-list-unable-to-delete" = "Óvænt villa kom upp við að eyða leslistanum þínum. Endilega reyndu aftur síðar.";
@@ -375,11 +372,7 @@
 "relogin-failed-title" = "Gat ekki endurheimt innskráningu";
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "saved-all-articles-title" = "Allar greinar";
-"saved-clear-all" = "Hreinsa";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
-"saved-pages-clear-cancel" = "Hætta við";
-"saved-pages-clear-confirmation-heading" = "Ertu viss um að þú viljir eyða öllum vistuðum greinum og fjarlægja þær af öllum leslistum?";
-"saved-pages-clear-delete-all" = "Eyða öllu";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
 "saved-reading-lists-title" = "Leslistar";
 "saved-search-default-text" = "Leita";

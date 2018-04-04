@@ -4,6 +4,7 @@
 // Author: Macofe
 // Author: Nemo bis
 // Author: Nicolas Eynaud
+// Author: Unuaiga
 
 "about-content-license" = "Licéncia del contengut";
 "about-contributors" = "!Contributors";
@@ -175,13 +176,10 @@
 "preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "rank-accessibility-label" = "Numèro $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
-"saved-clear-all" = "Escafar";
-"saved-pages-clear-cancel" = "Anullar";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Sètz segur que volètz suprimir totes vòstres elements enregistrats ?";
-"saved-pages-clear-delete-all" = "Òc, suprimir tot";
+"saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
 "saved-title" = "Enregistrat";
 "search-did-you-mean" = "Volètz dire $1 ?";
 "search-field-placeholder-text" = "Recercar dins Wikipèdia";

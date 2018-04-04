@@ -50,7 +50,7 @@
 			<string>%1$d artikulu</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Ezin duzu gehituartikulu hau hurrengora “%2$@” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.</string>
+			<string>artikulu %1$d ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko %2$d artikulutako muga gainditu duzu %3$@-engatik</string>
 			<key>other</key>
-			<string>Ezin duzu gehituartikulu hauek hurrengora “%2$@” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.</string>
+			<string>%1$d artikulu ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko %2$d artikulutako muga gainditu duzu %3$@-engatik</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

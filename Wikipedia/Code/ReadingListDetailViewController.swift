@@ -44,9 +44,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = readingList.name
-        
+
         emptyViewType = .noSavedPages
 
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
@@ -69,7 +67,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(title: readingList.name, description: readingList.readingListDescription, articleCount: readingList.countOfEntries, isDefault: readingList.isDefault)
+        readingListDetailExtendedViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -111,10 +109,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        readingListDetailExtendedViewController.isHidden = isEmpty
         if isEmpty {
+            title = readingList.name
             navigationBar.removeExtendedNavigationBarView()
         } else {
+            title = nil
             navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
         updateScrollViewInsets()
@@ -172,15 +171,15 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "errorCode", ascending: false), NSSortDescriptor(key: "createdDate", ascending: true), NSSortDescriptor(key: "errorCode", ascending: false)], handler: { (sortDescriptors, action) in
+       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
@@ -233,7 +232,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList:readingList, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
@@ -347,6 +346,7 @@ extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {}
 
 extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        readingListDetailExtendedViewController.reconfigureAlert(for: readingList)
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
@@ -425,13 +425,8 @@ extension ReadingListDetailViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
+        cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
-        if let errorCode = entry.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-            // placeholder for now, this should be a separate label or button
-            cell.descriptionLabel.text = error.localizedDescription
-            cell.descriptionLabel.textColor = theme.colors.error
-        }
         
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true

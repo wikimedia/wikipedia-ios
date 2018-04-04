@@ -94,15 +94,15 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "savedDate", ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], action: nil)
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
 
     lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
             self.updateSort(with: sortDescriptors, newAction: action)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "savedDate", ascending: false)], handler: { (sortDescriptors, action) in
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, action) in
             self.updateSort(with:  sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
@@ -137,7 +137,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.predicate = NSPredicate(format:"ANY articles == %@ && isDefault == NO", article)
-        request.sortDescriptors = [NSSortDescriptor(key: "canonicalName", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
         request.fetchLimit = 4
         
         do {
@@ -183,22 +183,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
-    
-    // MARK: - Clear Saved Articles
-    
-    @objc func clear(_ completion: @escaping () -> Void) {
-        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved articles and remove them from all reading lists?", comment: "Heading text of delete all confirmation dialog")
-        let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
-        let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
-        let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: { (action) in
-            completion()
-        }))
-        sheet.addAction(UIAlertAction(title: clearConfirm, style: .destructive, handler: { (action) in
-            self.dataStore.readingListsController.unsaveAllArticles(completion)
-        }))
-        present(sheet, animated: true, completion: nil)
     }
 }
 
@@ -275,9 +259,16 @@ extension SavedArticlesViewController {
         guard let article = article(at: indexPath) else {
             return
         }
+        
+        if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
+            cell.configureAlert(for: entry, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
+        }
+        
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
+        
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.delegate = self

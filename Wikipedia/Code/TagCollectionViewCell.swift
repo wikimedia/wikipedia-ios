@@ -2,17 +2,23 @@ public struct Tag {
     let readingList: ReadingList
     let index: Int
     let indexPath: IndexPath
+    var isLast: Bool
+    var isCollapsed: Bool
     
-    var isLast: Bool {
-        return index == 2
+    init(readingList: ReadingList, index: Int, indexPath: IndexPath) {
+        self.readingList = readingList
+        self.index = index
+        self.indexPath = indexPath
+        self.isLast = false
+        self.isCollapsed = false
     }
 }
 
 class TagCollectionViewCell: CollectionViewCell {
-    static let reuseIdentifier = "TagCollectionViewCell"
     private let label = UILabel()
     let margins = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
     private let maxWidth: CGFloat = 150
+    public let minWidth: CGFloat = 60
     
     override func setup() {
         contentView.addSubview(label)
@@ -22,10 +28,10 @@ class TagCollectionViewCell: CollectionViewCell {
     }
 
     func configure(with tag: Tag, for count: Int, theme: Theme) {
-        guard tag.index <= 2, let name = tag.readingList.name else {
+        guard !tag.isCollapsed, let name = tag.readingList.name else {
             return
         }
-        label.text = (tag.isLast ? "+\(count - 2)" : name).uppercased()
+        label.text = (tag.isLast ? "+\(count - tag.index)" : name)
         apply(theme: theme)
         updateFonts(with: traitCollection)
         setNeedsLayout()

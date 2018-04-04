@@ -58,7 +58,7 @@
 			<string>%1$d个条目</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -68,10 +68,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>您不能添加此条目至“%2$@”，因为存在您可以添加进阅读列表的条目数量限制。</string>
 			<key>other</key>
-			<string>您不能添加这些条目至“%2$@”，因为存在您可以添加进阅读列表的条目数量限制。</string>
+			<string>条目不能添加到此列表。您已超过每个%3$@的阅读列表%2$d个条目限制</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

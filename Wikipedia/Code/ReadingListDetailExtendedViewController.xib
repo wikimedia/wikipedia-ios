@@ -13,97 +13,119 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailExtendedViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="articleCountLabel" destination="uC9-Ji-QqS" id="NxD-BR-emx"/>
-                <outlet property="descriptionTextField" destination="VeG-7e-nxd" id="TZe-4K-8HF"/>
-                <outlet property="searchBar" destination="k7T-rp-1Fm" id="Q38-DG-KUp"/>
-                <outlet property="separatorView" destination="NNE-RI-aJ4" id="4RH-oE-7JL"/>
-                <outlet property="sortButton" destination="VWH-3Z-bep" id="Mbi-Bv-BOr"/>
-                <outlet property="titleTextField" destination="vBx-C3-qBc" id="Ts3-3W-3YI"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="constraints" destination="y3q-WA-OGa" collectionClass="NSMutableArray" id="usZ-ur-TNu"/>
+                <outlet property="alertMessageLabel" destination="wHw-6i-Hb4" id="aKM-oK-MV6"/>
+                <outlet property="alertTitleLabel" destination="RBx-YP-hgl" id="X8a-Vf-rfs"/>
+                <outlet property="alertView" destination="EAH-PK-NVy" id="btI-fU-rFY"/>
+                <outlet property="articleCountLabel" destination="W5C-Gu-g6u" id="aq0-hq-R71"/>
+                <outlet property="descriptionTextField" destination="nwR-Hu-U77" id="NfG-hb-gFN"/>
+                <outlet property="searchBar" destination="YZc-Lw-AtL" id="c1n-o1-Yx5"/>
+                <outlet property="sortButton" destination="bgL-r9-Pn9" id="S1a-aN-D4U"/>
+                <outlet property="titleTextField" destination="AgM-1W-5hR" id="axY-zZ-9ae"/>
+                <outlet property="view" destination="zSx-ZW-jSc" id="nKZ-7G-ImW"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" id="zSx-ZW-jSc">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="191"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcV-tM-qMa" userLabel="Content View">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC9-Ji-QqS">
-                            <rect key="frame" x="15" y="15" width="42" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBx-C3-qBc" customClass="WMFThemeableTextField">
-                            <rect key="frame" x="15" y="44" width="345" height="23.5"/>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VeG-7e-nxd" customClass="WMFThemeableTextField">
-                            <rect key="frame" x="15" y="75.5" width="345" height="30"/>
-                            <nil key="textColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNE-RI-aJ4" userLabel="Separator View">
-                            <rect key="frame" x="0.0" y="125.5" width="375" height="0.5"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="0.5" id="GcR-WB-jU3"/>
-                            </constraints>
-                        </view>
-                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="k7T-rp-1Fm">
-                            <rect key="frame" x="8" y="140" width="285" height="36"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="36" id="fcx-df-IsE"/>
-                            </constraints>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWH-3Z-bep">
-                            <rect key="frame" x="309" y="143" width="46" height="30"/>
-                            <state key="normal" title="Button"/>
-                            <connections>
-                                <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="C5R-0O-z7D"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5C-Gu-g6u">
+                    <rect key="frame" x="31" y="15" width="313" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AgM-1W-5hR" customClass="WMFThemeableTextField">
+                    <rect key="frame" x="31" y="44" width="313" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwR-Hu-U77" customClass="WMFThemeableTextField">
+                    <rect key="frame" x="31" y="82" width="313" height="43"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="YZc-Lw-AtL">
+                    <rect key="frame" x="20" y="140" width="265" height="36"/>
                     <constraints>
-                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" id="9eV-BS-TMm"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="VWH-3Z-bep" secondAttribute="trailing" constant="12" id="9tM-2R-vwV"/>
-                        <constraint firstItem="VWH-3Z-bep" firstAttribute="centerY" secondItem="k7T-rp-1Fm" secondAttribute="centerY" id="AjI-zz-o0v"/>
-                        <constraint firstItem="vBx-C3-qBc" firstAttribute="leading" secondItem="uC9-Ji-QqS" secondAttribute="leading" id="DuK-gw-IGU"/>
-                        <constraint firstAttribute="trailing" secondItem="NNE-RI-aJ4" secondAttribute="trailing" id="EH8-Rq-OhD"/>
-                        <constraint firstAttribute="bottom" secondItem="k7T-rp-1Fm" secondAttribute="bottom" constant="14" id="EJM-7U-wbC"/>
-                        <constraint firstItem="uC9-Ji-QqS" firstAttribute="top" secondItem="HcV-tM-qMa" secondAttribute="top" constant="15" id="HH5-kv-Cum"/>
-                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="8" id="KWg-ok-r2Q"/>
-                        <constraint firstItem="k7T-rp-1Fm" firstAttribute="top" secondItem="NNE-RI-aJ4" secondAttribute="bottom" constant="14" id="Ov8-Lw-vFK"/>
-                        <constraint firstAttribute="trailing" secondItem="VeG-7e-nxd" secondAttribute="trailing" constant="15" id="P8q-hO-E0G"/>
-                        <constraint firstAttribute="trailing" secondItem="vBx-C3-qBc" secondAttribute="trailing" constant="15" id="PDo-oz-lDu"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uC9-Ji-QqS" secondAttribute="trailing" constant="15" id="Tge-bZ-2fn"/>
-                        <constraint firstItem="VeG-7e-nxd" firstAttribute="leading" secondItem="vBx-C3-qBc" secondAttribute="leading" id="WCE-lf-luw"/>
-                        <constraint firstItem="VWH-3Z-bep" firstAttribute="leading" secondItem="k7T-rp-1Fm" secondAttribute="trailing" constant="16" id="gBB-c7-bio"/>
-                        <constraint firstItem="vBx-C3-qBc" firstAttribute="top" secondItem="uC9-Ji-QqS" secondAttribute="bottom" constant="8" id="iMX-J6-djU"/>
-                        <constraint firstItem="VeG-7e-nxd" firstAttribute="top" secondItem="vBx-C3-qBc" secondAttribute="bottom" constant="8" id="j46-bO-PEe"/>
-                        <constraint firstItem="NNE-RI-aJ4" firstAttribute="top" secondItem="VeG-7e-nxd" secondAttribute="bottom" constant="20" id="pXI-em-JvA"/>
-                        <constraint firstItem="uC9-Ji-QqS" firstAttribute="leading" secondItem="HcV-tM-qMa" secondAttribute="leading" constant="15" id="y3o-vH-Da2"/>
-                        <constraint firstAttribute="height" constant="190" id="y3q-WA-OGa"/>
+                        <constraint firstAttribute="height" constant="36" id="HNn-nK-hN1"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="0kT-ff-0rB"/>
-                </view>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgL-r9-Pn9">
+                    <rect key="frame" x="301" y="143" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="7TX-us-SmV"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstItem="HcV-tM-qMa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jfx-XJ-Lhq"/>
-                <constraint firstAttribute="bottom" secondItem="HcV-tM-qMa" secondAttribute="bottom" id="WdH-Os-DNi"/>
-                <constraint firstItem="HcV-tM-qMa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="apA-8u-xHs"/>
-                <constraint firstItem="HcV-tM-qMa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="p8N-Ia-VvP"/>
+                <constraint firstAttribute="trailingMargin" secondItem="bgL-r9-Pn9" secondAttribute="trailing" constant="12" id="Bbm-Fr-8MX">
+                    <variation key="heightClass=compact-widthClass=compact" constant="50"/>
+                </constraint>
+                <constraint firstItem="AgM-1W-5hR" firstAttribute="leading" secondItem="W5C-Gu-g6u" secondAttribute="leading" id="Bx4-m0-SpG"/>
+                <constraint firstItem="YZc-Lw-AtL" firstAttribute="top" secondItem="nwR-Hu-U77" secondAttribute="bottom" constant="15" placeholder="YES" id="JET-he-Td1"/>
+                <constraint firstItem="W5C-Gu-g6u" firstAttribute="top" secondItem="zSx-ZW-jSc" secondAttribute="topMargin" constant="15" id="QeS-jF-fWN"/>
+                <constraint firstAttribute="trailingMargin" secondItem="W5C-Gu-g6u" secondAttribute="trailing" constant="15" id="R65-DL-Phe">
+                    <variation key="heightClass=compact-widthClass=compact" constant="50"/>
+                </constraint>
+                <constraint firstAttribute="bottomMargin" secondItem="YZc-Lw-AtL" secondAttribute="bottom" constant="15" id="T4w-yQ-wPV"/>
+                <constraint firstItem="AgM-1W-5hR" firstAttribute="top" secondItem="W5C-Gu-g6u" secondAttribute="bottom" constant="8" id="XJI-Hb-3G4"/>
+                <constraint firstItem="nwR-Hu-U77" firstAttribute="trailing" secondItem="AgM-1W-5hR" secondAttribute="trailing" id="bHO-y3-m83"/>
+                <constraint firstItem="AgM-1W-5hR" firstAttribute="trailing" secondItem="W5C-Gu-g6u" secondAttribute="trailing" id="eZv-cH-shQ"/>
+                <constraint firstItem="nwR-Hu-U77" firstAttribute="leading" secondItem="AgM-1W-5hR" secondAttribute="leading" id="fdq-Ot-aAL"/>
+                <constraint firstItem="W5C-Gu-g6u" firstAttribute="leading" secondItem="zSx-ZW-jSc" secondAttribute="leadingMargin" constant="15" id="foX-QO-k2N">
+                    <variation key="heightClass=compact-widthClass=compact" constant="50"/>
+                </constraint>
+                <constraint firstItem="nwR-Hu-U77" firstAttribute="top" secondItem="AgM-1W-5hR" secondAttribute="bottom" constant="8" id="gHt-bL-Jj7"/>
+                <constraint firstItem="bgL-r9-Pn9" firstAttribute="centerY" secondItem="YZc-Lw-AtL" secondAttribute="centerY" id="gtr-XI-DcL"/>
+                <constraint firstItem="bgL-r9-Pn9" firstAttribute="leading" secondItem="YZc-Lw-AtL" secondAttribute="trailing" constant="16" id="u2q-Lf-Rrd"/>
+                <constraint firstItem="YZc-Lw-AtL" firstAttribute="leading" secondItem="zSx-ZW-jSc" secondAttribute="leadingMargin" constant="4" id="ukE-o2-bub">
+                    <variation key="heightClass=compact-widthClass=compact" constant="50"/>
+                </constraint>
+                <constraint firstAttribute="trailingMargin" secondItem="AgM-1W-5hR" secondAttribute="trailing" constant="15" id="zXi-Xd-9h1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="33.5" y="55"/>
+            <viewLayoutGuide key="safeArea" id="MM5-0b-cYU"/>
+            <variation key="heightClass=compact-widthClass=compact">
+                <mask key="constraints">
+                    <exclude reference="zXi-Xd-9h1"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="512.5" y="92"/>
+        </view>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAH-PK-NVy">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBx-YP-hgl">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="23.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHw-6i-Hb4">
+                    <rect key="frame" x="0.0" y="31.5" width="375" height="13.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="RBx-YP-hgl" firstAttribute="leading" secondItem="EAH-PK-NVy" secondAttribute="leading" id="CCB-hw-rsh"/>
+                <constraint firstItem="RBx-YP-hgl" firstAttribute="top" secondItem="EAH-PK-NVy" secondAttribute="top" id="Jfb-6k-WIb"/>
+                <constraint firstAttribute="trailing" secondItem="wHw-6i-Hb4" secondAttribute="trailing" id="Jg7-rP-LUS"/>
+                <constraint firstAttribute="bottom" secondItem="wHw-6i-Hb4" secondAttribute="bottom" id="Own-IB-Kx0"/>
+                <constraint firstAttribute="trailing" secondItem="RBx-YP-hgl" secondAttribute="trailing" id="Xpz-pC-iIz"/>
+                <constraint firstItem="wHw-6i-Hb4" firstAttribute="leading" secondItem="EAH-PK-NVy" secondAttribute="leading" id="dFk-1V-4dO"/>
+                <constraint firstItem="wHw-6i-Hb4" firstAttribute="top" secondItem="RBx-YP-hgl" secondAttribute="bottom" constant="8" id="o8g-iC-Cf1"/>
+                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" placeholder="YES" id="zQq-yt-IZK"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="1e2-vB-6tE"/>
+            <point key="canvasLocation" x="513" y="271"/>
         </view>
     </objects>
 </document>

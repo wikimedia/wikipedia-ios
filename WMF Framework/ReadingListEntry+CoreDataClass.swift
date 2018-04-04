@@ -8,4 +8,11 @@ public class ReadingListEntry: NSManagedObject {
         }
         return URL(string: key)
     }
+    
+    public var APIError: APIReadingListError? {
+        guard let errorCode = errorCode else {
+            return nil
+        }
+        return APIReadingListError(rawValue: errorCode)
+    }
 }

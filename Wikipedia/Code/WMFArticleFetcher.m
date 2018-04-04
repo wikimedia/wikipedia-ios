@@ -99,7 +99,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
-
+    
     // Force desktop domain if not Zero rated.
     if (![SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated) {
         useDeskTopURL = YES;

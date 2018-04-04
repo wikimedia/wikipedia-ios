@@ -66,7 +66,7 @@
 			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du kan inte lägga till denna artikel i "%2$@" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.</string>
+			<string>Artikeln kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
 			<key>other</key>
-			<string>Du kan inte lägga till dessa artiklar i "%2$@" eftersom det finns en gräns för antalet artiklar du kan ha i läslistan.</string>
+			<string>Artiklarna kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
