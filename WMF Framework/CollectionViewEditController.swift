@@ -449,6 +449,11 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         activeBarButton.left = leftButton
         activeBarButton.right = rightButton
         
+        let font = rightBarButtonSystemItem != .edit ? UIFont.systemFont(ofSize: 16, weight: .semibold) : UIFont.systemFont(ofSize: 16)
+        let attributes = [NSAttributedStringKey.font: font]
+        rightButton?.setTitleTextAttributes(attributes, for: .normal)
+        leftButton?.setTitleTextAttributes(attributes, for: .normal)
+        
         navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
     }
     
