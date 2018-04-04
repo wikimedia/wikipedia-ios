@@ -99,12 +99,7 @@ extension UIViewController {
         }
         return fetchedObjects.count > 0
     }
-    
-    fileprivate func present<T: UIViewController & Themeable>(_ viewControllerToPresent: T, with theme: Theme, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
-        viewControllerToPresent.apply(theme: theme)
-        present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-    
+        
     @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel(),
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncRemotelyEnabled,
@@ -122,9 +117,9 @@ extension UIViewController {
             })
         }
         
-        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         
-        present(panelVC, with: theme, animated: true, completion: {
+        present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
@@ -139,9 +134,9 @@ extension UIViewController {
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         
-        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: addSavedArticlesToReadingListsTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: nil)
+        let panelVC = AddSavedArticlesToReadingListPanelViewController(showCloseButton: false, primaryButtonTapHandler: addSavedArticlesToReadingListsTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: nil, theme: theme)
         
-        present(panelVC, with: theme, animated: true, completion: nil)
+        present(panelVC, animated: true, completion: nil)
     }
     
     @objc func wmf_showLoginViewController(theme: Theme, loginSuccessCompletion: (() -> Void)? = nil) {
@@ -172,9 +167,9 @@ extension UIViewController {
             })
         }
         
-        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: tryLoginAgainTapHandler, secondaryButtonTapHandler: stayLoggedOutTapHandler, dismissHandler: nil)
+        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: tryLoginAgainTapHandler, secondaryButtonTapHandler: stayLoggedOutTapHandler, dismissHandler: nil, theme: theme)
 
-        present(panelVC, with: theme, animated: true, completion: nil)
+        present(panelVC, animated: true, completion: nil)
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil) {
@@ -184,9 +179,9 @@ extension UIViewController {
             })
         }
         
-        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true)
+        let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         
-        present(panelVC, with: theme, animated: true, completion: nil)
+        present(panelVC, animated: true, completion: nil)
     }
     
     @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
@@ -204,9 +199,9 @@ extension UIViewController {
             })
         }
         
-        let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
+        let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         
-        present(panelVC, with: theme, animated: true, completion: {
+        present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
         })
     }
@@ -229,14 +224,14 @@ extension UIViewController {
             completion()
         }
         
-        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler)
+        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler, theme: theme)
         
-        present(panelVC, with: theme, animated: true, completion: nil)
+        present(panelVC, animated: true, completion: nil)
     }
     
     @objc func wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
-        let panelVC = LimitHitForUnsortedArticlesPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil)
-        present(panelVC, with: theme, animated: true, completion: completion)
+        let panelVC = LimitHitForUnsortedArticlesPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: completion)
     }
 
 }

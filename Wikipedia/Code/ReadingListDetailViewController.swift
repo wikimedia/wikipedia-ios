@@ -44,9 +44,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = readingList.name
-        
+
         emptyViewType = .noSavedPages
 
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
@@ -112,8 +110,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
+            title = readingList.name
             navigationBar.removeExtendedNavigationBarView()
         } else {
+            title = nil
             navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
         updateScrollViewInsets()
@@ -232,7 +232,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList:readingList, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true

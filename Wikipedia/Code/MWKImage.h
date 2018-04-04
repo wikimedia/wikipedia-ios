@@ -81,11 +81,6 @@
  */
 - (instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
-/**
- * Save the receiver in the same `MWKDataStore` as its `article`.
- */
-- (void)save;
-
 #pragma mark - Managing Face Information
 
 - (BOOL)hasFaces;

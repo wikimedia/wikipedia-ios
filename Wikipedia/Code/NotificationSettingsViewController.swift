@@ -81,12 +81,13 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
             return UserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
-            }, switchAction: { (isOn) in
+            }, switchAction: { [weak self] (isOn) in
+                guard let strongSelf = self else { return }
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
-                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { (granted, error) in
+                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
                         if let error = error as NSError? {
-                            self.wmf_showAlertWithError(error)
+                            self?.wmf_showAlertWithError(error)
                         }
                     })
                 } else {
@@ -94,9 +95,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 }
                 
                 if isOn {
-                    PiwikTracker.sharedInstance()?.wmf_logActionEnable(inContext: self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionEnable(inContext: strongSelf, contentType: strongSelf)
                 }else{
-                    PiwikTracker.sharedInstance()?.wmf_logActionDisable(inContext: self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionDisable(inContext: strongSelf, contentType: strongSelf)
                 }
             UserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]

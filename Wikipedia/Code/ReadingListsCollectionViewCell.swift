@@ -120,8 +120,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageGridHidden || !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         var x = layoutMargins.left
@@ -130,7 +131,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if displayType == .readingListsTab && articleCount > 0 {
+        if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
             if isRTL {
@@ -302,13 +303,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
-        imageViewDimension = 80
+        imageViewDimension = 100
 
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
     
-        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
+        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         defaultListTag.text = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
         titleLabel.text = name
         descriptionLabel.text = description
