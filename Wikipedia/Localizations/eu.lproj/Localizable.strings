@@ -67,6 +67,7 @@
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
+// Fuzzy
 "add-articles-to-reading-list" = "Gehitu $1 irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
@@ -121,6 +122,7 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
+// Fuzzy
 "empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
 "empty-no-saved-pages-message" = "Orrialdeak gorde gero ikusteko, nahiz eta konexiorik gabe egon";
@@ -350,6 +352,7 @@
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta gailuetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
@@ -427,12 +430,15 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik. Ezingo duzu ezer berreskuratu.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Gordetako artikulu guztiak ezabatu?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Ezabatu";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik.\n\nGordetako artikuluak ezabatzea dohakoa izango da 364.4 MB espaziotik gora.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gordetako artikulu guztiak ezabatu";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zerbitzaritik sinkronizazioa eskatu zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzerako";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Zerbitzariarekin sinkronizatu";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Erakutsi gordetako irakurketa-zerrenda (ad. lehentesia) zure irakurketa-zerrenden ikuspegian zerrenda bereizi batean. Zerrenda Android gailuetan agertuko da.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gordetako irakurketa-zerrenda erakutsi";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Gordetako artikuluen biltegia eta sinkronizatzea";
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";

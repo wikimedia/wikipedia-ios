@@ -89,6 +89,7 @@
 "action-unsave" = "Не сохранено";
 "action-unsaved-accessibility-notification" = "Статья убрана из сохранённых";
 "action-update" = "Обновить";
+// Fuzzy
 "add-articles-to-reading-list" = "Добавить $1 в список для чтения";
 "alert-no-internet" = "Нет соединения с интернетом";
 "announcements-dismiss" = "Закрыть";
@@ -143,7 +144,7 @@
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-history-message" = "Отслеживайте то, что вы уже читали здесь";
 "empty-no-history-title" = "Нет истории для отображения";
-"empty-no-reading-lists-message" = "Нажмите на синий ‘+’, чтобы создать списки мест для путешествий, любимых тем и многое другое.";
+"empty-no-reading-lists-message" = "Нажмите на синий ‘+’, чтобы создать списки для чтения для мест для путешествий, любимых тем и многого другого.";
 "empty-no-reading-lists-title" = "Организуйте сохраненные статьи с помощью списков чтения";
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
@@ -366,7 +367,7 @@
 "reading-list-new-list-description-placeholder" = "Необязательное короткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
 "reading-list-sync-enable-button-title" = "Включить синхронизацию";
-"reading-list-sync-enable-subtitle" = "Сохраненные статьи и списки чтения теперь могут быть сохранены в вашей учетной записи в Википедии и синхронизированы между устройствами.";
+"reading-list-sync-enable-subtitle" = "Ваши сохранённые статьи и списки для чтения теперь могут быть сохранены в учётной записи в Википедии и синхронизированы между приложениями Википедии.";
 "reading-list-sync-enable-title" = "Включить синхронизацию списков для чтения?";
 "reading-list-unable-to-add-entry" = "При добавлении записи в список чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-unable-to-create" = "При создании списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
@@ -375,11 +376,16 @@
 "reading-list-unable-to-update" = "При обновлении списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
+"reading-lists-article-not-synced" = "Не синхронизировано";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Лимит статьи превышен, невозможно синхронизировать статью";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Лимит списка превышен, невозможно синхронизировать список";
+"reading-lists-articles-not-synced-limit-exceeded" = "Некоторые статьи не синхронизированы, превышен лимит";
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
 "reading-lists-default-list-description" = "Стандартный список для ваших сохранённых статей";
 "reading-lists-default-list-title" = "Сохранённые";
 "reading-lists-delete-reading-list-alert-message" = "Это действие не может быть отменено. Любые статьи, сохраненные только для {{PLURAL:$1|этот список|эти списки}} будут несохранены.";
 "reading-lists-delete-reading-list-alert-title" = "Удалить {{PLURAL:$1|список|списки}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
 "reading-themes-controls-accessibility-brightness-slider" = "Ползунок яркости";
 "reading-themes-controls-accessibility-dark-theme-button" = "Тёмная тема";
@@ -399,6 +405,7 @@
 "saved-all-articles-title" = "Все статьи";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
+"saved-pages-progress-syncing" = "Производится синхронизация статей...";
 "saved-reading-lists-title" = "Списки для чтения";
 "saved-search-default-text" = "Найти";
 "saved-title" = "Сохранено";
@@ -432,8 +439,15 @@
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
+"settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Стереть все сохранённые статьи?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Стереть";
+// Fuzzy
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Стирание ваших сохранённых статей освободит около 364,4 МБ места";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Стереть сохранённые статьи";
+// Fuzzy
+"settings-storage-and-syncing-server-sync-title" = "Синхронизация с сервером";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Показать сохранённый список для чтения";
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
 "share-a-fact-made-with" = "Создано с помощью Википедии";
