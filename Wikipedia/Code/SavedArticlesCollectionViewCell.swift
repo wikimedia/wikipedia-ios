@@ -234,17 +234,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isTagsViewHidden) {
-            var xPosition = alertLabel.frame.maxX + spacing
-            var yPosition = alertLabel.frame.midY - 0.5 * collectionViewHeight
-            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (CGFloat(tags.readingLists.count) * spacing)
-
-            if isAlertLabelHidden {
-                xPosition = origin.x
-                yPosition = origin.y
-                availableWidth = widthMinusMargins
-            }
             collectionViewAvailableWidth = availableWidth
-            collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
+            collectionView.frame = CGRect(x: origin.x, y: imageViewDimension - layoutMargins.bottom, width: widthMinusMargins, height: collectionViewHeight)
             collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
