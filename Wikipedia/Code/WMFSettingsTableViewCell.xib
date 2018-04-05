@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -59,26 +59,19 @@
                                     <constraint firstAttribute="width" constant="14" id="zAB-rT-MwT"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc4-UF-C4f">
-                                <rect key="frame" x="59" y="20" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="QZI-f9-CK6" secondAttribute="trailing" constant="16" id="BeK-eP-7IJ"/>
                             <constraint firstItem="c7W-2A-RTf" firstAttribute="leading" secondItem="kcE-Yo-d7o" secondAttribute="trailing" constant="8" id="CbW-Ff-2EU"/>
                             <constraint firstItem="eM6-XP-Gm5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4iN-q3-iVQ" secondAttribute="top" constant="7" id="DLc-z2-dVZ"/>
-                            <constraint firstItem="kcE-Yo-d7o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bc4-UF-C4f" secondAttribute="trailing" constant="10" id="Lbd-fd-SdP"/>
                             <constraint firstItem="QZI-f9-CK6" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="PGw-BW-uDd"/>
                             <constraint firstItem="c7W-2A-RTf" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="PW9-TS-zuX"/>
                             <constraint firstItem="eM6-XP-Gm5" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="15" id="Q6G-Df-Tni"/>
-                            <constraint firstItem="bc4-UF-C4f" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="QVk-Xy-xuS"/>
                             <constraint firstItem="cPu-99-uVN" firstAttribute="top" secondItem="4iN-q3-iVQ" secondAttribute="top" constant="7" id="dlR-fe-vbW"/>
                             <constraint firstAttribute="trailing" secondItem="c7W-2A-RTf" secondAttribute="trailing" constant="12" id="f2M-cB-Ejf"/>
                             <constraint firstAttribute="bottom" secondItem="cPu-99-uVN" secondAttribute="bottom" constant="7" id="gdk-KI-5CV"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eM6-XP-Gm5" secondAttribute="bottom" constant="7" id="kR7-ZR-J5g"/>
                             <constraint firstItem="kcE-Yo-d7o" firstAttribute="leading" secondItem="cPu-99-uVN" secondAttribute="trailing" constant="10" id="r42-Tl-K8J"/>
-                            <constraint firstItem="bc4-UF-C4f" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="59" id="rNJ-df-oqP"/>
                             <constraint firstItem="cPu-99-uVN" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="59" id="tA8-Kr-fJ6"/>
                             <constraint firstItem="kcE-Yo-d7o" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="ugA-Ee-Flv"/>
                             <constraint firstItem="cPu-99-uVN" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="xWW-hF-Hqs"/>
@@ -98,8 +91,6 @@
                 <outlet property="disclosureLabel" destination="kcE-Yo-d7o" id="Ixu-Ds-MdH"/>
                 <outlet property="disclosureSwitch" destination="QZI-f9-CK6" id="dQU-lj-y0V"/>
                 <outlet property="imageLeadingWidth" destination="Q6G-Df-Tni" id="i8F-CG-1Yr"/>
-                <outlet property="titleButton" destination="bc4-UF-C4f" id="ZJY-7z-i1c"/>
-                <outlet property="titleButtonLeadingWidth" destination="rNJ-df-oqP" id="aJM-Zk-w0S"/>
                 <outlet property="titleIcon" destination="eM6-XP-Gm5" id="NoM-2H-ni8"/>
                 <outlet property="titleLabel" destination="cPu-99-uVN" id="FHc-h7-WLZ"/>
                 <outlet property="titleLabelLeadingWidth" destination="tA8-Kr-fJ6" id="IrY-Tm-fY3"/>
