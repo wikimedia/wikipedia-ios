@@ -234,8 +234,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply && !isTagsViewHidden) {
-            collectionViewAvailableWidth = availableWidth
-            collectionView.frame = CGRect(x: origin.x, y: imageViewDimension - layoutMargins.bottom, width: widthMinusMargins, height: collectionViewHeight)
+            collectionViewAvailableWidth = widthMinusMargins
+            let positionY = isImageViewHidden ? origin.y : imageView.frame.maxY - layoutMargins.bottom - layoutMargins.top
+            collectionView.frame = CGRect(x: origin.x, y: positionY, width: collectionViewAvailableWidth, height: collectionViewHeight)
             collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
