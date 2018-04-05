@@ -212,20 +212,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        if displayType == .readingListsTab && isDefault {
-            let defaultListTagSize = defaultListTag.intrinsicContentSize
-            var x = origin.x
-            if isRTL {
-                x = size.width - defaultListTagSize.width - layoutMargins.right
-            }
-            var y = origin.y
-            if !isImageViewHidden || !isImageGridHidden {
-                y = (!isImageViewHidden ? imageView.frame.maxY : imageGrid.frame.maxY) - layoutMargins.bottom
-            }
-            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            defaultListTag.isHidden = false
-        } else {
-            defaultListTag.isHidden = true
         var yAlignedWithImageBottom = origin.y
         if !isImageViewHidden || !isImageGridHidden {
             yAlignedWithImageBottom = (!isImageViewHidden ? imageView.frame.maxY : imageGrid.frame.maxY) - layoutMargins.bottom - (0.5 * spacing)
@@ -254,6 +240,22 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += alertLabelFrame.layoutHeight(with: 0)
+        }
+        
+        if displayType == .readingListsTab && isDefault {
+            let defaultListTagSize = defaultListTag.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - defaultListTagSize.width - layoutMargins.right
+            }
+            var y = yAlignedWithImageBottom
+            if !isAlertIconHidden || !isAlertLabelHidden {
+                y = (!isAlertIconHidden ? alertIcon.frame.minY : alertLabel.frame.minY) - layoutMargins.bottom - spacing
+            }
+            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            defaultListTag.isHidden = false
+        } else {
+            defaultListTag.isHidden = true
         }
 
         return CGSize(width: size.width, height: height)
