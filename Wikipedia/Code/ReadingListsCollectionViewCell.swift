@@ -250,7 +250,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             var y = yAlignedWithImageBottom
             if !isAlertIconHidden || !isAlertLabelHidden {
-                y = (!isAlertIconHidden ? alertIcon.frame.minY : alertLabel.frame.minY) - layoutMargins.bottom - spacing
+                let alertMinY = isAlertIconHidden ? alertLabel.frame.minY : alertIcon.frame.minY
+                y = descriptionLabel.frame.maxY + ((alertMinY - descriptionLabel.frame.maxY) * 0.25)
             }
             _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             defaultListTag.isHidden = false
