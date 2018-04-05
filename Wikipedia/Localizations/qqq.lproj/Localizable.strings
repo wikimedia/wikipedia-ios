@@ -427,6 +427,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
+"settings-storage-and-syncing-full-sync" = "Message confirming to the user that their reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Footer text of the settings button that initiates saved articles and reading lists server sync";
 "settings-storage-and-syncing-server-sync-title" = "Title of the settings button that initiates saved articles and reading lists server sync";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";

@@ -27,17 +27,15 @@ private struct Section {
 private struct Item {
     let disclosureType: WMFSettingsMenuItemDisclosureType?
     let type: ItemType
-    let title: String?
+    let title: String
     let isSwitchOn: Bool
-    let buttonTitle: String?
     
     init(for type: ItemType, isSwitchOn: Bool = false) {
         self.type = type
         self.isSwitchOn = isSwitchOn
         
         var disclosureType: WMFSettingsMenuItemDisclosureType? = nil
-        var title: String? = nil
-        var buttonTitle: String? = nil
+        let title: String
 
         switch type {
         case .syncSavedArticlesAndLists:
@@ -48,14 +46,14 @@ private struct Item {
             title = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-title", value: "Show Saved reading list", comment: "Title of the settings option that enables showing the default reading list")
         case .syncWithTheServer:
             disclosureType = .titleButton
-            buttonTitle = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Update synced reading lists", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
+            title = WMFLocalizedString("settings-storage-and-syncing-server-sync-title", value: "Update synced reading lists", comment: "Title of the settings button that initiates saved articles and reading lists server sync")
         default:
+            title = ""
             break
         }
         
         self.title = title
         self.disclosureType = disclosureType
-        self.buttonTitle = buttonTitle
     }
 }
 
@@ -122,12 +120,14 @@ class StorageAndSyncingSettingsViewController: UIViewController {
                 assertionFailure("dataStore is nil")
                 return
             }
+            self.dataStore?.clearCachesForUnsavedArticles()
             if isSyncEnabled {
                 self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
             } else {
                 self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
                 self.dataStore?.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
             }
+            self.tableView.reloadData()
         }
         alert.addAction(cancel)
         alert.addAction(erase)
@@ -146,6 +146,10 @@ class StorageAndSyncingSettingsViewController: UIViewController {
 // MARK: UITableViewDataSource
 
 extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
+    private func getItem(at indexPath: IndexPath) -> Item {
+        return sections[indexPath.section].items[indexPath.row]
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -155,16 +159,16 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let settingsItem = sections[indexPath.section].items[indexPath.row]
+        let settingsItem = getItem(at: indexPath)
         
         guard let disclosureType = settingsItem.disclosureType else {
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier(), for: indexPath)
             cell.selectionStyle = .none
             cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
-                let permanentStorageDirectorySize = ImageController.shared.permanentStorageDirectorySize
+                let temporaryCacheSize = ImageController.shared.temporaryCacheSize
                 let sitesDirectorySize = Int64(dataStore?.sitesDirectorySize() ?? 0)
-                let dataSizeString = ByteCountFormatter.string(fromByteCount: permanentStorageDirectorySize + sitesDirectorySize, countStyle: .file)
+                let dataSizeString = ByteCountFormatter.string(fromByteCount: temporaryCacheSize + sitesDirectorySize, countStyle: .file)
                 let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles")
                 eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString)
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
@@ -180,13 +184,25 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         }
         
         cell.delegate = self
-        cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, buttonTitle: settingsItem.buttonTitle, controlTag: settingsItem.type.rawValue, theme: theme)
+        cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, controlTag: settingsItem.type.rawValue, theme: theme)
     
         if settingsItem.disclosureType == .switch {
             indexPathsForCellsWithSwitches.append(indexPath)
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = getItem(at: indexPath)
+        switch item.type {
+        case .syncWithTheServer:
+            dataStore?.readingListsController.fullSync({})
+            wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
+        default:
+            break
+        }
     }
 }
 
@@ -241,15 +257,6 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         default:
             return
         }
-    }
-    
-    func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didPress sender: UIButton!) {
-        guard let settingsItemType = ItemType(rawValue: sender.tag), settingsItemType == .syncWithTheServer else {
-            assertionFailure("Pressed button of WMFSettingsTableViewCell for undefined StorageAndSyncingSettingsItemType")
-            return
-        }
-        
-        dataStore?.readingListsController.fullSync({})
     }
 }
 
