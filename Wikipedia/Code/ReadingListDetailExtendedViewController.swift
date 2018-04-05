@@ -11,13 +11,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
-    @IBOutlet var alertView: UIView?
+    @IBOutlet weak var alertStackView: UIStackView?
+    @IBOutlet weak var searchContainerView: UIView?
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
-    
-    private lazy var searchBarToDescriptionTextFieldVerticalSpacingConstraint: NSLayoutConstraint = {
-        searchBar.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
-    }()
     
     private var readingListTitle: String?
     private var readingListDescription: String?
@@ -138,21 +135,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
-            if isAlertViewHidden {
-                alertView?.removeFromSuperview()
-                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = true
-            } else {
-                guard let alertView = alertView else {
-                    return
-                }
-                view.addSubview(alertView)
-                let topConstraint = alertView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
-                let bottomConstraint = searchBar.topAnchor.constraint(equalTo: alertView.bottomAnchor, constant: 15)
-                let leadingConstraint = alertView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor)
-                let trailingConstraint = alertView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor)
-                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = false
-                NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-            }
+            alertStackView?.isHidden = isAlertViewHidden
         }
     }
     
