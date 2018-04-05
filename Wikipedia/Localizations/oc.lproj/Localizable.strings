@@ -66,6 +66,7 @@
 "edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-other" = "Autre";
 "empty-no-feed-title" = "Pas de connexion a Internet";
+"empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
 "explore-another-random" = "Un autre article a l'azard";
 "explore-continue-reading-heading" = "Contunhar de legir";
@@ -176,6 +177,7 @@
 "preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "rank-accessibility-label" = "Numèro $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";

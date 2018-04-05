@@ -61,6 +61,7 @@
 "action-unsave" = "اڻسانڍيو";
 "action-unsaved-accessibility-notification" = "مضمون اڻسانڍيل";
 "action-update" = "تجديد";
+// Fuzzy
 "add-articles-to-reading-list" = "پڙھڻ جي فھرست $1 ۾ وجھو";
 "alert-no-internet" = "باهمڄار ڳانڍاپو نہ آهي";
 "announcements-dismiss" = "برخاست";
