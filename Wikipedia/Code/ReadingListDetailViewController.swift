@@ -124,6 +124,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         } else {
             title = nil
         }
+        readingListDetailExtendedViewController.updateSearchBarVisibility(isHidden: isEmpty)
         updateScrollViewInsets()
         super.isEmptyDidChange()
     }

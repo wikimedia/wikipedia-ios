@@ -12,7 +12,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var alertStackView: UIStackView?
-    @IBOutlet weak var searchContainerView: UIView?
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
     
@@ -141,6 +141,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
         delegate?.extendedViewControllerDidPressSortButton(self, sortButton: sender)
+    }
+
+    public func updateSearchBarVisibility(isHidden: Bool) {
+        searchContainerView.isHidden = isHidden
     }
     
     public func reconfigureAlert(for readingList: ReadingList) {
