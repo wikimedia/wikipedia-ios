@@ -210,13 +210,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
+        var yAlignedWithImageBottom = isImageViewHidden ? origin.y : imageView.frame.maxY - layoutMargins.bottom - (spacing * 0.5)
+        if !isTagsViewHidden {
+            yAlignedWithImageBottom -= layoutMargins.bottom
+        }
+        
         if (apply && !isAlertIconHidden) {
             var x = origin.x
             if isRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
-            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
-            origin.x += alertIconDimension + spacing
+            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
@@ -226,17 +230,15 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
             if isAlertIconHidden {
                 xPosition = origin.x
-                yPosition = origin.y
+                yPosition = yAlignedWithImageBottom
                 availableWidth = widthMinusMargins
             }
-            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.x += alertLabelFrame.width + spacing
+            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
         
         if (apply && !isTagsViewHidden) {
             collectionViewAvailableWidth = widthMinusMargins
-            let positionY = isImageViewHidden ? origin.y : imageView.frame.maxY - layoutMargins.bottom - layoutMargins.top
-            collectionView.frame = CGRect(x: origin.x, y: positionY, width: collectionViewAvailableWidth, height: collectionViewHeight)
+            collectionView.frame = CGRect(x: origin.x, y: yAlignedWithImageBottom, width: collectionViewAvailableWidth, height: collectionViewHeight)
             collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
