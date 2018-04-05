@@ -249,7 +249,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
             if isAlertIconHidden {
                 xPosition = origin.x
-                yPosition = origin.y
+                yPosition = yAlignedWithImageBottom
                 availableWidth = widthMinusMargins
             }
             let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
