@@ -411,7 +411,9 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         collectionViewAvailableWidth -= placeholderCellSize.width
         
-        configuredTags.append(tagToConfigure)
+        if !configuredTags.contains(where: { $0.readingList == tagToConfigure.readingList && $0.indexPath == tagToConfigure.indexPath }) {
+            configuredTags.append(tagToConfigure)
+        }
         return placeholderCellSize
     }
 }
