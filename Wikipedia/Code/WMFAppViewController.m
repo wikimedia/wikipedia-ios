@@ -162,10 +162,30 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readingListsSyncWasEnabledWithNotification:)
                                                  name:[WMFReadingListsController readingListsSyncWasEnabledNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncDidStartNotification:)
+                                                 name:[WMFReadingListsController syncDidStartNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncDidFinishNotification:)
+                                                 name:[WMFReadingListsController syncDidFinishNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(conflictingReadingListNameUpdatedNotification:)
+                                                 name:[ReadingList conflictingReadingListNameUpdatedNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleSaveToDiskDidFail:)
+                                                 name:WMFArticleSaveToDiskDidFailNotification
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
