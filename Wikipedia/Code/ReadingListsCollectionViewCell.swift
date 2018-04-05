@@ -179,46 +179,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
 
-        if displayType == .readingListsTab && isDefault {
-            let defaultListTagSize = defaultListTag.intrinsicContentSize
-            var x = origin.x
-            if isRTL {
-                x = size.width - defaultListTagSize.width - layoutMargins.right
-            }
-            origin.y += spacing
-            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += defaultListTagFrame.layoutHeight(with: spacing)
-            defaultListTag.isHidden = false
-        } else {
-            defaultListTag.isHidden = true
-        }
-        
-        if !isAlertIconHidden {
-            var x = origin.x
-            if isRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
-            }
-            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
-            origin.x += alertIconDimension + spacing
-            origin.y += alertIcon.frame.layoutHeight(with: 0)
-        }
-        
-        if !isAlertLabelHidden {
-            var xPosition = alertIcon.frame.maxX + spacing
-            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
-            var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isRTL {
-                xPosition = alertIcon.frame.minX - availableWidth - spacing
-            }
-            if isAlertIconHidden {
-                xPosition = origin.x
-                yPosition = origin.y
-                availableWidth = widthMinusMargins
-            }
-            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += alertLabelFrame.layoutHeight(with: 0)
-        }
-
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         let separatorXPositon: CGFloat = 0
@@ -250,6 +210,48 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
+        
+        if displayType == .readingListsTab && isDefault {
+            let defaultListTagSize = defaultListTag.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - defaultListTagSize.width - layoutMargins.right
+            }
+            var y = origin.y
+            if !isImageViewHidden || !isImageGridHidden {
+                y = (!isImageViewHidden ? imageView.frame.maxY : imageGrid.frame.maxY) - layoutMargins.bottom
+            }
+            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            defaultListTag.isHidden = false
+        } else {
+            defaultListTag.isHidden = true
+        }
+        
+        if !isAlertIconHidden {
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
+            origin.x += alertIconDimension + spacing
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
+        }
+        
+        if !isAlertLabelHidden {
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isRTL {
+                xPosition = alertIcon.frame.minX - availableWidth - spacing
+            }
+            if isAlertIconHidden {
+                xPosition = origin.x
+                yPosition = origin.y
+                availableWidth = widthMinusMargins
+            }
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += alertLabelFrame.layoutHeight(with: 0)
         }
 
         return CGSize(width: size.width, height: height)
