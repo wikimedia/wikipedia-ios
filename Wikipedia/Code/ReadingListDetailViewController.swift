@@ -46,7 +46,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyViewType = .noSavedPages
+        emptyViewType = .noSavedPagesInReadingList
 
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         
