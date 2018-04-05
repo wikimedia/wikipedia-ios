@@ -138,13 +138,15 @@ class ReadingListDetailExtendedViewController: UIViewController {
             alertStackView?.isHidden = isAlertViewHidden
         }
     }
+
+    public var isSearchBarHidden: Bool = false {
+        didSet {
+            searchContainerView.isHidden = isSearchBarHidden
+        }
+    }
     
     @IBAction func didPressSortButton(_ sender: UIButton) {
         delegate?.extendedViewControllerDidPressSortButton(self, sortButton: sender)
-    }
-
-    public func updateSearchBarVisibility(isHidden: Bool) {
-        searchContainerView.isHidden = isHidden
     }
     
     public func reconfigureAlert(for readingList: ReadingList) {
