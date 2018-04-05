@@ -188,26 +188,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                  name:WMFArticleSaveToDiskDidFailNotification
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(syncDidStartNotification:)
-                                                 name:[WMFReadingListsController syncDidStartNotification]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(syncDidFinishNotification:)
-                                                 name:[WMFReadingListsController syncDidFinishNotification]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(conflictingReadingListNameUpdatedNotification:)
-                                                 name:[ReadingList conflictingReadingListNameUpdatedNotification]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleSaveToDiskDidFail:)
-                                                 name:WMFArticleSaveToDiskDidFailNotification
-                                               object:nil];
-
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
