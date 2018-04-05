@@ -11,11 +11,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>新增 %1$@ 個條目至閱讀清單</string>
+			<string>新增 %1$d 個條目至閱讀清單</string>
 			<key>other</key>
-			<string>新增 %1$@ 個條目至閱讀清單</string>
+			<string>新增 %1$d 個條目至閱讀清單</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -32,6 +32,22 @@
 			<string>條目已刪除</string>
 			<key>other</key>
 			<string>條目已刪除</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>移動 %1$d 個條目至閱讀清單</string>
+			<key>other</key>
+			<string>移動 %1$d 個條目至閱讀清單</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

@@ -11,9 +11,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>other</key>
-			<string>添加%1$@个条目至阅读列表</string>
+			<string>添加%1$d个条目至阅读列表</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -28,6 +28,20 @@
 			<string>d</string>
 			<key>other</key>
 			<string>条目已删除</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>移动%1$d个条目至阅读列表</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

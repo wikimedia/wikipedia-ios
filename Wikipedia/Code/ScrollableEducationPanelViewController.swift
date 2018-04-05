@@ -40,6 +40,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var stackView: UIStackView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
+    @IBOutlet fileprivate weak var effectsView: UIVisualEffectView!
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
@@ -47,7 +48,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var showCloseButton = true
     private var discardDismissHandlerOnPrimaryButtonTap = false
     private var primaryButtonTapped = false
-    
+    private var theme: Theme = Theme.standard
     
     var image:UIImage? {
         get {
@@ -109,8 +110,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
+        self.modalPresentationStyle = .overFullScreen
+        self.modalTransitionStyle = .crossDissolve
+        self.theme = theme
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
@@ -125,9 +129,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         super.viewDidLoad()
         assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
         
-        modalPresentationStyle = .overFullScreen
-        modalTransitionStyle = .crossDissolve
-        
         reset()
         primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
         secondaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
@@ -136,6 +137,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
+        
+        closeButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        apply(theme: theme)
     }
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
@@ -218,6 +223,19 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     }
     
     func apply(theme: Theme) {
-        view.tintColor = theme.colors.link
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        headingLabel?.textColor = theme.colors.primaryText
+        subheadingLabel?.textColor = theme.colors.primaryText
+        footerLabel?.textColor = theme.colors.primaryText
+        closeButton.tintColor = theme.colors.primaryText
+        primaryButton?.tintColor = theme.colors.link
+        secondaryButton?.tintColor = theme.colors.link
+        primaryButton?.layer.borderColor = theme.colors.link.cgColor
+        
+        effectsView.effect = UIBlurEffect(style: theme.colors.blurEffectStyle)
+        effectsView.backgroundColor = theme.colors.blurEffectBackground
     }
 }

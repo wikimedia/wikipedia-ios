@@ -30,6 +30,7 @@ class SavedViewController: ViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
+    private let pullToRefresh = UIRefreshControl()
 
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
@@ -94,6 +95,7 @@ class SavedViewController: ViewController {
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
             }
+            scrollView?.refreshControl = pullToRefresh
         }
     }
     
@@ -171,12 +173,24 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
+        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
+        
         super.viewDidLoad()
+    }
+    
+    @objc private func pulledToRefresh() {
+        dataStore?.readingListsController.fullSync {
+            self.pullToRefresh.endRefreshing()
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        actionButton.titleLabel?.setFont(with: .system, style: .callout, traitCollection: traitCollection)
+        if let barButtonFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .callout, compatibleWithTraitCollection: traitCollection) {
+            navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: barButtonFont], for: .normal)
+            navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: barButtonFont], for: .normal)
+        }
     }
     
     // MARK: - Sorting and searching

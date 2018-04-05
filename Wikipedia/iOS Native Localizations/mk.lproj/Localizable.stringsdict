@@ -11,11 +11,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>d</string>
 			<key>one</key>
-			<string>Додавање на %1$@ статија во список за читање</string>
+			<string>Додавање на %1$d статија во список за читање</string>
 			<key>other</key>
-			<string>Додавање на %1$@ статии во список за читање</string>
+			<string>Додавање на %1$d статии во список за читање</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -32,6 +32,22 @@
 			<string>Статијата е избришана</string>
 			<key>other</key>
 			<string>Статиите се избришани</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Преместување на %1$d статија во список за читање</string>
+			<key>other</key>
+			<string>Преместување на %1$d статии во список за читање</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
