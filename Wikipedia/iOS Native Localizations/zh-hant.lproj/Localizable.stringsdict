@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>新增 %1$d 個條目至閱讀清單</string>
+			<key>other</key>
+			<string>新增 %1$d 個條目至閱讀清單</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,9 +29,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string> 個條目已刪除</string>
+			<string>條目已刪除</string>
 			<key>other</key>
-			<string> 個條目已刪除</string>
+			<string>條目已刪除</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>移動 %1$d 個條目至閱讀清單</string>
+			<key>other</key>
+			<string>移動 %1$d 個條目至閱讀清單</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -45,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>找到%1$d個位置</string>
+			<string>找到 %1$d 個位置</string>
 			<key>other</key>
-			<string>找到%1$d個位置</string>
+			<string>找到 %1$d 個位置</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -61,9 +93,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d個條目</string>
+			<string>%1$d 個條目</string>
 			<key>other</key>
-			<string>%1$d個條目</string>
+			<string>%1$d 個條目</string>
 		</dict>
 	</dict>
 	<key>reading-list-entry-limit-reached</key>
@@ -77,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string> 個條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
+			<string>條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
 			<key>other</key>
-			<string> 個條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
+			<string>條目無法添加至此清單。您已達到%3$@裡各閱讀清單的 %2$d 個條目上限</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -125,9 +157,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>刪除  個清單嗎？</string>
+			<string>刪除清單嗎？</string>
 			<key>other</key>
-			<string>刪除  個清單嗎？</string>
+			<string>刪除清單嗎？</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -229,9 +261,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>取消儲存  個條目嗎？</string>
+			<string>取消儲存條目嗎？</string>
 			<key>other</key>
-			<string>取消儲存  個條目嗎？</string>
+			<string>取消儲存條目嗎？</string>
 		</dict>
 	</dict>
 </dict>
