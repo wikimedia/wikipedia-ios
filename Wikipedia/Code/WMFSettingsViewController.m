@@ -88,6 +88,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Before iOS 11
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsSyncWasEnabledWithNotification:)
+                                                 name:[WMFReadingListsController readingListsSyncWasEnabledNotification]
+                                               object:nil];
 }
 
 - (void)dealloc {
@@ -390,6 +395,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [storageAndSyncingSettingsVC applyTheme:self.theme];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
+}
+
+- (void)readingListsSyncWasEnabledWithNotification:(NSNotification *)note {
+    BOOL readingListsSyncWasEnabled = [note.userInfo[WMFReadingListsController.readingListsSyncWasEnabledKey] boolValue];
+    if (!readingListsSyncWasEnabled) {
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
+    }
 }
 
 #pragma mark - Debugging
