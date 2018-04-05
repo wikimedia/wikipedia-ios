@@ -226,6 +226,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             defaultListTag.isHidden = false
         } else {
             defaultListTag.isHidden = true
+        var yAlignedWithImageBottom = origin.y
+        if !isImageViewHidden || !isImageGridHidden {
+            yAlignedWithImageBottom = (!isImageViewHidden ? imageView.frame.maxY : imageGrid.frame.maxY) - layoutMargins.bottom - (0.5 * spacing)
         }
         
         if !isAlertIconHidden {
