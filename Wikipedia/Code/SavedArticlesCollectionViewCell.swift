@@ -299,13 +299,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        isTagsViewHidden = tags.readingLists.count == 0
         
         isStatusViewHidden = article.isDownloaded
         if alertType == nil || alertType == .downloading {
             isAlertLabelHidden = article.isDownloaded
             alertType = .downloading
         }
+        
+        isTagsViewHidden = tags.readingLists.count == 0 && isAlertLabelHidden
         
         if shouldShowSeparators {
             topSeparator.isHidden = true
