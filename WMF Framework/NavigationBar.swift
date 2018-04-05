@@ -172,19 +172,25 @@ public class NavigationBar: SetupView {
         _extendedViewPercentHidden = extendedViewPercentHidden
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
-        if let extendedViewPercentHiddenForShowingTitle = self.extendedViewPercentHiddenForShowingTitle {
-            UIView.animate(withDuration: 0.2) {
-                self.delegate?.title = extendedViewPercentHidden >= extendedViewPercentHiddenForShowingTitle ? self.title : nil
+        let applyChanges = {
+            let changes = {
+                self.layoutIfNeeded()
+                additionalAnimations?()
+            }
+            if animated {
+                UIView.animate(withDuration: 0.2, animations: changes)
+            } else {
+                changes()
             }
         }
-        let changes = {
-            self.layoutIfNeeded()
-            additionalAnimations?()
-        }
-        if animated {
-            UIView.animate(withDuration: 0.2, animations: changes)
+        if let extendedViewPercentHiddenForShowingTitle = self.extendedViewPercentHiddenForShowingTitle {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.delegate?.title = extendedViewPercentHidden >= extendedViewPercentHiddenForShowingTitle ? self.title : nil
+            }, completion: { (_) in
+                applyChanges()
+            })
         } else {
-            changes()
+            applyChanges()
         }
     }
     
