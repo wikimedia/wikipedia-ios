@@ -186,7 +186,7 @@ class SavedViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionButton.titleLabel?.setFont(with: .system, style: .callout, traitCollection: traitCollection)
+        actionButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
     }
     
     // MARK: - Sorting and searching
