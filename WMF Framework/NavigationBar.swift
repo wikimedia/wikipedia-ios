@@ -7,6 +7,8 @@ public class NavigationBar: SetupView {
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
+    public var extendedViewPercentHiddenForShowingTitle: CGFloat?
+    public var title: String?
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -170,6 +172,11 @@ public class NavigationBar: SetupView {
         _extendedViewPercentHidden = extendedViewPercentHidden
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
+        if let extendedViewPercentHiddenForShowingTitle = self.extendedViewPercentHiddenForShowingTitle {
+            UIView.animate(withDuration: 0.2) {
+                self.delegate?.title = extendedViewPercentHidden >= extendedViewPercentHiddenForShowingTitle ? self.title : nil
+            }
+        }
         let changes = {
             self.layoutIfNeeded()
             additionalAnimations?()
