@@ -70,7 +70,8 @@ class TagCollectionViewCell: CollectionViewCell {
 extension TagCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         label.textColor = theme.colors.secondaryText
-        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
+        let backgroundColor = theme.name == Theme.standard.name ? UIColor.wmf_lightestGray : theme.colors.midBackground
+        setBackgroundColors(backgroundColor, selected: theme.colors.baseBackground)
         updateSelectedOrHighlighted()
     }
 }

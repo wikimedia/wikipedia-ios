@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Πρόσθεση %1$d λήμμα στη λίστα ανάγνωσης</string>
+			<key>other</key>
+			<string>Πρόσθεση %1$d λημμάτων στη λίστα ανάγνωσης</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>το λήμμα διαγράφηκε</string>
 			<key>other</key>
 			<string>τα λήμματα διαγράφηκαν</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Μετακίνηση %1$d λήμμα στη λίστα ανάγνωσης</string>
+			<key>other</key>
+			<string>Μετακίνηση %1$d λημμάτων στη λίστα ανάγνωσης</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -64,6 +96,38 @@
 			<string>%1$d λήμμα</string>
 			<key>other</key>
 			<string>%1$d λήμματα</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d λίστα ανάγνωσης</string>
+			<key>other</key>
+			<string>%1$d λίστες ανάγνωσης</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Οποιαδήποτε λήμματα αποθηκευμένα σε αυτή τη λίστα θα ξεαποθηκευτούν.</string>
+			<key>other</key>
+			<string>Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Οποιαδήποτε λήμματα αποθηκευμένα σε αυτές τις λίστες θα ξεαποθηκευτούν.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
