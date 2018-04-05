@@ -39,6 +39,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.enablesReturnKeyAutomatically = true
         titleTextField.delegate = self
         descriptionTextField.delegate = self
+        alertTitleLabel?.numberOfLines = 0
+        alertMessageLabel?.numberOfLines = 0
         
         sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
         
