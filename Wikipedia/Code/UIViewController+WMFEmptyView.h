@@ -12,7 +12,8 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeNoSearchResults,
     WMFEmptyViewTypeNoSavedPages,
     WMFEmptyViewTypeNoHistory,
-    WMFEmptyViewTypeNoReadingLists
+    WMFEmptyViewTypeNoReadingLists,
+    WMFEmptyViewTypeNoSavedPagesInReadingList
 };
 
 @protocol WMFEmptyViewContainer

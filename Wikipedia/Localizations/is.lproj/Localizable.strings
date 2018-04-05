@@ -64,6 +64,7 @@
 "action-unsave" = "Taka úr vistun";
 "action-unsaved-accessibility-notification" = "Grein er óvistuð";
 "action-update" = "Uppfæra";
+// Fuzzy
 "add-articles-to-reading-list" = "Bæta $1 á leslista";
 "alert-no-internet" = "Það er engin internettenging";
 "announcements-dismiss" = "Vísa frá";
@@ -118,6 +119,7 @@
 "empty-no-feed-title" = "Engin internettenging";
 "empty-no-history-message" = "Haltu utan um það sem þú hefur verið að lesa hérna";
 "empty-no-history-title" = "Enginn breytingaferill sem hægt er að birta";
+// Fuzzy
 "empty-no-reading-lists-message" = "Bankaðu á bláa ‘+’ merkið til að útbúa lista yfir staði til að heimsækja, eftirlætisumræðuefni og margt fleira";
 "empty-no-reading-lists-title" = "Skipuleggðu vistaðar greinar með leslistum";
 "empty-no-saved-pages-message" = "Vista síður til að skoða þær síðar, jafnvel án nettengingar";
@@ -341,6 +343,7 @@
 "reading-list-new-list-description-placeholder" = "stutt valkvæð lýsing";
 "reading-list-new-list-name-placeholder" = "titill leslista";
 "reading-list-sync-enable-button-title" = "Virkja samstillingu";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Nú er hægt að vista greinar og leslista á Wikipedia-aðganginn þinn og samstilla þannig á milli tækja.";
 "reading-list-sync-enable-title" = "Kveikja á samstillingu leslista?";
 "reading-list-unable-to-add-entry" = "Óvænt villa kom upp við að bæta færslu við leslistann þinn. Endilega reyndu aftur síðar.";

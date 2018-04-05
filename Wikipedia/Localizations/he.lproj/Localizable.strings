@@ -11,6 +11,7 @@
 // Author: Or
 // Author: YaronSh
 // Author: איתן96
+// Author: נדב ס
 // Author: שמזן
 
 "about-content-license" = "רישיון תוכן";
@@ -70,7 +71,7 @@
 "action-unsave" = "ביטול שמירה";
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
-"add-articles-to-reading-list" = "הוספת הדף $1 לרשימת הקריאה";
+"add-articles-to-reading-list" = "הוספת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
@@ -89,6 +90,7 @@
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
 "article-read-more-title" = "לקרוא עוד";
+"article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
@@ -249,6 +251,7 @@
 "menu-trash-accessibility-label" = "מחיקה";
 "more-languages-tooltip-description" = "חיפוש בוויקיפדיה בכמעט 300 שפות";
 "more-languages-tooltip-title" = "הוספת שפות";
+"move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
 "nearby-distance-label-feet" = "$1 רגל";
 "nearby-distance-label-km" = "$1 ק״מ";
@@ -319,6 +322,11 @@
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
 "rank-accessibility-label" = "מספר $1";
 "readers-accessibility-label" = "$1 קוראים";
+"reading-list-add-hint-title" = "האם להוסיף את \"$1\" לרשימת קריאה?";
+"reading-list-add-saved-button-title" = "כן, להוסיף אותם לרשימות הקריאה שלי";
+"reading-list-api-error-generic" = "שגיאה בלתי צפויה אירעה בזמן סינכרון רשימות הקריאה שלך";
+"reading-list-deleted-accessibility-notification" = "רשימת הקריאה נמחקה";
+"reading-list-do-not-keep-button-title" = "לא, למחוק ערכים מהמכשיר";
 "reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
 "reading-themes-controls-accessibility-dark-theme-button" = "ערכת נושא כהה";

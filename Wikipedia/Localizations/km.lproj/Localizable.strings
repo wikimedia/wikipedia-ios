@@ -58,6 +58,7 @@
 "action-unsave" = "ឈប់រក្សាទុក";
 "action-unsaved-accessibility-notification" = "អត្ថបទឈប់រក្សាទុករួច";
 "action-update" = "បន្ទាន់សម័យ";
+// Fuzzy
 "add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
 "alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";

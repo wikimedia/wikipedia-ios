@@ -66,6 +66,22 @@
 			<string>%1$d artículos</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>L'artículu nun puede añadise a esta llista. Llegasti a la llende de %2$d artículos por llista de llectura pa %3$@</string>
+			<key>other</key>
+			<string>Los artículos nun pueden añadise a esta llista. Llegasti a la llende de %2$d artículos por llista de llectura pa %3$@</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
