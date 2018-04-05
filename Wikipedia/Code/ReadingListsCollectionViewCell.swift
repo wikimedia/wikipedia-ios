@@ -237,7 +237,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
             alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
-            origin.x += alertIconDimension + spacing
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
