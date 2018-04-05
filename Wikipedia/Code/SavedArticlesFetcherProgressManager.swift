@@ -46,10 +46,3 @@
         }
     }
 }
-
-extension Progress {
-    func wmf_shouldShowProgressView() ->  Bool {
-        return isFinished == false && totalUnitCount > 0
-    }
-}
-

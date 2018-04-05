@@ -135,8 +135,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         let titleLabelAvailableWidth: CGFloat
@@ -316,7 +317,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         apply(theme: theme)
         isSaveButtonHidden = true
         extractLabel?.text = nil
-        imageViewDimension = 80
+        imageViewDimension = 100
         
         if (shouldAdjustMargins) {
             adjustMargins(for: index, count: count)
@@ -331,7 +332,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         topSeparator.backgroundColor = theme.colors.border
     }
     
-    private func tag(at indexPath: IndexPath) -> Tag {
+    private func tag(at indexPath: IndexPath) -> Tag? {
+        guard tags.readingLists.indices.contains(indexPath.item) else {
+            return nil
+        }
         return Tag(readingList: tags.readingLists[indexPath.item], index: indexPath.item, indexPath: tags.indexPath)
     }
 }
@@ -379,7 +383,9 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
             return .zero
         }
         
-        var tagToConfigure = tag(at: indexPath)
+        guard var tagToConfigure = tag(at: indexPath) else {
+            return .zero
+        }
 
         if let lastConfiguredTag = configuredTags.last, lastConfiguredTag.isLast, tagToConfigure.index > lastConfiguredTag.index {
             tagToConfigure.isCollapsed = true

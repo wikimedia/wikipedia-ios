@@ -11,6 +11,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     typealias T = ReadingListEntry
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
+    private let pullToRefresh = UIRefreshControl()
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -44,9 +45,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = readingList.name
-        
+
         emptyViewType = .noSavedPages
 
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
@@ -57,9 +56,18 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        
+        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
+        scrollView?.refreshControl = pullToRefresh
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+        }
+    }
+    
+    @objc private func pulledToRefresh() {
+        dataStore.readingListsController.fullSync {
+            self.pullToRefresh.endRefreshing()
         }
     }
     
@@ -112,8 +120,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
+            title = readingList.name
             navigationBar.removeExtendedNavigationBarView()
         } else {
+            title = nil
             navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
         updateScrollViewInsets()
@@ -232,7 +242,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
-            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList:readingList, theme: theme)
+            let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
             addArticlesToReadingListViewController.delegate = self
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true

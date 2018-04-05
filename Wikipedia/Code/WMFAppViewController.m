@@ -113,6 +113,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
 
+@property (nonatomic, strong, readwrite) NSDate *syncStartDate;
+
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
 
 /// Use @c rootTabBarController instead.
@@ -164,6 +166,26 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readingListsSyncWasEnabledWithNotification:)
                                                  name:[WMFReadingListsController readingListsSyncWasEnabledNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncDidStartNotification:)
+                                                 name:[WMFReadingListsController syncDidStartNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(syncDidFinishNotification:)
+                                                 name:[WMFReadingListsController syncDidFinishNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(conflictingReadingListNameUpdatedNotification:)
+                                                 name:[ReadingList conflictingReadingListNameUpdatedNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleSaveToDiskDidFail:)
+                                                 name:WMFArticleSaveToDiskDidFailNotification
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
@@ -327,6 +349,45 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (readingListsSyncWasEnabled == NO) {
         [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
+}
+
+- (void)syncDidStartNotification:(NSNotification *)note {
+    self.syncStartDate = [NSDate date];
+}
+
+- (void)syncDidFinishNotification:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncDidFinishErrorKey];
+    if (error.wmf_isNetworkConnectionError) {
+        [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
+                                                    sticky:YES
+                                     dismissPreviousAlerts:YES
+                                               tapCallBack:nil];
+    }
+
+    if (!error) {
+        if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
+            NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] integerValue];
+            NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
+            if (syncedReadingListsCount > 1 && syncedReadingListEntriesCount > 1) { // // TODO: When localization script supports multiple plurals per string, update to > 0
+                // TODO: When localization script supports multiple plurals per string, update to use plurals.
+                NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-large-sync-completed", nil, nil, @"%1$d articles and %2$d reading lists synced from your account", @"Alert message informing user that large sync was completed."), syncedReadingListEntriesCount, syncedReadingListsCount];
+                [[WMFAlertManager sharedInstance] showSuccessAlert:alertTitle
+                                                            sticky:YES
+                                             dismissPreviousAlerts:YES
+                                                       tapCallBack:nil];
+            }
+        }
+    }
+}
+
+- (void)conflictingReadingListNameUpdatedNotification:(NSNotification *)note {
+    NSString *oldName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedOldNameKey];
+    NSString *newName = (NSString *)note.userInfo[ReadingList.conflictingReadingListNameUpdatedNewNameKey];
+    NSString *alertTitle = [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-conflicting-reading-list-name-updated", nil, nil, @"Your list '%1$@' has been renamed to '%2$@'", @"Alert message informing user that their reading list was renamed."), oldName, newName];
+    [[WMFAlertManager sharedInstance] showWarningAlert:alertTitle
+                                                sticky:YES
+                                 dismissPreviousAlerts:YES
+                                           tapCallBack:nil];
 }
 
 #pragma mark - Background Fetch
@@ -1056,8 +1117,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         return nil;
     }
     if (!_savedArticlesFetcher) {
-        _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+        _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
         [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
     return _savedArticlesFetcher;
@@ -1592,6 +1652,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (articleWasSaved) {
         [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
+}
+
+#pragma mark - Article save to disk did fail
+
+- (void)articleSaveToDiskDidFail:(NSNotification *)note {
+    NSError *error = (NSError *)note.userInfo[WMFArticleSaveToDiskDidFailErrorKey];
+    if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:WMFLocalizedStringWithDefaultValue(@"article-save-error-not-enough-space", nil, nil, @"You do not have enough space on your device to save this article", @"Alert message informing user that article cannot be save due to insufficient storage available")
+                                                             sticky:YES
+                                              dismissPreviousAlerts:YES
+                                                        tapCallBack:nil];
+    }
+    [self.savedArticlesFetcher stop];
 }
 
 #pragma mark - Appearance
