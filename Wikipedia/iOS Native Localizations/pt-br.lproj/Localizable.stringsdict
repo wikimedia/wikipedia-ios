@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>one</key>
+			<string>Adicionar %1$@ artigo à lista de leitura</string>
+			<key>other</key>
+			<string>Adicionar %1$@ artigos à lista de leitura</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -64,6 +80,22 @@
 			<string>%1$d artigo</string>
 			<key>other</key>
 			<string>%1$d artigos</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>O artigo não pode ser adicionado a esta lista. Atingiu o limite de %2$d artigos por lista de leitura para %3$@</string>
+			<key>other</key>
+			<string>Os artigos não podem ser adicionados a esta lista. Atingiu o limite de %2$d artigos por lista de leitura para %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
