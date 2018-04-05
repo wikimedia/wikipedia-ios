@@ -346,7 +346,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)readingListsSyncWasEnabledWithNotification:(NSNotification *)note {
     BOOL readingListsSyncWasEnabled = [note.userInfo[WMFReadingListsController.readingListsSyncWasEnabledKey] boolValue];
-    if (readingListsSyncWasEnabled == NO) {
+    if (!readingListsSyncWasEnabled) {
         [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
     }
 }
