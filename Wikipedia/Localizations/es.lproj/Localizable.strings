@@ -82,7 +82,7 @@
 "action-unsave" = "No guardar";
 "action-unsaved-accessibility-notification" = "Artículo sin guardar";
 "action-update" = "Actualizar";
-"add-articles-to-reading-list" = "Añadir $1 a lista de lectura";
+"add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
@@ -101,6 +101,7 @@
 "article-languages-others" = "Otros idiomas";
 "article-languages-yours" = "Tus idiomas";
 "article-read-more-title" = "Más información";
+"article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
@@ -263,6 +264,7 @@
 "menu-trash-accessibility-label" = "Borrar";
 "more-languages-tooltip-description" = "Buscar en las casi 300 lenguas de Wikipedia";
 "more-languages-tooltip-title" = "Añadir idiomas";
+"move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-km" = "$1 km";
@@ -351,6 +353,7 @@
 "reading-list-new-list-description-placeholder" = "descripción breve opcional";
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
+"reading-list-sync-enable-subtitle" = "Ahora puedes guardar tus artículos guardados y listas de lectura en tu cuenta de Wikipedia y sincronizarlos en varios dispositivos.";
 "reading-list-sync-enable-title" = "¿Quieres activar la sincronización de listas de lectura?";
 "reading-list-unable-to-add-entry" = "Se produjo un error inesperado al añadir una entrada a la lista de lectura. Inténtalo de nuevo más tarde.";
 "reading-list-unable-to-create" = "Se produjo un error al crear la lista de lectura. Inténtalo de nuevo más tarde.";
@@ -360,6 +363,7 @@
 "reading-list-with-provided-name-not-found" = "No se encontró la lista de lectura denominada «$1». Cerciórate de que tengas el nombre correcto.";
 "reading-lists-article-added-confirmation" = "Se añadió el artículo a «$1»";
 "reading-lists-article-queued-to-be-downloaded" = "Artículo en espera de descarga";
+"reading-lists-conflicting-reading-list-name-updated" = "Se cambió el nombre de la lista «$1» a «$2»";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de lectura";
 "reading-lists-default-list-description" = "Lista predeterminada para tus artículos guardados";
 "reading-lists-default-list-title" = "Guardados";
@@ -412,8 +416,8 @@
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
-"settings-storage-and-syncing-server-sync-title" = "Sincronizar con el servidor";
-"settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos guardados";
+"settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
+"settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
 "settings-support" = "Apoya a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";

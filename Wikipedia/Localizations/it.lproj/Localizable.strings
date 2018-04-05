@@ -81,7 +81,7 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
-"add-articles-to-reading-list" = "Aggiungi $1 all'elenco di lettura";
+"add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -350,7 +350,7 @@
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
-"settings-storage-and-syncing-server-sync-title" = "Sincronizza con il server";
+"settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto…";

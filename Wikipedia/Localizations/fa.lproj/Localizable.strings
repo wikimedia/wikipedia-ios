@@ -84,6 +84,7 @@
 "action-unsave" = "ذخیره‌نشده";
 "action-unsaved-accessibility-notification" = "مقالهٔ ذخیره نشده";
 "action-update" = "به‌روزرسانی";
+// Fuzzy
 "add-articles-to-reading-list" = "افزودن «$1» به فهرست خواندن";
 "alert-no-internet" = "به اینترنت متصل نیستید";
 "announcements-dismiss" = "پنهان‌سازی";
@@ -138,6 +139,7 @@
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "empty-no-history-title" = "تاریخچه‌ای برای مشاهده وجود ندارد";
+// Fuzzy
 "empty-no-reading-lists-message" = "برای ساخت فهرستی از مقصدهای سفر، موضوعات دلخواه و چیزهای دیگر بر روی ‘+’ آبی بزنید";
 "empty-no-reading-lists-title" = "مرتب‌کردن مقاله‌های ذخیره‌شده و فهرست‌های خواندن";
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
@@ -361,6 +363,7 @@
 "reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
 "reading-list-new-list-name-placeholder" = "عنوان فهرست خواندن";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همسان‌سازی";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "مقالات و لیست‌ها مطالعه شما اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره شده و با دیگر دستگاه‌ها همسان‌سازی شود.";
 "reading-list-sync-enable-title" = "همسان‌سازی فهرست خواندن فعال شود؟";
 "reading-list-unable-to-add-entry" = "یک خطای غیرمنتظره هنگام افزودن یک ورودی به فهرست خواندن شما روی داد. لطفا دوباره تلاش کنید.";
@@ -427,6 +430,7 @@
 "settings-notifications-trending" = "رتبه‌بندی رویدادهای کنونی";
 "settings-primary-language" = "ابتدایی";
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "حذف";
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-title" = "تنظیمات";
 "share-a-fact-made-with" = "ساخته شده توسط اپلیکیشن ویکی‌پدیا";
