@@ -246,7 +246,7 @@ extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 - (void)clearMemoryCache;
 
-- (void)clearImageAndArticlesSavedOnDiskCache;
+- (void)clearCachesForUnsavedArticles;
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)titlesToRemove;

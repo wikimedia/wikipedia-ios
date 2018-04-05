@@ -1561,7 +1561,7 @@ static uint64_t bundleHash() {
     [self.articlePreviewCache removeAllObjects];
 }
 
-- (void)clearImageAndArticlesSavedOnDiskCache {
+- (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
     [[WMFImageController sharedInstance] removeLegacyCache];
     [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {

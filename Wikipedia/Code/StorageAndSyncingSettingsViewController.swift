@@ -122,7 +122,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
                 assertionFailure("dataStore is nil")
                 return
             }
-            self.dataStore?.clearImageAndArticlesSavedOnDiskCache()
+            self.dataStore?.clearCachesForUnsavedArticles()
             if isSyncEnabled {
                 self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
             } else {
