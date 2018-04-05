@@ -236,7 +236,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             if isRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
-            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
+            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
