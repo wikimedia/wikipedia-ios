@@ -54,7 +54,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
-        sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        sortButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
         alertTitleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
         alertMessageLabel?.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
     }
