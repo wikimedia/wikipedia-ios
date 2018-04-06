@@ -46,7 +46,7 @@ LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
 # Switch to LOCAL_CSS_PREFIX when testing CSS changes in a local MW instance (in vagrant),
 # or to BETA_CSS_PREFIX when testing CSS changes which have been staged to beta but not
 # yet deployed to production.
-CSS_PREFIX=$(LOCAL_CSS_PREFIX)
+CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
 CSS_ORIGIN = $(CSS_PREFIX)/load.php?only=styles&target=mobile&skin=minerva&modules=skins.minerva.base.reset|skins.minerva.content.styles|ext.math.styles|ext.pygments|mobile.app
