@@ -243,7 +243,6 @@ class SavedViewController: ViewController {
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
