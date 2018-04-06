@@ -95,7 +95,6 @@ class SavedViewController: ViewController {
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
             }
-            scrollView?.refreshControl = pullToRefresh
         }
     }
     
@@ -174,7 +173,8 @@ class SavedViewController: ViewController {
         edgesForExtendedLayout = .all
         
         pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
-        
+        scrollView?.refreshControl = pullToRefresh
+
         super.viewDidLoad()
     }
     
