@@ -88,8 +88,8 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
-    @objc public static let readingListsSyncWasEnabledNotification = NSNotification.Name("WMFReadingListsSyncWasEnabled")
-    @objc public static let readingListsSyncWasEnabledKey = "readingListsSyncWasEnabled"
+    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncIsEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey = NSNotification.Name("isSyncEnabledForAccount")
     
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
@@ -413,9 +413,9 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    func postReadingListsSyncWasEnabledNotification(_ syncWasEnabled: Bool) {
+    func postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(_ syncWasEnabled: Bool) {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ReadingListsController.readingListsSyncWasEnabledNotification, object: nil, userInfo: [ReadingListsController.readingListsSyncWasEnabledKey: NSNumber(value: syncWasEnabled)])
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey: NSNumber(value: syncWasEnabled)])
         }
     }
     
