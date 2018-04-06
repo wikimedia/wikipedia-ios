@@ -68,6 +68,7 @@
 "action-unsave" = "Non gardar";
 "action-unsaved-accessibility-notification" = "Artigo sen gardar";
 "action-update" = "Actualizar";
+// Fuzzy
 "add-articles-to-reading-list" = "Engadir $1 á lista de lectura";
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
@@ -122,7 +123,7 @@
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "empty-no-history-title" = "Non hai ningún historial para amosar";
-"empty-no-reading-lists-message" = "Prema no «+» azul para crear listas de lugares a visitar, os seus temas favoritos e moito máis";
+"empty-no-reading-lists-message" = "Prema no «+» azul para crear listas de lectura de lugares a visitar, os seus temas favoritos e moito máis";
 "empty-no-reading-lists-title" = "Organizar os artigos gardados mediante listas de lectura";
 "empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
@@ -351,7 +352,7 @@
 "reading-list-new-list-description-placeholder" = "descrición breve opcional";
 "reading-list-new-list-name-placeholder" = "título da lista de lectura";
 "reading-list-sync-enable-button-title" = "Activar a sincronización";
-"reading-list-sync-enable-subtitle" = "Os seus artigos gardados e as súas listas de lectura agora poden ser gardadas na súa conta de Wikipedia e sincronizadas entre dispositivos.";
+"reading-list-sync-enable-subtitle" = "Os seus artigos gardados e as súas listas de lectura agora poden ser gardadas na súa conta de Wikipedia e sincronizadas entre aplicacións de Wikipedia.";
 "reading-list-sync-enable-title" = "Activar a sincronización das listas de lectura?";
 "reading-list-unable-to-add-entry" = "Houbo un erro inesperado ó engadir unha entrada á lista de lectura. Inténteo de novo máis tarde.";
 "reading-list-unable-to-create" = "Houbo un erro ó crear a lista de lectura. Inténteo de novo máis tarde.";
@@ -394,6 +395,7 @@
 "saved-reading-lists-title" = "Listas de lectura";
 "saved-search-default-text" = "Procura";
 "saved-title" = "Gardado";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Ao non gardar {{PLURAL:$1|este artigo, será eliminado|estes artigos, serán eliminados}} de tódalas listas de lectura asociadas";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Non gardar {{PLURAL:$1|o artigo|os artigos}}?";
 "search-button-accessibility-label" = "Procurar na Wikipedia";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
@@ -427,8 +429,10 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Borrar tódolos artigos gardados?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Borrar";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Borrar artigos gardados";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Sincronizar co servidor";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Amosar a lista de lectura Gardados";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Almacenar e sincronizar artigos gardados";
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";

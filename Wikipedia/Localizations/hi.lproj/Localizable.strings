@@ -323,6 +323,7 @@
 "reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
 "reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
 "reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
+"reading-list-sync-enable-subtitle" = "आपके सहेजे गए लेख और पठन सूचियों को अब आपके विकिपीडिया खाते में सहेजा जा सकता है और विकिपीडिया एप्स में समन्वयित किया जा सकता है।";
 "reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
 "reading-themes-controls-accessibility-black-theme-button" = "काला रूपरंग";
 "reading-themes-controls-accessibility-brightness-slider" = "चमक स्लाइडर";

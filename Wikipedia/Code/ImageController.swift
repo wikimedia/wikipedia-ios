@@ -636,7 +636,7 @@ open class ImageController : NSObject {
         }
     }
     
-    public var permanentStorageDirectorySize: Int64 {
-        return FileManager.default.sizeOfDirectory(at: permanentStorageDirectory)
+    public var temporaryCacheSize: Int64 {
+        return FileManager.default.sizeOfDirectory(at: legacyCacheFolderURL) + Int64(cache.currentDiskUsage)
     }
 }
