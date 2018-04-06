@@ -119,11 +119,9 @@ extension UIViewController {
         }
         
         let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-        if (rootViewController?.presentedViewController != nil) {
-            rootViewController = rootViewController?.presentedViewController
-        }
-        rootViewController?.present(panelVC, animated: true, completion: {
+        
+        let presenter = self.presentedViewController ?? self
+        presenter.present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
