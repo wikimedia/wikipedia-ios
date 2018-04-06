@@ -164,6 +164,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 if updateError == nil {
                     DispatchQueue.main.async {
                         self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                        self.readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(true)
                         self.finish()
                     }
                 } else {
@@ -175,7 +176,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     finish()
                 }
             } else {
-                readingListsController.postReadingListsSyncWasEnabledNotification(false)
+                readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
                 try executeLocalOnlySync(on: moc)
                 try moc.save()
                 finish()
