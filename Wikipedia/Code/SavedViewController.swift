@@ -30,7 +30,6 @@ class SavedViewController: ViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
-    private let pullToRefresh = UIRefreshControl()
 
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
@@ -172,16 +171,7 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
-        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
-        scrollView?.refreshControl = pullToRefresh
-
         super.viewDidLoad()
-    }
-    
-    @objc private func pulledToRefresh() {
-        dataStore?.readingListsController.fullSync {
-            self.pullToRefresh.endRefreshing()
-        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
