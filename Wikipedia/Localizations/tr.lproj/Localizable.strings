@@ -86,6 +86,7 @@
 "action-unsave" = "Kaydedilenlerden çıkar";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
+// Fuzzy
 "add-articles-to-reading-list" = "$1'i okuma listesine ekle";
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Reddet";
@@ -140,6 +141,7 @@
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
+// Fuzzy
 "empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için listeler oluşturmak için mavi \"+\" butonunun üzerine hafifçe dokunun";
 "empty-no-reading-lists-title" = "Kaydedilen okuma listelerini düzenle";
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";

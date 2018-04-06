@@ -70,6 +70,7 @@
 "action-save" = "حفظ";
 "action-saved" = "محفوظة";
 "action-share" = "شارك";
+// Fuzzy
 "add-articles-to-reading-list" = "أضف $1 إلى قائمة القراءة";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "announcements-dismiss" = "تجاهل";

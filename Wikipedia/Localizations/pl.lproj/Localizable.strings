@@ -81,6 +81,7 @@
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
+"article-save-error-not-enough-space" = "Masz za mało miejsca na urządzeniu, by zapisać ten artykuł";
 "article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
@@ -255,6 +256,7 @@
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
+"reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
 "reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Czarny motyw";

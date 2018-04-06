@@ -331,14 +331,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [[WMFImageController sharedInstance] deleteTemporaryCache];
-                                                [[WMFImageController sharedInstance] removeLegacyCache];
-                                                [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
-                                                    DDLogError(@"Error removing unreferenced articles: %@", error);
-                                                }
-                                                    success:^{
-                                                        DDLogDebug(@"Successfully removed unreferenced articles");
-                                                    }];
+                                                [self.dataStore clearCachesForUnsavedArticles];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 

@@ -210,13 +210,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
+        var yAlignedWithImageBottom = isImageViewHidden ? origin.y : imageView.frame.maxY - layoutMargins.bottom - (spacing * 0.5)
+        if !isTagsViewHidden {
+            yAlignedWithImageBottom -= layoutMargins.bottom
+        }
+        
         if (apply && !isAlertIconHidden) {
             var x = origin.x
             if isRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
-            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
-            origin.x += alertIconDimension + spacing
+            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
@@ -226,25 +230,15 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
             if isAlertIconHidden {
                 xPosition = origin.x
-                yPosition = origin.y
+                yPosition = yAlignedWithImageBottom
                 availableWidth = widthMinusMargins
             }
-            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.x += alertLabelFrame.width + spacing
+            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
         
         if (apply && !isTagsViewHidden) {
-            var xPosition = alertLabel.frame.maxX + spacing
-            var yPosition = alertLabel.frame.midY - 0.5 * collectionViewHeight
-            var availableWidth = widthMinusMargins - alertIconDimension - alertLabel.frame.width - (CGFloat(tags.readingLists.count) * spacing)
-
-            if isAlertLabelHidden {
-                xPosition = origin.x
-                yPosition = origin.y
-                availableWidth = widthMinusMargins
-            }
-            collectionViewAvailableWidth = availableWidth
-            collectionView.frame = CGRect(x: xPosition, y: yPosition, width: availableWidth, height: collectionViewHeight)
+            collectionViewAvailableWidth = widthMinusMargins
+            collectionView.frame = CGRect(x: origin.x, y: yAlignedWithImageBottom, width: collectionViewAvailableWidth, height: collectionViewHeight)
             collectionView.semanticContentAttribute = articleSemanticContentAttribute
         }
         
@@ -299,7 +293,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
-        isTagsViewHidden = tags.readingLists.count == 0
         
         isStatusViewHidden = article.isDownloaded
         if alertType == nil || alertType == .downloading {
@@ -307,8 +300,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             alertType = .downloading
         }
         
+        isTagsViewHidden = tags.readingLists.count == 0 && isAlertLabelHidden
+        
         if shouldShowSeparators {
-            topSeparator.isHidden = index > 0
+            topSeparator.isHidden = true
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
@@ -419,7 +414,9 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         collectionViewAvailableWidth -= placeholderCellSize.width
         
-        configuredTags.append(tagToConfigure)
+        if !configuredTags.contains(where: { $0.readingList == tagToConfigure.readingList && $0.indexPath == tagToConfigure.indexPath }) {
+            configuredTags.append(tagToConfigure)
+        }
         return placeholderCellSize
     }
 }

@@ -65,6 +65,7 @@
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
 "action-update" = "Kemas kini";
+// Fuzzy
 "add-articles-to-reading-list" = "Tambahkan $1 ke senarai bacaan";
 "alert-no-internet" = "Tiada sambungan internet";
 "announcements-dismiss" = "Singkir";
@@ -119,6 +120,7 @@
 "empty-no-feed-title" = "Tiada Sambungan Internet";
 "empty-no-history-message" = "Menjejaki apa yang anda telah membaca di sini";
 "empty-no-history-title" = "Tiada sejarah yang ditunjukkan";
+// Fuzzy
 "empty-no-reading-lists-message" = "Ketuk butang biru ‘+’ untuk membuat senarai tempat untuk pergi ke, topik kegemaran dan banyak lagi";
 "empty-no-reading-lists-title" = "Atur rencana yang disimpan dengan senarai bacaan";
 "empty-no-saved-pages-message" = "Simpan halaman ke melihatnya kemudian, walaupun di luar talian";
@@ -348,6 +350,7 @@
 "reading-list-new-list-description-placeholder" = "penerangan pendek pilihan";
 "reading-list-new-list-name-placeholder" = "tajuk senarai bacaan";
 "reading-list-sync-enable-button-title" = "Dayakan penyegerakan";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Rencana yang disimpan dan senarai bacaan anda kini boleh disimpan ke akaun Wikipedia anda dan disegerakkan merentas peranti.";
 "reading-list-sync-enable-title" = "Hidupkan penyegerakan senarai bacaan?";
 "reading-list-unable-to-add-entry" = "Ralat yang tidak dijangka berlaku semasa menambah entri ke senarai bacaan anda. Sila cuba sebentar lagi.";
@@ -360,6 +363,7 @@
 "reading-lists-article-not-synced" = "Tidak disegerakkan";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Had rencana melebihi, tidak dapat menyegerakkan rencana";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Had senarai melebihi, tidak dapat menyegerakkan rencana";
+"reading-lists-article-queued-to-be-downloaded" = "Rencana yang dihantarkan dimuat turun";
 "reading-lists-articles-not-synced-limit-exceeded" = "Beberapa rencana tidak disegerakkan, had melebihi";
 "reading-lists-count" = "{{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}}";
 "reading-lists-default-list-description" = "Senarai lalai untuk rencana anda yang disimpan";
@@ -425,12 +429,15 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dari peranti ini. Anda tidak boleh membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Padam semua rencana tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Padam";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dan dari peranti ini.\n\nMenghapus rencana tersimpan anda akan membebaskan sekitar 364.4 MB ruang.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Padam rencana tersimpan";
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta penyegerakan dari pelayan untuk kemas kini ke rencana dan senarai bacaan anda yang disegerakkan";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Penyegerakan dengan pelayan";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Tunjukkan Senarai bacaan tersimpan (contohnya Lalai) sebagai senarai berasingan dalam paparan Senarai bacaan anda. Senarai ini muncul pada peranti Android";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tunjukkan Senarai bacaan tersimpan";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Penyimpanan dan penyegerakan rencana tersimpan";
 "settings-support" = "Sokonglah Wikipedia";
 "settings-title" = "Tetapan";

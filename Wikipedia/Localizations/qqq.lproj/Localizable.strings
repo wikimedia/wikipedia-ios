@@ -113,6 +113,8 @@
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
 "empty-no-reading-lists-message" = "Message of a blank screen shown when a user has no reading lists";
 "empty-no-reading-lists-title" = "Title of a blank screen shown when a user has no reading lists";
+"empty-no-saved-pages-in-reading-list-message" = "Message of a blank screen shown when a user has no saved pages in a reading list";
+"empty-no-saved-pages-in-reading-list-title" = "Title of a blank screen shown when a user has no saved pages in a reading list";
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-search-results-message" = "Shown when there are no search results";
@@ -425,6 +427,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
+"settings-storage-and-syncing-full-sync" = "Message confirming to the user that their reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Footer text of the settings button that initiates saved articles and reading lists server sync";
 "settings-storage-and-syncing-server-sync-title" = "Title of the settings button that initiates saved articles and reading lists server sync";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Footer text of the settings option that enables showing the default reading list";
