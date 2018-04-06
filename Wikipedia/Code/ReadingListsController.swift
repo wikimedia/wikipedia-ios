@@ -450,8 +450,6 @@ public class ReadingListsController: NSObject {
         
         self.syncState = newSyncState
         
-        postReadingListsSyncWasEnabledNotification(isSyncEnabled)
-        
         sync()
     }
     
