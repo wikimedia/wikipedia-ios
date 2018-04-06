@@ -239,11 +239,9 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
         }
         searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
