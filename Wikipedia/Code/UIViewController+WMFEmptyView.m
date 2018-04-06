@@ -31,6 +31,9 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeNoSavedPages:
             view = [WMFEmptyView noSavedPagesEmptyView];
             break;
+        case WMFEmptyViewTypeNoSavedPagesInReadingList:
+            view = [WMFEmptyView noSavedPagesInReadingListEmptyView];
+            break;
         case WMFEmptyViewTypeNoHistory:
             view = [WMFEmptyView noHistoryEmptyView];
             break;
