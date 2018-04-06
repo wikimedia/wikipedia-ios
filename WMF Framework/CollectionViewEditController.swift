@@ -398,12 +398,14 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         let rightBarButtonSystemItem: UIBarButtonSystemItem?
         let leftBarButtonSystemItem: UIBarButtonSystemItem?
+        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
         
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
             leftBarButtonSystemItem = .cancel
             rightBarButtonSystemItem = .done
+            isRightBarButtonEnabled = true
             if oldValue == .open {
                 transformBatchEditPane(for: editingState)
             }
@@ -444,7 +446,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         leftButton?.tag = editingState.tag
         rightButton?.tag = editingState.tag
-        rightButton?.isEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
+        rightButton?.isEnabled = isRightBarButtonEnabled
         
         activeBarButton.left = leftButton
         activeBarButton.right = rightButton
