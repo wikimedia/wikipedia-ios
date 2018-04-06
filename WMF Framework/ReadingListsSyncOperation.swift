@@ -164,14 +164,19 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 if updateError == nil {
                     DispatchQueue.main.async {
                         self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                        self.readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(true)
                         self.finish()
                     }
                 } else {
+                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
+                        readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
+                    }
                     try executeLocalOnlySync(on: moc)
                     try moc.save()
                     finish()
                 }
             } else {
+                readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
                 try executeLocalOnlySync(on: moc)
                 try moc.save()
                 finish()
