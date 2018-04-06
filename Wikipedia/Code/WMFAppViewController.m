@@ -345,7 +345,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)syncDidFinishNotification:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncDidFinishErrorKey];
-    if (error.wmf_isNetworkConnectionError) {
+
+    // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
+    if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                     sticky:YES
                                      dismissPreviousAlerts:YES
