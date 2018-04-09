@@ -214,5 +214,9 @@ extension ReadingListDetailExtendedViewController: Themeable {
         descriptionTextField.textColor = theme.colors.secondaryText
         alertTitleLabel?.textColor = theme.colors.error
         alertMessageLabel?.textColor = theme.colors.primaryText
+        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+        }
     }
 }
