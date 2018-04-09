@@ -2,7 +2,7 @@
 class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-syncing")
+        image = UIImage(named: "reading-list-syncing")
         heading = WMFLocalizedString("reading-list-sync-enable-title", value:"Turn on reading list syncing?", comment:"Title describing reading list syncing.")
         subheading = WMFLocalizedString("reading-list-sync-enable-subtitle", value:"Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.", comment:"Subtitle describing reading list syncing.")
         primaryButtonTitle = WMFLocalizedString("reading-list-sync-enable-button-title", value:"Enable syncing", comment:"Title for button enabling reading list syncing.")
@@ -12,7 +12,7 @@ class EnableReadingListSyncPanelViewController : ScrollableEducationPanelViewCon
 class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-saved")
+        image = UIImage(named: "reading-list-saved")
         heading = WMFLocalizedString("reading-list-add-saved-title", value:"Saved articles found", comment:"Title explaining saved articles were found.")
         subheading = WMFLocalizedString("reading-list-add-saved-subtitle", value:"There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?", comment:"Subtitle explaining that saved articles can be added to reading lists.")
         primaryButtonTitle = WMFLocalizedString("reading-list-add-saved-button-title", value:"Yes, add them to my reading lists", comment:"Title for button to add saved articles to reading list.")
@@ -23,7 +23,7 @@ class AddSavedArticlesToReadingListPanelViewController : ScrollableEducationPane
 class LoginToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-login")
+        image = UIImage(named: "reading-list-login")
         heading = WMFLocalizedString("reading-list-login-title", value:"Sync your saved articles?", comment:"Title for syncing save articles.")
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = CommonStrings.readingListLoginButtonTitle
