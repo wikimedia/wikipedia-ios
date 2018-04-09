@@ -147,9 +147,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             try moc.save()
         }
         
-        guard readingListsController.isLoggedIn else {
-            print("ERR: Attempting to sync while logged out")
+        let localSyncOnly = {
+            try self.executeLocalOnlySync(on: moc)
+            try moc.save()
             self.finish()
+        }
+        
+        guard readingListsController.isLoggedIn else {
+            try localSyncOnly()
             return
         }
         
@@ -176,9 +181,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
                         readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
                     }
-                    try executeLocalOnlySync(on: moc)
-                    try moc.save()
-                    finish()
+                    try localSyncOnly()
                 }
             } else {
                 readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
