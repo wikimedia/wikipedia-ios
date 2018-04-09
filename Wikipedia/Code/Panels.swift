@@ -157,12 +157,17 @@ extension UIViewController {
     }
     
     @objc func wmf_showSyncDisabledPanel(theme: Theme) {
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncDisabledPanel() else {
+            return
+        }
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true)
         }
         let panel = SyncDisabledPanel(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         let presenter = self.presentedViewController ?? self
-        presenter.present(panel, animated: true)
+        presenter.present(panel, animated: true) {
+            UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
+        }
     }
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
