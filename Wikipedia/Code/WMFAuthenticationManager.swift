@@ -74,6 +74,25 @@ class WMFAuthenticationManager: NSObject {
         return baseURL!
     }
     
+    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping () -> Void = {}) {
+        let performCompletionOnTheMainThread = {
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+        self.loginWithSavedCredentials(success: { (success) in
+            DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(success.username).\n\n")
+            performCompletionOnTheMainThread()
+        }, userAlreadyLoggedInHandler: { (loggedIn) in
+            DDLogDebug("\n\nUser \(loggedIn.name) is already logged in.\n\n")
+            performCompletionOnTheMainThread()
+        }, failure: { (error) in
+            DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+            performCompletionOnTheMainThread()
+            failure()
+        })
+    }
+    
     /**
      *  Login with the given username and password
      *

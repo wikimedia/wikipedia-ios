@@ -400,13 +400,15 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-
-        [self attemptLogin:^{
+        
+        [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
             [self.dataStore.readingListsController backgroundUpdate:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
                 });
             }];
+        } failure:^{
+            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
         }];
     });
 }
@@ -670,30 +672,16 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
 }
 
-- (void)attemptLogin:(dispatch_block_t)completion {
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
-        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-        dispatch_async(dispatch_get_main_queue(), completion);
-    }
-        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-            dispatch_async(dispatch_get_main_queue(), completion);
-        }
-        failure:^(NSError *_Nonnull error) {
-            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-            dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
-        }];
-}
-
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
-    [self attemptLogin:^{
+    
+    [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
+    } failure:^{
+        [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
     }];
 
     [self.dataStore.feedContentController startContentSources];
@@ -767,7 +755,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.dataStore.readingListsController stop:^{
     }];
     [self.savedArticlesFetcher stop];
-
+    
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
     for (UINavigationController *navC in allNavControllers) {
