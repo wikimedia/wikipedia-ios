@@ -228,7 +228,7 @@ extension UIViewController {
         })
     }
     
-    @objc func wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(theme: Theme, completion: @escaping (() -> Swift.Void) = {}) {
+    @objc func wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: @escaping (() -> Swift.Void) = {}) {
         guard self.hasSavedArticles() else {
             completion()
             return
@@ -246,7 +246,7 @@ extension UIViewController {
             completion()
         }
         
-        let panelVC = KeepSavedArticlesOnDevicePanelViewController(showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler, theme: theme)
+        let panelVC = KeepSavedArticlesOnDevicePanelViewController(triggeredBy: keepSavedArticlesTrigger, showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: false, theme: theme)
         
         present(panelVC, animated: true, completion: nil)
     }
