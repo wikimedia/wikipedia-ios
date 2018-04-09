@@ -147,7 +147,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             try moc.save()
         }
         
-
+        guard readingListsController.isLoggedIn else {
+            print("ERR: Attempting to sync while logged out")
+            self.finish()
+            return
+        }
+        
         // local only sync
         guard syncState != [] else {
             if syncEndpointsAreAvailable {
