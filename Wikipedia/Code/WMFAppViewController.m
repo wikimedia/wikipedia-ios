@@ -764,6 +764,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
     [self.dataStore.readingListsController stop:^{
     }];
