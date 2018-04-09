@@ -30,14 +30,34 @@ class LoginToSyncSavedArticlesToReadingListPanelViewController : ScrollableEduca
     }
 }
 
+@objc enum KeepSavedArticlesTrigger: Int {
+    case logout, syncDisabled
+}
+
 class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelViewController {
+    private let trigger: KeepSavedArticlesTrigger
+    
+    init(triggeredBy trigger: KeepSavedArticlesTrigger, showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool, theme: Theme) {
+        self.trigger = trigger
+        super.init(showCloseButton: showCloseButton, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        return nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-saved")
-        heading = WMFLocalizedString("reading-list-keep-title", value:"Keep saved articles on device?", comment:"Title for keeping save articles on device.")
-        subheading = WMFLocalizedString("reading-list-keep-subtitle", value:"There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?", comment:"Subtitle asking if synced articles should be kept on device after logout.")
-        primaryButtonTitle = WMFLocalizedString("reading-list-keep-button-title", value:"Yes, keep articles on device", comment:"Title for button to keep synced articles on device.")
-        secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
+        image = UIImage(named: "reading-list-saved")
+        heading = CommonStrings.keepSavedArticlesOnDeviceTitle
+        primaryButtonTitle = CommonStrings.keepSavedArticlesOnDeviceButtonTitle
+        if trigger == .logout {
+            subheading = CommonStrings.keepSavedArticlesOnDeviceMessage
+            secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
+        } else if trigger == .syncDisabled {
+            subheading = CommonStrings.keepSavedArticlesOnDeviceMessage + "\n" + WMFLocalizedString("reading-list-keep-sync-disabled-additional-subtitle", value: "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.", comment: "Additional subtitle informing user that turning sync off will remove saved articles from their account.")
+            secondaryButtonTitle = WMFLocalizedString("reading-list-keep-sync-disabled-remove-article-button-title", value: "No, remove articles from device and my Wikipedia account", comment: "Title for button that removes save articles from device and Wikipedia account.")
+        }
     }
 }
 
