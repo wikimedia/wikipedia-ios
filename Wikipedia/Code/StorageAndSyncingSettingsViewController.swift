@@ -254,8 +254,16 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                 }
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion)
             } else {
-                self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                let setSyncEnabled = {
                     dataStore.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
+                    
+                }
+                if !sender.isOn {
+                    self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                        setSyncEnabled()
+                    }
+                } else {
+                    setSyncEnabled()
                 }
             }
         case .showSavedReadingList:
