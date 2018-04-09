@@ -199,3 +199,27 @@ class WMFAuthenticationManager: NSObject {
         HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User")
     }
 }
+
+extension WMFAuthenticationManager: AuthenticationDelegate {
+    func isUserLoggedInLocally() -> Bool {
+        return isLoggedIn
+    }
+    
+    func isUserLoggedInRemotely() -> Bool {
+        let taskGroup = WMFTaskGroup()
+        let sessionManager = AFHTTPSessionManager(baseURL: loginSiteURL)
+        var errorCode: String? = nil
+        taskGroup.enter()
+        _ = sessionManager.wmf_apiPOSTWithParameters(["action": "query", "format": "json", "assert": "user", "assertuser": nil], success: { (_, response) in
+            if let response = response as? [String: AnyObject], let error = response["error"] as? [String: Any], let code = error["code"] as? String {
+                errorCode = code
+            }
+            taskGroup.leave()
+        }, failure: { (_, error) in
+            taskGroup.leave()
+        })
+        taskGroup.wait()
+        return errorCode == nil
+    }
+
+}
