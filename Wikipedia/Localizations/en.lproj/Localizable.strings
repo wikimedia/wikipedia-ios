@@ -345,6 +345,8 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
+"reading-list-sync-disabled-panel-message" = "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.";
+"reading-list-sync-disabled-panel-title" = "Sync disabled";
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
