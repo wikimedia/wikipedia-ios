@@ -64,7 +64,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
 class EnableLocationPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "places-auth-arrow")
+        image = UIImage(named: "places-auth-arrow")
         heading = CommonStrings.localizedEnableLocationTitle
         primaryButtonTitle = CommonStrings.localizedEnableLocationButtonTitle
         footer = CommonStrings.localizedEnableLocationDescription
@@ -74,7 +74,7 @@ class EnableLocationPanelViewController : ScrollableEducationPanelViewController
 class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "relogin-failed")
+        image = UIImage(named: "relogin-failed")
         heading = WMFLocalizedString("relogin-failed-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
         subheading = WMFLocalizedString("relogin-failed-subtitle", value:"Your session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
         primaryButtonTitle = WMFLocalizedString("relogin-failed-retry-login-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
@@ -85,7 +85,7 @@ class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController 
 class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage.init(named: "reading-list-user")
+        image = UIImage(named: "reading-list-user")
         heading = WMFLocalizedString("reading-list-login-or-create-account-title", value:"Log in to sync saved articles", comment:"Title for syncing saved articles.")
         subheading = CommonStrings.readingListLoginSubtitle
         primaryButtonTitle = WMFLocalizedString("reading-list-login-or-create-account-button-title", value:"Log in or create account", comment:"Title for button to login or create account to sync saved articles and reading lists.")
