@@ -61,6 +61,16 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
     }
 }
 
+class SyncDisabledPanel: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "reading-list-saved")
+        heading = WMFLocalizedString("reading-list-sync-disabled-panel-title", value: "Sync disabled", comment: "Title for panel informing user that sync was disabled on their Wikipedia account on another device")
+        subheading = WMFLocalizedString("reading-list-sync-disabled-panel-message", value: "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", comment: "Message for panel informing user that sync was disabled on their Wikipedia account on another device.")
+        primaryButtonTitle = CommonStrings.gotItButtonTitle
+    }
+}
+
 class EnableLocationPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +154,15 @@ extension UIViewController {
         presenter.present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
+    }
+    
+    @objc func wmf_showSyncDisabledPanel(theme: Theme) {
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        let panel = SyncDisabledPanel(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        let presenter = self.presentedViewController ?? self
+        presenter.present(panel, animated: true)
     }
     
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
