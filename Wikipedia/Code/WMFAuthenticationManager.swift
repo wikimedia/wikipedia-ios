@@ -158,15 +158,23 @@ class WMFAuthenticationManager: NSObject {
      *  Logs out any authenticated user and clears out any associated cookies
      */
     @objc public func logout(completion: @escaping () -> Void = {}){
+        self.resetLocalUserLoginSettings()
+        completion()
+    }
+    
+    @objc public func deleteLoginTokensAndBrowserCookies() {
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
-            // It's best to call "action=logout" API *before* clearing local login settings...
-            self.resetLocalUserLoginSettings()
-            completion()
+            DDLogInfo("Successfully logged out, deleted login tokens and other browser cookies")
+            self.loginWithSavedCredentials(success: { (success) in
+                DDLogInfo("Successfully logged in with saved credentials for user \(success.username)")
+            }, userAlreadyLoggedInHandler: { (loggedIn) in
+                DDLogInfo("User \(loggedIn.name) is already logged in")
+            }, failure: { (error) in
+                DDLogInfo("loginWithSavedCredentials failed with error \(error)")
+            })
         }, failure: { (_, error) in
-            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            self.resetLocalUserLoginSettings()
-            completion()
+            DDLogInfo("Failed to log out, deleted login tokens and other browser cookies: \(error)")
         })
     }
     
