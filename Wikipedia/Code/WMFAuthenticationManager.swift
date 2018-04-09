@@ -185,7 +185,7 @@ class WMFAuthenticationManager: NSObject {
             completion()
         }, failure: { (_, error) in
             // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            DDLogDebug("Failed to log out, deleted login tokens and other browser cookies: \(error)")
+            DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
             self.resetLocalUserLoginSettings()
             completion()
         })
