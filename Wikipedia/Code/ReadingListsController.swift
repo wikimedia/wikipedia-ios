@@ -104,6 +104,8 @@ public class ReadingListsController: NSObject {
     
     public var isLoggedIn: Bool = false
     
+    public weak var authenticationDelegate: AuthenticationDelegate?
+    
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
     
