@@ -101,7 +101,7 @@ public class ReadingListsController: NSObject {
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
-        
+    
     public weak var authenticationDelegate: AuthenticationDelegate?
     
     private let operationQueue = OperationQueue()

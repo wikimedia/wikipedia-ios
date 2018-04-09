@@ -179,11 +179,13 @@ class WMFAuthenticationManager: NSObject {
     @objc public func logout(completion: @escaping () -> Void = {}){
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
-            DDLogInfo("Successfully logged out, deleted login tokens and other browser cookies")
+            DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+            // It's best to call "action=logout" API *before* clearing local login settings...
             self.resetLocalUserLoginSettings()
             completion()
         }, failure: { (_, error) in
-            DDLogInfo("Failed to log out, deleted login tokens and other browser cookies: \(error)")
+            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+            DDLogDebug("Failed to log out, deleted login tokens and other browser cookies: \(error)")
             self.resetLocalUserLoginSettings()
             completion()
         })
