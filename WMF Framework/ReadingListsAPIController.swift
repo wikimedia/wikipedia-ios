@@ -4,6 +4,7 @@ internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receiv
 
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
+    case notloggedin = "notloggedin"
     case notSetup = "readinglists-db-error-not-set-up"
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
