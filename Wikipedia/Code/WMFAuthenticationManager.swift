@@ -10,7 +10,7 @@ class WMFAuthenticationManager: NSObject {
      */
     @objc dynamic private(set) var loggedInUsername: String? = nil {
         didSet {
-            SessionSingleton.sharedInstance().dataStore.readingListsController.isLoggedIn = loggedInUsername == nil ? false : true
+            SessionSingleton.sharedInstance().dataStore.readingListsController.authenticationDelegate = self
         }
     }
     
