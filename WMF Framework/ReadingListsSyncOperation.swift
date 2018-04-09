@@ -153,9 +153,20 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard readingListsController.isLoggedIn else {
+        guard let authenticationDelegate = readingListsController.authenticationDelegate, authenticationDelegate.isUserLoggedInLocally() else {
             try localSyncOnly()
             return
+        }
+        
+        if !authenticationDelegate.isUserLoggedInRemotely() {
+            taskGroup.enter()
+            authenticationDelegate.attemptLogin({
+                taskGroup.leave()
+            }, failure: {
+                try? localSyncOnly()
+                return
+            })
+            taskGroup.wait()
         }
         
         // local only sync
@@ -185,9 +196,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 }
             } else {
                 readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
-                try executeLocalOnlySync(on: moc)
-                try moc.save()
-                finish()
+                try localSyncOnly()
             }
             return
         }
