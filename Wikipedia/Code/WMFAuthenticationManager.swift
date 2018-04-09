@@ -180,8 +180,12 @@ class WMFAuthenticationManager: NSObject {
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
             DDLogInfo("Successfully logged out, deleted login tokens and other browser cookies")
+            self.resetLocalUserLoginSettings()
+            completion()
         }, failure: { (_, error) in
             DDLogInfo("Failed to log out, deleted login tokens and other browser cookies: \(error)")
+            self.resetLocalUserLoginSettings()
+            completion()
         })
     }
     
