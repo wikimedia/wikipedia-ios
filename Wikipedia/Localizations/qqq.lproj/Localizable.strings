@@ -328,6 +328,8 @@
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Additional subtitle informing user that turning sync off will remove saved articles from their account.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Title for button that removes save articles from device and Wikipedia account.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Title for button to sort unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Subtitle letting the user know that there is a limit of 5000 unsorted articles.";

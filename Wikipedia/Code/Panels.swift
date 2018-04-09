@@ -49,8 +49,8 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "reading-list-saved")
-        heading = CommonStrings.keepSavedArticlesOnDeviceTitle
-        primaryButtonTitle = CommonStrings.keepSavedArticlesOnDeviceButtonTitle
+        heading = WMFLocalizedString("reading-list-keep-title", value: "Keep saved articles on device?", comment: "Title for keeping save articles on device.")
+        primaryButtonTitle = WMFLocalizedString("reading-list-keep-button-title", value: "Yes, keep articles on device", comment: "Title for button to keep synced articles on device.")
         if trigger == .logout {
             subheading = CommonStrings.keepSavedArticlesOnDeviceMessage
             secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
