@@ -784,6 +784,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.settingsViewController = nil;
 
     [self.dataStore.feedContentController stopContentSources];
+    
+    [[WMFAuthenticationManager sharedInstance] deleteLoginTokensAndBrowserCookies];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
