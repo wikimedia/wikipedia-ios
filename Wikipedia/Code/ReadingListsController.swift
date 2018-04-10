@@ -95,6 +95,9 @@ public class ReadingListsController: NSObject {
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
     
+    @objc public static let readingListsWereSplitNotification = NSNotification.Name("WMFReadingListsWereSplit")
+    @objc public static let readingListsWereSplitNotificationEntryLimitKey = NSNotification.Name("WMFReadingListsWereSplitNotificationEntryLimitKey")
+    
     @objc public static let syncDidFinishNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
     @objc public static let syncDidFinishErrorKey = NSNotification.Name(rawValue: "error")
     @objc public static let syncDidFinishSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
@@ -192,20 +195,9 @@ public class ReadingListsController: NSObject {
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
-        let name = name.precomposedStringWithCanonicalMapping
-        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
-        existingOrDefaultListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingOrDefaultListRequest).first
-        
-        if let list = result {
-            if list.isDefault {
-                if list.name == name {
-                    throw ReadingListError.listExistsWithTheSameName
-                }
-            } else {
-               throw ReadingListError.listExistsWithTheSameName
-            }
+        let listExistsWithTheSameName = try listExists(with: name, in: moc)
+        guard !listExistsWithTheSameName else {
+            throw ReadingListError.listExistsWithTheSameName
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
@@ -218,6 +210,26 @@ public class ReadingListsController: NSObject {
         
         try add(articles: articles, to: list, in: moc)
         return list
+    }
+    
+    func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
+        let name = name.precomposedStringWithCanonicalMapping
+        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.fetchLimit = 1
+        let result = try moc.fetch(existingOrDefaultListRequest).first
+        
+        if let list = result {
+            if list.isDefault {
+                if list.name == name {
+                    return true
+                }
+            } else {
+                return true
+            }
+        }
+        
+        return false
     }
     
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {

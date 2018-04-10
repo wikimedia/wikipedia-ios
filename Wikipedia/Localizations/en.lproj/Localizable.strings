@@ -370,6 +370,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "reading-lists-large-sync-completed" = "$1 articles and $2 reading lists synced from your account";
 "reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
+"reading-lists-split-notification" = "There is a limit of $1 articles per reading list. Existing lists with more than this limit have been split into multiple lists.";
 "reading-lists-sync-error-no-internet-connection" = "Syncing will resume when internet connection is available";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";

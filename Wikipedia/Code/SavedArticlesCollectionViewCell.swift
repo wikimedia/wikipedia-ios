@@ -114,7 +114,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .system
+        titleFontFamily = .systemSemiBold
         titleTextStyle = .body
         collectionViewAvailableWidth = 0
         configuredTags = []
@@ -201,16 +201,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             }
         }
         
-        if (apply && !isImageViewHidden) {
+        if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isRTL {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageView.isHidden = isImageViewHidden
         }
         
-        var yAlignedWithImageBottom = isImageViewHidden ? origin.y : imageView.frame.maxY - layoutMargins.bottom - (spacing * 0.5)
+        var yAlignedWithImageBottom = imageView.frame.maxY - layoutMargins.bottom - (spacing * 0.5)
         if !isTagsViewHidden {
             yAlignedWithImageBottom -= layoutMargins.bottom
         }

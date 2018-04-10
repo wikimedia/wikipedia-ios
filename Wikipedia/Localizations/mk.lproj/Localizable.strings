@@ -121,6 +121,8 @@
 "empty-no-history-title" = "Нема историја";
 "empty-no-reading-lists-message" = "Стиснете на синиот плус (+) за да правите списоци за читање за местата што сакате да ги посетите, омилени теми и многу друго";
 "empty-no-reading-lists-title" = "Организирајте ги зачуваните статии со списоци за читање";
+"empty-no-saved-pages-in-reading-list-message" = "Зачувајте ги страниците во списоков за да ги видите наведени овде";
+"empty-no-saved-pages-in-reading-list-title" = "Не зачувавте ниедна страница во списоков";
 "empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-search-results-message" = "Не пронајдов ништо";
@@ -433,6 +435,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Избриши";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Ако ги избришете зачуваните статии, тоа ќе ги отстрани од вашата корисничка сметка ако го имате вклучено усогласувањето и од овој уред.\n\nБришењето на зачуваните статии ќе ослободи околу $1 простор.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Избриши зачувани статии";
+"settings-storage-and-syncing-full-sync" = "Вашите списоци за читање ќе бидат усогласени во позадина";
 "settings-storage-and-syncing-server-sync-footer-text" = "Побаран усогласување од опслужувачот за поднова на вашите усогласени статии и списоци за читање";
 "settings-storage-and-syncing-server-sync-title" = "Поднова на усогласени списоци за читање";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Прикажи зачувани (на пр. по основно) списоци за читање како посебен список во прегледот на вашите списоци.\nОвој список се јавува на андроидни уреди.";
