@@ -194,7 +194,8 @@ public class ReadingListsController: NSObject {
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
-        guard try listExists(with: name, in: moc) else {
+        let listExistsWithTheSameName = try listExists(with: name, in: moc)
+        guard !listExistsWithTheSameName else {
             throw ReadingListError.listExistsWithTheSameName
         }
         
