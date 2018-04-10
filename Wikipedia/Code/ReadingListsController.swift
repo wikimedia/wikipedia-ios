@@ -90,6 +90,7 @@ public enum ReadingListError: Error, Equatable {
 public class ReadingListsController: NSObject {
     @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncIsEnabledForAccount")
     @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey = NSNotification.Name("isSyncEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountWasSyncEnabledOnDeviceKey = NSNotification.Name("wasSyncEnabledOnDevice")
     
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
@@ -415,9 +416,11 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    func postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(_ syncWasEnabled: Bool) {
+    func postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(_ isSyncEnabledForAccount: Bool) {
+        // we want to know if sync was ever enabled on this device
+        let wasSyncEnabledOnDevice = apiController.lastRequestType == .setup
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey: NSNumber(value: syncWasEnabled)])
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey: NSNumber(value: isSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice)])
         }
     }
     
