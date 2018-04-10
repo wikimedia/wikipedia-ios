@@ -215,20 +215,9 @@ public class ReadingListsController: NSObject {
         let name = name.precomposedStringWithCanonicalMapping
         let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
-        existingOrDefaultListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingOrDefaultListRequest).first
-        
-        if let list = result {
-            if list.isDefault {
-                if list.name == name {
-                    return true
-                }
-            } else {
-                return true
-            }
-        }
-        
-        return false
+        existingOrDefaultListRequest.fetchLimit = 2
+        let lists = try moc.fetch(existingOrDefaultListRequest)
+        return lists.first(where: { $0.name == name }) != nil
     }
     
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
