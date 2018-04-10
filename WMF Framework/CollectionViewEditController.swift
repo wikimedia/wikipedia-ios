@@ -461,6 +461,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
+        guard !isCollectionViewEmpty else {
+            return
+        }
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -530,7 +533,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let newEditingState: EditingState
         
         switch currentEditingState {
-
         case .open:
             newEditingState = .closed
         case .swiping:
