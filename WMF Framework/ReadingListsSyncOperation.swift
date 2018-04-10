@@ -189,6 +189,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         self.finish()
                     }
                 } else {
+                    // do not post the notification if sync was disabled on this device
                     if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
                         readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
                     }
