@@ -64,7 +64,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
 class SyncDisabledPanel: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage(named: "reading-list-saved")
+        image = UIImage(named: "reading-lists-sync-disabled")
         heading = WMFLocalizedString("reading-list-sync-disabled-panel-title", value: "Sync disabled", comment: "Title for panel informing user that sync was disabled on their Wikipedia account on another device")
         subheading = WMFLocalizedString("reading-list-sync-disabled-panel-message", value: "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.", comment: "Message for panel informing user that sync was disabled on their Wikipedia account on another device.")
         primaryButtonTitle = CommonStrings.gotItButtonTitle
