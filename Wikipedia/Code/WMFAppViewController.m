@@ -157,6 +157,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsWereSplitNotification:)
+                                                 name:[WMFReadingListsController readingListsWereSplitNotification]
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readingListsServerDidConfirmSyncStateForAccountWithNotification:)
@@ -337,6 +342,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appLanguageDidChangeWithNotification:(NSNotification *)note {
     self.dataStore.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
     [self configureExploreViewController];
+}
+
+- (void)readingListsWereSplitNotification:(NSNotification *)note {
+    NSInteger entryLimit = [note.userInfo[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] integerValue];
+    [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists."), entryLimit] sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
 }
 
 - (void)readingListsServerDidConfirmSyncStateForAccountWithNotification:(NSNotification *)note {
