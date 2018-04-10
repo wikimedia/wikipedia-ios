@@ -30,7 +30,6 @@ class SavedViewController: ViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
-    private let pullToRefresh = UIRefreshControl()
 
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
@@ -95,7 +94,6 @@ class SavedViewController: ViewController {
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
             }
-            scrollView?.refreshControl = pullToRefresh
         }
     }
     
@@ -173,15 +171,7 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
-        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
-        
         super.viewDidLoad()
-    }
-    
-    @objc private func pulledToRefresh() {
-        dataStore?.readingListsController.fullSync {
-            self.pullToRefresh.endRefreshing()
-        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -239,13 +229,10 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link

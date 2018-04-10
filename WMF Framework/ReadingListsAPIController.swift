@@ -4,6 +4,7 @@ internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receiv
 
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
+    case notLoggedIn = "notloggedin"
     case notSetup = "readinglists-db-error-not-set-up"
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
@@ -89,6 +90,10 @@ struct APIReadingListErrorResponse: Codable {
     let detail: String?
 }
 
+enum APIReadingListRequestType: String {
+    case setup, teardown
+}
+
 extension APIReadingListEntry {
     var articleURL: URL? {
         guard let site = URL(string: project) else {
@@ -110,6 +115,8 @@ class ReadingListsAPIController: NSObject {
     
     private var pendingTasks: [String: Any] = [:]
     private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    
+    public var lastRequestType: APIReadingListRequestType?
     
     func addPendingTask(_ task: Any, for key: String) {
         pendingTaskQueue.async {
@@ -176,13 +183,17 @@ class ReadingListsAPIController: NSObject {
     }
     
     @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {
-        post(path: "setup") { (result, response, error) in
+        let requestType = APIReadingListRequestType.setup
+        post(path: requestType.rawValue) { (result, response, error) in
+            self.lastRequestType = requestType
             completion(error)
         }
     }
     
     @objc func teardownReadingLists(completion: @escaping (Error?) -> Void) {
-        post(path: "teardown") { (result, response, error) in
+        let requestType = APIReadingListRequestType.teardown
+        post(path: requestType.rawValue) { (result, response, error) in
+            self.lastRequestType = requestType
             completion(error)
         }
     }

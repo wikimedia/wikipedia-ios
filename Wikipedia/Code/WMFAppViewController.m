@@ -164,6 +164,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsServerDidConfirmSyncStateForAccountWithNotification:)
+                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncIsEnabledForAccountNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(syncDidStartNotification:)
                                                  name:[WMFReadingListsController syncDidStartNotification]
                                                object:nil];
@@ -339,13 +344,20 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureExploreViewController];
 }
 
+- (void)readingListsServerDidConfirmSyncStateForAccountWithNotification:(NSNotification *)note {
+    BOOL readingListsSyncWasEnabled = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey] boolValue];
+    if (!readingListsSyncWasEnabled) {
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
+    }
+}
+
 - (void)syncDidStartNotification:(NSNotification *)note {
     self.syncStartDate = [NSDate date];
 }
 
 - (void)syncDidFinishNotification:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncDidFinishErrorKey];
-
+    
     // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
@@ -388,13 +400,15 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-
-        [self attemptLogin:^{
+        
+        [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
             [self.dataStore.readingListsController backgroundUpdate:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
                 });
             }];
+        } failure:^{
+            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
         }];
     });
 }
@@ -658,32 +672,16 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
 }
 
-- (void)attemptLogin:(dispatch_block_t)completion {
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
-        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-        dispatch_async(dispatch_get_main_queue(), completion);
-        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
-    }
-        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-            dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
-        }
-        failure:^(NSError *_Nonnull error) {
-            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-            dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
-        }];
-}
-
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
-    [self attemptLogin:^{
+    
+    [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
+    } failure:^{
+        [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
     }];
 
     [self.dataStore.feedContentController startContentSources];
@@ -757,7 +755,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.dataStore.readingListsController stop:^{
     }];
     [self.savedArticlesFetcher stop];
-
+    
     // Show  all navigation bars so that users will always see search when they re-open the app
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
     for (UINavigationController *navC in allNavControllers) {
@@ -774,7 +772,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.settingsViewController = nil;
 
     [self.dataStore.feedContentController stopContentSources];
-
+    
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];

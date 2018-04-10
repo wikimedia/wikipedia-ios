@@ -88,6 +88,9 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
+    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncIsEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey = NSNotification.Name("isSyncEnabledForAccount")
+    
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
     
@@ -98,6 +101,8 @@ public class ReadingListsController: NSObject {
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
+    
+    public weak var authenticationDelegate: AuthenticationDelegate?
     
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
@@ -410,6 +415,12 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    func postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(_ syncWasEnabled: Bool) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey: NSNumber(value: syncWasEnabled)])
+        }
+    }
+    
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         let oldSyncState = self.syncState
@@ -442,7 +453,6 @@ public class ReadingListsController: NSObject {
         self.syncState = newSyncState
         
         sync()
-        NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
     @objc public func start() {

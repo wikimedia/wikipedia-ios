@@ -11,7 +11,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     typealias T = ReadingListEntry
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
-    private let pullToRefresh = UIRefreshControl()
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -58,18 +57,17 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
-        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
-        scrollView?.refreshControl = pullToRefresh
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
         }
+        
+        isRefreshControlEnabled = true
     }
     
-    @objc private func pulledToRefresh() {
+    override func refresh() {
         dataStore.readingListsController.fullSync {
-            self.pullToRefresh.endRefreshing()
+            self.endRefreshing()
         }
     }
     

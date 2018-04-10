@@ -300,7 +300,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             alertType = .downloading
         }
         
-        isTagsViewHidden = tags.readingLists.count == 0 && isAlertLabelHidden
+        isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         
         if shouldShowSeparators {
             topSeparator.isHidden = true
