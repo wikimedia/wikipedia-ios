@@ -154,11 +154,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleWasUpdated:)
-                                                 name:WMFArticleUpdatedNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
@@ -1640,17 +1635,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
-    }
-}
-
-#pragma mark - Article saved state changed
-
-- (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = [note object];
-    id changedSavedDate = [article.changedValues objectForKey:@"savedDate"];
-    BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
-    if (articleWasSaved) {
-        [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
 }
 
