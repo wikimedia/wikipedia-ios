@@ -499,9 +499,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
                         let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
-                        let testEntryLimit = 5
-                        if localReadingList.countOfEntries > testEntryLimit && !UserDefaults.wmf_userDefaults().wmf_didSplitExistingReadingLists() {
-                            if let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: testEntryLimit, in: moc) {
+                        if localReadingList.countOfEntries > entryLimit && !UserDefaults.wmf_userDefaults().wmf_didSplitExistingReadingLists() {
+                            if let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
                                 listsToCreate.append(contentsOf: splitReadingLists)
                             }
                         } else {
