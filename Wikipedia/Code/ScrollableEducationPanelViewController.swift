@@ -131,7 +131,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         reset()
         primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
-        secondaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize(numberOfLines: 2)
+        secondaryButton.titleLabel?.numberOfLines = 2
+        secondaryButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         secondaryButton.titleLabel?.textAlignment = .center
         closeButton.isHidden = !showCloseButton
         
