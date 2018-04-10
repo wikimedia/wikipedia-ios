@@ -153,6 +153,8 @@ extension UIViewController {
         let presenter = self.presentedViewController ?? self
         presenter.present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
+            // we don't want to present the "Sync disabled" panel if "Enable sync" was presented, wmf_didShowSyncDisabledPanel will be set to false when app is paused.
+            UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
         })
     }
     
