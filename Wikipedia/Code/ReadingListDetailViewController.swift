@@ -42,6 +42,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fatalError("init(coder:) not supported")
     }
     
+    var shouldShowEditButtonsForEmptyState: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
