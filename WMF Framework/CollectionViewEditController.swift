@@ -398,7 +398,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         let rightBarButtonSystemItem: UIBarButtonSystemItem?
         let leftBarButtonSystemItem: UIBarButtonSystemItem?
-        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
+        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly) || shouldShowEditButtonsForEmptyState
         
         switch newValue {
         case .editing:
@@ -422,7 +422,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             transformBatchEditPane(for: editingState)
         case .empty:
             leftBarButtonSystemItem = nil
-            rightBarButtonSystemItem = nil
+            rightBarButtonSystemItem = shouldShowEditButtonsForEmptyState ? .edit : nil
             isBatchEditToolbarHidden = true
         default:
             leftBarButtonSystemItem = nil
