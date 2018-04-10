@@ -45,9 +45,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyViewType = .noSavedPages
+        emptyViewType = .noSavedPagesInReadingList
 
+        navigationBar.title = readingList.name
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
+        navigationBar.extendedViewPercentHiddenForShowingTitle = 0.4
         
         setupFetchedResultsController()
         setupCollectionViewUpdater()
@@ -58,6 +60,14 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+        }
+        
+        isRefreshControlEnabled = true
+    }
+    
+    override func refresh() {
+        dataStore.readingListsController.fullSync {
+            self.endRefreshing()
         }
     }
     
@@ -111,11 +121,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
-            navigationBar.removeExtendedNavigationBarView()
         } else {
             title = nil
-            navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
+        readingListDetailExtendedViewController.isSearchBarHidden = isEmpty
         updateScrollViewInsets()
         super.isEmptyDidChange()
     }

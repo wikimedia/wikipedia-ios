@@ -113,6 +113,8 @@
 "empty-no-history-title" = "No history to show";
 "empty-no-reading-lists-message" = "Tap on the blue ‘+’ to create reading lists for places to travel to, favorite topics and much more";
 "empty-no-reading-lists-title" = "Organize saved articles with reading lists";
+"empty-no-saved-pages-in-reading-list-message" = "Save pages to this list to see them appear here";
+"empty-no-saved-pages-in-reading-list-title" = "No pages saved to this list";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
@@ -426,6 +428,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about $1 of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
+"settings-storage-and-syncing-full-sync" = "Your reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
 "settings-storage-and-syncing-server-sync-title" = "Update synced reading lists";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices";

@@ -75,6 +75,7 @@
 "action-unsave" = "No ho desis";
 "action-unsaved-accessibility-notification" = "Article no desat";
 "action-update" = "Actualitza";
+// Fuzzy
 "add-articles-to-reading-list" = "Afegeix $1 a la llista de lectura";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";

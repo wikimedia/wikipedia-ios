@@ -11,13 +11,10 @@ class ReadingListDetailExtendedViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var sortButton: UIButton!
-    @IBOutlet var alertView: UIView?
+    @IBOutlet weak var alertStackView: UIStackView?
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
-    
-    private lazy var searchBarToDescriptionTextFieldVerticalSpacingConstraint: NSLayoutConstraint = {
-        searchBar.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
-    }()
     
     private var readingListTitle: String?
     private var readingListDescription: String?
@@ -42,6 +39,8 @@ class ReadingListDetailExtendedViewController: UIViewController {
         descriptionTextField.enablesReturnKeyAutomatically = true
         titleTextField.delegate = self
         descriptionTextField.delegate = self
+        alertTitleLabel?.numberOfLines = 0
+        alertMessageLabel?.numberOfLines = 0
         
         sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
         
@@ -57,7 +56,7 @@ class ReadingListDetailExtendedViewController: UIViewController {
         articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
         titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
         descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
-        sortButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        sortButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
         alertTitleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
         alertMessageLabel?.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
     }
@@ -138,21 +137,13 @@ class ReadingListDetailExtendedViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
-            if isAlertViewHidden {
-                alertView?.removeFromSuperview()
-                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = true
-            } else {
-                guard let alertView = alertView else {
-                    return
-                }
-                view.addSubview(alertView)
-                let topConstraint = alertView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 15)
-                let bottomConstraint = searchBar.topAnchor.constraint(equalTo: alertView.bottomAnchor, constant: 15)
-                let leadingConstraint = alertView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor)
-                let trailingConstraint = alertView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor)
-                searchBarToDescriptionTextFieldVerticalSpacingConstraint.isActive = false
-                NSLayoutConstraint.activate([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-            }
+            alertStackView?.isHidden = isAlertViewHidden
+        }
+    }
+
+    public var isSearchBarHidden: Bool = false {
+        didSet {
+            searchContainerView.isHidden = isSearchBarHidden
         }
     }
     
@@ -223,5 +214,9 @@ extension ReadingListDetailExtendedViewController: Themeable {
         descriptionTextField.textColor = theme.colors.secondaryText
         alertTitleLabel?.textColor = theme.colors.error
         alertMessageLabel?.textColor = theme.colors.primaryText
+        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+        }
     }
 }

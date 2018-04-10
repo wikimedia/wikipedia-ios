@@ -36,16 +36,13 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewDidLoad() {
         super.viewDidLoad()
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-    
         setupEditController()
-        
         isRefreshControlEnabled = true
-        
         emptyViewType = .noSavedPages
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }

@@ -76,6 +76,7 @@
 "action-unsave" = "Jangan simpan";
 "action-unsaved-accessibility-notification" = "Artikel batal tersimpan";
 "action-update" = "Perbarui";
+// Fuzzy
 "add-articles-to-reading-list" = "Tambahkan $1 ke daftar bacaan";
 "alert-no-internet" = "Tidak ada sambungan internet";
 "announcements-dismiss" = "Tutup";
@@ -130,6 +131,7 @@
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
+// Fuzzy
 "empty-no-reading-lists-message" = "Ketuk tombol ‘+’ yang berwarna biru untuk membuat daftar tempat yang harus dikunjungi, topik favorit dan banyak lagi";
 "empty-no-reading-lists-title" = "Atur artikel tersimpan dengan daftar bacaan";
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
@@ -359,6 +361,7 @@
 "reading-list-new-list-description-placeholder" = "deskripsi singkat opsional";
 "reading-list-new-list-name-placeholder" = "judul daftar bacaan";
 "reading-list-sync-enable-button-title" = "Aktifkan sinkronisasi";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Artikel tersimpan dan daftar bacaan Anda sekarang dapat disimpan ke akun Wikipedia Anda dan disinkronkan di seluruh perangkat.";
 "reading-list-sync-enable-title" = "Aktifkan sinkronisasi daftar bacaan?";
 "reading-list-unable-to-add-entry" = "Terjadi kesalahan tak terduga saat menambahkan entri ke daftar bacaan Anda. Silakan coba lagi nanti.";
@@ -371,6 +374,7 @@
 "reading-lists-article-not-synced" = "Tidak disinkronkan";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Batas artikel terlampaui, tidak dapat menyinkronkan artikel";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Batas daftar terlampaui, tidak dapat menyinkronkan artikel";
+"reading-lists-article-queued-to-be-downloaded" = "Artikel diantrekan untuk diunduh";
 "reading-lists-articles-not-synced-limit-exceeded" = "Beberapa artikel tidak disinkronkan, batas terlampaui";
 "reading-lists-count" = "{{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}";
 "reading-lists-default-list-description" = "Daftar baku untuk artikel tersimpan Anda";
@@ -436,12 +440,15 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini. Anda tidak dapat membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hapus semua artikel tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Hapus";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dan dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar 364,4 MB.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Hapus artikel tersimpan";
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta sinkronisasi dari peladen untuk pembaruan ke artikel yang disinkronkan dan daftar bacaan Anda";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Sinkronisasi dengan peladen";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Menampilkan Daftar bacaan tersimpan (mis. Default) sebagai daftar terpisah dalam tampilan Daftar bacaan Anda. Daftar ini muncul di perangkat Android";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tampilkan Daftar bacaan tersimpan";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Penyimpanan dan sinkronisasi artikel tersimpan";
 "settings-support" = "Dukung Wikipedia";
 "settings-title" = "Pengaturan";
