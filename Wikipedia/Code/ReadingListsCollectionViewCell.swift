@@ -194,13 +194,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         }
         
-        if (apply && !isImageGridHidden) {
+        if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isRTL {
                 x = size.width - x - imageViewDimension
             }
             imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageGrid.isHidden = isImageGridHidden
         }
         
         if (apply && !isImageViewHidden) {
@@ -212,10 +213,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        var yAlignedWithImageBottom = origin.y
-        if !isImageViewHidden || !isImageGridHidden {
-            yAlignedWithImageBottom = (!isImageViewHidden ? imageView.frame.maxY : imageGrid.frame.maxY) - layoutMargins.bottom - (0.5 * spacing)
-        }
+        let yAlignedWithImageBottom = imageGrid.frame.maxY - layoutMargins.bottom - (0.5 * spacing)
         
         if !isAlertIconHidden {
             var x = origin.x
