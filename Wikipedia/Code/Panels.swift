@@ -167,7 +167,7 @@ extension UIViewController {
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true)
         }
-        let panel = SyncDisabledPanel(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        let panel = SyncDisabledPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         let presenter = self.presentedViewController ?? self
         presenter.present(panel, animated: true) {
             UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
