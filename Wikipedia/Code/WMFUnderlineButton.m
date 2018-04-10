@@ -53,7 +53,9 @@ IB_DESIGNABLE
     CGFloat underlineHeight = self.underlineHeight;
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
-    v.frame = CGRectMake(0, self.bounds.size.height - underlineHeight, self.bounds.size.width, underlineHeight);
+    CGRect underlineRect = CGRectMake(0, self.bounds.size.height - underlineHeight, self.bounds.size.width, underlineHeight);
+    underlineRect = CGRectInset(underlineRect, 2, 0);
+    v.frame = underlineRect;
     v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:v];
     self.underline = v;

@@ -174,6 +174,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
     // MARK: - Filtering
     
     var searchString: String?
