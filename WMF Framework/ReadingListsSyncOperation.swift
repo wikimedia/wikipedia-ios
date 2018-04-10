@@ -447,7 +447,12 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             guard let newReadingList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
                 continue
             }
-            newReadingList.name = "\(readingListName)_\(index + 1)"
+            let splitIndex = index + 1
+            var newReadingListName = "\(readingListName)_\(splitIndex)"
+            while try readingListsController.listExists(with: newReadingListName, in: moc) {
+                newReadingListName = "\(newReadingListName)_\(splitIndex)"
+            }
+            newReadingList.name = newReadingListName
             newReadingList.createdDate = NSDate()
             newReadingList.updatedDate = newReadingList.createdDate
             newReadingList.isUpdatedLocally = true
