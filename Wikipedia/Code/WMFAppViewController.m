@@ -154,11 +154,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleWasUpdated:)
-                                                 name:WMFArticleUpdatedNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
@@ -1626,12 +1621,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bar items
 
+    NSMutableParagraphStyle *badgeParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    badgeParagraphStyle.firstLineHeadIndent = 0.4;
+    NSDictionary *badgeAttributes = @{
+                                      NSForegroundColorAttributeName: theme.colors.chromeBackground,
+                                      NSParagraphStyleAttributeName: badgeParagraphStyle
+                                      };
+    
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
-        [item setBadgeTextAttributes:@{NSForegroundColorAttributeName: theme.colors.accent} forState:UIControlStateNormal];
-        [item setBadgeColor:theme.colors.chromeBackground];
+        [item setBadgeTextAttributes:badgeAttributes forState:UIControlStateNormal];
+        [item setBadgeColor:theme.colors.accent];
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
@@ -1648,17 +1650,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
-    }
-}
-
-#pragma mark - Article saved state changed
-
-- (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = [note object];
-    id changedSavedDate = [article.changedValues objectForKey:@"savedDate"];
-    BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
-    if (articleWasSaved) {
-        [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
 }
 

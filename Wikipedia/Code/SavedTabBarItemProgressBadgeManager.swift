@@ -43,6 +43,6 @@
 
 private extension UITabBarItem {
     func showBadge(_ shouldShow: Bool) {
-        badgeValue = shouldShow ? "\u{25cf}" : nil
+        badgeValue = shouldShow ? "\u{2605}" : nil
     }
 }
