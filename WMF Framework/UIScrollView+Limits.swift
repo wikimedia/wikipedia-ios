@@ -32,8 +32,12 @@ extension UIScrollView {
         let wasAtTop = wmf_isAtTop
         let wasAtBottom = wmf_isAtBottom
         scrollIndicatorInsets = updatedScrollIndicatorInsets
+        
+        let wereAnimationsEnabled = UIView.areAnimationsEnabled
+        UIView.setAnimationsEnabled(false)
         contentInset = updatedContentInset
-
+        UIView.setAnimationsEnabled(wereAnimationsEnabled)
+        
         if wasAtTop {
             contentOffset = wmf_topOffset
         } else if contentSize.height > UIEdgeInsetsInsetRect(bounds, contentInset).height && wasAtBottom {

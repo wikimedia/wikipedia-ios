@@ -114,7 +114,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .system
+        titleFontFamily = .systemSemiBold
         titleTextStyle = .body
         collectionViewAvailableWidth = 0
         configuredTags = []
