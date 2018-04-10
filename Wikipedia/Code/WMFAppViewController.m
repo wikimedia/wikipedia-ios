@@ -1613,12 +1613,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bar items
 
+    NSMutableParagraphStyle *badgeParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    badgeParagraphStyle.firstLineHeadIndent = 0.4;
+    NSDictionary *badgeAttributes = @{
+                                      NSForegroundColorAttributeName: theme.colors.chromeBackground,
+                                      NSParagraphStyleAttributeName: badgeParagraphStyle
+                                      };
+    
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
-        [item setBadgeTextAttributes:@{NSForegroundColorAttributeName: theme.colors.accent} forState:UIControlStateNormal];
-        [item setBadgeColor:theme.colors.chromeBackground];
+        [item setBadgeTextAttributes:badgeAttributes forState:UIControlStateNormal];
+        [item setBadgeColor:theme.colors.accent];
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
