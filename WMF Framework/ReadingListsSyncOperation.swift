@@ -464,6 +464,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if newReadingLists.count > 0 {
             let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
             NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
+            UserDefaults.wmf_userDefaults().wmf_setDidSplitExistingReadingLists(true)
         }
         return newReadingLists
     }
@@ -493,8 +494,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
                         let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
-                        if localReadingList.countOfEntries > entryLimit, let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
-                            listsToCreate.append(contentsOf: splitReadingLists)
+                        let testEntryLimit = 5
+                        if localReadingList.countOfEntries > testEntryLimit && !UserDefaults.wmf_userDefaults().wmf_didSplitExistingReadingLists() {
+                            if let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: testEntryLimit, in: moc) {
+                                listsToCreate.append(contentsOf: splitReadingLists)
+                            }
                         } else {
                             listsToCreate.append(localReadingList)
                         }
