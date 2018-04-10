@@ -137,6 +137,8 @@
 "empty-no-history-title" = "표시할 역사가 없습니다";
 "empty-no-reading-lists-message" = "여행하고픈 장소, 즐겨찾는 주제 등을 위한 읽기 목록을 만들려면 파란색 '+'를 탭하세요";
 "empty-no-reading-lists-title" = "저장된 문서를 읽기 목록으로 정리합니다";
+"empty-no-saved-pages-in-reading-list-message" = "여기에 문서를 표시하려면 문서를 이 목록에 저장하세요";
+"empty-no-saved-pages-in-reading-list-title" = "이 목록에 저장된 문서가 없습니다";
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
@@ -447,6 +449,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "삭제";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "동기화가 켜져있는 중에 저장된 문서를 지우면 이 장치뿐 아니라 사용자 계정에서도 제거됩니다.\n\n저장된 문서를 지우면 약 $1의 공간을 확보하게 됩니다.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "저장된 문서 삭제";
+"settings-storage-and-syncing-full-sync" = "읽기 목록이 백그라운드 상태로 동기화됩니다";
 "settings-storage-and-syncing-server-sync-title" = "동기화된 읽기 목록 업데이트";
 "settings-storage-and-syncing-show-default-reading-list-title" = "저장된 읽기 목록 표시";
 "settings-storage-and-syncing-title" = "문서의 저장 및 동기화";

@@ -132,6 +132,8 @@
 "empty-no-history-title" = "没有要显示的历史";
 "empty-no-reading-lists-message" = "点按蓝色加号以创建要旅行的地点、感兴趣的话题以及更多事物的阅读列表";
 "empty-no-reading-lists-title" = "组织已保存条目与阅读列表";
+"empty-no-saved-pages-in-reading-list-message" = "保存页面至此列表，让页面出现在此";
+"empty-no-saved-pages-in-reading-list-title" = "没有页面保存至此列表";
 "empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
 "empty-no-saved-pages-title" = "尚无保存的页面";
 "empty-no-search-results-message" = "找不到结果";
@@ -444,6 +446,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "清空";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "如果您在此设备上启用了同步的话，清空您保存的条目将从您的用户账户中移除。\n\n清空您保存的条目将腾出约$1空间。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "清空保存的条目";
+"settings-storage-and-syncing-full-sync" = "您的阅读列表将在后台同步";
 "settings-storage-and-syncing-server-sync-footer-text" = "请求从服务器同步，以更新您已同步的条目和阅读列表";
 "settings-storage-and-syncing-server-sync-title" = "更新同步的阅读列表";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的阅读列表视图中，分别显示保存的阅读列表（例如默认列表）。此列表会出现在Android设备上";
