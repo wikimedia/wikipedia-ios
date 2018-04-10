@@ -159,6 +159,11 @@ class ReadingListDetailExtendedViewController: UIViewController {
         firstResponder?.resignFirstResponder()
     }
     
+    public func beginEditing() {
+        firstResponder = titleTextField
+        titleTextField.becomeFirstResponder()
+    }
+    
     public func cancelEditing() {
         titleTextField.text = readingListTitle
         descriptionTextField.text = readingListDescription
