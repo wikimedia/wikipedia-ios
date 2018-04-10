@@ -133,6 +133,8 @@
 "empty-no-history-title" = "無歷史可顯示";
 "empty-no-reading-lists-message" = "輕觸藍色的「+」來建立前往旅行的地點、喜愛的主題，以及更多其它事物的閱讀清單";
 "empty-no-reading-lists-title" = "組織已以閱讀清單儲存條目";
+"empty-no-saved-pages-in-reading-list-message" = "儲存頁面至此清單，以查看在此呈現的頁面";
+"empty-no-saved-pages-in-reading-list-title" = "沒有頁面儲存至此清單";
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
@@ -445,6 +447,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "抹除";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "若在裝置上您已啟用了同步，抹除您的已儲存條目時，將會從您的使用者帳號裡移除。\n\n抹除您的已儲存條目將會釋放出約 $1 空間。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "抹除已儲存條目";
+"settings-storage-and-syncing-full-sync" = "您的閱讀清單將會在背景執行同步";
 "settings-storage-and-syncing-server-sync-footer-text" = "請求自伺服器的同步，來更新至您的已同步條目與閱讀清單";
 "settings-storage-and-syncing-server-sync-title" = "更新已同步閱讀清單";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的閱讀清單檢視裡將已儲存（例如：預設的）閱讀清單各別顯示。此清單會呈現在 Android 裝置上";
