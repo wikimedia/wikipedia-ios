@@ -133,6 +133,8 @@
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-reading-lists-message" = "Tryck på det blåa \"+\" för att skapa läslistor över platser att resa till, favoritämnen och mycket mer";
 "empty-no-reading-lists-title" = "Organisera sparade artiklar med läslistor";
+"empty-no-saved-pages-in-reading-list-message" = "Spara sidor i denna lista för att se dem dyka upp här";
+"empty-no-saved-pages-in-reading-list-title" = "Inga sidor har sparats i denna lista";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
@@ -445,6 +447,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
+"settings-storage-and-syncing-full-sync" = "Dina läslistor kommer att synkroniseras i bakgrunden";
 "settings-storage-and-syncing-server-sync-footer-text" = "Begär en synkronisering från servern för en uppdatering av dina synkroniserade artiklar och läslistor";
 "settings-storage-and-syncing-server-sync-title" = "Uppdatera synkroniserade läslistor";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter";
