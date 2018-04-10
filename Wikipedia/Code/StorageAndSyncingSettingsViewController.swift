@@ -92,7 +92,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
-        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncIsEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncWasEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil)
     }
     
     deinit {
@@ -104,7 +104,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    @objc private func readingListsServerDidConfirmSyncIsEnabledForAccount(notification: Notification) {
+    @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
         if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
             tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
         }

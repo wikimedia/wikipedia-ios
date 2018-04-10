@@ -169,8 +169,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(readingListsServerDidConfirmSyncStateForAccountWithNotification:)
-                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncIsEnabledForAccountNotification]
+                                             selector:@selector(readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:)
+                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncWasEnabledForAccountNotification]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -354,10 +354,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists."), entryLimit] sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
 }
 
-- (void)readingListsServerDidConfirmSyncStateForAccountWithNotification:(NSNotification *)note {
-    BOOL isSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey] boolValue];
-    BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
-    if (!isSyncEnabledForAccount) {
+- (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
+    BOOL wasSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] boolValue];
+    BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
+    if (!wasSyncEnabledForAccount) {
         [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme
                                          didNotPresentPanelCompletion:^{
                                              [self wmf_showSyncDisabledPanelWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
