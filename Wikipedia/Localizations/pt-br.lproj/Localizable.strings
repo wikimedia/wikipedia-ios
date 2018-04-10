@@ -143,6 +143,8 @@
 "empty-no-history-title" = "Sem histórico para exibir";
 "empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de locais onde viajar, tópicos favoritos e muito mais";
 "empty-no-reading-lists-title" = "Organiza os artigos salvados com as listas de leitura";
+"empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
+"empty-no-saved-pages-in-reading-list-title" = "Não foram salvadas páginas nesta lista";
 "empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
 "empty-no-saved-pages-title" = "Sem páginas salvas ainda.";
 "empty-no-search-results-message" = "Nenhum resultado encontrado";
@@ -455,6 +457,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos salvados irá removê-los também da sua conta de usuário.\n\nApagar os seus artigos salvados libertará cerca de $1 de armazenamento.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos salvados";
+"settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma sincronização do servidor, para atualização dos seus artigos e listas de leitura sincronizados";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura salvados (por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";

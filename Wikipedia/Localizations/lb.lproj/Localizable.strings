@@ -105,6 +105,7 @@
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-history-message" = "Behaalt eng Trace vun deem wat Dir hei gelies hutt";
 "empty-no-history-title" = "Keen Historique vu Versioune weisen";
+"empty-no-saved-pages-in-reading-list-title" = "An dëser Lëscht si keng Säite gespäichert";
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
@@ -317,6 +318,7 @@
 "reading-lists-default-list-description" = "Standard-Lëscht fir Är gespäichert Artikelen";
 "reading-lists-default-list-title" = "Gespäichert";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Lëscht|Lëschte}} läschen?";
+"reading-lists-large-sync-completed" = "$1 Artikelen a(n) $2   Lieslëschte vun Ärem Benotzerkont synchroniséiert";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwaarze Layout";
 "reference-title" = "Referenz: $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Haut|Gëschter|Viru(n) $1 Deeg}}";
@@ -364,8 +366,10 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespäichert Artikele läschen";
+"settings-storage-and-syncing-full-sync" = "Är Lieslëschte ginn am Hannergrond synchroniséiert";
 "settings-storage-and-syncing-server-sync-title" = "Synchroniséiert Lieslëschten aktualiséieren";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespäichert Lieslëscht weisen";
+"settings-storage-and-syncing-title" = "Artikelspäicher a Synchronisatioun";
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
