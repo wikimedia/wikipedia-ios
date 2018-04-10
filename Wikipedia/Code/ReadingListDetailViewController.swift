@@ -11,7 +11,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     typealias T = ReadingListEntry
     var fetchedResultsController: NSFetchedResultsController<ReadingListEntry>?
     var collectionViewUpdater: CollectionViewUpdater<ReadingListEntry>?
-    private let pullToRefresh = UIRefreshControl()
     
     var basePredicate: NSPredicate {
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
@@ -46,7 +45,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        emptyViewType = .noSavedPages
+        emptyViewType = .noSavedPagesInReadingList
 
         navigationBar.title = readingList.name
         navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
@@ -58,18 +57,17 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fetch()
         
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
-        pullToRefresh.addTarget(self, action: #selector(pulledToRefresh), for: .valueChanged)
-        scrollView?.refreshControl = pullToRefresh
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
         }
+        
+        isRefreshControlEnabled = true
     }
     
-    @objc private func pulledToRefresh() {
+    override func refresh() {
         dataStore.readingListsController.fullSync {
-            self.pullToRefresh.endRefreshing()
+            self.endRefreshing()
         }
     }
     
@@ -123,11 +121,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
-            navigationBar.removeExtendedNavigationBarView()
         } else {
             title = nil
-            navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
         }
+        readingListDetailExtendedViewController.isSearchBarHidden = isEmpty
         updateScrollViewInsets()
         super.isEmptyDidChange()
     }

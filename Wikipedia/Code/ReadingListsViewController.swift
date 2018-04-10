@@ -120,7 +120,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }

@@ -102,6 +102,7 @@ extension UIViewController {
         
     @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel(),
+            WMFAuthenticationManager.sharedInstance.isLoggedIn,
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncRemotelyEnabled,
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
             return
@@ -119,7 +120,8 @@ extension UIViewController {
         
         let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         
-        present(panelVC, animated: true, completion: {
+        let presenter = self.presentedViewController ?? self
+        presenter.present(panelVC, animated: true, completion: {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
         })
     }
