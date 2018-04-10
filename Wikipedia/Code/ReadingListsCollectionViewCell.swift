@@ -91,7 +91,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .system
+        titleFontFamily = .systemSemiBold
         titleTextStyle = .body
         updateFonts(with: traitCollection)
     }
