@@ -61,7 +61,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
     }
 }
 
-class SyncDisabledPanel: ScrollableEducationPanelViewController {
+class SyncDisabledPanelViewController: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         image = UIImage(named: "reading-lists-sync-disabled")
