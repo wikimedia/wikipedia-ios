@@ -42,6 +42,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fatalError("init(coder:) not supported")
     }
     
+    var shouldShowEditButtonsForEmptyState: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -343,10 +347,17 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
         
-        if newEditingState == .done {
+        switch newEditingState {
+        case .open where isEmpty:
+            readingListDetailExtendedViewController.beginEditing()
+        case .done:
             readingListDetailExtendedViewController.finishEditing()
-        } else if newEditingState == .cancelled {
+        case .closed where isEmpty:
+            fallthrough
+        case .cancelled:
             readingListDetailExtendedViewController.cancelEditing()
+        default:
+            break
         }
     }
 }
