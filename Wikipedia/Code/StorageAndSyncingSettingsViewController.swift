@@ -66,7 +66,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var theme: Theme = Theme.standard
     @IBOutlet weak var tableView: UITableView!
     @objc public var dataStore: MWKDataStore?
-    private var indexPathsForCellsWithSwitches: [IndexPath] = []
+    private var indexPathForCellWithSyncSwitch: IndexPath?
     
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
@@ -92,16 +92,22 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
+        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncIsEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadRows(at: indexPathsForCellsWithSwitches, with: .none)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         tableView.reloadData()
+    }
+    
+    @objc private func readingListsServerDidConfirmSyncIsEnabledForAccount(notification: Notification) {
+        if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
+            tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
+        }
     }
     
     private var isSyncEnabled: Bool {
@@ -186,8 +192,8 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         cell.delegate = self
         cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, controlTag: settingsItem.type.rawValue, theme: theme)
     
-        if settingsItem.disclosureType == .switch {
-            indexPathsForCellsWithSwitches.append(indexPath)
+        if settingsItem.type == .syncSavedArticlesAndLists {
+            indexPathForCellWithSyncSwitch = indexPath
         }
         
         return cell
