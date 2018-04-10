@@ -130,12 +130,13 @@ extension UIViewController {
         return fetchedObjects.count > 0
     }
         
-    @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme) {
+    @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme, didNotPresentPanelCompletion: @escaping () -> Void = {}) {
         guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel(),
             WMFAuthenticationManager.sharedInstance.isLoggedIn,
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncRemotelyEnabled,
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
-            return
+                didNotPresentPanelCompletion()
+                return
         }
         
         let enableSyncTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
