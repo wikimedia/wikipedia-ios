@@ -38,12 +38,16 @@
                             </connections>
                         </button>
                     </subviews>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="cDy-Kw-ATH" firstAttribute="leading" secondItem="f2T-xz-pPZ" secondAttribute="leading" constant="12" id="63q-oq-wI0"/>
                         <constraint firstItem="cDy-Kw-ATH" firstAttribute="centerY" secondItem="f2T-xz-pPZ" secondAttribute="centerY" id="Btc-d4-WOK"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cDy-Kw-ATH" secondAttribute="trailing" constant="12" id="yRl-B4-i4c"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="sA1-Du-pXz"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="3D2-Ih-XyP" appends="YES" id="5R9-gq-LMx"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
                     <rect key="frame" x="0.0" y="0.0" width="529" height="109"/>
@@ -70,6 +74,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="rVc-9B-yHX" firstAttribute="leading" secondItem="Q55-Ot-WJE" secondAttribute="trailing" constant="12" placeholder="YES" id="1RW-7g-g8G"/>
                         <constraint firstItem="zkX-4T-Nfr" firstAttribute="trailing" secondItem="wCS-DM-ckl" secondAttribute="trailing" constant="12" id="7S1-d7-lM6"/>
@@ -80,6 +85,9 @@
                         <constraint firstItem="Q55-Ot-WJE" firstAttribute="centerY" secondItem="9Mi-lB-pMN" secondAttribute="centerY" id="stQ-gW-y4c"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="zkX-4T-Nfr"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="fxf-y7-eKu" appends="YES" id="I31-pl-am0"/>
+                    </connections>
                 </view>
             </subviews>
             <constraints>
@@ -96,6 +104,16 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="112.5" y="-224.5"/>
         </view>
+        <tapGestureRecognizer id="3D2-Ih-XyP">
+            <connections>
+                <action selector="addArticleToReadingList:" destination="-1" id="Dx4-pO-wKa"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="fxf-y7-eKu">
+            <connections>
+                <action selector="openReadingList" destination="-1" id="USn-ka-kqU"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="add-to-list" width="26" height="26"/>

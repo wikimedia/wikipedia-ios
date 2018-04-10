@@ -41,21 +41,9 @@ class ReadingListHintViewController: UIViewController {
         }
     }
     
-    private var tapHintGestureRecognizer: UIGestureRecognizer?
-    private var tapConfirmationGestureRecognizer: UIGestureRecognizer?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         isHintViewHidden = false
-        
-        tapHintGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addArticleToReadingList(_:)))
-        tapConfirmationGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openReadingList))
-        if let tapHintGestureRecognizer = tapHintGestureRecognizer {
-            hintView?.addGestureRecognizer(tapHintGestureRecognizer)
-        }
-        if let tapConfirmationGestureRecognizer = tapConfirmationGestureRecognizer {
-            confirmationView?.addGestureRecognizer(tapConfirmationGestureRecognizer)
-        }
         
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
@@ -76,12 +64,6 @@ class ReadingListHintViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        if let tapHintGestureRecognizer = tapHintGestureRecognizer {
-            hintView?.removeGestureRecognizer(tapHintGestureRecognizer)
-        }
-        if let tapConfirmationGestureRecognizer = tapConfirmationGestureRecognizer {
-            confirmationView?.removeGestureRecognizer(tapConfirmationGestureRecognizer)
-        }
     }
     
     func reset() {
