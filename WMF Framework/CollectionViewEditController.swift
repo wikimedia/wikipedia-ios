@@ -521,6 +521,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
+    public var shouldShowEditButtonsForEmptyState: Bool = false
+    
     var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
     
     @objc private func barButtonPressed(_ sender: UIBarButtonItem) {

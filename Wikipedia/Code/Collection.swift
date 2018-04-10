@@ -145,6 +145,7 @@ extension SortableCollection where Self: UIViewController {
 
 protocol EditableCollection: Collection {
     var editController: CollectionViewEditController! { get set }
+    var shouldShowEditButtonsForEmptyState: Bool { get }
     func setupEditController()
 }
 
@@ -152,8 +153,13 @@ extension EditableCollection where Self: ActionDelegate {
     func setupEditController() {
         editController = CollectionViewEditController(collectionView: collectionView)
         editController.delegate = self
+        editController.shouldShowEditButtonsForEmptyState = shouldShowEditButtonsForEmptyState
         if let navigationDelegate = self as? CollectionViewEditControllerNavigationDelegate {
             editController.navigationDelegate = navigationDelegate
         }
+    }
+    
+    var shouldShowEditButtonsForEmptyState: Bool {
+        return false
     }
 }
