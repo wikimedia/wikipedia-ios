@@ -159,9 +159,10 @@ extension UIViewController {
         })
     }
     
-    @objc func wmf_showSyncDisabledPanel(theme: Theme) {
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncDisabledPanel() else {
-            return
+    @objc func wmf_showSyncDisabledPanel(theme: Theme, wasSyncEnabledOnDevice: Bool) {
+        guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncDisabledPanel(),
+            wasSyncEnabledOnDevice else {
+                return
         }
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true)
