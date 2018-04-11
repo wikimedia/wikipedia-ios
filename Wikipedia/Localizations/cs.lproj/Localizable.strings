@@ -16,6 +16,7 @@
 // Author: Mormegil
 // Author: Nemo bis
 // Author: Niedzielski
+// Author: Patriccck
 // Author: Vojtěch Dostál
 // Author: Walter Klosse
 // Author: Zbyso23
@@ -59,7 +60,9 @@
 "action-saved" = "Uloženo";
 "action-share" = "Sdílet";
 "action-sort" = "Seřadit";
+"action-unsave" = "Neuloženo";
 "action-update" = "Aktualizovat";
+// Fuzzy
 "add-articles-to-reading-list" = "Přidat $1 do seznamu čtení";
 "alert-no-internet" = "Nemáte připojení k internetu";
 "announcements-dismiss" = "Zavřít";
@@ -100,6 +103,7 @@
 "empty-no-feed-title" = "Žádné připojení k internetu";
 "empty-no-history-message" = "Mějte přehled o tom, co jste zde četli";
 "empty-no-history-title" = "Žádná historie k zobrazení";
+// Fuzzy
 "empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste vytvořil(a) seznam míst, která byste chtěl(a) navštívit, oblíbených témat a mnohem více";
 "empty-no-reading-lists-title" = "Organizovat uložené články pomocí seznamů čtení";
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
@@ -208,6 +212,7 @@
 "reading-list-new-list-description-placeholder" = "Volitelný krátký popis";
 "reading-list-new-list-name-placeholder" = "Název seznamu čtení";
 "reading-list-sync-enable-button-title" = "Povolit synchronizace";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy čtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů čtení?";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";

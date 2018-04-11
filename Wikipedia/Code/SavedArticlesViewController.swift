@@ -36,16 +36,13 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewDidLoad() {
         super.viewDidLoad()
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-    
         setupEditController()
-        
         isRefreshControlEnabled = true
-        
         emptyViewType = .noSavedPages
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }
@@ -67,6 +64,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
+        if !isEmpty {
+            self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,18 +94,20 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], alertAction: nil)
     
-    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
 
-    lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, alertAction, _) in
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, action) in
-            self.updateSort(with:  sortDescriptors, newAction: action)
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, alertAction, _) in
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
         })
-        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+        return [title.type: title, recentlyAdded.type: recentlyAdded]
     }()
     
     lazy var sortAlert: UIAlertController = {

@@ -27,6 +27,7 @@
 "action-sort" = "چھانٹ";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
+// Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "announcements-dismiss" = "مکاؤ";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";

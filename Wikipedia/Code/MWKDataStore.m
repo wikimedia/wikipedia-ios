@@ -1561,6 +1561,16 @@ static uint64_t bundleHash() {
     [self.articlePreviewCache removeAllObjects];
 }
 
+- (void)clearCachesForUnsavedArticles {
+    [[WMFImageController sharedInstance] deleteTemporaryCache];
+    [[WMFImageController sharedInstance] removeLegacyCache];
+    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+        DDLogError(@"Error removing unreferenced articles: %@", error);
+    } success:^{
+        DDLogDebug(@"Successfully removed unreferenced articles");
+    }];
+}
+
 #pragma mark - Remote Configuration
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {

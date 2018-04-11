@@ -147,10 +147,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
             self.loginSuccessCompletion?()
             self.setViewControllerUserInteraction(enabled: true)
-            let presenter = self.presentingViewController
-            self.dismiss(animated: true, completion: {
-                presenter?.wmf_showEnableReadingListSyncPanelOncePerLogin(theme: self.theme)
-            })
+            self.dismiss(animated: true)
             self.funnel?.logSuccess()
         
         }, failure: { error in

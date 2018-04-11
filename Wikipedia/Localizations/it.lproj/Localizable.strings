@@ -81,7 +81,7 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
-"add-articles-to-reading-list" = "Aggiungi $1 all'elenco di lettura";
+"add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -130,6 +130,7 @@
 "empty-no-history-message" = "Tieni traccia di quello che hai letto qui";
 "empty-no-history-title" = "Nessuna cronologia da mostrare";
 "empty-no-reading-lists-title" = "Organizza le voci salvate in elenchi di lettura";
+"empty-no-saved-pages-in-reading-list-title" = "Nessuna pagina salvata in questo elenco";
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
@@ -245,6 +246,7 @@
 "menu-trash-accessibility-label" = "Cancella";
 "more-languages-tooltip-description" = "Cerca in Wikipedia in quasi 300 lingue";
 "more-languages-tooltip-title" = "Aggiungi lingue";
+"move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-km" = "$1 km";
@@ -350,7 +352,7 @@
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
-"settings-storage-and-syncing-server-sync-title" = "Sincronizza con il server";
+"settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto…";

@@ -68,6 +68,7 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
+// Fuzzy
 "add-articles-to-reading-list" = "Tilføj $1 til læselisten";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
@@ -122,6 +123,7 @@
 "empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-history-message" = "Hold styr på hvad du har læst her";
 "empty-no-history-title" = "Ingen historik at vise";
+// Fuzzy
 "empty-no-reading-lists-message" = "Tryk på det blå »+« for at oprette lister for steder at rejse til, favoritemner og meget mere";
 "empty-no-reading-lists-title" = "Organiser gemte artikler med læselister";
 "empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
@@ -345,6 +347,7 @@
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
 "reading-list-sync-enable-button-title" = "Aktiver synkronisering";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Dine gemte artikler og læselister kan nu gemmes på din Wikipediakonto og synkroniseres på tværs af enheder.";
 "reading-list-sync-enable-title" = "Aktiver synkronisering af læselister?";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
@@ -414,12 +417,15 @@
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Slet dine gemte artikler og fjern dem fra din brugerkonto, hvis du også har synkronisering aktiveret og fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring 364,4 MB plads.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Slet gemte artikler";
 "settings-storage-and-syncing-server-sync-footer-text" = "Anmod om en synkronisering fra serveren for en opdatering til dine synkroniserede artikler og læselister";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Synkroniser med serveren";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Vis den gemte (f.eks. standard) læseliste som en separat liste i din læselistevisning. Denne liste fremgår af Androidenheder";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Vis gemt læseliste";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Lagring og synkronisering af gemte artikler";
 "settings-support" = "Støt Wikipedia";
 "settings-title" = "Indstillinger";

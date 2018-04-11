@@ -176,11 +176,7 @@ class SavedViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionButton.titleLabel?.setFont(with: .system, style: .callout, traitCollection: traitCollection)
-        if let barButtonFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .callout, compatibleWithTraitCollection: traitCollection) {
-            navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: barButtonFont], for: .normal)
-            navigationItem.leftBarButtonItem?.setTitleTextAttributes([NSAttributedStringKey.font: barButtonFont], for: .normal)
-        }
+        actionButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
     }
     
     // MARK: - Sorting and searching
@@ -233,13 +229,10 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link

@@ -28,7 +28,7 @@ class WMFWelcomeIntroductionViewController: UIViewController {
             title:WMFLocalizedString("welcome-intro-free-encyclopedia-more-about", value:"About Wikipedia", comment:"Title for more information about Wikipedia"),
             message:"\(WMFLocalizedString("welcome-intro-free-encyclopedia-more-description", value:"Wikipedia is a global project to build free encyclopedias in all languages of the world. Virtually anyone with Internet access is free to participate by contributing neutral, cited information.", comment:"An explanation of how works"))",
             preferredStyle:.alert)
-        alert.addAction(UIAlertAction(title:WMFLocalizedString("welcome-explore-tell-me-more-done-button", value:"Got it", comment:"Text for button dismissing detailed explanation of new features"), style:.cancel, handler:nil))
+        alert.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style:.cancel, handler:nil))
         present(alert, animated:true, completion:nil)
     }
 }

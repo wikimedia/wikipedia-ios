@@ -149,8 +149,8 @@
 "hockeyapp-alert-always-send" = "ส่งเสมอ";
 "hockeyapp-alert-do-not-send" = "ไม่ต้องส่ง";
 "languages-title" = "เปลี่ยนภาษา";
-"main-menu-account-login" = "เข้าสู่ระบบ";
-"main-menu-account-logout" = "ออกจากระบบ";
+"main-menu-account-login" = "ลงชื่อเข้า";
+"main-menu-account-logout" = "ลงชื่อออก";
 // Fuzzy
 "main-menu-account-title-logged-in" = "ล็อกอินในชื่อ: $1";
 "main-menu-privacy-policy" = "นโยบายความเป็นส่วนตัว";

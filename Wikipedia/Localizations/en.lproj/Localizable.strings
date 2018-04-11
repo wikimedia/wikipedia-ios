@@ -113,6 +113,8 @@
 "empty-no-history-title" = "No history to show";
 "empty-no-reading-lists-message" = "Tap on the blue ‘+’ to create reading lists for places to travel to, favorite topics and much more";
 "empty-no-reading-lists-title" = "Organize saved articles with reading lists";
+"empty-no-saved-pages-in-reading-list-message" = "Save pages to this list to see them appear here";
+"empty-no-saved-pages-in-reading-list-title" = "No pages saved to this list";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-search-results-message" = "No results found";
@@ -326,6 +328,8 @@
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "No, remove articles from device and my Wikipedia account";
 "reading-list-keep-title" = "Keep saved articles on device?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sort articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.";
@@ -341,6 +345,8 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
+"reading-list-sync-disabled-panel-message" = "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.";
+"reading-list-sync-disabled-panel-title" = "Sync disabled";
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
@@ -364,6 +370,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "reading-lists-large-sync-completed" = "$1 articles and $2 reading lists synced from your account";
 "reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
+"reading-lists-sort-saved-articles" = "Sort saved articles";
+"reading-lists-split-notification" = "There is a limit of $1 articles per reading list. Existing lists with more than this limit have been split into multiple lists.";
 "reading-lists-sync-error-no-internet-connection" = "Syncing will resume when internet connection is available";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";
@@ -425,6 +433,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Erase";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about $1 of space.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Erase saved articles";
+"settings-storage-and-syncing-full-sync" = "Your reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request a sync from the server for an update to your synced articles and reading lists";
 "settings-storage-and-syncing-server-sync-title" = "Update synced reading lists";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices";
