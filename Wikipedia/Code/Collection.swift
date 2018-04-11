@@ -75,9 +75,9 @@ enum SortActionType: Int {
         let title: String
         switch self {
         case .byTitle:
-            title = WMFLocalizedString("sort-by-title-action", value: "Title", comment: "Title of the sort action that allows sorting articles by title.")
+            title = WMFLocalizedString("sort-by-title-action", value: "Title", comment: "Title of the sort action that allows sorting items by title.")
         case .byRecentlyAdded:
-            title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting articles by date added.")
+            title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting items by date added.")
         }
         
         let action = UIAlertAction(title: title, style: .default) { (action) in
