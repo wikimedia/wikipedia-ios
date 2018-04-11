@@ -92,7 +92,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
-        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncIsEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncWasEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil)
     }
     
     deinit {
@@ -104,7 +104,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    @objc private func readingListsServerDidConfirmSyncIsEnabledForAccount(notification: Notification) {
+    @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
         if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
             tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
         }
@@ -245,6 +245,10 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
             return
         }
         
+        guard let dataStore = self.dataStore else {
+            return
+        }
+        
         switch settingsItemType {
         case .syncSavedArticlesAndLists:
             if WMFAuthenticationManager.sharedInstance.loggedInUsername == nil && !isSyncEnabled {
@@ -252,14 +256,24 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                     sender.setOn(false, animated: true)
                 }
                 let loginSuccessCompletion: () -> Void = {
-                   self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                   dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                 }
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion)
             } else {
-                dataStore?.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
+                let setSyncEnabled = {
+                    dataStore.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
+                    
+                }
+                if !sender.isOn {
+                    self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                        setSyncEnabled()
+                    }
+                } else {
+                    setSyncEnabled()
+                }
             }
         case .showSavedReadingList:
-            dataStore?.readingListsController.isDefaultListEnabled = sender.isOn
+            dataStore.readingListsController.isDefaultListEnabled = sender.isOn
         default:
             return
         }
