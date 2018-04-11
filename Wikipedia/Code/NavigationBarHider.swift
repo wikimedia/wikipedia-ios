@@ -35,9 +35,10 @@ public class NavigationBarHider: NSObject {
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
     public var isNavigationBarHidingEnabled: Bool = true // setting this to false will only hide the extended view
+    public var isHidingEnabled: Bool = true // setting this to false will disable hiding of nav bar, underbar view and extended view
     
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar else {
+        guard let navigationBar = navigationBar, isHidingEnabled else {
             return
         }
         isUserScrolling = true
@@ -46,7 +47,7 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar else {
+        guard let navigationBar = navigationBar, isHidingEnabled else {
             return
         }
 
@@ -88,7 +89,7 @@ public class NavigationBarHider: NSObject {
     }
     
     @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let navigationBar = navigationBar else {
+        guard let navigationBar = navigationBar, isHidingEnabled else {
             return
         }
         
@@ -145,7 +146,7 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewWillScrollToTop(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar else {
+        guard let navigationBar = navigationBar, isHidingEnabled else {
             return
         }
         initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
