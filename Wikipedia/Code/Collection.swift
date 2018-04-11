@@ -113,11 +113,8 @@ extension SortableCollection where Self: UIViewController {
         return alert
     }
     
-    func updateSort(with newDescriptors: [NSSortDescriptor], newAction: UIAlertAction) {
-        guard sort.descriptors != newDescriptors else {
-            return
-        }
-        sort = (descriptors: newDescriptors, action: newAction)
+    func updateSort(with newDescriptors: [NSSortDescriptor], alertAction: UIAlertAction) {
+        sort = (descriptors: newDescriptors, alertAction: alertAction)
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
