@@ -212,6 +212,17 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     lazy var sortActions: [SortActionType: SortAction] = {
+        let moc = dataStore.viewContext
+        let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
+            self.readingList.sortOrder = NSNumber(value: rawValue)
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error {
+                    DDLogError("Error updating sort order: \(error)")
+                }
+            }
+        }
     }()
     
     lazy var sortAlert: UIAlertController = {
