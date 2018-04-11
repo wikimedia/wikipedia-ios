@@ -14,7 +14,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
 
     private let dataStore: MWKDataStore
     private weak var presenter: UIViewController?
-    private let hint: ReadingListHintViewController
+    private let hintVC: ReadingListHintViewController
     private let hintHeight: CGFloat = 50
     private var theme: Theme = Theme.standard
     private var didSaveArticle: Bool = false
@@ -36,26 +36,26 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
         self.dataStore = dataStore
         self.presenter = presenter
-        self.hint = ReadingListHintViewController()
-        self.hint.dataStore = dataStore
+        self.hintVC = ReadingListHintViewController()
+        self.hintVC.dataStore = dataStore
         super.init()
-        self.hint.delegate = self
+        self.hintVC.delegate = self
     }
     
     func removeHint() {
         task?.cancel()
-        hint.willMove(toParentViewController: nil)
-        hint.view.removeFromSuperview()
-        hint.removeFromParentViewController()
+        hintVC.willMove(toParentViewController: nil)
+        hintVC.view.removeFromSuperview()
+        hintVC.removeFromParentViewController()
         resetHint()
     }
     
     func addHint() {
-        hint.apply(theme: theme)
-        presenter?.addChildViewController(hint)
-        hint.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        presenter?.view.addSubview(hint.view)
-        hint.didMove(toParentViewController: presenter)
+        hintVC.apply(theme: theme)
+        presenter?.addChildViewController(hintVC)
+        hintVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        presenter?.view.addSubview(hintVC.view)
+        hintVC.didMove(toParentViewController: presenter)
     }
     
     var hintVisibilityTime: TimeInterval = 13 {
@@ -91,16 +91,16 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             // add hint before animation starts
             addHint()
             // set initial frame
-            if hint.view.frame.origin.y == 0 {
-                hint.view.frame = hintFrame.hidden
+            if hintVC.view.frame.origin.y == 0 {
+                hintVC.view.frame = hintFrame.hidden
             }
         }
         
         updateRandom(hintHidden)
         
         UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-            self.hint.view.frame = frame
-            self.hint.view.setNeedsLayout()
+            self.hintVC.view.frame = frame
+            self.hintVC.view.setNeedsLayout()
         }, completion: { (_) in
             // remove hint after animation is completed
             self.isHintHidden = hintHidden
@@ -127,8 +127,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         didSaveArticle = didSave
         self.theme = theme
         
-        let didSaveOtherArticle = didSave && !isHintHidden && article != hint.article
-        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != hint.article
+        let didSaveOtherArticle = didSave && !isHintHidden && article != hintVC.article
+        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != hintVC.article
         
         guard !didUnsaveOtherArticle else {
             return
@@ -137,18 +137,18 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         guard !didSaveOtherArticle else {
             resetHint()
             dismissHint()
-            hint.article = article
+            hintVC.article = article
             return
         }
         
-        hint.article = article
+        hintVC.article = article
         setHintHidden(!didSave)
     }
     
     private func resetHint() {
         didSaveArticle = false
         hintVisibilityTime = 13
-        hint.reset()
+        hintVC.reset()
     }
     
     @objc func didSave(_ saved: Bool, articleURL: URL, theme: Theme) {
