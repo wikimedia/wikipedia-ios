@@ -140,6 +140,13 @@ extension SortableCollection where Self: UIViewController {
     var baseSortDescriptors: [NSSortDescriptor] {
         return sort.descriptors.isEmpty ? defaultSortDescriptors : sort.descriptors
     }
+    
+    var defaultSortDescriptors: [NSSortDescriptor] {
+        guard let defaultSortAction = defaultSortAction else {
+            assertionFailure("Sort action not found")
+            return []
+        }
+        return defaultSortAction.sortDescriptors
     }
 }
 
