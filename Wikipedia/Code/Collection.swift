@@ -83,13 +83,14 @@ enum SortActionType: Int {
         let alertAction = UIAlertAction(title: title, style: .default) { (alertAction) in
             handler(sortDescriptors, alertAction, self.rawValue)
         }
-        return SortAction(action: action, type: self)
+        return SortAction(alertAction: alertAction, type: self, sortDescriptors: sortDescriptors)
     }
 }
 
 struct SortAction {
     let alertAction: UIAlertAction
     let type: SortActionType
+    let sortDescriptors: [NSSortDescriptor]
 }
 
 protocol SortableCollection: UpdatableCollection {
