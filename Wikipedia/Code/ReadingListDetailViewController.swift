@@ -188,7 +188,17 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+        get {
+            guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+                return ([], nil)
+            }
+            return (sortAction.sortDescriptors, sortAction.alertAction)
+        }
+        set {
+            
+        }
+    }
     
     var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
