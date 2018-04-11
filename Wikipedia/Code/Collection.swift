@@ -88,7 +88,7 @@ enum SortActionType: Int {
 }
 
 struct SortAction {
-    let action: UIAlertAction
+    let alertAction: UIAlertAction
     let type: SortActionType
 }
 
