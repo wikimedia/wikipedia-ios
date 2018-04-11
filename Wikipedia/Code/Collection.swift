@@ -107,7 +107,7 @@ extension SortableCollection where Self: UIViewController {
     
     func alert(title: String, message: String?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        sortActions.values.forEach { alert.addAction($0) }
+        sortActions.values.forEach { alert.addAction($0.alertAction) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
         return alert
@@ -126,8 +126,8 @@ extension SortableCollection where Self: UIViewController {
     func updateSortActionCheckmark() {
         // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
         let checkedKey = "checked"
-        sortActions.values.forEach { $0.setValue(false, forKey: checkedKey) }
-        let checkedAction = sort.action ?? defaultSortAction
+        sortActions.values.forEach { $0.alertAction.setValue(false, forKey: checkedKey) }
+        let checkedAction = sort.alertAction ?? defaultSortAction?.alertAction
         checkedAction?.setValue(true, forKey: checkedKey)
     }
     
