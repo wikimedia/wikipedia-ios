@@ -94,8 +94,8 @@ struct SortAction {
 }
 
 protocol SortableCollection: UpdatableCollection {
-    var defaultSortAction: UIAlertAction? { get }
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) { get set }
+    var defaultSortAction: SortAction? { get }
     var sortActions: [SortActionType: SortAction] { get }
     var sortAlert: UIAlertController { get }
     func presentSortAlert(from button: UIButton)
