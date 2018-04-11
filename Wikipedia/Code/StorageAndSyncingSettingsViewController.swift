@@ -66,7 +66,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var theme: Theme = Theme.standard
     @IBOutlet weak var tableView: UITableView!
     @objc public var dataStore: MWKDataStore?
-    private var indexPathsForCellsWithSwitches: [IndexPath] = []
+    private var indexPathForCellWithSyncSwitch: IndexPath?
     
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
@@ -92,16 +92,22 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
+        NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncWasEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadRows(at: indexPathsForCellsWithSwitches, with: .none)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         tableView.reloadData()
+    }
+    
+    @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
+        if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
+            tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
+        }
     }
     
     private var isSyncEnabled: Bool {
@@ -186,8 +192,8 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         cell.delegate = self
         cell.configure(disclosureType, title: settingsItem.title, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, controlTag: settingsItem.type.rawValue, theme: theme)
     
-        if settingsItem.disclosureType == .switch {
-            indexPathsForCellsWithSwitches.append(indexPath)
+        if settingsItem.type == .syncSavedArticlesAndLists {
+            indexPathForCellWithSyncSwitch = indexPath
         }
         
         return cell
@@ -239,6 +245,10 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
             return
         }
         
+        guard let dataStore = self.dataStore else {
+            return
+        }
+        
         switch settingsItemType {
         case .syncSavedArticlesAndLists:
             if WMFAuthenticationManager.sharedInstance.loggedInUsername == nil && !isSyncEnabled {
@@ -246,14 +256,24 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                     sender.setOn(false, animated: true)
                 }
                 let loginSuccessCompletion: () -> Void = {
-                   self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                   dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
                 }
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion)
             } else {
-                dataStore?.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
+                let setSyncEnabled = {
+                    dataStore.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
+                    
+                }
+                if !sender.isOn {
+                    self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                        setSyncEnabled()
+                    }
+                } else {
+                    setSyncEnabled()
+                }
             }
         case .showSavedReadingList:
-            dataStore?.readingListsController.isDefaultListEnabled = sender.isOn
+            dataStore.readingListsController.isDefaultListEnabled = sender.isOn
         default:
             return
         }

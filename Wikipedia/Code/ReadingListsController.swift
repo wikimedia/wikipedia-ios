@@ -88,11 +88,15 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
-    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncIsEnabledForAccount")
-    @objc public static let readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey = NSNotification.Name("isSyncEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncWasEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey = NSNotification.Name("wasSyncEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey = NSNotification.Name("wasSyncEnabledOnDevice")
     
     @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
+    
+    @objc public static let readingListsWereSplitNotification = NSNotification.Name("WMFReadingListsWereSplit")
+    @objc public static let readingListsWereSplitNotificationEntryLimitKey = NSNotification.Name("WMFReadingListsWereSplitNotificationEntryLimitKey")
     
     @objc public static let syncDidFinishNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
     @objc public static let syncDidFinishErrorKey = NSNotification.Name(rawValue: "error")
@@ -191,20 +195,9 @@ public class ReadingListsController: NSObject {
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
-        let name = name.precomposedStringWithCanonicalMapping
-        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
-        existingOrDefaultListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingOrDefaultListRequest).first
-        
-        if let list = result {
-            if list.isDefault {
-                if list.name == name {
-                    throw ReadingListError.listExistsWithTheSameName
-                }
-            } else {
-               throw ReadingListError.listExistsWithTheSameName
-            }
+        let listExistsWithTheSameName = try listExists(with: name, in: moc)
+        guard !listExistsWithTheSameName else {
+            throw ReadingListError.listExistsWithTheSameName
         }
         
         guard let list = moc.wmf_create(entityNamed: "ReadingList", withKeysAndValues: ["canonicalName": name, "readingListDescription": description]) as? ReadingList else {
@@ -217,6 +210,15 @@ public class ReadingListsController: NSObject {
         
         try add(articles: articles, to: list, in: moc)
         return list
+    }
+    
+    func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
+        let name = name.precomposedStringWithCanonicalMapping
+        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.fetchLimit = 2
+        let lists = try moc.fetch(existingOrDefaultListRequest)
+        return lists.first(where: { $0.name == name }) != nil
     }
     
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
@@ -415,9 +417,11 @@ public class ReadingListsController: NSObject {
         }
     }
     
-    func postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(_ syncWasEnabled: Bool) {
+    func postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(_ wasSyncEnabledForAccount: Bool) {
+        // we want to know if sync was ever enabled on this device
+        let wasSyncEnabledOnDevice = apiController.lastRequestType == .setup
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey: NSNumber(value: syncWasEnabled)])
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice)])
         }
     }
     

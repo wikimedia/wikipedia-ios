@@ -328,6 +328,8 @@
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Yes, keep articles on device";
 "reading-list-keep-subtitle" = "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "No, remove articles from device and my Wikipedia account";
 "reading-list-keep-title" = "Keep saved articles on device?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sort articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "There is a limit of 5000 unsorted articles. Please sort your existing articles into lists to continue the syncing of unsorted articles.";
@@ -343,6 +345,8 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optional short description";
 "reading-list-new-list-name-placeholder" = "reading list title";
+"reading-list-sync-disabled-panel-message" = "Reading list syncing has been disabled for your Wikipedia account on another device. You can turn sync back on by updating your settings.";
+"reading-list-sync-disabled-panel-title" = "Sync disabled";
 "reading-list-sync-enable-button-title" = "Enable syncing";
 "reading-list-sync-enable-subtitle" = "Your saved articles and reading lists can now be saved to your Wikipedia account and synced across Wikipedia apps.";
 "reading-list-sync-enable-title" = "Turn on reading list syncing?";
@@ -366,6 +370,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Delete {{PLURAL:$1|list|lists}}?";
 "reading-lists-large-sync-completed" = "$1 articles and $2 reading lists synced from your account";
 "reading-lists-list-not-synced-limit-exceeded" = "List not synced, limit exceeded";
+"reading-lists-split-notification" = "There is a limit of $1 articles per reading list. Existing lists with more than this limit have been split into multiple lists.";
 "reading-lists-sync-error-no-internet-connection" = "Syncing will resume when internet connection is available";
 "reading-themes-controls-accessibility-black-theme-button" = "Black theme";
 "reading-themes-controls-accessibility-brightness-slider" = "Brightness slider";

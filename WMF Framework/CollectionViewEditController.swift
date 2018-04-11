@@ -398,7 +398,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         let rightBarButtonSystemItem: UIBarButtonSystemItem?
         let leftBarButtonSystemItem: UIBarButtonSystemItem?
-        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
+        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly) || shouldShowEditButtonsForEmptyState
         
         switch newValue {
         case .editing:
@@ -422,7 +422,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             transformBatchEditPane(for: editingState)
         case .empty:
             leftBarButtonSystemItem = nil
-            rightBarButtonSystemItem = nil
+            rightBarButtonSystemItem = shouldShowEditButtonsForEmptyState ? .edit : nil
             isBatchEditToolbarHidden = true
         default:
             leftBarButtonSystemItem = nil
@@ -461,6 +461,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
+        guard !isCollectionViewEmpty else {
+            return
+        }
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -521,6 +524,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
+    public var shouldShowEditButtonsForEmptyState: Bool = false
+    
     var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
     
     @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
@@ -528,7 +533,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let newEditingState: EditingState
         
         switch currentEditingState {
-
         case .open:
             newEditingState = .closed
         case .swiping:
