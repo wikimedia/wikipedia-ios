@@ -200,7 +200,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
-    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
     
     lazy var sortActions: [SortActionType: UIAlertAction] = {
         let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
@@ -210,6 +209,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
             self.updateSort(with: sortDescriptors, newAction: action)
         })
         return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
     }()
     
     lazy var sortAlert: UIAlertController = {
