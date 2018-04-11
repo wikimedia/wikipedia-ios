@@ -223,6 +223,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
                 }
             }
         }
+        
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (sortDescriptors: [NSSortDescriptor], alertAction: UIAlertAction, rawValue: Int) in
+            updateSortOrder(rawValue)
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
+        }
     }()
     
     lazy var sortAlert: UIAlertController = {
