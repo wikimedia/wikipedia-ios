@@ -55,7 +55,7 @@ class KeepSavedArticlesOnDevicePanelViewController : ScrollableEducationPanelVie
             subheading = CommonStrings.keepSavedArticlesOnDeviceMessage
             secondaryButtonTitle = CommonStrings.readingListDoNotKeepSubtitle
         } else if trigger == .syncDisabled {
-            subheading = CommonStrings.keepSavedArticlesOnDeviceMessage + "\n" + WMFLocalizedString("reading-list-keep-sync-disabled-additional-subtitle", value: "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.", comment: "Additional subtitle informing user that turning sync off will remove saved articles from their account.")
+            subheading = CommonStrings.keepSavedArticlesOnDeviceMessage + "\n\n" + WMFLocalizedString("reading-list-keep-sync-disabled-additional-subtitle", value: "Turning sync off will remove these articles from your account. If you remove them from your device they will not be recoverable by turning sync on again in the future.", comment: "Additional subtitle informing user that turning sync off will remove saved articles from their account.")
             secondaryButtonTitle = WMFLocalizedString("reading-list-keep-sync-disabled-remove-article-button-title", value: "No, remove articles from device and my Wikipedia account", comment: "Title for button that removes save articles from device and Wikipedia account.")
         }
     }
