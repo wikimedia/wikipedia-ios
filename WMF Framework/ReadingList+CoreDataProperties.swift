@@ -23,7 +23,7 @@ extension ReadingList {
     @NSManaged public var articles: Set<WMFArticle>?
     @NSManaged public var entries: Set<ReadingListEntry>?
     @NSManaged public var previewArticles: NSOrderedSet?
-    
+    @NSManaged public var sortOrder: Int64
     
     public var name: String? {
         set {
