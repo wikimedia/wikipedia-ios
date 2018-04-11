@@ -370,7 +370,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed.";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
-"reading-lists-sort-saved-articles" = "Title of the alert that allows sorting sorting saved articles.";
+"reading-lists-sort-saved-articles" = "Title of the alert that allows sorting saved articles.";
 "reading-lists-split-notification" = "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists.";
 "reading-lists-sync-error-no-internet-connection" = "Alert message informing user that syncing will resume when internet connection is available.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
