@@ -185,17 +185,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 if updateError == nil {
                     DispatchQueue.main.async {
                         self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                        self.readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(true)
+                        self.readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(true)
                         self.finish()
                     }
                 } else {
+                    // do not post the notification if sync was disabled on this device
                     if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
-                        readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
+                        readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                     }
                     try localSyncOnly()
                 }
             } else {
-                readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
+                readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                 try localSyncOnly()
             }
             return
