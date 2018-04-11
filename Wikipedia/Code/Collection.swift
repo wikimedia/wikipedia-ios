@@ -80,8 +80,8 @@ enum SortActionType: Int {
             title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting items by date added.")
         }
         
-        let action = UIAlertAction(title: title, style: .default) { (action) in
-            handler(sortDescriptors, action)
+        let alertAction = UIAlertAction(title: title, style: .default) { (alertAction) in
+            handler(sortDescriptors, alertAction, self.rawValue)
         }
         return SortAction(action: action, type: self)
     }
