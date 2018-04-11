@@ -124,6 +124,8 @@
 "empty-no-history-title" = "Keine Versionsgeschichte anzuzeigen";
 "empty-no-reading-lists-message" = "Tippe auf das blaue „+“, um Leselisten für Reiseziele, Lieblingsthemen und vieles mehr zu erstellen.";
 "empty-no-reading-lists-title" = "Organisiere gespeicherte Artikel mit Leselisten";
+"empty-no-saved-pages-in-reading-list-message" = "Speichere Seiten in diese Liste, um sie hier zu sehen.";
+"empty-no-saved-pages-in-reading-list-title" = "In dieser Liste sind keine Seiten gespeichert";
 "empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
 "empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
@@ -436,6 +438,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Löschen";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel wird ungefähr $1 Speicherplatz freigeben.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespeicherte Artikel löschen";
+"settings-storage-and-syncing-full-sync" = "Deine Leselisten werden im Hintergrund synchronisiert";
 "settings-storage-and-syncing-server-sync-footer-text" = "Fordert eine Synchronisierung vom Server für eine Aktualisierung deiner synchronisierten Artikel und Leselisten an";
 "settings-storage-and-syncing-server-sync-title" = "Synchronisierte Leselisten aktualisieren";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Zeigt die gespeicherte Leseliste (z.&nbsp;B. die Standardliste) als separate Liste in deiner Leselistenansicht an. Diese Liste erscheint auf Android-Geräten.";

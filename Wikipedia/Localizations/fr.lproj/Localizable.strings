@@ -139,6 +139,8 @@
 "empty-no-history-title" = "Aucun historique à afficher";
 "empty-no-reading-lists-message" = "Appuyez sur le '+' bleu pour créer des listes de lecture pour des endroits à visiter, des sujets favoris et autres";
 "empty-no-reading-lists-title" = "Organiser les articles enregistrés avec les listes de lecture";
+"empty-no-saved-pages-in-reading-list-message" = "Enregistrer des pages dans cette liste pour les voir apparaître ici";
+"empty-no-saved-pages-in-reading-list-title" = "Aucune page enregistrée dans cette liste";
 "empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
@@ -451,6 +453,7 @@
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Effacer";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, et depuis cet appareil.\n\nEffacer vos articles enregistrés libérera environ $1 d’espace.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Effacer les articles enregistrés";
+"settings-storage-and-syncing-full-sync" = "Vos listes de lecture seront synchronisées en tâche de fond";
 "settings-storage-and-syncing-server-sync-footer-text" = "Demander une synchronisation pour le serveur pour une mise à jour de vos articles et de vos listes de lecture synchronisés";
 "settings-storage-and-syncing-server-sync-title" = "Mise à jour des listes de lecture synchronisées";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Afficher la liste de lecture Sauvegardés (par ex. défaut) comme une liste séparée dans la vue de vos listes de lecture. Cette liste apparaît sur les appareils Android";

@@ -75,8 +75,7 @@
 "action-unsave" = "No ho desis";
 "action-unsaved-accessibility-notification" = "Article no desat";
 "action-update" = "Actualitza";
-// Fuzzy
-"add-articles-to-reading-list" = "Afegeix $1 a la llista de lectura";
+"add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
@@ -130,6 +129,8 @@
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
+"empty-no-saved-pages-in-reading-list-message" = "Desa les pàgines a aquesta llista perquè hi apareguin";
+"empty-no-saved-pages-in-reading-list-title" = "No s'han desat pàgines a la llista";
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
@@ -330,8 +331,10 @@
 "reading-list-add-saved-title" = "S'han trobat articles desats";
 "reading-list-deleted-accessibility-notification" = "S'ha eliminat la llista de lectura";
 "reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
+"reading-list-entry-limit-exceeded-title" = "Heu sobrepassat el límit de $1 articles per compte.";
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
+"reading-list-keep-title" = "Voleu mantenir els articles desats al dispositiu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordena els articles";
 "reading-list-login-or-create-account-button-title" = "Inicia una sessió o crea un compte";
 "reading-list-login-or-create-account-title" = "Inicia una sessió per a sincronitzar els articles desats";
@@ -341,9 +344,9 @@
 "reading-list-sync-enable-button-title" = "Habilita la sincronització";
 "reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
+"reading-lists-article-not-synced" = "No sincronitzat";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
-// Fuzzy
-"reading-lists-default-list-description" = "Llista per defecte dels articles desats";
+"reading-lists-default-list-description" = "Llista per defecte dels vostres articles desats";
 "reading-lists-default-list-title" = "Desats";
 "reading-lists-delete-reading-list-alert-title" = "Voleu suprimir {{PLURAL:$1|la llista|les llistes}}?";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema negre";
@@ -363,6 +366,7 @@
 "saved-all-articles-title" = "Tots els articles";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
+"saved-pages-progress-syncing" = "Sincronització d'articles en curs...";
 "saved-reading-lists-title" = "Llistes de lectura";
 "saved-search-default-text" = "Cerca";
 "saved-title" = "Desat";
@@ -394,6 +398,8 @@
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Mostra la llista de lectura Desats";
+"settings-storage-and-syncing-title" = "Emmagatzemament d'articles i sincronització";
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";

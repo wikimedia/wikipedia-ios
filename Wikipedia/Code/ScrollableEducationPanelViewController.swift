@@ -131,7 +131,9 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         
         reset()
         primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
-        secondaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
+        secondaryButton.titleLabel?.numberOfLines = 2
+        secondaryButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        secondaryButton.titleLabel?.textAlignment = .center
         closeButton.isHidden = !showCloseButton
         
         [self.view, self.roundedCornerContainer].forEach {view in
@@ -170,6 +172,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         // Call to 'layoutIfNeeded' is required to ensure changes made in 'adjustImageViewVisibility' are
         // reflected correctly on rotation.
         view.layoutIfNeeded()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        secondaryButton.titleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {

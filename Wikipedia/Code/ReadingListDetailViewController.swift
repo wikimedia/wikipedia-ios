@@ -42,6 +42,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         fatalError("init(coder:) not supported")
     }
     
+    var shouldShowEditButtonsForEmptyState: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -174,28 +178,58 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
     // MARK: - Filtering
     
     var searchString: String?
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+        get {
+            guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+                return ([], nil)
+            }
+            return (sortAction.sortDescriptors, sortAction.alertAction)
+        }
+        set {
+            
+        }
+    }
     
-    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
     
-    lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
-        })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
-        })
-        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let moc = dataStore.viewContext
+        let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
+            self.readingList.sortOrder = NSNumber(value: rawValue)
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error {
+                    DDLogError("Error updating sort order: \(error)")
+                }
+            }
+        }
+        
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (sortDescriptors: [NSSortDescriptor], alertAction: UIAlertAction, rawValue: Int) in
+            updateSortOrder(rawValue)
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
+        }
+        
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
+        let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: handler)
+        
+        return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
     }()
     
     lazy var sortAlert: UIAlertController = {
-        return alert(title: "Sort saved articles", message: nil)
+        return alert(title: WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles."), message: nil)
     }()
 }
 
@@ -339,10 +373,17 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
             navigationItem.leftBarButtonItem?.tintColor = theme.colors.link
         }
         
-        if newEditingState == .done {
+        switch newEditingState {
+        case .open where isEmpty:
+            readingListDetailExtendedViewController.beginEditing()
+        case .done:
             readingListDetailExtendedViewController.finishEditing()
-        } else if newEditingState == .cancelled {
+        case .closed where isEmpty:
+            fallthrough
+        case .cancelled:
             readingListDetailExtendedViewController.cancelEditing()
+        default:
+            break
         }
     }
 }

@@ -185,17 +185,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 if updateError == nil {
                     DispatchQueue.main.async {
                         self.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                        self.readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(true)
+                        self.readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(true)
                         self.finish()
                     }
                 } else {
+                    // do not post the notification if sync was disabled on this device
                     if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
-                        readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
+                        readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                     }
                     try localSyncOnly()
                 }
             } else {
-                readingListsController.postReadingListsServerDidConfirmSyncIsEnabledForAccountNotification(false)
+                readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                 try localSyncOnly()
             }
             return
@@ -428,6 +429,52 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
     }
     
+    private func split(readingList: ReadingList, intoReadingListsOfSize size: Int, in moc: NSManagedObjectContext) throws -> [ReadingList] {
+        var newReadingLists: [ReadingList] = []
+        
+        guard let readingListName = readingList.name else {
+            assertionFailure("Missing reading list name")
+            return newReadingLists
+        }
+        
+        let entries = Array(readingList.entries ?? [])
+        let entriesCount = Int(readingList.countOfEntries)
+        
+        let splitEntriesArrays = stride(from: size, to: entriesCount, by: size).map {
+            Array(entries[$0..<min($0 + size, entriesCount)])
+        }
+        
+        for (index, splitEntries) in splitEntriesArrays.enumerated() {
+            guard let newReadingList = NSEntityDescription.insertNewObject(forEntityName: "ReadingList", into: moc) as? ReadingList else {
+                continue
+            }
+            let splitIndex = index + 1
+            var newReadingListName = "\(readingListName)_\(splitIndex)"
+            while try readingListsController.listExists(with: newReadingListName, in: moc) {
+                newReadingListName = "\(newReadingListName)_\(splitIndex)"
+            }
+            newReadingList.name = newReadingListName
+            newReadingList.createdDate = NSDate()
+            newReadingList.updatedDate = newReadingList.createdDate
+            newReadingList.isUpdatedLocally = true
+            for splitEntry in splitEntries {
+                splitEntry.list = newReadingList
+                splitEntry.isUpdatedLocally = true
+            }
+            readingList.isUpdatedLocally = true
+            try readingList.updateArticlesAndEntries()
+            try newReadingList.updateArticlesAndEntries()
+            newReadingLists.append(newReadingList)
+        }
+        newReadingLists.append(readingList)
+        if newReadingLists.count > 0 {
+            let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
+            NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
+            UserDefaults.wmf_userDefaults().wmf_setDidSplitExistingReadingLists(true)
+        }
+        return newReadingLists
+    }
+    
     
     func processLocalUpdates(in moc: NSManagedObjectContext) throws {
         let taskGroup = WMFTaskGroup()
@@ -452,7 +499,14 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         // if it has no id and is deleted locally, it can just be deleted
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
-                        listsToCreate.append(localReadingList)
+                        let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
+                        if localReadingList.countOfEntries > entryLimit && !UserDefaults.wmf_userDefaults().wmf_didSplitExistingReadingLists() {
+                            if let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
+                                listsToCreate.append(contentsOf: splitReadingLists)
+                            }
+                        } else {
+                            listsToCreate.append(localReadingList)
+                        }
                     }
                     return
                 }
