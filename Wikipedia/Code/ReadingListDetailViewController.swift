@@ -67,6 +67,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
         
         isRefreshControlEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     override func refresh() {
@@ -75,8 +77,19 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc private func dismissController() {
         dismiss(animated: true)
+    }
+    
+    @objc private func articleWasUpdated(_ notification: Notification) {
+        guard let article = notification.object as? WMFArticle, article.changedValues()["isDownloaded"] != nil else {
+            return
+        }
+        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
