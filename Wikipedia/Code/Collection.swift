@@ -68,7 +68,7 @@ extension SearchableCollection where Self: EditableCollection {
     }
 }
 
-enum SortActionType {
+enum SortActionType: Int {
     case byTitle, byRecentlyAdded
     
     func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction) -> ()) -> SortAction {
