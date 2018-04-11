@@ -138,7 +138,8 @@ extension SortableCollection where Self: UIViewController {
     }
     
     var baseSortDescriptors: [NSSortDescriptor] {
-        return sort.descriptors
+        return sort.descriptors.isEmpty ? defaultSortDescriptors : sort.descriptors
+    }
     }
 }
 
