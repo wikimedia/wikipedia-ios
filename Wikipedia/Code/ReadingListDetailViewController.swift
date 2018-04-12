@@ -165,6 +165,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         readingListDetailUnderBarViewController.apply(theme: theme)
+        searchBarExtendedViewController?.apply(theme: theme)
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
