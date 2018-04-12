@@ -56,8 +56,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         emptyViewType = .noSavedPagesInReadingList
 
         navigationBar.title = readingList.name
-        navigationBar.addExtendedNavigationBarView(readingListDetailExtendedViewController.view)
-        navigationBar.extendedViewPercentHiddenForShowingTitle = 0.4
+        navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
         
         setupFetchedResultsController()
