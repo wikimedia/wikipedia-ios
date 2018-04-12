@@ -396,6 +396,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-lists-large-sync-completed" = "$1 articles et $2 listes de lecture synchronisés depuis votre compte";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste non synchronisée, du fait d’un dépassement de limite";
+"reading-lists-sort-saved-articles" = "Trier les articles enregistrés";
 "reading-lists-split-notification" = "Il y a une limite de $1 articles par liste de lecture. Les listes existantes avec plus d’articles que cette limite seront coupées en plusieurs listes.";
 "reading-lists-sync-error-no-internet-connection" = "La synchronisation reprendra quand la connexion internet sera disponible";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";

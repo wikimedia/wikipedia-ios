@@ -112,8 +112,7 @@
 "article-languages-others" = "Другие языки";
 "article-languages-yours" = "Ваши языки";
 "article-read-more-title" = "Подробнее";
-// Fuzzy
-"article-save-error-not-enough-space" = "Вам не хватает места на вашем устройстве, чтобы сохранить эту статью";
+"article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
@@ -153,8 +152,7 @@
 "empty-no-reading-lists-title" = "Организуйте сохраненные статьи с помощью списков чтения";
 // Fuzzy
 "empty-no-saved-pages-in-reading-list-message" = "Сохраните страницы в этом списке, чтобы увидеть их здесь.";
-// Fuzzy
-"empty-no-saved-pages-in-reading-list-title" = "Нет страниц, сохраненных в этом списке";
+"empty-no-saved-pages-in-reading-list-title" = "В этом списке нет сохранённых страниц";
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
@@ -385,10 +383,10 @@
 "reading-list-login-or-create-account-title" = "Войдите в систему, чтобы синхронизировать сохранённые статьи";
 "reading-list-login-subtitle" = "Войдите в систему или создайте учетную запись, чтобы ваши сохраненные статьи и списки чтения были синхронизированы между устройствами и сохранены в пользовательских настройках.";
 "reading-list-login-title" = "Синхронизировать сохраненные статьи?";
-// Fuzzy
 "reading-list-name-user-created-annotation" = "_[участник создан]";
 "reading-list-new-list-description-placeholder" = "Необязательное короткое описание";
 "reading-list-new-list-name-placeholder" = "заголовок списка для чтения";
+"reading-list-sync-disabled-panel-title" = "Синхронизация отключена";
 "reading-list-sync-enable-button-title" = "Включить синхронизацию";
 "reading-list-sync-enable-subtitle" = "Ваши сохранённые статьи и списки для чтения теперь могут быть сохранены в учётной записи в Википедии и синхронизированы между приложениями Википедии.";
 "reading-list-sync-enable-title" = "Включить синхронизацию списков для чтения?";
@@ -413,6 +411,7 @@
 // Fuzzy
 "reading-lists-large-sync-completed" = "Статьи за $1 и списки чтения в $2, синхронизированные с вашей учетной записью";
 "reading-lists-list-not-synced-limit-exceeded" = "Список не синхронизирован, превышен лимит";
+"reading-lists-sort-saved-articles" = "Отсортировать сохранённые статьи";
 // Fuzzy
 "reading-lists-sync-error-no-internet-connection" = "Синхронизация возобновится при доступе к Интернету";
 "reading-themes-controls-accessibility-black-theme-button" = "Чёрная тема";
