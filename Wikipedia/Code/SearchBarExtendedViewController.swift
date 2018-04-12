@@ -85,6 +85,7 @@ extension SearchBarExtendedViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         separatorView.backgroundColor = theme.colors.border
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
