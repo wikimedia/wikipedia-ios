@@ -26,7 +26,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var cellLayoutEstimate: WMFLayoutEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
-    private let readingListDetailExtendedViewController: ReadingListDetailExtendedViewController
+    private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
+    private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
 
     init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
