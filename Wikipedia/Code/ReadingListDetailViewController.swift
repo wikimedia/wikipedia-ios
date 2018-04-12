@@ -108,7 +108,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        readingListDetailExtendedViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        readingListDetailUnderBarViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -155,7 +155,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         } else {
             title = nil
         }
-        readingListDetailExtendedViewController.isSearchBarHidden = isEmpty
+        readingListDetailUnderBarViewController.isSearchBarHidden = isEmpty
         updateScrollViewInsets()
         super.isEmptyDidChange()
     }
@@ -164,7 +164,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        readingListDetailExtendedViewController.apply(theme: theme)
+        readingListDetailUnderBarViewController.apply(theme: theme)
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -402,13 +402,13 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         
         switch newEditingState {
         case .open where isEmpty:
-            readingListDetailExtendedViewController.beginEditing()
+            readingListDetailUnderBarViewController.beginEditing()
         case .done:
-            readingListDetailExtendedViewController.finishEditing()
+            readingListDetailUnderBarViewController.finishEditing()
         case .closed where isEmpty:
             fallthrough
         case .cancelled:
-            readingListDetailExtendedViewController.cancelEditing()
+            readingListDetailUnderBarViewController.cancelEditing()
         default:
             break
         }
@@ -423,7 +423,7 @@ extension ReadingListDetailViewController: AddArticlesToReadingListDelegate {}
 
 extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-        readingListDetailExtendedViewController.reconfigureAlert(for: readingList)
+        readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
                 continue
@@ -431,7 +431,7 @@ extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
-        readingListDetailExtendedViewController.updateArticleCount(readingList.countOfEntries)
+        readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
         collectionView.setNeedsLayout()
     }
 }
@@ -543,23 +543,23 @@ extension ReadingListDetailViewController {
     }
 }
 
-// MARK: - ReadingListDetailExtendedViewControllerDelegate
+// MARK: - ReadingListDetailUnderBarViewControllerDelegate
 
-extension ReadingListDetailViewController: ReadingListDetailExtendedViewControllerDelegate {
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didEdit name: String?, description: String?) {
+extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControllerDelegate {
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?) {
         dataStore.readingListsController.updateReadingList(readingList, with: name, newDescription: description)
         title = name
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String) {
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, searchTextDidChange searchText: String) {
         updateSearchString(searchText)
     }
     
-    func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController, sortButton: UIButton) {
+    func readingListDetailUnderBarViewControllerDidPressSortButton(_ underBarViewController: ReadingListDetailUnderBarViewController, sortButton: UIButton) {
         presentSortAlert(from: sortButton)
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField) {
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
         editController.isTextEditing = true
     }
 
