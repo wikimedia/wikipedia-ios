@@ -120,18 +120,18 @@ public class NavigationBarHider: NSObject {
 
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
-        if targetOffsetY < extendedViewHeight + barHeight {
-            if targetOffsetY < 0.5 * extendedViewHeight { // both visible
+        if targetOffsetY < extendedViewHeight + barHeight + underBarViewHeight {
+            if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight) { // both visible
                 targetContentOffset.pointee = CGPoint(x: 0, y: top)
-            } else if targetOffsetY < extendedViewHeight + 0.5 * barHeight  { // only nav bar visible
-                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight)
+            } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * barHeight  { // only nav bar visible
+                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
             } else if targetOffsetY < extendedViewHeight + barHeight {
-                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight)
+                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
             }
             return
         }
         
-        if initialScrollY < extendedViewHeight + barHeight && targetOffsetY > extendedViewHeight + barHeight { // let it naturally hide
+        if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight && targetOffsetY > extendedViewHeight + barHeight + underBarViewHeight { // let it naturally hide
             return
         }
 
