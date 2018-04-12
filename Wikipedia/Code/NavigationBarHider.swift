@@ -144,7 +144,8 @@ public class NavigationBarHider: NSObject {
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
-        if !isNavigationBarHidingEnabled {
+        
+        if !isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if velocity.y > 0 {
             navigationBarPercentHidden = 1
