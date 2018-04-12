@@ -602,6 +602,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        updateSearchString("")
         searchBar.resignFirstResponder()
         setNavigationBarHidingEnabled(true)
     }
