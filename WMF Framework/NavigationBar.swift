@@ -218,7 +218,9 @@ public class NavigationBar: SetupView {
         let underBarViewHeight = underBarView.frame.height
         let barHeight = bar.frame.height
         let extendedViewHeight = extendedView.frame.height
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
+        
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
+        
         let barTransformHeight = barHeight * navigationBarPercentHidden
         let underBarTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
