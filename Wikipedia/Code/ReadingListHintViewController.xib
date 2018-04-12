@@ -33,39 +33,42 @@
             </connections>
         </tapGestureRecognizer>
         <view contentMode="scaleToFill" id="A0g-px-xTY">
-            <rect key="frame" x="0.0" y="0.0" width="548" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="548" height="112"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eG8-5x-OUi">
-                    <rect key="frame" x="0.0" y="0.0" width="548" height="108"/>
+                    <rect key="frame" x="0.0" y="12" width="548" height="88"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2T-xz-pPZ" userLabel="Hint View">
-                            <rect key="frame" x="0.0" y="0.0" width="548" height="52"/>
+                            <rect key="frame" x="0.0" y="0.0" width="548" height="48"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hint default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni7-Ic-c9C">
-                                    <rect key="frame" x="50" y="14" width="486" height="24"/>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-to-list" translatesAutoresizingMaskIntoConstraints="NO" id="ZRK-Wk-NPA">
+                                    <rect key="frame" x="12" y="11" width="26" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="26" id="XBd-aa-skT"/>
+                                        <constraint firstAttribute="width" priority="999" constant="26" id="zx2-am-b8e"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="safeArea" id="SKG-dM-SlL"/>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Hint default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ni7-Ic-c9C">
+                                    <rect key="frame" x="50" y="14" width="486" height="20.5"/>
                                     <viewLayoutGuide key="safeArea" id="rVu-1p-TMz"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-to-list" translatesAutoresizingMaskIntoConstraints="NO" id="ZRK-Wk-NPA">
-                                    <rect key="frame" x="0.0" y="6" width="50" height="40"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="40" id="XBd-aa-skT"/>
-                                        <constraint firstAttribute="width" priority="999" constant="50" id="zx2-am-b8e"/>
-                                    </constraints>
-                                    <viewLayoutGuide key="safeArea" id="SKG-dM-SlL"/>
-                                </imageView>
                             </subviews>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstItem="ni7-Ic-c9C" firstAttribute="leading" secondItem="ZRK-Wk-NPA" secondAttribute="trailing" id="D4i-2I-Zom"/>
+                                <constraint firstItem="ZRK-Wk-NPA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f2T-xz-pPZ" secondAttribute="top" id="0TI-Q7-V1A"/>
+                                <constraint firstItem="ni7-Ic-c9C" firstAttribute="leading" secondItem="ZRK-Wk-NPA" secondAttribute="trailing" constant="12" id="D4i-2I-Zom"/>
+                                <constraint firstItem="ni7-Ic-c9C" firstAttribute="centerY" secondItem="f2T-xz-pPZ" secondAttribute="centerY" id="H3D-Jb-WTk"/>
                                 <constraint firstItem="ZRK-Wk-NPA" firstAttribute="centerY" secondItem="f2T-xz-pPZ" secondAttribute="centerY" id="IdG-Ak-9WV"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZRK-Wk-NPA" secondAttribute="bottom" id="IeE-QG-4Mz"/>
                                 <constraint firstAttribute="trailing" secondItem="ni7-Ic-c9C" secondAttribute="trailing" constant="12" id="fRH-hC-xRw"/>
-                                <constraint firstItem="ni7-Ic-c9C" firstAttribute="top" secondItem="f2T-xz-pPZ" secondAttribute="top" priority="999" constant="14" id="hZH-xJ-hb1"/>
-                                <constraint firstAttribute="bottom" secondItem="ni7-Ic-c9C" secondAttribute="bottom" priority="999" constant="14" id="pvD-um-67m"/>
-                                <constraint firstItem="ZRK-Wk-NPA" firstAttribute="leading" secondItem="f2T-xz-pPZ" secondAttribute="leading" id="y5D-m8-DRj"/>
+                                <constraint firstItem="ni7-Ic-c9C" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f2T-xz-pPZ" secondAttribute="top" id="hZH-xJ-hb1"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ni7-Ic-c9C" secondAttribute="bottom" id="pvD-um-67m"/>
+                                <constraint firstItem="ZRK-Wk-NPA" firstAttribute="leading" secondItem="f2T-xz-pPZ" secondAttribute="leading" constant="12" id="y5D-m8-DRj"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="jiA-rv-sie"/>
                             <connections>
@@ -73,10 +76,10 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
-                            <rect key="frame" x="0.0" y="52" width="548" height="56"/>
+                            <rect key="frame" x="0.0" y="48" width="548" height="40"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
-                                    <rect key="frame" x="0.0" y="8" width="548" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="548" height="40"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqF-Ty-pGy" userLabel="Spacer">
                                             <rect key="frame" x="0.0" y="0.0" width="1" height="40"/>
@@ -94,7 +97,7 @@
                                             </constraints>
                                             <viewLayoutGuide key="safeArea" id="c3R-HI-4dV"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Confimation default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CN-TE-qsp">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Confimation default title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CN-TE-qsp">
                                             <rect key="frame" x="65" y="0.0" width="431" height="40"/>
                                             <viewLayoutGuide key="safeArea" id="8sy-qs-43Q"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -119,9 +122,9 @@
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="BjB-ib-pB7" secondAttribute="trailing" id="2Q8-nj-9g4"/>
-                                <constraint firstAttribute="bottom" secondItem="BjB-ib-pB7" secondAttribute="bottom" priority="999" constant="8" id="jID-Kv-qLw"/>
+                                <constraint firstAttribute="bottom" secondItem="BjB-ib-pB7" secondAttribute="bottom" id="jID-Kv-qLw"/>
                                 <constraint firstItem="BjB-ib-pB7" firstAttribute="leading" secondItem="9Mi-lB-pMN" secondAttribute="leading" id="kVb-xB-XEm"/>
-                                <constraint firstItem="BjB-ib-pB7" firstAttribute="top" secondItem="9Mi-lB-pMN" secondAttribute="top" priority="999" constant="8" id="z4b-bC-5KJ"/>
+                                <constraint firstItem="BjB-ib-pB7" firstAttribute="top" secondItem="9Mi-lB-pMN" secondAttribute="top" id="z4b-bC-5KJ"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="krx-JI-Ofa"/>
                             <connections>
@@ -135,14 +138,14 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="eG8-5x-OUi" firstAttribute="top" secondItem="A0g-px-xTY" secondAttribute="top" id="XRR-mo-SlV"/>
+                <constraint firstItem="eG8-5x-OUi" firstAttribute="top" secondItem="A0g-px-xTY" secondAttribute="top" priority="999" constant="12" id="XRR-mo-SlV"/>
                 <constraint firstItem="RCC-Bl-xSh" firstAttribute="leading" secondItem="eG8-5x-OUi" secondAttribute="leading" id="bne-AT-n4n"/>
-                <constraint firstAttribute="bottom" secondItem="eG8-5x-OUi" secondAttribute="bottom" id="fqs-Hs-g9Q"/>
+                <constraint firstAttribute="bottom" secondItem="eG8-5x-OUi" secondAttribute="bottom" priority="999" constant="12" id="fqs-Hs-g9Q"/>
                 <constraint firstItem="eG8-5x-OUi" firstAttribute="trailing" secondItem="RCC-Bl-xSh" secondAttribute="trailing" id="nPN-D7-ra8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="RCC-Bl-xSh"/>
-            <point key="canvasLocation" x="138" y="291"/>
+            <point key="canvasLocation" x="138" y="293"/>
         </view>
     </objects>
     <resources>
