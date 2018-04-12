@@ -348,6 +348,8 @@
 "reading-list-generic-error" = "更新您的閱讀清單時發生意外錯誤。";
 "reading-list-keep-button-title" = "是的，保留條目在裝置上";
 "reading-list-keep-subtitle" = "這些條目已同步到您的維基百科帳號，您想要在登出後讓它們保留在您的裝置上嗎？";
+"reading-list-keep-sync-disabled-additional-subtitle" = "停用同步功能將會從您的帳號裡移除這些條目。之後若您有重新啟用同步功能，也不會把從裝置上刪除過的條目給回復。";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "不，從我的維基百科帳號以及裝置上來移除條目";
 "reading-list-keep-title" = "保留在裝置上的已儲存條目？";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序條目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "有 5000 個未排序條目的上限。請排序您現有的條目至清單裡，來繼續未排序條目的同步。";
@@ -363,6 +365,8 @@
 "reading-list-name-user-created-annotation" = "_[使用者已建立]";
 "reading-list-new-list-description-placeholder" = "選用簡短描述";
 "reading-list-new-list-name-placeholder" = "閱讀清單標題";
+"reading-list-sync-disabled-panel-message" = "您在其它裝置上的維基百科帳號已停用閱讀清單同步。您可以透過更新您的個人設定來重新啟用。";
+"reading-list-sync-disabled-panel-title" = "同步已停用";
 "reading-list-sync-enable-button-title" = "啟用同步";
 "reading-list-sync-enable-subtitle" = "您所儲存的條目與閱讀清單，現已儲存到您的維基百科帳號並跨維基百科應用程式同步。";
 "reading-list-sync-enable-title" = "開啟閱讀清單同步？";
@@ -386,6 +390,8 @@
 "reading-lists-delete-reading-list-alert-title" = "刪除{{PLURAL:$1|清單|清單}}嗎？";
 "reading-lists-large-sync-completed" = "$1 個條目與 $2 個閱讀清單已從您的帳號同步";
 "reading-lists-list-not-synced-limit-exceeded" = "因超出上限，清單無法同步";
+"reading-lists-sort-saved-articles" = "排序已儲存條目";
+"reading-lists-split-notification" = "在各閱讀清單裡含有 $1 個條目的上限限制。現有清單在超過此限制時，會被拆分成多個清單。";
 "reading-lists-sync-error-no-internet-connection" = "當網際網路連接可用時，同部便會恢復";
 "reading-themes-controls-accessibility-black-theme-button" = "漆黑主題";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑動桿";
