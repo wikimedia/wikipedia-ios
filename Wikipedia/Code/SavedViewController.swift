@@ -264,12 +264,19 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         }
     }
     
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
-        } else {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+        let newEditingState: EditingState
+        
+        switch currentEditingState {
+        case .open:
+            newEditingState = .closed
+        case .swiping:
+            newEditingState = .done
+        default:
+            newEditingState = .open
         }
+        
+        return newEditingState
     }
     
     func emptyStateDidChange(_ empty: Bool) {
