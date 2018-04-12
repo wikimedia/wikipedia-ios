@@ -150,6 +150,14 @@ public class NavigationBar: SetupView {
         set {
             _navigationBarPercentHidden = newValue
             setNavigationBarPercentHidden(_navigationBarPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+    private var _underBarViewPercentHidden: CGFloat = 0
+    @objc public var underBarViewPercentHidden: CGFloat {
+        get {
+            return _underBarViewPercentHidden
+        }
+        set {
+            _underBarViewPercentHidden = newValue
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
