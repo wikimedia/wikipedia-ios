@@ -59,6 +59,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
         
+        if let searchBarExtendedViewController = searchBarExtendedViewController {
+            navigationBar.addExtendedNavigationBarView(searchBarExtendedViewController.view)
+        }
+        
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         setupEditController()
