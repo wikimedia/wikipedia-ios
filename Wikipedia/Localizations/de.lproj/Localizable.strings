@@ -339,6 +339,8 @@
 "reading-list-generic-error" = "Beim Aktualisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-keep-button-title" = "Ja, Artikel auf dem Gerät behalten";
 "reading-list-keep-subtitle" = "Es sind mit deinem Wikipedia-Benutzerkonto synchronisierte Artikel vorhanden. Möchtest du sie nach der Abmeldung auf diesem Gerät behalten?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Das Ausschalten der Synchronisierung entfernt diese Artikel von deinem Benutzerkonto. Falls du sie von deinem Gerät entfernst, werden sie in Zukunft durch das erneute Anschalten der Synchronisierung nicht wiederherstellbar sein.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nein, Artikel vom Gerät und meinem Wikipedia-Benutzerkonto entfernen";
 "reading-list-keep-title" = "Gespeicherte Artikel auf dem Gerät behalten?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikel sortieren";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Es gibt eine Begrenzung von 5000 unsortierten Artikeln. Bitte sortiere deine vorhandenen Artikel in Listen ein, um mit der Synchronisierung deiner unsortierten Artikel fortzufahren.";
@@ -354,6 +356,8 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optionale Kurzbeschreibung";
 "reading-list-new-list-name-placeholder" = "Titel der Leseliste";
+"reading-list-sync-disabled-panel-message" = "Die Synchronisierung von Leselisten wurden auf einem anderen Gerät für dein Wikipedia-Benutzerkonto deaktiviert. Du kannst die Synchronisierung erneut anschalten, indem du deine Einstellungen aktualisierst.";
+"reading-list-sync-disabled-panel-title" = "Synchronisierung deaktiviert";
 "reading-list-sync-enable-button-title" = "Synchronisierung aktivieren";
 "reading-list-sync-enable-subtitle" = "Deine gespeicherten Artikel und Leselisten können jetzt auf deinem Wikipedia-Benutzerkonto gespeichert und zwischen deinen Wikipedia-Apps synchronisiert werden.";
 "reading-list-sync-enable-title" = "Synchronisierung von Leselisten anschalten?";
@@ -377,6 +381,8 @@
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
 "reading-lists-large-sync-completed" = "$1 Artikel und $2 Leselisten wurden von deinem Benutzerkonto synchronisiert";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste nicht synchronisiert, Grenze überschritten";
+"reading-lists-sort-saved-articles" = "Gespeicherte Artikel sortieren";
+"reading-lists-split-notification" = "Es gibt eine Begrenzung von $1 Artikeln pro Leseliste. Vorhandene Listen mit mehr als dieser Anzahl wurden auf mehrere Listen aufgeteilt.";
 "reading-lists-sync-error-no-internet-connection" = "Die Synchronisierung wird fortgesetzt, wenn wieder eine Internetverbindung verfügbar ist.";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
