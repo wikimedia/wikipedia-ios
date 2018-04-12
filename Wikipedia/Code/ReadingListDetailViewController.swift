@@ -33,10 +33,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
         self.readingList = readingList
         self.dataStore = dataStore
-        self.readingListDetailExtendedViewController = ReadingListDetailExtendedViewController()
         self.displayType = displayType
+        readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
         super.init()
-        self.readingListDetailExtendedViewController.delegate = self
+        searchBarExtendedViewController = SearchBarExtendedViewController()
+        searchBarExtendedViewController?.dataSource = self
+        searchBarExtendedViewController?.delegate = self
+        readingListDetailUnderBarViewController.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
