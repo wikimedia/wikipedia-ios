@@ -80,17 +80,27 @@ public class NavigationBarHider: NSObject {
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         
+        let barHeight = navigationBar.bar.frame.size.height
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
-        if isUnderBarViewHidingEnabled && underBarViewHeight > 0 {
+        let extendedViewHeight = navigationBar.extendedView.frame.size.height
+
+        let shouldHideUnderBarView = isUnderBarViewHidingEnabled && underBarViewHeight > 0
+        let shouldHideExtendedView = isExtendedViewHidingEnabled && extendedViewHeight > 0
+
+        if shouldHideUnderBarView {
             underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
         }
         
-        let extendedViewHeight = navigationBar.extendedView.frame.size.height
-        if isExtendedViewHidingEnabled && extendedViewHeight > 0 {
+        if shouldHideUnderBarView && shouldHideExtendedView {
+            if currentUnderBarViewPercentHidden >= 0 && currentUnderBarViewPercentHidden < 1 { // underBar view is still visible
+                extendedViewPercentHidden = 0
+            } else {
+                extendedViewPercentHidden = ((scrollY - underBarViewHeight - barHeight)/extendedViewHeight).wmf_normalizedPercentage
+            }
+        } else if shouldHideExtendedView {
             extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
         }
         
-        let barHeight = navigationBar.bar.frame.size.height
         if !isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
