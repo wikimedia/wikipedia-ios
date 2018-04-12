@@ -1,6 +1,5 @@
 protocol ReadingListDetailUnderBarViewControllerDelegate: class {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
-    func readingListDetailUnderBarViewControllerDidPressSortButton(_ underBarViewController: ReadingListDetailUnderBarViewController, sortButton: UIButton)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
 }
 
@@ -9,7 +8,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     @IBOutlet weak var titleTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
 //    @IBOutlet weak var searchBar: UISearchBar!
-//    @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var alertStackView: UIStackView?
 //    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel?
@@ -40,12 +38,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         descriptionTextField.delegate = self
         alertTitleLabel?.numberOfLines = 0
         alertMessageLabel?.numberOfLines = 0
-        
-//        sortButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
-//
-//        searchBar.returnKeyType = .search
-//        searchBar.placeholder = WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
-//        searchBar.delegate = self
         
         apply(theme: theme)
     }
@@ -146,10 +138,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         }
     }
     
-    @IBAction func didPressSortButton(_ sender: UIButton) {
-        delegate?.readingListDetailUnderBarViewControllerDidPressSortButton(self, sortButton: sender)
-    }
-    
     public func reconfigureAlert(for readingList: ReadingList) {
         setAlertType(for: readingList.APIError, listLimit: listLimit, entryLimit: entryLimit)
     }
@@ -187,20 +175,6 @@ extension ReadingListDetailUnderBarViewController: UITextFieldDelegate {
         delegate?.readingListDetailUnderBarViewController(self, didBeginEditing: textField)
     }
 }
-
-//extension ReadingListDetailUnderBarViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        delegate?.readingListDetailUnderBarViewController(self, searchTextDidChange: searchText)
-//
-//        if searchText.isEmpty {
-//            searchBar.resignFirstResponder()
-//        }
-//    }
-//
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        searchBar.resignFirstResponder()
-//    }
-//}
 
 extension ReadingListDetailUnderBarViewController: Themeable {
     func apply(theme: Theme) {
