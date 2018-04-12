@@ -425,6 +425,10 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
         navigationBarHider.isHidingEnabled = false
     }
     
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         navigationBarHider.isHidingEnabled = true
