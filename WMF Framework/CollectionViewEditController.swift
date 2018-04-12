@@ -450,9 +450,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
         
-        activeBarButton.left = leftButton
-        activeBarButton.right = rightButton
-        
         if let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .body) : UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body) {
             let attributes = [NSAttributedStringKey.font: font]
             rightButton?.setTitleTextAttributes(attributes, for: .normal)
@@ -527,8 +524,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public var shouldShowEditButtonsForEmptyState: Bool = false
-    
-    var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
     
     @objc private func barButtonPressed(_ sender: EditBarButton) {
         guard let navigationDelegate = navigationDelegate else {
