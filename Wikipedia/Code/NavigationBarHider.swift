@@ -114,8 +114,9 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        let extendedViewHeight = navigationBar.extendedView.frame.size.height
         let barHeight = navigationBar.bar.frame.size.height
+        let underBarViewHeight = navigationBar.underBarView.frame.size.height
+        let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
