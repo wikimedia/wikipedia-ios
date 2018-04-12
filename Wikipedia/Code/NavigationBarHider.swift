@@ -38,6 +38,18 @@ public class NavigationBarHider: NSObject {
     public var isHidingEnabled: Bool = true
     public var isBarHidingEnabled: Bool = true
     
+    public var isUnderBarViewHidingEnabled: Bool = true {
+        didSet {
+            navigationBar?.isUnderBarViewHidingEnabled = isUnderBarViewHidingEnabled
+        }
+    }
+    
+    public var isExtendedViewHidingEnabled: Bool = true {
+        didSet {
+            navigationBar?.isExtendedViewHidingEnabled = isExtendedViewHidingEnabled
+        }
+    }
+    
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar, isHidingEnabled else {
             return
