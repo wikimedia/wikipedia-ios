@@ -574,8 +574,8 @@ extension ReadingListDetailViewController: ReadingListDetailExtendedViewControll
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
-    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, titleTextFieldWillChangeCharacters textField: UITextField, replacementString string: String) {
-        navigationItem.rightBarButtonItem?.isEnabled = textField.text?.count == 1 && string.isEmpty ? false : true
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, titleTextFieldTextDidChange textField: UITextField) {
+        navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
     }
 
 }
