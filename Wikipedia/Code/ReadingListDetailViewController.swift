@@ -81,8 +81,12 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isExtendedViewHidingEnabled = false
-        navigationBarHider.isBarHidingEnabled = false
+        setNavigationBarHidingEnabled(true)
+    }
+    
+    private func setNavigationBarHidingEnabled(_ enabled: Bool) {
+        navigationBarHider.isExtendedViewHidingEnabled = enabled
+        navigationBarHider.isBarHidingEnabled = enabled
     }
     
     override func refresh() {
@@ -590,7 +594,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        navigationBarHider.isExtendedViewHidingEnabled = false
+        setNavigationBarHidingEnabled(false)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -599,7 +603,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBarHider.isExtendedViewHidingEnabled = false
+        setNavigationBarHidingEnabled(true)
     }
 }
 
