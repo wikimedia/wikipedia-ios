@@ -41,6 +41,9 @@
                     <rect key="frame" x="317" y="11" width="30" height="30"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                     <state key="normal" title="Sort"/>
+                    <connections>
+                        <action selector="buttonWasPressed:" destination="-1" eventType="touchUpInside" id="x29-8D-vLa"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
