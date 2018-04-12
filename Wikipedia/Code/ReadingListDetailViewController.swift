@@ -79,6 +79,12 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
+        super.viewWillHaveFirstAppearance(animated)
+        navigationBarHider.isExtendedViewHidingEnabled = false
+        navigationBarHider.isBarHidingEnabled = false
+    }
+    
     override func refresh() {
         dataStore.readingListsController.fullSync {
             self.endRefreshing()
