@@ -91,17 +91,17 @@ public class NavigationBarHider: NSObject {
         }
         
         let barHeight = navigationBar.bar.frame.size.height
-        if !isNavigationBarHidingEnabled {
-          navigationBarPercentHidden = 0
-        } else if initialScrollY < extendedViewHeight + barHeight {
-            navigationBarPercentHidden = ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage
-        } else if scrollY <= extendedViewHeight + barHeight {
-            navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight)/barHeight).wmf_normalizedPercentage)
-        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight {
+        if !isBarHidingEnabled {
+            navigationBarPercentHidden = 0
+        } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
+            navigationBarPercentHidden = ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage
+        } else if scrollY <= extendedViewHeight + barHeight + underBarViewHeight {
+            navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage)
+        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
         }
 
-        guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden else {
+        guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden else {
             return
         }
         navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
