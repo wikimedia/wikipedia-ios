@@ -347,6 +347,8 @@
 "reading-list-generic-error" = "更新您的阅读列表时发生意外错误。";
 "reading-list-keep-button-title" = "是，将条目保留到设备";
 "reading-list-keep-subtitle" = "这些是同步到您维基百科账户的条目。您是否希望在退出后，在此设备上保留它们？";
+"reading-list-keep-sync-disabled-additional-subtitle" = "关闭同步将从您的账户移除这些条目。如果您从您的设备移除它们，它们将不会因为今后再次打开同步而恢复。";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "否，从设备和我的维基百科账户移除条目";
 "reading-list-keep-title" = "在设备上保留已保存的条目么？";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序条目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
@@ -362,6 +364,8 @@
 "reading-list-name-user-created-annotation" = "_[用户创建]";
 "reading-list-new-list-description-placeholder" = "可选简短描述";
 "reading-list-new-list-name-placeholder" = "阅读列表标题";
+"reading-list-sync-disabled-panel-message" = "阅读列表同步已在另一设备上，为您的维基百科账户禁用。您可以通过更新您的设置重新打开同步。";
+"reading-list-sync-disabled-panel-title" = "同步被禁用";
 "reading-list-sync-enable-button-title" = "启用同步";
 "reading-list-sync-enable-subtitle" = "您保存的条目和阅读列表现在可以保存至您的维基百科账户，并跨维基百科应用同步。";
 "reading-list-sync-enable-title" = "打开阅读列表同步？";
@@ -385,6 +389,8 @@
 "reading-lists-delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
 "reading-lists-large-sync-completed" = "$1个条目和$2各阅读列表已从您的账户同步";
 "reading-lists-list-not-synced-limit-exceeded" = "列表未同步，超过限制";
+"reading-lists-sort-saved-articles" = "排序保存的条目";
+"reading-lists-split-notification" = "每个阅读列表限制$1个条目。超过此限制的现有列表需要拆分为多个列表。";
 "reading-lists-sync-error-no-internet-connection" = "当互联网连接可用时，同步将恢复";
 "reading-themes-controls-accessibility-black-theme-button" = "黑暗主题";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
