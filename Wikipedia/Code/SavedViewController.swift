@@ -5,6 +5,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
 }
 
 @objc(WMFSavedViewController)
@@ -299,5 +300,6 @@ extension SavedViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         actionButtonType = .sort
+        savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
 }
