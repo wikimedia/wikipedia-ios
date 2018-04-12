@@ -345,6 +345,8 @@
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Desligar a sincronização removerá estes artigos da sua conta. Se os remover do seu dispositivo, eles não serão recuperáveis voltando a ligar a sincronização no futuro.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Não, remover artigos do dispositivo e da minha conta da Wikipédia";
 "reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
@@ -360,6 +362,8 @@
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
+"reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
+"reading-list-sync-disabled-panel-title" = "Sincronização desativada";
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
 "reading-list-sync-enable-subtitle" = "Os artigos que foram guardados e as listas de leitura podem agora ser guardados na sua conta da Wikipédia e sincronizados entre as aplicações da Wikipédia.";
 "reading-list-sync-enable-title" = "Ativar a sincronização das listas de leitura?";
@@ -383,6 +387,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-lists-large-sync-completed" = "$1 artigos e $2 listas de leitura sincronizados da sua conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista não foi sincronizada, o limite foi excedido";
+"reading-lists-sort-saved-articles" = "Ordenar os artigos guardados";
+"reading-lists-split-notification" = "Há um limite de $1 artigos por lista de leitura. As listas existentes que ultrapassavam este limite foram divididas em várias listas.";
 "reading-lists-sync-error-no-internet-connection" = "A sincronização será retomada quando existir uma ligação à Internet";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-brightness-slider" = "Controlo do brilho";
@@ -530,7 +536,7 @@
 "wikitext-upload-save-terms-name" = "Condições de utilização";
 "zero-charged-verbiage" = "A Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "Carregar outros artigos pode resultar em encargos de transferência de dados. Os artigos guardados, armazenados no dispositivo, não geram tráfego de dados e o acesso é gratuito.";
-"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem taxa de dados cobrada)";
+"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem cobrar dados)";
 "zero-interstitial-cancel" = "Permanecer aqui";
 "zero-interstitial-continue" = "Sair";
 "zero-interstitial-leave-app" = "Poderá incorrer em encargos de transferência de dados. Continuar para o sítio externo?";

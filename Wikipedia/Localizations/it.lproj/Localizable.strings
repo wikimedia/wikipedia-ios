@@ -318,6 +318,7 @@
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
 "reading-lists-default-list-title" = "Salvato";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
+"reading-lists-sort-saved-articles" = "Ordina voci salvate";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";

@@ -336,6 +336,8 @@
 "reading-list-generic-error" = "Се појави неочекувана грешка при подновата на вашите списоци за читање.";
 "reading-list-keep-button-title" = "Да, задржи ги статиите на уредот";
 "reading-list-keep-subtitle" = "Има статии усогласени со вашата сметка на Википедија. Дали сакате да ги задржите на овој уред откако ќе се одјавите?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Исклучувајќи го усогласувањето ќе ги отстраните статиите од вашата сметка. Ако ги отстраните од уредот, истите потоа нема да бидат повратливи со повторно вклучување на усогласувањето.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Не, отстрани ги статиите статиите од уредот и мојата сметка на Википедија.";
 "reading-list-keep-title" = "Да ги задржам зачуваните статии на уредот?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Подреди статии";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Може да има највеќе 5000 неподредени статии. Подредете ги постоечките статии во списоци за да продолжите со усогласување на неподредените.";
@@ -351,6 +353,8 @@
 "reading-list-name-user-created-annotation" = "_[кориснички создадена]";
 "reading-list-new-list-description-placeholder" = "краток опис (незад.)";
 "reading-list-new-list-name-placeholder" = "наслов на спис. за читање";
+"reading-list-sync-disabled-panel-message" = "Усогласувањето на списокот за читање е исклучен за вашата сметка на Википедија од друг уред. Можете да го вклучите повторно изменувајќи ги нагодувањата.";
+"reading-list-sync-disabled-panel-title" = "Усогласувањето е исклучено";
 "reading-list-sync-enable-button-title" = "Овозможи усогласување";
 "reading-list-sync-enable-subtitle" = "Зачуваните статии и списоци за читање сега можат да се складираат во вашата сметка на Википедија и да се усогласат низ разни Википедиини прилози.";
 "reading-list-sync-enable-title" = "Да го вклучам усогласувањето на списоците за читање?";
@@ -374,6 +378,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Да {{PLURAL:$1|го избришам списокот|ги избришам списоците}}?";
 "reading-lists-large-sync-completed" = "Усогласени се $1 статии и $2 списоци за читање од вашата сметка";
 "reading-lists-list-not-synced-limit-exceeded" = "Списокот не е усогласен. Границата е надмината.";
+"reading-lists-sort-saved-articles" = "Подреди зачувани статии";
+"reading-lists-split-notification" = "Секој список на читање прима највеќе $1 статии. Постоечките списоци со повеќе статии се разделени.";
 "reading-lists-sync-error-no-internet-connection" = "Усогласувањето ќе продолжи кога ќе добиете линија";
 "reading-themes-controls-accessibility-black-theme-button" = "Црн изглед";
 "reading-themes-controls-accessibility-brightness-slider" = "Лизгач за светлост";
