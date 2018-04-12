@@ -1,9 +1,24 @@
 import UIKit
 
+enum SearchBarExtendedViewButtonType {
+    case sort
+    case cancel
+    
+    var title: String {
+        switch self {
+        case .sort:
+        return CommonStrings.sortActionTitle
+        case .cancel:
+        return CommonStrings.cancelActionTitle
+        }
+    }
+}
+
 protocol SearchBarExtendedViewControllerDataSource: class {
     func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType
     func placeholder(for searchBar: UISearchBar) -> String?
     func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool
+    func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType?
 }
 
 protocol SearchBarExtendedViewControllerDelegate: class {
@@ -17,6 +32,11 @@ class SearchBarExtendedViewController: UIViewController {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var button: UIButton!
+    private var buttonType: SearchBarExtendedViewButtonType? {
+        didSet {
+            button.setTitle(buttonType?.title, for: .normal)
+        }
+    }
     
     weak var dataSource: SearchBarExtendedViewControllerDataSource?
     weak var delegate: SearchBarExtendedViewControllerDelegate?
@@ -29,6 +49,7 @@ class SearchBarExtendedViewController: UIViewController {
         searchBar.returnKeyType = dataSource?.returnKeyType(for: searchBar) ?? .search
         searchBar.placeholder = dataSource?.placeholder(for: searchBar)
         separatorView.isHidden = dataSource?.isSeparatorViewHidden(above: searchBar) ?? false
+        buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
         apply(theme: theme)
     }
 
@@ -38,10 +59,12 @@ extension SearchBarExtendedViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         delegate?.searchBarTextDidBeginEditing(searchBar)
+        buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         delegate?.searchBarTextDidEndEditing(searchBar)
+        buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
