@@ -605,6 +605,29 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         searchBar.resignFirstResponder()
         setNavigationBarHidingEnabled(true)
     }
+    
+    func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {
+        switch currentButtonType {
+        case nil:
+            return .sort
+        case .cancel?:
+            return .sort
+        case .sort?:
+            return .cancel
+        }
+    }
+    
+    func buttonWasPressed(_ button: UIButton, buttonType: SearchBarExtendedViewButtonType?, searchBar: UISearchBar) {
+        guard let buttonType = buttonType else {
+            return
+        }
+        switch buttonType {
+        case .sort:
+            presentSortAlert(from: button)
+        case .cancel:
+            makeSearchBarResignFirstResponder(searchBar)
+        }
+    }
 }
 
 // MARK: - Analytics
