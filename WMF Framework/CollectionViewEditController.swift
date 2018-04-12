@@ -8,6 +8,10 @@ enum CollectionViewCellState {
     case idle, open
 }
 
+class EditBarButton: UIBarButtonItem {
+    var systemItem: UIBarButtonSystemItem?
+}
+
 public protocol CollectionViewEditControllerNavigationDelegate: class {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
