@@ -26,6 +26,7 @@ protocol SearchBarExtendedViewControllerDelegate: class {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
+    func buttonWasPressed(_ button: UIButton, buttonType: SearchBarExtendedViewButtonType?, searchBar: UISearchBar)
 }
 
 class SearchBarExtendedViewController: UIViewController {
@@ -52,11 +53,13 @@ class SearchBarExtendedViewController: UIViewController {
         buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
         apply(theme: theme)
     }
-
+    
+    @IBAction private func buttonWasPressed(_ sender: UIButton) {
+        delegate?.buttonWasPressed(sender, buttonType: buttonType, searchBar: searchBar)
+    }
 }
 
 extension SearchBarExtendedViewController: UISearchBarDelegate {
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         delegate?.searchBarTextDidBeginEditing(searchBar)
         buttonType = dataSource?.buttonType(for: button, currentButtonType: buttonType)
