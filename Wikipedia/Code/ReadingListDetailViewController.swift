@@ -566,6 +566,34 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
 
 }
 
+// MARK: - SearchBarExtendedViewControllerDataSource
+
+extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSource {
+    func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType {
+        return .search
+    }
+    
+    func placeholder(for searchBar: UISearchBar) -> String? {
+        return WMFLocalizedString("search-reading-list-placeholder-text", value: "Search reading list", comment: "Placeholder text for the search bar in reading list detail view.")
+    }
+    
+    func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool {
+        return true
+    }
+}
+
+// MARK: - SearchBarExtendedViewControllerDelegate
+
+extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //
+    }
+}
+
 // MARK: - Analytics
 
 extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
