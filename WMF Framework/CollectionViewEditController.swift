@@ -11,6 +11,7 @@ enum CollectionViewCellState {
 public protocol CollectionViewEditControllerNavigationDelegate: class {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
 }
@@ -527,25 +528,20 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
     
-    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
-        let currentEditingState = editingState
-        let newEditingState: EditingState
-        
-        switch currentEditingState {
-        case .open:
-            newEditingState = .closed
-        case .swiping:
-            closeActionPane()
-            newEditingState = .done
-        case .editing where sender == activeBarButton.left:
-            newEditingState = .cancelled
-        case .editing where sender == activeBarButton.right:
-            newEditingState = .done
-        default:
-            newEditingState = .open
+    @objc private func barButtonPressed(_ sender: EditBarButton) {
+        guard let navigationDelegate = navigationDelegate else {
+            assertionFailure("Unable to set new editing state - navigationDelegate is nil")
+            return
         }
-        
-        editingState = newEditingState
+        guard let systemItem = sender.systemItem else {
+            assertionFailure("Unable to set new editing state - systemItem is nil")
+            return
+        }
+        let currentEditingState = editingState
+        if currentEditingState == .swiping {
+            closeActionPane()
+        }
+        editingState = navigationDelegate.newEditingState(for: currentEditingState, fromEditBarButtonWithSystemItem: systemItem)
     }
     
     public func changeEditingState(to newEditingState: EditingState) {
