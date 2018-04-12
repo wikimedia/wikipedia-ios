@@ -70,9 +70,10 @@ public class NavigationBarHider: NSObject {
         
         let animated = false
 
-        let currentExtendedViewPercentHidden = navigationBar.extendedViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
-        var extendedViewPercentHidden = currentExtendedViewPercentHidden
+        let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
+        let currentExtendedViewPercentHidden = navigationBar.extendedViewPercentHidden
+        
         var navigationBarPercentHidden = currentNavigationBarPercentHidden
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
