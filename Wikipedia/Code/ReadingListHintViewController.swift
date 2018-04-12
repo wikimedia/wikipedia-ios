@@ -18,19 +18,15 @@ class ReadingListHintViewController: UIViewController {
     }
     
     @IBOutlet weak var hintView: UIView?
-    @IBOutlet weak var hintButton: AlignedImageButton?
+    @IBOutlet weak var hintLabel: UILabel?
     @IBOutlet weak var confirmationView: UIView?
     @IBOutlet weak var confirmationImageView: UIImageView!
-    @IBOutlet weak var confirmationButton: UIButton!
+    @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var confirmationChevron: UIButton!
-    private var confirmationButtonLeadingConstraint: (toImageView: NSLayoutConstraint?, toView: NSLayoutConstraint?)
     
     private var isConfirmationImageViewHidden: Bool = false {
         didSet {
             confirmationImageView.isHidden = isConfirmationImageViewHidden
-            confirmationButtonLeadingConstraint.toImageView?.isActive = !isConfirmationImageViewHidden
-            confirmationButtonLeadingConstraint.toView?.isActive = isConfirmationImageViewHidden
-            view.setNeedsLayout()
         }
     }
     
@@ -47,11 +43,6 @@ class ReadingListHintViewController: UIViewController {
         
         confirmationImageView.layer.cornerRadius = 3
         confirmationImageView.clipsToBounds = true
-        confirmationButtonLeadingConstraint.toImageView = confirmationButton.leadingAnchor.constraint(equalTo: confirmationImageView.trailingAnchor, constant: 12)
-        confirmationButtonLeadingConstraint.toView = confirmationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12)
-        hintButton?.verticalPadding = 5
-        hintButton?.titleLabel?.wmf_configureToAutoAdjustFontSize()
-        confirmationButton?.titleLabel?.wmf_configureToAutoAdjustFontSize()
         setHintButtonTitle()
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
@@ -71,12 +62,15 @@ class ReadingListHintViewController: UIViewController {
     }
     
     private func setHintButtonTitle() {
-        hintButton?.setTitle(hintButtonTitle, for: .normal)
+        hintLabel?.text = hintButtonTitle
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        hintButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
-        confirmationButton?.titleLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        hintLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        confirmationLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        if (traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass) {
+            delegate?.readingListHintRotated()
+        }
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?
@@ -133,7 +127,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         self.readingList = readingList
         isHintViewHidden = true
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list"), name)
-        confirmationButton.setTitle(title, for: .normal)
+        confirmationLabel.text = title
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
@@ -148,10 +142,10 @@ extension ReadingListHintViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        view.backgroundColor = theme.colors.hintBackground 
-        hintButton?.setTitleColor(theme.colors.link, for: .normal)
-        hintButton?.tintColor = theme.colors.link
-        confirmationButton.setTitleColor(theme.colors.link, for: .normal)
+        view.backgroundColor = theme.colors.hintBackground
+        hintLabel?.textColor = theme.colors.link
+        hintLabel?.tintColor = theme.colors.link
+        confirmationLabel?.textColor = theme.colors.link        
         confirmationChevron.tintColor = theme.colors.link
     }
 }

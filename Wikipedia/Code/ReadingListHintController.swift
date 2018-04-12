@@ -7,6 +7,7 @@ public protocol ReadingListHintPresenter: class {
 
 protocol ReadingListHintViewControllerDelegate: class {
     func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
+    func readingListHintRotated()
 }
 
 @objc(WMFReadingListHintController)
@@ -18,19 +19,10 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     private let hintHeight: CGFloat = 50
     private var theme: Theme = Theme.standard
     private var didSaveArticle: Bool = false
+    private var containerView = UIView()
     
-    private var isHintHidden = true {
-        didSet {
-            guard isHintHidden != oldValue else {
-                return
-            }
-            if isHintHidden {
-                removeHint()
-            } else {
-                addHint()
-                dismissHint()
-            }
-        }
+    private func isHintHidden() -> Bool {
+        return self.containerView.superview == nil
     }
         
     @objc init(dataStore: MWKDataStore, presenter: UIViewController) {
@@ -47,15 +39,48 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hintVC.willMove(toParentViewController: nil)
         hintVC.view.removeFromSuperview()
         hintVC.removeFromParentViewController()
+        containerView.removeFromSuperview()
         resetHint()
     }
     
+    var containerBottomConstraint:NSLayoutConstraint?
+    var containerTopConstraint:NSLayoutConstraint?
+    
     func addHint() {
+        guard isHintHidden() else {
+            return
+        }
         hintVC.apply(theme: theme)
-        presenter?.addChildViewController(hintVC)
-        hintVC.view.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        presenter?.view.addSubview(hintVC.view)
-        hintVC.didMove(toParentViewController: presenter)
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+
+        presenter?.view.addSubview(containerView)
+        
+        if let presenter = presenter {
+            let safeBottomAnchor = presenter.wmf_safeBottomAnchor()
+            let bottomAnchorOffset = presenter.wmf_bottomAnchorOffset()
+
+            // `containerBottomConstraint` is activated when the hint is visible
+            containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: bottomAnchorOffset)
+            containerBottomConstraint?.isActive = false
+
+            // `containerTopConstraint` is activated when the hint is hidden
+            containerTopConstraint = containerView.topAnchor.constraint(equalTo: safeBottomAnchor, constant: bottomAnchorOffset)
+            
+            let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
+            let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
+            NSLayoutConstraint.activate([containerTopConstraint!, leadingConstraint, trailingConstraint])
+            
+        }else{
+            assertionFailure("Expected presenter")
+        }
+        
+        hintVC.view.setContentHuggingPriority(.required, for: .vertical)
+        containerView.setContentHuggingPriority(.required, for: .vertical)
+        hintVC.view.setContentCompressionResistancePriority(.required, for: .vertical)
+        containerView.setContentCompressionResistancePriority(.required, for: .vertical)
+        
+        presenter?.wmf_add(childController: hintVC, andConstrainToEdgesOfContainerView: containerView)
     }
     
     var hintVisibilityTime: TimeInterval = 13 {
@@ -71,7 +96,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func updateRandom(_ hintHidden: Bool) {
         if let navigationController = (presenter as? WMFRandomArticleViewController)?.navigationController as? WMFArticleNavigationController {
-            navigationController.readingListHintHeight = hintHeight
+            navigationController.readingListHintHeight = containerView.frame.size.height
             navigationController.readingListHintHidden = hintHidden
         }
     }
@@ -86,38 +111,38 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func setHintHidden(_ hintHidden: Bool) {
-        let frame = hintHidden ? hintFrame.hidden : hintFrame.visible
+        guard isHintHidden() != hintHidden else {
+            return
+        }
+        
         if !hintHidden {
             // add hint before animation starts
             addHint()
-            // set initial frame
-            if hintVC.view.frame.origin.y == 0 {
-                hintVC.view.frame = hintFrame.hidden
-            }
+            
+            containerView.superview?.layoutIfNeeded()
         }
         
         updateRandom(hintHidden)
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
-            self.hintVC.view.frame = frame
-            self.hintVC.view.setNeedsLayout()
+        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
+            if hintHidden {
+                self.containerBottomConstraint?.isActive = false
+                self.containerTopConstraint?.isActive = true
+            } else {
+                self.containerBottomConstraint?.isActive = true
+                self.containerTopConstraint?.isActive = false
+            }
+            self.containerView.superview?.layoutIfNeeded()
         }, completion: { (_) in
             // remove hint after animation is completed
-            self.isHintHidden = hintHidden
             if hintHidden {
                 self.updateRandom(hintHidden)
+                self.removeHint()
+            }else{
+                self.dismissHint()
             }
         })
     }
-    
-    private lazy var hintFrame: (visible: CGRect, hidden: CGRect) = {
-        guard let presenter = presenter else {
-            return (.zero, .zero)
-        }
-        let visible = CGRect(x: 0, y: presenter.view.bounds.height - hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
-        let hidden = CGRect(x: 0, y: presenter.view.bounds.height + hintHeight - presenter.bottomLayoutGuide.length, width: presenter.view.bounds.size.width, height: hintHeight)
-        return (visible: visible, hidden: hidden)
-    }()
     
     @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
         guard presenter?.presentedViewController == nil else {
@@ -127,8 +152,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         didSaveArticle = didSave
         self.theme = theme
         
-        let didSaveOtherArticle = didSave && !isHintHidden && article != hintVC.article
-        let didUnsaveOtherArticle = !didSave && !isHintHidden && article != hintVC.article
+        let didSaveOtherArticle = didSave && !isHintHidden() && article != hintVC.article
+        let didUnsaveOtherArticle = !didSave && !isHintHidden() && article != hintVC.article
         
         guard !didUnsaveOtherArticle else {
             return
@@ -159,7 +184,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     }
     
     @objc func scrollViewWillBeginDragging() {
-        guard !isHintHidden else {
+        guard !isHintHidden() else {
             return
         }
         hintVisibilityTime = 0
@@ -169,5 +194,28 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool) {
         setHintHidden(shouldBeHidden)
+    }
+    
+    func readingListHintRotated() {
+        dispatchOnMainQueueAfterDelayInSeconds(0.1) { [weak self] in
+            self?.updateRandom(self?.isHintHidden() ?? true)
+        }
+    }
+}
+
+private extension UIViewController {
+    func wmf_safeBottomAnchor() -> NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return view.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            return bottomLayoutGuide.bottomAnchor
+        }
+    }
+    func wmf_bottomAnchorOffset() -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return 0
+        } else {
+            return -bottomLayoutGuide.length
+        }
     }
 }
