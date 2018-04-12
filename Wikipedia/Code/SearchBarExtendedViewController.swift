@@ -19,6 +19,7 @@ protocol SearchBarExtendedViewControllerDataSource: class {
     func placeholder(for searchBar: UISearchBar) -> String?
     func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool
     func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType?
+    func fontStyle(for button: UIButton) -> (WMFFontFamily, UIFontTextStyle)
 }
 
 protocol SearchBarExtendedViewControllerDelegate: class {
@@ -57,6 +58,13 @@ class SearchBarExtendedViewController: UIViewController {
     @IBAction private func buttonWasPressed(_ sender: UIButton) {
         delegate?.buttonWasPressed(sender, buttonType: buttonType, searchBar: searchBar)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if let (fontStyle, textStyle) = dataSource?.fontStyle(for: button) {
+            button.titleLabel?.setFont(with: fontStyle, style: textStyle, traitCollection: traitCollection)
+        }
+    }
 }
 
 extension SearchBarExtendedViewController: UISearchBarDelegate {
@@ -86,6 +94,7 @@ extension SearchBarExtendedViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        button.titleLabel?.textColor = theme.colors.link
         separatorView.backgroundColor = theme.colors.border
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
