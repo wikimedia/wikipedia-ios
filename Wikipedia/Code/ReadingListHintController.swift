@@ -124,7 +124,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         
         updateRandom(hintHidden)
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
             if hintHidden {
                 self.containerBottomConstraint?.isActive = false
                 self.containerTopConstraint?.isActive = true
