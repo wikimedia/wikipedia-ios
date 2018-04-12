@@ -3,6 +3,8 @@ protocol ReadingListDetailExtendedViewControllerDelegate: class {
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, searchTextDidChange searchText: String)
     func extendedViewControllerDidPressSortButton(_ extendedViewController: ReadingListDetailExtendedViewController, sortButton: UIButton)
     func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, didBeginEditing textField: UITextField)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, titleTextFieldWillClear textField: UITextField)
+    func extendedViewController(_ extendedViewController: ReadingListDetailExtendedViewController, titleTextFieldWillChangeCharacters textField: UITextField, replacementString string: String)
 }
 
 class ReadingListDetailExtendedViewController: UIViewController {
@@ -186,6 +188,20 @@ extension ReadingListDetailExtendedViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         firstResponder = textField
         delegate?.extendedViewController(self, didBeginEditing: textField)
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == titleTextField {
+            delegate?.extendedViewController(self, titleTextFieldWillClear: textField)
+        }
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == titleTextField {
+            delegate?.extendedViewController(self, titleTextFieldWillChangeCharacters: textField, replacementString: string)
+        }
+        return true
     }
 }
 
