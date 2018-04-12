@@ -10,6 +10,9 @@ public class NavigationBar: SetupView {
     public var extendedViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
+    var isUnderBarViewHidingEnabled: Bool = true
+    var isExtendedViewHidingEnabled: Bool = true
+    
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
         didSet {
