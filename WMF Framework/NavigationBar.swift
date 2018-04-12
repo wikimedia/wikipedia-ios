@@ -213,8 +213,10 @@ public class NavigationBar: SetupView {
         super.layoutSubviews()
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
-        let barHeight = bar.frame.height + underBarView.frame.height
         let underBarViewPercentHidden = _underBarViewPercentHidden
+        
+        let underBarViewHeight = underBarView.frame.height
+        let barHeight = bar.frame.height
         let extendedViewHeight = extendedView.frame.height
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
         let barTransformHeight = barHeight * navigationBarPercentHidden
