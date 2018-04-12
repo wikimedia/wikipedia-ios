@@ -86,7 +86,7 @@ public class NavigationBarHider: NSObject {
         }
         
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
-        if extendedViewHeight > 0 {
+        if isExtendedViewHidingEnabled && extendedViewHeight > 0 {
             extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
         }
         
