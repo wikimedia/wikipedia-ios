@@ -264,11 +264,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         }
     }
     
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
-        } else {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
         }
     }
     

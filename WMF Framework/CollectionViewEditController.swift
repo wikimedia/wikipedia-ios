@@ -10,7 +10,6 @@ enum CollectionViewCellState {
 
 public protocol CollectionViewEditControllerNavigationDelegate: class {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState)
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
@@ -546,7 +545,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             newEditingState = .open
         }
         
-        navigationDelegate?.willChangeEditingState(from: currentEditingState, to: newEditingState)
         editingState = newEditingState
     }
     
