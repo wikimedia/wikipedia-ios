@@ -354,6 +354,8 @@
 "reading-list-generic-error" = "Une erreur inattendue s’est produite lors de la mise à jour de vos listes de lecture.";
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Désactiver la synchronisation supprimera ces articles de votre compte. Si vous les enlevez de votre appareil, ils ne seront plus récupérables en réactivant la synchronisation plus tard.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia.";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
@@ -369,6 +371,8 @@
 "reading-list-name-user-created-annotation" = "_[utilisateur créé]";
 "reading-list-new-list-description-placeholder" = "courte description optionnelle";
 "reading-list-new-list-name-placeholder" = "lecture du titre de la liste";
+"reading-list-sync-disabled-panel-message" = "La synchronisation des listes de lecture a été désactivée de votre compte Wikipédia sur un autre appareil. Vous pouvez la réactiver en mettant à jour vos paramètres.";
+"reading-list-sync-disabled-panel-title" = "Synchronisation désactivée";
 "reading-list-sync-enable-button-title" = "Activer la synchronisation";
 "reading-list-sync-enable-subtitle" = "Vos articles enregistrés et vos listes de lecture peuvent maintenant être enregistrés sur votre compte Wikipédia et synchronisés entre applications Wikipédia.";
 "reading-list-sync-enable-title" = "Activer la synchronisation des listes de lecture ?";
@@ -382,7 +386,7 @@
 "reading-lists-article-not-synced" = "Non synchronisé";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite d’articles dépassée, impossible de synchroniser l’article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listes dépassée, impossible de synchroniser l’article";
-"reading-lists-article-queued-to-be-downloaded" = "Articles mis en file pour être téléchargés";
+"reading-lists-article-queued-to-be-downloaded" = "Articles mis en file d'attente pour être téléchargés";
 "reading-lists-articles-not-synced-limit-exceeded" = "Certains articles ne sont pas synchronisés, du fait d’un dépassement de limite";
 "reading-lists-conflicting-reading-list-name-updated" = "Votre liste '$1' a été renommée '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 liste|$1 listes}} de lecture";
@@ -392,6 +396,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Supprimer {{PLURAL:$1|la liste|les listes}} ?";
 "reading-lists-large-sync-completed" = "$1 articles et $2 listes de lecture synchronisés depuis votre compte";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste non synchronisée, du fait d’un dépassement de limite";
+"reading-lists-split-notification" = "Il y a une limite de $1 articles par liste de lecture. Les listes existantes avec plus d’articles que cette limite seront coupées en plusieurs listes.";
 "reading-lists-sync-error-no-internet-connection" = "La synchronisation reprendra quand la connexion internet sera disponible";
 "reading-themes-controls-accessibility-black-theme-button" = "Thème noir";
 "reading-themes-controls-accessibility-brightness-slider" = "Curseur de luminosité";

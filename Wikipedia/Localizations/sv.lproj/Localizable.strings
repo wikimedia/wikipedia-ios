@@ -386,6 +386,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
 "reading-lists-large-sync-completed" = "$1 artiklar och $2 läslistor synkroniserades från ditt konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listan är inte synkroniserad, gränsen har överstigits";
+"reading-lists-split-notification" = "Det finns en gräns på $1 artiklar per läslista. Befintliga listor med mer än denna gräns har delats upp i flera listor.";
 "reading-lists-sync-error-no-internet-connection" = "Synkroniseringen fortsätter när en Internetanslutning finns tillgänglig";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
