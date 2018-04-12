@@ -438,10 +438,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         if let barButtonSystemItem = rightBarButtonSystemItem {
             rightButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            rightButton?.systemItem = barButtonSystemItem
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
             leftButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            leftButton?.systemItem = barButtonSystemItem
         }
         
         leftButton?.tag = editingState.tag
