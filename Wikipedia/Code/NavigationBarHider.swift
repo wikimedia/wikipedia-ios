@@ -140,7 +140,9 @@ public class NavigationBarHider: NSObject {
         let animated = true
 
         let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
+        let underBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
+        
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
         if !isNavigationBarHidingEnabled {
             navigationBarPercentHidden = 0
