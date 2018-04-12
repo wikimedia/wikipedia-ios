@@ -19,11 +19,13 @@ class ReadingListHintViewController: UIViewController {
     
     @IBOutlet weak var hintView: UIView?
     @IBOutlet weak var hintLabel: UILabel?
-    @IBOutlet weak var confirmationView: UIView?
+    @IBOutlet weak var confirmationContainerView: UIView?
     @IBOutlet weak var confirmationImageView: UIImageView!
     @IBOutlet weak var confirmationLabel: UILabel!
     @IBOutlet weak var confirmationChevron: UIButton!
-    
+    @IBOutlet weak var outerStackView: UIStackView!
+    @IBOutlet weak var confirmationStackView: UIStackView!
+
     private var isConfirmationImageViewHidden: Bool = false {
         didSet {
             confirmationImageView.isHidden = isConfirmationImageViewHidden
@@ -33,7 +35,7 @@ class ReadingListHintViewController: UIViewController {
     private var isHintViewHidden: Bool = false {
         didSet {
             hintView?.isHidden = isHintViewHidden
-            confirmationView?.isHidden = !isHintViewHidden
+            confirmationContainerView?.isHidden = !isHintViewHidden
         }
     }
     
@@ -46,6 +48,10 @@ class ReadingListHintViewController: UIViewController {
         setHintButtonTitle()
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
+    
+        assert(outerStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: outerStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
+
+        assert(confirmationStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: confirmationStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

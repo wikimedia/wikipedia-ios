@@ -13,11 +13,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListHintViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="confirmationChevron" destination="wCS-DM-ckl" id="hit-xc-Gyl"/>
+                <outlet property="confirmationContainerView" destination="9Mi-lB-pMN" id="QWO-OY-pDu"/>
                 <outlet property="confirmationImageView" destination="Q55-Ot-WJE" id="gaq-NA-3pq"/>
                 <outlet property="confirmationLabel" destination="9CN-TE-qsp" id="jgp-S9-0aO"/>
-                <outlet property="confirmationView" destination="9Mi-lB-pMN" id="Kbc-xo-QXg"/>
+                <outlet property="confirmationStackView" destination="BjB-ib-pB7" id="5TN-DB-seg"/>
                 <outlet property="hintLabel" destination="ni7-Ic-c9C" id="78y-zo-fKF"/>
                 <outlet property="hintView" destination="f2T-xz-pPZ" id="X0h-wu-gdZ"/>
+                <outlet property="outerStackView" destination="eG8-5x-OUi" id="nNo-SZ-k1q"/>
                 <outlet property="view" destination="A0g-px-xTY" id="cfU-LL-9YD"/>
             </connections>
         </placeholder>
@@ -75,7 +77,7 @@
                                 <outletCollection property="gestureRecognizers" destination="3D2-Ih-XyP" appends="YES" id="5R9-gq-LMx"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN" userLabel="Confirmation View">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Mi-lB-pMN">
                             <rect key="frame" x="0.0" y="48" width="548" height="40"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BjB-ib-pB7">
