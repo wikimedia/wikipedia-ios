@@ -7,7 +7,7 @@ public class NavigationBar: SetupView {
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
-    public var extendedViewPercentHiddenForShowingTitle: CGFloat?
+    public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
     var isUnderBarViewHidingEnabled: Bool = true
@@ -198,9 +198,10 @@ public class NavigationBar: SetupView {
                 changes()
             }
         }
-        if let extendedViewPercentHiddenForShowingTitle = self.extendedViewPercentHiddenForShowingTitle {
+        
+        if let underBarViewPercentHiddenForShowingTitle = self.underBarViewPercentHiddenForShowingTitle {
             UIView.animate(withDuration: 0.2, animations: {
-                self.delegate?.title = extendedViewPercentHidden >= extendedViewPercentHiddenForShowingTitle ? self.title : nil
+                self.delegate?.title = underBarViewPercentHidden >= underBarViewPercentHiddenForShowingTitle ? self.title : nil
             }, completion: { (_) in
                 applyChanges()
             })
