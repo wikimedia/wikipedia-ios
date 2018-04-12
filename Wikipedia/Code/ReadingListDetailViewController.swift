@@ -552,10 +552,6 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
         title = name
     }
     
-    func readingListDetailUnderBarViewControllerDidPressSortButton(_ underBarViewController: ReadingListDetailUnderBarViewController, sortButton: UIButton) {
-        presentSortAlert(from: sortButton)
-    }
-    
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
         editController.isTextEditing = true
     }
