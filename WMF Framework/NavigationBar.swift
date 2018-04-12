@@ -183,6 +183,7 @@ public class NavigationBar: SetupView {
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         layoutIfNeeded()
         _navigationBarPercentHidden = navigationBarPercentHidden
+        _underBarViewPercentHidden = underBarViewPercentHidden
         _extendedViewPercentHidden = extendedViewPercentHidden
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
