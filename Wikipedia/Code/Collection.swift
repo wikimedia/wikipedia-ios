@@ -68,34 +68,36 @@ extension SearchableCollection where Self: EditableCollection {
     }
 }
 
-enum SortActionType {
+enum SortActionType: Int {
     case byTitle, byRecentlyAdded
     
-    func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction) -> ()) -> SortAction {
+    func action(with sortDescriptors: [NSSortDescriptor], handler: @escaping ([NSSortDescriptor], UIAlertAction, Int) -> ()) -> SortAction {
         let title: String
         switch self {
         case .byTitle:
-            title = WMFLocalizedString("sort-by-title-action", value: "Title", comment: "Title of the sort action that allows sorting articles by title.")
+            title = WMFLocalizedString("sort-by-title-action", value: "Title", comment: "Title of the sort action that allows sorting items by title.")
         case .byRecentlyAdded:
-            title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting articles by date added.")
+            title = WMFLocalizedString("sort-by-recently-added-action", value: "Recently added", comment: "Title of the sort action that allows sorting items by date added.")
         }
         
-        let action = UIAlertAction(title: title, style: .default) { (action) in
-            handler(sortDescriptors, action)
+        let alertAction = UIAlertAction(title: title, style: .default) { (alertAction) in
+            handler(sortDescriptors, alertAction, self.rawValue)
         }
-        return SortAction(action: action, type: self)
+        return SortAction(alertAction: alertAction, type: self, sortDescriptors: sortDescriptors)
     }
 }
 
 struct SortAction {
-    let action: UIAlertAction
+    let alertAction: UIAlertAction
     let type: SortActionType
+    let sortDescriptors: [NSSortDescriptor]
 }
 
 protocol SortableCollection: UpdatableCollection {
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) { get set }
-    var sortActions: [SortActionType: UIAlertAction] { get }
-    var defaultSortAction: UIAlertAction? { get }
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) { get set }
+    var defaultSortAction: SortAction? { get }
+    var defaultSortDescriptors: [NSSortDescriptor] { get }
+    var sortActions: [SortActionType: SortAction] { get }
     var sortAlert: UIAlertController { get }
     func presentSortAlert(from button: UIButton)
     func updateSortActionCheckmark()
@@ -105,17 +107,14 @@ extension SortableCollection where Self: UIViewController {
     
     func alert(title: String, message: String?) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        sortActions.values.forEach { alert.addAction($0) }
+        sortActions.values.forEach { alert.addAction($0.alertAction) }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
         return alert
     }
     
-    func updateSort(with newDescriptors: [NSSortDescriptor], newAction: UIAlertAction) {
-        guard sort.descriptors != newDescriptors else {
-            return
-        }
-        sort = (descriptors: newDescriptors, action: newAction)
+    func updateSort(with newDescriptors: [NSSortDescriptor], alertAction: UIAlertAction) {
+        sort = (descriptors: newDescriptors, alertAction: alertAction)
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
@@ -124,8 +123,8 @@ extension SortableCollection where Self: UIViewController {
     func updateSortActionCheckmark() {
         // hax https://stackoverflow.com/questions/40647039/how-to-add-uiactionsheet-button-check-mark
         let checkedKey = "checked"
-        sortActions.values.forEach { $0.setValue(false, forKey: checkedKey) }
-        let checkedAction = sort.action ?? defaultSortAction
+        sortActions.values.forEach { $0.alertAction.setValue(false, forKey: checkedKey) }
+        let checkedAction = sort.alertAction ?? defaultSortAction?.alertAction
         checkedAction?.setValue(true, forKey: checkedKey)
     }
     
@@ -139,7 +138,15 @@ extension SortableCollection where Self: UIViewController {
     }
     
     var baseSortDescriptors: [NSSortDescriptor] {
-        return sort.descriptors
+        return sort.descriptors.isEmpty ? defaultSortDescriptors : sort.descriptors
+    }
+    
+    var defaultSortDescriptors: [NSSortDescriptor] {
+        guard let defaultSortAction = defaultSortAction else {
+            assertionFailure("Sort action not found")
+            return []
+        }
+        return defaultSortAction.sortDescriptors
     }
 }
 

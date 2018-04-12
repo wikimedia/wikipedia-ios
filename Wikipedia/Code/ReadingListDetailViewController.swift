@@ -67,6 +67,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
         
         isRefreshControlEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     override func refresh() {
@@ -75,8 +77,19 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc private func dismissController() {
         dismiss(animated: true)
+    }
+    
+    @objc private func articleWasUpdated(_ notification: Notification) {
+        guard let article = notification.object as? WMFArticle, article.changedValues()["isDownloaded"] != nil else {
+            return
+        }
+        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,22 +201,48 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+        get {
+            guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+                return ([], nil)
+            }
+            return (sortAction.sortDescriptors, sortAction.alertAction)
+        }
+        set {
+            
+        }
+    }
     
-    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
     
-    lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
-        })
-       let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
-        })
-        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let moc = dataStore.viewContext
+        let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
+            self.readingList.sortOrder = NSNumber(value: rawValue)
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error {
+                    DDLogError("Error updating sort order: \(error)")
+                }
+            }
+        }
+        
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (sortDescriptors: [NSSortDescriptor], alertAction: UIAlertAction, rawValue: Int) in
+            updateSortOrder(rawValue)
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
+        }
+        
+        let titleSortAction = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.displayTitle, ascending: true)], handler: handler)
+        let recentlyAddedSortAction = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \ReadingListEntry.createdDate, ascending: false)], handler: handler)
+        
+        return [titleSortAction.type: titleSortAction, recentlyAddedSortAction.type: recentlyAddedSortAction]
     }()
     
     lazy var sortAlert: UIAlertController = {
-        return alert(title: "Sort saved articles", message: nil)
+        return alert(title: WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles."), message: nil)
     }()
 }
 
