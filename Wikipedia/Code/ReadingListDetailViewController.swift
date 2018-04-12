@@ -552,10 +552,6 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
         title = name
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, searchTextDidChange searchText: String) {
-        updateSearchString(searchText)
-    }
-    
     func readingListDetailUnderBarViewControllerDidPressSortButton(_ underBarViewController: ReadingListDetailUnderBarViewController, sortButton: UIButton) {
         presentSortAlert(from: sortButton)
     }
@@ -586,11 +582,28 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSo
 
 extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //
+        updateSearchString(searchText)
+        
+        if searchText.isEmpty {
+            makeSearchBarResignFirstResponder(searchBar)
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        navigationBarHider.isExtendedViewHidingEnabled = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        navigationBarHider.isExtendedViewHidingEnabled = false
     }
 }
 

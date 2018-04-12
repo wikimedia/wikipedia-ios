@@ -1,16 +1,16 @@
 import UIKit
 
 protocol SearchBarExtendedViewControllerDataSource: class {
-    // defaults to .search
     func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType
     func placeholder(for searchBar: UISearchBar) -> String?
-    // defaults to false
     func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool
 }
 
 protocol SearchBarExtendedViewControllerDelegate: class {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
 }
 
 class SearchBarExtendedViewController: UIViewController {
@@ -35,6 +35,15 @@ class SearchBarExtendedViewController: UIViewController {
 }
 
 extension SearchBarExtendedViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        delegate?.searchBarTextDidBeginEditing(searchBar)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        delegate?.searchBarTextDidEndEditing(searchBar)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         delegate?.searchBar(searchBar, textDidChange: searchText)
     }

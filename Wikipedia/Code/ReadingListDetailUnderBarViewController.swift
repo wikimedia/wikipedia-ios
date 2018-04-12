@@ -1,6 +1,5 @@
 protocol ReadingListDetailUnderBarViewControllerDelegate: class {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, searchTextDidChange searchText: String)
     func readingListDetailUnderBarViewControllerDidPressSortButton(_ underBarViewController: ReadingListDetailUnderBarViewController, sortButton: UIButton)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
 }
