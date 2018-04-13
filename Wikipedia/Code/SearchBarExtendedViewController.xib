@@ -52,13 +52,9 @@
                     <constraints>
                         <constraint firstItem="WdB-jO-CZz" firstAttribute="top" secondItem="uoR-23-hyW" secondAttribute="top" constant="8" id="4No-0z-FUE"/>
                         <constraint firstItem="vYP-aW-rZj" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leading" id="NJM-Ui-4L7"/>
-                        <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leadingMargin" id="O9i-VD-6xD">
-                            <variation key="heightClass=compact-widthClass=compact" constant="40"/>
-                        </constraint>
+                        <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leadingMargin" id="O9i-VD-6xD"/>
                         <constraint firstItem="vYP-aW-rZj" firstAttribute="top" secondItem="uoR-23-hyW" secondAttribute="top" id="aay-S3-hbF"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="12" id="cbd-Tv-IDC">
-                            <variation key="heightClass=compact-widthClass=compact" constant="56"/>
-                        </constraint>
+                        <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="12" id="cbd-Tv-IDC"/>
                         <constraint firstItem="2Ar-tq-JMK" firstAttribute="centerY" secondItem="WdB-jO-CZz" secondAttribute="centerY" id="ged-YB-9v5"/>
                         <constraint firstAttribute="trailing" secondItem="vYP-aW-rZj" secondAttribute="trailing" id="lcI-Pk-sat"/>
                         <constraint firstAttribute="bottomMargin" secondItem="WdB-jO-CZz" secondAttribute="bottom" constant="8" id="vVl-UZ-5bZ"/>
