@@ -68,6 +68,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisbilityUpdate;
 
+@property(nonatomic, strong) void (^viewDidDisappear)(void);
+
 @end
 
 @implementation WMFExploreViewController
@@ -372,8 +374,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self setupRefreshControl];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:)
-                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncWasEnabledForAccountNotification]
+                                             selector:@selector(userLoggedInNotification)
+                                                 name:[WMFAuthenticationManager userLoggedInNotification]
                                                object:nil];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
@@ -2061,10 +2063,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self.saveButtonsController updateSavedState];
 }
 
-- (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
-    BOOL wasSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] boolValue];
+#pragma mark - userLoggedInNotification
+
+- (void)userLoggedInNotification {
     WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisbilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
-    if (wasSyncEnabledForAccount && readingListGroup) {
+    if (readingListGroup) {
         readingListGroup.isVisible = NO;
     }
 }
