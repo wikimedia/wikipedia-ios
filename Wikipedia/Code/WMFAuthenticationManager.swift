@@ -175,6 +175,7 @@ class WMFAuthenticationManager: NSObject {
         
         // Reset so can show for next logged in user.
         UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
+        UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(false)
     }
     
     /**
