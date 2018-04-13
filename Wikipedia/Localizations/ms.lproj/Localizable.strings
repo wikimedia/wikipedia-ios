@@ -380,6 +380,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Padamkan {{PLURAL:$1|senarai|senarai}}?";
 "reading-lists-large-sync-completed" = "$1 rencana dan $2 senarai bacaan disegerakkan dari akaun anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Senarai tidak disegerakkan, had melebihi";
+"reading-lists-sort-saved-articles" = "Isih rencana yang disimpan";
 "reading-lists-split-notification" = "Terdapat had $1 rencana setiap senarai bacaan. Senarai sedia ada dengan lebih daripada had ini telah dibahagikan kepada beberapa senarai.";
 "reading-lists-sync-error-no-internet-connection" = "Penyegerakan akan disambung semula apabila sambungan internet tersedia";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
