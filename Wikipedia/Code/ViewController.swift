@@ -174,7 +174,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     
     // MARK: - WMFNavigationBarHiderDelegate
     
-    func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+    func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
         //
     }
 
