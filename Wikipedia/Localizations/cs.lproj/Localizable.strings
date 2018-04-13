@@ -239,7 +239,7 @@
 "page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je chráněná";
-"page-protected-other" = "Tato stránka je zamčena do následujících úrovní: %s";
+"page-protected-other" = "Tato stránka je zamčena do následujících úrovní: $1";
 "page-protected-sysop" = "Tato stránka je zamčena.";
 "page-read-in-other-languages" = "Dostupný v %d dalších jazycích";
 "page-similar-titles" = "Podobné stránky";
