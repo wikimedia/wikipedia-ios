@@ -58,10 +58,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBar.title = readingList.name
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
-        
-        if let searchBarExtendedViewController = searchBarExtendedViewController {
-            navigationBar.addExtendedNavigationBarView(searchBarExtendedViewController.view)
-        }
+        addExtendedView()
         
         setupFetchedResultsController()
         setupCollectionViewUpdater()
@@ -77,6 +74,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         isRefreshControlEnabled = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+    }
+    
+    private func addExtendedView() {
+        guard let extendedView = searchBarExtendedViewController?.view else {
+            return
+        }
+        navigationBar.addExtendedNavigationBarView(extendedView)
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -162,9 +166,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         if isEmpty {
         navigationBar.removeExtendedNavigationBarView()
         } else {
-            if let searchBarExtendedViewController = searchBarExtendedViewController {
-                navigationBar.addExtendedNavigationBarView(searchBarExtendedViewController.view)
-            }
+            addExtendedView()
         }
         updateScrollViewInsets()
         super.isEmptyDidChange()
