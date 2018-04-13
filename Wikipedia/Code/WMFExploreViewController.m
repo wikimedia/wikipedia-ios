@@ -68,8 +68,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 @property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisbilityUpdate;
 
-@property(nonatomic, strong) void (^viewDidDisappear)(void);
-
 @end
 
 @implementation WMFExploreViewController
@@ -372,7 +370,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerCellsAndViews];
     [self setupRefreshControl];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userLoggedInNotification)
                                                  name:[WMFAuthenticationManager userLoggedInNotification]
