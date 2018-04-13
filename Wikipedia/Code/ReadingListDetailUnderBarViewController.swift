@@ -1,6 +1,8 @@
 protocol ReadingListDetailUnderBarViewControllerDelegate: class {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField)
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldWillClear textField: UITextField)
 }
 
 class ReadingListDetailUnderBarViewController: UIViewController {
@@ -153,6 +155,11 @@ class ReadingListDetailUnderBarViewController: UIViewController {
         dismissKeyboardIfNecessary()
     }
     
+    
+    @IBAction func titleTextFieldTextDidChange(_ sender: UITextField) {
+        delegate?.readingListDetailUnderBarViewController(self, titleTextFieldTextDidChange: sender)
+    }
+    
 }
 
 extension ReadingListDetailUnderBarViewController: UITextFieldDelegate {
@@ -165,6 +172,14 @@ extension ReadingListDetailUnderBarViewController: UITextFieldDelegate {
         firstResponder = textField
         delegate?.readingListDetailUnderBarViewController(self, didBeginEditing: textField)
     }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == titleTextField {
+            delegate?.readingListDetailUnderBarViewController(self, titleTextFieldWillClear: textField)
+        }
+        return true
+    }
+    
 }
 
 extension ReadingListDetailUnderBarViewController: Themeable {

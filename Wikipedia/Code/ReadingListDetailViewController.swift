@@ -402,6 +402,27 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         return self.theme
     }
     
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+        let newEditingState: EditingState
+        
+        switch currentEditingState {
+        case .open:
+            newEditingState = .closed
+        case .swiping:
+            newEditingState = .done
+        case .editing where systemItem == .cancel:
+            newEditingState = .cancelled
+        case .editing where systemItem == .done:
+            newEditingState = .done
+        case .empty:
+            newEditingState = .editing
+        default:
+            newEditingState = .open
+        }
+        
+        return newEditingState
+    }
+    
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link // no need to do a whole apply(theme:) pass
@@ -565,6 +586,14 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
         editController.isTextEditing = true
     }
+    
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField) {
+        navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
+    }
+    
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldWillClear textField: UITextField) {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
 
 }
 
@@ -583,7 +612,6 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSo
         return true
     }
 }
-
 // MARK: - SearchBarExtendedViewControllerDelegate
 
 extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {

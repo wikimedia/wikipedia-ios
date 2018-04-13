@@ -41,6 +41,9 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="titleTextFieldTextDidChange:" destination="-1" eventType="editingChanged" id="Vtz-eW-aUp"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8lA-8c-7oC" customClass="WMFThemeableTextField">
                             <rect key="frame" x="0.0" y="66.5" width="464" height="30"/>

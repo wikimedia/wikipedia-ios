@@ -344,6 +344,8 @@
 "reading-list-generic-error" = "אירעה שגיאה בלתי־צפויה בעת עדכון רשימות הקריאה שלך.";
 "reading-list-keep-button-title" = "כן, לשמור את הערכים במכשיר";
 "reading-list-keep-subtitle" = "יש ערכים שסונכרנו לחשבון הוויקיפדיה שלך. האם ברצונך לשמור אותם במכשיר זה לאחר היציאה מהחשבון?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "כיבוי הסנכרון יגרום להסרת הערכים האלה מהחשבון שלך. לאחר הסרתם מהמכשיר, לא ניתן יהיה לשחזר אותם באמצעות הפעלת הסנכרון מחדש בעתיד.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "לא, להסיר את הערכים מהמכשיר ומחשבון הוויקיפדיה שלי";
 "reading-list-keep-title" = "לשמור את הערכים השמורים במכשיר?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "מיון ערכים";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "ישנה מגבלה של 5000 ערכים שאינם ממוינים. נא למיין את הערכים הקיימים שלך לפי רשימות, כדי שניתן יהיה להמשיך בסנכרון הערכים שאינם ממוינים.";
@@ -359,6 +361,8 @@
 "reading-list-name-user-created-annotation" = "_[המשתמש נוצר]";
 "reading-list-new-list-description-placeholder" = "תיאור קצר אופציונלי";
 "reading-list-new-list-name-placeholder" = "כותרת רשימת הקריאה";
+"reading-list-sync-disabled-panel-message" = "סנכרון רשימות הקריאה של חשבון הוויקיפדיה שלך בוטל במכשיר אחר. באפשרותך להפעיל את הסנכרון מחדש באמצעות עדכון ההגדרות.";
+"reading-list-sync-disabled-panel-title" = "הסנכרון בוטל";
 "reading-list-sync-enable-button-title" = "הפעלת סנכרון";
 "reading-list-sync-enable-subtitle" = "עכשיו אפשר לשמור את הערכים השמורים ואת רשימות הקריאה שלך בחשבון הוויקיפדיה שלך ולסנכרן אותם בין אפליקציות של ויקיפדיה.";
 "reading-list-sync-enable-title" = "להפעיל סנכרון רשימות קריאה?";
@@ -382,6 +386,8 @@
 "reading-lists-delete-reading-list-alert-title" = "למחוק את {{PLURAL:$1|הרשימה|הרשימות}}?";
 "reading-lists-large-sync-completed" = "$1 ערכים ו־$2 רשימות קריאה סונכרנו מהחשבון שלך";
 "reading-lists-list-not-synced-limit-exceeded" = "הרשימה לא סונכרנה משום שעברת את המגבלה";
+"reading-lists-sort-saved-articles" = "מיון ערכים שמורים";
+"reading-lists-split-notification" = "ישנה מגבלה של $1 ערכים ברשימת קריאה אחת. רשימות קיימות עם מספר ערכים גבוה מהמגבלה הזו פוצלו למספר רשימות.";
 "reading-lists-sync-error-no-internet-connection" = "הסנכרון ימשיך כשניתן יהיה להתחבר לאינטרנט";
 "reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";
