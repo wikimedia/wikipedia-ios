@@ -391,6 +391,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Hapus {{PLURAL:$1|daftar|daftar}}?";
 "reading-lists-large-sync-completed" = "$1 artikel dan $2 daftar bacaan disinkronkan dari akun Anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Daftar tidak disinkronkan, batas terlampaui";
+"reading-lists-sort-saved-articles" = "Urutkan artikel tersimpan";
 "reading-lists-split-notification" = "Ada batasan $1 artikel per daftar bacaan. Daftar yang ada dengan lebih dari batas ini telah dibagi menjadi beberapa daftar.";
 "reading-lists-sync-error-no-internet-connection" = "Sinkronisasi akan dilanjutkan ketika koneksi internet tersedia";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema hitam";
