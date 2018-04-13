@@ -6,12 +6,12 @@ protocol ReadingListDetailUnderBarViewControllerDelegate: class {
 }
 
 class ReadingListDetailUnderBarViewController: UIViewController {
-    @IBOutlet weak var articleCountLabel: UILabel!
-    @IBOutlet weak var titleTextField: ThemeableTextField!
-    @IBOutlet weak var descriptionTextField: ThemeableTextField!
-    @IBOutlet weak var alertStackView: UIStackView?
-    @IBOutlet weak var alertTitleLabel: UILabel?
-    @IBOutlet weak var alertMessageLabel: UILabel?
+    @IBOutlet private weak var articleCountLabel: UILabel!
+    @IBOutlet private weak var titleTextField: ThemeableTextField!
+    @IBOutlet private weak var descriptionTextField: ThemeableTextField!
+    @IBOutlet private weak var alertStackView: UIStackView?
+    @IBOutlet private weak var alertTitleLabel: UILabel?
+    @IBOutlet private weak var alertMessageLabel: UILabel?
     
     private var readingListTitle: String?
     private var readingListDescription: String?

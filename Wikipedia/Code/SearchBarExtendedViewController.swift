@@ -31,9 +31,9 @@ protocol SearchBarExtendedViewControllerDelegate: class {
 }
 
 class SearchBarExtendedViewController: UIViewController {
-    @IBOutlet weak var separatorView: UIView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var separatorView: UIView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var button: UIButton!
     private var buttonType: SearchBarExtendedViewButtonType? {
         didSet {
             button.setTitle(buttonType?.title, for: .normal)
