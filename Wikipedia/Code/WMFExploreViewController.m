@@ -66,6 +66,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
+@property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisbilityUpdate;
+
 @end
 
 @implementation WMFExploreViewController
@@ -368,6 +370,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
     [self registerCellsAndViews];
     [self setupRefreshControl];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:)
+                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncWasEnabledForAccountNotification]
+                                               object:nil];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -588,6 +595,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(contentGroup);
     if (!contentGroup) {
         return [UICollectionViewCell new];
+    }
+    if (contentGroup.requiresVisibilityUpdate) {
+        if (!self.contentGroupsThatRequireVisbilityUpdate) {
+            self.contentGroupsThatRequireVisbilityUpdate = [[NSMutableDictionary alloc] init];
+        }
+        [self.contentGroupsThatRequireVisbilityUpdate setObject:contentGroup forKey:[NSNumber numberWithInt:contentGroup.contentGroupKindInteger]];
     }
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
@@ -2046,6 +2059,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self.saveButtonsController updateSavedState];
+}
+
+- (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
+    BOOL wasSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] boolValue];
+    WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisbilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
+    if (wasSyncEnabledForAccount && readingListGroup) {
+        readingListGroup.isVisible = NO;
+    }
 }
 
 #if DEBUG && DEBUG_CHAOS

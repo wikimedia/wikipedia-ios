@@ -461,6 +461,15 @@ NS_ASSUME_NONNULL_BEGIN
     return WMFFeedHeaderTypeStandard;
 }
 
+- (BOOL)requiresVisibilityUpdate {
+    switch (self.contentGroupKind) {
+        case WMFContentGroupKindReadingList:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
 /**
  *  String to display to the user for the receiver's date.
  *
