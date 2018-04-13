@@ -34,14 +34,14 @@
                             </constraints>
                         </view>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="WdB-jO-CZz">
-                            <rect key="frame" x="8" y="8" width="301" height="36"/>
+                            <rect key="frame" x="4" y="8" width="307" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="YFt-Qp-UAM"/>
                             </constraints>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ar-tq-JMK" userLabel="Button">
-                            <rect key="frame" x="325" y="11" width="30" height="30"/>
+                            <rect key="frame" x="327" y="11" width="30" height="30"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Sort"/>
                             <connections>
@@ -52,9 +52,9 @@
                     <constraints>
                         <constraint firstItem="WdB-jO-CZz" firstAttribute="top" secondItem="uoR-23-hyW" secondAttribute="top" constant="8" id="4No-0z-FUE"/>
                         <constraint firstItem="vYP-aW-rZj" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leading" id="NJM-Ui-4L7"/>
-                        <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leadingMargin" id="O9i-VD-6xD"/>
+                        <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="uoR-23-hyW" secondAttribute="leading" constant="4" id="O9i-VD-6xD"/>
                         <constraint firstItem="vYP-aW-rZj" firstAttribute="top" secondItem="uoR-23-hyW" secondAttribute="top" id="aay-S3-hbF"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="12" id="cbd-Tv-IDC"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="10" id="cbd-Tv-IDC"/>
                         <constraint firstItem="2Ar-tq-JMK" firstAttribute="centerY" secondItem="WdB-jO-CZz" secondAttribute="centerY" id="ged-YB-9v5"/>
                         <constraint firstAttribute="trailing" secondItem="vYP-aW-rZj" secondAttribute="trailing" id="lcI-Pk-sat"/>
                         <constraint firstAttribute="bottomMargin" secondItem="WdB-jO-CZz" secondAttribute="bottom" constant="8" id="vVl-UZ-5bZ"/>
