@@ -435,6 +435,8 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         }
         
         switch newEditingState {
+        case .editing:
+            fallthrough
         case .open where isEmpty:
             readingListDetailUnderBarViewController.beginEditing()
         case .done:
