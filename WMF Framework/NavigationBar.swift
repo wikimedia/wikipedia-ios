@@ -84,9 +84,14 @@ public class NavigationBar: SetupView {
 
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
         updatedConstraints.append(statusBarUnderlayTopConstraint)
-
+        
+        var safeArea: UILayoutGuide?
         if #available(iOS 11.0, *) {
-            let statusBarUnderlayBottomConstraint = safeAreaLayoutGuide.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
+            safeArea = safeAreaLayoutGuide
+        }
+
+        if let safeArea = safeArea {
+            let statusBarUnderlayBottomConstraint = safeArea.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
             updatedConstraints.append(statusBarUnderlayBottomConstraint)
         } else {
             let underlayHeightConstraint = statusBarUnderlay.heightAnchor.constraint(equalToConstant: 0)
@@ -114,8 +119,15 @@ public class NavigationBar: SetupView {
         extendedView.addConstraint(extendedViewHeightConstraint)
         
         let extendedViewTopConstraint = underBarView.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
-        let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
-        let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
+        if let safeArea = safeArea {
+            let extendedViewLeadingConstraint = safeArea.leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
+            let extendedViewTrailingConstraint = safeArea.trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
+            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
+        } else {
+            let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
+            let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
+            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
+        }
         
         let backgroundViewTopConstraint = topAnchor.constraint(equalTo: backgroundView.topAnchor)
         let backgroundViewLeadingConstraint = leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
@@ -131,7 +143,7 @@ public class NavigationBar: SetupView {
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
         addConstraints(updatedConstraints)
         
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
