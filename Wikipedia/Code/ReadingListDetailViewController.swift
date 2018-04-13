@@ -157,6 +157,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     // MARK: - Empty state
     
     override func isEmptyDidChange() {
+        guard readingList.countOfEntries == 0 else {
+            return
+        }
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
@@ -435,6 +438,8 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         }
         
         switch newEditingState {
+        case .editing:
+            fallthrough
         case .open where isEmpty:
             readingListDetailUnderBarViewController.beginEditing()
         case .done:
