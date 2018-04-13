@@ -46,11 +46,15 @@ import UIKit
             }
             let addToReadingListAction = UIAccessibilityCustomAction(name: CommonStrings.addToReadingListActionTitle, target: self, selector: #selector(addToReadingList(_:)))
             accessibilityCustomActions = [addToReadingListAction]
-            UIView.performWithoutAnimation {
-                setTitle(saveTitle, for: .normal)
-                setImage(saveImage, for: .normal)
-                layoutIfNeeded()
-            }
+            setTitle(saveTitle, for: .normal)
+            setImage(saveImage, for: .normal)
+            layoutIfNeeded()
+        }
+    }
+
+    override open func layoutSubviews() {
+        UIView.performWithoutAnimation {
+            super.layoutSubviews()
         }
     }
     

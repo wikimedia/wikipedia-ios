@@ -127,7 +127,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
+        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, stackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         
         reset()
         primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
