@@ -1,7 +1,7 @@
 class ReadingListHintViewController: UIViewController {
     
     var dataStore: MWKDataStore?
-    fileprivate var theme: Theme = Theme.standard
+    private var theme: Theme = Theme.standard
     
     var article: WMFArticle? {
         didSet {
@@ -17,14 +17,14 @@ class ReadingListHintViewController: UIViewController {
         return String.localizedStringWithFormat(WMFLocalizedString("reading-list-add-hint-title", value: "Add “%1$@” to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
     }
     
-    @IBOutlet weak var hintView: UIView?
-    @IBOutlet weak var hintLabel: UILabel?
-    @IBOutlet weak var confirmationContainerView: UIView?
-    @IBOutlet weak var confirmationImageView: UIImageView!
-    @IBOutlet weak var confirmationLabel: UILabel!
-    @IBOutlet weak var confirmationChevron: UIButton!
-    @IBOutlet weak var outerStackView: UIStackView!
-    @IBOutlet weak var confirmationStackView: UIStackView!
+    @IBOutlet private weak var hintView: UIView?
+    @IBOutlet private weak var hintLabel: UILabel?
+    @IBOutlet private weak var confirmationContainerView: UIView?
+    @IBOutlet private weak var confirmationImageView: UIImageView!
+    @IBOutlet private weak var confirmationLabel: UILabel!
+    @IBOutlet private weak var confirmationChevron: UIButton!
+    @IBOutlet private weak var outerStackView: UIStackView!
+    @IBOutlet private weak var confirmationStackView: UIStackView!
 
     private var isConfirmationImageViewHidden: Bool = false {
         didSet {
@@ -95,8 +95,8 @@ class ReadingListHintViewController: UIViewController {
         present(addArticlesToReadingListViewController, animated: true, completion: nil)
     }
     
-    fileprivate var readingList: ReadingList?
-    fileprivate var themeableNavigationController: WMFThemeableNavigationController?
+    private var readingList: ReadingList?
+    private var themeableNavigationController: WMFThemeableNavigationController?
     
     @IBAction func openReadingList() {
         guard let readingList = readingList, let dataStore = dataStore else {

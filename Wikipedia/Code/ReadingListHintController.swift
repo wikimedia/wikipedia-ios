@@ -33,7 +33,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         self.hintVC.delegate = self
     }
     
-    func removeHint() {
+    private func removeHint() {
         task?.cancel()
         hintVC.willMove(toParentViewController: nil)
         hintVC.view.removeFromSuperview()
@@ -42,10 +42,10 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         resetHint()
     }
     
-    var containerBottomConstraint:NSLayoutConstraint?
-    var containerTopConstraint:NSLayoutConstraint?
+    private var containerBottomConstraint:NSLayoutConstraint?
+    private var containerTopConstraint:NSLayoutConstraint?
     
-    func addHint() {
+    private func addHint() {
         guard isHintHidden() else {
             return
         }
@@ -82,7 +82,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         presenter?.wmf_add(childController: hintVC, andConstrainToEdgesOfContainerView: containerView)
     }
     
-    var hintVisibilityTime: TimeInterval = 13 {
+    private var hintVisibilityTime: TimeInterval = 13 {
         didSet {
             guard hintVisibilityTime != oldValue else {
                 return
@@ -93,14 +93,14 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     private var task: DispatchWorkItem?
     
-    func updateRandom(_ hintHidden: Bool) {
+    private func updateRandom(_ hintHidden: Bool) {
         if let navigationController = (presenter as? WMFRandomArticleViewController)?.navigationController as? WMFArticleNavigationController {
             navigationController.readingListHintHeight = containerView.frame.size.height
             navigationController.readingListHintHidden = hintHidden
         }
     }
     
-    func dismissHint() {
+    private func dismissHint() {
         self.task?.cancel()
         let task = DispatchWorkItem { [weak self] in
             self?.setHintHidden(true)
