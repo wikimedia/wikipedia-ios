@@ -16,7 +16,6 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     private let dataStore: MWKDataStore
     private weak var presenter: UIViewController?
     private let hintVC: ReadingListHintViewController
-    private let hintHeight: CGFloat = 50
     private var theme: Theme = Theme.standard
     private var didSaveArticle: Bool = false
     private var containerView = UIView()
