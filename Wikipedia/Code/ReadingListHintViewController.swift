@@ -73,9 +73,15 @@ class ReadingListHintViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         hintLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
         confirmationLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
-        if (traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass) {
-            delegate?.readingListHintRotated()
+    }
+    
+    private var previousHeight:CGFloat = 0.0
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if previousHeight != view.frame.size.height {
+            delegate?.readingListHintHeightChanged()
         }
+        previousHeight = view.frame.size.height
     }
     
     public weak var delegate: ReadingListHintViewControllerDelegate?

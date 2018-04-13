@@ -7,7 +7,7 @@ public protocol ReadingListHintPresenter: class {
 
 protocol ReadingListHintViewControllerDelegate: class {
     func readingListHint(_ readingListHint: ReadingListHintViewController, shouldBeHidden: Bool)
-    func readingListHintRotated()
+    func readingListHintHeightChanged()
 }
 
 @objc(WMFReadingListHintController)
@@ -195,10 +195,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         setHintHidden(shouldBeHidden)
     }
     
-    func readingListHintRotated() {
-        dispatchOnMainQueueAfterDelayInSeconds(0.1) { [weak self] in
-            self?.updateRandom(self?.isHintHidden() ?? true)
-        }
+    func readingListHintHeightChanged(){
+        updateRandom(isHintHidden())
     }
 }
 
