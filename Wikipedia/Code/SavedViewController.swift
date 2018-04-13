@@ -4,6 +4,8 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
 }
 
 @objc(WMFSavedViewController)
@@ -300,9 +302,11 @@ extension SavedViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         actionButtonType = .cancel
+        savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         actionButtonType = .sort
+        savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
 }
