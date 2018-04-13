@@ -66,7 +66,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
-@property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisbilityUpdate;
+@property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisibilityUpdate;
 
 @end
 
@@ -597,10 +597,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         return [UICollectionViewCell new];
     }
     if (contentGroup.requiresVisibilityUpdate) {
-        if (!self.contentGroupsThatRequireVisbilityUpdate) {
-            self.contentGroupsThatRequireVisbilityUpdate = [[NSMutableDictionary alloc] init];
+        if (!self.contentGroupsThatRequireVisibilityUpdate) {
+            self.contentGroupsThatRequireVisibilityUpdate = [[NSMutableDictionary alloc] init];
         }
-        [self.contentGroupsThatRequireVisbilityUpdate setObject:contentGroup forKey:[NSNumber numberWithInt:contentGroup.contentGroupKindInteger]];
+        [self.contentGroupsThatRequireVisibilityUpdate setObject:contentGroup forKey:[NSNumber numberWithInt:contentGroup.contentGroupKindInteger]];
     }
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
@@ -2064,7 +2064,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - userLoggedInNotification
 
 - (void)userLoggedInNotification {
-    WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisbilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
+    WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisibilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
     if (readingListGroup) {
         readingListGroup.isVisible = NO;
     }
