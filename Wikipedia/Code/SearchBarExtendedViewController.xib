@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,14 +32,14 @@
                     </constraints>
                 </view>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="WdB-jO-CZz">
-                    <rect key="frame" x="20" y="8" width="281" height="36"/>
+                    <rect key="frame" x="22" y="8" width="281" height="36"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="YFt-Qp-UAM"/>
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ar-tq-JMK" userLabel="Button">
-                    <rect key="frame" x="317" y="11" width="30" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ar-tq-JMK" userLabel="Button">
+                    <rect key="frame" x="311" y="11" width="30" height="30"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                     <state key="normal" title="Sort"/>
                     <connections>
@@ -47,13 +48,13 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="12" id="AvI-rd-hJb"/>
-                <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="ZMf-us-lpX" secondAttribute="leadingMargin" constant="4" id="Fqh-uI-4Rb"/>
+                <constraint firstAttribute="trailingMargin" secondItem="2Ar-tq-JMK" secondAttribute="trailing" constant="18" id="AvI-rd-hJb"/>
+                <constraint firstItem="WdB-jO-CZz" firstAttribute="leading" secondItem="ZMf-us-lpX" secondAttribute="leadingMargin" constant="6" id="Fqh-uI-4Rb"/>
                 <constraint firstAttribute="trailing" secondItem="vYP-aW-rZj" secondAttribute="trailing" id="MbO-RZ-yk2"/>
                 <constraint firstAttribute="bottomMargin" secondItem="WdB-jO-CZz" secondAttribute="bottom" constant="8" id="UYm-Qh-v8d"/>
                 <constraint firstItem="2Ar-tq-JMK" firstAttribute="centerY" secondItem="WdB-jO-CZz" secondAttribute="centerY" id="eKo-Bs-kYG"/>
                 <constraint firstItem="vYP-aW-rZj" firstAttribute="top" secondItem="ZMf-us-lpX" secondAttribute="top" id="fPo-Zv-pL7"/>
-                <constraint firstItem="2Ar-tq-JMK" firstAttribute="leading" secondItem="WdB-jO-CZz" secondAttribute="trailing" constant="16" id="fYI-WD-3Gl"/>
+                <constraint firstItem="2Ar-tq-JMK" firstAttribute="leading" secondItem="WdB-jO-CZz" secondAttribute="trailingMargin" constant="16" id="fYI-WD-3Gl"/>
                 <constraint firstItem="WdB-jO-CZz" firstAttribute="top" secondItem="ZMf-us-lpX" secondAttribute="topMargin" constant="8" id="tHh-vM-fPu"/>
                 <constraint firstItem="vYP-aW-rZj" firstAttribute="leading" secondItem="ZMf-us-lpX" secondAttribute="leading" id="tXg-S4-86s"/>
             </constraints>
