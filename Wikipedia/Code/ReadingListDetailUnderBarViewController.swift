@@ -7,9 +7,7 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     @IBOutlet weak var articleCountLabel: UILabel!
     @IBOutlet weak var titleTextField: ThemeableTextField!
     @IBOutlet weak var descriptionTextField: ThemeableTextField!
-//    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var alertStackView: UIStackView?
-//    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var alertTitleLabel: UILabel?
     @IBOutlet weak var alertMessageLabel: UILabel?
     
@@ -128,12 +126,6 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     private var isAlertViewHidden: Bool = true {
         didSet {
             alertStackView?.isHidden = isAlertViewHidden
-        }
-    }
-
-    public var isSearchBarHidden: Bool = false {
-        didSet {
-//            searchContainerView.isHidden = isSearchBarHidden
         }
     }
     

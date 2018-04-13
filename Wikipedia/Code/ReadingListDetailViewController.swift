@@ -159,7 +159,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         } else {
             title = nil
         }
-        readingListDetailUnderBarViewController.isSearchBarHidden = isEmpty
+        if isEmpty {
+        navigationBar.removeExtendedNavigationBarView()
+        } else {
+            if let searchBarExtendedViewController = searchBarExtendedViewController {
+                navigationBar.addExtendedNavigationBarView(searchBarExtendedViewController.view)
+            }
+        }
         updateScrollViewInsets()
         super.isEmptyDidChange()
     }
