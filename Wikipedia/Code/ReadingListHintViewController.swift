@@ -136,9 +136,9 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
             isConfirmationImageViewHidden = true
         }
         self.readingList = readingList
-        isHintViewHidden = true
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list"), name)
         confirmationLabel.text = title
+        isHintViewHidden = true
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
