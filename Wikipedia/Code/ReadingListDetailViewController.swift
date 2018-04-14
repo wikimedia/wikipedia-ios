@@ -157,7 +157,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     // MARK: - Empty state
     
     override func isEmptyDidChange() {
-        guard readingList.countOfEntries == 0 else {
+        guard isEmpty == (readingList.countOfEntries == 0) else {
             return
         }
         editController.isCollectionViewEmpty = isEmpty
@@ -167,7 +167,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
             title = nil
         }
         if isEmpty {
-        navigationBar.removeExtendedNavigationBarView()
+            navigationBar.removeExtendedNavigationBarView()
         } else {
             addExtendedView()
         }
