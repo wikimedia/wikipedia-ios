@@ -92,11 +92,7 @@ public class NavigationBarHider: NSObject {
         }
         
         if shouldHideUnderBarView && shouldHideExtendedView {
-            if currentUnderBarViewPercentHidden >= 0 && currentUnderBarViewPercentHidden < 1 { // underBar view is still visible
-                extendedViewPercentHidden = 0
-            } else {
-                extendedViewPercentHidden = ((scrollY - underBarViewHeight - barHeight)/extendedViewHeight).wmf_normalizedPercentage
-            }
+            extendedViewPercentHidden = ((scrollY - underBarViewHeight)/extendedViewHeight).wmf_normalizedPercentage
         } else if shouldHideExtendedView {
             extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
         }
