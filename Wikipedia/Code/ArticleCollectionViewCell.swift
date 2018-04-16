@@ -168,7 +168,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             
             var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
             if isRTL {
-                batchEditX = size.width - batchEditSelectViewWidth - layoutMargins.left
+                batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
             }
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
@@ -318,9 +318,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
-            if isRTL {
+            if isDeviceRTL && isArticleRTL {
+                layoutMarginsAdditions.left = marginAddition
+            } else if isDeviceRTL || isArticleRTL {
                 layoutMarginsAdditions.right = marginAddition
             } else {
                 layoutMarginsAdditions.left = marginAddition
