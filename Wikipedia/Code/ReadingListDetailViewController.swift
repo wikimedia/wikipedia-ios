@@ -40,6 +40,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
         readingListDetailUnderBarViewController.delegate = self
+        edgesForExtendedLayout.remove(.bottom)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,6 +51,26 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return true
     }
     
+    private lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
+    
+    private lazy var progressContainerView: UIView = {
+        let containerView = UIView()
+        containerView.isUserInteractionEnabled = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(containerView)
+        
+        // reminder: this height constraint gets deactivated by "wmf_add:andConstrainToEdgesOfContainerView:"
+        containerView.addConstraint(containerView.heightAnchor.constraint(equalToConstant: 1))
+        
+        view.addConstraints([
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        return containerView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,6 +96,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         isRefreshControlEnabled = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        
+        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
     }
     
     private func addExtendedView() {
@@ -182,6 +205,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         super.apply(theme: theme)
         readingListDetailUnderBarViewController.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
+        savedProgressViewController?.apply(theme: theme)
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
