@@ -158,9 +158,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     override func isEmptyDidChange() {
         // for cases when empty state changes while user is viewing search results, we need to make sure that new empty state matches reading list's empty state
-        let isEmptyStateMatchingReadingListEmptyState = isEmpty == (readingList.countOfEntries == 0)
-        guard isEmptyStateMatchingReadingListEmptyState else {
-            return
+        let isReadingListEmpty = readingList.countOfEntries == 0
+        let isEmptyStateMatchingReadingListEmptyState = isEmpty == isReadingListEmpty
+        if !isEmptyStateMatchingReadingListEmptyState {
+            isEmpty = isReadingListEmpty
         }
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
