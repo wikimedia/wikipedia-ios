@@ -165,12 +165,9 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
-        } else {
-            title = nil
-        }
-        if isEmpty {
             navigationBar.removeExtendedNavigationBarView()
         } else {
+            title = nil
             addExtendedView()
         }
         updateScrollViewInsets()
