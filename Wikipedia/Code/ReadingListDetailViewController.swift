@@ -48,7 +48,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     var shouldShowEditButtonsForEmptyState: Bool {
-        return true
+        return !readingList.isDefault
     }
     
     private lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
