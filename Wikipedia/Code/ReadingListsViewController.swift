@@ -51,7 +51,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         
         var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.caseInsensitiveCompare)))
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
