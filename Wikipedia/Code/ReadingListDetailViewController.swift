@@ -90,6 +90,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+            title = readingList.name
         }
         
         isRefreshControlEnabled = true
@@ -180,18 +181,18 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     // MARK: - Empty state
     
     override func isEmptyDidChange() {
-        guard readingList.countOfEntries == 0 else {
-            return
+        // for cases when empty state changes while user is viewing search results, we need to make sure that new empty state matches reading list's empty state
+        let isReadingListEmpty = readingList.countOfEntries == 0
+        let isEmptyStateMatchingReadingListEmptyState = isEmpty == isReadingListEmpty
+        if !isEmptyStateMatchingReadingListEmptyState {
+            isEmpty = isReadingListEmpty
         }
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
+            navigationBar.removeExtendedNavigationBarView()
         } else {
             title = nil
-        }
-        if isEmpty {
-        navigationBar.removeExtendedNavigationBarView()
-        } else {
             addExtendedView()
         }
         updateScrollViewInsets()
