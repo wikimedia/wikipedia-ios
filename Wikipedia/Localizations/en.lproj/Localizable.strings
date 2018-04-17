@@ -438,7 +438,7 @@
 "settings-storage-and-syncing-full-sync" = "Your reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Request an update to your synced articles and reading lists.";
 "settings-storage-and-syncing-server-sync-title" = "Update synced reading lists";
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices.";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Show the Saved (eg. default) reading list as a separate list in your reading lists view. This list appears on Android devices.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Show Saved reading list";
 "settings-storage-and-syncing-title" = "Article storage and syncing";
 "settings-support" = "Support Wikipedia";
