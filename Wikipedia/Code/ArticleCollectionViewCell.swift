@@ -314,7 +314,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
+            let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+            let marginAddition = batchEditingTranslation / 1.5
+            if isRTL {
+                layoutMarginsAdditions.right = marginAddition
+            } else {
+                layoutMarginsAdditions.left = marginAddition
+            }
             let isOpen = batchEditingTranslation > 0
             if isOpen, let batchEditSelectView = batchEditSelectView {
                 contentView.addSubview(batchEditSelectView)

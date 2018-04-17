@@ -90,6 +90,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+            title = readingList.name
         }
         
         isRefreshControlEnabled = true
