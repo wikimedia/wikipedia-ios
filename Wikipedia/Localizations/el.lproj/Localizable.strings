@@ -311,6 +311,7 @@
 "reading-list-login-title" = "Συγχρονισμός των αποθηκευμένων άρθρων σας;";
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
+"reading-list-sync-disabled-panel-title" = "Συγχρονισμός απενεργοποιημένων";
 "reading-list-sync-enable-button-title" = "Ενεργοποίηση συγχρονισμού";
 "reading-lists-article-added-confirmation" = "Λήμμα προστέθηκε στο \"$1\"";
 "reading-lists-article-not-synced" = "Μη συγχρονισμένο";
@@ -324,6 +325,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Διαγραφή των {{PLURAL:$1|λίστα|λιστών}};";
 "reading-lists-large-sync-completed" = "$1 λήμματα και $2 λίστες ανάγνωσης έχουν συγχρονιστεί από τον λογαριασμό σας";
 "reading-lists-list-not-synced-limit-exceeded" = "Η λίστα δεν συγχρονίστηκε, το όριο ξεπεράστηκε";
+"reading-lists-sort-saved-articles" = "Ταξινόμηση των αποθηκευμένων λημμάτων";
 "reading-lists-sync-error-no-internet-connection" = "Ο συγχρονισμός θα συνεχίσει όταν θα υπάρχει διαθέσιμη σύνδεση στο διαδίκτυο";
 "reading-themes-controls-accessibility-black-theme-button" = "Μαύρο θέμα";
 "reading-themes-controls-accessibility-dark-theme-button" = "Μαύρο θέμα";

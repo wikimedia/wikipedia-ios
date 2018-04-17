@@ -57,7 +57,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isNavigationBarHidingEnabled = false
+        navigationBarHider.isBarHidingEnabled = false
+        navigationBarHider.isUnderBarViewHidingEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -412,12 +413,25 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
         updateSearchString(searchText)
         
         if searchText.isEmpty {
-            searchBar.resignFirstResponder()
+            makeSearchBarResignFirstResponder(searchBar)
         }
     }
     
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
+        navigationBarHider.isHidingEnabled = false
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        navigationBarHider.isHidingEnabled = true
     }
 }
 

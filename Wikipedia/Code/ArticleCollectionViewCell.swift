@@ -163,14 +163,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
-            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let batchEditSelectViewWidth = abs(batchEditingTranslation)
+            
+            var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
+            if isRTL {
+                batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
+            }
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
-            let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
-
-            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
-            let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
+            let actionsViewWidth = isRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
+            let x = isRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -314,7 +318,16 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let marginAddition = batchEditingTranslation / 1.5
+            if isDeviceRTL && isArticleRTL {
+                layoutMarginsAdditions.left = marginAddition
+            } else if isDeviceRTL || isArticleRTL {
+                layoutMarginsAdditions.right = marginAddition
+            } else {
+                layoutMarginsAdditions.left = marginAddition
+            }
             let isOpen = batchEditingTranslation > 0
             if isOpen, let batchEditSelectView = batchEditSelectView {
                 contentView.addSubview(batchEditSelectView)

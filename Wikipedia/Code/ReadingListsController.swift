@@ -223,6 +223,10 @@ public class ReadingListsController: NSObject {
     
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
         assert(Thread.isMainThread)
+        guard !readingList.isDefault else {
+            assertionFailure("Default reading list cannot be updated")
+            return
+        }
         let moc = dataStore.viewContext
         if let newName = newName, !newName.isEmpty {
             readingList.name = newName

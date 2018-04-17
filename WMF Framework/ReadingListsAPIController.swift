@@ -11,6 +11,7 @@ public enum APIReadingListError: String, Error, Equatable {
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
     case listDeleted = "readinglists-db-error-list-deleted"
+    case defaultListCannotBeUpdated = "readinglists-db-error-cannot-update-default-list"
     
     public var localizedDescription: String {
         switch self {

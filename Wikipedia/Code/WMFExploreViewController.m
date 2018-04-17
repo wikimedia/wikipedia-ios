@@ -66,6 +66,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
+@property (nonatomic, strong) NSMutableDictionary *contentGroupsThatRequireVisibilityUpdate;
+
 @end
 
 @implementation WMFExploreViewController
@@ -369,6 +371,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [self registerCellsAndViews];
     [self setupRefreshControl];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userLoggedInNotification)
+                                                 name:[WMFAuthenticationManager userLoggedInNotification]
+                                               object:nil];
+
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -588,6 +595,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(contentGroup);
     if (!contentGroup) {
         return [UICollectionViewCell new];
+    }
+    if (contentGroup.requiresVisibilityUpdate) {
+        if (!self.contentGroupsThatRequireVisibilityUpdate) {
+            self.contentGroupsThatRequireVisibilityUpdate = [[NSMutableDictionary alloc] init];
+        }
+        [self.contentGroupsThatRequireVisibilityUpdate setObject:contentGroup forKey:[NSNumber numberWithInt:contentGroup.contentGroupKindInteger]];
     }
     WMFArticle *article = [self articleForIndexPath:indexPath];
     WMFFeedDisplayType displayType = [contentGroup displayTypeForItemAtIndex:indexPath.item];
@@ -1835,7 +1848,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindReadingList: {
-            [self wmf_showLoginViewControllerWithTheme:self.theme loginSuccessCompletion:nil];
+            [self wmf_showLoginViewControllerWithTheme:self.theme loginSuccessCompletion:nil loginDismissedCompletion:nil];
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
@@ -2046,6 +2059,15 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self.saveButtonsController updateSavedState];
+}
+
+#pragma mark - userLoggedInNotification
+
+- (void)userLoggedInNotification {
+    WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisibilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
+    if (readingListGroup) {
+        readingListGroup.isVisible = NO;
+    }
 }
 
 #if DEBUG && DEBUG_CHAOS

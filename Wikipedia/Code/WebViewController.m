@@ -522,7 +522,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  CGFloat newOffsetY = matchScrollOffsetY + contentInsetTop - 0.5 * self.delegate.navigationBar.visibleHeight - 0.5 * keyboardBarOriginY + 0.5 * CGRectGetHeight(rect);
                                                  if (newOffsetY <= 0 - contentInsetTop) {
                                                      newOffsetY = 0 - contentInsetTop;
-                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
                                                  }
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
@@ -951,7 +951,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
             if (newOffsetY <= 0 - contentInsetTop) {
                 newOffsetY = 0 - contentInsetTop;
-                [self.delegate.navigationBar setNavigationBarPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
             }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
