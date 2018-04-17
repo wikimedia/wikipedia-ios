@@ -9,11 +9,11 @@ private struct Section {
         
         switch type {
         case .syncSavedArticlesAndLists:
-            footerText = WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login to sync", comment: "Footer text of the settings option that enables saved articles and reading lists syncing")
+            footerText = WMFLocalizedString("settings-storage-and-syncing-enable-sync-footer-text", value: "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login and sync.", comment: "Footer text of the settings option that enables saved articles and reading lists syncing")
         case .showSavedReadingList:
-            footerText = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your Reading lists view. This list appears on Android devices", comment: "Footer text of the settings option that enables showing the default reading list")
+            footerText = WMFLocalizedString("settings-storage-and-syncing-show-default-reading-list-footer-text", value: "Show the Saved (eg. default) reading list as a separate list in your reading lists view. This list appears on Android devices.", comment: "Footer text of the settings option that enables showing the default reading list")
         case .syncWithTheServer:
-            footerText = WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request a sync from the server for an update to your synced articles and reading lists", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync")
+            footerText = WMFLocalizedString("settings-storage-and-syncing-server-sync-footer-text", value: "Request an update to your synced articles and reading lists.", comment: "Footer text of the settings button that initiates saved articles and reading lists server sync")
         default:
             break
         }
@@ -175,7 +175,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
                 let temporaryCacheSize = ImageController.shared.temporaryCacheSize
                 let sitesDirectorySize = Int64(dataStore?.sitesDirectorySize() ?? 0)
                 let dataSizeString = ByteCountFormatter.string(fromByteCount: temporaryCacheSize + sitesDirectorySize, countStyle: .file)
-                let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as and from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles")
+                let format = WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-footer-text", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device.\n\nErasing your saved articles will free up about %1$@ of space.", comment: "Footer text of the settings option that enables erasing saved articles")
                 eraseSavedArticlesView.footerLabel.text = String.localizedStringWithFormat(format, dataSizeString)
                 eraseSavedArticlesView.translatesAutoresizingMaskIntoConstraints = false
                 cell.contentView.wmf_addSubviewWithConstraintsToEdges(eraseSavedArticlesView)
