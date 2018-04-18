@@ -122,6 +122,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)_update {
     if (self.isUpdating || !self.isRunning) {
+        [self updateFetchesInProcessCount];
         return;
     }
     self.updating = YES;
@@ -171,17 +172,20 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             NSURL *articleURL = article.URL;
             if (!articleURL) {
                 self.updating = NO;
+                [self updateFetchesInProcessCount];
                 return;
             }
             [self cancelFetchForArticleURL:articleURL];
             [self removeArticleWithURL:articleURL
                             completion:^{
                                 updateAgain();
+                                [self updateFetchesInProcessCount];
                             }];
             [self.spotlightManager removeFromIndexWithUrl:articleURL];
         } else {
             self.updating = NO;
             [self notifyDelegateIfFinished];
+            [self updateFetchesInProcessCount];
         }
     }
 }
@@ -410,8 +414,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     DDLogVerbose(@"Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
     [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
-
-    [self updateFetchesInProcessCount];
 }
 
 #pragma mark - Delegate Notification

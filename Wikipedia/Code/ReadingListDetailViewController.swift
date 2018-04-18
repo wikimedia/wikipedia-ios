@@ -40,7 +40,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         searchBarExtendedViewController?.dataSource = self
         searchBarExtendedViewController?.delegate = self
         readingListDetailUnderBarViewController.delegate = self
-        edgesForExtendedLayout.remove(.bottom)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,7 +64,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         view.addConstraints([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            bottomLayoutGuide.topAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
         return containerView

@@ -127,6 +127,7 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     
     private var isAlertViewHidden: Bool = true {
         didSet {
+            alertStackView?.spacing = isAlertViewHidden ? 0 : 7
             alertStackView?.isHidden = isAlertViewHidden
         }
     }
