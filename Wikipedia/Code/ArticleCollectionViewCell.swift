@@ -310,8 +310,14 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
-            layoutMarginsAdditions.right = 0 - swipeTranslation
-            layoutMarginsAdditions.left = swipeTranslation
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            if isArticleRTL {
+                layoutMarginsAdditions.left = 0 - swipeTranslation
+                layoutMarginsAdditions.right = swipeTranslation
+            } else {
+                layoutMarginsAdditions.right = 0 - swipeTranslation
+                layoutMarginsAdditions.left = swipeTranslation
+            }
             setNeedsLayout()
         }
     }
