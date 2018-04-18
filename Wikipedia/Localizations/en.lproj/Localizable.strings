@@ -319,6 +319,10 @@
 "reading-list-api-error-entry-limit" = "This entry is not synced because you have reached the limit for the number of entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "This list is not synced because you have reached the limit for the number of synced lists.";
+"reading-list-create-new-list-button-title" = "Create reading list";
+"reading-list-create-new-list-description" = "Description";
+"reading-list-create-new-list-reading-list-name" = "Reading list name";
+"reading-list-create-new-list-title" = "Create a new list";
 "reading-list-deleted-accessibility-notification" = "Reading list deleted";
 "reading-list-do-not-keep-button-title" = "No, delete articles from device";
 "reading-list-entry-limit-exceeded-message" = "Please decrease your number of articles in this list to $1 to resume syncing of all articles in this list.";
