@@ -135,7 +135,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
             if isRTL {
-                x = size.width - articleCountLabelSize.width - layoutMargins.right
+                x = size.width - articleCountLabelSize.width - layoutMargins.left
             }
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
