@@ -308,6 +308,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
+        articleSemanticContentAttribute = .unspecified
+        
         imageViewDimension = 100
 
         self.displayType = displayType

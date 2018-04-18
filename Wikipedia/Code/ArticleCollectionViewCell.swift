@@ -247,11 +247,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
     }
     
+    private var wasArticleSemanticContentAttributeUnspecified: Bool = false
+    
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
+            wasArticleSemanticContentAttributeUnspecified = true
             let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             _effectiveArticleSemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
         } else {
+            wasArticleSemanticContentAttributeUnspecified = false
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
         }
         let alignment = _effectiveArticleSemanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
@@ -328,9 +332,24 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
+            defer {
+                let isOpen = batchEditingTranslation > 0
+                if isOpen, let batchEditSelectView = batchEditSelectView {
+                    contentView.addSubview(batchEditSelectView)
+                    batchEditSelectView.clipsToBounds = true
+                }
+                setNeedsLayout()
+            }
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
+            
+            if UIDevice.current.userInterfaceIdiom == .pad && wasArticleSemanticContentAttributeUnspecified && isDeviceRTL {
+                layoutMarginsAdditions.right = marginAddition
+                layoutMarginsAdditions.left = marginAddition
+                return
+            }
+            
             if isDeviceRTL && isArticleRTL {
                 layoutMarginsAdditions.left = marginAddition
             } else if isDeviceRTL || isArticleRTL {
@@ -338,12 +357,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             } else {
                 layoutMarginsAdditions.left = marginAddition
             }
-            let isOpen = batchEditingTranslation > 0
-            if isOpen, let batchEditSelectView = batchEditSelectView {
-                contentView.addSubview(batchEditSelectView)
-                batchEditSelectView.clipsToBounds = true
-            }
-            setNeedsLayout()
         }
     }
 
