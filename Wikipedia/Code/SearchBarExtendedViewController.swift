@@ -7,9 +7,9 @@ enum SearchBarExtendedViewButtonType {
     var title: String {
         switch self {
         case .sort:
-        return CommonStrings.sortActionTitle
+            return CommonStrings.sortActionTitle
         case .cancel:
-        return CommonStrings.cancelActionTitle
+            return CommonStrings.cancelActionTitle
         }
     }
 }
