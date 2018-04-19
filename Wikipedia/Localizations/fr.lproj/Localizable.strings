@@ -376,6 +376,8 @@
 "reading-list-sync-enable-button-title" = "Activer la synchronisation";
 "reading-list-sync-enable-subtitle" = "Vos articles enregistrés et vos listes de lecture peuvent maintenant être enregistrés sur votre compte Wikipédia et synchronisés entre applications Wikipédia.";
 "reading-list-sync-enable-title" = "Activer la synchronisation des listes de lecture ?";
+"reading-list-sync-enabled-panel-message" = "La synchronisation des listes de lecture est activée pour ce compte. Pour l’arrêter, vous pouvez désactiver la synchronisation pour ce compte en mettant à jour vos paramètres.";
+"reading-list-sync-enabled-panel-title" = "Synchronisation activée sur ce compte";
 "reading-list-unable-to-add-entry" = "Une erreur inattendue s’est produite lors de l’ajout d’une entrée à votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-create" = "Une erreur inattendue s’est produite lors de la création de votre liste de lecture. Veuillez réessayer ultérieurement.";
 "reading-list-unable-to-delete" = "Une erreur inattendue s’est produite lors de la suppression de votre liste de lecture. Veuillez réessayer ultérieurement.";
@@ -452,16 +454,20 @@
 "settings-notifications-trending" = "Tendance des événements actuels";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez pour synchroniser";
 "settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "L’effacement de vos articles enregistrés les supprimera de votre compte utilisateur si vous avez la synchronisation activée, tout comme de cet appareil. Vous ne pourrez pas annuler cette action.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Effacer tous les articles enregistrés ?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Effacer";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, et depuis cet appareil.\n\nEffacer vos articles enregistrés libérera environ $1 d’espace.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Effacer les articles enregistrés";
 "settings-storage-and-syncing-full-sync" = "Vos listes de lecture seront synchronisées en tâche de fond";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Demander une synchronisation pour le serveur pour une mise à jour de vos articles et de vos listes de lecture synchronisés";
 "settings-storage-and-syncing-server-sync-title" = "Mise à jour des listes de lecture synchronisées";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Afficher la liste de lecture Sauvegardés (par ex. défaut) comme une liste séparée dans la vue de vos listes de lecture. Cette liste apparaît sur les appareils Android";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Afficher la liste de lecture Sauvegardés";
 "settings-storage-and-syncing-title" = "Stockage des articles et synchronisation";

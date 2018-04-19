@@ -367,6 +367,8 @@
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
 "reading-list-sync-enable-subtitle" = "Os artigos que foram guardados e as listas de leitura podem agora ser guardados na sua conta da Wikipédia e sincronizados entre as aplicações da Wikipédia.";
 "reading-list-sync-enable-title" = "Ativar a sincronização das listas de leitura?";
+"reading-list-sync-enabled-panel-message" = "A sincronização das listas de leitura está ativada para esta conta. Para parar a sincronização, desative a sincronização para esta conta, ao atualizar as suas configurações.";
+"reading-list-sync-enabled-panel-title" = "A sincronização está ativada nesta conta";
 "reading-list-unable-to-add-entry" = "Ocorreu um erro inesperado ao adicionar uma entrada à sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-create" = "Ocorreu um erro inesperado ao criar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-delete" = "Ocorreu um erro inesperado ao eliminar a sua lista de leitura. Por favor, tente novamente mais tarde.";
@@ -443,16 +445,20 @@
 "settings-notifications-trending" = "Atualidades em tendência";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação. Alterá-la irá alterar também o conteúdo diário (como o \"Artigo em destaque\") apresentado em Explorar.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura para a sincronização";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e listas guardados";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos gravados?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos guardados irá removê-los também da sua conta de utilizador.\n\nApagar os seus artigos guardados libertará cerca de $1 de armazenamento.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos guardados";
 "settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma sincronização do servidor, para atualização dos seus artigos e listas de leitura sincronizados";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura Guardados (por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar a lista de leitura Guardados";
 "settings-storage-and-syncing-title" = "Armazenamento e sincronização de artigos";
