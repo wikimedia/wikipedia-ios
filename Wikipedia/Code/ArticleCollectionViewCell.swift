@@ -346,14 +346,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            defer {
-                let isOpen = batchEditingTranslation > 0
-                if isOpen, let batchEditSelectView = batchEditSelectView {
-                    contentView.addSubview(batchEditSelectView)
-                    batchEditSelectView.clipsToBounds = true
-                }
-                setNeedsLayout()
-            }
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
@@ -365,6 +357,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             } else {
                 layoutMarginsAdditions.left = marginAddition
             }
+            
+            if isBatchEditingPaneOpen, let batchEditSelectView = batchEditSelectView {
+                contentView.addSubview(batchEditSelectView)
+                batchEditSelectView.clipsToBounds = true
+            }
+            setNeedsLayout()
         }
     }
 
