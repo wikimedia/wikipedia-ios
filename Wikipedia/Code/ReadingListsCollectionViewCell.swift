@@ -140,6 +140,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             articleCountLabel.isHidden = true
         }
         
+        let labelHorizontalAlignment: HorizontalAlignment = isDeviceRTL ? .right : .left
+        
         if displayType == .addArticlesToReadingList {
             if isDefault {
                 let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -147,8 +149,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             } else {
-                let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
         } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
@@ -165,8 +166,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
             }
         } else {
-            let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             if !isAlertIconHidden || !isAlertLabelHidden {
                 origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
