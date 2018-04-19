@@ -47,9 +47,29 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     var shouldShowEditButtonsForEmptyState: Bool {
-        return true
+        return !readingList.isDefault
     }
     
+    private lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
+    
+    private lazy var progressContainerView: UIView = {
+        let containerView = UIView()
+        containerView.isUserInteractionEnabled = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(containerView)
+        
+        // reminder: this height constraint gets deactivated by "wmf_add:andConstrainToEdgesOfContainerView:"
+        containerView.addConstraint(containerView.heightAnchor.constraint(equalToConstant: 1))
+        
+        view.addConstraints([
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            bottomLayoutGuide.topAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
+        
+        return containerView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,11 +89,14 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
+            title = readingList.name
         }
         
         isRefreshControlEnabled = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        
+        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
     }
     
     private func addExtendedView() {
@@ -157,14 +180,16 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     // MARK: - Empty state
     
     override func isEmptyDidChange() {
+        // for cases when empty state changes while user is viewing search results, we need to make sure that new empty state matches reading list's empty state
+        let isReadingListEmpty = readingList.countOfEntries == 0
+        let isEmptyStateMatchingReadingListEmptyState = isEmpty == isReadingListEmpty
+        if !isEmptyStateMatchingReadingListEmptyState {
+            isEmpty = isReadingListEmpty
+        }
         editController.isCollectionViewEmpty = isEmpty
         if isEmpty {
             title = readingList.name
-        } else {
-            title = nil
-        }
-        if isEmpty {
-        navigationBar.removeExtendedNavigationBarView()
+            navigationBar.removeExtendedNavigationBarView()
         } else {
             addExtendedView()
         }
@@ -178,6 +203,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         super.apply(theme: theme)
         readingListDetailUnderBarViewController.apply(theme: theme)
         searchBarExtendedViewController?.apply(theme: theme)
+        savedProgressViewController?.apply(theme: theme)
     }
     
     // MARK: - Batch editing (parts that cannot be in an extension)
@@ -435,6 +461,8 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         }
         
         switch newEditingState {
+        case .editing:
+            fallthrough
         case .open where isEmpty:
             readingListDetailUnderBarViewController.beginEditing()
         case .done:

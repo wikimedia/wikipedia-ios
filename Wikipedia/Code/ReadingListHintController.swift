@@ -70,7 +70,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
             let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
             NSLayoutConstraint.activate([containerTopConstraint!, leadingConstraint, trailingConstraint])
             
-        }else{
+            presenter.wmf_hideKeyboard()
+        } else {
             assertionFailure("Expected presenter")
         }
         

@@ -14,6 +14,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet weak var scrollContainer: UIView!
     
     public var loginSuccessCompletion: (() -> Void)?
+    public var loginDismissedCompletion: (() -> Void)?
     
     @objc public var funnel: LoginFunnel?
     
@@ -25,6 +26,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+        loginDismissedCompletion?()
     }
 
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
