@@ -247,15 +247,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return traitCollection.layoutDirection == .rightToLeft ? .forceRightToLeft : .forceLeftToRight
     }
     
-    private var wasArticleSemanticContentAttributeUnspecified: Bool = false
-    
     fileprivate func updateEffectiveArticleSemanticContentAttribute() {
         if _articleSemanticContentAttribute == .unspecified {
-            wasArticleSemanticContentAttributeUnspecified = true
             let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             _effectiveArticleSemanticContentAttribute = isRTL ? .forceRightToLeft : .forceLeftToRight
         } else {
-            wasArticleSemanticContentAttributeUnspecified = false
             _effectiveArticleSemanticContentAttribute = _articleSemanticContentAttribute
         }
         let alignment = _effectiveArticleSemanticContentAttribute == .forceRightToLeft ? NSTextAlignment.right : NSTextAlignment.left
