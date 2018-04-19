@@ -168,7 +168,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             
             var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
             if isRTL {
-                batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
+                if (traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular) || traitCollection.verticalSizeClass == .compact && traitCollection.horizontalSizeClass == .compact {
+                    batchEditX = size.width - batchEditSelectViewWidth
+                } else {
+                    batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
+                }
             }
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
@@ -324,9 +328,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
+            defer {
+                let isOpen = batchEditingTranslation > 0
+                if isOpen, let batchEditSelectView = batchEditSelectView {
+                    contentView.addSubview(batchEditSelectView)
+                    batchEditSelectView.clipsToBounds = true
+                }
+                setNeedsLayout()
+            }
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
+            
             if isDeviceRTL && isArticleRTL {
                 layoutMarginsAdditions.left = marginAddition
             } else if isDeviceRTL || isArticleRTL {
@@ -334,12 +347,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             } else {
                 layoutMarginsAdditions.left = marginAddition
             }
-            let isOpen = batchEditingTranslation > 0
-            if isOpen, let batchEditSelectView = batchEditSelectView {
-                contentView.addSubview(batchEditSelectView)
-                batchEditSelectView.clipsToBounds = true
-            }
-            setNeedsLayout()
         }
     }
 
