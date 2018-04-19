@@ -432,6 +432,7 @@
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permite a Wikimedia gardar os seus artigos gardados e as súas listas de lectura nas súas preferencias cando se conecte para sincronizar";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e as listas gardadas";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ó borrar os seus artigos gardados iso eliminaraos da súa conta de usuario se ten activada a sincronización neste dispositivo. Non pode desfacer esta acción.";

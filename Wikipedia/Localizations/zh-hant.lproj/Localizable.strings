@@ -339,6 +339,10 @@
 "reading-list-api-error-entry-limit" = "此項目尚未同步，因為您已達到此清單的項目上限數目。";
 "reading-list-api-error-generic" = "同步您的閱讀清單時發生意外錯誤。";
 "reading-list-api-error-list-limit" = "此清單尚未同步，因為您已達到同步清單的上限數目。";
+"reading-list-create-new-list-button-title" = "建立閱讀清單";
+"reading-list-create-new-list-description" = "描述";
+"reading-list-create-new-list-reading-list-name" = "閱讀清單名稱";
+"reading-list-create-new-list-title" = "建立新清單";
 "reading-list-deleted-accessibility-notification" = "閱讀清單已刪除";
 "reading-list-do-not-keep-button-title" = "不，從裝置上刪除條目";
 "reading-list-entry-limit-exceeded-message" = "請刪減您在此清單的條目數量至 $1 個，以恢復此清單的所有條目同步。";
@@ -370,6 +374,8 @@
 "reading-list-sync-enable-button-title" = "啟用同步";
 "reading-list-sync-enable-subtitle" = "您所儲存的條目與閱讀清單，現已儲存到您的維基百科帳號並跨維基百科應用程式同步。";
 "reading-list-sync-enable-title" = "開啟閱讀清單同步？";
+"reading-list-sync-enabled-panel-message" = "閱讀清單同步已在此帳號啟用。要停止此功能的話，您可以透過更新您的設定來為此帳號停用。";
+"reading-list-sync-enabled-panel-title" = "同步功能已在此帳號啟用";
 "reading-list-unable-to-add-entry" = "新增項目至您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-create" = "建立您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-unable-to-delete" = "刪除您的閱讀清單時發生意外錯誤。請稍後再試。";
@@ -446,7 +452,7 @@
 "settings-notifications-trending" = "目前事件趨勢";
 "settings-primary-language" = "首選";
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
-"settings-storage-and-syncing-enable-sync-footer-text" = "當您登入做出同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
+"settings-storage-and-syncing-enable-sync-footer-text" = "當您登入並同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
 "settings-storage-and-syncing-enable-sync-title" = "同步已儲存條目與清單";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "若您在此裝置上啟用了同步，您的已儲存條目在抹除時，也會從您的使用者帳號裡移除。另外此操作是無法還原的。";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "抹除所有已儲存條目？";
@@ -454,7 +460,7 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "若在裝置上您已啟用了同步，抹除您的已儲存條目時，將會從您的使用者帳號裡移除。\n\n抹除您的已儲存條目將會釋放出約 $1 空間。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "抹除已儲存條目";
 "settings-storage-and-syncing-full-sync" = "您的閱讀清單將會在背景執行同步";
-"settings-storage-and-syncing-server-sync-footer-text" = "請求自伺服器的同步，來更新至您的已同步條目與閱讀清單";
+"settings-storage-and-syncing-server-sync-footer-text" = "請求更新至您的已同步條目與閱讀清單";
 "settings-storage-and-syncing-server-sync-title" = "更新已同步閱讀清單";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的閱讀清單檢視裡將已儲存（例如：預設的）閱讀清單各別顯示。此清單會呈現在 Android 裝置上";
 "settings-storage-and-syncing-show-default-reading-list-title" = "顯示已儲存的閱讀清單";
