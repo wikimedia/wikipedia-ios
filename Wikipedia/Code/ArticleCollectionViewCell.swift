@@ -177,7 +177,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let batchEditSelectViewWidth = abs(batchEditingTranslation)
+            let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
             
             var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
             if isRTL {
@@ -186,6 +186,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 } else {
                     batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
                 }
+            var batchEditSelectViewWidth: CGFloat = 0
+            if isBatchEditingPaneOpen {
+                batchEditSelectViewWidth = isDeviceRTL && !isArticleRTL ? layoutMargins.right : layoutMargins.left
             }
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
