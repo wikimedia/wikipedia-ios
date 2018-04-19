@@ -54,7 +54,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
         let multiSelectIndicator = UIImageView()
         multiSelectIndicator.backgroundColor = .clear
         insertSubview(multiSelectIndicator, at: 0)
-        multiSelectIndicator.contentMode = .left
+        multiSelectIndicator.contentMode = .center
         self.multiSelectIndicator = multiSelectIndicator
         updateMultiSelectIndicatorImage()
 
