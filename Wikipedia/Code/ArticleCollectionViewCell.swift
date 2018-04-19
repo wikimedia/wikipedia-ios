@@ -338,6 +338,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
+    
+    private var isBatchEditingPaneOpen: Bool {
+        return batchEditingTranslation > 0
+    }
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
