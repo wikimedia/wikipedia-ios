@@ -179,17 +179,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         if apply {
             let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
             
-            var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
-            if isRTL {
-                if (traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular) || traitCollection.verticalSizeClass == .compact && traitCollection.horizontalSizeClass == .compact {
-                    batchEditX = size.width - batchEditSelectViewWidth
-                } else {
-                    batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
-                }
             var batchEditSelectViewWidth: CGFloat = 0
             if isBatchEditingPaneOpen {
                 batchEditSelectViewWidth = isDeviceRTL && !isArticleRTL ? layoutMargins.right : layoutMargins.left
             }
+            var batchEditX = isBatchEditingPaneOpen ? 0 : -batchEditSelectViewWidth
+            if isDeviceRTL || isArticleRTL {
+                batchEditX = isBatchEditingPaneOpen ? size.width - batchEditSelectViewWidth : size.width
+            }
+            
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
