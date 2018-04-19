@@ -189,7 +189,7 @@
 // Fuzzy
 "wikitext-upload-save" = "กำลังบันทึก...";
 "wikitext-upload-save-anonymously-warning" = "การแก้ไขจะถูกส่งผ่านที่อยู่ไอพีของอุปกรณ์ของคุณ คุณจะมีความเป็นส่วนตัวมากขึ้นถ้าคุณ $1";
-"wikitext-upload-save-sign-in" = "ลงชื่อเข้าใช้";
+"wikitext-upload-save-sign-in" = "เข้าสู่ระบบ";
 "zero-interstitial-cancel" = "อยู่ต่อ";
 "zero-interstitial-continue" = "ออก";
 // Fuzzy

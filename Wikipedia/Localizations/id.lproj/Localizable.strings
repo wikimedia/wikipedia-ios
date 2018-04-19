@@ -371,6 +371,8 @@
 "reading-list-sync-enable-button-title" = "Aktifkan sinkronisasi";
 "reading-list-sync-enable-subtitle" = "Artikel tersimpan dan daftar bacaan Anda sekarang dapat disimpan ke akun Wikipedia Anda dan disinkronkan di seluruh aplikasi Wikipedia.";
 "reading-list-sync-enable-title" = "Aktifkan sinkronisasi daftar bacaan?";
+"reading-list-sync-enabled-panel-message" = "Sinkronisasi daftar bacaan diaktifkan untuk akun ini. Untuk berhenti menyinkronkan, Anda dapat menonaktifkan sinkronisasi untuk akun ini dengan memperbarui pengaturan Anda.";
+"reading-list-sync-enabled-panel-title" = "Sinkronisasi diaktifkan pada akun ini";
 "reading-list-unable-to-add-entry" = "Terjadi kesalahan tak terduga saat menambahkan entri ke daftar bacaan Anda. Silakan coba lagi nanti.";
 "reading-list-unable-to-create" = "Terjadi kesalahan tak terduga saat membuat daftar bacaan Anda. Silakan coba lagi nanti.";
 "reading-list-unable-to-delete" = "Terjadi kesalahan tak terduga saat menghapus daftar bacaan Anda. Silakan coba lagi nanti.";
@@ -447,16 +449,20 @@
 "settings-notifications-trending" = "Peristiwa terkini";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Izinkan Wikimedia untuk menyimpan artikel tersimpan Anda dan daftar bacaan ke preferensi pengguna Anda ketika Anda masuk log untuk menyinkronkan";
 "settings-storage-and-syncing-enable-sync-title" = "Sinkronisasi artikel tersimpan dan daftar";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini. Anda tidak dapat membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hapus semua artikel tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Hapus";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dan dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Hapus artikel tersimpan";
 "settings-storage-and-syncing-full-sync" = "Daftar bacaan Anda akan disinkronkan di latar belakang";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Minta sinkronisasi dari peladen untuk pembaruan ke artikel yang disinkronkan dan daftar bacaan Anda";
 "settings-storage-and-syncing-server-sync-title" = "Perbarui daftar bacaan yang disinkronkan";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Menampilkan Daftar bacaan tersimpan (mis. Default) sebagai daftar terpisah dalam tampilan Daftar bacaan Anda. Daftar ini muncul di perangkat Android";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tampilkan Daftar bacaan tersimpan";
 "settings-storage-and-syncing-title" = "Penyimpanan dan sinkronisasi artikel";

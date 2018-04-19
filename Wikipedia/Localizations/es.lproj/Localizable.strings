@@ -338,6 +338,10 @@
 "reading-list-add-hint-title" = "¿Quieres añadir «$1» a una lista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, añadirlos a mis listas de lectura";
 "reading-list-add-saved-title" = "Se encontraron artículos guardados";
+"reading-list-create-new-list-button-title" = "Crear lista de lectura";
+"reading-list-create-new-list-description" = "Descripción";
+"reading-list-create-new-list-reading-list-name" = "Nombre de la lista de lectura";
+"reading-list-create-new-list-title" = "Crear una lista nueva";
 "reading-list-do-not-keep-button-title" = "No, eliminar artículos del dispositivo";
 "reading-list-entry-limit-exceeded-title" = "Has sobrepasado el límite de $1 artículos por cuenta.";
 "reading-list-exists-with-same-name" = "El nombre de la lista de lectura ya está en uso";
@@ -352,6 +356,7 @@
 "reading-list-login-title" = "¿Quieres sincronizar los artículos guardados?";
 "reading-list-new-list-description-placeholder" = "descripción breve opcional";
 "reading-list-new-list-name-placeholder" = "título de la lista de lectura";
+"reading-list-sync-disabled-panel-title" = "Sincronización desactivada";
 "reading-list-sync-enable-button-title" = "Activar sincronización";
 "reading-list-sync-enable-subtitle" = "Ahora puedes guardar tus artículos guardados y listas de lectura en tu cuenta de Wikipedia y sincronizarlos en varios dispositivos.";
 "reading-list-sync-enable-title" = "¿Quieres activar la sincronización de listas de lectura?";
