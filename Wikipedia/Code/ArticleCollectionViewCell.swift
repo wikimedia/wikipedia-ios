@@ -163,6 +163,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var isDeviceRTL: Bool {
         return effectiveUserInterfaceLayoutDirection == .rightToLeft
     }
+    
+    public var isArticleRTL: Bool {
+        return articleSemanticContentAttribute == .forceRightToLeft
+    }
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
