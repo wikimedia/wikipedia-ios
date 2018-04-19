@@ -173,6 +173,8 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
+        actionButtonType = .sort
+        
         super.viewDidLoad()
     }
     
@@ -190,9 +192,6 @@ class SavedViewController: ViewController {
     
     private var actionButtonType: ActionButtonType = .sort {
         didSet {
-            guard oldValue != actionButtonType else {
-                return
-            }
             switch actionButtonType {
             case .sort:
                 actionButton.setTitle(CommonStrings.sortActionTitle, for: .normal)

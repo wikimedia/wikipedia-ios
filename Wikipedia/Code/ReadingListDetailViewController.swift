@@ -191,7 +191,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
             title = readingList.name
             navigationBar.removeExtendedNavigationBarView()
         } else {
-            title = nil
             addExtendedView()
         }
         updateScrollViewInsets()

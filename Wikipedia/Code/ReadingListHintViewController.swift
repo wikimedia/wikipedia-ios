@@ -48,6 +48,9 @@ class ReadingListHintViewController: UIViewController {
         setHintButtonTitle()
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(themeChanged), name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil)
+        
+        let chevronImage = view.effectiveUserInterfaceLayoutDirection == .rightToLeft ? UIImage(named: "chevron-left") : UIImage(named: "chevron-right")
+        confirmationChevron.setImage(chevronImage, for: .normal)
     
         assert(outerStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, outerStackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         assert(confirmationStackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, confirmationStackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())

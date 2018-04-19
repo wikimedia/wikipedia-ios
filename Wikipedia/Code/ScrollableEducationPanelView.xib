@@ -50,7 +50,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
                                             <rect key="frame" x="15" y="16" width="250" height="420.5"/>
                                             <subviews>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="15" id="Zfm-Kv-h00"/>
