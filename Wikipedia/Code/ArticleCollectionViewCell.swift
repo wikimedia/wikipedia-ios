@@ -344,7 +344,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
             
-            if UIDevice.current.userInterfaceIdiom == .pad && wasArticleSemanticContentAttributeUnspecified && isDeviceRTL {
+            if wasArticleSemanticContentAttributeUnspecified && isDeviceRTL {
                 layoutMarginsAdditions.right = marginAddition
                 layoutMarginsAdditions.left = marginAddition
                 return
