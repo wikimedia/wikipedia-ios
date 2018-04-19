@@ -167,6 +167,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var isArticleRTL: Bool {
         return articleSemanticContentAttribute == .forceRightToLeft
     }
+    
+    public var layoutMarginsWithAdditionsAndMultipliers: UIEdgeInsets {
+        let margins = self.layoutMargins
+        let multipliers = self.layoutMarginsMultipliers
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+    }
+    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
