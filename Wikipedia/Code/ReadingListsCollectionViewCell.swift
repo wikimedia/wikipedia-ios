@@ -110,7 +110,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
         
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
@@ -126,7 +125,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         var x = layoutMargins.left
-        if isRTL {
+        if isDeviceRTL {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
@@ -134,7 +133,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - articleCountLabelSize.width - layoutMargins.left
             }
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -197,7 +196,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
-            if !isRTL {
+            if !isDeviceRTL {
                 x = size.width - x - imageViewDimension
             }
             imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
@@ -207,7 +206,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if (apply && !isImageViewHidden) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
-            if !isRTL {
+            if !isDeviceRTL {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
@@ -217,7 +216,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         if !isAlertIconHidden {
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
             alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
@@ -228,7 +227,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             var xPosition = alertIcon.frame.maxX + spacing
             var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isRTL {
+            if isDeviceRTL {
                 xPosition = alertIcon.frame.minX - availableWidth - spacing
             }
             if isAlertIconHidden {
@@ -243,7 +242,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if displayType == .readingListsTab && isDefault {
             let defaultListTagSize = defaultListTag.intrinsicContentSize
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - defaultListTagSize.width - layoutMargins.right
             }
             var y = yAlignedWithImageBottom
