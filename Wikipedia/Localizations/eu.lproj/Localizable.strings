@@ -1,6 +1,7 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
 // Author: An13sa
+// Author: Asierog
 // Author: Envlh
 // Author: EukeneFL
 // Author: Fitoschido
@@ -67,8 +68,7 @@
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
-// Fuzzy
-"add-articles-to-reading-list" = "Gehitu $1 irakurketa zerrendara";
+"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
@@ -122,9 +122,9 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
-// Fuzzy
-"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
+"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
+"empty-no-saved-pages-in-reading-list-title" = "Ez da orririk gorde zerrenda honetan";
 "empty-no-saved-pages-message" = "Orrialdeak gorde gero ikusteko, nahiz eta konexiorik gabe egon";
 "empty-no-saved-pages-title" = "Oraindik gordetako orrialderik ez";
 "empty-no-search-results-message" = "Ez da emaitzarik aurkitu";
@@ -251,6 +251,7 @@
 "menu-trash-accessibility-label" = "Ezabatu";
 "more-languages-tooltip-description" = "Bilatu Wikipedia ia 300 hizkuntzatan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
+"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";
@@ -351,9 +352,9 @@
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
+"reading-list-sync-disabled-panel-title" = "Sinkronizazioa desgaituta";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
-// Fuzzy
-"reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta gailuetan zehar sinkroniza daitezke.";
+"reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta Wikipedia aplikazioetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
@@ -372,6 +373,8 @@
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
 "reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
 "reading-lists-list-not-synced-limit-exceeded" = "Zerrenda ez da sinkronikaztu, muga gainditu da";
+"reading-lists-sort-saved-articles" = "Sailkatu gordetako artikuluak";
+"reading-lists-sync-error-no-internet-connection" = "Sinkronizazioak aurrera egingo du interneterako konexioa eskuragarri dagoenean";
 "reading-themes-controls-accessibility-black-theme-button" = "Gai iluna";
 "reading-themes-controls-accessibility-brightness-slider" = "Argitasun sliderra";
 "reading-themes-controls-accessibility-dark-theme-button" = "Gai iluna";
@@ -425,21 +428,23 @@
 "settings-notifications-trending" = "Modan dauden gaurko gertakariak";
 "settings-primary-language" = "Primarioa";
 "settings-primary-language-details" = "Zerrenda honetan erabilitako lehenengo hizkuntza aplikazio honetarako ere erabiltzen den hizkuntza da. Hizkuntza hau aldatzerakoan, eguneroko edukia ere aldatuko da (adibidez, Nabarmendutako Artikulua) Arakatzailean agertzen dena.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Baimendu Wikimediari zure gordetako artikuluak eta irakurketa-zerrendak zure kontuko lehentasunetan gordetzen saioa sinkronizatzeko hasten duzunean.";
 "settings-storage-and-syncing-enable-sync-title" = "Gordetako artikuluak eta zerrendak sinkronizatu";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik. Ezingo duzu ezer berreskuratu.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Gordetako artikulu guztiak ezabatu?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Ezabatu";
 // Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik.\n\nGordetako artikuluak ezabatzea dohakoa izango da 364.4 MB espaziotik gora.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik.\n\nGordetako artikuluak ezabatzea dohakoa izango da $1 espaziotik gora.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gordetako artikulu guztiak ezabatu";
-"settings-storage-and-syncing-server-sync-footer-text" = "Zerbitzaritik sinkronizazioa eskatu zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzerako";
+"settings-storage-and-syncing-full-sync" = "Zure irakurketa zerrendak atzeko planoan sinkronizatuko dira";
 // Fuzzy
-"settings-storage-and-syncing-server-sync-title" = "Zerbitzariarekin sinkronizatu";
+"settings-storage-and-syncing-server-sync-footer-text" = "Zerbitzaritik sinkronizazioa eskatu zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzerako";
+"settings-storage-and-syncing-server-sync-title" = "Eguneratu sinkronizatutako irakurketa zerrendak";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Erakutsi gordetako irakurketa-zerrenda (ad. lehentesia) zure irakurketa-zerrenden ikuspegian zerrenda bereizi batean. Zerrenda Android gailuetan agertuko da.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gordetako irakurketa-zerrenda erakutsi";
-// Fuzzy
-"settings-storage-and-syncing-title" = "Gordetako artikuluen biltegia eta sinkronizatzea";
+"settings-storage-and-syncing-title" = "Artikuluen biltegia eta sinkronizatzea";
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";

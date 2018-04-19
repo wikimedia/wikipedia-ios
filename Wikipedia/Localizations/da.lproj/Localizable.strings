@@ -414,15 +414,18 @@
 "settings-notifications-trending" = "Populære aktuelle begivenheder";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
 // Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Slet dine gemte artikler og fjern dem fra din brugerkonto, hvis du også har synkronisering aktiveret og fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring 364,4 MB plads.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Slet gemte artikler";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Anmod om en synkronisering fra serveren for en opdatering til dine synkroniserede artikler og læselister";
 // Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Synkroniser med serveren";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Vis den gemte (f.eks. standard) læseliste som en separat liste i din læselistevisning. Denne liste fremgår af Androidenheder";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Vis gemt læseliste";
 // Fuzzy
