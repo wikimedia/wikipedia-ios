@@ -65,7 +65,27 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) {
+        let authenticationDelegate = readingListsController.authenticationDelegate
+        let isUserLoggedInLocally = authenticationDelegate?.isUserLoggedInLocally() ?? false
+        let isUserLoggedInRemotely = authenticationDelegate?.isUserLoggedInRemotely() ?? false
+        let isUserLoggedIn = isUserLoggedInLocally && isUserLoggedInRemotely
+        
+        let reLogin = {
+            guard let authenticationDelegate = authenticationDelegate else {
+                return
+            }
+            taskGroup.enter()
+            authenticationDelegate.attemptLogin({
+                taskGroup.leave()
+            }, failure: {})
+            taskGroup.wait()
+        }
+        
+        if isUserLoggedInLocally && !isUserLoggedInRemotely {
+            reLogin()
+        }
+    
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable), isUserLoggedIn {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -153,20 +173,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard let authenticationDelegate = readingListsController.authenticationDelegate, authenticationDelegate.isUserLoggedInLocally() else {
+        guard isUserLoggedIn else {
             try localSyncOnly()
             return
-        }
-        
-        if !authenticationDelegate.isUserLoggedInRemotely() {
-            taskGroup.enter()
-            authenticationDelegate.attemptLogin({
-                taskGroup.leave()
-            }, failure: {
-                try? localSyncOnly()
-                return
-            })
-            taskGroup.wait()
         }
         
         // local only sync
