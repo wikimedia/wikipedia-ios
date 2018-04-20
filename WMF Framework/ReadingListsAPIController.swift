@@ -4,12 +4,14 @@ internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receiv
 
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
+    case notLoggedIn = "notloggedin"
     case notSetup = "readinglists-db-error-not-set-up"
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
     case listDeleted = "readinglists-db-error-list-deleted"
+    case defaultListCannotBeUpdated = "readinglists-db-error-cannot-update-default-list"
     
     public var localizedDescription: String {
         switch self {

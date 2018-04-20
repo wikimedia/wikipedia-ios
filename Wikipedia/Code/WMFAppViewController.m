@@ -154,18 +154,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(articleWasUpdated:)
-                                                 name:WMFArticleUpdatedNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(readingListsWereSplitNotification:)
+                                                 name:[WMFReadingListsController readingListsWereSplitNotification]
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(readingListsServerDidConfirmSyncStateForAccountWithNotification:)
-                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncIsEnabledForAccountNotification]
+                                             selector:@selector(readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:)
+                                                 name:[WMFReadingListsController readingListsServerDidConfirmSyncWasEnabledForAccountNotification]
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -344,10 +344,21 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureExploreViewController];
 }
 
-- (void)readingListsServerDidConfirmSyncStateForAccountWithNotification:(NSNotification *)note {
-    BOOL readingListsSyncWasEnabled = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncIsEnabledForAccountIsSyncEnabledKey] boolValue];
-    if (!readingListsSyncWasEnabled) {
-        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme];
+- (void)readingListsWereSplitNotification:(NSNotification *)note {
+    NSInteger entryLimit = [note.userInfo[WMFReadingListsController.readingListsWereSplitNotificationEntryLimitKey] integerValue];
+    [[WMFAlertManager sharedInstance] showWarningAlert:[NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"reading-lists-split-notification", nil, nil, @"There is a limit of %1$d articles per reading list. Existing lists with more than this limit have been split into multiple lists.", @"Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists."), entryLimit] sticky:YES dismissPreviousAlerts:YES tapCallBack:nil];
+}
+
+- (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
+    BOOL wasSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] boolValue];
+    BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
+    if (wasSyncEnabledForAccount) {
+        [self wmf_showSyncEnabledPanelOncePerLoginWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+    } else {
+        [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme
+                                         didNotPresentPanelCompletion:^{
+                                             [self wmf_showSyncDisabledPanelWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
+                                         }];
     }
 }
 
@@ -357,7 +368,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)syncDidFinishNotification:(NSNotification *)note {
     NSError *error = (NSError *)note.userInfo[WMFReadingListsController.syncDidFinishErrorKey];
-    
+
     // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
@@ -401,13 +412,16 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             return;
         }
 
-        [self attemptLogin:^{
+        [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
             [self.dataStore.readingListsController backgroundUpdate:^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
                 });
             }];
-        }];
+        }
+            failure:^{
+                [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
+            }];
     });
 }
 
@@ -670,31 +684,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
 }
 
-- (void)attemptLogin:(dispatch_block_t)completion {
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
-        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-        dispatch_async(dispatch_get_main_queue(), completion);
-    }
-        userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
-            DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
-            dispatch_async(dispatch_get_main_queue(), completion);
-        }
-        failure:^(NSError *_Nonnull error) {
-            DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
-            dispatch_async(dispatch_get_main_queue(), completion);
-            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
-        }];
-}
-
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
 
-    [self attemptLogin:^{
+    [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
-    }];
+    }
+        failure:^{
+            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
+        }];
 
     [self.dataStore.feedContentController startContentSources];
 
@@ -763,6 +764,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (![self uiIsLoaded]) {
         return;
     }
+
+    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
     [self.dataStore.readingListsController stop:^{
     }];
@@ -1620,12 +1623,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bar items
 
+    NSMutableParagraphStyle *badgeParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    badgeParagraphStyle.firstLineHeadIndent = 0.4;
+    NSDictionary *badgeAttributes = @{
+                                      NSForegroundColorAttributeName: theme.colors.chromeBackground,
+                                      NSParagraphStyleAttributeName: badgeParagraphStyle
+                                      };
+    
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
-        [item setBadgeTextAttributes:@{NSForegroundColorAttributeName: theme.colors.accent} forState:UIControlStateNormal];
-        [item setBadgeColor:theme.colors.chromeBackground];
+        [item setBadgeTextAttributes:badgeAttributes forState:UIControlStateNormal];
+        [item setBadgeColor:theme.colors.accent];
         [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
         [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
     }
@@ -1642,17 +1652,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:theme];
         [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
-    }
-}
-
-#pragma mark - Article saved state changed
-
-- (void)articleWasUpdated:(NSNotification *)note {
-    WMFArticle *article = [note object];
-    id changedSavedDate = [article.changedValues objectForKey:@"savedDate"];
-    BOOL articleWasSaved = !(changedSavedDate == nil || [changedSavedDate isEqual:[NSNull null]]);
-    if (articleWasSaved) {
-        [self wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDeviceWithTheme:self.theme];
     }
 }
 

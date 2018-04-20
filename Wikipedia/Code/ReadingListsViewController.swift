@@ -51,7 +51,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         
         var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true))
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -120,7 +120,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }

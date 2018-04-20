@@ -11,16 +11,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailExtendedViewController" customModule="Wikipedia" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailUnderBarViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="alertMessageLabel" destination="ucP-Jo-vbh" id="Hqa-dW-TJs"/>
                 <outlet property="alertStackView" destination="b68-aF-tEl" id="ux1-ZT-Gng"/>
                 <outlet property="alertTitleLabel" destination="nSt-9T-l8Y" id="Y9B-sH-dno"/>
                 <outlet property="articleCountLabel" destination="je4-fy-lZN" id="JcP-Ft-I7Y"/>
                 <outlet property="descriptionTextField" destination="8lA-8c-7oC" id="wgd-tn-rJ7"/>
-                <outlet property="searchBar" destination="WRr-Oq-J7s" id="niQ-0p-Hn1"/>
-                <outlet property="searchContainerView" destination="bkb-lz-TIg" id="Tpi-Zv-HGT"/>
-                <outlet property="sortButton" destination="v9b-K1-VGS" id="n3h-US-1Ux"/>
                 <outlet property="titleTextField" destination="nam-rp-zyS" id="Ft5-9v-Fvb"/>
                 <outlet property="view" destination="Xmb-b2-8dI" id="p04-UI-eb6"/>
             </connections>
@@ -31,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qGG-Mh-IBd">
-                    <rect key="frame" x="26" y="26" width="464" height="200.5"/>
+                    <rect key="frame" x="26" y="26" width="464" height="154.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="je4-fy-lZN">
                             <rect key="frame" x="0.0" y="0.0" width="464" height="20.5"/>
@@ -44,6 +41,9 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="titleTextFieldTextDidChange:" destination="-1" eventType="editingChanged" id="Vtz-eW-aUp"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8lA-8c-7oC" customClass="WMFThemeableTextField">
                             <rect key="frame" x="0.0" y="66.5" width="464" height="30"/>
@@ -82,35 +82,6 @@
                                 </view>
                             </subviews>
                         </stackView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bkb-lz-TIg">
-                            <rect key="frame" x="0.0" y="162.5" width="464" height="38"/>
-                            <subviews>
-                                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="WRr-Oq-J7s">
-                                    <rect key="frame" x="-8" y="1" width="413" height="36"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" priority="999" constant="36" id="can-Ay-aVt"/>
-                                    </constraints>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9b-K1-VGS">
-                                    <rect key="frame" x="413" y="4" width="46" height="30"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="Button"/>
-                                    <connections>
-                                        <action selector="didPressSortButton:" destination="-1" eventType="touchUpInside" id="1PF-Sy-P88"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="v9b-K1-VGS" firstAttribute="leading" secondItem="WRr-Oq-J7s" secondAttribute="trailing" constant="8" id="09i-oE-w3u"/>
-                                <constraint firstItem="WRr-Oq-J7s" firstAttribute="top" secondItem="bkb-lz-TIg" secondAttribute="top" constant="1" id="3f2-Oz-ue5"/>
-                                <constraint firstAttribute="bottom" secondItem="WRr-Oq-J7s" secondAttribute="bottom" constant="1" id="5tD-tD-1w1"/>
-                                <constraint firstItem="WRr-Oq-J7s" firstAttribute="leading" secondItem="bkb-lz-TIg" secondAttribute="leading" constant="-8" id="8ZM-tq-UbV"/>
-                                <constraint firstAttribute="trailing" secondItem="v9b-K1-VGS" secondAttribute="trailing" constant="5" id="9Sd-Um-jWH"/>
-                                <constraint firstItem="v9b-K1-VGS" firstAttribute="centerY" secondItem="WRr-Oq-J7s" secondAttribute="centerY" id="Ial-N9-aN0"/>
-                            </constraints>
-                        </view>
                     </subviews>
                 </stackView>
             </subviews>

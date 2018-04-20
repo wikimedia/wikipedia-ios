@@ -133,6 +133,8 @@
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-reading-lists-message" = "Tryck på det blåa \"+\" för att skapa läslistor över platser att resa till, favoritämnen och mycket mer";
 "empty-no-reading-lists-title" = "Organisera sparade artiklar med läslistor";
+"empty-no-saved-pages-in-reading-list-message" = "Spara sidor i denna lista för att se dem dyka upp här";
+"empty-no-saved-pages-in-reading-list-title" = "Inga sidor har sparats i denna lista";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
@@ -346,6 +348,8 @@
 "reading-list-generic-error" = "Ett oväntat fel uppstod när dina läslistor uppdaterades.";
 "reading-list-keep-button-title" = "Ja, behåll artiklar på enheten";
 "reading-list-keep-subtitle" = "Det finns synkroniserade artiklar på ditt Wikipedia-konto. Vill du behålla dem på denna enhet efter du loggar ut?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Dessa artiklar tas bort från ditt konto om du inaktiverar synkronisering. Om du tar bort dem från din enhet kommer de inte kunna återställas genom att aktivera synkronisering igen i framtiden.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nej, ta bort artiklar från enheten och mitt Wikipedia-konto";
 "reading-list-keep-title" = "Behåll sparade artiklar på enheten?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortera artiklar";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Det finns en gräns på 5000 osorterade artiklar. Var god sortera dina befintliga artiklar i listor för att fortsätta synkronisera osorterade artiklar.";
@@ -361,9 +365,13 @@
 "reading-list-name-user-created-annotation" = "_[användarskapad]";
 "reading-list-new-list-description-placeholder" = "valfri kort beskrivning";
 "reading-list-new-list-name-placeholder" = "titel på läslista";
+"reading-list-sync-disabled-panel-message" = "Synkronisering av läslistor har inaktiverats för ditt Wikipedia-konto på en annan enhet. Du kan aktivera synkronisering igen genom att uppdatera dina inställningar.";
+"reading-list-sync-disabled-panel-title" = "Synkronisering inaktiverad";
 "reading-list-sync-enable-button-title" = "Aktivera synkronisering";
 "reading-list-sync-enable-subtitle" = "Dina sparade artiklar och läslistor kan nu sparas till ditt Wikipedia-konto och synkroniseras mellan Wikipedia-appar.";
 "reading-list-sync-enable-title" = "Aktivera synkronisering av läslistor?";
+"reading-list-sync-enabled-panel-message" = "Synkronisering av läslistor aktiveras för detta konto. För att sluta synkronisera kan du inaktivera synkronisering för detta konto genom att uppdatera dina inställningar.";
+"reading-list-sync-enabled-panel-title" = "Synkronisering är aktiverad på denna konto";
 "reading-list-unable-to-add-entry" = "Ett oväntat fel uppstod när ett element lades till i din läslista. Försök igen senare.";
 "reading-list-unable-to-create" = "Ett oväntat fel uppstod när din läslista skapades. Försök igen senare.";
 "reading-list-unable-to-delete" = "Ett oväntat fel uppstod när din läslista raderades. Försök igen senare.";
@@ -384,6 +392,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Radera {{PLURAL:$1|listan|listorna}}?";
 "reading-lists-large-sync-completed" = "$1 artiklar och $2 läslistor synkroniserades från ditt konto";
 "reading-lists-list-not-synced-limit-exceeded" = "Listan är inte synkroniserad, gränsen har överstigits";
+"reading-lists-sort-saved-articles" = "Sortera sparade artiklar";
+"reading-lists-split-notification" = "Det finns en gräns på $1 artiklar per läslista. Befintliga listor med mer än denna gräns har delats upp i flera listor.";
 "reading-lists-sync-error-no-internet-connection" = "Synkroniseringen fortsätter när en Internetanslutning finns tillgänglig";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Reglage för ljusstyrka";
@@ -438,15 +448,20 @@
 "settings-notifications-trending" = "Populära aktuella händelser";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in för att synkronisera";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet. Du kan inte ångra detta.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Radera alla sparade artiklar?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
+"settings-storage-and-syncing-full-sync" = "Dina läslistor kommer att synkroniseras i bakgrunden";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Begär en synkronisering från servern för en uppdatering av dina synkroniserade artiklar och läslistor";
 "settings-storage-and-syncing-server-sync-title" = "Uppdatera synkroniserade läslistor";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Visa sparad läslista";
 "settings-storage-and-syncing-title" = "Lagring och synkronisering av artiklar";

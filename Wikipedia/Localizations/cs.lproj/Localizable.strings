@@ -5,6 +5,7 @@
 // Author: Clon
 // Author: Cvanca
 // Author: Dvorapa
+// Author: Evica
 // Author: Fitoschido
 // Author: H4nek
 // Author: Ilimanaq29
@@ -12,6 +13,7 @@
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
 // Author: Meliganai
+// Author: Mhurd
 // Author: Mirek2
 // Author: Mormegil
 // Author: Nemo bis
@@ -41,9 +43,15 @@
 "about-wikimedia-foundation" = "Nadace Wikimedia";
 "about-wikipedia" = "Wikipedie";
 "abuse-filter-disallow-heading" = "Tuto editaci nemůžete publikovat. Prosím, vraťte se zpět a změnte ji.";
+"abuse-filter-warning-heading" = "Může se jednat o nekonstruktivní editaci. Jste si jisti, že ji chcete zveřejnit?";
 "abuse-filter-warning-repeat" = "Opakujíííííící se znaky";
+"account-creation-captcha-cannot-see-image" = "Obrázek nelze přečíst? $1";
 "account-creation-captcha-obtaining" = "Příprava nového obrázku CAPTCHA...";
-"account-creation-log-in" = "Přihlášení";
+"account-creation-captcha-request-account" = "Požádat o účet.";
+"account-creation-captcha-title" = "Beupečnostní ověření CAPTCHA";
+"account-creation-create-account" = "Zaregistrujte se";
+"account-creation-have-account" = "Už máte účet? $1";
+"account-creation-log-in" = "Přihlaste se";
 "account-creation-logging-in" = "Přihlašování…";
 "account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
 "account-creation-passwords-mismatched" = "Hesla se neshodují.";
@@ -61,18 +69,20 @@
 "action-share" = "Sdílet";
 "action-sort" = "Seřadit";
 "action-unsave" = "Neuloženo";
+"action-unsaved-accessibility-notification" = "Článek neuložen";
 "action-update" = "Aktualizovat";
-// Fuzzy
-"add-articles-to-reading-list" = "Přidat $1 do seznamu čtení";
+"add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}}$1 do seznamu čtení";
 "alert-no-internet" = "Nemáte připojení k internetu";
 "announcements-dismiss" = "Zavřít";
 "article-about-title" = "O tomto článku";
+"article-delete" = "Odstranit";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Článek odstraněn|Články odstraněny}}";
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
 "article-read-more-title" = "Číst dál";
+"article-share" = "Sdílet";
 "article-unable-to-load-article" = "Není možné načíst článek.";
 "article-unable-to-load-section" = "Nelze načíst tento oddíl. Zkuste aktualizovat stránku, v některých případech to může pomoci.";
 "back" = "Zpět";
@@ -86,12 +96,15 @@
 "button-save-for-later" = "Uložit na později";
 "button-saved-for-later" = "Uloženo na později";
 "button-saved-remove" = "Odstranit z uložených";
+"button-skip" = "Přeskočit";
+"cancel" = "Storno";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
-"edit-summary-choice-fixed-grammar" = "Oprava gramatiky";
+"dim-images" = "Ztmavení obrázků";
+"edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava překlepu";
 "edit-summary-choice-linked-words" = "Přidány odkazy";
 "edit-summary-choice-other" = "Ostatní";
@@ -103,14 +116,14 @@
 "empty-no-feed-title" = "Žádné připojení k internetu";
 "empty-no-history-message" = "Mějte přehled o tom, co jste zde četli";
 "empty-no-history-title" = "Žádná historie k zobrazení";
-// Fuzzy
-"empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste vytvořil(a) seznam míst, která byste chtěl(a) navštívit, oblíbených témat a mnohem více";
+"empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste vytvořili seznamy k přečtení k místům, která byste chtěli navštívit, oblíbených témat a mnohem více";
 "empty-no-reading-lists-title" = "Organizovat uložené články pomocí seznamů čtení";
 "empty-no-saved-pages-message" = "Uložte si stránky pro jejich prohlížení později, a to i v režimu offline";
 "empty-no-saved-pages-title" = "Žádné uložené stránky";
 "empty-no-search-results-message" = "Nenalezeny žádné výsledky";
 "error-unknown" = "Došlo k neznámé chybě.";
 "explore-another-random" = "Další náhodný článek";
+"explore-because-you-read" = "Protože jste četli";
 "explore-continue-reading-heading" = "Pokračovat ve čtení";
 "explore-featured-article-heading" = "Nejlepší článek";
 "explore-main-page-heading" = "Dnes na Wikipedii";
@@ -119,11 +132,36 @@
 "explore-most-read-heading" = "Nejčtenější v jazyce $1 Wikipedie";
 "explore-most-read-more-list-title-for-date" = "Nejlepší na $1";
 "explore-nearby-heading" = "Místa v blízkosti";
+"explore-nearby-placeholder-cancel" = "Storno";
+"explore-nearby-placeholder-heading" = "Místa";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Vaše poloha";
 "explore-potd-heading" = "Obrázek dne";
 "explore-random-article-heading" = "Náhodný článek";
+"explore-randomizer" = "Náhodný článek";
 "feed-news-notification-button-text" = "Zapnout oznámení";
+"field-alert-captcha-invalid" = "Neplatná CAPTCHA";
+"field-alert-password-confirm-mismatch" = "Hesla se neshodují";
+"field-alert-password-invalid" = "Nesprávné heslo";
+"field-alert-token-invalid" = "Neplatný kód";
+"field-alert-username-unavailable" = "Uživatelské jméno není k dispozici";
+"field-captcha-placeholder" = "CAPTCHA text";
+"field-captcha-title" = "Zadejte výše uvedený text";
+"field-email-placeholder" = "příklad@příklad.org";
+"field-email-title" = "E-mail";
+"field-email-title-optional" = "E-mail (nepovinný)";
+"field-password-placeholder" = "zadejte heslo";
+"field-password-title" = "Heslo";
+"field-token-title" = "Ověřovací kód";
+"field-username-placeholder" = "zadejte uživatelské jméno";
+"field-username-title" = "Uživatelské jméno";
 "find-in-page-button-label" = "Najít na stránce";
+"find-in-page-number-matches" = "$1 / $2";
+"forgot-password-button-title" = "Vynulovat";
+"forgot-password-title" = "Změnit heslo";
+"forgot-password-username-or-email-title" = "Nebo";
+"gfdl" = "GFDL";
 "history-clear-all" = "Vyčistit";
 "history-clear-cancel" = "Zrušit";
 "history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
@@ -131,6 +169,7 @@
 "history-title" = "Historie";
 "hockeyapp-alert-always-send" = "Vždy posílat";
 "hockeyapp-alert-do-not-send" = "Neposílat";
+"hockeyapp-alert-privacy" = "$1 soukromí";
 "hockeyapp-alert-send-report" = "Poslat zprávu";
 "hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
 "home-hide-suggestion-cancel" = "Zrušit";
@@ -145,12 +184,20 @@
 "icon-shortcut-random-title" = "Náhodný článek";
 "icon-shortcut-search-title" = "Hledat ve Wikipedii";
 "image-gallery-unknown-owner" = "Neznámý autor";
+"in-the-news-notification-read-now-action-title" = "Přečíst";
 "in-the-news-notification-save-for-later-action-title" = "Uložit na později";
+"in-the-news-notification-share-action-title" = "Sdílet...";
+"in-the-news-title" = "Aktuality";
 "info-box-close-text" = "Zavřít";
 "info-box-title" = "Stručná fakta";
 "languages-title" = "Změnit jazyk";
+"languages-wikipedia" = "Jazyk Wikipedie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
+"login-forgot-password" = "Zapomněli jste heslo?";
+"login-join-wikipedia" = "Připojte se k Wikipedii.";
+"login-no-account" = "Nemáte účet? $1";
+"login-title" = "Přihlaste se do svého účtu";
 "main-menu-about" = "O aplikaci";
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
@@ -170,20 +217,40 @@
 "main-menu-zero-faq" = "FAQ Wikipedie Zero";
 "menu-cancel-accessibility-label" = "Zrušit";
 "menu-trash-accessibility-label" = "Smazat";
+"more-languages-tooltip-title" = "Přidat jazyky";
+"move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
 "nearby-distance-label-feet" = "$1 stopy";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 metry";
 "nearby-distance-label-miles" = "$1 míle";
+"new-password-title" = "Zadejte své heslo";
 "no-email-account-alert" = "Prosím, nastavte na vašem přístroji e-mailový účet a zkuste to znovu.";
+"number-billions" = "$1B";
+"number-millions" = "$1M";
 "number-thousands" = "$1 tisíc";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události}}";
+"on-this-day-title" = "Dnešek v minulosti";
 "onboarding-wikipedia" = "Wikipedie";
 "open-link-cancel" = "Zrušit";
 "page-history-title" = "Historie článku";
+"page-issues" = "Nedostatky stránky";
+"page-last-edited" = "Editováno před $1 dny";
+"page-location" = "Zobrazit na mapě";
+"page-protected-autoconfirmed" = "Tato stránka je polozamčena.";
 "page-protected-can-not-edit" = "Nemáte oprávnění editovat tuto stránku";
 "page-protected-can-not-edit-title" = "Tato stránka je chráněná";
+"page-protected-other" = "Tato stránka je zamčena do následujících úrovní: $1";
+"page-protected-sysop" = "Tato stránka je zamčena.";
+"page-read-in-other-languages" = "Dostupný v %d dalších jazycích";
 "page-similar-titles" = "Podobné stránky";
+"page-talk-page" = "Zobrazit diskuzní stránku";
+"pictured" = "obrázek";
+"places-accessibility-clear-saved-searches" = "Vymazat nedávná hledání";
+"places-accessibility-group" = "$1 článků";
+"places-accessibility-show-as-map" = "Ukázat na mapě";
+"places-accessibility-show-more" = "Zobrazit více článků";
+"places-enable-location-action-button-title" = "Povolit polohu";
 "potd-description-prefix" = "Obrázek dne pro $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
@@ -212,8 +279,7 @@
 "reading-list-new-list-description-placeholder" = "Volitelný krátký popis";
 "reading-list-new-list-name-placeholder" = "Název seznamu čtení";
 "reading-list-sync-enable-button-title" = "Povolit synchronizace";
-// Fuzzy
-"reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy čtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
+"reading-list-sync-enable-subtitle" = "Vámi uložené články a seznamy k přečtení mohou být nyní uloženy na vašem účtu na Wikipedii a synchronizovány skrze zařízení.";
 "reading-list-sync-enable-title" = "Zapnout synchronizaci seznamů čtení?";
 "reading-list-unable-to-add-entry" = "Nastala neočekávaná chyba při přidávání odkazu do vašeho seznamu čtení. Zkuste prosím později znovu.";
 "reading-list-unable-to-create" = "Nastala neočekávaná chyba při zakládání vašeho seznamu čtení. Zkuste prosím později znovu.";
@@ -224,8 +290,7 @@
 "reading-lists-article-added-confirmation" = "Článek přidán do „$1“";
 "reading-lists-count" = "{{PLURAL:$1|$1 seznam čtení|$1 seznamy čtení|$1 seznamů čtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam pro vaše uložené články";
-// Fuzzy
-"reading-lists-default-list-title" = "Záložky";
+"reading-lists-default-list-title" = "Uloženo";
 "reading-lists-delete-reading-list-alert-message" = "Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do {{PLURAL:$1|tohoto seznamu|těchto seznamů}} nebudou uloženy.";
 "reading-lists-delete-reading-list-alert-title" = "Odstranit {{PLURAL:$1|seznam|seznamy}}?";
 "relogin-failed-retry-login-button-title" = "Pokusit se přihlásit znovu";

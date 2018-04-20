@@ -130,6 +130,8 @@
 "empty-no-history-title" = "Não há histórico para mostrar";
 "empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
+"empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
+"empty-no-saved-pages-in-reading-list-title" = "Não foram guardadas páginas nesta lista";
 "empty-no-saved-pages-message" = "Guarde páginas para lê-las mais tarde, mesmo sem ligação";
 "empty-no-saved-pages-title" = "Ainda não tem páginas guardadas";
 "empty-no-search-results-message" = "Não foram encontrados resultados";
@@ -343,6 +345,8 @@
 "reading-list-generic-error" = "Ocorreu um erro inesperado ao atualizar as suas listas de leitura.";
 "reading-list-keep-button-title" = "Sim, manter os artigos no dispositivo";
 "reading-list-keep-subtitle" = "Existem artigos sincronizados na sua conta da Wikipédia. Deseja mantê-los neste dispositivo depois de sair?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Desligar a sincronização removerá estes artigos da sua conta. Se os remover do seu dispositivo, eles não serão recuperáveis voltando a ligar a sincronização no futuro.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Não, remover artigos do dispositivo e da minha conta da Wikipédia";
 "reading-list-keep-title" = "Manter os artigos guardados no dispositivo?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordenar artigos";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existe um número limite de 5000 artigos por ordenar. Para continuar a sincronização de artigos não ordenados, ordene os seus artigos existentes em listas, por favor.";
@@ -358,9 +362,13 @@
 "reading-list-name-user-created-annotation" = "_[criada pelo utilizador]";
 "reading-list-new-list-description-placeholder" = "descrição breve opcional";
 "reading-list-new-list-name-placeholder" = "título da lista de leitura";
+"reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia noutro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
+"reading-list-sync-disabled-panel-title" = "Sincronização desativada";
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
 "reading-list-sync-enable-subtitle" = "Os artigos que foram guardados e as listas de leitura podem agora ser guardados na sua conta da Wikipédia e sincronizados entre as aplicações da Wikipédia.";
 "reading-list-sync-enable-title" = "Ativar a sincronização das listas de leitura?";
+"reading-list-sync-enabled-panel-message" = "A sincronização das listas de leitura está ativada para esta conta. Para parar a sincronização, desative a sincronização para esta conta, ao atualizar as suas configurações.";
+"reading-list-sync-enabled-panel-title" = "A sincronização está ativada nesta conta";
 "reading-list-unable-to-add-entry" = "Ocorreu um erro inesperado ao adicionar uma entrada à sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-create" = "Ocorreu um erro inesperado ao criar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-unable-to-delete" = "Ocorreu um erro inesperado ao eliminar a sua lista de leitura. Por favor, tente novamente mais tarde.";
@@ -381,6 +389,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-lists-large-sync-completed" = "$1 artigos e $2 listas de leitura sincronizados da sua conta";
 "reading-lists-list-not-synced-limit-exceeded" = "A lista não foi sincronizada, o limite foi excedido";
+"reading-lists-sort-saved-articles" = "Ordenar os artigos guardados";
+"reading-lists-split-notification" = "Há um limite de $1 artigos por lista de leitura. As listas existentes que ultrapassavam este limite foram divididas em várias listas.";
 "reading-lists-sync-error-no-internet-connection" = "A sincronização será retomada quando existir uma ligação à Internet";
 "reading-themes-controls-accessibility-black-theme-button" = "Tema escuro";
 "reading-themes-controls-accessibility-brightness-slider" = "Controlo do brilho";
@@ -435,15 +445,20 @@
 "settings-notifications-trending" = "Atualidades em tendência";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação. Alterá-la irá alterar também o conteúdo diário (como o \"Artigo em destaque\") apresentado em Explorar.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura para a sincronização";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e listas guardados";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos gravados?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos guardados irá removê-los também da sua conta de utilizador.\n\nApagar os seus artigos guardados libertará cerca de $1 de armazenamento.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos guardados";
+"settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma sincronização do servidor, para atualização dos seus artigos e listas de leitura sincronizados";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura Guardados (por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar a lista de leitura Guardados";
 "settings-storage-and-syncing-title" = "Armazenamento e sincronização de artigos";
@@ -527,7 +542,7 @@
 "wikitext-upload-save-terms-name" = "Condições de utilização";
 "zero-charged-verbiage" = "A Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "Carregar outros artigos pode resultar em encargos de transferência de dados. Os artigos guardados, armazenados no dispositivo, não geram tráfego de dados e o acesso é gratuito.";
-"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem taxa de dados cobrada)";
+"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem cobrar dados)";
 "zero-interstitial-cancel" = "Permanecer aqui";
 "zero-interstitial-continue" = "Sair";
 "zero-interstitial-leave-app" = "Poderá incorrer em encargos de transferência de dados. Continuar para o sítio externo?";

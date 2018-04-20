@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Добавить %1$d статью в список для чтения</string>
+			<key>other</key>
+			<string>Добавить %1$d статей в список для чтения</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>статья удалена</string>
 			<key>other</key>
 			<string>статьи удалена</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Перенести %1$d статью в список для чтения</string>
+			<key>other</key>
+			<string>Перенести %1$d статей в список для чтения</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -64,6 +96,22 @@
 			<string>%1$d статья</string>
 			<key>other</key>
 			<string>%1$d статьи</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Вы превысили ограничение в %1$d статью на учётную запись.</string>
+			<key>other</key>
+			<string>Вы превысили ограничение в %1$d статей на учётную запись.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

@@ -319,6 +319,10 @@
 "reading-list-api-error-entry-limit" = "You have too many entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
+"reading-list-create-new-list-button-title" = "Title for button allowing the user to create a new reading list.";
+"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.";
+"reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
+"reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
@@ -328,6 +332,8 @@
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
 "reading-list-keep-subtitle" = "Subtitle asking if synced articles should be kept on device after logout.";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Additional subtitle informing user that turning sync off will remove saved articles from their account.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Title for button that removes save articles from device and Wikipedia account.";
 "reading-list-keep-title" = "Title for keeping save articles on device.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Title for button to sort unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Subtitle letting the user know that there is a limit of 5000 unsorted articles.";
@@ -343,9 +349,13 @@
 "reading-list-name-user-created-annotation" = "Annotation added to a conflicting reading list name";
 "reading-list-new-list-description-placeholder" = "Placeholder text appearing in text field for entering new list description";
 "reading-list-new-list-name-placeholder" = "Placeholder text appearing in text field for entering new list name";
+"reading-list-sync-disabled-panel-message" = "Message for panel informing user that sync was disabled on their Wikipedia account on another device.";
+"reading-list-sync-disabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
+"reading-list-sync-enabled-panel-message" = "Message for panel informing user that sync is enabled for their account.";
+"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";
@@ -366,6 +376,8 @@
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
 "reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed.";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
+"reading-lists-sort-saved-articles" = "Title of the alert that allows sorting saved articles.";
+"reading-lists-split-notification" = "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists.";
 "reading-lists-sync-error-no-internet-connection" = "Alert message informing user that syncing will resume when internet connection is available.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
@@ -449,8 +461,8 @@
 "share-open-in-maps" = "Button to open current article's location in the Maps app.";
 "share-social-format" = "Share format string for social platforms. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "share-social-mention-format" = "Share format string for social platforms with an @mention. $1 is replaced with the article title, $2 is replaced with the article URL.";
-"sort-by-recently-added-action" = "Title of the sort action that allows sorting articles by date added.";
-"sort-by-title-action" = "Title of the sort action that allows sorting articles by title.";
+"sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
+"sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
 "status-saved-for-later" = "Indicates to the user that the article has been saved for later";
 "status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}";

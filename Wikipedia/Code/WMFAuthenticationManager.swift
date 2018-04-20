@@ -4,11 +4,19 @@
  */
 class WMFAuthenticationManager: NSObject {    
     fileprivate var keychainCredentials:WMFKeychainCredentials
+    @objc public static let userLoggedInNotification = NSNotification.Name("WMFUserLoggedInNotification")
     
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil
+    @objc dynamic private(set) var loggedInUsername: String? = nil {
+        didSet {
+            SessionSingleton.sharedInstance().dataStore.readingListsController.authenticationDelegate = self
+            if loggedInUsername != nil {
+                NotificationCenter.default.post(name: WMFAuthenticationManager.userLoggedInNotification, object: nil)
+            }
+        }
+    }
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
@@ -68,6 +76,25 @@ class WMFAuthenticationManager: NSObject {
         }
         
         return baseURL!
+    }
+    
+    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping () -> Void = {}) {
+        let performCompletionOnTheMainThread = {
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+        self.loginWithSavedCredentials(success: { (success) in
+            DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(success.username).\n\n")
+            performCompletionOnTheMainThread()
+        }, userAlreadyLoggedInHandler: { (loggedIn) in
+            DDLogDebug("\n\nUser \(loggedIn.name) is already logged in.\n\n")
+            performCompletionOnTheMainThread()
+        }, failure: { (error) in
+            DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+            performCompletionOnTheMainThread()
+            failure()
+        })
     }
     
     /**
@@ -148,6 +175,7 @@ class WMFAuthenticationManager: NSObject {
         
         // Reset so can show for next logged in user.
         UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
+        UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(false)
     }
     
     /**
@@ -156,11 +184,13 @@ class WMFAuthenticationManager: NSObject {
     @objc public func logout(completion: @escaping () -> Void = {}){
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOSTWithParameters(["action": "logout", "format": "json"], success: { (_, response) in
+            DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
             // It's best to call "action=logout" API *before* clearing local login settings...
             self.resetLocalUserLoginSettings()
             completion()
         }, failure: { (_, error) in
             // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+            DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
             self.resetLocalUserLoginSettings()
             completion()
         })
@@ -179,4 +209,28 @@ class WMFAuthenticationManager: NSObject {
         HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name)
         HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User")
     }
+}
+
+extension WMFAuthenticationManager: AuthenticationDelegate {
+    func isUserLoggedInLocally() -> Bool {
+        return isLoggedIn
+    }
+    
+    func isUserLoggedInRemotely() -> Bool {
+        let taskGroup = WMFTaskGroup()
+        let sessionManager = AFHTTPSessionManager(baseURL: loginSiteURL)
+        var errorCode: String? = nil
+        taskGroup.enter()
+        _ = sessionManager.wmf_apiPOSTWithParameters(["action": "query", "format": "json", "assert": "user", "assertuser": nil], success: { (_, response) in
+            if let response = response as? [String: AnyObject], let error = response["error"] as? [String: Any], let code = error["code"] as? String {
+                errorCode = code
+            }
+            taskGroup.leave()
+        }, failure: { (_, error) in
+            taskGroup.leave()
+        })
+        taskGroup.wait()
+        return errorCode == nil
+    }
+
 }

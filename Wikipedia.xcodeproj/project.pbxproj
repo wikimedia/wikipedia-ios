@@ -183,7 +183,18 @@
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
+		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
+		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
+		7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
+		7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
+		7A741DCE207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
+		7A741DCF207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A741DD0207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
+		7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
@@ -194,16 +205,16 @@
 		7A998AC31FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
 		7A998AC41FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
 		7A998AC51FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
-		7ABAD6B420338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */; };
-		7ABAD6B520338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */; };
-		7ABAD6B620338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */; };
-		7ABAD6B720338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */; };
-		7ABAD6B820338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */; };
-		7ABAD6B920338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */; };
-		7ABAD6BA20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */; };
-		7ABAD6BB20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */; };
-		7ABAD6BC20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */; };
-		7ABAD6BD20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */; };
+		7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
+		7ABAD6B520338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
+		7ABAD6B620338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
+		7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
+		7ABAD6B820338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
+		7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
+		7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
+		7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
+		7ABAD6BC20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
+		7ABAD6BD20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */; };
 		7ABAD6BF20349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C020349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C120349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
@@ -3249,12 +3260,15 @@
 		7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorageAndSyncingSettingsViewController.xib; sourceTree = "<group>"; };
 		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
+		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
+		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
+		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
-		7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailExtendedViewController.swift; sourceTree = "<group>"; };
-		7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailExtendedViewController.xib; sourceTree = "<group>"; };
+		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
+		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
@@ -5947,6 +5961,14 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		7A976F81207BAC2100F7EFE6 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
 		7AB961D6202CB88E005DB2BA /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -7452,8 +7474,10 @@
 				7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */,
 				7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */,
 				7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */,
-				7ABAD6B220338CFA006A364C /* ReadingListDetailExtendedViewController.swift */,
-				7ABAD6B320338CFB006A364C /* ReadingListDetailExtendedViewController.xib */,
+				7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */,
+				7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */,
+				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
+				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
@@ -7657,6 +7681,7 @@
 				D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */,
 				D8FA19081E1BDA72009675C3 /* UI */,
 				D8D5513E1DF1A33D00B90177 /* Third Party */,
+				7A976F81207BAC2100F7EFE6 /* Authentication */,
 				D8FA18A91E1BD84D009675C3 /* Utilities */,
 				0E28C45F1D74A673000C5919 /* Legacy Models */,
 				0E28C4651D74AB54000C5919 /* Base Model Classes */,
@@ -8938,6 +8963,7 @@
 				B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */,
 				BA45241D1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
 				D8D92B5E1DF22E1700B95311 /* NotificationBackgroundMessage.png in Resources */,
+				7A741DCF207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				B0E8033D1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard in Resources */,
 				0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */,
 				D84F2BFD1D2FEE6300963D42 /* WMFRandomDiceButtonRoll.js in Resources */,
@@ -8977,7 +9003,7 @@
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
-				7ABAD6B920338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */,
+				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
 				BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */,
@@ -9068,6 +9094,7 @@
 				D80ED3E61EE57F4800CE8C50 /* Tharlon-Regular.ttf in Resources */,
 				D8E27BB81F82B5DD00F9D2B3 /* RMessageView.xib in Resources */,
 				7AE1D3371FCD057200393471 /* Saved.storyboard in Resources */,
+				7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				D80ED3E71EE57F4800CE8C50 /* SectionEditorViewController.storyboard in Resources */,
 				D80ED3E81EE57F4800CE8C50 /* LibrariesUsed.plist in Resources */,
 				D80ED3E91EE57F4800CE8C50 /* NewsCollectionViewHeader.xib in Resources */,
@@ -9077,7 +9104,7 @@
 				D80ED3EC1EE57F4800CE8C50 /* NotificationBackgroundWarningIcon.png in Resources */,
 				BA45242D1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D80ED3ED1EE57F4800CE8C50 /* WMFLoginViewController.storyboard in Resources */,
-				7ABAD6BD20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */,
+				7ABAD6BD20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D80ED3EF1EE57F4800CE8C50 /* WMFWelcome.storyboard in Resources */,
 				D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */,
 				D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */,
@@ -9181,6 +9208,7 @@
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
 				D8A42BBE1E815A9C00D8E281 /* WMFSearchViewController.storyboard in Resources */,
 				D8A42BBF1E815A9C00D8E281 /* WMFTabBarUI.storyboard in Resources */,
+				7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				D8A42BC01E815A9C00D8E281 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8A42BC21E815A9C00D8E281 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9220,7 +9248,7 @@
 				B0EFCD6B1EBEC2FA008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				D8A42BE51E815A9C00D8E281 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8A42BE61E815A9C00D8E281 /* WMFChangePasswordViewController.storyboard in Resources */,
-				7ABAD6BC20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */,
+				7ABAD6BC20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8A42BE81E815A9C00D8E281 /* NotificationBackgroundError.png in Resources */,
 				D8A42BE91E815A9C00D8E281 /* WMFReferencePanels.storyboard in Resources */,
 				D8A42BEA1E815A9C00D8E281 /* Places.storyboard in Resources */,
@@ -9281,6 +9309,7 @@
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
 				D8CE26451E698E2400DAE2E0 /* WMFSearchViewController.storyboard in Resources */,
 				D8CE26461E698E2400DAE2E0 /* WMFTabBarUI.storyboard in Resources */,
+				7A741DD0207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				D8CE26471E698E2400DAE2E0 /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C861F34BB64004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8CE26491E698E2400DAE2E0 /* NotificationBackgroundSuccess.png in Resources */,
@@ -9320,7 +9349,7 @@
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8CE266D1E698E2400DAE2E0 /* WMFChangePasswordViewController.storyboard in Resources */,
-				7ABAD6BA20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */,
+				7ABAD6BA20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8CE266F1E698E2400DAE2E0 /* NotificationBackgroundError.png in Resources */,
 				D8CE26701E698E2400DAE2E0 /* WMFReferencePanels.storyboard in Resources */,
 				D8CE26711E698E2400DAE2E0 /* Places.storyboard in Resources */,
@@ -9381,6 +9410,7 @@
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
 				D8EC3F451E9BDA35006712EB /* WMFSearchViewController.storyboard in Resources */,
 				D8EC3F461E9BDA35006712EB /* WMFTabBarUI.storyboard in Resources */,
+				7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */,
 				D8EC3F471E9BDA35006712EB /* WMFRandomDiceButtonRoll.js in Resources */,
 				83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */,
 				D8EC3F491E9BDA35006712EB /* NotificationBackgroundSuccess.png in Resources */,
@@ -9420,7 +9450,7 @@
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D8EC3F6D1E9BDA35006712EB /* WMFChangePasswordViewController.storyboard in Resources */,
-				7ABAD6BB20338CFB006A364C /* ReadingListDetailExtendedViewController.xib in Resources */,
+				7ABAD6BB20338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
 				D8EC3F6F1E9BDA35006712EB /* NotificationBackgroundError.png in Resources */,
 				D8EC3F701E9BDA35006712EB /* WMFReferencePanels.storyboard in Resources */,
 				D8EC3F711E9BDA35006712EB /* Places.storyboard in Resources */,
@@ -9948,6 +9978,7 @@
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
+				7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
@@ -10031,7 +10062,7 @@
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
-				7ABAD6B420338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */,
+				7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				B066F0D51E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E11FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
@@ -10208,7 +10239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80ED26E1EE57F4800CE8C50 /* UserLocationAnnotationView.swift in Sources */,
-				7ABAD6B820338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */,
+				7ABAD6B820338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				D80ED26F1EE57F4800CE8C50 /* WMFSearchFunnel.m in Sources */,
 				D80ED2701EE57F4800CE8C50 /* WMFImageURLActivitySource.swift in Sources */,
 				D80ED2731EE57F4800CE8C50 /* BulletedLabel.m in Sources */,
@@ -10240,6 +10271,7 @@
 				D80ED28D1EE57F4800CE8C50 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D80ED28E1EE57F4800CE8C50 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				D80ED28F1EE57F4800CE8C50 /* PreviewHtmlFetcher.m in Sources */,
+				7A741DCE207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D80ED2901EE57F4800CE8C50 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				D80ED2911EE57F4800CE8C50 /* NSCharacterSet+WMFExtras.m in Sources */,
 				D80ED2921EE57F4800CE8C50 /* WMFPageCollectionViewController.m in Sources */,
@@ -10704,6 +10736,7 @@
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
 				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
+				7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,
@@ -10911,6 +10944,7 @@
 				D8A42A8E1E815A9C00D8E281 /* WMFExploreCollectionViewCell.m in Sources */,
 				D8A42A8F1E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.m in Sources */,
 				D8A42A901E815A9C00D8E281 /* WMFSearchFetcher.m in Sources */,
+				7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8A42A921E815A9C00D8E281 /* LoggingDefaults.swift in Sources */,
 				D8A42A951E815A9C00D8E281 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D8A42A971E815A9C00D8E281 /* MWKTitleLanguageController.m in Sources */,
@@ -10994,7 +11028,7 @@
 				D8A42AE91E815A9C00D8E281 /* WeakScriptMessageDelegate.swift in Sources */,
 				D8E27BA41F82B38200F9D2B3 /* RMessageView.m in Sources */,
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
-				7ABAD6B720338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */,
+				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */,
 				7A998ABE1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E41FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
@@ -11171,7 +11205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8CE24E11E698E2400DAE2E0 /* UserLocationAnnotationView.swift in Sources */,
-				7ABAD6B520338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */,
+				7ABAD6B520338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				D8CE24E21E698E2400DAE2E0 /* WMFSearchFunnel.m in Sources */,
 				D8CE24E31E698E2400DAE2E0 /* WMFImageURLActivitySource.swift in Sources */,
 				D8B3D7671EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
@@ -11203,6 +11237,7 @@
 				D8533ED61ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D8CE24FD1E698E2400DAE2E0 /* WebViewController+WMFReferencePopover.m in Sources */,
 				D8CE24FE1E698E2400DAE2E0 /* UIViewController+WMFAlerts.swift in Sources */,
+				7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8CE24FF1E698E2400DAE2E0 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				D8CE25011E698E2400DAE2E0 /* PreviewHtmlFetcher.m in Sources */,
@@ -11494,7 +11529,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8EC3DD81E9BDA35006712EB /* UserLocationAnnotationView.swift in Sources */,
-				7ABAD6B620338CFB006A364C /* ReadingListDetailExtendedViewController.swift in Sources */,
+				7ABAD6B620338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				D8EC3DD91E9BDA35006712EB /* WMFSearchFunnel.m in Sources */,
 				D8EC3DDA1E9BDA35006712EB /* WMFImageURLActivitySource.swift in Sources */,
 				D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
@@ -11526,6 +11561,7 @@
 				D8EC3DF21E9BDA35006712EB /* WMFWelcomePanelViewController.swift in Sources */,
 				D8533ED71ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
 				D8EC3DF41E9BDA35006712EB /* WebViewController+WMFReferencePopover.m in Sources */,
+				7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,

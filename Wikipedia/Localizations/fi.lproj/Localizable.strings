@@ -74,8 +74,7 @@
 "action-unsave" = "Kumoa tallennus";
 "action-unsaved-accessibility-notification" = "Artikkeli tallentamatta";
 "action-update" = "Päivitä";
-// Fuzzy
-"add-articles-to-reading-list" = "Lisää $1 lukulistaan";
+"add-articles-to-reading-list" = "Lisää {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "alert-no-internet" = "Ei Internet-yhteyttä";
 "announcements-dismiss" = "Sulje";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
@@ -257,6 +256,7 @@
 "menu-trash-accessibility-label" = "Poista";
 "more-languages-tooltip-description" = "Etsi Wikipediasta lähes 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
+"move-articles-to-reading-list" = "Siirrä {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
 "nearby-distance-label-feet" = "$1 jalkaa";
 "nearby-distance-label-km" = "$1 km";
@@ -347,6 +347,7 @@
 "reading-list-login-or-create-account-title" = "Kirjaudu sisään synkronoidaksesi tallennetut artikkelit";
 "reading-list-login-subtitle" = "Kirjaudu sisään tai luo tunnus salliaksesi tallennettujen artikkelien ja lukulistojen synkronoitua laitteiden poikki ja tallentaa käyttäjäasetuksiisi.";
 "reading-list-login-title" = "Synkronoi tallennetut artikkelisi?";
+"reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
 "reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
 "reading-list-new-list-name-placeholder" = "lukulistan otsikko";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
@@ -363,12 +364,15 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikkeliraja ylitetty, ei voi synkronoida artikkelia";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listaraja ylitetty, ei voi synkronoida artikkelia";
 "reading-lists-articles-not-synced-limit-exceeded" = "Joitain artikkeleita ei synkronoitu, raja saavutettu";
+"reading-lists-conflicting-reading-list-name-updated" = "Listasi '$1' on uudelleennimetty nimelle '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
 "reading-lists-default-list-description" = "Oletuslista tallennetuille artikkeleillesi";
 "reading-lists-default-list-title" = "Tallennetut";
 "reading-lists-delete-reading-list-alert-message" = "Tätä toimintoa ei voi kumota. Kaikki artikkelit, jotka on tallennettu vain {{PLURAL:$1|tähän listaan|näihin listoihin}} ei tallenneta.";
 "reading-lists-delete-reading-list-alert-title" = "Poista {{PLURAL:$1|lista|listaa}}?";
+"reading-lists-large-sync-completed" = "$1 artikkelia ja $2 lukulistaa synkronoitu tililtäsi";
 "reading-lists-list-not-synced-limit-exceeded" = "Luettelo ei synkronoitu, raja saavutettu";
+"reading-lists-sync-error-no-internet-connection" = "Synkronointi jatkuu, kun internet-yhteys on käytettävissä";
 "reading-themes-controls-accessibility-black-theme-button" = "Musta teema";
 "reading-themes-controls-accessibility-brightness-slider" = "Kirkkauden liukusäädin";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tumma teema";
@@ -426,10 +430,10 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Haluatko poistaa kaikki tallennetut artikkelit?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Poista";
 // Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Sinun tallennettujen artikkelien poisto poistaa artikkelit sinun käyttäjätunnukselta ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nSinun tallennettujen artikkelien poisto vapauttaa tilaa noin 364.4 MB.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Sinun tallennettujen artikkelien poisto poistaa artikkelit sinun käyttäjätunnukselta ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nSinun tallennettujen artikkelien poisto vapauttaa tilaa noin $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Poista tallennetut artikkelit";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-title" = "Synkronoi palvelimen kanssa";
+"settings-storage-and-syncing-full-sync" = "Lukulistasi synkronoidaan taustalla";
+"settings-storage-and-syncing-server-sync-title" = "Päivitä synkronoidut lukulistat";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Näytä tallennetut lukulistat";
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";

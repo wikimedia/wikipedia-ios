@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +13,7 @@
         <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="readingListDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readingListID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingLists" inverseEntity="WMFArticle" syncable="YES"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ReadingListEntry" inverseName="list" inverseEntity="ReadingListEntry" syncable="YES"/>
@@ -172,7 +173,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="285"/>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="30"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="450"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>

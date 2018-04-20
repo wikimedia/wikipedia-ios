@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alex00728
 // Author: CYAN
+// Author: Doyoon1995
 // Author: Ellif
 // Author: Garam
 // Author: HDNua
@@ -73,6 +74,7 @@
 "action-remove" = "제거";
 "action-save" = "저장";
 "action-saved" = "저장됨";
+"action-saved-accessibility" = "저장했습니다. 저장을 취소하려면 활성화하세요.";
 "action-saved-accessibility-notification" = "나중을 위해 문서가 저장됨";
 "action-share" = "공유";
 "action-sort" = "정렬";
@@ -137,6 +139,8 @@
 "empty-no-history-title" = "표시할 역사가 없습니다";
 "empty-no-reading-lists-message" = "여행하고픈 장소, 즐겨찾는 주제 등을 위한 읽기 목록을 만들려면 파란색 '+'를 탭하세요";
 "empty-no-reading-lists-title" = "저장된 문서를 읽기 목록으로 정리합니다";
+"empty-no-saved-pages-in-reading-list-message" = "여기에 문서를 표시하려면 문서를 이 목록에 저장하세요";
+"empty-no-saved-pages-in-reading-list-title" = "이 목록에 저장된 문서가 없습니다";
 "empty-no-saved-pages-message" = "오프라인 상태에서도 나중에 보기 위해 문서를 저장합니다";
 "empty-no-saved-pages-title" = "아직 저장된 문서가 없습니다.";
 "empty-no-search-results-message" = "결과가 없습니다.";
@@ -340,6 +344,10 @@
 "reading-list-api-error-entry-limit" = "이 목록의 항목 수 제한에 도달했기 때문에 이 항목은 동기화되지 않습니다.";
 "reading-list-api-error-generic" = "읽기 목록을 동기화하는 동안 예측하지 못한 오류가 발생했습니다.";
 "reading-list-api-error-list-limit" = "동기화된 목록 수 제한에 도달했기 때문에 이 목록은 동기화되지 않습니다.";
+"reading-list-create-new-list-button-title" = "읽기 목록 만들기";
+"reading-list-create-new-list-description" = "설명";
+"reading-list-create-new-list-reading-list-name" = "읽기 목록 이름";
+"reading-list-create-new-list-title" = "새 목록 만들기";
 "reading-list-deleted-accessibility-notification" = "읽기 목록을 삭제했습니다";
 "reading-list-do-not-keep-button-title" = "아니요, 장치에서 문서를 삭제합니다";
 "reading-list-entry-limit-exceeded-message" = "이 문서의 모든 목록의 동기화를 계속하려면 이 목록의 문서 수를 $1개로 줄여 주십시오.";
@@ -349,6 +357,8 @@
 "reading-list-generic-error" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다.";
 "reading-list-keep-button-title" = "예, 장치에 문서를 보관합니다";
 "reading-list-keep-subtitle" = "위키백과 계정에 동기화된 문서가 있습니다. 로그아웃한 뒤에 이 문서들을 이 장치에 보관하시겠습니까?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "동기화를 끄면 계정에 속한 이 문서들이 제거됩니다. 장치에서 이 문서들을 제거하면 나중에 동기화를 다시 켤 때 복구되지 않습니다.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "아니요, 장치와 내 위키백과 문서에서 문서를 제거합니다";
 "reading-list-keep-title" = "저장된 문서를 장치에 보관할까요?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "문서 정렬";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "500건의 정렬되지 않은 문서 제한이 있습니다. 정렬되지 않은 문서를 계속 정렬하려면 기존 문서들을 목록으로 정렬시켜 주십시오.";
@@ -364,9 +374,13 @@
 "reading-list-name-user-created-annotation" = "_[사용자가 만듦]";
 "reading-list-new-list-description-placeholder" = "선택적인 간단한 설명";
 "reading-list-new-list-name-placeholder" = "읽기 목록 제목";
+"reading-list-sync-disabled-panel-message" = "읽기 목록 동기화는 다른 장치의 위키백과 계정에 대해 비활성화되어 있습니다. 설정을 업데이트하여 동기화를 다시 켤 수 있습니다.";
+"reading-list-sync-disabled-panel-title" = "동기화 끔";
 "reading-list-sync-enable-button-title" = "동기화 사용";
 "reading-list-sync-enable-subtitle" = "저장된 문서와 읽기 목록은 지금 위키백과 계정에 저장하여 장치 간에 동기화할 수 있습니다.";
 "reading-list-sync-enable-title" = "읽기 목록 동기화를 켜시겠습니까?";
+"reading-list-sync-enabled-panel-message" = "이 계정에 읽기 목록 동기화가 활성화되었습니다. 동기화를 중지하려면 설정을 수정하여 이 계정의 동기화를 끌 수 있습니다.";
+"reading-list-sync-enabled-panel-title" = "이 계정에 동기화가 활성화되었습니다";
 "reading-list-unable-to-add-entry" = "읽기 목록에 항목을 추가하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-create" = "읽기 목록을 생성하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-unable-to-delete" = "읽기 목록을 삭제하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
@@ -387,6 +401,8 @@
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|목록}}을 삭제하시겠습니까?";
 "reading-lists-large-sync-completed" = "문서 $1개와 읽기 목록 $2개가 장치로부터 동기화되었습니다";
 "reading-lists-list-not-synced-limit-exceeded" = "목록이 동기화되지 않았습니다. 제한에 도달했습니다";
+"reading-lists-sort-saved-articles" = "저장된 문서 정렬";
+"reading-lists-split-notification" = "읽기 목록 하나 당 문서 $1개의 제한이 있습니다. 이 제한을 초과하는 기존 목록은 여러 개 목록으로 분할되었습니다.";
 "reading-lists-sync-error-no-internet-connection" = "인터넷 연결이 가능할 때 동기화를 재개합니다";
 "reading-themes-controls-accessibility-black-theme-button" = "블랙 테마";
 "reading-themes-controls-accessibility-brightness-slider" = "밝기 슬라이더";
@@ -440,13 +456,15 @@
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
-"settings-storage-and-syncing-enable-sync-footer-text" = "동기화를 위해 로그인할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다";
+"settings-storage-and-syncing-enable-sync-footer-text" = "로그인하고 동기화할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다.";
 "settings-storage-and-syncing-enable-sync-title" = "저장된 문서와 목록 동기화";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "저장된 문서를 지우면 동기화를 켤 경우 이 장치뿐 아니라 사용자 계정에서도 문서가 제거됩니다. 이 동작은 취소할 수 없습니다.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "저장된 모든 문서를 삭제할까요?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "삭제";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "동기화가 켜져있는 중에 저장된 문서를 지우면 이 장치뿐 아니라 사용자 계정에서도 제거됩니다.\n\n저장된 문서를 지우면 약 $1의 공간을 확보하게 됩니다.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "저장된 문서 삭제";
+"settings-storage-and-syncing-full-sync" = "읽기 목록이 백그라운드 상태로 동기화됩니다";
+"settings-storage-and-syncing-server-sync-footer-text" = "동기화된 문서와 읽기 목록의 업데이트를 요청합니다.";
 "settings-storage-and-syncing-server-sync-title" = "동기화된 읽기 목록 업데이트";
 "settings-storage-and-syncing-show-default-reading-list-title" = "저장된 읽기 목록 표시";
 "settings-storage-and-syncing-title" = "문서의 저장 및 동기화";

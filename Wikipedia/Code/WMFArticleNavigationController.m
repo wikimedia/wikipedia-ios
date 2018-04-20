@@ -59,6 +59,11 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:YES];
 }
 
+- (void)setReadingListHintHeight:(CGFloat)readingListHintHeight {
+    _readingListHintHeight = readingListHintHeight;
+    [self layoutSecondToolbarForViewBounds:self.view.bounds hidden:self.isSecondToolbarHidden animated:YES];
+}
+
 #pragma mark - Layout
 
 - (void)viewDidLayoutSubviews {

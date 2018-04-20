@@ -8,10 +8,14 @@ enum CollectionViewCellState {
     case idle, open
 }
 
+class EditBarButton: UIBarButtonItem {
+    var systemItem: UIBarButtonSystemItem?
+}
+
 public protocol CollectionViewEditControllerNavigationDelegate: class {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState)
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
 }
@@ -398,7 +402,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         
         let rightBarButtonSystemItem: UIBarButtonSystemItem?
         let leftBarButtonSystemItem: UIBarButtonSystemItem?
-        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly)
+        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly) || shouldShowEditButtonsForEmptyState
         
         switch newValue {
         case .editing:
@@ -422,34 +426,29 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             transformBatchEditPane(for: editingState)
         case .empty:
             leftBarButtonSystemItem = nil
-            rightBarButtonSystemItem = nil
+            rightBarButtonSystemItem = shouldShowEditButtonsForEmptyState ? .edit : nil
             isBatchEditToolbarHidden = true
         default:
             leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .edit
         }
         
-        let rightButton: UIBarButtonItem?
-        let leftButton: UIBarButtonItem?
+        var rightButton: EditBarButton?
+        var leftButton: EditBarButton?
         
         if let barButtonSystemItem = rightBarButtonSystemItem {
-            rightButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-        } else {
-            rightButton = nil
+            rightButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            rightButton?.systemItem = barButtonSystemItem
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
-            leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-        } else {
-            leftButton = nil
+            leftButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            leftButton?.systemItem = barButtonSystemItem
         }
         
         leftButton?.tag = editingState.tag
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
-        
-        activeBarButton.left = leftButton
-        activeBarButton.right = rightButton
         
         if let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .body) : UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body) {
             let attributes = [NSAttributedStringKey.font: font]
@@ -461,6 +460,9 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
+        guard !isCollectionViewEmpty else {
+            return
+        }
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -521,29 +523,22 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
+    public var shouldShowEditButtonsForEmptyState: Bool = false
     
-    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
-        let currentEditingState = editingState
-        let newEditingState: EditingState
-        
-        switch currentEditingState {
-
-        case .open:
-            newEditingState = .closed
-        case .swiping:
-            closeActionPane()
-            newEditingState = .done
-        case .editing where sender == activeBarButton.left:
-            newEditingState = .cancelled
-        case .editing where sender == activeBarButton.right:
-            newEditingState = .done
-        default:
-            newEditingState = .open
+    @objc private func barButtonPressed(_ sender: EditBarButton) {
+        guard let navigationDelegate = navigationDelegate else {
+            assertionFailure("Unable to set new editing state - navigationDelegate is nil")
+            return
         }
-        
-        navigationDelegate?.willChangeEditingState(from: currentEditingState, to: newEditingState)
-        editingState = newEditingState
+        guard let systemItem = sender.systemItem else {
+            assertionFailure("Unable to set new editing state - systemItem is nil")
+            return
+        }
+        let currentEditingState = editingState
+        if currentEditingState == .swiping {
+            closeActionPane()
+        }
+        editingState = navigationDelegate.newEditingState(for: currentEditingState, fromEditBarButtonWithSystemItem: systemItem)
     }
     
     public func changeEditingState(to newEditingState: EditingState) {

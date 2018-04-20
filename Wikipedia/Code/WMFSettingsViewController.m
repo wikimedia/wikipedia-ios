@@ -228,10 +228,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
-            DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
-        } break;
         case WMFSettingsMenuItemType_About: {
             AboutViewController *vc = [[AboutViewController alloc] initWithTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
@@ -256,12 +252,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#if WMF_TWEAKS_ENABLED
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+#endif
 
 #pragma mark - Dynamic URLs
 
@@ -334,11 +332,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme:self.theme
-                                                          completion:^{
-                                                              [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
-                                                              }];
-                                                          }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
+        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+        }];
+    }];
 }
 
 #pragma mark - Languages
