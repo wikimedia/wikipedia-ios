@@ -43,9 +43,12 @@ class Article {
   }
   descriptionParagraph() {
     if(this.description !== undefined && this.description.length > 0){
-      return `<p id='entity_description'>${this.description}</p>`
+      const p = lazyDocument.createElement('p')
+      p.id = 'entity_description'
+      p.innerHTML = this.description
+      return p
     }
-    return ''
+    return undefined
   }
 }
 
@@ -59,20 +62,38 @@ class Section {
     this.article = article
   }
 
-  headingTagSize() {
-    return Math.max(1, Math.min(parseInt(this.level), 6))
+  addAnchorAsIdToHeading(heading) {
+    if (this.anchor === undefined || this.anchor.length === 0) {
+      return
+    }
+    
+    // TODO: consider renaming this 'id' to 'anchor' for clarity - would need to update native
+    // code as well - used when TOC sections made to jump to sections.
+    // If we make this change this method should probably be renamed to 'addAnchorToHeading'.
+    heading.id = this.anchor
   }
 
-  headingTag() {
-    if(this.isLeadSection()){
-      return `<h1 class='section_heading' ${this.anchorAsElementId()} sectionId='${this.id}'>
-                ${this.article.displayTitle}
-              </h1>${this.article.descriptionParagraph()}`
-    }
-    const hSize = this.headingTagSize()
-    return `<h${hSize} class="section_heading" data-id="${this.id}" id="${this.anchor}">
-              ${this.line}
-            </h${hSize}>`
+  leadSectionHeading() {
+    const heading = lazyDocument.createElement('h1')
+    heading.class = 'section_heading'
+    this.addAnchorAsIdToHeading(heading)
+    heading.sectionId = this.id
+    heading.innerHTML = this.article.displayTitle
+    return heading
+  }
+
+  nonLeadSectionHeading() {
+    // Non-lead section edit pencils are added as part of the heading via `newEditSectionHeader`
+    // because it provides a heading correctly aligned with the edit pencil. (Lead section edit
+    // pencils are added in `applyTransformationsToFragment` because they need to be added after
+    // the `moveLeadIntroductionUp` has finished.)
+    const heading = requirements.editTransform.newEditSectionHeader(lazyDocument, this.id, this.level, this.line)
+    this.addAnchorAsIdToHeading(heading)
+    return heading
+  }
+
+  heading() {
+    return this.isLeadSection() ? this.leadSectionHeading() : this.nonLeadSectionHeading()
   }
 
   isLeadSection() {
@@ -81,10 +102,6 @@ class Section {
 
   isNonMainPageLeadSection() {
     return this.isLeadSection() && !this.article.ismain
-  }
-
-  anchorAsElementId() {
-    return this.anchor === undefined || this.anchor.length === 0 ? '' : `id='${this.anchor}'`
   }
 
   shouldWrapInTable() {
@@ -98,15 +115,39 @@ class Section {
     return this.text
   }
 
+  description() {
+    if(this.isLeadSection()){
+      return this.article.descriptionParagraph()
+    }
+    return undefined
+  }
+
   containerDiv() {
     const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
-    container.innerHTML = `
-        ${this.article.ismain ? '' : this.headingTag()}
-        <div id="content_block_${this.id}" class="content_block">
-            ${this.isNonMainPageLeadSection() ? '<hr id="content_block_0_hr">' : ''}
-            ${this.html()}
-        </div>`
+    
+    if(!this.article.ismain){
+      container.appendChild(this.heading())
+      
+      const description = this.description()
+      if(description){
+        container.appendChild(description)
+      }
+      
+      if(this.isLeadSection()){
+        const hr = lazyDocument.createElement('hr')
+        hr.id = 'content_block_0_hr'
+        container.appendChild(hr)
+      }      
+    }
+    
+    const block = lazyDocument.createElement('div')
+    block.id = `content_block_${this.id}`
+    block.class = 'content_block'
+    block.innerHTML = this.html()
+    
+    container.appendChild(block)
+    
     return container
   }
 }
@@ -141,26 +182,21 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(fragment)
 
   if(!article.ismain && isLead){
-    const afterElement = fragment.getElementById('content_block_0_hr')
-    requirements.leadIntroductionTransform.moveLeadIntroductionUp(fragment, 'content_block_0', afterElement)
+    requirements.leadIntroductionTransform.moveLeadIntroductionUp(fragment, 'content_block_0')
   }
 
   const isFilePage = fragment.querySelector('#filetoc') !== null
-  if(!article.ismain && !isFilePage){
-    if (isLead){
-      // Add lead section edit button after the lead section horizontal rule element.
-      const hr = fragment.querySelector('#content_block_0_hr')
-      hr.parentNode.insertBefore(
-        requirements.editTransform.newEditSectionButton(fragment, 0),
-        hr.nextSibling
-      )
-    }else{
-      // Add non-lead section edit buttons inside respective header elements.
-      const heading = fragment.querySelector('.section_heading[data-id]')
-      heading.appendChild(requirements.editTransform.newEditSectionButton(fragment, heading.getAttribute('data-id')))
-    }
-    fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'})
+  const needsLeadEditPencil = !article.ismain && !isFilePage && isLead
+  if(needsLeadEditPencil){
+    // Add lead section edit pencil before the section html. Lead section edit pencil must be 
+    // added after `moveLeadIntroductionUp` has finished. (Other edit pencils are constructed
+    // in `nonLeadSectionHeading()`.)
+    const leadSectionEditButton = requirements.editTransform.newEditSectionButton(fragment, 0)
+    leadSectionEditButton.style.float = article.language.isRTL ? 'left': 'right'
+    const firstContentBlock = fragment.getElementById('content_block_0')
+    firstContentBlock.insertBefore(leadSectionEditButton, firstContentBlock.firstChild)
   }
+  fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'})
 
   const tableFooterDivClickCallback = container => {
     if(requirements.location.isElementTopOnscreen(container)){
