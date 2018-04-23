@@ -725,9 +725,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxEntriesPerList else {
-                return
-            }
             wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxEntriesPerList)
             do {
                 try save()
@@ -742,9 +739,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxListsPerUser else {
-                return
-            }
             wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListsConfigMaxListsPerUser)
             do {
                 try save()
