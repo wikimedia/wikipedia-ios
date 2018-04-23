@@ -301,6 +301,8 @@
 "preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
+"reading-list-create-new-list-description" = "বিবরণ";
+"reading-list-create-new-list-title" = "নতুন তালিকা তৈরি করুন";
 "reading-lists-default-list-title" = "সংরক্ষিত";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|তালিকাটি|তালিকাগুলি}} মুছবেন?";
 "reading-themes-controls-accessibility-dark-theme-button" = "আঁধার থিম";

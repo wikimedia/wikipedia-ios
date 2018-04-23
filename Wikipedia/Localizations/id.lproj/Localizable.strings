@@ -340,6 +340,10 @@
 "reading-list-api-error-entry-limit" = "Entri ini tidak disinkronkan karena Anda telah mencapai batas jumlah entri dalam daftar ini.";
 "reading-list-api-error-generic" = "Terjadi kesalahan tak terduga saat menyinkronkan daftar bacaan Anda.";
 "reading-list-api-error-list-limit" = "Daftar ini tidak disinkronkan karena Anda telah mencapai batas jumlah daftar yang disinkronkan.";
+"reading-list-create-new-list-button-title" = "Buat daftar bacaan";
+"reading-list-create-new-list-description" = "Deskripsi";
+"reading-list-create-new-list-reading-list-name" = "Nama daftar bacaan";
+"reading-list-create-new-list-title" = "Buat daftar baru";
 "reading-list-deleted-accessibility-notification" = "Daftar bacaan dihapus";
 "reading-list-do-not-keep-button-title" = "Tidak, hapus artikel dari perangkat";
 "reading-list-entry-limit-exceeded-message" = "Harap kurangi jumlah artikel Anda dalam daftar ini menjadi $1 untuk melanjutkan sinkronisasi semua artikel dalam daftar ini.";
@@ -449,21 +453,17 @@
 "settings-notifications-trending" = "Peristiwa terkini";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Izinkan Wikimedia untuk menyimpan artikel tersimpan Anda dan daftar bacaan ke preferensi pengguna Anda ketika Anda masuk log untuk menyinkronkan";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Izinkan Wikimedia untuk menyimpan artikel tersimpan Anda dan daftar bacaan ke preferensi pengguna Anda ketika Anda masuk log dan sinkronisasi.";
 "settings-storage-and-syncing-enable-sync-title" = "Sinkronisasi artikel tersimpan dan daftar";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini. Anda tidak dapat membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Hapus semua artikel tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Hapus";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dan dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Menghapus artikel tersimpan Anda akan menghapusnya dari akun pengguna Anda jika Anda telah mengaktifkan sinkronisasi serta dari perangkat ini.\n\nMenghapus artikel yang Anda simpan akan membebaskan ruang sekitar $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Hapus artikel tersimpan";
 "settings-storage-and-syncing-full-sync" = "Daftar bacaan Anda akan disinkronkan di latar belakang";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Minta sinkronisasi dari peladen untuk pembaruan ke artikel yang disinkronkan dan daftar bacaan Anda";
+"settings-storage-and-syncing-server-sync-footer-text" = "Minta pemutakhiran ke artikel yang disinkronkan dan daftar bacaan Anda.";
 "settings-storage-and-syncing-server-sync-title" = "Perbarui daftar bacaan yang disinkronkan";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Menampilkan Daftar bacaan tersimpan (mis. Default) sebagai daftar terpisah dalam tampilan Daftar bacaan Anda. Daftar ini muncul di perangkat Android";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Menampilkan Daftar bacaan tersimpan (mis. Default) sebagai daftar terpisah dalam tampilan daftar bacaan Anda. Daftar ini muncul di perangkat Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tampilkan Daftar bacaan tersimpan";
 "settings-storage-and-syncing-title" = "Penyimpanan dan sinkronisasi artikel";
 "settings-support" = "Dukung Wikipedia";

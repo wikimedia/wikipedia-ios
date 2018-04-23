@@ -329,6 +329,10 @@
 "reading-list-api-error-entry-limit" = "Entri ini tidak disegerakkan kerana anda telah mencapai had untuk bilangan penyertaan dalam senarai ini.";
 "reading-list-api-error-generic" = "Ralat yang tidak dijangka berlaku semasa menyegerakkan senarai bacaan anda.";
 "reading-list-api-error-list-limit" = "Senarai ini tidak disegerakkan kerana anda telah mencapai had bagi bilangan senarai yang disegerakkan.";
+"reading-list-create-new-list-button-title" = "Cipta senarai bacaan";
+"reading-list-create-new-list-description" = "Keterangan";
+"reading-list-create-new-list-reading-list-name" = "Nama senarai bacaan";
+"reading-list-create-new-list-title" = "Cipta senarai baru";
 "reading-list-deleted-accessibility-notification" = "Senarai bacaan dipadamkan";
 "reading-list-do-not-keep-button-title" = "Tidak, padamkan rencana dari peranti";
 "reading-list-entry-limit-exceeded-message" = "Sila menurunkan jumlah rencana anda dalam senarai ini hingga $1 untuk menyambung semula penyegerakan semua rencana dalam senarai ini.";
@@ -438,21 +442,17 @@
 "settings-notifications-trending" = "Peristiwa semasa";
 "settings-primary-language" = "Utama";
 "settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi. Menukar bahasa ini akan menukar kandungan setiap hari (seperti Rencana Pilihan) yang ditunjukkan pada Jelajah.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Benarkan Wikimedia menyimpan rencana dan senarai bacaan anda yang disimpan ke keutamaan pengguna anda apabila anda log masuk untuk disegerakkan";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Benarkan Wikimedia menyimpan rencana dan senarai bacaan anda yang disimpan ke keutamaan pengguna anda apabila anda log masuk dan penyegerakan.";
 "settings-storage-and-syncing-enable-sync-title" = "Penyegerakan rencana tersimpan dan senarai";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dari peranti ini. Anda tidak boleh membatalkan tindakan ini.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Padam semua rencana tersimpan?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Padam";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dan dari peranti ini.\n\nMenghapus rencana tersimpan anda akan membebaskan sekitar $1 ruang.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Memadamkan rencana anda yang disimpan akan mengeluarkannya dari akaun pengguna anda jika anda menghidupkan penyegerakan serta dari peranti ini.\n\nMenghapus rencana tersimpan anda akan membebaskan sekitar $1 ruang.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Padam rencana tersimpan";
 "settings-storage-and-syncing-full-sync" = "Senarai bacaan anda akan diselaraskan di latar belakang";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Minta penyegerakan dari pelayan untuk kemas kini ke rencana dan senarai bacaan anda yang disegerakkan";
+"settings-storage-and-syncing-server-sync-footer-text" = "Minta kemas kini ke rencana dan senarai bacaan anda yang disegerakkan.";
 "settings-storage-and-syncing-server-sync-title" = "Kemas kini senarai bacaan yang diselaraskan";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Tunjukkan Senarai bacaan tersimpan (contohnya Lalai) sebagai senarai berasingan dalam paparan Senarai bacaan anda. Senarai ini muncul pada peranti Android";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Tunjukkan Senarai bacaan tersimpan (contohnya Lalai) sebagai senarai berasingan dalam paparan senarai bacaan anda. Senarai ini muncul pada peranti Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Tunjukkan Senarai bacaan tersimpan";
 "settings-storage-and-syncing-title" = "Penyimpanan dan penyegerakan rencana";
 "settings-support" = "Sokonglah Wikipedia";
