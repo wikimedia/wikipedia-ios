@@ -110,6 +110,10 @@
 "preference-title-eventlogging-opt-in" = "שיקן ניצונג־באריכטן";
 "rank-accessibility-label" = "נומער $1";
 "readers-accessibility-label" = "$1 לייענער";
+"reading-list-create-new-list-button-title" = "שאפֿן לייענען־ליסטע";
+"reading-list-create-new-list-description" = "באַשרײבונג";
+"reading-list-create-new-list-reading-list-name" = "נאמען פון לייענען־ליסטע";
+"reading-list-create-new-list-title" = "שאפן א נײע ליסטע";
 "reference-title" = "רעפערענץ $1";
 "saved-title" = "אויפֿגעהיטן";
 "search-did-you-mean" = "צי האט איר געמיינט $1?";

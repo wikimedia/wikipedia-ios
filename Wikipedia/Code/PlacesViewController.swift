@@ -805,7 +805,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let request = WMFArticle.fetchRequest()
         request.predicate = NSPredicate(format: "key in %@", keysToFetch)
-        request.sortDescriptors = [NSSortDescriptor(key: "placesSortOrder", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFArticle.placesSortOrder, ascending: true)]
         articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
@@ -1293,7 +1293,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let moc = dataStore.viewContext
             let request = WMFKeyValue.fetchRequest()
             request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
-            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFKeyValue.date, ascending: false)]
             let results = try moc.fetch(request)
             for result in results {
                 moc.delete(result)
@@ -1341,9 +1341,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
         
-        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
+        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler, theme: theme)
         
-        enableLocationPanelVC.apply(theme: theme)
         present(enableLocationPanelVC, animated: true, completion: nil)
     }
 
@@ -2101,7 +2100,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 let moc = dataStore.viewContext
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
-                request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFKeyValue.date, ascending: false)]
                 let results = try moc.fetch(request)
                 let count = results.count
                 if count > searchHistoryCountLimit {

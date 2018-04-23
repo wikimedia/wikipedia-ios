@@ -342,12 +342,16 @@
 "settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-primary-language" = "Chính";
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Cho phép Wikimedia lưu bài viết và danh sách đọc của bạn theo sở thích bạn đã cho thấy trước khi đăng nhập để đồng bộ hóa";
 "settings-storage-and-syncing-enable-sync-title" = "Đồng bộ hóa những bài viết và danh sách đã lưu";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Xóa những trang được lưu sẽ đưa những trang đó ra khỏi tài khoản nếu bạn đã đồng bộ hóa nó từ thiết bị này.\n\nXóa những trang được lưu sẽ làm trống 364.4 MB.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Xóa những bài viết đã được lưu";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Yêu cầu đồng bộ hóa từ trang chủ để nâng cấp những bài viết đã được đồng bộ hóa và danh sách đọc";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Hiện danh sách đọc được lưu";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Đã lưu bài viết, lưu trữ nó và đồng bộ hóa";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";

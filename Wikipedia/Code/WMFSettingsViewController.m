@@ -88,8 +88,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // Before iOS 11
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readingListSyncStateChanged:) name:[WMFReadingListsController syncStateDidChangeNotification] object:nil];
 }
 
 - (void)dealloc {
@@ -230,10 +228,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [vc applyTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
         } break;
-        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
-            DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-            [self.navigationController pushViewController:vc animated:YES];
-        } break;
         case WMFSettingsMenuItemType_About: {
             AboutViewController *vc = [[AboutViewController alloc] initWithTheme:self.theme];
             [self.navigationController pushViewController:vc animated:YES];
@@ -257,6 +251,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#if WMF_TWEAKS_ENABLED
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+#endif
 
 #pragma mark - Dynamic URLs
 
@@ -321,14 +324,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-ok", nil, nil, @"Clear cache", @"Confirm action to clear cached data")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *_Nonnull action) {
-                                                [[WMFImageController sharedInstance] deleteTemporaryCache];
-                                                [[WMFImageController sharedInstance] removeLegacyCache];
-                                                [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *error) {
-                                                    DDLogError(@"Error removing unreferenced articles: %@", error);
-                                                }
-                                                    success:^{
-                                                        DDLogDebug(@"Successfully removed unreferenced articles");
-                                                    }];
+                                                [self.dataStore clearCachesForUnsavedArticles];
                                             }]];
     [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"settings-clear-cache-cancel", nil, nil, @"Cancel", @"Cancel action to clear cached data\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
 
@@ -336,11 +332,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTheme:self.theme
-                                                          completion:^{
-                                                              [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
-                                                              }];
-                                                          }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
+        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+        }];
+    }];
 }
 
 #pragma mark - Languages
@@ -454,8 +449,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (WMFSettingsTableViewSection *)section_1 {
     NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Login],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
+                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
@@ -521,13 +515,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #else
     return nil;
 #endif
-}
-
-#pragma mark - Notifications
-
-- (void)readingListSyncStateChanged:(NSNotification *)note {
-    WMFAssertMainThread(@"This touches the UI, so should always be on the main thread");
-    [self loadSections];
 }
 
 #pragma mark - KVO

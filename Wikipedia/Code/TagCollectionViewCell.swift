@@ -31,7 +31,7 @@ class TagCollectionViewCell: CollectionViewCell {
         guard !tag.isCollapsed, let name = tag.readingList.name else {
             return
         }
-        label.text = (tag.isLast ? "+\(count - tag.index)" : name).uppercased()
+        label.text = (tag.isLast ? "+\(count - tag.index)" : name)
         apply(theme: theme)
         updateFonts(with: traitCollection)
         setNeedsLayout()
@@ -70,7 +70,8 @@ class TagCollectionViewCell: CollectionViewCell {
 extension TagCollectionViewCell: Themeable {
     func apply(theme: Theme) {
         label.textColor = theme.colors.secondaryText
-        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
+        let backgroundColor = theme.name == Theme.standard.name ? UIColor.wmf_lightestGray : theme.colors.midBackground
+        setBackgroundColors(backgroundColor, selected: theme.colors.baseBackground)
         updateSelectedOrHighlighted()
     }
 }

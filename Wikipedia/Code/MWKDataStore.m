@@ -8,6 +8,9 @@
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
+NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
+NSString *const WMFArticleSaveToDiskDidFailArticleURLKey = @"WMFArticleSavedToDiskWithArticleURLKey";
+NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWithErrorKey";
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -1079,16 +1082,15 @@ static uint64_t bundleHash() {
     return [self saveData:data toFile:name atPath:path error:error];
 }
 
-- (void)saveDictionary:(NSDictionary *)dict path:(NSString *)path name:(NSString *)name {
-    [self saveDictionary:dict path:path name:name error:NULL];
-}
-
 - (BOOL)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name error:(NSError **)error {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name {
-    [self saveString:string path:path name:name error:NULL];
+- (void)postArticleSaveToDiskDidFailNotification:(NSURL *)articleURL error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
+        [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+    });
 }
 
 - (void)saveArticle:(MWKArticle *)article {
@@ -1102,27 +1104,30 @@ static uint64_t bundleHash() {
     [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
-    [self saveDictionary:export path:path name:@"Article.plist"];
+    NSError *error;
+    BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
+    if (!success) {
+        [self postArticleSaveToDiskDidFailNotification:article.url error:error];
+    }
 }
 
 - (void)saveSection:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
-    [self saveDictionary:export path:path name:@"Section.plist"];
+    NSError *error;
+    BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
+    if (!success) {
+        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
+    }
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
-    [self saveString:html path:path name:@"Section.html"];
-}
-
-- (void)saveImage:(MWKImage *)image {
-    if ([image.article isMain]) {
-        return;
+    NSError *error;
+    BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
+    if (!success) {
+        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
     }
-    NSString *path = [self pathForImage:image];
-    NSDictionary *export = [image dataExport];
-    [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
@@ -1282,6 +1287,11 @@ static uint64_t bundleHash() {
 }
 
 #pragma mark - helper methods
+
+- (NSInteger)sitesDirectorySize {
+    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
+    return [[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
+}
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
@@ -1551,9 +1561,19 @@ static uint64_t bundleHash() {
     [self.articlePreviewCache removeAllObjects];
 }
 
+- (void)clearCachesForUnsavedArticles {
+    [[WMFImageController sharedInstance] deleteTemporaryCache];
+    [[WMFImageController sharedInstance] removeLegacyCache];
+    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+        DDLogError(@"Error removing unreferenced articles: %@", error);
+    } success:^{
+        DDLogDebug(@"Successfully removed unreferenced articles");
+    }];
+}
+
 #pragma mark - Remote Configuration
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * nullable))completion {
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {
     void (^combinedCompletion)(NSError *) = ^(NSError *error) {
         if (completion) {
             completion(error);
