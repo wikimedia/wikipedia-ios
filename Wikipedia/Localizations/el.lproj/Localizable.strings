@@ -301,6 +301,10 @@
 "preference-title-eventlogging-opt-in" = "Στείλτε εκθέσεις χρήσης";
 "rank-accessibility-label" = "Αριθμός $1";
 "readers-accessibility-label" = "$1 αναγνώστες";
+"reading-list-create-new-list-button-title" = "Δημιουργία λίστας ανάγνωσης";
+"reading-list-create-new-list-description" = "Περιγραφή";
+"reading-list-create-new-list-reading-list-name" = "Όνομα λίστας ανάγνωσης";
+"reading-list-create-new-list-title" = "Δημιουργία νέας λίστας";
 "reading-list-deleted-accessibility-notification" = "Η λίστα ανάγνωσης διεγράφη";
 "reading-list-exists-with-same-name" = "Το όνομα λίστας ανάγνωσης είναι ήδη σε χρήση";
 "reading-list-generic-error" = "Ένα απρόβλεπτο σφάλμα συνέβη κατά την διάρκεια της ενημέρωσης των λίστων ανάγνωσής σας.";
@@ -368,7 +372,6 @@
 "settings-primary-language" = "Βασικά";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Σβήσιμο όλων των εισηγμένων λημμάτων;";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Σβήσιμο";
-// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Με το να σβήσετε τα αποθηκευμένα λήμματά σας θα τα αφαιρέσετε από τον λογαριασμό χρήστη σας εάν έχετε τον συγχρονισμό ενεργοποιημένο καθώς και από την συσκευή σας.\n\nΤο σβήσιμο των αποθηκευμένων λημμάτωνν σας θα ελευθερώσει περίπου $1 χώρου.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Σβήσιμο αποθηκευμένων άρθρων";
 "settings-storage-and-syncing-server-sync-title" = "Ενημέρωση συγχρονισμένων λιστών ανάγνωσης";

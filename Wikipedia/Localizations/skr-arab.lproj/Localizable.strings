@@ -127,6 +127,8 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "rank-accessibility-label" = "نمبر$1";
+"reading-list-create-new-list-description" = "تفصیل";
+"reading-list-create-new-list-title" = "نویں لسٹ بݨاؤ";
 "reading-lists-default-list-title" = "محفوظ";
 "reading-themes-controls-accessibility-dark-theme-button" = "ڳوڑھا تھیم، مرکزی خیال";
 "reference-title" = "حوالہ$1";
