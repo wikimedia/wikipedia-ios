@@ -93,6 +93,7 @@
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
 "article-read-more-title" = "Lue lisää";
+"article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
@@ -334,6 +335,10 @@
 "reading-list-api-error-entry-limit" = "Tätä merkintää ei ole synkronoitu koska olet saavuttanut merkintöjen lukumäärän rajan tässä listassa.";
 "reading-list-api-error-generic" = "Odottamaton virhe tapahtui lukulistaasi synkronoidessa.";
 "reading-list-api-error-list-limit" = "Tätä luetteloa ei synkronoida, koska olet saavuttanut synkronoitujen listojen lukumäärän rajan.";
+"reading-list-create-new-list-button-title" = "Luo lukulista";
+"reading-list-create-new-list-description" = "Kuvaus";
+"reading-list-create-new-list-reading-list-name" = "Lukulistan nimi";
+"reading-list-create-new-list-title" = "Luo uusi lista";
 "reading-list-deleted-accessibility-notification" = "Lukulista poistettu";
 "reading-list-do-not-keep-button-title" = "Ei, poista artikkelit laitteesta";
 "reading-list-exists-with-same-name" = "Lukulistan nimi on jo käytössä";
@@ -350,9 +355,11 @@
 "reading-list-name-user-created-annotation" = "_[käyttäjä luotu]";
 "reading-list-new-list-description-placeholder" = "valinnainen lyhyt kuvaus";
 "reading-list-new-list-name-placeholder" = "lukulistan otsikko";
+"reading-list-sync-disabled-panel-title" = "Sykronointi poistettu käytöstä";
 "reading-list-sync-enable-button-title" = "Ota synkronointi käyttöön";
 "reading-list-sync-enable-subtitle" = "Tallennetut artikkelisi ja lukulistasi voidaan nyt tallentaa Wikipedia-tiliisi ja synkronoida Wikipedia-sovellusten poikki.";
 "reading-list-sync-enable-title" = "Ota lukulistan synkronointi käyttöön?";
+"reading-list-sync-enabled-panel-title" = "Synkronointi on otettu käyttöön tälle tilille";
 "reading-list-unable-to-add-entry" = "Odottamaton virhe tapahtui lisätessä\nmerkintää lukulistaan. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-create" = "Odottamaton virhe tapahtui lukulistaasi luodessa. Yritä myöhemmin uudelleen.";
 "reading-list-unable-to-delete" = "Odottamaton virhe tapahtui poistaessa lukulistaasi. Yritä myöhemmin uudelleen.";

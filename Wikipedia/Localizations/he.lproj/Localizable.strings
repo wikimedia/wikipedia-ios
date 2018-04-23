@@ -335,6 +335,10 @@
 "reading-list-api-error-entry-limit" = "הערך הזה לא סונכרן משום שהגעת למגבלה של מספר הערכים שניתן לשמור ברשימה זו.";
 "reading-list-api-error-generic" = "שגיאה בלתי צפויה אירעה בזמן סינכרון רשימות הקריאה שלך";
 "reading-list-api-error-list-limit" = "הרשימה הזו לא סונכרנה משום שהגעת למגבלה של מספר הרשימות שניתן לסנכרן.";
+"reading-list-create-new-list-button-title" = "יצירת רשימת קריאה";
+"reading-list-create-new-list-description" = "תיאור";
+"reading-list-create-new-list-reading-list-name" = "שם רשימת הקריאה";
+"reading-list-create-new-list-title" = "יצירת רשימה חדשה";
 "reading-list-deleted-accessibility-notification" = "רשימת הקריאה נמחקה";
 "reading-list-do-not-keep-button-title" = "לא, למחוק ערכים מהמכשיר";
 "reading-list-entry-limit-exceeded-message" = "נא לצמצם את מספר הערכים ברשימה זו ל־$1, כדי שניתן יהיה להמשיך לסנכרן את כל הערכים ברשימה.";
@@ -444,21 +448,17 @@
 "settings-notifications-trending" = "נושאים אקטואליים חמים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לגלות\".";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "מתן אפשרות לוויקימדיה לשמור את הערכים השמורים ואת רשימות הקריאה שלך להעדפות המשתמש שלך בעת הכניסה לסנכרון";
+"settings-storage-and-syncing-enable-sync-footer-text" = "מתן אפשרות לוויקימדיה לשמור את הערכים השמורים ואת רשימות הקריאה שלך להעדפות המשתמש שלך בעת הכניסה וסנכרון.";
 "settings-storage-and-syncing-enable-sync-title" = "סנכרון ערכים שמורים ורשימות";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה. לא ניתן לבטל את הפעולה הזו.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "למחוק את כל הערכים השמורים?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "מחיקה";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה.\n\nמחיקת הערכים השמורים שלך תנקה עד $1 של שטח אחסון.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך וגם מהמכשיר הזה.\n\nמחיקת הערכים השמורים שלך תנקה עד $1 של שטח אחסון.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "מחיקת ערכים שמורים";
 "settings-storage-and-syncing-full-sync" = "רשימות הקריאה שלך יסונכרנו ברקע";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "בקשת סנכרון מהשרת עבור עדכון הערכים ורשימות הקריאה המסונכרנים שלך";
+"settings-storage-and-syncing-server-sync-footer-text" = "בקשת עדכון לערכים ולרשימות הקריאה המסונכרנים שלך.";
 "settings-storage-and-syncing-server-sync-title" = "עדכון רשימות הקריאה שסונכרנו";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "הצגת רשימת הקריאה השמורה בתור רשימה נפרדת בתצוגת רשימות הקריאה שלך. רשימה זו מופיעה במכשירי אנדרואיד";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "הצגת רשימת הקריאה השמורה בתור רשימה נפרדת בתצוגת רשימות הקריאה שלך. רשימה זו מופיעה במכשירי אנדרואיד.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "הצגת רשימת הקריאה השמורה";
 "settings-storage-and-syncing-title" = "אחסון וסנכרון ערכים";
 "settings-support" = "תמיכה בוויקיפדיה";
