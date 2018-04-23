@@ -71,7 +71,7 @@
 "action-unsave" = "Neuloženo";
 "action-unsaved-accessibility-notification" = "Článek neuložen";
 "action-update" = "Aktualizovat";
-"add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}}$1 do seznamu čtení";
+"add-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
 "alert-no-internet" = "Nemáte připojení k internetu";
 "announcements-dismiss" = "Zavřít";
 "article-about-title" = "O tomto článku";
