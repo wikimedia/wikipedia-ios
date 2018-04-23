@@ -45,7 +45,8 @@
     if (results.count > 1) {
         // failsafe to delete extra key value objects
         NSArray<WMFKeyValue *> *subarray = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
-        for (WMFKeyValue *value in subarray) {
+        NSArray<WMFKeyValue *> *subarrayCopy = [subarray copy];
+        for (WMFKeyValue *value in subarrayCopy) {
             [self deleteObject:value];
         }
     }
