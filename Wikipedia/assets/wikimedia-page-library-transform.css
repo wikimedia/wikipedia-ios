@@ -1,9 +1,4 @@
-/* --- Wikimedia Page Library CSS bundle --- */
-
-
-/* --- CSS from '/src/transform/ThemeTransform.css' --- */ 
-
- /*
+/*
 The styles referred to as 'baseline' in the comments below are critical because they ensure
 a theme colors are more universally applied even by elements colored via inline styles. These are
 particularly difficult to theme otherwise. We can build on top of, so to speak, these baseline
@@ -424,14 +419,7 @@ styles with only the things which need tweaking.
 .pagelib_theme_sepia .content .mw-highlight span.vi { color: #00688B } /* Name.Variable.Instance */
 .pagelib_theme_sepia .content .mw-highlight span.vm { color: #00688B } /* Name.Variable.Magic */
 .pagelib_theme_sepia .content .mw-highlight span.il { color: #B452CD } /* Literal.Number.Integer.Long */
-
-
-
-
-
-/* --- CSS from '/src/transform/CollapseTable.css' --- */ 
-
- /* Examples:
+/* Examples:
   - Barack Obama's collapsed infobox:
 
     <div class=pagelib_collapse_table_container>
@@ -604,30 +592,24 @@ div.pagelib_collapse_table_container {
 .pagelib_collapse_table_container, .pagelib_collapse_table_collapsed_container, .pagelib_collapse_table_collapsed,
 .pagelib_collapse_table_icon {
   box-sizing: border-box;
-}
-
-
-
-
-/* --- CSS from '/src/transform/DimImagesTransform.css' --- */ 
-
- .pagelib_dim_images img {
+}.pagelib_dim_images img {
   opacity: 0.65;
+}.pagelib_edit_section_header {
+  display: flex;
+  align-items: flex-end;
 }
 
+.pagelib_edit_section_title {
+  flex: 1;
+}
 
-
-
-/* --- CSS from '/src/transform/EditTransform.css' --- */ 
-
- #mainpage a.pagelib_edit_section_link,
+#mainpage a.pagelib_edit_section_link,
 .no-editing a.pagelib_edit_section_link {
   display: none;
 }
 
 .pagelib_edit_section_link_container {
   margin: 2px 8px;
-  float: right;
   opacity: .54;
 }
 
@@ -649,17 +631,16 @@ div.pagelib_collapse_table_container {
 }
 
 .content-rtl .pagelib_edit_section_link_container {
-  float: left;
   -webkit-transform: scaleX( -1 );
   transform: scaleX( -1 );
 }
 
 a.pagelib_edit_section_link {
   position: relative;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
-  background-size: 28px 28px;
+  background-size: 24px 24px;
   background-repeat: no-repeat;
 
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGRlZnM+CiAgICA8cGF0aCBpZD0iYSIgZD0iTTMsMTcuMjQ3NSBMMywyMC45OTc1IEw2Ljc1LDIwLjk5NzUgTDE3LjgxNSw5LjkzMjUgTDE0LjA2NSw2LjE4MjUgTDMsMTcuMjQ3NSBaIE0yMC43MDUsNy4wNDI1IEMyMS4wOTUsNi42NTI1IDIxLjA5NSw2LjAxNzUgMjAuNzA1LDUuNjI3NSBMMTguMzcsMy4yOTI1IEMxNy45OCwyLjkwMjUgMTcuMzQ1LDIuOTAyNSAxNi45NTUsMy4yOTI1IEwxNS4xMjUsNS4xMjI1IEwxOC44NzUsOC44NzI1IEwyMC43MDUsNy4wNDI1IFoiLz4KICA8L2RlZnM+CiAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDx1c2UgZmlsbD0iIzAwMDAwMCIgeGxpbms6aHJlZj0iI2EiLz4KICA8L2c+Cjwvc3ZnPgo=);
@@ -715,14 +696,7 @@ a.pagelib_edit_section_link {
 .pagelib_platform_ios h6.section_heading span.pagelib_edit_section_link_container {
     display: none;
 }
-
-
-
-
-
-/* --- CSS from '/src/transform/FooterContainer.css' --- */ 
-
- .pagelib_footer_container {
+.pagelib_footer_container {
   background-color: #eaecf0;
 }
 
@@ -766,14 +740,7 @@ a.pagelib_edit_section_link {
 .pagelib_theme_sepia #pagelib_footer_container_menu_items {
   background-color: #cbc8c1;
 }
-
-
-
-
-
-/* --- CSS from '/src/transform/FooterLegal.css' --- */ 
-
- .pagelib_footer_legal_contents {
+.pagelib_footer_legal_contents {
   margin-top: 27px;
   padding-top: 23px;
   padding-bottom: 27px;
@@ -843,14 +810,7 @@ html[dir='rtl'] .pagelib_footer_legal_contents,
 
 .pagelib_theme_sepia .pagelib_footer_legal_divider {
   background-color: #cbc8c1;
-}
-
-
-
-
-/* --- CSS from '/src/transform/FooterMenu.css' --- */ 
-
- .pagelib_footer_menu_item {
+}.pagelib_footer_menu_item {
   padding: 10px;
   background-size: 40px 40px;
   background-repeat: no-repeat;
@@ -992,14 +952,7 @@ html[dir='rtl'] .pagelib_footer_menu_item_subtitle {
 .pagelib_theme_sepia .pagelib_footer_menu_icon_coordinate {
   background-image: url('data:image/png;base64,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');
 }
-
-
-
-
-
-/* --- CSS from '/src/transform/FooterReadMore.css' --- */ 
-
- .pagelib_footer_readmore_page {
+.pagelib_footer_readmore_page {
   background-color: white;
   padding: 11px 10px;
   margin-top: 10px;
@@ -1128,14 +1081,7 @@ html[dir='rtl'] .pagelib_footer_readmore_page_image,
   margin-right: 8px;
   margin-left: 0px;
 }
-
-
-
-
-
-/* --- CSS from '/src/transform/LazyLoadTransform.css' --- */ 
-
- /* Transform lifecycle:
+/* Transform lifecycle:
 
 - Original:
     <img class=foo style='width: 100px; height: 200px' width=3 height=4 src=/ srcset=/ alt=bar>
@@ -1261,14 +1207,7 @@ html[dir='rtl'] .pagelib_footer_readmore_page_image,
 
 @keyframes pagelib_lazy_load_image_fade_in {
   from { opacity: 0; } to { opacity: 1; }
-}
-
-
-
-
-/* --- CSS from '/src/transform/WidenImage.css' --- */ 
-
- .pagelib_widen_image_override {
+}.pagelib_widen_image_override {
   /* Center images. */
   display: block;
   margin-left: auto;
@@ -1334,3 +1273,4 @@ li.gallerybox div.thumb > div {
 div.gallerytext > p {
   margin-top: 0px !important;
 }
+/*# sourceMappingURL=wikimedia-page-library-transform.css.map*/
