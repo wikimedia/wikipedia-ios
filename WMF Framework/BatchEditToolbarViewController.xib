@@ -28,19 +28,16 @@
                         <constraint firstAttribute="height" constant="0.5" id="cb5-Ls-nDk"/>
                     </constraints>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gnJ-Br-g7q">
+                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gnJ-Br-g7q">
                     <rect key="frame" x="0.0" y="0.0" width="374" height="69"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="gnJ-Br-g7q" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Cqp-jL-o01"/>
                 <constraint firstItem="fWi-hH-Agp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="I1D-Ye-H4m"/>
                 <constraint firstAttribute="trailing" secondItem="fWi-hH-Agp" secondAttribute="trailing" id="UTe-Jg-03m"/>
-                <constraint firstItem="gnJ-Br-g7q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VPd-za-J4z"/>
                 <constraint firstItem="fWi-hH-Agp" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="ksQ-qM-8FW"/>
                 <constraint firstItem="fWi-hH-Agp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lhX-uf-Re3"/>
-                <constraint firstItem="gnJ-Br-g7q" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="nGQ-lm-NsB"/>
-                <constraint firstItem="gnJ-Br-g7q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="oBT-Ak-lBs"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="354" y="-264.5"/>
