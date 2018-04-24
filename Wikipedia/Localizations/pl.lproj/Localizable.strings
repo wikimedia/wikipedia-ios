@@ -253,12 +253,15 @@
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "readers-accessibility-label" = "$1 czytelników";
+"reading-list-create-new-list-description" = "Opis";
+"reading-list-create-new-list-title" = "Utwórz nową listę";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
 "reading-lists-default-list-title" = "Zapisane";
 "reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
+"reading-lists-sort-saved-articles" = "Sortuj zapisane artykuły";
 "reading-themes-controls-accessibility-black-theme-button" = "Czarny motyw";
 "reading-themes-controls-accessibility-dark-theme-button" = "Ciemny motyw";
 "reading-themes-controls-accessibility-light-theme-button" = "Jasny motyw";

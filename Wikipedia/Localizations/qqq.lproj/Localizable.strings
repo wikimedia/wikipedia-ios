@@ -319,6 +319,10 @@
 "reading-list-api-error-entry-limit" = "You have too many entries in this list.";
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
+"reading-list-create-new-list-button-title" = "Title for button allowing the user to create a new reading list.";
+"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.";
+"reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
+"reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
 "reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
@@ -350,6 +354,8 @@
 "reading-list-sync-enable-button-title" = "Title for button enabling reading list syncing.";
 "reading-list-sync-enable-subtitle" = "Subtitle describing reading list syncing.";
 "reading-list-sync-enable-title" = "Title describing reading list syncing.";
+"reading-list-sync-enabled-panel-message" = "Message for panel informing user that sync is enabled for their account.";
+"reading-list-sync-enabled-panel-title" = "Title for panel informing user that sync was disabled on their Wikipedia account on another device";
 "reading-list-unable-to-add-entry" = "Informs the user that an error occurred while adding an entry to their reading list.";
 "reading-list-unable-to-create" = "Informs the user that an error occurred while creating their reading list.";
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";

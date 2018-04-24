@@ -4,6 +4,8 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
 }
 
 @objc(WMFSavedViewController)
@@ -171,6 +173,8 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
+        actionButtonType = .sort
+        
         super.viewDidLoad()
     }
     
@@ -188,9 +192,6 @@ class SavedViewController: ViewController {
     
     private var actionButtonType: ActionButtonType = .sort {
         didSet {
-            guard oldValue != actionButtonType else {
-                return
-            }
             switch actionButtonType {
             case .sort:
                 actionButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
@@ -264,12 +265,19 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         }
     }
     
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
-        } else {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+        let newEditingState: EditingState
+        
+        switch currentEditingState {
+        case .open:
+            newEditingState = .closed
+        case .swiping:
+            newEditingState = .done
+        default:
+            newEditingState = .open
         }
+        
+        return newEditingState
     }
     
     func emptyStateDidChange(_ empty: Bool) {
@@ -293,9 +301,11 @@ extension SavedViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         actionButtonType = .cancel
+        savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         actionButtonType = .sort
+        savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
 }

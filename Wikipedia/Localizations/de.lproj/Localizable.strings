@@ -330,6 +330,10 @@
 "reading-list-api-error-entry-limit" = "Dieser Eintrag ist nicht synchronisiert, da du die Grenze für die Anzahl an Einträgen in dieser Liste erreicht hast.";
 "reading-list-api-error-generic" = "Beim Synchronisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-api-error-list-limit" = "Diese Liste ist nicht synchronisiert, da du die Grenze für die Anzahl an synchronisierten Listen erreicht hast.";
+"reading-list-create-new-list-button-title" = "Leseliste erstellen";
+"reading-list-create-new-list-description" = "Beschreibung";
+"reading-list-create-new-list-reading-list-name" = "Name der Leseliste";
+"reading-list-create-new-list-title" = "Eine neue Liste erstellen";
 "reading-list-deleted-accessibility-notification" = "Leseliste gelöscht";
 "reading-list-do-not-keep-button-title" = "Nein, Artikel vom Gerät löschen";
 "reading-list-entry-limit-exceeded-message" = "Bitte reduziere die Anzahl der Artikel in dieser Liste auf $1, um mit der Synchronisierung aller Artikel in dieser Liste fortzufahren.";
@@ -339,6 +343,8 @@
 "reading-list-generic-error" = "Beim Aktualisieren deiner Leselisten ist ein unerwarteter Fehler aufgetreten.";
 "reading-list-keep-button-title" = "Ja, Artikel auf dem Gerät behalten";
 "reading-list-keep-subtitle" = "Es sind mit deinem Wikipedia-Benutzerkonto synchronisierte Artikel vorhanden. Möchtest du sie nach der Abmeldung auf diesem Gerät behalten?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Das Ausschalten der Synchronisierung entfernt diese Artikel von deinem Benutzerkonto. Falls du sie von deinem Gerät entfernst, werden sie in Zukunft durch das erneute Anschalten der Synchronisierung nicht wiederherstellbar sein.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nein, Artikel vom Gerät und meinem Wikipedia-Benutzerkonto entfernen";
 "reading-list-keep-title" = "Gespeicherte Artikel auf dem Gerät behalten?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikel sortieren";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Es gibt eine Begrenzung von 5000 unsortierten Artikeln. Bitte sortiere deine vorhandenen Artikel in Listen ein, um mit der Synchronisierung deiner unsortierten Artikel fortzufahren.";
@@ -354,9 +360,13 @@
 "reading-list-name-user-created-annotation" = "_[user created]";
 "reading-list-new-list-description-placeholder" = "optionale Kurzbeschreibung";
 "reading-list-new-list-name-placeholder" = "Titel der Leseliste";
+"reading-list-sync-disabled-panel-message" = "Die Synchronisierung von Leselisten wurden auf einem anderen Gerät für dein Wikipedia-Benutzerkonto deaktiviert. Du kannst die Synchronisierung erneut anschalten, indem du deine Einstellungen aktualisierst.";
+"reading-list-sync-disabled-panel-title" = "Synchronisierung deaktiviert";
 "reading-list-sync-enable-button-title" = "Synchronisierung aktivieren";
 "reading-list-sync-enable-subtitle" = "Deine gespeicherten Artikel und Leselisten können jetzt auf deinem Wikipedia-Benutzerkonto gespeichert und zwischen deinen Wikipedia-Apps synchronisiert werden.";
 "reading-list-sync-enable-title" = "Synchronisierung von Leselisten anschalten?";
+"reading-list-sync-enabled-panel-message" = "Die Synchronisierung von Leselisten ist für dieses Benutzerkonto aktiviert. Um die Synchronisierung zu beenden, aktualisiere deine Einstellungen.";
+"reading-list-sync-enabled-panel-title" = "Die Synchronisierung ist auf diesem Benutzerkonto aktiviert";
 "reading-list-unable-to-add-entry" = "Beim Hinzufügen eines Eintrags zu deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-unable-to-create" = "Beim Erstellen deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-unable-to-delete" = "Beim Löschen deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
@@ -377,6 +387,8 @@
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Liste|Listen}} löschen?";
 "reading-lists-large-sync-completed" = "$1 Artikel und $2 Leselisten wurden von deinem Benutzerkonto synchronisiert";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste nicht synchronisiert, Grenze überschritten";
+"reading-lists-sort-saved-articles" = "Gespeicherte Artikel sortieren";
+"reading-lists-split-notification" = "Es gibt eine Begrenzung von $1 Artikeln pro Leseliste. Vorhandene Listen mit mehr als dieser Anzahl wurden auf mehrere Listen aufgeteilt.";
 "reading-lists-sync-error-no-internet-connection" = "Die Synchronisierung wird fortgesetzt, wenn wieder eine Internetverbindung verfügbar ist.";
 "reading-themes-controls-accessibility-black-theme-button" = "Schwarzes Farbschema";
 "reading-themes-controls-accessibility-brightness-slider" = "Helligkeitsschieber";
@@ -431,7 +443,7 @@
 "settings-notifications-trending" = "Beliebte aktuelle Ereignisse";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
-"settings-storage-and-syncing-enable-sync-footer-text" = "Der Wikimedia erlauben, deine gespeicherten Artikel und Leselisten in deinen Benutzereinstellungen zu speichern, wenn du dich zur Synchronisierung anmeldest.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Der Wikimedia erlauben, deine gespeicherten Artikel und Leselisten in deinen Benutzereinstellungen zu speichern, wenn du dich anmeldest und synchronisierst.";
 "settings-storage-and-syncing-enable-sync-title" = "Gespeicherte Artikel und Listen synchronisieren";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät. Du kannst diese Aktion nicht rückgängig machen.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle gespeicherten Artikel löschen?";
@@ -439,7 +451,7 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Die Löschung deiner gespeicherten Artikel entfernt sie aus deinem Benutzerkonto und – falls die Synchronisierung aktiviert ist – von diesem Gerät.\n\nDie Löschung deiner gespeicherten Artikel wird ungefähr $1 Speicherplatz freigeben.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Gespeicherte Artikel löschen";
 "settings-storage-and-syncing-full-sync" = "Deine Leselisten werden im Hintergrund synchronisiert";
-"settings-storage-and-syncing-server-sync-footer-text" = "Fordert eine Synchronisierung vom Server für eine Aktualisierung deiner synchronisierten Artikel und Leselisten an";
+"settings-storage-and-syncing-server-sync-footer-text" = "Fordert eine Aktualisierung deiner synchronisierten Artikel und Leselisten an.";
 "settings-storage-and-syncing-server-sync-title" = "Synchronisierte Leselisten aktualisieren";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Zeigt die gespeicherte Leseliste (z.&nbsp;B. die Standardliste) als separate Liste in deiner Leselistenansicht an. Diese Liste erscheint auf Android-Geräten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gespeicherte Leseliste anzeigen";

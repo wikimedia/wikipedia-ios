@@ -301,6 +301,10 @@
 "preference-title-eventlogging-opt-in" = "Στείλτε εκθέσεις χρήσης";
 "rank-accessibility-label" = "Αριθμός $1";
 "readers-accessibility-label" = "$1 αναγνώστες";
+"reading-list-create-new-list-button-title" = "Δημιουργία λίστας ανάγνωσης";
+"reading-list-create-new-list-description" = "Περιγραφή";
+"reading-list-create-new-list-reading-list-name" = "Όνομα λίστας ανάγνωσης";
+"reading-list-create-new-list-title" = "Δημιουργία νέας λίστας";
 "reading-list-deleted-accessibility-notification" = "Η λίστα ανάγνωσης διεγράφη";
 "reading-list-exists-with-same-name" = "Το όνομα λίστας ανάγνωσης είναι ήδη σε χρήση";
 "reading-list-generic-error" = "Ένα απρόβλεπτο σφάλμα συνέβη κατά την διάρκεια της ενημέρωσης των λίστων ανάγνωσής σας.";
@@ -311,7 +315,9 @@
 "reading-list-login-title" = "Συγχρονισμός των αποθηκευμένων άρθρων σας;";
 "reading-list-new-list-description-placeholder" = "προαιρετική σύντομη περιγραφή";
 "reading-list-new-list-name-placeholder" = "τίτλος λίστας ανάγνωσης";
+"reading-list-sync-disabled-panel-title" = "Συγχρονισμός απενεργοποιημένων";
 "reading-list-sync-enable-button-title" = "Ενεργοποίηση συγχρονισμού";
+"reading-list-sync-enabled-panel-title" = "Ο συγχρονισμός είναι ενεργοποιημένος σε αυτό το λογαριασμό.";
 "reading-lists-article-added-confirmation" = "Λήμμα προστέθηκε στο \"$1\"";
 "reading-lists-article-not-synced" = "Μη συγχρονισμένο";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Το όριο λημμάτων ξεπεράστηκε, αποτυχία στον συγχρονισμό άρθρου";
@@ -324,6 +330,7 @@
 "reading-lists-delete-reading-list-alert-title" = "Διαγραφή των {{PLURAL:$1|λίστα|λιστών}};";
 "reading-lists-large-sync-completed" = "$1 λήμματα και $2 λίστες ανάγνωσης έχουν συγχρονιστεί από τον λογαριασμό σας";
 "reading-lists-list-not-synced-limit-exceeded" = "Η λίστα δεν συγχρονίστηκε, το όριο ξεπεράστηκε";
+"reading-lists-sort-saved-articles" = "Ταξινόμηση των αποθηκευμένων λημμάτων";
 "reading-lists-sync-error-no-internet-connection" = "Ο συγχρονισμός θα συνεχίσει όταν θα υπάρχει διαθέσιμη σύνδεση στο διαδίκτυο";
 "reading-themes-controls-accessibility-black-theme-button" = "Μαύρο θέμα";
 "reading-themes-controls-accessibility-dark-theme-button" = "Μαύρο θέμα";

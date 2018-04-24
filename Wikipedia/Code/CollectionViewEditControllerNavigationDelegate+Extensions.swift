@@ -36,13 +36,3 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
         // conforming types can provide their own implementations
     }
 }
-
-extension CollectionViewEditControllerNavigationDelegate where Self: UpdatableCollection & EditableCollection {
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.editController.changeEditingState(to: newEditingState)
-        } else {
-            editController.changeEditingState(to: newEditingState)
-        }
-    }
-}

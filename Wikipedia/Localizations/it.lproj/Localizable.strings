@@ -311,6 +311,10 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
+"reading-list-create-new-list-button-title" = "Crea elenco di lettura";
+"reading-list-create-new-list-description" = "Descrizione";
+"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
+"reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
@@ -318,6 +322,7 @@
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
 "reading-lists-default-list-title" = "Salvato";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
+"reading-lists-sort-saved-articles" = "Ordina voci salvate";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";

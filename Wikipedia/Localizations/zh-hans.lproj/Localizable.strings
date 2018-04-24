@@ -338,6 +338,10 @@
 "reading-list-api-error-entry-limit" = "此记录未同步，因为您已达到此列表的记录数限制。";
 "reading-list-api-error-generic" = "同步您的阅读列表时发生意外错误。";
 "reading-list-api-error-list-limit" = "此列表未同步，因为您已达到同步列表的数量限制。";
+"reading-list-create-new-list-button-title" = "创建阅读列表";
+"reading-list-create-new-list-description" = "描述";
+"reading-list-create-new-list-reading-list-name" = "阅读列表名称";
+"reading-list-create-new-list-title" = "创建一个新列表";
 "reading-list-deleted-accessibility-notification" = "阅读列表已删除";
 "reading-list-do-not-keep-button-title" = "否，从设备中删除条目";
 "reading-list-entry-limit-exceeded-message" = "请减少您在此列表中的条目数至$1以恢复同步所有此列表的条目。";
@@ -347,6 +351,8 @@
 "reading-list-generic-error" = "更新您的阅读列表时发生意外错误。";
 "reading-list-keep-button-title" = "是，将条目保留到设备";
 "reading-list-keep-subtitle" = "这些是同步到您维基百科账户的条目。您是否希望在退出后，在此设备上保留它们？";
+"reading-list-keep-sync-disabled-additional-subtitle" = "关闭同步将从您的账户移除这些条目。如果您从您的设备移除它们，它们将不会因为今后再次打开同步而恢复。";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "否，从设备和我的维基百科账户移除条目";
 "reading-list-keep-title" = "在设备上保留已保存的条目么？";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "排序条目";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "限制5000个未分类条目。请将您的现有条目排序成列表以继续同步未分类条目。";
@@ -362,9 +368,13 @@
 "reading-list-name-user-created-annotation" = "_[用户创建]";
 "reading-list-new-list-description-placeholder" = "可选简短描述";
 "reading-list-new-list-name-placeholder" = "阅读列表标题";
+"reading-list-sync-disabled-panel-message" = "阅读列表同步已在另一设备上，为您的维基百科账户禁用。您可以通过更新您的设置重新打开同步。";
+"reading-list-sync-disabled-panel-title" = "同步被禁用";
 "reading-list-sync-enable-button-title" = "启用同步";
 "reading-list-sync-enable-subtitle" = "您保存的条目和阅读列表现在可以保存至您的维基百科账户，并跨维基百科应用同步。";
 "reading-list-sync-enable-title" = "打开阅读列表同步？";
+"reading-list-sync-enabled-panel-message" = "阅读列表同步已为此账户启用。要停止同步，您可以通过更新您的设置关闭此账户的同步。";
+"reading-list-sync-enabled-panel-title" = "同步已为此账户启用";
 "reading-list-unable-to-add-entry" = "添加条目至您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-unable-to-create" = "创建您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-unable-to-delete" = "删除您的阅读列表时发生意外错误。请稍后重试。";
@@ -385,6 +395,8 @@
 "reading-lists-delete-reading-list-alert-title" = "删除{{PLURAL:$1|列表}}么？";
 "reading-lists-large-sync-completed" = "$1个条目和$2各阅读列表已从您的账户同步";
 "reading-lists-list-not-synced-limit-exceeded" = "列表未同步，超过限制";
+"reading-lists-sort-saved-articles" = "排序保存的条目";
+"reading-lists-split-notification" = "每个阅读列表限制$1个条目。超过此限制的现有列表需要拆分为多个列表。";
 "reading-lists-sync-error-no-internet-connection" = "当互联网连接可用时，同步将恢复";
 "reading-themes-controls-accessibility-black-theme-button" = "黑暗主题";
 "reading-themes-controls-accessibility-brightness-slider" = "亮度滑块";
@@ -439,7 +451,7 @@
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
-"settings-storage-and-syncing-enable-sync-footer-text" = "当您登录同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置";
+"settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置。";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "如果您启用了从此设备同步，那么清空您保存的条目将从您的用户账户中移除它们。您不能撤销这一操作。";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "清空所有保存的条目么？";
@@ -447,9 +459,9 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "如果您在此设备上启用了同步的话，清空您保存的条目将从您的用户账户中移除。\n\n清空您保存的条目将腾出约$1空间。";
 "settings-storage-and-syncing-erase-saved-articles-title" = "清空保存的条目";
 "settings-storage-and-syncing-full-sync" = "您的阅读列表将在后台同步";
-"settings-storage-and-syncing-server-sync-footer-text" = "请求从服务器同步，以更新您已同步的条目和阅读列表";
+"settings-storage-and-syncing-server-sync-footer-text" = "请求对您已同步的条目和阅读列表更新。";
 "settings-storage-and-syncing-server-sync-title" = "更新同步的阅读列表";
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的阅读列表视图中，分别显示保存的阅读列表（例如默认列表）。此列表会出现在Android设备上";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "在您的阅读列表视图中，分别显示保存的阅读列表（例如默认列表）。此列表会出现在Android设备上。";
 "settings-storage-and-syncing-show-default-reading-list-title" = "显示保存的阅读列表";
 "settings-storage-and-syncing-title" = "条目存储与同步";
 "settings-support" = "支持维基百科";

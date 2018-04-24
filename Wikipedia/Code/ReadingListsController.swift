@@ -223,6 +223,10 @@ public class ReadingListsController: NSObject {
     
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
         assert(Thread.isMainThread)
+        guard !readingList.isDefault else {
+            assertionFailure("Default reading list cannot be updated")
+            return
+        }
         let moc = dataStore.viewContext
         if let newName = newName, !newName.isEmpty {
             readingList.name = newName
@@ -721,9 +725,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxEntriesPerList else {
-                return
-            }
             wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxEntriesPerList)
             do {
                 try save()
@@ -738,9 +739,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxListsPerUser else {
-                return
-            }
             wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListsConfigMaxListsPerUser)
             do {
                 try save()
