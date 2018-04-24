@@ -72,6 +72,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let reLogin = {
             guard let authenticationDelegate = authenticationDelegate else {
+                assertionFailure("authenticationDelegate is nil")
                 return
             }
             taskGroup.enter()
