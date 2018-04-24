@@ -51,7 +51,7 @@ class CSRFTokenOperation: AsyncOperation {
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.session.jsonDictionaryTask(host: self.host, method: self.method, path: self.path, queryParameters: ["csrf_token": token.token], bodyParameters: self.bodyParameters) { (result , response, error) in
-                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType) {
+                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                     DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(apiError)")
                     self.completion?(result, nil, apiError)
                 } else {

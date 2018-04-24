@@ -311,6 +311,10 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
+"reading-list-create-new-list-button-title" = "Crea elenco di lettura";
+"reading-list-create-new-list-description" = "Descrizione";
+"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
+"reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";

@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Přidat %1$d článek%1$d do seznamu čtení</string>
+			<string>Přidat %1$d článek do seznamu k přečtení</string>
 			<key>other</key>
-			<string>Přidat %1$d článků%1$d do seznamu čtení</string>
+			<string>Přidat %1$d článků do seznamu k přečtení</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>

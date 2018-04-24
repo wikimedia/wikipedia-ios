@@ -339,6 +339,10 @@
 "reading-list-api-error-entry-limit" = "Detta element är inte synkroniserat eftersom du har nått gränsen för antalet element i denna lista.";
 "reading-list-api-error-generic" = "Ett oväntat fel uppstod när dina läslistor synkroniserades.";
 "reading-list-api-error-list-limit" = "Denna lista är inte synkroniserad eftersom du har nått gränsen för antalet synkroniserade listor.";
+"reading-list-create-new-list-button-title" = "Spara läslista";
+"reading-list-create-new-list-description" = "Beskrivning";
+"reading-list-create-new-list-reading-list-name" = "Namn på läslista";
+"reading-list-create-new-list-title" = "Skapa en ny lista";
 "reading-list-deleted-accessibility-notification" = "Läslistor raderades";
 "reading-list-do-not-keep-button-title" = "Nej, radera artiklar från enheten";
 "reading-list-entry-limit-exceeded-message" = "Var god minska antalet artiklar i denna lista till $1 för att fortsätta synkronisera alla artiklar i denna lista.";
@@ -448,21 +452,17 @@
 "settings-notifications-trending" = "Populära aktuella händelser";
 "settings-primary-language" = "Primär";
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in för att synkronisera";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in och synkroniserar";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet. Du kan inte ångra detta.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Radera alla sparade artiklar?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
 "settings-storage-and-syncing-full-sync" = "Dina läslistor kommer att synkroniseras i bakgrunden";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Begär en synkronisering från servern för en uppdatering av dina synkroniserade artiklar och läslistor";
+"settings-storage-and-syncing-server-sync-footer-text" = "Begär en uppdatering av dina synkroniserade artiklar och läslistor.";
 "settings-storage-and-syncing-server-sync-title" = "Uppdatera synkroniserade läslistor";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Visa den sparade läslistan (t.ex. standardlistan) som en separat lista i vyn över dina läslistor. Denna lista syns på Android-enheter.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Visa sparad läslista";
 "settings-storage-and-syncing-title" = "Lagring och synkronisering av artiklar";
 "settings-support" = "Stöd Wikipedia";

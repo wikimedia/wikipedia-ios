@@ -355,12 +355,16 @@
 "reading-list-api-error-entry-limit" = "Эта запись не синхронизируется, потому что вы достигли предела для количества записей в этом списке.";
 "reading-list-api-error-generic" = "При синхронизации списков чтения произошла непредвиденная ошибка.";
 "reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли предела для количества синхронизированных списков.";
+"reading-list-create-new-list-button-title" = "Создать список для чтения";
+"reading-list-create-new-list-description" = "Описание";
+"reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
+"reading-list-create-new-list-title" = "Создать новый список";
 "reading-list-deleted-accessibility-notification" = "Список чтения удален";
 "reading-list-do-not-keep-button-title" = "Нет, удалять статьи с устройства";
 "reading-list-entry-limit-exceeded-message" = "Пожалуйста уменьшите число статей в этом списке до $1, чтобы возобновить их синхронизацию.";
 "reading-list-entry-limit-exceeded-title" = "Вы превысили ограничение в {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} на учётную запись.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Статья не может быть добавлена|Статьи не могут быть добавлены}} в этот список. Вы достигли лимита в $2 {{PLURAL:$1|статьи|статей}} на список чтения для $3";
-"reading-list-exists-with-same-name" = "Это название списка для чтения имя используется";
+"reading-list-exists-with-same-name" = "Это название списка для чтения уже используется";
 "reading-list-generic-error" = "При обновлении списков чтения произошла непредвиденная ошибка.";
 "reading-list-keep-button-title" = "Да, сохраняйте статьи на устройстве";
 "reading-list-keep-subtitle" = "Есть статьи, синхронизированные с вашей учёётной записью Википедии. Вы хотите оставить их на этом устройстве после выхода из системы?";
@@ -464,21 +468,17 @@
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
-// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Удаление сохранённых статей приведёт к удалению их из вашей учётной записи пользователя, если у вас включена синхронизация, а также с этого устройства. Вы не сможете отменить это действие.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Стереть все сохранённые статьи?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Стереть";
-// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Стирание сохранённых статей приведёт к их удалению из вашего аккаунта и с устройства, если ранее была активирована функция синхронизации.\n\nСтирание сохранённых статей высвободит приблизительно $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Стереть сохранённые статьи";
 "settings-storage-and-syncing-full-sync" = "Ваши списки чтения будут синхронизированы в фоновом режиме";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Запросить синхронизацию с сервера для обновления ваших синхронизированных статей и списков чтения";
+"settings-storage-and-syncing-server-sync-footer-text" = "Запросить синхронизацию для обновления ваших статей и списков чтения.";
 "settings-storage-and-syncing-server-sync-title" = "Обновить синхронизированные списки для чтения";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Показать список \"Saved\" отдельно в списках для чтения. Этот список будет показан на Android-устройствах";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Показать список \"Saved\" отдельно в списках для чтения. Этот список будет показан на Android-устройствах.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Показать сохранённый список для чтения";
 "settings-storage-and-syncing-title" = "Хранение и синхронизация статей";
 "settings-support" = "Поддержать Википедию";
