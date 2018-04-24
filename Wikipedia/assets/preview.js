@@ -1,4 +1,45 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+
+// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+const findClosest = (el, selector) => {
+  while ((el = el.parentElement) && !el.matches(selector));
+  return el
+}
+
+const setLanguage = (lang, dir, uidir) => {
+  const html = document.querySelector( 'html' )
+  html.lang = lang
+  html.dir = dir
+  html.classList.add( 'content-' + dir )
+  html.classList.add( 'ui-' + uidir )
+}
+
+const setPageProtected =
+  isProtected => document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
+
+const scrollToFragment = fragmentId => {
+  location.hash = ''
+  location.hash = fragmentId
+}
+
+const accessibilityCursorToFragment = fragmentId => {
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+  const focus_element = document.getElementById(fragmentId)
+  const other_element = document.body
+  other_element.setAttribute('tabindex', 0)
+  other_element.focus()
+  focus_element.setAttribute('tabindex', 0)
+  focus_element.focus()
+}
+
+exports.accessibilityCursorToFragment = accessibilityCursorToFragment
+exports.scrollToFragment = scrollToFragment
+exports.setPageProtected = setPageProtected
+exports.setLanguage = setLanguage
+exports.findClosest = findClosest
+},{}],2:[function(require,module,exports){
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -292,47 +333,6 @@ Object.defineProperty(exports,"__esModule",{value:true});__webpack_require__(31)
 /******/ ])["default"];
 });
 
-},{}],2:[function(require,module,exports){
-
-// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
-const findClosest = (el, selector) => {
-  while ((el = el.parentElement) && !el.matches(selector));
-  return el
-}
-
-const setLanguage = (lang, dir, uidir) => {
-  const html = document.querySelector( 'html' )
-  html.lang = lang
-  html.dir = dir
-  html.classList.add( 'content-' + dir )
-  html.classList.add( 'ui-' + uidir )
-}
-
-const setPageProtected =
-  isProtected => document.querySelector( 'html' ).classList[isProtected ? 'add' : 'remove']('page-protected')
-
-const scrollToFragment = fragmentId => {
-  location.hash = ''
-  location.hash = fragmentId
-}
-
-const accessibilityCursorToFragment = fragmentId => {
-    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
-     in order to have the desired effect, so we first give focus to the body element,
-     then move it to the desired fragment. */
-  const focus_element = document.getElementById(fragmentId)
-  const other_element = document.body
-  other_element.setAttribute('tabindex', 0)
-  other_element.focus()
-  focus_element.setAttribute('tabindex', 0)
-  focus_element.focus()
-}
-
-exports.accessibilityCursorToFragment = accessibilityCursorToFragment
-exports.scrollToFragment = scrollToFragment
-exports.setPageProtected = setPageProtected
-exports.setLanguage = setLanguage
-exports.findClosest = findClosest
 },{}],3:[function(require,module,exports){
 const wmf = {}
 
@@ -343,4 +343,4 @@ wmf.platform = require('wikimedia-page-library').PlatformTransform
 wmf.imageDimming = require('wikimedia-page-library').DimImagesTransform
 
 window.wmf = wmf
-},{"./js/utilities":2,"wikimedia-page-library":1}]},{},[3,2]);
+},{"./js/utilities":1,"wikimedia-page-library":2}]},{},[3,1]);

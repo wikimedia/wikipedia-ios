@@ -690,10 +690,10 @@ a.pagelib_edit_section_link {
   background-color: #111;
 }
 
-.pagelib_platform_ios h3.section_heading span.pagelib_edit_section_link_container,
-.pagelib_platform_ios h4.section_heading span.pagelib_edit_section_link_container,
-.pagelib_platform_ios h5.section_heading span.pagelib_edit_section_link_container,
-.pagelib_platform_ios h6.section_heading span.pagelib_edit_section_link_container {
+.pagelib_platform_ios h3.pagelib_edit_section_title + span.pagelib_edit_section_link_container,
+.pagelib_platform_ios h4.pagelib_edit_section_title + span.pagelib_edit_section_link_container,
+.pagelib_platform_ios h5.pagelib_edit_section_title + span.pagelib_edit_section_link_container,
+.pagelib_platform_ios h6.pagelib_edit_section_title + span.pagelib_edit_section_link_container {
     display: none;
 }
 .pagelib_footer_container {
