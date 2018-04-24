@@ -66,7 +66,7 @@ class Section {
     if (this.anchor === undefined || this.anchor.length === 0) {
       return
     }
-    
+
     // TODO: consider renaming this 'id' to 'anchor' for clarity - would need to update native
     // code as well - used when TOC sections made to jump to sections.
     // If we make this change this method should probably be renamed to 'addAnchorToHeading'.
@@ -125,29 +125,29 @@ class Section {
   containerDiv() {
     const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
-    
+
     if(!this.article.ismain){
       container.appendChild(this.heading())
-      
+
       const description = this.description()
       if(description){
         container.appendChild(description)
       }
-      
+
       if(this.isLeadSection()){
         const hr = lazyDocument.createElement('hr')
         hr.id = 'content_block_0_hr'
         container.appendChild(hr)
-      }      
+      }
     }
-    
+
     const block = lazyDocument.createElement('div')
     block.id = `content_block_${this.id}`
     block.class = 'content_block'
     block.innerHTML = this.html()
     
     container.appendChild(block)
-    
+
     return container
   }
 }
@@ -188,7 +188,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
   const isFilePage = fragment.querySelector('#filetoc') !== null
   const needsLeadEditPencil = !article.ismain && !isFilePage && isLead
   if(needsLeadEditPencil){
-    // Add lead section edit pencil before the section html. Lead section edit pencil must be 
+    // Add lead section edit pencil before the section html. Lead section edit pencil must be
     // added after `moveLeadIntroductionUp` has finished. (Other edit pencils are constructed
     // in `nonLeadSectionHeading()`.)
     const leadSectionEditButton = requirements.editTransform.newEditSectionButton(fragment, 0)
