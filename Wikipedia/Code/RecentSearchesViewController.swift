@@ -47,6 +47,10 @@ class RecentSearchesViewController: ArticleCollectionViewController {
         return true
     }
     
+    override func willPerformAction(_ action: Action) -> Bool {
+        return self.editController.didPerformAction(action)
+    }
+    
     override func delete(at indexPath: IndexPath) {
         guard let entry = recentSearches?.entries[indexPath.item] else {
             return
