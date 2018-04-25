@@ -68,6 +68,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     @objc public var dataStore: MWKDataStore?
     private var indexPathForCellWithSyncSwitch: IndexPath?
     private var shouldShowReadingListsSyncAlertWhenViewAppears = false
+    private var shouldShowReadingListsSyncAlertWhenSyncEnabled = false
     
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
@@ -121,6 +122,9 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
         if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
             tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
+        }
+        if shouldShowReadingListsSyncAlertWhenSyncEnabled {
+            showReadingListsSyncAlert(isSyncEnabled)
         }
     }
     
@@ -228,7 +232,9 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             } else if !WMFAuthenticationManager.sharedInstance.isLoggedIn {
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
             } else {
-                // TODO
+                wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
+                    self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
+                }
             }
         default:
             break
