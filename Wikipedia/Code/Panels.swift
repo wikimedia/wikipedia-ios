@@ -139,12 +139,17 @@ extension UIViewController {
         return fetchedObjects.count > 0
     }
         
-    @objc func wmf_showEnableReadingListSyncPanelOncePerLogin(theme: Theme, didNotPresentPanelCompletion: @escaping () -> Void = {}) {
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel(),
-            WMFAuthenticationManager.sharedInstance.isLoggedIn,
+    @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
+        if oncePerLogin {
+            guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() else {
+                didNotPresentPanelCompletion?()
+                return
+            }
+        }
+        guard WMFAuthenticationManager.sharedInstance.isLoggedIn,
             SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncRemotelyEnabled,
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled else {
-                didNotPresentPanelCompletion()
+                didNotPresentPanelCompletion?()
                 return
         }
         
@@ -158,7 +163,7 @@ extension UIViewController {
             })
         }
         
-        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, theme: theme)
         
         let presenter = self.presentedViewController ?? self
         presenter.present(panelVC, animated: true, completion: {
