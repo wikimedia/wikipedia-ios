@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BatchEditToolbarViewController" customModule="WMF">
             <connections>
+                <outlet property="bottomConstraint" destination="ctB-SL-ier" id="AHQ-je-Nuc"/>
                 <outlet property="separatorView" destination="fWi-hH-Agp" id="fQ2-sX-qf2"/>
                 <outlet property="stackView" destination="gnJ-Br-g7q" id="57k-GK-oCc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

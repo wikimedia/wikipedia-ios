@@ -3,6 +3,7 @@ import UIKit
 public final class BatchEditToolbarViewController: UIViewController {
 
     @IBOutlet weak var stackView: UIStackView?
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorView: UIView?
     public var items: [UIButton] = []
     private var theme: Theme = Theme.standard
@@ -17,6 +18,14 @@ public final class BatchEditToolbarViewController: UIViewController {
         self.willMove(toParentViewController: nil)
         view.removeFromSuperview()
         self.removeFromParentViewController()
+    }
+    
+    public override func didMove(toParentViewController parent: UIViewController?) {
+        if #available(iOS 11.0, *) {
+            if let parent = parent, let safeAreaOwningView = view.safeAreaLayoutGuide.owningView {
+                bottomConstraint.constant = max(0, parent.bottomLayoutGuide.length - safeAreaOwningView.frame.height)
+            }
+        }
     }
     
     public override func viewDidLoad() {
