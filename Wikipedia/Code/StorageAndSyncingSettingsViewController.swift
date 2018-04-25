@@ -95,6 +95,21 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncWasEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil)
     }
     
+    private var shouldShowReadingListsSyncAlertWhenViewAppears = false
+    
+    private func showReadingListsSyncAlertIfNeeded() {
+        if isSyncEnabled {
+            wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if shouldShowReadingListsSyncAlertWhenViewAppears {
+            showReadingListsSyncAlertIfNeeded()
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
