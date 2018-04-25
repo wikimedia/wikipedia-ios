@@ -219,8 +219,18 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         let item = getItem(at: indexPath)
         switch item.type {
         case .syncWithTheServer:
-            dataStore?.readingListsController.fullSync({})
-            wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
+            let loginSuccessCompletion = {
+                self.dataStore?.readingListsController.fullSync({})
+                self.shouldShowReadingListsSyncAlertWhenViewAppears = true
+            }
+            if WMFAuthenticationManager.sharedInstance.isLoggedIn && isSyncEnabled {
+                dataStore?.readingListsController.fullSync({})
+                wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
+            } else if !WMFAuthenticationManager.sharedInstance.isLoggedIn {
+                wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
+            } else {
+                // TODO
+            }
         default:
             break
         }
