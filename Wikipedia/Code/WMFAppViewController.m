@@ -352,9 +352,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)readingListsServerDidConfirmSyncWasEnabledForAccountWithNotification:(NSNotification *)note {
     BOOL wasSyncEnabledForAccount = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey] boolValue];
     BOOL wasSyncEnabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey] boolValue];
+    BOOL wasSyncDisabledOnDevice = [note.userInfo[WMFReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey] boolValue];
     if (wasSyncEnabledForAccount) {
         [self wmf_showSyncEnabledPanelOncePerLoginWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
-    } else {
+    } else if (!wasSyncDisabledOnDevice) {
         [self wmf_showEnableReadingListSyncPanelOncePerLoginWithTheme:self.theme
                                          didNotPresentPanelCompletion:^{
                                              [self wmf_showSyncDisabledPanelWithTheme:self.theme wasSyncEnabledOnDevice:wasSyncEnabledOnDevice];
