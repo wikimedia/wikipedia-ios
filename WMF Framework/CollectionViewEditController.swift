@@ -219,7 +219,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
-       let batchEditToolbarViewController = BatchEditToolbarViewController()
+       let batchEditToolbarViewController = BatchEditToolbarViewController(nibName: "BatchEditToolbarViewController", bundle: Bundle.wmf)
         batchEditToolbarViewController.items = self.batchEditToolbarItems
         return batchEditToolbarViewController
     }()
