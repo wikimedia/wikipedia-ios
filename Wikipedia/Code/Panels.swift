@@ -193,6 +193,11 @@ extension UIViewController {
         }
         let panel = SyncEnabledPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         let presenter = self.presentedViewController ?? self
+        if presenter is WMFThemeableNavigationController {
+            guard presenter.presentedViewController == nil else {
+                return
+            }
+        }
         presenter.present(panel, animated: true) {
             UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(true)
         }
