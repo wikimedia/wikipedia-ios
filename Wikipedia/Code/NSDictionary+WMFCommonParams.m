@@ -19,7 +19,7 @@
                                          @"query", @"action",
                                          @"pageterms|pageimages|pageprops|revisions", @"prop",
                                          // pageprops
-                                         @"ppprop", @"ns",
+                                         @"ns", @"ppprop",
                                          // pageterms
                                          @"description", @"wbptterms",
                                          // pageimage
