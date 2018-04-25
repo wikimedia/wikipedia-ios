@@ -17,7 +17,7 @@
                                          @"", @"continue",
                                          @"json", @"format",
                                          @"query", @"action",
-                                         @"description|pageprops|pageimages|pageprops|revisions", @"prop",
+                                         @"description|pageimages|pageprops|revisions", @"prop",
                                          // pageprops
                                          @"ns|disambiguation", @"ppprop",
                                          // pageimage
