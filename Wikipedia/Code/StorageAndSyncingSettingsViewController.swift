@@ -100,7 +100,13 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if shouldShowReadingListsSyncAlertWhenViewAppears {
-            showReadingListsSyncAlert(isSyncEnabled)
+            if isSyncEnabled {
+                showReadingListsSyncAlert()
+            } else { // user logged in to an account that has sync disabled, prompt them to enable it
+                wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
+                    self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
+                }
+            }
         }
     }
     
