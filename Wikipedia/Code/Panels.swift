@@ -188,14 +188,18 @@ extension UIViewController {
         }
     }
     
+    private func isAlreadyPresenting(_ presenter: UIViewController) -> Bool {
+        let presenter = self.presentedViewController ?? self
+        guard presenter is WMFThemeableNavigationController else {
+            return false
+        }
+        return presenter.presentedViewController != nil
+    }
+    
     @objc func wmf_showSyncEnabledPanelOncePerLogin(theme: Theme, wasSyncEnabledOnDevice: Bool) {
         let presenter = self.presentedViewController ?? self
-        if presenter is WMFThemeableNavigationController {
-            guard presenter.presentedViewController == nil else {
-                return
-            }
-        }
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncEnabledPanel(),
+        guard !isAlreadyPresenting(presenter),
+            !UserDefaults.wmf_userDefaults().wmf_didShowSyncEnabledPanel(),
             !wasSyncEnabledOnDevice else {
                 return
         }
