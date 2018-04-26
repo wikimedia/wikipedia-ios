@@ -78,6 +78,10 @@ module.exports = function (grunt) {
           {
             src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css',
             dest: `${distFolder}wikimedia-page-library-transform.css`
+          },
+          {
+            src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css.map',
+            dest: `${distFolder}wikimedia-page-library-transform.css.map`
           }
         ]
       }
