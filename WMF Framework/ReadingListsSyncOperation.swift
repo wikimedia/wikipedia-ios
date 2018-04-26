@@ -199,8 +199,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         self.finish()
                     }
                 } else {
-                    // do not post the notification if sync was disabled on this device
-                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
+                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup {
                         readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                     }
                     try localSyncOnly()
@@ -232,6 +231,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             } else {
                 syncState.remove(.needsRemoteEnable)
                 moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+                self.readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(true)
                 try moc.save()
             }
         }
