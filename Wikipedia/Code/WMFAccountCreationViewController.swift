@@ -210,7 +210,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 let presenter = self.presentingViewController
                 self.dismiss(animated: true, completion: {
-                    presenter?.wmf_showEnableReadingListSyncPanelOncePerLogin(theme: self.theme)
+                    presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
         }, failure: { error in
             self.setViewControllerUserInteraction(enabled: true)

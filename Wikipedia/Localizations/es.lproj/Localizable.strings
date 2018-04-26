@@ -85,6 +85,7 @@
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
+"app-store-short-description" = "Descarga la aplicación de Wikipedia para explorar sitios cercanos a ti, sincronizar artículos para leerlos sin conexión y personalizar tu experiencia de lectura.";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
 "appearance-settings-expand-tables" = "Ampliar tablas";
 "appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
@@ -139,6 +140,8 @@
 "empty-no-history-title" = "No hay ningún historial que mostrar";
 "empty-no-reading-lists-message" = "Toca el «+» azul para crear listas de lugares adonde ir, tus temas favoritos y mucho más";
 "empty-no-reading-lists-title" = "Organiza tus artículos guardados mediante listas de lectura";
+"empty-no-saved-pages-in-reading-list-message" = "Guarda páginas en esta lista y aparecerán aquí";
+"empty-no-saved-pages-in-reading-list-title" = "No se guardó ninguna página en esta lista";
 "empty-no-saved-pages-message" = "Guarda páginas para verlas más tarde, incluso sin conexión";
 "empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
 "empty-no-search-results-message" = "No se encontraron resultados";
