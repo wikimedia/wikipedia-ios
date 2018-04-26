@@ -113,10 +113,8 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func showReadingListsSyncAlert(_ isSyncEnabled: Bool) {
-        if isSyncEnabled {
-            wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
-        }
+    private func showReadingListsSyncAlert() {
+        wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
     }
     
     @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
