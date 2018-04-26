@@ -184,6 +184,12 @@ extension UIViewController {
     }
     
     @objc func wmf_showSyncEnabledPanelOncePerLogin(theme: Theme, wasSyncEnabledOnDevice: Bool) {
+        let presenter = self.presentedViewController ?? self
+        if presenter is WMFThemeableNavigationController {
+            guard presenter.presentedViewController == nil else {
+                return
+            }
+        }
         guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncEnabledPanel(),
             !wasSyncEnabledOnDevice else {
                 return
@@ -192,12 +198,6 @@ extension UIViewController {
             self.presentedViewController?.dismiss(animated: true)
         }
         let panel = SyncEnabledPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
-        let presenter = self.presentedViewController ?? self
-        if presenter is WMFThemeableNavigationController {
-            guard presenter.presentedViewController == nil else {
-                return
-            }
-        }
         presenter.present(panel, animated: true) {
             UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(true)
         }
