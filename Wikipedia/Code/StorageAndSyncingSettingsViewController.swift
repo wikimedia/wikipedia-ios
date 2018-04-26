@@ -127,8 +127,8 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
             tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
         }
-        if shouldShowReadingListsSyncAlertWhenSyncEnabled {
-            showReadingListsSyncAlert(isSyncEnabled)
+        if shouldShowReadingListsSyncAlertWhenSyncEnabled && isSyncEnabled {
+            showReadingListsSyncAlert()
         }
     }
     
