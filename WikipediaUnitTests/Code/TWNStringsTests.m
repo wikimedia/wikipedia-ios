@@ -317,6 +317,40 @@
     }
 }
 
+// Translators need context for all substitutions. If a string has any substitutions, such as "$1" or "$2" etc, the string's comment needs to explain what will be substituted in place of "$1", "$2" etc.
+- (void)testiOSTranslationCommentsForMentionOfEachSubstitution {
+    NSDictionary *enStrings = [self getDictFromPListAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"en.lproj"] stringByAppendingPathComponent:@"Localizable.strings"]];
+    NSDictionary *qqqStrings = [self getDictFromPListAtPath:[[TWNStringsTests.twnLocalizationsDirectory stringByAppendingPathComponent:@"qqq.lproj"] stringByAppendingPathComponent:@"Localizable.strings"]];
+    for (NSString *enKey in enStrings) {
+        // This test assumes each EN key is also present in QQQ.
+        XCTAssertTrue([qqqStrings valueForKey:enKey], @"Expected en key in qqq");
+
+        NSString *enString = enStrings[enKey];
+        NSString *qqqString = qqqStrings[enKey];
+        NSArray<NSTextCheckingResult *> *enSubstitutionMatches = [TWNStringsTests.twnTokenRegex matchesInString:enString options:0 range:NSMakeRange(0, enString.length)];
+        NSArray<NSTextCheckingResult *> *qqqSubstitutionMatches = [TWNStringsTests.twnTokenRegex matchesInString:qqqString options:0 range:NSMakeRange(0, qqqString.length)];
+
+        for (NSTextCheckingResult *enMatch in enSubstitutionMatches) {
+            NSString *enMatchString = [enString substringWithRange:enMatch.range];
+            BOOL didFindEnMatchStringAtLeastOnceInQQQMatchString = NO;
+
+            for (NSTextCheckingResult *qqqMatch in qqqSubstitutionMatches) {
+                NSString *qqqMatchString = [qqqString substringWithRange:qqqMatch.range];
+                if ([qqqMatchString isEqualToString:enMatchString]) {
+                    didFindEnMatchStringAtLeastOnceInQQQMatchString = YES;
+                }
+            }
+
+            XCTAssertTrue(didFindEnMatchStringAtLeastOnceInQQQMatchString, @"\n\tExpected each substitution (i.e. \"$1\") in string is mentioned at least once in its comment.\n\t\tString: \"%@\"\n\t\tComment: \"%@\"\n\t\tKey: \"%@\"\n\n", [enString stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"], [qqqString stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"], enKey);
+            
+            if(!didFindEnMatchStringAtLeastOnceInQQQMatchString){
+                // No need keep testing if a string already failed our assertion once.
+                break;
+            }
+        }
+    }
+}
+
 - (void)tearDown {
     [super tearDown];
 }
