@@ -68,6 +68,7 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     @objc public var dataStore: MWKDataStore?
     private var indexPathForCellWithSyncSwitch: IndexPath?
     private var shouldShowReadingListsSyncAlertWhenViewAppears = false
+    private var shouldShowReadingListsSyncAlertWhenSyncEnabled = false
     
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
@@ -98,8 +99,15 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if shouldShowReadingListsSyncAlertWhenViewAppears {
-            showReadingListsSyncAlert(isSyncEnabled)
+        guard shouldShowReadingListsSyncAlertWhenViewAppears else {
+            return
+        }
+        if isSyncEnabled {
+            showReadingListsSyncAlert()
+        } else { // user logged in to an account that has sync disabled, prompt them to enable sync
+            wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
+                self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
+            }
         }
     }
     
@@ -112,15 +120,19 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func showReadingListsSyncAlert(_ isSyncEnabled: Bool) {
-        if isSyncEnabled {
-            wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
-        }
+    private func showReadingListsSyncAlert() {
+        wmf_showAlertWithMessage(WMFLocalizedString("settings-storage-and-syncing-full-sync", value: "Your reading lists will be synced in the background", comment: "Message confirming to the user that their reading lists will be synced in the background"))
     }
     
     @objc private func readingListsServerDidConfirmSyncWasEnabledForAccount(notification: Notification) {
         if let indexPathForCellWithSyncSwitch = indexPathForCellWithSyncSwitch {
             tableView.reloadRows(at: [indexPathForCellWithSyncSwitch], with: .none)
+        }
+        guard shouldShowReadingListsSyncAlertWhenSyncEnabled else {
+            return
+        }
+        if isSyncEnabled {
+            showReadingListsSyncAlert()
         }
     }
     
@@ -224,11 +236,13 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             }
             if WMFAuthenticationManager.sharedInstance.isLoggedIn && isSyncEnabled {
                 dataStore?.readingListsController.fullSync({})
-                showReadingListsSyncAlert(true)
+                showReadingListsSyncAlert()
             } else if !WMFAuthenticationManager.sharedInstance.isLoggedIn {
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
             } else {
-                // TODO
+                wmf_showEnableReadingListSyncPanel(theme: theme, oncePerLogin: false, didNotPresentPanelCompletion: nil) {
+                    self.shouldShowReadingListsSyncAlertWhenSyncEnabled = true
+                }
             }
         default:
             break
