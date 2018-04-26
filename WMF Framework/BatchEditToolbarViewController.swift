@@ -2,9 +2,9 @@ import UIKit
 
 public final class BatchEditToolbarViewController: UIViewController {
 
-    @IBOutlet weak var stackView: UIStackView?
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var separatorView: UIView?
+    @IBOutlet private weak var stackView: UIStackView?
+    @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var separatorView: UIView?
     public var items: [UIButton] = []
     private var theme: Theme = Theme.standard
     
