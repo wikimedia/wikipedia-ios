@@ -151,7 +151,7 @@ extension WKWebView {
         new window.wmf.sections.Language(
             '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
             '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            \(UIApplication.shared.wmf_isRTL.toString())
+            \((langDir == "rtl").toString())
         )
         """
     }
