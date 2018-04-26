@@ -7680,8 +7680,6 @@
 				D8EBD1B91FBB16F700AA7DA9 /* Dictionary+JSON.swift */,
 				D8650B7920350FEE0044DFFA /* NSString+SHA256.h */,
 				D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */,
-				7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */,
-				7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */,
 				D8FA19081E1BDA72009675C3 /* UI */,
 				D8D5513E1DF1A33D00B90177 /* Third Party */,
 				7A976F81207BAC2100F7EFE6 /* Authentication */,
@@ -8128,6 +8126,8 @@
 		D8FA19081E1BDA72009675C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */,
+				7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */,
 				0E28C4871D751ED6000C5919 /* WMFFeedContentDisplaying.h */,
 				B3B018CA1EBCDD9000BE7F21 /* UIView+Shadow.swift */,
 				0E6A6F511D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.h */,
