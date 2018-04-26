@@ -232,7 +232,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             }
             if WMFAuthenticationManager.sharedInstance.isLoggedIn && isSyncEnabled {
                 dataStore?.readingListsController.fullSync({})
-                showReadingListsSyncAlert(true)
+                showReadingListsSyncAlert()
             } else if !WMFAuthenticationManager.sharedInstance.isLoggedIn {
                 wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: nil)
             } else {
