@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Lägg till %1$d artikel i läslista</string>
+			<key>other</key>
+			<string>Lägg till %1$d artiklar i läslista</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>artikel raderades</string>
 			<key>other</key>
 			<string>artiklar raderades</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Flytta %1$d artikel till läslista</string>
+			<key>other</key>
+			<string>Flytta %1$d artiklar till läslista</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -64,6 +96,22 @@
 			<string>%1$d artikel</string>
 			<key>other</key>
 			<string>%1$d artiklar</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Artikeln kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
+			<key>other</key>
+			<string>Artiklarna kan inte läggas till i denna lista. Du har nått gränsen på %2$d artiklar per läslista för %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

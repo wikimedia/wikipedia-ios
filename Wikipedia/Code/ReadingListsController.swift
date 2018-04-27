@@ -58,7 +58,7 @@ public enum ReadingListError: Error, Equatable {
         case .listExistsWithTheSameName:
             return WMFLocalizedString("reading-list-exists-with-same-name", value: "Reading list name already in use", comment: "Informs the user that a reading list exists with the same name.")
         case .listWithProvidedNameNotFound(let name):
-            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
+            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found. %1$@ will be replaced with the name of the reading list which could not be found")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occurred while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
@@ -88,18 +88,40 @@ public enum ReadingListError: Error, Equatable {
 
 @objc(WMFReadingListsController)
 public class ReadingListsController: NSObject {
-    @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
-    @objc public static let syncProgressDidChangeNotification = NSNotification.Name(rawValue:"WMFSyncProgressDidChangeNotification")
-    @objc public static let syncProgressDidChangeFractionCompletedKey = "fractionCompleted"
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncWasEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey = NSNotification.Name("wasSyncEnabledForAccount")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey = NSNotification.Name("wasSyncEnabledOnDevice")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey = NSNotification.Name("wasSyncDisabledOnDevice")
     
+    @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
+    
+    @objc public static let readingListsWereSplitNotification = NSNotification.Name("WMFReadingListsWereSplit")
+    @objc public static let readingListsWereSplitNotificationEntryLimitKey = NSNotification.Name("WMFReadingListsWereSplitNotificationEntryLimitKey")
+    
+    @objc public static let syncDidFinishNotification = NSNotification.Name(rawValue: "WMFSyncFinishedNotification")
+    @objc public static let syncDidFinishErrorKey = NSNotification.Name(rawValue: "error")
+    @objc public static let syncDidFinishSyncedReadingListsCountKey = NSNotification.Name(rawValue: "syncedReadingLists")
+    @objc public static let syncDidFinishSyncedReadingListEntriesCountKey = NSNotification.Name(rawValue: "syncedReadingListEntries")
+
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
     
-    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
-    private var observedProgresses: [Operation: NSKeyValueObservation] = [:]
+    public weak var authenticationDelegate: AuthenticationDelegate?
     
     private let operationQueue = OperationQueue()
     private var updateTimer: Timer?
+    
+    private var observedOperations: [Operation: NSKeyValueObservation] = [:]
+    private var isSyncing = false {
+        didSet {
+            guard oldValue != isSyncing, isSyncing else {
+                return
+            }
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: ReadingListsController.syncDidStartNotification, object: nil)
+            }
+        }
+    }
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -107,24 +129,25 @@ public class ReadingListsController: NSObject {
         operationQueue.maxConcurrentOperationCount = 1
     }
     
-    private func postSyncProgressDidChangeNotificationOnTheMainThread(_ fractionCompleted: Double) {
-        DispatchQueue.main.async {
-            let userInfo = [ReadingListsController.syncProgressDidChangeFractionCompletedKey: fractionCompleted]
-            NotificationCenter.default.post(name: ReadingListsController.syncProgressDidChangeNotification, object: nil, userInfo: userInfo)
-        }
-    }
-    
     private func addOperation(_ operation: ReadingListsOperation) {
-        observedOperations[operation] = operation.observe(\.isFinished, changeHandler: { (operation, change) in
+        observedOperations[operation] = operation.observe(\.state, changeHandler: { (operation, change) in
             if operation.isFinished {
                 self.observedOperations.removeValue(forKey: operation)?.invalidate()
-                self.observedProgresses.removeValue(forKey: operation)?.invalidate()
+                DispatchQueue.main.async {
+                    var userInfo: [Notification.Name: Any] = [:]
+                    if let error = operation.error {
+                        userInfo[ReadingListsController.syncDidFinishErrorKey] = error
+                    }
+                    if let syncOperation = operation as? ReadingListsSyncOperation {
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListsCountKey] = syncOperation.syncedReadingListsCount
+                        userInfo[ReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] = syncOperation.syncedReadingListEntriesCount
+                    }
+                    NotificationCenter.default.post(name: ReadingListsController.syncDidFinishNotification, object: nil, userInfo: userInfo)
+                    self.isSyncing = false
+                }
             } else if operation.isExecuting {
-                self.postSyncProgressDidChangeNotificationOnTheMainThread(operation.progress.fractionCompleted)
+                self.isSyncing = true
             }
-        })
-        observedProgresses[operation] = operation.progress.observe(\.fractionCompleted, changeHandler: { (progress, change) in
-            self.postSyncProgressDidChangeNotificationOnTheMainThread(progress.fractionCompleted)
         })
         operationQueue.addOperation(operation)
     }
@@ -172,12 +195,8 @@ public class ReadingListsController: NSObject {
     }
     
     public func createReadingList(named name: String, description: String? = nil, with articles: [WMFArticle] = [], in moc: NSManagedObjectContext) throws -> ReadingList {
-        let name = name.precomposedStringWithCanonicalMapping
-        let existingListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@", name)
-        existingListRequest.fetchLimit = 1
-        let result = try moc.fetch(existingListRequest).first
-        guard result == nil else {
+        let listExistsWithTheSameName = try listExists(with: name, in: moc)
+        guard !listExistsWithTheSameName else {
             throw ReadingListError.listExistsWithTheSameName
         }
         
@@ -193,8 +212,21 @@ public class ReadingListsController: NSObject {
         return list
     }
     
+    func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
+        let name = name.precomposedStringWithCanonicalMapping
+        let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.fetchLimit = 2
+        let lists = try moc.fetch(existingOrDefaultListRequest)
+        return lists.first(where: { $0.name == name }) != nil
+    }
+    
     public func updateReadingList(_ readingList: ReadingList, with newName: String?, newDescription: String?) {
         assert(Thread.isMainThread)
+        guard !readingList.isDefault else {
+            assertionFailure("Default reading list cannot be updated")
+            return
+        }
         let moc = dataStore.viewContext
         if let newName = newName, !newName.isEmpty {
             readingList.name = newName
@@ -264,7 +296,7 @@ public class ReadingListsController: NSObject {
             return
         }
 
-        let existingKeys = Set(readingList.articleKeys)
+        var existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
             guard let key = article.key, !existingKeys.contains(key) else {
@@ -273,6 +305,7 @@ public class ReadingListsController: NSObject {
             guard let entry = moc.wmf_create(entityNamed: "ReadingListEntry", withValue: key, forKey: "articleKey") as? ReadingListEntry else {
                 return
             }
+            existingKeys.insert(key)
             entry.createdDate = NSDate()
             entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true
@@ -388,6 +421,15 @@ public class ReadingListsController: NSObject {
         }
     }
     
+    func postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(_ wasSyncEnabledForAccount: Bool) {
+        // we want to know if sync was ever enabled on this device
+        let wasSyncEnabledOnDevice = apiController.lastRequestType == .setup
+        let wasSyncDisabledOnDevice = apiController.lastRequestType == .teardown
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey: NSNumber(value: wasSyncDisabledOnDevice)])
+        }
+    }
+    
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         let oldSyncState = self.syncState
@@ -420,7 +462,6 @@ public class ReadingListsController: NSObject {
         self.syncState = newSyncState
         
         sync()
-        NotificationCenter.default.post(name: ReadingListsController.syncStateDidChangeNotification, object: self)
     }
     
     @objc public func start() {
@@ -685,9 +726,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxEntriesPerList) ?? 5000
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxEntriesPerList else {
-                return
-            }
             wmf_setValue(newValue, forKey: WMFReadingListsConfigMaxEntriesPerList)
             do {
                 try save()
@@ -702,9 +740,6 @@ public extension NSManagedObjectContext {
             return wmf_numberValue(forKey: WMFReadingListsConfigMaxListsPerUser)?.intValue ?? 100
         }
         set {
-            guard newValue != wmf_readingListsConfigMaxListsPerUser else {
-                return
-            }
             wmf_setValue(NSNumber(value: newValue), forKey: WMFReadingListsConfigMaxListsPerUser)
             do {
                 try save()

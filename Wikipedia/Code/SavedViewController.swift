@@ -4,6 +4,8 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
     func savedWillShowSortAlert(_ saved: SavedViewController, from button: UIButton)
     func saved(_ saved: SavedViewController, searchBar: UISearchBar, textDidChange searchText: String)
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar)
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar)
 }
 
 @objc(WMFSavedViewController)
@@ -19,7 +21,7 @@ class SavedViewController: ViewController {
         let readingListsCollectionViewController = ReadingListsViewController(with: dataStore)
         return readingListsCollectionViewController
     }()
-    
+
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var extendedNavBarView: UIView!
     @IBOutlet var underBarView: UIView!
@@ -29,11 +31,14 @@ class SavedViewController: ViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
-    
+    @IBOutlet weak var progressContainerView: UIView!
+
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
     }()
     
+    fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
+
     public weak var savedDelegate: SavedViewControllerDelegate?
     
     // MARK: - Initalization and setup
@@ -151,7 +156,9 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
-        
+
+        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+
         currentView = .savedArticles
         
         let allArticlesButtonTitle = WMFLocalizedString("saved-all-articles-title", value: "All articles", comment: "Title of the all articles button on Saved screen")
@@ -166,12 +173,14 @@ class SavedViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
         edgesForExtendedLayout = .all
         
+        actionButtonType = .sort
+        
         super.viewDidLoad()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionButton.titleLabel?.setFont(with: .system, style: .subheadline, traitCollection: traitCollection)
+        actionButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
     }
     
     // MARK: - Sorting and searching
@@ -183,9 +192,6 @@ class SavedViewController: ViewController {
     
     private var actionButtonType: ActionButtonType = .sort {
         didSet {
-            guard oldValue != actionButtonType else {
-                return
-            }
             switch actionButtonType {
             case .sort:
                 actionButton.setTitle(CommonStrings.sortActionTitle, for: .normal)
@@ -215,6 +221,7 @@ class SavedViewController: ViewController {
         
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
+        savedProgressViewController?.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
@@ -223,13 +230,10 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields{ (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
@@ -261,12 +265,19 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         }
     }
     
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
-        } else {
-            self.activeEditableCollection?.editController.changeEditingState(to: newEditingState)
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+        let newEditingState: EditingState
+        
+        switch currentEditingState {
+        case .open:
+            newEditingState = .closed
+        case .swiping:
+            newEditingState = .done
+        default:
+            newEditingState = .open
         }
+        
+        return newEditingState
     }
     
     func emptyStateDidChange(_ empty: Bool) {
@@ -290,9 +301,11 @@ extension SavedViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         actionButtonType = .cancel
+        savedDelegate?.saved(self, searchBarTextDidBeginEditing: searchBar)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         actionButtonType = .sort
+        savedDelegate?.saved(self, searchBarTextDidEndEditing: searchBar)
     }
 }

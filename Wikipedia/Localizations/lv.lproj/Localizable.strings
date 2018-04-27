@@ -143,13 +143,11 @@
 "places-title" = "Vietas";
 "preference-title-eventlogging-opt-in" = "Sūtīt lietošanas ziņojumus";
 "readers-accessibility-label" = "$1 lasītāji";
+"reading-list-create-new-list-description" = "Apraksts";
 // Fuzzy
 "reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
 "saved-all-articles-title" = "Visi raksti";
-"saved-clear-all" = "Notīrīt";
-"saved-pages-clear-cancel" = "Atcelt";
-"saved-pages-clear-delete-all" = "Jā, dzēst visu";
 "saved-title" = "Saglabāts";
 "search-did-you-mean" = "Vai tu domāji $1?";
 "search-field-placeholder-text" = "Meklēt Vikipēdijā";
@@ -164,6 +162,9 @@
 "settings-notifications" = "Paziņojumi";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Dzēst";
+// Fuzzy
+"settings-storage-and-syncing-server-sync-title" = "Sinhronizēt ar serveri";
 "settings-support" = "Atbalsti Vikipēdiju";
 "settings-title" = "Iestatījumi";
 "share-custom-menu-item" = "Dalīties...";

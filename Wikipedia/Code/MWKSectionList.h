@@ -1,4 +1,6 @@
 #import <WMF/MWKDataObject.h>
+#import <WMF/WMFBlockDefinitions.h>
+NS_ASSUME_NONNULL_BEGIN
 @class MWKArticle;
 @class MWKSection;
 
@@ -53,3 +55,4 @@
 - (NSArray *)topLevelSections;
 
 @end
+NS_ASSUME_NONNULL_END

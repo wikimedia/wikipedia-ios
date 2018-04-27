@@ -278,13 +278,11 @@
 "preference-title-eventlogging-opt-in" = "Туһаныы отчуоттарын ыыт";
 "rank-accessibility-label" = "Ахсаана $1";
 "readers-accessibility-label" = "$1 ааҕааччылаах";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Ыстатыйалары наардаа";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Наардамматах ыстатыйа ахсаана 5000-ттан таҕыстаҕына мэнэйдэммэт. Бука диэн наардаа, оччоҕо мэнэйдээһин салҕаныа.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Наардамматах ыстатыйалар хааччахтанар ахсааннара";
 "reference-title" = "Быһаарыы $1";
 "request-feedback-on-error" = "Дьибилгэт биллибэт алҕаһы кытта көрүстэ, бу туһунан оҥорооччулар сиһилии билиэхтэрин баҕараллара саарбаҕа суох. бука диэн, маны баттаан биһиэхэ бу туһунан сиһилии сурукта ыыт.";
-"saved-clear-all" = "Сот";
-"saved-pages-clear-cancel" = "Салҕаама";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Хараллыбыт сирэйдэри барытын сотоҕун дуо?";
-"saved-pages-clear-delete-all" = "Барытын сот";
 "saved-pages-image-download-error" = "Бу урут хаалларыллыбыт сирэй ойуута хачайдамматах эбит.";
 "saved-title" = "Бигэргэннэ";
 "search-did-you-mean" = "Маннык диэри гынаҕын дуо $1?";

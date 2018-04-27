@@ -3,6 +3,7 @@
 // Author: Brion
 // Author: Darcy Le
 // Author: Dinhxuanduyet
+// Author: Harriettruong3
 // Author: KhangND
 // Author: Macofe
 // Author: Max20091
@@ -312,11 +313,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Năm nay|Năm ngoái|Cách đây $1 năm}}";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
-"saved-clear-all" = "Xóa sạch";
-"saved-pages-clear-cancel" = "Hủy bỏ";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
-"saved-pages-clear-delete-all" = "Có, xóa toàn bộ";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
 "saved-title" = "Đã lưu";
 "search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
@@ -346,6 +342,17 @@
 "settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-primary-language" = "Chính";
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
+// Fuzzy
+"settings-storage-and-syncing-enable-sync-footer-text" = "Cho phép Wikimedia lưu bài viết và danh sách đọc của bạn theo sở thích bạn đã cho thấy trước khi đăng nhập để đồng bộ hóa";
+"settings-storage-and-syncing-enable-sync-title" = "Đồng bộ hóa những bài viết và danh sách đã lưu";
+// Fuzzy
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Xóa những trang được lưu sẽ đưa những trang đó ra khỏi tài khoản nếu bạn đã đồng bộ hóa nó từ thiết bị này.\n\nXóa những trang được lưu sẽ làm trống 364.4 MB.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Xóa những bài viết đã được lưu";
+// Fuzzy
+"settings-storage-and-syncing-server-sync-footer-text" = "Yêu cầu đồng bộ hóa từ trang chủ để nâng cấp những bài viết đã được đồng bộ hóa và danh sách đọc";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Hiện danh sách đọc được lưu";
+// Fuzzy
+"settings-storage-and-syncing-title" = "Đã lưu bài viết, lưu trữ nó và đồng bộ hóa";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";

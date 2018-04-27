@@ -297,11 +297,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Upravo|Prije $1 minute|Prije $1 minute|Prije $1 minuta}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|Prošle godine|Prije $1 godine|Prije $1 godina}}";
 "request-feedback-on-error" = "Aplikacija je naišla na problem za koji naši programeri želi doznati više. Dodirnite ovdje da biste nam poslali e-poruku s informacijama o grešci.";
-"saved-clear-all" = "Očisti";
-"saved-pages-clear-cancel" = "Odustani";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve sačuvane stranice?";
-"saved-pages-clear-delete-all" = "Da, obriši sve";
 "saved-pages-image-download-error" = "Ne mogu preuzeti slike za ovu sačuvanu stranicu.";
 "saved-title" = "Sačuvano";
 "search-did-you-mean" = "Jeste li mislili $1?";

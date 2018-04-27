@@ -68,6 +68,7 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
+// Fuzzy
 "add-articles-to-reading-list" = "Tilføj $1 til læselisten";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
@@ -122,6 +123,7 @@
 "empty-no-feed-title" = "Ingen internetforbindelse";
 "empty-no-history-message" = "Hold styr på hvad du har læst her";
 "empty-no-history-title" = "Ingen historik at vise";
+// Fuzzy
 "empty-no-reading-lists-message" = "Tryk på det blå »+« for at oprette lister for steder at rejse til, favoritemner og meget mere";
 "empty-no-reading-lists-title" = "Organiser gemte artikler med læselister";
 "empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
@@ -345,9 +347,9 @@
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
 "reading-list-sync-enable-button-title" = "Aktiver synkronisering";
+// Fuzzy
 "reading-list-sync-enable-subtitle" = "Dine gemte artikler og læselister kan nu gemmes på din Wikipediakonto og synkroniseres på tværs af enheder.";
 "reading-list-sync-enable-title" = "Aktiver synkronisering af læselister?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Du kan ikke tilføje {{PLURAL:$1|denne artikel|disse artikler}} til »$2«, da der er en begrænsning på antallet af artikler du kan have i en læseliste.";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
 "reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
 "reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
@@ -377,11 +379,7 @@
 "relogin-failed-title" = "Kan ikke genetablere log ind";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "saved-all-articles-title" = "Alle artikler";
-"saved-clear-all" = "Slet";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
-"saved-pages-clear-cancel" = "Annuller";
-"saved-pages-clear-confirmation-heading" = "Er du sikker på, at du ønsker at slette alle dine gemte artikler og fjerne dem fra alle læselister?";
-"saved-pages-clear-delete-all" = "Ja, slet alt";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
 "saved-reading-lists-title" = "Læselister";
 "saved-search-default-text" = "Søg";
@@ -416,15 +414,21 @@
 "settings-notifications-trending" = "Populære aktuelle begivenheder";
 "settings-primary-language" = "Primær";
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
+// Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
+// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Slet dine gemte artikler og fjern dem fra din brugerkonto, hvis du også har synkronisering aktiveret og fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring 364,4 MB plads.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Slet gemte artikler";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Anmod om en synkronisering fra serveren for en opdatering til dine synkroniserede artikler og læselister";
+// Fuzzy
 "settings-storage-and-syncing-server-sync-title" = "Synkroniser med serveren";
+// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Vis den gemte (f.eks. standard) læseliste som en separat liste i din læselistevisning. Denne liste fremgår af Androidenheder";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Vis gemt læseliste";
+// Fuzzy
 "settings-storage-and-syncing-title" = "Lagring og synkronisering af gemte artikler";
 "settings-support" = "Støt Wikipedia";
 "settings-title" = "Indstillinger";

@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ajouter %1$d article à la liste de lecture</string>
+			<key>other</key>
+			<string>Ajouter %1$d articles à la liste de lecture</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>Article supprimé</string>
 			<key>other</key>
 			<string>Articles supprimés</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Placer %1$d article dans la liste de lecture</string>
+			<key>other</key>
+			<string>Placer %1$d articles dans la liste de lecture</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -64,6 +96,22 @@
 			<string>%1$d article</string>
 			<key>other</key>
 			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>L’article n’a pas pu être ajouté à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@</string>
+			<key>other</key>
+			<string>Les articles n’ont pas pu être ajoutés à cette liste. Vous avez atteint la limite de %2$d articles par liste de lecture pour %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

@@ -295,11 +295,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";
 "request-feedback-on-error" = "Апликација је наишла на проблем за који би наши девелопери желели да сазнају. Кликните овде да нам пошаљете имејл да информацијама о квару.";
 "saved-all-articles-title" = "Сви чланци";
-"saved-clear-all" = "Очисти";
-"saved-pages-clear-cancel" = "Откажи";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Заиста желите да избришете све сачуване странице?";
-"saved-pages-clear-delete-all" = "Да, избриши све";
 "saved-pages-image-download-error" = "Не могу да преузмем слике за ову сачувану страницу.";
 "saved-search-default-text" = "Претрага";
 "saved-title" = "Сачувано";

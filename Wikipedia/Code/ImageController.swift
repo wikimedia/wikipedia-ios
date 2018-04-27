@@ -635,4 +635,8 @@ open class ImageController : NSObject {
             DDLogError("Error removing legacy cache \(error)")
         }
     }
+    
+    public var temporaryCacheSize: Int64 {
+        return FileManager.default.sizeOfDirectory(at: legacyCacheFolderURL) + Int64(cache.currentDiskUsage)
+    }
 }

@@ -27,6 +27,7 @@
 "action-sort" = "چھانٹ";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
+// Fuzzy
 "add-articles-to-reading-list" = "مطالعہ دی فہرست وچ $1 شامل کرو";
 "announcements-dismiss" = "مکاؤ";
 "appearance-settings-theme-options" = "تھیم دے اختیارات";
@@ -126,13 +127,12 @@
 "places-title" = "جاہیں";
 "places-unknown-distance" = "نامعلوم پندھ";
 "rank-accessibility-label" = "نمبر$1";
+"reading-list-create-new-list-description" = "تفصیل";
+"reading-list-create-new-list-title" = "نویں لسٹ بݨاؤ";
 "reading-lists-default-list-title" = "محفوظ";
 "reading-themes-controls-accessibility-dark-theme-button" = "ڳوڑھا تھیم، مرکزی خیال";
 "reference-title" = "حوالہ$1";
 "saved-all-articles-title" = "سارے مضمون";
-"saved-clear-all" = "صاف";
-"saved-pages-clear-cancel" = "منسوخ";
-"saved-pages-clear-delete-all" = "جیا سبھ مٹاؤ";
 "saved-search-default-text" = "ڳولو";
 "saved-title" = "محفوظ";
 "search-did-you-mean" = "بھلا تہاݙا مطلب ہائی $1؟";

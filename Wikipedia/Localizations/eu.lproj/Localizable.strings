@@ -1,6 +1,7 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
 // Author: An13sa
+// Author: Asierog
 // Author: Envlh
 // Author: EukeneFL
 // Author: Fitoschido
@@ -67,7 +68,7 @@
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
-"add-articles-to-reading-list" = "Gehitu $1 irakurketa zerrendara";
+"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
@@ -121,8 +122,9 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
-"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
+"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
+"empty-no-saved-pages-in-reading-list-title" = "Ez da orririk gorde zerrenda honetan";
 "empty-no-saved-pages-message" = "Orrialdeak gorde gero ikusteko, nahiz eta konexiorik gabe egon";
 "empty-no-saved-pages-title" = "Oraindik gordetako orrialderik ez";
 "empty-no-search-results-message" = "Ez da emaitzarik aurkitu";
@@ -249,6 +251,7 @@
 "menu-trash-accessibility-label" = "Ezabatu";
 "more-languages-tooltip-description" = "Bilatu Wikipedia ia 300 hizkuntzatan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
+"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";
@@ -328,11 +331,20 @@
 "reading-list-api-error-list-limit" = "Zerrenda hau ez dago sinkronizatuta zure sinkronizatutako zerrenden muga gainditu duzulako.";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
+"reading-list-entry-limit-exceeded-message" = "Mesedez, gutxitu zerrenda honetako artikulu kopurua $ 1-ra zerrendako artikulu guztien sinkronizazioa berreskuratzeko.";
+"reading-list-entry-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko $2 artikulutako muga gainditu duzu $3-engatik";
 "reading-list-exists-with-same-name" = "Irakurketa zerrendari jarritako izena erabilpean dago";
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
 "reading-list-keep-subtitle" = "Zure Wikipedia kontuan sinkronizatutako artikuluak daude. Saioa itxi eta gero, gailuan mantendu nahiko zenituzke?";
 "reading-list-keep-title" = "Gordetako artikuluak gailuan mantendu nahi dituzu?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sailkatu artikuluak";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Sailkatu gabeko 5000 artikuluren muga dago. Mesedez, antola itzazu jadanik existitzen diren artikuluak zerrendatan sailkatu gabeko artikuluak sinkronizatu ahal izateko.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Sailkatu gabeko artikuluen muga jo duzu";
+"reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda eta horretan gordetako artikuluak ez dira sinkronizatuk, mesedez jaitsi zure zerrenden zenbakia $1-(e)ra zerrenda honen sinkronizatzea amaitu ahal izateko.";
+"reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
+"reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";
 "reading-list-login-or-create-account-button-title" = "Hasi saioa edo sortu kontua";
 "reading-list-login-or-create-account-title" = "Hasi saioa gordetako artikuluak sinkronizatzeko";
@@ -340,10 +352,10 @@
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
+"reading-list-sync-disabled-panel-title" = "Sinkronizazioa desgaituta";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
-"reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta gailuetan zehar sinkroniza daitezke.";
+"reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta Wikipedia aplikazioetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
-"reading-list-unable-to-add-entries-due-to-list-limit" = "Ezin duzu gehitu{{PLURAL:$1|artikulu hau|artikulu hauek}} hurrengora “$2” zure irakurketa zerrendan eduki ditzakezun artikuluen muga badagoelako.";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-delete" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
@@ -351,13 +363,18 @@
 "reading-list-unable-to-update" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda eguneratzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jarri duzula.";
 "reading-lists-article-added-confirmation" = "\"$1\"-ra gehitu da artikulua";
+"reading-lists-article-not-synced" = "Sinkronizatu gabe";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Artikulu-muga gaindituta, ezin da artikulua sinkronizatu";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Zerrenda-muga gaindituta, ezin da artikulua sinkronizatu";
+"reading-lists-articles-not-synced-limit-exceeded" = "Artikulu batzuk ez dira sinkronizatu, muga gainditu da";
 "reading-lists-count" = "{{PLURAL:$1|irakurketa zerrenda $1|$1 irakurketa zerrenda}}";
-// Fuzzy
 "reading-lists-default-list-description" = "Zerrenda lehenetsia gordetako artikuluentzat";
-// Fuzzy
-"reading-lists-default-list-title" = "Lastermarkak";
+"reading-lists-default-list-title" = "Gordeta";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
 "reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
+"reading-lists-list-not-synced-limit-exceeded" = "Zerrenda ez da sinkronikaztu, muga gainditu da";
+"reading-lists-sort-saved-articles" = "Sailkatu gordetako artikuluak";
+"reading-lists-sync-error-no-internet-connection" = "Sinkronizazioak aurrera egingo du interneterako konexioa eskuragarri dagoenean";
 "reading-themes-controls-accessibility-black-theme-button" = "Gai iluna";
 "reading-themes-controls-accessibility-brightness-slider" = "Argitasun sliderra";
 "reading-themes-controls-accessibility-dark-theme-button" = "Gai iluna";
@@ -375,12 +392,9 @@
 "relogin-failed-title" = "Hasiera saioa ezin da berrezarri";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
-"saved-clear-all" = "Garbitu";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
-"saved-pages-clear-cancel" = "Utzi";
-"saved-pages-clear-confirmation-heading" = "Ziur al zaude zuk gordetako artikulu guztiak ezabatu nahi dituzula eta irakurketa zerrendetatik ezabatu nahi duzula?";
-"saved-pages-clear-delete-all" = "Bai, dena ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
+"saved-pages-progress-syncing" = "Artikuluen sinkronizatzea abian...";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
 "saved-search-default-text" = "Bilatu";
 "saved-title" = "Gordea";
@@ -414,6 +428,23 @@
 "settings-notifications-trending" = "Modan dauden gaurko gertakariak";
 "settings-primary-language" = "Primarioa";
 "settings-primary-language-details" = "Zerrenda honetan erabilitako lehenengo hizkuntza aplikazio honetarako ere erabiltzen den hizkuntza da. Hizkuntza hau aldatzerakoan, eguneroko edukia ere aldatuko da (adibidez, Nabarmendutako Artikulua) Arakatzailean agertzen dena.";
+// Fuzzy
+"settings-storage-and-syncing-enable-sync-footer-text" = "Baimendu Wikimediari zure gordetako artikuluak eta irakurketa-zerrendak zure kontuko lehentasunetan gordetzen saioa sinkronizatzeko hasten duzunean.";
+"settings-storage-and-syncing-enable-sync-title" = "Gordetako artikuluak eta zerrendak sinkronizatu";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik. Ezingo duzu ezer berreskuratu.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Gordetako artikulu guztiak ezabatu?";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Ezabatu";
+// Fuzzy
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik.\n\nGordetako artikuluak ezabatzea dohakoa izango da $1 espaziotik gora.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Gordetako artikulu guztiak ezabatu";
+"settings-storage-and-syncing-full-sync" = "Zure irakurketa zerrendak atzeko planoan sinkronizatuko dira";
+// Fuzzy
+"settings-storage-and-syncing-server-sync-footer-text" = "Zerbitzaritik sinkronizazioa eskatu zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzerako";
+"settings-storage-and-syncing-server-sync-title" = "Eguneratu sinkronizatutako irakurketa zerrendak";
+// Fuzzy
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Erakutsi gordetako irakurketa-zerrenda (ad. lehentesia) zure irakurketa-zerrenden ikuspegian zerrenda bereizi batean. Zerrenda Android gailuetan agertuko da.";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Gordetako irakurketa-zerrenda erakutsi";
+"settings-storage-and-syncing-title" = "Artikuluen biltegia eta sinkronizatzea";
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";

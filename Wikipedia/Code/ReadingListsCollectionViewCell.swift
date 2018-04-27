@@ -15,8 +15,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    private var alertType: AlertType = .none {
+    override var alertType: ReadingListAlertType? {
         didSet {
+            guard let alertType = alertType else {
+                return
+            }
             var alertLabelText: String? = nil
             switch alertType {
             case .listLimitExceeded:
@@ -88,7 +91,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .system
+        titleFontFamily = .systemSemiBold
         titleTextStyle = .body
         updateFonts(with: traitCollection)
     }
@@ -117,8 +120,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
+        let labelsAdditionalSpacing: CGFloat = 20
         if !isImageGridHidden || !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         var x = layoutMargins.left
@@ -127,11 +131,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if displayType == .readingListsTab && articleCount > 0 {
+        if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
             if isRTL {
-                x = size.width - articleCountLabelSize.width - layoutMargins.right
+                x = size.width - articleCountLabelSize.width - layoutMargins.left
             }
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
@@ -148,7 +152,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             } else {
                 let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
         } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
@@ -166,7 +170,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             if !isAlertIconHidden || !isAlertLabelHidden {
                 origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
@@ -174,46 +178,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
-
-        if displayType == .readingListsTab && isDefault {
-            let defaultListTagSize = defaultListTag.intrinsicContentSize
-            var x = origin.x
-            if isRTL {
-                x = size.width - defaultListTagSize.width - layoutMargins.right
-            }
-            origin.y += spacing
-            let defaultListTagFrame = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += defaultListTagFrame.layoutHeight(with: spacing)
-            defaultListTag.isHidden = false
-        } else {
-            defaultListTag.isHidden = true
-        }
-        
-        if !isAlertIconHidden {
-            var x = origin.x
-            if isRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
-            }
-            alertIcon.frame = CGRect(x: x, y: origin.y, width: alertIconDimension, height: alertIconDimension)
-            origin.x += alertIconDimension + spacing
-            origin.y += alertIcon.frame.layoutHeight(with: 0)
-        }
-        
-        if !isAlertLabelHidden {
-            var xPosition = alertIcon.frame.maxX + spacing
-            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
-            var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isRTL {
-                xPosition = alertIcon.frame.minX - availableWidth - spacing
-            }
-            if isAlertIconHidden {
-                xPosition = origin.x
-                yPosition = origin.y
-                availableWidth = widthMinusMargins
-            }
-            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += alertLabelFrame.layoutHeight(with: 0)
-        }
 
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
@@ -230,13 +194,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             }
         }
         
-        if (apply && !isImageGridHidden) {
+        if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isRTL {
                 x = size.width - x - imageViewDimension
             }
             imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageGrid.isHidden = isImageGridHidden
         }
         
         if (apply && !isImageViewHidden) {
@@ -246,6 +211,50 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
+        
+        let yAlignedWithImageBottom = imageGrid.frame.maxY - layoutMargins.bottom - (0.5 * spacing)
+        
+        if !isAlertIconHidden {
+            var x = origin.x
+            if isRTL {
+                x = size.width - alertIconDimension - layoutMargins.right
+            }
+            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
+            origin.y += alertIcon.frame.layoutHeight(with: 0)
+        }
+        
+        if !isAlertLabelHidden {
+            var xPosition = alertIcon.frame.maxX + spacing
+            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
+            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            if isRTL {
+                xPosition = alertIcon.frame.minX - availableWidth - spacing
+            }
+            if isAlertIconHidden {
+                xPosition = origin.x
+                yPosition = yAlignedWithImageBottom
+                availableWidth = widthMinusMargins
+            }
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            origin.y += alertLabelFrame.layoutHeight(with: 0)
+        }
+        
+        if displayType == .readingListsTab && isDefault {
+            let defaultListTagSize = defaultListTag.intrinsicContentSize
+            var x = origin.x
+            if isRTL {
+                x = size.width - defaultListTagSize.width - layoutMargins.right
+            }
+            var y = yAlignedWithImageBottom
+            if !isAlertIconHidden || !isAlertLabelHidden {
+                let alertMinY = isAlertIconHidden ? alertLabel.frame.minY : alertIcon.frame.minY
+                y = descriptionLabel.frame.maxY + ((alertMinY - descriptionLabel.frame.maxY) * 0.25)
+            }
+            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), fitting: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            defaultListTag.isHidden = false
+        } else {
+            defaultListTag.isHidden = true
         }
 
         return CGSize(width: size.width, height: height)
@@ -299,13 +308,15 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
-        imageViewDimension = 80
+        articleSemanticContentAttribute = .unspecified
+        
+        imageViewDimension = 100
 
         self.displayType = displayType
         self.isDefault = isDefault
         self.articleCount = articleCount
     
-        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount)
+        articleCountLabel.text = String.localizedStringWithFormat(CommonStrings.articleCountFormat, articleCount).uppercased()
         defaultListTag.text = WMFLocalizedString("saved-default-reading-list-tag", value: "This list cannot be deleted", comment: "Tag on the default reading list cell explaining that the list cannot be deleted")
         titleLabel.text = name
         descriptionLabel.text = description

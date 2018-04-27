@@ -5,11 +5,16 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
         
         if batchEditToolbarViewController.parent == nil {
             addChildViewController(batchEditToolbarViewController)
-            batchEditToolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+            batchEditToolbarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(batchEditToolbarViewController.view)
-            let height = tabBarController?.tabBar.frame.height ?? navigationController?.navigationBar.frame.size.height ?? 0
-            batchEditToolbarViewController.view.frame = CGRect(x: 0, y: view.bounds.height - height, width: view.bounds.width, height: height)
             batchEditToolbarViewController.didMove(toParentViewController: self)
+            
+            let leadingConstraint = batchEditToolbarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            let trailingConstraint = batchEditToolbarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            let heightConstraint = batchEditToolbarViewController.view.heightAnchor.constraint(equalTo: bottomLayoutGuide.heightAnchor)
+            let bottomConstraint = batchEditToolbarViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            view.addConstraints([leadingConstraint, trailingConstraint, heightConstraint, bottomConstraint])
+            
             // if a vc has no tab bar to cover the toolbar view, hide the toolbar view initally
             if tabBar == nil {
                 batchEditToolbarViewController.view.alpha = 0
@@ -34,15 +39,5 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
     
     func emptyStateDidChange(_ empty: Bool) {
         // conforming types can provide their own implementations
-    }
-}
-
-extension CollectionViewEditControllerNavigationDelegate where Self: UpdatableCollection & EditableCollection {
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState) {
-        if newEditingState == .open {
-            self.editController.changeEditingState(to: newEditingState)
-        } else {
-            editController.changeEditingState(to: newEditingState)
-        }
     }
 }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadingListDetailUnderBarViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="alertMessageLabel" destination="ucP-Jo-vbh" id="Hqa-dW-TJs"/>
+                <outlet property="alertStackView" destination="b68-aF-tEl" id="ux1-ZT-Gng"/>
+                <outlet property="alertTitleLabel" destination="nSt-9T-l8Y" id="Y9B-sH-dno"/>
+                <outlet property="articleCountLabel" destination="je4-fy-lZN" id="JcP-Ft-I7Y"/>
+                <outlet property="descriptionTextField" destination="8lA-8c-7oC" id="wgd-tn-rJ7"/>
+                <outlet property="titleTextField" destination="nam-rp-zyS" id="Ft5-9v-Fvb"/>
+                <outlet property="view" destination="Xmb-b2-8dI" id="p04-UI-eb6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="Xmb-b2-8dI">
+            <rect key="frame" x="0.0" y="0.0" width="516" height="293"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qGG-Mh-IBd">
+                    <rect key="frame" x="26" y="26" width="464" height="154.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="je4-fy-lZN">
+                            <rect key="frame" x="0.0" y="0.0" width="464" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nam-rp-zyS" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="0.0" y="28.5" width="464" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <action selector="titleTextFieldTextDidChange:" destination="-1" eventType="editingChanged" id="Vtz-eW-aUp"/>
+                            </connections>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8lA-8c-7oC" customClass="WMFThemeableTextField">
+                            <rect key="frame" x="0.0" y="66.5" width="464" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="b68-aF-tEl">
+                            <rect key="frame" x="0.0" y="104.5" width="464" height="50"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9i-6i-y4t" userLabel="Spacer view">
+                                    <rect key="frame" x="0.0" y="0.0" width="464" height="1"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="nff-HF-3Tb"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSt-9T-l8Y">
+                                    <rect key="frame" x="0.0" y="8" width="464" height="13.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucP-Jo-vbh">
+                                    <rect key="frame" x="0.0" y="28.5" width="464" height="13.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kjt-iH-sGc" userLabel="Spacer view">
+                                    <rect key="frame" x="0.0" y="49" width="464" height="1"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" priority="999" constant="1" id="aex-VF-BxW"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="qGG-Mh-IBd" secondAttribute="trailingMargin" constant="6" id="K45-Xv-WPg"/>
+                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="qGG-Mh-IBd" secondAttribute="bottom" constant="4" id="K5l-zk-rpo"/>
+                <constraint firstItem="qGG-Mh-IBd" firstAttribute="top" secondItem="Xmb-b2-8dI" secondAttribute="topMargin" constant="6" id="UNV-Z1-r8s"/>
+                <constraint firstItem="qGG-Mh-IBd" firstAttribute="leading" secondItem="Xmb-b2-8dI" secondAttribute="leadingMargin" constant="6" id="ur7-kD-iLh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="yFK-JI-pIL"/>
+            <point key="canvasLocation" x="599" y="122.5"/>
+        </view>
+    </objects>
+</document>

@@ -30,6 +30,9 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
  * added to saved pages, history, etc…
  */
 extern NSString *const WMFArticleUpdatedNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
+extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
 
 @interface MWKDataStore : NSObject
 
@@ -172,14 +175,6 @@ extern NSString *const WMFArticleUpdatedNotification;
  */
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
 
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param image The image to save
- */
-- (void)saveImage:(MWKImage *)image;
-
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 
 - (void)removeArticleWithURL:(NSURL *)articleURL fromDiskWithCompletion:(dispatch_block_t)completion;
@@ -243,11 +238,15 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 // Storage helper methods
 
+- (NSInteger)sitesDirectorySize;
+
 - (NSError *)removeFolderAtBasePath;
 
 - (BOOL)hasHTMLFileForSection:(MWKSection *)section;
 
 - (void)clearMemoryCache;
+
+- (void)clearCachesForUnsavedArticles;
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)titlesToRemove;

@@ -143,11 +143,6 @@
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "এপ্‌টো উন্নত কৰিবৰ বাবে আপুনি এই এপ্‌ কেনেকৈ ব্যৱহাৰ কৰে জানিবলৈ ৱিকিমিডিয়াক তথ্য সংগ্ৰহৰ অনুমতি দিয়ক";
 "preference-title-eventlogging-opt-in" = "ব্যৱহাৰৰ প্ৰতিবেদন পঠিয়াওক";
-"saved-pages-clear-cancel" = "বাতিল";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "সকলো সঞ্চিত আইটেম বিলোপ কৰিব?";
-// Fuzzy
-"saved-pages-clear-delete-all" = "সকলো বিলোপ কৰক";
 "search-did-you-mean" = "আপুনি $1 বুজাব খুজিছে নেকি?";
 "search-field-placeholder-text" = "ৱিকিপিডিয়াত সন্ধান কৰক";
 "search-recent-clear-cancel" = "বাতিল";

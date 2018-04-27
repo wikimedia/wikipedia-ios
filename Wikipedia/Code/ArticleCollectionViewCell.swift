@@ -17,6 +17,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public let actionsView = ActionsView()
     public var alertIcon = UIImageView()
     public var alertLabel = UILabel()
+    open var alertType: ReadingListAlertType?
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
     public var actions: [Action] {
@@ -162,14 +163,22 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
-            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let batchEditSelectViewWidth = abs(batchEditingTranslation)
+            
+            var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
+            if isRTL {
+                if (traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular) || traitCollection.verticalSizeClass == .compact && traitCollection.horizontalSizeClass == .compact {
+                    batchEditX = size.width - batchEditSelectViewWidth
+                } else {
+                    batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
+                }
+            }
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
-            let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
-
-            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
-            let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
+            let actionsViewWidth = isRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
+            let x = isRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -305,21 +314,39 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
-            layoutMarginsAdditions.right = 0 - swipeTranslation
-            layoutMarginsAdditions.left = swipeTranslation
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            if isArticleRTL {
+                layoutMarginsAdditions.left = 0 - swipeTranslation
+                layoutMarginsAdditions.right = swipeTranslation
+            } else {
+                layoutMarginsAdditions.right = 0 - swipeTranslation
+                layoutMarginsAdditions.left = swipeTranslation
+            }
             setNeedsLayout()
         }
     }
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
-            let isOpen = batchEditingTranslation > 0
-            if isOpen, let batchEditSelectView = batchEditSelectView {
-                contentView.addSubview(batchEditSelectView)
-                batchEditSelectView.clipsToBounds = true
+            defer {
+                let isOpen = batchEditingTranslation > 0
+                if isOpen, let batchEditSelectView = batchEditSelectView {
+                    contentView.addSubview(batchEditSelectView)
+                    batchEditSelectView.clipsToBounds = true
+                }
+                setNeedsLayout()
             }
-            setNeedsLayout()
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+            let marginAddition = batchEditingTranslation / 1.5
+            
+            if isDeviceRTL && isArticleRTL {
+                layoutMarginsAdditions.left = marginAddition
+            } else if isDeviceRTL || isArticleRTL {
+                layoutMarginsAdditions.right = marginAddition
+            } else {
+                layoutMarginsAdditions.left = marginAddition
+            }
         }
     }
 

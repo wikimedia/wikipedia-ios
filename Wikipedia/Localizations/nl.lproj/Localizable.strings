@@ -11,6 +11,7 @@
 // Author: MedShot
 // Author: MrLeopold
 // Author: Nemo bis
+// Author: Patio
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
@@ -312,6 +313,18 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
+"reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
+"reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
+"reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
+"reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
+"reading-lists-article-not-synced" = "Niet gesynchroniseerd";
+"reading-lists-article-not-synced-article-limit-exceeded" = "Artikelmaximum overschreden, kan artikel niet synchroniseren";
+"reading-lists-article-not-synced-list-limit-exceeded" = "Lijstmaximum overschreden, kan artikel niet synchroniseren";
+"reading-lists-article-queued-to-be-downloaded" = "Artikel in te downloaden wachtrij";
+"reading-lists-articles-not-synced-limit-exceeded" = "Enkele artikelen niet gesynchroniseerd, maximum overschreden";
+"reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
 "reading-themes-controls-accessibility-light-theme-button" = "Licht thema";
@@ -322,12 +335,8 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
-"saved-clear-all" = "Wissen";
-"saved-pages-clear-cancel" = "Annuleren";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Weet u zeker dat u alle opgeslagen pagina's wilt verwijderen?";
-"saved-pages-clear-delete-all" = "Ja, alles verwijderen";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
+"saved-pages-progress-syncing" = "Artikelsynchronisatie loopt...";
 "saved-title" = "Opgeslagen";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-did-you-mean" = "Bedoelde u $1?";
@@ -357,6 +366,7 @@
 "settings-notifications-trending" = "Huidige actuele gebeurtenissen";
 "settings-primary-language" = "Primair";
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen artikelen wissen?";
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";

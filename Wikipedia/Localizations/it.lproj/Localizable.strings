@@ -81,7 +81,7 @@
 "action-unsave" = "Annulla salvataggio";
 "action-unsaved-accessibility-notification" = "Voce non salvata";
 "action-update" = "Aggiorna";
-"add-articles-to-reading-list" = "Aggiungi $1 all'elenco di lettura";
+"add-articles-to-reading-list" = "Aggiungi $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";
 "announcements-dismiss" = "Nascondi";
 "appearance-settings-adjust-text-sizing" = "Regola la dimensione del testo dell'articolo";
@@ -130,6 +130,7 @@
 "empty-no-history-message" = "Tieni traccia di quello che hai letto qui";
 "empty-no-history-title" = "Nessuna cronologia da mostrare";
 "empty-no-reading-lists-title" = "Organizza le voci salvate in elenchi di lettura";
+"empty-no-saved-pages-in-reading-list-title" = "Nessuna pagina salvata in questo elenco";
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-search-results-message" = "Nessun risultato trovato";
@@ -245,6 +246,7 @@
 "menu-trash-accessibility-label" = "Cancella";
 "more-languages-tooltip-description" = "Cerca in Wikipedia in quasi 300 lingue";
 "more-languages-tooltip-title" = "Aggiungi lingue";
+"move-articles-to-reading-list" = "Sposta $1 {{PLURAL:$1|voce|voci}} all'elenco di lettura";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-km" = "$1 km";
@@ -309,6 +311,10 @@
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lettori";
 "reading-list-add-hint-title" = "Aggiungere \"$1\" a un elenco di lettura?";
+"reading-list-create-new-list-button-title" = "Crea elenco di lettura";
+"reading-list-create-new-list-description" = "Descrizione";
+"reading-list-create-new-list-reading-list-name" = "Nome elenco di lettura";
+"reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
@@ -316,6 +322,7 @@
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
 "reading-lists-default-list-title" = "Salvato";
 "reading-lists-delete-reading-list-alert-title" = "Cancellare {{PLURAL:$1|elenco|elenchi}}?";
+"reading-lists-sort-saved-articles" = "Ordina voci salvate";
 "reading-themes-controls-accessibility-dark-theme-button" = "Tema scuro";
 "reading-themes-controls-accessibility-light-theme-button" = "Tema chiaro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema seppia";
@@ -326,11 +333,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "saved-all-articles-title" = "Tutte le voci";
-"saved-clear-all" = "Pulisci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
-"saved-pages-clear-cancel" = "Annulla";
-"saved-pages-clear-confirmation-heading" = "Sei sicuro di voler cancellare tutte le voci che hai salvato e rimuoverle da tutti gli elenchi di lettura?";
-"saved-pages-clear-delete-all" = "Sì, cancella tutto";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
@@ -354,7 +357,7 @@
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
-"settings-storage-and-syncing-server-sync-title" = "Sincronizza con il server";
+"settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";
 "share-a-fact-share-menu-item" = "Condividi-un-fatto…";
