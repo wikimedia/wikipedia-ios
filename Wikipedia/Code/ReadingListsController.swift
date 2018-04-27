@@ -58,7 +58,7 @@ public enum ReadingListError: Error, Equatable {
         case .listExistsWithTheSameName:
             return WMFLocalizedString("reading-list-exists-with-same-name", value: "Reading list name already in use", comment: "Informs the user that a reading list exists with the same name.")
         case .listWithProvidedNameNotFound(let name):
-            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
+            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found. %1$@ will be replaced with the name of the reading list which could not be found")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occurred while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
