@@ -14,7 +14,7 @@ class ReadingListHintViewController: UIViewController {
     
     private var hintButtonTitle: String {
         let articleTitle = article?.displayTitle ?? "article"
-        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-add-hint-title", value: "Add “%1$@” to a reading list?", comment: "Title of the reading list hint that appears after an article is saved"), "\(articleTitle)")
+        return String.localizedStringWithFormat(WMFLocalizedString("reading-list-add-hint-title", value: "Add “%1$@” to a reading list?", comment: "Title of the reading list hint that appears after an article is saved. %1$@ will be replaced with the saved article title"), "\(articleTitle)")
     }
     
     @IBOutlet private weak var hintView: UIView?
@@ -139,7 +139,7 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
             isConfirmationImageViewHidden = true
         }
         self.readingList = readingList
-        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list"), name)
+        let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-article-added-confirmation", value: "Article added to “%1$@”", comment: "Confirmation shown after the user adds an article to a list. %1$@ will be replaced with the name of the list the article was added to."), name)
         confirmationLabel.text = title
         isHintViewHidden = true
         delegate?.readingListHint(self, shouldBeHidden: false)
