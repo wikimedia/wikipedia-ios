@@ -338,12 +338,13 @@
                 NSString *qqqMatchString = [qqqString substringWithRange:qqqMatch.range];
                 if ([qqqMatchString isEqualToString:enMatchString]) {
                     didFindEnMatchStringAtLeastOnceInQQQMatchString = YES;
+                    break;
                 }
             }
 
             XCTAssertTrue(didFindEnMatchStringAtLeastOnceInQQQMatchString, @"\n\tExpected each substitution (i.e. \"$1\") in string is mentioned at least once in its comment.\n\t\tString: \"%@\"\n\t\tComment: \"%@\"\n\t\tKey: \"%@\"\n\n", [enString stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"], [qqqString stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"], enKey);
-            
-            if(!didFindEnMatchStringAtLeastOnceInQQQMatchString){
+
+            if (!didFindEnMatchStringAtLeastOnceInQQQMatchString) {
                 // No need keep testing if a string already failed our assertion once.
                 break;
             }
