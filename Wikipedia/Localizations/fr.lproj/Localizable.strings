@@ -359,7 +359,7 @@
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Désactiver la synchronisation supprimera ces articles de votre compte. Si vous les enlevez de votre appareil, ils ne seront plus récupérables en réactivant la synchronisation plus tard.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
