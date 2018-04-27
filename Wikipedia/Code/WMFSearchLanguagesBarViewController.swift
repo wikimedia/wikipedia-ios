@@ -39,12 +39,12 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         get {
             if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
-            }else{
+            } else {
                 
                 if let appLang = MWKLanguageLinkController.sharedInstance().appLanguage {
                     self.currentlySelectedSearchLanguage = appLang
                     return appLang
-                }else{
+                } else {
                     assertionFailure("appLanguage should have been set at this point")
                     return nil
                 }
@@ -85,8 +85,9 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         view.wmf_configureSubviewsForDynamicType()
         
         gradientView.translatesAutoresizingMaskIntoConstraints = false
-        gradientView.startPoint = .zero
-        gradientView.endPoint = CGPoint(x: 1, y: 0)
+        let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        gradientView.startPoint = isRTL ? CGPoint(x: 1, y: 0) : .zero
+        gradientView.endPoint = isRTL ? .zero : CGPoint(x: 1, y: 0)
         
         scrollView.clipsToBounds = false
     }
