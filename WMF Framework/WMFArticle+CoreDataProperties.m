@@ -14,6 +14,7 @@
 @dynamic imageWidth;
 @dynamic isDownloaded;
 @dynamic isExcludedFromFeed;
+@dynamic isSavedToDisk;
 @dynamic key;
 @dynamic latitude;
 @dynamic longitude;
