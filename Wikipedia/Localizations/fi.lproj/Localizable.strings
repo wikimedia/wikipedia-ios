@@ -131,6 +131,7 @@
 "empty-no-history-title" = "Ei näytettävää historiaa";
 "empty-no-reading-lists-message" = "Napauta sinistä ‘+’ merkkiä luodaksesi lukulistoja matkustettaville paikoille, suosikkiartikkeleille ja paljon enemmän";
 "empty-no-reading-lists-title" = "Järjestä tallennetut artikkelit lukulistoilla";
+"empty-no-saved-pages-in-reading-list-title" = "Ei sivuja tallennettuna tähän listaan";
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";

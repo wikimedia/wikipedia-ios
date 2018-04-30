@@ -1,3 +1,17 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Amire80
+// Author: Brion
+// Author: Liuxinyu970226
+// Author: Nemo bis
+// Author: Nike
+// Author: Purodha
+// Author: Robby
+// Author: Shirayuki
+// Author: Siebrand
+// Author: Tacsipacsi
+// Author: Woytecr
+
 "about-content-license" = "Header text for content license section";
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
@@ -41,27 +55,27 @@
 "account-creation-title" = "Title for account creation interface";
 "action-add-to" = "Title of the action that adds the selection to something else.";
 "action-add-to-reading-list" = "Title of the action that adds a selected articles to a reading list";
-"action-cancel" = "Title of the cancel action.";
+"action-cancel" = "Title of the cancel action.\n{{Identical|Cancel}}";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
-"action-remove" = "Title of the action that removes the selection from the current context.";
+"action-remove" = "Title of the action that removes the selection from the current context.\n{{Identical|Remove}}";
 "action-save" = "Title for the 'Save' action\n{{Identical|Save}}";
 "action-saved" = "Short title for the save button in the 'Saved' state - Indicates the article is saved. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action\n{{Identical|Saved}}";
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible.\n{{Identical|Share}}";
-"action-sort" = "Title of the sort action.";
+"action-sort" = "Title of the sort action.\n{{Identical|Sort}}";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible.\n{{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
-"action-update" = "Title of the update action.";
+"action-update" = "Title of the update action.\n{{Identical|Update}}";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
-"alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
-"announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
+"alert-no-internet" = "{{Doc-mobileapp-internet}}\nMessage shown in an alert banner when there is no connection to the internet.";
+"announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|Dismiss}}";
 "app-store-short-description" = "Short description of the app for the app store";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
-"appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
+"appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting. \"Quick facts\" is {{msg-wm|Wikipedia-ios-info-box-title}}.";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the the Reading themes section in Appearance settings";
 "appearance-settings-set-automatic-table-opening" = "Tables in article will be opened automatically";
@@ -69,14 +83,14 @@
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Title of the action that deletes the selected articles article.";
-"article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list.";
+"article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list. $1 will be replaced with the appropriate plural for the number of deleted articles.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-others" = "Title for list of languages not in user's preferred languages";
 "article-languages-yours" = "Title for list of user's preferred languages";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
-"article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option\n{{Identical|Share}}";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
@@ -92,8 +106,8 @@
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
 "button-saved-remove" = "Remove from saved button text used in various places.";
 "button-skip" = "Button text for skip button used in various places.";
-"cancel" = "Cancel";
-"cc-by-sa-3.0" = "Name of the CC BY-SA 3.0 license - https://creativecommons.org/licenses/by-sa/3.0";
+"cancel" = "Cancel\n{{Identical|Cancel}}";
+"cc-by-sa-3.0" = "Name of the CC BY-SA 3.0 license - https://creativecommons.org/licenses/by-sa/3.0\n{{Identical|CC BY-SA}}";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
@@ -107,7 +121,7 @@
 "edit-summary-title" = "Title for edit summary area of the preview page";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
-"empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
+"empty-no-feed-message" = "{{Doc-mobileapp-internet}}\nBody of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
 "empty-no-feed-title" = "Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available";
 "empty-no-history-message" = "Message of a blank screen shown when a user has no history";
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
@@ -123,7 +137,7 @@
 "explore-because-you-read" = "Text for 'Because you read' header";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
-"explore-featured-article-heading" = "Text for 'Featured article' header";
+"explore-featured-article-heading" = "Text for 'Featured article' header\n{{Identical|Featured article}}";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
@@ -184,9 +198,9 @@
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-send-report" = "Alert dialog button text for crash reporting to be sent";
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
-"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
+"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
-"home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
+"home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed. \"Explore\" is {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}";
 "home-button-popover-title" = "Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
@@ -212,7 +226,7 @@
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "info-box-title" = "The title of infoboxes – in collapsed and expanded form";
-"languages-title" = "Title for language picker\n{{Identical|Language}}";
+"languages-title" = "Title for language picker\n{{Identical|Change language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "license-footer-text" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
@@ -285,23 +299,23 @@
 "places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
 "places-enable-location-action-button-title" = "Button title to enable location access";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
-"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
+"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\". \"Explore\" is {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}";
 "places-filter-list-title" = "Title shown above list of search filters that can be selected";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles\n{{Identical|Article}}";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
 "places-search-articles-that-match" = "A search suggestion for filtering the articles in the area by the search string. $1 is replaced by the a string depending on the current filter ('Nearby' for 'Top Articles' or 'Saved articles'). $2 is replaced with the search string";
-"places-search-default-text" = "Placeholder text that displays where is there no current place search\n{{Identical|Search}}";
+"places-search-default-text" = "Placeholder text that displays where is there no current place search";
 "places-search-did-you-mean" = "Title displayed on a button shown when the current search has no results. $1 is replaced by the short description of the location of the most likely correction.";
 "places-search-recently-searched-header" = "Recently searched - header for the list of recently searched items";
 "places-search-saved-articles" = "A search suggestion for saved articles";
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
-"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
+"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles\n{{Identical|Nearby}}";
 "places-search-your-current-location" = "A search suggestion for showing articles near your current location.";
 "places-show-filter-list-accessibility-label" = "Accessibility title for the button that shows search filters";
 "places-title" = "Title of the Places screen shown on the places tab.";
@@ -312,7 +326,7 @@
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking\n{{Identical|Number}}";
 "readers-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate number of readers for a given article - $1 is replaced with the number of readers\n{{Identical|Reader}}";
-"reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved";
+"reading-list-add-hint-title" = "Title of the reading list hint that appears after an article is saved. $1 will be replaced with the saved article title";
 "reading-list-add-saved-button-title" = "Title for button to add saved articles to reading list.";
 "reading-list-add-saved-subtitle" = "Subtitle explaining that saved articles can be added to reading lists.";
 "reading-list-add-saved-title" = "Title explaining saved articles were found.";
@@ -320,14 +334,14 @@
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
 "reading-list-create-new-list-button-title" = "Title for button allowing the user to create a new reading list.";
-"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.";
+"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.\n{{Identical|Description}}";
 "reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
 "reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
 "reading-list-do-not-keep-button-title" = "Title for button to remove saved articles from device.";
-"reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
-"reading-list-entry-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account.";
-"reading-list-entry-limit-reached" = "Informs the user that adding the selected articles to their reading list would put them over the limit.";
+"reading-list-entry-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of articles in the list is decreased. $1 will be replaced with the maximum number of allowed articles in a list";
+"reading-list-entry-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of articles per account. $1 will be replaced with the maximum number of allowed articles";
+"reading-list-entry-limit-reached" = "Informs the user that adding the selected articles to their reading list would put them over the limit. $1 will be replaced with the appropriate plural for the number of articles the user is trying to add. $2 will be replaced with the maximum number of articles allowed per list. $3 will be replaced with the name of the list.";
 "reading-list-exists-with-same-name" = "Informs the user that a reading list exists with the same name.";
 "reading-list-generic-error" = "An unexpected error occurred while updating your reading lists.";
 "reading-list-keep-button-title" = "Title for button to keep synced articles on device.";
@@ -338,9 +352,9 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Title for button to sort unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Subtitle letting the user know that there is a limit of 5000 unsorted articles.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Title for letting the user know that the limit for unsorted articles was reached.";
-"reading-list-list-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased.";
-"reading-list-list-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account.";
-"reading-list-list-limit-reached" = "Informs the user that they have reached the allowed limit of reading lists per account.";
+"reading-list-list-limit-exceeded-message" = "Informs the user that the reading list and its articles will not be synced until the number of lists is decreased. $1 will be replaced with the maximimum number of allowed lists.";
+"reading-list-list-limit-exceeded-title" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed lists";
+"reading-list-list-limit-reached" = "Informs the user that they have reached the allowed limit of reading lists per account. $1 will be replaced with the maximum number of allowed reading lists";
 "reading-list-login-button-title" = "Title for button to login to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-button-title" = "Title for button to login or create account to sync saved articles and reading lists.";
 "reading-list-login-or-create-account-title" = "Title for syncing saved articles.";
@@ -361,23 +375,23 @@
 "reading-list-unable-to-delete" = "Informs the user that an error occurred while deleting their reading list.";
 "reading-list-unable-to-remove-entry" = "Informs the user that an error occurred while removing an entry from their reading list.";
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
-"reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found.";
-"reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list";
+"reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found. $1 will be replaced with the name of the reading list which could not be found";
+"reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list. $1 will be replaced with the name of the list the article was added to.";
 "reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-queued-to-be-downloaded" = "Text of the alert label informing the user that article is queued to be downloaded.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
-"reading-lists-conflicting-reading-list-name-updated" = "Alert message informing user that their reading list was renamed.";
+"reading-lists-conflicting-reading-list-name-updated" = "Alert message informing user that their reading list was renamed. $1 will be replaced the previous name of the list. $2 will be replaced with the new name of the list.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
 "reading-lists-default-list-title" = "The title of the default saved pages list\n{{Identical|Saved}}";
-"reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists.";
-"reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists.";
-"reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed.";
+"reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists. $1 will be replaced with the appropriate plural for the number of lists being deleted";
+"reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists. $1 is replaced with number of lists to be deleted. $1 will be replaced with the appropriate plural for the number of lists being deleted";
+"reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed. $1 will be replaced with the number of articles which were synced and $2 will be replaced with the number of reading lists which were synced";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
 "reading-lists-sort-saved-articles" = "Title of the alert that allows sorting saved articles.";
-"reading-lists-split-notification" = "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists.";
+"reading-lists-split-notification" = "Alert message informing user that existing lists exceeding the entry limit have been split into multiple lists. $1 will be replaced with the maximum number of articles allowed per reading list.";
 "reading-lists-sync-error-no-internet-connection" = "Alert message informing user that syncing will resume when internet connection is available.";
 "reading-themes-controls-accessibility-black-theme-button" = "Accessibility label for the black theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-brightness-slider" = "Accessibility label for the brightness slider in the Reading Themes Controls popover";
@@ -386,10 +400,10 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Accessibility label for the sepia theme button in the Reading Themes Controls popover";
 "reading-themes-controls-accessibility-text-size-slider" = "Accessibility label for the text size slider that adjusts article text size.";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]'\n{{Identical|Reference}}";
-"relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday";
-"relative-date-hours-ago" = "Relative hours ago. 0 = this hour.";
-"relative-date-minutes-ago" = "Relative minutes ago. 0 = just now.";
-"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year";
+"relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with appropriate plural for number of days ago.";
+"relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with appropriate plural for number of hours ago.";
+"relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with appropriate plural for number of minutes ago.";
+"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with appropriate plural for number of years ago.";
 "relogin-failed-retry-login-button-title" = "Title for button to let user attempt to log in again.";
 "relogin-failed-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
 "relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
@@ -402,8 +416,8 @@
 "saved-reading-lists-title" = "Title of the reading lists button on Saved screen";
 "saved-search-default-text" = "Placeholder text for the search bar in Saved";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
-"saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists";
-"saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaces with the appropriate plural for the number of articles being unsaved.";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the appropriate plural for the number of articles to be unsaved.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
@@ -436,8 +450,8 @@
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Title of the alert shown before erasing all saved article.";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles\n{{Identical|Erase}}";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles. $1 will be replaced with a number and a system provided localized unit indicator for MB or KB.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-full-sync" = "Message confirming to the user that their reading lists will be synced in the background";
 "settings-storage-and-syncing-server-sync-footer-text" = "Footer text of the settings button that initiates saved articles and reading lists server sync";
@@ -470,12 +484,12 @@
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
-"theme-black-display-name" = "Black theme name presented to the user";
-"theme-dark-display-name" = "Dark theme name presented to the user";
-"theme-default-display-name" = "Default theme name presented to the user";
+"theme-black-display-name" = "Black theme name presented to the user\n{{Identical|Black}}";
+"theme-dark-display-name" = "Dark theme name presented to the user\n{{Identical|Dark}}";
+"theme-default-display-name" = "Default theme name presented to the user\n{{Identical|Default}}";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
 "top-read-header-generic" = "Wikipedia\n{{Identical|Wikipedia}}";
-"top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
+"top-read-header-with-language" = "$1 language editon of Wikipedia - for example English Wikipedia\n{{Identical|Wikipedia}}";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
@@ -484,7 +498,7 @@
 "two-factor-login-with-regular-code" = "Button text for showing text fields for normal two factor login";
 "view-in-browser-footer-link" = "Link to view article in browser";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
-"welcome-exploration-explore-feed-title" = "Title for Explore feed";
+"welcome-exploration-explore-feed-title" = "Title for Explore feed. Translate as \"the feed ''of'' Explore\".\n\n\"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "welcome-exploration-on-this-day-description" = "Description for On this day";
 "welcome-exploration-on-this-day-title" = "Title for On this day";
 "welcome-exploration-places-description" = "Description for Places";
