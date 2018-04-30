@@ -44,6 +44,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
             case .downloading:
                 alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
+            case .saveToDiskFailed:
+                alertLabelText = WMFLocalizedString("reading-lists-article-save-to-disk-failed", value: "Device limited exceeded, unable to sync article", comment: "Text of the alert label informing the user that article couldn't be saved due to insufficient storage available")
             }
             
             alertLabel.text = alertLabelText
