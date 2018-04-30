@@ -1088,7 +1088,20 @@ static uint64_t bundleHash() {
 
 - (void)postArticleSaveToDiskDidFailNotification:(NSURL *)articleURL error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
+        NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:articleURL, WMFArticleSaveToDiskDidFailArticleURLKey, nil];
+        WMFArticle *article = [self fetchArticleWithURL:articleURL];
+        if (error) {
+            [userInfo setObject:error forKey:WMFArticleSaveToDiskDidFailErrorKey];
+            if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+                article.isSavedToDisk = NO;
+            }
+        } else {
+            article.isSavedToDisk = YES;
+        }
+        NSError *saveError = nil;
+        if (![self save:&saveError]) {
+            DDLogError(@"Error saving new value for isSavedToDisk of WMFArticle: %@", saveError);
+        }
         [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
     });
 }
@@ -1105,29 +1118,23 @@ static uint64_t bundleHash() {
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
     NSError *error;
-    BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:article.url error:error];
-    }
+    [self saveDictionary:export path:path name:@"Article.plist" error:&error];
+    [self postArticleSaveToDiskDidFailNotification:article.url error:error];
 }
 
 - (void)saveSection:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
     NSError *error;
-    BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
-    }
+    [self saveDictionary:export path:path name:@"Section.plist" error:&error];
+    [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
-    BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
-    }
+    [self saveString:html path:path name:@"Section.html" error:&error];
+    [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
@@ -1564,11 +1571,12 @@ static uint64_t bundleHash() {
 - (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
     [[WMFImageController sharedInstance] removeLegacyCache];
-    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
         DDLogError(@"Error removing unreferenced articles: %@", error);
-    } success:^{
-        DDLogDebug(@"Successfully removed unreferenced articles");
-    }];
+    }
+        success:^{
+            DDLogDebug(@"Successfully removed unreferenced articles");
+        }];
 }
 
 #pragma mark - Remote Configuration
