@@ -108,10 +108,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
-        cell.swipeTranslation = translation
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
