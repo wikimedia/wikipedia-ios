@@ -248,7 +248,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false, isDownloaded: Bool, isSaved: Bool) {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
@@ -275,6 +275,24 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 break
             }
         }
+        
+        guard alertType == nil || alertType == .downloading || alertType == .saveToDiskFailed else {
+            return
+        }
+        
+        if !isSaved {
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
+            alertType = .saveToDiskFailed
+        } else if !isDownloaded {
+            isAlertLabelHidden = false
+            isAlertIconHidden = false
+            alertType = .downloading
+        } else {
+            isAlertLabelHidden = true
+            isAlertIconHidden = true
+            alertType = nil
+        }
     }
     
     func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
@@ -298,10 +316,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         isStatusViewHidden = article.isDownloaded
-        if alertType == nil || alertType == .downloading {
-            isAlertLabelHidden = article.isDownloaded
-            alertType = .downloading
-        }
         
         isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         
