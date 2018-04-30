@@ -145,7 +145,7 @@ class Section {
     block.id = `content_block_${this.id}`
     block.class = 'content_block'
     block.innerHTML = this.html()
-    
+
     container.appendChild(block)
 
     return container

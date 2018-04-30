@@ -58,7 +58,7 @@ public enum ReadingListError: Error, Equatable {
         case .listExistsWithTheSameName:
             return WMFLocalizedString("reading-list-exists-with-same-name", value: "Reading list name already in use", comment: "Informs the user that a reading list exists with the same name.")
         case .listWithProvidedNameNotFound(let name):
-            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found.")
+            let format = WMFLocalizedString("reading-list-with-provided-name-not-found", value: "A reading list with the name “%1$@” was not found. Please make sure you have the correct name.", comment: "Informs the user that a reading list with the name they provided was not found. %1$@ will be replaced with the name of the reading list which could not be found")
             return String.localizedStringWithFormat(format, name)
         case .unableToCreateList:
             return WMFLocalizedString("reading-list-unable-to-create", value: "An unexpected error occurred while creating your reading list. Please try again later.", comment: "Informs the user that an error occurred while creating their reading list.")
@@ -91,8 +91,8 @@ public class ReadingListsController: NSObject {
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncWasEnabledForAccount")
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey = NSNotification.Name("wasSyncEnabledForAccount")
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey = NSNotification.Name("wasSyncEnabledOnDevice")
+    @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey = NSNotification.Name("wasSyncDisabledOnDevice")
     
-    @objc public static let syncStateDidChangeNotification = NSNotification.Name(rawValue: "WMFReadingListsSyncStateDidChangeNotification")
     @objc public static let syncDidStartNotification = NSNotification.Name(rawValue: "WMFSyncDidStartNotification")
     
     @objc public static let readingListsWereSplitNotification = NSNotification.Name("WMFReadingListsWereSplit")
@@ -424,8 +424,9 @@ public class ReadingListsController: NSObject {
     func postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(_ wasSyncEnabledForAccount: Bool) {
         // we want to know if sync was ever enabled on this device
         let wasSyncEnabledOnDevice = apiController.lastRequestType == .setup
+        let wasSyncDisabledOnDevice = apiController.lastRequestType == .teardown
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice)])
+            NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey: NSNumber(value: wasSyncDisabledOnDevice)])
         }
     }
     
