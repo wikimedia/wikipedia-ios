@@ -248,7 +248,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false, isDownloaded: Bool, isSaved: Bool) {
+    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false, isDownloaded: Bool, isSavedToDisk: Bool) {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
@@ -280,7 +280,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             return
         }
         
-        if !isSaved {
+        if !isSavedToDisk {
             isAlertLabelHidden = false
             isAlertIconHidden = false
             alertType = .saveToDiskFailed
