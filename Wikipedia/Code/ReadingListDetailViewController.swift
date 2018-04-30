@@ -564,11 +564,7 @@ extension ReadingListDetailViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
-        var isSavedToDisk = false
-        if let articleURL = article.url {
-            isSavedToDisk = dataStore.article(with: articleURL).isCached()
-        }
-        cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isDownloaded: article.isDownloaded, isSavedToDisk: isSavedToDisk)
+        cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isDownloaded: article.isDownloaded, isSavedToDisk: article.isSavedToDisk)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
         cell.actions = availableActions(at: indexPath)

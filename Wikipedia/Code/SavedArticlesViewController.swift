@@ -264,11 +264,7 @@ extension SavedArticlesViewController {
         }
         
         if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
-            var isSavedToDisk = false
-            if let articleURL = article.url {
-                isSavedToDisk = dataStore.article(with: articleURL).isCached()
-            }
-            cell.configureAlert(for: entry, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true, isDownloaded: article.isDownloaded, isSavedToDisk: isSavedToDisk)
+            cell.configureAlert(for: entry, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true, isDownloaded: article.isDownloaded, isSavedToDisk: article.isSavedToDisk)
         }
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
