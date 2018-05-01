@@ -1667,8 +1667,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                                              sticky:YES
                                               dismissPreviousAlerts:YES
                                                         tapCallBack:nil];
+        [self.savedArticlesFetcher stop];
     }
-    [self.savedArticlesFetcher stop];
 }
 
 #pragma mark - Appearance
