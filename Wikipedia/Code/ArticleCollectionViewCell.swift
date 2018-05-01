@@ -180,13 +180,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
             
             var batchEditSelectViewWidth: CGFloat = 0
+            var batchEditX: CGFloat = 0
+            
             if isBatchEditingPaneOpen {
                 batchEditSelectViewWidth = isDeviceRTL && !isArticleRTL ? layoutMargins.right : layoutMargins.left
+                batchEditX = 0
+            } else {
+                batchEditX =  -batchEditSelectViewWidth
             }
-            var batchEditX = isBatchEditingPaneOpen ? 0 : -batchEditSelectViewWidth
             if isDeviceRTL || isArticleRTL {
                 batchEditX = isBatchEditingPaneOpen ? size.width - batchEditSelectViewWidth : size.width
             }
+            
             if #available(iOSApplicationExtension 11.0, *) {
                 let safeX = isDeviceRTL || isArticleRTL ? safeAreaInsets.right : safeAreaInsets.left
                 if safeX > 0 {
@@ -195,10 +200,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                         batchEditX = safeX
                     }
                     if isDeviceRTL || isArticleRTL {
-                        batchEditX = size.width - batchEditSelectViewWidth - safeX
+                        batchEditX = isBatchEditingPaneOpen ? size.width - batchEditSelectViewWidth - safeX : size.width
                     }
                 }
             }
+            
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
