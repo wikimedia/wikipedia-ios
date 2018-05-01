@@ -128,6 +128,20 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     self.updating = YES;
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
+    
+    NSFetchRequest *notSavedToDiskRequest = [WMFArticle fetchRequest];
+    notSavedToDiskRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isSavedToDisk != YES"];
+    notSavedToDiskRequest.fetchLimit = 1;
+    NSError *notSavedToDiskError = nil;
+    WMFArticle *articleToSaveToDisk = [[self.dataStore.viewContext executeFetchRequest:notSavedToDiskRequest error:&notSavedToDiskError] firstObject];
+    if (notSavedToDiskError) {
+        DDLogError(@"Error fetching article to save to disk: %@", notSavedToDiskError);
+    }
+    if (articleToSaveToDisk.URL) {
+        MWKArticle *mwkArticle = [self.dataStore articleWithURL:articleToSaveToDisk.URL];
+        [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES];
+    }
+    
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
     request.fetchLimit = 1;
@@ -160,19 +174,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
             self.updating = NO;
         }
     } else {
-        NSFetchRequest *notSavedToDiskRequest = [WMFArticle fetchRequest];
-        notSavedToDiskRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isSavedToDisk != YES"];
-        notSavedToDiskRequest.fetchLimit = 1;
-        NSError *notSavedToDiskError = nil;
-        WMFArticle *articleToSaveToDisk = [[self.dataStore.viewContext executeFetchRequest:notSavedToDiskRequest error:&notSavedToDiskError] firstObject];
-        if (notSavedToDiskError) {
-            DDLogError(@"Error fetching article to save to disk: %@", notSavedToDiskError);
-        }
-        if (articleToSaveToDisk.URL) {
-            MWKArticle *mwkArticle = [self.dataStore articleWithURL:articleToSaveToDisk.URL];
-            [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES];
-        }
-
         NSFetchRequest *downloadedRequest = [WMFArticle fetchRequest];
         downloadedRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate == nil && isDownloaded == YES"];
         downloadedRequest.fetchLimit = 1;
