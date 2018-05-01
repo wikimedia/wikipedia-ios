@@ -202,7 +202,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if #available(iOSApplicationExtension 11.0, *) {
                 let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
                 batchEditSelectViewWidth -= safeX
-                if !isBatchEditOnRight {
+                if !isBatchEditOnRight && isBatchEditingPaneOpen {
                     batchEditX += safeX
                 }
             }
