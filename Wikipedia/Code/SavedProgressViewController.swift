@@ -11,7 +11,7 @@ class SavedProgressViewController: UIViewController, Themeable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = WMFLocalizedString("saved-pages-progress-syncing", value: "Article syncing in progress...", comment: "Text for article syncing progress bar label")
+        label.text = WMFLocalizedString("saved-pages-progress-syncing", value: "Article downloading in progress...", comment: "Text for article downloading progress bar label")
     }
     
     override func viewWillAppear(_ animated: Bool) {
