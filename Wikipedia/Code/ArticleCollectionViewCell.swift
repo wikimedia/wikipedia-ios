@@ -187,7 +187,18 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             if isDeviceRTL || isArticleRTL {
                 batchEditX = isBatchEditingPaneOpen ? size.width - batchEditSelectViewWidth : size.width
             }
-            
+            if #available(iOSApplicationExtension 11.0, *) {
+                let safeX = safeAreaLayoutGuide.layoutFrame.origin.x
+                if safeX > 0 {
+                    if isBatchEditingPaneOpen {
+                        batchEditSelectViewWidth = safeX
+                        batchEditX = safeX
+                    }
+                    if isDeviceRTL || isArticleRTL {
+                        batchEditX = size.width - batchEditSelectViewWidth - safeX
+                    }
+                }
+            }
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
