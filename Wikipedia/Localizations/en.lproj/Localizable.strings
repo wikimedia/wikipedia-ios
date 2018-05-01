@@ -398,7 +398,7 @@
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
-"saved-pages-progress-syncing" = "Article downloading in progress...";
+"saved-pages-progress-syncing" = "Article download in progress...";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
