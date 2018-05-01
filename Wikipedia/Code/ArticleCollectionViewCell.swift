@@ -188,7 +188,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 batchEditX = isBatchEditingPaneOpen ? size.width - batchEditSelectViewWidth : size.width
             }
             if #available(iOSApplicationExtension 11.0, *) {
-                let safeX = safeAreaLayoutGuide.layoutFrame.origin.x
+                let safeX = isDeviceRTL || isArticleRTL ? safeAreaInsets.right : safeAreaInsets.left
                 if safeX > 0 {
                     if isBatchEditingPaneOpen {
                         batchEditSelectViewWidth = safeX
