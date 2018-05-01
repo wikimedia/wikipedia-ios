@@ -205,6 +205,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 if !isBatchEditOnRight && isBatchEditingPaneOpen {
                     batchEditX += safeX
                 }
+                if isBatchEditOnRight && !isBatchEditingPaneOpen {
+                    batchEditX -= batchEditSelectViewWidth
+                }
             }
             
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
