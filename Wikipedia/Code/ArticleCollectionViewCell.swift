@@ -368,9 +368,17 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             let marginAddition = batchEditingTranslation / 1.5
 
             if isArticleRTL {
-                layoutMarginsAdditions.right = marginAddition
+                if isDeviceRTL {
+                    layoutMarginsAdditions.left = marginAddition
+                } else {
+                    layoutMarginsAdditions.right = marginAddition
+                }
             } else {
-                layoutMarginsAdditions.left = marginAddition
+                if isDeviceRTL {
+                    layoutMarginsAdditions.right = marginAddition
+                } else {
+                    layoutMarginsAdditions.left = marginAddition
+                }
             }
             
             if isBatchEditingPaneOpen, let batchEditSelectView = batchEditSelectView {
