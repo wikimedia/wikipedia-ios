@@ -65,7 +65,28 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) {
+        let authenticationDelegate = readingListsController.authenticationDelegate
+        let isUserLoggedInLocally = authenticationDelegate?.isUserLoggedInLocally() ?? false
+        let isUserLoggedInRemotely = authenticationDelegate?.isUserLoggedInRemotely() ?? false
+        let isUserLoggedIn = isUserLoggedInLocally && isUserLoggedInRemotely
+        
+        let reLogin = {
+            guard let authenticationDelegate = authenticationDelegate else {
+                assertionFailure("authenticationDelegate is nil")
+                return
+            }
+            taskGroup.enter()
+            authenticationDelegate.attemptLogin({
+                taskGroup.leave()
+            }, failure: {})
+            taskGroup.wait()
+        }
+        
+        if isUserLoggedInLocally && !isUserLoggedInRemotely {
+            reLogin()
+        }
+    
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable), isUserLoggedIn {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -153,20 +174,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard let authenticationDelegate = readingListsController.authenticationDelegate, authenticationDelegate.isUserLoggedInLocally() else {
+        guard isUserLoggedIn else {
             try localSyncOnly()
             return
-        }
-        
-        if !authenticationDelegate.isUserLoggedInRemotely() {
-            taskGroup.enter()
-            authenticationDelegate.attemptLogin({
-                taskGroup.leave()
-            }, failure: {
-                try? localSyncOnly()
-                return
-            })
-            taskGroup.wait()
         }
         
         // local only sync
@@ -189,8 +199,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         self.finish()
                     }
                 } else {
-                    // do not post the notification if sync was disabled on this device
-                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup, apiController.lastRequestType != .teardown {
+                    if let apiError = updateError as? APIReadingListError, apiError == .notSetup {
                         readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(false)
                     }
                     try localSyncOnly()
@@ -222,6 +231,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             } else {
                 syncState.remove(.needsRemoteEnable)
                 moc.wmf_setValue(NSNumber(value: syncState.rawValue), forKey: WMFReadingListSyncStateKey)
+                self.readingListsController.postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(true)
                 try moc.save()
             }
         }

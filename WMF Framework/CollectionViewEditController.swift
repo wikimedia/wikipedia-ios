@@ -27,6 +27,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     struct SwipeInfo {
         let translation: CGFloat
         let velocity: CGFloat
+        let state: SwipeState
     }
     var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
     
@@ -91,6 +92,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
         return swipeInfoByIndexPath[indexPath]?.translation
+    }
+    
+    public func configureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        guard !layoutOnly,
+            let cell = cell as? SwipeableCell,
+            let info = swipeInfoByIndexPath[indexPath] else {
+            return
+        }
+        cell.swipeState = info.state
+        cell.actionsView.delegate = self
+        cell.swipeTranslation = info.translation
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -219,7 +231,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
-       let batchEditToolbarViewController = BatchEditToolbarViewController()
+       let batchEditToolbarViewController = BatchEditToolbarViewController(nibName: "BatchEditToolbarViewController", bundle: Bundle.wmf)
         batchEditToolbarViewController.items = self.batchEditToolbarItems
         return batchEditToolbarViewController
     }()
@@ -249,7 +261,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 swipeTranslation = isRTL ? maxWidth + (maxExtension * log(delta)) : 0 - maxWidth - (maxExtension * log(delta))
             }
             cell.swipeTranslation = swipeTranslation
-            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX)
+            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX, state: .swiping)
         case .cancelled:
             fallthrough
         case .failed:
@@ -303,7 +315,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         let targetTranslation =  cell.swipeTranslationWhenOpen
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
-        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
+        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity, state: .open)
         cell.swipeState = .open
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }

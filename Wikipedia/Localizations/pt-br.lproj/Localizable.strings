@@ -349,6 +349,10 @@
 "reading-list-api-error-entry-limit" = "Esta entrada não é sincronizada porque você atingiu o limite para o número de entradas nesta lista.";
 "reading-list-api-error-generic" = "Ocorreu um erro inesperado ao sincronizar suas listas de leitura.";
 "reading-list-api-error-list-limit" = "Esta lista não é sincronizada porque você atingiu o limite para o número de listas sincronizadas.";
+"reading-list-create-new-list-button-title" = "Criar lista de leitura";
+"reading-list-create-new-list-description" = "Descrição";
+"reading-list-create-new-list-reading-list-name" = "Nome da lista de leitura";
+"reading-list-create-new-list-title" = "Criar uma nova lista";
 "reading-list-deleted-accessibility-notification" = "A lista de leitura foi eliminada";
 "reading-list-do-not-keep-button-title" = "Não, eliminar os artigos do dispositivo";
 "reading-list-entry-limit-exceeded-message" = "Para continuar a sincronização de todos os artigos desta lista, reduza o número de artigos para $1.";
@@ -458,21 +462,17 @@
 "settings-notifications-trending" = "Tendências atuais";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "O primeiro idioma desta lista é usado como o idioma principal para o aplicativo. Alterar esse idioma alterará o conteúdo diário (como o artigo em destaque) exibido no Explorar.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando entrar, a Wikimedia grave nas suas preferências os artigos salvados e as listas de leitura para a sincronização";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia salve nas suas preferências os artigos salvados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar artigos e listas salvas";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos salvados irá removê-los da sua conta de usuário se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Apagar todos os artigos salvados?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Apagar";
-// Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Se ativou a sincronização a partir deste dispositivo, apagar os seus artigos salvados irá removê-los também da sua conta de usuário.\n\nApagar os seus artigos salvados libertará cerca de $1 de armazenamento.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Apagar artigos salvados";
 "settings-storage-and-syncing-full-sync" = "As suas listas de leitura serão sincronizadas em segundo plano";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma sincronização do servidor, para atualização dos seus artigos e listas de leitura sincronizados";
+"settings-storage-and-syncing-server-sync-footer-text" = "Pedir uma atualização dos seus artigos e listas de leitura sincronizados.";
 "settings-storage-and-syncing-server-sync-title" = "Atualizar as listas de leitura sincronizadas";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura salvados (por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Mostrar a lista de leitura salvados(por exemplo, a lista padrão) como uma lista separada na vista de listas de leitura. Esta lista aparece nos dispositivos Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostrar lista de leitura salvada";
 "settings-storage-and-syncing-title" = "Armazenamento e sincronização de artigos";
 "settings-support" = "Ajude a Wikipédia";
@@ -514,7 +514,7 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
-"welcome-exploration-explore-feed-title" = "Explore o feed";
+"welcome-exploration-explore-feed-title" = "Feed de explorar";
 "welcome-exploration-on-this-day-description" = "Volte no tempo para aprender o que aconteceu hoje na história";
 "welcome-exploration-on-this-day-title" = "Neste dia";
 "welcome-exploration-places-description" = "Descubra marcos próximos de você ou procure por lugares em todo o mundo";

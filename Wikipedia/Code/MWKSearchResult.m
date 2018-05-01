@@ -75,12 +75,6 @@
         }];
 }
 
-+ (NSValueTransformer *)wikidataDescriptionJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value, BOOL *success, NSError *__autoreleasing *error) {
-        return [value firstObject];
-    }];
-}
-
 + (MTLValueTransformer *)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *extract, BOOL *success, NSError *__autoreleasing *error) {
         // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
@@ -102,17 +96,17 @@
             }
             // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
             // so double-check wiki data description for "disambiguation page" string.
-            NSArray *descriptions = value[@"terms.description"];
-            return @(descriptions.count && [descriptions.firstObject containsString:@"disambiguation page"]);
+            NSString *description = value[@"description"];
+            return @(description && [description containsString:@"disambiguation page"]);
         }];
 }
 
-+ (NSValueTransformer *)isListJSONTransformer {
++ (MTLValueTransformer *)isListJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^(NSArray *value, BOOL *success, NSError **error) {
+        transformerUsingForwardBlock:^(NSString *value, BOOL *success, NSError **error) {
             // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
             // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
-            return @(value.count && [value.firstObject containsString:@"Wikimedia list article"]);
+            return @(value && [value containsString:@"Wikimedia list article"]);
         }];
 }
 
@@ -219,11 +213,11 @@
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"description"],
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"description",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",

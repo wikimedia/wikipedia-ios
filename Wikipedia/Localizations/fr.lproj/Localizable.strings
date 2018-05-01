@@ -345,6 +345,10 @@
 "reading-list-api-error-entry-limit" = "Cette entrée n’est pas synchronisée parce que vous avez atteint la limite du nombre d’entrées dans cette liste.";
 "reading-list-api-error-generic" = "Une erreur inattendue est survenue lors de la synchronisation de vos listes de lecture.";
 "reading-list-api-error-list-limit" = "Cette liste n’est pas synchronisée parce que vous avez atteint la limite du nombre de listes synchronisées.";
+"reading-list-create-new-list-button-title" = "Créer la liste de lecture";
+"reading-list-create-new-list-description" = "Description";
+"reading-list-create-new-list-reading-list-name" = "Nom de la liste de lecture";
+"reading-list-create-new-list-title" = "Créer une nouvelle liste";
 "reading-list-deleted-accessibility-notification" = "Liste de lecture supprimée";
 "reading-list-do-not-keep-button-title" = "Non, supprimer les articles de l’appareil";
 "reading-list-entry-limit-exceeded-message" = "Veuillez réduire le nombre d’articles dans cette liste à $1 pour reprendre la synchronisation de tous les articles de cette liste.";
@@ -355,7 +359,7 @@
 "reading-list-keep-button-title" = "Oui, conserver les articles dans l’appareil";
 "reading-list-keep-subtitle" = "Voici les articles synchronisés avec votre compte Wikipédia. Voulez-vous les conserver sur cet appareil après vous être déconnecté ?";
 "reading-list-keep-sync-disabled-additional-subtitle" = "Désactiver la synchronisation supprimera ces articles de votre compte. Si vous les enlevez de votre appareil, ils ne seront plus récupérables en réactivant la synchronisation plus tard.";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Non, supprimer les articles de l’appareil et de mon compte Wikipédia";
 "reading-list-keep-title" = "Conserver les articles enregistrés dans l’appareil ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Trier les articles";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Il existe une limite de 5000 articles non triés. Veuillez trier vos articles existants dans des listes pour continuer à synchroniser les articles non triés.";
@@ -454,21 +458,17 @@
 "settings-notifications-trending" = "Tendance des événements actuels";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez pour synchroniser";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez et synchronisez.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "L’effacement de vos articles enregistrés les supprimera de votre compte utilisateur si vous avez la synchronisation activée, tout comme de cet appareil. Vous ne pourrez pas annuler cette action.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Effacer tous les articles enregistrés ?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Effacer";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, et depuis cet appareil.\n\nEffacer vos articles enregistrés libérera environ $1 d’espace.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Effacer vos articles enregistrés les supprimera de votre compte utilisateur si vous avez activé la synchronisation, et de cet appareil.\n\nEffacer vos articles enregistrés libérera environ $1 d’espace.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Effacer les articles enregistrés";
 "settings-storage-and-syncing-full-sync" = "Vos listes de lecture seront synchronisées en tâche de fond";
-// Fuzzy
-"settings-storage-and-syncing-server-sync-footer-text" = "Demander une synchronisation pour le serveur pour une mise à jour de vos articles et de vos listes de lecture synchronisés";
+"settings-storage-and-syncing-server-sync-footer-text" = "Demander une mise à jour de vos articles et de vos listes de lecture synchronisés.";
 "settings-storage-and-syncing-server-sync-title" = "Mise à jour des listes de lecture synchronisées";
-// Fuzzy
-"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Afficher la liste de lecture Sauvegardés (par ex. défaut) comme une liste séparée dans la vue de vos listes de lecture. Cette liste apparaît sur les appareils Android";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Afficher la liste de lecture Sauvegardé (par ex. défaut) comme une liste séparée dans la vue de vos listes de lecture. Cette liste apparaît sur les appareils Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Afficher la liste de lecture Sauvegardés";
 "settings-storage-and-syncing-title" = "Stockage des articles et synchronisation";
 "settings-support" = "Soutenir Wikipédia";

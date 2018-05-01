@@ -297,6 +297,9 @@
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
+"reading-list-create-new-list-description" = "Beschreiwung";
+"reading-list-create-new-list-reading-list-name" = "Numm vun der Lieslëscht";
+"reading-list-create-new-list-title" = "Eng nei Lëscht uleeën";
 "reading-list-deleted-accessibility-notification" = "Lieslëscht geläscht";
 "reading-list-do-not-keep-button-title" = "Neen, Artikele vum Apparat läschen";
 "reading-list-exists-with-same-name" = "Numm vun der Lieslëscht gëtt scho benotzt";
