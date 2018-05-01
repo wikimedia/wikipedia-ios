@@ -609,8 +609,12 @@ div.pagelib_collapse_table_container {
 }
 
 .pagelib_edit_section_link_container {
-  margin: 2px 8px;
+  margin: 0px 0px 0px 16px;
   opacity: .54;
+}
+
+h2 + .pagelib_edit_section_link_container {
+	margin-bottom: 8px;
 }
 
 .pagelib_theme_dark .pagelib_edit_section_link_container,
@@ -633,6 +637,7 @@ div.pagelib_collapse_table_container {
 .content-rtl .pagelib_edit_section_link_container {
   -webkit-transform: scaleX( -1 );
   transform: scaleX( -1 );
+  margin: 0px 16px 0px 0px;
 }
 
 a.pagelib_edit_section_link {
