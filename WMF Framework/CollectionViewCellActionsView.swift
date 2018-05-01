@@ -91,7 +91,6 @@ public class ActionsView: SizeThatFitsView, Themeable {
                 var x: CGFloat = isRTL ? size.width - buttonWidth : 0
                 for button in buttons {
                     button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
-                    x += buttonDelta
                     if isRTL {
                         x -= buttonDelta
                     } else {
