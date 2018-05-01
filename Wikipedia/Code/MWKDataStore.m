@@ -1086,12 +1086,12 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)postArticleSaveToDiskDidFailNotification:(NSURL *)articleURL error:(NSError *)error {
+- (void)postArticleSaveToDiskDidFailNotificationIfNeeded:(NSURL *)articleURL error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:articleURL, WMFArticleSaveToDiskDidFailArticleURLKey, nil];
         WMFArticle *article = [self fetchArticleWithURL:articleURL];
         if (error) {
-            [userInfo setObject:error forKey:WMFArticleSaveToDiskDidFailErrorKey];
+            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
             if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
                 article.isSavedToDisk = NO;
             }
@@ -1102,7 +1102,6 @@ static uint64_t bundleHash() {
         if (![self save:&saveError]) {
             DDLogError(@"Error saving new value for isSavedToDisk of WMFArticle: %@", saveError);
         }
-        [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
     });
 }
 
@@ -1119,7 +1118,7 @@ static uint64_t bundleHash() {
     NSDictionary *export = [article dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    [self postArticleSaveToDiskDidFailNotification:article.url error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:article.url error:error];
 }
 
 - (void)saveSection:(MWKSection *)section {
@@ -1127,14 +1126,14 @@ static uint64_t bundleHash() {
     NSDictionary *export = [section dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Section.plist" error:&error];
-    [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:section.article.url error:error];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
     [self saveString:html path:path name:@"Section.html" error:&error];
-    [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:section.article.url error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
