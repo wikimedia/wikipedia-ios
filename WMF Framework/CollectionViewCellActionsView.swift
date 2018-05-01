@@ -85,14 +85,18 @@ public class ActionsView: SizeThatFitsView, Themeable {
                 needsSubviews = false
             }
             let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
-            let buttons = isRTL ? self.buttons.reversed() : self.buttons
             if activatedIndex == NSNotFound {
                 let numberOfButtons = CGFloat(subviews.count)
                 let buttonDelta = min(size.width, maximumWidth) / numberOfButtons
-                var x: CGFloat = isRTL ? max(0, size.width - maximumWidth) : 0
+                var x: CGFloat = isRTL ? size.width - buttonWidth : 0
                 for button in buttons {
                     button.frame = CGRect(x: x, y: 0, width: buttonWidth, height: size.height)
                     x += buttonDelta
+                    if isRTL {
+                        x -= buttonDelta
+                    } else {
+                        x += buttonDelta
+                    }
                 }
             } else {
                 var x: CGFloat = isRTL ? size.width : 0 - (buttonWidth * CGFloat(buttons.count - 1))
