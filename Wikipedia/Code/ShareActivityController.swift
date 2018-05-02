@@ -207,8 +207,11 @@ class ShareActivityController: UIActivityViewController {
     
     @objc init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
         var items = [Any]()
-        
-        items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo),WMFImageURLActivitySource(info: imageInfo), imageDownload.image.staticImage])
+
+        let image = imageDownload.image
+        let imageToShare: Any = image.animatedImage?.data ?? image.staticImage
+
+        items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo), WMFImageURLActivitySource(info: imageInfo), imageToShare])
         
         super.init(activityItems: items, applicationActivities: [])
     }
