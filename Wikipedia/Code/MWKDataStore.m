@@ -8,9 +8,6 @@
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
-NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
-NSString *const WMFArticleSaveToDiskDidFailArticleURLKey = @"WMFArticleSavedToDiskWithArticleURLKey";
-NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWithErrorKey";
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -1086,26 +1083,6 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)postArticleSaveToDiskDidFailNotificationIfNeeded:(NSURL *)articleURL error:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (error) {
-            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
-        }
-    });
-}
-
-- (void)updateArticleWithURL:(NSURL *)articleURL error:(NSError *)error {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        WMFArticle *article = [self fetchArticleWithURL:articleURL];
-        [article updatePropertiesForError:error];
-        NSError *saveError = nil;
-        if (![self save:&saveError]) {
-            DDLogError(@"Error saving error on WMFArticle: %@", saveError);
-        }
-    });
-}
-
 - (void)saveArticle:(MWKArticle *)article {
     if (article.url.wmf_title == nil) {
         return;
@@ -1119,9 +1096,6 @@ static uint64_t bundleHash() {
     NSDictionary *export = [article dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    NSURL *articleURL = article.url;
-    [self updateArticleWithURL:articleURL error:error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSection:(MWKSection *)section {
@@ -1129,18 +1103,12 @@ static uint64_t bundleHash() {
     NSDictionary *export = [section dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Section.plist" error:&error];
-    NSURL *articleURL = section.article.url;
-    [self updateArticleWithURL:articleURL error:error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
     [self saveString:html path:path name:@"Section.html" error:&error];
-    NSURL *articleURL = section.article.url;
-    [self updateArticleWithURL:articleURL error:error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
