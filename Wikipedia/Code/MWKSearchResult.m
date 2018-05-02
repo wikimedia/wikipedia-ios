@@ -11,6 +11,8 @@
 
 @property (nonatomic, assign, readwrite) NSInteger revID;
 
+@property (nonatomic, copy, readwrite) NSString *title;
+
 @property (nonatomic, copy, readwrite) NSString *displayTitle;
 
 @property (nonatomic, copy, readwrite) NSString *wikidataDescription;
@@ -35,6 +37,7 @@
 
 - (instancetype)initWithArticleID:(NSInteger)articleID
                             revID:(NSInteger)revID
+                            title:(NSString *)title
                      displayTitle:(NSString *)displayTitle
               wikidataDescription:(NSString *)wikidataDescription
                           extract:(NSString *)extract
@@ -47,6 +50,7 @@
     if (self) {
         self.articleID = articleID;
         self.revID = revID;
+        self.title = title;
         self.displayTitle = displayTitle;
         self.wikidataDescription = wikidataDescription;
         self.extract = extract;
@@ -57,6 +61,10 @@
         self.titleNamespace = titleNamespace;
     }
     return self;
+}
+
++ (NSUInteger)modelVersion {
+    return 2;
 }
 
 #pragma mark - MTLJSONSerializing
@@ -100,6 +108,22 @@
             return @(description && [description containsString:@"disambiguation page"]);
         }];
 }
+
++ (NSValueTransformer *)displayTitleJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+                NSString *displayTitle = value[@"pageprops.displaytitle"];
+                if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
+                    return displayTitle;
+                }
+                NSString *title = value[@"title"];
+                if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
+                    return title;
+                }
+                return @"";
+            }];
+}
+
 
 + (MTLValueTransformer *)isListJSONTransformer {
     return [MTLValueTransformer
@@ -209,7 +233,8 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
+    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
@@ -228,10 +253,10 @@
     if (siteURL == nil) {
         return nil;
     }
-    if (self.displayTitle == nil) {
+    if (self.title == nil) {
         return nil;
     }
-    return [siteURL wmf_URLWithTitle:self.displayTitle];
+    return [siteURL wmf_URLWithTitle:self.title];
 }
 
 @end

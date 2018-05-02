@@ -309,8 +309,7 @@ public class ReadingListsController: NSObject {
             entry.createdDate = NSDate()
             entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true
-            let url = URL(string: key)
-            entry.displayTitle = url?.wmf_title
+            entry.displayTitle = article.displayTitle
             entry.list = readingList
         }
         try readingList.updateArticlesAndEntries()
