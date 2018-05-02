@@ -208,6 +208,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showStorageAndSyncing];
             break;
         }
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+            [self showStorageAndSyncingDebug];
+            break;
+        }
         case WMFSettingsMenuItemType_Support:
             [self wmf_openExternalUrl:[self donationURL] useSafari:YES];
             break;
@@ -332,10 +336,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
-        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
-        }];
-    }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout
+                                                                     theme:self.theme
+                                                                completion:^{
+                                                                    [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+                                                                    }];
+                                                                }];
 }
 
 #pragma mark - Languages
@@ -380,6 +386,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [storageAndSyncingSettingsVC applyTheme:self.theme];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
+}
+
+- (void)showStorageAndSyncingDebug {
+#if DEBUG
+    DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+#endif
 }
 
 #pragma mark - Debugging
@@ -465,6 +478,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
+#if DEBUG
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
+#endif
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];
     return section;
