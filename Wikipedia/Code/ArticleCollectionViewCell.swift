@@ -1,7 +1,5 @@
 import UIKit
 
-
-
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
@@ -160,25 +158,63 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    public var isDeviceRTL: Bool {
+        return effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    public var isArticleRTL: Bool {
+        return articleSemanticContentAttribute == .forceRightToLeft
+    }
+    
+    public var layoutMarginsWithAdditionsAndMultipliers: UIEdgeInsets {
+        let margins = self.layoutMargins
+        let multipliers = self.layoutMarginsMultipliers
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+    }
+    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
-            let batchEditSelectViewWidth = abs(batchEditingTranslation)
-            
-            var batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
-            if isRTL {
-                if (traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular) || traitCollection.verticalSizeClass == .compact && traitCollection.horizontalSizeClass == .compact {
+            let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+            let isBatchEditOnRight = isDeviceRTL
+            var batchEditSelectViewWidth: CGFloat = 0
+            var batchEditX: CGFloat = 0
+
+            if isBatchEditingPaneOpen {
+                if isArticleRTL {
+                    batchEditSelectViewWidth = isBatchEditOnRight ? layoutMargins.left : layoutMargins.right // left and and right here are really leading and trailing, should change to UIDirectionalEdgeInsets when available
+                } else {
+                    batchEditSelectViewWidth = isBatchEditOnRight ? layoutMargins.right : layoutMargins.left
+                }
+                if isBatchEditOnRight {
                     batchEditX = size.width - batchEditSelectViewWidth
                 } else {
-                    batchEditX = size.width - batchEditSelectViewWidth + layoutMargins.left
+                    batchEditX = 0
+                }
+            } else {
+                if isBatchEditOnRight {
+                    batchEditX = size.width
+                } else {
+                    batchEditX = 0 - batchEditSelectViewWidth
                 }
             }
+            
+            if #available(iOSApplicationExtension 11.0, *) {
+                let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
+                batchEditSelectViewWidth -= safeX
+                if !isBatchEditOnRight && isBatchEditingPaneOpen {
+                    batchEditX += safeX
+                }
+                if isBatchEditOnRight && !isBatchEditingPaneOpen {
+                    batchEditX -= batchEditSelectViewWidth
+                }
+            }
+            
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
-            let actionsViewWidth = isRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
-            let x = isRTL ? 0 : size.width - actionsViewWidth
+            let actionsViewWidth = isDeviceRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
+            let x = isDeviceRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -325,28 +361,34 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             setNeedsLayout()
         }
     }
+    
+    private var isBatchEditingPaneOpen: Bool {
+        return batchEditingTranslation > 0
+    }
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            defer {
-                let isOpen = batchEditingTranslation > 0
-                if isOpen, let batchEditSelectView = batchEditSelectView {
-                    contentView.addSubview(batchEditSelectView)
-                    batchEditSelectView.clipsToBounds = true
-                }
-                setNeedsLayout()
-            }
-            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
-            let isDeviceRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
             let marginAddition = batchEditingTranslation / 1.5
-            
-            if isDeviceRTL && isArticleRTL {
-                layoutMarginsAdditions.left = marginAddition
-            } else if isDeviceRTL || isArticleRTL {
-                layoutMarginsAdditions.right = marginAddition
+
+            if isArticleRTL {
+                if isDeviceRTL {
+                    layoutMarginsAdditions.left = marginAddition
+                } else {
+                    layoutMarginsAdditions.right = marginAddition
+                }
             } else {
-                layoutMarginsAdditions.left = marginAddition
+                if isDeviceRTL {
+                    layoutMarginsAdditions.right = marginAddition
+                } else {
+                    layoutMarginsAdditions.left = marginAddition
+                }
             }
+            
+            if isBatchEditingPaneOpen, let batchEditSelectView = batchEditSelectView {
+                contentView.addSubview(batchEditSelectView)
+                batchEditSelectView.clipsToBounds = true
+            }
+            setNeedsLayout()
         }
     }
 
