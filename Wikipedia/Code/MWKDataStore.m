@@ -1088,13 +1088,18 @@ static uint64_t bundleHash() {
 
 - (void)postArticleSaveToDiskDidFailNotificationIfNeeded:(NSURL *)articleURL error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        WMFArticle *article = [self fetchArticleWithURL:articleURL];
         if (error) {
             NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
             [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
-            if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
-                article.isSavedToDisk = NO;
-            }
+        }
+    });
+}
+
+- (void)updateIsSavedToDiskAttributeOfArticleWith:(NSURL *)articleURL error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        WMFArticle *article = [self fetchArticleWithURL:articleURL];
+        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+            article.isSavedToDisk = NO;
         } else {
             article.isSavedToDisk = YES;
         }
@@ -1118,7 +1123,9 @@ static uint64_t bundleHash() {
     NSDictionary *export = [article dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:article.url error:error];
+    NSURL *articleURL = article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSection:(MWKSection *)section {
@@ -1126,14 +1133,18 @@ static uint64_t bundleHash() {
     NSDictionary *export = [section dataExport];
     NSError *error;
     [self saveDictionary:export path:path name:@"Section.plist" error:&error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:section.article.url error:error];
+    NSURL *articleURL = section.article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
     [self saveString:html path:path name:@"Section.html" error:&error];
-    [self postArticleSaveToDiskDidFailNotificationIfNeeded:section.article.url error:error];
+    NSURL *articleURL = section.article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
