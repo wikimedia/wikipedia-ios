@@ -52,7 +52,7 @@ If you're interested in contributing to the project, you can find our current pr
 
 We do all of our active development on the [develop](https://github.com/wikimedia/wikipedia-ios) branch. Your pull requests will automatically be targeted at that branch by Github. To make merging easier, be sure you create your branches based on the develop branch.
 
-Once your contributions are ready for review, post a pull request on GitHub and Travis should verify your changes.  Once the build succeeds, one of the maintainers will stop to approve the changes for merging.
+Once your contributions are ready for review, add yourself in alphabetical order under contributors in `Code/AboutViewController.plist` and post a pull request on GitHub. One of the maintainers will review the PR. Thanks for contributing! 🎉
 
 ### Gerrit
 We also maintain a mirror of this repository on Gerrit (see above), syncing the code after every release. If you'd rather use Gerrit to send us a patch, you'll need to:
