@@ -114,24 +114,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     [self unobserveSavedPages];
 }
 
-#pragma mark - Updating article
-
-- (void)trySavingArticlesToDiskIfNeeded {
-    NSFetchRequest *notSavedToDiskRequest = [WMFArticle fetchRequest];
-    notSavedToDiskRequest.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isSavedToDisk != YES && isDownloaded == YES"];
-    notSavedToDiskRequest.fetchLimit = 1;
-    NSError *notSavedToDiskError = nil;
-    WMFArticle *articleToSaveToDisk = [[self.dataStore.viewContext executeFetchRequest:notSavedToDiskRequest error:&notSavedToDiskError] firstObject];
-    if (notSavedToDiskError) {
-        DDLogError(@"Error fetching article to save to disk: %@", notSavedToDiskError);
-        return;
-    }
-    if (articleToSaveToDisk.URL) {
-        MWKArticle *mwkArticle = [self.dataStore articleWithURL:articleToSaveToDisk.URL];
-        [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:YES];
-    }
-}
-
 #pragma mark - Observing
 
 - (void)articleWasUpdated:(NSNotification *)note {
@@ -146,8 +128,6 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     self.updating = YES;
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
-    
-    [self trySavingArticlesToDiskIfNeeded];
     
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];

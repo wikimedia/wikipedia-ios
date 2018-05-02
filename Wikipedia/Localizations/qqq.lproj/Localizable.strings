@@ -368,6 +368,7 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-queued-to-be-downloaded" = "Text of the alert label informing the user that article is queued to be downloaded.";
 "reading-lists-article-save-to-disk-failed" = "Text of the alert label informing the user that article couldn't be saved due to insufficient storage available";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Recovery suggestion to clear space on the user's device to allow articles to download";
 "reading-lists-articles-not-synced-limit-exceeded" = "Text of the alert label informing the user that some articles couldn't be synced.";
 "reading-lists-conflicting-reading-list-name-updated" = "Alert message informing user that their reading list was renamed. $1 will be replaced the previous name of the list. $2 will be replaced with the new name of the list.";
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";

@@ -1095,17 +1095,13 @@ static uint64_t bundleHash() {
     });
 }
 
-- (void)updateIsSavedToDiskAttributeOfArticleWith:(NSURL *)articleURL error:(NSError *)error {
+- (void)updateArticleWithURL:(NSURL *)articleURL error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
         WMFArticle *article = [self fetchArticleWithURL:articleURL];
-        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
-            article.isSavedToDisk = NO;
-        } else {
-            article.isSavedToDisk = YES;
-        }
+        [article updatePropertiesForError:error];
         NSError *saveError = nil;
         if (![self save:&saveError]) {
-            DDLogError(@"Error saving new value for isSavedToDisk of WMFArticle: %@", saveError);
+            DDLogError(@"Error saving error on WMFArticle: %@", saveError);
         }
     });
 }
@@ -1124,7 +1120,7 @@ static uint64_t bundleHash() {
     NSError *error;
     [self saveDictionary:export path:path name:@"Article.plist" error:&error];
     NSURL *articleURL = article.url;
-    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self updateArticleWithURL:articleURL error:error];
     [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
@@ -1134,7 +1130,7 @@ static uint64_t bundleHash() {
     NSError *error;
     [self saveDictionary:export path:path name:@"Section.plist" error:&error];
     NSURL *articleURL = section.article.url;
-    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self updateArticleWithURL:articleURL error:error];
     [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
@@ -1143,7 +1139,7 @@ static uint64_t bundleHash() {
     NSError *error;
     [self saveString:html path:path name:@"Section.html" error:&error];
     NSURL *articleURL = section.article.url;
-    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self updateArticleWithURL:articleURL error:error];
     [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
