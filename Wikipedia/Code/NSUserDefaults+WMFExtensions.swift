@@ -111,7 +111,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public var wmf_appInstallID: String? {
         get {
-            return self.object(forKey: WMFAppInstallIDKey) as? String
+            return self.string(forKey: WMFAppInstallIDKey)
         }
         set {
             self.set(newValue, forKey: WMFAppInstallIDKey)
