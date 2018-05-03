@@ -16,7 +16,6 @@ static NSString *const kActionSystemShareSheet = @"systemsharesheet";
 static NSString *const kActionShare = @"share";
 static NSString *const kTargetKey = @"target";
 
-static NSString *const kAppInstallIdKey = @"appInstallID"; // uppercase
 static NSString *const kShareSessionTokenKey = @"shareSessionToken";
 static NSString *const kTextKey = @"text"; // same as kShareModeImage by design
 static NSString *const kArticleKey = @"article";
@@ -29,7 +28,6 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
 
 @interface WMFShareFunnel ()
 @property NSString *sessionToken;
-@property NSString *appInstallId;
 @property NSString *articleTitle;
 @property int articleId;
 @property NSString *selection;
@@ -53,7 +51,6 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
         _sessionToken = [self singleUseUUID];
-        _appInstallId = [self wmf_appInstallID];
         _articleTitle = [title wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_General];
         _articleId = [article articleId];
     }
@@ -69,7 +66,6 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     }
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[kShareSessionTokenKey] = self.sessionToken;
-    dict[kAppInstallIdKey] = self.appInstallId;
     dict[kPageIdKey] = @(self.articleId);
     dict[kArticleKey] = self.articleTitle;
     [dict wmf_maybeSetObject:self.selection forKey:kTextKey];
