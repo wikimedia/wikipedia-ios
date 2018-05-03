@@ -9,15 +9,15 @@ We do all of our active development on the [develop](https://github.com/wikimedi
 Once your contributions are ready for review, add yourself in alphabetical order under contributors in `Code/AboutViewController.plist` and post a pull request on GitHub. One of the maintainers will review the PR. Thanks for contributing! 🎉
 
 ## What can I work on?
-If you're looking for easy work, look at the tasks marked with the "Easy" tag. This link will show you all the "Easy" tasks in the iOS backlog.
+If you're looking for easy work, look at the tasks marked with the "Easy" tag. [This link](https://phabricator.wikimedia.org/project/board/782/query/7vYTqNgpvqjh/) will show you all the "Easy" tasks in the iOS backlog.
 
-If you're ready to pick up more difficult work, look at the iOS backlog and pick something from the Bug Backlog column. This link will show you all the tasks in the iOS backlog. If the status of the task is unclear or you need more information, feel free to leave a comment and we'll try to respond as soon as possible.
+If you're ready to pick up more difficult work, look at the iOS backlog and pick something from the Bug Backlog column. [This link](https://phabricator.wikimedia.org/project/board/782/) will show you all the tasks in the iOS backlog. If the status of the task is unclear or you need more information, feel free to leave a comment and we'll try to respond as soon as possible.
 
 ## I found my task. What next?
 Now you want to let the team know what you're working on.
 
 1. In Phabricator, assign the task to yourself.
-2. Add the tag representing the current release to the task. This link will take you to currently open releases. Tagging your task with the name of the release will add it to the release board.
+2. Add the tag representing the current release to the task. [This link](https://phabricator.wikimedia.org/search/query/WlSMhOAWTG73/) will take you to currently open releases. Tagging your task with the name of the release will add it to the release board.
 3. On the release board, move the task to the "Doing" column.
 4. When you're done developing, move the task to the "Needs Code Review" column.
 
