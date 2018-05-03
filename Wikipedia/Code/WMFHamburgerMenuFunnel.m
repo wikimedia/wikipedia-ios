@@ -20,7 +20,7 @@ static NSString *const kMenuTypeKey = @"menuItem";
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
         _sessionToken = [self singleUseUUID];
-        _appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
+        _appInstallId = [self wmf_appInstallID];
     }
     return self;
 }

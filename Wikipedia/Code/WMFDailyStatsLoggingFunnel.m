@@ -11,7 +11,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppDailyStats
     self = [super initWithSchema:@"MobileWikiAppDailyStats" version:12637385];
     if (self) {
-        self.appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
+        self.appInstallId = [self wmf_appInstallID];
     }
     return self;
 }

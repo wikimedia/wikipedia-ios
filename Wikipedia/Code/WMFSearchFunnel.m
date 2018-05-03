@@ -23,7 +23,7 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
         self.rate = 100;
-        _appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
+        _appInstallId = [self wmf_appInstallID];
     }
     return self;
 }

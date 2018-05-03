@@ -45,13 +45,11 @@
     return [[NSUUID UUID] UUIDString];
 }
 
-- (NSString *)persistentUUID:(NSString *)key {
-    NSString *prefKey = [@"EventLoggingID-" stringByAppendingString:key];
-    NSString *uuid = [[NSUserDefaults wmf_userDefaults] objectForKey:prefKey];
+- (NSString*)wmf_appInstallID {
+    NSString *uuid = [[NSUserDefaults wmf_userDefaults] wmf_appInstallID];
     if (!uuid) {
         uuid = [self singleUseUUID];
-        [[NSUserDefaults wmf_userDefaults] setObject:uuid forKey:prefKey];
-        [[NSUserDefaults wmf_userDefaults] synchronize];
+        [[NSUserDefaults wmf_userDefaults] setWmf_appInstallID:uuid];
     }
     return uuid;
 }

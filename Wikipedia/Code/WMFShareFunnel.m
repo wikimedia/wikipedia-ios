@@ -53,7 +53,7 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
         _sessionToken = [self singleUseUUID];
-        _appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
+        _appInstallId = [self wmf_appInstallID];
         _articleTitle = [title wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_General];
         _articleId = [article articleId];
     }
