@@ -277,10 +277,7 @@ extension SavedArticlesViewController {
         cell.delegate = self
         cell.layoutMargins = layout.readableMargins
         
-        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
-        cell.swipeTranslation = translation
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
 }
 
