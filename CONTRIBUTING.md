@@ -27,3 +27,8 @@ You can let us know by unassigning the task and moving it back to the "Tasks fro
 ##How will I know that my contribution was accepted?
 Your PR will be merged and your task will get moved to the "Ready for PM Signoff" column. This means that your contribution will be included in the upcoming release.
 
+##Tips
+[Wiki on how to use Phabricator](https://www.mediawiki.org/wiki/Phabricator/Project_management)
+
+
+
