@@ -1086,10 +1086,27 @@ static uint64_t bundleHash() {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)postArticleSaveToDiskDidFailNotification:(NSURL *)articleURL error:(NSError *)error {
+- (void)postArticleSaveToDiskDidFailNotificationIfNeeded:(NSURL *)articleURL error:(NSError *)error {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
-        [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+        if (error) {
+            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: articleURL};
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+        }
+    });
+}
+
+- (void)updateIsSavedToDiskAttributeOfArticleWith:(NSURL *)articleURL error:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        WMFArticle *article = [self fetchArticleWithURL:articleURL];
+        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+            article.isSavedToDisk = NO;
+        } else {
+            article.isSavedToDisk = YES;
+        }
+        NSError *saveError = nil;
+        if (![self save:&saveError]) {
+            DDLogError(@"Error saving new value for isSavedToDisk of WMFArticle: %@", saveError);
+        }
     });
 }
 
@@ -1105,29 +1122,29 @@ static uint64_t bundleHash() {
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
     NSError *error;
-    BOOL success = [self saveDictionary:export path:path name:@"Article.plist" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:article.url error:error];
-    }
+    [self saveDictionary:export path:path name:@"Article.plist" error:&error];
+    NSURL *articleURL = article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSection:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
     NSError *error;
-    BOOL success = [self saveDictionary:export path:path name:@"Section.plist" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
-    }
+    [self saveDictionary:export path:path name:@"Section.plist" error:&error];
+    NSURL *articleURL = section.article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
     NSString *path = [self pathForSection:section];
     NSError *error;
-    BOOL success = [self saveString:html path:path name:@"Section.html" error:&error];
-    if (!success) {
-        [self postArticleSaveToDiskDidFailNotification:section.article.url error:error];
-    }
+    [self saveString:html path:path name:@"Section.html" error:&error];
+    NSURL *articleURL = section.article.url;
+    [self updateIsSavedToDiskAttributeOfArticleWith:articleURL error:error];
+    [self postArticleSaveToDiskDidFailNotificationIfNeeded:articleURL error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
@@ -1564,11 +1581,12 @@ static uint64_t bundleHash() {
 - (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
     [[WMFImageController sharedInstance] removeLegacyCache];
-    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError * _Nonnull error) {
+    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
         DDLogError(@"Error removing unreferenced articles: %@", error);
-    } success:^{
-        DDLogDebug(@"Successfully removed unreferenced articles");
-    }];
+    }
+        success:^{
+            DDLogDebug(@"Successfully removed unreferenced articles");
+        }];
 }
 
 #pragma mark - Remote Configuration

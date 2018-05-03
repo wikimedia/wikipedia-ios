@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSNumber *imageWidth;
 @property (nonatomic) BOOL isDownloaded;
 @property (nonatomic) BOOL isExcludedFromFeed;
+@property (nonatomic) BOOL isSavedToDisk;
 @property (nullable, nonatomic, copy) NSString *key;
 @property (nonatomic) double latitude;  //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
 @property (nonatomic) double longitude; //__deprecated; // Use coordinate instead (not using actual __deprecated tag due to inability to ignore the warning when these are used in Swift)
