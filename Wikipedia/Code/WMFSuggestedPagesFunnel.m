@@ -38,7 +38,7 @@ static NSString *const kInitMustUseSpecificInitializer = @"Wrong initializer. Us
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppArticleSuggestions
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
-        _appInstallId = [self persistentUUID:kSchemaName];
+        _appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
         _pageTitle = title;
         _readMoreList = [suggestedTitles componentsJoinedByString:kReadMoreListDelimeter];
     }
