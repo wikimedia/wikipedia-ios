@@ -9,7 +9,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     // http://meta.wikimedia.org/wiki/Schema:MobileWikiAppSavedPages
     self = [super initWithSchema:@"MobileWikiAppSavedPages" version:10375480];
     if (self) {
-        self.appInstallId = [self persistentUUID:@"ReadingAction"];
+        self.appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
     }
     return self;
 }

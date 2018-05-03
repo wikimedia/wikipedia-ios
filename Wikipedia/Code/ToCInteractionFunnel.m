@@ -7,7 +7,7 @@
     self = [super initWithSchema:@"MobileWikiAppToCInteraction"
                          version:10375484];
     if (self) {
-        self.appInstallID = [self persistentUUID:@"ReadingAction"];
+        self.appInstallID = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
     }
     return self;
 }
