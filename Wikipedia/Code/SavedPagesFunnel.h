@@ -2,8 +2,6 @@
 
 @interface SavedPagesFunnel : EventLoggingFunnel
 
-@property NSString *appInstallId;
-
 + (void)logStateChange:(BOOL)didSave;
 
 /**

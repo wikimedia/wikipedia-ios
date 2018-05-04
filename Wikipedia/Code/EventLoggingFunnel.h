@@ -77,9 +77,4 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
  */
 - (NSString *)singleUseUUID;
 
-/**
- * Helper function to generate a persistent per-app-install UUID
- */
-- (NSString *)persistentUUID:(NSString *)key;
-
 @end
