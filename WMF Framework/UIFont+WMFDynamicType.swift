@@ -8,6 +8,7 @@ import UIKit
     case systemBold
     case systemHeavy
     case systemItalic
+    case systemBoldItalic
     case georgia
 }
 
@@ -281,6 +282,8 @@ public extension UIFont {
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
         case .systemItalic:
             font = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).with(traits: [.traitItalic])
+        case .systemBoldItalic:
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold).with(traits: [.traitItalic])
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             font = UIFont.systemFont(ofSize: 17)
