@@ -187,7 +187,11 @@ import Foundation
     
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return session.dataTask(with: request, completionHandler: { (data, response, error) in
+        var newRequest = request
+        if SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID {
+            newRequest.addValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
+        }
+        return session.dataTask(with: newRequest, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
