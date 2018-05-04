@@ -85,6 +85,7 @@ import Foundation
         request.httpMethod = method.stringValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+        addAppInstallIDIfNeeded(&request)
         if let parameters = bodyParameters {
             if bodyEncoding == .json {
                 do {
@@ -187,11 +188,7 @@ import Foundation
     
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        var newRequest = request
-        if SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID {
-            newRequest.addValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
-        }
-        return session.dataTask(with: newRequest, completionHandler: { (data, response, error) in
+        return session.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
@@ -228,6 +225,7 @@ import Foundation
         var request = URLRequest(url: summaryURL)
         //The accept profile is case sensitive https://gerrit.wikimedia.org/r/#/c/356429/
         request.setValue("application/json; charset=utf-8; profile=\"https://www.mediawiki.org/wiki/Specs/Summary/1.1.2\"", forHTTPHeaderField: "Accept")
+        addAppInstallIDIfNeeded(&request)
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
@@ -266,5 +264,12 @@ import Foundation
         taskGroup.waitInBackgroundAndNotify(on: queue) {
             completion(summaryResponses)
         }
+    }
+    
+    private func addAppInstallIDIfNeeded(_ request: inout URLRequest) {
+        guard SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
+            return
+        }
+        request.addValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
     }
 }
