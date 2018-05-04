@@ -266,12 +266,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
     
-    @objc public func wmf_setDaysInstalled(_ daysInstalled: NSNumber) {
+    @objc public func wmf_setLoggedDaysInstalled(_ daysInstalled: NSNumber) {
         self.set(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
         self.synchronize()
     }
 
-    @objc public func wmf_daysInstalled() -> NSNumber? {
+    @objc public func wmf_loggedDaysInstalled() -> NSNumber? {
         return self.object(forKey: "DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 

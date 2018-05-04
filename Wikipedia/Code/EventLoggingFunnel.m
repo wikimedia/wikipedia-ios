@@ -47,7 +47,6 @@
 }
 
 - (void)logged:(NSDictionary *)eventData {
-    
 }
 
 - (NSString *)persistentUUID:(NSString *)key {

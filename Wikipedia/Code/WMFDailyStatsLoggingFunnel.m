@@ -28,7 +28,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     NSDate *currentDate = [NSDate date];
     NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:installDate toDate:currentDate];
 
-    NSNumber *daysInstalledNumber = [userDefaults wmf_daysInstalled];
+    NSNumber *daysInstalledNumber = [userDefaults wmf_loggedDaysInstalled];
 
     if (daysInstalledNumber != nil) {
         NSInteger lastLoggedDaysInstalled = [daysInstalledNumber integerValue];
@@ -42,7 +42,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 
 - (void)logged:(NSDictionary *)eventData {
     NSInteger daysInstalled = (NSInteger)eventData[kAppInstallAgeKey];
-    [[NSUserDefaults wmf_userDefaults] wmf_setDaysInstalled:@(daysInstalled)];
+    [[NSUserDefaults wmf_userDefaults] wmf_setLoggedDaysInstalled:@(daysInstalled)];
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
