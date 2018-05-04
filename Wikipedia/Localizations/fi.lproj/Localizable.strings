@@ -400,7 +400,8 @@
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
-"saved-pages-progress-syncing" = "Artikkelin synkronointi käynnissä...";
+// Fuzzy
+"saved-pages-progress-syncing" = "Artikkelin lataaminen käynnissä...";
 "saved-reading-lists-title" = "Lukulistat";
 "saved-search-default-text" = "Hae";
 "saved-title" = "Tallennettu";
@@ -437,8 +438,7 @@
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Haluatko poistaa kaikki tallennetut artikkelit?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Poista";
-// Fuzzy
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Sinun tallennettujen artikkelien poisto poistaa artikkelit sinun käyttäjätunnukselta ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nSinun tallennettujen artikkelien poisto vapauttaa tilaa noin $1.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Tallennettujen artikkeliesi poisto poistaa artikkelit käyttäjätunnukseltasi ja tältä laitteelta, vaikka synkronointi olisi kytketty päälle.\n\nTallennettujen artikkeliesi poisto vapauttaa tilaa noin $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Poista tallennetut artikkelit";
 "settings-storage-and-syncing-full-sync" = "Lukulistasi synkronoidaan taustalla";
 "settings-storage-and-syncing-server-sync-title" = "Päivitä synkronoidut lukulistat";

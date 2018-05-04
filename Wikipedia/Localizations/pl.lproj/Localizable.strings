@@ -19,6 +19,7 @@
 // Author: Pio387
 // Author: Py64
 // Author: Railfail536
+// Author: Stojex
 // Author: The Polish
 // Author: Ty221
 // Author: Vesihiisi
@@ -271,6 +272,7 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
 "relogin-failed-retry-login-button-title" = "Spróbuj zalogować się ponownie";
 "saved-all-articles-title" = "Wszystkie artykuły";
+"saved-pages-progress-syncing" = "Trwa pobieranie artykułu...";
 "saved-search-default-text" = "Szukaj";
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";
