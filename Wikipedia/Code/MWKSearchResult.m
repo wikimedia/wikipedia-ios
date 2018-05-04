@@ -4,6 +4,7 @@
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFComparison.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSString+WMFExtras.h>
 
 @interface MWKSearchResult ()
 
@@ -114,7 +115,7 @@
             transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
                 NSString *displayTitle = value[@"pageprops.displaytitle"];
                 if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
-                    return displayTitle;
+                    return [displayTitle wmf_stringByRemovingHTML];
                 }
                 NSString *title = value[@"title"];
                 if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
