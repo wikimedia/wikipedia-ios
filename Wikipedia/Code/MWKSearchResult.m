@@ -16,6 +16,8 @@
 
 @property (nonatomic, copy, readwrite) NSString *displayTitle;
 
+@property (nonatomic, copy, readwrite) NSString *displayTitleHTML;
+
 @property (nonatomic, copy, readwrite) NSString *wikidataDescription;
 
 @property (nonatomic, copy, readwrite) NSString *extract;
@@ -40,6 +42,7 @@
                             revID:(NSInteger)revID
                             title:(NSString *)title
                      displayTitle:(NSString *)displayTitle
+                 displayTitleHTML:(NSString *)displayTitleHTML
               wikidataDescription:(NSString *)wikidataDescription
                           extract:(NSString *)extract
                      thumbnailURL:(NSURL *)thumbnailURL
@@ -53,6 +56,7 @@
         self.revID = revID;
         self.title = title;
         self.displayTitle = displayTitle;
+        self.displayTitleHTML = displayTitleHTML;
         self.wikidataDescription = wikidataDescription;
         self.extract = extract;
         self.thumbnailURL = thumbnailURL;
@@ -65,7 +69,7 @@
 }
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 #pragma mark - MTLJSONSerializing
@@ -110,21 +114,31 @@
         }];
 }
 
++ (NSString *)displayTitleFromValue:(NSDictionary *)value {
+    NSString *displayTitle = value[@"pageprops.displaytitle"];
+    if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
+        return displayTitle;
+    }
+    NSString *title = value[@"title"];
+    if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
+        return title;
+    }
+    return @"";
+}
+
 + (NSValueTransformer *)displayTitleJSONTransformer {
     return [MTLValueTransformer
             transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
-                NSString *displayTitle = value[@"pageprops.displaytitle"];
-                if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
-                    return [displayTitle wmf_stringByRemovingHTML];
-                }
-                NSString *title = value[@"title"];
-                if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
-                    return title;
-                }
-                return @"";
+                return [[self displayTitleFromValue:value] wmf_stringByRemovingHTML];
             }];
 }
 
++ (NSValueTransformer *)displayTitleHTMLJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+                return [self displayTitleFromValue:value];
+            }];
+}
 
 + (MTLValueTransformer *)isListJSONTransformer {
     return [MTLValueTransformer
@@ -236,6 +250,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitleHTML): @[@"pageprops.displaytitle", @"title"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
