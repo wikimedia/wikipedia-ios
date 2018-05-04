@@ -37,12 +37,17 @@
                                              forSchema:self.schema
                                               revision:self.revision
                                                   wiki:wiki];
+            [self logged:eventData];
         }
     }
 }
 
 - (NSString *)singleUseUUID {
     return [[NSUUID UUID] UUIDString];
+}
+
+- (void)logged:(NSDictionary *)eventData {
+    
 }
 
 - (NSString *)persistentUUID:(NSString *)key {

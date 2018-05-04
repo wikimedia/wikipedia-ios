@@ -38,9 +38,11 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     }
 
     [self log:@{ kAppInstallAgeKey: @(daysInstalled) }];
-    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        [userDefaults wmf_setDaysInstalled:@(daysInstalled)];
-    }
+}
+
+- (void)logged:(NSDictionary *)eventData {
+    NSInteger daysInstalled = (NSInteger)eventData[kAppInstallAgeKey];
+    [[NSUserDefaults wmf_userDefaults] wmf_setDaysInstalled:@(daysInstalled)];
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
