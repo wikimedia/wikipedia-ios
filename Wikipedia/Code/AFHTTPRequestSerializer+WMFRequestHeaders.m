@@ -9,7 +9,7 @@
     [self setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [self setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        [self setValue:[EventLoggingFunnel wmf_appInstallID] forHTTPHeaderField:@"X-WMF-UUID"];
+        [self setValue:[[NSUserDefaults wmf_userDefaults] wmf_appInstallID] forHTTPHeaderField:@"X-WMF-UUID"];
     }
     [self setValue:[NSLocale wmf_acceptLanguageHeaderForPreferredLanguages] forHTTPHeaderField:@"Accept-Language"];
 }
