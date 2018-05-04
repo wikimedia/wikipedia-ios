@@ -110,13 +110,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     }
     
     @objc public var wmf_appInstallID: String? {
-        get {
+        guard let appInstallID = self.string(forKey: WMFAppInstallIDKey) else {
+            self.set(UUID().uuidString, forKey: WMFAppInstallIDKey)
+            synchronize()
             return self.string(forKey: WMFAppInstallIDKey)
         }
-        set {
-            self.set(newValue, forKey: WMFAppInstallIDKey)
-            synchronize()
-        }
+        return appInstallID
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
