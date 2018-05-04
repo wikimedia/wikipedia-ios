@@ -152,7 +152,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/EventLogger.h>
 #import <WMF/EventLoggingFunnel.h>
-#import <WMF/ReadingActionFunnel.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
 #import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
