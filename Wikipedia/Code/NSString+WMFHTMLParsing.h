@@ -49,6 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
+
+/**
+ *  Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+ *  It's slower and was the source of crashes in the past.
+ */
 - (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont;
 
 @end
