@@ -267,9 +267,9 @@ import Foundation
     }
     
     private func addAppInstallIDIfNeeded(_ request: inout URLRequest) {
-        guard SessionSingleton.sharedInstance().shouldSendUsageReports else {
+        guard SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
             return
         }
-        request.addValue(EventLoggingFunnel.wmf_appInstallID(), forHTTPHeaderField: "X-WMF-UUID")
+        request.addValue(appInstallID, forHTTPHeaderField: "X-WMF-UUID")
     }
 }
