@@ -32,15 +32,8 @@ import Foundation
     }
 
     @objc public static let shared = Session()
-
-    private lazy var session: URLSession = {
-        let sharedSession = URLSession.shared
-        guard SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
-            return sharedSession
-        }
-        sharedSession.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
-        return sharedSession
-    }()
+    
+    private let session = URLSession.shared
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
@@ -270,4 +263,14 @@ import Foundation
             completion(summaryResponses)
         }
     }
+    
+    @objc public var shouldSendUsageReports: Bool = false {
+        didSet {
+            guard shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
+                return
+            }
+            session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
+        }
+    }
+    
 }
