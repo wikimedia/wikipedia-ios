@@ -32,15 +32,15 @@ import Foundation
     }
 
     @objc public static let shared = Session()
-    
-    public override init() {
-        guard SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
-            return
-        }
-        session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
-    }
 
-    fileprivate let session = URLSession.shared
+    private lazy var session: URLSession = {
+        let sharedSession = URLSession.shared
+        guard SessionSingleton.sharedInstance().shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
+            return sharedSession
+        }
+        sharedSession.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
+        return sharedSession
+    }()
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
