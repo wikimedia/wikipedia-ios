@@ -36,7 +36,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
         }
         if (chosen) {
             NSMutableDictionary *preprocessedEventData = [[self preprocessData:eventData] mutableCopy];
-            preprocessedEventData[kAppInstallIdKey] = [self wmf_appInstallID];
+            preprocessedEventData[kAppInstallIdKey] = [EventLoggingFunnel wmf_appInstallID];
             (void)[[EventLogger alloc] initAndLogEvent:preprocessedEventData
                                              forSchema:self.schema
                                               revision:self.revision
@@ -49,10 +49,10 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     return [[NSUUID UUID] UUIDString];
 }
 
-- (NSString *)wmf_appInstallID {
++ (NSString *)wmf_appInstallID {
     NSString *uuid = [[NSUserDefaults wmf_userDefaults] wmf_appInstallID];
     if (!uuid) {
-        uuid = [self singleUseUUID];
+        uuid = [[NSUUID UUID] UUIDString];
         [[NSUserDefaults wmf_userDefaults] setWmf_appInstallID:uuid];
     }
     return uuid;
