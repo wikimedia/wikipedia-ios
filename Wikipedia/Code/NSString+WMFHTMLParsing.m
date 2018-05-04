@@ -3,6 +3,7 @@
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/WMFComparison.h>
+#import <WMF/NSRegularExpression+HTML.h>
 
 @implementation NSString (WMFHTMLParsing)
 
@@ -223,16 +224,49 @@
                                  }];
 }
 
-- (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags {
-    static NSRegularExpression *tagRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *pattern = @"(?:<)([\\/a-z0-9]+)(?:\\s?)([^>]*)(?:>)";
-        tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                             options:NSRegularExpressionCaseInsensitive
-                                                               error:nil];
+- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block{
+    NSRegularExpression *tagRegex = [NSRegularExpression wmf_HTMLTagRegularExpression];
+    [tagRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+        NSString *tagName = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"];
+        NSString *tagAttributes = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
+        block(tagName, tagAttributes, tagResult.range);
+    }];
+}
+
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont {
+    __block NSInteger offset = 0;
+    static NSDictionary *tagAttributes;
+    static dispatch_once_t tagAttributesOnce;
+    dispatch_once(&tagAttributesOnce, ^{
+       tagAttributes = @{@"b": @{NSFontAttributeName: boldFont}, @"i": @{NSFontAttributeName: italicFont}};
     });
 
+    NSMutableDictionary<NSString *, NSNumber *> *tagStarts = [NSMutableDictionary dictionaryWithCapacity:2];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self attributes:@{NSFontAttributeName: font}];
+    [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
+        HTMLTagName = [HTMLTagName lowercaseString];
+        if ([HTMLTagName hasPrefix:@"/"]) {
+            NSString *closeTagName = [HTMLTagName substringFromIndex:1];
+            NSNumber *tagStartNumber = tagStarts[closeTagName];
+            if (tagStartNumber) {
+                NSDictionary *attributes = tagAttributes[closeTagName];
+                NSInteger start = [tagStartNumber integerValue] + offset;
+                NSInteger end = range.location + offset;
+                if (attributes && end > start && start >= 0 && start < attributedString.length && end >= 0 && end < attributedString.length) {
+                    NSRange range = NSMakeRange(start, end - start);
+                    [attributedString addAttributes:attributes range:range];
+                }
+            }
+        } else if (tagAttributes[HTMLTagName]) {
+            tagStarts[HTMLTagName] = @(range.location + range.length);
+        }
+        [attributedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
+        offset -= range.length;
+    }];
+    return attributedString;
+}
+
+- (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags {
     static NSRegularExpression *hrefRegex;
     static dispatch_once_t hrefOnceToken;
     dispatch_once(&hrefOnceToken, ^{
@@ -244,52 +278,47 @@
     __block NSInteger location = 0;
     __block NSURL *linkURL = nil;
     __block NSMutableString *linkString = nil;
-    [tagRegex enumerateMatchesInString:self
-                               options:0
-                                 range:NSMakeRange(0, self.length)
-                            usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                NSString *tagName = [[tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"] lowercaseString];
-
-                                NSInteger nonMatchingLength = tagResult.range.location - location;
-                                if (nonMatchingLength > 0) {
-                                    NSString *nonMatchingString = [self substringWithRange:NSMakeRange(location, nonMatchingLength)];
-                                    if (linkString) {
-                                        [linkString appendString:nonMatchingString];
-                                    } else {
-                                        NSAttributedString *nonMatchingAttributedString = [[NSAttributedString alloc] initWithString:nonMatchingString];
-                                        [attributedString appendAttributedString:nonMatchingAttributedString];
-                                    }
-                                }
-
-                                if ([tagName isEqualToString:@"a"]) {
-                                    NSString *tagContents = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
-                                    [hrefRegex enumerateMatchesInString:tagContents
-                                                                options:0
-                                                                  range:NSMakeRange(0, tagContents.length)
-                                                             usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                                                 NSString *URLString = [hrefRegex replacementStringForResult:result inString:tagContents offset:0 template:@"$1"];
-                                                                 linkURL = [NSURL URLWithString:URLString];
-                                                             }];
-
-                                    if (linkURL) {
-                                        linkString = [[NSMutableString alloc] init];
-                                    }
-                                } else if ([tagName isEqualToString:@"/a"]) {
-                                    NSMutableAttributedString *linkAttributedString = nil;
-                                    if (linkString) {
-                                        linkAttributedString = [[NSMutableAttributedString alloc] initWithString:linkString];
-                                    }
-                                    if (linkURL) {
-                                        [linkAttributedString addAttribute:NSLinkAttributeName value:linkURL range:NSMakeRange(0, linkAttributedString.length)];
-                                    }
-                                    if (linkAttributedString) {
-                                        [attributedString appendAttributedString:linkAttributedString];
-                                    }
-                                    linkString = nil;
-                                    linkURL = nil;
-                                }
-                                location = tagResult.range.location + tagResult.range.length;
-                            }];
+    [self wmf_enumerateHTMLTagsWithBlock:^(NSString *tagName, NSString *tagAttributes, NSRange range) {
+        tagName = [tagName lowercaseString];
+        NSInteger nonMatchingLength = range.location - location;
+        if (nonMatchingLength > 0) {
+            NSString *nonMatchingString = [self substringWithRange:NSMakeRange(location, nonMatchingLength)];
+            if (linkString) {
+                [linkString appendString:nonMatchingString];
+            } else {
+                NSAttributedString *nonMatchingAttributedString = [[NSAttributedString alloc] initWithString:nonMatchingString];
+                [attributedString appendAttributedString:nonMatchingAttributedString];
+            }
+        }
+        
+        if ([tagName isEqualToString:@"a"]) {
+            [hrefRegex enumerateMatchesInString:tagAttributes
+                                        options:0
+                                          range:NSMakeRange(0, tagAttributes.length)
+                                     usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                         NSString *URLString = [hrefRegex replacementStringForResult:result inString:tagAttributes offset:0 template:@"$1"];
+                                         linkURL = [NSURL URLWithString:URLString];
+                                     }];
+            
+            if (linkURL) {
+                linkString = [[NSMutableString alloc] init];
+            }
+        } else if ([tagName isEqualToString:@"/a"]) {
+            NSMutableAttributedString *linkAttributedString = nil;
+            if (linkString) {
+                linkAttributedString = [[NSMutableAttributedString alloc] initWithString:linkString];
+            }
+            if (linkURL) {
+                [linkAttributedString addAttribute:NSLinkAttributeName value:linkURL range:NSMakeRange(0, linkAttributedString.length)];
+            }
+            if (linkAttributedString) {
+                [attributedString appendAttributedString:linkAttributedString];
+            }
+            linkString = nil;
+            linkURL = nil;
+        }
+        location = range.location + range.length;
+    }];
     NSInteger nonMatchingLength = self.length - location;
     if (nonMatchingLength > 0) {
         NSString *nonMatchingString = [self substringWithRange:NSMakeRange(location, nonMatchingLength)];

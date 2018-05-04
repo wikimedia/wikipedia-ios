@@ -86,6 +86,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKSavedPageEntry+ImageMigration.h>
 #import <WMF/MWKSavedPageListDataExportConstants.h>
 #import <WMF/WikipediaAppUtils.h>
+#import <WMF/NSRegularExpression+HTML.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/WMFZeroConfiguration.h>

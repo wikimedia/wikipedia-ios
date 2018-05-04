@@ -1,4 +1,4 @@
-@import Foundation;
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont;
 
 @end
 
