@@ -220,7 +220,7 @@
 "hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";
 "hockeyapp-alert-send-report" = "Отправить отчёт";
 "hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
-"home-button-explore-accessibility-label" = "Википедия, вернуться к разделу Исследуйте";
+"home-button-explore-accessibility-label" = "Вернуться к ленте";
 "home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
 "home-button-popover-description" = "Коснитесь «W» для возвращения к ленте исследования";
 "home-button-popover-title" = "Коснитесь для возвращения в начало";
@@ -234,8 +234,8 @@
 "home-reading-list-prompt" = "Ваши сохранённые статьи теперь могут быть организованы в списки чтения и синхронизированы между устройствами. Войдите в систему, чтобы ваши списки чтения были сохранены в пользовательских настройках.";
 "home-themes-action-title" = "Управление настройками";
 "home-themes-prompt" = "Для более комфортного чтения установите настройки чтения (в том числе размер текста и тему оформления) в панели управления статьи или в ваших настройках пользователя.";
-"home-title" = "Исследуйте!";
-"home-title-accessibility-label" = "Википедия, промотать к верхней части раздела Исследуйте";
+"home-title" = "Лента";
+"home-title-accessibility-label" = "Промотать к верхней части ленты";
 "icon-shortcut-continue-reading-title" = "Продолжить чтение";
 "icon-shortcut-nearby-title" = "Статьи о том, что есть поблизости";
 "icon-shortcut-random-title" = "Случайная статья";
@@ -434,7 +434,7 @@
 "saved-all-articles-title" = "Все статьи";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
-"saved-pages-progress-syncing" = "Производится синхронизация статей...";
+"saved-pages-progress-syncing" = "Статья скачивается...";
 "saved-reading-lists-title" = "Списки для чтения";
 "saved-search-default-text" = "Найти";
 "saved-title" = "Сохранено";
@@ -467,7 +467,7 @@
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
-"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка изменит ежедневное содержимое (такое, как Избранная статья), показываемое на странице Исследуйте.";
+"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка приведёт к смене ежедневного содержимого, показываемого в ленте (например, избранных статей).";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Удаление сохранённых статей приведёт к удалению их из вашей учётной записи пользователя, если у вас включена синхронизация, а также с этого устройства. Вы не сможете отменить это действие.";
@@ -520,7 +520,7 @@
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "view-in-browser-footer-link" = "Просмотреть статью в браузере";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
-"welcome-exploration-explore-feed-title" = "Лента исследований";
+"welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
 "welcome-exploration-on-this-day-title" = "В этот день…";
 "welcome-exploration-places-description" = "Исследовать достопримечательности вблизи или искать места по всему миру";
