@@ -32,8 +32,8 @@ import Foundation
     }
 
     @objc public static let shared = Session()
-
-    fileprivate let session = URLSession.shared
+    
+    private let session = URLSession.shared
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
@@ -263,4 +263,14 @@ import Foundation
             completion(summaryResponses)
         }
     }
+    
+    @objc public var shouldSendUsageReports: Bool = false {
+        didSet {
+            guard shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
+                return
+            }
+            session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
+        }
+    }
+    
 }
