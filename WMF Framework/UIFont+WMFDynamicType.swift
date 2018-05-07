@@ -8,7 +8,7 @@ import UIKit
     case systemBold
     case systemHeavy
     case systemItalic
-    case systemBoldItalic
+    case systemSemiBoldItalic
     case georgia
 }
 
@@ -162,6 +162,64 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
                 .extraSmall: 9
             ]
         ],
+        .systemSemiBoldItalic: [
+            UIFontTextStyle.subheadline: [
+                .accessibilityExtraExtraExtraLarge: 21,
+                .accessibilityExtraExtraLarge: 21,
+                .accessibilityExtraLarge: 21,
+                .accessibilityLarge: 21,
+                .accessibilityMedium: 21,
+                .extraExtraExtraLarge: 21,
+                .extraExtraLarge: 19,
+                .extraLarge: 17,
+                .large: 15,
+                .medium: 14,
+                .small: 13,
+                .extraSmall: 12
+            ],
+            UIFontTextStyle.footnote: [
+                .accessibilityExtraExtraExtraLarge: 20,
+                .accessibilityExtraExtraLarge: 20,
+                .accessibilityExtraLarge: 20,
+                .accessibilityLarge: 20,
+                .accessibilityMedium: 20,
+                .extraExtraExtraLarge: 20,
+                .extraExtraLarge: 18,
+                .extraLarge: 16,
+                .large: 14,
+                .medium: 13,
+                .small: 12,
+                .extraSmall: 12
+            ],
+            UIFontTextStyle.body: [
+                .accessibilityExtraExtraExtraLarge: 53,
+                .accessibilityExtraExtraLarge: 47,
+                .accessibilityExtraLarge: 40,
+                .accessibilityLarge: 33,
+                .accessibilityMedium: 28,
+                .extraExtraExtraLarge: 23,
+                .extraExtraLarge: 21,
+                .extraLarge: 19,
+                .large: 17,
+                .medium: 16,
+                .small: 15,
+                .extraSmall: 14
+            ],
+            UIFontTextStyle.caption2: [
+                .accessibilityExtraExtraExtraLarge: 17,
+                .accessibilityExtraExtraLarge: 17,
+                .accessibilityExtraLarge: 17,
+                .accessibilityLarge: 17,
+                .accessibilityMedium: 17,
+                .extraExtraExtraLarge: 17,
+                .extraExtraLarge: 15,
+                .extraLarge: 13,
+                .large: 11,
+                .medium: 10,
+                .small: 9,
+                .extraSmall: 9
+            ]
+        ],
         .systemBold: [
             UIFontTextStyle.title1: [
                 .accessibilityExtraExtraExtraLarge: 30,
@@ -246,17 +304,15 @@ public extension UIFont {
     
     @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
-        let systemFont = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
-        
         guard fontFamily != .system else {
-            return systemFont
+            return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
         
         let preferredContentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
         
         let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
-        let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? systemFont.pointSize
+        let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
 
         let cacheKey = "\(fontFamily.rawValue)-\(size)"
         if let font = fontCache[cacheKey] {
@@ -271,16 +327,16 @@ public extension UIFont {
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
         case .systemMedium:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
+        case .systemItalic:
+            font = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).with(traits: [.traitItalic])
         case .systemSemiBold:
-            font = UIFont.boldSystemFont(ofSize: size)
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.semibold)
+        case .systemSemiBoldItalic:
+            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.semibold).with(traits: [.traitItalic])
         case .systemBold:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold)
         case .systemHeavy:
             font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
-        case .systemItalic:
-            font = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).with(traits: [.traitItalic])
-        case .systemBoldItalic:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold).with(traits: [.traitItalic])
         case .system:
             assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
             font = UIFont.systemFont(ofSize: 17)

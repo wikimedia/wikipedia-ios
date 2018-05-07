@@ -13,9 +13,9 @@ public extension ArticleCollectionViewCell {
         layoutMarginsMultipliers = newMultipliers
     }
     
-    @objc(setTitleHTML:highlightingText:locale:)
-    func set(titleHTML: String?, highlightingText: String?, locale: Locale?) {
-        guard let titleHTML = titleHTML, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let italicFont = UIFont.wmf_preferredFontForFontFamily(.systemItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)   else {
+    @objc(setTitleHTML:)
+    func set(titleHTML: String?) {
+        guard let titleHTML = titleHTML, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let italicFont = UIFont.wmf_preferredFontForFontFamily(.systemItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldItalicFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBoldItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)  else {
             titleLabel.text = nil
             return
         }
