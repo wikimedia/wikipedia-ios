@@ -277,7 +277,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink *)language {
-    [self searchForSearchTerm:self.searchField.text];
+    [self searchForSearchTerm:self.searchField.text wasSearchTermSuggested:NO];
 }
 
 #pragma mark - Separator View
@@ -312,7 +312,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (![[self currentResultsSearchTerm] isEqualToString:textField.text]) {
-        [self searchForSearchTerm:textField.text];
+        [self searchForSearchTerm:textField.text wasSearchTermSuggested:NO];
     }
 }
 
@@ -368,7 +368,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self setRecentSearchesHidden:YES animated:YES];
 
         DDLogDebug(@"Searching for %@ after delay.", query);
-        [self searchForSearchTerm:query];
+        [self searchForSearchTerm:query wasSearchTermSuggested:NO];
     });
 }
 
@@ -394,7 +394,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     [self setSearchFieldText:self.searchTerm];
-    [self searchForSearchTerm:self.searchTerm];
+    [self searchForSearchTerm:self.searchTerm wasSearchTermSuggested:NO];
 }
 
 - (NSURL *)currentlySelectedSearchURL {
@@ -409,7 +409,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateRecentSearchesVisibility];
 }
 
-- (void)searchForSearchTerm:(NSString *)searchTerm {
+- (void)searchForSearchTerm:(NSString *)searchTerm wasSearchTermSuggested:(BOOL)wasSearchTermSuggested {
     if ([searchTerm wmf_trim].length == 0) {
         DDLogDebug(@"Ignoring whitespace-only query.");
         return;
@@ -448,7 +448,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                 self.resultsListController.results = results.results;
             }
             [self updateUIWithResults:results];
-            [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:0];
+            if (!wasSearchTermSuggested) { // search results were shown to the user as a result of explicit user input
+                [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:0];
+            }
         });
     };
 
@@ -580,7 +582,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)recentSearchController:(WMFRecentSearchesViewController *)controller
            didSelectSearchTerm:(MWKRecentSearchEntry *)searchTerm {
     [self setSearchFieldText:searchTerm.searchTerm];
-    [self searchForSearchTerm:searchTerm.searchTerm];
+    [self searchForSearchTerm:searchTerm.searchTerm wasSearchTermSuggested:NO];
     [self updateRecentSearchesVisibility];
 }
 
@@ -593,7 +595,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                      animations:^{
                          [self updateSearchSuggestion:nil];
                      }];
-    [self searchForSearchTerm:self.searchField.text];
+    [self searchForSearchTerm:self.searchField.text wasSearchTermSuggested:YES];
 }
 
 - (NSString *)analyticsContext {
