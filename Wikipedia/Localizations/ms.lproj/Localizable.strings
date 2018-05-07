@@ -408,8 +408,7 @@
 "saved-all-articles-title" = "Semua rencana";
 "saved-default-reading-list-tag" = "Senarai ini tidak dapat dipadamkan";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
-// Fuzzy
-"saved-pages-progress-syncing" = "Penyegerakan rencana sedang berjalan...";
+"saved-pages-progress-syncing" = "Muat turun rencana sedang berjalan...";
 "saved-reading-lists-title" = "Senarai bacaan";
 "saved-search-default-text" = "Cari";
 "saved-title" = "Disimpan";
