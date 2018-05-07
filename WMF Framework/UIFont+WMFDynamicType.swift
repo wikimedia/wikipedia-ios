@@ -246,20 +246,17 @@ public extension UIFont {
     
     @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
         
-        guard fontFamily != .system else {
-            if #available(iOSApplicationExtension 10.0, *) {
-                return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
-            } else {
-                return UIFont.preferredFont(forTextStyle: style)
-            }
-        }
+        let systemFont = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         
+        guard fontFamily != .system else {
+            return systemFont
+        }
         
         let preferredContentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
         
         let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
-        let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? 21
+        let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? systemFont.pointSize
 
         let cacheKey = "\(fontFamily.rawValue)-\(size)"
         if let font = fontCache[cacheKey] {
