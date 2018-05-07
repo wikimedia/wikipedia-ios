@@ -13,6 +13,7 @@
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFEmptyView.h"
+#import "WMFSearchFunnel.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -49,6 +50,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (weak, nonatomic) IBOutlet UIView *searchBottomSeparatorView;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
+
+@property (nonatomic, strong) WMFSearchFunnel *searchFunnel;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *suggestionButtonHeightConstraint;
 
@@ -195,6 +198,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
     }
+    
+    self.searchFunnel = [[WMFSearchFunnel alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
