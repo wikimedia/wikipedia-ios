@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
                         return;
                     }
 
-                    NSURL *articleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+                    NSURL *articleURL = [result articleURLForSiteURL:siteURL];
                     if (!articleURL) {
                         if (completion) {
                             completion();

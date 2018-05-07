@@ -418,8 +418,7 @@
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
-// Fuzzy
-"saved-pages-progress-syncing" = "條目同步進行中...";
+"saved-pages-progress-syncing" = "條目下載進行中...";
 "saved-reading-lists-title" = "閱讀清單";
 "saved-search-default-text" = "搜尋";
 "saved-title" = "已儲存";

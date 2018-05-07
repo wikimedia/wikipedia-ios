@@ -257,6 +257,7 @@
 "reading-list-create-new-list-description" = "Opis";
 "reading-list-create-new-list-title" = "Utwórz nową listę";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortuj artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
 "reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
 "reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";

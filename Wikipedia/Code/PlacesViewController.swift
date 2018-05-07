@@ -783,8 +783,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var keysToFetch: [String] = []
         var sort = 1
         for result in searchResults {
-            guard let displayTitle = result.displayTitle,
-                let articleURL = siteURL.wmf_URL(withTitle: displayTitle),
+            guard let articleURL = result.articleURL(forSiteURL: siteURL),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
@@ -2161,8 +2160,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let completions = searchResults.compactMap { (result) -> PlaceSearch? in
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
-                let title = result.displayTitle,
-                let url = self.siteURL.wmf_URL(withTitle: title),
+                let url = result.articleURL(forSiteURL: siteURL),
                 let key = url.wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
@@ -2194,7 +2192,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         let region = self.region(thatFits: [article])
-        let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        let displayTitle = article.displayTitle ?? title
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitle, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
