@@ -427,6 +427,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme frame:self.resultsListController.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.searchFunnel logShowSearchErrorWithTypeOfSearch:self.searchType elapsedTime:0];
                 DDLogError(@"Encountered search error: %@", error);
             }
         });
