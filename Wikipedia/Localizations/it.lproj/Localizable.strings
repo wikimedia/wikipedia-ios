@@ -338,7 +338,7 @@
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
-"saved-pages-progress-syncing" = "Download dell'articolo in corso...";
+"saved-pages-progress-syncing" = "Scaricamento della voce in corso...";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
 "search-did-you-mean" = "Forse cercavi $1?";

@@ -406,7 +406,6 @@
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
-// Fuzzy
 "saved-pages-progress-syncing" = "Преземањето на статијата е во тек...";
 "saved-reading-lists-title" = "Списоци за читање";
 "saved-search-default-text" = "Пребарај";

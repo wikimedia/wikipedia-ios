@@ -418,8 +418,7 @@
 "saved-all-articles-title" = "Alla artiklar";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
-// Fuzzy
-"saved-pages-progress-syncing" = "Synkronisering av artikel pågår...";
+"saved-pages-progress-syncing" = "Nedladdning av artikel pågår...";
 "saved-reading-lists-title" = "Läslistor";
 "saved-search-default-text" = "Sök";
 "saved-title" = "Sparade";
