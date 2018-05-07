@@ -31,7 +31,7 @@
 }
 
 - (NSURL *)urlForResult:(MWKLocationSearchResult *)result {
-    return [self.searchSiteURL wmf_URLWithTitle:result.displayTitle];
+    return [result articleURLForSiteURL:self.searchSiteURL];
 }
 
 @end
