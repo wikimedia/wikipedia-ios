@@ -7,13 +7,22 @@ class SearchResultsViewController: ArticleCollectionViewController {
     @objc var results: [MWKSearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
-            collectionView.reloadData()
+            reload()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        reload()
+    }
+    
+    var boldRegex: NSRegularExpression?
+    
+    func reload() {
+        if let term = resultsInfo?.searchTerm {
+            boldRegex = NSRegularExpression.wmf_HTMLRegularExpression(matchingText: term)
+        }
         collectionView.reloadData()
     }
     
@@ -87,9 +96,16 @@ class SearchResultsViewController: ArticleCollectionViewController {
         guard let language = searchSiteURL?.wmf_language else {
             return
         }
-        let locale = NSLocale.wmf_locale(for: language)
         cell.configureForCompactList(at: indexPath.item)
-        cell.set(titleHTML: result.displayTitleHTML, highlightingText: resultsInfo?.searchTerm, locale: locale)
+        if var titleHTML = result.displayTitleHTML {
+            if let regex = boldRegex {
+                titleHTML = titleHTML.wmf_stringByInsertingHTMLOpenAndCloseTags(withName: "b", aroundRangesMatchingFirstGroupOf: regex)
+            }
+            cell.set(titleHTML: titleHTML)
+        } else {
+            cell.set(titleHTML: nil)
+        }
+       
         cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)

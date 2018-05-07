@@ -14,4 +14,9 @@
     return tagRegex;
 }
 
++ (NSRegularExpression *)wmf_HTMLRegularExpressionMatchingText:(NSString *)string {
+    NSString *pattern = [NSString stringWithFormat:@"(?:(?:^|>)[^>]*)(%@)(?:[^<]*(?:<|$))", string];
+    return [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+}
+
 @end

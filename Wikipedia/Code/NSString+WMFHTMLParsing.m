@@ -233,13 +233,23 @@
     }];
 }
 
-- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont {
+- (NSString *)wmf_stringByInsertingHTMLOpenAndCloseTagsWithName:(NSString *)tagName aroundRangesMatchingFirstGroupOfRegularExpression:(NSRegularExpression *)regex {
+    NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;
-    static NSDictionary *tagAttributes;
-    static dispatch_once_t tagAttributesOnce;
-    dispatch_once(&tagAttributesOnce, ^{
-       tagAttributes = @{@"b": @{NSFontAttributeName: boldFont}, @"i": @{NSFontAttributeName: italicFont}};
-    });
+    [regex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        if (result.numberOfRanges < 2) {
+            return;
+        }
+        NSRange range = [result rangeAtIndex:1];
+        NSString *openTag = [NSString stringWithFormat:@"<%@>", tagName];
+        NSString *closeTag = [NSString stringWithFormat:@"</%@>", tagName];
+        [mutableSelf insertString:openTag atIndex:range.location + offset];
+        offset += openTag.length;
+        [mutableSelf insertString:closeTag atIndex:range.location + range.length + offset];
+        offset += closeTag.length;
+    }];
+    return mutableSelf;
+}
 
 - (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont {
     __block NSInteger offset = 0;
