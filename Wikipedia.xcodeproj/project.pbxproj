@@ -184,6 +184,11 @@
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
+		7A72922D20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */; };
+		7A72922E20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */; };
+		7A72922F20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */; };
+		7A72923020A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */; };
+		7A72923120A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */; };
 		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
@@ -3262,6 +3267,7 @@
 		7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorageAndSyncingSettingsViewController.xib; sourceTree = "<group>"; };
 		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
+		7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
@@ -5720,6 +5726,7 @@
 				B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */,
 				B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */,
 				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
+				7A72922C20A0E0E10040F7BC /* ReadingListsFunnel.swift */,
 			);
 			name = "WIkimedia Event Logging";
 			sourceTree = "<group>";
@@ -10088,6 +10095,7 @@
 				B0370E161FA404B0002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				7A72922D20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */,
 				B0BCF0B9202537D800986F72 /* Panels.swift in Sources */,
 				0E37F9021CAEE7590076FF88 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D8E27BA61F82B38500F9D2B3 /* RMessage.m in Sources */,
@@ -10434,6 +10442,7 @@
 				D80ED3411EE57F4800CE8C50 /* PreviewWebViewContainer.m in Sources */,
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D80ED3441EE57F4800CE8C50 /* WMFArticleNavigationController.m in Sources */,
+				7A72923120A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
 				BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */,
 				83B87EC51F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
@@ -11054,6 +11063,7 @@
 				B0370E191FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8A42AFE1E815A9C00D8E281 /* WMFRandomArticleViewController.m in Sources */,
+				7A72923020A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */,
 				B0BCF0BC202537D800986F72 /* Panels.swift in Sources */,
 				D8A42B001E815A9C00D8E281 /* WMFArticleViewController.m in Sources */,
 				D8E27BA91F82B38700F9D2B3 /* RMessage.m in Sources */,
@@ -11400,6 +11410,7 @@
 				D8CE25A21E698E2400DAE2E0 /* WMFEmptySectionCollectionViewCell.m in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				D8CE25A61E698E2400DAE2E0 /* MWKLicense+ToGlyph.m in Sources */,
+				7A72922E20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */,
 				D8CE25A71E698E2400DAE2E0 /* PreviewWebViewContainer.m in Sources */,
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -11724,6 +11735,7 @@
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				83B87EC31F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */,
+				7A72922F20A0E0E10040F7BC /* ReadingListsFunnel.swift in Sources */,
 				83927D7D1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8EC3EA21E9BDA35006712EB /* MWKLicense+ToGlyph.m in Sources */,
 				D8EC3EA31E9BDA35006712EB /* PreviewWebViewContainer.m in Sources */,

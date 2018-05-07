@@ -1,0 +1,3 @@
+class ReadingListsFunnel: EventLoggingFunnel {
+    
+}
