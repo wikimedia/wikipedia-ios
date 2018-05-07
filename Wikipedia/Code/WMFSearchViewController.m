@@ -532,6 +532,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)articleCollectionViewController:(WMFArticleCollectionViewController *)articleCollectionViewController didSelectArticleWithURL:(NSURL *)didSelectArticleWithURL {
     [self saveLastSearch];
+    [self.searchFunnel logSearchResultTap];
 }
 
 #pragma mark - RecentSearches
