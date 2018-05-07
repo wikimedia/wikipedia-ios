@@ -41,10 +41,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         view.endEditing(false)
     }
     
-    @objc func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
         self.theme = theme
         self.articles = articles
