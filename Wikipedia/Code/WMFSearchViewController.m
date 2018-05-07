@@ -581,6 +581,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Actions
 
 - (IBAction)searchForSuggestion:(id)sender {
+    [self.searchFunnel logSearchDidYouMean];
     [self setSearchFieldText:[self searchSuggestion]];
     [UIView animateWithDuration:0.25
                      animations:^{
