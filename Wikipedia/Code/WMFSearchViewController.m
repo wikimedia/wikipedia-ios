@@ -478,6 +478,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
                                              if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+                                                 [self.searchFunnel logSearchAutoSwitch];
                                                  [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                                                                   siteURL:url
                                                                               resultLimit:WMFMaxSearchResultLimit
