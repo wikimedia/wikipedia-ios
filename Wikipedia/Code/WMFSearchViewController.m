@@ -298,6 +298,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)didTapCloseButton:(id)sender {
+    [self.searchFunnel logSearchCancel];
     [self dismiss];
 }
 
