@@ -3,14 +3,12 @@
 static NSString *const kSchemaName = @"MobileWikiAppNavMenu";
 static int const kSchemaVersion = 12732211;
 static NSString *const kSessionTokenKey = @"sessionToken";
-static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
 static NSString *const kMenuTypeKey = @"menuItem";
 
 @interface WMFHamburgerMenuFunnel ()
 
 @property (nonatomic, strong) NSString *sessionToken;
-@property (nonatomic, strong) NSString *appInstallId;
 
 @end
 
@@ -20,14 +18,12 @@ static NSString *const kMenuTypeKey = @"menuItem";
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
         _sessionToken = [self singleUseUUID];
-        _appInstallId = [self persistentUUID:kSchemaName];
     }
     return self;
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = self.appInstallId;
     dict[kSessionTokenKey] = self.sessionToken;
     return [dict copy];
 }

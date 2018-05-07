@@ -424,7 +424,7 @@
 "saved-all-articles-title" = "Tous les articles";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
-"saved-pages-progress-syncing" = "Synchronisation d'article en cours...";
+"saved-pages-progress-syncing" = "Téléchargement d'article en cours...";
 "saved-reading-lists-title" = "Listes de lecture";
 "saved-search-default-text" = "Rechercher";
 "saved-title" = "Enregistré";

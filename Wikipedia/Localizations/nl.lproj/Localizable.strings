@@ -336,6 +336,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
+// Fuzzy
 "saved-pages-progress-syncing" = "Artikelsynchronisatie loopt...";
 "saved-title" = "Opgeslagen";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";

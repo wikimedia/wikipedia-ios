@@ -407,6 +407,7 @@
 "saved-all-articles-title" = "Allar greinar";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
+// Fuzzy
 "saved-pages-progress-syncing" = "Samstilling greina í vinnslu...";
 "saved-reading-lists-title" = "Leslistar";
 "saved-search-default-text" = "Leita";

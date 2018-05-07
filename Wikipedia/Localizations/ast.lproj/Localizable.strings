@@ -398,6 +398,7 @@
 "saved-all-articles-title" = "Tolos artículos";
 "saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
+// Fuzzy
 "saved-pages-progress-syncing" = "Sincronización d'artículos en cursu…";
 "saved-reading-lists-title" = "Llistes de llectura";
 "saved-search-default-text" = "Buscar";

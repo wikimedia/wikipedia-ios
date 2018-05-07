@@ -77,9 +77,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d seznam čtení</string>
+			<string>%1$d seznam k přečtení</string>
 			<key>other</key>
-			<string>%1$d seznamů čtení</string>
+			<string>%1$d seznamů k přečtení</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Neuložit tento článek a odstranit je ze všech asociovaných seznamů čtení</string>
+			<string>Neuložit tento článek a odstranit je ze všech asociovaných seznamů k přečtení</string>
 			<key>other</key>
-			<string>Neuložit tyto články a odstranit je ze všech asociovaných seznamů čtení</string>
+			<string>Neuložit tyto články a odstranit je ze všech asociovaných seznamů k přečtení</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>

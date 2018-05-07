@@ -183,6 +183,7 @@
 "reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
+// Fuzzy
 "saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
 "saved-title" = "Enregistrat";
 "search-did-you-mean" = "Volètz dire $1 ?";
