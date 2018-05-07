@@ -25,6 +25,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import <WMF/MWKLanguageLinkController.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "WMFDailyStatsLoggingFunnel.h"
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "Wikipedia-Swift.h"
 
@@ -175,6 +176,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports:
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
+            if (isOn) {
+                WMFDailyStatsLoggingFunnel *statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
+                [statsFunnel logAppNumberOfDaysSinceInstall];
+            }
             break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
