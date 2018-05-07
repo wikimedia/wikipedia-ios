@@ -13,6 +13,7 @@
 #import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFEmptyView.h"
+#import "WMFSearchFunnel.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -49,6 +50,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (weak, nonatomic) IBOutlet UIView *searchBottomSeparatorView;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
+
+@property (nonatomic) WMFSearchType searchType;
+@property (nonatomic, strong) WMFSearchFunnel *searchFunnel;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *suggestionButtonHeightConstraint;
 
@@ -195,6 +199,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
     }
+
+    self.searchFunnel = [[WMFSearchFunnel alloc] init];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -221,6 +227,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker sharedInstance] wmf_logView:self];
+    [self.searchFunnel logSearchStart];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
 
@@ -270,7 +277,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchLanguagesBarViewController:(WMFSearchLanguagesBarViewController *)controller didChangeCurrentlySelectedSearchLanguage:(MWKLanguageLink *)language {
-    [self searchForSearchTerm:self.searchField.text];
+    [self searchForSearchTerm:self.searchField.text wasSearchTermSuggested:NO];
 }
 
 #pragma mark - Separator View
@@ -292,6 +299,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (IBAction)didTapCloseButton:(id)sender {
+    [self.searchFunnel logSearchCancel];
     [self dismiss];
 }
 
@@ -304,7 +312,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (![[self currentResultsSearchTerm] isEqualToString:textField.text]) {
-        [self searchForSearchTerm:textField.text];
+        [self searchForSearchTerm:textField.text wasSearchTermSuggested:NO];
     }
 }
 
@@ -360,7 +368,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self setRecentSearchesHidden:YES animated:YES];
 
         DDLogDebug(@"Searching for %@ after delay.", query);
-        [self searchForSearchTerm:query];
+        [self searchForSearchTerm:query wasSearchTermSuggested:NO];
     });
 }
 
@@ -386,7 +394,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     [self setSearchFieldText:self.searchTerm];
-    [self searchForSearchTerm:self.searchTerm];
+    [self searchForSearchTerm:self.searchTerm wasSearchTermSuggested:NO];
 }
 
 - (NSURL *)currentlySelectedSearchURL {
@@ -401,7 +409,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateRecentSearchesVisibility];
 }
 
-- (void)searchForSearchTerm:(NSString *)searchTerm {
+- (void)searchForSearchTerm:(NSString *)searchTerm wasSearchTermSuggested:(BOOL)wasSearchTermSuggested {
+    NSDate *start = [NSDate date];
     if ([searchTerm wmf_trim].length == 0) {
         DDLogDebug(@"Ignoring whitespace-only query.");
         return;
@@ -419,6 +428,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme frame:self.resultsListController.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                [self.searchFunnel logShowSearchErrorWithTypeOfSearch:self.searchType elapsedTime:fabs([start timeIntervalSinceNow])];
                 DDLogError(@"Encountered search error: %@", error);
             }
         });
@@ -439,6 +449,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                 self.resultsListController.results = results.results;
             }
             [self updateUIWithResults:results];
+            if (!wasSearchTermSuggested) { // search results were shown to the user as a result of explicit user input
+                [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:fabs([start timeIntervalSinceNow])];
+            }
         });
     };
 
@@ -456,6 +469,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                  resultLimit:WMFMaxSearchResultLimit
                                      failure:failure
                                      success:^(WMFSearchResults *_Nonnull results) {
+                                         self.searchType = WMFSearchTypePrefix;
                                          dispatch_async(dispatch_get_main_queue(), ^{
                                              @strongify(self);
                                              if (![results.searchTerm isEqualToString:self.searchField.text]) {
@@ -471,6 +485,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
                                              if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+                                                 self.searchType = WMFSearchTypeFull;
+                                                 [self.searchFunnel logSearchAutoSwitch];
                                                  [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                                                                   siteURL:url
                                                                               resultLimit:WMFMaxSearchResultLimit
@@ -525,6 +541,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)articleCollectionViewController:(WMFArticleCollectionViewController *)articleCollectionViewController didSelectArticleWithURL:(NSURL *)didSelectArticleWithURL {
     [self saveLastSearch];
+    [self.searchFunnel logSearchResultTap];
 }
 
 #pragma mark - RecentSearches
@@ -566,19 +583,20 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)recentSearchController:(WMFRecentSearchesViewController *)controller
            didSelectSearchTerm:(MWKRecentSearchEntry *)searchTerm {
     [self setSearchFieldText:searchTerm.searchTerm];
-    [self searchForSearchTerm:searchTerm.searchTerm];
+    [self searchForSearchTerm:searchTerm.searchTerm wasSearchTermSuggested:NO];
     [self updateRecentSearchesVisibility];
 }
 
 #pragma mark - Actions
 
 - (IBAction)searchForSuggestion:(id)sender {
+    [self.searchFunnel logSearchDidYouMean];
     [self setSearchFieldText:[self searchSuggestion]];
     [UIView animateWithDuration:0.25
                      animations:^{
                          [self updateSearchSuggestion:nil];
                      }];
-    [self searchForSearchTerm:self.searchField.text];
+    [self searchForSearchTerm:self.searchField.text wasSearchTermSuggested:YES];
 }
 
 - (NSString *)analyticsContext {
