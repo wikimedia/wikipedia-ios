@@ -410,6 +410,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchForSearchTerm:(NSString *)searchTerm wasSearchTermSuggested:(BOOL)wasSearchTermSuggested {
+    NSDate *start = [NSDate date];
     if ([searchTerm wmf_trim].length == 0) {
         DDLogDebug(@"Ignoring whitespace-only query.");
         return;
@@ -427,7 +428,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             if ([searchTerm isEqualToString:self.searchField.text]) {
                 [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults theme:self.theme frame:self.resultsListController.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
-                [self.searchFunnel logShowSearchErrorWithTypeOfSearch:self.searchType elapsedTime:0];
+                [self.searchFunnel logShowSearchErrorWithTypeOfSearch:self.searchType elapsedTime:[start timeIntervalSinceNow]];
                 DDLogError(@"Encountered search error: %@", error);
             }
         });
@@ -449,7 +450,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             }
             [self updateUIWithResults:results];
             if (!wasSearchTermSuggested) { // search results were shown to the user as a result of explicit user input
-                [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:0];
+                [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:[start timeIntervalSinceNow]];
             }
         });
     };
