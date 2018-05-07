@@ -51,6 +51,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, strong) WMFSearchFetcher *fetcher;
 
+@property (nonatomic) WMFSearchType searchType;
 @property (nonatomic, strong) WMFSearchFunnel *searchFunnel;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *suggestionButtonHeightConstraint;
@@ -198,7 +199,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (self.searchTerm) {
         [self performSearchWithCurrentSearchTerm];
     }
-    
+
     self.searchFunnel = [[WMFSearchFunnel alloc] init];
 }
 
@@ -463,6 +464,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                  resultLimit:WMFMaxSearchResultLimit
                                      failure:failure
                                      success:^(WMFSearchResults *_Nonnull results) {
+                                         self.searchType = WMFSearchTypePrefix;
                                          dispatch_async(dispatch_get_main_queue(), ^{
                                              @strongify(self);
                                              if (![results.searchTerm isEqualToString:self.searchField.text]) {
@@ -478,6 +480,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                                              [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSiteURL:url searchTerm:results.searchTerm]];
 
                                              if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+                                                 self.searchType = WMFSearchTypeFull;
                                                  [self.searchFunnel logSearchAutoSwitch];
                                                  [self.fetcher fetchArticlesForSearchTerm:searchTerm
                                                                                   siteURL:url
