@@ -448,6 +448,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                 self.resultsListController.results = results.results;
             }
             [self updateUIWithResults:results];
+            [self.searchFunnel logSearchResultsWithTypeOfSearch:self.searchType resultCount:results.results.count elapsedTime:0];
         });
     };
 
