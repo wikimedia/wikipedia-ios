@@ -241,27 +241,50 @@
        tagAttributes = @{@"b": @{NSFontAttributeName: boldFont}, @"i": @{NSFontAttributeName: italicFont}};
     });
 
-    NSMutableDictionary<NSString *, NSNumber *> *tagStarts = [NSMutableDictionary dictionaryWithCapacity:2];
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont {
+    __block NSInteger offset = 0;
+    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self attributes:@{NSFontAttributeName: font}];
+    
+    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
+    NSMutableArray<NSSet<NSString  *> *> *tags = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
+
+    __block NSInteger startLocation = NSNotFound;
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         HTMLTagName = [HTMLTagName lowercaseString];
-        if ([HTMLTagName hasPrefix:@"/"]) {
-            NSString *closeTagName = [HTMLTagName substringFromIndex:1];
-            NSNumber *tagStartNumber = tagStarts[closeTagName];
-            if (tagStartNumber) {
-                NSDictionary *attributes = tagAttributes[closeTagName];
-                NSInteger start = [tagStartNumber integerValue] + offset;
-                NSInteger end = range.location + offset;
-                if (attributes && end > start && start >= 0 && start < attributedString.length && end >= 0 && end < attributedString.length) {
-                    NSRange range = NSMakeRange(start, end - start);
-                    [attributedString addAttributes:attributes range:range];
-                }
-            }
-        } else if (tagAttributes[HTMLTagName]) {
-            tagStarts[HTMLTagName] = @(range.location + range.length);
-        }
         [attributedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
         offset -= range.length;
+        NSInteger currentLocation = range.location + range.length + offset;
+        if (startLocation != NSNotFound && currentLocation > startLocation) {
+            [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
+            [tags addObject:[currentTags copy]];
+        }
+        if ([HTMLTagName hasPrefix:@"/"] && startLocation != NSNotFound) {
+            NSString *closeTagName = [HTMLTagName substringFromIndex:1];
+            [currentTags removeObject:closeTagName];
+            if ([currentTags count] > 0) {
+                startLocation = currentLocation;
+            } else {
+                startLocation = NSNotFound;
+            }
+        } else {
+            startLocation = currentLocation;
+            [currentTags addObject:HTMLTagName];
+        }
+    }];
+    [ranges enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange range = [obj rangeValue];
+        NSSet *tagsForRange = [tags objectAtIndex:idx];
+        BOOL isItalic = [tagsForRange containsObject:@"i"];
+        BOOL isBold = [tagsForRange containsObject:@"b"];
+        if (isItalic && isBold) {
+            [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
+        } else if (isItalic) {
+            [attributedString addAttribute:NSFontAttributeName value:italicFont range:range];
+        } else if (isBold) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
+        }
     }];
     return attributedString;
 }

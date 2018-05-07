@@ -19,15 +19,11 @@ public extension ArticleCollectionViewCell {
             titleLabel.text = nil
             return
         }
-        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont).mutableCopy() as? NSMutableAttributedString else {
+        
+        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont).mutableCopy() as? NSMutableAttributedString else {
             return
         }
-        if let highlightingText = highlightingText {
-            let range = (attributedTitle.string.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
-            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline) {
-                attributedTitle.addAttributes([NSAttributedStringKey.font: boldFont], range: range)
-            }
-        }
+    
         titleTextStyle = nil
         titleFontFamily = nil
         titleLabel.attributedText = attributedTitle

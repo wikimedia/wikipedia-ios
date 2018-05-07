@@ -51,10 +51,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
 
 /**
+ *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
  *  Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
  *  It's slower and was the source of crashes in the past.
  */
-- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont;
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont;
+
+- (NSString *)wmf_stringByInsertingHTMLOpenAndCloseTagsWithName:(NSString *)tagName aroundRangesMatchingFirstGroupOfRegularExpression:(NSRegularExpression *)regex;
 
 @end
 
