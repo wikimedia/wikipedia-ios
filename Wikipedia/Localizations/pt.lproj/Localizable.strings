@@ -415,7 +415,8 @@
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Falha ao descarregar as imagens desta página guardada.";
-"saved-pages-progress-syncing" = "Sincronização de artigos em progresso...";
+// Fuzzy
+"saved-pages-progress-syncing" = "Transferência de artigos em progresso...";
 "saved-reading-lists-title" = "Listas de leitura";
 "saved-search-default-text" = "Procurar";
 "saved-title" = "Guardados";

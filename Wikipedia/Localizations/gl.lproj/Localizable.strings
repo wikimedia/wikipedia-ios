@@ -412,7 +412,7 @@
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista non pode ser eliminada";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
-"saved-pages-progress-syncing" = "Sincronización de artigos en curso…";
+"saved-pages-progress-syncing" = "Descarga de artigo en curso…";
 "saved-reading-lists-title" = "Listas de lectura";
 "saved-search-default-text" = "Procura";
 "saved-title" = "Gardado";
