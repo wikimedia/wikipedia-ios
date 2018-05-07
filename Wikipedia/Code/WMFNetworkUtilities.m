@@ -3,6 +3,7 @@
 
 NSString *const WMFNetworkingErrorDomain = @"WMFNetworkingErrorDomain";
 
+NSString *const WMFNetworkRequestBeganNotificationRequestKey = @"WMFNetworkRequestBeganNotificationRequestKey";
 NSString *const WMFNetworkRequestBeganNotification = @"WMFNetworkRequestBeganNotification";
 
 NSString *const WMFNetworkRequestBeganNotificationMethodKey = @"method";
