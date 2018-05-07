@@ -226,6 +226,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker sharedInstance] wmf_logView:self];
+    [self.searchFunnel logSearchStart];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
 
