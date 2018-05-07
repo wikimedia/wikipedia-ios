@@ -428,8 +428,7 @@
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
-// Fuzzy
-"saved-pages-progress-syncing" = "Sincronização de artigos em progresso...";
+"saved-pages-progress-syncing" = "Download do artigo em andamento...";
 "saved-reading-lists-title" = "Listas de leitura";
 "saved-search-default-text" = "Pesquisar";
 "saved-title" = "Salvo";
