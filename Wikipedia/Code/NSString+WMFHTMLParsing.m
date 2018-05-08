@@ -224,45 +224,132 @@
                                  }];
 }
 
-- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block{
+- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block {
     NSRegularExpression *tagRegex = [NSRegularExpression wmf_HTMLTagRegularExpression];
-    [tagRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-        NSString *tagName = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"];
-        NSString *tagAttributes = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
-        block(tagName, tagAttributes, tagResult.range);
-    }];
+    [tagRegex enumerateMatchesInString:self
+                               options:0
+                                 range:NSMakeRange(0, self.length)
+                            usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSString *tagName = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"];
+                                NSString *tagAttributes = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
+                                block(tagName, tagAttributes, tagResult.range);
+                            }];
 }
 
-- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont {
-    __block NSInteger offset = 0;
-    static NSDictionary *tagAttributes;
-    static dispatch_once_t tagAttributesOnce;
-    dispatch_once(&tagAttributesOnce, ^{
-       tagAttributes = @{@"b": @{NSFontAttributeName: boldFont}, @"i": @{NSFontAttributeName: italicFont}};
-    });
+- (void)wmf_enumerateHTMLEntitiesWithBlock:(void (^)(NSString *entityName, NSRange range))block {
+    NSRegularExpression *entityRegex = [NSRegularExpression wmf_HTMLEntityRegularExpression];
+    [entityRegex enumerateMatchesInString:self
+                                  options:0
+                                    range:NSMakeRange(0, self.length)
+                               usingBlock:^(NSTextCheckingResult *_Nullable entityResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                   NSString *entityName = [entityRegex replacementStringForResult:entityResult inString:self offset:0 template:@"$1"];
+                                   block(entityName, entityResult.range);
+                               }];
+}
 
-    NSMutableDictionary<NSString *, NSNumber *> *tagStarts = [NSMutableDictionary dictionaryWithCapacity:2];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self attributes:@{NSFontAttributeName: font}];
+- (NSString *)wmf_stringByDecodingHTMLEntities {
+    static NSDictionary *entityReplacements;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        entityReplacements = @{@"amp": @"&", @"nbsp": @" ", @"gt": @">", @"lt": @"<", @"apos": @"'", @"quot": @"\""};
+    });
+    NSMutableString *mutableSelf = [self mutableCopy];
+    __block NSInteger offset = 0;
+    [self wmf_enumerateHTMLEntitiesWithBlock:^(NSString *entityName, NSRange range) {
+        entityName = [entityName lowercaseString];
+        NSString *replacement = entityReplacements[entityName] ?: @"";
+        [mutableSelf replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:replacement];
+        offset += replacement.length - range.length;
+        ;
+    }];
+    return mutableSelf;
+}
+
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    __block NSInteger offset = 0;
+
+    NSMutableString *cleanedString = [self mutableCopy];
+    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
+    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
+
+    __block NSInteger startLocation = NSNotFound;
+    __block NSInteger plainTextStartLocation = 0;
+
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         HTMLTagName = [HTMLTagName lowercaseString];
-        if ([HTMLTagName hasPrefix:@"/"]) {
+
+        [cleanedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
+        offset -= range.length;
+
+        NSInteger currentLocation = range.location + range.length + offset;
+
+        if (currentLocation > plainTextStartLocation) {
+            NSRange plainTextRange = NSMakeRange(plainTextStartLocation, currentLocation - plainTextStartLocation);
+            NSString *plainText = [cleanedString substringWithRange:plainTextRange];
+            NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
+            [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
+            NSInteger delta = cleanedSubstring.length - plainText.length;
+            offset += delta;
+            currentLocation += delta;
+            plainTextStartLocation = currentLocation;
+        }
+
+        if (startLocation != NSNotFound && currentLocation > startLocation) {
+            [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
+            [tags addObject:[currentTags copy]];
+        }
+        if ([HTMLTagName hasPrefix:@"/"] && startLocation != NSNotFound) {
             NSString *closeTagName = [HTMLTagName substringFromIndex:1];
-            NSNumber *tagStartNumber = tagStarts[closeTagName];
-            if (tagStartNumber) {
-                NSDictionary *attributes = tagAttributes[closeTagName];
-                NSInteger start = [tagStartNumber integerValue] + offset;
-                NSInteger end = range.location + offset;
-                if (attributes && end > start && start >= 0 && start < attributedString.length && end >= 0 && end < attributedString.length) {
-                    NSRange range = NSMakeRange(start, end - start);
-                    [attributedString addAttributes:attributes range:range];
+            [currentTags removeObject:closeTagName];
+            if ([currentTags count] > 0) {
+                startLocation = currentLocation;
+            } else {
+                startLocation = NSNotFound;
+            }
+        } else {
+            startLocation = currentLocation;
+            [currentTags addObject:HTMLTagName];
+        }
+    }];
+
+    if (cleanedString.length > plainTextStartLocation) {
+        NSRange plainTextRange = NSMakeRange(plainTextStartLocation, cleanedString.length - plainTextStartLocation);
+        NSString *plainText = [cleanedString substringWithRange:plainTextRange];
+        NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
+        [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
+    }
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cleanedString attributes:@{NSFontAttributeName: font}];
+
+    NSRange matchingRange = NSMakeRange(NSNotFound, 0);
+    if (stringToBold) {
+        matchingRange = [cleanedString rangeOfString:stringToBold options:NSCaseInsensitiveSearch];
+        if (matchingRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:matchingRange];
+        }
+    }
+
+    [ranges enumerateObjectsUsingBlock:^(NSValue *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        NSRange range = [obj rangeValue];
+        NSSet *tagsForRange = [tags objectAtIndex:idx];
+        BOOL isItalic = [tagsForRange containsObject:@"i"];
+        BOOL isBold = [tagsForRange containsObject:@"b"];
+        if (isItalic && isBold) {
+            [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
+        } else if (isItalic) {
+            [attributedString addAttribute:NSFontAttributeName value:italicFont range:range];
+            if (matchingRange.location != NSNotFound) {
+                NSRange intersection = NSIntersectionRange(matchingRange, range);
+                if (intersection.length > 0) {
+                    [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:intersection];
                 }
             }
-        } else if (tagAttributes[HTMLTagName]) {
-            tagStarts[HTMLTagName] = @(range.location + range.length);
+        } else if (isBold) {
+            [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
         }
-        [attributedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
-        offset -= range.length;
     }];
+
     return attributedString;
 }
 
@@ -290,7 +377,7 @@
                 [attributedString appendAttributedString:nonMatchingAttributedString];
             }
         }
-        
+
         if ([tagName isEqualToString:@"a"]) {
             [hrefRegex enumerateMatchesInString:tagAttributes
                                         options:0
@@ -299,7 +386,7 @@
                                          NSString *URLString = [hrefRegex replacementStringForResult:result inString:tagAttributes offset:0 template:@"$1"];
                                          linkURL = [NSURL URLWithString:URLString];
                                      }];
-            
+
             if (linkURL) {
                 linkString = [[NSMutableString alloc] init];
             }
