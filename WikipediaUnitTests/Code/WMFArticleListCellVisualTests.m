@@ -80,9 +80,7 @@ static NSString *const LongSearchResultDescription =
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString *)titleText searchQuery:(NSString *)query {
-    NSRegularExpression *regex = [NSRegularExpression wmf_HTMLRegularExpressionMatchingText:query];
-    NSString *titleHTML = [titleText wmf_stringByInsertingHTMLOpenAndCloseTagsWithName:@"b" aroundRangesMatchingFirstGroupOfRegularExpression:regex];
-    [self.searchResultCell setTitleHTML:titleHTML];
+    [self.searchResultCell setTitleHTML:titleText boldedString:query];
 }
 
 @end

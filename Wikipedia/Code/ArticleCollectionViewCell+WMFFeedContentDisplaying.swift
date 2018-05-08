@@ -13,14 +13,14 @@ public extension ArticleCollectionViewCell {
         layoutMarginsMultipliers = newMultipliers
     }
     
-    @objc(setTitleHTML:)
-    func set(titleHTML: String?) {
+    @objc(setTitleHTML:boldedString:)
+    func set(titleHTML: String?, boldedString: String?) {
         guard let titleHTML = titleHTML, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let italicFont = UIFont.wmf_preferredFontForFontFamily(.systemItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldItalicFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBoldItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)  else {
             titleLabel.text = nil
             return
         }
         
-        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont).mutableCopy() as? NSMutableAttributedString else {
+        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: boldedString).mutableCopy() as? NSMutableAttributedString else {
             return
         }
     

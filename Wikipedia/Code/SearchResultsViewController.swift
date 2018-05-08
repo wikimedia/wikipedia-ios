@@ -17,12 +17,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         reload()
     }
     
-    var boldRegex: NSRegularExpression?
-    
     func reload() {
-        if let term = resultsInfo?.searchTerm {
-            boldRegex = NSRegularExpression.wmf_HTMLRegularExpression(matchingText: term)
-        }
         collectionView.reloadData()
     }
     
@@ -97,14 +92,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         cell.configureForCompactList(at: indexPath.item)
-        if var titleHTML = result.displayTitleHTML {
-            if let regex = boldRegex {
-                titleHTML = titleHTML.wmf_stringByInsertingHTMLOpenAndCloseTags(withName: "b", aroundRangesMatchingFirstGroupOf: regex)
-            }
-            cell.set(titleHTML: titleHTML)
-        } else {
-            cell.set(titleHTML: nil)
-        }
+        cell.set(titleHTML: result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
        
         cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
