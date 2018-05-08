@@ -16,6 +16,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
         case similarPage
         case items
         case lists
+        case none = "default"
     }
 
     private enum Action: String {
