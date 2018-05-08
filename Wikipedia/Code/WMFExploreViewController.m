@@ -2112,6 +2112,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
             return @"featured_article";
         case WMFContentGroupKindTopRead:
             return @"top_read";
+        case WMFContentGroupKindOnThisDay:
+            return @"on_this_day";
         default:
             return @"none";
     }
