@@ -18,7 +18,8 @@ class ReadingListsFunnel: EventLoggingFunnel {
         case topRead = "top_read"
         case onThisDay = "on_this_day"
         case readMore = "read_more"
-        case random = "random"
+        case random
+        case news
         case outLink
         case similarPage
         case items
@@ -65,6 +66,10 @@ class ReadingListsFunnel: EventLoggingFunnel {
             return .topRead
         case .onThisDay:
             return .onThisDay
+        case .random:
+            return .random
+        case .news:
+            return .news
         default:
             return nil
         }
