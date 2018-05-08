@@ -57,7 +57,7 @@ class WikidataFetcher: NSObject {
             
             let keys = ["P1332", "P1333", "P1334", "P1335"] //bounding coordinates
 
-            let coordinates = keys.flatMap({ (key) -> CLLocationCoordinate2D? in
+            let coordinates = keys.compactMap({ (key) -> CLLocationCoordinate2D? in
                 guard let values = claims[key] as? [Any] else {
                     return nil
                 }

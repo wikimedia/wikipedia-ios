@@ -304,7 +304,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         }
         
-        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        let articles = selectedIndexPaths.compactMap({ article(at: $0) })
         
         switch action.type {
         case .update:

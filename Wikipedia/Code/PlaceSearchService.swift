@@ -135,7 +135,7 @@ class PlaceSearchService
                     done()
                     return
                 }
-                let urls = savedPagesWithoutLocation.flatMap({ (article) -> URL? in
+                let urls = savedPagesWithoutLocation.compactMap({ (article) -> URL? in
                     return article.url
                 })
                 // TODO: ARM: I don't understand this --------------------V
