@@ -224,29 +224,34 @@
                                  }];
 }
 
-- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block{
+- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block {
     NSRegularExpression *tagRegex = [NSRegularExpression wmf_HTMLTagRegularExpression];
-    [tagRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-        NSString *tagName = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"];
-        NSString *tagAttributes = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
-        block(tagName, tagAttributes, tagResult.range);
-    }];
+    [tagRegex enumerateMatchesInString:self
+                               options:0
+                                 range:NSMakeRange(0, self.length)
+                            usingBlock:^(NSTextCheckingResult *_Nullable tagResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                NSString *tagName = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$1"];
+                                NSString *tagAttributes = [tagRegex replacementStringForResult:tagResult inString:self offset:0 template:@"$2"];
+                                block(tagName, tagAttributes, tagResult.range);
+                            }];
 }
 
-- (void)wmf_enumerateHTMLEntitiesWithBlock:(void (^)(NSString *entityName, NSRange range))block{
+- (void)wmf_enumerateHTMLEntitiesWithBlock:(void (^)(NSString *entityName, NSRange range))block {
     NSRegularExpression *entityRegex = [NSRegularExpression wmf_HTMLEntityRegularExpression];
-    [entityRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *_Nullable entityResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-        NSString *entityName = [entityRegex replacementStringForResult:entityResult inString:self offset:0 template:@"$1"];
-        block(entityName, entityResult.range);
-    }];
+    [entityRegex enumerateMatchesInString:self
+                                  options:0
+                                    range:NSMakeRange(0, self.length)
+                               usingBlock:^(NSTextCheckingResult *_Nullable entityResult, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                   NSString *entityName = [entityRegex replacementStringForResult:entityResult inString:self offset:0 template:@"$1"];
+                                   block(entityName, entityResult.range);
+                               }];
 }
-
 
 - (NSString *)wmf_stringByDecodingHTMLEntities {
     static NSDictionary *entityReplacements;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        entityReplacements = @{@"amp": @"&", @"nbsp": @" ", @"gt": @">", @"lt": @"<", @"apos": "'", @"quot", "\""};
+        entityReplacements = @{@"amp": @"&", @"nbsp": @" ", @"gt": @">", @"lt": @"<", @"apos": @"'", @"quot": @"\""};
     });
     NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;
@@ -254,31 +259,31 @@
         entityName = [entityName lowercaseString];
         NSString *replacement = entityReplacements[entityName] ?: @"";
         [mutableSelf replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:replacement];
-        offset += replacement.length - range.length;;
+        offset += replacement.length - range.length;
+        ;
     }];
     return mutableSelf;
 }
 
-
 - (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
     __block NSInteger offset = 0;
-    
+
     NSMutableString *cleanedString = [self mutableCopy];
     NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
-    NSMutableArray<NSSet<NSString  *> *> *tags = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
-    
+
     __block NSInteger startLocation = NSNotFound;
     __block NSInteger plainTextStartLocation = 0;
-    
+
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         HTMLTagName = [HTMLTagName lowercaseString];
-        
+
         [cleanedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
         offset -= range.length;
-        
+
         NSInteger currentLocation = range.location + range.length + offset;
-        
+
         if (currentLocation > plainTextStartLocation) {
             NSRange plainTextRange = NSMakeRange(plainTextStartLocation, currentLocation - plainTextStartLocation);
             NSString *plainText = [cleanedString substringWithRange:plainTextRange];
@@ -289,7 +294,7 @@
             currentLocation += delta;
             plainTextStartLocation = currentLocation;
         }
-        
+
         if (startLocation != NSNotFound && currentLocation > startLocation) {
             [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
             [tags addObject:[currentTags copy]];
@@ -307,14 +312,14 @@
             [currentTags addObject:HTMLTagName];
         }
     }];
-    
+
     if (cleanedString.length > plainTextStartLocation) {
         NSRange plainTextRange = NSMakeRange(plainTextStartLocation, cleanedString.length - plainTextStartLocation);
         NSString *plainText = [cleanedString substringWithRange:plainTextRange];
         NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
         [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
     }
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cleanedString attributes:@{NSFontAttributeName: font}];
 
     NSRange matchingRange = NSMakeRange(NSNotFound, 0);
@@ -324,8 +329,8 @@
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:matchingRange];
         }
     }
-    
-    [ranges enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [ranges enumerateObjectsUsingBlock:^(NSValue *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         NSRange range = [obj rangeValue];
         NSSet *tagsForRange = [tags objectAtIndex:idx];
         BOOL isItalic = [tagsForRange containsObject:@"i"];
@@ -344,7 +349,7 @@
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
         }
     }];
-    
+
     return attributedString;
 }
 
@@ -372,7 +377,7 @@
                 [attributedString appendAttributedString:nonMatchingAttributedString];
             }
         }
-        
+
         if ([tagName isEqualToString:@"a"]) {
             [hrefRegex enumerateMatchesInString:tagAttributes
                                         options:0
@@ -381,7 +386,7 @@
                                          NSString *URLString = [hrefRegex replacementStringForResult:result inString:tagAttributes offset:0 template:@"$1"];
                                          linkURL = [NSURL URLWithString:URLString];
                                      }];
-            
+
             if (linkURL) {
                 linkString = [[NSMutableString alloc] init];
             }
