@@ -26,7 +26,7 @@ class WMFImageControllerTests: XCTestCase {
         let testImage = #imageLiteral(resourceName: "wikipedia-wordmark")
         let stubbedData = UIImagePNGRepresentation(testImage)
 
-        _ = stubRequest("GET", testURL.absoluteString as LSMatcheable!).andReturnRawResponse(stubbedData)
+        _ = stubRequest("GET", testURL.absoluteString as LSMatcheable?).andReturnRawResponse(stubbedData)
         
         let expectation = self.expectation(description: "wait for image download")
         
@@ -51,7 +51,7 @@ class WMFImageControllerTests: XCTestCase {
         let testURL = URL(string: "https://upload.wikimedia.org/foo")!
         let stubbedError = NSError(domain: NSURLErrorDomain, code: NSURLErrorNetworkConnectionLost, userInfo: nil)
         
-        stubRequest("GET", testURL.absoluteString as LSMatcheable!).andFailWithError(stubbedError)
+        stubRequest("GET", testURL.absoluteString as LSMatcheable?).andFailWithError(stubbedError)
         
         let expectation = self.expectation(description: "wait for image download");
         
@@ -101,7 +101,7 @@ class WMFImageControllerTests: XCTestCase {
 
         URLProtocol.unregisterClass(WMFHTTPHangingProtocol.self)
         
-        _ = stubRequest("GET", testURLString as LSMatcheable!).andReturnRawResponse(stubbedData)
+        _ = stubRequest("GET", testURLString as LSMatcheable?).andReturnRawResponse(stubbedData)
         
         let secondExpectation = self.expectation(description: "wait for image download");
         

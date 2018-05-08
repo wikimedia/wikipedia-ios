@@ -108,7 +108,7 @@
     return UIModalPresentationNone;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFReferenceLinkTappedNotification object:URL];
     return NO;
 }
