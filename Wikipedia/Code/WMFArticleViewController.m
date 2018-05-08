@@ -1579,11 +1579,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
-    if (didSave) {
-        [self.readingListsFunnel logArticleSavedFromReadMore];
-    } else {
-        [self.readingListsFunnel logArticleUnsavedFromReadMore];
-    }
+    [self.readingListsFunnel logArticleActionFromReadMore:didSave];
 }
 
 - (void)showLocation {

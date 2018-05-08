@@ -1601,7 +1601,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
-    [self logArticleSavedStateChange:didSave contentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+    [self.readingListsFunnel logArticleActionFromFeedCardWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind wasArticleSaved:didSave];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -2086,15 +2086,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
         contentGroupKind = [self sectionAtIndex:indexPath.section].contentGroupKind;
     }
-    [self logArticleSavedStateChange:wasArticleSaved contentGroupKind:contentGroupKind];
-}
-
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved contentGroupKind:(WMFContentGroupKind)contentGroupKind {
-    if (wasArticleSaved) {
-        [self.readingListsFunnel logArticleSavedFromFeedCardWithContentGroupKind:contentGroupKind];
-    } else {
-        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithContentGroupKind:contentGroupKind];
-    }
+    [self.readingListsFunnel logArticleActionFromFeedCardWithContentGroupKind:contentGroupKind wasArticleSaved:wasArticleSaved];
 }
 
 #if DEBUG && DEBUG_CHAOS
