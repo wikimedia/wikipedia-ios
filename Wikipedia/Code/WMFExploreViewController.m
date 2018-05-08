@@ -2042,7 +2042,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFSaveButtonsControllerDelegate
 
-- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
+- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article withTouch:(UITouch * _Nullable)touch {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
 }
 
