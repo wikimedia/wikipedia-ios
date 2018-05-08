@@ -19,7 +19,6 @@
                 <outlet property="readingListNameLabel" destination="1mL-FN-xFB" id="1KD-S4-Gtd"/>
                 <outlet property="readingListNameTextField" destination="pLi-n2-Obn" id="8za-Ti-XyY"/>
                 <outlet property="scrollView" destination="ANn-ak-pec" id="nsP-lg-Y8f"/>
-                <outlet property="titleLabel" destination="Rae-vX-ya2" id="SsJ-fW-Y6k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,16 +31,10 @@
                     <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-ce-n7H" userLabel="Content View">
-                            <rect key="frame" x="16" y="0.0" width="288" height="289.5"/>
+                            <rect key="frame" x="16" y="0.0" width="288" height="239"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a new list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rae-vX-ya2" userLabel="Create a new list">
-                                    <rect key="frame" x="78" y="30" width="132.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Nyk-1i-Eum">
-                                    <rect key="frame" x="0.0" y="80.5" width="288" height="119"/>
+                                    <rect key="frame" x="0.0" y="30" width="288" height="119"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="f5N-Ni-ahN" userLabel="Name Stack View">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="49.5"/>
@@ -101,7 +94,7 @@
                                     </constraints>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UtA-Zm-L74" userLabel="Create reading list" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="229.5" width="288" height="40"/>
+                                    <rect key="frame" x="0.0" y="179" width="288" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="AUY-nK-uJd"/>
                                     </constraints>
@@ -131,10 +124,8 @@
                                 <constraint firstAttribute="width" constant="288" id="R2J-1Q-nIl">
                                     <variation key="heightClass=regular-widthClass=regular" constant="588"/>
                                 </constraint>
-                                <constraint firstItem="Rae-vX-ya2" firstAttribute="centerX" secondItem="tX4-ce-n7H" secondAttribute="centerX" id="T6d-BJ-pTr"/>
                                 <constraint firstItem="UtA-Zm-L74" firstAttribute="centerX" secondItem="Nyk-1i-Eum" secondAttribute="centerX" id="Uhw-eR-mrr"/>
-                                <constraint firstItem="Nyk-1i-Eum" firstAttribute="top" secondItem="Rae-vX-ya2" secondAttribute="bottom" constant="30" id="seb-q4-Ra9"/>
-                                <constraint firstItem="Rae-vX-ya2" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="zDF-Av-3Tt"/>
+                                <constraint firstItem="Nyk-1i-Eum" firstAttribute="top" secondItem="tX4-ce-n7H" secondAttribute="top" constant="30" id="cX3-gJ-ptk"/>
                             </constraints>
                         </view>
                     </subviews>
