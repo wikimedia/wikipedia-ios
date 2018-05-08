@@ -1601,7 +1601,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
-    [self logArticleSavedStateChange:didSave];
+    [self logArticleSavedStateChange:didSave contentGroupKind:self.groupForPreviewedCell.contentGroupKind];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -2080,53 +2080,21 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - Event Logging
 
 - (void)logArticleSavedStateChange:(BOOL)wasArticleSaved withTouch:(UITouch * _Nullable)touch {
-    NSString *eventLoggingLabelValue = nil;
+    WMFContentGroupKind contentGroupKind = WMFContentGroupKindUnknown;
     if (touch) {
         CGPoint touchLocation = [touch locationInView:self.collectionView];
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
-        eventLoggingLabelValue = [self eventLoggingLabelValueForContentGroupAt:indexPath];
+        contentGroupKind = [self sectionAtIndex:indexPath.section].contentGroupKind;
     }
+    [self logArticleSavedStateChange:wasArticleSaved contentGroupKind:contentGroupKind];
+}
+
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved contentGroupKind:(WMFContentGroupKind)contentGroupKind {
     if (wasArticleSaved) {
-        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+        [self.readingListsFunnel logArticleSavedFromFeedCardWithContentGroupKind:contentGroupKind];
     } else {
-        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithContentGroupKind:contentGroupKind];
     }
-}
-
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved eventLoggingLabelValue:(NSString *)eventLoggingLabelValue {
-    if (wasArticleSaved) {
-        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
-    } else {
-        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
-    }
-}
-
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved {
-    NSString *eventLoggingLabelValue = [self eventLoggingLabelValueForContentGroup:self.groupForPreviewedCell];
-    [self logArticleSavedStateChange:wasArticleSaved eventLoggingLabelValue:eventLoggingLabelValue];
-}
-
-- (NSString *)eventLoggingLabelValueForContentGroup:(WMFContentGroup *)contentGroup {
-    switch (contentGroup.contentGroupKind) {
-        case WMFContentGroupKindFeaturedArticle:
-            return @"featured_article";
-        case WMFContentGroupKindTopRead:
-            return @"top_read";
-        case WMFContentGroupKindOnThisDay:
-            return @"on_this_day";
-        case WMFContentGroupKindRandom:
-            return @"random";
-        default:
-            return @"";
-    }
-}
-
-- (NSString *)eventLoggingLabelValueForContentGroupAt:(NSIndexPath *)indexPath {
-    if (!indexPath) {
-        return nil;
-    }
-    WMFContentGroup *contentGroup = [self sectionAtIndex:[indexPath section]];
-    return [self eventLoggingLabelValueForContentGroup:contentGroup];
 }
 
 #if DEBUG && DEBUG_CHAOS
