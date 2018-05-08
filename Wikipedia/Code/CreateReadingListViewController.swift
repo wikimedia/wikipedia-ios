@@ -6,7 +6,6 @@ protocol CreateReadingListDelegate: NSObjectProtocol {
 
 class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
         
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var readingListNameErrorLabel: UILabel!
@@ -27,7 +26,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
-        titleLabel.text = WMFLocalizedString("reading-list-create-new-list-title", value: "Create a new list", comment: "Title for the view in charge of creating a new reading list.")
+        navigationItem.title = WMFLocalizedString("reading-list-create-new-list-title", value: "Create a new list", comment: "Title for the view in charge of creating a new reading list.")
         readingListNameLabel.text = WMFLocalizedString("reading-list-create-new-list-reading-list-name", value: "Reading list name", comment: "Title for label above text field for entering new list name.")
         descriptionLabel.text = WMFLocalizedString("reading-list-create-new-list-description", value: "Description", comment: "Title for label above text field for entering new list description.")
         readingListNameTextField.placeholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")
@@ -39,10 +38,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
     
     override func viewWillDisappear(_ animated: Bool) {
         view.endEditing(false)
-    }
-    
-    @objc func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
     }
     
     init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
@@ -158,7 +153,6 @@ extension CreateReadingListViewController: Themeable {
         readingListNameTextField.apply(theme: theme)
         descriptionTextField.apply(theme: theme)
         
-        titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         readingListNameErrorLabel.textColor = theme.colors.error
