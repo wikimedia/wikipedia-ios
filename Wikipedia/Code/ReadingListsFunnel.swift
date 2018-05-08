@@ -15,6 +15,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
 
     private enum Label: String {
         case featuredArticle = "featured_article"
+        case topRead = "top_read"
         case readMore = "read_more"
         case outLink
         case similarPage
