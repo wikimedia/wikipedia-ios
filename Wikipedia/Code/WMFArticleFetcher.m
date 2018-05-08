@@ -153,22 +153,26 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                   articleResponse = mutableArticleResponse;
                                               }
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
-
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk];
-                                                  NSManagedObjectContext *moc = self.dataStore.viewContext;
-                                                  WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
-                                                  article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
-                                                  article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-                                                  if (summaryResponse) {
-                                                      [article updateWithSummary:summaryResponse];
-                                                  }
-                                                  NSError *saveError = nil;
-                                                  if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                      DDLogError(@"Error saving after updating article: %@", saveError);
-                                                  }
-                                                  success(mwkArticle);
-                                              });
+                                              [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk completion:^(NSError * _Nonnull articleCacheError) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      NSManagedObjectContext *moc = self.dataStore.viewContext;
+                                                      WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
+                                                      article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
+                                                      article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                      if (summaryResponse) {
+                                                          [article updateWithSummary:summaryResponse];
+                                                      }
+                                                      NSError *saveError = nil;
+                                                      if ([moc hasChanges] && ![moc save:&saveError]) {
+                                                          DDLogError(@"Error saving after updating article: %@", saveError);
+                                                      }
+                                                      if (articleCacheError) {
+                                                          failure(articleCacheError);
+                                                      } else {
+                                                          success(mwkArticle);
+                                                      }
+                                                  });
+                                              }];
                                           } else {
                                               if (!articleError) {
                                                   articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];

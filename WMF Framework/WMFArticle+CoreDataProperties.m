@@ -32,6 +32,6 @@
 @dynamic wikidataDescription;
 @dynamic readingLists;
 @dynamic previewReadingLists;
-@dynamic errorCode;
+@dynamic errorCodeNumber;
 
 @end

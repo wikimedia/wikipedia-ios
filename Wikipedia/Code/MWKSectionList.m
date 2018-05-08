@@ -144,12 +144,19 @@
     return count;
 }
 
-- (void)save {
+- (BOOL)save:(NSError **)outError {
     for (MWKSection *section in self) {
         @autoreleasepool {
-            [section save];
+            NSError *error = nil;
+            if (![section save:&error]) {
+                if (outError) {
+                    *outError = error;
+                }
+                return NO;
+            }
         }
     }
+    return YES;
 }
 
 - (NSString *)description {
