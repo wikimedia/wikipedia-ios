@@ -23,7 +23,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
         case save
         case unsave
         case createList
-        case deleteLiss
+        case deleteList
         case readStart
     }
     
