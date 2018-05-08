@@ -2075,6 +2075,21 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
+#pragma mark - Event Logging
+
+- (NSString *)eventLoggingLabelValueForContentAt:(NSIndexPath *)indexPath {
+    if (!indexPath) {
+        return nil;
+    }
+    WMFContentGroupKind contentGroupKind = [self sectionAtIndex:[indexPath section]].contentGroupKind;
+    switch (contentGroupKind) {
+        case WMFContentGroupKindFeaturedArticle:
+            return @"featured_article";
+        default:
+            return @"none";
+    }
+}
+
 #if DEBUG && DEBUG_CHAOS
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
