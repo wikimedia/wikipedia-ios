@@ -2,14 +2,11 @@ class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
     fileprivate var hasAlreadyAnimated = false
     
-    func getAnimationView() -> WMFWelcomeAnimationView? {
-        assertionFailure("Should not be called directly. Expected to be overriden by subclass")
-        return nil
-    }
+    private(set) var animationView: WMFWelcomeAnimationView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let animationView = getAnimationView() else {
+        guard let animationView = animationView else {
             return
         }
         view.wmf_addSubviewWithConstraintsToEdges(animationView)
@@ -18,7 +15,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if (!hasAlreadyAnimated) {
-            guard let animationView = getAnimationView() else {
+            guard let animationView = animationView else {
                 return
             }
             animationView.beginAnimations()
@@ -28,10 +25,10 @@ class WMFWelcomeAnimationViewController: UIViewController {
 }
 
 class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewController {
-    override func getAnimationView() -> WMFWelcomeAnimationView? {
-        return animationView
+    override var animationView: WMFWelcomeAnimationView? {
+        return animationViewForWelcomePageType
     }
-    lazy var animationView: WMFWelcomeAnimationView? = {
+    private lazy var animationViewForWelcomePageType: WMFWelcomeAnimationView? = {
         switch welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
@@ -63,10 +60,10 @@ class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewControl
 }
 
 class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewController {
-    override func getAnimationView() -> WMFWelcomeAnimationView? {
-        return animationView
+    override var animationView: WMFWelcomeAnimationView? {
+        return animationViewForWelcomePageType
     }
-    lazy var animationView: WMFWelcomeAnimationView? = {
+    private lazy var animationViewForWelcomePageType: WMFWelcomeAnimationView? = {
         switch welcomePageType {
         case .intro:
             return nil
