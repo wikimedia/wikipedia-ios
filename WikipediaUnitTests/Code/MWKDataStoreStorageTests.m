@@ -15,7 +15,7 @@
     article = [[MWKArticle alloc] initWithURL:self.articleURL dataStore:self.dataStore dict:self.json0[@"mobileview"]];
 
     MWKArticle *article2;
-    XCTAssertNoThrow([self.dataStore saveArticle:article]);
+    XCTAssertTrue([self.dataStore saveArticle:article error:nil]);
     XCTAssertNoThrow(article2 = [self.dataStore articleWithURL:self.articleURL], @"article can't be loaded after saving it");
     XCTAssertEqual(article, article2);
 
@@ -26,7 +26,7 @@
 
 - (void)testArticleStoreSection0 {
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
-    [self.article save];
+    [self.article save:nil];
 
     MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
@@ -41,7 +41,7 @@
 
 - (void)testArticleStoreSection1ToEnd {
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
-    [self.article save];
+    [self.article save:nil];
 
     MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithURL:self.articleURL], @"article can be loaded after saving it");
@@ -56,7 +56,7 @@
 
 - (void)testArticleStoreReadSections {
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
-    [self.article save];
+    [self.article save:nil];
 
     MWKSectionList *sections = self.article.sections;
     XCTAssertNotNil(sections);
