@@ -16,7 +16,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
         case similarPage
         case items
         case lists
-        case none = "default"
+        case standard = "default"
     }
 
     private enum Action: String {
@@ -71,6 +71,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
     // - MARK: ArticleCollectionViewController
     
     @objc public func logArticleActionFromArticleCollection(with eventLoggingCategory: EventLoggingCategory, wasArticleSaved: Bool) {
-        log(event(category: eventLoggingCategory, label: .none, action: wasArticleSaved ? .save : .unsave))
+        log(event(category: eventLoggingCategory, label: .standard, action: wasArticleSaved ? .save : .unsave))
     }
 }
