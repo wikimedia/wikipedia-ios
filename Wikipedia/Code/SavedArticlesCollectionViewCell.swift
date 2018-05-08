@@ -44,6 +44,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
             case .downloading:
                 alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
+            case .articleError(let articleError):
+                alertLabelText = articleError.localizedDescription
             }
             
             alertLabel.text = alertLabelText
@@ -241,7 +243,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, with article: WMFArticle, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
@@ -268,6 +270,27 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 break
             }
         }
+        
+        switch alertType ?? .downloading {
+        case .downloading:
+            fallthrough
+        case .articleError:
+            if article.error != .none {
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .articleError(article.error)
+            } else if !article.isDownloaded {
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .downloading
+            } else {
+                isAlertLabelHidden = true
+                isAlertIconHidden = true
+                alertType = nil
+            }
+        default:
+            break
+        }
     }
     
     func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
@@ -291,10 +314,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         isStatusViewHidden = article.isDownloaded
-        if alertType == nil || alertType == .downloading {
-            isAlertLabelHidden = article.isDownloaded
-            alertType = .downloading
-        }
         
         isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         
