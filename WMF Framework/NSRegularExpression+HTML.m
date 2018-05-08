@@ -19,7 +19,7 @@
     static NSRegularExpression *tagRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *pattern = @"&[^\\s]+;";
+        NSString *pattern = @"&([^\\s;]+);";
         tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
                                                              options:NSRegularExpressionCaseInsensitive
                                                                error:nil];
