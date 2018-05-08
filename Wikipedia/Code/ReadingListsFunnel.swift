@@ -45,12 +45,8 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     // - MARK: Read more
     
-    @objc public func logArticleSavedFromReadMore() {
-        log(event(category: .article, label: .readMore, action: .save))
-    }
-    
-    @objc public func logArticleUnsavedFromReadMore() {
-        log(event(category: .article, label: .readMore, action: .unsave))
+    @objc public func logArticleActionFromReadMore(_ wasArticleSaved: Bool) {
+        log(event(category: .article, label: .readMore, action: wasArticleSaved ? .save : .unsave))
     }
     
     // - MARK: Feed
