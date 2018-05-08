@@ -57,8 +57,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     // - MARK: Feed
     
-    @objc public func logArticleUnsavedFromFeedCard(withLabelValue value: String) {
-        log(event(category: .feed, label: Label(rawValue: value), action: .unsave))
     private func label(for contentGroupKind: WMFContentGroupKind) -> Label? {
         switch contentGroupKind {
         case .featuredArticle:
@@ -71,9 +69,12 @@ class ReadingListsFunnel: EventLoggingFunnel {
             return nil
         }
     }
+    
+    @objc public func logArticleUnsavedFromFeedCard(contentGroupKind: WMFContentGroupKind) {
+        log(event(category: .feed, label: label(for: contentGroupKind), action: .unsave))
     }
     
-    @objc public func logArticleSavedFromFeedCard(withLabelValue value: String) {
-        log(event(category: .feed, label: Label(rawValue: value), action: .save))
+    @objc public func logArticleSavedFromFeedCard(contentGroupKind: WMFContentGroupKind) {
+        log(event(category: .feed, label: label(for: contentGroupKind), action: .save))
     }
 }
