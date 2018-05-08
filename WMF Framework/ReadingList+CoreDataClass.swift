@@ -8,7 +8,7 @@ public class ReadingList: NSManagedObject {
     
     public var articleKeys: [String] {
         let entries = self.entries ?? []
-        let existingKeys = entries.flatMap { (entry) -> String? in
+        let existingKeys = entries.compactMap { (entry) -> String? in
             guard entry.isDeletedLocally == false else {
                 return nil
             }
@@ -32,9 +32,9 @@ public class ReadingList: NSManagedObject {
         previousCountOfEntries = countOfEntries
         
         let previousArticles = articles ?? []
-        let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
+        let previousKeys = Set<String>(previousArticles.compactMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
-        let validArticleKeys = Set<String>(validEntries.flatMap { $0.articleKey })
+        let validArticleKeys = Set<String>(validEntries.compactMap { $0.articleKey })
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
