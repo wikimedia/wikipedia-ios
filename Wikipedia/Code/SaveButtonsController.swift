@@ -83,10 +83,7 @@ import UIKit
             saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         }
         updatedArticle = article
-        
-        if key == activeKey {
-            notifyDelegateArticleSavedStateChanged()
-        }
+        notifyDelegateArticleSavedStateChanged()
     }
     
     @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
@@ -127,6 +124,9 @@ import UIKit
     
     private func notifyDelegateArticleSavedStateChanged() {
         guard let article = updatedArticle else {
+            return
+        }
+        guard activeKey == article.key else {
             return
         }
         let isSaved = article.savedDate != nil
