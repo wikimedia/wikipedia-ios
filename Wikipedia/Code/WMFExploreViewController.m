@@ -60,8 +60,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
+
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong) WMFReadingListsFunnel *readingListsFunnel;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
@@ -375,6 +378,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                              selector:@selector(userLoggedInNotification)
                                                  name:[WMFAuthenticationManager userLoggedInNotification]
                                                object:nil];
+    
+    self.readingListsFunnel = [[WMFReadingListsFunnel alloc] init];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
