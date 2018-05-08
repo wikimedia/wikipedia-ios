@@ -194,6 +194,7 @@
 		7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A79A39320A24A7C00F9BDF9 /* EventLoggingCategoryProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingCategoryProviding.swift */; };
 		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
 		7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
@@ -3270,6 +3271,7 @@
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
+		7A79A39220A24A7C00F9BDF9 /* EventLoggingCategoryProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingCategoryProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
@@ -6230,6 +6232,7 @@
 				B3369A331EE1F69E0075953E /* EventCapsule.swift */,
 				B3369A341EE1F69E0075953E /* EventLoggingService.swift */,
 				B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */,
+				7A79A39220A24A7C00F9BDF9 /* EventLoggingCategoryProviding.swift */,
 			);
 			name = "Event Logging New";
 			sourceTree = "<group>";
@@ -10828,6 +10831,7 @@
 				D8FA18B41E1BD891009675C3 /* NSCalendar+WMFCommonCalendars.m in Sources */,
 				D82014781E6864BF00BA8579 /* AFHTTPSessionManager+WMFCancelAll.m in Sources */,
 				D844D9801D6CB3310042D692 /* MWKSiteDataObject.m in Sources */,
+				7A79A39320A24A7C00F9BDF9 /* EventLoggingCategoryProviding.swift in Sources */,
 				D8733C8B1ECA10930011E379 /* LabelGroupAccessibilityElement.swift in Sources */,
 				D844D9EC1D6CBFE40042D692 /* WMFZeroConfigurationFetcher.m in Sources */,
 				D8E2B0F31D6CC5DE006FFB24 /* WMFImageURLParsing.m in Sources */,

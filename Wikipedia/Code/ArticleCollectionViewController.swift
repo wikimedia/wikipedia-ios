@@ -264,3 +264,10 @@ extension ArticleCollectionViewController: ActionDelegate {
 }
 
 extension ArticleCollectionViewController: ShareableArticlesProvider {}
+
+extension ArticleCollectionViewController: EventLoggingCategoryProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        assertionFailure("Subclassers should override this property, eventLoggingCategory cannot be unknown")
+        return .unknown
+    }
+}

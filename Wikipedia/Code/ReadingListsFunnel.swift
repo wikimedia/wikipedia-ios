@@ -1,17 +1,9 @@
+import WMF
+
 @objc(WMFReadingListsFunnel)
 class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists" // TODO
     private let schemaRevision: Int32 = 0 // TODO
-
-    private enum Category: String {
-        case feed
-        case history
-        case map
-        case article
-        case search
-        case addToList = "add_to_list"
-        case saved
-    }
 
     private enum Label: String {
         case featuredArticle = "featured_article"
@@ -38,8 +30,12 @@ class ReadingListsFunnel: EventLoggingFunnel {
         super.init(schema: schemaName, version: schemaRevision)
     }
     
-    private func event(category: Category, label: Label?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
-        var event: [String: Any] = ["category": category.rawValue, "action": action.rawValue, "measure": Double(measure)]
+    private func event(category: EventLoggingCategory, label: Label?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
+        guard category != .unknown else {
+            assertionFailure("category cannot be unknown")
+            return [:]
+        }
+        var event: [String: Any] = ["category": category.value, "action": action.rawValue, "measure": Double(measure)]
         if let label = label {
             event["label"] = label.rawValue
         }
