@@ -13,19 +13,17 @@ public extension ArticleCollectionViewCell {
         layoutMarginsMultipliers = newMultipliers
     }
     
-    @objc(setTitleText:highlightingText:locale:)
-    func set(titleTextToAttribute: String?, highlightingText: String?, locale: Locale?) {
-        guard let titleTextToAttribute = titleTextToAttribute, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline) else {
+    @objc(setTitleHTML:boldedString:)
+    func set(titleHTML: String?, boldedString: String?) {
+        guard let titleHTML = titleHTML, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let italicFont = UIFont.wmf_preferredFontForFontFamily(.systemItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldItalicFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBoldItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)  else {
             titleLabel.text = nil
             return
         }
-        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
-        if let highlightingText = highlightingText {
-            let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
-            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline) {
-                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
-            }
+        
+        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: boldedString).mutableCopy() as? NSMutableAttributedString else {
+            return
         }
+    
         titleTextStyle = nil
         titleFontFamily = nil
         titleLabel.attributedText = attributedTitle
