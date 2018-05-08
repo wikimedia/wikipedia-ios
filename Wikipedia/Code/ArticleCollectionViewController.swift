@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
 
@@ -17,6 +18,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     var readingListHintController: ReadingListHintController?
+    var readingListsFunnel = ReadingListsFunnel()
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -215,6 +217,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
+                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, wasArticleSaved: true)
                 }
                 return true
             }
@@ -224,6 +227,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
+                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, wasArticleSaved: false)
                 }
                 return true
             }
