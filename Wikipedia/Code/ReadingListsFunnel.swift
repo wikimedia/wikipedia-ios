@@ -59,6 +59,18 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     @objc public func logArticleUnsavedFromFeedCard(withLabelValue value: String) {
         log(event(category: .feed, label: Label(rawValue: value), action: .unsave))
+    private func label(for contentGroupKind: WMFContentGroupKind) -> Label? {
+        switch contentGroupKind {
+        case .featuredArticle:
+            return .featuredArticle
+        case .topRead:
+            return .topRead
+        case .onThisDay:
+            return .onThisDay
+        default:
+            return nil
+        }
+    }
     }
     
     @objc public func logArticleSavedFromFeedCard(withLabelValue value: String) {
