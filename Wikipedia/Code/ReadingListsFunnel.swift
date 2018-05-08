@@ -32,10 +32,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
     }
     
     private func event(category: EventLoggingCategory, label: Label?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
-        guard category != .unknown else {
-            assertionFailure("category cannot be unknown")
-            return [:]
-        }
         var event: [String: Any] = ["category": category.value, "action": action.rawValue, "measure": Double(measure)]
         if let label = label {
             event["label"] = label.rawValue
@@ -72,5 +68,9 @@ class ReadingListsFunnel: EventLoggingFunnel {
         log(event(category: .feed, label: label(for: contentGroupKind), action: wasArticleSaved ? .save : .unsave))
     }
     
+    // - MARK: ArticleCollectionViewController
+    
+    @objc public func logArticleActionFromArticleCollection(with eventLoggingCategory: EventLoggingCategory, wasArticleSaved: Bool) {
+        log(event(category: eventLoggingCategory, label: .none, action: wasArticleSaved ? .save : .unsave))
     }
 }

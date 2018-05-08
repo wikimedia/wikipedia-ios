@@ -12,7 +12,6 @@ public enum EventLoggingCategory: Int {
     case search
     case addToList
     case saved
-    case unknown
     
     public var value: String {
         switch self {
@@ -30,8 +29,6 @@ public enum EventLoggingCategory: Int {
             return "add_to_list"
         case .saved:
             return "saved"
-        case .unknown:
-            return "unknown"
         }
     }
 }
