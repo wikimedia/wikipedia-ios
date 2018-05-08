@@ -68,11 +68,9 @@ class ReadingListsFunnel: EventLoggingFunnel {
         }
     }
     
-    @objc public func logArticleUnsavedFromFeedCard(contentGroupKind: WMFContentGroupKind) {
-        log(event(category: .feed, label: label(for: contentGroupKind), action: .unsave))
+    @objc public func logArticleActionFromFeedCard(contentGroupKind: WMFContentGroupKind, wasArticleSaved: Bool) {
+        log(event(category: .feed, label: label(for: contentGroupKind), action: wasArticleSaved ? .save : .unsave))
     }
     
-    @objc public func logArticleSavedFromFeedCard(contentGroupKind: WMFContentGroupKind) {
-        log(event(category: .feed, label: label(for: contentGroupKind), action: .save))
     }
 }
