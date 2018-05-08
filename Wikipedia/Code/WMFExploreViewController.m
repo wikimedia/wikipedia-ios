@@ -1601,6 +1601,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    [self logArticleSavedStateChange:didSave];
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -2044,17 +2045,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article withTouch:(UITouch * _Nullable)touch {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
-    NSString *eventLoggingLabelValue = nil;
-    if (touch) {
-        CGPoint touchLocation = [touch locationInView:self.collectionView];
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
-        eventLoggingLabelValue = [self eventLoggingLabelValueForContentAt:indexPath];
-    }
-    if (didSave) {
-        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
-    } else {
-        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
-    }
+    [self logArticleSavedStateChange:didSave withTouch:touch];
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
@@ -2088,17 +2079,48 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Event Logging
 
-- (NSString *)eventLoggingLabelValueForContentAt:(NSIndexPath *)indexPath {
-    if (!indexPath) {
-        return nil;
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved withTouch:(UITouch * _Nullable)touch {
+    NSString *eventLoggingLabelValue = nil;
+    if (touch) {
+        CGPoint touchLocation = [touch locationInView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
+        eventLoggingLabelValue = [self eventLoggingLabelValueForContentGroupAt:indexPath];
     }
-    WMFContentGroupKind contentGroupKind = [self sectionAtIndex:[indexPath section]].contentGroupKind;
-    switch (contentGroupKind) {
+    if (wasArticleSaved) {
+        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    } else {
+        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    }
+}
+
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved eventLoggingLabelValue:(NSString *)eventLoggingLabelValue {
+    if (wasArticleSaved) {
+        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    } else {
+        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    }
+}
+
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved {
+    NSString *eventLoggingLabelValue = [self eventLoggingLabelValueForContentGroup:self.groupForPreviewedCell];
+    [self logArticleSavedStateChange:wasArticleSaved eventLoggingLabelValue:eventLoggingLabelValue];
+}
+
+- (NSString *)eventLoggingLabelValueForContentGroup:(WMFContentGroup *)contentGroup {
+    switch (contentGroup.contentGroupKind) {
         case WMFContentGroupKindFeaturedArticle:
             return @"featured_article";
         default:
             return @"none";
     }
+}
+
+- (NSString *)eventLoggingLabelValueForContentGroupAt:(NSIndexPath *)indexPath {
+    if (!indexPath) {
+        return nil;
+    }
+    WMFContentGroup *contentGroup = [self sectionAtIndex:[indexPath section]];
+    return [self eventLoggingLabelValueForContentGroup:contentGroup];
 }
 
 #if DEBUG && DEBUG_CHAOS
