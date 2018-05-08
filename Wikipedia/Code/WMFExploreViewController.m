@@ -2044,6 +2044,17 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article withTouch:(UITouch * _Nullable)touch {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
+    NSString *eventLoggingLabelValue = nil;
+    if (touch) {
+        CGPoint touchLocation = [touch locationInView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
+        eventLoggingLabelValue = [self eventLoggingLabelValueForContentAt:indexPath];
+    }
+    if (didSave) {
+        [self.readingListsFunnel logArticleSavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    } else {
+        [self.readingListsFunnel logArticleUnsavedFromFeedCardWithLabelValue:eventLoggingLabelValue];
+    }
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
