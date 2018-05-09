@@ -5,20 +5,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists" // TODO
     private let schemaRevision: Int32 = 0 // TODO
 
-    private enum Label: String {
-        case featuredArticle = "featured_article"
-        case topRead = "top_read"
-        case onThisDay = "on_this_day"
-        case readMore = "read_more"
-        case random
-        case news
-        case outLink
-        case similarPage
-        case items
-        case lists
-        case standard = "default"
-    }
-
     private enum Action: String {
         case save
         case unsave
@@ -31,10 +17,10 @@ class ReadingListsFunnel: EventLoggingFunnel {
         super.init(schema: schemaName, version: schemaRevision)
     }
     
-    private func event(category: EventLoggingCategory, label: Label?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
         var event: [String: Any] = ["category": category.value, "action": action.rawValue, "measure": Double(measure)]
         if let label = label {
-            event["label"] = label.rawValue
+            event["label"] = label.value
         }
         return event
     }
@@ -47,7 +33,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     // - MARK: Feed
     
-    private func label(for contentGroupKind: WMFContentGroupKind) -> Label? {
+    private func label(for contentGroupKind: WMFContentGroupKind) -> EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle
@@ -70,7 +56,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     // - MARK: ArticleCollectionViewController
     
-    @objc public func logArticleActionFromArticleCollection(with eventLoggingCategory: EventLoggingCategory, wasArticleSaved: Bool) {
-        log(event(category: eventLoggingCategory, label: .standard, action: wasArticleSaved ? .save : .unsave))
+    public func logArticleActionFromArticleCollection(with category: EventLoggingCategory, label: EventLoggingLabel?, wasArticleSaved: Bool) {
+        log(event(category: category, label: label, action: wasArticleSaved ? .save : .unsave))
     }
 }
