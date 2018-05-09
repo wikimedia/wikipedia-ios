@@ -18,6 +18,10 @@ class ReadingListsFunnel: EventLoggingFunnel {
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
+        guard category != .undefined else {
+            assertionFailure("category cannot be undefined")
+            return [:]
+        }
         var event: [String: Any] = ["category": category.value, "action": action.rawValue, "measure": Double(measure)]
         if let label = label {
             event["label"] = label.value
