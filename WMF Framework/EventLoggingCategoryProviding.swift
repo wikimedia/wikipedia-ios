@@ -1,9 +1,9 @@
-@objc(WMFEventLoggingCategoryProviding)
-public protocol EventLoggingCategoryProviding {
+public protocol EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory { get }
+    var eventLoggingLabel: EventLoggingLabel? { get }
 }
 
-@objc(WMFEventLoggingCategoryProviding)
+@objc(WMFEventLoggingCategory)
 public enum EventLoggingCategory: Int {
     case feed
     case history
