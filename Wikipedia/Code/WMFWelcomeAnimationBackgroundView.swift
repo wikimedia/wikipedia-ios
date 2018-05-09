@@ -16,13 +16,10 @@ public struct ImageViewAndModel {
 
 open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
 
-    func getImageModels() -> [ImageModel]? {
-        assertionFailure("Should not be called directly. Expected to be overriden by subclass")
-        return nil
-    }
+    private(set) var imageModels:[ImageModel]? = nil
 
     private lazy var imageViewsAndModels: [ImageViewAndModel]? = {
-        guard let imageModels = getImageModels() else {
+        guard let imageModels = imageModels else {
             assertionFailure("Expected models")
             return nil
         }
