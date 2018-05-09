@@ -54,6 +54,12 @@ class ReadingListsFunnel: EventLoggingFunnel {
         }
     }
     
+    // - MARK: Places
+    
+    func logArticleActionFromPlaces(_ wasArticleSaved: Bool) {
+        log(event(category: .map, label: nil, action: wasArticleSaved ? .save : .unsave))
+    }
+    
     @objc public func logArticleActionFromFeedCard(contentGroupKind: WMFContentGroupKind, wasArticleSaved: Bool) {
         log(event(category: .feed, label: label(for: contentGroupKind), action: wasArticleSaved ? .save : .unsave))
     }
