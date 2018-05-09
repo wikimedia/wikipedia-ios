@@ -419,7 +419,7 @@
 "saved-all-articles-title" = "Semua artikel";
 "saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
-"saved-pages-progress-syncing" = "Sinkronisasi artikel sedang berlangsung...";
+"saved-pages-progress-syncing" = "Pengunduhan artikel sedang berlangsung...";
 "saved-reading-lists-title" = "Daftar bacaan";
 "saved-search-default-text" = "Cari";
 "saved-title" = "Tersimpan";

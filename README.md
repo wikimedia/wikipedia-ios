@@ -48,11 +48,7 @@ We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party na
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action.
 
 ## Contributing
-If you're interested in contributing to the project, you can find our current product, bug, and engineering backlogs on the [iOS App Phabricator project board](https://phabricator.wikimedia.org/project/view/782/). Once you pick a task, make sure you assign it to yourself to ensure nobody else duplicates your work.  The **#Easy** tag in Phabricator can also help you find tasks that are ideal for new contributors because they're small and/or well-defined.  We suggest you [filter the tasks to only show tasks tagged with **#Easy** ](https://phabricator.wikimedia.org/project/board/782/query/hv02nri.Imqj/).
-
-We do all of our active development on the [develop](https://github.com/wikimedia/wikipedia-ios) branch. Your pull requests will automatically be targeted at that branch by Github. To make merging easier, be sure you create your branches based on the develop branch.
-
-Once your contributions are ready for review, post a pull request on GitHub and Travis should verify your changes.  Once the build succeeds, one of the maintainers will stop to approve the changes for merging.
+Covered in the [contributing document](CONTRIBUTING.md).
 
 ### Gerrit
 We also maintain a mirror of this repository on Gerrit (see above), syncing the code after every release. If you'd rather use Gerrit to send us a patch, you'll need to:

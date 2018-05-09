@@ -37,6 +37,7 @@ puts "#{pr_branch} went from #{previous_hash} to #{current_hash}, opening pr"
 
 path = `pwd`.strip
 puts `"#{path}/scripts/localization" "#{path}"`
+puts `git add -A`
 puts `git commit -a -m "Import localizations from TWN on #{time_string}"`
 puts `git push -u origin twn`
 puts `scripts/pr.rb #{pr_branch} #{base_branch} "#{title}"`

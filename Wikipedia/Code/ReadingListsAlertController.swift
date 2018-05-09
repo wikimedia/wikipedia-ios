@@ -54,7 +54,7 @@ public class ReadingListsAlertController: NSObject {
     
     func showAlert(presenter: UIViewController, for readingLists: [ReadingList], with actions: [UIAlertAction], completion: (() -> Void)? = nil, failure: () -> Bool) -> Bool {
         let readingListsCount = readingLists.count
-        guard Int(readingLists.flatMap({ $0.countOfEntries }).reduce(0, +)) > 0 else {
+        guard Int(readingLists.compactMap({ $0.countOfEntries }).reduce(0, +)) > 0 else {
             return failure()
         }
         let title = String.localizedStringWithFormat(WMFLocalizedString("reading-lists-delete-reading-list-alert-title", value: "Delete {{PLURAL:%1$d|list|lists}}?", comment: "Title of the alert shown before deleting selected reading lists. %1$d is replaced with number of lists to be deleted. %1$d will be replaced with the appropriate plural for the number of lists being deleted"), readingListsCount)

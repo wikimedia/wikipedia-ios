@@ -61,7 +61,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         bottomRow.axis = UILayoutConstraintAxis.horizontal
         bottomRow.distribution = UIStackViewDistribution.fillEqually
         
-        gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).flatMap { $0 as? UIImageView }
+        gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).compactMap { $0 as? UIImageView }
         if #available(iOS 11.0, *) {
             gridImageViews.forEach {
                 $0.accessibilityIgnoresInvertColors = true
@@ -110,11 +110,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-        
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -126,7 +122,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         var x = layoutMargins.left
-        if isRTL {
+        if isDeviceRTL {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
@@ -134,7 +130,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - articleCountLabelSize.width - layoutMargins.left
             }
             let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), fitting: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -144,6 +140,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             articleCountLabel.isHidden = true
         }
         
+        let labelHorizontalAlignment: HorizontalAlignment = isDeviceRTL ? .right : .left
+        
         if displayType == .addArticlesToReadingList {
             if isDefault {
                 let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -151,8 +149,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             } else {
-                let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
         } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
@@ -169,8 +166,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
             }
         } else {
-            let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumViewSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             if !isAlertIconHidden || !isAlertLabelHidden {
                 origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
@@ -197,7 +193,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
-            if !isRTL {
+            if !isDeviceRTL {
                 x = size.width - x - imageViewDimension
             }
             imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
@@ -207,7 +203,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if (apply && !isImageViewHidden) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
-            if !isRTL {
+            if !isDeviceRTL {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
@@ -217,7 +213,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         if !isAlertIconHidden {
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
             alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
@@ -228,7 +224,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             var xPosition = alertIcon.frame.maxX + spacing
             var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
             var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isRTL {
+            if isDeviceRTL {
                 xPosition = alertIcon.frame.minX - availableWidth - spacing
             }
             if isAlertIconHidden {
@@ -243,7 +239,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if displayType == .readingListsTab && isDefault {
             let defaultListTagSize = defaultListTag.intrinsicContentSize
             var x = origin.x
-            if isRTL {
+            if isDeviceRTL {
                 x = size.width - defaultListTagSize.width - layoutMargins.right
             }
             var y = yAlignedWithImageBottom
@@ -322,13 +318,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.text = description
         
         let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
-        let imageURLs = lastFourArticlesWithLeadImages.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
+        let imageURLs = lastFourArticlesWithLeadImages.compactMap { $0.imageURL(forWidth: imageWidthToRequest) }
         
         isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
         isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display
         
         if !layoutOnly && !isImageGridHidden {
-            let _ = zip(gridImageViews, imageURLs).flatMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
+            let _ = zip(gridImageViews, imageURLs).compactMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
         }
         
         if isImageGridHidden, let imageURL = imageURLs.first {

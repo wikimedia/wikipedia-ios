@@ -309,8 +309,7 @@ public class ReadingListsController: NSObject {
             entry.createdDate = NSDate()
             entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true
-            let url = URL(string: key)
-            entry.displayTitle = url?.wmf_title
+            entry.displayTitle = article.displayTitle
             entry.list = readingList
         }
         try readingList.updateArticlesAndEntries()
@@ -541,7 +540,7 @@ public class ReadingListsController: NSObject {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
         
-        let articleKeys = articles.flatMap { $0.key }
+        let articleKeys = articles.compactMap { $0.key }
         let entriesRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         entriesRequest.predicate = NSPredicate(format: "list == %@ && articleKey IN %@", readingList, articleKeys)
         let entriesToDelete = try moc.fetch(entriesRequest)
@@ -582,7 +581,7 @@ public class ReadingListsController: NSObject {
     
     @objc(unsaveArticles:inManagedObjectContext:) public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
-            let keys = articles.flatMap { $0.key }
+            let keys = articles.compactMap { $0.key }
             let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
             entryFetchRequest.predicate = NSPredicate(format: "articleKey IN %@", keys)
             let entries = try moc.fetch(entryFetchRequest)

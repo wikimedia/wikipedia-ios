@@ -3,6 +3,10 @@
 #import "WMFArticleFetcher.h"
 #import "MWKImageInfoFetcher.h"
 
+NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDiskWithErrorNotification";
+NSString *const WMFArticleSaveToDiskDidFailArticleURLKey = @"WMFArticleSavedToDiskWithArticleURLKey";
+NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWithErrorKey";
+
 static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
 
 #undef LOG_LEVEL_DEF
@@ -128,6 +132,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     self.updating = YES;
     NSAssert([NSThread isMainThread], @"Update must be called on the main thread");
     NSManagedObjectContext *moc = self.dataStore.viewContext;
+    
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && isDownloaded != YES"];
     request.fetchLimit = 1;
@@ -438,14 +443,23 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
     [self updateFetchesInProcessCount];
 
-    if (!error) {
-        WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
-        article.isDownloaded = YES;
-        NSError *saveError = nil;
-        [self.dataStore save:&saveError];
-        if (saveError) {
-            DDLogError(@"Error saving after saved articles fetch: %@", saveError);
+    WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
+    [article updatePropertiesForError:error];
+    if (error) {
+        article.isDownloaded = NO;
+        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+            NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
+            [self stop];
         }
+    } else {
+        article.isDownloaded = YES;
+    }
+    
+    NSError *saveError = nil;
+    [self.dataStore save:&saveError];
+    if (saveError) {
+        DDLogError(@"Error saving after saved articles fetch: %@", saveError);
     }
 }
 

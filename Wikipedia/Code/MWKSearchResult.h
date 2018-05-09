@@ -10,6 +10,10 @@
 
 @property (nullable, nonatomic, copy, readonly) NSString *displayTitle;
 
+@property (nullable, nonatomic, copy, readonly) NSString *displayTitleHTML;
+
+@property (nullable, nonatomic, copy, readonly) NSString *title;
+
 @property (nullable, nonatomic, copy, readonly) NSString *wikidataDescription;
 
 @property (nullable, nonatomic, copy, readonly) NSString *extract;
@@ -38,7 +42,9 @@
 
 - (nullable instancetype)initWithArticleID:(NSInteger)articleID
                                      revID:(NSInteger)revID
+                                     title:(nullable NSString *)title
                               displayTitle:(nullable NSString *)displayTitle
+                          displayTitleHTML:(nullable NSString *)displayTitleHTML
                        wikidataDescription:(nullable NSString *)wikidataDescription
                                    extract:(nullable NSString *)extract
                               thumbnailURL:(nullable NSURL *)thumbnailURL

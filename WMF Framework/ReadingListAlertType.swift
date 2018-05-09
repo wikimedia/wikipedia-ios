@@ -3,6 +3,7 @@ public enum ReadingListAlertType {
     case entryLimitExceeded(limit: Int)
     case genericNotSynced
     case downloading
+    case articleError(_: ArticleError)
 }
 
 extension ReadingListAlertType: Equatable {
@@ -11,7 +12,8 @@ extension ReadingListAlertType: Equatable {
         case  (.listLimitExceeded, .listLimitExceeded),
               (.entryLimitExceeded, .entryLimitExceeded),
               (.genericNotSynced, .genericNotSynced),
-              (.downloading, .downloading):
+              (.downloading, .downloading),
+              (.articleError, .articleError):
             return true
         default:
             return false

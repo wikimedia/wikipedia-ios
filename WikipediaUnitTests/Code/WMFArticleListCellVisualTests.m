@@ -77,10 +77,16 @@ static NSString *const LongSearchResultDescription =
     [self wmf_verifyView:self.searchResultCell];
 }
 
+- (void)testBoldAndItalic {
+    NSString *titleString = @"<i>Italic</i> <b>Bold</b> <i>BoldAndItalic</i> <i>Italic <b>Bold-and-Italic</b></i>";
+    [self populateTitleLabelWithString:titleString searchQuery:@"BoldAndItalic"];
+    [self wmf_verifyView:self.searchResultCell];
+}
+
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString *)titleText searchQuery:(NSString *)query {
-    [self.searchResultCell setTitleText:titleText highlightingText:query locale:nil];
+    [self.searchResultCell setTitleHTML:titleText boldedString:query];
 }
 
 @end

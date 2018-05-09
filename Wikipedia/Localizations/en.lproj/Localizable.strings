@@ -367,6 +367,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "List limit exceeded, unable to sync article";
 "reading-lists-article-queued-to-be-downloaded" = "Article queued to be downloaded";
+"reading-lists-article-save-to-disk-failed" = "Device limited exceeded, unable to sync article";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Clear some space on your device and try again";
 "reading-lists-articles-not-synced-limit-exceeded" = "Some articles not synced, limit exceeded";
 "reading-lists-conflicting-reading-list-name-updated" = "Your list '$1' has been renamed to '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 reading list|$1 reading lists}}";
@@ -398,7 +400,7 @@
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
-"saved-pages-progress-syncing" = "Article syncing in progress...";
+"saved-pages-progress-syncing" = "Article download in progress...";
 "saved-reading-lists-title" = "Reading lists";
 "saved-search-default-text" = "Search";
 "saved-title" = "Saved";
