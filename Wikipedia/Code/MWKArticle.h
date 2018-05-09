@@ -105,7 +105,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article;
 
-- (void)save;
+- (BOOL)save:(NSError **)outError;
 
 - (BOOL)isCached;
 
