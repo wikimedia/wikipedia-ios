@@ -9,7 +9,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding {
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
@@ -78,6 +78,17 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
+    }
+    
+    // MARK: - EventLoggingEventValuesProviding
+    
+    var eventLoggingCategory: EventLoggingCategory {
+        assertionFailure("Subclassers should override this property")
+        return .undefined
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }
 
@@ -268,9 +279,3 @@ extension ArticleCollectionViewController: ActionDelegate {
 }
 
 extension ArticleCollectionViewController: ShareableArticlesProvider {}
-
-extension ArticleCollectionViewController: EventLoggingCategoryProviding {
-    var eventLoggingCategory: EventLoggingCategory {
-        return .article
-    }
-}
