@@ -31,21 +31,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-Db-J92" userLabel="Rounded Corner Container">
-                    <rect key="frame" x="9" y="37" width="280" height="456.5"/>
+                    <rect key="frame" x="9" y="33" width="280" height="464.5"/>
                     <subviews>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-1u-tKd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="456.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="464.5"/>
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OsN-uF-riJ">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="456"/>
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="464"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <blurEffect style="extraLight"/>
                         </visualEffectView>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                            <rect key="frame" x="240" y="0.0" width="40" height="32"/>
+                            <rect key="frame" x="240" y="0.0" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="C4N-RO-Pf1"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="jNS-Hb-YCs"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="jNS-Hb-YCs"/>
                             </constraints>
                             <state key="normal" image="places-auth-close"/>
                             <connections>
@@ -53,7 +53,7 @@
                             </connections>
                         </button>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
-                            <rect key="frame" x="0.0" y="32" width="280" height="425"/>
+                            <rect key="frame" x="0.0" y="40" width="280" height="425"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
                                     <rect key="frame" x="0.0" y="0.5" width="280" height="425"/>
