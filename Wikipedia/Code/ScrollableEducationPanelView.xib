@@ -31,32 +31,37 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-Db-J92" userLabel="Rounded Corner Container">
-                    <rect key="frame" x="9" y="33" width="280" height="464.5"/>
+                    <rect key="frame" x="9" y="32" width="280" height="465"/>
                     <subviews>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-1u-tKd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="464.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="465"/>
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OsN-uF-riJ">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="464.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="465"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <blurEffect style="extraLight"/>
                         </visualEffectView>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                            <rect key="frame" x="240" y="0.0" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="C4N-RO-Pf1"/>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="jNS-Hb-YCs"/>
-                            </constraints>
-                            <state key="normal" image="places-auth-close"/>
-                            <connections>
-                                <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
-                            </connections>
-                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a">
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="40"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                                    <rect key="frame" x="240" y="0.0" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" priority="999" constant="40" id="C4N-RO-Pf1"/>
+                                        <constraint firstAttribute="height" priority="999" constant="40" id="jNS-Hb-YCs"/>
+                                    </constraints>
+                                    <state key="normal" image="places-auth-close"/>
+                                    <connections>
+                                        <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
-                            <rect key="frame" x="0.0" y="40" width="280" height="425"/>
+                            <rect key="frame" x="0.0" y="40" width="280" height="425.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.5" width="280" height="425"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="280" height="425.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
                                             <rect key="frame" x="15" y="16" width="250" height="391.5"/>
@@ -160,17 +165,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="2kL-Te-srR"/>
                         <constraint firstItem="e3o-Ht-LDd" firstAttribute="leading" secondItem="qtK-Db-J92" secondAttribute="leading" id="Ddf-FG-9Ec"/>
                         <constraint firstAttribute="width" constant="280" id="EvZ-1i-fo7"/>
+                        <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="Evj-R4-67a" secondAttribute="bottom" id="KO5-2D-nKT"/>
                         <constraint firstAttribute="bottom" secondItem="i3Y-1u-tKd" secondAttribute="bottom" id="OP0-IS-QyH"/>
                         <constraint firstAttribute="trailing" secondItem="e3o-Ht-LDd" secondAttribute="trailing" id="Td2-3d-O5E"/>
-                        <constraint firstAttribute="trailing" secondItem="BAe-h0-y6b" secondAttribute="trailing" id="XIr-4i-aSi"/>
-                        <constraint firstItem="BAe-h0-y6b" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="YHe-z9-Iqa"/>
                         <constraint firstItem="i3Y-1u-tKd" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="ZN6-Kj-6SM"/>
+                        <constraint firstItem="Evj-R4-67a" firstAttribute="leading" secondItem="qtK-Db-J92" secondAttribute="leading" id="bK8-yN-C6i"/>
                         <constraint firstItem="i3Y-1u-tKd" firstAttribute="leading" secondItem="qtK-Db-J92" secondAttribute="leading" id="hga-nf-cM1"/>
                         <constraint firstAttribute="bottom" secondItem="e3o-Ht-LDd" secondAttribute="bottom" id="kV7-O6-Yke"/>
+                        <constraint firstItem="Evj-R4-67a" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="tbN-cY-aQz"/>
                         <constraint firstAttribute="trailing" secondItem="i3Y-1u-tKd" secondAttribute="trailing" id="ul6-GS-lp0"/>
-                        <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="BAe-h0-y6b" secondAttribute="bottom" id="yNb-F5-rBa"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
