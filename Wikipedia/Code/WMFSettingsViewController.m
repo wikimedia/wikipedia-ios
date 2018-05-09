@@ -25,6 +25,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import <WMF/MWKLanguageLinkController.h>
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "WMFDailyStatsLoggingFunnel.h"
 #import <WMF/NSBundle+WMFInfoUtils.h>
 #import "Wikipedia-Swift.h"
 
@@ -175,6 +176,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports:
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
+            if (isOn) {
+                WMFDailyStatsLoggingFunnel *statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
+                [statsFunnel logAppNumberOfDaysSinceInstall];
+            }
             break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
@@ -206,6 +211,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         }
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             [self showStorageAndSyncing];
+            break;
+        }
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
+            [self showStorageAndSyncingDebug];
             break;
         }
         case WMFSettingsMenuItemType_Support:
@@ -332,10 +341,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout theme:self.theme completion:^{
-        [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
-        }];
-    }];
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout
+                                                                     theme:self.theme
+                                                                completion:^{
+                                                                    [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+                                                                    }];
+                                                                }];
 }
 
 #pragma mark - Languages
@@ -380,6 +391,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [storageAndSyncingSettingsVC applyTheme:self.theme];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
+}
+
+- (void)showStorageAndSyncingDebug {
+#if DEBUG
+    DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+#endif
 }
 
 #pragma mark - Debugging
@@ -465,6 +483,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
+#if DEBUG
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
+#endif
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];
     return section;

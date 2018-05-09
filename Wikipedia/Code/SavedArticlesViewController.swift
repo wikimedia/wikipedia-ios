@@ -264,7 +264,7 @@ extension SavedArticlesViewController {
         }
         
         if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
-            cell.configureAlert(for: entry, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
+            cell.configureAlert(for: entry, with: article, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
         }
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
@@ -277,10 +277,7 @@ extension SavedArticlesViewController {
         cell.delegate = self
         cell.layoutMargins = layout.readableMargins
         
-        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
-        cell.swipeTranslation = translation
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
 }
 
@@ -307,7 +304,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         }
         
-        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        let articles = selectedIndexPaths.compactMap({ article(at: $0) })
         
         switch action.type {
         case .update:

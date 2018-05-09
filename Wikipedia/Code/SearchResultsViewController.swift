@@ -7,13 +7,17 @@ class SearchResultsViewController: ArticleCollectionViewController {
     @objc var results: [MWKSearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
-            collectionView.reloadData()
+            reload()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        reload()
+    }
+    
+    func reload() {
         collectionView.reloadData()
     }
     
@@ -84,13 +88,12 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         let result = results[indexPath.item]
-        guard let articleURL = articleURL(at: indexPath),
-            let language = searchSiteURL?.wmf_language else {
+        guard let language = searchSiteURL?.wmf_language else {
             return
         }
-        let locale = NSLocale.wmf_locale(for: language)
         cell.configureForCompactList(at: indexPath.item)
-        cell.set(titleTextToAttribute: articleURL.wmf_title, highlightingText: resultsInfo?.searchTerm, locale: locale)
+        cell.set(titleHTML: result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
+       
         cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
         cell.descriptionLabel.text = descriptionForSearchResult(result)

@@ -1,6 +1,7 @@
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
+let WMFAppInstallIDKey = "WMFAppInstallID"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -106,6 +107,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
+    }
+    
+    @objc public var wmf_appInstallID: String? {
+        guard let appInstallID = self.string(forKey: WMFAppInstallIDKey) else {
+            self.set(UUID().uuidString, forKey: WMFAppInstallIDKey)
+            synchronize()
+            return self.string(forKey: WMFAppInstallIDKey)
+        }
+        return appInstallID
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
@@ -266,12 +276,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
     
-    @objc public func wmf_setDaysInstalled(_ daysInstalled: NSNumber) {
+    @objc public func wmf_setLoggedDaysInstalled(_ daysInstalled: NSNumber) {
         self.set(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
         self.synchronize()
     }
 
-    @objc public func wmf_daysInstalled() -> NSNumber? {
+    @objc public func wmf_loggedDaysInstalled() -> NSNumber? {
         return self.object(forKey: "DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 

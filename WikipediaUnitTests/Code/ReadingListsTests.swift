@@ -82,11 +82,11 @@ class ReadingListsTests: XCTestCase {
     func testCreatingReadingListWithArticles() {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
-        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let articleKeys = articles.flatMap { (article) -> String? in
+        let articleKeys = articles.compactMap { (article) -> String? in
             return article.key
         }
         
@@ -105,15 +105,15 @@ class ReadingListsTests: XCTestCase {
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
         let otherArticleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!, URL(string: "//en.wikipedia.org/wiki/Baz")!]
         
-        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let otherArticles = otherArticleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let otherArticles = otherArticleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let otherArticleKeys = otherArticles.flatMap { (article) -> String? in
+        let otherArticleKeys = otherArticles.compactMap { (article) -> String? in
             return article.key
         }
         
@@ -137,11 +137,11 @@ class ReadingListsTests: XCTestCase {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Foo")!]
         
-        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let articleKeys = articles.flatMap { (article) -> String? in
+        let articleKeys = articles.compactMap { (article) -> String? in
             return article.key
         }
         

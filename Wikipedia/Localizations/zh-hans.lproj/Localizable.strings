@@ -417,7 +417,7 @@
 "saved-all-articles-title" = "所有条目";
 "saved-default-reading-list-tag" = "此列表不能删除";
 "saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
-"saved-pages-progress-syncing" = "条目同步正在进行...";
+"saved-pages-progress-syncing" = "条目下载正在进行...";
 "saved-reading-lists-title" = "阅读列表";
 "saved-search-default-text" = "搜索";
 "saved-title" = "已保存";

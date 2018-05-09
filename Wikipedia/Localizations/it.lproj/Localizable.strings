@@ -22,6 +22,7 @@
 // Author: Peg60
 // Author: Redredsonia
 // Author: S4b1nuz E.656
+// Author: Sarah Bernabei
 // Author: Segaz3
 // Author: Simoarmanni
 // Author: Statix64
@@ -317,6 +318,8 @@
 "reading-list-create-new-list-title" = "Crea un nuovo elenco";
 "reading-list-deleted-accessibility-notification" = "Elenco di lettura cancellato";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordina voci";
+"reading-list-sync-enabled-panel-message" = "La sincronizzazione degli elenchi di lettura è attivata su questo account. Per bloccarla, puoi disattivare la sincronizzazione di questo account aggiornando le tue impostazioni.";
+"reading-list-sync-enabled-panel-title" = "La sincronizzazione è attivata su questo account";
 "reading-lists-article-added-confirmation" = "Voce aggiunta a \"$1\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 elenco|$1 elenchi}} di lettura";
 "reading-lists-default-list-description" = "Elenco predefinito per le tue voci salvate";
@@ -335,6 +338,7 @@
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
+"saved-pages-progress-syncing" = "Scaricamento della voce in corso...";
 "saved-reading-lists-title" = "Elenchi di lettura";
 "saved-title" = "Salvato";
 "search-did-you-mean" = "Forse cercavi $1?";
@@ -357,6 +361,9 @@
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
 "settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Permetti a Wikipedia di conservare le tue voci salvate e i tuoi elenchi di lettura nelle tue preferenze utente quando ti colleghi e sincronizzi";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Cancellando le tue voci salvate li rimuoverai dal tuo account se hai l'account sincronizzato con questo dispositivo.\n\nCancellando le tue voci salvate guadagnerai $1 di spazio.";
+"settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
 "settings-storage-and-syncing-server-sync-title" = "Aggiorna elenchi di lettura sincronizzati";
 "settings-support" = "Sostieni Wikipedia";
 "settings-title" = "Impostazioni";

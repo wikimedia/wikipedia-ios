@@ -187,7 +187,7 @@
 "history-title" = "Историја";
 "hockeyapp-alert-always-send" = "Секогаш испраќај";
 "hockeyapp-alert-do-not-send" = "Не праќај";
-"hockeyapp-alert-privacy" = "Приватност на $1";
+"hockeyapp-alert-privacy" = "Заштита на личните податоци на $1";
 "hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за Фондацијата Викимедија да ви го разгледа проблемот?";
 "hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за Фондацијата Викимедија да ви го арзгледа проблемот? Опишете што се случи кога настана уривањето:";
 "hockeyapp-alert-send-report" = "Испрати пријава";
@@ -406,7 +406,7 @@
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
-"saved-pages-progress-syncing" = "Усогласувањето е во тек...";
+"saved-pages-progress-syncing" = "Преземањето на статијата е во тек...";
 "saved-reading-lists-title" = "Списоци за читање";
 "saved-search-default-text" = "Пребарај";
 "saved-title" = "Зачувано";

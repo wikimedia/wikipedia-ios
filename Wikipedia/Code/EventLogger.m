@@ -37,12 +37,6 @@ NSString *const WMFLoggingEndpoint =
             NSString *urlString = [NSString stringWithFormat:@"%@?%@;", WMFLoggingEndpoint, encodedPayloadJsonString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
             [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
-            // arguably, we don't need to add the UUID to these requests
-            /*
-               ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-               [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
-             */
-
             [[[NSURLSession sharedSession] dataTaskWithRequest:request] resume];
 #endif
         }

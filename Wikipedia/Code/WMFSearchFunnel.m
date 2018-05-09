@@ -2,7 +2,6 @@
 
 static NSString *const kSchemaName = @"MobileWikiAppSearch";
 static int const kSchemaVersion = 10641988; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
-static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kSearchSessionTokenKey = @"searchSessionToken";
 
 static NSString *const kActionKey = @"action";
@@ -12,7 +11,6 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 @interface WMFSearchFunnel ()
 
-@property (nonatomic, strong) NSString *appInstallId;
 @property (nonatomic, strong) NSString *searchSessionToken;
 
 @end
@@ -21,10 +19,6 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 - (instancetype)init {
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
-    if (self) {
-        self.rate = 100;
-        _appInstallId = [self persistentUUID:kSchemaName];
-    }
     return self;
 }
 
@@ -37,7 +31,6 @@ static NSString *const kSearchResultsCount = @"numberOfResults";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = self.appInstallId;
     dict[kSearchSessionTokenKey] = self.searchSessionToken;
     return [dict copy];
 }

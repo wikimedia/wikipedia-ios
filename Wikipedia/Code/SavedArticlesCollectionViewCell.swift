@@ -44,6 +44,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 alertLabelText = WMFLocalizedString("reading-lists-article-not-synced", value: "Not synced", comment: "Text of the alert label informing the user that article couldn't be synced.")
             case .downloading:
                 alertLabelText = WMFLocalizedString("reading-lists-article-queued-to-be-downloaded", value: "Article queued to be downloaded", comment: "Text of the alert label informing the user that article is queued to be downloaded.")
+            case .articleError(let articleError):
+                alertLabelText = articleError.localizedDescription
             }
             
             alertLabel.text = alertLabelText
@@ -125,11 +127,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-        
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -151,11 +149,10 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         var x = layoutMargins.left
-        if isRTL {
+        if isArticleRTL {
             x = size.width - x - widthMinusMargins
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
-        
         
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -171,7 +168,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
             }
         } else {
-            let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
+            let horizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
         }
@@ -179,7 +176,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
         
         if (apply && !isStatusViewHidden) {
-            let x = isRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
+            let x = isArticleRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
             let statusViewFrame = CGRect(x: x, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
             statusView.frame = statusViewFrame
             statusView.cornerRadius = 0.5 * statusViewDimension
@@ -204,7 +201,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
-            if !isRTL {
+            if !isArticleRTL {
                 x = size.width - x - imageViewDimension
             }
             imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
@@ -218,7 +215,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         if (apply && !isAlertIconHidden) {
             var x = origin.x
-            if isRTL {
+            if isArticleRTL {
                 x = size.width - alertIconDimension - layoutMargins.right
             }
             alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
@@ -246,7 +243,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    func configureAlert(for entry: ReadingListEntry, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, with article: WMFArticle, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
@@ -273,6 +270,27 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 break
             }
         }
+        
+        switch alertType ?? .downloading {
+        case .downloading:
+            fallthrough
+        case .articleError:
+            if article.error != .none {
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .articleError(article.error)
+            } else if !article.isDownloaded {
+                isAlertLabelHidden = false
+                isAlertIconHidden = false
+                alertType = .downloading
+            } else {
+                isAlertLabelHidden = true
+                isAlertIconHidden = true
+                alertType = nil
+            }
+        default:
+            break
+        }
     }
     
     func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
@@ -296,10 +314,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)
         
         isStatusViewHidden = article.isDownloaded
-        if alertType == nil || alertType == .downloading {
-            isAlertLabelHidden = article.isDownloaded
-            alertType = .downloading
-        }
         
         isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         

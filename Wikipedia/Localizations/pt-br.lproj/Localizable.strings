@@ -428,7 +428,7 @@
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
-"saved-pages-progress-syncing" = "Sincronização de artigos em progresso...";
+"saved-pages-progress-syncing" = "Download do artigo em andamento...";
 "saved-reading-lists-title" = "Listas de leitura";
 "saved-search-default-text" = "Pesquisar";
 "saved-title" = "Salvo";
@@ -514,7 +514,7 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "view-in-browser-footer-link" = "Ver artigo no navegador";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
-"welcome-exploration-explore-feed-title" = "Explore o feed";
+"welcome-exploration-explore-feed-title" = "Feed de explorar";
 "welcome-exploration-on-this-day-description" = "Volte no tempo para aprender o que aconteceu hoje na história";
 "welcome-exploration-on-this-day-title" = "Neste dia";
 "welcome-exploration-places-description" = "Descubra marcos próximos de você ou procure por lugares em todo o mundo";

@@ -423,7 +423,7 @@
 "saved-all-articles-title" = "모든 문서";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";
-"saved-pages-progress-syncing" = "문서 동기화 진행 중...";
+"saved-pages-progress-syncing" = "문서 다운로드 진행 중...";
 "saved-reading-lists-title" = "읽기 목록";
 "saved-search-default-text" = "검색";
 "saved-title" = "저장된 문서";

@@ -394,6 +394,7 @@
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
+// Fuzzy
 "saved-pages-progress-syncing" = "Artikuluen sinkronizatzea abian...";
 "saved-reading-lists-title" = "Irakurketa zerrendak";
 "saved-search-default-text" = "Bilatu";

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -312,21 +313,21 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="979-eE-gLA" secondAttribute="height" id="3eT-H9-FYq"/>
-                                    <constraint firstAttribute="trailing" secondItem="979-eE-gLA" secondAttribute="trailing" id="E0R-IG-fwT"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="979-eE-gLA" secondAttribute="trailing" id="E0R-IG-fwT"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="top" secondItem="fBp-uc-mYL" secondAttribute="top" id="TkD-fL-SJc"/>
                                     <constraint firstAttribute="bottom" secondItem="979-eE-gLA" secondAttribute="bottom" id="cRp-g7-6qr"/>
                                     <constraint firstItem="979-eE-gLA" firstAttribute="leading" secondItem="fBp-uc-mYL" secondAttribute="leadingMargin" constant="8" id="zF7-Ns-UDN"/>
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISS-4R-3dj" customClass="WMFGradientView">
-                                <rect key="frame" x="277" y="0.0" width="25" height="44"/>
+                                <rect key="frame" x="285" y="0.0" width="25" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="3Fu-Bv-pbo"/>
                                 </constraints>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHt-tz-Ek7">
-                                <rect key="frame" x="302" y="0.0" width="73" height="44"/>
+                                <rect key="frame" x="310" y="0.0" width="65" height="44"/>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jiw-B9-ljV" customClass="WMFTitleInsetRespectingButton">
                                 <rect key="frame" x="310" y="6" width="49" height="32"/>
@@ -363,7 +364,7 @@
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iIa-dg-uH0" firstAttribute="leading" secondItem="tzw-k8-eL6" secondAttribute="leading" id="0ZM-Ha-j7N"/>
-                            <constraint firstItem="ISS-4R-3dj" firstAttribute="trailing" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="1MZ-c8-TBi"/>
+                            <constraint firstItem="ISS-4R-3dj" firstAttribute="trailingMargin" secondItem="fBp-uc-mYL" secondAttribute="trailing" id="1MZ-c8-TBi"/>
                             <constraint firstAttribute="trailing" secondItem="MHt-tz-Ek7" secondAttribute="trailing" id="3NH-90-svh"/>
                             <constraint firstItem="Jiw-B9-ljV" firstAttribute="top" secondItem="KmN-DY-Ftt" secondAttribute="bottom" constant="6" id="C0q-MQ-6iA"/>
                             <constraint firstAttribute="bottom" secondItem="MHt-tz-Ek7" secondAttribute="bottom" id="D1c-9T-bfM"/>

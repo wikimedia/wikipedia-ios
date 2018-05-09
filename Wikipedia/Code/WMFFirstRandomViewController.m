@@ -44,7 +44,7 @@
             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         success:^(MWKSearchResult *result) {
-            NSURL *titleURL = [siteURL wmf_URLWithTitle:result.displayTitle];
+            NSURL *titleURL = [result articleURLForSiteURL:siteURL];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = NO; // self.isPermaRandomMode to turn on
