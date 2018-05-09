@@ -228,7 +228,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, wasArticleSaved: true)
+                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, label: eventLoggingLabel, wasArticleSaved: true)
                 }
                 return true
             }
@@ -238,7 +238,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, wasArticleSaved: false)
+                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, label: eventLoggingLabel, wasArticleSaved: false)
                 }
                 return true
             }
