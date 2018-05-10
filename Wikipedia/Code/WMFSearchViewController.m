@@ -319,34 +319,34 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
 
-        DDLogDebug(@"Search field text changed to: %@", query);
+    DDLogDebug(@"Search field text changed to: %@", query);
 
-        BOOL isFieldEmpty = [query wmf_trim].length == 0;
+    BOOL isFieldEmpty = [query wmf_trim].length == 0;
 
-        /**
-         * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
-         * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
-         * which seemed more complex.
-         *
-         * See:
-         *   - https://phabricator.wikimedia.org/T156375
-         *   - http://stackoverflow.com/questions/24041181/how-to-detect-that-speech-recogntion-is-in-progress
-         */
-        if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
-            return;
-        }
+    /**
+     * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
+     * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
+     * which seemed more complex.
+     *
+     * See:
+     *   - https://phabricator.wikimedia.org/T156375
+     *   - http://stackoverflow.com/questions/24041181/how-to-detect-that-speech-recogntion-is-in-progress
+     */
+    if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
+        return;
+    }
 
-        [self setSeparatorViewHidden:isFieldEmpty animated:YES];
+    [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
-        if (isFieldEmpty) {
-            [self didCancelSearch];
-            return;
-        }
+    if (isFieldEmpty) {
+        [self didCancelSearch];
+        return;
+    }
 
-        [self setRecentSearchesHidden:YES animated:YES];
+    [self setRecentSearchesHidden:YES animated:YES];
 
-        DDLogDebug(@"Searching for %@ after delay.", query);
-        [self searchForSearchTerm:query wasSearchTermSuggested:NO];
+    DDLogDebug(@"Searching for %@ after delay.", query);
+    [self searchForSearchTerm:query wasSearchTermSuggested:NO];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
