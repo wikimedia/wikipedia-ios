@@ -136,7 +136,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
         log(event(category: .addToList, label: nil, action: .deleteList, measure: readingListsCount))
     }
     
-    public func logCreateInAddToReadingList() {
+    public func logCreateInAddToReadingList() { // TODO: confirm if we want to log if user attempts to create or only if they succed
         log(event(category: .addToList, label: nil, action: .createList))
     }
 }
