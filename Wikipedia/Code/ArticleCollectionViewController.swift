@@ -18,7 +18,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     var readingListHintController: ReadingListHintController?
-    var readingListsFunnel = ReadingListsFunnel()
+    
+    lazy var readingListsFunnel: ReadingListsFunnel = {
+        return ReadingListsFunnel()
+    }()
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -228,7 +231,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, label: eventLoggingLabel, wasArticleSaved: true)
+                    readingListsFunnel.logSave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }
@@ -238,7 +241,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    readingListsFunnel.logArticleActionFromArticleCollection(with: eventLoggingCategory, label: eventLoggingLabel, wasArticleSaved: false)
+                    readingListsFunnel.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }

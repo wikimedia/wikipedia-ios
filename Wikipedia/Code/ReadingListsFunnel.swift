@@ -87,6 +87,15 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     func logArticleActionFromPlaces(_ wasArticleSaved: Bool) {
         log(event(category: .map, label: nil, action: wasArticleSaved ? .save : .unsave))
+    // - MARK: Generic article save & unsave actions
+    
+    public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1) {
+        log(event(category: category, label: label, action: .save, measure: measure))
+    }
+    
+    public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1) {
+        log(event(category: category, label: label, action: .unsave, measure: measure))
+    }
     }
     
     }
