@@ -29,12 +29,19 @@ protocol ReadingListsFunnelProvider {
             assertionFailure("category cannot be undefined")
             return [:]
         }
+        let appInstallID = wmf_appInstallID()
+        let category = category.rawValue
+        let action = action.rawValue
+        let measure = Double(measure)
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
+        let timestamp = String(describing: NSDate())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        var event: [String: Any] = ["app_install_id": self.wmf_appInstallID(), "category": category.value, "action": action.rawValue, "measure": Double(measure), "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": String(describing: NSDate()), "session_id": sessionID]
+        
+        var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "measure": measure, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
         if let label = label {
-            event["label"] = label.value
+            event["label"] = label.rawValue
         }
+        
         return event
     }
     
