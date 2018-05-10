@@ -386,6 +386,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "超过条目限制，无法同步条目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超过列表限制，无法同步条目";
 "reading-lists-article-queued-to-be-downloaded" = "条目已加入下载队列";
+"reading-lists-article-save-to-disk-failed" = "超过设备限制，无法同步条目";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "在您的设备上清理一些空间，然后重试";
 "reading-lists-articles-not-synced-limit-exceeded" = "部分条目未同步，超过限制";
 "reading-lists-conflicting-reading-list-name-updated" = "您的列表“$1”已重命名为“$2”";
 "reading-lists-count" = "{{PLURAL:$1|$1个阅读列表}}";
