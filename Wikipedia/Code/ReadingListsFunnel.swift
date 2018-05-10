@@ -37,11 +37,11 @@ class ReadingListsFunnel: EventLoggingFunnel {
     
     // - MARK: Article
     
-    @objc public func logArticleSaveFromCurrentArticle() {
+    @objc public func logArticleSaveInCurrentArticle() {
         logSave(category: .article, label: .current)
     }
     
-    @objc public func logArticleUnsaveFromCurrentArticle() {
+    @objc public func logArticleUnsaveInCurrentArticle() {
         logUnsave(category: .article, label: .current)
     }
     
