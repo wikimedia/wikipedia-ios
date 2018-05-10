@@ -96,6 +96,16 @@ class ReadingListsFunnel: EventLoggingFunnel {
     public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1) {
         log(event(category: category, label: label, action: .unsave, measure: measure))
     }
+    
+    // - MARK: Saved - default reading list
+    
+    public func logUnsaveInDefaultReadingList(articlesCount: Int = 1) { // TODO: confirm if we want to log unsaves in reading list detail
+        logUnsave(category: .saved, label: .items, measure: articlesCount)
+    }
+    
+    public func logReadStartInDefaultReadingList() {
+        log(event(category: .saved, label: .items, action: .readStart))
+    }
     }
     
     }
