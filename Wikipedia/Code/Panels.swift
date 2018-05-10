@@ -269,6 +269,9 @@ extension UIViewController {
             })
         }
         
+        let loginFunnel = LoginFunnel()
+        loginFunnel.logLoginImpressionInSyncPopover()
+        
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         
         present(panelVC, animated: true)
@@ -288,6 +291,9 @@ extension UIViewController {
                 self.wmf_showLoginViewController(theme: theme)
             })
         }
+        
+        let loginFunnel = LoginFunnel()
+        loginFunnel.logLoginImpressionInSyncPopover()
         
         let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         

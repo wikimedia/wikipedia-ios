@@ -76,4 +76,10 @@
         log(event(category: .setting, label: .login, action: .logout))
     }
     
+    // MARK: - Sync popovers
+    
+    public func logLoginImpressionInSyncPopover() {
+        log(event(category: .loginToSyncPopover, label: nil, action: .impression))
+    }
+    
 }
