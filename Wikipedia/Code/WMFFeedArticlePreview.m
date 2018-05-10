@@ -105,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
     dispatch_once(&onceToken, ^{
         nonNullKeys = @{ @"articleURL": @YES,
                          @"language": @YES,
+                         @"displayTitle": @YES,
                          @"displayTitleHTML": @YES };
     });
 

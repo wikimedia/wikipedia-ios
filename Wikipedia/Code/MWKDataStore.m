@@ -399,6 +399,7 @@ static uint64_t bundleHash() {
         }
         if (preview) {
             article.displayTitleHTML = preview.displayTitle;
+            article.displayTitle = preview.displayTitle;
             article.wikidataDescription = preview.wikidataDescription;
             article.snippet = preview.snippet;
             article.thumbnailURL = preview.thumbnailURL;

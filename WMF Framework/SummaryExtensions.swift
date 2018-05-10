@@ -17,6 +17,8 @@ extension WMFArticle {
             self.displayTitleHTML = displaytitle
         }
         
+        self.displayTitle = self.displayTitleHTML?.wmf_stringByRemovingHTML() ?? summary["title"] as? String
+
         if let extract = summary["extract"] as? String {
             self.snippet = extract.wmf_summaryFromText()
         }

@@ -15,10 +15,6 @@
     return [NSURL URLWithString:key];
 }
 
-- (nullable NSString *)displayTitle {
-    return [self.displayTitleHTML wmf_stringByRemovingHTML] ?: self.URL.wmf_title;
-}
-
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {

@@ -70,6 +70,7 @@
         </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
+        <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="displayTitleHTML" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="errorCodeNumber" optional="YES" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -121,6 +122,9 @@
             <fetchIndexElement property="readingLists" type="Binary" order="ascending"/>
             <fetchIndexElement property="imageURLString" type="Binary" order="ascending"/>
             <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDisplayTitleIndex">
+            <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
     <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
@@ -175,7 +179,7 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="450"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="465"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
