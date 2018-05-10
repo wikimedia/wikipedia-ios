@@ -18,11 +18,22 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     
     @objc public var funnel: WMFLoginFunnel?
     
+    private lazy var loginFunnel: LoginFunnel = {
+       return LoginFunnel()
+    }()
+    private var startDate: Date? // to calculate time elapsed between login start and login success
+    
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        startDate = Date()
+        
+    }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -139,6 +150,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     fileprivate func save() {
+        let start = Date()
         wmf_hideKeyboard()
         passwordAlertLabel.isHidden = true
         setViewControllerUserInteraction(enabled: false)
@@ -151,6 +163,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             self.setViewControllerUserInteraction(enabled: true)
             self.dismiss(animated: true)
             self.funnel?.logSuccess()
+            
+            if let start = self.startDate {
+                self.loginFunnel.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+            } else {
+                assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
+            }
         
         }, failure: { error in
 
@@ -247,6 +265,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         createAcctVC.apply(theme: theme)
         funnel?.logCreateAccountAttempt()
+        loginFunnel.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
