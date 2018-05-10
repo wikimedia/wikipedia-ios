@@ -106,13 +106,27 @@ class ReadingListsFunnel: EventLoggingFunnel {
     public func logReadStartInDefaultReadingList() {
         log(event(category: .saved, label: .items, action: .readStart))
     }
+    
+    // - MARK: Saved - reading lists
+    
+    public func logDeleteInReadingLists(readingListsCount: Int = 1) {
+        log(event(category: .saved, label: .lists, action: .deleteList, measure: readingListsCount))
     }
     
+    public func logCreateInReadingLists() {
+        log(event(category: .saved, label: .lists, action: .createList))
     }
     
     // - MARK: ArticleCollectionViewController
+    // - MARK: Add articles to reading list
+    
+    public func logDeleteInAddToReadingList(readingListsCount: Int = 1) {
+        log(event(category: .addToList, label: nil, action: .deleteList, measure: readingListsCount))
+    }
     
     public func logArticleActionFromArticleCollection(with category: EventLoggingCategory, label: EventLoggingLabel?, wasArticleSaved: Bool) {
         log(event(category: category, label: label, action: wasArticleSaved ? .save : .unsave))
+    public func logCreateInAddToReadingList() {
+        log(event(category: .addToList, label: nil, action: .createList))
     }
 }
