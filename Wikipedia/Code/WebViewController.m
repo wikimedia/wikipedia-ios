@@ -837,10 +837,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return YES;
 }
 
-- (BOOL)shouldAutomaticallyForwardRotationMethods {
-    return YES;
-}
-
 #pragma mark - Display article
 
 - (void)setArticle:(MWKArticle *_Nullable)article articleURL:(NSURL *)articleURL {

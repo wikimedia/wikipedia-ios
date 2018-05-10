@@ -41,12 +41,16 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
                                              forSchema:self.schema
                                               revision:self.revision
                                                   wiki:wiki];
+            [self logged:eventData];
         }
     }
 }
 
 - (NSString *)singleUseUUID {
     return [[NSUUID UUID] UUIDString];
+}
+
+- (void)logged:(NSDictionary *)eventData {
 }
 
 - (NSString *)wmf_appInstallID {
