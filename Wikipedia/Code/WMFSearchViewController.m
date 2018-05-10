@@ -319,29 +319,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         DDLogDebug(@"Search field text changed to: %@", query);
-
-        /**
-         *  This check must performed before checking isEmpty and calling didCancelSearch
-         *  This is to work around a "feature" of Siri which sets the textfield.text to nil
-         *  when cancelling the Siri interface, and then immediately sets the text to its original value
-         *
-         *  The sequence of events is like so:
-         *  Say "Mountain" to Siri
-         *  "Mountain" is typed in the text field by Siri
-         *  textFieldDidChange fires with textfield.text="Mountain"
-         *  Tap a search result (which "cancels" the Siri UI)
-         *  textFieldDidChange fires with textfield.text="" (This is the offending event!)
-         *  textFieldDidChange fires with textfield.text="Mountain"
-         *
-         *  The event setting the textfield.text == nil causes many side effects which can cause crashes like:
-         *  https://phabricator.wikimedia.org/T123241
-         */
-        if (![query isEqualToString:self.searchField.text]) {
-            DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
-            return;
-        }
 
         BOOL isFieldEmpty = [query wmf_trim].length == 0;
 
@@ -369,7 +347,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
         DDLogDebug(@"Searching for %@ after delay.", query);
         [self searchForSearchTerm:query wasSearchTermSuggested:NO];
-    });
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
