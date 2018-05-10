@@ -263,14 +263,15 @@ extension UIViewController {
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+        let loginFunnel = LoginFunnel()
+        loginFunnel.logLoginImpressionInSyncPopover()
+        
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+                loginFunnel.logLoginStartInSyncPopover()
             })
         }
-        
-        let loginFunnel = LoginFunnel()
-        loginFunnel.logLoginImpressionInSyncPopover()
         
         let panelVC = LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: true, theme: theme)
         
@@ -286,14 +287,15 @@ extension UIViewController {
             return
         }
         
+        let loginFunnel = LoginFunnel()
+        loginFunnel.logLoginImpressionInSyncPopover()
+        
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme)
+                loginFunnel.logLoginStartInSyncPopover()
             })
         }
-        
-        let loginFunnel = LoginFunnel()
-        loginFunnel.logLoginImpressionInSyncPopover()
         
         let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         

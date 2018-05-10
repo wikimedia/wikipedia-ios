@@ -82,4 +82,8 @@
         log(event(category: .loginToSyncPopover, label: nil, action: .impression))
     }
     
+    public func logLoginStartInSyncPopover() {
+        log(event(category: .loginToSyncPopover, label: nil, action: .loginStart))
+    }
+    
 }
