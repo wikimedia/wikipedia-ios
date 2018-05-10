@@ -13,7 +13,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     
     fileprivate var theme: Theme = Theme.standard
     
-    public var funnel: LoginFunnel?
+    public var funnel: WMFLoginFunnel?
 
     public var userName:String?
     

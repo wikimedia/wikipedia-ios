@@ -1,6 +1,6 @@
-#import "LoginFunnel.h"
+#import "WMFLoginFunnel.h"
 
-@implementation LoginFunnel
+@implementation WMFLoginFunnel
 
 - (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppLogin

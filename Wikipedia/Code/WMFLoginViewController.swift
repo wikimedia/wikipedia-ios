@@ -16,7 +16,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     public var loginSuccessCompletion: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
     
-    @objc public var funnel: LoginFunnel?
+    @objc public var funnel: WMFLoginFunnel?
     
     fileprivate var theme: Theme = Theme.standard
     
