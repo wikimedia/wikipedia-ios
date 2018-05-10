@@ -416,7 +416,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
             [self.fakeProgressController finish];
             @strongify(self);
-            if ([searchTerm isEqualToString:results.searchTerm]) {
+            if ([results.searchTerm isEqualToString:self.searchField.text]) {
                 if (results.results.count == 0) {
                     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
                         //Without the delay there is a weird animation due to the table also reloading simultaneously
