@@ -373,22 +373,12 @@ extension SavedArticlesViewController: ActionDelegate {
                 delete(articles: [article])
             }
             return true
-        case .save:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
-                return true
-            }
-        case .unsave:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
-                return true
-            }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+        default:
+            assertionFailure("Unsupported action type")
+            return false
         }
-        return false
     }
     
     func availableActions(at indexPath: IndexPath) -> [Action] {
@@ -493,4 +483,3 @@ extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewN
         return analyticsName
     }
 }
-
