@@ -67,6 +67,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 // Event logging
 @property (nonatomic, strong) ReadingListsFunnel *readingListsFunnel;
+@property (nonatomic, strong) LoginFunnel *loginFunnel;
+
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
@@ -381,6 +383,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                object:nil];
     
     self.readingListsFunnel = [[ReadingListsFunnel alloc] init];
+    self.loginFunnel = [[LoginFunnel alloc] init];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -864,6 +867,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
+    
+    if (section.contentGroupKind == WMFContentGroupKindReadingList) {
+        [self.loginFunnel logLoginImpressionInFeed];
+    }
 
     if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
         WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
@@ -1860,6 +1867,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFContentGroupKindReadingList: {
             [self wmf_showLoginViewControllerWithTheme:self.theme loginSuccessCompletion:nil loginDismissedCompletion:nil];
+            [self.loginFunnel logLoginStartInFeed];
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
