@@ -378,6 +378,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listengrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
 "reading-lists-article-queued-to-be-downloaded" = "Artikel in die Download-Warteschlange eingereiht";
+"reading-lists-article-save-to-disk-failed" = "Gerätegrenze erreicht. Der Artikel konnte nicht synchronisiert werden.";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Schaffe etwas Speicherplatz auf deinem Gerät und versuche es erneut.";
 "reading-lists-articles-not-synced-limit-exceeded" = "Einige Artikel wurden nicht synchronisiert. Grenze überschritten.";
 "reading-lists-conflicting-reading-list-name-updated" = "Deine Liste „$1“ wurde in „$2“ umbenannt";
 "reading-lists-count" = "{{PLURAL:$1|Eine Leseliste|$1 Leselisten}}";
