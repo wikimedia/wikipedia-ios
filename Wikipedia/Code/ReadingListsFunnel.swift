@@ -26,7 +26,9 @@ class ReadingListsFunnel: EventLoggingFunnel {
             assertionFailure("category cannot be undefined")
             return [:]
         }
-        var event: [String: Any] = ["category": category.value, "action": action.rawValue, "measure": Double(measure)]
+        let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
+        let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
+        var event: [String: Any] = ["app_install_id": self.wmf_appInstallID(), "category": category.value, "action": action.rawValue, "measure": Double(measure), "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": String(describing: NSDate()), "session_id": sessionID]
         if let label = label {
             event["label"] = label.value
         }
