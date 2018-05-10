@@ -1,9 +1,8 @@
 import UIKit
 
 @objc(WMFArticleLocationCollectionViewController)
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, ReadingListsFunnelProvider {
     var readingListHintController: ReadingListHintController?
-    var readingListsFunnel = ReadingListsFunnel()
     
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
     
@@ -14,6 +13,10 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
+    
+    lazy var readingListsFunnel: ReadingListsFunnel = {
+        return ReadingListsFunnel()
+    }()
 
     @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
         self.articleURLs = articleURLs
@@ -151,5 +154,17 @@ extension ArticleLocationCollectionViewController {
     }
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    }
+}
+
+// MARK: - Reading lists event logging
+
+extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .map // TODO: Category for Places list
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }
