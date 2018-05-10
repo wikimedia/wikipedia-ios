@@ -135,7 +135,6 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         secondaryButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         secondaryButton.titleLabel?.textAlignment = .center
         closeButton.isHidden = !showCloseButton
-        
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
