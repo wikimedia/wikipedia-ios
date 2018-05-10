@@ -35,6 +35,14 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     @objc func articleWasUpdated(_ notification: Notification) {
         updateVisibleCellActions()
     }
+    
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    override var eventLoggingLabel: EventLoggingLabel? {
+        return .articleList
+    }
 }
 
 // MARK: - UICollectionViewDataSource
