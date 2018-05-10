@@ -2,6 +2,7 @@
 
 static NSString *const kSchemaName = @"MobileWikiAppNavMenu";
 static int const kSchemaVersion = 12732211;
+static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kSessionTokenKey = @"sessionToken";
 static NSString *const kActionKey = @"action";
 static NSString *const kMenuTypeKey = @"menuItem";
@@ -24,6 +25,7 @@ static NSString *const kMenuTypeKey = @"menuItem";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
     dict[kSessionTokenKey] = self.sessionToken;
     return [dict copy];
 }

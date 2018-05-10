@@ -77,4 +77,6 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
  */
 - (NSString *)singleUseUUID;
 
+- (NSString *)wmf_appInstallID;
+
 @end
