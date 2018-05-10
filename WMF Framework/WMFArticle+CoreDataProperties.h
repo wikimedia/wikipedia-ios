@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *displayTitle;
+@property (nullable, nonatomic, copy) NSString *displayTitleHTML;
 @property (nonatomic, copy) NSNumber *geoDimensionNumber;
 @property (nonatomic, copy) NSNumber *geoTypeNumber;
 @property (nonatomic, copy) NSNumber *imageHeight;

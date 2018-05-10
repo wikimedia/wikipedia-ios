@@ -6,7 +6,7 @@
     return [[NSFetchRequest alloc] initWithEntityName:@"WMFArticle"];
 }
 
-@dynamic displayTitle;
+@dynamic displayTitleHTML;
 @dynamic geoDimensionNumber;
 @dynamic geoTypeNumber;
 @dynamic imageHeight;

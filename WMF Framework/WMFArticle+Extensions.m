@@ -15,6 +15,11 @@
     return [NSURL URLWithString:key];
 }
 
+- (nullable NSString *)displayTitle {
+    NSLog(@"DTHML is %@", self.displayTitleHTML);
+    return [self.displayTitleHTML wmf_stringByRemovingHTML] ?: self.URL.wmf_title;
+}
+
 - (nullable NSURL *)thumbnailURL {
     NSString *thumbnailURLString = self.thumbnailURLString;
     if (!thumbnailURLString) {
@@ -68,8 +73,8 @@
 }
 
 - (void)updateWithSearchResult:(nullable MWKSearchResult *)searchResult {
-    if ([searchResult.displayTitle length] > 0) {
-        self.displayTitle = searchResult.displayTitle;
+    if ([searchResult.displayTitleHTML length] > 0) {
+        self.displayTitleHTML = searchResult.displayTitleHTML;
     }
     if ([searchResult.wikidataDescription length] > 0) {
         self.wikidataDescription = searchResult.wikidataDescription;
@@ -148,7 +153,7 @@
 
     WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
     if ([feedPreview.displayTitle length] > 0) {
-        preview.displayTitle = feedPreview.displayTitle;
+        preview.displayTitleHTML = feedPreview.displayTitle;
     }
     if ([feedPreview.wikidataDescription length] > 0) {
         preview.wikidataDescription = feedPreview.wikidataDescription;

@@ -1,6 +1,7 @@
 #import <WMF/WMFFeedArticlePreview.h>
 #import <WMF/WMFComparison.h>
 #import <WMF/NSURL+WMFExtras.h>
+#import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
 
@@ -8,8 +9,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedArticlePreview
 
++ (NSUInteger)modelVersion {
+    return 2;
+}
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
+    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @"displaytitle",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
@@ -92,6 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         return YES;
     }
+}
+
+- (NSString *)displayTitle {
+    return [self.displayTitleHTML wmf_stringByRemovingHTML];
 }
 
 @end

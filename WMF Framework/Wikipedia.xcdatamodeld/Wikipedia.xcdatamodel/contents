@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -70,7 +70,7 @@
         </fetchIndex>
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
-        <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayTitleHTML" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="errorCodeNumber" optional="YES" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
