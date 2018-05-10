@@ -150,7 +150,6 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     }
 
     fileprivate func save() {
-        let start = Date()
         wmf_hideKeyboard()
         passwordAlertLabel.isHidden = true
         setViewControllerUserInteraction(enabled: false)
