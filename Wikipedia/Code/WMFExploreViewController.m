@@ -64,8 +64,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
-@property (nonatomic, strong) WMFReadingListsFunnel *readingListsFunnel;
 
+// Event logging
+@property (nonatomic, strong) ReadingListsFunnel *readingListsFunnel;
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
 @property (nonatomic, getter=isLoadingNewContent) BOOL loadingNewContent;
 
@@ -379,7 +380,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                  name:[WMFAuthenticationManager userLoggedInNotification]
                                                object:nil];
     
-    self.readingListsFunnel = [[WMFReadingListsFunnel alloc] init];
+    self.readingListsFunnel = [[ReadingListsFunnel alloc] init];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }

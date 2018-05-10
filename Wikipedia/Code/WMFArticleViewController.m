@@ -106,7 +106,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
-@property (nonatomic, strong) WMFReadingListsFunnel *readingListsFunnel;
+@property (nonatomic, strong) ReadingListsFunnel *readingListsFunnel;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
@@ -722,7 +722,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    self.readingListsFunnel = [[WMFReadingListsFunnel alloc] init];
+    self.readingListsFunnel = [[ReadingListsFunnel alloc] init];
     [self setUpTitleBarButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];

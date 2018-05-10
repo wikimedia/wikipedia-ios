@@ -6,10 +6,10 @@ protocol ReadingListsFunnelProvider {
 
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
 
-@objc(WMFReadingListsFunnel)
 class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists"
     private let schemaRevision: Int32 = 17990228
+@objc class ReadingListsFunnel: EventLoggingFunnel {
     
     private lazy var sessionID: String = {
         return singleUseUUID()
