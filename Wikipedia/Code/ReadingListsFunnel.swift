@@ -82,7 +82,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
         }
     }
     
-    // - MARK: Places
     @objc public func logSaveInFeed(contentGroupKind: WMFContentGroupKind) {
         logSave(category: .feed, label: label(for: contentGroupKind))
     }
@@ -91,8 +90,6 @@ class ReadingListsFunnel: EventLoggingFunnel {
         logUnsave(category: .feed, label: label(for: contentGroupKind))
     }
     
-    func logArticleActionFromPlaces(_ wasArticleSaved: Bool) {
-        log(event(category: .map, label: nil, action: wasArticleSaved ? .save : .unsave))
     // - MARK: Places
     
     @objc public func logSaveInPlaces() {
@@ -133,15 +130,12 @@ class ReadingListsFunnel: EventLoggingFunnel {
         log(event(category: .saved, label: .lists, action: .createList))
     }
     
-    // - MARK: ArticleCollectionViewController
     // - MARK: Add articles to reading list
     
     public func logDeleteInAddToReadingList(readingListsCount: Int = 1) {
         log(event(category: .addToList, label: nil, action: .deleteList, measure: readingListsCount))
     }
     
-    public func logArticleActionFromArticleCollection(with category: EventLoggingCategory, label: EventLoggingLabel?, wasArticleSaved: Bool) {
-        log(event(category: category, label: label, action: wasArticleSaved ? .save : .unsave))
     public func logCreateInAddToReadingList() {
         log(event(category: .addToList, label: nil, action: .createList))
     }
