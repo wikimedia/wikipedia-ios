@@ -45,6 +45,7 @@ public enum EventLoggingLabel: Int {
     case readMore
     case random
     case news
+    case relatedPages // because you read
     case outLink
     case similarPage
     case items
@@ -65,6 +66,8 @@ public enum EventLoggingLabel: Int {
             return "random"
         case .news:
             return "news"
+        case .relatedPages:
+            return "related_pages"
         case .outLink:
             return "out_link"
         case .similarPage:
