@@ -48,7 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)wmf_summaryFromText;
 
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
+
+- (nonnull NSString *)wmf_stringByRemovingHTML;
+
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
+- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont;
 
 /**
  *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
