@@ -10,11 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFFeedArticlePreview
 
 + (NSUInteger)modelVersion {
-    return 2;
+    return 3;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @"displaytitle",
+    return @{ WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitle): @"normalizedtitle",
+              WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, displayTitleHTML): @[@"displaytitle", @"normalizedtitle"],
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, thumbnailURL): @"thumbnail.source",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageURLString): @"originalimage.source",
               WMF_SAFE_KEYPATH(WMFFeedArticlePreview.new, imageWidth): @"originalimage.width",
@@ -66,6 +67,24 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
++ (NSValueTransformer *)displayTitleHTMLJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+                                                  BOOL *success,
+                                                  NSError *__autoreleasing *error) {
+                return value[@"displaytitle"] ?: value[@"normalizedtitle"];
+            }
+            reverseBlock:^NSDictionary *(NSString *displayTitleHTML,
+                                         BOOL *success,
+                                         NSError *__autoreleasing *error) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"displaytitle": @""}];
+                if (displayTitleHTML) {
+                    dict[@"displaytitle"] = displayTitleHTML;
+                }
+                return dict;
+            }];
+}
+
 + (NSValueTransformer *)snippetJSONTransformer {
     return [MTLValueTransformer
         transformerUsingForwardBlock:^NSString *(NSString *extract,
@@ -97,10 +116,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         return YES;
     }
-}
-
-- (NSString *)displayTitle {
-    return [self.displayTitleHTML wmf_stringByRemovingHTML];
 }
 
 @end

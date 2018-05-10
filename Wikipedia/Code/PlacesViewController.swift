@@ -2192,8 +2192,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         let region = self.region(thatFits: [article])
-        let displayTitle = article.displayTitleHTML ?? title
-        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitleHTML: displayTitle, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        let displayTitleHTML = article.displayTitleHTML ?? title
+        let displayTitle = article.displayTitle ?? title
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     

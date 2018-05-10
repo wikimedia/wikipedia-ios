@@ -41,6 +41,7 @@
 - (instancetype)initWithArticleID:(NSInteger)articleID
                             revID:(NSInteger)revID
                             title:(NSString *)title
+                     displayTitle:(NSString *)displayTitle
                  displayTitleHTML:(NSString *)displayTitleHTML
               wikidataDescription:(NSString *)wikidataDescription
                           extract:(NSString *)extract
@@ -54,6 +55,7 @@
         self.articleID = articleID;
         self.revID = revID;
         self.title = title;
+        self.displayTitle = displayTitle;
         self.displayTitleHTML = displayTitleHTML;
         self.wikidataDescription = wikidataDescription;
         self.extract = extract;
@@ -67,7 +69,7 @@
 }
 
 + (NSUInteger)modelVersion {
-    return 4;
+    return 3;
 }
 
 #pragma mark - MTLJSONSerializing
@@ -124,8 +126,11 @@
     return @"";
 }
 
-- (NSString *)displayTitle {
-    return [self.displayTitleHTML wmf_stringByRemovingHTML];
++ (NSValueTransformer *)displayTitleJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+                return [[self displayTitleFromValue:value] wmf_stringByRemovingHTML];
+            }];
 }
 
 + (NSValueTransformer *)displayTitleHTMLJSONTransformer {
@@ -244,6 +249,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitleHTML): @[@"pageprops.displaytitle", @"title"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",

@@ -16,7 +16,6 @@
 }
 
 - (nullable NSString *)displayTitle {
-    NSLog(@"DTHML is %@", self.displayTitleHTML);
     return [self.displayTitleHTML wmf_stringByRemovingHTML] ?: self.URL.wmf_title;
 }
 
