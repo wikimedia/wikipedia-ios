@@ -69,6 +69,8 @@ class ReadingListsFunnel: EventLoggingFunnel {
             return .random
         case .news:
             return .news
+        case .relatedPages:
+            return .relatedPages
         default:
             return nil
         }
