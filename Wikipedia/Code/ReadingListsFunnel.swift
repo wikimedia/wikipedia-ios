@@ -35,6 +35,16 @@ class ReadingListsFunnel: EventLoggingFunnel {
         return event
     }
     
+    // - MARK: Article
+    
+    @objc public func logArticleSaveFromCurrentArticle() {
+        logSave(category: .article, label: .current)
+    }
+    
+    @objc public func logArticleUnsaveFromCurrentArticle() {
+        logUnsave(category: .article, label: .current)
+    }
+    
     // - MARK: Read more
     
     @objc public func logArticleActionFromReadMore(_ wasArticleSaved: Bool) {

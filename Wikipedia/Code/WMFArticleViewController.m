@@ -1314,9 +1314,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+        [self.readingListsFunnel logArticleSaveFromCurrentArticle];
     } else {
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+        [self.readingListsFunnel logArticleUnsaveFromCurrentArticle];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1913,6 +1915,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [self.readingListsFunnel logArticleSaveFromCurrentArticle];
+    } else {
+        [self.readingListsFunnel logArticleUnsaveFromCurrentArticle];
+    }
 }
 
 #pragma mark - Article Navigation
