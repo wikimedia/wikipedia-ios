@@ -2,8 +2,8 @@ import WMF
 
 @objc(WMFReadingListsFunnel)
 class ReadingListsFunnel: EventLoggingFunnel {
-    private let schemaName = "MobileWikiAppiOSReadingLists" // TODO
-    private let schemaRevision: Int32 = 0 // TODO
+    private let schemaName = "MobileWikiAppiOSReadingLists"
+    private let schemaRevision: Int32 = 17990228
 
     private enum Action: String {
         case save
