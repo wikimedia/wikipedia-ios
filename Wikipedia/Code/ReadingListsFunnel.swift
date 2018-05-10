@@ -6,9 +6,6 @@ protocol ReadingListsFunnelProvider {
 
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
 
-class ReadingListsFunnel: EventLoggingFunnel {
-    private let schemaName = "MobileWikiAppiOSReadingLists"
-    private let schemaRevision: Int32 = 17990228
 @objc class ReadingListsFunnel: EventLoggingFunnel {
     
     private lazy var sessionID: String = {
@@ -24,7 +21,7 @@ class ReadingListsFunnel: EventLoggingFunnel {
     }
     
     override init() {
-        super.init(schema: schemaName, version: schemaRevision)
+        super.init(schema: "MobileWikiAppiOSReadingLists", version: 17990228)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
