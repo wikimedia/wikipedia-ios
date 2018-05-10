@@ -8,9 +8,9 @@ class ReadingListsFunnel: EventLoggingFunnel {
     private enum Action: String {
         case save
         case unsave
-        case createList
-        case deleteList
-        case readStart
+        case createList = "createlist"
+        case deleteList = "deletelist"
+        case readStart = "read_start"
     }
     
     override init() {
