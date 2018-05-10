@@ -365,7 +365,7 @@
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
 "two-factor-login-continue" = "প্রবেশ অব্যাহত রাখুন";
-"two-factor-login-instructions" = "দুই গুণনীয়ক যাচাইকরণ কোড প্রবেশ করান";
+"two-factor-login-instructions" = "দুই ধাপের যাচাইকরণ কোড প্রবেশ করান";
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
