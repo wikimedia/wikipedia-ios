@@ -3,6 +3,9 @@ import WMF
 protocol ReadingListsFunnelProvider {
     var readingListsFunnel: ReadingListsFunnel { get }
 }
+
+// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
+
 @objc(WMFReadingListsFunnel)
 class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists"
