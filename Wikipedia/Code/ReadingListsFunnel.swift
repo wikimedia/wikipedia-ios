@@ -1,5 +1,8 @@
 import WMF
 
+protocol ReadingListsFunnelProvider {
+    var readingListsFunnel: ReadingListsFunnel { get }
+}
 @objc(WMFReadingListsFunnel)
 class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists"

@@ -9,7 +9,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding, ReadingListsFunnelProvider {
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
