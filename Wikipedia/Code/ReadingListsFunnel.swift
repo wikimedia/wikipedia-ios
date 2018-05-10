@@ -4,6 +4,10 @@ import WMF
 class ReadingListsFunnel: EventLoggingFunnel {
     private let schemaName = "MobileWikiAppiOSReadingLists"
     private let schemaRevision: Int32 = 17990228
+    
+    private lazy var sessionID: String = {
+        return singleUseUUID()
+    }()
 
     private enum Action: String {
         case save
