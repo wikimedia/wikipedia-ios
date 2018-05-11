@@ -111,6 +111,7 @@ platform :ios do
       opts = {
         devices: devices,
         scheme: scheme,
+        disable_concurrent_testing: true,
         project: 'Wikipedia.xcodeproj',
         buildlog_path: './build',
         configuration: 'Test',
