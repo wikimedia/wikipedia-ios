@@ -94,6 +94,7 @@ platform :ios do
         buildlog_path: './build',
         output_directory: './build/reports',
         output_style: 'basic',
+        configuration: 'Test',
         output_files: devices.map { |device| "#{scheme} #{device}.junit" }.join(","),
         output_types: 'junit,junit'
       }
@@ -111,6 +112,7 @@ platform :ios do
         scheme: scheme,
         project: 'Wikipedia.xcodeproj',
         buildlog_path: './build',
+        configuration: 'Test',
         xcargs: "GCC_PREPROCESSOR_DEFINITIONS='\$(value) WMF_VISUAL_TEST_RECORD_MODE=1'",
         fail_build: false,
         output_types: ''
