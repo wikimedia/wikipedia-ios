@@ -383,6 +383,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "עברת את מגבלת הערכים, ולכן לא ניתן לסנכרן את הערך";
 "reading-lists-article-not-synced-list-limit-exceeded" = "עברת את מגבלת הרשימות, ולכן לא ניתן לסנכרן את הערך";
 "reading-lists-article-queued-to-be-downloaded" = "הערך ממתין להורדה";
+"reading-lists-article-save-to-disk-failed" = "הגעת למגבלה של המכשיר, לא ניתן לסנכרן את הערך";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "באפשרותך לנקות שטח אחסון מהמכשיר שלך ולאחר מכן לנסות שוב";
 "reading-lists-articles-not-synced-limit-exceeded" = "מספר ערכים לא סונכרנו משום שעברת את המגבלה";
 "reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה '$1' שוּנה לשם '$2'";
 "reading-lists-count" = "{{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}}";
