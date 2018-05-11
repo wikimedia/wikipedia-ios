@@ -307,7 +307,11 @@
     return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
 }
 
-- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    boldFont = boldFont ?: font;
+    italicFont = italicFont ?: font;
+    boldItalicFont = boldItalicFont ?: font;
+
     NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
     NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];

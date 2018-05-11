@@ -45,7 +45,7 @@ class TagCollectionViewCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.setFont(with: .system, style: .footnote, traitCollection: traitCollection)
+        label.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

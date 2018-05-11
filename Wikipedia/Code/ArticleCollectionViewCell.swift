@@ -6,7 +6,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
-    
+
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
     @objc public let imageView = UIImageView()
@@ -18,6 +18,26 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open var alertType: ReadingListAlertType?
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
+    private var titleHTML: String? = nil
+    private var titleBoldedString: String? = nil
+    
+    private func updateTitleLabel() {
+        let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = titleFont
+        if let titleHTML = titleHTML {
+            let boldFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold), compatibleWithTraitCollection: traitCollection)
+            let italicFont = UIFont.wmf_font(titleTextStyle.with(traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
+            let boldItalicFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold, traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
+            titleLabel.attributedText = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: titleBoldedString)
+        }
+    }
+    
+    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+        self.titleHTML = titleHTML
+        self.titleBoldedString = boldedString
+        updateTitleLabel()
+    }
+    
     public var actions: [Action] {
         set {
             actionsView.actions = newValue
@@ -31,7 +51,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        titleFontFamily = .georgia
+        titleTextStyle = .georgiaTitle1
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -66,15 +86,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        titleHTML = nil
+        titleBoldedString = nil
         layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
-        titleFontFamily = .georgia
-        titleTextStyle = .title1
-        descriptionFontFamily = .system
+        titleTextStyle = .georgiaTitle1
         descriptionTextStyle  = .subheadline
-        extractFontFamily = .system
         extractTextStyle  = .subheadline
-        saveButtonFontFamily = .systemMedium
-        saveButtonTextStyle  = .subheadline
+        saveButtonTextStyle  = .mediumSubheadline
         layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
@@ -224,17 +242,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
-    public var titleFontFamily: WMFFontFamily?
-    public var titleTextStyle: UIFontTextStyle?
-    
-    public var descriptionFontFamily: WMFFontFamily?
-    public var descriptionTextStyle: UIFontTextStyle?
-    
-    public var extractFontFamily: WMFFontFamily?
-    public var extractTextStyle: UIFontTextStyle?
-    
-    public var saveButtonFontFamily: WMFFontFamily?
-    public var saveButtonTextStyle: UIFontTextStyle?
+    public var titleTextStyle: DynamicTextStyle!
+    public var descriptionTextStyle: DynamicTextStyle!
+    public var extractTextStyle: DynamicTextStyle!
+    public var saveButtonTextStyle: DynamicTextStyle!
     
     public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat!
@@ -256,11 +267,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.setFont(with:titleFontFamily, style: titleTextStyle, traitCollection: traitCollection)
-        descriptionLabel.setFont(with:descriptionFontFamily, style: descriptionTextStyle, traitCollection: traitCollection)
-        extractLabel?.setFont(with:extractFontFamily, style: extractTextStyle, traitCollection: traitCollection)
-        saveButton.titleLabel?.setFont(with:saveButtonFontFamily, style: saveButtonTextStyle, traitCollection: traitCollection)
-        alertLabel.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
+
+        updateTitleLabel()
+        
+        descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
+        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        alertLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK - Semantic content

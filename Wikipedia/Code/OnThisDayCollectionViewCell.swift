@@ -7,11 +7,11 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
+        let titleFont = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
         bottomTitleLabel.font = titleFont
         
-        let subTitleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        let subTitleFont = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         subTitleLabel.font = subTitleFont
         descriptionLabel.font = subTitleFont
     }

@@ -44,11 +44,11 @@ class ReadingListDetailUnderBarViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        articleCountLabel.setFont(with: .systemSemiBold, style: .footnote, traitCollection: traitCollection)
-        titleTextField.font = UIFont.wmf_preferredFontForFontFamily(.systemBold, withTextStyle: .title1, compatibleWithTraitCollection: traitCollection)
-        descriptionTextField.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
-        alertTitleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
-        alertMessageLabel?.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
+        articleCountLabel.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
+        titleTextField.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        descriptionTextField.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        alertTitleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+        alertMessageLabel?.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
     }
     
     // Int64 instead of Int to so that we don't have to cast countOfEntries: Int64 property of ReadingList object to Int.

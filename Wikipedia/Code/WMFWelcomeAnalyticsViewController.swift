@@ -56,7 +56,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        learnMoreButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        learnMoreButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 
     @IBAction func showPrivacyAlert(withSender sender: AnyObject) {

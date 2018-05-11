@@ -120,7 +120,7 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
-        let titleLabelFont = UIFont.wmf_preferredFontForFontFamily(.georgia, withTextStyle: .title3, compatibleWithTraitCollection: traitCollection)
+        let titleLabelFont = UIFont.wmf_font(.georgiaTitle3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleLabelFont
     }
     
