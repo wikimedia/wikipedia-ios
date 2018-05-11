@@ -151,7 +151,7 @@
 
     WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
     if ([feedPreview.displayTitleHTML length] > 0) {
-        preview.displayTitleHTML = feedPreview.displayTitle;
+        preview.displayTitleHTML = feedPreview.displayTitleHTML;
     }
     if ([feedPreview.displayTitle length] > 0) {
         preview.displayTitle = feedPreview.displayTitle;
