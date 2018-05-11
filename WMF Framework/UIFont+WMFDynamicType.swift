@@ -137,7 +137,7 @@ public extension UIFont {
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
 
-        let cacheKey = "\(fontFamily.rawValue)-\(size)"
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
         if let font = fontCache[cacheKey] {
             return font
         }
