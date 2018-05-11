@@ -293,7 +293,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     }
     
     func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
-        titleLabel.text = article.displayTitle
+        if let displayTitleHTML = article.displayTitleHTML {
+            setTitleHTML(displayTitleHTML, boldedString: nil)
+        } else {
+            titleLabel.text = article.displayTitle
+        }
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         
         let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
