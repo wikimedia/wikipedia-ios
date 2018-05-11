@@ -1635,7 +1635,8 @@ static uint64_t bundleHash() {
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
-        article.displayTitleHTML = title.wmf_unescapedNormalizedPageTitle;
+        article.displayTitle = title.wmf_unescapedNormalizedPageTitle;
+        article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];
         }
