@@ -32,7 +32,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String? = nil) {
         self.titleHTML = titleHTML
         self.titleBoldedString = boldedString
         updateTitleLabel()
