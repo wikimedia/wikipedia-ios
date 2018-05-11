@@ -265,20 +265,19 @@
     return mutableSelf;
 }
 
-- (nonnull NSString *)wmf_stringByRemovingHTMLWithParsingBlock:(nullable void (^)(NSString *HTMLTagName, NSInteger offset, NSInteger startLocation, NSInteger currentLocation))parsingBlock {
+- (nonnull NSString *)wmf_stringByRemovingHTMLWithParsingBlock:(nullable void (^)(NSString *HTMLTagName, NSInteger offset, NSInteger currentLocation))parsingBlock {
     __block NSInteger offset = 0;
-    
+
     NSMutableString *cleanedString = [self mutableCopy];
-    
-    __block NSInteger startLocation = NSNotFound;
+
     __block NSInteger plainTextStartLocation = 0;
-    
+
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
         [cleanedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
         offset -= range.length;
-        
+
         NSInteger currentLocation = range.location + range.length + offset;
-        
+
         if (currentLocation > plainTextStartLocation) {
             NSRange plainTextRange = NSMakeRange(plainTextStartLocation, currentLocation - plainTextStartLocation);
             NSString *plainText = [cleanedString substringWithRange:plainTextRange];
@@ -289,12 +288,12 @@
             currentLocation += delta;
             plainTextStartLocation = currentLocation;
         }
-        
+
         if (parsingBlock) {
-            parsingBlock(HTMLTagName, offset, startLocation, currentLocation);
+            parsingBlock(HTMLTagName, offset, currentLocation);
         }
     }];
-    
+
     if (cleanedString.length > plainTextStartLocation) {
         NSRange plainTextRange = NSMakeRange(plainTextStartLocation, cleanedString.length - plainTextStartLocation);
         NSString *plainText = [cleanedString substringWithRange:plainTextRange];
@@ -312,7 +311,8 @@
     NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
     NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
-    NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, NSInteger offset, NSInteger startLocation, NSInteger currentLocation) {
+    __block NSInteger startLocation = NSNotFound;
+    NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, NSInteger offset, NSInteger currentLocation) {
         HTMLTagName = [HTMLTagName lowercaseString];
         if (startLocation != NSNotFound && currentLocation > startLocation) {
             [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
@@ -365,13 +365,12 @@
     return attributedString;
 }
 
-
 // TODO: Fix - returns nil if self contains no HTML. Can this be consolidated with wmf_attributedStringWithLinksFromHTMLTags ?
 - (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
     if (self.length == 0) {
         return [[NSAttributedString alloc] initWithString:self attributes:nil];
     }
-    
+
     static NSRegularExpression *tagRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -380,7 +379,7 @@
                                                              options:NSRegularExpressionCaseInsensitive
                                                                error:nil];
     });
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
     __block BOOL shouldTrimLeadingWhitespace = YES;
     [tagRegex enumerateMatchesInString:self
