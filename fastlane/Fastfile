@@ -96,8 +96,8 @@ platform :ios do
         output_directory: './build/reports',
         output_style: 'basic',
         configuration: 'Test',
-        output_files: devices.map { |device| "#{scheme} #{device}.junit" }.join(","),
-        output_types: 'junit,junit'
+        output_files: "#{scheme}.junit",
+        output_types: 'junit'
       }
       scan(opts)
     end
