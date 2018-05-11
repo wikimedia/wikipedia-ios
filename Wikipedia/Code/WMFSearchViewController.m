@@ -319,7 +319,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
 
-    DDLogDebug(@"Search field text changed to: %@", query);
+    DDLogDebug(@"Search field text changed to: `%@`", query);
 
     BOOL isFieldEmpty = [query wmf_trim].length == 0;
 
@@ -345,7 +345,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self setRecentSearchesHidden:YES animated:YES];
 
-    DDLogDebug(@"Searching for %@ after delay.", query);
+    DDLogDebug(@"Searching for `%@`.", query);
     [self searchForSearchTerm:query wasSearchTermSuggested:NO];
 }
 
