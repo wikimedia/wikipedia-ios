@@ -79,7 +79,7 @@
 			<key>one</key>
 			<string>Найдено %1$d место</string>
 			<key>other</key>
-			<string>Найдено %1$d места</string>
+			<string>Найдено %1$d мест</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

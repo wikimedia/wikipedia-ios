@@ -4,6 +4,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const WMFArticleSaveToDiskDidFailNotification;
+extern NSString *const WMFArticleSaveToDiskDidFailErrorKey;
+extern NSString *const WMFArticleSaveToDiskDidFailArticleURLKey;
+
 @interface NSError (SavedArticlesFetcherErrors)
 
 /**

@@ -40,7 +40,7 @@ extern NSString *const MWKSectionShareSnippetXPath;
 
 - (BOOL)isEqualToSection:(MWKSection *)section;
 
-- (void)save;
+- (BOOL)save:(NSError **)error;
 
 ///
 /// @name Extraction

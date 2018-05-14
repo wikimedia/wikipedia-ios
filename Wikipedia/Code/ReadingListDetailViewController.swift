@@ -327,8 +327,8 @@ extension ReadingListDetailViewController: ActionDelegate {
             return false
         }
         
-        let entries = selectedIndexPaths.flatMap({ entry(at: $0) })
-        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        let entries = selectedIndexPaths.compactMap({ entry(at: $0) })
+        let articles = selectedIndexPaths.compactMap({ article(at: $0) })
         
         switch action.type {
         case .addTo:
@@ -564,7 +564,7 @@ extension ReadingListDetailViewController {
         }
         let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
-        cell.configureAlert(for: entry, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
+        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
         cell.actions = availableActions(at: indexPath)

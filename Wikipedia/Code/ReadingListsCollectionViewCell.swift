@@ -61,7 +61,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         bottomRow.axis = UILayoutConstraintAxis.horizontal
         bottomRow.distribution = UIStackViewDistribution.fillEqually
         
-        gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).flatMap { $0 as? UIImageView }
+        gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).compactMap { $0 as? UIImageView }
         if #available(iOS 11.0, *) {
             gridImageViews.forEach {
                 $0.accessibilityIgnoresInvertColors = true
@@ -318,13 +318,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.text = description
         
         let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth
-        let imageURLs = lastFourArticlesWithLeadImages.flatMap { $0.imageURL(forWidth: imageWidthToRequest) }
+        let imageURLs = lastFourArticlesWithLeadImages.compactMap { $0.imageURL(forWidth: imageWidthToRequest) }
         
         isImageGridHidden = imageURLs.count != 4 // we need 4 images for the grid
         isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display
         
         if !layoutOnly && !isImageGridHidden {
-            let _ = zip(gridImageViews, imageURLs).flatMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
+            let _ = zip(gridImageViews, imageURLs).compactMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
         }
         
         if isImageGridHidden, let imageURL = imageURLs.first {

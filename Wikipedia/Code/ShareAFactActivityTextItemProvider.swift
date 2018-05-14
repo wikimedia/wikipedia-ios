@@ -9,7 +9,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
         self.text = text
         self.articleTitle = articleTitle
         self.articleURL = articleURL
-        super.init(placeholderItem: defaultRepresentation)
+        super.init(placeholderItem: ShareAFactActivityTextItemProvider.defaultRepresentation(text: text, articleTitle: articleTitle, articleURL: articleURL))
     }
     
     override var item: Any {
@@ -24,7 +24,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
         case .mail:
             return emailRepresentation
         default:
-             return defaultRepresentation
+             return ShareAFactActivityTextItemProvider.defaultRepresentation(text: text, articleTitle: articleTitle, articleURL: articleURL)
         }
     }
     
@@ -37,7 +37,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
         return String.localizedStringWithFormat(format, text, articleTitle, articleURL.wmf_URLForImageSharing.absoluteString)
     }
     
-    var defaultRepresentation: String {
+    static func defaultRepresentation(text: String, articleTitle: String, articleURL: URL) -> String {
         let format = WMFLocalizedString("share-default-format", value: "“%1$@” from “%2$@”: %3$@", comment: "Default share format string. %1$@ is replaced with the selected text, %2$@ is replaced with the article title, %3$@ is replaced with the articleURL.")
         return String.localizedStringWithFormat(format, text, articleTitle, articleURL.wmf_URLForTextSharing.absoluteString)
     }
