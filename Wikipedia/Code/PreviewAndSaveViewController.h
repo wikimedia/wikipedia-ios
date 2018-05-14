@@ -1,4 +1,4 @@
-#import "Wikipedia-Swift.h"
+@import UIKit;
 @import WMF.Swift;
 
 @class MWKSection, SavedPagesFunnel, EditFunnel, PreviewAndSaveViewController;
