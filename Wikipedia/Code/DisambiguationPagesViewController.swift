@@ -16,7 +16,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         super.init(articleURLs: URLs, dataStore: dataStore)
     }
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroupKind: WMFContentGroupKind) {
         fatalError("init(articleURLs:dataStore:) is not allowed")
     }
     
