@@ -319,57 +319,34 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString *query = self.searchField.text;
 
-    dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
-        DDLogDebug(@"Search field text changed to: %@", query);
+    DDLogDebug(@"Search field text changed to: `%@`", query);
 
-        /**
-         *  This check must performed before checking isEmpty and calling didCancelSearch
-         *  This is to work around a "feature" of Siri which sets the textfield.text to nil
-         *  when cancelling the Siri interface, and then immediately sets the text to its original value
-         *
-         *  The sequence of events is like so:
-         *  Say "Mountain" to Siri
-         *  "Mountain" is typed in the text field by Siri
-         *  textFieldDidChange fires with textfield.text="Mountain"
-         *  Tap a search result (which "cancels" the Siri UI)
-         *  textFieldDidChange fires with textfield.text="" (This is the offending event!)
-         *  textFieldDidChange fires with textfield.text="Mountain"
-         *
-         *  The event setting the textfield.text == nil causes many side effects which can cause crashes like:
-         *  https://phabricator.wikimedia.org/T123241
-         */
-        if (![query isEqualToString:self.searchField.text]) {
-            DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
-            return;
-        }
+    BOOL isFieldEmpty = [query wmf_trim].length == 0;
 
-        BOOL isFieldEmpty = [query wmf_trim].length == 0;
+    /**
+     * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
+     * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
+     * which seemed more complex.
+     *
+     * See:
+     *   - https://phabricator.wikimedia.org/T156375
+     *   - http://stackoverflow.com/questions/24041181/how-to-detect-that-speech-recogntion-is-in-progress
+     */
+    if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
+        return;
+    }
 
-        /**
-         * This check is to avoid interpretting the "speech recognition in progress" blue spinner as
-         * actual text input. I could not find a clean way to detect this beyond subclassing the UITextField
-         * which seemed more complex.
-         *
-         * See:
-         *   - https://phabricator.wikimedia.org/T156375
-         *   - http://stackoverflow.com/questions/24041181/how-to-detect-that-speech-recogntion-is-in-progress
-         */
-        if ((query.length == 1) && ([query characterAtIndex:0] == NSAttachmentCharacter)) {
-            return;
-        }
+    [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
-        [self setSeparatorViewHidden:isFieldEmpty animated:YES];
+    if (isFieldEmpty) {
+        [self didCancelSearch];
+        return;
+    }
 
-        if (isFieldEmpty) {
-            [self didCancelSearch];
-            return;
-        }
+    [self setRecentSearchesHidden:YES animated:YES];
 
-        [self setRecentSearchesHidden:YES animated:YES];
-
-        DDLogDebug(@"Searching for %@ after delay.", query);
-        [self searchForSearchTerm:query wasSearchTermSuggested:NO];
-    });
+    DDLogDebug(@"Searching for `%@`.", query);
+    [self searchForSearchTerm:query wasSearchTermSuggested:NO];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -439,7 +416,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
             [self.fakeProgressController finish];
             @strongify(self);
-            if ([searchTerm isEqualToString:results.searchTerm]) {
+            if ([results.searchTerm isEqualToString:self.searchField.text]) {
                 if (results.results.count == 0) {
                     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
                         //Without the delay there is a weird animation due to the table also reloading simultaneously
