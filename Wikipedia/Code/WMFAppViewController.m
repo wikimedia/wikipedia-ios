@@ -91,6 +91,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
+@property (nonatomic, strong) SessionsFunnel *sessionsFunnel;
+@property (nonatomic, strong) NSDate *sessionStart;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
@@ -295,6 +297,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
     }
+    
+    [self logSessionStart];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -313,7 +317,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
     self.notificationsController.applicationActive = NO;
-
+    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
     if (![self uiIsLoaded]) {
         return;
     }
@@ -685,13 +689,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     } else {
         done();
     }
-    
-    [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
 }
 
 - (void)finishResumingApp {
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-
+    [self logSessionStart];
+    
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
@@ -846,6 +849,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
     }
     return _statsFunnel;
+}
+
+- (SessionsFunnel *)sessionsFunnel {
+    if (!_sessionsFunnel) {
+        _sessionsFunnel = [[SessionsFunnel alloc] init];
+    }
+    return _sessionsFunnel;
+}
+
+- (void)logSessionStart {
+    [self.sessionsFunnel logSessionStart];
+    self.sessionStart = [NSDate date];
 }
 
 #pragma mark - Shortcut
