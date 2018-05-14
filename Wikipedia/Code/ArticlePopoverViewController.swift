@@ -62,7 +62,7 @@ class ArticlePopoverViewController: UIViewController {
             buttonStackView.distribution = .fillProportionally
         }
         
-        displayTitleHTML = article.displayTitleHTML ?? article.displayTitle ?? ""
+        displayTitleHTML = article.displayTitleHTML
         subtitleLabel.text = article.capitalizedWikidataDescriptionOrSnippet
         configureView(withTraitCollection: traitCollection)
         view.wmf_configureSubviewsForDynamicType()

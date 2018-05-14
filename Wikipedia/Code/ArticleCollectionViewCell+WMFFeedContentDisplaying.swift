@@ -29,11 +29,7 @@ public extension ArticleCollectionViewCell {
         
         let articleLanguage = article.url?.wmf_language
         
-        if let articleTitleHTML = article.displayTitleHTML {
-            setTitleHTML(articleTitleHTML, boldedString: nil)
-        } else {
-            titleLabel.text = article.displayTitle
-        }
+        titleHTML = article.displayTitleHTML
         
         switch displayType {
         case .random:

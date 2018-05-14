@@ -18,23 +18,33 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     open var alertType: ReadingListAlertType?
     public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
-    private var titleHTML: String? = nil
-    private var titleBoldedString: String? = nil
+    private var _titleHTML: String? = nil
+    private var _titleBoldedString: String? = nil
     
     private func updateTitleLabel() {
         let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
-        if let titleHTML = titleHTML {
+        if let titleHTML = _titleHTML {
             let boldFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold), compatibleWithTraitCollection: traitCollection)
             let italicFont = UIFont.wmf_font(titleTextStyle.with(traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
             let boldItalicFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold, traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
-            titleLabel.attributedText = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: titleBoldedString)
+            titleLabel.attributedText = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: _titleBoldedString)
         }
     }
     
-    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String? = nil) {
-        self.titleHTML = titleHTML
-        self.titleBoldedString = boldedString
+    @objc public var titleHTML: String? {
+        set {
+            _titleHTML = newValue
+            updateTitleLabel()
+        }
+        get {
+            return _titleHTML
+        }
+    }
+    
+    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+        _titleHTML = titleHTML
+        _titleBoldedString = boldedString
         updateTitleLabel()
     }
     
@@ -86,8 +96,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
-        titleHTML = nil
-        titleBoldedString = nil
+        _titleHTML = nil
+        _titleBoldedString = nil
         layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
         titleTextStyle = .georgiaTitle1
         descriptionTextStyle  = .subheadline

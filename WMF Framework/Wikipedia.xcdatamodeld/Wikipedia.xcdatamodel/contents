@@ -71,7 +71,7 @@
     </entity>
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="displayTitleHTML" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayTitleHTMLString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="errorCodeNumber" optional="YES" attributeType="Integer 32" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

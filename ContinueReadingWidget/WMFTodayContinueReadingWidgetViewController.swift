@@ -136,7 +136,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         
-        self.titleLabel.attributedText = NSAttributedString.with(html: article.displayTitleHTML ?? article.displayTitle ?? "", textStyle: .headline, traitCollection: traitCollection)
+        self.titleLabel.attributedText = NSAttributedString.with(html: article.displayTitleHTML, textStyle: .headline, traitCollection: traitCollection)
         
         if #available(iOSApplicationExtension 10.0, *) {
             if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {

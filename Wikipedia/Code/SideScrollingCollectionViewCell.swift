@@ -238,11 +238,9 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         isSaveButtonHidden = true
         layoutMargins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
-        if let displayTitleHTML = cellArticle.titleHTML {
-            setTitleHTML(displayTitleHTML)
-        } else {
-            titleLabel.text = cellArticle.title
-        }
+        
+        titleHTML = cellArticle.titleHTML ?? cellArticle.title
+
         descriptionLabel.text = cellArticle.description
         articleSemanticContentAttribute = semanticContentAttribute
         

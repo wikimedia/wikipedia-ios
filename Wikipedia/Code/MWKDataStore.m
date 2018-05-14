@@ -399,7 +399,6 @@ static uint64_t bundleHash() {
         }
         if (preview) {
             article.displayTitleHTML = preview.displayTitle;
-            article.displayTitle = preview.displayTitle;
             article.wikidataDescription = preview.wikidataDescription;
             article.snippet = preview.snippet;
             article.thumbnailURL = preview.thumbnailURL;
@@ -1635,7 +1634,6 @@ static uint64_t bundleHash() {
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
-        article.displayTitle = title.wmf_unescapedNormalizedPageTitle;
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];

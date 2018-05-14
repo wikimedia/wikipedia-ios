@@ -421,12 +421,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         let result = results[index]
-        let displayTitle = result.displayTitle
-        let siteURL = self.siteURL as NSURL
-        guard let URL = siteURL.wmf_wikipediaSchemeURL(withTitle: displayTitle) else {
-            return
-        }
-        self.extensionContext?.open(URL)
+        self.extensionContext?.open(result.articleURL)
     }
     
 }

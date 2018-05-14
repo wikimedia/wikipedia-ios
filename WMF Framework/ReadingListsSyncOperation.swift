@@ -835,9 +835,8 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 var fetchedArticle = articlesByKey[articleKey]
                 if fetchedArticle == nil {
                     if let newArticle = moc.wmf_fetchOrCreate(objectForEntityName: "WMFArticle", withValue: articleKey, forKey: "key") as? WMFArticle {
-                        if newArticle.displayTitleHTML == nil {
+                        if newArticle.displayTitleHTML == "" {
                             newArticle.displayTitleHTML = remoteEntry.title
-                            newArticle.displayTitle = remoteEntry.title.wmf_stringByRemovingHTML()
                         }
                         fetchedArticle = newArticle
                     }
