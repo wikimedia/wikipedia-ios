@@ -70,6 +70,10 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var shouldShowReadingListsSyncAlertWhenViewAppears = false
     private var shouldShowReadingListsSyncAlertWhenSyncEnabled = false
     
+    private var settingsFunnel: SettingsFunnel = {
+        return SettingsFunnel()
+    }()
+    
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
         let showSavedReadingList = Item(for: .showSavedReadingList, isSwitchOn: dataStore?.readingListsController.isDefaultListEnabled ?? false)
@@ -287,31 +291,37 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
             return
         }
         
+        let isSwitchOn = sender.isOn
+        
         switch settingsItemType {
-        case .syncSavedArticlesAndLists:
-            if WMFAuthenticationManager.sharedInstance.loggedInUsername == nil && !isSyncEnabled {
-                let dismissHandler = {
-                    sender.setOn(false, animated: true)
-                }
-                let loginSuccessCompletion: () -> Void = {
-                   dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                }
-                wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
-            } else {
-                let setSyncEnabled = {
-                    dataStore.readingListsController.setSyncEnabled(sender.isOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !sender.isOn)
-                    
-                }
-                if !sender.isOn {
-                    self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
-                        setSyncEnabled()
-                    }
+        case .syncSavedArticlesAndLists where !WMFAuthenticationManager.sharedInstance.isLoggedIn:
+            assert(!isSyncEnabled) // sync cannot be enabled if user is not logged in
+            let dismissHandler = {
+                sender.setOn(false, animated: true)
+            }
+            let loginSuccessCompletion: () -> Void = {
+                dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                self.settingsFunnel.logSyncEnabledInSettings()
+            }
+            wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
+        case .syncSavedArticlesAndLists where WMFAuthenticationManager.sharedInstance.isLoggedIn:
+            let setSyncEnabled = {
+                dataStore.readingListsController.setSyncEnabled(isSwitchOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isSwitchOn)
+                if isSwitchOn {
+                    self.settingsFunnel.logSyncEnabledInSettings()
                 } else {
-                    setSyncEnabled()
+                    self.settingsFunnel.logSyncDisabledInSettings()
                 }
             }
+            if !isSwitchOn {
+                self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                    setSyncEnabled()
+                }
+            } else {
+                setSyncEnabled()
+            }
         case .showSavedReadingList:
-            dataStore.readingListsController.isDefaultListEnabled = sender.isOn
+            dataStore.readingListsController.isDefaultListEnabled = isSwitchOn
         default:
             return
         }
