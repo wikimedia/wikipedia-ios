@@ -371,6 +371,7 @@
 "reading-list-with-provided-name-not-found" = "No se encontró la lista de lectura denominada «$1». Cerciórate de que tengas el nombre correcto.";
 "reading-lists-article-added-confirmation" = "Se añadió el artículo a «$1»";
 "reading-lists-article-queued-to-be-downloaded" = "Artículo en espera de descarga";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Libera espacio en el dispositivo e inténtalo de nuevo";
 "reading-lists-conflicting-reading-list-name-updated" = "Se cambió el nombre de la lista «$1» a «$2»";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de lectura";
 "reading-lists-default-list-description" = "Lista predeterminada para tus artículos guardados";
