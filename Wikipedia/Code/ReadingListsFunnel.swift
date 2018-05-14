@@ -1,5 +1,3 @@
-import WMF
-
 protocol ReadingListsFunnelProvider {
     var readingListsFunnel: ReadingListsFunnel { get }
 }
