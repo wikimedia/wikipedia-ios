@@ -104,6 +104,7 @@
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
+		3F82AD8D20690C8C00156E29 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B61FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -695,7 +696,6 @@
 		B0E806811C0CE9C70065EBC0 /* WMFFixtureRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8067C1C0CE9C70065EBC0 /* WMFFixtureRecording.m */; };
 		B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */; };
 		B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0E806941C0CEA7B0065EBC0 /* AboutViewController.plist */; };
-		B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */; };
 		B0E806C41C0CEB380065EBC0 /* WMFSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */; };
 		B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806CB1C0CEB6E0065EBC0 /* PageHistoryResultCell.m */; };
 		B0E806D11C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806CC1C0CEB6E0065EBC0 /* PageHistoryResultPrototypeView.xib */; };
@@ -946,7 +946,6 @@
 		D80ED2731EE57F4800CE8C50 /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */; };
 		D80ED2741EE57F4800CE8C50 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039D1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m */; };
 		D80ED2751EE57F4800CE8C50 /* LibrariesUsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFCD6C1EBF12E5008F36E5 /* LibrariesUsed.swift */; };
-		D80ED2761EE57F4800CE8C50 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */; };
 		D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D80ED27A1EE57F4800CE8C50 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D80ED27C1EE57F4800CE8C50 /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
@@ -1689,7 +1688,6 @@
 		D8A42A591E815A9C00D8E281 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
 		D8A42A5B1E815A9C00D8E281 /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */; };
 		D8A42A5C1E815A9C00D8E281 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039D1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m */; };
-		D8A42A5D1E815A9C00D8E281 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */; };
 		D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
@@ -2049,7 +2047,6 @@
 		D8CE24E31E698E2400DAE2E0 /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
 		D8CE24E51E698E2400DAE2E0 /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */; };
 		D8CE24E61E698E2400DAE2E0 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039D1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m */; };
-		D8CE24E71E698E2400DAE2E0 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */; };
 		D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
@@ -2436,7 +2433,6 @@
 		D8EC3DDA1E9BDA35006712EB /* WMFImageURLActivitySource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0447E1C797DC20033D773 /* WMFImageURLActivitySource.swift */; };
 		D8EC3DDC1E9BDA35006712EB /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806D61C0CEB850065EBC0 /* BulletedLabel.m */; };
 		D8EC3DDD1E9BDA35006712EB /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8039D1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m */; };
-		D8EC3DDE1E9BDA35006712EB /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */; };
 		D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
@@ -3243,6 +3239,7 @@
 		1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFTitledExploreSectionFooter.xib; path = Wikipedia/Code/WMFTitledExploreSectionFooter.xib; sourceTree = SOURCE_ROOT; };
 		19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPageSpotlightManagerTest.m; sourceTree = "<group>"; };
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
+		3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSummaryViewController.swift; sourceTree = "<group>"; };
 		7616D4941C5A67D20077ADF7 /* WMFUtilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFUtilityMacros.h; sourceTree = "<group>"; };
 		7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchEditToolbarViewController.xib; sourceTree = "<group>"; };
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -3753,8 +3750,6 @@
 		B0E806921C0CEA7B0065EBC0 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Wikipedia/Code/AboutViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E806931C0CEA7B0065EBC0 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Wikipedia/Code/AboutViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E806941C0CEA7B0065EBC0 /* AboutViewController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AboutViewController.plist; path = Wikipedia/Code/AboutViewController.plist; sourceTree = SOURCE_ROOT; };
-		B0E806A21C0CEAF40065EBC0 /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditSummaryViewController.h; path = Wikipedia/Code/EditSummaryViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditSummaryViewController.m; path = Wikipedia/Code/EditSummaryViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E806AE1C0CEB160065EBC0 /* WMFLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLanguageCell.h; path = Wikipedia/Code/WMFLanguageCell.h; sourceTree = SOURCE_ROOT; };
 		B0E806B31C0CEB160065EBC0 /* MWKLanguageLinkController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkController_Private.h; path = Wikipedia/Code/MWKLanguageLinkController_Private.h; sourceTree = SOURCE_ROOT; };
 		B0E806B41C0CEB160065EBC0 /* MWKLanguageLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkController.h; path = Wikipedia/Code/MWKLanguageLinkController.h; sourceTree = SOURCE_ROOT; };
@@ -4967,8 +4962,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E803FE1C0CDE480065EBC0 /* EditSummaryViewController.storyboard */,
-				B0E806A21C0CEAF40065EBC0 /* EditSummaryViewController.h */,
-				B0E806A31C0CEAF40065EBC0 /* EditSummaryViewController.m */,
+				3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */,
 			);
 			name = EditSummary;
 			sourceTree = "<group>";
@@ -9930,7 +9924,6 @@
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				B0E8039F1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m in Sources */,
 				B0EFCD6D1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
-				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0CD9DD61F70997300051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F92C6F1E3C580900B72802 /* WMFCaptchaResetter.swift in Sources */,
 				830D71C31F703C980080078B /* ArticleURLListViewController.swift in Sources */,
@@ -10230,6 +10223,7 @@
 				B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */,
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				7AE1D3391FCD10B900393471 /* SavedViewController.swift in Sources */,
+				3F82AD8D20690C8C00156E29 /* EditSummaryViewController.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
@@ -10252,7 +10246,6 @@
 				D80ED2731EE57F4800CE8C50 /* BulletedLabel.m in Sources */,
 				D80ED2741EE57F4800CE8C50 /* WMFArticleResponseSerializer.m in Sources */,
 				D80ED2751EE57F4800CE8C50 /* LibrariesUsed.swift in Sources */,
-				D80ED2761EE57F4800CE8C50 /* EditSummaryViewController.m in Sources */,
 				7A998ABF1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */,
 				7A2432E51FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
@@ -10903,7 +10896,6 @@
 				D84DAA141EEEF527008E4B18 /* HexColors.m in Sources */,
 				830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
-				D8A42A5D1E815A9C00D8E281 /* EditSummaryViewController.m in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
@@ -11222,7 +11214,6 @@
 				D8CE24E61E698E2400DAE2E0 /* WMFArticleResponseSerializer.m in Sources */,
 				7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
-				D8CE24E71E698E2400DAE2E0 /* EditSummaryViewController.m in Sources */,
 				7A2432E21FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -11546,7 +11537,6 @@
 				D8EC3DDD1E9BDA35006712EB /* WMFArticleResponseSerializer.m in Sources */,
 				7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
-				D8EC3DDE1E9BDA35006712EB /* EditSummaryViewController.m in Sources */,
 				7A2432E31FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
