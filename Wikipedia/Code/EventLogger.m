@@ -5,9 +5,9 @@
 
 NSString *const WMFLoggingEndpoint =
     // production
-    @"https://meta.wikimedia.org/beacon/event";
-// testing
-// @"http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
+    // @"https://meta.wikimedia.org/beacon/event";
+    // testing
+    @"http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
 
 @implementation EventLogger
 
@@ -32,7 +32,7 @@ NSString *const WMFLoggingEndpoint =
                 };
             NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
             NSString *payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
-            //NSLog(@"%@", payloadJsonString);
+            NSLog(@"%@", payload);
             NSString *encodedPayloadJsonString = [payloadJsonString wmf_UTF8StringWithPercentEscapes];
             NSString *urlString = [NSString stringWithFormat:@"%@?%@;", WMFLoggingEndpoint, encodedPayloadJsonString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
