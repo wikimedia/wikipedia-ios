@@ -24,6 +24,7 @@ class ArticlePopoverViewController: UIViewController {
     @IBOutlet weak var articleSummaryView: UIView!
     @IBOutlet weak var buttonContainerView: UIView!
     
+    var displayTitleHTML: String = ""
     let article: WMFArticle
     
     var showSaveAndShareTitles = true
@@ -61,9 +62,9 @@ class ArticlePopoverViewController: UIViewController {
             buttonStackView.distribution = .fillProportionally
         }
         
-        titleLabel.text = article.displayTitle
+        displayTitleHTML = article.displayTitleHTML ?? article.displayTitle ?? ""
         subtitleLabel.text = article.capitalizedWikidataDescriptionOrSnippet
-        
+        configureView(withTraitCollection: traitCollection)
         view.wmf_configureSubviewsForDynamicType()
     }
     
@@ -120,8 +121,7 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
-        let titleLabelFont = UIFont.wmf_font(.georgiaTitle3, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = titleLabelFont
+        titleLabel.attributedText = NSAttributedString.with(html: displayTitleHTML, textStyle: .georgiaTitle3, traitCollection: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
