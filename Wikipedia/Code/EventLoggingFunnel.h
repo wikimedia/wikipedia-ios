@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 
 @property (nonatomic, strong) NSString *schema;
 @property (nonatomic, assign) int revision;
+@property (nonatomic, assign) BOOL requiresAppInstallID;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
