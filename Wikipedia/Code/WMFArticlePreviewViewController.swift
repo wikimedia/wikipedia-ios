@@ -25,7 +25,7 @@ open class WMFArticlePreviewViewController: UIViewController {
     @IBOutlet weak open var marginWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak open var imageView: UIImageView!
     @IBOutlet weak open var subtitleLabel: UILabel!
-    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak open var titleLabel: UILabel!
     @IBOutlet weak open var rankLabel: UILabel!
     @IBOutlet weak open var separatorView: UIView!
     @IBOutlet weak open var viewCountAndSparklineContainerView: UIView!
