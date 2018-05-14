@@ -2,10 +2,30 @@ import UIKit
 
 open class WMFArticlePreviewViewController: UIViewController {
 
+    public var titleTextStyle: DynamicTextStyle = .headline
+    public var titleTextColor: UIColor = .black {
+        didSet {
+            titleLabel.textColor = titleTextColor
+        }
+    }
+    public var titleHTML: String? {
+        didSet {
+            updateTitle()
+        }
+    }
+    
+    private func updateTitle() {
+        guard let titleHTML = titleHTML else {
+            titleLabel.text = nil
+            return
+        }
+        titleLabel.attributedText = NSAttributedString.with(html: titleHTML, textStyle: titleTextStyle, traitCollection: traitCollection)
+    }
+    
     @IBOutlet weak open var marginWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak open var imageView: UIImageView!
     @IBOutlet weak open var subtitleLabel: UILabel!
-    @IBOutlet weak open var titleLabel: UILabel!
+    @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak open var rankLabel: UILabel!
     @IBOutlet weak open var separatorView: UIView!
     @IBOutlet weak open var viewCountAndSparklineContainerView: UIView!
@@ -36,6 +56,14 @@ open class WMFArticlePreviewViewController: UIViewController {
         collapseImageAndWidenLabels = true
     }
     
+    private func updateFonts() {
+        updateTitle()
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFonts()
+    }
     
     @objc open var collapseImageAndWidenLabels: Bool = true {
         didSet {
