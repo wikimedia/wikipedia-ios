@@ -15,11 +15,7 @@ open class WMFArticlePreviewViewController: UIViewController {
     }
     
     private func updateTitle() {
-        guard let titleHTML = titleHTML else {
-            titleLabel.text = nil
-            return
-        }
-        titleLabel.attributedText = NSAttributedString.with(html: titleHTML, textStyle: titleTextStyle, traitCollection: traitCollection)
+        titleLabel.attributedText = titleHTML?.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
     }
     
     @IBOutlet weak open var marginWidthConstraint: NSLayoutConstraint!

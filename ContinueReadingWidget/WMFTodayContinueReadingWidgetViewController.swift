@@ -135,8 +135,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.daysAgoView.isHidden = true
         }
         
-        
-        self.titleLabel.attributedText = NSAttributedString.with(html: article.displayTitleHTML, textStyle: .headline, traitCollection: traitCollection)
+        self.titleLabel.attributedText = article.displayTitleHTML.byAttributingHTML(with: .headline, matching: traitCollection)
         
         if #available(iOSApplicationExtension 10.0, *) {
             if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {

@@ -121,7 +121,7 @@ class ArticlePopoverViewController: UIViewController {
     }
     
     func configureView(withTraitCollection traitCollection: UITraitCollection) {
-        titleLabel.attributedText = NSAttributedString.with(html: displayTitleHTML, textStyle: .georgiaTitle3, traitCollection: traitCollection)
+        titleLabel.attributedText = displayTitleHTML.byAttributingHTML(with: .georgiaTitle3, matching: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

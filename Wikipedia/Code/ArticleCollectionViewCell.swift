@@ -22,13 +22,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var _titleBoldedString: String? = nil
     
     private func updateTitleLabel() {
-        let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = titleFont
         if let titleHTML = _titleHTML {
-            let boldFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold), compatibleWithTraitCollection: traitCollection)
-            let italicFont = UIFont.wmf_font(titleTextStyle.with(traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
-            let boldItalicFont = UIFont.wmf_font(titleTextStyle.with(weight: .semibold, traits: [.traitItalic]), compatibleWithTraitCollection: traitCollection)
-            titleLabel.attributedText = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: _titleBoldedString)
+            titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection)
+        } else {
+            let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+            titleLabel.font = titleFont
         }
     }
     
