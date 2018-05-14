@@ -14,6 +14,7 @@ public enum EventLoggingCategory: String {
     case login
     case setting
     case loginToSyncPopover = "login_to_sync_popover"
+    case enableSyncPopover = "enable_sync_popover"
     case undefined
 }
 
@@ -34,4 +35,5 @@ public enum EventLoggingLabel: String {
     case current = "default" // refers to the current article the user is reading, default is a reserved word
     case syncEducation = "sync_education"
     case login
+    case syncArticle = "sync_article" // Article storage and syncing settings screen
 }
