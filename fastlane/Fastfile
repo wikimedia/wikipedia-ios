@@ -20,6 +20,21 @@ beta_cluster_configurations_to_test = [
   {device: 'iPhone 6s', os: '11.3', scheme: "Beta Cluster Tests"}
 ]
 
+def get_devices_by_scheme_from_options(options)
+  configs = options[:configurations] || [{device: 'iPhone 6s', os: '11.3'}]
+  devices_by_scheme = {}
+  configs.each do |options|
+    scheme = options[:scheme] || 'Wikipedia'
+    device = options[:device] || 'iPhone 6s'
+    os = options[:os]         || '10.3.1'
+    sim = "#{device} (#{os})"
+    devices = devices_by_scheme[scheme] || []
+    devices << sim
+    devices_by_scheme[scheme] = devices
+  end
+  return devices_by_scheme
+end
+
 platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
@@ -65,54 +80,47 @@ platform :ios do
 
   desc "Runs tests on select platforms for verifying pull requests"
   lane :verify_pull_request do
-    configurations_to_test_on_pull.each do |config|
-      verify(config)
-    end
+    verify({configurations: configurations_to_test_on_pull})
   end
 
-  desc "Runs unit tests, generates JUnit report."
+  desc "Runs unit tests, generates JUnit reports."
   lane :verify do |options|
-    scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3.1'
-    sim = "#{device} (#{os})"
-    opts = {
-      device: sim,
-      scheme: scheme,
-      project: 'Wikipedia.xcodeproj',
-      buildlog_path: './build',
-      output_directory: './build/reports',
-      output_style: 'basic',
-      code_coverage: true,
-      output_files: "#{scheme} #{sim}.junit",
-      output_types: 'junit'
-    }
-    scan(opts)
-  end
-  
-  desc "Runs unit tests, generates JUnit report."
-  lane :record_visual_tests do |options|
-    configurations_to_test.each do |config|
-      record_visual_tests_for_config(config)
+    devices_by_scheme = get_devices_by_scheme_from_options(options)
+    devices_by_scheme.each do |scheme, devices|
+      opts = {
+        devices: devices,
+        scheme: scheme,
+        disable_concurrent_testing: true,
+        project: 'Wikipedia.xcodeproj',
+        buildlog_path: './build',
+        output_directory: './build/reports',
+        output_style: 'basic',
+        configuration: 'Test',
+        output_files: "#{scheme}.junit",
+        output_types: 'junit'
+      }
+      scan(opts)
     end
   end
   
   desc "Records visual tests."
-  lane :record_visual_tests_for_config do |options|
-    scheme = options[:scheme] || 'Wikipedia'
-    device = options[:device] || 'iPhone 6s'
-    os = options[:os]         || '10.3.1'
-    sim = "#{device} (#{os})"
-    opts = {
-      device: sim,
-      scheme: scheme,
-      project: 'Wikipedia.xcodeproj',
-      buildlog_path: './build',
-      xcargs: "GCC_PREPROCESSOR_DEFINITIONS='\$(value) WMF_VISUAL_TEST_RECORD_MODE=1'",
-      fail_build: false,
-      output_types: ''
-    }
-    scan(opts)
+  lane :record_visual_tests do |options|
+    options[:configurations] ||= configurations_to_test 
+    devices_by_scheme = get_devices_by_scheme_from_options(options)
+    devices_by_scheme.each do |scheme, devices|
+      opts = {
+        devices: devices,
+        scheme: scheme,
+        disable_concurrent_testing: true,
+        project: 'Wikipedia.xcodeproj',
+        buildlog_path: './build',
+        configuration: 'Test',
+        xcargs: "GCC_PREPROCESSOR_DEFINITIONS='\$(value) WMF_VISUAL_TEST_RECORD_MODE=1'",
+        fail_build: false,
+        output_types: ''
+      }
+      scan(opts)
+    end
   end
   
   desc "Increment the build number"
