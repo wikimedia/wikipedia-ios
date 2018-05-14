@@ -86,8 +86,7 @@
 "action-unsave" = "Kaydedilenlerden çıkar";
 "action-unsaved-accessibility-notification" = "Madde kaydedilmedi";
 "action-update" = "Güncelle";
-// Fuzzy
-"add-articles-to-reading-list" = "$1'i okuma listesine ekle";
+"add-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine ekleyin";
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Reddet";
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
@@ -106,6 +105,7 @@
 "article-languages-others" = "Diğer diller";
 "article-languages-yours" = "Dilleriniz";
 "article-read-more-title" = "Devamı";
+"article-save-error-not-enough-space" = "Bu maddeyi kaydetmek için cihazınızda yeterli alan yok";
 "article-share" = "Paylaş";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Okuma Tema Ayarları";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
@@ -141,9 +141,9 @@
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
-// Fuzzy
-"empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için listeler oluşturmak için mavi \"+\" butonunun üzerine hafifçe dokunun";
+"empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için okuma listeleri oluşturmak için mavi \"+\" butonunun üzerine hafifçe dokunun";
 "empty-no-reading-lists-title" = "Kaydedilen okuma listelerini düzenle";
+"empty-no-saved-pages-in-reading-list-title" = "Bu listeye herhangi bir sayfa kaydedilmedi";
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
@@ -269,6 +269,7 @@
 "menu-trash-accessibility-label" = "Sil";
 "more-languages-tooltip-description" = "Yaklaşık 300 dilde ara";
 "more-languages-tooltip-title" = "Dil ekle";
+"move-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine taşıyın";
 "navbar-title-mode-edit-wikitext-preview" = "Ön izleme";
 "nearby-distance-label-feet" = "$1 fit";
 "nearby-distance-label-km" = "$1 km";
@@ -339,14 +340,31 @@
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
+"reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
 "reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
 "reading-list-add-saved-subtitle" = "Wikipedia uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
 "reading-list-add-saved-title" = "Kaydedilen makaleler bulundu";
 "reading-list-api-error-entry-limit" = "Bu liste, bu listedeki girişlerin sayısına sınırlamış olduğunuz için senkronize edilmiyor.";
 "reading-list-api-error-generic" = "Okuma listelerinizi senkronize ederken beklenmeyen bir hata oluştu.";
 "reading-list-api-error-list-limit" = "Senkronize edilen liste sayısı limitine ulaştığınız için bu liste senkronize edilmiyor.";
+"reading-list-create-new-list-button-title" = "Okuma listesi oluşturun";
+"reading-list-create-new-list-description" = "Açıklama";
+"reading-list-create-new-list-reading-list-name" = "Okuma listesinin adı";
+"reading-list-create-new-list-title" = "Yeni bir liste oluşturun";
 "reading-list-deleted-accessibility-notification" = "Okuma listesi başarıyla silindi";
 "reading-list-do-not-keep-button-title" = "Hayır, cihazdan makaleleri sil";
+"reading-list-exists-with-same-name" = "Okuma listesine verilen ad zaten kullanımda";
+"reading-list-generic-error" = "Okuma listeleriniz güncellenirken ederken beklenmeyen bir hata oluştu.";
+"reading-list-keep-button-title" = "Evet, maddeleri cihazda sakla";
+"reading-list-keep-subtitle" = "Vikipedi hesabınıza senkronize edilen makaleler var. Çıkış yaptıktan sonra onları bu cihazda tutmak ister misiniz?";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
+"reading-list-keep-title" = "Kaydedilen maddeleri cihazda sakla?";
+"reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
+"reading-list-sync-enable-button-title" = "Senkronizasyonu etkinleştir";
+"reading-lists-article-not-synced" = "Senkronize edilmedi";
+"reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
+"reading-lists-default-list-title" = "Kaydedildi";
 "reading-themes-controls-accessibility-black-theme-button" = "Siyah tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Parlaklık çubuğu";
 "reading-themes-controls-accessibility-dark-theme-button" = "Koyu tema";
@@ -360,10 +378,12 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
+"saved-search-default-text" = "Ara";
 "saved-title" = "Kaydedilenler";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
+"search-reading-list-placeholder-text" = "Okuma listesinde ara";
 "search-recent-clear-cancel" = "Vazgeç";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
@@ -388,6 +408,8 @@
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-primary-language" = "Birincil";
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Kaydedilen okuma listesini göster";
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
 "share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
@@ -404,6 +426,8 @@
 "share-open-in-maps" = "Haritalar'da aç";
 "share-social-format" = "Vikipedi'den $1: $2";
 "share-social-mention-format" = "@Wikipedia'dan $1: $2";
+"sort-by-recently-added-action" = "Son eklenenler";
+"sort-by-title-action" = "Başlık";
 "status-saved-for-later" = "Sonrası için kaydedildi";
 "status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "table-of-contents-button-label" = "İçindekiler";
