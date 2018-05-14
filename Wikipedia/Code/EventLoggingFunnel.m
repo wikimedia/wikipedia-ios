@@ -54,6 +54,10 @@
     return [[NSUserDefaults wmf_userDefaults] wmf_appInstallID];
 }
 
+- (NSString *)wmf_sessionID {
+    return [[NSUserDefaults wmf_userDefaults] wmf_sessionID];
+}
+
 /**
  *  Persistent random integer id used for sampling.
  *

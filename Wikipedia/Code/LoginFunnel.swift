@@ -1,9 +1,5 @@
 @objc class LoginFunnel: EventLoggingFunnel {
     
-    private lazy var sessionID: String = {
-        return singleUseUUID()
-    }()
-    
     override init() {
         super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
     }
@@ -28,6 +24,7 @@
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let timestamp = String(describing: NSDate())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
+        let sessionID = wmf_sessionID()
         
         var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
         

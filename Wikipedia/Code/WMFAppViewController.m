@@ -685,6 +685,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     } else {
         done();
     }
+    
+    [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
 }
 
 - (void)finishResumingApp {

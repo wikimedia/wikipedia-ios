@@ -85,6 +85,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)wmf_appInstallID;
 
+/**
+ * Helper function that returns a sessionID.
+ * SessionID is reset when app is launched for the first time or resumed.
+ */
+- (NSString *)wmf_sessionID;
+
 NS_ASSUME_NONNULL_END
 
 @end
