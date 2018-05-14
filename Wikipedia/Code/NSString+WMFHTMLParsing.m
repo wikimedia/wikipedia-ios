@@ -32,8 +32,7 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString *)wmf_shareSnippetFromText {
-    return [[[[[[[self wmf_stringByDecodingHTMLAndpersands]
-        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
+    return [[[[[[self wmf_stringByDecodingHTMLEntities]
         wmf_stringByCollapsingConsecutiveNewlines]
         wmf_stringByRemovingBracketedContent]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
@@ -172,20 +171,6 @@
                                                     withTemplate:@""];
 }
 
-- (NSString *)wmf_stringByDecodingHTMLNonBreakingSpaces {
-    return [self stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
-}
-
-- (NSString *)wmf_stringByDecodingHTMLAndpersands {
-    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-}
-
-- (NSString *)wmf_stringByDecodingHTMLLessThanAndGreaterThan {
-    return [[self stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-        stringByReplacingOccurrencesOfString:@"&lt;"
-                                  withString:@"<"];
-}
-
 - (NSString *)wmf_summaryFromText {
     // Cleanups which need to happen before string is shortened.
     NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
@@ -195,9 +180,7 @@
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
 
     // Cleanups safe to do on shortened string.
-    return [[[[[[output wmf_stringByDecodingHTMLAndpersands]
-        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
-        wmf_stringByDecodingHTMLNonBreakingSpaces]
+    return [[[[output wmf_stringByDecodingHTMLEntities]
         wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
         wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
@@ -391,7 +374,7 @@
                                  range:NSMakeRange(0, self.length)
                             usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
                                 *stop = false;
-                                NSString *tagContents = [[[[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLNonBreakingSpaces] wmf_stringByDecodingHTMLAndpersands] wmf_stringByDecodingHTMLLessThanAndGreaterThan];
+                                NSString *tagContents = [[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLEntities];
                                 if (!tagContents) {
                                     return;
                                 }
