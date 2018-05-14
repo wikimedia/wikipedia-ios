@@ -30,7 +30,7 @@ protocol ReadingListsFunnelProvider {
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let timestamp = String(describing: NSDate())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        let sessionID = UserDefaults.wmf_userDefaults().wmf_sessionID
+        let sessionID = wmf_sessionID()
         
         var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "measure": measure, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
         if let label = label {
