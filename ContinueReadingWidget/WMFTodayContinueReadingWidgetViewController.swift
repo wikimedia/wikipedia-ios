@@ -136,8 +136,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         }
         
         
-        self.titleLabel.text = article.displayTitle
-        
+        self.titleLabel.attributedText = NSAttributedString.with(html: article.displayTitleHTML ?? article.displayTitle ?? "", textStyle: .headline, traitCollection: traitCollection)
         
         if #available(iOSApplicationExtension 10.0, *) {
             if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
@@ -162,6 +161,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         return true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        _ = updateView()
+    }
 
     @IBAction func continueReading(_ sender: AnyObject) {
         let URL = articleURL as NSURL?
