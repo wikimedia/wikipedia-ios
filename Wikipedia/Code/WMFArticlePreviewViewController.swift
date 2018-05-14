@@ -8,7 +8,7 @@ open class WMFArticlePreviewViewController: UIViewController {
             titleLabel.textColor = titleTextColor
         }
     }
-    public var titleHTML: String? {
+    @objc public var titleHTML: String? {
         didSet {
             updateTitle()
         }
