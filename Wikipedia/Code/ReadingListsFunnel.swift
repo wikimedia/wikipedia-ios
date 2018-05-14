@@ -62,31 +62,12 @@ protocol ReadingListsFunnelProvider {
     
     // - MARK: Feed
     
-    private func label(for contentGroupKind: WMFContentGroupKind) -> EventLoggingLabel? {
-        switch contentGroupKind {
-        case .featuredArticle:
-            return .featuredArticle
-        case .topRead:
-            return .topRead
-        case .onThisDay:
-            return .onThisDay
-        case .random:
-            return .random
-        case .news:
-            return .news
-        case .relatedPages:
-            return .relatedPages
-        default:
-            return nil
-        }
-    }
-    
     @objc public func logSaveInFeed(contentGroupKind: WMFContentGroupKind) {
-        logSave(category: .feed, label: label(for: contentGroupKind))
+        logSave(category: .feed, label: contentGroupKind.eventLoggingLabel)
     }
     
     @objc public func logUnsaveInFeed(contentGroupKind: WMFContentGroupKind) {
-        logUnsave(category: .feed, label: label(for: contentGroupKind))
+        logUnsave(category: .feed, label: contentGroupKind.eventLoggingLabel)
     }
     
     // - MARK: Places
