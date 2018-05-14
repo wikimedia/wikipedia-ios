@@ -79,6 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)singleUseUUID;
 
+/**
+ * Helper function that returns a persistent appInstallID.
+ * appInstallID is generated once per install.
+ */
 - (NSString *)wmf_appInstallID;
 
 NS_ASSUME_NONNULL_END
