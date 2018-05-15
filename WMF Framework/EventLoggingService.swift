@@ -363,7 +363,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
-        
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
             return nil
@@ -410,7 +409,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     self.save()
                 }
                 
-                DDLogDebug("EventLoggingService: \(eventRecord.objectID) posted!")
+                // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
             })
             return task
             
