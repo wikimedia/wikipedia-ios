@@ -44,10 +44,16 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProvid
         DDLogDebug("User History snapshots are different; logging new User History snapshot")
         log()
     }
+    
+    private func log() {
         do {
-         try log(event())
+            try log(event())
         } catch let error {
             DDLogError("Error logging User History snapshot: \(error)")
         }
+    }
+    
+    @objc public func logStartingSnapshot() {
+        log()
     }
 }
