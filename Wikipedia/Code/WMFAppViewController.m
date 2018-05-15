@@ -297,6 +297,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+        [[WMFEventLoggingService sharedInstance] start];
+#endif
     }
     
     [self logSessionStart];
@@ -564,6 +567,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
+                                    [self logStartingUserHistorySnapshotIfNeeded];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
@@ -699,7 +703,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
     [self logSessionStart];
-    
+
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
@@ -881,6 +885,14 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)logSessionEnd {
     [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
     [self.userHistoryFunnel logSnapshot];
+}
+
+- (void)logStartingUserHistorySnapshotIfNeeded {
+    NSDictionary *latestSnapshot = [[NSUserDefaults wmf_userDefaults] wmf_lastLoggedUserHistorySnapshot];
+    if (latestSnapshot) {
+        return;
+    }
+    [self.userHistoryFunnel logStartingSnapshot];
 }
 
 #pragma mark - Shortcut
