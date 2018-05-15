@@ -3,6 +3,19 @@ public protocol EventLoggingEventValuesProviding {
     var eventLoggingLabel: EventLoggingLabel? { get }
 }
 
+public protocol EventLoggingStandardEventDataProviding {
+    var standardEventData: Dictionary<String, Any> { get }
+}
+
+extension EventLoggingStandardEventDataProviding where Self: EventLoggingFunnel {
+    var standardEventData: Dictionary<String, Any> {
+        let appInstallID = wmf_appInstallID()
+        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
+        let sessionID = wmf_sessionID()
+        return ["app_install_id": appInstallID, "session_id": sessionID, "event_dt": timestamp];
+    }
+}
+
 public enum EventLoggingCategory: String {
     case feed
     case history
