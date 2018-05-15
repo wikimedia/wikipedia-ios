@@ -3,6 +3,7 @@ import UIKit
 internal struct CellArticle {
     let articleURL: URL?
     let title: String?
+    let titleHTML: String?
     let description: String?
     let imageURL: URL?
 }
@@ -67,7 +68,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         wmf_configureSubviewsForDynamicType()
 
         //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
-        prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, theme: self.theme, layoutOnly: true)
+        prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", titleHTML: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, theme: self.theme, layoutOnly: true)
 
         prototypeCell.isHidden = true
 
@@ -237,7 +238,9 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         isSaveButtonHidden = true
         layoutMargins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
-        titleLabel.text = cellArticle.title
+        
+        titleHTML = cellArticle.titleHTML ?? cellArticle.title
+
         descriptionLabel.text = cellArticle.description
         articleSemanticContentAttribute = semanticContentAttribute
         

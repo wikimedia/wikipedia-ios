@@ -669,8 +669,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         setNavigationBarHidingEnabled(true)
     }
     
-    func fontStyle(for button: UIButton) -> (WMFFontFamily, UIFontTextStyle) {
-        return (.system, .body)
+    func textStyle(for button: UIButton) -> DynamicTextStyle {
+        return .body
     }
     
     func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {

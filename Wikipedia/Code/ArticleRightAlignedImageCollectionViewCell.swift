@@ -25,7 +25,6 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .system
         titleTextStyle = .body
         updateFonts(with: traitCollection)
     }

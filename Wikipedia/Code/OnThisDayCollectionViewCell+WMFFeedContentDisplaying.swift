@@ -23,7 +23,7 @@ extension OnThisDayCollectionViewCell {
         descriptionLabel.text = onThisDayEvent.text
         
         articles = previews.map { (articlePreview) -> CellArticle in
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
+            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, titleHTML: articlePreview.displayTitleHTML, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
         }
         
         

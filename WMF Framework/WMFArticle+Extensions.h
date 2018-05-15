@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
+@property (nonatomic, readonly, nullable) NSString *displayTitle;
+
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
 
 @property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
