@@ -387,6 +387,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgränsen har överstigits, kan inte synkronisera artikel";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listgränsen har överstigits, kan inte synkronisera artikel";
 "reading-lists-article-queued-to-be-downloaded" = "Artikeln lades i kö för nedladdning";
+"reading-lists-article-save-to-disk-failed" = "Enhetsgränsen har överstigits, kan inte synkronisera artikel";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Frigör utrymme på din enhet och försök igen";
 "reading-lists-articles-not-synced-limit-exceeded" = "Vissa artiklar är inte synkroniserade, gränsen har överstigits";
 "reading-lists-conflicting-reading-list-name-updated" = "Din lista \"$1\" har döpts om till \"$2\"";
 "reading-lists-count" = "{{PLURAL:$1|$1 läslista|$1 läslistor}}";
@@ -454,10 +456,10 @@
 "settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in och synkroniserar";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronisera sparade artiklar och listor";
-"settings-storage-and-syncing-erase-saved-articles-alert-message" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering och från denna enhet. Du kan inte ångra detta.";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "När dina sparade artiklar raderas kommer de tas bort från ditt användarkonto om du har aktiverat synkronisering samt från denna enhet. Du kan inte ångra detta.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Radera alla sparade artiklar?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Radera";
-"settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de både tas bort från ditt användarkonto om du har aktiverat synkronisering från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "När dina sparade artiklar raderas kommer de tas bort från ditt användarkonto om du har aktiverat synkronisering samt från denna enhet.\n\nUpp till $1 kommer att frigöras när dina artiklar raderas.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Radera sparade artiklar";
 "settings-storage-and-syncing-full-sync" = "Dina läslistor kommer att synkroniseras i bakgrunden";
 "settings-storage-and-syncing-server-sync-footer-text" = "Begär en uppdatering av dina synkroniserade artiklar och läslistor.";

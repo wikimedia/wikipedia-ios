@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKSection *)sectionWithFragment:(NSString *)fragment;
 
-- (void)save;
+- (BOOL)save:(NSError **)outError;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;
 

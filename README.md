@@ -74,6 +74,11 @@ Certain development and maintenance tasks will require the installation of speci
 
 We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. It is required to build the project. After installing carthage, (or running `scripts/setup`) you should be able to build & run in Xcode. `scripts/carthage_bootstrap` is run as a build step by Xcode. Your first build will take a while as the dependencies are built. Subsequent builds will re-use the prebuilt dependencies.
 
+
+### Manually imported dependencies
+
+HockeySDK is manually imported from their binary release. New binary releases of HockeySDK can be downloaded from https://www.hockeyapp.net/releases/ and copied over the existing version in the `Wikipedia/Frameworks` folder. We use the release in the `HockeySDKCrashOnly` folder.
+
 ### Clang-Format
  
 `brew install clang-format`

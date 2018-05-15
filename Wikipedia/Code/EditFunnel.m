@@ -8,6 +8,7 @@
     self = [super initWithSchema:@"MobileWikiAppEdit" version:9003125];
     if (self) {
         self.editSessionToken = [self singleUseUUID];
+        self.requiresAppInstallID = NO;
     }
     self.userId = userId;
     return self;

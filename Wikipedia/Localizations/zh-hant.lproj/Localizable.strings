@@ -387,6 +387,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "超出條目上限，無法同步條目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超出清單上限，無法同步條目";
 "reading-lists-article-queued-to-be-downloaded" = "條目已排在要下載的項目";
+"reading-lists-article-save-to-disk-failed" = "超出裝置上限，無法同步條目";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "請在您的裝置裡清出一些空間後再重試";
 "reading-lists-articles-not-synced-limit-exceeded" = "因超出上限，一些條目無法同步";
 "reading-lists-conflicting-reading-list-name-updated" = "您的清單「$1」已重新命名成「$2」";
 "reading-lists-count" = "{{PLURAL:$1|$1 個閱讀清單|$1 個閱讀清單}}";
@@ -498,7 +500,7 @@
 "top-read-header-with-language" = "$1維基百科";
 "top-read-see-more" = "查看更多熱門閱讀";
 "two-factor-login-continue" = "繼續登入";
-"two-factor-login-instructions" = "請輸入雙因素驗證代碼";
+"two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
@@ -544,13 +546,13 @@
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 授權條款來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "zero-charged-verbiage" = "維基百科零計劃已關閉";
-"zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
-"zero-free-verbiage" = "從閣下的電話公司免費存取維基百科 (不需要支出資料費用)";
+"zero-charged-verbiage-extended" = "讀取其他條目將可能產生流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
+"zero-free-verbiage" = "從您的電話公司免費存取維基百科（不需要支出流量費用）";
 "zero-interstitial-cancel" = "留在這裡";
 "zero-interstitial-continue" = "離開";
-"zero-interstitial-leave-app" = "可能產生資料資料費用。要繼續前往外部網站嗎？";
+"zero-interstitial-leave-app" = "可能會有收取流量費用情況。要繼續前往至外部網站嗎？";
 "zero-interstitial-title" = "離開維基百科零計劃";
-"zero-learn-more" = "此維基百科應用程式可免除資料費用。";
+"zero-learn-more" = "此維基百科應用程式可免除流量費用。";
 "zero-learn-more-learn-more" = "延伸閱讀";
 "zero-learn-more-no-thanks" = "關閉";
 "zero-warn-when-leaving" = "離開維基百科零計劃時警告";

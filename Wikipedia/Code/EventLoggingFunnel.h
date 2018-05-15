@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *schema;
 @property (nonatomic, assign) int revision;
+@property (nonatomic, assign) BOOL requiresAppInstallID;
 
 /**
  *  Sampling rate used to calculate sampling ratio.

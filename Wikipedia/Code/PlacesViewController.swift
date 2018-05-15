@@ -462,7 +462,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func region(thatFits articles: [WMFArticle]) -> MKCoordinateRegion {
-        let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
+        let coordinates: [CLLocationCoordinate2D] =  articles.compactMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
         guard coordinates.count > 1 else {
@@ -811,7 +811,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func updatePlaces() {
-        let articleURLs = articleFetchedResultsController.fetchedObjects?.flatMap({ (article) -> URL? in
+        let articleURLs = articleFetchedResultsController.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
         listViewController.articleURLs = articleURLs ?? []
@@ -2161,7 +2161,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func handleCompletion(searchResults: [MWKSearchResult], siteURL: URL) -> [PlaceSearch] {
         var set = Set<String>()
-        let completions = searchResults.flatMap { (result) -> PlaceSearch? in
+        let completions = searchResults.compactMap { (result) -> PlaceSearch? in
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
                 let url = result.articleURL(forSiteURL: siteURL),

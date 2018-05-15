@@ -392,6 +392,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "문서 수 제한에 도달하여 문서를 동기화할 수 없습니다";
 "reading-lists-article-not-synced-list-limit-exceeded" = "목록 제한에 도달하여 문서를 동기화할 수 없습니다";
 "reading-lists-article-queued-to-be-downloaded" = "문서가 다운로드 대기열에 추가되었습니다.";
+"reading-lists-article-save-to-disk-failed" = "장치 제한에 도달하여 문서를 동기화할 수 없습니다";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "장치의 공간을 어느 정도 정리한 다음 다시 시도하십시오";
 "reading-lists-articles-not-synced-limit-exceeded" = "일부 문서는 동기화되지 않았습니다. 제한에 도달했습니다";
 "reading-lists-conflicting-reading-list-name-updated" = "'$1' 목록은 '$2' 이름으로 변경되었습니다";
 "reading-lists-count" = "{{PLURAL:$1|읽기 목록 $1개}}";

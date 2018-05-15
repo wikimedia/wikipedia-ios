@@ -163,7 +163,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
-        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        createReadingListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -395,7 +395,7 @@ extension ReadingListsViewController: ActionDelegate {
             return false
         }
         
-        let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
+        let readingLists: [ReadingList] = selectedIndexPaths.compactMap({ readingList(at: $0) })
         
         switch action.type {
         case .update:

@@ -325,7 +325,7 @@
 "places-filter-list-title" = "Фильтры поиска";
 "places-filter-no-saved-places" = "У вас нет сохранённых мест";
 "places-filter-saved-articles" = "Сохранённые статьи";
-"places-filter-saved-articles-count" = "Найдено $1 {{PLURAL:$1|место|мест|места}}";
+"places-filter-saved-articles-count" = "Найдено $1 {{PLURAL:$1|место|места|мест}}";
 "places-filter-top-articles" = "Самые читаемые";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохраненных статей нет информации о местоположении";
