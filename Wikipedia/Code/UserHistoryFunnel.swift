@@ -16,10 +16,18 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding 
         let savedArticlesCount = try dataStore.viewContext.allSavedArticlesCount()
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
+        let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier().intValue
+        let theme = UserDefaults.wmf_userDefaults().wmf_appTheme.displayName.lowercased()
         
-        let standardEvent = standardEventData
-        let newEvent: [String: Any] = [ "measure_readinglist_listcount": readingListCount, "measure_readinglist_itemcount": savedArticlesCount, "readinglist_sync": isSyncEnabled, "readinglist_showdefault": isDefaultListEnabled, "primary_language": primaryLanguage, "is_anon": isAnon]
-        let event = standardEvent.merging(newEvent, uniquingKeysWith: { (first, _) in first })
+        let event: [String: Any] = [ "measure_readinglist_listcount": readingListCount, "measure_readinglist_itemcount": savedArticlesCount, "readinglist_sync": isSyncEnabled, "readinglist_showdefault": isDefaultListEnabled, "primary_language": primaryLanguage, "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
+        return event
+    }
+    
+    override func preprocessData(_ eventData: [AnyHashable : Any]) -> [AnyHashable : Any] {
+        guard let event = try? eventData.merging(event(), uniquingKeysWith: { (first, _) in first }) else {
+            DDLogError("Error logging User History snapshot")
+            return [:]
+        }
         return event
     }
     
@@ -36,24 +44,17 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding 
             return
         }
 
-        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEventData.keys) else {
+        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) else {
             DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
         }
         
         DDLogDebug("User History snapshots are different; logging new User History snapshot")
-        log()
-    }
-    
-    private func log() {
-        do {
-            try log(event())
-        } catch let error {
-            DDLogError("Error logging User History snapshot: \(error)")
-        }
+        log(standardEvent)
     }
     
     @objc public func logStartingSnapshot() {
-        log()
+        log(standardEvent)
+        DDLogDebug("Attempted to log starting User History snapshot")
     }
 }
