@@ -1,5 +1,6 @@
+// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSLoginAction
+
 @objc class LoginFunnel: EventLoggingFunnel {
-    
     override init() {
         super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
     }

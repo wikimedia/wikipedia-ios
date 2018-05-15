@@ -5,7 +5,6 @@ protocol ReadingListsFunnelProvider {
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
 
 @objc class ReadingListsFunnel: EventLoggingFunnel {
-
     private enum Action: String {
         case save
         case unsave

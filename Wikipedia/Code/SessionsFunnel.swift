@@ -1,3 +1,5 @@
+// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSessions
+
 @objc(SessionsFunnel)
 class SessionsFunnel: EventLoggingFunnel {
     override init() {

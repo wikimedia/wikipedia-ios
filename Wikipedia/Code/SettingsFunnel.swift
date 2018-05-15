@@ -1,5 +1,6 @@
+// https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSettingAction
+
 class SettingsFunnel: EventLoggingFunnel {
-    
     private enum Action: String {
         case impression
         case sync
