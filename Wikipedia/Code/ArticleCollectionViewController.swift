@@ -1,5 +1,4 @@
 import UIKit
-import WMF
 
 fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
 
