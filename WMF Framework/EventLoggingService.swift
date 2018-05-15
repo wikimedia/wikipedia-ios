@@ -259,7 +259,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             record.event = event
             record.recorded = now
             
-            DDLogDebug("EventLoggingService: \(record.objectID) logged!")
+            DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
             
             self.save()
 
