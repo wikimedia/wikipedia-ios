@@ -93,6 +93,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
 @property (nonatomic, strong) SessionsFunnel *sessionsFunnel;
 @property (nonatomic, strong) NSDate *sessionStart;
+@property (nonatomic, strong) UserHistoryFunnel *userHistoryFunnel;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
@@ -862,6 +863,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         _sessionsFunnel = [[SessionsFunnel alloc] init];
     }
     return _sessionsFunnel;
+}
+
+- (UserHistoryFunnel *)userHistoryFunnel {
+    if (!_userHistoryFunnel) {
+        _userHistoryFunnel = [[UserHistoryFunnel alloc] initWithDataStore:self.dataStore];
+    }
+    return _userHistoryFunnel;
 }
 
 - (void)logSessionStart {

@@ -163,7 +163,7 @@ public class ReadingListsController: NSObject {
         }
         
         let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
-        let readingListsCount = try moc.countOfAllReadingLists()
+        let readingListsCount = try moc.allReadingListsCount()
         guard readingListsCount + 1 <= listLimit else {
             throw ReadingListError.listLimitReached(limit: listLimit)
         }
@@ -176,7 +176,7 @@ public class ReadingListsController: NSObject {
     private func throwLimitErrorIfNecessary(for readingList: ReadingList?, articles: [WMFArticle], in moc: NSManagedObjectContext) throws {
         let listLimit = moc.wmf_readingListsConfigMaxListsPerUser
         let entryLimit = moc.wmf_readingListsConfigMaxEntriesPerList.intValue
-        let readingListsCount = try moc.countOfAllReadingLists()
+        let readingListsCount = try moc.allReadingListsCount()
         let countOfEntries = Int(readingList?.countOfEntries ?? 0)
 
         let willExceedListLimit = readingListsCount + 1 > listLimit
@@ -748,9 +748,16 @@ public extension NSManagedObjectContext {
         }
     }
     
-    func countOfAllReadingLists() throws -> Int {
+    func allReadingListsCount() throws -> Int {
         assert(Thread.isMainThread)
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+        return try self.count(for: request)
+    }
+    
+    func allSavedArticlesCount() throws -> Int {
+        assert(Thread.isMainThread)
+        let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         request.predicate = NSPredicate(format: "isDeletedLocally == NO")
         return try self.count(for: request)
     }

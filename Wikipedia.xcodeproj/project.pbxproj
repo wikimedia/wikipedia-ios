@@ -103,13 +103,13 @@
 		192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1922754F1E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib */; };
 		19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */; };
 		19A17B36FFB48307FF04C07F /* SavedPageSpotlightManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A171644189467D5A195AE3 /* SavedPageSpotlightManagerTest.m */; };
+		3F82AD8D20690C8C00156E29 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A00D16C208FB61200A9C7BA /* BatchEditToolbarViewController.xib */; };
 		7A00E0C020A9E54400F033C8 /* SettingsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */; };
 		7A00E0C120A9E54400F033C8 /* SettingsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */; };
 		7A00E0C220A9E54400F033C8 /* SettingsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */; };
 		7A00E0C320A9E54400F033C8 /* SettingsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */; };
 		7A00E0C420A9E54400F033C8 /* SettingsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */; };
-		3F82AD8D20690C8C00156E29 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		7A0161B41FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
 		7A0161B61FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */; };
@@ -204,6 +204,11 @@
 		7A410B82205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */; };
 		7A410B83205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */; };
 		7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48469620373D660079EE9A /* EnumCollection.swift */; };
+		7A4ABA8620AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
+		7A4ABA8720AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
+		7A4ABA8820AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
+		7A4ABA8920AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
+		7A4ABA8A20AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
 		7A4FE53F1FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
@@ -3293,6 +3298,7 @@
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorageAndSyncingSettingsViewController.xib; sourceTree = "<group>"; };
 		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
+		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
@@ -5757,6 +5763,7 @@
 				7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */,
 				7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */,
 				7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */,
+				7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */,
 			);
 			name = "WIkimedia Event Logging";
 			sourceTree = "<group>";
@@ -10067,6 +10074,7 @@
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
+				7A4ABA8620AA8966007AA405 /* UserHistoryFunnel.swift in Sources */,
 				D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */,
 				7A0161E01FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				7A07A46820AA3F5100F7B2BB /* WMFContentGroupKind+EventLogging.swift in Sources */,
@@ -10396,6 +10404,7 @@
 				D80ED2F21EE57F4800CE8C50 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D80ED2F41EE57F4800CE8C50 /* UIViewController+WMFEmptyView.m in Sources */,
+				7A4ABA8A20AA8966007AA405 /* UserHistoryFunnel.swift in Sources */,
 				BA4524281F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C61F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D80ED2F71EE57F4800CE8C50 /* WMFArticleContainerViewController+TOC.swift in Sources */,
@@ -10995,6 +11004,7 @@
 				D8A42A951E815A9C00D8E281 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D8A42A971E815A9C00D8E281 /* MWKTitleLanguageController.m in Sources */,
 				D8A42A981E815A9C00D8E281 /* UIView+WMFSnapshotting.m in Sources */,
+				7A4ABA8920AA8966007AA405 /* UserHistoryFunnel.swift in Sources */,
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				D8A42A9C1E815A9C00D8E281 /* PageHistoryViewController.m in Sources */,
@@ -11373,6 +11383,7 @@
 				D8CE25591E698E2400DAE2E0 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */,
+				7A4ABA8720AA8966007AA405 /* UserHistoryFunnel.swift in Sources */,
 				BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8CE255E1E698E2400DAE2E0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D8CE25621E698E2400DAE2E0 /* WikiGlyphLabel.m in Sources */,
@@ -11702,6 +11713,7 @@
 				D8EC3E4E1E9BDA35006712EB /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				D8EC3E4F1E9BDA35006712EB /* WMFPasswordResetter.swift in Sources */,
 				BA4524261F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
+				7A4ABA8820AA8966007AA405 /* UserHistoryFunnel.swift in Sources */,
 				BA7683C81F30D87E00A487AA /* ProminentSwitch.swift in Sources */,
 				D8EC3E511E9BDA35006712EB /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				83FBE9711F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
