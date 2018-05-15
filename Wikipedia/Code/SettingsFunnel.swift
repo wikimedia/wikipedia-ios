@@ -1,6 +1,6 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSettingAction
 
-class SettingsFunnel: EventLoggingFunnel {
+class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     private enum Action: String {
         case impression
         case sync
@@ -17,20 +17,20 @@ class SettingsFunnel: EventLoggingFunnel {
             return [:]
         }
         
-        let appInstallID = wmf_appInstallID()
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        let sessionID = wmf_sessionID()
         
-        var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
+        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon]
         if let label = label {
             event["label"] = label.rawValue
         }
-        
         return event
+    }
+    
+    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        return wholeEvent(with: eventData)
     }
     
     public func logSyncEnabledInSettings() {

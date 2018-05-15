@@ -1,6 +1,6 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSLoginAction
 
-@objc class LoginFunnel: EventLoggingFunnel {
+@objc class LoginFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     override init() {
         super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
     }
@@ -19,25 +19,23 @@
             assertionFailure("category cannot be undefined")
             return [:]
         }
-        let appInstallID = wmf_appInstallID()
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        let sessionID = wmf_sessionID()
         
-        var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
-        
+        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon]
         if let label = label {
             event["label"] = label.rawValue
         }
-        
         if let measure = measure {
             event["measure"] = measure
         }
-        
         return event
+    }
+    
+    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        return wholeEvent(with: eventData)
     }
     
     // MARK: - Feed

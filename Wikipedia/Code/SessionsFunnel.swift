@@ -1,7 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSessions
 
 @objc(SessionsFunnel)
-class SessionsFunnel: EventLoggingFunnel {
+class SessionsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     override init() {
         super.init(schema: "MobileWikiAppiOSSessions", version: 18047432)
     }
@@ -16,15 +16,13 @@ class SessionsFunnel: EventLoggingFunnel {
             assertionFailure("category cannot be undefined")
             return [:]
         }
-        let appInstallID = wmf_appInstallID()
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        let sessionID = wmf_sessionID()
         
-        var event: [String: Any] = ["app_install_id": appInstallID, "category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
+        var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon]
+        
         if let label = label {
             event["label"] = label.rawValue
         }
@@ -33,6 +31,10 @@ class SessionsFunnel: EventLoggingFunnel {
         }
         
         return event
+    }
+    
+    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        return wholeEvent(with: eventData)
     }
     
     @objc public func logSessionStart() {
