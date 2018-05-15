@@ -12,6 +12,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
+        self.requiresAppInstallID = YES;
     }
     return self;
 }
@@ -36,7 +37,9 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
         }
         if (chosen) {
             NSMutableDictionary *preprocessedEventData = [[self preprocessData:eventData] mutableCopy];
-            preprocessedEventData[kAppInstallIdKey] = [self wmf_appInstallID];
+            if (self.requiresAppInstallID) {
+                preprocessedEventData[kAppInstallIdKey] = [self wmf_appInstallID];
+            }
             (void)[[EventLogger alloc] initAndLogEvent:preprocessedEventData
                                              forSchema:self.schema
                                               revision:self.revision
