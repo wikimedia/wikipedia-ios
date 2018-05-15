@@ -180,7 +180,7 @@ class SavedViewController: ViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionButton.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
+        actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK: - Sorting and searching

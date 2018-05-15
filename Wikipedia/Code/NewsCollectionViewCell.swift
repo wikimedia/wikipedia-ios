@@ -7,8 +7,8 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
 
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        descriptionFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        descriptionLinkFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        descriptionFont = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        descriptionLinkFont = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         updateDescriptionHTMLStyle()
     }
     

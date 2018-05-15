@@ -13,8 +13,8 @@ extension WMFArticle {
             self.wikidataDescription = description
         }
         
-        if let title = summary["title"] as? String {
-            self.displayTitle = title
+        if let displaytitle = summary["displaytitle"] as? String {
+            self.displayTitleHTML = displaytitle
         }
         
         if let extract = summary["extract"] as? String {

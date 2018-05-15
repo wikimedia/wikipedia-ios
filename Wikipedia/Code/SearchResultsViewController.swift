@@ -96,7 +96,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         cell.configureForCompactList(at: indexPath.item)
-        cell.set(titleHTML: result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
+        cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
        
         cell.articleSemanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
         cell.titleLabel.accessibilityLanguage = language
