@@ -1,4 +1,4 @@
-protocol ReadingListsFunnelProvider {
+protocol ReadingListsFunnelProviding {
     var readingListsFunnel: ReadingListsFunnel { get }
 }
 

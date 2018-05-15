@@ -321,7 +321,7 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
         if let hintPresenter = self as? ReadingListHintPresenter {
             hintPresenter.readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
         }
-        if let readingListsFunnelProvider = self as? ReadingListsFunnelProvider, let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
+        if let readingListsFunnelProvider = self as? ReadingListsFunnelProviding, let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
             if didSave {
                 readingListsFunnelProvider.readingListsFunnel.logSave(category: eventLoggingEventValuesProviding.eventLoggingCategory, label: eventLoggingEventValuesProviding.eventLoggingLabel)
             } else {
