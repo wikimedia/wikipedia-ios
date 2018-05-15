@@ -34,11 +34,11 @@ class SessionsFunnel: EventLoggingFunnel {
     }
     
     @objc public func logSessionStart() {
-        log(event(category: .feed, label: nil, action: .sessionStart))
+        log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: can we know where (screen) we start a new session
     }
     
     @objc public func logSessionEnd(timeElapsed: Double) {
-        log(event(category: .feed, label: nil, action: .sessionEnd, measure: timeElapsed))
+        log(event(category: .feed, label: nil, action: .sessionEnd, measure: timeElapsed)) // TODO: can we know where (screen) we end a new session
     }
     
 }
