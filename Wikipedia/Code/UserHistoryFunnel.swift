@@ -12,7 +12,7 @@ class UserHistoryFunnel: EventLoggingFunnel {
     private func event() throws -> Dictionary<String, Any> {
         let appInstallID = wmf_appInstallID()
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = String(describing: NSDate()).wmf_iso8601Date
+        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let sessionID = wmf_sessionID()
         let readingListCount = try dataStore.viewContext.allReadingListsCount()

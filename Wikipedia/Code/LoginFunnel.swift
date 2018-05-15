@@ -23,7 +23,7 @@
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = String(describing: NSDate()).wmf_iso8601Date
+        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let sessionID = wmf_sessionID()
         
