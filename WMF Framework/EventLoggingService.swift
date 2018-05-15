@@ -407,6 +407,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 eventRecord.posted = NSDate()
                 self.managedObjectContext.perform {
                     self.managedObjectContext.delete(eventRecord)
+                    self.save()
                 }
                 
                 DDLogDebug("EventLoggingService: \(eventRecord.objectID) posted!")
