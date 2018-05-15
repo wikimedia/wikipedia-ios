@@ -774,7 +774,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)pauseApp {
-    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
+    [self logSessionEnd];
     
     if (![self uiIsLoaded]) {
         return;
@@ -876,6 +876,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
     [self.sessionsFunnel logSessionStart];
     self.sessionStart = [NSDate date];
+}
+
+- (void)logSessionEnd {
+    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
+    [self.userHistoryFunnel logSnapshot];
 }
 
 #pragma mark - Shortcut
