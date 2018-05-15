@@ -23,6 +23,13 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProvid
         return event
     }
     
+    override func logged(_ eventData: [AnyHashable: Any]) {
+        guard let eventData = eventData as? [String: Any] else {
+            return
+        }
+        UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot = eventData
+    }
+    
     @objc public func logSnapshot() {
         do {
          try log(event())
