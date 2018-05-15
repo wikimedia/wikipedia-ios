@@ -1,7 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc(UserHistoryFunnel)
-class UserHistoryFunnel: EventLoggingFunnel {
+class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProviding {
     private let dataStore: MWKDataStore
     
     @objc init(dataStore: MWKDataStore) {
@@ -10,17 +10,16 @@ class UserHistoryFunnel: EventLoggingFunnel {
     }
     
     private func event() throws -> Dictionary<String, Any> {
-        let appInstallID = wmf_appInstallID()
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
-        let sessionID = wmf_sessionID()
         let readingListCount = try dataStore.viewContext.allReadingListsCount()
         let savedArticlesCount = try dataStore.viewContext.allSavedArticlesCount()
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
         
-        let event: [String: Any] = ["app_install_id": appInstallID, "measure_readinglist_listcount": readingListCount, "measure_readinglist_itemcount": savedArticlesCount, "readinglist_sync": isSyncEnabled, "readinglist_showdefault": isDefaultListEnabled, "primary_language": primaryLanguage, "is_anon": isAnon, "event_dt": timestamp, "session_id": sessionID]
+        let standardEvent = standardEventData
+        let newEvent: [String: Any] = [ "measure_readinglist_listcount": readingListCount, "measure_readinglist_itemcount": savedArticlesCount, "readinglist_sync": isSyncEnabled, "readinglist_showdefault": isDefaultListEnabled, "primary_language": primaryLanguage, "is_anon": isAnon]
+        let event = standardEvent.merging(newEvent, uniquingKeysWith: { (first, _) in first })
         return event
     }
     
