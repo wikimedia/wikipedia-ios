@@ -161,7 +161,7 @@ extension ArticleLocationCollectionViewController {
 
 extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
-        return .map // TODO: Category for Places list
+        return .places
     }
     
     var eventLoggingLabel: EventLoggingLabel? {

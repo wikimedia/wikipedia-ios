@@ -15,7 +15,7 @@ protocol ReadingListsFunnelProvider {
     }
     
     override init() {
-        super.init(schema: "MobileWikiAppiOSReadingLists", version: 17990228)
+        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18047424)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
@@ -73,11 +73,11 @@ protocol ReadingListsFunnelProvider {
     // - MARK: Places
     
     @objc public func logSaveInPlaces() {
-        logSave(category: .map)
+        logSave(category: .places)
     }
     
     @objc public func logUnsaveInPlaces() {
-        logUnsave(category: .map)
+        logUnsave(category: .places)
     }
     
     // - MARK: Generic article save & unsave actions

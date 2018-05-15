@@ -6,7 +6,7 @@ public protocol EventLoggingEventValuesProviding {
 public enum EventLoggingCategory: String {
     case feed
     case history
-    case map
+    case places
     case article
     case search
     case addToList = "add_to_list"
