@@ -13,7 +13,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

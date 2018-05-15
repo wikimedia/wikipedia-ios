@@ -1,5 +1,4 @@
 #import <WMF/NSString+WMFExtras.h>
-#import <hpple/TFHpple.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/MWLanguageInfo.h>
@@ -53,76 +52,6 @@
 
 - (NSDate *)wmf_iso8601Date {
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
-}
-
-// TODO: Fix - returns nil if self contains no HTML.
-- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
-    if (self.length == 0) {
-        return [[NSAttributedString alloc] initWithString:self attributes:nil];
-    }
-
-    static NSRegularExpression *tagRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *pattern = @"(<[^>]*>)([^<]*)";
-        tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                             options:NSRegularExpressionCaseInsensitive
-                                                               error:nil];
-    });
-
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
-    __block BOOL shouldTrimLeadingWhitespace = YES;
-    [tagRegex enumerateMatchesInString:self
-                               options:0
-                                 range:NSMakeRange(0, self.length)
-                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                *stop = false;
-                                NSString *tagContents = [[[[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLNonBreakingSpaces] wmf_stringByDecodingHTMLAndpersands] wmf_stringByDecodingHTMLLessThanAndGreaterThan];
-                                if (!tagContents) {
-                                    return;
-                                }
-                                if (shouldTrimLeadingWhitespace) {
-                                    shouldTrimLeadingWhitespace = NO;
-                                    NSRange range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-                                    while (range.length > 0) {
-                                        tagContents = [tagContents stringByReplacingCharactersInRange:range withString:@""];
-                                        range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-                                    }
-                                }
-                                NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
-                                NSDictionary *attributes = nil;
-                                if ([tag hasPrefix:@"<a"] && linkFont) {
-                                    attributes = @{NSFontAttributeName: linkFont};
-                                } else if (font) {
-                                    attributes = @{NSFontAttributeName: font};
-                                }
-                                NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
-                                [attributedString appendAttributedString:attributedNode];
-                            }];
-    return [attributedString copy];
-}
-
-- (NSString *)wmf_stringByRemovingHTML {
-    // Strips html from string with xpath / hpple.
-    if (!self || (self.length == 0)) {
-        return self;
-    }
-    NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
-    NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
-    NSMutableArray *results = @[].mutableCopy;
-    for (TFHppleElement *node in textNodes) {
-        if (node.isTextNode) {
-            [results addObject:node.raw];
-        }
-    }
-
-    NSString *result = [results componentsJoinedByString:@""];
-
-    // Also decode any "&amp;" strings.
-    result = [result wmf_stringByDecodingHTMLAndpersands];
-
-    return result;
 }
 
 - (NSString *)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;

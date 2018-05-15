@@ -91,15 +91,14 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleFontFamily = .systemSemiBold
-        titleTextStyle = .body
+        titleTextStyle = .semiboldBody
         updateFonts(with: traitCollection)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        articleCountLabel.setFont(with: .system, style: .caption2, traitCollection: traitCollection)
-        defaultListTag.setFont(with: .systemItalic, style: .caption2, traitCollection: traitCollection)
+        articleCountLabel.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
+        defaultListTag.font = UIFont.wmf_font(.italicCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
     override func updateBackgroundColorOfLabels() {
