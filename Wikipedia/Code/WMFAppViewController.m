@@ -692,6 +692,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)finishResumingApp {
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+    [[WMFEventLoggingService sharedInstance] start];
+#endif
+    
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
     [self logSessionStart];
     
