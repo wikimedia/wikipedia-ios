@@ -31,6 +31,19 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProvid
     }
     
     @objc public func logSnapshot() {
+        guard let latestSnapshot = UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot, let newSnapshot = try? event() else {
+            assertionFailure("User History snapshots must have values")
+            return
+        }
+        
+        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: Array(standardEventData.keys)) else {
+            DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
+            return
+        }
+        
+        DDLogDebug("User History snapshots are different; logging new User History snapshot")
+        log()
+    }
         do {
          try log(event())
         } catch let error {
