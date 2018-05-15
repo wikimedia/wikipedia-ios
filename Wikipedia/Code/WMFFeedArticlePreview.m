@@ -8,6 +8,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFFeedArticlePreview
+@synthesize displayTitleHTML = _displayTitleHTML;
+@synthesize displayTitle = _displayTitle;
 
 + (NSUInteger)modelVersion {
     return 3;
@@ -83,6 +85,10 @@ NS_ASSUME_NONNULL_BEGIN
                 }
                 return dict;
             }];
+}
+
+- (NSString *)displayTitleHTML {
+    return _displayTitleHTML && ![_displayTitleHTML isEqualToString:@""] ? _displayTitleHTML : _displayTitle;
 }
 
 + (NSValueTransformer *)snippetJSONTransformer {

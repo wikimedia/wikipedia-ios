@@ -275,4 +275,8 @@
     return [siteURL wmf_URLWithTitle:self.title];
 }
 
+- (NSString *)displayTitleHTML {
+    return _displayTitleHTML && ![_displayTitleHTML isEqualToString:@""] ? _displayTitleHTML : _displayTitle;
+}
+
 @end
