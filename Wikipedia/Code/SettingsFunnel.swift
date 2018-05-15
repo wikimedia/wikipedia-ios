@@ -15,6 +15,7 @@ class SettingsFunnel: EventLoggingFunnel {
             assertionFailure("category cannot be undefined")
             return [:]
         }
+        
         let appInstallID = wmf_appInstallID()
         let category = category.rawValue
         let action = action.rawValue
