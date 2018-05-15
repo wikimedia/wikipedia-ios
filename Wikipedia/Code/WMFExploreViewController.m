@@ -2012,7 +2012,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return self.collectionView;
 }
 
-- (void)navigationBarHider:(WMFNavigationBarHider *_Nonnull)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
+- (void)navigationBarHider:(WMFNavigationBarHider *)hider didSetNavigationBarPercentHidden:(CGFloat)didSetNavigationBarPercentHidden underBarViewPercentHidden:(CGFloat)underBarViewPercentHidden extendedViewPercentHidden:(CGFloat)extendedViewPercentHidden animated:(BOOL)animated {
     self.shortTitleButton.alpha = extendedViewPercentHidden;
     self.longTitleButton.alpha = 1.0 - extendedViewPercentHidden;
     self.navigationItem.rightBarButtonItem.customView.alpha = extendedViewPercentHidden;
