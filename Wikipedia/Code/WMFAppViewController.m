@@ -859,9 +859,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)logSessionStart {
+    [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
     [self.sessionsFunnel logSessionStart];
     self.sessionStart = [NSDate date];
-    [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
 }
 
 #pragma mark - Shortcut
