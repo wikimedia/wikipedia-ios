@@ -5,9 +5,9 @@
 
 NSString *const WMFLoggingEndpoint =
     // production
-    // @"https://meta.wikimedia.org/beacon/event";
+     @"https://meta.wikimedia.org/beacon/event";
     // testing
-    @"http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
+    // @"http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
 
 @implementation EventLogger
 
@@ -21,6 +21,7 @@ NSString *const WMFLoggingEndpoint =
 
 #if WMF_IS_NEW_EVENT_LOGGING_ENABLED
             NSDictionary *capsule = [NSDictionary wmf_eventCapsuleWithEvent:event schema:schema revision:revision wiki:wiki];
+            // NSLog(@"%@", capsule);
             [[WMFEventLoggingService sharedInstance] logEvent:capsule];
 #else
             NSDictionary *payload =
