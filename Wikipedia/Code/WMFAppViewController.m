@@ -317,7 +317,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
     self.notificationsController.applicationActive = NO;
-    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
+    
     if (![self uiIsLoaded]) {
         return;
     }
@@ -769,6 +769,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)pauseApp {
+    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
+    
     if (![self uiIsLoaded]) {
         return;
     }
