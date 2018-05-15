@@ -3,6 +3,7 @@ let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFAppInstallIDKey = "WMFAppInstallID"
 let WMFSessionIDKey = "WMFSessionIDKey"
+let WMFLastLoggedUserHistorySnapshot = "WMFLastLoggedUserHistorySnapshot"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -125,6 +126,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_resetSessionID() {
         set(UUID().uuidString, forKey: WMFSessionIDKey)
+    }
+    
+    @objc public var wmf_lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
+        get {
+            return dictionary(forKey: WMFLastLoggedUserHistorySnapshot)
+        }
+        set {
+            set(newValue, forKey: WMFLastLoggedUserHistorySnapshot)
+            synchronize()
+        }
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
