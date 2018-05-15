@@ -3,12 +3,12 @@ public protocol EventLoggingEventValuesProviding {
     var eventLoggingLabel: EventLoggingLabel? { get }
 }
 
-public protocol EventLoggingStandardEventDataProviding {
-    var standardEventData: Dictionary<String, Any> { get }
+public protocol EventLoggingStandardEventProviding {
+    var standardEvent: Dictionary<String, Any> { get }
 }
 
-extension EventLoggingStandardEventDataProviding where Self: EventLoggingFunnel {
-    var standardEventData: Dictionary<String, Any> {
+extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
+    var standardEvent: Dictionary<String, Any> {
         let appInstallID = wmf_appInstallID()
         let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
         let sessionID = wmf_sessionID()

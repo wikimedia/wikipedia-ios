@@ -1,7 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc(UserHistoryFunnel)
-class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProviding {
+class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     private let dataStore: MWKDataStore
     
     @objc init(dataStore: MWKDataStore) {
