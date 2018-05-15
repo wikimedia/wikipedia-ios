@@ -76,6 +76,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki;
 
 /**
+ * Called after eventData was logged through log:.
+ */
+- (void)logged:(NSDictionary *)eventData;
+
+/**
  * Helper function to generate a per-use UUID.
  */
 - (NSString *)singleUseUUID;
