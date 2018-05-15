@@ -18,7 +18,7 @@ class SessionsFunnel: EventLoggingFunnel {
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let timestamp = String(describing: NSDate())
+        let timestamp = String(describing: NSDate()).wmf_iso8601Date
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let sessionID = wmf_sessionID()
         
