@@ -35,8 +35,8 @@ class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventDataProvid
             assertionFailure("User History snapshots must have values")
             return
         }
-        
-        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: Array(standardEventData.keys)) else {
+
+        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEventData.keys) else {
             DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
         }

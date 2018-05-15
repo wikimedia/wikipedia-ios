@@ -203,6 +203,7 @@
 		7A410B81205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */; };
 		7A410B82205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */; };
 		7A410B83205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */; };
+		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
 		7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48469620373D660079EE9A /* EnumCollection.swift */; };
 		7A4ABA8620AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
 		7A4ABA8720AA8966007AA405 /* UserHistoryFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */; };
@@ -3297,6 +3298,7 @@
 		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A410B79205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StorageAndSyncingSettingsViewController.xib; sourceTree = "<group>"; };
+		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
 		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
@@ -7774,6 +7776,7 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
+				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -10777,6 +10780,7 @@
 				D8F36F031EEEBA130087D4DD /* Licenses.swift in Sources */,
 				0E728D231DAEE2B50074EB4B /* WMFFeedNewsStory.m in Sources */,
 				D844D9981D6CB5CD0042D692 /* WikipediaAppUtils.m in Sources */,
+				7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */,
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
 				D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */,
 				D84C361B1F32403D00895FA1 /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
