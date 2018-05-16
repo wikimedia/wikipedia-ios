@@ -427,7 +427,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
         case .swiping:
             leftBarButtonSystemItem = nil
-            rightBarButtonSystemItem = .done
+            rightBarButtonSystemItem = .edit
         case .open:
             leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .cancel
