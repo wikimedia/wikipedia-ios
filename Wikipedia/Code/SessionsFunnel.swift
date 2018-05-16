@@ -38,11 +38,16 @@ class SessionsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     }
     
     @objc public func logSessionStart() {
+        resetSession()
         log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: can we know where (screen) we start a new session
     }
     
     @objc public func logSessionEnd(timeElapsed: Double) {
         log(event(category: .feed, label: nil, action: .sessionEnd, measure: timeElapsed)) // TODO: can we know where (screen) we end a new session
+    private func resetSession() {
+        UserDefaults.wmf_userDefaults().wmf_resetSessionID()
+        UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
+    }
     }
     
 }

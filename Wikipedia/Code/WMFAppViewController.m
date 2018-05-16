@@ -875,11 +875,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     return _userHistoryFunnel;
 }
 
-- (void)logSessionStart {
-    [NSUserDefaults.wmf_userDefaults wmf_resetSessionID];
-    [self.sessionsFunnel logSessionStart];
-}
-
 - (void)logSessionEnd {
     [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
     [self.userHistoryFunnel logSnapshot];
