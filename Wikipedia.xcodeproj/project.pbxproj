@@ -166,11 +166,11 @@
 		7A25B1CE20A483F1008C6F29 /* LoginFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */; };
 		7A25B1CF20A483F1008C6F29 /* LoginFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */; };
 		7A25B1D020A483F1008C6F29 /* LoginFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */; };
-		7A25B1D120A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
-		7A25B1D220A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
-		7A25B1D320A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
-		7A25B1D420A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
-		7A25B1D520A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A25B1D120A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A25B1D220A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A25B1D320A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A25B1D420A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A25B1D520A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
 		7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
@@ -3305,7 +3305,7 @@
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
-		7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift"; path = "../../WMF Framework/EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift"; sourceTree = "<group>"; };
+		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift"; path = "../../WMF Framework/EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift"; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
@@ -5763,7 +5763,7 @@
 				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
 				7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */,
-				7A79A39220A24A7C00F9BDF9 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */,
+				7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */,
 				7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */,
 				7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */,
 				7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */,
@@ -10149,7 +10149,7 @@
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
-				7A25B1D420A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A25B1D420A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
@@ -10446,7 +10446,7 @@
 				D80ED3161EE57F4800CE8C50 /* WMFImageTextActivitySource.swift in Sources */,
 				D80ED3171EE57F4800CE8C50 /* WMFAuthenticationManager.swift in Sources */,
 				D80ED3181EE57F4800CE8C50 /* WMFAuthLoginInfoFetcher.swift in Sources */,
-				7A25B1D220A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A25B1D220A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
 				D80ED3191EE57F4800CE8C50 /* PreviewAndSaveViewController.m in Sources */,
 				D80ED31A1EE57F4800CE8C50 /* ToCInteractionFunnel.m in Sources */,
 				D80ED31D1EE57F4800CE8C50 /* WMFRotationRespectingTabBarController.swift in Sources */,
@@ -11130,7 +11130,7 @@
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0E1E815A9C00D8E281 /* WMFExploreSectionHeader.m in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
-				7A25B1D120A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A25B1D120A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
 				D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				D8A42B131E815A9C00D8E281 /* MenuButton.m in Sources */,
 				D8A42B151E815A9C00D8E281 /* BITHockeyManager+WMFExtensions.m in Sources */,
@@ -11426,7 +11426,7 @@
 				830D71C41F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				D8CE257E1E698E2400DAE2E0 /* PreviewAndSaveViewController.m in Sources */,
 				D8CE257F1E698E2400DAE2E0 /* ToCInteractionFunnel.m in Sources */,
-				7A25B1D520A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A25B1D520A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
 				D8703DC01EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8CE25811E698E2400DAE2E0 /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
@@ -11756,7 +11756,7 @@
 				D8EC3E711E9BDA35006712EB /* TableOfContentsAboutThisArticleItem.swift in Sources */,
 				D8EC3E741E9BDA35006712EB /* WMFImageTextActivitySource.swift in Sources */,
 				D8EC3E751E9BDA35006712EB /* WMFAuthenticationManager.swift in Sources */,
-				7A25B1D320A4AB37008C6F29 /* EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A25B1D320A4AB37008C6F29 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
 				D8EC3E771E9BDA35006712EB /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				B0CD9DE71F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				B0B4236A1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
