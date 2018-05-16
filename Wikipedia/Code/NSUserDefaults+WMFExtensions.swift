@@ -126,7 +126,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     }
     
     @objc public var wmf_sessionID: String? {
-        return string(forKey: WMFSessionIDKey)
+        guard let sessionID = string(forKey: WMFSessionIDKey) else {
+            return generateNewStringUUID(forKey: WMFSessionIDKey)
+        }
+        return sessionID
     }
     
     @objc public func wmf_resetSessionID() {
