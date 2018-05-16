@@ -41,12 +41,17 @@
         log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: can we know where (screen) we start a new session
     }
     
-    @objc public func logSessionEnd(timeElapsed: Double) {
-        log(event(category: .feed, label: nil, action: .sessionEnd, measure: timeElapsed)) // TODO: can we know where (screen) we end a new session
     private func resetSession() {
         UserDefaults.wmf_userDefaults().wmf_resetSessionID()
         UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
     }
+    
+    @objc public func logSessionEnd() {
+        guard let sessionStartDate = UserDefaults.wmf_userDefaults().wmf_sessionStartDate else {
+            assertionFailure("Session start date cannot be nil")
+            return
+        }
+        log(event(category: .feed, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow))) // TODO: can we know where (screen) we end a new session
     }
     
 }
