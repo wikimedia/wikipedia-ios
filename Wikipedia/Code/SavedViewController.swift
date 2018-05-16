@@ -271,8 +271,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         switch currentEditingState {
         case .open:
             newEditingState = .closed
-        case .swiping:
-            newEditingState = .done
         default:
             newEditingState = .open
         }
