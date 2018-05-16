@@ -870,13 +870,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (UserHistoryFunnel *)userHistoryFunnel {
     if (!_userHistoryFunnel) {
-        _userHistoryFunnel = [[UserHistoryFunnel alloc] initWithDataStore:self.dataStore];
+        _userHistoryFunnel = [[UserHistoryFunnel alloc] init];
     }
     return _userHistoryFunnel;
 }
 
 - (void)logSessionEnd {
-    [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
+    [self.sessionsFunnel logSessionEnd];
     [self.userHistoryFunnel logSnapshot];
 }
 

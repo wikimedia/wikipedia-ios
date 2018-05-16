@@ -1,28 +1,37 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    private let dataStore: MWKDataStore
     
-    @objc init(dataStore: MWKDataStore) {
-        self.dataStore = dataStore
+    @objc override init() {
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 17990229)
     }
     
     private func event() -> Dictionary<String, Any> {
+        let userDefaults = UserDefaults.wmf_userDefaults()
+        
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
+        let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
+        let theme = userDefaults.wmf_appTheme.displayName.lowercased()
+        
+        var event: [String: Any] = ["primary_language": primaryLanguage, "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
+        
+        guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
+            return event
+        }
+        
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
-        let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier().intValue
-        let theme = UserDefaults.wmf_userDefaults().wmf_appTheme.displayName.lowercased()
+        event["readinglist_sync"] = isSyncEnabled
+        event["readinglist_showdefault"] = isDefaultListEnabled
         
-        var event: [String: Any] = ["readinglist_sync": isSyncEnabled, "readinglist_showdefault": isDefaultListEnabled, "primary_language": primaryLanguage, "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
         if let readingListCount = try? dataStore.viewContext.allReadingListsCount() {
             event["measure_readinglist_listcount"] = readingListCount
         }
         if let savedArticlesCount = try? dataStore.viewContext.allSavedArticlesCount() {
             event["measure_readinglist_itemcount"] = savedArticlesCount
         }
+        
         return event
     }
     
