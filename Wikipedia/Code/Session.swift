@@ -205,13 +205,13 @@ import Foundation
         })
     }
     
-    public func summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
             return nil
         }
         
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", "page", "summary", encodedTitle])
+        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", path, encodedTitle])
         
         guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
             return nil
@@ -227,6 +227,10 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
+    public func summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+       return apiTask(with: articleURL, path: "page/summary", completionHandler: completionHandler)
+    }
+
     @objc(fetchSummaryWithArticleURL:priority:completionHandler:)
     public func fetchSummary(with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
         guard let task = summaryTask(with: articleURL, completionHandler: completionHandler) else {
