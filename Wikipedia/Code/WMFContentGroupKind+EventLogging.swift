@@ -13,6 +13,10 @@ extension WMFContentGroupKind {
             return .news
         case .relatedPages:
             return .relatedPages
+        case .locationPlaceholder:
+            fallthrough
+        case .location:
+            return .location
         default:
             return nil
         }

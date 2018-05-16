@@ -57,4 +57,5 @@ public enum EventLoggingLabel: String {
     case syncEducation = "sync_education"
     case login
     case syncArticle = "sync_article" // Article storage and syncing settings screen
+    case location
 }
