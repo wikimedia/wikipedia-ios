@@ -345,7 +345,6 @@ extension ReadingListDetailViewController: ActionDelegate {
             return true
         case .remove:
             delete(entries)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
@@ -363,16 +362,15 @@ extension ReadingListDetailViewController: ActionDelegate {
         guard let entry = entry(at: indexPath) else {
             return
         }
-        do {
-            try dataStore.readingListsController.remove(entries: [entry])
-        } catch let err {
-            DDLogError("Error removing entry from a reading list: \(err)")
-        }
+        delete([entry])
     }
     
     private func delete(_ entries: [ReadingListEntry]) {
         do {
             try dataStore.readingListsController.remove(entries: entries)
+            let entriesCount = entries.count
+            readingListsFunnel.logUnsaveInReadingList(articlesCount: entriesCount)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }
@@ -388,7 +386,6 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .delete:
             delete(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: 1))
             return true
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
