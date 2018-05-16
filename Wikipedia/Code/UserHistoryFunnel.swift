@@ -32,11 +32,7 @@
             event["measure_readinglist_itemcount"] = savedArticlesCount
         }
         
-        return event
-    }
-    
-    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
-        return wholeEvent(with: event())
+        return wholeEvent(with: event)
     }
     
     override func logged(_ eventData: [AnyHashable: Any]) {
@@ -59,20 +55,20 @@
         let newSnapshot = event()
         
         guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) else {
-            DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
+            // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
         }
         
-        DDLogDebug("User History snapshots are different; logging new User History snapshot")
-        log(standardEvent)
+        // DDLogDebug("User History snapshots are different; logging new User History snapshot")
+        log(event())
     }
     
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
-            DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
             return
         }
-        log(standardEvent)
-        DDLogDebug("Attempted to log starting User History snapshot")
+        log(event())
+        // DDLogDebug("Attempted to log starting User History snapshot")
     }
 }
