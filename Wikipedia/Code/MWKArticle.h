@@ -136,7 +136,5 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (NSArray<NSURL *> *)imageURLsForSaving;
 
-- (NSArray<MWKImage *> *)imagesForSaving;
-
 @end
 NS_ASSUME_NONNULL_END

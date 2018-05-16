@@ -45,6 +45,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
 @property (nonatomic, readwrite, copy) NSDictionary *media;
+@property (nonatomic, readwrite, copy) NSSet<NSURL *> *allMediaImageURLs;
+@property (nonatomic, readwrite, copy) NSArray<NSURL *> *mediaImageURLsForGallery;
+@property (nonatomic, readwrite, copy) NSArray<MWKImage *> *mediaImagesForGallery;
+@property (nonatomic, readwrite, copy) NSArray<NSURL *> *mediaImageURLsForSaving;
 
 @end
 
@@ -232,6 +236,63 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.coordinate = coordinate;
     
     self.media = dict[@"media"];
+    [self importMediaJSON:self.media];
+}
+
+- (void)importMediaJSON:(NSDictionary *)media {
+    NSArray *items = media[@"items"];
+    if ([items count] > 0) {
+        NSMutableSet *allImageURLs = [NSMutableSet setWithCapacity:[items count]];
+        NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
+        NSMutableArray *galleryImages = [NSMutableArray arrayWithCapacity:[items count]];
+        for (id item in items) {
+            if (![item isKindOfClass:[NSDictionary class]]) {
+                continue;
+            }
+            id original = item[@"original"];
+            if (![original isKindOfClass:[NSDictionary class]]) {
+                continue;
+            }
+            id mime = original[@"mime"];
+            if (![mime isKindOfClass:[NSString class]]) {
+                continue;
+            }
+            if (![mime hasPrefix:@"image"]) {
+                continue;
+            }
+            id source = original[@"source"];
+            if (![source isKindOfClass:[NSString class]]) {
+                continue;
+            }
+            NSURL *imageURL = [NSURL URLWithString:source];
+            if (!imageURL) {
+                continue;
+            }
+            [allImageURLs addObject:imageURL];
+            id width = original[@"width"];
+            id height = original[@"height"];
+            if ([width isKindOfClass:[NSNumber class]] &&
+                [height isKindOfClass:[NSNumber class]] &&
+                [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width &&
+                [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height) {
+                [galleryImageURLs addObject:imageURL];
+                NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
+                [imageDictionary setObject:width forKey:@"width"];
+                [imageDictionary setObject:height forKey:@"height"];
+                [imageDictionary setObject:width forKey:@"originalFileWidth"];
+                [imageDictionary setObject:height forKey:@"originalFileHeight"];
+                [imageDictionary setObject:mime forKey:@"mimeType"];
+                [imageDictionary setObject:source forKey:@"sourceURL"];
+                MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
+                
+                [galleryImages addObject:galleryImage];
+            }
+        }
+        self.allMediaImageURLs = allImageURLs;
+        self.mediaImageURLsForGallery = galleryImageURLs;
+        self.mediaImagesForGallery = galleryImages;
+        self.mediaImageURLsForSaving = galleryImageURLs;
+    }
 }
 
 #pragma mark - Image Helpers
@@ -375,7 +436,25 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Images
 
+- (NSSet<NSURL *> *)allImageURLs {
+    return [self allMediaImageURLs] ?: [self allParsedImageURLs];
+}
+
 - (NSArray<NSURL *> *)imageURLsForGallery {
+    return [self mediaImageURLsForGallery] ?: [self parsedImageURLsForGallery];
+}
+
+- (NSArray<MWKImage *> *)imagesForGallery {
+    return [self mediaImagesForGallery] ?: [self parsedImagesForGallery];
+}
+
+- (NSArray<NSURL *> *)imageURLsForSaving {
+    return [self mediaImageURLsForSaving] ?: [self parsedImageURLsForSaving];
+}
+
+#pragma mark - Parsed images
+
+- (NSArray<NSURL *> *)parsedImageURLsForGallery {
     WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url leadImageURL:self.leadImage.sourceURL];
     NSArray *imageURLs = [tagList imageURLsForGallery];
     if (imageURLs.count == 0 && self.imageURL) {
@@ -390,21 +469,15 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return imageURLs;
 }
 
-- (NSArray<MWKImage *> *)imagesForGallery {
+- (NSArray<MWKImage *> *)parsedImagesForGallery {
     return [[self imageURLsForGallery] wmf_map:^id(NSURL *url) {
         return [[MWKImage alloc] initWithArticle:self sourceURL:url];
     }];
 }
 
-- (NSArray<NSURL *> *)imageURLsForSaving {
+- (NSArray<NSURL *> *)parsedImageURLsForSaving {
     WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url];
     return [tagList imageURLsForSaving];
-}
-
-- (NSArray<MWKImage *> *)imagesForSaving {
-    return [[self imageURLsForSaving] wmf_map:^id(NSURL *url) {
-        return [[MWKImage alloc] initWithArticle:self sourceURL:url];
-    }];
 }
 
 - (NSArray<NSURL *> *)schemelessURLsRejectingNilURLs:(NSArray<NSURL *> *)urls {
@@ -417,7 +490,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }];
 }
 
-- (NSSet<NSURL *> *)allImageURLs {
+- (NSSet<NSURL *> *)allParsedImageURLs {
     WMFImageTagList *tagList = [[[WMFImageTagParser alloc] init] imageTagListFromParsingHTMLString:self.allSectionsHTMLForImageParsing withBaseURL:self.url];
     NSMutableSet<NSURL *> *imageURLs = [[NSMutableSet alloc] init];
     //Note: use the 'imageURLsForGallery' and 'imageURLsForSaving' methods on WMFImageTagList so we don't have to parse twice.
