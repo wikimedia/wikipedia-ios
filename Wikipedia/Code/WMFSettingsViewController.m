@@ -180,13 +180,20 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports:
+        case WMFSettingsMenuItemType_SendUsageReports: {
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
+            SessionsFunnel *sessionsFunnel = [[SessionsFunnel alloc] init];
+            UserHistoryFunnel *userHistoryFunnel = [[UserHistoryFunnel alloc] init];
             if (isOn) {
                 WMFDailyStatsLoggingFunnel *statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
                 [statsFunnel logAppNumberOfDaysSinceInstall];
+                [sessionsFunnel logSessionStart];
+                [userHistoryFunnel logStartingSnapshot];
+            } else {
+                [sessionsFunnel logSessionEnd];
+                [userHistoryFunnel logSnapshot];
             }
-            break;
+        } break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
