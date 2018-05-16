@@ -1,7 +1,6 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSessions
 
-@objc(SessionsFunnel)
-class SessionsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc class SessionsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     override init() {
         super.init(schema: "MobileWikiAppiOSSessions", version: 18047432)
     }
