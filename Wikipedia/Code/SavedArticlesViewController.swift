@@ -299,7 +299,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-        readingListsFunnel.logReadStartInDefaultReadingList()
+        readingListsFunnel.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -342,7 +342,7 @@ extension SavedArticlesViewController: ActionDelegate {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        readingListsFunnel.logUnsaveInDefaultReadingList(articlesCount: articlesCount)
+        readingListsFunnel.logUnsaveInReadingList(articlesCount: articlesCount)
     }
     
     func willPerformAction(_ action: Action) -> Bool {

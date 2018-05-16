@@ -91,11 +91,11 @@ protocol ReadingListsFunnelProviding {
     
     // - MARK: Saved - default reading list
     
-    public func logUnsaveInDefaultReadingList(articlesCount: Int = 1) {
+    public func logUnsaveInReadingList(articlesCount: Int = 1) {
         logUnsave(category: .saved, label: .items, measure: articlesCount)
     }
     
-    public func logReadStartInDefaultReadingList() {
+    public func logReadStartIReadingList() {
         log(event(category: .saved, label: .items, action: .readStart))
     }
     
