@@ -175,7 +175,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        secondaryButton.titleLabel?.setFont(with: .systemSemiBold, style: .caption2, traitCollection: traitCollection)
+        secondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {

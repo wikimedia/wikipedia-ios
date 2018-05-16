@@ -74,6 +74,6 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        moreLanguagesButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        moreLanguagesButton.titleLabel?.font = UIFont.wmf_font(.semiboldFootnote, compatibleWithTraitCollection: traitCollection)
     }
 }

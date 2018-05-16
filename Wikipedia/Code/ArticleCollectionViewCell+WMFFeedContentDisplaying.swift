@@ -13,22 +13,6 @@ public extension ArticleCollectionViewCell {
         layoutMarginsMultipliers = newMultipliers
     }
     
-    @objc(setTitleHTML:boldedString:)
-    func set(titleHTML: String?, boldedString: String?) {
-        guard let titleHTML = titleHTML, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let italicFont = UIFont.wmf_preferredFontForFontFamily(.systemItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection), let boldItalicFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBoldItalic, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)  else {
-            titleLabel.text = nil
-            return
-        }
-        
-        guard let attributedTitle = titleHTML.wmf_attributedStringFromHTML(with: titleFont, boldFont: boldFont, italicFont: italicFont, boldItalicFont: boldItalicFont, withAdditionalBoldingForMatchingSubstring: boldedString).mutableCopy() as? NSMutableAttributedString else {
-            return
-        }
-    
-        titleTextStyle = nil
-        titleFontFamily = nil
-        titleLabel.attributedText = attributedTitle
-    }
-    
     @objc(configureWithArticle:displayType:index:count:shouldAdjustMargins:theme:layoutOnly:)
     public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
@@ -42,8 +26,10 @@ public extension ArticleCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        
         let articleLanguage = article.url?.wmf_language
-        titleLabel.text = article.displayTitle
+        
+        titleHTML = article.displayTitleHTML
         
         switch displayType {
         case .random:
@@ -79,9 +65,7 @@ public extension ArticleCollectionViewCell {
             }
         case .mainPage:
             isSaveButtonHidden = true
-            titleFontFamily = .georgia
-            titleTextStyle = .title1
-            descriptionFontFamily = .system
+            titleTextStyle = .georgiaTitle1
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")

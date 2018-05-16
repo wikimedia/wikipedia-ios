@@ -1,18 +1,61 @@
 import UIKit
 
-@objc public enum WMFFontFamily: Int {
+@objc(WMFFontFamily) public enum FontFamily: Int {
     case system
-    case systemBlack
-    case systemMedium
-    case systemSemiBold
-    case systemBold
-    case systemHeavy
-    case systemItalic
-    case systemSemiBoldItalic
     case georgia
 }
 
-let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloat]]] = {
+@objc (WMFDynamicTextStyle) public class DynamicTextStyle: NSObject {
+    public static let subheadline = DynamicTextStyle(.system, .subheadline)
+    @objc public static let semiboldSubheadline = DynamicTextStyle(.system, .subheadline, .semibold)
+    public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
+    
+    public static let headline = DynamicTextStyle(.system, .headline)
+    public static let heavyHeadline = DynamicTextStyle(.system, .headline, .heavy)
+
+    public static let footnote = DynamicTextStyle(.system, .footnote)
+    @objc public static let semiboldFootnote = DynamicTextStyle(.system, .footnote, .semibold)
+
+    public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+
+    public static let title3 = DynamicTextStyle(.system, .title3)
+    
+    public static let body = DynamicTextStyle(.system, .body)
+    public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
+    
+    public static let caption2 = DynamicTextStyle(.system, .caption2)
+    public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
+    public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [.traitItalic])
+
+    @objc public static let georgiaTitle1 = DynamicTextStyle(.georgia, .title1)
+    public static let georgiaTitle3 = DynamicTextStyle(.georgia, .title3)
+
+    let family: FontFamily
+    let style: UIFontTextStyle
+    let weight: UIFont.Weight
+    let traits: UIFontDescriptorSymbolicTraits
+    
+    init(_ family: FontFamily = .system, _ style: UIFontTextStyle, _ weight: UIFont.Weight = .regular, _ traits: UIFontDescriptorSymbolicTraits = []) {
+        self.family = family
+        self.weight = weight
+        self.traits = traits
+        self.style = style
+    }
+    
+    func with(weight: UIFont.Weight) -> DynamicTextStyle {
+        return DynamicTextStyle(family, style, weight, traits)
+    }
+    
+    func with(traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+        return DynamicTextStyle(family, style, weight, traits)
+    }
+    
+    func with(weight: UIFont.Weight, traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+        return DynamicTextStyle(family, style, weight, traits)
+    }
+}
+
+let fontSizeTable: [FontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloat]]] = {
     return [
         .georgia:[
             UIFontTextStyle.title1: [
@@ -60,6 +103,8 @@ let fontSizeTable: [WMFFontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloa
         ],
     ]
 }()
+
+
 public extension UITraitCollection {
     var wmf_preferredContentSizeCategory: UIContentSizeCategory {
         if #available(iOSApplicationExtension 10.0, *) {
@@ -74,13 +119,16 @@ fileprivate var fontCache: [String: UIFont] = [:]
 
 public extension UIFont {
 
-    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle) -> UIFont? {
-        return UIFont.wmf_preferredFontForFontFamily(fontFamily, withTextStyle: style, compatibleWithTraitCollection: UIScreen.main.traitCollection)
+    @objc(wmf_fontForDynamicTextStyle:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle) -> UIFont {
+        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UIScreen.main.traitCollection)
     }
     
-    @objc public class func wmf_preferredFontForFontFamily(_ fontFamily: WMFFontFamily, withTextStyle style: UIFontTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont? {
-        
-        guard fontFamily != .system else {
+    @objc(wmf_fontForDynamicTextStyle:compatibleWithTraitCollection:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont {
+        let fontFamily = dynamicTextStyle.family
+        let weight = dynamicTextStyle.weight
+        let traits = dynamicTextStyle.traits
+        let style = dynamicTextStyle.style
+        guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
         
@@ -90,32 +138,32 @@ public extension UIFont {
         let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
         let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
 
-        let cacheKey = "\(fontFamily.rawValue)-\(size)"
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
         if let font = fontCache[cacheKey] {
             return font
         }
         
-        let font: UIFont
+        
+        var font: UIFont
         switch fontFamily {
         case .georgia:
-            font = UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
-        case .systemBlack:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.black)
-        case .systemMedium:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.medium)
-        case .systemItalic:
-            font = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).with(traits: [.traitItalic])
-        case .systemSemiBold:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.semibold)
-        case .systemSemiBoldItalic:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.semibold).with(traits: [.traitItalic])
-        case .systemBold:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.bold)
-        case .systemHeavy:
-            font = UIFont.systemFont(ofSize: size, weight: UIFont.Weight.heavy)
+            // using the standard .with(traits: doesn't seem to work for georgia
+            let isBold = weight > UIFont.Weight.regular
+            let isItalic = traits.contains(.traitItalic)
+            if isBold && isItalic {
+                font = UIFont(descriptor: UIFontDescriptor(name: "Georgia-BoldItalic", size: size), size: 0)
+            } else if isBold {
+                font = UIFont(descriptor: UIFontDescriptor(name: "Georgia-Bold", size: size), size: 0)
+            } else if isItalic {
+                font = UIFont(descriptor: UIFontDescriptor(name: "Georgia-Italic", size: size), size: 0)
+            } else {
+                font = UIFont(descriptor: UIFontDescriptor(name: "Georgia", size: size), size: 0)
+            }
         case .system:
-            assertionFailure("Should never reach this point. System font is guarded against at beginning of method.")
-            font = UIFont.systemFont(ofSize: 17)
+            font = weight != .regular ? UIFont.systemFont(ofSize: size, weight: weight) : UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
+            if traits != [] {
+                font = font.with(traits: traits)
+            }
         }
         fontCache[cacheKey] = font
         return font

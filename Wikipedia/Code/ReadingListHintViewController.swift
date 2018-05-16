@@ -74,8 +74,8 @@ class ReadingListHintViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        hintLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
-        confirmationLabel?.setFont(with: .systemMedium, style: .subheadline, traitCollection: traitCollection)
+        hintLabel?.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
+        confirmationLabel?.font = UIFont.wmf_font(.mediumSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     private var previousHeight:CGFloat = 0.0

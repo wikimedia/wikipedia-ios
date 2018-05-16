@@ -19,7 +19,7 @@
                                          @"query", @"action",
                                          @"description|pageimages|pageprops|revisions", @"prop",
                                          // pageprops
-                                         @"ns|disambiguation", @"ppprop",
+                                         @"ns|disambiguation|displaytitle", @"ppprop",
                                          // pageimage
                                          @"thumbnail", @"piprop",
                                          //@"any", @"pilicense",

@@ -232,12 +232,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
             }
             let result = results[i]
             
-            vc.titleLabel.textColor = theme.colors.primaryText
+            vc.titleTextColor = theme.colors.primaryText
             vc.subtitleLabel.textColor = theme.colors.secondaryText
             vc.rankLabel.textColor = theme.colors.secondaryText
             vc.viewCountLabel.textColor =  theme.colors.overlayText
 
-            vc.titleLabel.text = result.displayTitle
+            vc.titleHTML = result.displayTitleHTML
             if let wikidataDescription = result.wikidataDescription {
                 vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
             }else{
@@ -421,12 +421,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         
         let result = results[index]
-        let displayTitle = result.displayTitle
-        let siteURL = self.siteURL as NSURL
-        guard let URL = siteURL.wmf_wikipediaSchemeURL(withTitle: displayTitle) else {
-            return
-        }
-        self.extensionContext?.open(URL)
+        self.extensionContext?.open(result.articleURL)
     }
     
 }

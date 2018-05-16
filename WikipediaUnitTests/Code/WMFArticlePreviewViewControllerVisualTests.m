@@ -8,6 +8,7 @@
 @implementation WMFArticlePreviewViewController (WMFArticleViewControllerVisualTesting)
 
 - (void)wmf_configureForVisualTestingByOnlyShowingBordersForCertainViews {
+    self.titleHTML = @" ";
     for (UIView *view in @[self.imageView, self.titleLabel, self.rankLabel, self.subtitleLabel, self.viewCountAndSparklineContainerView]) {
         view.layer.borderWidth = 1;
         view.backgroundColor = [UIColor clearColor];

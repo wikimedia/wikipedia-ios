@@ -29,8 +29,8 @@ class WMFWelcomeExplorationViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        exploreTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        placesTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        onThisDayTitleLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
+        exploreTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        placesTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        onThisDayTitleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 }

@@ -32,8 +32,7 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString *)wmf_shareSnippetFromText {
-    return [[[[[[[self wmf_stringByDecodingHTMLAndpersands]
-        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
+    return [[[[[[self wmf_stringByDecodingHTMLEntities]
         wmf_stringByCollapsingConsecutiveNewlines]
         wmf_stringByRemovingBracketedContent]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
@@ -172,20 +171,6 @@
                                                     withTemplate:@""];
 }
 
-- (NSString *)wmf_stringByDecodingHTMLNonBreakingSpaces {
-    return [self stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
-}
-
-- (NSString *)wmf_stringByDecodingHTMLAndpersands {
-    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-}
-
-- (NSString *)wmf_stringByDecodingHTMLLessThanAndGreaterThan {
-    return [[self stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-        stringByReplacingOccurrencesOfString:@"&lt;"
-                                  withString:@"<"];
-}
-
 - (NSString *)wmf_summaryFromText {
     // Cleanups which need to happen before string is shortened.
     NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
@@ -195,9 +180,7 @@
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
 
     // Cleanups safe to do on shortened string.
-    return [[[[[[output wmf_stringByDecodingHTMLAndpersands]
-        wmf_stringByDecodingHTMLLessThanAndGreaterThan]
-        wmf_stringByDecodingHTMLNonBreakingSpaces]
+    return [[[[output wmf_stringByDecodingHTMLEntities]
         wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
         wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
         wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
@@ -265,20 +248,14 @@
     return mutableSelf;
 }
 
-- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont boldItalicFont:(UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+- (nonnull NSString *)wmf_stringByRemovingHTMLWithParsingBlock:(nullable void (^)(NSString *HTMLTagName, NSInteger offset, NSInteger currentLocation))parsingBlock {
     __block NSInteger offset = 0;
 
     NSMutableString *cleanedString = [self mutableCopy];
-    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
-    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
-    NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
 
-    __block NSInteger startLocation = NSNotFound;
     __block NSInteger plainTextStartLocation = 0;
 
     [self wmf_enumerateHTMLTagsWithBlock:^(NSString *HTMLTagName, NSString *HTMLTagAttributes, NSRange range) {
-        HTMLTagName = [HTMLTagName lowercaseString];
-
         [cleanedString replaceCharactersInRange:NSMakeRange(range.location + offset, range.length) withString:@""];
         offset -= range.length;
 
@@ -295,6 +272,35 @@
             plainTextStartLocation = currentLocation;
         }
 
+        if (parsingBlock) {
+            parsingBlock(HTMLTagName, offset, currentLocation);
+        }
+    }];
+
+    if (cleanedString.length > plainTextStartLocation) {
+        NSRange plainTextRange = NSMakeRange(plainTextStartLocation, cleanedString.length - plainTextStartLocation);
+        NSString *plainText = [cleanedString substringWithRange:plainTextRange];
+        NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
+        [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
+    }
+    return cleanedString;
+}
+
+- (nonnull NSString *)wmf_stringByRemovingHTML {
+    return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
+}
+
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    boldFont = boldFont ?: font;
+    italicFont = italicFont ?: font;
+    boldItalicFont = boldItalicFont ?: font;
+
+    NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
+    NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSValue *> *ranges = [NSMutableArray arrayWithCapacity:1];
+    __block NSInteger startLocation = NSNotFound;
+    NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, NSInteger offset, NSInteger currentLocation) {
+        HTMLTagName = [HTMLTagName lowercaseString];
         if (startLocation != NSNotFound && currentLocation > startLocation) {
             [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
             [tags addObject:[currentTags copy]];
@@ -312,13 +318,6 @@
             [currentTags addObject:HTMLTagName];
         }
     }];
-
-    if (cleanedString.length > plainTextStartLocation) {
-        NSRange plainTextRange = NSMakeRange(plainTextStartLocation, cleanedString.length - plainTextStartLocation);
-        NSString *plainText = [cleanedString substringWithRange:plainTextRange];
-        NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
-        [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
-    }
 
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cleanedString attributes:@{NSFontAttributeName: font}];
 
@@ -351,6 +350,53 @@
     }];
 
     return attributedString;
+}
+
+// TODO: Fix - returns nil if self contains no HTML. Can this be consolidated with wmf_attributedStringWithLinksFromHTMLTags ?
+- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
+    if (self.length == 0) {
+        return [[NSAttributedString alloc] initWithString:self attributes:nil];
+    }
+
+    static NSRegularExpression *tagRegex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *pattern = @"(<[^>]*>)([^<]*)";
+        tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                             options:NSRegularExpressionCaseInsensitive
+                                                               error:nil];
+    });
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
+    __block BOOL shouldTrimLeadingWhitespace = YES;
+    [tagRegex enumerateMatchesInString:self
+                               options:0
+                                 range:NSMakeRange(0, self.length)
+                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
+                                *stop = false;
+                                NSString *tagContents = [[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLEntities];
+                                if (!tagContents) {
+                                    return;
+                                }
+                                if (shouldTrimLeadingWhitespace) {
+                                    shouldTrimLeadingWhitespace = NO;
+                                    NSRange range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
+                                    while (range.length > 0) {
+                                        tagContents = [tagContents stringByReplacingCharactersInRange:range withString:@""];
+                                        range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
+                                    }
+                                }
+                                NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
+                                NSDictionary *attributes = nil;
+                                if ([tag hasPrefix:@"<a"] && linkFont) {
+                                    attributes = @{NSFontAttributeName: linkFont};
+                                } else if (font) {
+                                    attributes = @{NSFontAttributeName: font};
+                                }
+                                NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
+                                [attributedString appendAttributedString:attributedNode];
+                            }];
+    return [attributedString copy];
 }
 
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags {
