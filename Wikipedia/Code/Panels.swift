@@ -267,13 +267,12 @@ extension UIViewController {
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
-        let loginFunnel = LoginFunnel()
-        loginFunnel.logLoginImpressionInSyncPopover()
+        LoginFunnel.shared.logLoginImpressionInSyncPopover()
         
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
-                loginFunnel.logLoginStartInSyncPopover()
+                LoginFunnel.shared.logLoginStartInSyncPopover()
             })
         }
         
@@ -291,13 +290,12 @@ extension UIViewController {
             return
         }
         
-        let loginFunnel = LoginFunnel()
-        loginFunnel.logLoginImpressionInSyncPopover()
+        LoginFunnel.shared.logLoginImpressionInSyncPopover()
         
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme)
-                loginFunnel.logLoginStartInSyncPopover()
+                LoginFunnel.shared.logLoginStartInSyncPopover()
             })
         }
         

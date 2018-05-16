@@ -54,10 +54,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
-// Event logging
-
-@property (nonatomic, strong) LoginFunnel *loginFunnel;
-
 @end
 
 @implementation WMFSettingsViewController
@@ -88,8 +84,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     [self applyTheme:self.theme];
     
-    self.loginFunnel = [[LoginFunnel alloc] init];
-
     if (@available(iOS 11.0, *)) {
     } else {
         // Before iOS 11
@@ -313,12 +307,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
         [self showLogoutActionSheet];
-        [self.loginFunnel logLogoutInSettings]; // log here or when user acutally logs out?
+        [[LoginFunnel shared] logLogoutInSettings];
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
         [self presentViewControllerWrappedInNavigationController:loginVC];
-        [self.loginFunnel logLoginStartInSettings];
+        [[LoginFunnel shared] logLoginStartInSettings];
     }
 }
 

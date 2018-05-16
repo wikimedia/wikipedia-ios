@@ -1,6 +1,8 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSLoginAction
 
 @objc class LoginFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    @objc public static let shared = LoginFunnel()
+    
     override init() {
         super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
     }
