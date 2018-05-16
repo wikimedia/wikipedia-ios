@@ -46,14 +46,18 @@
         UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot = eventData
     }
     
+    private var latestSnapshot: Dictionary<String, Any>? {
+        return UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot
+    }
+    
     @objc public func logSnapshot() {
-        guard let latestSnapshot = UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot else {
-            assertionFailure("User History snapshot must have value")
+        guard let latestSnapshot = latestSnapshot else {
+            assertionFailure("User History snapshot must have a value")
             return
         }
         
         let newSnapshot = event()
-
+        
         guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) else {
             DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
