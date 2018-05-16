@@ -91,7 +91,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
-@property (nonatomic, strong) SessionsFunnel *sessionsFunnel;
 @property (nonatomic, strong) UserHistoryFunnel *userHistoryFunnel;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
@@ -301,7 +300,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 #endif
     }
     
-    [self.sessionsFunnel logSessionStart];
+    [[SessionsFunnel shared] logSessionStart];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -701,7 +700,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 #endif
     
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-    [self.sessionsFunnel logSessionStart];
+    [[SessionsFunnel shared] logSessionStart];
 
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
@@ -861,13 +860,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     return _statsFunnel;
 }
 
-- (SessionsFunnel *)sessionsFunnel {
-    if (!_sessionsFunnel) {
-        _sessionsFunnel = [[SessionsFunnel alloc] init];
-    }
-    return _sessionsFunnel;
-}
-
 - (UserHistoryFunnel *)userHistoryFunnel {
     if (!_userHistoryFunnel) {
         _userHistoryFunnel = [[UserHistoryFunnel alloc] init];
@@ -876,7 +868,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)logSessionEnd {
-    [self.sessionsFunnel logSessionEnd];
+    [[SessionsFunnel shared] logSessionEnd];
     [self.userHistoryFunnel logSnapshot];
 }
 

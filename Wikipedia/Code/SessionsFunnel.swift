@@ -1,6 +1,8 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSessions
 
 @objc class SessionsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    @objc public static let shared = SessionsFunnel()
+    
     override init() {
         super.init(schema: "MobileWikiAppiOSSessions", version: 18047432)
     }
