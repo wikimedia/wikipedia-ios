@@ -112,11 +112,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         self.synchronize()
     }
     
+    private func generateNewStringUUID(forKey key: String) -> String? {
+        set(UUID().uuidString, forKey: key)
+        synchronize()
+        return string(forKey: key)
+    }
+    
     @objc public var wmf_appInstallID: String? {
         guard let appInstallID = self.string(forKey: WMFAppInstallIDKey) else {
-            self.set(UUID().uuidString, forKey: WMFAppInstallIDKey)
-            synchronize()
-            return self.string(forKey: WMFAppInstallIDKey)
+            return generateNewStringUUID(forKey: WMFAppInstallIDKey)
         }
         return appInstallID
     }
