@@ -1,6 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    @objc public static let shared = UserHistoryFunnel()
     
     @objc override init() {
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 17990229)

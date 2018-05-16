@@ -91,7 +91,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
 @property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
-@property (nonatomic, strong) UserHistoryFunnel *userHistoryFunnel;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
@@ -565,7 +564,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
-                                    [self.userHistoryFunnel logStartingSnapshot];
+                                    [[UserHistoryFunnel shared] logStartingSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
@@ -860,16 +859,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     return _statsFunnel;
 }
 
-- (UserHistoryFunnel *)userHistoryFunnel {
-    if (!_userHistoryFunnel) {
-        _userHistoryFunnel = [[UserHistoryFunnel alloc] init];
-    }
-    return _userHistoryFunnel;
-}
-
 - (void)logSessionEnd {
     [[SessionsFunnel shared] logSessionEnd];
-    [self.userHistoryFunnel logSnapshot];
+    [[UserHistoryFunnel shared] logSnapshot];
 }
 
 #pragma mark - Shortcut
