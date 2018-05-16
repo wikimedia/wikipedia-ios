@@ -239,12 +239,23 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self importMediaJSON:self.media];
 }
 
++ (NSInteger)articleImageWidth {
+    static dispatch_once_t onceToken;
+    static NSInteger articleImageWidth;
+    dispatch_once(&onceToken, ^{
+        articleImageWidth = [[UIScreen mainScreen] wmf_articleImageWidthForScale]; // it doesn't feel right to be using main screen here.
+    });
+    return articleImageWidth;
+}
+
 - (void)importMediaJSON:(NSDictionary *)media {
     NSArray *items = media[@"items"];
     if ([items count] > 0) {
         NSMutableSet *allImageURLs = [NSMutableSet setWithCapacity:[items count]];
         NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
+        NSMutableArray *imageURLsForSaving = [NSMutableArray arrayWithCapacity:[items count]];
         NSMutableArray *galleryImages = [NSMutableArray arrayWithCapacity:[items count]];
+        NSInteger targetWidth = [MWKArticle articleImageWidth];
         for (id item in items) {
             if (![item isKindOfClass:[NSDictionary class]]) {
                 continue;
@@ -275,23 +286,42 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 [height isKindOfClass:[NSNumber class]] &&
                 [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width &&
                 [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height) {
-                [galleryImageURLs addObject:imageURL];
+                NSNumber *currentWidth = width;
+                NSNumber *currentHeight = height;
+                NSURL *scaledImageURL = imageURL;
+                if ([width integerValue] > targetWidth) {
+                    NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
+                    if (scaledImageURLString) {
+                        scaledImageURL = [NSURL URLWithString:scaledImageURLString];
+                        if (scaledImageURL) {
+                            currentWidth = [NSNumber numberWithInteger:targetWidth];
+                            double ratio = [currentWidth doubleValue] / [width doubleValue];
+                            double currentHeightDouble = ratio * [height doubleValue];
+                            currentHeight = [NSNumber numberWithInteger:(NSInteger)round(currentHeightDouble)];
+                        } else {
+                            scaledImageURL = imageURL;
+                        }
+                    }
+                }
+                [galleryImageURLs addObject:scaledImageURL];
+                [imageURLsForSaving addObject:scaledImageURL];
                 NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
-                [imageDictionary setObject:width forKey:@"width"];
-                [imageDictionary setObject:height forKey:@"height"];
+                [imageDictionary setObject:currentWidth forKey:@"width"];
+                [imageDictionary setObject:currentHeight forKey:@"height"];
                 [imageDictionary setObject:width forKey:@"originalFileWidth"];
                 [imageDictionary setObject:height forKey:@"originalFileHeight"];
                 [imageDictionary setObject:mime forKey:@"mimeType"];
-                [imageDictionary setObject:source forKey:@"sourceURL"];
+                [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
                 MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
-                
                 [galleryImages addObject:galleryImage];
+            } else {
+                [imageURLsForSaving addObject:imageURL];
             }
         }
         self.allMediaImageURLs = allImageURLs;
         self.mediaImageURLsForGallery = galleryImageURLs;
         self.mediaImagesForGallery = galleryImages;
-        self.mediaImageURLsForSaving = galleryImageURLs;
+        self.mediaImageURLsForSaving = imageURLsForSaving;
     }
 }
 
