@@ -70,10 +70,6 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     private var shouldShowReadingListsSyncAlertWhenViewAppears = false
     private var shouldShowReadingListsSyncAlertWhenSyncEnabled = false
     
-    private var settingsFunnel: SettingsFunnel = {
-        return SettingsFunnel()
-    }()
-    
     private var sections: [Section] {
         let syncSavedArticlesAndLists = Item(for: .syncSavedArticlesAndLists, isSwitchOn: isSyncEnabled)
         let showSavedReadingList = Item(for: .showSavedReadingList, isSwitchOn: dataStore?.readingListsController.isDefaultListEnabled ?? false)
@@ -301,16 +297,16 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
             }
             let loginSuccessCompletion: () -> Void = {
                 dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-                self.settingsFunnel.logSyncEnabledInSettings()
+                SettingsFunnel.shared.logSyncEnabledInSettings()
             }
             wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: theme, dismissHandler: dismissHandler, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: dismissHandler)
         case .syncSavedArticlesAndLists where WMFAuthenticationManager.sharedInstance.isLoggedIn:
             let setSyncEnabled = {
                 dataStore.readingListsController.setSyncEnabled(isSwitchOn, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: !isSwitchOn)
                 if isSwitchOn {
-                    self.settingsFunnel.logSyncEnabledInSettings()
+                    SettingsFunnel.shared.logSyncEnabledInSettings()
                 } else {
-                    self.settingsFunnel.logSyncDisabledInSettings()
+                    SettingsFunnel.shared.logSyncDisabledInSettings()
                 }
             }
             if !isSwitchOn {

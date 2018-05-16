@@ -1,6 +1,8 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSSettingAction
 
 class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    @objc public static let shared = SettingsFunnel()
+    
     private enum Action: String {
         case impression
         case sync
