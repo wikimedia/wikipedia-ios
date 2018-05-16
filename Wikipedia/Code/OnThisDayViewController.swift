@@ -207,6 +207,7 @@ extension OnThisDayViewController {
     }
 }
 
+// MARK: - EventLoggingEventValuesProviding
 extension OnThisDayViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
         return .feed
