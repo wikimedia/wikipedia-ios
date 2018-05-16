@@ -91,7 +91,7 @@ protocol ReadingListsFunnelProviding {
     
     // - MARK: Saved - default reading list
     
-    public func logUnsaveInDefaultReadingList(articlesCount: Int = 1) { // TODO: confirm if we want to log unsaves in reading list detail
+    public func logUnsaveInDefaultReadingList(articlesCount: Int = 1) {
         logUnsave(category: .saved, label: .items, measure: articlesCount)
     }
     
@@ -115,7 +115,7 @@ protocol ReadingListsFunnelProviding {
         log(event(category: .addToList, label: nil, action: .deleteList, measure: readingListsCount))
     }
     
-    public func logCreateInAddToReadingList() { // TODO: confirm if we want to log if user attempts to create or only if they succed
+    public func logCreateInAddToReadingList() {
         log(event(category: .addToList, label: nil, action: .createList))
     }
 }
