@@ -301,7 +301,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 #endif
     }
     
-    [self logSessionStart];
+    [self.sessionsFunnel logSessionStart];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -701,7 +701,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 #endif
     
     [self.statsFunnel logAppNumberOfDaysSinceInstall];
-    [self logSessionStart];
+    [self.sessionsFunnel logSessionStart];
 
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
