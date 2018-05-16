@@ -1,7 +1,7 @@
 import WMF;
 
 @objc(WMFOnThisDayViewController)
-class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter, ReadingListsFunnelProviding {
+class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
@@ -10,10 +10,6 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-        return ReadingListsFunnel()
-    }()
     
     @objc(initWithEvents:dataStore:midnightUTCDate:)
     required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {

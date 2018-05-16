@@ -8,7 +8,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding, ReadingListsFunnelProviding {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding {
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
@@ -17,10 +17,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var cellLayoutEstimate: WMFLayoutEstimate?
     var editController: CollectionViewEditController!
     var readingListHintController: ReadingListHintController?
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-        return ReadingListsFunnel()
-    }()
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
     
@@ -230,7 +226,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    readingListsFunnel.logSave(category: eventLoggingCategory, label: eventLoggingLabel)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }
@@ -240,7 +236,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    readingListsFunnel.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }

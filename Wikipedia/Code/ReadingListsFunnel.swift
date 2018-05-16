@@ -1,10 +1,8 @@
-protocol ReadingListsFunnelProviding {
-    var readingListsFunnel: ReadingListsFunnel { get }
-}
-
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
 
 @objc class ReadingListsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    @objc public static let shared = ReadingListsFunnel()
+    
     private enum Action: String {
         case save
         case unsave

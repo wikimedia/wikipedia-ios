@@ -187,12 +187,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
-    
-    // MARK: - Reading lists event logging
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-        return ReadingListsFunnel()
-    }()
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -299,7 +293,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-        readingListsFunnel.logReadStartIReadingList()
+        ReadingListsFunnel.shared.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -342,7 +336,7 @@ extension SavedArticlesViewController: ActionDelegate {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        readingListsFunnel.logUnsaveInReadingList(articlesCount: articlesCount)
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount)
     }
     
     func willPerformAction(_ action: Action) -> Bool {

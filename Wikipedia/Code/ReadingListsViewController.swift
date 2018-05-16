@@ -24,10 +24,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     public weak var delegate: ReadingListsViewControllerDelegate?
     private var createReadingListViewController: CreateReadingListViewController?
     
-    private lazy var readingListsFunnel: ReadingListsFunnel = {
-       return ReadingListsFunnel()
-    }()
-    
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
@@ -297,9 +293,9 @@ extension ReadingListsViewController: CreateReadingListDelegate {
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingListViewController.dismiss(animated: true, completion: nil)
             if displayType == .addArticlesToReadingList {
-                readingListsFunnel.logCreateInAddToReadingList()
+                ReadingListsFunnel.shared.logCreateInAddToReadingList()
             } else {
-                readingListsFunnel.logCreateInReadingLists()
+                ReadingListsFunnel.shared.logCreateInReadingLists()
             }
         } catch let error {
             switch error {
@@ -381,9 +377,9 @@ extension ReadingListsViewController: ActionDelegate {
             self.editController.close()
             let readingListsCount = readingLists.count
             if displayType == .addArticlesToReadingList {
-                readingListsFunnel.logDeleteInAddToReadingList(readingListsCount: readingListsCount)
+                ReadingListsFunnel.shared.logDeleteInAddToReadingList(readingListsCount: readingListsCount)
             } else {
-                readingListsFunnel.logDeleteInReadingLists(readingListsCount: readingListsCount)
+                ReadingListsFunnel.shared.logDeleteInReadingLists(readingListsCount: readingListsCount)
             }
         } catch let error {
             handleReadingListError(error)

@@ -112,8 +112,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         return PlaceSearchService(dataStore: self.dataStore)
     }()
     
-    private var readingListsFunnel = ReadingListsFunnel()
-    
     // MARK: - View Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
@@ -1776,10 +1774,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
             if didSave {
                 tracker?.wmf_logActionSave(inContext: context, contentType: article)
-                readingListsFunnel.logSaveInPlaces()
+                ReadingListsFunnel.shared.logSaveInPlaces()
             } else {
                 tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
-                readingListsFunnel.logUnsaveInPlaces()
+                ReadingListsFunnel.shared.logUnsaveInPlaces()
             }
             break
         case .share:

@@ -66,7 +66,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 // Event logging
-@property (nonatomic, strong) ReadingListsFunnel *readingListsFunnel;
 @property (nonatomic, strong) LoginFunnel *loginFunnel;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
@@ -382,7 +381,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                                  name:[WMFAuthenticationManager userLoggedInNotification]
                                                object:nil];
     
-    self.readingListsFunnel = [[ReadingListsFunnel alloc] init];
     self.loginFunnel = [[LoginFunnel alloc] init];
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
@@ -1610,9 +1608,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [self.readingListsFunnel logSaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
     } else {
-        [self.readingListsFunnel logUnsaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
     }
 }
 
@@ -2100,9 +2098,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         contentGroupKind = [self sectionAtIndex:indexPath.section].contentGroupKind;
     }
     if (wasArticleSaved) {
-        [self.readingListsFunnel logSaveInFeedWithContentGroupKind:contentGroupKind];
+        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroupKind:contentGroupKind];
     } else {
-        [self.readingListsFunnel logUnsaveInFeedWithContentGroupKind:contentGroupKind];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroupKind:contentGroupKind];
     }
 }
 

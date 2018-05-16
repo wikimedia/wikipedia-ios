@@ -1,7 +1,7 @@
 import UIKit
 
 @objc(WMFArticleLocationCollectionViewController)
-class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, ReadingListsFunnelProviding {
+class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     var readingListHintController: ReadingListHintController?
     
     fileprivate static let cellReuseIdentifier = "ArticleLocationCollectionViewControllerCell"
@@ -13,10 +13,6 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-        return ReadingListsFunnel()
-    }()
 
     @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
         self.articleURLs = articleURLs

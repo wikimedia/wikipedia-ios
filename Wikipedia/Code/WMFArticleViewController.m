@@ -106,7 +106,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong) SavedPagesFunnel *savedPagesFunnel;
 @property (strong, nonatomic, nullable, readwrite) WMFShareFunnel *shareFunnel;
-@property (nonatomic, strong) ReadingListsFunnel *readingListsFunnel;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry *historyEntry;
@@ -722,7 +721,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidLoad {
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
-    self.readingListsFunnel = [[ReadingListsFunnel alloc] init];
     [self setUpTitleBarButton];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -1314,11 +1312,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
-        [self.readingListsFunnel logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
     } else {
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
-        [self.readingListsFunnel logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1582,9 +1580,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [self.readingListsFunnel logArticleSaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleSaveInReadMore];
     } else {
-        [self.readingListsFunnel logArticleUnsaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore];
     }
 }
 
@@ -1920,9 +1918,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [self.readingListsFunnel logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
     } else {
-        [self.readingListsFunnel logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
     }
 }
 

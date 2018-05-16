@@ -297,12 +297,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     lazy var sortAlert: UIAlertController = {
         return alert(title: WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles."), message: nil)
     }()
-    
-    // MARK: - Reading lists event logging
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-        return ReadingListsFunnel()
-    }()
 }
 
 // MARK: - ActionDelegate
@@ -322,7 +316,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-        readingListsFunnel.logReadStartIReadingList()
+        ReadingListsFunnel.shared.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -369,7 +363,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         do {
             try dataStore.readingListsController.remove(entries: entries)
             let entriesCount = entries.count
-            readingListsFunnel.logUnsaveInReadingList(articlesCount: entriesCount)
+            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount)
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")

@@ -1,16 +1,12 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController, ReadingListsFunnelProviding {
+class NewsViewController: ColumnarCollectionViewController {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
-    
-    lazy var readingListsFunnel: ReadingListsFunnel = {
-       return ReadingListsFunnel()
-    }()
     
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
         self.stories = stories
