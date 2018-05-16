@@ -38,7 +38,7 @@
     
     @objc public func logSessionStart() {
         resetSession()
-        log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: can we know where (screen) we start a new session
+        log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: change category to .unknown when schema is updated
     }
     
     private func resetSession() {
@@ -51,7 +51,7 @@
             assertionFailure("Session start date cannot be nil")
             return
         }
-        log(event(category: .feed, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow))) // TODO: can we know where (screen) we end a new session
+        log(event(category: .feed, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow))) // TODO: change category to .unknown when schema is updated
     }
     
 }
