@@ -390,22 +390,12 @@ extension ReadingListDetailViewController: ActionDelegate {
             delete(at: indexPath)
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: 1))
             return true
-        case .save:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
-                return true
-            }
-        case .unsave:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
-                return true
-            }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+        default:
+            assertionFailure("Unsupported action type")
+            return false
         }
-        return false
     }
     
     private func canSave(at indexPath: IndexPath) -> Bool {
