@@ -1,12 +1,16 @@
 import WMF
 
 @objc(WMFNewsViewController)
-class NewsViewController: ColumnarCollectionViewController {
+class NewsViewController: ColumnarCollectionViewController, ReadingListsFunnelProviding {
     fileprivate static let cellReuseIdentifier = "NewsCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "NewsCollectionViewHeader"
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
+    
+    lazy var readingListsFunnel: ReadingListsFunnel = {
+       return ReadingListsFunnel()
+    }()
     
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
         self.stories = stories
@@ -149,5 +153,16 @@ extension NewsViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+// MARK: - EventLoggingEventValuesProviding
+extension NewsViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return .news
     }
 }
