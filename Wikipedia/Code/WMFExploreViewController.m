@@ -1612,7 +1612,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     if (didSave) {
         [self.readingListsFunnel logSaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
     } else {
-        [self.readingListsFunnel logSaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+        [self.readingListsFunnel logUnsaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
     }
 }
 
