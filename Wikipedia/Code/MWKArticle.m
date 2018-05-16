@@ -44,6 +44,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) NSString *summary;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
+@property (nonatomic, readwrite, copy) NSDictionary *media;
+
 @end
 
 @implementation MWKArticle
@@ -138,7 +140,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"mainpage"] = @(self.isMain);
 
     [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
-
+    
     CLLocationCoordinate2D coordinate = self.coordinate;
     if (CLLocationCoordinate2DIsValid(coordinate)) {
         [dict wmf_maybeSetObject:@{ @"lat": @(coordinate.latitude),
@@ -146,13 +148,14 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                           forKey:@"coordinates"];
     }
 
+    [dict wmf_maybeSetObject:self.media forKey:@"media"];
+
     return [dict copy];
 }
 
 - (void)importMobileViewJSON:(NSDictionary *)dict {
     // uncomment when schema is bumped to perform migrations if necessary
     //    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
-
     self.lastmodified = [self optionalDate:@"lastmodified" dict:dict];
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
@@ -227,6 +230,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         }
     }
     self.coordinate = coordinate;
+    
+    self.media = dict[@"media"];
 }
 
 #pragma mark - Image Helpers

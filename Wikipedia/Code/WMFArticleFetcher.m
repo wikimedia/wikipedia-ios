@@ -157,11 +157,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                       withBlock:^{
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
                                           if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
+                                              NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
+                                              [mutableArticleResponse setValue:mediaResponse forKey:@"media"];
                                               if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
-                                                  NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
-                                                  articleResponse = mutableArticleResponse;
                                               }
+                                              articleResponse = mutableArticleResponse;
+
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
                                               [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk completion:^(NSError * _Nonnull articleCacheError) {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
