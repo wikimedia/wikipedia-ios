@@ -566,7 +566,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
-                                    [self logStartingUserHistorySnapshotIfNeeded];
+                                    [self.userHistoryFunnel logStartingSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
@@ -878,14 +878,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)logSessionEnd {
     [self.sessionsFunnel logSessionEndWithTimeElapsed:fabs([self.sessionStart timeIntervalSinceNow])];
     [self.userHistoryFunnel logSnapshot];
-}
-
-- (void)logStartingUserHistorySnapshotIfNeeded {
-    NSDictionary *latestSnapshot = [[NSUserDefaults wmf_userDefaults] wmf_lastLoggedUserHistorySnapshot];
-    if (latestSnapshot) {
-        return;
-    }
-    [self.userHistoryFunnel logStartingSnapshot];
 }
 
 #pragma mark - Shortcut

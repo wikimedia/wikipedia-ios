@@ -55,6 +55,10 @@
     }
     
     @objc public func logStartingSnapshot() {
+        guard latestSnapshot == nil else {
+            DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            return
+        }
         log(standardEvent)
         DDLogDebug("Attempted to log starting User History snapshot")
     }
