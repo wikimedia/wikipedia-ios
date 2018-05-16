@@ -1,7 +1,7 @@
 import WMF;
 
 @objc(WMFOnThisDayViewController)
-class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
+class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter, ReadingListsFunnelProviding {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
     fileprivate static let blankHeaderReuseIdentifier = "OnThisDayViewControllerBlankHeader"
@@ -10,6 +10,10 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
+    
+    lazy var readingListsFunnel: ReadingListsFunnel = {
+        return ReadingListsFunnel()
+    }()
     
     @objc(initWithEvents:dataStore:midnightUTCDate:)
     required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
@@ -200,5 +204,15 @@ extension OnThisDayViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
+    }
+}
+
+extension OnThisDayViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return .onThisDay
     }
 }
