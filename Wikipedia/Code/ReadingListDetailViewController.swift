@@ -437,7 +437,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         case .open:
             newEditingState = .closed
         case .swiping:
-            newEditingState = .done
+            newEditingState = .open
         case .editing where systemItem == .cancel:
             newEditingState = .cancelled
         case .editing where systemItem == .done:
