@@ -112,12 +112,22 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    [[WMFSession shared] fetchSummaryWithArticleURL:articleURL
+    [[WMFSession shared] fetchSummaryForArticleURL:articleURL
                                            priority:priority
                                                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                              summaryResponse = summary;
                                                              [taskGroup leave];
                                                          }];
+    
+    __block id mediaResponse = nil;
+    [taskGroup enter];
+    [[WMFSession shared] fetchMediaForArticleURL:articleURL
+                                          priority:priority
+                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                     mediaResponse = media;
+                                     [taskGroup leave];
+                                 }];
+    
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];

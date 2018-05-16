@@ -227,19 +227,25 @@ import Foundation
         return jsonDictionaryTask(with: request, completionHandler: completionHandler)
     }
     
-    public func summaryTask(with articleURL: URL, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-       return apiTask(with: articleURL, path: "page/summary", completionHandler: completionHandler)
-    }
-
-    @objc(fetchSummaryWithArticleURL:priority:completionHandler:)
-    public func fetchSummary(with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
-        guard let task = summaryTask(with: articleURL, completionHandler: completionHandler) else {
+    @objc(fetchAPIPath:withArticleURL:priority:completionHandler:)
+    public func fetchAPI(path: String, with articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        guard let task = apiTask(with: articleURL, path: path, completionHandler: completionHandler) else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
             return
         }
         task.priority = priority
         let operation = URLSessionTaskOperation(task: task)
         queue.addOperation(operation)
+    }
+    
+    @objc(fetchMediaForArticleURL:priority:completionHandler:)
+    public func fetchMedia(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        return fetchAPI(path: "page/media", with: articleURL, completionHandler: completionHandler)
+    }
+    
+    @objc(fetchSummaryForArticleURL:priority:completionHandler:)
+    public func fetchSummary(for articleURL: URL, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        return fetchAPI(path: "page/summary", with: articleURL, completionHandler: completionHandler)
     }
     
     public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {
@@ -251,7 +257,7 @@ import Foundation
                 continue
             }
             taskGroup.enter()
-            fetchSummary(with: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
+            fetchSummary(for: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
                 guard let responseObject = responseObject else {
                     taskGroup.leave()
                     return
