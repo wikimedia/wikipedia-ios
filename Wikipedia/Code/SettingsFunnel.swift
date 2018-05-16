@@ -9,7 +9,7 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
         case unsync
     }
     
-    override init() {
+    private override init() {
         super.init(schema: "MobileWikiAppiOSSettingAction", version: 17990226)
     }
     

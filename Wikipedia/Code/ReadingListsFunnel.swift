@@ -1,6 +1,6 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSReadingLists
 
-@objc class ReadingListsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc final class ReadingListsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     @objc public static let shared = ReadingListsFunnel()
     
     private enum Action: String {
@@ -11,7 +11,7 @@
         case readStart = "read_start"
     }
     
-    override init() {
+    private override init() {
         super.init(schema: "MobileWikiAppiOSReadingLists", version: 18047424)
     }
     
