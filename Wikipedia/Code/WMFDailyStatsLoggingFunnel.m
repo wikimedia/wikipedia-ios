@@ -7,6 +7,15 @@ static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
 
 @implementation WMFDailyStatsLoggingFunnel
 
++ (WMFDailyStatsLoggingFunnel *)shared {
+    static dispatch_once_t onceToken;
+    static WMFDailyStatsLoggingFunnel *shared;
+    dispatch_once(&onceToken, ^{
+        shared = [self new];
+    });
+    return shared;
+}
+
 - (instancetype)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppDailyStats
     self = [super initWithSchema:@"MobileWikiAppDailyStats" version:12637385];
