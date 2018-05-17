@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"explaintext": @"",
         @"exchars": @(WMFNumberOfExtractCharacters),
         // pageprops
-        @"ppprop": @"disambiguation",
+        @"ppprop": @"displaytitle|disambiguation",
         // pageimage
         @"piprop": @"thumbnail",
         //@"pilicense": @"any",

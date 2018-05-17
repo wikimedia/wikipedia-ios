@@ -398,7 +398,7 @@ static uint64_t bundleHash() {
             article.viewedScrollPosition = entry.scrollPosition;
         }
         if (preview) {
-            article.displayTitle = preview.displayTitle;
+            article.displayTitleHTML = preview.displayTitle;
             article.wikidataDescription = preview.wikidataDescription;
             article.snippet = preview.snippet;
             article.thumbnailURL = preview.thumbnailURL;
@@ -1283,7 +1283,6 @@ static uint64_t bundleHash() {
         }
 
         for (WMFArticle *article in articlesWithHTMLInTheTitle) {
-            article.displayTitle = [article.displayTitle wmf_stringByRemovingHTML];
             article.wikidataDescription = [article.wikidataDescription wmf_stringByRemovingHTML];
         }
 
@@ -1635,7 +1634,7 @@ static uint64_t bundleHash() {
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
-        article.displayTitle = title.wmf_unescapedNormalizedPageTitle;
+        article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];
         }

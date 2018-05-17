@@ -427,7 +427,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             }
         case .swiping:
             leftBarButtonSystemItem = nil
-            rightBarButtonSystemItem = .done
+            rightBarButtonSystemItem = .edit
         case .open:
             leftBarButtonSystemItem = nil
             rightBarButtonSystemItem = .cancel
@@ -462,11 +462,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         rightButton?.tag = editingState.tag
         rightButton?.isEnabled = isRightBarButtonEnabled
         
-        if let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .body) : UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body) {
-            let attributes = [NSAttributedStringKey.font: font]
-            rightButton?.setTitleTextAttributes(attributes, for: .normal)
-            leftButton?.setTitleTextAttributes(attributes, for: .normal)
-        }
+        let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_font(.semiboldBody) : UIFont.wmf_font(.body)
+        let attributes = [NSAttributedStringKey.font: font]
+        rightButton?.setTitleTextAttributes(attributes, for: .normal)
+        leftButton?.setTitleTextAttributes(attributes, for: .normal)
         
         navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
     }

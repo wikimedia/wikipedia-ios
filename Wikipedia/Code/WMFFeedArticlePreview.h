@@ -4,6 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFFeedArticlePreview : MTLModel <MTLJSONSerializing>
 
+@property (nonatomic, copy, readonly) NSString *displayTitleHTML;
+
 @property (nonatomic, copy, readonly) NSString *displayTitle;
 
 @property (nonatomic, copy, readwrite, nullable) NSString *wikidataDescription;

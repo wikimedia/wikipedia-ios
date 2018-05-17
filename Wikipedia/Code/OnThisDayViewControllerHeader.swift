@@ -13,7 +13,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        onLabel.font = UIFont.wmf_preferredFontForFontFamily(.systemHeavy, withTextStyle: .headline, compatibleWithTraitCollection: traitCollection)
+        onLabel.font = UIFont.wmf_font(.heavyHeadline, compatibleWithTraitCollection: traitCollection)
     }
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, midnightUTCDate: Date) {

@@ -19,7 +19,7 @@ protocol SearchBarExtendedViewControllerDataSource: class {
     func placeholder(for searchBar: UISearchBar) -> String?
     func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool
     func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType?
-    func fontStyle(for button: UIButton) -> (WMFFontFamily, UIFontTextStyle)
+    func textStyle(for button: UIButton) -> DynamicTextStyle
 }
 
 protocol SearchBarExtendedViewControllerDelegate: class {
@@ -61,8 +61,8 @@ class SearchBarExtendedViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if let (fontStyle, textStyle) = dataSource?.fontStyle(for: button) {
-            button.titleLabel?.setFont(with: fontStyle, style: textStyle, traitCollection: traitCollection)
+        if let textStyle = dataSource?.textStyle(for: button) {
+            button.titleLabel?.font = UIFont.wmf_font(textStyle, compatibleWithTraitCollection: traitCollection)
         }
     }
 }

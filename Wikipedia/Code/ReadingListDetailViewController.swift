@@ -437,7 +437,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         case .open:
             newEditingState = .closed
         case .swiping:
-            newEditingState = .done
+            newEditingState = .open
         case .editing where systemItem == .cancel:
             newEditingState = .cancelled
         case .editing where systemItem == .done:
@@ -669,8 +669,8 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         setNavigationBarHidingEnabled(true)
     }
     
-    func fontStyle(for button: UIButton) -> (WMFFontFamily, UIFontTextStyle) {
-        return (.system, .body)
+    func textStyle(for button: UIButton) -> DynamicTextStyle {
+        return .body
     }
     
     func buttonType(for button: UIButton, currentButtonType: SearchBarExtendedViewButtonType?) -> SearchBarExtendedViewButtonType? {

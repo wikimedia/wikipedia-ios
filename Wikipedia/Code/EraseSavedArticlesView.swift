@@ -9,7 +9,7 @@ class EraseSavedArticlesView: UIView {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        button.titleLabel?.setFont(with: .system, style: .body, traitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
 }
 

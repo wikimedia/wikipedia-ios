@@ -7,6 +7,7 @@
 }
 
 @dynamic displayTitle;
+@dynamic displayTitleHTMLString;
 @dynamic geoDimensionNumber;
 @dynamic geoTypeNumber;
 @dynamic imageHeight;

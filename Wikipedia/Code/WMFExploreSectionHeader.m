@@ -43,8 +43,7 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    self.subTitleLabel.font = [UIFont wmf_preferredFontForFontFamily:WMFFontFamilySystemSemiBold
-                                                       withTextStyle:UIFontTextStyleSubheadline
+    self.subTitleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle semiboldSubheadline]
                                        compatibleWithTraitCollection:self.traitCollection];
 }
 

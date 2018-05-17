@@ -131,6 +131,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
         @"gsrprop": @"redirecttitle",
         @"gsroffset": @0,
         @"gsrlimit": numResults,
+        @"ppprop": @"displaytitle",
         // extracts
         @"exlimit": numResults,
         // pageimage
