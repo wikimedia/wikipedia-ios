@@ -104,24 +104,14 @@ struct WMFKeychainCredentials {
     // MARK: Getting values from keychain
     
     private func tryGetString(forKey key: String) -> String? {
-        do {
-            return try string(forKey: key)
-        } catch let error {
-            assertionFailure("\(error)")
-        }
-        return nil
+        return try? string(forKey: key)
     }
     
     private func tryGetValue(forKey key: String) -> Any? {
-        do {
-            return try value(forKey: key)
-        } catch let error {
-            assertionFailure("\(error)")
-        }
-        return nil
+        return try? value(forKey: key)
     }
     
-    private func string(forKey key: String) throws -> String? {
+    private func string(forKey key: String) throws -> String {
         let queryDictionary = matchQuery(forKey: key) as CFDictionary
         
         var result: AnyObject?
