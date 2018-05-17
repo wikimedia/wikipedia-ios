@@ -282,7 +282,7 @@ extension UIViewController {
     
     @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
         guard
-            WMFAuthenticationManager.sharedInstance.loggedInUsername == nil &&
+            !WMFAuthenticationManager.sharedInstance.isLoggedIn &&
             !UserDefaults.wmf_userDefaults().wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         else {

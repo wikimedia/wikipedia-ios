@@ -2,8 +2,8 @@
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-class WMFAuthenticationManager: NSObject {    
-    fileprivate var keychainCredentials:WMFKeychainCredentials
+public class WMFAuthenticationManager: NSObject {
+    fileprivate var keychainCredentials: WMFKeychainCredentials
     @objc public static let userLoggedInNotification = NSNotification.Name("WMFUserLoggedInNotification")
     
     /**
@@ -212,11 +212,11 @@ class WMFAuthenticationManager: NSObject {
 }
 
 extension WMFAuthenticationManager: AuthenticationDelegate {
-    func isUserLoggedInLocally() -> Bool {
+    public func isUserLoggedInLocally() -> Bool {
         return isLoggedIn
     }
     
-    func isUserLoggedInRemotely() -> Bool {
+    public func isUserLoggedInRemotely() -> Bool {
         let taskGroup = WMFTaskGroup()
         let sessionManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         var errorCode: String? = nil

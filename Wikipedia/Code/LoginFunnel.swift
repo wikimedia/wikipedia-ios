@@ -21,6 +21,7 @@
             assertionFailure("category cannot be undefined")
             return [:]
         }
+        
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn

@@ -1,4 +1,4 @@
-
+import WMF
 import UIKit
 
 class WMFChangePasswordViewController: WMFScrollViewController, Themeable {

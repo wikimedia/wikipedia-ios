@@ -86,8 +86,9 @@ public enum ReadingListError: Error, Equatable {
     }
 }
 
-@objc(WMFReadingListsController)
-public class ReadingListsController: NSObject {
+public typealias ReadingListsController = WMFReadingListsController
+
+@objc public class WMFReadingListsController: NSObject {
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountNotification = NSNotification.Name("WMFReadingListsServerDidConfirmSyncWasEnabledForAccount")
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey = NSNotification.Name("wasSyncEnabledForAccount")
     @objc public static let readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey = NSNotification.Name("wasSyncEnabledOnDevice")
