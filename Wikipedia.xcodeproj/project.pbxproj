@@ -206,7 +206,7 @@
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
-		7A65A5DC20ACFD98001170B8 /* WMFContentGroupKind+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroupKind+EventLogging.swift */; };
+		7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */; };
 		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
 		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
@@ -3273,7 +3273,7 @@
 		7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunnel.swift; sourceTree = "<group>"; };
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
-		7A07A46720AA3F5100F7B2BB /* WMFContentGroupKind+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+EventLogging.swift"; sourceTree = "<group>"; };
+		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
 		7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintController.swift; sourceTree = "<group>"; };
@@ -7699,7 +7699,7 @@
 				D844485C1DDCE4E500425630 /* WMFContentGroup+Extensions.h */,
 				D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */,
 				D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */,
-				7A07A46720AA3F5100F7B2BB /* WMFContentGroupKind+EventLogging.swift */,
+				7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */,
 				83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */,
 				83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */,
 				83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */,
@@ -10629,7 +10629,7 @@
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
 				D844D9AA1D6CB7540042D692 /* MWKHistoryEntry.m in Sources */,
 				0E728D431DAEEE880074EB4B /* WMFLocationManager.m in Sources */,
-				7A65A5DC20ACFD98001170B8 /* WMFContentGroupKind+EventLogging.swift in Sources */,
+				7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */,
 				B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,

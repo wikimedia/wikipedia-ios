@@ -3,11 +3,11 @@ import UIKit
 @objc(WMFArticleURLListViewController)
 class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
-    private let contentGroupKind: WMFContentGroupKind
+    private let contentGroup: WMFContentGroup?
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroupKind: WMFContentGroupKind = .unknown) {
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil) {
         self.articleURLs = articleURLs
-        self.contentGroupKind = contentGroupKind
+        self.contentGroup = contentGroup
         super.init()
         self.dataStore = dataStore
     }
@@ -43,7 +43,7 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroupKind.eventLoggingLabel
+        return contentGroup?.eventLoggingLabel
     }
 }
 

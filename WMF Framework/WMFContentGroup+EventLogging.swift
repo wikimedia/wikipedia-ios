@@ -1,6 +1,6 @@
-extension WMFContentGroupKind {
+public extension WMFContentGroup {
     public var eventLoggingLabel: EventLoggingLabel? {
-        switch self {
+        switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle
         case .topRead:
