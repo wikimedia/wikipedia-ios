@@ -49,7 +49,6 @@
     
     @objc public func logSnapshot() {
         guard let latestSnapshot = latestSnapshot else {
-            assertionFailure("User History snapshot must have a value")
             return
         }
         
