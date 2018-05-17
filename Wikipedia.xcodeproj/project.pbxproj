@@ -279,6 +279,7 @@
 		7AE1D33C1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
 		7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE1D3381FCD10B900393471 /* SavedViewController.swift */; };
 		7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */; };
+		7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */; };
 		7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
@@ -3289,6 +3290,7 @@
 		7ADEAB021FD75B9100BB4727 /* AddArticlesToReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddArticlesToReadingListViewController.xib; sourceTree = "<group>"; };
 		7AE1D3321FCD057200393471 /* Saved.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Saved.storyboard; sourceTree = "<group>"; };
 		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
+		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
@@ -5080,8 +5082,10 @@
 			isa = PBXGroup;
 			children = (
 				B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */,
+				7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */,
 			);
 			name = Keychain;
+			path = ../Wikipedia/Code;
 			sourceTree = "<group>";
 		};
 		0487041519F824D700B7D307 /* Networking */ = {
@@ -5866,7 +5870,6 @@
 				B0ED173E1E4CF3AF008B70AD /* WMFAuthenticationManager.swift */,
 				B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */,
 				7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */,
-				0463639518A844380049EE4F /* Keychain */,
 				0E26628E1D09ED1C006D4A46 /* AuthManager Info */,
 				0EBB231A1D1C453C00CA9742 /* Login */,
 				0EBB231B1D1C454500CA9742 /* Account Creation */,
@@ -7697,6 +7700,7 @@
 				D8FA19081E1BDA72009675C3 /* UI */,
 				D8D5513E1DF1A33D00B90177 /* Third Party */,
 				7A976F81207BAC2100F7EFE6 /* Authentication */,
+				0463639518A844380049EE4F /* Keychain */,
 				D8FA18A91E1BD84D009675C3 /* Utilities */,
 				0E28C45F1D74A673000C5919 /* Legacy Models */,
 				0E28C4651D74AB54000C5919 /* Base Model Classes */,
@@ -10825,6 +10829,7 @@
 				D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */,
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
+				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
 				7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */,
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */,

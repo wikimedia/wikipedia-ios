@@ -9,7 +9,7 @@
     [self setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [self setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        NSString *appInstallID = [[WMFAuthenticationManager sharedInstance] appInstallID];
+        NSString *appInstallID = [[KeychainCredentialsManager shared] appInstallID];
         assert(appInstallID);
         [self setValue:appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
     }

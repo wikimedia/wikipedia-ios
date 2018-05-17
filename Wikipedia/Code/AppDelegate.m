@@ -89,7 +89,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
     NSDate *appInstallDate = [[NSUserDefaults wmf_userDefaults] wmf_appInstallDate];
     if (!appInstallDate) {
-        [[WMFAuthenticationManager sharedInstance] resetAppInstallID];
+        [[KeychainCredentialsManager shared] resetAppInstallID];
     }
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 

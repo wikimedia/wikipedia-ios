@@ -52,11 +52,11 @@
 }
 
 - (NSString *)wmf_appInstallID {
-    return [[WMFAuthenticationManager sharedInstance] appInstallID];
+    return [[KeychainCredentialsManager shared] appInstallID];
 }
 
 - (NSString *)wmf_sessionID {
-    return [[WMFAuthenticationManager sharedInstance] sessionID];
+    return [[KeychainCredentialsManager shared] sessionID];
 }
 
 /**

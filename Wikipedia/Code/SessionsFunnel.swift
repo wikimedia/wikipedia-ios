@@ -44,7 +44,7 @@
     }
     
     private func resetSession() {
-        WMFAuthenticationManager.sharedInstance.resetSessionID()
+        KeychainCredentialsManager.shared.resetSessionID()
         UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
     }
     
