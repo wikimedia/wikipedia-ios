@@ -377,7 +377,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
                                              selector:@selector(userLoggedInNotification)
                                                  name:[WMFAuthenticationManager userLoggedInNotification]
                                                object:nil];
-    
+
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -860,7 +860,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
-    
+
     if (section.contentGroupKind == WMFContentGroupKindReadingList) {
         [[LoginFunnel shared] logLoginImpressionInFeed];
     }
@@ -1604,9 +1604,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroup:self.groupForPreviewedCell];
     } else {
-        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroupKind:self.groupForPreviewedCell.contentGroupKind];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroup:self.groupForPreviewedCell];
     }
 }
 
@@ -2050,7 +2050,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFSaveButtonsControllerDelegate
 
-- (void)didSaveArticle:(WMFSaveButton * _Nullable)saveButton didSave:(BOOL)didSave article:(WMFArticle * _Nonnull)article {
+- (void)didSaveArticle:(WMFSaveButton *_Nullable)saveButton didSave:(BOOL)didSave article:(WMFArticle *_Nonnull)article {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
     [self logArticleSavedStateChange:didSave saveButton:saveButton];
 }
@@ -2086,7 +2086,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Event Logging
 
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton * _Nullable)saveButton {
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton *_Nullable)saveButton {
     if (wasArticleSaved) {
         [[ReadingListsFunnel shared] logSaveInFeedWithSaveButton:saveButton];
     } else {
