@@ -75,34 +75,13 @@ struct WMFKeychainCredentials {
     
     public var lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
         get {
-            guard let value = try? value(forKey: lastLoggedUserHistorySnapshotKey) else {
+            guard let value = tryGetValue(forKey: lastLoggedUserHistorySnapshotKey) else {
                 return nil
             }
             return value as? Dictionary<String, Any>
         }
         set {
             trySet(newValue, forKey: lastLoggedUserHistorySnapshotKey)
-        }
-    }
-    
-    private func tryGetString(forKey key: String) -> String? {
-        do {
-            return try string(forKey: key)
-        } catch let error {
-            assertionFailure("\(error)")
-        }
-        return nil
-    }
-    
-    private func setNewUUID(forKey key: String) {
-        trySet(UUID().uuidString, forKey: key)
-    }
-    
-    private func trySet(_ newValue: Any?, forKey key: String) {
-        do {
-            return try set(value: newValue, forKey: key)
-        } catch  {
-            assertionFailure("\(error)")
         }
     }
     
@@ -122,8 +101,28 @@ struct WMFKeychainCredentials {
         ]
     }
     
+    // MARK: Getting values from keychain
+    
+    private func tryGetString(forKey key: String) -> String? {
+        do {
+            return try string(forKey: key)
+        } catch let error {
+            assertionFailure("\(error)")
+        }
+        return nil
+    }
+    
+    private func tryGetValue(forKey key: String) -> Any? {
+        do {
+            return try value(forKey: key)
+        } catch let error {
+            assertionFailure("\(error)")
+        }
+        return nil
+    }
+    
     private func string(forKey key: String) throws -> String? {
-        let queryDictionary = query(forKey: key) as CFDictionary
+        let queryDictionary = matchQuery(forKey: key) as CFDictionary
         
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) {
@@ -142,7 +141,7 @@ struct WMFKeychainCredentials {
     }
     
     fileprivate func value(forKey key: String) throws -> Any {
-        let queryDictionary = query(forKey: key) as CFDictionary
+        let queryDictionary = matchQuery(forKey: key) as CFDictionary
         
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) {
@@ -160,17 +159,26 @@ struct WMFKeychainCredentials {
         return value
     }
     
-    private func query(forKey key: String) -> Dictionary<String, AnyObject> {
-        var query = commonConfigurationDictionary(forKey: key)
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        query[kSecReturnData as String] = kCFBooleanTrue
-        return query
-    }
+    // MARK: Deleting values from keychain
     
     fileprivate func deleteValue(forKey key:String) throws {
         let query = commonConfigurationDictionary(forKey: key)
         let status = SecItemDelete(query as CFDictionary)
         guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
+    }
+    
+    // MARK: Saving values to keychain
+    
+    private func trySet(_ newValue: Any?, forKey key: String) {
+        do {
+            return try set(value: newValue, forKey: key)
+        } catch  {
+            assertionFailure("\(error)")
+        }
+    }
+    
+    private func setNewUUID(forKey key: String) {
+        trySet(UUID().uuidString, forKey: key)
     }
     
     fileprivate func set(value: Any?, forKey key: String) throws {
@@ -206,6 +214,8 @@ struct WMFKeychainCredentials {
         }
     }
     
+    // MARK: Saving values in keychain
+    
     fileprivate func update(value: Any, forKey key: String) throws {
         let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
@@ -217,11 +227,20 @@ struct WMFKeychainCredentials {
         }
     }
     
+    // MARK: Helper functions to interact with keychain values
+    
     private func data(for value: Any) -> Data? {
         if let value = value as? String {
             return value.data(using: String.Encoding.utf8)
         } else {
             return NSKeyedArchiver.archivedData(withRootObject: value)
         }
+    }
+    
+    private func matchQuery(forKey key: String) -> Dictionary<String, AnyObject> {
+        var query = commonConfigurationDictionary(forKey: key)
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        query[kSecReturnData as String] = kCFBooleanTrue
+        return query
     }
 }
