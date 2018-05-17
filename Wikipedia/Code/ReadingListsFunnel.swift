@@ -16,10 +16,6 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
-        guard category != .undefined else {
-            assertionFailure("category cannot be undefined")
-            return [:]
-        }
         let category = category.rawValue
         let action = action.rawValue
         let measure = Double(measure)

@@ -36,7 +36,7 @@ public enum EventLoggingCategory: String {
     case setting
     case loginToSyncPopover = "login_to_sync_popover"
     case enableSyncPopover = "enable_sync_popover"
-    case undefined
+    case unknown
 }
 
 

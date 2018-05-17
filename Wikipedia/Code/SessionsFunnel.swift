@@ -4,7 +4,7 @@
     @objc public static let shared = SessionsFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSSessions", version: 18047432)
+        super.init(schema: "MobileWikiAppiOSSessions", version: 18050320)
     }
     
     private enum Action: String {
@@ -13,10 +13,6 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
-        guard category != .undefined else {
-            assertionFailure("category cannot be undefined")
-            return [:]
-        }
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
@@ -40,7 +36,7 @@
     
     @objc public func logSessionStart() {
         resetSession()
-        log(event(category: .feed, label: nil, action: .sessionStart)) // TODO: change category to .unknown when schema is updated
+        log(event(category: .unknown, label: nil, action: .sessionStart))
     }
     
     private func resetSession() {
@@ -53,7 +49,7 @@
             assertionFailure("Session start date cannot be nil")
             return
         }
-        log(event(category: .feed, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow))) // TODO: change category to .unknown when schema is updated
+        log(event(category: .unknown, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow)))
     }
     
 }

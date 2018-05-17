@@ -17,11 +17,6 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
-        guard category != .undefined else {
-            assertionFailure("category cannot be undefined")
-            return [:]
-        }
-        
         let category = category.rawValue
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
