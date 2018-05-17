@@ -59,12 +59,20 @@
     
     // - MARK: Feed
     
-    @objc public func logSaveInFeed(contentGroupKind: WMFContentGroupKind) {
-        logSave(category: .feed, label: contentGroupKind.eventLoggingLabel)
+    @objc public func logSaveInFeed(saveButton: SaveButton?) {
+        logSave(category: .feed, label: saveButton?.eventLoggingLabel)
     }
     
-    @objc public func logUnsaveInFeed(contentGroupKind: WMFContentGroupKind) {
-        logUnsave(category: .feed, label: contentGroupKind.eventLoggingLabel)
+    @objc public func logUnsaveInFeed(saveButton: SaveButton?) {
+        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel)
+    }
+    
+    @objc public func logSaveInFeed(contentGroup: WMFContentGroup?) {
+        logSave(category: .feed, label: contentGroup?.eventLoggingLabel)
+    }
+    
+    @objc public func logUnsaveInFeed(contentGroup: WMFContentGroup?) {
+        logUnsave(category: .feed, label: contentGroup?.eventLoggingLabel)
     }
     
     // - MARK: Places

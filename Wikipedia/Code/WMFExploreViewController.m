@@ -2050,9 +2050,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFSaveButtonsControllerDelegate
 
-- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article withTouch:(UITouch * _Nullable)touch {
+- (void)didSaveArticle:(WMFSaveButton * _Nullable)saveButton didSave:(BOOL)didSave article:(WMFArticle * _Nonnull)article {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
-    [self logArticleSavedStateChange:didSave withTouch:touch];
+    [self logArticleSavedStateChange:didSave saveButton:saveButton];
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
@@ -2086,17 +2086,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Event Logging
 
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved withTouch:(UITouch * _Nullable)touch {
-    WMFContentGroupKind contentGroupKind = WMFContentGroupKindUnknown;
-    if (touch) {
-        CGPoint touchLocation = [touch locationInView:self.collectionView];
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:touchLocation];
-        contentGroupKind = [self sectionAtIndex:indexPath.section].contentGroupKind;
-    }
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton * _Nullable)saveButton {
     if (wasArticleSaved) {
-        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroupKind:contentGroupKind];
+        [[ReadingListsFunnel shared] logSaveInFeedWithSaveButton:saveButton];
     } else {
-        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroupKind:contentGroupKind];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithSaveButton:saveButton];
     }
 }
 

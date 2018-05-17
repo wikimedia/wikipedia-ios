@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
-    func didSaveArticle(_ didSave: Bool, article: WMFArticle, withTouch touch: UITouch?)
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle)
     func willUnsaveArticle(_ article: WMFArticle)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
@@ -14,7 +14,6 @@ import UIKit
     let savedPagesFunnel = SavedPagesFunnel()
     var activeSender: SaveButton?
     var activeKey: String?
-    var lastTouch: UITouch?
     
     @objc required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -34,7 +33,7 @@ import UIKit
         let tag = key.hash
         saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         saveButton.tag = tag
-        saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:forEvent:)), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
         saveButton.saveButtonDelegate = self
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
@@ -48,7 +47,7 @@ import UIKit
             return
         }
         let tag = key.hash
-        saveButton.removeTarget(self, action: #selector(saveButtonPressed(sender:forEvent:)), for: .touchUpInside)
+        saveButton.removeTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.remove(saveButton)
         if saveButtons.count == 0 {
@@ -88,14 +87,13 @@ import UIKit
     
     @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
     
-    @objc func saveButtonPressed(sender: SaveButton, forEvent event: UIEvent) {
+    @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
             return
         }
         
         activeKey = key
         activeSender = sender
-        lastTouch = event.allTouches?.first
         
         if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
             delegate?.willUnsaveArticle(articleToUnsave)
@@ -130,7 +128,7 @@ import UIKit
             return
         }
         let isSaved = article.savedDate != nil
-        delegate?.didSaveArticle(isSaved, article: article, withTouch: lastTouch)
+        delegate?.didSaveArticle(activeSender, didSave: isSaved, article: article)
         activeKey = nil
     }
 }
