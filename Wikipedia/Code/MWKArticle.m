@@ -263,23 +263,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 continue;
             }
             
-            id type = item[@"type"];
-            if (![type isKindOfClass:[NSString class]] || ![type isEqualToString:@"image"]) {
+            NSString *type = [item wmf_stringForKey:@"type"];
+            if (![type isEqualToString:@"image"]) {
                 continue;
             }
             
-            id original = item[@"original"];
-            if (![original isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *original = [item wmf_dictionaryForKey:@"original"];
+            if (!original) {
                 continue;
             }
-            
-            id mime = original[@"mime"];
-            if (![mime isKindOfClass:[NSString class]]) {
-                continue;
-            }
-
-            id source = original[@"source"];
-            if (![source isKindOfClass:[NSString class]]) {
+        
+            NSString *source = [original wmf_stringForKey:@"source"];
+            if (!source) {
                 continue;
             }
             
@@ -289,12 +284,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             }
             
             [allImageURLs addObject:imageURL];
-            id width = original[@"width"];
-            id height = original[@"height"];
-            if ([width isKindOfClass:[NSNumber class]] &&
-                [height isKindOfClass:[NSNumber class]] &&
-                [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width &&
-                [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height) {
+            NSNumber *width = [original wmf_numberForKey:@"width"];
+            NSNumber *height = original[@"height"];
+            if (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height) {
                 NSNumber *currentWidth = width;
                 NSNumber *currentHeight = height;
                 NSURL *scaledImageURL = imageURL;
@@ -319,89 +311,33 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 [imageDictionary setObject:currentHeight forKey:@"height"];
                 [imageDictionary setObject:width forKey:@"originalFileWidth"];
                 [imageDictionary setObject:height forKey:@"originalFileHeight"];
-                [imageDictionary setObject:mime forKey:@"mimeType"];
+                NSString *mime = [original wmf_stringForKey:@"mime"];
+                if (mime) {
+                    [imageDictionary setObject:mime forKey:@"mimeType"];
+                }
                 [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
                 MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
                 [galleryImages addObject:galleryImage];
                 
-                id filePage = item[@"file_page"];
-                if (![filePage isKindOfClass:[NSString class]]) {
-                    filePage = nil;
-                }
+                NSDictionary *titles = [item wmf_dictionaryForKey:@"titles"];
+                NSString *canonicalTitle = [titles wmf_stringForKey:@"canonical"];
                 
-                id titles = item[@"titles"];
-                if (![titles isKindOfClass:[NSDictionary class]]) {
-                    titles = nil;
-                }
+                NSURL *filePageURL = [item wmf_URLFromStringForKey:@"file_page"];
                 
-                id canonicalTitle = titles[@"canonical"];
-                if (![canonicalTitle isKindOfClass:[NSString class]]) {
-                    canonicalTitle = nil;
-                }
+                NSDictionary *licenseDictionary = [item wmf_dictionaryForKey:@"license"];
+                NSString *licenseType = [licenseDictionary wmf_stringForKey:@"type"];
+                NSString *licenseCode = [licenseDictionary wmf_stringForKey:@"code"];
+                NSURL *licenseURL = [licenseDictionary wmf_URLFromStringForKey:@"url"];
                 
-                NSURL *filePageURL = nil;
-                if (filePage) {
-                    filePageURL = [NSURL URLWithString:filePage];
-                }
-                
-                id licenseDictionary = item[@"license"];
-                if (![licenseDictionary isKindOfClass:[NSDictionary class]]) {
-                    licenseDictionary = nil;
-                }
-                
-                id licenseType = licenseDictionary[@"type"];
-                if (![licenseType isKindOfClass:[NSString class]]) {
-                    licenseType = nil;
-                }
-                
-                id licenseCode = licenseDictionary[@"code"];
-                if (![licenseCode isKindOfClass:[NSString class]]) {
-                    licenseCode = nil;
-                }
-                
-                id licenseURLString = licenseDictionary[@"url"];
-                if (![licenseURLString isKindOfClass:[NSString class]]) {
-                    licenseURLString = nil;
-                }
-                
-                NSURL *licenseURL = nil;
-                if (licenseURLString) {
-                    licenseURL = [NSURL URLWithString:licenseURLString];
-                }
-                
-                id artist = item[@"artist"];
-                if (![artist isKindOfClass:[NSDictionary class]]) {
-                    artist = nil;
-                }
-                
-                id artistText = artist[@"name"];
-                if (![artistText isKindOfClass:[NSString class]]) {
-                    artistText = nil;
-                }
-                
-                id artistHTML = artist[@"html"];
-                if (![artistHTML isKindOfClass:[NSString class]]) {
-                    artistHTML = nil;
-                }
-                
-                id owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
+                NSDictionary *artist = [item wmf_dictionaryForKey:@"artist"];
+                NSString *artistText = [artist wmf_stringForKey:@"name"];
+                NSString *artistHTML = [artist wmf_stringForKey:@"html"];
+                NSString *owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
 
-                id captionDictionary = item[@"caption"];
-                if (![captionDictionary isKindOfClass:[NSDictionary class]]) {
-                    captionDictionary = nil;
-                }
-                
-                id captionText = captionDictionary[@"text"];
-                if (![captionText isKindOfClass:[NSString class]]) {
-                    captionText = nil;
-                }
-                
-                id captionHTML = captionDictionary[@"html"];
-                if (![captionHTML isKindOfClass:[NSString class]]) {
-                    captionHTML = nil;
-                }
-                
-                id caption = captionText ?: [captionHTML wmf_stringByRemovingHTML];
+                NSDictionary *captionDictionary = [item wmf_dictionaryForKey:@"caption"];
+                NSString *captionText = [captionDictionary wmf_stringForKey:@"text"];
+                NSString *captionHTML = captionDictionary[@"html"];
+                NSString *caption = captionText ?: [captionHTML wmf_stringByRemovingHTML];
                 
                 CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
                 CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
