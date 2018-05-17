@@ -7,7 +7,7 @@ public protocol EventLoggingStandardEventProviding {
     var standardEvent: Dictionary<String, Any> { get }
 }
 
-extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
+public extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
     var standardEvent: Dictionary<String, Any> {
         let appInstallID = wmf_appInstallID()
         let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
