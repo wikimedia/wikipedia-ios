@@ -41,4 +41,13 @@ public class KeychainCredentialsManager: NSObject {
             keychainCredentials.password = newValue
         }
     }
+    
+    public var lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
+        get {
+            return keychainCredentials.lastLoggedUserHistorySnapshot
+        }
+        set {
+            keychainCredentials.lastLoggedUserHistorySnapshot = newValue
+        }
+    }
 }

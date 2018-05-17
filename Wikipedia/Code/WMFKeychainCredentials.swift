@@ -14,10 +14,11 @@ struct WMFKeychainCredentials {
     fileprivate let hostKey = "org.wikimedia.wikipedia.host"
     private let appInstallIDKey = "org.wikimedia.wikipedia.appinstallid"
     private let sessionIDKey = "org.wikimedia.wikipedia.sessionid"
+    private let lastLoggedUserHistorySnapshotKey = "org.wikimedia.wikipedia.lastloggeduserhistorysnapshot"
     
     public var userName: String? {
         get {
-            return try? getValue(forKey: userNameKey)
+            return tryGetString(forKey: userNameKey)
         }
         set(newUserName) {
             trySet(newUserName, forKey: userNameKey)
@@ -26,7 +27,7 @@ struct WMFKeychainCredentials {
     
     public var password: String? {
         get {
-            return try? getValue(forKey: passwordKey)
+            return tryGetString(forKey: passwordKey)
         }
         set(newPassword) {
             trySet(newPassword, forKey: passwordKey)
@@ -35,7 +36,7 @@ struct WMFKeychainCredentials {
     
     public var host: String? {
         get {
-            return try? getValue(forKey: hostKey)
+            return tryGetString(forKey: hostKey)
         }
         set {
             trySet(newValue, forKey: hostKey)
@@ -44,9 +45,9 @@ struct WMFKeychainCredentials {
     
     public var appInstallID: String? {
         get {
-            guard let appInstallID = try? getValue(forKey: appInstallIDKey) else {
+            guard let appInstallID = tryGetString(forKey: appInstallIDKey) else {
                 setNewUUID(forKey: appInstallIDKey)
-                return try? getValue(forKey: appInstallIDKey)
+                return tryGetString(forKey: appInstallIDKey)
             }
             return appInstallID
         }
@@ -57,9 +58,9 @@ struct WMFKeychainCredentials {
     
     public var sessionID: String? {
         get {
-            guard let sessionID = try? getValue(forKey: sessionIDKey) else {
+            guard let sessionID = tryGetString(forKey: sessionIDKey) else {
                 setNewUUID(forKey: sessionIDKey)
-                return try? getValue(forKey: sessionIDKey)
+                return tryGetString(forKey: sessionIDKey)
             }
             return sessionID
         }
@@ -72,11 +73,53 @@ struct WMFKeychainCredentials {
         setNewUUID(forKey: sessionIDKey)
     }
     
+    public var lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
+        get {
+            guard let value = try? getValue(forKey: lastLoggedUserHistorySnapshotKey) else {
+                return nil
+            }
+            return value as? Dictionary<String, Any>
+        }
+        set {
+            trySet(newValue, forKey: lastLoggedUserHistorySnapshotKey)
+        }
+    }
+    
+    private func tryGetString(forKey key: String) -> String? {
+        do {
+            return try string(forKey: key)
+        } catch let error {
+            assertionFailure("\(error)")
+        }
+        return nil
+    }
+    
+    private func string(forKey key: String) throws -> String? {
+        var query = commonConfigurationDictionary(forKey: key)
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        query[kSecReturnData as String] = kCFBooleanTrue
+        
+        var result: AnyObject?
+        let status = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+        }
+        
+        guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
+        guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
+        guard
+            let data = result as? Data,
+            let value = String(data: data, encoding: String.Encoding.utf8)
+            else {
+                throw WMFKeychainCredentialsError.unexpectedData
+        }
+        return value
+    }
+    
     private func setNewUUID(forKey key: String) {
         trySet(UUID().uuidString, forKey: key)
     }
     
-    private func trySet(_ newValue: String?, forKey key: String) {
+    private func trySet(_ newValue: Any?, forKey key: String) {
         do {
             return try set(value: newValue, forKey: key)
         } catch  {
@@ -100,7 +143,7 @@ struct WMFKeychainCredentials {
         ]
     }
     
-    fileprivate func getValue(forKey key:String) throws -> String {
+    fileprivate func getValue(forKey key: String) throws -> Any {
         var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
@@ -114,7 +157,7 @@ struct WMFKeychainCredentials {
         guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
         guard
             let data = result as? Data,
-            let value = String(data: data, encoding: String.Encoding.utf8)
+            let value = NSKeyedUnarchiver.unarchiveObject(with: data)
             else {
                 throw WMFKeychainCredentialsError.unexpectedData
         }
@@ -127,7 +170,7 @@ struct WMFKeychainCredentials {
         guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
     }
     
-    fileprivate func set(value:String?, forKey key:String) throws {
+    fileprivate func set(value: Any?, forKey key: String) throws {
         // nil value causes the key/value pair to be removed from the keychain
         guard let value = value else {
             do {
@@ -139,7 +182,7 @@ struct WMFKeychainCredentials {
         }
         
         var query = commonConfigurationDictionary(forKey: key)
-        let valueData = value.data(using: String.Encoding.utf8)!
+        let valueData = data(for: value)
         query[kSecValueData as String] = valueData as AnyObject?
         query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
         
@@ -160,14 +203,22 @@ struct WMFKeychainCredentials {
         }
     }
     
-    fileprivate func update(value:String, forKey key:String) throws {
+    fileprivate func update(value: Any, forKey key: String) throws {
         let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
-        let valueData = value.data(using: String.Encoding.utf8)!
+        let valueData = data(for: value)
         dataDict[kSecValueData as String] = valueData as AnyObject?
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
         if (status != errSecSuccess) {
             throw WMFKeychainCredentialsError.unhandledError(status: status)
+        }
+    }
+    
+    private func data(for value: Any) -> Data? {
+        if let value = value as? String {
+            return value.data(using: String.Encoding.utf8)
+        } else {
+            return NSKeyedArchiver.archivedData(withRootObject: value)
         }
     }
 }

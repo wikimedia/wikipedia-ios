@@ -40,11 +40,11 @@
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot = eventData
+        KeychainCredentialsManager.shared.lastLoggedUserHistorySnapshot = eventData
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
-        return UserDefaults.wmf_userDefaults().wmf_lastLoggedUserHistorySnapshot
+        return KeychainCredentialsManager.shared.lastLoggedUserHistorySnapshot
     }
     
     @objc public func logSnapshot() {
