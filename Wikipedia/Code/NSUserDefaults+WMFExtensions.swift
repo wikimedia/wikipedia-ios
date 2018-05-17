@@ -2,7 +2,6 @@ let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFSessionStartDate = "WMFSessionStartDate"
-let WMFLastLoggedUserHistorySnapshot = "WMFLastLoggedUserHistorySnapshot"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -116,16 +115,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFSessionStartDate)
-            synchronize()
-        }
-    }
-    
-    @objc public var wmf_lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
-        get {
-            return dictionary(forKey: WMFLastLoggedUserHistorySnapshot)
-        }
-        set {
-            set(newValue, forKey: WMFLastLoggedUserHistorySnapshot)
             synchronize()
         }
     }
