@@ -94,27 +94,6 @@ struct WMFKeychainCredentials {
         return nil
     }
     
-    private func string(forKey key: String) throws -> String? {
-        var query = commonConfigurationDictionary(forKey: key)
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        query[kSecReturnData as String] = kCFBooleanTrue
-        
-        var result: AnyObject?
-        let status = withUnsafeMutablePointer(to: &result) {
-            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
-        }
-        
-        guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
-        guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
-        guard
-            let data = result as? Data,
-            let value = String(data: data, encoding: String.Encoding.utf8)
-            else {
-                throw WMFKeychainCredentialsError.unexpectedData
-        }
-        return value
-    }
-    
     private func setNewUUID(forKey key: String) {
         trySet(UUID().uuidString, forKey: key)
     }
@@ -143,14 +122,31 @@ struct WMFKeychainCredentials {
         ]
     }
     
-    fileprivate func value(forKey key: String) throws -> Any {
-        var query = commonConfigurationDictionary(forKey: key)
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        query[kSecReturnData as String] = kCFBooleanTrue
+    private func string(forKey key: String) throws -> String? {
+        let queryDictionary = query(forKey: key) as CFDictionary
         
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) {
-            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+            SecItemCopyMatching(queryDictionary, UnsafeMutablePointer($0))
+        }
+        
+        guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
+        guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
+        guard
+            let data = result as? Data,
+            let value = String(data: data, encoding: String.Encoding.utf8)
+            else {
+                throw WMFKeychainCredentialsError.unexpectedData
+        }
+        return value
+    }
+    
+    fileprivate func value(forKey key: String) throws -> Any {
+        let queryDictionary = query(forKey: key) as CFDictionary
+        
+        var result: AnyObject?
+        let status = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(queryDictionary, UnsafeMutablePointer($0))
         }
         
         guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
@@ -162,6 +158,13 @@ struct WMFKeychainCredentials {
                 throw WMFKeychainCredentialsError.unexpectedData
         }
         return value
+    }
+    
+    private func query(forKey key: String) -> Dictionary<String, AnyObject> {
+        var query = commonConfigurationDictionary(forKey: key)
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        query[kSecReturnData as String] = kCFBooleanTrue
+        return query
     }
     
     fileprivate func deleteValue(forKey key:String) throws {
