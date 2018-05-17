@@ -2,9 +2,19 @@
 #import "Wikipedia-Swift.h"
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
 
 @implementation WMFDailyStatsLoggingFunnel
+
++ (WMFDailyStatsLoggingFunnel *)shared {
+    static dispatch_once_t onceToken;
+    static WMFDailyStatsLoggingFunnel *shared;
+    dispatch_once(&onceToken, ^{
+        shared = [self new];
+    });
+    return shared;
+}
 
 - (instancetype)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppDailyStats
@@ -34,6 +44,12 @@ static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
     }
 
     [self log:@{ kAppInstallAgeKey: @(daysInstalled) }];
+}
+
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
+    NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 - (void)logged:(NSDictionary *)eventData {

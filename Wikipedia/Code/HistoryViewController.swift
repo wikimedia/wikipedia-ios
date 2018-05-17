@@ -87,6 +87,10 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             headerView.text = titleForHeaderInSection(indexPath.section)
         }
     }
+    
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .history
+    }
 
 }
 

@@ -154,11 +154,11 @@ extension UIViewController {
                 didNotPresentPanelCompletion?()
                 return
         }
-        
         let enableSyncTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 guard self.hasSavedArticles() else {
                     SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+                    SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
                     return
                 }
                 self.wmf_showAddSavedArticlesToReadingListPanel(theme: theme)
@@ -171,6 +171,7 @@ extension UIViewController {
             UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
             // we don't want to present the "Sync disabled" panel if "Enable sync" was presented, wmf_didShowSyncDisabledPanel will be set to false when app is paused.
             UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
+            SettingsFunnel.shared.logEnableSyncPopoverImpression()
         })
     }
     
@@ -216,10 +217,12 @@ extension UIViewController {
     fileprivate func wmf_showAddSavedArticlesToReadingListPanel(theme: Theme) {
         let addSavedArticlesToReadingListsTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+            SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         let deleteSavedArticlesFromDeviceTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: false)
+            SettingsFunnel.shared.logEnableSyncPopoverSyncEnabled()
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         
@@ -263,9 +266,12 @@ extension UIViewController {
     }
 
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
+        LoginFunnel.shared.logLoginImpressionInSyncPopover()
+        
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: loginSuccessCompletion, loginDismissedCompletion: loginDismissedCompletion)
+                LoginFunnel.shared.logLoginStartInSyncPopover()
             })
         }
         
@@ -276,16 +282,19 @@ extension UIViewController {
     
     @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
         guard
-            WMFAuthenticationManager.sharedInstance.loggedInUsername == nil &&
+            !WMFAuthenticationManager.sharedInstance.isLoggedIn &&
             !UserDefaults.wmf_userDefaults().wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         else {
             return
         }
         
+        LoginFunnel.shared.logLoginImpressionInSyncPopover()
+        
         let loginToSyncSavedArticlesTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showLoginViewController(theme: theme)
+                LoginFunnel.shared.logLoginStartInSyncPopover()
             })
         }
         

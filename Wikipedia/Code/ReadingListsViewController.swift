@@ -292,8 +292,12 @@ extension ReadingListsViewController: CreateReadingListDelegate {
             }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
             createReadingListViewController.dismiss(animated: true, completion: nil)
+            if displayType == .addArticlesToReadingList {
+                ReadingListsFunnel.shared.logCreateInAddToReadingList()
+            } else {
+                ReadingListsFunnel.shared.logCreateInReadingLists()
+            }
         } catch let error {
-            
             switch error {
             case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
                 createReadingListViewController.handleReadingListNameError(readingListError)
@@ -371,6 +375,12 @@ extension ReadingListsViewController: ActionDelegate {
         do {
             try self.readingListsController.delete(readingLists: readingLists)
             self.editController.close()
+            let readingListsCount = readingLists.count
+            if displayType == .addArticlesToReadingList {
+                ReadingListsFunnel.shared.logDeleteInAddToReadingList(readingListsCount: readingListsCount)
+            } else {
+                ReadingListsFunnel.shared.logDeleteInReadingLists(readingListsCount: readingListsCount)
+            }
         } catch let error {
             handleReadingListError(error)
         }

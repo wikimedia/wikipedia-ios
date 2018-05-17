@@ -152,3 +152,15 @@ extension ArticleLocationCollectionViewController {
         return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
     }
 }
+
+// MARK: - Reading lists event logging
+
+extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .places
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
+    }
+}

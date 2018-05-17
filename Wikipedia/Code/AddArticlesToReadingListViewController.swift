@@ -59,7 +59,7 @@ class AddArticlesToReadingListViewController: UIViewController {
         navigationBar?.topItem?.title = String.localizedStringWithFormat(title, articles.count)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         
-        readingListsViewController = ReadingListsViewController.init(with: dataStore, articles: articles)
+        readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         guard let readingListsViewController = readingListsViewController else {
             return
         }

@@ -5,8 +5,6 @@
 
 @implementation EventLoggingFunnel
 
-static NSString *const kAppInstallIdKey = @"appInstallID";
-
 - (id)initWithSchema:(NSString *)schema version:(int)revision {
     if (self) {
         self.schema = schema;
@@ -37,9 +35,6 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
         }
         if (chosen) {
             NSMutableDictionary *preprocessedEventData = [[self preprocessData:eventData] mutableCopy];
-            if (self.requiresAppInstallID) {
-                preprocessedEventData[kAppInstallIdKey] = [self wmf_appInstallID];
-            }
             (void)[[EventLogger alloc] initAndLogEvent:preprocessedEventData
                                              forSchema:self.schema
                                               revision:self.revision
@@ -57,7 +52,11 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 }
 
 - (NSString *)wmf_appInstallID {
-    return [[NSUserDefaults wmf_userDefaults] wmf_appInstallID];
+    return [[KeychainCredentialsManager shared] appInstallID];
+}
+
+- (NSString *)wmf_sessionID {
+    return [[KeychainCredentialsManager shared] sessionID];
 }
 
 /**

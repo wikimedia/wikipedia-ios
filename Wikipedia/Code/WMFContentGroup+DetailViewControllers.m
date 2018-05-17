@@ -34,7 +34,7 @@
             if (moreType == WMFFeedMoreTypePageListWithLocation) {
                 vc = [[WMFArticleLocationCollectionViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
             } else {
-                vc = [[WMFArticleURLListViewController alloc] initWithArticleURLs:URLs dataStore:dataStore];
+                vc = [[WMFArticleURLListViewController alloc] initWithArticleURLs:URLs dataStore:dataStore contentGroup:self];
                 vc.title = [self moreTitle];
             }
         } break;

@@ -16,13 +16,21 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     public var loginSuccessCompletion: (() -> Void)?
     public var loginDismissedCompletion: (() -> Void)?
     
-    @objc public var funnel: LoginFunnel?
+    @objc public var funnel: WMFLoginFunnel?
+
+    private var startDate: Date? // to calculate time elapsed between login start and login success
     
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        startDate = Date()
+        
+    }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -151,6 +159,12 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
             self.setViewControllerUserInteraction(enabled: true)
             self.dismiss(animated: true)
             self.funnel?.logSuccess()
+            
+            if let start = self.startDate {
+                LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+            } else {
+                assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
+            }
         
         }, failure: { error in
 
@@ -247,6 +261,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         createAcctVC.apply(theme: theme)
         funnel?.logCreateAccountAttempt()
+        LoginFunnel.shared.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)
