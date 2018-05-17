@@ -84,4 +84,8 @@ import UIKit
         }
         saveButtonDelegate?.saveButtonDidReceiveLongPress(self)
     }
+    
+    @objc public func setEventLoggingLabel(rawValue: String) {
+        eventLoggingLabel = EventLoggingLabel(rawValue: rawValue)
+    }
 }

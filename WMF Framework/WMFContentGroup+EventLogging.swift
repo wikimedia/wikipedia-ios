@@ -21,5 +21,9 @@ public extension WMFContentGroup {
             return nil
         }
     }
+    
+    @objc public var eventLoggingLabelRawValue: String? {
+        return eventLoggingLabel?.rawValue
+    }
 }
 
