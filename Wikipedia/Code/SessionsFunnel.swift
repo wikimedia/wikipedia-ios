@@ -44,7 +44,7 @@
     }
     
     private func resetSession() {
-        UserDefaults.wmf_userDefaults().wmf_resetSessionID()
+        WMFAuthenticationManager.sharedInstance.resetSessionID()
         UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
     }
     

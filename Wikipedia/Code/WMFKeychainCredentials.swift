@@ -12,65 +12,75 @@ struct WMFKeychainCredentials {
     fileprivate let userNameKey = "org.wikimedia.wikipedia.username"
     fileprivate let passwordKey = "org.wikimedia.wikipedia.password"
     fileprivate let hostKey = "org.wikimedia.wikipedia.host"
+    private let appInstallIDKey = "org.wikimedia.wikipedia.appinstallid"
+    private let sessionIDKey = "org.wikimedia.wikipedia.sessionid"
     
     public var userName: String? {
         get {
-            do {
-                return try getValue(forKey: userNameKey)
-            } catch  {
-                return nil
-            }
+            return try? getValue(forKey: userNameKey)
         }
         set(newUserName) {
-            do {
-                return try set(value: newUserName, forKey: userNameKey)
-            } catch let error {
-                assertionFailure("\(error)")
-            }
+            trySet(newUserName, forKey: userNameKey)
         }
     }
-
+    
     public var password: String? {
         get {
-            do {
-                return try getValue(forKey: passwordKey)
-            } catch  {
-                return nil
-            }
+            return try? getValue(forKey: passwordKey)
         }
         set(newPassword) {
-            do {
-                return try set(value: newPassword, forKey: passwordKey)
-            } catch  {
-                assertionFailure("\(error)")
-            }
+            trySet(newPassword, forKey: passwordKey)
         }
     }
     
     public var host: String? {
         get {
-            do {
-                return try getValue(forKey: hostKey)
-            } catch  {
-                return nil
-            }
+            return try? getValue(forKey: hostKey)
         }
         set {
-            do {
-                return try set(value: newValue, forKey: hostKey)
-            } catch  {
-                assertionFailure("\(error)")
-            }
+            trySet(newValue, forKey: hostKey)
         }
     }
-
+    
+    public var appInstallID: String? {
+        guard let appInstallID = try? getValue(forKey: appInstallIDKey) else {
+            setNewUUID(forKey: appInstallIDKey)
+            return try? getValue(forKey: appInstallIDKey)
+        }
+        return appInstallID
+    }
+    
+    public var sessionID: String? {
+        guard let sessionID = try? getValue(forKey: sessionIDKey) else {
+            setNewUUID(forKey: sessionIDKey)
+            return try? getValue(forKey: sessionIDKey)
+        }
+        return sessionID
+    }
+    
+    public func resetSessionID() {
+        setNewUUID(forKey: sessionIDKey)
+    }
+    
+    private func setNewUUID(forKey key: String) {
+        trySet(UUID().uuidString, forKey: key)
+    }
+    
+    private func trySet(_ newValue: String?, forKey key: String) {
+        do {
+            return try set(value: newValue, forKey: key)
+        } catch  {
+            assertionFailure("\(error)")
+        }
+    }
+    
     fileprivate enum WMFKeychainCredentialsError: Error {
         case noValue
         case unexpectedData
         case couldNotDeleteData
         case unhandledError(status: OSStatus)
     }
-
+    
     fileprivate func commonConfigurationDictionary(forKey key:String) -> [String : AnyObject] {
         return [
             kSecClass as String : kSecClassGenericPassword,
@@ -79,7 +89,7 @@ struct WMFKeychainCredentials {
             kSecAttrAccount as String : key as AnyObject
         ]
     }
-
+    
     fileprivate func getValue(forKey key:String) throws -> String {
         var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
@@ -95,8 +105,8 @@ struct WMFKeychainCredentials {
         guard
             let data = result as? Data,
             let value = String(data: data, encoding: String.Encoding.utf8)
-        else {
-            throw WMFKeychainCredentialsError.unexpectedData
+            else {
+                throw WMFKeychainCredentialsError.unexpectedData
         }
         return value
     }
@@ -122,9 +132,9 @@ struct WMFKeychainCredentials {
         let valueData = value.data(using: String.Encoding.utf8)!
         query[kSecValueData as String] = valueData as AnyObject?
         query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
-
+        
         let status = SecItemAdd(query as CFDictionary, nil)
-
+        
         guard status != errSecSuccess else {
             return
         }

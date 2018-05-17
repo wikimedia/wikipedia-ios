@@ -209,6 +209,21 @@ public class WMFAuthenticationManager: NSObject {
         HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name)
         HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User")
     }
+    
+    // Separate class?
+    
+    @objc public var appInstallID: String? {
+        return keychainCredentials.appInstallID
+    }
+    
+    @objc public var sessionID: String? {
+        return keychainCredentials.sessionID
+    }
+    
+    @objc public func resetSessionID() {
+        keychainCredentials.resetSessionID()
+    }
+}
 }
 
 extension WMFAuthenticationManager: AuthenticationDelegate {

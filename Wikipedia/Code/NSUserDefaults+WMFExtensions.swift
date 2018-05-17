@@ -1,8 +1,6 @@
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFAppInstallIDKey = "WMFAppInstallID"
-let WMFSessionIDKey = "WMFSessionIDKey"
 let WMFSessionStartDate = "WMFSessionStartDate"
 let WMFLastLoggedUserHistorySnapshot = "WMFLastLoggedUserHistorySnapshot"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
@@ -110,30 +108,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
-    }
-    
-    private func generateNewStringUUID(forKey key: String) -> String? {
-        set(UUID().uuidString, forKey: key)
-        synchronize()
-        return string(forKey: key)
-    }
-    
-    @objc public var wmf_appInstallID: String? {
-        guard let appInstallID = self.string(forKey: WMFAppInstallIDKey) else {
-            return generateNewStringUUID(forKey: WMFAppInstallIDKey)
-        }
-        return appInstallID
-    }
-    
-    @objc public var wmf_sessionID: String? {
-        guard let sessionID = string(forKey: WMFSessionIDKey) else {
-            return generateNewStringUUID(forKey: WMFSessionIDKey)
-        }
-        return sessionID
-    }
-    
-    @objc public func wmf_resetSessionID() {
-        set(UUID().uuidString, forKey: WMFSessionIDKey)
     }
     
     @objc public var wmf_sessionStartDate: Date? {
