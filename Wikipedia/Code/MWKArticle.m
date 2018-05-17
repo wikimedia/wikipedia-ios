@@ -354,6 +354,21 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                     licenseType = nil;
                 }
                 
+                id licenseCode = licenseDictionary[@"code"];
+                if (![licenseCode isKindOfClass:[NSString class]]) {
+                    licenseCode = nil;
+                }
+                
+                id licenseURLString = licenseDictionary[@"url"];
+                if (![licenseURLString isKindOfClass:[NSString class]]) {
+                    licenseURLString = nil;
+                }
+                
+                NSURL *licenseURL = nil;
+                if (licenseURLString) {
+                    licenseURL = [NSURL URLWithString:licenseURLString];
+                }
+                
                 id artist = item[@"artist"];
                 if (![artist isKindOfClass:[NSDictionary class]]) {
                     artist = nil;
@@ -390,7 +405,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 
                 CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
                 CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
-                MWKLicense *license = [[MWKLicense alloc] initWithCode:nil shortDescription:licenseType URL:nil];
+                MWKLicense *license = [[MWKLicense alloc] initWithCode:licenseCode shortDescription:licenseType URL:licenseURL];
                 MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:caption license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
                 [galleryImageInfos addObject:galleryImageInfo];
             } else {

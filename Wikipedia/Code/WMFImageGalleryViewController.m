@@ -360,11 +360,15 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self)
         caption.ownerTapCallback = ^{
         @strongify(self)
-            [self wmf_openExternalUrl:imageInfo.license.URL];
+            if (imageInfo.license.URL) {
+                [self wmf_openExternalUrl:imageInfo.license.URL];
+            }
     };
     caption.infoTapCallback = ^{
         @strongify(self)
+        if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
+        }
     };
 
     return caption;
