@@ -43,19 +43,29 @@ struct WMFKeychainCredentials {
     }
     
     public var appInstallID: String? {
-        guard let appInstallID = try? getValue(forKey: appInstallIDKey) else {
-            setNewUUID(forKey: appInstallIDKey)
-            return try? getValue(forKey: appInstallIDKey)
+        get {
+            guard let appInstallID = try? getValue(forKey: appInstallIDKey) else {
+                setNewUUID(forKey: appInstallIDKey)
+                return try? getValue(forKey: appInstallIDKey)
+            }
+            return appInstallID
         }
-        return appInstallID
+        set {
+            trySet(newValue, forKey: appInstallIDKey)
+        }
     }
     
     public var sessionID: String? {
-        guard let sessionID = try? getValue(forKey: sessionIDKey) else {
-            setNewUUID(forKey: sessionIDKey)
-            return try? getValue(forKey: sessionIDKey)
+        get {
+            guard let sessionID = try? getValue(forKey: sessionIDKey) else {
+                setNewUUID(forKey: sessionIDKey)
+                return try? getValue(forKey: sessionIDKey)
+            }
+            return sessionID
         }
-        return sessionID
+        set {
+            trySet(newValue, forKey: sessionIDKey)
+        }
     }
     
     public func resetSessionID() {

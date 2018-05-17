@@ -216,6 +216,10 @@ public class WMFAuthenticationManager: NSObject {
         return keychainCredentials.appInstallID
     }
     
+    @objc func resetAppInstallID() {
+        keychainCredentials.appInstallID = nil
+    }
+    
     @objc public var sessionID: String? {
         return keychainCredentials.sessionID
     }
