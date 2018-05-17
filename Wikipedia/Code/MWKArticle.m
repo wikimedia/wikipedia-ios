@@ -48,6 +48,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (nonatomic, readwrite, copy) NSSet<NSURL *> *allMediaImageURLs;
 @property (nonatomic, readwrite, copy) NSArray<NSURL *> *mediaImageURLsForGallery;
 @property (nonatomic, readwrite, copy) NSArray<MWKImage *> *mediaImagesForGallery;
+@property (nonatomic, readwrite, copy) NSArray<MWKImageInfo *> *imageInfosForGallery;
 @property (nonatomic, readwrite, copy) NSArray<NSURL *> *mediaImageURLsForSaving;
 
 @end
@@ -255,30 +256,38 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
         NSMutableArray *imageURLsForSaving = [NSMutableArray arrayWithCapacity:[items count]];
         NSMutableArray *galleryImages = [NSMutableArray arrayWithCapacity:[items count]];
+        NSMutableArray *galleryImageInfos = [NSMutableArray arrayWithCapacity:[items count]];
         NSInteger targetWidth = [MWKArticle articleImageWidth];
         for (id item in items) {
             if (![item isKindOfClass:[NSDictionary class]]) {
                 continue;
             }
+            
+            id type = item[@"type"];
+            if (![type isKindOfClass:[NSString class]] || ![type isEqualToString:@"image"]) {
+                continue;
+            }
+            
             id original = item[@"original"];
             if (![original isKindOfClass:[NSDictionary class]]) {
                 continue;
             }
+            
             id mime = original[@"mime"];
             if (![mime isKindOfClass:[NSString class]]) {
                 continue;
             }
-            if (![mime hasPrefix:@"image"]) {
-                continue;
-            }
+
             id source = original[@"source"];
             if (![source isKindOfClass:[NSString class]]) {
                 continue;
             }
+            
             NSURL *imageURL = [NSURL URLWithString:source];
             if (!imageURL) {
                 continue;
             }
+            
             [allImageURLs addObject:imageURL];
             id width = original[@"width"];
             id height = original[@"height"];
@@ -314,6 +323,76 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
                 MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
                 [galleryImages addObject:galleryImage];
+                
+                id filePage = item[@"file_page"];
+                if (![filePage isKindOfClass:[NSString class]]) {
+                    filePage = nil;
+                }
+                
+                id titles = item[@"titles"];
+                if (![titles isKindOfClass:[NSDictionary class]]) {
+                    titles = nil;
+                }
+                
+                id canonicalTitle = titles[@"canonical"];
+                if (![canonicalTitle isKindOfClass:[NSString class]]) {
+                    canonicalTitle = nil;
+                }
+                
+                NSURL *filePageURL = nil;
+                if (filePage) {
+                    filePageURL = [NSURL URLWithString:filePage];
+                }
+                
+                id licenseDictionary = item[@"license"];
+                if (![licenseDictionary isKindOfClass:[NSDictionary class]]) {
+                    licenseDictionary = nil;
+                }
+                
+                id licenseType = licenseDictionary[@"type"];
+                if (![licenseType isKindOfClass:[NSString class]]) {
+                    licenseType = nil;
+                }
+                
+                id artist = item[@"artist"];
+                if (![artist isKindOfClass:[NSDictionary class]]) {
+                    artist = nil;
+                }
+                
+                id artistText = artist[@"name"];
+                if (![artistText isKindOfClass:[NSString class]]) {
+                    artistText = nil;
+                }
+                
+                id artistHTML = artist[@"html"];
+                if (![artistHTML isKindOfClass:[NSString class]]) {
+                    artistHTML = nil;
+                }
+                
+                id owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
+
+                id captionDictionary = item[@"caption"];
+                if (![captionDictionary isKindOfClass:[NSDictionary class]]) {
+                    captionDictionary = nil;
+                }
+                
+                id captionText = captionDictionary[@"text"];
+                if (![captionText isKindOfClass:[NSString class]]) {
+                    captionText = nil;
+                }
+                
+                id captionHTML = captionDictionary[@"html"];
+                if (![captionHTML isKindOfClass:[NSString class]]) {
+                    captionHTML = nil;
+                }
+                
+                id caption = captionText ?: [captionHTML wmf_stringByRemovingHTML];
+                
+                CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
+                CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
+                MWKLicense *license = [[MWKLicense alloc] initWithCode:nil shortDescription:licenseType URL:nil];
+                MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:caption license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
+                [galleryImageInfos addObject:galleryImageInfo];
             } else {
                 [imageURLsForSaving addObject:imageURL];
             }
@@ -322,6 +401,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.mediaImageURLsForGallery = galleryImageURLs;
         self.mediaImagesForGallery = galleryImages;
         self.mediaImageURLsForSaving = imageURLsForSaving;
+        self.imageInfosForGallery = galleryImageInfos;
     }
 }
 

@@ -8,7 +8,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @class MWKSection;
 @class MWKSectionList;
 @class MWKImage;
-@class MWKImageList;
+@class MWKImageInfo;
 @class MWKProtectionStatus;
 
 @interface MWKArticle : MWKSiteDataObject
@@ -133,6 +133,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (NSArray<NSURL *> *)imageURLsForGallery;
 
 - (NSArray<MWKImage *> *)imagesForGallery;
+
+- (NSArray<MWKImageInfo *> *)imageInfosForGallery;
 
 - (NSArray<NSURL *> *)imageURLsForSaving;
 
