@@ -75,7 +75,7 @@ struct WMFKeychainCredentials {
     
     public var lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
         get {
-            guard let value = try? getValue(forKey: lastLoggedUserHistorySnapshotKey) else {
+            guard let value = try? value(forKey: lastLoggedUserHistorySnapshotKey) else {
                 return nil
             }
             return value as? Dictionary<String, Any>
@@ -143,7 +143,7 @@ struct WMFKeychainCredentials {
         ]
     }
     
-    fileprivate func getValue(forKey key: String) throws -> Any {
+    fileprivate func value(forKey key: String) throws -> Any {
         var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
