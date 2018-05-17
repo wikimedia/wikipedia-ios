@@ -145,7 +145,7 @@
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-feed-title" = "Нет подключения к интернету";
-"empty-no-history-message" = "Отслеживайте то, что вы уже читали здесь";
+"empty-no-history-message" = "Отслеживайте здесь прочитанные вами статьи.";
 "empty-no-history-title" = "Нет истории для отображения";
 "empty-no-reading-lists-message" = "Нажмите на синий ‘+’, чтобы создать списки для чтения для мест для путешествий, любимых тем и многого другого.";
 "empty-no-reading-lists-title" = "Организуйте сохраненные статьи с помощью списков чтения";
@@ -156,7 +156,7 @@
 "empty-no-search-results-message" = "Ничего не найдено";
 "error-unknown" = "Произошла неизвестная ошибка";
 "explore-another-random" = "Другая случайная статья";
-"explore-because-you-read" = "Потому что вы читали";
+"explore-because-you-read" = "На основе прочитанного";
 "explore-continue-reading-heading" = "Продолжить чтение";
 "explore-enable-location-title" = "Изучите статьи возле вашего текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
@@ -227,7 +227,7 @@
 "home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
 "home-hide-suggestion-cancel" = "Отмена";
 "home-hide-suggestion-prompt" = "Скрыть это предложение";
-"home-more-like-footer" = "Ещё похожее на $1";
+"home-more-like-footer" = "Ещё статей, похожих на $1";
 "home-nearby-footer" = "Ещё про то, что находится поблизости от вас";
 "home-nearby-location-footer" = "Ещё поблизости от $1";
 "home-news-footer" = "Больше в новостях";
@@ -305,7 +305,7 @@
 "page-protected-can-not-edit-title" = "Эта страница защищена";
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
-"page-read-in-other-languages" = "Доступно на $1 языках";
+"page-read-in-other-languages" = "Доступно на $1 {{PLURAL:$1|one=другом языке|других языках}}";
 "page-similar-titles" = "Похожие страницы";
 "page-talk-page" = "Страница обсуждения";
 "pictured" = "иллюстрировано";
@@ -403,6 +403,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Лимит статьи превышен, невозможно синхронизировать статью";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Лимит списка превышен, невозможно синхронизировать список";
 "reading-lists-article-queued-to-be-downloaded" = "Статья поставлена в очередь на скачивание";
+"reading-lists-article-save-to-disk-failed" = "Лимит для устройства превышен, невозможно синхронизировать статью";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Освободите место на устройстве и попробуйте ещё раз";
 "reading-lists-articles-not-synced-limit-exceeded" = "Некоторые статьи не синхронизированы, превышен лимит";
 "reading-lists-conflicting-reading-list-name-updated" = "Ваш список '$1' был переименован в '$2'";
 "reading-lists-count" = "$1 {{PLURAL:$1|список|списка|списков}} для чтения";
