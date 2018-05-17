@@ -339,8 +339,7 @@
 "saved-all-articles-title" = "All Artikelen";
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
-// Fuzzy
-"saved-pages-progress-syncing" = "Artikelsynchronisatioun am Gaang …";
+"saved-pages-progress-syncing" = "Erofluede vum Artikel ass am Gaang …";
 "saved-reading-lists-title" = "Lieslëschten";
 "saved-search-default-text" = "Sichen";
 "saved-title" = "Gespäichert";
