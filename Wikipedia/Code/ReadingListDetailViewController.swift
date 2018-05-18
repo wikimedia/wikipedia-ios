@@ -316,6 +316,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        ReadingListsFunnel.shared.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -338,7 +339,6 @@ extension ReadingListDetailViewController: ActionDelegate {
             return true
         case .remove:
             delete(entries)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
@@ -356,16 +356,15 @@ extension ReadingListDetailViewController: ActionDelegate {
         guard let entry = entry(at: indexPath) else {
             return
         }
-        do {
-            try dataStore.readingListsController.remove(entries: [entry])
-        } catch let err {
-            DDLogError("Error removing entry from a reading list: \(err)")
-        }
+        delete([entry])
     }
     
     private func delete(_ entries: [ReadingListEntry]) {
         do {
             try dataStore.readingListsController.remove(entries: entries)
+            let entriesCount = entries.count
+            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount)
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }
@@ -381,24 +380,13 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .delete:
             delete(at: indexPath)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: 1))
             return true
-        case .save:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
-                return true
-            }
-        case .unsave:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
-                return true
-            }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+        default:
+            assertionFailure("Unsupported action type")
+            return false
         }
-        return false
     }
     
     private func canSave(at indexPath: IndexPath) -> Bool {

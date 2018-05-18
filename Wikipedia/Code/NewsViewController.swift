@@ -151,3 +151,14 @@ extension NewsViewController {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
+
+// MARK: - EventLoggingEventValuesProviding
+extension NewsViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return .news
+    }
+}

@@ -1774,8 +1774,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
             if didSave {
                 tracker?.wmf_logActionSave(inContext: context, contentType: article)
-            }else {
+                ReadingListsFunnel.shared.logSaveInPlaces()
+            } else {
                 tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
+                ReadingListsFunnel.shared.logUnsaveInPlaces()
             }
             break
         case .share:

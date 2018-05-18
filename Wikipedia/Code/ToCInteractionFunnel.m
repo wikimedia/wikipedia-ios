@@ -1,5 +1,7 @@
 #import "ToCInteractionFunnel.h"
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
+
 @implementation ToCInteractionFunnel
 
 - (id)init {
@@ -7,6 +9,12 @@
     self = [super initWithSchema:@"MobileWikiAppToCInteraction"
                          version:10375484];
     return self;
+}
+
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
+    NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 - (void)logOpen {

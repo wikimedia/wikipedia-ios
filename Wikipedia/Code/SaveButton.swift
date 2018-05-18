@@ -5,7 +5,7 @@ import UIKit
     func saveButtonDidReceiveAddToReadingListAction(_ saveButton: SaveButton) -> Bool
 }
 
-@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+@objc(WMFSaveButton) public class SaveButton: AlignedImageButton, AnalyticsContextProviding, AnalyticsContentTypeProviding, EventLoggingEventValuesProviding {
     @objc(WMFSaveButtonState)
     public enum State: Int {
         case shortSaved
@@ -19,6 +19,9 @@ import UIKit
     
     public var analyticsContext = "unknown"
     public var analyticsContentType = "unknown"
+    
+    public var eventLoggingLabel: EventLoggingLabel? = nil
+    public var eventLoggingCategory: EventLoggingCategory = .feed
     
     public var saveButtonState: SaveButton.State = .shortSave {
         didSet {
@@ -80,5 +83,9 @@ import UIKit
             return
         }
         saveButtonDelegate?.saveButtonDidReceiveLongPress(self)
+    }
+    
+    @objc public func setEventLoggingLabel(rawValue: String) {
+        eventLoggingLabel = EventLoggingLabel(rawValue: rawValue)
     }
 }

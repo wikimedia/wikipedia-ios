@@ -202,3 +202,14 @@ extension OnThisDayViewController {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
+
+// MARK: - EventLoggingEventValuesProviding
+extension OnThisDayViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return .onThisDay
+    }
+}

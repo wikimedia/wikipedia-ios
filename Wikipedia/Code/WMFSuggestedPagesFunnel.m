@@ -5,6 +5,7 @@
 static NSString *const kSchemaName = @"MobileWikiAppArticleSuggestions";
 static int const kSchemaVersion = 10590869;
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
 static NSString *const kActionShown = @"shown";
 static NSString *const kActionClicked = @"clicked";
@@ -53,6 +54,7 @@ static NSString *const kInitMustUseSpecificInitializer = @"Wrong initializer. Us
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
     dict[kPageTitleKey] = self.pageTitle;
     dict[kReadMoreListKey] = self.readMoreList;
     return [dict copy];

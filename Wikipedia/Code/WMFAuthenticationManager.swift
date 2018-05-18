@@ -2,8 +2,7 @@
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-class WMFAuthenticationManager: NSObject {    
-    fileprivate var keychainCredentials:WMFKeychainCredentials
+public class WMFAuthenticationManager: NSObject {
     @objc public static let userLoggedInNotification = NSNotification.Name("WMFUserLoggedInNotification")
     
     /**
@@ -27,9 +26,9 @@ class WMFAuthenticationManager: NSObject {
 
     @objc public var hasKeychainCredentials: Bool {
         guard
-            let userName = keychainCredentials.userName,
+            let userName = KeychainCredentialsManager.shared.username,
             userName.count > 0,
-            let password = keychainCredentials.password,
+            let password = KeychainCredentialsManager.shared.password,
             password.count > 0
             else {
                 return false
@@ -47,15 +46,11 @@ class WMFAuthenticationManager: NSObject {
      *
      *  @return The shared Authentication Manager
      */
-    @objc public static let sharedInstance = WMFAuthenticationManager()    
-
-    override private init() {
-        keychainCredentials = WMFKeychainCredentials()
-    }
+    @objc public static let sharedInstance = WMFAuthenticationManager()
     
     var loginSiteURL: URL {
         var baseURL: URL?
-        if let host = self.keychainCredentials.host {
+        if let host = KeychainCredentialsManager.shared.host {
             var components = URLComponents()
             components.host = host
             components.scheme = "https"
@@ -113,9 +108,9 @@ class WMFAuthenticationManager: NSObject {
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
-                self.keychainCredentials.userName = normalizedUserName
-                self.keychainCredentials.password = password
-                self.keychainCredentials.host = siteURL.host
+                KeychainCredentialsManager.shared.username = normalizedUserName
+                KeychainCredentialsManager.shared.password = password
+                KeychainCredentialsManager.shared.host = siteURL.host
                 self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 loginSuccess(result)
@@ -133,8 +128,8 @@ class WMFAuthenticationManager: NSObject {
     @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
         
         guard hasKeychainCredentials,
-            let userName = keychainCredentials.userName,
-            let password = keychainCredentials.password
+            let userName = KeychainCredentialsManager.shared.username,
+            let password = KeychainCredentialsManager.shared.password
         else {
             failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
             return
@@ -161,8 +156,8 @@ class WMFAuthenticationManager: NSObject {
     fileprivate var logoutManager:AFHTTPSessionManager?
     
     fileprivate func resetLocalUserLoginSettings() {
-        self.keychainCredentials.userName = nil
-        self.keychainCredentials.password = nil
+        KeychainCredentialsManager.shared.username = nil
+        KeychainCredentialsManager.shared.password = nil
         self.loggedInUsername = nil
         // Cookie reminders:
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
@@ -212,11 +207,11 @@ class WMFAuthenticationManager: NSObject {
 }
 
 extension WMFAuthenticationManager: AuthenticationDelegate {
-    func isUserLoggedInLocally() -> Bool {
+    public func isUserLoggedInLocally() -> Bool {
         return isLoggedIn
     }
     
-    func isUserLoggedInRemotely() -> Bool {
+    public func isUserLoggedInRemotely() -> Bool {
         let taskGroup = WMFTaskGroup()
         let sessionManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         var errorCode: String? = nil

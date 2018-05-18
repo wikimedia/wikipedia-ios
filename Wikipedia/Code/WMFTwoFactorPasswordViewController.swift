@@ -25,7 +25,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     fileprivate var theme = Theme.standard
     
-    public var funnel: LoginFunnel?
+    public var funnel: WMFLoginFunnel?
     
     public var userName:String?
     public var password:String?

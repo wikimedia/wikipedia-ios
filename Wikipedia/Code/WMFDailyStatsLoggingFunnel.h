@@ -2,6 +2,8 @@
 
 @interface WMFDailyStatsLoggingFunnel : EventLoggingFunnel
 
++ (WMFDailyStatsLoggingFunnel *)shared;
+
 - (void)logAppNumberOfDaysSinceInstall;
 
 @end

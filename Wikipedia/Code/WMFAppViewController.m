@@ -90,8 +90,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic) UIBackgroundTaskIdentifier migrationBackgroundTaskIdentifier;
 @property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
 
-@property (nonatomic, strong) WMFDailyStatsLoggingFunnel *statsFunnel;
-
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
@@ -157,7 +155,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                              selector:@selector(entriesLimitReachedWithNotification:)
                                                  name:[ReadingList entriesLimitReachedNotification]
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(readingListsWereSplitNotification:)
                                                  name:[WMFReadingListsController readingListsWereSplitNotification]
@@ -294,7 +292,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+        [[WMFEventLoggingService sharedInstance] start];
+#endif
     }
+
+    [[SessionsFunnel shared] logSessionStart];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -559,6 +562,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
+                                    [[UserHistoryFunnel shared] logStartingSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
@@ -688,7 +692,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)finishResumingApp {
-    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+    [[WMFEventLoggingService sharedInstance] start];
+#endif
+
+    [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
+    [[SessionsFunnel shared] logSessionStart];
 
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
@@ -764,6 +773,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)pauseApp {
+    [self logSessionEnd];
+
     if (![self uiIsLoaded]) {
         return;
     }
@@ -839,11 +850,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 #pragma mark - Logging
 
-- (WMFDailyStatsLoggingFunnel *)statsFunnel {
-    if (!_statsFunnel) {
-        _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
-    }
-    return _statsFunnel;
+- (void)logSessionEnd {
+    [[SessionsFunnel shared] logSessionEnd];
+    [[UserHistoryFunnel shared] logSnapshot];
 }
 
 #pragma mark - Shortcut
@@ -1629,10 +1638,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSMutableParagraphStyle *badgeParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     badgeParagraphStyle.firstLineHeadIndent = 0.4;
     NSDictionary *badgeAttributes = @{
-                                      NSForegroundColorAttributeName: theme.colors.chromeBackground,
-                                      NSParagraphStyleAttributeName: badgeParagraphStyle
-                                      };
-    
+        NSForegroundColorAttributeName: theme.colors.chromeBackground,
+        NSParagraphStyleAttributeName: badgeParagraphStyle
+    };
+
     UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
     NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
     NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
