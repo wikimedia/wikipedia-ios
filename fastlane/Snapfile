@@ -1,0 +1,56 @@
+# Uncomment the lines below you want to change by removing the # in the beginning
+
+# A list of devices you want to take the screenshots from
+devices([
+  "iPhone 5s",
+  "iPhone 6",
+  "iPhone 6 Plus",
+  "iPhone X",
+  "iPad Air"
+])
+
+# For supported langs see: https://docs.fastlane.tools/actions/snapshot/#available-language-codes 
+# TODO: investigate getting an RTL lang added to this list.
+languages([
+  "en-US",
+  "de-DE",
+  "es-ES",
+  "fr-FR",
+  "it", 
+  "ja",
+  "nl-NL",
+  "pt-PT",
+  "ru", 
+  "sv",
+  "zh-Hans"
+])
+
+# The name of the scheme which contains the UI Tests
+scheme "WikipediaUITests"
+
+# Where should the resulting screenshots be stored?
+output_directory "./WikipediaUITests/Snapshots/"
+
+clear_previous_screenshots true # remove the '#' to clear all previously generated screenshots before creating new ones
+
+# Choose which project/workspace to use
+project "./Wikipedia.xcodeproj"
+# workspace "./Project.xcworkspace"
+
+# Arguments to pass to the app on launch. See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
+# launch_arguments(["-favColor red"])
+
+# For more information about all available options run
+# fastlane snapshot --help
+
+# Re-install so every test can start from our Welcome screens.
+reinstall_app true
+
+# Reminder: launch using `bundle exec fastlane snapshot`
+# see: https://docs.fastlane.tools/actions/snapshot/
+
+number_of_retries 1
+
+clean false
+
+derived_data_path "fastlane/snapshot_derived_data"

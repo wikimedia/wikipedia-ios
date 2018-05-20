@@ -404,7 +404,8 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
-        [self.refreshControl beginRefreshing];
+        // TODO: fix this - causing UITest to hang for a few minutes. See https://stackoverflow.com/questions/40983184/xcode-8-ui-testing-taking-very-long
+        //        [self.refreshControl beginRefreshing];
         if (self.isScrolledToTop && self.numberOfSectionsInExploreFeed == 0) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.collectionView.contentInset.top - self.refreshControl.frame.size.height);
         }
