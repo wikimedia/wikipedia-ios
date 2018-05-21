@@ -105,7 +105,7 @@
 }
 
 - (NSString *)wmf_trim {
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (NSString *)wmf_substringBeforeString:(NSString *)string {
