@@ -1934,9 +1934,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logOutLinkSaveInCurrentArticle];
     } else {
-        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logOutLinkUnsaveInCurrentArticle];
     }
 }
 
