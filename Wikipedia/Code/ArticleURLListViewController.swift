@@ -21,7 +21,7 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return dataStore.fetchArticle(with: articleURL(at: indexPath))
+        return dataStore.fetchOrCreateArticle(with: articleURL(at: indexPath))
     }
     
     override func viewDidLoad() {
