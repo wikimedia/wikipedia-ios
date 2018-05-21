@@ -363,8 +363,11 @@ extension ReadingListDetailViewController: ActionDelegate {
         do {
             try dataStore.readingListsController.remove(entries: entries)
             let entriesCount = entries.count
-            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount)
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
+            guard readingList.isDefault else {
+                return
+            }
+            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount)
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }
