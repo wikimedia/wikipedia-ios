@@ -86,7 +86,15 @@
     NSString *newsPlainText = [newsHTML wmf_stringByRemovingHTML];
     XCTAssertEqualObjects(newsPlainText, plaintext);
     
-    newsHTML = @"<!-- May 19 -->Nothing happened";
+    newsHTML = @"<!-- May 19 --> Nothing happened";
+    newsPlainText = [newsHTML wmf_stringByRemovingHTML];
+    XCTAssertEqualObjects(newsPlainText, plaintext);
+    
+    newsHTML = @"<!-- May 19 --> Nothing &nbsp;  happened     ";
+    newsPlainText = [newsHTML wmf_stringByRemovingHTML];
+    XCTAssertEqualObjects(newsPlainText, plaintext);
+    
+    newsHTML = @" <!-- May 19 --> Nothing  happened  ";
     newsPlainText = [newsHTML wmf_stringByRemovingHTML];
     XCTAssertEqualObjects(newsPlainText, plaintext);
 }
