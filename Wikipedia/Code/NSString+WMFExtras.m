@@ -3,7 +3,6 @@
 #import <WMF/SessionSingleton.h>
 #import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
-#import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 

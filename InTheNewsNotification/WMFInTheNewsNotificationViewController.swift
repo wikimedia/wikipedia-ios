@@ -74,7 +74,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
                 let html = newsStory.storyHTML  {
                 let font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote, compatibleWith: nil)
                 let linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-                let attributedString = html.wmf_attributedStringByRemovingHTML(with: font, linkFont: linkFont)
+                let attributedString = html.wmf_attributedStringFromHTML(with: font, boldFont: linkFont, italicFont: font, boldItalicFont: linkFont, withAdditionalBoldingForMatchingSubstring:nil, boldLinks: true)
                 summaryLabel.attributedText = attributedString
             }
         } catch let error as NSError {
