@@ -568,7 +568,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     NSString *title = WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
-    NSString *body = [storyHTML wmf_stringByRemovingHTML];
+    NSString *body = [[storyHTML wmf_stringByRemovingHTML] wmf_trim];
 
     NSDate *notificationDate = [NSDate date];
     NSCalendar *userCalendar = [NSCalendar wmf_gregorianCalendar];
