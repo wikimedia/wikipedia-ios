@@ -1,5 +1,5 @@
-public extension WMFContentGroup {
-    public var eventLoggingLabel: EventLoggingLabel? {
+@objc public extension WMFContentGroup {
+    public var eventLoggingLabel: EventLoggingLabel {
         switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle
@@ -18,12 +18,8 @@ public extension WMFContentGroup {
         case .location:
             return .location
         default:
-            return nil
+            return .none
         }
-    }
-    
-    @objc public var eventLoggingLabelRawValue: String? {
-        return eventLoggingLabel?.rawValue
     }
 }
 

@@ -16,15 +16,15 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
-        let category = category.rawValue
+        let category = category.value
         let action = action.rawValue
         let measure = Double(measure)
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         
         var event: [String: Any] = ["category": category, "action": action, "measure": measure, "primary_language": primaryLanguage, "is_anon": isAnon]
-        if let label = label {
-            event["label"] = label.rawValue
+        if let labelValue = label?.value {
+            event["label"] = labelValue
         }
         return event
     }
@@ -84,6 +84,10 @@
     // - MARK: Generic article save & unsave actions
     
     public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1) {
+        log(event(category: category, label: label, action: .save, measure: measure))
+    }
+    
+    @objc public func logSave(category: EventLoggingCategory, label: EventLoggingLabel, measure: Int = 1) {
         log(event(category: category, label: label, action: .save, measure: measure))
     }
     

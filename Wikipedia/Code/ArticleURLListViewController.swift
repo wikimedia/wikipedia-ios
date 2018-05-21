@@ -42,8 +42,8 @@ class ArticleURLListViewController: ArticleCollectionViewController {
         return .feed
     }
     
-    override var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel
+    override var eventLoggingLabel: EventLoggingLabel {
+        return contentGroup?.eventLoggingLabel ?? .none
     }
 }
 

@@ -1,6 +1,6 @@
-public protocol EventLoggingEventValuesProviding {
+@objc public protocol EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory { get }
-    var eventLoggingLabel: EventLoggingLabel? { get }
+    var eventLoggingLabel: EventLoggingLabel { get }
 }
 
 public protocol EventLoggingStandardEventProviding {
@@ -24,38 +24,109 @@ public extension EventLoggingStandardEventProviding where Self: EventLoggingFunn
     }
 }
 
-public enum EventLoggingCategory: String {
+@objc public enum EventLoggingCategory: Int {
     case feed
     case history
     case places
     case article
     case search
-    case addToList = "add_to_list"
+    case addToList
     case saved
     case login
     case setting
-    case loginToSyncPopover = "login_to_sync_popover"
-    case enableSyncPopover = "enable_sync_popover"
+    case loginToSyncPopover
+    case enableSyncPopover
     case unknown
+    
+    public var value: String {
+        switch self {
+        case .feed:
+            return "feed"
+        case .history:
+            return "history"
+        case .places:
+            return "places"
+        case .article:
+            return "article"
+        case .search:
+            return "search"
+        case .addToList:
+            return "add_to_list"
+        case .saved:
+            return "saved"
+        case .login:
+            return "login"
+        case .setting:
+            return "setting"
+        case .loginToSyncPopover:
+            return "login_to_sync_popover"
+        case .enableSyncPopover:
+            return "enable_sync_popover"
+        case .unknown:
+            return "unknown"
+        }
+    }
 }
 
 
-public enum EventLoggingLabel: String {
-    case featuredArticle = "featured_article"
-    case topRead = "top_read"
-    case onThisDay = "on_this_day"
-    case readMore = "read_more"
+@objc public enum EventLoggingLabel: Int {
+    case featuredArticle
+    case topRead
+    case onThisDay
+    case readMore
     case random
     case news
-    case relatedPages = "related_pages" // because you read
-    case articleList = "article_list"
-    case outLink = "out_link"
-    case similarPage = "similar_page"
+    case relatedPages
+    case articleList
+    case outLink
+    case similarPage
     case items
     case lists
-    case current = "default" // refers to the current article the user is reading, default is a reserved word
-    case syncEducation = "sync_education"
+    case current
+    case syncEducation
     case login
-    case syncArticle = "sync_article" // Article storage and syncing settings screen
+    case syncArticle
     case location
+    case none
+    
+    public var value: String? {
+        switch self {
+        case .featuredArticle:
+            return "featured_article"
+        case .topRead:
+            return "top_read"
+        case .onThisDay:
+            return "on_this_day"
+        case .readMore:
+            return "read_more"
+        case .random:
+            return "random"
+        case .news:
+            return "news"
+        case .relatedPages:
+            return "related_pages" // because you read
+        case .articleList:
+            return "article_list"
+        case .outLink:
+            return "out_link"
+        case .similarPage:
+            return "similar_page"
+        case .items:
+            return "items"
+        case .lists:
+            return "lists"
+        case .current:
+            return "default" // refers to the current article the user is reading, default is a reserved word
+        case .syncEducation:
+            return "sync_education"
+        case .login:
+            return "login"
+        case .syncArticle:
+            return "sync_article" // Article storage and syncing settings screen
+        case .location:
+            return "location"
+        case .none:
+            return nil
+        }
+    }
 }
