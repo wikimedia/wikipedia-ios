@@ -17,6 +17,8 @@
             fallthrough
         case .location:
             return .location
+        case .mainPage:
+            return .mainPage
         default:
             return .none
         }

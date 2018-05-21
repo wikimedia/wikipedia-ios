@@ -87,6 +87,7 @@ public extension EventLoggingStandardEventProviding where Self: EventLoggingFunn
     case login
     case syncArticle
     case location
+    case mainPage
     case none
     
     public var value: String? {
@@ -125,6 +126,8 @@ public extension EventLoggingStandardEventProviding where Self: EventLoggingFunn
             return "sync_article" // Article storage and syncing settings screen
         case .location:
             return "location"
+        case .mainPage:
+            return "main_page"
         case .none:
             return nil
         }
