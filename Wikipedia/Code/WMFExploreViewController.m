@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString *const WMFFeedEmptyHeaderFooterReuseIdentifier = @"WMFFeedEmptyHeaderFooterReuseIdentifier";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
-@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListsAlertControllerDelegate, WMFReadingListHintPresenter>
+@interface WMFExploreViewController () <WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, WMFColumnarCollectionViewLayoutDelegate, WMFArticlePreviewingActionsDelegate, UIViewControllerPreviewingDelegate, WMFAnnouncementCollectionViewCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching, WMFSideScrollingCollectionViewCellDelegate, UIPopoverPresentationControllerDelegate, UISearchBarDelegate, WMFSaveButtonsControllerDelegate, WMFReadingListsAlertControllerDelegate, WMFReadingListHintPresenter, EventLoggingEventValuesProviding>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 
@@ -73,6 +73,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @end
 
 @implementation WMFExploreViewController
+
+@synthesize eventLoggingCategory;
+@synthesize eventLoggingLabel;
 
 - (void)setUserStore:(MWKDataStore *)userStore {
     if (_userStore == userStore) {
@@ -2092,6 +2095,14 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     } else {
         [[ReadingListsFunnel shared] logUnsaveInFeedWithSaveButton:saveButton];
     }
+}
+
+- (EventLoggingCategory)eventLoggingCategory {
+    return EventLoggingCategoryFeed;
+}
+
+- (EventLoggingLabel)eventLoggingLabel {
+    return self.groupForPreviewedCell.eventLoggingLabel;
 }
 
 #if DEBUG && DEBUG_CHAOS

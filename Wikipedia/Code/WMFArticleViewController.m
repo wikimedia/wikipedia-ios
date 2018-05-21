@@ -1250,7 +1250,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             }
             return;
         } else {
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:self]];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:self eventLogAction:^{
+                [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+            }]];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
@@ -1259,7 +1261,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (nullable UIActivity *)addToReadingListActivityWithPresenter:(UIViewController *)presenter {
+- (nullable UIActivity *)addToReadingListActivityWithPresenter:(UIViewController *)presenter eventLogAction:(nullable void(^)(void))eventLogAction {
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     if (!article) {
         return nil;
@@ -1267,6 +1269,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
         WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
+        addArticlesToReadingListViewController.eventLogAction = eventLogAction;
         [presenter presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
         ;
     }];
@@ -1861,6 +1864,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                          [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:YES articleURL:self.articleURL];
                                      }
                                  }];
+    
+    void (^logPreviewSaveIfNeeded)(void) = ^{
+        BOOL providesEventValues = [self.articlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
+        if (!providesEventValues) {
+            return;
+        }
+        id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)self.articlePreviewingActionsDelegate;
+        EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
+        EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
+        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel measure:1];
+    };
 
     UIPreviewAction *shareAction =
         [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
@@ -1868,7 +1882,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
                                      UIViewController *presenter = (UIViewController *)self.articlePreviewingActionsDelegate;
-                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter]];
+                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
                                      shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                      if (shareActivityController) {
                                          NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
@@ -1885,7 +1899,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
                                          UIViewController *presenter = (UIViewController *)self.articlePreviewingActionsDelegate;
-                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter]];
+                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
                                          shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                          if (shareActivityController) {
                                              NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
