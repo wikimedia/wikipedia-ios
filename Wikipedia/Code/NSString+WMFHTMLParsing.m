@@ -148,31 +148,6 @@
                                                 withTemplate:@" "];
 }
 
-- (NSString *)wmf_stringByTrimmingWhitespaceAndCollapsingInterstitialWhitespaceToSingleSpaces {
-    static NSRegularExpression *whitespaceRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        whitespaceRegex = [NSRegularExpression
-                           regularExpressionWithPattern:@"\\s+"
-                           options:0
-                           error:nil];
-    });
-    NSMutableString *mutableSelf = [self mutableCopy];
-    __block NSInteger offset = 0;
-    [whitespaceRegex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        NSRange range = NSMakeRange(result.range.location + offset, result.range.length);
-        if (range.location == 0 || range.location + range.length == mutableSelf.length) {
-            [mutableSelf replaceCharactersInRange:range withString:@""];
-            offset -= range.length;
-        } else {
-            [mutableSelf replaceCharactersInRange:range withString:@" "];
-            offset -= (range.length - 1);
-        }
-    }];
-    return mutableSelf;
-}
-
-
 - (NSString *)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons {
     // Note about trailing colon characters: they usually look strange if kept,
     // and removing them (plus spaces and newlines) doesn't often create merged
@@ -308,7 +283,7 @@
         NSString *cleanedSubstring = [plainText wmf_stringByDecodingHTMLEntities];
         [cleanedString replaceCharactersInRange:plainTextRange withString:cleanedSubstring];
     }
-    return [cleanedString wmf_stringByTrimmingWhitespaceAndCollapsingInterstitialWhitespaceToSingleSpaces];
+    return cleanedString;
 }
 
 - (nonnull NSString *)wmf_stringByRemovingHTML {
