@@ -319,6 +319,7 @@
 "places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
+"places-search-articles-that-match" = "\"$2\"에 일치하는 $1";
 "places-search-default-text" = "장소 검색";
 "places-search-did-you-mean" = "$1을(를) 찾으셨나요?";
 "places-search-recently-searched-header" = "최근 검색됨";
@@ -508,9 +509,11 @@
 "two-factor-login-with-backup-code" = "백업 코드 중 하나 사용";
 "two-factor-login-with-regular-code" = "인증 코드 사용";
 "view-in-browser-footer-link" = "브라우저에서 문서 보기";
+"welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
 "welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";
 "welcome-exploration-on-this-day-title" = "오늘의 역사";
+"welcome-exploration-places-description" = "주변의 랜드마크를 발견하거나 세계 속의 장소를 검색해 보세요";
 "welcome-exploration-places-title" = "위치 탭";
 "welcome-explore-continue-button" = "시작하기";
 "welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
