@@ -10,7 +10,7 @@
     @objc public static let shared = UserHistoryFunnel()
     
     private var isTarget: Bool {
-        guard let countryCode = UIDevice.countryCode else {
+        guard let countryCode = Locale.current.regionCode else {
             return false
         }
         return targetCountries.contains(countryCode)
