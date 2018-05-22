@@ -85,8 +85,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return .unknown
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
-        return nil
+    var eventLoggingLabel: EventLoggingLabel {
+        return .none
     }
 }
 
@@ -226,7 +226,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
                 }
                 return true
             }
@@ -236,7 +236,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
                 }
                 return true
             }
