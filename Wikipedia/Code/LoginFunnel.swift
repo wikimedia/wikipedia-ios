@@ -4,7 +4,7 @@
     @objc public static let shared = LoginFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
+        super.init(schema: "MobileWikiAppiOSLoginAction", version: 18064101)
     }
     
     private enum Action: String {
@@ -27,7 +27,7 @@
             event["label"] = labelValue
         }
         if let measure = measure {
-            event["measure"] = measure
+            event["measure"] = Int(measure)
         }
         return event
     }

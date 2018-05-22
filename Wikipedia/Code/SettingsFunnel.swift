@@ -10,7 +10,7 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSSettingAction", version: 17990226)
+        super.init(schema: "MobileWikiAppiOSSettingAction", version: 18064085)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> Dictionary<String, Any> {

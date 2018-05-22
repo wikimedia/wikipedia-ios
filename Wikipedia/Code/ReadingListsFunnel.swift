@@ -12,13 +12,12 @@
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18047424)
+        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18064062)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
         let category = category.value
         let action = action.rawValue
-        let measure = Double(measure)
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         
