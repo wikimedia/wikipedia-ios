@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) WMFTheme *theme;
 
+@property (nonatomic, strong, nullable) NSDate *lastReadMoreItemTouchStartDate;
+
 #if DEBUG || TEST
 @property (nonatomic, copy, nullable) void (^wkUserContentControllerTestingConfigurationBlock)(WKUserContentController *);
 - (void)applyTheme:(WMFTheme *)theme;

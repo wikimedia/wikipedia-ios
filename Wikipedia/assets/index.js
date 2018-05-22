@@ -173,6 +173,19 @@ document.addEventListener('click', event => {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
+
+/**
+ * Used to know if a `Read more` item is being peeked. Needed because
+ * `webView:shouldPreviewElement:` doesn't provide context on peeked items beyond their url.
+ * We use this handler to record the time at which a `Read more` item was last touched and then in
+ * `webView:shouldPreviewElement` we can see if this happened recently (i.e. within the last second)
+ * to know that the peek is on a `Read more` item.
+ */
+document.addEventListener('touchstart', event => {
+  if(event.srcElement.closest('a.pagelib_footer_readmore_page')){
+    window.webkit.messageHandlers.readMoreItemTouch.postMessage('start')
+  }
+}, false)
 },{"./refs":6,"./utilities":8,"wikimedia-page-library":10}],3:[function(require,module,exports){
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 
