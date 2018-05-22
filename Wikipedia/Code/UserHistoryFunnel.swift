@@ -9,6 +9,13 @@
     ]
     @objc public static let shared = UserHistoryFunnel()
     
+    private var isTarget: Bool {
+        guard let countryCode = UIDevice.countryCode else {
+            return false
+        }
+        return targetCountries.contains(countryCode)
+    }
+    
     private override init() {
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 17990229)
     }
@@ -57,7 +64,7 @@
         guard let latestSnapshot = latestSnapshot else {
             return
         }
-        guard let countryCode = UIDevice.countryCode, targetCountries.contains(countryCode) else {
+        guard isTarget else {
             return
         }
         
@@ -77,7 +84,7 @@
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
             return
         }
-        guard let countryCode = UIDevice.countryCode, targetCountries.contains(countryCode) else {
+        guard isTarget else {
             return
         }
         log(event())
