@@ -1,4 +1,5 @@
-#import "NSHTTPCookieStorage+WMFCloneCookie.h"
+#import <WMF/NSHTTPCookieStorage+WMFCloneCookie.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation NSHTTPCookieStorage (WMFCloneCookie)
 

@@ -1,6 +1,6 @@
 @import WMF.EventLoggingFunnel;
 
-@interface LoginFunnel : EventLoggingFunnel
+@interface WMFLoginFunnel : EventLoggingFunnel
 
 @property NSString *loginSessionToken;
 

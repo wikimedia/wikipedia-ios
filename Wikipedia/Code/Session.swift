@@ -266,7 +266,7 @@ import Foundation
     
     @objc public var shouldSendUsageReports: Bool = false {
         didSet {
-            guard shouldSendUsageReports, let appInstallID = UserDefaults.wmf_userDefaults().wmf_appInstallID else {
+            guard shouldSendUsageReports, let appInstallID = KeychainCredentialsManager.shared.appInstallID else {
                 return
             }
             session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]

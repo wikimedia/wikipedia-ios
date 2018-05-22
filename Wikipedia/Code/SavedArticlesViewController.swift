@@ -293,6 +293,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        ReadingListsFunnel.shared.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -333,7 +334,9 @@ extension SavedArticlesViewController: ActionDelegate {
     
     private func delete(articles: [WMFArticle]) {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
+        let articlesCount = articles.count
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount)
     }
     
     func willPerformAction(_ action: Action) -> Bool {
@@ -364,22 +367,12 @@ extension SavedArticlesViewController: ActionDelegate {
                 delete(articles: [article])
             }
             return true
-        case .save:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
-                return true
-            }
-        case .unsave:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
-                return true
-            }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+        default:
+            assertionFailure("Unsupported action type")
+            return false
         }
-        return false
     }
     
     func availableActions(at indexPath: IndexPath) -> [Action] {
@@ -484,4 +477,3 @@ extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewN
         return analyticsName
     }
 }
-

@@ -17,8 +17,7 @@ extension MKCoordinateRegion {
     }
     
     init(center: CLLocationCoordinate2D, span: MGLCoordinateSpan) {
-        self.center = center
-        self.span = MKCoordinateSpan(span)
+        self.init(center: center, span:  MKCoordinateSpan(span))
     }
     
     init(_ bounds: MGLCoordinateBounds) {

@@ -43,6 +43,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return "Search"
     }
     
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .search
+    }
+    
     override func articleURL(at indexPath: IndexPath) -> URL? {
         return results[indexPath.item].articleURL(forSiteURL: searchSiteURL)
     }

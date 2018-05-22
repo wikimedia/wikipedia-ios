@@ -1,7 +1,7 @@
 import UIKit
 
 @objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
-    func didSaveArticle(_ didSave: Bool, article: WMFArticle)
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle)
     func willUnsaveArticle(_ article: WMFArticle)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
@@ -82,6 +82,7 @@ import UIKit
             saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         }
         updatedArticle = article
+        notifyDelegateArticleSavedStateChanged()
     }
     
     @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
@@ -91,8 +92,8 @@ import UIKit
             return
         }
         
-        self.activeKey = key
-        self.activeSender = sender
+        activeKey = key
+        activeSender = sender
         
         if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
             delegate?.willUnsaveArticle(articleToUnsave)
@@ -106,7 +107,7 @@ import UIKit
         guard let key = activeKey, let sender = activeSender else {
             return
         }
-        
+
         let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
         
         if isSaved {
@@ -116,8 +117,18 @@ import UIKit
             PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
             savedPagesFunnel.logDelete()
         }
-        if let article = updatedArticle {
-            delegate?.didSaveArticle(isSaved, article: article)
+        notifyDelegateArticleSavedStateChanged()
+    }
+    
+    private func notifyDelegateArticleSavedStateChanged() {
+        guard let article = updatedArticle else {
+            return
         }
+        guard activeKey == article.key else {
+            return
+        }
+        let isSaved = article.savedDate != nil
+        delegate?.didSaveArticle(activeSender, didSave: isSaved, article: article)
+        activeKey = nil
     }
 }
