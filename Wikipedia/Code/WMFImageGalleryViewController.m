@@ -151,14 +151,14 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.imageObject) {
         return self.imageObject.sourceURL;
     } else if (self.imageInfo) {
-        return self.imageInfo.imageThumbURL;
+        return [self.imageInfo imageURLForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]];
     } else {
         return nil;
     }
 }
 
 - (nullable NSData *)imageData {
-    NSURL *URL = self.bestImageURL;
+    NSURL *URL = self.imageInfo.canonicalFileURL;
     return [URL.absoluteString.lowercaseString containsString:@".gif"] ? [[[WMFImageController sharedInstance] dataWithURL:URL] data] : nil;
 }
 
@@ -620,13 +620,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSURL *)bestImageURL {
-    if (self.imageInfo) {
-        return self.imageInfo.imageThumbURL;
-    } else if (self.thumbnailImageInfo) {
-        return self.thumbnailImageInfo.imageThumbURL;
-    } else {
-        return nil;
-    }
+    return self.imageURL;
 }
 
 - (nullable UIImage *)placeholderImage {
@@ -661,7 +655,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSURL *)imageURL {
-    return self.imageInfo.imageThumbURL;
+    return [self.imageInfo imageURLForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]];
 }
 
 - (nullable NSData *)imageData {

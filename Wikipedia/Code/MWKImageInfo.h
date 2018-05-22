@@ -51,5 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  imageSize:(CGSize)imageSize
                                  thumbSize:(CGSize)thumbSize;
 
+- (nullable NSURL *)imageURLForTargetWidth:(NSInteger)width;
+
 @end
 NS_ASSUME_NONNULL_END

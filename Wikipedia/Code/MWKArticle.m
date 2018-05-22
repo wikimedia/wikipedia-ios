@@ -278,6 +278,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 continue;
             }
             
+            if ([source hasPrefix:@"http:"]) {
+                source = [source stringByReplacingCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+            }
+            
             NSURL *imageURL = [NSURL URLWithString:source];
             if (!imageURL) {
                 continue;
