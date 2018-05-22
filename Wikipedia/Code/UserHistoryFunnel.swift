@@ -1,6 +1,12 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    private let targetCountries: [String] = [
+        "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
+        "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
+        "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
+        "PT", "HU", "GR", "EG"
+    ]
     @objc public static let shared = UserHistoryFunnel()
     
     private override init() {
@@ -51,6 +57,9 @@
         guard let latestSnapshot = latestSnapshot else {
             return
         }
+        guard let countryCode = UIDevice.countryCode, targetCountries.contains(countryCode) else {
+            return
+        }
         
         let newSnapshot = event()
         
@@ -68,7 +77,16 @@
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
             return
         }
+        guard let countryCode = UIDevice.countryCode, targetCountries.contains(countryCode) else {
+            return
+        }
         log(event())
         // DDLogDebug("Attempted to log starting User History snapshot")
+    }
+}
+
+extension UIDevice {
+    static var countryCode: String? {
+        return (Locale.current as NSLocale).object(forKey: NSLocale.Key.countryCode) as? String
     }
 }
