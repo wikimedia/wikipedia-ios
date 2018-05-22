@@ -334,15 +334,19 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 NSString *artistHTML = [artist wmf_stringForKey:@"html"];
                 NSString *owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
 
-                NSDictionary *captionDictionary = [item wmf_dictionaryForKey:@"caption"];
-                NSString *captionText = [captionDictionary wmf_stringForKey:@"text"];
-                NSString *captionHTML = captionDictionary[@"html"];
-                NSString *caption = captionText ?: [captionHTML wmf_stringByRemovingHTML];
                 
+                NSDictionary *descriptionDictionary = [item wmf_dictionaryForKey:@"description"];
+                NSString *imageDescription = nil;
+                if (descriptionDictionary) {
+                    imageDescription = [descriptionDictionary wmf_stringForKey:@"text"] ?: [[descriptionDictionary wmf_stringForKey:@"html"] wmf_stringByRemovingHTML];
+                } else {
+                    imageDescription = [[item wmf_stringForKey:@"description"] wmf_stringByRemovingHTML];
+                }
+    
                 CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
                 CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
                 MWKLicense *license = [[MWKLicense alloc] initWithCode:licenseCode shortDescription:licenseType URL:licenseURL];
-                MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:caption license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
+                MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:imageDescription license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
                 [galleryImageInfos addObject:galleryImageInfo];
             } else {
                 [imageURLsForSaving addObject:imageURL];
