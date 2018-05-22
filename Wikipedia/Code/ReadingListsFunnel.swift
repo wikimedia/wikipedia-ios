@@ -19,9 +19,8 @@
         let category = category.value
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         
-        var event: [String: Any] = ["category": category, "action": action, "measure": measure, "primary_language": primaryLanguage, "is_anon": isAnon]
+        var event: [String: Any] = ["category": category, "action": action, "measure": measure, "primary_language": primaryLanguage(), "is_anon": isAnon]
         if let labelValue = label?.value {
             event["label"] = labelValue
         }
