@@ -375,6 +375,7 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listaraja ylitetty, ei voi synkronoida artikkelia";
 "reading-lists-article-queued-to-be-downloaded" = "Artikkeli lisätty latausjonoon";
 "reading-lists-article-save-to-disk-failed" = "Laiteraja ylitetty, ei voida synkronoida artikkelia";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Tyhjennä tilaa laitteessasi ja yritä uudelleen";
 "reading-lists-articles-not-synced-limit-exceeded" = "Joitain artikkeleita ei synkronoitu, raja saavutettu";
 "reading-lists-conflicting-reading-list-name-updated" = "Listasi '$1' on uudelleennimetty nimelle '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 lukulista|$1 lukulistaa}}";
