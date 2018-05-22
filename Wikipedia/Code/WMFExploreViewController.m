@@ -1607,9 +1607,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroup:self.groupForPreviewedCell];
+        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroup:self.groupForPreviewedCell articleURL:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroup:self.groupForPreviewedCell];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroup:self.groupForPreviewedCell articleURL:articleURL];
     }
 }
 
@@ -2055,7 +2055,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)didSaveArticle:(WMFSaveButton *_Nullable)saveButton didSave:(BOOL)didSave article:(WMFArticle *_Nonnull)article {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
-    [self logArticleSavedStateChange:didSave saveButton:saveButton];
+    [self logArticleSavedStateChange:didSave saveButton:saveButton article:article];
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
@@ -2089,11 +2089,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - Event Logging
 
-- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton *_Nullable)saveButton {
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton *_Nullable)saveButton article:(WMFArticle *_Nonnull)article {
     if (wasArticleSaved) {
-        [[ReadingListsFunnel shared] logSaveInFeedWithSaveButton:saveButton];
+        [[ReadingListsFunnel shared] logSaveInFeedWithSaveButton:saveButton articleURL:article.URL];
     } else {
-        [[ReadingListsFunnel shared] logUnsaveInFeedWithSaveButton:saveButton];
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithSaveButton:saveButton articleURL:article.URL];
     }
 }
 

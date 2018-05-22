@@ -316,7 +316,7 @@ extension ReadingListDetailViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-        ReadingListsFunnel.shared.logReadStartIReadingList()
+        ReadingListsFunnel.shared.logReadStartIReadingList(articleURL)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -356,10 +356,10 @@ extension ReadingListDetailViewController: ActionDelegate {
         guard let entry = entry(at: indexPath) else {
             return
         }
-        delete([entry])
+        delete([entry], indexPath: indexPath)
     }
     
-    private func delete(_ entries: [ReadingListEntry]) {
+    private func delete(_ entries: [ReadingListEntry], indexPath: IndexPath? = nil) {
         do {
             try dataStore.readingListsController.remove(entries: entries)
             let entriesCount = entries.count
@@ -367,7 +367,11 @@ extension ReadingListDetailViewController: ActionDelegate {
             guard readingList.isDefault else {
                 return
             }
-            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount)
+            var articleLanguage: String? = nil
+            if let indexPath = indexPath, let articleURL = articleURL(at: indexPath) {
+                articleLanguage = articleURL.wmf_language
+            }
+            ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount, language: articleLanguage)
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }

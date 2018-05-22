@@ -1250,8 +1250,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             }
             return;
         } else {
+            NSURL *articleURL = self.articleURL;
             UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:self eventLogAction:^{
-                [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+                [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:articleURL];
             }]];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             if (vc) {
@@ -1315,11 +1316,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
-        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:self.articleURL];
     } else {
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
-        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle: self.articleURL];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1583,9 +1584,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logArticleSaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore:articleURL];
     }
 }
 
@@ -1865,6 +1866,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      }
                                  }];
     
+    NSString *articleLanguage = self.articleURL.wmf_language;
     void (^logPreviewSaveIfNeeded)(void) = ^{
         BOOL providesEventValues = [self.articlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
         if (!providesEventValues) {
@@ -1873,7 +1875,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)self.articlePreviewingActionsDelegate;
         EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
         EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
-        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel measure:1];
+        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel measure:1 language:articleLanguage];
     };
 
     UIPreviewAction *shareAction =
@@ -1934,9 +1936,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logOutLinkSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logOutLinkSaveInCurrentArticle:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logOutLinkUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logOutLinkUnsaveInCurrentArticle:articleURL];
     }
 }
 
