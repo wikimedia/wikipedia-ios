@@ -3,9 +3,11 @@ import UIKit
 @objc(WMFArticleURLListViewController)
 class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
+    private let contentGroup: WMFContentGroup?
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil) {
         self.articleURLs = articleURLs
+        self.contentGroup = contentGroup
         super.init()
         self.dataStore = dataStore
     }
@@ -34,6 +36,14 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     
     @objc func articleWasUpdated(_ notification: Notification) {
         updateVisibleCellActions()
+    }
+    
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+    
+    override var eventLoggingLabel: EventLoggingLabel? {
+        return contentGroup?.eventLoggingLabel
     }
 }
 

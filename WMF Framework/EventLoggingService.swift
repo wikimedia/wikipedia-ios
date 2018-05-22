@@ -38,18 +38,18 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            DDLogError("Error creating permanent cache: \(error)")
+            DDLogError("EventLoggingService: Error creating permanent cache: \(error)")
         }
         do {
             var values = URLResourceValues()
             values.isExcludedFromBackup = true
             try permanentStorageDirectory.setResourceValues(values)
         } catch let error {
-            DDLogError("Error excluding from backup: \(error)")
+            DDLogError("EventLoggingService: Error excluding from backup: \(error)")
         }
         
         let permanentStorageURL = permanentStorageDirectory.appendingPathComponent("Events.sqlite")
-        DDLogDebug("Events persistent store: \(permanentStorageURL)")
+        DDLogDebug("EventLoggingService: Events persistent store: \(permanentStorageURL)")
         
         return EventLoggingService(permanentStorageURL: permanentStorageURL)
     }()
@@ -174,7 +174,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 let countFetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
                 countFetch.includesSubentities = false
                 let count = try self.managedObjectContext.count(for: countFetch)
-                DDLogInfo("There are \(count) queued events")
+                DDLogInfo("EventLoggingService: There are \(count) queued events")
             } catch let error {
                 DDLogError(error.localizedDescription)
             }
@@ -228,18 +228,18 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             do {
                 let result = try self.managedObjectContext.execute(delete)
                 guard let deleteResult = result as? NSBatchDeleteResult else {
-                    DDLogError("Could not read NSBatchDeleteResult")
+                    DDLogError("EventLoggingService: Could not read NSBatchDeleteResult")
                     return
                 }
                 
                 guard let count = deleteResult.result as? Int else {
-                    DDLogError("Could not read NSBatchDeleteResult count")
+                    DDLogError("EventLoggingService: Could not read NSBatchDeleteResult count")
                     return
                 }
-                DDLogInfo("Pruned \(count) events")
+                DDLogInfo("EventLoggingService: Pruned \(count) events")
                 
             } catch let error {
-                DDLogError("Error pruning events: \(error.localizedDescription)")
+                DDLogError("EventLoggingService: Error pruning events: \(error.localizedDescription)")
             }
         }
     }
@@ -259,7 +259,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             record.event = event
             record.recorded = now
             
-            DDLogDebug("\(record.objectID) logged!")
+            DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
             
             self.save()
 
@@ -320,7 +320,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         assert(posting, "method expects posting to be set when called")
 
-        DDLogDebug("Posting \(eventRecords.count) events!")
+        DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
         var tasks = [URLSessionTask]()
@@ -353,17 +353,16 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 self.save()
                 
                 if (completedRecords.count == eventRecords.count) {
-                    DDLogDebug("All records succeeded, attempting to post more")
+                    DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
                 } else {
-                    DDLogDebug("Some records failed, waiting to post more")
+                    DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
             })
         })
     }
     
     private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
-        
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
             return nil
@@ -378,14 +377,14 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
             
             guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
-                DDLogError("Could not convert JSON data to string")
+                DDLogError("EventLoggingService: Could not convert JSON data to string")
                 eventRecord.failed = true
                 return nil
             }
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
             let urlString = "\(EventLoggingService.LoggingEndpoint)?\(encodedPayloadJsonString)"
             guard let url = URL(string: urlString) else {
-                DDLogError("Could not convert string '\(urlString)' to URL object")
+                DDLogError("EventLoggingService: Could not convert string '\(urlString)' to URL object")
                 eventRecord.failed = true
                 return nil
             }
@@ -407,9 +406,10 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 eventRecord.posted = NSDate()
                 self.managedObjectContext.perform {
                     self.managedObjectContext.delete(eventRecord)
+                    self.save()
                 }
                 
-                DDLogDebug("\(eventRecord.objectID) posted!")
+                // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
             })
             return task
             

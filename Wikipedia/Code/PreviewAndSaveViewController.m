@@ -425,7 +425,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
         // Call if user taps the blue "Log In" text in the CC text.
         //self.saveAutomaticallyIfSignedIn = YES;
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
-        loginVC.funnel = [[LoginFunnel alloc] init];
+        loginVC.funnel = [[WMFLoginFunnel alloc] init];
         [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
         [loginVC applyTheme:self.theme];
         UINavigationController *nc = [[WMFThemeableNavigationController alloc] initWithRootViewController:loginVC theme:self.theme];

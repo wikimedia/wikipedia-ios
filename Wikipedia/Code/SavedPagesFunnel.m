@@ -1,6 +1,7 @@
 #import "SavedPagesFunnel.h"
 
 static NSString *const kEventDataAssertVerbiage = @"Event data not present";
+static NSString *const kAppInstallIdKey = @"appInstallID";
 
 @implementation SavedPagesFunnel
 
@@ -17,6 +18,12 @@ static NSString *const kEventDataAssertVerbiage = @"Event data not present";
     } else {
         [funnel logDelete];
     }
+}
+
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
+    NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 - (void)logSaveNew {

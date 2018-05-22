@@ -83,7 +83,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
-
+    
     if (@available(iOS 11.0, *)) {
     } else {
         // Before iOS 11
@@ -174,13 +174,17 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports:
+        case WMFSettingsMenuItemType_SendUsageReports: {
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
             if (isOn) {
-                WMFDailyStatsLoggingFunnel *statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
-                [statsFunnel logAppNumberOfDaysSinceInstall];
+                [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
+                [[SessionsFunnel shared] logSessionStart];
+                [[UserHistoryFunnel shared] logStartingSnapshot];
+            } else {
+                [[SessionsFunnel shared] logSessionEnd];
+                [[UserHistoryFunnel shared] logSnapshot];
             }
-            break;
+        } break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
@@ -300,10 +304,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
         [self showLogoutActionSheet];
+        [[LoginFunnel shared] logLogoutInSettings];
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
         [self presentViewControllerWrappedInNavigationController:loginVC];
+        [[LoginFunnel shared] logLoginStartInSettings];
     }
 }
 

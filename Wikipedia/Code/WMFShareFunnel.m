@@ -3,6 +3,7 @@
 
 static NSString *const kSchemaName = @"MobileWikiAppShareAFact";
 static int const kSchemaVersion = 11331974;
+static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
 static NSString *const kActionHighlight = @"highlight";
 static NSString *const kActionShareTap = @"sharetap";
@@ -65,6 +66,7 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
         return nil;
     }
     NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
     dict[kShareSessionTokenKey] = self.sessionToken;
     dict[kPageIdKey] = @(self.articleId);
     dict[kArticleKey] = self.articleTitle;

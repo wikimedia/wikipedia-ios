@@ -63,7 +63,7 @@
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
-#import "LoginFunnel.h"
+#import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
 

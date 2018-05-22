@@ -60,7 +60,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 @property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, NSURL *> *prefetchURLsByIndexPath;
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *cachedHeights;
+
 @property (nonatomic, strong) WMFSaveButtonsController *saveButtonsController;
+
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, getter=isLoadingOlderContent) BOOL loadingOlderContent;
@@ -859,6 +861,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
     [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
+    if (section.contentGroupKind == WMFContentGroupKindReadingList) {
+        [[LoginFunnel shared] logLoginImpressionInFeed];
+    }
+
     if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
         WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
         if (saveButton) {
@@ -1203,6 +1209,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     [cell configureWithArticle:article displayType:displayType index:indexPath.item count:[self numberOfItemsInContentGroup:section] shouldAdjustMargins:YES theme:self.theme layoutOnly:layoutOnly];
     cell.saveButton.analyticsContext = [self analyticsContext];
     cell.saveButton.analyticsContentType = [section analyticsContentType];
+    [cell.saveButton setEventLoggingLabelWithRawValue:[section eventLoggingLabelRawValue]];
 }
 
 - (void)configureNearbyCell:(WMFNearbyArticleCollectionViewCell *)cell withArticle:(WMFArticle *)article atIndexPath:(NSIndexPath *)indexPath {
@@ -1596,6 +1603,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [[ReadingListsFunnel shared] logSaveInFeedWithContentGroup:self.groupForPreviewedCell];
+    } else {
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithContentGroup:self.groupForPreviewedCell];
+    }
 }
 
 - (void)shareArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)articleController
@@ -1849,6 +1861,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         } break;
         case WMFContentGroupKindReadingList: {
             [self wmf_showLoginViewControllerWithTheme:self.theme loginSuccessCompletion:nil loginDismissedCompletion:nil];
+            [[LoginFunnel shared] logLoginStartInFeed];
             [self dismissAnnouncementCell:cell];
         } break;
         case WMFContentGroupKindNotification: {
@@ -2037,8 +2050,9 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 #pragma mark - WMFSaveButtonsControllerDelegate
 
-- (void)didSaveArticle:(BOOL)didSave article:(WMFArticle *)article {
+- (void)didSaveArticle:(WMFSaveButton *_Nullable)saveButton didSave:(BOOL)didSave article:(WMFArticle *_Nonnull)article {
     [self.readingListHintController didSave:didSave article:article theme:self.theme];
+    [self logArticleSavedStateChange:didSave saveButton:saveButton];
 }
 
 - (void)willUnsaveArticle:(WMFArticle *_Nonnull)article {
@@ -2067,6 +2081,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     WMFContentGroup *readingListGroup = [self.contentGroupsThatRequireVisibilityUpdate objectForKey:[NSNumber numberWithInt:WMFContentGroupKindReadingList]];
     if (readingListGroup) {
         readingListGroup.isVisible = NO;
+    }
+}
+
+#pragma mark - Event Logging
+
+- (void)logArticleSavedStateChange:(BOOL)wasArticleSaved saveButton:(WMFSaveButton *_Nullable)saveButton {
+    if (wasArticleSaved) {
+        [[ReadingListsFunnel shared] logSaveInFeedWithSaveButton:saveButton];
+    } else {
+        [[ReadingListsFunnel shared] logUnsaveInFeedWithSaveButton:saveButton];
     }
 }
 

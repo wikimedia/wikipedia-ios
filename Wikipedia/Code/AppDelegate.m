@@ -87,6 +87,10 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [PiwikTracker wmf_start];
 
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
+    NSDate *appInstallDate = [[NSUserDefaults wmf_userDefaults] wmf_appInstallDate];
+    if (!appInstallDate) {
+        [[KeychainCredentialsManager shared] resetAppInstallID];
+    }
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
     self.appNeedsResume = YES;

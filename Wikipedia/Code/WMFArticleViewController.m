@@ -1312,9 +1312,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
     } else {
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1577,6 +1579,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [[ReadingListsFunnel shared] logArticleSaveInReadMore];
+    } else {
+        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore];
+    }
 }
 
 - (void)showLocation {
@@ -1910,6 +1917,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+    } else {
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+    }
 }
 
 #pragma mark - Article Navigation
