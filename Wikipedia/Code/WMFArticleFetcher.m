@@ -112,12 +112,22 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     __block id summaryResponse = nil;
     [taskGroup enter];
-    [[WMFSession shared] fetchSummaryWithArticleURL:articleURL
+    [[WMFSession shared] fetchSummaryForArticleURL:articleURL
                                            priority:priority
                                                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                                              summaryResponse = summary;
                                                              [taskGroup leave];
                                                          }];
+    
+    __block id mediaResponse = nil;
+    [taskGroup enter];
+    [[WMFSession shared] fetchMediaForArticleURL:articleURL
+                                          priority:priority
+                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                     mediaResponse = media;
+                                     [taskGroup leave];
+                                 }];
+    
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];
@@ -147,11 +157,13 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                       withBlock:^{
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
                                           if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
+                                              NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
+                                              [mutableArticleResponse setValue:mediaResponse forKey:@"media"];
                                               if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
-                                                  NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
-                                                  articleResponse = mutableArticleResponse;
                                               }
+                                              articleResponse = mutableArticleResponse;
+
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
                                               [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk completion:^(NSError * _Nonnull articleCacheError) {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
