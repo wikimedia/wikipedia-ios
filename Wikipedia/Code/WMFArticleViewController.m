@@ -1314,11 +1314,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)updateSavedState {
     BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
     if (isSaved) {
-        [self.savedPagesFunnel logSaveNew];
+        [self.savedPagesFunnel logSaveNewWithArticleURL:self.articleURL];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
         [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:self.articleURL];
     } else {
-        [self.savedPagesFunnel logDelete];
+        [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
         [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle: self.articleURL];
     }
